@@ -15,20 +15,26 @@
           <li><a class="nav-link scrollto" href="#why-us">SENA-Empresa</a></li>
           <li><a class="nav-link scrollto" href="#about">Acerca</a></li>
           <li><a class="nav-link scrollto" href="#contact">PQRS</a></li>
-          <li><div>
-            @if (Route::has('login'))
-                <div>
-                    @auth
-                       <li><a href="{{ url('/admin/dashboard') }}">Dashboard</a></li>
-                    @else
-                        <li><a href="{{ route('login') }}">Log in</a></li>
+          <li class="dropdown">
+              @auth
+                 <a href="{{ url('/home') }}">{{ Auth::user()->nickname }}</a>
+                <ul>
+                  <li><a href="#">Cambiar contraseña</a></li>
+                  <li>
+                    
+                <a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">Salir</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                </form>
 
-                        @if (Route::has('register'))
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @endif
-                    @endauth
-                </div>
-            @endif</li>
+                  </li>
+                </ul>              
+              @else
+                  <a href="{{ route('login') }}">Log in</a>
+              @endauth            
+
+          </li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

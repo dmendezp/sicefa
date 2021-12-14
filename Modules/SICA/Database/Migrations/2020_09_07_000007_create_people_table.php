@@ -28,13 +28,13 @@ class CreatePeopleTable extends Migration
             $table->enum('marital_status', ['No registra','Soltero(a)','Casado(a)','Separado(a)'])->nullable();
             $table->unsignedInteger('military_card')->nullable();
             $table->enum('socioeconomic_status', ['No registra','1','2','3','4','5','6'])->nullable();
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->unsignedInteger('telephone1')->nullable();
             $table->unsignedInteger('telephone2')->nullable();
             $table->unsignedInteger('telephone3')->nullable();
+            $table->string('email')->nullable();
             $table->string('misena_email')->nullable();
             $table->string('sena_email')->nullable();
-            $table->string('personal_email')->nullable();
             $table->string('avatar')->nullable();
             $table->foreignId('population_group_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
