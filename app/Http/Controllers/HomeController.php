@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Modules\SICA\Entities\App;
 
 class HomeController extends Controller
 {
 
     public function welcome()
     {
-        return view('welcome');
+        $apps = App::all();
+        $data = ['apps'=>$apps];
+        return view('welcome', $data);
     }
 
     public function developers()
@@ -19,6 +22,8 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('home');
+        $apps = App::all();
+        $data = ['apps'=>$apps];
+        return view('home', $data);
     }
 }

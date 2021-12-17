@@ -30,8 +30,17 @@
               @endauth            
 
           </li>
+          <li class="dropdown">
+            <a class="nav-link scrollto" data-toggle="dropdown" href="#">
+              {{ session('lang') }} <i class="fas fa-globe"></i>
+            </a>
+            <ul>
+              <li><a href="{{ url('lang',['es']) }}" class="dropdown-item scrollto">Español</a></li>
+              <li><a href="{{ url('lang',['en']) }}" class="dropdown-item scrollto">English</a></li>
+            </ul>
+          </li>
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
+
       </nav><!-- .navbar -->
 
     </div>
