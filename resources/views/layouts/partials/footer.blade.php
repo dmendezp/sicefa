@@ -22,7 +22,7 @@
                         <li><i class="bx bx-chevron-right"></i> <a href="https://es.pngtree.com">Pngtree.com </a></li>
                         <li><i class="bx bx-chevron-right"></i> <a href="https://fontawesome.com">FontAwesome</a></li>
                         <li><i class="bx bx-chevron-right"></i><a href="https://www.highcharts.com">Highcharts</a></li>
-                        <li><i class="bx bx-chevron-right"></i><a href="{{ url('/designners') }}">Equipo de Desarrolladores </a></li>
+                        <li><i class="bx bx-chevron-right"></i><a href="{{ route('cefa.developers') }}">Equipo de Desarrolladores </a></li>
                         {{-- <li><i class="bx bx-chevron-right"></i> <a href="#"></a></li> --}}
                     </ul>
                 </div>

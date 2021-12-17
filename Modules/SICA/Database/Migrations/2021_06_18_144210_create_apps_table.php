@@ -20,6 +20,7 @@ class CreateAppsTable extends Migration
             $table->string('color');
             $table->string('icon');
             $table->text('description');
+            $table->text('description_english');
             $table->softDeletes();
             $table->timestamps();
         });

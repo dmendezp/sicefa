@@ -1,26 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 
 Route::middleware(['lang'])->group(function(){
 
-
-    Route::get('/', function () {
-        return view('welcome');
-    });
-
-    Route::get('/designners', function () {
-        return view('designners');
-    });
+    Auth::routes();
 
     Route::get('lang/{lang}', function($lang) {
         session(['lang'=>$lang]);
         return Redirect::back();
     })->where(['lang'=>'es|en']);
 
-    Auth::routes();
-
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [HomeController::class, 'welcome'])->name('cefa.welcome');
+    Route::get('/developers', [HomeController::class, 'developers'])->name('cefa.developers');
+    Route::get('/home', [HomeController::class, 'index'])->name('cefa.home');
 
 }); 

@@ -1,16 +1,14 @@
 <?php
+use Illuminate\Support\Facades\Route;
+use Modules\SICA\Http\Controllers\SICAController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::middleware(['lang'])->group(function(){
 
-Route::prefix('sica')->group(function() {
-    Route::get('/', 'SICAController@index');
-});
+    Route::prefix('sica')->group(function() {
+
+        Route::get('/index', 'SICAController@index')->name('sica.cefa.home');
+        Route::get('/app/list', 'SICAController@index')->name('sica.app.list');
+
+    });  
+
+}); 

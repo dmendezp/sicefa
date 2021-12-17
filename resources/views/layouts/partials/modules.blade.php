@@ -3,8 +3,8 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Modulos</h2>
-          <p>Aplicativos para las unidades productivas</p>
+          <h2>Aplicaciones</h2>
+          <p>Soluciones de software para nuestro centro</p>
         </div>
 
         {{-- @foreach(getAppsArray() as $cod => $app)                    
