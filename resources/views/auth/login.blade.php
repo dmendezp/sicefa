@@ -4,15 +4,15 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <div class="card shadow p-3 mb-5 rounded">
-                <div class="card-body">
-
-                    <div class="row justify-content-center">
-                        <div class="col-md-7">
-                           <img src="{{ asset('general/images/logosicefa.png') }}"  width="72" height="68" ></img>
+        <div class="row text-center">
+                        <div class="col-md-12">
+                           <a href="{{ route('cefa.welcome') }}" ><img class="mb-4" src="{{ asset('general/images/logosicefa2.png') }}"  width="78" height="74" ></img></a>
                         </div>
                       
                     </div>
+            <div class="card shadow-sm p-3 mb-5 rounded-3">
+            
+                <div class="card-body">
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
