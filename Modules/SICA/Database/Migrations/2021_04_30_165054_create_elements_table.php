@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateElementsTable extends Migration
 {
@@ -18,10 +18,11 @@ class CreateElementsTable extends Migration
             $table->string('name');
             $table->foreignId('measurement_unit_id')->constrained()->onDelete('cascade');
             $table->text('description');
-            $table->foreignId('kind_of_purchose_id')->constrained()->onDelete('cascade');
+            $table->foreignId('kind_of_purchase_id')->constrained()->onDelete('cascade');
             $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
             $table->unsignedInteger('UNSPSC_code')->unique();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

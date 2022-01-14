@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWarehouseMovementsTable extends Migration
+class CreateTypeActivitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateWarehouseMovementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('warehouse_movements', function (Blueprint $table) {
+        Schema::create('type_activities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('warehouses_id')->constrained()->onDelete('cascade');
-            $table->foreignId('movements_id')->constrained()->onDelete('cascade');
+
             $table->string('name');
-            $table->text('description');
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -31,6 +30,8 @@ class CreateWarehouseMovementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('warehouse_movements');
+        Schema::dropIfExists('type_activities');
     }
+
+
 }

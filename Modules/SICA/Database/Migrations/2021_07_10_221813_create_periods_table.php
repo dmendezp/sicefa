@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKindOfPurchosesTable extends Migration
+class CreatePeriodsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateKindOfPurchosesTable extends Migration
      */
     public function up()
     {
-        Schema::create('kind_of_purchoses', function (Blueprint $table) {
+        Schema::create('periods', function (Blueprint $table) {
+
             $table->id();
+
             $table->string('name');
-            $table->text('description');
-            $table->timestamps();
+            $table->string('slime_weight')->nullable();
+            $table->string('dried_weight')->nullable();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -29,6 +32,8 @@ class CreateKindOfPurchosesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kind_of_purchoses');
+        Schema::dropIfExists('periods');
     }
 }
+
+
