@@ -15,4 +15,5 @@ Route::prefix('cafeto/admin')->group(function() {
     Route::get('/dashboard', 'Admin\DashboardController@index')->name('cafeto.admin.dashboard');
 
     Route::get('/sales', 'Admin\SalesController@index')->name('cafeto.admin.sales');
+    Route::get('/inventory', 'Admin\InventoryController@index')->name('cafeto.admin.inventory');
 });

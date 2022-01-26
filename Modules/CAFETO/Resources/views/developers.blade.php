@@ -1,6 +1,6 @@
 @extends('cafeto::layouts.master')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="#">Developers</a></li>
+    <li class="breadcrumb-item"><a href="#">{{ __('Developers')}}</a></li>
 @endsection
 @section('content')
 <div class="container-fluid">
@@ -10,9 +10,8 @@
         <div class="card card-gray card-outline shadow">
           <div class="card-body box-profile">
             <div class="text-center">
-              <img class="profile-user-img img-fluid img-circle"
-                   src="{{ asset('Gymstorm/images/man2.png') }}"
-                   alt="User profile picture">
+              <img class="profile-user-img img-fluid "
+                   src="{{ asset('Modules/cafeto/img/coding.png') }}">
             </div>
             <h3 class="profile-username text-center">Juan Sebastian Perdomo Urazan</h3>
             <p class="text-muted text-center">Aprendiz - Tgo. Analisis y desarollo de sistemas de información</p>
@@ -36,7 +35,7 @@
         <div class="card card-gray card-outline shadow">
           <div class="card-header">
             <h3 class="card-title">
-              Créditos y reconocimientos
+              {{ __('Créditos y reconocimientos')}}
             </h3>
           </div>
           <!-- /.card-header -->

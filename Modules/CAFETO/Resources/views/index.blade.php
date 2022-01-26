@@ -1,6 +1,6 @@
 @extends('cafeto::layouts.master')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="#">Developers</a></li>
+    {{-- <li class="breadcrumb-item"><a href="#">{{ __('')}}</a></li> --}}
 @endsection
 @section('content')
     <h1>Hello World</h1>

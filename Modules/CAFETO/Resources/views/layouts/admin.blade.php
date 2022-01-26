@@ -25,11 +25,11 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Starter Page</h1>
+                            {{-- <h1 class="m-0">Starter Page</h1> --}}
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">{{ __('Home')}}</a></li>
                                 @section('breadcrumb')
                                 @show
                             </ol>
@@ -46,7 +46,7 @@
         <!-- /.content-wrapper -->
 
         {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/cafeto.js') }}"></script> --}}
+        <script src="{{ mix('js/app.js') }}"></script>
        
         @include('cafeto::layouts.partials.footer')
     </div>

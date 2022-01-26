@@ -1,6 +1,6 @@
 @extends('cafeto::layouts.admin')
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="#">Sales</a></li>
+    {{-- <li class="breadcrumb-item"><a href="#">Sales</a></li> --}}
 @endsection
 @section('content')
 <div class="container-fluid">
