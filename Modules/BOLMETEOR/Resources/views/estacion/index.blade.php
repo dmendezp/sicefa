@@ -32,6 +32,7 @@
                            toma de información es de 10 minutos. La información que se presentará es el
                            acumulado de precipitación, humedad relativa, velocidad del viento y de radiación solar.
                         </p>
+                        <div id="example2"></div>
                      </div>
                   </div>
                </div>

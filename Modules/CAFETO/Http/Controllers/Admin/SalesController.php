@@ -5,6 +5,7 @@ namespace Modules\CAFETO\Http\Controllers\Admin;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\Person;
 
 class SalesController extends Controller
 {
@@ -21,6 +22,24 @@ class SalesController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
+
+    public function search($doc)
+    {
+         $client = Person::select('document','first_name')->where('document', $doc)->first();
+
+        if($client != null){
+            return $client;
+        } else{
+            return null;
+        }
+
+      
+
+       
+
+       
+    }
+
     public function create()
     {
         return view('cafeto::create');

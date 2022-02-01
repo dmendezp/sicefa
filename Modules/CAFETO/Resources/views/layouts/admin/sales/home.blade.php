@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card card-outline shadow">
+            {{-- <div class="card card-outline shadow">
                 <div class="card-header">
                     <h3 class="card-title">{{ __('Sales')}}</h3>
                 </div>
@@ -31,11 +31,14 @@
                     </div>
                 </div>
             </div>
-            {!! Form::close() !!}
+            {!! Form::close() !!} --}}
 
-            {{-- <div id="example">
+            <div id="example">
+                
+            </div>
 
-            </div> --}}
+
+            
         </div>
 
     </div>

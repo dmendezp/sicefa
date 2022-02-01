@@ -47,6 +47,7 @@
 
         {{-- Laravel Mix - JS File --}}
         <script src="{{ mix('js/app.js') }}"></script>
+        {{-- <script src="{{ Module::asset('cafeto:js/cafeto.js') }}"></script> --}}
        
         @include('cafeto::layouts.partials.footer')
     </div>

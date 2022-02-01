@@ -47,5 +47,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Main Footer -->
   @include('bolmeteor::layouts.partials.footer')
+  {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 </body>
 </html>
