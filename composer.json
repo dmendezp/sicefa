@@ -12,6 +12,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "laravelcollective/html": "^6.2",
         "nwidart/laravel-modules": "^8.2"
     },
     "require-dev": {

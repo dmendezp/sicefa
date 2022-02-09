@@ -104,30 +104,112 @@ class SeedPermissionsTableSeeder extends Seeder
         $permission_admin = [];
         $permission_coordinador = [];
 // repita para cada permiso -- estos permisos son de su aplicacion, agregue los necesarios
-        $permission = Permission::where('slug','sica.app.list')->first();
+
+        $permission = Permission::where('slug','sica.admin.people.personal_data')->first();
         if(!$permission){
             $permission = Permission::create([
-                "name" => "Listar Aplicaciones",
-                "slug" => "sica.app.list",
-                "description" => "Puede acceder a lista de aplicaciones",
-                "description_english" => "English - Puede acceder a lista de aplicaciones",
+                "name" => "Administrar datos personales",
+                "slug" => "sica.admin.people.personal_data",
+                "description" => "Puede gestionar la informacion de las personas",
+                "description_english" => "English - Puede gestionar la informacion de las personas",
                 "app_id" => $app->id
             ]);
         }
         $permission_admin[] = $permission->id;
-// -- repita para cada permiso
-        $permission = Permission::where('slug','sica.quarter.list')->first();
+
+
+        $permission = Permission::where('slug','sica.admin.people.search_apprentices')->first();
         if(!$permission){
             $permission = Permission::create([
-                "name" => "Listar Trimestres",
-                "slug" => "sica.quarter.list",
-                "description" => "Puede acceder a lista de trimestres",
-                "description_english" => "English - Puede acceder a lista de trimestres",
+                "name" => "Busqueda de aprendices",
+                "slug" => "sica.admin.people.search_apprentices",
+                "description" => "Puede acceder a lista de aprendices por titulación",
+                "description_english" => "English - Puede acceder a lista de aprendices por titulación",
                 "app_id" => $app->id
             ]);
         }
         $permission_admin[] = $permission->id;
         $permission_coordinador[] = $permission->id;
+
+        $permission = Permission::where('slug','sica.admin.people.instructors')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Listar Instructores",
+                "slug" => "sica.admin.people.instructors",
+                "description" => "Puede acceder a lista de instructores",
+                "description_english" => "English - Puede acceder a lista de instructores",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_coordinador[] = $permission->id;
+
+        $permission = Permission::where('slug','sica.admin.people.officers')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Listar Funcionarios",
+                "slug" => "sica.admin.people.officers",
+                "description" => "Puede acceder a lista de funcionarios",
+                "description_english" => "English - Puede acceder a lista de funcionarios",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_coordinador[] = $permission->id;
+
+        $permission = Permission::where('slug','sica.admin.people.contractors')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Listar Contratistas",
+                "slug" => "sica.admin.people.contractors",
+                "description" => "Puede acceder a lista de funcionarios",
+                "description_english" => "English - Puede acceder a lista de contratistas",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_coordinador[] = $permission->id;
+
+
+        $permission = Permission::where('slug','sica.admin.academy.quarters')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Listar Trimestres",
+                "slug" => "sica.admin.academy.quarters",
+                "description" => "Puede acceder a lista de trimestres academicos",
+                "description_english" => "English - Puede acceder a lista de trimestres academicos",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_coordinador[] = $permission->id;
+
+        $permission = Permission::where('slug','sica.admin.academy.curriculums')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Listar Contratistas",
+                "slug" => "sica.admin.academy.curriculums",
+                "description" => "Puede acceder a lista de Programas de formacion",
+                "description_english" => "English - Puede acceder a lista de Programas de formacion",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_coordinador[] = $permission->id;
+
+        $permission = Permission::where('slug','sica.admin.academy.courses')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Listar Contratistas",
+                "slug" => "sica.admin.academy.courses",
+                "description" => "Puede acceder a lista de Titulaciones",
+                "description_english" => "English - Puede acceder a lista de Titulaciones",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_coordinador[] = $permission->id;
+
 
         // se asignan los permisos a los roles
         $roladmin->permissions()->sync($permission_admin);

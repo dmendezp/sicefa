@@ -14,13 +14,14 @@ class LangMiddleware
         if(!empty(session('lang'))){
             \App::setlocale(session('lang'));
         }
-
+        //print_r($request->route()->getAction()['uses']);
         if($request->route()->getName()!=''){
             $pos = strpos($request->route()->getName(), 'cefa');
             $pos2 = strpos($request->route()->getAction()['uses'], 'Auth');
             if ($pos === false && $pos2 === false) {
                 Gate::authorize('haveaccess',$request->route()->getName());
-            }        }
+            }
+        }
 
         return $next($request);
     }

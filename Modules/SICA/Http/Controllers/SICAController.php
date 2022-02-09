@@ -8,72 +8,23 @@ use Illuminate\Routing\Controller;
 
 class SICAController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+
     public function index()
     {
-        return view('sica::index');
+        $data = ['title'=>trans('sica::menu.Home')];
+        return view('sica::index',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function contact()
     {
-        return view('sica::create');
-    }
+        $data = ['title'=>trans('sica::menu.Contact')];
+        return view('sica::form_contact',$data);
+    }    
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function developers()
     {
-        //
+        $data = ['title'=>trans('sica::menu.Developers')];
+        return view('sica::developers',$data);
     }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('sica::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('sica::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }

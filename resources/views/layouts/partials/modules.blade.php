@@ -26,8 +26,8 @@
           </style>
           <div class="col-xl-3 col-md-4 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100" style="padding: 1%;">
             <div class="icon-box">
-              <div class="icon"><i class="colorapp{{ $app->id }} {{ $app->icon }}"></i>
-              <h4><a class="colorapp{{ $app->id }}" href="{{ url($app->url) }}">{{ $app->name }}</a></h4></div>
+              <div class="icon">
+              <h4><a class="colorapp{{ $app->id }}" href="{{ url($app->url) }}"><i class="colorapp{{ $app->id }} {{ $app->icon }}"></i> {{ $app->name }}</a></h4></div>
               <p>
                 @if(session('lang')=='en')
                   {{ $app->description_english }}

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\PopulationGroup;
+use Modules\SICA\Entities\Apprentice;
+use Modules\EVS\Entities\Authorized;
 use App\Models\User;
 
 class Person extends Model
@@ -48,6 +50,14 @@ class Person extends Model
 
     public function users(){
         return $this->hasMany(User::class);
+    }
+
+    public function apprentices(){
+        return $this->hasMany(Apprentice::class);
+    }
+
+    public function authorizeds(){
+        return $this->hasMany(Authorized::class);
     }
 
 }
