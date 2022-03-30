@@ -21,4 +21,8 @@ class Authorized extends Model
     	return $this->belongsTo(Election::class);
     }
 
+    public function jury(){
+        return $this->belongsTo(Jury::class);
+    }
+
 }

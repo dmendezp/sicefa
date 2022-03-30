@@ -47,7 +47,6 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
                      </ol>
                      <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -58,9 +57,6 @@
                         </div>
                         <div class="carousel-item">
                            <img class="d-block w-100" src="{{ asset('bolmeteor/images/B3.jpg') }}" alt="Third slide">
-                        </div>
-                        <div class="carousel-item">
-                           <img class="d-block w-100" src="{{ asset('bolmeteor/images/B1.jpg') }}" alt="Third slide">
                         </div>
                      </div>
                      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -330,7 +326,7 @@
       var winds_direction = $('#winds_direction').val();
       var winds_peed = $('#winds_peed').val();
       $.ajax({
-          url: "{{ route('bolmeteor.estacion.climaticdata.store') }}",
+          url: "{{ route('bolmeteor.estacion.climaticdata.update') }}",
           type: "POST",
           data: {
               _token: $("#csrf").val(),
@@ -361,7 +357,7 @@
         if(confirm("¿Desea eliminar el registro?")){
           $.ajax(
           {
-              url: 'http://127.0.0.1:8000/bolmeteor/admin/' + id,
+              url: 'http://sicefa.test/bolmeteor/admin/' + id,
               type: 'POST',
               dataType: "JSON",
               data: {

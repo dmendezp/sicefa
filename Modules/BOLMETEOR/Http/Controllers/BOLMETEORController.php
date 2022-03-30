@@ -9,7 +9,7 @@ use Modules\BOLMETEOR\Entities\Climaticdata;
 use DataTables;
 use Validator, Str, DB;
 
-class BolmeteorController extends Controller
+class BOLMETEORController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,8 @@ class BolmeteorController extends Controller
     {
         
         if ($request->ajax()) {
-            $data = climaticdata::latest()->limit(10)->get();
+
+            $data = Climaticdata::latest()->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
@@ -57,19 +58,7 @@ class BolmeteorController extends Controller
     public function store(Request $request)
     {
          // validate
-        $rules = array(
-            'date_time'       => 'required',
-            'temperature'      => 'required',
-            'precipitation'      => 'required',
-            'relative_humidity'      => 'required',
-            'solar_radiation'      => 'required',
-            'winds_direction'      => 'required',
-            'winds_peed'      => 'required'
-        );
-        $validator = $request->validate($rules);
 
-        climaticdata::create($request->all());
-        return ['El registro se guardó correctamente'];
     }
 
     /**
@@ -98,9 +87,30 @@ class BolmeteorController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $rules = array(
+            'date_time'       => 'required',
+            'temperature'      => 'required',
+            'precipitation'      => 'required',
+            'relative_humidity'      => 'required',
+            'solar_radiation'      => 'required',
+            'winds_direction'      => 'required',
+            'winds_peed'      => 'required'
+        );
+        
+        $validator = $request->validate($rules);
+
+        $c = climaticdata::findOrFail($request->input('id'));
+        $c->date_time = e($request->input('date_time'));
+        $c->temperature = e($request->input('temperature'));
+        $c->precipitation = e($request->input('precipitation'));
+        $c->relative_humidity = e($request->input('relative_humidity'));
+        $c->solar_radiation = e($request->input('solar_radiation'));
+        $c->winds_direction = e($request->input('winds_direction'));
+        $c->winds_peed = e($request->input('winds_peed'));
+        $c->save($request->all());
+        return ['El registro se guardó correctamente'];
     }
 
     /**

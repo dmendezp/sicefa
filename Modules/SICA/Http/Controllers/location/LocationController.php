@@ -10,7 +10,7 @@ class LocationController extends Controller
 {
     public function countries(){
         $data = ['title'=>trans('sica::menu.Countries')];
-        return view('sica::admin.security.countries',$data);
+        return view('sica::admin.location.countries',$data);
     }
     
 }

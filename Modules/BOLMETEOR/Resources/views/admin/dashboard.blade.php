@@ -248,7 +248,7 @@
    $(function () {
 
      function llenarModal(data){
-       $('#id').val(data.DT_RowIndex);
+       $('#id').val(data.id);
        $('#date_time').val("2013-3-18T13:00");
        document.getElementById("date_time").value = moment(data.date_time).format('YYYY-MM-DDThh:mm:ss.SSS');
        $('#temperature').val(data.temperature);
@@ -319,7 +319,7 @@
       var winds_direction = $('#winds_direction').val();
       var winds_peed = $('#winds_peed').val();
       $.ajax({
-          url: "{{ route('bolmeteor.estacion.climaticdata.store') }}",
+          url: "{{ route('bolmeteor.estacion.climaticdata.update') }}",
           type: "POST",
           data: {
               _token: $("#csrf").val(),

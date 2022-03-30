@@ -7,16 +7,17 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('cefa.evs.voto.index') }}" class="nav-link {{ ! Route::is('cefa.evs.voto.*') ?: 'active' }}">{{ __('Electronic voting') }}</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{{ route('cefa.evs.juries.login') }}" class="nav-link {{ ! Route::is('cefa.evs.juries.*') ?: 'active' }}">{{ __('Juries') }}</a>
+      </li>
 @guest
 @else
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ route('evs.admin.dashboard') }}" class="nav-link {{ ! Route::is('evs.admin.*') ?: 'active' }}">{{ __('Adminitrator') }}</a>
+        <a href="{{ route('evs.admin.dashboard') }}" class="nav-link {{ ! Route::is('evs.admin.*') ?: 'active' }}">{{ __('Administrator') }}</a>
       </li>
 @endguest
 
     </ul>
-
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->

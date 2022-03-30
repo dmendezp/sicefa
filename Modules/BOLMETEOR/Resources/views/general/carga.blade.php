@@ -11,7 +11,7 @@
    {!! Form::open(['url' => route('bolmeteor.general.graficas.carga.guardar'), 'files' => 'true','enctype'=>'multipart/form-data']) !!}
    <div class="container-fluid">
       <div class="row justify-content-center">
-         <div class="card card-orange card-outline shadow col-md-12 ">
+         <div class="card card-green card-outline shadow col-md-12 ">
             <div class="card-header">
                <h3 class="card-title">Filtro de Busqueda</h3>
             </div>
@@ -99,7 +99,7 @@
             </div>
             <form>
                <div class="modal-body">
-                  <input type="hidden" name="id" id="id"/>
+                  <input type="text" name="id" id="id"/>
                   <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                   <div class="form-row">
                      <div class="form-group col-md-6">
@@ -140,7 +140,7 @@
                </div>
                <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
+                  <button type="button" class="btn btn-primary btn-guardar">Guardar</button>
                </div>
             </form>
          </div>
@@ -161,7 +161,8 @@
       $(function () {
       
         function llenarModal(data){
-          $('#id').val(data.DT_RowIndex);
+          $('#id').val(data.id);
+          //$('#id').val(data.DT_RowIndex);
           $('#date_time').val();
           document.getElementById("date_time").value = moment(data.date_time).format('YYYY-MM-DDThh:mm:ss.SSS');
           $('#temperature').val(data.temperature);
@@ -211,7 +212,7 @@
         });
       
        $('.yajra-datatable tbody').on( 'click', '.btn-editar', function (e) {
-          var = data = table.row( $(this).parent().parent() ).data();
+          var data = table.row( $(this).parent().parent() ).data();
            llenarModal(data);
            $('#exampleModal').modal('show');
            $('#exampleModal').on('shown.bs.modal',function(event){
@@ -233,12 +234,13 @@
          var winds_direction = $('#winds_direction').val();
          var winds_peed = $('#winds_peed').val();
          $.ajax({
-             "url": {{ route('bolmeteor.estacion.climaticdata.store') }},
+             "url": "{{ route('bolmeteor.estacion.climaticdata.update') }}",
              "type": "POST",
              "data": {
                  "_token": $("#csrf").val(),
                  "type": 1,
                  "id": id,
+                 "person_id": 1,
                  "date_time": date_time,
                  "temperature": temperature,
                  "precipitation": precipitation,
@@ -264,7 +266,7 @@
            if(confirm("¿Desea eliminar el registro?")){
              $.ajax(
              {
-                 "url": 'http://127.0.0.1:8000/bolmeteor/admin/' + id,  //Url por cambiar en subida a servidor
+                 "url": "{{ url('bolmeteor/climaticdata/delete/') }}" +"/" + id,  //Url por cambiar en subida a servidor
                  "type": 'POST',
                  "dataType": "JSON",
                  "data": {

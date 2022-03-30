@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Election;
+use Modules\EVS\Entities\Authorized;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\Program;
 
 
 use Validator, Str;
@@ -61,7 +63,7 @@ class JuriesController extends Controller
             $j = new Jury;
             $j->person_id = e($request->input('person_id'));
             $j->election_id = e($request->input('election_id'));
-            $j->password = Hash::make($request->input('password'));
+            $j->password = md5($request->input('password'));
             if($j->save()){
                 return redirect(route('evs.admin.juries'))->with('message', 'Guardado con éxito')->with('typealert', 'success');
             }
@@ -90,7 +92,7 @@ class JuriesController extends Controller
             return back()->withErrors($validator)->with('message', 'Se ha producido un error')->with('typealert', 'danger');
         else:
             $j = Jury::findOrFail($id);
-            $j->password = Hash::make($request->input('password'));
+            $j->password = md5($request->input('password'));
             if($j->save()){
                 return redirect(route('evs.admin.juries'))->with('message', 'Modificado con éxito')->with('typealert', 'success');
             }
@@ -103,5 +105,126 @@ class JuriesController extends Controller
             return back()->with('message', 'Jurado enviado a la papelera de reciclaje')->with('typealert', 'success');
         endif;
     }
+
+    public function login(){
+        session()->forget('jury_id');
+        return view('evs::jurados.login');
+    }
+    public function logout(){
+        return redirect(route('cefa.evs.juries.login'));
+    }
+    
+
+    public function access(Request $request){
+        $document = $request->input('document');
+        $rules = [
+            'document' => 'required',
+            'password' => 'required',
+        ];
+        $messages = [
+            'document.required' => 'Se requiere el numero de documento.',
+            'password.required' => 'Se requiere la contraseña.',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()):
+            return back()->withErrors($validator)->with('message', 'Se ha producido un error')->with('typealert', 'danger');
+        else:
+            $person = Person::with('juries')->with(['juries.election'=>function($query){$query->where('status','Activo');}])->where('document',$document)->first();
+            if(isset($person->juries[0]['password'])):
+                if($person->juries[0]['password']==md5($request->input('password'))):
+                    session(['jury_id' => $person->juries[0]['id']]);
+                    return view('evs::jurados.authorized',['person'=>$person]);
+                else:
+                    session()->forget('jury_id');
+                    return back()->withErrors(['No se encuentran registros con estas credenciales'])->with('message', 'Se ha producido un error')->with('typealert', 'danger');
+                endif;
+            else:
+                    session()->forget('jury_id');
+                    return back()->withErrors(['No se encuentran registros con estas credenciales'])->with('message', 'Se ha producido un error')->with('typealert', 'danger');
+            endif;
+        endif; 
+    }
+
+
+    public function getaccess(){
+
+        if(session()->has('jury_id')):
+            $jury = Jury::findOrFail(session('jury_id'))->with('person')->first();
+            $document = $jury->person->document;
+
+            $person = Person::with('juries')->with(['juries.election'=>function($query){$query->where('status','Activo');}])->where('document',$document)->first();
+            return view('evs::jurados.authorized',['person'=>$person]);
+        endif; 
+    }
+
+    public function search(){
+        parse_str($_POST['data'], $data);
+        $person = Person::where('document',$data['document_v'])->first();
+        if($person):
+            return view('evs::jurados.search',['person'=>$person]);
+        else:
+            return '<span class="h5 text-danger">No se encontró registro</span>';
+        endif;
+        
+    } 
+
+    public function authorized(){
+        //parse_str($_POST['data'], $data);
+        $data = json_decode($_POST['data']);
+        //print_r($data);
+        //return false;
+        $person = Person::where('document',$data->document_v)->first();
+        //return $data->code;
+        if($person):
+            try{
+                $a = new Authorized;
+                $a->election_id = $data->election;
+                $a->person_id = $person->id;
+                $a->jury_id = $data->jury;
+                $a->code = $data->code;
+                $a->status = 'Activo';
+                if($a->save()):
+                    return '<span class="h5 text-success">Registro exitoso - Autorizado</span>';
+                endif;
+            }
+            catch(\Exception $e){
+                $a = Authorized::where('election_id',$data->election)->where('person_id',$person->id)->first();
+                return '<span class="h5 text-danger">Votante ya Autorizado, codigo: '.$a->code.'</span>';
+            }
+
+        else:
+            return '<span class="h5 text-danger">No se pudo guardar la autorización</span>';
+        endif;
+        
+    }
+
+    public function report(){
+        /*$program = Program::with('courses.apprentices.person.authorizeds')->whereHas('courses.apprentices.person.authorizeds', function($q){
+                    $q->where('status', '=', 'Activo');
+                })->get();*/
+        //$program = Authorized::with('person.apprentices.course.program')->get();
+        
+        $program = DB::table('programs')
+            ->join('courses', 'programs.id', '=', 'courses.program_id')
+            ->join('apprentices', 'courses.id', '=', 'apprentices.course_id')
+            ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->join('authorizeds', 'people.id', '=', 'authorizeds.person_id')
+            ->select('courses.id','courses.code','programs.name')
+            ->where('courses.status','=','Activo')
+            ->groupBy('courses.id')
+            ->get();
+        $authorizeds = DB::table('programs')
+            ->join('courses', 'programs.id', '=', 'courses.program_id')
+            ->join('apprentices', 'courses.id', '=', 'apprentices.course_id')
+            ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->join('authorizeds', 'people.id', '=', 'authorizeds.person_id')
+            ->where('courses.status','=','Activo')
+            ->select('courses.id','people.first_name', 'people.first_last_name', 'people.second_last_name','authorizeds.status')
+            ->get();
+        return view('evs::jurados.report', ['program'=>$program, 'authorizeds'=>$authorizeds]);
+    }
+
+      
     
 }

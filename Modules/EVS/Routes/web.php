@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Modules\EVS\Http\Controllers\EVSController;
+use Modules\EVS\Http\Controllers\Jury;
 
 Route::middleware(['lang'])->group(function () {
 
@@ -36,6 +37,16 @@ Route::middleware(['lang'])->group(function () {
 		})->name('evs.admin.index');
 
 
-});
+	});
+	Route::prefix('evs/juries')->group(function() {
+		Route::get('login','Admin\JuriesController@login')->name('cefa.evs.juries.login');
+		Route::get('logout','Admin\JuriesController@logout')->name('cefa.evs.juries.logout');
+		Route::get('/access','Admin\JuriesController@getaccess')->name('cefa.evs.juries.access');
+		Route::post('/access','Admin\JuriesController@access')->name('cefa.evs.juries.access');
+		Route::post('/search','Admin\JuriesController@search')->name('cefa.evs.juries.search');
+		Route::post('/authorized','Admin\JuriesController@authorized')->name('cefa.evs.juries.authorized');
+		Route::get('/report','Admin\JuriesController@report')->name('cefa.evs.juries.report');
+
+	});
 
 });

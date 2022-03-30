@@ -13,7 +13,9 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.2",
-        "nwidart/laravel-modules": "^8.2"
+        "maatwebsite/excel": "^3.1",
+        "nwidart/laravel-modules": "^8.2",
+        "yajra/laravel-datatables-oracle": "^9.19"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -29,10 +31,7 @@
             "Modules\\": "Modules/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        },
-        "files": [
-            "app/http/Function.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

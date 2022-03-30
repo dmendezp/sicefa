@@ -4,7 +4,7 @@ namespace Modules\BOLMETEOR\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class climaticdata extends Model
+class Climaticdata extends Model
 {
     protected $fillable = [
         'person_id',

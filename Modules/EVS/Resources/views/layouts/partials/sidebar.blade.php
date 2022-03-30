@@ -49,7 +49,43 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-  
+      @if(Route::is('*.juries.*'))
+        
+          <li class="nav-item">
+            <a href="{{ route('cefa.evs.juries.login') }}" class="nav-link {{ ! Route::is('cefa.evs.juries.login') ?: 'active' }}">
+              <i class="fas fa-home"></i>
+              <p>
+                {{ __('Ingresar') }}
+              </p>
+            </a>
+          </li>
+        @if(session()->has('jury_id'))
+          <li class="nav-item">
+            <a href="{{ route('cefa.evs.juries.access') }}" class="nav-link {{ ! Route::is('cefa.evs.juries.access') ?: 'active' }}">
+              <i class="fas fa-id-card"></i>
+              <p>
+                {{ __('Autorized') }}
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('cefa.evs.juries.report') }}" class="nav-link {{ ! Route::is('cefa.evs.juries.report') ?: 'active' }}">
+              <i class="fas fa-file-alt"></i>
+              <p>
+                {{ __('Report') }}
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('cefa.evs.juries.logout') }}" class="nav-link {{ ! Route::is('cefa.evs.juries.logout') ?: 'active' }}">
+              <i class="fas fa-sign-out-alt"></i>
+              <p>
+                {{ __('Logout') }}
+              </p>
+            </a>
+          </li>        
+        @endif
+      @endif
       @if(Route::is('*.voto.*'))
           <li class="nav-item">
             <a href="{{ route('cefa.evs.voto.index') }}" class="nav-link {{ ! Route::is('cefa.evs.voto.index') ?: 'active' }}">
@@ -125,6 +161,14 @@
               <i class="fas fa-gavel"></i>
               <p>
                 {{ __('Juries') }}
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('evs.admin.electeds') }}" class="nav-link {{ ! Route::is('evs.admin.electeds*') ?: 'active' }}">
+              <i class="fas fa-id-card"></i>
+              <p>
+                {{ __('Elected') }}
               </p>
             </a>
           </li>

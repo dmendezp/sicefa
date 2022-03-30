@@ -20,8 +20,8 @@
         <div class="d-flex justify-content-start">
           <div class="p-3 mb-2 bg-info text-dark">Votante: {{ $people[0]->first_name." ".$people[0]->first_last_name." ".$people[0]->second_last_name }}</div>
         </div>
-        
         {!! Form::open(['url' => route('cefa.evs.voto.votar.registrar')]) !!}
+        {!! Form::hidden('election_id', $dataelecciones[0]->id, ['class' => 'form-control']) !!}
         {!! Form::hidden('authorized_id', $people[0]->authorizeds[0]->id, ['class' => 'form-control']) !!}
 
         @foreach($dataelecciones as $election)

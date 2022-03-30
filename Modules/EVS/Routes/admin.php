@@ -22,7 +22,6 @@ Route::middleware(['lang'])->group(function () {
 			Route::get('/candidates/edit/{id}','Admin\CandidatesController@getCandidateEdit')->name('evs.admin.candidates.edit');
 			Route::post('/candidates/edit/{id}','Admin\CandidatesController@postCandidateEdit')->name('evs.admin.candidates.edit');
 			Route::get('/candidates/delete/{id}','Admin\CandidatesController@getCandidateDelete')->name('evs.admin.candidates.delete');
-
 			//rutas de juries
 			Route::get('/juries','Admin\JuriesController@getJuries')->name('evs.admin.juries');
 			Route::get('/juries/add/{id}','Admin\JuriesController@getJuriesAdd')->name('evs.admin.juries.add');
@@ -31,6 +30,15 @@ Route::middleware(['lang'])->group(function () {
 			Route::get('/juries/edit/{id}','Admin\JuriesController@getJuriesEdit')->name('evs.admin.juries.edit');
 			Route::post('/juries/edit/{id}','Admin\JuriesController@postJuriesEdit')->name('evs.admin.juries.edit');
 			Route::get('/juries/delete/{id}','Admin\JuriesController@getJuriesDelete')->name('evs.admin.juries.delete');
+			//rutas elected
+			Route::get('/electeds','Admin\ElectedsController@getElected')->name('evs.admin.electeds');
+			Route::get('/elected/add','Admin\ElectedsController@getElectedAdd')->name('evs.admin.electeds.add');
+
+			Route::get('/elected/edit/{id}','Admin\ElectedsController@getElectedEdit')->name('evs.admin.electeds.edit');
+
+			Route::get('/elected/delete/{id}','Admin\ElectedsController@getElectedDelete')->name('evs.admin.electeds.delete');
+
+			//Route::get('/elected/delete/{id}','Admin\ElectionsController@getElectionDelete')->name('evs.admin.elections.delete');
 		//});
 
 	});

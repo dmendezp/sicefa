@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\PopulationGroup;
 use Modules\SICA\Entities\Apprentice;
+use Modules\EVS\Entities\Candidate;
+use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
 
@@ -58,6 +60,10 @@ class Person extends Model
 
     public function authorizeds(){
         return $this->hasMany(Authorized::class);
+    }
+
+    public function juries(){
+        return $this->hasMany(Jury::class);
     }
 
 }

@@ -30,7 +30,6 @@
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('js/generalscripts.js') }}"></script>
 <script src="{{ asset('bolmeteor/js/scripts.js') }}"></script>
-<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>

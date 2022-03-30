@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapInventoryRoutes();
         $this->mapLocationRoutes();
         $this->mapSecurityRoutes();
-        $this->mapUnitsRoutes();
+        $this->mapUnitRoutes();
         $this->mapWebRoutes();
     }
 
@@ -92,11 +92,11 @@ class RouteServiceProvider extends ServiceProvider
             ->group(module_path('SICA', '/Routes/security.php'));
     } 
 
-    protected function mapUnitsRoutes()
+    protected function mapUnitRoutes()
     {
         Route::middleware('web')
             ->namespace($this->moduleNamespace)
-            ->group(module_path('SICA', '/Routes/units.php'));
+            ->group(module_path('SICA', '/Routes/unit.php'));
     } 
     /**
      * Define the "api" routes for the application.

@@ -19,4 +19,8 @@ class Jury extends Model
     public function person(){
     	return $this->belongsTo(Person::class);
     }
+
+    public function Authorizeds(){
+        return $this->hasMany(Authorized::class);
+    }
 }

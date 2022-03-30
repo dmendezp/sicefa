@@ -83,6 +83,7 @@ class EVSController extends Controller
         if($a->status=='Activo'){
             $v = new Vote;
             $v->candidate_id = e($request->input('candidate_id'));
+            $v->election_id = e($request->input('election_id'));
             if($v->save()){
                 $a = Authorized::findOrFail($request->input('authorized_id'));
                 $a->status = "Inactivo";
@@ -98,7 +99,7 @@ class EVSController extends Controller
     
     public function getResultados(){
         //$elected = Elected::where('status', 'Activo')->with('candidate.person')->with('candidate.election')->get();
-        $dataelecciones = Election::with('candidates.person.apprentices.course.program')->with('electeds.candidate.person')->with('candidates.votes')->withCount(['votes'=>function($query){$query->where('candidate_id',0);}])->get();
+        $dataelecciones = Election::with('candidates.person.apprentices.course.program')->with('electeds.candidate.person')->with('candidates.votes')->withCount(['votes'=>function($query){$query->where('candidate_id',0);}])->orderBy('id','Desc')->get();
 
         //return $dataelecciones;
      
@@ -112,5 +113,7 @@ class EVSController extends Controller
     public function desarrolladores(){
         return view('evs::voto.desarrolladores');
     }
+
+
  
 }

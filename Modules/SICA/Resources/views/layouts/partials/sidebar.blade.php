@@ -204,19 +204,20 @@
                   </a>
                 </li>
                 @endif
+                @if(Auth::user()->havePermission('sica.admin.location.environments'))
                 <li class="nav-item">
                   <a href="{{ route('sica.admin.location.environments') }}" class="nav-link {{ ! Route::is('sica.admin.location.environments*') ?: 'active' }}">
                     <i class="fas fa-street-view"></i>
                     <p>{{ trans('sica::menu.Environments') }}</p>
                   </a>
                 </li>
-
+                @endif
               </ul>
             </li>    
     <!-- CIERRA MENU PARA LOCATION -->
     <!-- MENU PARA INVENTORY -->
-            <li class="nav-item {{ ! Route::is('sica.admin.location.*') ?: 'menu-is-opening menu-open' }}">
-              <a href="#" class="nav-link {{ ! Route::is('sica.admin.location.*') ?: 'active' }}">
+            <li class="nav-item {{ ! Route::is('sica.admin.inventory.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('sica.admin.inventory.*') ?: 'active' }}">
                 <i class="fa-solid fa-boxes-stacked"></i>
                 <p>
                   {{ trans('sica::menu.Inventory') }}
@@ -224,32 +225,78 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                @if(Auth::user()->havePermission('sica.admin.location.countries'))
+                @if(Auth::user()->havePermission('sica.admin.inventory.warehouse'))
                 <li class="nav-item">
-                  <a href="{{ route('sica.admin.location.countries') }}" class="nav-link {{ ! Route::is('sica.admin.location.countries*') ?: 'active' }}">
-                    <i class="fas fa-globe-americas"></i></i>
-                    <p>{{ trans('sica::menu.Countries') }}</p>
+                  <a href="{{ route('sica.admin.inventory.warehouse') }}" class="nav-link {{ ! Route::is('sica.admin.inventory.warehouse*') ?: 'active' }}">
+                    <i class="fas fa-warehouse"></i>
+                    <p>{{ trans('sica::menu.Warehouse') }}</p>
                   </a>
                 </li>
                 @endif
-                @if(Auth::user()->havePermission('sica.admin.location.farms'))
+                @if(Auth::user()->havePermission('sica.admin.inventory.elements'))
                 <li class="nav-item">
-                  <a href="{{ route('sica.admin.location.farms') }}" class="nav-link {{ ! Route::is('sica.admin.location.farms*') ?: 'active' }}">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <p>{{ trans('sica::menu.Farms') }}</p>
+                  <a href="{{ route('sica.admin.inventory.elements') }}" class="nav-link {{ ! Route::is('sica.admin.inventory.elements*') ?: 'active' }}">
+                    <i class="fas fa-shapes"></i>
+                    <p>{{ trans('sica::menu.Elements') }}</p>
                   </a>
                 </li>
                 @endif
+                @if(Auth::user()->havePermission('sica.admin.inventory.transactions'))
                 <li class="nav-item">
-                  <a href="{{ route('sica.admin.location.environments') }}" class="nav-link {{ ! Route::is('sica.admin.location.environments*') ?: 'active' }}">
-                    <i class="fas fa-street-view"></i>
-                    <p>{{ trans('sica::menu.Environments') }}</p>
+                  <a href="{{ route('sica.admin.inventory.transactions') }}" class="nav-link {{ ! Route::is('sica.admin.inventory.transactions*') ?: 'active' }}">
+                    <i class="fas fa-dolly-flatbed"></i>
+                    <p>{{ trans('sica::menu.Transactions') }}</p>
                   </a>
                 </li>
-
+                @endif
+                @if(Auth::user()->havePermission('sica.admin.inventory.inventory'))
+                <li class="nav-item">
+                  <a href="{{ route('sica.admin.inventory.inventory') }}" class="nav-link {{ ! Route::is('sica.admin.inventory.inventory*') ?: 'active' }}">
+                    <i class="fas fa-clipboard-list"></i>
+                    <p>{{ trans('sica::menu.Inventory') }}</p>
+                  </a>
+                </li>
+                @endif              
               </ul>
             </li>    
     <!-- CIERRA MENU PARA INVENTORY -->
+    <!-- MENU PARA UNITS -->
+            <li class="nav-item {{ ! Route::is('sica.admin.unit.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('sica.admin.unit.*') ?: 'active' }}">
+                <i class="fas fa-network-wired"></i>
+                <p>
+                  {{ trans('sica::menu.Unit') }}
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                @if(Auth::user()->havePermission('sica.admin.unit.areas'))
+                <li class="nav-item">
+                  <a href="{{ route('sica.admin.unit.areas') }}" class="nav-link {{ ! Route::is('sica.admin.unit.areas*') ?: 'active' }}">
+                    <i class="fas fa-sign"></i>
+                    <p>{{ trans('sica::menu.Areas') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('sica.admin.unit.consumption'))
+                <li class="nav-item">
+                  <a href="{{ route('sica.admin.unit.consumption') }}" class="nav-link {{ ! Route::is('sica.admin.unit.consumption*') ?: 'active' }}">
+                    <i class="fas fa-folder-minus"></i>
+                    <p>{{ trans('sica::menu.Consumption') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('sica.admin.unit.production'))
+                <li class="nav-item">
+                  <a href="{{ route('sica.admin.unit.production') }}" class="nav-link {{ ! Route::is('sica.admin.unit.production*') ?: 'active' }}">
+                    <i class="fas fa-folder-plus"></i>
+                    <p>{{ trans('sica::menu.Production') }}</p>
+                  </a>
+                </li>
+                @endif
+              </ul>
+            </li>    
+    <!-- CIERRA MENU PARA UNITS -->
     <!-- MENU PARA SECURITY -->
             <li class="nav-item {{ ! Route::is('sica.admin.security.*') ?: 'menu-is-opening menu-open' }}">
               <a href="#" class="nav-link {{ ! Route::is('sica.admin.security.*') ?: 'active' }}">

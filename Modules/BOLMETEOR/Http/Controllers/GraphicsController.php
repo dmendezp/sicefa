@@ -5,7 +5,7 @@ namespace Modules\BOLMETEOR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use App\Imports\ClimaticImport;
+use Modules\BOLMETEOR\Imports\ClimaticImport;
 
 use Validator, Str, DB, Excel;
 

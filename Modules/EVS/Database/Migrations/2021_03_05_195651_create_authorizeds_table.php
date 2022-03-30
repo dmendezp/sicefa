@@ -17,6 +17,7 @@ class CreateAuthorizedsTable extends Migration
             $table->id();
             $table->foreignId('election_id')->constrained()->onDelete('cascade');
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->foreignId('jury_id')->constrained()->onDelete('cascade');
             $table->unsignedInteger('code')->unique();
             $table->enum('status', ['Activo','Inactivo']);
             $table->softDeletes();
