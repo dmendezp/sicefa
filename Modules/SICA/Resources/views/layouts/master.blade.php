@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 @include('sica::layouts.partials.head')
+
 <body class="hold-transition sidebar-mini">
+
 <div class="wrapper">
   <!-- Navbar -->
     @include('sica::layouts.partials.navbar')

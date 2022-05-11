@@ -48,11 +48,11 @@
 	                  	<div class="col-md-3">
 	                  	    <div class="card card-purple card-outline shadow">
                                 <img class="profile-user-img mtop16"
-                                   src="{{ asset('evs/images/'.$candidate->avatar) }}"
+                                   src="{{ asset('storage/'.$candidate->avatar) }}"
                                    alt="User profile picture">
                                   <div class="card-body box-profile">
                                   
-                                  <h3 class="profile-username text-center">{{ $candidate->person->first_name." ".$candidate->person->first_last_name." ".$candidate->person->second_last_name }}</h3>
+                                  <h5 class="profile-username text-center">{{ $candidate->person->first_name." ".$candidate->person->first_last_name." ".$candidate->person->second_last_name }}</h5>
                                   <p class="text-muted text-center">Titulacion</p>
                                   <p class="text-muted text-center">{{ $candidate->number }}</p>
                                 </div>

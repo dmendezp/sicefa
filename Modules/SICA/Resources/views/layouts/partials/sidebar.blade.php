@@ -34,9 +34,10 @@
         @endguest
         </div>
       </div>
+
       <div class="user-panel mt-1 pb-1 mb-1 d-flex">
         <nav class="">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column">
                 <li class="nav-item">
                   <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
                     <i class="fas fa-puzzle-piece"></i>

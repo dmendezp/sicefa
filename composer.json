@@ -15,6 +15,7 @@
         "laravelcollective/html": "^6.2",
         "maatwebsite/excel": "^3.1",
         "nwidart/laravel-modules": "^8.2",
+        "unisharp/laravel-filemanager": "^2.4",
         "yajra/laravel-datatables-oracle": "^9.19"
     },
     "require-dev": {

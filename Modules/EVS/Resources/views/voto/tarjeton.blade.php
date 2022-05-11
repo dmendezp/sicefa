@@ -36,7 +36,7 @@
                   <div class="card-body box-profile">
                     <div class="text-center">
                       <img class="user-img img-fluid"
-                           src="{{ asset('evs/images/'.$candidate->avatar) }}">
+                           src="{{ asset('storage/'.$candidate->avatar) }}">
                     </div>
                     <h3 class="profile-username text-center">{{ $candidate->person->first_name." ".$candidate->person->first_last_name." ".$candidate->person->second_last_name }}</h3>
 

@@ -11,12 +11,12 @@ class AcademyController extends Controller
  
     public function quarters(){
         $data = ['title'=>trans('sica::menu.Quarters')];
-        return view('sica::admin.security.quarters',$data);
+        return view('sica::admin.academy.quarters',$data);
     }
 
     public function curriculums(){
         $data = ['title'=>trans('sica::menu.Curriculums')];
-        return view('sica::admin.security.curriculums',$data);
+        return view('sica::admin.academy.curriculums',$data);
     }
 
     public function courses(){

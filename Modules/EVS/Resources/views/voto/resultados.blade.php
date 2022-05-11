@@ -75,7 +75,7 @@
                       </ul>
                     </div>
                     <div class="col-5 text-center">
-                      <img src="{{ asset('evs/images/'.$election->electeds[0]['candidate']->avatar) }}" alt="" class="img-circle img-fluid">
+                      <img src="{{ asset('storage/'.$election->electeds[0]['candidate']->avatar) }}" alt="" class="img-circle img-fluid">
                     </div>
                   </div>
 
@@ -120,7 +120,7 @@
                         <div class="card-body ">
                           <div class="text-center">
                             <img class="profile-user-img img-fluid img-circle"
-                                 src="{{ asset('evs/images/'.$candidate->avatar) }}"
+                                 src="{{ asset('storage/'.$candidate->avatar) }}"
                                  alt="User profile picture">
                           </div>
                           <h3 class="profile-username text-center text-sm">{{ $candidate->person->first_name." ".$candidate->person->first_last_name." ".$candidate->person->second_last_name }}</h3>

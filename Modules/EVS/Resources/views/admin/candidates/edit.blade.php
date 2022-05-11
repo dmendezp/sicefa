@@ -42,16 +42,20 @@
 					</div>
 					<label class="mtop16" for="name">Fotografía:</label>
 					<div class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="basic-addon1">
-								<i class="far fa-keyboard"></i>
-							</span>
-						</div>
-						{!! Form::text('avatar',$candidate->avatar, ['class'=>'form-control']) !!}
+					   <span class="input-group-btn">
+					     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-info">
+					       <i class="fas fa-image"></i>
+					     </a>
+					   </span>
+					   {!! Form::text('avatar',$candidate->avatar, ['class'=>'form-control','id'=>'thumbnail']) !!}
+					</div>
+					<div id="holder" style="margin-top:15px;max-height:100px;">
+						<img src="{{ asset('storage/'.$candidate->avatar) }}" style="height: 5rem;">
 					</div>
 					
-					
+					<div class="text-center">
 					{!! Form::submit('Guardar',['class'=>'btn btn-success mtop16']) !!}
+					</div>
 					
 					{!! Form::close() !!}
 
@@ -64,6 +68,15 @@
 
   </section>
 
+  <script>
+  	var route_prefix = "/filemanager";
+  </script>
 
+  <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+	
+ <script>
+    //var route_prefix = base+"/filemanager";
+ 		$('#lfm').filemanager('image', {prefix: route_prefix});
+  </script>
 
 @stop
