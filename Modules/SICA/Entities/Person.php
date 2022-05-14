@@ -35,7 +35,7 @@ class Person extends Model
         'telephone1',
         'telephone2',
         'telephone3',
-        'email',
+        'personal_email',
         'misena_email',
         'sena_email',
         'avatar',

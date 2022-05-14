@@ -6,7 +6,8 @@ use App\Http\Controllers\HomeController;
 
 Route::middleware(['lang'])->group(function(){
 
-    Auth::routes();
+    //Auth::routes();
+    Auth::routes(["register" => false]);
 
     Route::get('lang/{lang}', function($lang) {
         session(['lang'=>$lang]);

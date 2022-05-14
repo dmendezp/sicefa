@@ -22,4 +22,9 @@ class Course extends Model
     public function apprentices(){
         return $this->hasMany(Apprentice::class);
     }
+
+    public function getCodeNameAttribute()
+    {
+        return "{$this->code} {$this->program->name}";
+    }
 }

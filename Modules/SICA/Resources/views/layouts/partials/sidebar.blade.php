@@ -10,7 +10,11 @@
       <div class="user-panel mt-1 pb-1 mb-1 d-flex">
         <div class="row col-md-12">
         <div class="image mt-2 mb-2">
-          <img src="{{ asset('AdminLTE/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+          @if(isset(Auth::user()->person->avatar))
+          <img src="{{ asset('storage/'.Auth::user()->person->avatar) }}" class="img-circle elevation-2" alt="User Image">
+          @else
+          <img src="{{ asset('sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
+          @endif
         </div>
         @guest
           <div class="col info info-user">
