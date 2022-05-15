@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Course;
+use Modules\SICA\Entities\Program;
 
 class AcademyController extends Controller
 {
@@ -16,7 +17,8 @@ class AcademyController extends Controller
     }
 
     public function curriculums(){
-        $data = ['title'=>trans('sica::menu.Curriculums')];
+        $programs = Program::orderBy('sofia_code','desc')->get();
+        $data = ['title'=>trans('sica::menu.Curriculums'),'programs'=>$programs];
         return view('sica::admin.academy.curriculums.home',$data);
     }
 

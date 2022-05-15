@@ -6,7 +6,7 @@
 @section('content')
 <div class="content">
   <div class="container-fluid">
-    <div class="row d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
       <div class="card card-orange card-outline shadow col-md-12">
         <div class="card-header">
           <h3 class="card-title">Instructores</h3>
@@ -58,6 +58,9 @@
     </div>
   </div>
 </div>
+
+@endsection
+@section('script')
       <script>
         $(function () {
           $("#example1").DataTable({

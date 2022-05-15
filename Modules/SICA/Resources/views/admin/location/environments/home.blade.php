@@ -9,35 +9,32 @@
         <div class="d-flex justify-content-center">
       <div class="card card-orange card-outline shadow col-md-12">
         <div class="card-header">
-          <h3 class="card-title">Courses</h3>
+          <h3 class="card-title">Ambientes</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
           <div class="btns">
-            <a href="" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> {{ __('Course Add') }}</a>
+            <a href="" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> {{ __('Environments Add') }}</a>
           </div>
           <div class="mtop16">
             <table id="example1" class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <th>Id</th>
-                  <th>Ficha</th>
+                  <th>Unidad</th>
                   <th>Nombre</th>
-                  <th>F Inicio</th>
-                  <th>F Cierre</th>
-                  <th>Estado</th>
+                  <th>Tipo</th>
+                  <th>Coordenadas</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($courses as $c)
+                @foreach($environments as $e)
                 <tr>
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $c->code }}</td>
-                  <td>{{ $c->program->name }}</td>
-                  <td>{{ $c->star_date }}</td>
-                  <td>{{ $c->end_date }}</td>
-                  <td>{{ $c->status }}</td>
+                  <td>{{ $e->productive_units_id }}</td>
+                  <td>{{ $e->type_environments }}</td>
+                  <td>{{ $e->lengh }} {{ $e->latitude }}</td>
                   <td>
                     <div class="opts">
 

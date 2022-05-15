@@ -6,11 +6,11 @@ Route::middleware(['lang'])->group(function(){
 
     Route::prefix('sica')->group(function() {
 
-        Route::get('/admin/unit/areas', [UnitController::class, 'areas'])->name('sica.admin.unit.areas');
+        Route::get('/admin/units/areas', [UnitController::class, 'areas'])->name('sica.admin.units.areas');
 
-        Route::get('/admin/unit/consumption', [UnitController::class, 'consumption'])->name('sica.admin.unit.consumption');
+        Route::get('/admin/units/consumption', [UnitController::class, 'consumption'])->name('sica.admin.units.consumption');
 
-        Route::get('/admin/unit/production', [UnitController::class, 'production'])->name('sica.admin.unit.production');
+        Route::get('/admin/units/production', [UnitController::class, 'production'])->name('sica.admin.units.production');
 
     });  
 

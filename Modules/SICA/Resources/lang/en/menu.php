@@ -29,7 +29,7 @@ return [
 	'Farms' => 'Farms',
 	'Environments' => 'Environments',
 	'Inventory' => 'Inventory',
-	'Warehouse' => 'Warehouse',
+	'Warehouses' => 'Warehouses',
 	'Elements' => 'Elements',
 	'Transactions' => 'Transactions',
 	'Units' => 'Units',

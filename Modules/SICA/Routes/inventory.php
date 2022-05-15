@@ -6,7 +6,7 @@ Route::middleware(['lang'])->group(function(){
 
     Route::prefix('sica')->group(function() {
 
-        Route::get('/admin/inventory/warehouse', [InventoryController::class, 'warehouse'])->name('sica.admin.inventory.warehouse');
+        Route::get('/admin/inventory/warehouses', [InventoryController::class, 'warehouses'])->name('sica.admin.inventory.warehouses');
 
         Route::get('/admin/inventory/elements', [InventoryController::class, 'elements'])->name('sica.admin.inventory.elements');
 

@@ -9,35 +9,31 @@
         <div class="d-flex justify-content-center">
       <div class="card card-orange card-outline shadow col-md-12">
         <div class="card-header">
-          <h3 class="card-title">Courses</h3>
+          <h3 class="card-title">Bodegas</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
           <div class="btns">
-            <a href="" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> {{ __('Course Add') }}</a>
+            <a href="" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> {{ __('Warehouse Add') }}</a>
           </div>
           <div class="mtop16">
             <table id="example1" class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <th>Id</th>
-                  <th>Ficha</th>
+                  <th>App</th>
                   <th>Nombre</th>
-                  <th>F Inicio</th>
-                  <th>F Cierre</th>
-                  <th>Estado</th>
+                  <th>Descripción</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($courses as $c)
+                @foreach($warehouses as $w)
                 <tr>
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $c->code }}</td>
-                  <td>{{ $c->program->name }}</td>
-                  <td>{{ $c->star_date }}</td>
-                  <td>{{ $c->end_date }}</td>
-                  <td>{{ $c->status }}</td>
+                  <td>{{ $w->app_id }}</td>
+                  <td>{{ $w->name }}</td>
+                  <td>{{ $w->description }}</td>
                   <td>
                     <div class="opts">
 
