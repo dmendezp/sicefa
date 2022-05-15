@@ -18,7 +18,7 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="http://siscefa.com/evs/images/Diego.png"
+                       src="{{ asset('storage/photos/shares/people/Diego.png') }}"
                        alt="User profile picture">
                 </div>
                 <h3 class="profile-username text-center">Diego Andres Mendez Pastrana</h3>
