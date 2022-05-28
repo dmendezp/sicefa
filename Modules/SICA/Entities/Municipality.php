@@ -13,6 +13,10 @@ class Municipality extends Model
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
 
+    public function getCouDepMunAttribute(){
+        return $this->department->country->name.' - '.$this->department->name.' - '.$this->name;
+    }
+
     public function department(){
         return $this->belongsTo(Department::class);
     }

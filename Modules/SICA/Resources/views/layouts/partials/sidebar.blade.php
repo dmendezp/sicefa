@@ -59,8 +59,6 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
-
           <!-- MENU PARA HOME (DE ACCESO GENERAL) -->
           @if (Route::is('*home.*'))
             <li class="nav-item">
@@ -111,6 +109,12 @@
               </a>
               <ul class="nav nav-treeview">
                 @if(Auth::user()->havePermission('home.people.personal_data'))
+                <li class="nav-item">
+                  <a href="{{ route('sica.admin.people.config') }}" class="nav-link {{ ! Route::is('sica.admin.people.config*') ?: 'active' }}">
+                    <i class="fas fa-cogs"></i>
+                    <p>{{ trans('sica::menu.Config') }}</p>
+                  </a>
+                </li>
                 <li class="nav-item">
                   <a href="{{ route('sica.admin.people.personal_data') }}" class="nav-link {{ ! Route::is('sica.admin.people.personal_data*') ?: 'active' }}">
                     <i class="fas fa-id-card"></i>

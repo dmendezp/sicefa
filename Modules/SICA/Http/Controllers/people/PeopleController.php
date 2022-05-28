@@ -10,6 +10,12 @@ use Modules\SICA\Entities\Course;
 class PeopleController extends Controller
 {
 
+    public function config(){
+        
+        $data = ['title'=>trans('sica::menu.Config')];
+        return view('sica::admin.people.config.home',$data);        
+    } 
+
     public function personal_data()
     {
         $data = ['title'=>trans('sica::menu.Personal data')];
@@ -24,6 +30,8 @@ class PeopleController extends Controller
         $data = ['title'=>trans('sica::menu.Search apprentice'),'courses'=>$courses];
         return view('sica::admin.people.apprentices.home',$data);
     }
+
+    
 
     public function instructors(){
         $data = ['title'=>trans('sica::menu.Instructors')];

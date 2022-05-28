@@ -19,8 +19,8 @@ class LocationController extends Controller
 
     public function farms(){
         //$farms = Farm::get();
-        $farms = array();
-        $data = ['title'=>trans('sica::menu.Farms'),'farms'=>$farms];
+        $coudepmun = Municipality::where('department_id','421')->get();
+        $data = ['title'=>trans('sica::menu.Farms'),'coudepmun'=>$coudepmun];
         return view('sica::admin.location.farms.home',$data);
     }
 

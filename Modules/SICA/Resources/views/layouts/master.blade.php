@@ -2,6 +2,9 @@
 <html lang="en">
 @include('sica::layouts.partials.head')
 
+@section('stylesheet')
+@show
+
 <body class="hold-transition sidebar-mini">
 
 <div class="wrapper">

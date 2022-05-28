@@ -18,6 +18,7 @@ class PersonalDataController extends Controller
      * @return Renderable
      */
     // Buscar si los datos de la persona existen
+
     public function search_personal_data(Request $request)
     {
         $rules = [
@@ -31,7 +32,7 @@ class PersonalDataController extends Controller
             return redirect('sica/admin/people/data')->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
         else:
         $doc =$request->input('search');
-        $people = Person::where('document',$doc)->with('users')->first();
+        $people = Person::where('document_number',$doc)->with('users')->first();
         
         switch ($people) {
             case '':
@@ -65,7 +66,7 @@ class PersonalDataController extends Controller
     public function postAddData(Request $request)
     {
         $rules = [
-            'document' => 'required',
+            'document_number' => 'required',
             'document_type' => 'required',
             'first_name' => 'required',
             'first_last_name' => 'required',
@@ -73,7 +74,7 @@ class PersonalDataController extends Controller
             'population_group_id' => 'required'
         ];
         $messages = [
-            'document.required' => 'El N° de documento es requerido',
+            'document_number.required' => 'El N° de documento es requerido',
             'document_type.required' => 'El tipo de documento es requerido',
             'first_name.required' => 'El primer nombre es requerido',
             'first_last_name.required' => 'El primer apellido es requerido',
@@ -82,23 +83,23 @@ class PersonalDataController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()):
-            return redirect('sica/admin/people/data/add/'.$request->input('document'))->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
+            return redirect('sica/admin/people/data/add/'.$request->input('document_number'))->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
         else:
 
             $p = new Person;
             $p->document_type = e($request->input('document_type'));
-            $p->document = e($request->input('document'));
+            $p->document_number = e($request->input('document_number'));
             $p->date_of_issue = $request->input('date_of_issue');
             $p->first_name = $request->input('first_name');
             $p->first_last_name = e($request->input('first_last_name'));
             $p->second_last_name = e($request->input('second_last_name'));
-            $p->birthday = e($request->input('birthday'));
+            $p->date_of_birth = e($request->input('date_of_birth'));
             // $p->blood_type = e($request->input('blood_type'));
             $p->gender = e($request->input('gender'));
             $p->eps_id = e($request->input('eps_id'));
             // $p->marital_status = e($request->input('marital_status'));
             // $p->military_card = e($request->input('military_card'));
-            // $p->socioeconomic_status = e($request->input('socioeconomic_status'));
+            // $p->socioeconomical_status = e($request->input('socioeconomical_status'));
             $p->telephone1 = e($request->input('telephone1'));
             $p->personal_email = e($request->input('personal_email'));
             $p->misena_email = e($request->input('misena_email'));
@@ -127,7 +128,7 @@ class PersonalDataController extends Controller
     {
        
         $rules = [
-            'document' => 'required',
+            'document_number' => 'required',
             'document_type' => 'required',
             'first_name' => 'required',
             'first_last_name' => 'required',
@@ -135,7 +136,7 @@ class PersonalDataController extends Controller
             'population_group_id' => 'required'
         ];
         $messages = [
-            'document.required' => 'El N° de documento es requerido',
+            'document_number.required' => 'El N° de documento es requerido',
             'document_type.required' => 'El tipo de documento es requerido',
             'first_name.required' => 'El primer nombre es requerido',
             'first_last_name.required' => 'El primer apellido es requerido',
@@ -150,22 +151,22 @@ class PersonalDataController extends Controller
 
             $p = Person::findOrFail($id);
             $p->document_type = e($request->input('document_type'));
-            $p->document = e($request->input('document'));
+            $p->document_number = e($request->input('document_number'));
             $p->date_of_issue =  $request->input('date_of_issue',date('Y-m-d'));
             $p->first_name = e($request->input('first_name'));
             $p->first_last_name = e($request->input('first_last_name'));
             $p->second_last_name = e($request->input('second_last_name'));
-            $p->birthday = $request->input('birthday',date('Y-m-d'));
+            $p->date_of_birth = $request->input('date_of_birth',date('Y-m-d'));
             // $p->blood_type = e($request->input('blood_type'));
             $p->gender = e($request->input('gender'));
             $p->eps_id = e($request->input('eps_id'));
             // $p->marital_status = e($request->input('marital_status'));
             // $p->military_card = e($request->input('military_card'));
-            // $p->socioeconomic_status = e($request->input('socioeconomic_status'));
+            // $p->socioeconomical_status = e($request->input('socioeconomical_status'));
             $p->telephone1 = e($request->input('telephone1'));
             $p->personal_email = e($request->input('personal_email'));
             $p->misena_email = e($request->input('misena_email'));
-            // $p->avatar = e($request->input('avatar'));
+            $p->avatar = e($request->input('avatar'));
             $p->population_group_id = e($request->input('population_group_id'));
             if($p->save()){
                 return redirect(route('sica.admin.people.personal_data'))->with('message', 'Modificado con éxito')->with('typealert', 'success');

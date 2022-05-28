@@ -71,7 +71,7 @@
 
                             <div class="form-group">
                                 <label>Documento</label>
-                                {!! Form::number('document',$doc, ['class' => 'form-control', 'placeholder'
+                                {!! Form::number('document_number',$doc, ['class' => 'form-control', 'placeholder'
                                 =>
                                 'Documento','required'])
                                 !!}
@@ -87,7 +87,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Fecha de nacimiento</label>
-                                {!! Form::date('birthday',null, ['class' => 'form-control'])
+                                {!! Form::date('date_of_birth',null, ['class' => 'form-control'])
                                 !!}
                             </div>
                         </div>
@@ -145,7 +145,7 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Estrato social</label>
-                                {!! Form::select('socioeconomic_status',getEnumValues('people', 'socioeconomic_status'),
+                                {!! Form::select('socioeconomical_status',getEnumValues('people', 'socioeconomical_status'),
                                 null,['class' => 'form-control']
                                 ,['placeholder' => 'Pick a size...']) !!}
 

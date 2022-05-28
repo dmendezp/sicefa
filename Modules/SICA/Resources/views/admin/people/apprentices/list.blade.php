@@ -5,7 +5,7 @@
 	<!-- /.card-header -->
 	<div class="card-body">
 		<div class="btns">
-			<a href="{{ route('evs.admin.elections.add') }}" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> {{ __('Instructor Add') }}</a>
+			<a href="{{ route('evs.admin.elections.add') }}" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> {{ __('Apprentices Add') }}</a>
 		</div>
 		<div class="mtop16">
 			<table id="example1" class="table table-bordered table-striped">
@@ -23,8 +23,8 @@
 					@foreach($apprentices as $a)	
 					<tr>
 						<td>{{ $loop->iteration }}</td>
-						<td>{{ $a->person->document }}</td>
-						<td>{{ $a->person->first_name }} {{ $a->person->first_last_name }} {{ $a->person->second_last_name }}</td>
+						<td>{{ $a->person->document_number }}</td>
+						<td>{{ $a->person->full_name }}</td>
 						<td>{{ $a->person->personal_email }}</td>
 						<td>{{ $a->apprentice_status }}</td>
 						<td>

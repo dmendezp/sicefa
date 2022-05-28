@@ -8,7 +8,7 @@
     <div class="mtop16">
       <p>No hay solucitudes pendientes</p>
     </div>
-    <h3>Registros principales</h3>
+    <h3>Registros</h3>
     <div class="mtop16">
       <a class="btn btn-app btn-app-2">
         <span class="badge bg-info">{{ number_format($people,0,",",".") }}</span>

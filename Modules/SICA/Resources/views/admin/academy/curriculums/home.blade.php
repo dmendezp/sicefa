@@ -15,11 +15,12 @@
         <div class="card-body">
             <div class="btns">
             <a href="" class="btn btn-primary "><i class="fas fa-user-plus"></i> Agregar Programa</a>
-            <a href="" class="btn btn-info float-right ml-1"> Lineas</a>    
-            <a href="" class="btn btn-info float-right ml-1"> Redes</a>
+            <a href="{{ route('sica.admin.academy.networks') }}" class="btn btn-info float-right ml-1"> << Redes</a>
+            <a href="{{ route('sica.admin.academy.lines') }}" class="btn btn-info float-right ml-1"> << Lineas</a>    
+            
 
-        </div>
-        <div class="mtop16">
+          </div>
+          <div class="mtop16">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -27,7 +28,6 @@
                     <th>Codigo</th>
                     <th>Tipo</th>
                     <th>Nombre</th>
-                    <th>Linea</th>
                     <th>Red</th>
                     <th>Acciones</th>
                   </tr>
@@ -39,8 +39,7 @@
                     <td>{{ $p->sofia_code }}</td>
                     <td>{{ $p->program_type }}</td>
                     <td>{{ $p->name }}</td>
-                    <td>{{ $p->network_id }}</td>
-                    <td>{{ $p->network_id }}</td>
+                    <td>{{ $p->network->name }}</td>
                     <td>
                     <div class="opts">
                       <a href="{{ url('admin/re/edit/'.$p->id) }}" data-toggle='tooltip' data-placement="top" title="Ver"><i class="fas fa-eye"></i></a>
@@ -54,7 +53,7 @@
 
                 </table>
             </div>
-              </div>
+          </div>
               <!-- /.card-body -->
       </div>
 

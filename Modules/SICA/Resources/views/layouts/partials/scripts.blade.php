@@ -17,6 +17,8 @@
 
 <script src="{{ asset('AdminLTE/plugins/fullcalendar/lib/main.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/fullcalendar/lib/locales-all.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('AdminLTE/plugins/select2/js/select2.full.min.js') }}"></script>
 
 <script type="text/javascript">
 	$(function () {

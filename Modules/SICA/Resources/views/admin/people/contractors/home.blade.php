@@ -6,7 +6,7 @@
 @section('content')
 <div class="content">
   <div class="container-fluid">
-    <div class="row d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
       <div class="card card-orange card-outline shadow col-md-12">
         <div class="card-header">
           <h3 class="card-title">Contratistas</h3>
@@ -14,7 +14,7 @@
         <!-- /.card-header -->
         <div class="card-body">
           <div class="btns">
-            <a href="" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> {{ __('Contractor Add') }}</a>
+            <a href="" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> {{ __('Instructor Add') }}</a>
           </div>
           <div class="mtop16">
             <table id="example1" class="table table-bordered table-striped">
@@ -58,6 +58,9 @@
     </div>
   </div>
 </div>
+
+@endsection
+@section('script')
       <script>
         $(function () {
           $("#example1").DataTable({

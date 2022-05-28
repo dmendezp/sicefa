@@ -32,4 +32,6 @@ class SecurityController extends Controller
         return view('sica::admin.security.users.home',$data);
     }
 
+
+
 }

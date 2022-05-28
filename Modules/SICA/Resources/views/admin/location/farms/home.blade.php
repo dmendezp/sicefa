@@ -29,12 +29,12 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($farms as $f)
+                @foreach($coudepmun as $f)
                 <tr>
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $f->productive_units_id }}</td>
-                  <td>{{ $f->type_environments }}</td>
-                  <td>{{ $f->lengh }} {{ $e->latitude }}</td>
+                  <td>{{ $f->id }}</td>
+                  <td>{{ $f->name }}</td>
+                  <td>{{ $f->cou_dep_mun }}</td>
                   <td>
                     <div class="opts">
 

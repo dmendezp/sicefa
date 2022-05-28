@@ -70,7 +70,7 @@
           </li>
           <li class="nav-item">
             <a href="{{ route('bolmeteor.estacion.graficas') }}" class="nav-link {{ ! Route::is('bolmeteor.estacion.graficas') ?: 'active' }}">
-              <i class="fas fa-users"></i>
+              <i class="fas fa-chart-line"></i>
               <p>
                 {{ __('Gráficas') }}
               </p>

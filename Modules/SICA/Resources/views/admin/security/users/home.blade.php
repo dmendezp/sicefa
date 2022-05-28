@@ -14,7 +14,7 @@
               <!-- /.card-header -->
         <div class="card-body">
             <div class="btns">
-            <a href="" class="btn btn-primary "><i class="fas fa-user-plus"></i> Agregar Usuario</a>
+            <a href="{{ route('sica.admin.security.users.add') }}" class="btn btn-primary "><i class="fas fa-user-plus"></i> Agregar Usuario</a>
 
         </div>
         <div class="mtop16">

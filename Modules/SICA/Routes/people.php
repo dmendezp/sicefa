@@ -8,6 +8,7 @@ Route::middleware(['lang'])->group(function(){
 
     Route::prefix('sica')->group(function() {
 //Personal data
+       Route::get('/admin/people/config', [PeopleController::class, 'config'])->name('sica.admin.people.config');
         Route::get('/admin/people/data', [PeopleController::class, 'personal_data'])->name('sica.admin.people.personal_data');
         Route::post('/admin/people/data/search', [PersonalDataController::class, 'search_personal_data'])->name('sica.admin.people.personal_data.search');
         // Add

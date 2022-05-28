@@ -14,6 +14,7 @@ return [
 	'Dashboard' => 'Dashboard',
 	'People' => 'People',
 	'Personal data' => 'Personal data',
+	'Config' => 'Configuration',
 	'Apprentices' => 'Apprentices',
 	'Search apprentice' => 'Search apprentice',
 	'Instructors' => 'Instructors',

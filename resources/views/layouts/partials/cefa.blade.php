@@ -8,7 +8,7 @@
             <p>Realiza un paseo virtual por el centro de formación conoce las áreas de producción y todos los servicios a tu disposición</p>
           </div>
           <div class="col-lg-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="#">Ir a Cefamaps</a>
+            <a class="cta-btn align-middle" href="{{ url('cefamaps/index') }}">Ir a Cefamaps</a>
           </div>
         </div>
 

@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-cyan elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{ route('cefa.ptoventa.index') }}" class="brand-link">
         <i class="fas fa-shopping-cart"></i> &nbsp
         <span class="brand-text font-weight-light">Punto de venta</span>
     </a>

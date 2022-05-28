@@ -17,7 +17,7 @@ class CreateDetailMovementsTable extends Migration
             $table->id();
             $table->foreignId('movement_id')->constrained()->onDelete('cascade');
             $table->foreignId('inventorie_id')->constrained()->onDelete('cascade');
-            $table->INTEGER('amount');
+            $table->integer('amount');
             $table->integer('worth');
             $table->timestamps();
             $table->softDeletes();

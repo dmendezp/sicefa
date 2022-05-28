@@ -19,18 +19,18 @@ class Person extends Model
     protected $hidden = ['created_at','updated_at'];
     protected $fillable = [
         'document_type',
-        'document',
+        'document_number',
         'date_of_issue',
         'first_name',
         'first_last_name',
         'second_last_name',
-        'birthday',
+        'date_of_birth',
         'blood_type',
         'gender',
         'eps_id',
         'marital_status',
         'military_card',
-        'socioeconomic_status',
+        'socioeconomical_status',
         'address',
         'telephone1',
         'telephone2',
@@ -41,6 +41,21 @@ class Person extends Model
         'avatar',
         'population_group_id'
     ];
+
+    public function getFullNameAttribute(){
+        return $this->first_name.' '.$this->first_last_name.' '.$this->second_last_name;
+    }
+
+    public function getAgeAttribute(){
+        if($this->date_of_birth!=''):
+            $dias = explode("-", $this->date_of_birth, 3);
+            $dias = mktime(0,0,0,$dias[1],$dias[2],$dias[0]);
+            $edad = (int)((time()-$dias)/31556926 );
+            return $edad;
+        else:
+            return "--";
+        endif;
+    }
 
     public function e_p_s(){
         return $this->belongsTo(EPS::class);
