@@ -9,18 +9,16 @@
     <div class="d-flex justify-content-center">
       <div class="card card-orange card-outline shadow col-md-12">
         <div class="card-header">
-              <h3 class="card-title">Curriculums</h3>
+          <h3 class="card-title">Curriculums</h3>
+          <div class="btns">
+              <a href="{{ route('sica.admin.academy.networks') }}" class="btn btn-info float-right ml-1"> << Redes</a>
+              <a href="{{ route('sica.admin.academy.lines') }}" class="btn btn-info float-right ml-1"> << Lineas</a>    
+          </div>
         </div>
               <!-- /.card-header -->
         <div class="card-body">
-            <div class="btns">
-            <a href="" class="btn btn-primary "><i class="fas fa-user-plus"></i> Agregar Programa</a>
-            <a href="{{ route('sica.admin.academy.networks') }}" class="btn btn-info float-right ml-1"> << Redes</a>
-            <a href="{{ route('sica.admin.academy.lines') }}" class="btn btn-info float-right ml-1"> << Lineas</a>    
             
-
-          </div>
-          <div class="mtop16">
+          <div class="">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -29,7 +27,7 @@
                     <th>Tipo</th>
                     <th>Nombre</th>
                     <th>Red</th>
-                    <th>Acciones</th>
+                    <th>Acciones <a href="" class="text-success" data-toggle='tooltip' data-placement="top" title="Agregar"><i class="fas fa-plus-circle"></i></a></th>
                   </tr>
                   </thead>
                   <tbody>
@@ -42,9 +40,9 @@
                     <td>{{ $p->network->name }}</td>
                     <td>
                     <div class="opts">
-                      <a href="{{ url('admin/re/edit/'.$p->id) }}" data-toggle='tooltip' data-placement="top" title="Ver"><i class="fas fa-eye"></i></a>
-                      <a href="{{ url('admin/re/edit/'.$p->id) }}" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-                      <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="{{ $p->id }}" data-path="admin/role" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
+                      <a href="{{ url('admin/re/edit/'.$p->id) }}" class="text-warning" data-toggle='tooltip' data-placement="top" title="Ver"><i class="fas fa-eye"></i></a>
+                      <a href="{{ url('admin/re/edit/'.$p->id) }}" class="text-info" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
+                      <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="{{ $p->id }}" data-path="admin/role" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
                     </div>
                     </td>
                   </tr>

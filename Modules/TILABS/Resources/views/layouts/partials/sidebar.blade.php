@@ -77,6 +77,14 @@
           </li>
           @if(Route::is('tilabs.admin.*'))
           <li class="nav-item">
+            <a href="{{ route('tilabs.admin.dashboard') }}" class="nav-link {{ ! Route::is('tilabs.admin.dashboard') ?: 'active' }}">
+              <i class="fas fa-tachometer-alt"></i>
+              <p>
+                {{ __('Dashboard') }}
+              </p>
+            </a>
+          </li>  
+          <li class="nav-item">
             <a href="{{ route('tilabs.admin.loan') }}" class="nav-link {{ ! Route::is('tilabs.admin.loan') ?: 'active' }}">
               <i class="fas fa-share"></i>
               <p>

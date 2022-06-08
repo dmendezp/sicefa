@@ -19,12 +19,18 @@ class TILABSController extends Controller
     {
         $data = ['title'=>trans('tilabs::menu.Labs')];
         return view('tilabs::index',$data);
+    }    
+
+    public function dashboard()
+    {
+        $data = ['title'=>trans('tilabs::menu.Dashboard')];
+        return view('tilabs::admin.dashboard',$data);
     }
 
     public function loan()
     {
         $data = ['title'=>trans('tilabs::menu.Home')];
-        return view('tilabs::index',$data);
+        return view('tilabs::admin.loan.home',$data);
     }
 
     public function return()

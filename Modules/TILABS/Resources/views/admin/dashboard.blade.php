@@ -13,7 +13,16 @@
           <h1 class="display-4">TI-LABS</h1>
           <p class="lead">Sistema de prestamo de equipos y herramientas para ambientes TIC y Laboratorios.</p>
           <hr class="my-4">
-          <p>Te presentamos algunos registros importantes en TI-LABS:</p>
+          <p><i class="fas fa-dolly-flatbed"></i> Solicitudes traspaso:</p>
+              <a class="btn btn-app">
+                <span class="badge bg-info">0</span>
+                <i class="fas fa-sign-in-alt"></i> Entrada
+              </a>
+              <a class="btn btn-app">
+                <span class="badge bg-info">0</span>
+                <i class="fas fa-sign-out-alt"></i> Salida
+              </a> 
+          <p><i class="fas fa-clipboard-list"></i> Registros:</p>
               <a class="btn btn-app">
                 <span class="badge bg-info">6</span>
                 <i class="fas fa-school"></i> Laboratorios
@@ -24,7 +33,11 @@
               </a>
               <a class="btn btn-app">
                 <span class="badge bg-info">30</span>
-                <i class="fas fa-share"></i> Prom. Prestamos
+                <i class="fas fa-share"></i> Prestamos
+              </a>
+              <a class="btn btn-app">
+                <span class="badge bg-info">2</span>
+                <i class="fas fa-hourglass-end"></i> Vencidos
               </a>
         </div>
            

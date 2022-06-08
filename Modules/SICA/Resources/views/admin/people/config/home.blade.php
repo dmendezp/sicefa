@@ -20,7 +20,7 @@
                       <th>Id</th>
                       <th>Nombre</th>
                       <th>Descripción</th>
-                      <th><a href="" class=""><i class="far fa-plus-square"></i></a></th>
+                      <th><a href="" class="text-success" class="text-success" data-toggle='tooltip' data-placement="top" title="Agregar"><i class="fas fa-plus-circle"></i></a></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -31,8 +31,8 @@
                       <td></td>
                       <td>
                         <div class="opts">
-                          <a href="" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-                          <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="far fa-trash-alt"></i></a>
+                          <a href="" class="text-info"  data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
+                          <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="far fa-trash-alt"></i></a>
                         </div>
                       </td>
                     </tr>
@@ -56,7 +56,7 @@
                       <th>Id</th>
                       <th>Nombre</th>
                       <th>Descripción</th>
-                      <th><a href="" class=""><i class="far fa-plus-square"></i></a></th>
+                      <th><a href="" class="text-success" data-toggle='tooltip' data-placement="top" title="Agregar"><i class="fas fa-plus-circle"></i></a></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -67,8 +67,8 @@
                       <td></td>
                       <td>
                         <div class="opts">
-                          <a href="" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-                          <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="far fa-trash-alt"></i></a>
+                          <a href="" class="text-info" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
+                          <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="far fa-trash-alt"></i></a>
                         </div>
                       </td>
                     </tr>
@@ -92,7 +92,7 @@
                       <th>Id</th>
                       <th>Nombre</th>
                       <th>Descripción</th>
-                      <th><a href="" class=""><i class="far fa-plus-square"></i></a></th>
+                      <th><a href="" class="text-success" data-toggle='tooltip' data-placement="top" title="Agregar"><i class="fas fa-plus-circle"></i></a></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -103,8 +103,8 @@
                       <td></td>
                       <td>
                         <div class="opts">
-                          <a href="" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-                          <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="far fa-trash-alt"></i></a>
+                          <a href="" class="text-info" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
+                          <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="far fa-trash-alt"></i></a>
                         </div>
                       </td>
                     </tr>
@@ -128,7 +128,7 @@
                       <th>Id</th>
                       <th>Nombre</th>
                       <th>Descripción</th>
-                      <th><a href="" class=""><i class="far fa-plus-square"></i></a></th>
+                      <th><a href="" class="text-success" data-toggle='tooltip' data-placement="top" title="Agregar"><i class="fas fa-plus-circle"></i></a></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -139,8 +139,8 @@
                       <td></td>
                       <td>
                         <div class="opts">
-                          <a href="" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-                          <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
+                          <a href="" class="text-info" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
+                          <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
                         </div>
                       </td>
                     </tr>
@@ -164,7 +164,7 @@
                       <th>Id</th>
                       <th>Nombre</th>
                       <th>Descripción</th>
-                      <th><a href="" class=""><i class="far fa-plus-square"></i></a></th>
+                      <th><a href="" class="text-success" data-toggle='tooltip' data-placement="top" title="Agregar"><i class="fas fa-plus-circle"></i></a></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -175,8 +175,8 @@
                       <td></td>
                       <td>
                         <div class="opts">
-                          <a href="" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-                          <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
+                          <a href="" class="text-info" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
+                          <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
                         </div>
                       </td>
                     </tr>
@@ -200,7 +200,7 @@
                       <th>Id</th>
                       <th>Nombre</th>
                       <th>Descripción</th>
-                      <th><a href="" class=""><i class="far fa-plus-square"></i></a></th>
+                      <th><a href="" class="text-success" data-toggle='tooltip' data-placement="top" title="Agregar"><i class="fas fa-plus-circle"></i></a></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -211,8 +211,8 @@
                       <td></td>
                       <td>
                         <div class="opts">
-                          <a href="" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-                          <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
+                          <a href="" class="text-info" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
+                          <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
                         </div>
                       </td>
                     </tr>
@@ -236,7 +236,7 @@
                       <th>Id</th>
                       <th>Nombre</th>
                       <th>Descripción</th>
-                      <th><a href="" class=""><i class="far fa-plus-square"></i></a></th>
+                      <th><a href="" class="text-success" data-toggle='tooltip' data-placement="top" title="Agregar"><i class="fas fa-plus-circle"></i></a></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -247,8 +247,8 @@
                       <td></td>
                       <td>
                         <div class="opts">
-                          <a href="" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-                          <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
+                          <a href="" class="text-info" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
+                          <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
                         </div>
                       </td>
                     </tr>

@@ -20,6 +20,8 @@
 <!-- Select2 -->
 <script src="{{ asset('AdminLTE/plugins/select2/js/select2.full.min.js') }}"></script>
 
+<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+
 <script type="text/javascript">
 	$(function () {
   		$('[data-toggle="tooltip"]').tooltip()

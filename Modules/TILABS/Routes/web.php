@@ -11,7 +11,7 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/developers', 'TILABSController@developers')->name('cefa.tilabs.developers');
         
         Route::prefix('admin')->group(function() {
-            Route::get('/index', 'TILABSController@index')->name('tilabs.admin.index');
+            Route::get('/dashboard', 'TILABSController@dashboard')->name('tilabs.admin.dashboard');
             Route::get('/loan', 'TILABSController@loan')->name('tilabs.admin.loan');
             Route::get('/return', 'TILABSController@return')->name('tilabs.admin.return');
             Route::get('/transactions', 'TILABSController@transactions')->name('tilabs.admin.transactions');

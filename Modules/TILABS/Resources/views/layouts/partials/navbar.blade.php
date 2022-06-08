@@ -10,7 +10,7 @@
 @guest
 @else
       <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*admin.*') ?: 'active' }}">
-        <a href="{{ route('tilabs.admin.index') }}" class="nav-link">{{ trans('tilabs::menu.Administrator') }}</a>
+        <a href="{{ route('tilabs.admin.dashboard') }}" class="nav-link">{{ trans('tilabs::menu.Administrator') }}</a>
       </li>
 @endguest
 
