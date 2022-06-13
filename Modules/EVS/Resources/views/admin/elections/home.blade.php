@@ -49,6 +49,8 @@
                         
 		                  <a href="{{ url('evs/admin/election/edit/'.$e->id) }}" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
 
+                      <a href="{{ url('evs/admin/election/delete/'.$e->id) }}" data-toggle='tooltip' data-placement="top" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
+
                       <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="{{ $e->id }}" data-path="evs/admin/election" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
 
 		                </div>

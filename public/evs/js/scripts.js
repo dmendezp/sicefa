@@ -12,7 +12,7 @@ $(document).ready(function(){
 			icon = 'warning';
 		}
 		if(action=='restore'){
-			title = 'Quires restaurar este elemento?';
+			title = 'Quieres restaurar este elemento?';
 			text ='Esta acción restaurará el elemento y estará activo en la base de datos !';
 			icon = 'info';
 		}
