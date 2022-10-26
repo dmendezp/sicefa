@@ -209,7 +209,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 
-## REDIO CEFA 📻
+## RADIO CEFA 📻
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
