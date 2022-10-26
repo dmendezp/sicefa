@@ -14,9 +14,9 @@ Es un encuentro entre los miembros del equipo en el que cada uno inspecciona el 
 
 ## Que debe contener 🚀
 
-_Cada proyecto debe editar este documento e incluir por cada sprint 
-*    1- En el Sprint Planning las actividades que va a realizar cada integrante del Team
-*    2- En cada Meet, las actividades realizadas, el porcentaje de avance de sus responsabilidades, que dificultades presenta y que acciones se van a tomar para continuar._
+_Cada proyecto debe editar este documento e incluir por cada Sprint._
+*  1- En el Sprint Planning las actividades que va a realizar cada integrante del Team
+*  2- En cada Meet, las actividades realizadas, el porcentaje de avance de sus responsabilidades, que dificultades presenta y que acciones se van a tomar para continuar.
 
 <!-- Mira **Deployment** para conocer como desplegar el proyecto. -->
 
@@ -26,7 +26,7 @@ _Cada proyecto debe editar este documento e incluir por cada sprint
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
 * **Integrante 1** - *Actividades a realizar* 
-* **Integrante 1** - *Actividades a realizar*
+* **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -50,7 +50,7 @@ _Cada proyecto debe editar este documento e incluir por cada sprint
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
 * **Integrante 1** - *Actividades a realizar* 
-* **Integrante 1** - *Actividades a realizar*
+* **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -74,7 +74,7 @@ _Cada proyecto debe editar este documento e incluir por cada sprint
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
 * **Integrante 1** - *Actividades a realizar* 
-* **Integrante 1** - *Actividades a realizar*
+* **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -98,7 +98,7 @@ _Cada proyecto debe editar este documento e incluir por cada sprint
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
 * **Integrante 1** - *Actividades a realizar* 
-* **Integrante 1** - *Actividades a realizar*
+* **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -122,7 +122,7 @@ _Cada proyecto debe editar este documento e incluir por cada sprint
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
 * **Integrante 1** - *Actividades a realizar* 
-* **Integrante 1** - *Actividades a realizar*
+* **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -146,7 +146,7 @@ _Cada proyecto debe editar este documento e incluir por cada sprint
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
 * **Integrante 1** - *Actividades a realizar* 
-* **Integrante 1** - *Actividades a realizar*
+* **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -170,7 +170,7 @@ _Cada proyecto debe editar este documento e incluir por cada sprint
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
 * **Integrante 1** - *Actividades a realizar* 
-* **Integrante 1** - *Actividades a realizar*
+* **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -194,7 +194,7 @@ _Cada proyecto debe editar este documento e incluir por cada sprint
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
 * **Integrante 1** - *Actividades a realizar* 
-* **Integrante 1** - *Actividades a realizar*
+* **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -218,7 +218,7 @@ _Cada proyecto debe editar este documento e incluir por cada sprint
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
 * **Integrante 1** - *Actividades a realizar* 
-* **Integrante 1** - *Actividades a realizar*
+* **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
