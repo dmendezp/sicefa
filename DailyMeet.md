@@ -44,6 +44,10 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
+#### Meet 07-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
 
 ## PUNTO DE VENTA 🛒
 
@@ -65,6 +69,10 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
@@ -92,6 +100,10 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
+#### Meet 07-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
 
 ## SIS 🛒
 
@@ -113,6 +125,10 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
@@ -140,6 +156,10 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
+#### Meet 07-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
 
 ## SENA EMPRESA 🏙
 
@@ -161,6 +181,10 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
@@ -188,6 +212,10 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
+#### Meet 07-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
 
 ## REDIO CEFA 📻
 
@@ -209,6 +237,10 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
@@ -236,7 +268,10 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
-
+#### Meet 07-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
 
 
 ADSI 2397491
