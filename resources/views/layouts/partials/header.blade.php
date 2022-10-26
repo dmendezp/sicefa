@@ -21,7 +21,7 @@
                 <ul>
                   <li><a href="#">Cambiar contraseña</a></li>
                   <li>
-                    
+
                 <a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">Salir</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -29,12 +29,15 @@
                 </form>
 
                   </li>
-                </ul>              
+                </ul>
               @else
                   <a href="{{ route('login') }}">Log in</a>
-              @endauth            
+
+
 
           </li>
+          <li><a href="{{ route('register') }}">Register</a></li>
+          @endauth
                 <!-- languaje Dropdown Menu-->
           <li class="dropdown">
             <a class="nav-link scrollto" data-toggle="dropdown" href="#">

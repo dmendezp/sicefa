@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 
 
 Route::middleware(['lang'])->group(function(){
 
-    //Auth::routes();
-    Auth::routes(["register" => false]);
+    Auth::routes();
+    //Auth::routes(["register" => false]);
 
     Route::get('lang/{lang}', function($lang) {
         session(['lang'=>$lang]);
@@ -22,5 +23,5 @@ Route::middleware(['lang'])->group(function(){
      \UniSharp\LaravelFilemanager\Lfm::routes();
  });
 
-}); 
+});
 

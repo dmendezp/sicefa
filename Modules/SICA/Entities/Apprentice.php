@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Course;
+use Modules\SENAEMPRESA\Entities\Asistencia;
 
 class Apprentice extends Model
 {
@@ -21,5 +22,17 @@ class Apprentice extends Model
 
     public function course(){
         return $this->belongsTo(Course::class);
+    }
+
+    public function asistencias(){
+        return $this->belongsToMany(Asistencia::class);
+    }
+
+    public function getCursoyProgramaNameAttribute(){
+        return $this->Course->Program->name.' - '.$this->Course->code;
+    }
+
+    public function getCodeCursoAttribute(){
+        return $this->course->code;
     }
 }

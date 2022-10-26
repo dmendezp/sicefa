@@ -49,7 +49,7 @@ class PersonalDataController extends Controller
 
 
     public function getAddData($doc){
-
+        //return $doc;
         $eps = Eps::pluck('name','id');
         $population_groups = PopulationGroup::pluck('name', 'id');
         $title = trans('sica::menu.Personal data Add');

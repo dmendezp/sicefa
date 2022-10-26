@@ -80,6 +80,7 @@
                                 $people->document_type,['class' => 'form-control'
                                 ,'placeholder' => 'Seleccione...']) !!}
                             </div>
+                            
                         </div>
                         <div class="col-sm-3">
 

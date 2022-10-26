@@ -1,6 +1,6 @@
 <?php
-use Illuminate\Support\Facades\Route;
-use Modules\SICA\Http\Controllers\SICAController;
+//use Illuminate\Support\Facades\Route;
+//use Modules\SICA\Http\Controllers\SICAController;
 
 Route::middleware(['lang'])->group(function(){
 
