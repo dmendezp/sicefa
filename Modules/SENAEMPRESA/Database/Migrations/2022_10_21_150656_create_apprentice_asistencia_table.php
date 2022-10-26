@@ -17,6 +17,7 @@ class CreateApprenticeAsistenciaTable extends Migration
             $table->id();
             $table->foreignId('apprentice_id')->constrained()->onDelete('cascade');
             $table->foreignId('asistencia_id')->constrained()->onDelete('cascade');
+            $table->enum('asistencia',['si','no'])->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

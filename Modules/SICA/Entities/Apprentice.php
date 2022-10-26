@@ -25,7 +25,7 @@ class Apprentice extends Model
     }
 
     public function asistencias(){
-        return $this->belongsToMany(Asistencia::class);
+        return $this->belongsToMany(Asistencia::class)->withTimestamps();
     }
 
     public function getCursoyProgramaNameAttribute(){

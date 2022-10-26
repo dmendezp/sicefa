@@ -113,7 +113,7 @@ $(document).on("change","#course_id", function(){  //change se utiliza para sabe
          });
          $.ajax({
            method: "get",
-           url: 'http://cisefa.test/sicefa/public/senaempresa/TurnoRutinario/buscarLista/'+$(this).val(),
+           url: '{{url("")}}/senaempresa/TurnoRutinario/buscarLista/'+$(this).val(),
            data: {}
          })
          .done(function(html){

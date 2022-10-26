@@ -1,7 +1,7 @@
 
 
     
-    <table class="table" id="myTable">
+<table class="table" id="myTable">
         <thead class="bg-primary">
             <tr>
                 <th>Nombre</th>
@@ -21,13 +21,17 @@
                 <td>2</td>
             </tr>
         </tbody>
+         
+        @if(isset($asistente->asistencias))
+
+        {{$asistente->asistencias}}
+
+        @endif
+      
         @endforeach
     </table>
-
-   
+    
         
-    
-    
         
          <script>
             $(function () {

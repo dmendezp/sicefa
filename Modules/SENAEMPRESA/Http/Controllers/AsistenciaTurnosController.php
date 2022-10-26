@@ -29,15 +29,15 @@ class AsistenciaTurnosController extends Controller
     public function buscarLista($id){
 
         //return $id;
-        //$asistencias1 = Asistencia::get();
+        $asistencias1 = Asistencia::get();
         $asistencias = Apprentice::where('course_id',$id)->get();
-        //$asistencias = Asistencia::where('Apprentice.course_id',$id)->get();
+        //$asistencias = Asistencia::where('',$id)->get();
         
-        
+        //$asistencias->asistencias;
 
-        //$data = ['asistencia'=>$asistencias,'asistencia1'=>$asistencias1];
-        $data = ['asistencia'=>$asistencias];
-       
+        $data = ['asistencia'=>$asistencias,'asistencia1'=>$asistencias1];
+        //$data = ['asistencia'=>$asistencias];
+        
         return view('senaempresa::Asistencia.fecha', $data);
     
         
@@ -110,6 +110,7 @@ public function postAsignarTurno(Request $request){
     $asistencia = Asistencia::create($asistencia); 
 
     $asistencia->apprentices()->sync($request->input('aprendices',[]));
+    return redirect()->route('turnosRutinarios');
 
     
 }

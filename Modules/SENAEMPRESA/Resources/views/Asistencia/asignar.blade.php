@@ -22,7 +22,7 @@
 
 </form>
 
-    
+
 
     @foreach($aprendices as $a)
     {{$a->id}}
