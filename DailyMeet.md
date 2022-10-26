@@ -14,7 +14,9 @@ Es un encuentro entre los miembros del equipo en el que cada uno inspecciona el 
 
 ## Que debe contener 🚀
 
-_Debe incluir que realiza cada integrante del Team, que porcentaje de avance tiene, que dificultades presenta y que acciones se van a tomar para continuar._
+_Cada proyecto debe editar este documento e incluir por cada sprint 
+    1- En el Sprint Planning las actividades que va a realizar cada integrante del Team
+    2- En cada Meet, las actividades realizadas, el porcentaje de avance de sus responsabilidades, que dificultades presenta y que acciones se van a tomar para continuar._
 
 <!-- Mira **Deployment** para conocer como desplegar el proyecto. -->
 
