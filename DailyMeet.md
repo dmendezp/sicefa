@@ -17,15 +17,15 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
+* **Diego Tovar** - *Actividades a realizar:* *Descargar e instalar git*, *Clonar sicefa*, *crear rama de trabajo*, *commit*, *push* 
+* **Jesús Guevara** -*Actividades a realizar:* *Descargar e instalar git*, *Clonar sicefa*, *crear rama de trabajo*, *pull*
 ...
 #### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 1** - *Actividades realizadas:* *Descargar e instalar git*, *Clonar sicefa*, *crear rama de trabajo*, *commit*, *push*  - *50 %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas:* - *50 %* - *Dificultades* - *Acciones*
 ---
 #### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 1** - *Actividades realizadas:* *Descargar e instalar git*, *Clonar sicefa*, *crear rama de trabajo*, *pull* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 02-Nov-2022
