@@ -89,8 +89,11 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Santiago Hernandez** - *Implementacion de roles* - *Avance %* - *Dificultades* - *Acciones*
+* **Juan Felipe Duque ** - *crear controlador para definir la vista* - *Avance %* - *Dificultades* - *Acciones*
+* **Anggy Lorena Cortes** - *Agregar vista de usuarios al sidevar* - *Avance %* - *Dificultades* - *Acciones*
+* **Karen Dallana Murcia** - *Implementacion de datatable a la tabla de usuario* - *Avance %* - *Dificultades* - *Acciones*
+
 ---
 #### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
