@@ -84,7 +84,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "app_id" => $app->id
             ]);
         }
-        //crear rol administrador
+        //crear rol coordinador
         $rolcoordinador = Role::where('slug','sica.coordinador')->first();
         if(!$rolcoordinador){
             $rolcoordinador = Role::create([
@@ -97,9 +97,9 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         // asigno el rol de admin al usuario superadmin y admin
-        $usersuperadmin->roles()->sync([$roladmin->id]);
-        $useradmin->roles()->sync([$roladmin->id]);
-        $usercoordinador->roles()->sync([$rolcoordinador->id]);
+        $usersuperadmin->roles()->syncWithoutDetaching([$roladmin->id]);
+        $useradmin->roles()->syncWithoutDetaching([$roladmin->id]);
+        $usercoordinador->roles()->syncWithoutDetaching([$rolcoordinador->id]);
         // lista de permisos para asignar al rol superadmin y admin
         $permission_admin = [];
         $permission_coordinador = [];
@@ -212,8 +212,8 @@ class SeedPermissionsTableSeeder extends Seeder
 
 
         // se asignan los permisos a los roles
-        $roladmin->permissions()->sync($permission_admin);
-        $rolcoordinador->permissions()->sync($permission_coordinador);
+        $roladmin->permissions()-> syncWithoutDetaching($permission_admin);
+        $rolcoordinador->permissions()->syncWithoutDetaching($permission_coordinador);
 
     }
 }
