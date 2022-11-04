@@ -17,11 +17,11 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
-* **Integrante Ana Maria** - *Actividades a realizar* 
+* **Integrante 1** - *Actividades a realizar*
 * **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
-* **Ana Maria** - *Crear tablas para las coordenadas* - *2 %* - *ya que no eh podido crear la base de datos* - *Acciones*
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 31-Oct-2022
