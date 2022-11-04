@@ -17,8 +17,9 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
+* **Ana Maria Falla Molina** - *Configuracion del proyecto* 
+* **Kevin Sneyder Daza** - *Actividades a realizar*
+* **Neythan Sabogal Gaitan** - *Listar Ambientes*
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -33,8 +34,9 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Ana Maria Falla Molina** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Kevin Sneyder Daza** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Neythan Sabogal Gaitan** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
