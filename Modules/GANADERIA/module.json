@@ -1,0 +1,13 @@
+{
+    "name": "GANADERIA",
+    "alias": "ganaderia",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\GANADERIA\\Providers\\GANADERIAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
