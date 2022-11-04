@@ -31,7 +31,7 @@
                         <i class="far fa-keyboard"></i>
                       </span>
                     </div>
-                    {!! Form::text('document',null, ['class'=>'form-control']) !!}
+                    {!! Form::text('document_number',null, ['class'=>'form-control']) !!}
                   </div>
                   <label class="mtop16" for="name">Contraseña:</label>
                   <div class="input-group">

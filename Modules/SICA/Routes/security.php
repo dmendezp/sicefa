@@ -10,6 +10,8 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/admin/security/apps', [SecurityController::class, 'apps'])->name('sica.admin.security.apps');
 
         Route::get('/admin/security/roles', [SecurityController::class, 'roles'])->name('sica.admin.security.roles');
+        Route::get('/admin/security/permissions', [SecurityController::class, 'permissions'])->name('sica.admin.security.permissions');
+        Route::get('/admin/security/responsibilities', [SecurityController::class, 'responsibilities'])->name('sica.admin.security.responsibilities');
 
         Route::get('/admin/security/users', [SecurityController::class, 'users'])->name('sica.admin.security.users');
         Route::get('/admin/security/user/add', [UserController::class, 'getUserAdd'])->name('sica.admin.security.users.add');

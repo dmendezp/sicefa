@@ -14,6 +14,7 @@ return [
 	'Dashboard' => 'Panel de control',
 	'People' => 'Personas',
 	'Personal data' => 'Datos Personales',
+	'Personal data Add' => 'Agregar persona',
 	'Config' => 'Configuración',
 	'Apprentices' => 'Aprendices',
 	'Search apprentice' => 'Consultar aprendices',

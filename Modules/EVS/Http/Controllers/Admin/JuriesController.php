@@ -42,7 +42,7 @@ class JuriesController extends Controller
             return redirect('evs/admin/juries/add/'.$id)->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
         else:
             $election = Election::findOrFail($id);
-            $person = Person::where('document', $request->input('search'))->first();
+            $person = Person::where('document_number', $request->input('search'))->first();
             $data = ['person' => $person, 'election' => $election];
             return view('evs::admin.juries.add',$data);
         endif;
@@ -116,13 +116,13 @@ class JuriesController extends Controller
     
 
     public function access(Request $request){
-        $document = $request->input('document');
+        $document_number = $request->input('document_number');
         $rules = [
-            'document' => 'required',
+            'document_number' => 'required',
             'password' => 'required',
         ];
         $messages = [
-            'document.required' => 'Se requiere el numero de documento.',
+            'document_number.required' => 'Se requiere el numero de documento.',
             'password.required' => 'Se requiere la contraseña.',
         ];
 
@@ -130,7 +130,7 @@ class JuriesController extends Controller
         if($validator->fails()):
             return back()->withErrors($validator)->with('message', 'Se ha producido un error')->with('typealert', 'danger');
         else:
-            $person = Person::with('juries')->with(['juries.election'=>function($query){$query->where('status','Activo');}])->where('document',$document)->first();
+            $person = Person::with('juries')->with(['juries.election'=>function($query){$query->where('status','Activo');}])->where('document_number',$document_number)->first();
             if(isset($person->juries[0]['password'])):
                 if($person->juries[0]['password']==md5($request->input('password'))):
                     session(['jury_id' => $person->juries[0]['id']]);
@@ -151,16 +151,16 @@ class JuriesController extends Controller
 
         if(session()->has('jury_id')):
             $jury = Jury::findOrFail(session('jury_id'))->with('person')->first();
-            $document = $jury->person->document;
+            $document_number = $jury->person->document_number;
 
-            $person = Person::with('juries')->with(['juries.election'=>function($query){$query->where('status','Activo');}])->where('document',$document)->first();
+            $person = Person::with('juries')->with(['juries.election'=>function($query){$query->where('status','Activo');}])->where('document_number',$document_number)->first();
             return view('evs::jurados.authorized',['person'=>$person]);
         endif; 
     }
 
     public function search(){
         parse_str($_POST['data'], $data);
-        $person = Person::where('document',$data['document_v'])->first();
+        $person = Person::where('document_number',$data['document_v'])->first();
         if($person):
             return view('evs::jurados.search',['person'=>$person]);
         else:
@@ -174,7 +174,7 @@ class JuriesController extends Controller
         $data = json_decode($_POST['data']);
         //print_r($data);
         //return false;
-        $person = Person::where('document',$data->document_v)->first();
+        $person = Person::where('document_number',$data->document_v)->first();
         //return $data->code;
         if($person):
             try{
