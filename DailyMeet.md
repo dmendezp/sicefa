@@ -90,7 +90,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ---
 #### Meet 04-Nov-2022
 * **Santiago Hernandez** - *Implementacion de roles* - *Avance %* - *Dificultades* - *Acciones*
-* **Juan Felipe Duque ** - *crear controlador para definir la vista* - *Avance %* - *Dificultades* - *Acciones*
+* **Juan Felipe Duque** - *crear controlador para definir la vista* - *Avance %* - *Dificultades* - *Acciones*
 * **Anggy Lorena Cortes** - *Agregar vista de usuarios al sidevar* - *Avance %* - *Dificultades* - *Acciones*
 * **Karen Dallana Murcia** - *Implementacion de datatable a la tabla de usuario* - *Avance %* - *Dificultades* - *Acciones*
 
