@@ -1,0 +1,13 @@
+{
+    "name": "RADIOCEFA",
+    "alias": "radiocefa",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\RADIOCEFA\\Providers\\RADIOCEFAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
