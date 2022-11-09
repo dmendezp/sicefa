@@ -213,28 +213,68 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
+* **Integrante 1** - *Actividades a realizar: Crear carpeta proyecto, Clonar Sicefa Rama-Proyecto, Asociar usuario damendezp, Commit,Push, Merge, Pull* 
+
 ...
 #### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 1** - *Actividades realizadas: Crear carpeta proyecto, Clonar Sicefa Rama-Proyecto,* - *Avance 38%* - *Dificultades: Dificultar al asocuar al usuario "damendezp" al repositorio para crear los commits dentro de SICEFA en github* - *Acciones: Clonar nuevamente el repositorio desde el aplicativo github*
+
 ---
 #### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 1** - *Actividades realizadas: clonar repositorio desde git* - *Avance 13%* - *Dificultades:* - *Acciones:*
+
 ---
 #### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
+* **Integrante 1** - *Actividades realizadas:Commit,Push, Merge, Pull* - *Avance 50%* - *Dificultades* - *Acciones: Se realizaron cambios en el proyecto tales como las vistas para poder subir el primer commit*
+* 
+
+### Sprint 2 🔄
+#### Sprint Planning 09-Nov-2022
+* **Integrante 1** - *Actividades a realizar: Clonar o Crear proyecto Laravel, Crear Modulo (SICEFA), Creacion del Layout (definir estilos, colores y maqueta general), subir las migraciones y corregir las tablas que crean conflicto, Definir usuarios, Roles, Permisos, Responsabilidades., Crear Modelo Relacional, Definir Estilos y paleta de colores, Agregar Librerias y herramientas al proyecto, Definir Rutas de acuerdo al Estandar de Laravel y SICEFA.*
+
+...
 #### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 1** - *Actividades realizadas:Crear Modulo Radiocefa, * - *Avance 22%* - *Dificultades:Crear modulo en el repositorio sicefa de damendezp * - *Acciones:Se creo el modulo "RADIOCEFA" desde la terminal*
+
 ---
 #### Meet 07-Nov-2022
+* **Integrante 1** - *Actividades realizadas:Creacion del Layout (definir estilos, colores y maqueta general), subir las migraciones y corregir las tablas que crean conflicto,Definir Estilos y paleta de colores, * - *Avance 33%* - *Dificultades: Las tablas de migraciones del modulo "SICA", entraban en conflicto y no permitian realizar las migraciones del modulo "RADIOCEFA" * - *Acciones: Verificar las tablas y migraciones e ir corrigiendo las que causan conflicto*
+
+---
+
+#### Meet 09-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+---
+
+#### Meet 11-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+---
+
+#### Meet 14-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+---
+
+#### Meet 16-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+---
+
+#### Meet 18-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+---
+
+#### Meet 21-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+---
+
+#### Meet 23-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
 ---
 
 ## BURGUER WEB 🍔
