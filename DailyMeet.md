@@ -98,9 +98,10 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ---
 #### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
+* **Santiago Hernandez** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Juan Felipe Duque** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Anggy Lorena Cortes** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Karen Dallana Murcia** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 
 ## SIS 🛒
 
