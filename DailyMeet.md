@@ -166,19 +166,19 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Jesús Guevara** -*Actividades a realizar:* 
 ...
 #### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas:* 
+* **Diego Tovar** - *Actividades realizadas:* 
 *Crear migraciones de asistencia y tabla pivote "apprentice_asistencia"*, 
 *Definir relación entre el modelo Apprentice y Asistencia*,
 *Crear controlador de AsistenciaTurnosController*,
 *Hacer vista principal para asignar turno*  - *Avance: 45 %* - *No se encuentran dificultades* - *Realizar las sigientes actividades*
-* **Integrante 2** - *Actividades realizadas:* - *45 %* - *Dificultades* - *Acciones*   
+* **Jesus Guevara** - *Actividades realizadas:* - *45 %* - *Dificultades* - *Acciones*   
 ---
 #### Meet 31-Oct-2022
 * **Diego Tovar** - *Actividades realizadas:* *Select con programas y código de los técnicos y técnologos vista Turnos Rutinarios*
 *Agregar modal en la vista home para agregar turnos rutinarios*
 *Filtrar aprendices por el id del curso método buscarLista controlador *
  - *Avance 65%* - *Dificultades: * *Trabajo de diseño con select2 dentro del modal*, *Trabajo con eloquent laravel* - *Documentarse sobre el manejo de las relaciones con eloquent*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Jesus Guevara** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 02-Nov-2022
 * **Diego Tovar** - *Actividades realizadas: * *Definir una fecha para el turno y obtener el get para crear asistencia*
@@ -186,7 +186,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 *Definir ruta para el  ajax*
 *Método postAsignarTurno los aprendices del curso con la relación de la asistencia a la tabla pivote*
 *definir ruta para el post/get de los datos* - *Avance 81%* - *Siguen las dificultades con eloquent y estilos* - *Investigar nuevos métodos de aplicación*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Jesus Guevara** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
 * **Diego Tovar** - *Actividades realizadas:*
