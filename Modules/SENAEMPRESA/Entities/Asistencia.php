@@ -14,7 +14,7 @@ class Asistencia extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
-    protected $fillable = ['date'];
+    protected $fillable = ['date','guardado'];
     
     protected static function newFactory()
     {
@@ -22,7 +22,7 @@ class Asistencia extends Model
     }
 
     public function apprentices(){
-        return $this->belongsToMany(Apprentice::class)->withTimestamps();
+        return $this->belongsToMany(Apprentice::class)->withTimestamps()->withPivot('asistencia');
     }
     
     public function getasistenciasNombreCursoAttribute(){

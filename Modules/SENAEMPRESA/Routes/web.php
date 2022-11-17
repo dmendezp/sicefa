@@ -21,7 +21,8 @@
         Route::get('TurnoRutinario/buscarLista/{id}', 'AsistenciaTurnosController@buscarLista')->name('buscarLista');
         Route::get('TurnoRutinario/Guardar/{id}', 'AsistenciaTurnosController@getAsignarTurno')->name('adicionarTurno');
         Route::get('TurnoRutinario/Guardado/', 'AsistenciaTurnosController@postAsignarTurno')->name('guardarTurno');
-        
+        Route::get('ListaTurnos', 'AsistenciaTurnosController@listaTurnos')->name('listaTurnos');
+        Route::post('/updateTurno', 'AsistenciaTurnosController@updateTurno')->name('updateTurno');
         //Route::resource('turnos', 'AsistenciaTurnosController');
         //Route::resource('reports', 'ProductController')
         

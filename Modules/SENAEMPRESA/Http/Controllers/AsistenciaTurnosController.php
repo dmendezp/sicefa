@@ -21,8 +21,15 @@ class AsistenciaTurnosController extends Controller
      */
     public function index()
     {
+
+        //$asistencias = Asistencia::get();
+        
         $courses = Course::orderBy('code','desc')->get();
-        return view('senaempresa::Asistencia.home', compact('courses'));
+        $data = ['courses'=>$courses ];
+       
+        return view('senaempresa::Asistencia.home', $data);
+
+        
     }
 
 
@@ -33,7 +40,7 @@ class AsistenciaTurnosController extends Controller
         $asistencias = Apprentice::where('course_id',$id)->get();
         //$asistencias = Asistencia::where('',$id)->get();
         
-        //$asistencias->asistencias;
+        //$asistencias->asistencias->syncWithoutDetaching(['asistencia' => 'otro']);
 
         $data = ['asistencia'=>$asistencias,'asistencia1'=>$asistencias1];
         //$data = ['asistencia'=>$asistencias];
@@ -42,6 +49,12 @@ class AsistenciaTurnosController extends Controller
     
         
         
+    }
+
+    public function listaTurnos(){
+
+        $asistencias = Asistencia::orderBy('id','asc')->get();
+        return view('senaempresa::Asistencia.listaTurnos', compact('asistencias'));
     }
 
     /////{{--
@@ -63,7 +76,7 @@ class AsistenciaTurnosController extends Controller
 
         //return $asistencias;
         //$aprendices = Apprentice::where('course_id',$id)->orderBy('id','asc')->pluck('id');
-        $aprendices = Apprentice::where('course_id',$id)->get();
+        $aprendices = Apprentice::where('course_id',$id)->get() ;
         
         //return $aprendices;
         //$asistencias = Asistencia::where('$this->Apprentice->course_id',$id)->get();
@@ -107,12 +120,14 @@ public function postAsignarTurno(Request $request){
     //return $apprentice; 
     $request->validate(['date'=>'required']);
     $asistencia = $request->all();
+    
     $asistencia = Asistencia::create($asistencia); 
 
-    $asistencia->apprentices()->sync($request->input('aprendices',[]));
+    //$asistencia->apprentices()->sync($request->input('aprendices',[]));
+    $asistencia->apprentices()->syncWithoutDetaching($request->input('aprendices',[]));
     return redirect()->route('turnosRutinarios');
 
-    
+
 }
 
     
@@ -134,25 +149,21 @@ public function postAsignarTurno(Request $request){
         return view('senaempresa::show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+   
+    public function updateTurno(Request $request)
     {
-        return view('senaempresa::edit');
-    }
+        //return $asistencia;
+        $request->validate(['date'=>'required', 'id'=>'required']);
+        $asistencia = $request->all();
+        $resultado = Asistencia::findOrFail($request->input('id'));
+        $resultado->date = ($request->input('date'));
+        $resultado->save();
+        
+        //return $resultado;
+        return redirect(route('listaTurnos'))->with('success', 'Fecha actualizada.');;
+        
+       
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
