@@ -1,19 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Module CPD</title>
-
-       {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/cpd.css') }}"> --}}
-
+        @include('cpd::layouts.partials.head')
     </head>
-    <body>
-        @yield('content')
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+            <!-- Navbar -->
+            @include('cpd::layouts.partials.navbar')
+            <!-- /.navbar -->
 
-        {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/cpd.js') }}"></script> --}}
+            <!-- Main Sidebar Container -->
+            @include('cpd::layouts.partials.sidebar')
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12" id="breadvar">
+                                <ol class="breadcrumb float-sm-right text-white">
+
+                                    <li class="breadcrumb-item">
+                                        <a href="">
+                                            <i class="fas fa-seedling"></i>
+                                            <b>CPD</b>
+                                        </a>
+                                    </li>
+
+                                    @section('breadcrumb') @show
+                                </ol>
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                </div>
+                @if(Session::has('message'))
+                    <div class="container-fluid">
+                        <div class="mtop16 alert alert-{{ Session::get('typealert') }}" style="display: block; margin-bottom: 16px;">
+                            {{ Session::get('message') }}
+                            @if ($errors->any())
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                            <script>
+                                $('.alert').slideDown();
+                                setTimeout(function(){$('.alert').slideUp();}, 10000);
+                            </script>
+                        </div>
+                    </div>
+                @endif
+                <!-- /.content-header -->
+
+                <!-- Main content -->
+                @section('content')@show
+                <!-- /.content -->
+
+            </div>
+            <!-- /.content-wrapper -->
+
+            <!-- Main Footer -->
+            @include('cpd::layouts.partials.footer')
+        </div>
+
+        @include('cpd::layouts.partials.scripts')
+
+        @section('scripts')@show
     </body>
 </html>

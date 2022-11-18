@@ -14,7 +14,8 @@ class CPDController extends Controller
      */
     public function index()
     {
-        return view('cpd::index');
+        $view = ['link'=>'cpd.index', 'titlePage'=>'Home', 'titleView'=>'Datos de producción de cacao'];
+        return view('cpd::index', compact('view'));
     }
 
     /**

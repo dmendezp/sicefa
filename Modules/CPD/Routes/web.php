@@ -12,5 +12,6 @@
 */
 
 Route::prefix('cpd')->group(function() {
-    Route::get('/', 'CPDController@index');
+    Route::get('/index', 'CPDController@index')->name('cefa.cpd.index');
 });
+
