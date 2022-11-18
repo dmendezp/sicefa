@@ -16,6 +16,6 @@ class CPDDatabaseSeeder extends Seeder
     {
 
         $this->call(CPDTableSeeder::class);
-        
+
     }
 }
