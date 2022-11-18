@@ -290,6 +290,7 @@
                 @if(Auth::user()->havePermission('sica.admin.units.consumption'))
                 <li class="nav-item">
                   <a href="{{ route('sica.admin.units.consumption') }}" class="nav-link {{ ! Route::is('sica.admin.units.consumption*') ?: 'active' }}">
+                    <i class="fa-solid fa-cow"></i>
                     <i class="fas fa-folder-minus"></i>
                     <p>{{ trans('sica::menu.Consumption') }}</p>
                   </a>
