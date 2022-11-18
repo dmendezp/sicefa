@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\CPD\Entities;
+namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,4 +16,9 @@ class Village extends Model
     public function municipality(){
         return $this->belongsTo(Municipality::class);
     }
+
+    public function studies(){
+        return $this->hasMany(Study::class);
+    }
+
 }
