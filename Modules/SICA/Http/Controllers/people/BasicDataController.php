@@ -11,8 +11,22 @@ use Modules\SICA\Entities\PopulationGroup;
 
 use Validator, Str;
 
-class PersonalDataController extends Controller
+class BasicDataController extends Controller
 {
 
+    public function search_basic_data(Request $request)
+    {
+
+    }
+
+    public function getAddData($doc)
+    {
+
+    }
+
+    public function postAddData(Request $request)
+    {
+
+    }
 
 }

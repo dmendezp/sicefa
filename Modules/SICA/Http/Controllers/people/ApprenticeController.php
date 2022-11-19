@@ -11,6 +11,15 @@ use Modules\SICA\Entities\Apprentice;
 class ApprenticeController extends Controller
 {
 
+    public function search_apprentices(){
+        //$courses = Course::orderBy('code','Desc')->get();
+        $courses = Course::orderBy('code','Desc')->get()->pluck('code_name','id');
+        //$elections = Election::orderBy('id','Desc')->get();
+        //Election::pluck('name', 'id');
+        $data = ['title'=>trans('sica::menu.Search apprentice'),'courses'=>$courses];
+        return view('sica::admin.people.apprentices.home',$data);
+    }
+
 	public function search(){
 		$datas = json_decode($_POST['data']);
 		if($datas->course_id):
