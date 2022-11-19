@@ -30,7 +30,9 @@ class SeedPermissionsTableSeeder extends Seeder
         //crear usuario Superadministrador -- no modificar
         $usersuperadmin = User::where('nickname','damendez')->first();
         if(!$usersuperadmin){
+
             $person = Person::where('document_number','7173344')->first();
+
             $usersuperadmin = User::create([
                 "nickname" => "damendez",
                 "person_id" => $person->id,
@@ -46,8 +48,8 @@ class SeedPermissionsTableSeeder extends Seeder
                 "url" => "/sica/index",
                 "color" => "#ff5e1f",
                 "icon" => "fas fa-puzzle-piece",
-                "description" => "En esta aplicación se administra la confgur-......",
-                "description_english" => "English -> En esta aplicación se administra la confgur-......"
+                "description" => "En esta aplicación se administra la configur-......",
+                "description_english" => "English -> En esta aplicación se administra la configur-......"
             ]);
         }
         //crear usuario administrador
@@ -61,11 +63,12 @@ class SeedPermissionsTableSeeder extends Seeder
                 "password" => Hash::make("12345678")
             ]);
         }
-        //crear usuario coordinador
-        $usercoordinador = User::where('nickname','gmsanchez')->first();
-        if(!$usercoordinador){
-            $person = Person::where('document_number','54876321')->first();
-            $usercoordinador = User::create([
+
+        $usercoordinator = User::where('nickname','gmsanchez')->first();
+        if(!$usercoordinator){
+            $person = Person::where('document_number','51784954')->first();
+            $usercoordinator = User::create([
+
                 "nickname" => "gmsanchez",
                 "person_id" => $person->id,
                 "email" => "gmsanchez@sena.edu.co",
@@ -84,26 +87,64 @@ class SeedPermissionsTableSeeder extends Seeder
                 "app_id" => $app->id
             ]);
         }
-        //crear rol administrador
-        $rolcoordinador = Role::where('slug','sica.coordinador')->first();
-        if(!$rolcoordinador){
-            $rolcoordinador = Role::create([
+        //crear rol coordinador
+        $rolcoordinator = Role::where('slug','sica.coordinator')->first();
+        if(!$rolcoordinator){
+            $rolcoordinator = Role::create([
                 "name" => "Coordinador Academico",
-                "slug" => "sica.coordinador",
-                "description" => "Rol administrador de la aplicacion SICA",
+                "slug" => "sica.coordinator",
+                "description" => "Rol Coordinador Academico",
                 "description_english" => "English - Rol administrador de la aplicacion SICA",
-                "full_access" => "yes",
+                "full-access" => "no",
+                "app_id" => $app->id
+            ]);
+        }
+        //crear rol asistencia attendance
+        $rolattendance = Role::where('slug','sica.attendance')->first();
+        if(!$rolattendance){
+            $rolattendance = Role::create([
+                "name" => "Registro Asistencia",
+                "slug" => "sica.attendance",
+                "description" => "Rol para el registro de asistencia",
+                "description_english" => "English - Rol para el registro de asistencia",
+                "full-access" => "no",
                 "app_id" => $app->id
             ]);
         }
         // asigno el rol de admin al usuario superadmin y admin
-        $usersuperadmin->roles()->sync([$roladmin->id]);
-        $useradmin->roles()->sync([$roladmin->id]);
-        $usercoordinador->roles()->sync([$rolcoordinador->id]);
+        $usersuperadmin->roles()->syncWithoutDetaching([$roladmin->id]);
+        $useradmin->roles()->syncWithoutDetaching([$roladmin->id]);
+        $usercoordinator->roles()->syncWithoutDetaching([$rolcoordinator->id]);
         // lista de permisos para asignar al rol superadmin y admin
         $permission_admin = [];
-        $permission_coordinador = [];
+        $permission_coordinator = [];
+        $permission_attendance = [];
 // repita para cada permiso -- estos permisos son de su aplicacion, agregue los necesarios
+        $permission = Permission::where('slug','sica.admin.dashboard')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Admin Dashboard",
+                "slug" => "sica.admin.dashboard",
+                "description" => "Puede ver el dashboard de administrador",
+                "description_english" => "English - Puede ver el dashboard de administrador",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_coordinator[] = $permission->id;
+
+        $permission = Permission::where('slug','sica.attendance.dashboard')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Attendance Dashboard",
+                "slug" => "sica.attendance.dashboard",
+                "description" => "Puede ver el dashboard de asistencia",
+                "description_english" => "English - Puede ver el dashboard de asistencia",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_attendance[] = $permission->id;
 
         $permission = Permission::where('slug','sica.admin.people.personal_data')->first();
         if(!$permission){
@@ -118,6 +159,30 @@ class SeedPermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id;
 
 
+        $permission = Permission::where('slug','sica.admin.people.events_attendance')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Asistencia a eventos (admin)",
+                "slug" => "sica.admin.people.events_attendance",
+                "description" => "Registro de asistencia a eventos",
+                "description_english" => "English - Registro de asistencia a eventos",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        $permission = Permission::where('slug','sica.attendance.people.events_attendance')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Asistencia a eventos",
+                "slug" => "sica.attendance.people.events_attendance",
+                "description" => "Registro de asistencia a eventos",
+                "description_english" => "English - Registro de asistencia a eventos",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_attendance[] = $permission->id;
+
         $permission = Permission::where('slug','sica.admin.people.search_apprentices')->first();
         if(!$permission){
             $permission = Permission::create([
@@ -129,7 +194,7 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-        $permission_coordinador[] = $permission->id;
+        $permission_coordinator[] = $permission->id;
 
         $permission = Permission::where('slug','sica.admin.people.instructors')->first();
         if(!$permission){
@@ -142,7 +207,7 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-        $permission_coordinador[] = $permission->id;
+        $permission_coordinator[] = $permission->id;
 
         $permission = Permission::where('slug','sica.admin.people.officers')->first();
         if(!$permission){
@@ -155,7 +220,7 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-        $permission_coordinador[] = $permission->id;
+        $permission_coordinator[] = $permission->id;
 
         $permission = Permission::where('slug','sica.admin.people.contractors')->first();
         if(!$permission){
@@ -168,7 +233,7 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-        $permission_coordinador[] = $permission->id;
+        $permission_coordinator[] = $permission->id;
 
 
         $permission = Permission::where('slug','sica.admin.academy.quarters')->first();
@@ -182,7 +247,7 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-        $permission_coordinador[] = $permission->id;
+        $permission_coordinator[] = $permission->id;
 
         $permission = Permission::where('slug','sica.admin.academy.curriculums')->first();
         if(!$permission){
@@ -195,12 +260,13 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-        $permission_coordinador[] = $permission->id;
+        $permission_coordinator[] = $permission->id;
 
         $permission = Permission::where('slug','sica.admin.academy.courses')->first();
         if(!$permission){
             $permission = Permission::create([
-                "name" => "Listar Titulaciones",
+
+                "name" => "Listar Cursos",
                 "slug" => "sica.admin.academy.courses",
                 "description" => "Puede acceder a lista de Titulaciones",
                 "description_english" => "English - Puede acceder a lista de Titulaciones",
@@ -208,12 +274,13 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-        $permission_coordinador[] = $permission->id;
+        $permission_coordinator[] = $permission->id;
 
 
         // se asignan los permisos a los roles
-        $roladmin->permissions()->sync($permission_admin);
-        $rolcoordinador->permissions()->sync($permission_coordinador);
+        $roladmin->permissions()-> syncWithoutDetaching($permission_admin);
+        $rolcoordinator->permissions()->syncWithoutDetaching($permission_coordinator);
+        $rolattendance->permissions()->syncWithoutDetaching($permission_attendance);
 
     }
 }

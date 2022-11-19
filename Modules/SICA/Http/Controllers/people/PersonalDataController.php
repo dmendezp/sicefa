@@ -13,39 +13,10 @@ use Validator, Str;
 
 class PersonalDataController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    // Buscar si los datos de la persona existen
 
-    public function search_personal_data(Request $request)
-    {
-        $rules = [
-            'search' => 'required'
-        ];
-        $messages = [
-            'search.required' => 'El campo consulta es requerido.'
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if($validator->fails()):
-            return redirect('sica/admin/people/data')->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
-        else:
-        $doc =$request->input('search');
-        $people = Person::where('document_number',$doc)->with('users')->first();
-        
-        switch ($people) {
-            case '':
-                return redirect('sica/admin/people/data/add/'.$doc);
-                break;
-            
-            default:
-            return redirect('sica/admin/people/data/'.$people->id.'/edit');
-                break;
-        }
-    endif;
 
-}
+
+
 
 
     public function getAddData($doc){

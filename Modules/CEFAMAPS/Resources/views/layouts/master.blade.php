@@ -57,6 +57,11 @@
   <!-- Main Footer -->
     @include('cefamaps::layouts.partials.footer')
 </div>
-<!-- ./wrapper -->
+
+@include('cefamaps::layouts.partials.scripts')
+
+@section('script')
+@show
+
 </body>
 </html>

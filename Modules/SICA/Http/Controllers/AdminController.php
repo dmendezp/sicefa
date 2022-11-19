@@ -19,7 +19,7 @@ class AdminController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function dashboard()
+    public function admin_dashboard()
     {
         $people = Person::count();
         $apprentices = Apprentice::count();

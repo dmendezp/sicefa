@@ -11,6 +11,7 @@ use Modules\EVS\Entities\Candidate;
 use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
+use Modules\SICA\Entities\ProductiveUnit;
 
 class Person extends Model
 {
@@ -79,6 +80,10 @@ class Person extends Model
 
     public function juries(){
         return $this->hasMany(Jury::class);
+    }
+
+    public function productive_units(){
+        return $this->hasMany(ProductiveUnit::class);
     }
 
 }

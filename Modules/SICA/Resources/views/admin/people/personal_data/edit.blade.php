@@ -76,7 +76,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Tipo documento *</label>
-                                {!! Form::select('document_type', getEnumValues('people', 'document_type','required'),
+                                {!! Form::select('document_type', getEnumValues('people', 'document_type'),
                                 $people->document_type,['class' => 'form-control'
                                 ,'placeholder' => 'Seleccione...']) !!}
                             </div>
