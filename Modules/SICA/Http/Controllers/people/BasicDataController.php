@@ -14,14 +14,9 @@ use Validator, Str;
 class BasicDataController extends Controller
 {
 
-    public function search_basic_data(Request $request)
+    public function search_basic_data($doc)
     {
-
-    }
-
-    public function getAddData($doc)
-    {
-
+        //BUSQUEDA DE PERSONAS POR NUMERO DE DOCUMENTO
     }
 
     public function postAddData(Request $request)

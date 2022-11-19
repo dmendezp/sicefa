@@ -15,7 +15,7 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row d-flex justify-content-center">
-        <div class="card card-orange card-outline shadow col-md-8">
+        <div class="card card-orange card-outline shadow col-md-10">
           <div class="card-header">
             <h3 class="card-title">Buscar Aprendices</h3>
           </div>
@@ -28,9 +28,12 @@
                   {!! Form::select('course_id', $courses, null, ['class'=>'form-control', 'placeholder'=>'Seleccione...','id'=>'course_id','height'=>'38px']) !!}
                 </div>
               
-                <div class="col-md-2">
+                <div class="col-md-1">
                   {!! Form::button('Busqueda avanzada', ['class' => 'btn btn-link btn-xs']) !!}
-                </div></div>
+                </div>
+                <div class="col-md-1">
+                  <a class="btn btn-link btn-xs" href="{{ route('sica.admin.people.apprentices.load') }}">Cargar Archivo</a>
+                </div>
               </div>
             </div>
           </div>
