@@ -7,6 +7,8 @@
       <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*home.*') ?: 'active' }}">
         <a href="{{ route('cefa.sica.home.index') }}" class="nav-link">{{ trans('sica::menu.Home') }}</a>
       </li>
+@guest
+@else
 @if(Auth::user()->roles[0]->slug=='sica.admin')
       <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*admin.*') ?: 'active' }}">
         <a href="{{ route('sica.admin.dashboard') }}" class="nav-link">{{ trans('sica::menu.Administrator') }}</a>
@@ -16,6 +18,7 @@
         <a href="{{ route('sica.attendance.dashboard') }}" class="nav-link">{{ trans('sica::menu.Attendance') }}</a>
       </li>
 @endif
+@endguest
 
   </ul>
     <!-- Right navbar links -->

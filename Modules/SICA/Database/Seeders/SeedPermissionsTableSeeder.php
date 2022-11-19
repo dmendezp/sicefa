@@ -183,11 +183,11 @@ class SeedPermissionsTableSeeder extends Seeder
         }
         $permission_attendance[] = $permission->id;
 
-        $permission = Permission::where('slug','sica.admin.people.search_apprentices')->first();
+        $permission = Permission::where('slug','sica.admin.people.apprentices')->first();
         if(!$permission){
             $permission = Permission::create([
                 "name" => "Busqueda de aprendices",
-                "slug" => "sica.admin.people.search_apprentices",
+                "slug" => "sica.admin.people.apprentices",
                 "description" => "Puede acceder a lista de aprendices por titulación",
                 "description_english" => "English - Puede acceder a lista de aprendices por titulación",
                 "app_id" => $app->id

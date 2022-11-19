@@ -120,9 +120,9 @@
                   </a>
                 </li>
                 @endif
-                @if(Auth::user()->havePermission('sica.admin.people.search_apprentices'))
+                @if(Auth::user()->havePermission('sica.admin.people.apprentices'))
                 <li class="nav-item">
-                  <a href="{{ route('sica.admin.people.search_apprentices') }}" class="nav-link {{ ! Route::is('sica.admin.people.search_apprentices*') ?: 'active' }}">
+                  <a href="{{ route('sica.admin.people.apprentices') }}" class="nav-link {{ ! Route::is('sica.admin.people.apprentices*') ?: 'active' }}">
                     <i class="fas fa-user-graduate"></i>
                     <p>{{ trans('sica::menu.Apprentices') }}</p>
                   </a>

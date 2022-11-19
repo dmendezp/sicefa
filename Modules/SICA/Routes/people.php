@@ -27,14 +27,16 @@ Route::middleware(['lang'])->group(function(){
         Route::post('/admin/people/data/add', [PeopleController::class, 'postAddBasicData'])->name('sica.admin.people.basic_data.add');
         // Add Basic
         Route::post('/admin/people/basic_data/search', [BasicDataController::class, 'search_basic_data'])->name('sica.admin.people.basic_data.search');
-        Route::get('/admin/people/basic_data/add/{doc}', [BasicDataController::class, 'getAddData'])->name('sica.admin.people.personal_data.add');
-        Route::post('/admin/people/basic_data/add', [BasicDataController::class, 'postAddBasicData'])->name('sica.admin.people.basic_data.add');        //Edit
+        Route::post('/admin/people/basic_data/add', [BasicDataController::class, 'postAddBasicData'])->name('sica.admin.people.basic_data.add');     
+        // Edit
         Route::get('/admin/people/data/{id}/edit', [PeopleController::class, 'getEditData'])->name('sica.admin.people.personal_data.edit');
         Route::put('/admin/people/data/{id}/edit', [PeopleController::class, 'postEditData'])->name('sica.admin.people.personal_data.edit');
 
 //Apprentices
-        Route::get('/admin/people/search_apprentices', [ApprenticeController::class, 'search_apprentices'])->name('sica.admin.people.search_apprentices');
+        Route::get('/admin/people/apprentices', [ApprenticeController::class, 'search_apprentices'])->name('sica.admin.people.apprentices');
         Route::post('/admin/people/apprentices/search', [ApprenticeController::class, 'search'])->name('sica.admin.people.apprentices.search');
+        Route::get('/admin/people/apprentice/load',[ApprenticeController::class, 'getLoad'])->name('sica.admin.people.apprentices.load');
+        Route::post('/admin/people/apprentice/load',[ApprenticeController::class, 'postLoad'])->name('sica.admin.people.apprentices.load');
 
 // se deben actualizar los controladores cuando sean creados
 //Instructors      
