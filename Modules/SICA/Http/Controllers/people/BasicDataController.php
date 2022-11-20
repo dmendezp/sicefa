@@ -9,12 +9,13 @@ use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\PopulationGroup;
 
+
 use Validator, Str;
 
 class BasicDataController extends Controller
 {
 
-    public function search_basic_data($doc)
+    public function search_basic_data(Request $request)
     {
         //BUSQUEDA DE PERSONAS POR NUMERO DE DOCUMENTO
     }

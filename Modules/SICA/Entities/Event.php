@@ -4,6 +4,7 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\SICA\Entities\Person;
 
 class Event extends Model
 {
@@ -17,4 +18,9 @@ class Event extends Model
         'end_date',
         'state'
     ];
+
+
+    public function people(){
+        return $this->belongsToMany(Person::class, 'event_attendances')->withTimestamps();
+    }
 }
