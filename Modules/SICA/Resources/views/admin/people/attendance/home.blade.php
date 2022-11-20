@@ -14,12 +14,18 @@
         <!-- /.card-header -->
         <div class="card-body">
           <!-- Timelime example  -->
-
+         
           <div class="form_search" id="form_search">
-            {!! Form::open(['url' => 'sica/admin/people/data/search']) !!}
+            {!! Form::open(['url' => 'sica/admin/people/basic_data/search/', 'method' =>'get']) !!}
             <div class="row">
+              <div class="col-md-3">
+              
+              {!! Form::select('event_id', $events, null,['class' =>
+                                'form-control'
+                                ,'placeholder' => 'Seleccione Evento...','required']) !!}
+              </div>
               <div class="col-md-6">
-                {!! Form::text('search', null, ['class' => 'form-control', 'placeholder' => 'Documento']) !!}
+                {!! Form::text('document', null, ['class' => 'form-control', 'placeholder' => 'Documento','required']) !!}
               </div>
               <div class="col-md-3">
                 {!! Form::submit('Buscar', ['class' => 'btn btn-primary']) !!}
