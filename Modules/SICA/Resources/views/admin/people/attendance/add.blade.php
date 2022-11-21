@@ -16,8 +16,8 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body box-profile">
-                    
-                    
+
+
 
                     <form action="{{route('sica.admin.people.basic_data.add')}}" method="post">
                         @csrf
@@ -49,7 +49,7 @@
                                 {!! Form::select('document_type', getEnumValues('people', 'document_type','required'),
                                 null,['class' => 'form-control']
                                 ,['placeholder' => 'Pick a size...']) !!}
-                    
+
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -67,7 +67,7 @@
                                    @foreach($eps as $e)
                                     <option value="{{$e->id}}">{{$e->name}}</option>
                                    @endforeach
-                                    
+
                                 </select>
                             </div>
                         </div>
@@ -78,15 +78,15 @@
                                     @foreach($population_groups as $groups)
                                     <option value="{{$groups->id}}">{{$groups->name}}</option>
                                     @endforeach
-                                    
+
                                 </select>
                             </div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-success">Registrar</button>
-                   
+
                     </form>
-                
+
                 </div>
             </div>
         </div>

@@ -276,7 +276,7 @@
                                     <th>Fecha de cierre</th>
                                     <th>Estado</th>
                                     <th>
-                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAddEvent()">
+                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.event.add') }}')">
                                             <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
                                                 <i class="fas fa-plus-circle"></i>
                                             </b>
@@ -297,8 +297,16 @@
                                         </td>
                                         <td>
                                             <div class="opts">
-                                                <a href="#" class="text-info" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-                                                <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.event.edit') }}/{{ $event->id }}')">
+                                                    <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <i class="fas fa-edit"></i>
+                                                    </b>
+                                                </a>
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.event.delete') }}/{{ $event->id }}')">
+                                                    <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </b>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -334,19 +342,12 @@
             $('html, body').animate({ /* Move the page to the previously selected configuration */
                 scrollTop: $("#{{ Session::get('card') }}").offset().top
             }, 1000);
-
-            $(function() { /* Show a response message in a form handling */
-                var Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 5000,
-                });
-                Toast.fire({
-                    icon: "{{ Session::get('icon') }}",
-                    title: "&nbsp; {{ Session::get('message_config') }}."
-                });
-            });
+            /* Show the message */
+            @if (Session::get('icon') == 'success')
+                toastr.success("{{ Session::get('message_config') }}");
+            @elseif (Session::get('icon')=='error')
+                toastr.error("{{ Session::get('message_config') }}");
+            @endif
         @endif
 
         $(function () {
@@ -365,7 +366,7 @@
             });
         });
 
-        function ajaxAddEvent(){ /* Ajax to show content modal to add event */
+        function ajaxAction(route){ /* Ajax to show content modal to add event */
             $('#loader-message').text('Cargando contenido...'); /* Add content to loader */
             $('#modal-content').append($('#modal-loader').clone()); /* Add the loader to the modal */
             $.ajaxSetup({
@@ -375,7 +376,7 @@
             });
             $.ajax({
                 method: "get",
-                url: "{{ route('sica.admin.people.config.event.add') }}",
+                url: route,
                 data: {}
             })
             .done(function(html){
