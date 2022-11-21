@@ -20,6 +20,12 @@ Route::middleware(['lang'])->group(function(){
         // Add
         Route::get('/admin/people/config/event/add', [ConfigController::class, 'addEventGet'])->name('sica.admin.people.config.event.add');
         Route::post('/admin/people/config/event/add', [ConfigController::class, 'addEventPost'])->name('sica.admin.people.config.event.add');
+        // Edit
+        Route::get('/admin/people/config/event/edit/{id}', [ConfigController::class, 'editEventGet'])->name('sica.admin.people.config.event.edit');
+        Route::post('/admin/people/config/event/edit', [ConfigController::class, 'editEventPost'])->name('sica.admin.people.config.event.edit');
+        // Delete
+        Route::get('/admin/people/config/event/delete/{id}', [ConfigController::class, 'deleteEventGet'])->name('sica.admin.people.config.event.delete');
+        Route::post('/admin/people/config/event/delete/', [ConfigController::class, 'deleteEventPost'])->name('sica.admin.people.config.event.delete');
 
 //Personal data
         Route::get('/admin/people/data', [PeopleController::class, 'personal_data'])->name('sica.admin.people.personal_data');
@@ -28,13 +34,8 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/admin/people/data/add/{doc}', [PeopleController::class, 'getAddData'])->name('sica.admin.people.personal_data.add');
         Route::post('/admin/people/data/add', [PeopleController::class, 'postAddBasicData'])->name('sica.admin.people.basic_data.add');
         // Add Basic
-<<<<<<< HEAD
-        Route::get('/admin/people/basic_data/search/', [BasicDataController::class, 'search_basic_data'])->name('sica.admin.people.basic_data.search');
-        Route::post('/admin/people/basic_data/add/', [BasicDataController::class, 'postAddData'])->name('sica.admin.people.basic_data.add');     
-=======
         Route::post('/admin/people/basic_data/search', [BasicDataController::class, 'search_basic_data'])->name('sica.admin.people.basic_data.search');
         Route::post('/admin/people/basic_data/add', [BasicDataController::class, 'postAddBasicData'])->name('sica.admin.people.basic_data.add');
->>>>>>> 9963135dc6783c6043f8e11df911c480119241c1
         // Edit
         Route::get('/admin/people/data/{id}/edit', [PeopleController::class, 'getEditData'])->name('sica.admin.people.personal_data.edit');
         Route::put('/admin/people/data/{id}/edit', [PeopleController::class, 'postEditData'])->name('sica.admin.people.personal_data.edit');
