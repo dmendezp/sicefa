@@ -127,42 +127,56 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="card card-orange card-outline shadow">
-            <div class="card-header">
-              <h3 class="card-title">Población</h3>
+        <div class="col-md-6" id="card-population"> {{-- Start of population table section --}}
+            <div class="card card-orange card-outline shadow">
+                <div class="card-header">
+                    <h3 class="card-title">Población</h3>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <table id="example2" class="display table table-bordered table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>
+                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.population.add') }}')">
+                                            <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
+                                                <i class="fas fa-plus-circle"></i>
+                                            </b>
+                                        </a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($populations as $population)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $population->name }}</td>
+                                        <td>{{ $population->description }}</td>
+                                        <td>
+                                            <div class="opts">
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.population.edit') }}/{{ $population->id }}')">
+                                                    <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <i class="fas fa-edit"></i>
+                                                    </b>
+                                                </a>
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.population.delete') }}/{{ $population->id }}')">
+                                                    <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </b>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-              <div>
-                <table id="example2" class="display table table-bordered table-striped table-sm">
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Nombre</th>
-                      <th>Descripción</th>
-                      <th><a href="" class="text-success" data-toggle='tooltip' data-placement="top" title="Agregar"><i class="fas fa-plus-circle"></i></a></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <div class="opts">
-                          <a href="" class="text-info" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-                          <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
-                        </div>
-                      </td>
-                    </tr>
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+        </div> {{-- End of population table section --}}
         <div class="col-md-6">
           <div class="card card-orange card-outline shadow">
             <div class="card-header">
@@ -328,7 +342,7 @@
                     </div>
                 </div>
             </div>
-        </div> {{-- Event of events table section --}}
+        </div> {{-- End of events table section --}}
     </div>
   </div>
 </div>

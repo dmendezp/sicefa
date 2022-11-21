@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Event;
 use Modules\SICA\Entities\EPS;
+use Modules\SICA\Entities\PopulationGroup;
 
 class ConfigController extends Controller
 {
@@ -15,7 +16,8 @@ class ConfigController extends Controller
     public function config(){
         $events = Event::orderBy('id','DESC')->get();
         $epss = EPS::orderBy('name','ASC')->get();
-        $data = ['title'=>trans('sica::menu.Config'), 'events'=>$events, 'epss'=>$epss];
+        $populations = PopulationGroup::orderBy('name','ASC')->get();
+        $data = ['title'=>trans('sica::menu.Config'), 'events'=>$events, 'epss'=>$epss, 'populations'=>$populations];
         return view('sica::admin.people.config.home',$data);
     }
 
@@ -133,6 +135,63 @@ class ConfigController extends Controller
         }else{
             $icon = 'error';
             $message_config = 'No se pudo eliminar la eps.';
+        }
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
+    }
+
+    public function addPopulationGet(){
+        return view('sica::admin.people.config.population.add');
+    }
+
+    public function addPopulationPost(Request $request){
+        $po = new PopulationGroup;
+        $po->name = e($request->input('name'));
+        $po->description = e($request->input('description'));
+        $card = 'card-population';
+        if($po->save()){
+            $icon = 'success';
+            $message_config = 'Grupo poblacional registrado exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_config = 'No se pudo registrar el grupo poblacional.';
+        }
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
+    }
+
+    public function editPopulationGet($id){
+        $population = PopulationGroup::find($id);
+        return view('sica::admin.people.config.population.edit',compact('population'));
+    }
+
+    public function editPopulationPost(Request $request){
+        $po = PopulationGroup::findOrFail($request->input('id'));
+        $po->name = e($request->input('name'));
+        $po->description = e($request->input('description'));
+        $card = 'card-population';
+        if($po->save()){
+            $icon = 'success';
+            $message_config = 'Grupo poblacional actualizado exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_config = 'No se pudo actualizar el grupo poblacional.';
+        }
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
+    }
+
+    public function deletePopulationGet($id){
+        $population = PopulationGroup::find($id);
+        return view('sica::admin.people.config.population.delete',compact('population'));
+    }
+
+    public function deletePopulationPost(Request $request){
+        $po = PopulationGroup::findOrFail($request->input('id'));
+        $card = 'card-population';
+        if($po->delete()){
+            $icon = 'success';
+            $message_config = 'Grupo poblacional eliminado exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_config = 'No se pudo eliminar el grupo poblacional.';
         }
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
     }

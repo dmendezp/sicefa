@@ -36,6 +36,16 @@ Route::middleware(['lang'])->group(function(){
         // Delete
         Route::get('/admin/people/config/eps/delete/{id}', [ConfigController::class, 'deleteEpsGet'])->name('sica.admin.people.config.eps.delete');
         Route::post('/admin/people/config/eps/delete/', [ConfigController::class, 'deleteEpsPost'])->name('sica.admin.people.config.eps.delete');
+    //-- Population group
+        // Add
+        Route::get('/admin/people/config/population/add', [ConfigController::class, 'addPopulationGet'])->name('sica.admin.people.config.population.add');
+        Route::post('/admin/people/config/population/add', [ConfigController::class, 'addPopulationPost'])->name('sica.admin.people.config.population.add');
+        // Edit
+        Route::get('/admin/people/config/population/edit/{id}', [ConfigController::class, 'editPopulationGet'])->name('sica.admin.people.config.population.edit');
+        Route::post('/admin/people/config/population/edit', [ConfigController::class, 'editPopulationPost'])->name('sica.admin.people.config.population.edit');
+        // Delete
+        Route::get('/admin/people/config/population/delete/{id}', [ConfigController::class, 'deletePopulationGet'])->name('sica.admin.people.config.population.delete');
+        Route::post('/admin/people/config/population/delete/', [ConfigController::class, 'deletePopulationPost'])->name('sica.admin.people.config.population.delete');
 
         //Personal data
         Route::get('/admin/people/data', [PeopleController::class, 'personal_data'])->name('sica.admin.people.personal_data');
