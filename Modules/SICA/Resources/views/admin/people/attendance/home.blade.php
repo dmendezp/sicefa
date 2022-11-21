@@ -16,7 +16,7 @@
           <!-- Timelime example  -->
          
           <div class="form_search" id="form_search">
-            {!! Form::open(['url' => 'sica/admin/people/basic_data/search/', 'method' =>'get']) !!}
+            {!! Form::open(['url' => route('sica.attendance.people.basic_data.search'), 'method' =>'get']) !!}
             <div class="row">
               <div class="col-md-3">
               

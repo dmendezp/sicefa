@@ -19,7 +19,7 @@
 
 
 
-                    <form action="{{route('sica.admin.people.basic_data.add')}}" method="post">
+                    <form action="{{route('sica.attendance.people.basic_data.add')}}" method="post">
                         @csrf
                     <input type="hidden" name="event_id" value="{{$event}}">
                     <div class="row">

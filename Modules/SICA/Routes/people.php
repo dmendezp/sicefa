@@ -4,6 +4,7 @@ use Modules\SICA\Http\Controllers\people\PeopleController;
 use Modules\SICA\Http\Controllers\people\BasicDataController;
 use Modules\SICA\Http\Controllers\people\ConfigController;
 use Modules\SICA\Http\Controllers\people\ApprenticeController;
+use Modules\SICA\Http\Controllers\people\InstructorController;
 use Modules\SICA\Http\Controllers\people\AttendanceController;
 
 Route::middleware(['lang'])->group(function(){
@@ -47,7 +48,7 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/admin/people/config/population/delete/{id}', [ConfigController::class, 'deletePopulationGet'])->name('sica.admin.people.config.population.delete');
         Route::post('/admin/people/config/population/delete/', [ConfigController::class, 'deletePopulationPost'])->name('sica.admin.people.config.population.delete');
 
-        //Personal data
+//Personal data
         Route::get('/admin/people/data', [PeopleController::class, 'personal_data'])->name('sica.admin.people.personal_data');
         Route::post('/admin/people/data/search', [PeopleController::class, 'search_personal_data'])->name('sica.admin.people.personal_data.search');
         // Add
@@ -70,9 +71,10 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/admin/people/apprentice/load',[ApprenticeController::class, 'getLoad'])->name('sica.admin.people.apprentices.load');
         Route::post('/admin/people/apprentice/load',[ApprenticeController::class, 'postLoad'])->name('sica.admin.people.apprentices.load');
 
-// se deben actualizar los controladores cuando sean creados
+
 //Instructors
-        Route::get('/admin/people/instructors', [PeopleController::class, 'instructors'])->name('sica.admin.people.instructors');
+        Route::get('/admin/people/instructors', [InstructorController::class, 'instructors'])->name('sica.admin.people.instructors');
+// se deben actualizar los controladores cuando sean creados
 //Officers
         Route::get('/admin/people/officers', [PeopleController::class, 'officers'])->name('sica.admin.people.officers');
 //Contractors
