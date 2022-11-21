@@ -19,7 +19,8 @@ class BasicDataController extends Controller
 
     public function search_basic_data(Request $request)
     {
-
+        $title = trans('sica::menu.Personal data Add');
+        $events = Event::pluck('name','id');
         $eps = Eps::get();
         $population_groups = PopulationGroup::get();
         $title = trans('sica::menu.Personal data Add');
@@ -56,7 +57,8 @@ class BasicDataController extends Controller
                 break;
             
             default:
-            return redirect('sica/admin/people/data/'.$people->id.'/edit');
+            $people->events()->syncWithoutDetaching($request->input('event_id')); 
+            return view('sica::admin.people.attendance.home')->with('message', 'Creado con éxito')->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
                 break;
         }
     endif;
