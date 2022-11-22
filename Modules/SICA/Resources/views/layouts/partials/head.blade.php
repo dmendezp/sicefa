@@ -35,4 +35,6 @@
 
 <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
 
+
+
 </head>

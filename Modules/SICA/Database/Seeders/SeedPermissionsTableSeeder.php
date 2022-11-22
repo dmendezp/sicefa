@@ -17,16 +17,16 @@ class SeedPermissionsTableSeeder extends Seeder
     public function run()
     {
         //limpiar tablas
-        /*
+        
         DB::statement("SET foreign_key_checks=0");
             DB::table('role_user')->truncate();
             DB::table('permission_role')->truncate();
-            App::truncate();
+            //App::truncate();
             User::truncate();
-            Role::truncate();
+            //Role::truncate();
             Permission::truncate();
         DB::statement("SET foreign_key_checks=1");
-        */  
+        
         //crear usuario Superadministrador -- no modificar
         $usersuperadmin = User::where('nickname','damendez')->first();
         if(!$usersuperadmin){
@@ -149,7 +149,7 @@ class SeedPermissionsTableSeeder extends Seeder
         $permission = Permission::where('slug','sica.attendance.dashboard')->first();
         if(!$permission){
             $permission = Permission::create([
-                "name" => "Attendance Dashboard",
+                  "name" => "Attendance Dashboard",
                 "slug" => "sica.attendance.dashboard",
                 "description" => "Puede ver el dashboard de asistencia",
                 "description_english" => "English - Puede ver el dashboard de asistencia",

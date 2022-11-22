@@ -12,7 +12,7 @@ class AttendanceController extends Controller
 
     public function events_attendance()
     {
-        $events = Event::pluck('name','id');
+        $events = Event::where('state','available')->pluck('name','id');
         $data = ['title'=>trans('sica::menu.Events attendance'),'events'=>$events];
         return view('sica::admin.people.attendance.home',$data);
     }
