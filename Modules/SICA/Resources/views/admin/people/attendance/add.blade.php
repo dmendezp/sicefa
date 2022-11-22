@@ -19,7 +19,7 @@
 
 
 
-                    <form action="{{route('sica.admin.people.basic_data.add')}}" method="post">
+                    <form action="{{route('sica.attendance.people.basic_data.add')}}" method="post" id="submit">
                         @csrf
                     <input type="hidden" name="event_id" value="{{$event}}">
                     <div class="row">
@@ -55,7 +55,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="">Número Documento </label>
-                                <input class="form-control" type="text" name="document_number" value="{{$doc}}" id="">
+                                <input class="form-control" type="text" name="document_number" value="{{$doc}}" id="" readonly>
                             </div>
                         </div>
                     </div>

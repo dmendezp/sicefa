@@ -20,9 +20,9 @@ class BasicDataController extends Controller
     public function search_basic_data(Request $request)
     {
         $title = trans('sica::menu.Personal data Add');
-        $events = Event::pluck('name','id');
+        $events = Event::where('state','available')->pluck('name','id');
         $eps = Eps::get();
-        $population_groups = PopulationGroup::get();
+        $population_groups = PopulationGroup::orderBy('id','desc')->get();
         $title = trans('sica::menu.Personal data Add');
         $document_type = Person::pluck('document_type');
 
@@ -35,9 +35,9 @@ class BasicDataController extends Controller
             'event_id.required' => 'El campo de evento es requerido'
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
-        if($validator->fails()):
-            return view('sica::admin.people.attendance.home')->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
-        else:
+        if($validator->fails()){
+            return view('sica::admin.people.attendance.home')->withErrors($validator)->with('message_result', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
+        }else{
         $doc =$request->input('document');
         $event = $request->input('event_id');
         $people = Person::where('document_number',$doc)->with('users')->first();
@@ -58,10 +58,11 @@ class BasicDataController extends Controller
             
             default:
             $people->events()->syncWithoutDetaching($request->input('event_id')); 
-            return view('sica::admin.people.attendance.home')->with('message', 'Creado con éxito')->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
+            return redirect(route('sica.attendance.people.events_attendance'))->with('message_result', 'Asignación Exitosa')->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
                 break;
         }
-    endif;
+    }
+    //endif;
     }
 
     
@@ -109,7 +110,15 @@ class BasicDataController extends Controller
           ];
           $validator = Validator::make($request->all(), $rules, $messages);
           if($validator->fails()):
-              return redirect('/admin/people/basic_data/add/'.$request->input('document_number'))->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
+              return view('sica::admin.people.attendance.add')->with(
+                [
+                 'title'=>$title, 
+                 'document_type'=>$document_type, 
+                 'doc' =>$doc,
+                 'eps'=>$eps,
+                 'population_groups'=>$population_groups,
+                 'event' =>$event
+                 ]);
           else:
   
               $p = new Person;
@@ -125,7 +134,7 @@ class BasicDataController extends Controller
               if($p->save()){
 
                   $p->events()->syncWithoutDetaching($request->input('event_id'));  
-                  return view('sica::admin.people.attendance.home')->with('message', 'Creado con éxito')->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
+                  return redirect(route('sica.attendance.people.events_attendance'))->with('message_result', 'Asignación Exitosa')->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
               }
           
       endif;

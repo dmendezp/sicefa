@@ -178,10 +178,7 @@ class PeopleController extends Controller
 
 
     // estos metodos se trasladan a los controladores de cada Modelo, cuando sean creados
-    public function instructors(){
-        $data = ['title'=>trans('sica::menu.Instructors')];
-        return view('sica::admin.people.instructors.home',$data);        
-    } 
+
 
     public function officers(){
         $data = ['title'=>trans('sica::menu.Officers')];
