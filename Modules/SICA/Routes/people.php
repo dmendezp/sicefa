@@ -6,6 +6,7 @@ use Modules\SICA\Http\Controllers\people\ConfigController;
 use Modules\SICA\Http\Controllers\people\ApprenticeController;
 use Modules\SICA\Http\Controllers\people\InstructorController;
 use Modules\SICA\Http\Controllers\people\AttendanceController;
+use Modules\SICA\Http\Controllers\people\TempTablesController;
 
 Route::middleware(['lang'])->group(function(){
 
@@ -68,8 +69,9 @@ Route::middleware(['lang'])->group(function(){
 //Apprentices
         Route::get('/admin/people/apprentices', [ApprenticeController::class, 'search_apprentices'])->name('sica.admin.people.apprentices');
         Route::post('/admin/people/apprentices/search', [ApprenticeController::class, 'search'])->name('sica.admin.people.apprentices.search');
-        Route::get('/admin/people/apprentice/load',[ApprenticeController::class, 'getLoad'])->name('sica.admin.people.apprentices.load');
-        Route::post('/admin/people/apprentice/load',[ApprenticeController::class, 'postLoad'])->name('sica.admin.people.apprentices.load');
+
+        Route::get('/admin/people/apprentice/load',[TempTablesController::class, 'getLoadApprentices'])->name('sica.admin.people.apprentices.load');
+        Route::post('/admin/people/apprentice/load',[TempTablesController::class, 'postLoadApprentices'])->name('sica.admin.people.apprentices.load');
 
 
 //Instructors

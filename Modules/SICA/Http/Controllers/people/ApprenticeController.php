@@ -36,28 +36,4 @@ class ApprenticeController extends Controller
         endif;
 	}
 
-    public function getLoad(){
-        $data = ['title'=>trans('sica::menu.Load apprentice')];
-        return view('sica::admin.people.apprentices.load',$data);
-    }
-
-    public function postLoad(Request $request){
-        ini_set('max_execution_time', 3000);
-        $validator = Validator::make($request->all(), 
-            ['archivo'  => 'required'],
-            [
-                'archivo.required'  => 'El archivo es requerido.'
-            ]
-        );
-        if($validator->fails()){
-            return back()->withErrors($validator)->with('danger', 'Se ha producido un error.')
-            ->withInput();
-        }else{     
-           $path = $request->file('archivo')->getRealPath();           
-           $data = Excel::import(new ApprenticeImport, $path);
-           return back()->with('success', 'Excel importado correctamente.');
-        }
-    }
-
-
 }
