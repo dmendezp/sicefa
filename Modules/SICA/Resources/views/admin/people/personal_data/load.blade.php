@@ -9,11 +9,11 @@
       <div class="row d-flex justify-content-center">
         <div class="card card-orange card-outline shadow col-md-6">
           <div class="card-header">
-            <h3 class="card-title">Cargar Aprendices</h3>
+            <h3 class="card-title">Cargar Personas</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            {!! Form::open(['url' => route('sica.admin.people.apprentices.load'), 'files' => 'true','enctype'=>'multipart/form-data', 'class'=>'']) !!}
+            {!! Form::open(['url' => route('sica.admin.people.personal_data.load'), 'files' => 'true','enctype'=>'multipart/form-data', 'class'=>'']) !!}
             <div class="form_load" id="form_load">
               <div class="form-group">
 
@@ -27,9 +27,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div id="divResultado">
-        
       </div>
     </div>
   </div>
