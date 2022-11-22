@@ -64,7 +64,11 @@ Route::middleware(['lang'])->group(function(){
 
         // Edit
         Route::get('/admin/people/data/{id}/edit', [PeopleController::class, 'getEditData'])->name('sica.admin.people.personal_data.edit');
-        Route::put('/admin/people/data/{id}/edit', [PeopleController::class, 'postEditData'])->name('sica.admin.people.personal_data.edit');
+        Route::put('/admin/people/data/{id}/edit', [PeopleController::class, '
+            postEditData'])->name('sica.admin.people.personal_data.edit');
+
+        Route::get('/admin/people/load',[TempTablesController::class, 'getLoadPeople'])->name('sica.admin.people.personal_data.load');
+        Route::post('/admin/people/load',[TempTablesController::class, 'postLoadPeople'])->name('sica.admin.people.personal_data.load');
 
 //Apprentices
         Route::get('/admin/people/apprentices', [ApprenticeController::class, 'search_apprentices'])->name('sica.admin.people.apprentices');
