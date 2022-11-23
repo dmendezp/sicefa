@@ -17,7 +17,7 @@ class SeedPermissionsTableSeeder extends Seeder
     public function run()
     {
         //limpiar tablas
-        
+        /*
         DB::statement("SET foreign_key_checks=0");
             DB::table('role_user')->truncate();
             DB::table('permission_role')->truncate();
@@ -26,7 +26,7 @@ class SeedPermissionsTableSeeder extends Seeder
             //Role::truncate();
             Permission::truncate();
         DB::statement("SET foreign_key_checks=1");
-        
+        */
         //crear usuario Superadministrador -- no modificar
         $usersuperadmin = User::where('nickname','damendez')->first();
         if(!$usersuperadmin){
