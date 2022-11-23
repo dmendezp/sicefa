@@ -63,5 +63,8 @@
         $('#producer_id').select2({
             theme: 'bootstrap4'
         });
+        $('#village_id').select2({
+            theme: 'bootstrap4'
+        });
     </script>
 @endsection

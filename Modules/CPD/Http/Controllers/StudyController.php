@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller;
 use Modules\CPD\Entities\Data;
 use Modules\CPD\Entities\Producer;
 use Modules\CPD\Entities\Study;
+use Modules\SICA\Entities\Village;
 
 class StudyController extends Controller
 {
@@ -21,7 +22,8 @@ class StudyController extends Controller
         $view = ['titlePage'=>'Monitoreos - registro', 'titleView'=>'Registro de monitoreo de cultivo de cacao'];
         $datas = Data::all();
         $producers = Producer::orderBy('name','ASC')->pluck('name','id');
-        return view('cpd::study.add', compact('view','datas','producers'));
+        $villages = Village::get()->pluck("VillMun", "id");
+        return view('cpd::study.add', compact('view','datas','producers','villages'));
     }
 
 }

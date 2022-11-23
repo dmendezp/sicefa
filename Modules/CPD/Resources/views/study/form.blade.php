@@ -6,18 +6,37 @@
             </div>
             <div class="card-body pt-2 pb-0">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-6">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-auto">
                                     <b class="text-danger">*</b>
-                                    {!! Form::label('producer_id', 'Productor: ', ['class' => 'form-label form-label-sm']) !!}
+                                    {!! Form::label('producer_id', 'Productor: ', ['class' => 'form-label']) !!}
                                 </div>
                                 <div class="col ms-0 ps-0">
                                     {!! Form::select('producer_id', $producers, null, [
                                         'placeholder' => '-- Seleccione --',
-                                        'class' => 'form-control form-control-sm',
-                                        'id' => 'producer_id'
+                                        'class' => 'form-control',
+                                        'id' => 'producer_id',
+                                        'required'
+                                    ]) !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <b class="text-danger">*</b>
+                                    {!! Form::label('village_id', 'Vereda: ', ['class' => 'form-label']) !!}
+                                </div>
+                                <div class="col ms-0 ps-0">
+                                    {!! Form::select('village_id', $villages, null, [
+                                        'placeholder' => '-- Seleccione --',
+                                        'class' => 'form-control',
+                                        'id' => 'village_id',
+                                        'required'
                                     ]) !!}
                                 </div>
                             </div>
@@ -51,6 +70,7 @@
                                                     'onkeypress' => 'return isNumberKey(event)',
                                                     'data-toggle' => 'tooltip',
                                                     'data-placement' => 'top',
+                                                    'max' => '9999',
                                                     'title' => $metadata->description
                                                 ]) !!}
                                             </div>
