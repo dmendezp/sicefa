@@ -9,10 +9,11 @@ use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\PopulationGroup;
 use Modules\SICA\Entities\Event;
+use Modules\SICA\Entities\EventAttendance;
 
 
 
-use Validator, Str;
+use Validator, Str, DB;
 
 class BasicDataController extends Controller
 {
@@ -57,8 +58,15 @@ class BasicDataController extends Controller
                 break;
             
             default:
-            $people->events()->syncWithoutDetaching($request->input('event_id')); 
-            return redirect(route('sica.attendance.people.events_attendance'))->with('message_result', 'Asignación Exitosa')->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
+            //$people->events()->syncWithoutDetaching($request->input('event_id'));
+            //return date('Y-m-d');
+            $att = EventAttendance::where(DB::raw("(DATE_FORMAT(date,'%Y-%m-%d'))"),date('Y-m-d'))->where('event_id',$event)->where('person_id',$people->id)->get();
+            if(count($att)>0){
+                return redirect(route('sica.attendance.people.events_attendance'))->with('message_result', 'Usuario ya registrado')->with('typealert', 'info')->with(['title'=>$title,'events'=>$events]);
+                    break;
+            }
+            $ea = EventAttendance::create(['event_id' => $event,'person_id' => $people->id,'date' => date('Y-m-d')]);
+            return redirect(route('sica.attendance.people.events_attendance'))->with('message_result', 'Registro Exitoso')->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
                 break;
         }
     }
@@ -101,7 +109,7 @@ class BasicDataController extends Controller
               'population_group_id' => 'required'
           ];
           $messages = [
-              'document_number.required' => 'El N° de documento es requerido',
+              'document_number.required' => 'El N¡Æ de documento es requerido',
               'document_type.required' => 'El tipo de documento es requerido',
               'first_name.required' => 'El primer nombre es requerido',
               'first_last_name.required' => 'El primer apellido es requerido',
@@ -125,16 +133,17 @@ class BasicDataController extends Controller
               $p->document_type = e($request->input('document_type'));
               $p->document_number = e($request->input('document_number'));
               
-              $p->first_name = $request->input('first_name');
-              $p->first_last_name = e($request->input('first_last_name'));
-              $p->second_last_name = e($request->input('second_last_name'));
+              $p->first_name = strtoupper(e($request->input('first_name')));
+              $p->first_last_name = strtoupper(e($request->input('first_last_name')));
+              $p->second_last_name = strtoupper(e($request->input('second_last_name')));
               $p->eps_id = e($request->input('eps_id'));
               $p->population_group_id = e($request->input('population_group_id'));
               
               if($p->save()){
 
-                  $p->events()->syncWithoutDetaching($request->input('event_id'));  
-                  return redirect(route('sica.attendance.people.events_attendance'))->with('message_result', 'Asignación Exitosa')->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
+                  //$p->events()->syncWithoutDetaching($request->input('event_id')); 
+                $ea = EventAttendance::create(['event_id' => $request->input('event_id'),'person_id' => $p->id,'date' => date('Y-m-d')]);
+                  return redirect(route('sica.attendance.people.events_attendance'))->with('message_result', 'Registro Exitoso')->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
               }
           
       endif;

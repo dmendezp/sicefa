@@ -28,7 +28,7 @@
               
               {!! Form::select('event_id', $events, null,['class' =>
                                 'form-control'
-                                ,'placeholder' => 'Seleccione Evento...','required']) !!}
+                                ,'required']) !!}
               </div>
               <div class="col-md-6">
                 {!! Form::text('document', null, ['class' => 'form-control', 'placeholder' => 'Documento','required']) !!}
