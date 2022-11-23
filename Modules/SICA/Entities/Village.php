@@ -21,4 +21,8 @@ class Village extends Model
         return $this->hasMany(Study::class);
     }
 
+    public function getVillMunAttribute(){
+        return $this->municipality->name.' / '.$this->name;
+    }
+
 }

@@ -1,7 +1,7 @@
 @extends('cpd::layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item">Inicio</li>
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
                             <h5 class="m-0">{{ $view['titleView'] }}</h5>
                         </div>
                         <div class="card-body">
-                            Contenido de datos de producción en cacao.
+                            Gráficas y estadisticas de producción aquí..
                         </div>
                     </div>
                 </div> <!-- /.col-md-6 -->

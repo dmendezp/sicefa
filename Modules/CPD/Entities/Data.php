@@ -13,7 +13,7 @@ class Data extends Model
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
 
-    public function medatadas(){
+    public function metadatas(){
         return $this->hasMany(Metadata::class);
     }
 

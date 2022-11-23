@@ -21,7 +21,7 @@ class CPDTableSeeder extends Seeder
         if(!$app){
             $app = App::create([
                 "name" => "CPD",
-                "url" => "/cpd/index",
+                "url" => "/cpd/home",
                 "color" => "#DC7633",
                 "icon" => "fas fa-seedling",
                 "description" => "Datos de producción de cacao",

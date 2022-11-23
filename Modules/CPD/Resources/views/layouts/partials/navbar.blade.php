@@ -7,7 +7,7 @@
         </li>
 
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('cefa.cpd.index') }}" class="nav-link @if($view['link']=='cpd.index') active @endif">Home</a>
+            <a href="{{ route('cefa.cpd.home') }}" class="nav-link {{ ! Route::is('cefa.cpd.home') ?: 'active' }}">Inicio</a>
         </li>
 
     </ul>

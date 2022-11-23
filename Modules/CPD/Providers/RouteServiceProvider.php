@@ -34,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-
+        $this->mapStudyRoutes();
         $this->mapWebRoutes();
     }
 
@@ -50,6 +50,13 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->moduleNamespace)
             ->group(module_path('CPD', '/Routes/web.php'));
+    }
+
+    protected function mapStudyRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->moduleNamespace)
+            ->group(module_path('CPD', '/Routes/study.php'));
     }
 
     /**

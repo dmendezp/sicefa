@@ -22,7 +22,7 @@
                                 <ol class="breadcrumb float-sm-right text-white">
 
                                     <li class="breadcrumb-item">
-                                        <a href="">
+                                        <a href="{{ route('cefa.cpd.home') }}">
                                             <i class="fas fa-seedling"></i>
                                             <b>CPD</b>
                                         </a>

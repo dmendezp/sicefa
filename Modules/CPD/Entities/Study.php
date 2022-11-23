@@ -4,6 +4,7 @@ namespace Modules\CPD\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\SICA\Entities\Village;
 
 class Study extends Model
 {

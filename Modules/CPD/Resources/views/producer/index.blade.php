@@ -15,7 +15,7 @@
                             <h5 class="m-0">{{ $view->titleView }}</h5>
                         </div>
                         <div class="card-body">
-                            Contenido de datos de producción en cacao.
+                            Todas los productores aquí. 
                         </div>
                     </div>
                 </div> <!-- /.col-md-6 -->

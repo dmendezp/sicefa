@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ route('cefa.cpd.index') }}" class="brand-link">
+    <a href="{{ route('cefa.cpd.home') }}" class="brand-link">
         <img src="{{ asset('cpd/images/logo.png') }}" alt="CPD Logo" class="brand-image elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">
             <b>CPD</b>
@@ -50,21 +50,26 @@
         </div>
 
         <div class="user-panel mt-1 pb-1 mb-1 d-flex">
-            <nav class="">
-                <ul class="nav nav-pills nav-sidebar flex-column">
-                    <li class="nav-item">
-                        <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
-                            <i class="fas fa-puzzle-piece"></i>
-                            <p>{{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}</p>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <ul class="nav nav-pills nav-sidebar flex-column">
+                <li class="nav-item">
+                    <a href="{{ route('cefa.welcome') }}" class="nav-link">
+                        <i class="fas fa-puzzle-piece"></i>
+                        <p>{{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}</p>
+                    </a>
+                </li>
+            </ul>
         </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                <li class="nav-item">
+                    <a href="{{ route('cefa.cpd.admin.study.index') }}" class="nav-link {{ ! Route::is('cefa.cpd.admin.study.index') ?: 'active' }}  {{ ! Route::is('cefa.cpd.admin.study.add') ?: 'active' }}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Monitoreos</p>
+                    </a>
+                </li>
 
             </ul>
         </nav>

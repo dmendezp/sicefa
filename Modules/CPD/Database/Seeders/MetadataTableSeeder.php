@@ -151,7 +151,7 @@ class MetadataTableSeeder extends Seeder
             $md = Metadata::create([
                 "data_id" => 1,
                 "abbreviation" => "Mn",
-                "description" => "M",
+                "description" => "Manganeso",
                 "unit_measure" => "mg/kg"
             ]);
         }
