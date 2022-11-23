@@ -24,7 +24,7 @@
         <i class="fas fa-user-tie"></i> Administrativos
       </a>
       <a class="btn btn-app btn-app-2">
-        <span class="badge bg-info">{{ number_format($courses,0,",",".") }}</span>
+        <span class="badge bg-info"></span>
         <i class="fas fa-graduation-cap"></i> Cursos
       </a>
       <a class="btn btn-app btn-app-2">
@@ -37,6 +37,7 @@
     <h3>Resumen</h3>
     <div class="mtop16">
       <p>Tablas o graficas por evento, tipo persona, población</p>
+      {{ $attendance }}
     </div>
   </div>
 </div>
