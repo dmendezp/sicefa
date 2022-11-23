@@ -35,7 +35,7 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/http/Function.php"
+            "app/Http/Function.php"
         ]
     },
     "autoload-dev": {

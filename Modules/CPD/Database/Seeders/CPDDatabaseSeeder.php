@@ -16,8 +16,8 @@ class CPDDatabaseSeeder extends Seeder
     {
 
         $this->call(CPDTableSeeder::class);
-        $this->call(DataTableSeeder::class);
-        $this->call(MetadataTableSeeder::class);
+        //$this->call(DataTableSeeder::class);
+        //$this->call(MetadataTableSeeder::class);
 
     }
 }

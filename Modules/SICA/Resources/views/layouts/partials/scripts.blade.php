@@ -20,6 +20,9 @@
 <!-- Select2 -->
 <script src="{{ asset('AdminLTE/plugins/select2/js/select2.full.min.js') }}"></script>
 
+{{-- Sweatalert and toast --}}
+<script src="{{ asset('AdminLTE/plugins/toastr/toastr.min.js') }}"></script>
+
 <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
 
 <script type="text/javascript">
@@ -27,3 +30,6 @@
   		$('[data-toggle="tooltip"]').tooltip()
 	})
 </script>
+
+<!-- sweetalert2 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

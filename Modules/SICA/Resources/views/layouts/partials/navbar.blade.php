@@ -9,9 +9,15 @@
       </li>
 @guest
 @else
+@if(Auth::user()->roles[0]->slug=='sica.admin')
       <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*admin.*') ?: 'active' }}">
         <a href="{{ route('sica.admin.dashboard') }}" class="nav-link">{{ trans('sica::menu.Administrator') }}</a>
       </li>
+@elseif(Auth::user()->roles[0]->slug=='sica.attendance') 
+      <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*attendance.*') ?: 'active' }}">
+        <a href="{{ route('sica.attendance.dashboard') }}" class="nav-link">{{ trans('sica::menu.Attendance') }}</a>
+      </li>
+@endif
 @endguest
 
   </ul>

@@ -101,7 +101,7 @@ class BOLMETEORController extends Controller
         
         $validator = $request->validate($rules);
 
-        $c = climaticdata::findOrFail($request->input('id'));
+        $c = Climaticdata::findOrFail($request->input('id'));
         $c->date_time = e($request->input('date_time'));
         $c->temperature = e($request->input('temperature'));
         $c->precipitation = e($request->input('precipitation'));
@@ -121,7 +121,7 @@ class BOLMETEORController extends Controller
     public function destroy($id)
     {
         // Eliminar registro de la tabla
-        $note = climaticdata::find($id);
+        $note = Climaticdata::find($id);
         if($note != null){
             $note->delete();
         }
