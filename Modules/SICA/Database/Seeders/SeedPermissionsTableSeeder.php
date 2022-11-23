@@ -38,7 +38,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "person_id" => $person->id,
                 "email" => "ing.diego.mendez@gmail.com",
                 "password" => Hash::make("12345678")
-            ]);            
+            ]);
         }
         //crear aplicacion
         $app = App::where('name','SICA')->first();

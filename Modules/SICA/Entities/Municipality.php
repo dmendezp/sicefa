@@ -5,6 +5,7 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\Department;
+use Modules\CPD\Entities\Village;
 
 class Municipality extends Model
 {
@@ -19,6 +20,10 @@ class Municipality extends Model
 
     public function department(){
         return $this->belongsTo(Department::class);
+    }
+
+    public function villages(){
+        return $this->hasMany(Village::class);
     }
 
 }
