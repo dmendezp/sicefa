@@ -18,6 +18,7 @@ class CreatePermissionsTable extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('description')->nullable();
+            $table->string('description_english')->nullable();
             $table->foreignId('app_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();

@@ -7,9 +7,21 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Apprentice;
+use Modules\SICA\Imports\ApprenticeImport;
+
+use Validator, Str, Excel;
 
 class ApprenticeController extends Controller
 {
+
+    public function search_apprentices(){
+        //$courses = Course::orderBy('code','Desc')->get();
+        $courses = Course::orderBy('code','Desc')->get()->pluck('code_name','id');
+        //$elections = Election::orderBy('id','Desc')->get();
+        //Election::pluck('name', 'id');
+        $data = ['title'=>trans('sica::menu.Search apprentice'),'courses'=>$courses];
+        return view('sica::admin.people.apprentices.home',$data);
+    }
 
 	public function search(){
 		$datas = json_decode($_POST['data']);

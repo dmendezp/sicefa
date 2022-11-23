@@ -3,6 +3,7 @@
 return [
 	'Home' => 'Inicio',
 	'Administrator' => 'Administrador',
+	'Attendance' => 'Asistencia',
 	'Contact' => 'Contacto',
 	'Notifications' => 'Notificaciones',
 	'new messages' => 'Mensajes nuevos',
@@ -21,6 +22,7 @@ return [
 	'Instructors' => 'Instructores',
 	'Officers' => 'Funcionarios',
 	'Contractors' => 'Contratistas',
+	'Events attendance' => 'Asistencia a eventos',
 	'Users' => 'Usuarios',
 	'Academy' => 'Academia',
 	'Quarters' => 'Trimestres',

@@ -13,7 +13,7 @@ class Course extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
-    protected $fillable = ['code','star_date','end_date','program-id','deschooling'];
+    protected $fillable = ['code','star_date','end_date','program_id','deschooling'];
     
     public function program(){
         return $this->belongsTo(Program::class);
@@ -26,5 +26,5 @@ class Course extends Model
     public function getCodeNameAttribute()
     {
         return "{$this->code} {$this->program->name}";
-    }
+    }   
 }

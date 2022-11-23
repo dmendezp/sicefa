@@ -157,28 +157,53 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
+* **Diego Tovar** - *Actividades a realizar:*
+*Crear nuevo modulo con nwidart*, 
+*Asociar modulo a la tabla apps*, 
+*Realizar estructura de layouts*,
+*Definir ruta para el master*, 
+*Crear modelo de asistencia* 
+* **Jesús Guevara** -*Actividades a realizar:* 
 ...
 #### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Diego Tovar** - *Actividades realizadas:* 
+*Crear migraciones de asistencia y tabla pivote "apprentice_asistencia"*, 
+*Definir relación entre el modelo Apprentice y Asistencia*,
+*Crear controlador de AsistenciaTurnosController*,
+*Hacer vista principal para asignar turno*  - *Avance: 45 %* - *No se encuentran dificultades* - *Realizar las sigientes actividades*
+* **Jesus Guevara** - *Actividades realizadas:* - *45 %* - *Dificultades* - *Acciones*   
 ---
 #### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Diego Tovar** - *Actividades realizadas:* *Select con programas y código de los técnicos y técnologos vista Turnos Rutinarios*
+*Agregar modal en la vista home para agregar turnos rutinarios*
+*Filtrar aprendices por el id del curso método buscarLista controlador *
+ - *Avance 65%* - *Dificultades: * *Trabajo de diseño con select2 dentro del modal*, *Trabajo con eloquent laravel* - *Documentarse sobre el manejo de las relaciones con eloquent*
+* **Jesus Guevara** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Diego Tovar** - *Actividades realizadas: * *Definir una fecha para el turno y obtener el get para crear asistencia*
+*Método getAsignarTurno para implementar filtro ajax y traer los datos de todos los aprendices*
+*Definir ruta para el  ajax*
+*Método postAsignarTurno los aprendices del curso con la relación de la asistencia a la tabla pivote*
+*definir ruta para el post/get de los datos* - *Avance 81%* - *Siguen las dificultades con eloquent y estilos* - *Investigar nuevos métodos de aplicación*
+* **Jesus Guevara** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Diego Tovar** - *Actividades realizadas:*
+*Definir ruta para listar asistencias*
+*Definir método de editar junto con su ruta*
+*añadir botón de editar turno para ejecutar el método de editar*
+*mostrar input date con fecha asignada y cambiar*
+*mostrar mensaje de cambio exitoso al dar submit*
+*mostrar lista con la nueva fecha*  - *Avance 100%* - *Diseño* - *Reeplantear estructura de la vista para no utilizar modal en la asignación de turno*
+* **Jesus Guevara** - *Actividades realizadas:*
+*Organización estructural * - *Avance 100%* - *Organización de tiempos* - *Reemplanteamiento de cronograma*
 ---
 #### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Diego Tovar** - *Actividades realizadas: Se realizan ajustes de diseño en base a los colores seleccionados* - *Avance 100%* - *reemplantear vistas de asignación* - *Realizar la propuesta y definir nueva ruta*
+* **Jesus Guevara** - *Actividades realizadas:*
+*Determinación de los nuevos requerimientos para el módulo nuevo*
+ - *Avance 100%* - *Dificultades* - *Acciones*
 ---
 
 ## KOLINA 🏕
