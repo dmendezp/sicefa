@@ -51,7 +51,7 @@
 
       
           <div class="col-4">
-                <div class="card card-purple card-outline shadow">
+                <div class="card card-orange card-outline shadow">
                 <div class="card-header text-muted border-bottom-0">
                   Centro de formación Agroindustrial
                 </div>
