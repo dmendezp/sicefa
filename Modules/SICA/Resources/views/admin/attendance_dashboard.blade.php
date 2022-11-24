@@ -36,8 +36,61 @@
 
     <h3>Resumen</h3>
     <div class="mtop16">
+    {{ $attendance }} 
       <p>Tablas o graficas por evento, tipo persona, población</p>
-      {{ $attendance }}
+     
+      
+     
+      <div class="row">
+     @foreach($attendance as $a)
+     <a class="btn btn-app  btn-app-2">
+        <span class="badge bg-info">{{ $a->total }}</span>
+        <i class="fas fa-user-graduate"></i> Asistentes - {{$a->event}} <br>{{$a->date}}
+      </a>
+
+
+      
+          <div class="col-4">
+                <div class="card card-purple card-outline shadow">
+                <div class="card-header text-muted border-bottom-0">
+                  Centro de formación Agroindustrial
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-7">
+                      <h2 class="lead"><b>Nombre del evento</b></h2>
+                      <p class="text-muted text-sm"><b> </b>  </p>
+                      <br>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        </span> Descripción</li>
+                        
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="http://localhost/expo/sicefa/public/evs/images/photos/shares/evs/blanco.png" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+                    <a href="#" class="small ">
+                      estadísticas de participación
+                    </a>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+      
+     
+
+
+     @endforeach
+
+     </div>
+
+
     </div>
   </div>
 </div>

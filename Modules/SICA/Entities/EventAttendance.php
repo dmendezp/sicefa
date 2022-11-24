@@ -20,4 +20,8 @@ class EventAttendance extends Model
         return $this->belongsTo(Event::class);
     }    
 
+    public function getEventNameAttribute(){
+        return $this->event->name;
+    }
+
 }
