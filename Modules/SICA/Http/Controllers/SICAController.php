@@ -56,8 +56,6 @@ class SICAController extends Controller
         $people = Person::count();
         $apprentices = Apprentice::count();
         $event = Event::count();
-        //$attendance = EventAttendance::select('date',DB::raw('count(id) as total'))->groupBy('date')->with('event')->get();
-        //$attendance = EventAttendance::select('date',DB::raw('count(id) as total'))->groupBy('date')->orderBy('date','desc')->with('event')->get();
         $events = Event::get();
         $eas = $events;
         $i=0;
