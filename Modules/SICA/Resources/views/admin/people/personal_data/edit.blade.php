@@ -202,7 +202,7 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Grupo de votacion</label>
+                                <label>Grupo poblacional</label>
                                 {!! Form::select('population_group_id', $population_groups,
                                 $people->population_group_id,['class' =>
                                 'form-control'
