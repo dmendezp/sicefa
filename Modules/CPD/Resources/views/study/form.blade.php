@@ -1,3 +1,6 @@
+@if (isset($sutdy))
+    {!! Form::hidden('study_id0', $study->id) !!}
+@endif
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card card-secondary">
@@ -43,6 +46,69 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <b class="text-danger">*</b>
+                                    {!! Form::label('monitoring', 'Monitoreo: ', ['class' => 'form-label']) !!}
+                                </div>
+                                <div class="col ms-0 ps-0">
+                                    {!! Form::number('monitoring', null, [
+                                        'placeholder' => 'Año',
+                                        'class' => 'form-control',
+                                        'data-toggle' => 'tooltip',
+                                        'data-placement' => 'top',
+                                        'title' => 'Año de monitoreo',
+                                        'oninput' => 'this.value=(parseInt(this.value)||0)',
+                                        'required'
+                                    ]) !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <b class="text-danger">*</b>
+                                    {!! Form::label('typology', 'Tipología: ', ['class' => 'form-label']) !!}
+                                </div>
+                                <div class="col ms-0 ps-0">
+                                    {!! Form::select('typology', getEnumValues('studies', 'typology'), null, [
+                                        'class' => 'form-control',
+                                        'data-toggle' => 'tooltip',
+                                        'data-placement' => 'top',
+                                        'title' => 'Tipo de cultivo',
+                                        'required'
+                                    ]) !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <b class="text-danger">*</b>
+                                    {!! Form::label('altitud', 'Altitud: ', ['class' => 'form-label']) !!}
+                                </div>
+                                <div class="col ms-0 ps-0">
+                                    {!! Form::number('altitud', null, [
+                                        'placeholder' => 'm.s.n.m.',
+                                        'class' => 'form-control',
+                                        'data-toggle' => 'tooltip',
+                                        'data-placement' => 'top',
+                                        'title' => 'Metros sobre el nivel del mar',
+                                        'oninput' => 'this.value=(parseInt(this.value)||0)',
+                                        'required'
+                                    ]) !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -70,8 +136,9 @@
                                                     'onkeypress' => 'return isNumberKey(event)',
                                                     'data-toggle' => 'tooltip',
                                                     'data-placement' => 'top',
-                                                    'max' => '9999',
-                                                    'title' => $metadata->description
+                                                    'title' => $metadata->description,
+                                                    'step' => 'any',
+                                                    'max' => '9999'
                                                 ]) !!}
                                             </div>
                                         </div>

@@ -21,8 +21,8 @@
                                 <table id="table-studies" class="table table-bordered table-striped table-sm dtr-inline">
                                     <thead>
                                         <tr>
-                                            <th rowspan="2" class="align-middle text-center px-3">
-                                                <a href="{{ route('cefa.cpd.admin.study.add') }}" class="text-success" class="text-success" data-toggle='tooltip' data-placement="top" title="Agregar" style="font-size: 20px;">
+                                            <th rowspan="2" class="align-middle text-center"  width="50px">
+                                                <a href="{{ route('cefa.cpd.admin.study.add') }}" class="text-primary" class="text-primary" data-toggle='tooltip' data-placement="top" title="Registrar monitoreo" style="font-size: 20px;">
                                                     <i class="fas fa-plus-circle"></i>
                                                 </a>
                                             </th>
@@ -49,11 +49,14 @@
                                     <tbody>
                                         @foreach ($studies as $study)
                                             <tr>
-                                                <td class="text-center">
-                                                    <a href="" class="text-info"  data-toggle='tooltip' data-placement="top" title="Editar">
+                                                <td class="align-middle text-center" width="50px">
+                                                    <a href="" class="text-info"  data-toggle='tooltip' data-placement="top" title="Ver detalle de monitoreo">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a href="" class="text-success"  data-toggle='tooltip' data-placement="top" title="Actualizar monitoreo">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="" data-path="sica/admin/people/apprentice" title="Eliminar">
+                                                    <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" title="Eliminar monitoreo">
                                                         <i class="far fa-trash-alt"></i>
                                                     </a>
                                                 </td>

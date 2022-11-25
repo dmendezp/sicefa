@@ -19,13 +19,13 @@
                         <div class="card-header py-2">
                             <h4><b>Formulario de monitoreos</b></h4>
                         </div>
-                        {{-- {!! Form::open(['route' => 'employee.add.post', 'method' => 'POST', 'role' => 'form']) !!} --}}
+                        {!! Form::open(['route' => 'cefa.cpd.admin.study.add', 'method' => 'POST', 'role' => 'form']) !!}
                         <form>
                             <div class="card-body pb-0">
                                 @include('cpd::study.form')
                             </div>
                             <div class="card-footer bg-white">
-                                <a href="{{ route('cefa.cpd.admin.study.index') }}" class="btn btn-light float-left">
+                                <a href="{{ route('cefa.cpd.admin.study.index') }}" class="btn btn-light float-left" data-toggle='tooltip' data-placement="top" title="Cancelar registro">
                                     <b>Cancelar</b>
                                 </a>
                                 <button type="submit" class="btn btn-primary float-right" data-toggle='tooltip' data-placement="top" title="Registrar monitoreo">
@@ -33,7 +33,7 @@
                                 </button>
                             </div>
                         </form>
-                        {{-- {!! Form::close() !!} --}}
+                        {!! Form::close() !!}
                     </div>
                 </div> <!-- /.col-md-6 -->
             </div><!-- /.row -->
