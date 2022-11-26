@@ -139,7 +139,7 @@
                                                     'onkeypress' => 'return isNumberKey(event)',
                                                     'data-toggle' => 'tooltip',
                                                     'data-placement' => 'top',
-                                                    'title' => $metadata->description,
+                                                    'title' => $metadata->description.' ('.$metadata->unit_measure.')',
                                                     'step' => 'any',
                                                     'max' => '9999'
                                                 ]) !!}

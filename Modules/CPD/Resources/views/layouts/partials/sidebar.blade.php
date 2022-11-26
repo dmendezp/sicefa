@@ -65,7 +65,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                 <li class="nav-item">
-                    <a href="{{ route('cefa.cpd.admin.study.index') }}" class="nav-link {{ ! Route::is('cefa.cpd.admin.study.index') ?: 'active' }}  {{ ! Route::is('cefa.cpd.admin.study.add') ?: 'active' }}">
+                    <a href="{{ route('cpd.admin.study.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.study.')) active @endif">
                         <i class="nav-icon fas fa-th"></i>
                         <p>Monitoreos</p>
                     </a>

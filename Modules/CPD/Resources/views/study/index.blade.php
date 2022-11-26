@@ -22,7 +22,7 @@
                                     <thead>
                                         <tr>
                                             <th rowspan="2" class="align-middle text-center"  width="50px">
-                                                <a href="{{ route('cefa.cpd.admin.study.add') }}" class="text-primary" class="text-primary" data-toggle='tooltip' data-placement="top" title="Registrar monitoreo" style="font-size: 20px;">
+                                                <a href="{{ route('cpd.admin.study.add') }}" class="text-primary" class="text-primary" data-toggle='tooltip' data-placement="top" title="Registrar monitoreo" style="font-size: 20px;">
                                                     <i class="fas fa-plus-circle"></i>
                                                 </a>
                                             </th>
@@ -40,7 +40,7 @@
                                             @foreach ($datas as $data)
                                                 @if($data->metadatas->count())
                                                     @foreach ($data->metadatas as $metadata)
-                                                        <th class="text-center">{{ $metadata->abbreviation }}</th>
+                                                        <th class="text-center" data-toggle='tooltip' data-placement="top" title="{{ $metadata->description }}">{{ $metadata->abbreviation }}</th>
                                                     @endforeach
                                                 @endif
                                             @endforeach
@@ -50,10 +50,12 @@
                                         @foreach ($studies as $study)
                                             <tr>
                                                 <td class="align-middle text-center" width="50px">
-                                                    <a href="" class="text-info"  data-toggle='tooltip' data-placement="top" title="Ver detalle de monitoreo">
-                                                        <i class="fas fa-eye"></i>
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.detail', $study->id) }}')">
+                                                        <b class="text-info" data-toggle="tooltip" data-placement="top" title="Ver detalle de monitoreo">
+                                                            <i class="fas fa-eye"></i>
+                                                        </b>
                                                     </a>
-                                                    <a href="{{ route('cefa.cpd.admin.study.update') }}/{{ $study->id }}" class="text-success"  data-toggle='tooltip' data-placement="top" title="Actualizar monitoreo">
+                                                    <a href="{{ route('cpd.admin.study.update') }}/{{ $study->id }}" class="text-success"  data-toggle='tooltip' data-placement="top" title="Actualizar monitoreo">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" title="Eliminar monitoreo">
@@ -63,16 +65,14 @@
                                                 <td class="align-middle text-center">{{ $loop->iteration }}</td>
                                                 <td class="align-middle">{{ $study->producer->name }}</td>
                                                 <td class="align-middle text-center">{{ $study->monitoring }}</td>
-                                                <td class="align-middle">{{ $study->village->getVillMunAttribute() }}</td>
+                                                <td class="align-middle">{{ $study->village->VillMun }}</td>
                                                 <td class="align-middle">{{ $study->typology }}</td>
                                                 <td class="align-middle text-center">{{ $study->altitud }}</td>
                                                 @foreach ($datas as $data)
                                                     @if($data->metadatas->count())
                                                         @foreach ($data->metadatas as $metadata)
-                                                            @php
-                                                                $ab = $metadata->abbreviation;
-                                                            @endphp
-                                                            <td class="align-middle text-center ">{{ $study->$ab }}</td>
+                                                            @php $ab = $metadata->abbreviation; @endphp
+                                                            <td class="align-middle text-center" data-toggle='tooltip' data-placement="top" title="{{ $ab }} ({{ $metadata->unit_measure }})">{{ $study->$ab }}</td>
                                                         @endforeach
                                                     @endif
                                                 @endforeach
@@ -89,6 +89,21 @@
                 </div> <!-- /.col-md-6 -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- General modal -->
+    <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content" id="modal-content"></div>
+        </div>
+    </div>
+    <div id="loader" style="display: none;"> {{-- Loader modal --}}
+        <div class="modal-body text-center" id="modal-loader">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div><br>
+            <b id="loader-message"></b>
+        </div>
     </div>
 @endsection
 
@@ -161,6 +176,28 @@
                 }
             ]
         }).buttons().container().appendTo('#table-studies_wrapper .col-md-6:eq(0)');
+    });
+
+    function ajaxAction(route){ /* Ajax to show content modal to add event */
+        $('#loader-message').text('Cargando contenido...'); /* Add content to loader */
+        $('#modal-content').append($('#modal-loader').clone()); /* Add the loader to the modal */
+        $.ajaxSetup({
+            headers:     {
+                'X-CSRF-TOKE': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            method: "get",
+            url: route,
+            data: {}
+        })
+        .done(function(html){
+            $("#modal-content").html(html);
+        });
+    }
+
+    $("#generalModal").on("hidden.bs.modal", function () { /* Modal content is removed when the modal is closed */
+        $("#modal-content").empty();
     });
   </script>
 @endsection

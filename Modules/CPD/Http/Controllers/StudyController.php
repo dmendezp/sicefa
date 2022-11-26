@@ -51,7 +51,7 @@ class StudyController extends Controller
             $message_cpd_type = 'error';
             $message_cpd = 'No se pudo registrar el monitoreo.';
         }
-        return redirect(route('cefa.cpd.admin.study.index'))->with(['message_cpd_type'=>$message_cpd_type, 'message_cpd'=>$message_cpd]);
+        return redirect(route('cpd.admin.study.index'))->with(['message_cpd_type'=>$message_cpd_type, 'message_cpd'=>$message_cpd]);
     }
 
     public function updateGet($id){
@@ -86,7 +86,14 @@ class StudyController extends Controller
             $message_cpd_type = 'error';
             $message_cpd = 'No se pudo actualizar el monitoreo.';
         }
-        return redirect(route('cefa.cpd.admin.study.index'))->with(['message_cpd_type'=>$message_cpd_type, 'message_cpd'=>$message_cpd]);
+        return redirect(route('cpd.admin.study.index'))->with(['message_cpd_type'=>$message_cpd_type, 'message_cpd'=>$message_cpd]);
+    }
+
+    public function detailGet($id){
+        $titleView = 'Detalle de monitoreo';
+        $datas = Data::all();
+        $study = Study::find($id);
+        return view('cpd::study.detail', compact('titleView','study','datas'));
     }
 
 }
