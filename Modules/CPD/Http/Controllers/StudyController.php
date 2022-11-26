@@ -96,4 +96,23 @@ class StudyController extends Controller
         return view('cpd::study.detail', compact('titleView','study','datas'));
     }
 
+    public function deleteGet($id){
+        $titleView = '¿Confirma eliminar el siguiente monitoreo?';
+        $datas = Data::all();
+        $study = Study::find($id);
+        return view('cpd::study.delete', compact('titleView','study','datas'));
+    }
+
+    public function deletePost(Request $request){
+        $st = Study::findOrFail($request->input('study_id'));
+        if($st->delete()){
+            $message_cpd_type = 'success';
+            $message_cpd = 'Monitoreo eliminado exitosamente.';
+        }else{
+            $message_cpd_type = 'error';
+            $message_cpd = 'No se pudo eliminar el monitoreo.';
+        }
+        return redirect(route('cpd.admin.study.index'))->with(['message_cpd_type'=>$message_cpd_type, 'message_cpd'=>$message_cpd]);
+    }
+
 }

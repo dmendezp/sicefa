@@ -15,6 +15,9 @@ Route::middleware(['lang'])->group(function(){
         Route::post('/admin/study/update', [StudyController::class, 'updatePost'])->name('cpd.admin.study.update');
         // Detail
         Route::get('/admin/study/detail/{id}', [StudyController::class, 'detailGet'])->name('cpd.admin.study.detail');
+        // Delete
+        Route::get('/admin/study/delete/{id}', [StudyController::class, 'deleteGet'])->name('cpd.admin.study.delete');
+        Route::post('/admin/study/delete', [StudyController::class, 'deletePost'])->name('cpd.admin.study.delete');
 
     });
 });

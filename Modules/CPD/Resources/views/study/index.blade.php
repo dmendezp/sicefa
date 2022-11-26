@@ -58,8 +58,10 @@
                                                     <a href="{{ route('cpd.admin.study.update') }}/{{ $study->id }}" class="text-success"  data-toggle='tooltip' data-placement="top" title="Actualizar monitoreo">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" title="Eliminar monitoreo">
-                                                        <i class="far fa-trash-alt"></i>
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.delete') }}/{{ $study->id }}')">
+                                                        <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar monitoreo">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </b>
                                                     </a>
                                                 </td>
                                                 <td class="align-middle text-center">{{ $loop->iteration }}</td>
