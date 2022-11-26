@@ -12,7 +12,7 @@
                 <div class="col-lg-12">
                     <div class="card card-warning card-outline">
                         <div class="card-header">
-                            <h5 class="m-0">{{ $view['titleView'] }}</h5>
+                            <h4 class="m-0"><b>{{ $view['titleView'] }}</b></h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -53,7 +53,7 @@
                                                     <a href="" class="text-info"  data-toggle='tooltip' data-placement="top" title="Ver detalle de monitoreo">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                    <a href="" class="text-success"  data-toggle='tooltip' data-placement="top" title="Actualizar monitoreo">
+                                                    <a href="{{ route('cefa.cpd.admin.study.update') }}/{{ $study->id }}" class="text-success"  data-toggle='tooltip' data-placement="top" title="Actualizar monitoreo">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" title="Eliminar monitoreo">

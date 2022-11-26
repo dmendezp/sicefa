@@ -16,7 +16,7 @@ class StudyController extends Controller
     public function index(){
         $view = ['titlePage'=>'Monitoreos', 'titleView'=>'Monitoreos de los cultivos de cacao'];
         $datas = Data::all();
-        $studies = Study::all();
+        $studies = Study::orderBy('id','DESC')->get();
         return view('cpd::study.index', compact('view','datas','studies'));
     }
 
@@ -54,12 +54,13 @@ class StudyController extends Controller
         return redirect(route('cefa.cpd.admin.study.index'))->with(['message_cpd_type'=>$message_cpd_type, 'message_cpd'=>$message_cpd]);
     }
 
-    public function updateGet(){
+    public function updateGet($id){
         $view = ['titlePage'=>'Monitoreos - actualizar', 'titleView'=>'Actualización de monitoreo de cultivo de cacao'];
         $datas = Data::all();
         $producers = Producer::orderBy('name','ASC')->pluck('name','id');
         $villages = Village::get()->pluck("VillMun", "id");
-        return view('cpd::study.add', compact('view','datas','producers','villages'));
+        $study = Study::find($id);
+        return view('cpd::study.edit', compact('view','datas','producers','villages','study'));
     }
 
     public function updatePost(Request $request){

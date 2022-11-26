@@ -1,5 +1,5 @@
-@if (isset($sutdy))
-    {!! Form::hidden('study_id0', $study->id) !!}
+@if (isset($study))
+    {!! Form::hidden('study_id', $study->id) !!}
 @endif
 <div class="row justify-content-center">
     <div class="col-md-12">
@@ -12,12 +12,12 @@
                     <div class="col-6">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-auto">
+                                <div class="col-auto pt-1">
                                     <b class="text-danger">*</b>
                                     {!! Form::label('producer_id', 'Productor: ', ['class' => 'form-label']) !!}
                                 </div>
                                 <div class="col ms-0 ps-0">
-                                    {!! Form::select('producer_id', $producers, null, [
+                                    {!! Form::select('producer_id', $producers, isset($study) ? $study->producer_id : null, [
                                         'placeholder' => '-- Seleccione --',
                                         'class' => 'form-control',
                                         'id' => 'producer_id',
@@ -30,12 +30,12 @@
                     <div class="col-6">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-auto">
+                                <div class="col-auto pt-1">
                                     <b class="text-danger">*</b>
                                     {!! Form::label('village_id', 'Vereda: ', ['class' => 'form-label']) !!}
                                 </div>
                                 <div class="col ms-0 ps-0">
-                                    {!! Form::select('village_id', $villages, null, [
+                                    {!! Form::select('village_id', $villages, isset($study) ? $study->village_id : null, [
                                         'placeholder' => '-- Seleccione --',
                                         'class' => 'form-control',
                                         'id' => 'village_id',
@@ -50,12 +50,12 @@
                     <div class="col-2">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-auto">
+                                <div class="col-auto pt-1">
                                     <b class="text-danger">*</b>
                                     {!! Form::label('monitoring', 'Monitoreo: ', ['class' => 'form-label']) !!}
                                 </div>
                                 <div class="col ms-0 ps-0">
-                                    {!! Form::number('monitoring', null, [
+                                    {!! Form::number('monitoring', isset($study) ? $study->monitoring : null, [
                                         'placeholder' => 'Año',
                                         'class' => 'form-control',
                                         'data-toggle' => 'tooltip',
@@ -71,12 +71,12 @@
                     <div class="col-3">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-auto">
+                                <div class="col-auto pt-1">
                                     <b class="text-danger">*</b>
                                     {!! Form::label('typology', 'Tipología: ', ['class' => 'form-label']) !!}
                                 </div>
                                 <div class="col ms-0 ps-0">
-                                    {!! Form::select('typology', getEnumValues('studies', 'typology'), null, [
+                                    {!! Form::select('typology', getEnumValues('studies', 'typology'), isset($study) ? $study->typology : null, [
                                         'class' => 'form-control',
                                         'data-toggle' => 'tooltip',
                                         'data-placement' => 'top',
@@ -87,15 +87,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-auto">
+                                <div class="col-auto pt-1">
                                     <b class="text-danger">*</b>
                                     {!! Form::label('altitud', 'Altitud: ', ['class' => 'form-label']) !!}
                                 </div>
                                 <div class="col ms-0 ps-0">
-                                    {!! Form::number('altitud', null, [
+                                    {!! Form::number('altitud', isset($study) ? $study->altitud : null, [
                                         'placeholder' => 'm.s.n.m.',
                                         'class' => 'form-control',
                                         'data-toggle' => 'tooltip',
@@ -122,6 +122,9 @@
                     <div class="row">
                         @if ($data->metadatas->count())
                             @foreach ($data->metadatas as $metadata)
+                                @php
+                                    $ab = $metadata->abbreviation;
+                                @endphp
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <div class="row">
@@ -129,7 +132,7 @@
                                                 {!! Form::label($metadata->abbreviation, $metadata->abbreviation.':', ['class' => 'form-label form-label-sm']) !!}
                                             </div>
                                             <div class="col ms-0 ps-0">
-                                                {!! Form::number($metadata->abbreviation, null, [
+                                                {!! Form::number($metadata->abbreviation, isset($study) ? $study->$ab : null, [
                                                     'placeholder' => '####.###',
                                                     'class' => 'form-control form-control-sm',
                                                     'oninput' => 'limitDecimalPlaces(event, 3)',

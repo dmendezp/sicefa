@@ -5,7 +5,7 @@
         <a href="{{ route('cefa.cpd.admin.study.index') }}">Monitoreos</a>
     </li>
     <li class="breadcrumb-item">
-        Registro
+        Actualización
     </li>
 @endsection
 
@@ -15,24 +15,24 @@
             <div class="row">
                 <!-- /.col-md-6 -->
                 <div class="col-lg-12 mx-auto">
-                    <div class="card card-primary card-outline">
+                    <div class="card card-success card-outline">
                         <div class="card-header py-2">
                             <h4><b>{{ $view['titleView'] }}</b></h4>
                         </div>
-                        {!! Form::open(['route' => 'cefa.cpd.admin.study.add', 'method' => 'POST', 'role' => 'form']) !!}
-                        <form>
-                            <div class="card-body pb-0">
-                                @include('cpd::study.form')
-                            </div>
-                            <div class="card-footer bg-white">
-                                <a href="{{ route('cefa.cpd.admin.study.index') }}" class="btn btn-light float-left" data-toggle='tooltip' data-placement="top" title="Cancelar registro">
-                                    <b>Cancelar</b>
-                                </a>
-                                <button type="submit" class="btn btn-primary float-right" data-toggle='tooltip' data-placement="top" title="Registrar monitoreo">
-                                    <b>Guardar</b>
-                                </button>
-                            </div>
-                        </form>
+                        {!! Form::open(['route' => 'cefa.cpd.admin.study.update', 'method' => 'POST', 'role' => 'form']) !!}
+                            <form>
+                                <div class="card-body pb-0">
+                                    @include('cpd::study.form')
+                                </div>
+                                <div class="card-footer bg-white">
+                                    <a href="{{ route('cefa.cpd.admin.study.index') }}" class="btn btn-light float-left" data-toggle='tooltip' data-placement="top" title="Cancelar actualización">
+                                        <b>Cancelar</b>
+                                    </a>
+                                    <button type="submit" class="btn btn-success float-right" data-toggle='tooltip' data-placement="top" title="Actualizar monitoreo">
+                                        <b>Actualizar</b>
+                                    </button>
+                                </div>
+                            </form>
                         {!! Form::close() !!}
                     </div>
                 </div> <!-- /.col-md-6 -->
