@@ -66,7 +66,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('cpd.admin.study.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.study.')) active @endif">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-clipboard-list"></i>
                         <p>Monitoreos</p>
                     </a>
                 </li>
