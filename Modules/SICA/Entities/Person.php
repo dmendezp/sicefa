@@ -13,6 +13,7 @@ use Modules\EVS\Entities\Authorized;
 use App\Models\User;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Event;
+use Modules\SENAEMPRESA\Entities\ApprenticeAttendance;
 
 class Person extends Model
 {
@@ -89,6 +90,10 @@ class Person extends Model
 
     public function events(){
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
+    }
+
+    public function apprenticeAttendances(){
+        return $this->hasMAny(ApprenticeAttendance::class);
     }
 
 }

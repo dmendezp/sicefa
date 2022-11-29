@@ -25,6 +25,9 @@
         Route::post('/updateTurno', 'AsistenciaTurnosController@updateTurno')->name('updateTurno');
         //Route::resource('turnos', 'AsistenciaTurnosController');
         //Route::resource('reports', 'ProductController')
+        Route::get('/updateAttendance', 'AsistenciaTurnosController@updateAttendace')->name('updateAttendance');
+
+        
         
     });
 

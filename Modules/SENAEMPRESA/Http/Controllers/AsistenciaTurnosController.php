@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Asistencia;
+use Modules\SENAEMPRESA\Entities\ApprenticeAsistencia;
 
 
 
@@ -162,8 +163,18 @@ public function postAsignarTurno(Request $request){
         //return $resultado;
         return redirect(route('listaTurnos'))->with('success', 'Fecha actualizada.');;
         
-       
+    }
 
+    public function updateAttendace(Request $request)
+    {
+        $id = $request->id;
+        $asistencia = $request->asistencia;
+        $apprentices = ApprenticeAsistencia::findOrFail($request->id);
+        //$apprentices = ApprenticeAttendance::where('id',$id)->get();
+        $apprentices->asistencia = $request->asistencia;
+        $apprentices->save();
+
+        return response()->json(['message' => 'User status updated successfully.'.$id.$asistencia.'']);
     }
 
     /**

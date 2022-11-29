@@ -22,7 +22,7 @@ class Asistencia extends Model
     }
 
     public function apprentices(){
-        return $this->belongsToMany(Apprentice::class)->withTimestamps()->withPivot('asistencia');
+        return $this->belongsToMany(Apprentice::class, 'apprentice_asistencias')->withTimestamps()->withPivot('asistencia','id');
     }
     
     public function getasistenciasNombreCursoAttribute(){
@@ -32,5 +32,8 @@ class Asistencia extends Model
     public function getCourseIdAttribute(){
         return $this->apprentices->course_id;
     }
+
+    
+   
     
 }
