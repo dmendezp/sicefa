@@ -3,12 +3,13 @@
 namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Event;
 
-class EventAttendance extends Model
+class EventAttendance extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     protected $hidden = ['created_at','updated_at'];
     protected $fillable = ['event_id','person_id','date'];
 

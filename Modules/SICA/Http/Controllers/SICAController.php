@@ -71,9 +71,9 @@ class SICAController extends Controller
             $eas[$i]['pop']=$pop;
             $i++;       
         }
-        //return $eas;
+        return $eas;
         
-        $data = ['title'=>trans('sica::menu.Dashboard'),'people'=>$people,'apprentices'=>$apprentices,'attendance'=>$attendance, 'event'=>$event, 'eas'=>$eas];
+        $data = ['title'=>trans('sica::menu.Dashboard'),'people'=>$people,'apprentices'=>$apprentices, 'event'=>$event, 'eas'=>$eas];
         return view('sica::admin.attendance_dashboard',$data);
     }
 

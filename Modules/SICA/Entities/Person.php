@@ -4,6 +4,7 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\PopulationGroup;
 use Modules\SICA\Entities\Apprentice;
@@ -14,8 +15,9 @@ use App\Models\User;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Event;
 
-class Person extends Model
+class Person extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
