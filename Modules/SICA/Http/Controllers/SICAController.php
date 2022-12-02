@@ -15,8 +15,7 @@ use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Event;
 use Modules\SICA\Entities\EventAttendance;
-
-use DB;
+Use DB;
 
 class SICAController extends Controller
 {
@@ -31,7 +30,7 @@ class SICAController extends Controller
     {
         $data = ['title'=>trans('sica::menu.Contact')];
         return view('sica::form_contact',$data);
-    }    
+    }
 
     public function developers()
     {
@@ -72,8 +71,8 @@ class SICAController extends Controller
             $i++;       
         }
         return $eas;
-        
-        $data = ['title'=>trans('sica::menu.Dashboard'),'people'=>$people,'apprentices'=>$apprentices, 'event'=>$event, 'eas'=>$eas];
+        $attendance = EventAttendance::select('date',DB::raw('count(id) as total'))->groupBy('date')->with('event')->get();
+        $data = ['title'=>trans('sica::menu.Dashboard'),'people'=>$people,'apprentices'=>$apprentices,'attendance'=>$attendance];
         return view('sica::admin.attendance_dashboard',$data);
     }
 

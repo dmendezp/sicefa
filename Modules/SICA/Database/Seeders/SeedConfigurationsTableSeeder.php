@@ -16,6 +16,8 @@ class SeedConfigurationsTableSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $eps = array{
+            
+        }
     }
 }
