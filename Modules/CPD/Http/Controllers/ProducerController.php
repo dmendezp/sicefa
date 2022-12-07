@@ -5,6 +5,7 @@ namespace Modules\CPD\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\CPD\Entities\Producer;
 
 class ProducerController extends Controller
 {
@@ -14,7 +15,9 @@ class ProducerController extends Controller
      */
     public function index()
     {
-        return view('cpd::index');
+        $view = ['titlePage'=>'Productores', 'titleView'=>'Productores de cacao'];
+        $producers = Producer::orderBy('id','DESC')->get();
+        return view('cpd::producer.index', compact('view','producers'));
     }
 
     /**
@@ -23,7 +26,8 @@ class ProducerController extends Controller
      */
     public function create()
     {
-        return view('cpd::create');
+        $view = ['titlePage'=>'Productores - Registro', 'titleView'=>'Registro de productor de cacao'];
+        return view('cpd::producer.add', compact('view'));
     }
 
     /**

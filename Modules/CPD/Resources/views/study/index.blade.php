@@ -18,74 +18,74 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="table-responsive">
-                                <table id="table-studies" class="table table-bordered table-striped table-sm dtr-inline">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2" class="align-middle text-center"  width="50px">
-                                                <a href="{{ route('cpd.admin.study.add') }}" class="text-primary" class="text-primary" data-toggle='tooltip' data-placement="top" title="Registrar monitoreo" style="font-size: 20px;">
-                                                    <i class="fas fa-plus-circle"></i>
-                                                </a>
-                                            </th>
-                                            <th rowspan="2" class="align-middle text-center">#</th>
-                                            <th rowspan="2" class="align-middle text-center">Productor</th>
-                                            <th rowspan="2" class="align-middle text-center">Monitoreo</th>
-                                            <th rowspan="2" class="align-middle text-center">Municipio / Vereda</th>
-                                            <th rowspan="2" class="align-middle text-center">Tipología</th>
-                                            <th rowspan="2" class="align-middle text-center">Altitud</th>
-                                            @foreach ($datas as $data)
-                                                <th colspan="{{ $data->metadatas->count() }}">{{ $data->name }}</th>
-                                            @endforeach
-                                        </tr>
-                                        <tr>
-                                            @foreach ($datas as $data)
-                                                @if($data->metadatas->count())
-                                                    @foreach ($data->metadatas as $metadata)
-                                                        <th class="text-center" data-toggle='tooltip' data-placement="top" title="{{ $metadata->description }}">{{ $metadata->abbreviation }}</th>
+                                        <table id="table-studies" class="table table-bordered table-striped table-sm dtr-inline">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="1" class="text-center" >
+                                                        <a href="{{ route('cpd.admin.study.add') }}" class="text-primary" class="text-primary" data-toggle='tooltip' data-placement="top" title="Registrar monitoreo" style="font-size: 20px;">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </a>
+                                                    </th>
+                                                    <th rowspan="2" class="align-middle text-center">#</th>
+                                                    <th rowspan="2" class="align-middle text-center">Productor</th>
+                                                    <th rowspan="2" class="align-middle text-center">Monitoreo</th>
+                                                    <th rowspan="2" class="align-middle text-center">Municipio / Vereda</th>
+                                                    <th rowspan="2" class="align-middle text-center">Tipología</th>
+                                                    <th rowspan="2" class="align-middle text-center">Altitud</th>
+                                                    @foreach ($datas as $data)
+                                                        <th colspan="{{ $data->metadatas->count() }}">{{ $data->name }}</th>
                                                     @endforeach
-                                                @endif
-                                            @endforeach
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($studies as $study)
-                                            <tr>
-                                                <td class="align-middle text-center" width="50px">
-                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.detail', $study->id) }}')">
-                                                        <b class="text-info" data-toggle="tooltip" data-placement="top" title="Ver detalle de monitoreo">
-                                                            <i class="fas fa-eye"></i>
-                                                        </b>
-                                                    </a>
-                                                    <a href="{{ route('cpd.admin.study.update') }}/{{ $study->id }}" class="text-success"  data-toggle='tooltip' data-placement="top" title="Actualizar monitoreo">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.delete') }}/{{ $study->id }}')">
-                                                        <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar monitoreo">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </b>
-                                                    </a>
-                                                </td>
-                                                <td class="align-middle text-center">{{ $loop->iteration }}</td>
-                                                <td class="align-middle">{{ $study->producer->name }}</td>
-                                                <td class="align-middle text-center">{{ $study->monitoring }}</td>
-                                                <td class="align-middle">{{ $study->village->VillMun }}</td>
-                                                <td class="align-middle">{{ $study->typology }}</td>
-                                                <td class="align-middle text-center">{{ $study->altitud }}</td>
-                                                @foreach ($datas as $data)
-                                                    @if($data->metadatas->count())
-                                                        @foreach ($data->metadatas as $metadata)
-                                                            @php $ab = $metadata->abbreviation; @endphp
-                                                            <td class="align-middle text-center" data-toggle='tooltip' data-placement="top" title="{{ $ab }} ({{ $metadata->unit_measure }})">{{ $study->$ab }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="align-middle text-center">Acciones</th>
+                                                    @foreach ($datas as $data)
+                                                        @if($data->metadatas->count())
+                                                            @foreach ($data->metadatas as $metadata)
+                                                                <th class="text-center" data-toggle='tooltip' data-placement="top" title="{{ $metadata->description }}">{{ $metadata->abbreviation }}</th>
+                                                            @endforeach
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($studies as $study)
+                                                    <tr>
+                                                        <td class="align-middle text-center">
+                                                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.detail', $study->id) }}')">
+                                                                <b class="text-info" data-toggle="tooltip" data-placement="top" title="Ver detalle de monitoreo">
+                                                                    <i class="fas fa-eye"></i>
+                                                                </b>
+                                                            </a>
+                                                            <a href="{{ route('cpd.admin.study.update') }}/{{ $study->id }}" class="text-success"  data-toggle='tooltip' data-placement="top" title="Actualizar monitoreo">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.delete') }}/{{ $study->id }}')">
+                                                                <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar monitoreo">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                </b>
+                                                            </a>
+                                                        </td>
+                                                        <td class="align-middle text-center">{{ $loop->iteration }}</td>
+                                                        <td class="align-middle">{{ $study->producer->name }}</td>
+                                                        <td class="align-middle text-center">{{ $study->monitoring }}</td>
+                                                        <td class="align-middle">{{ $study->village->VillMun }}</td>
+                                                        <td class="align-middle">{{ $study->typology }}</td>
+                                                        <td class="align-middle text-center">{{ $study->altitud }}</td>
+                                                        @foreach ($datas as $data)
+                                                            @if($data->metadatas->count())
+                                                                @foreach ($data->metadatas as $metadata)
+                                                                    @php $ab = $metadata->abbreviation; @endphp
+                                                                    <td class="align-middle text-center" data-toggle='tooltip' data-placement="top" title="{{ $ab }} ({{ $metadata->unit_measure }})">{{ $study->$ab }}</td>
+                                                                @endforeach
+                                                            @endif
                                                         @endforeach
-                                                    @endif
+                                                    </tr>
                                                 @endforeach
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div> <!-- /.col-md-6 -->
@@ -176,7 +176,11 @@
                     text: 'Todo',
                     show: ':hidden'
                 }
-            ]
+            ],
+            columnDefs: [
+                { orderable: false, targets: 0 }
+            ],
+            order: [[1, 'asc']]
         }).buttons().container().appendTo('#table-studies_wrapper .col-md-6:eq(0)');
     });
 
