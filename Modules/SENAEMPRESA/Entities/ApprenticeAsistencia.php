@@ -4,9 +4,9 @@ namespace Modules\SENAEMPRESA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\SICA\Entities\Apprentice;
-use Modules\SENAEMPRESA\Entities\Asistencia;
-use Illuminate\Database\Eloquent\SoftDeletes;
+/* use Modules\SICA\Entities\Apprentice;
+use Modules\SENAEMPRESA\Entities\Asistencia;*/
+use Illuminate\Database\Eloquent\SoftDeletes; 
 
 class ApprenticeAsistencia extends Model
 {
@@ -21,6 +21,13 @@ class ApprenticeAsistencia extends Model
     {
         return \Modules\SENAEMPRESA\Database\factories\ApprenticeAttendanceFactory::new();
     }
+
+    /* public function apprentice(){
+        return $this->belongsTo(Apprentice::class);
+    } 
+    public function asistencia(){
+        return $this->belongsTo(Asistencia::class);
+    }    */
 
     
 }

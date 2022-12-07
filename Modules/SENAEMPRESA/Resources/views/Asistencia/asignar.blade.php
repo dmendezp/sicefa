@@ -1,12 +1,11 @@
 
 
 
-
 <form action="{{route('guardarTurno')}}" method="get">
 
 <label for="" class="mt-3"> Asignar Fecha</label>
 <div>
-<input type="date" name="date"  id="date">
+<input type="date" name="date"  id="date" required>
 </div>
 <div>
 <button type="submit" class="btn btn-primary mt-5">Guardar</button>
@@ -21,6 +20,8 @@
 </div>
 
 </form>
+
+
 
 
 

@@ -25,7 +25,9 @@
         Route::post('/updateTurno', 'AsistenciaTurnosController@updateTurno')->name('updateTurno');
         //Route::resource('turnos', 'AsistenciaTurnosController');
         //Route::resource('reports', 'ProductController')
-        Route::get('/updateAttendance', 'AsistenciaTurnosController@updateAttendace')->name('updateAttendance');
+        Route::get('/updateAttendance', 'AsistenciaTurnosController@updateAttendance')->name('updateAttendance');
+        //Route::get('TurnoRutinario/listaTurnos/deleteTurn/{id]', 'AsistenciaTurnosController@deleteTurn')->name('attendance.turnDelete');
+        Route::get('TurnoRutinario/listaTurnos/deleteTurn', 'AsistenciaTurnosController@deleteTurn')->name('attendance.turnDelete');    
 
         
         

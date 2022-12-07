@@ -36,9 +36,6 @@ class Apprentice extends Model
         return $this->course->code;
     }
 
-    public function apprenticeattendances(){
-        return $this->belongsTo(ApprenticeAsistenica::class, 'apprentice_asistenicas');
-    }
 
     
 }

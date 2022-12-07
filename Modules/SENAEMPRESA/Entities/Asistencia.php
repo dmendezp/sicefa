@@ -33,6 +33,8 @@ class Asistencia extends Model
         return $this->apprentices->course_id;
     }
 
+   
+
     
    
     

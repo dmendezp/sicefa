@@ -114,12 +114,17 @@ The footer of the card
 @endsection
 
 @section('scripts')
+
+  <!-- select2 --> 
+  <script>
+            $(document).ready(function() {
+                $('.curso').select2();
+            });
+            
+            </script>
 <script>
 
-$(document).ready(function() {
-    $('#course_').select2();
-    
-});
+
 
 
 $(document).on("change","#course_id", function(){  //change se utiliza para saber si hay cambios en el section "click" se puede utilizar cuando se da click en un boton
@@ -169,7 +174,7 @@ $(document).on("change","#course_id", function(){  //change se utiliza para sabe
               });
               $.ajax({
                 method: "get",
-                url: 'http://cisefa.test/sicefa/public/senaempresa/TurnoRutinario/Guardar/'+$(this).val(),
+                url: 'http://expo.test/sicefa/public/senaempresa/TurnoRutinario/Guardar/'+$(this).val(),
                 data: {}
               })
               .done(function(html){
@@ -178,15 +183,16 @@ $(document).on("change","#course_id", function(){  //change se utiliza para sabe
 
               //fin del ajax
             });
+
+
+            //select2 de modal
+            $(document).ready(function() {
+            $('#course_').select2();
+            
+            });
           </script>
           
-          <!-- select2 --> 
-            <script>
-            $(document).ready(function() {
-                $('.curso').select2();
-            });
-            
-            </script>
+        
 
 
 
@@ -202,12 +208,50 @@ $(document).on("change","#course_id", function(){  //change se utiliza para sabe
     color: #ffffff;
     font-size: 18px;
 }
+
+
 </script>
-            @endsection
+
+<script>
+  @if ($messages = Session::get('message_result'))
+  
+
+  Swal.fire({
+  position: 'center',//'top-start','top-end','top-center', 'center-start','center','center-end','bottom','bottom-start','bottom-start'
+    
+  @if (Session::get('icon')=='success')
+  icon: 'success',
+  @elseif(Session::get('icon')=='error')
+  icon: 'error',
+  @endif
+  title: '{{$messages}}',
+  showConfirmButton: false,
+  timer: 2400
+  });
+  
+  
+  @endif
+</script>
+
+<!-- data table-->
+<script>
+$(function() {
+    $("#myTable").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+    });
+
+});
+</script>
+
+
+
+
+@endsection
         
 
             
-
+           
      
 
 

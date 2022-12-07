@@ -54,8 +54,9 @@ class AsistenciaTurnosController extends Controller
 
     public function listaTurnos(){
 
+        $courses = Course::get();
         $asistencias = Asistencia::orderBy('id','asc')->get();
-        return view('senaempresa::Asistencia.listaTurnos', compact('asistencias'));
+        return view('senaempresa::Asistencia.listaTurnos', compact('asistencias','courses'));
     }
 
     /////{{--
@@ -73,13 +74,11 @@ class AsistenciaTurnosController extends Controller
     public function getAsignarTurno($id)
     {
         //return $id;
-        //$asistencias = Asistencia::get();
 
-        //return $asistencias;
         //$aprendices = Apprentice::where('course_id',$id)->orderBy('id','asc')->pluck('id');
         $aprendices = Apprentice::where('course_id',$id)->get() ;
         
-        //return $aprendices;
+    
         //$asistencias = Asistencia::where('$this->Apprentice->course_id',$id)->get();
         
         //return $asistencias;
@@ -121,13 +120,20 @@ public function postAsignarTurno(Request $request){
     //return $apprentice; 
     $request->validate(['date'=>'required']);
     $asistencia = $request->all();
-    
+    $apprenticePost = $request->input('aprendices',[]);
+    //if($validator->fails()){
+        return $apprenticePost;
+    if($apprenticePost == ''){
+        return redirect(route('listaTurnos'))->with('message_result','Error al asignar, No hay aprendices en el programa')->with('icon','error');
+    }
+    else{
     $asistencia = Asistencia::create($asistencia); 
 
     //$asistencia->apprentices()->sync($request->input('aprendices',[]));
-    $asistencia->apprentices()->syncWithoutDetaching($request->input('aprendices',[]));
-    return redirect()->route('turnosRutinarios');
-
+  
+        $asistencia->apprentices()->syncWithoutDetaching($request->input('aprendices',[]));
+        return redirect(route('listaTurnos'))->with('message_result','Asignado con exito')->with('icon','success');
+    }
 
 }
 
@@ -161,22 +167,43 @@ public function postAsignarTurno(Request $request){
         $resultado->save();
         
         //return $resultado;
-        return redirect(route('listaTurnos'))->with('success', 'Fecha actualizada.');;
+        return redirect(route('listaTurnos'))->with('success', 'Fecha actualizada.');
         
     }
 
-    public function updateAttendace(Request $request)
+    public function updateAttendance(Request $request)
     {
         $id = $request->id;
         $asistencia = $request->asistencia;
         $apprentices = ApprenticeAsistencia::findOrFail($request->id);
         //$apprentices = ApprenticeAttendance::where('id',$id)->get();
         $apprentices->asistencia = $request->asistencia;
-        $apprentices->save();
-
-        return response()->json(['message' => 'User status updated successfully.'.$id.$asistencia.'']);
+        if($apprentices->save()){
+            return response()->json(['message' => 'User status updated successfully.'.$id.$asistencia.'']); //Sirve para enviar mensaje en consola del navegador con javascript de la vista
+            //return back()->with(['icon'=>'success', 'message'=>'Asistencia Actualizada']);
+        }else{
+            return response()->json(['message' => 'User status Error.'.$id.$asistencia.'']);
+            //return back()->with(['icon'=>'success', 'message'=>'Error al actualizar']);
+        }  
     }
 
+    public function deleteTurn(Request $request)
+    {
+        $id = $request->input('id');
+        $turns = Asistencia::findOrFail($id);
+        //return $turns;
+         if($turns->delete()){
+            $icon = 'success';
+            $message_result = 'Turno eliminado exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_result = 'No se pudo eliminar el turno.';
+        }
+        return back()->with(['icon'=>$icon, 'message_result'=>$message_result]); 
+        //return redirect()->route('listaTurnos');
+
+
+    }
     /**
      * Remove the specified resource from storage.
      * @param int $id
@@ -184,6 +211,6 @@ public function postAsignarTurno(Request $request){
      */
     public function destroy($id)
     {
-        //
     }
+    
 }
