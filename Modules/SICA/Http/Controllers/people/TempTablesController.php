@@ -37,7 +37,8 @@ public function postLoadPeople(Request $request){
             ->withInput();
         }else{
 
-            $path = $request->file('archivo')->getRealPath();
+            //$path = $request->file('archivo')->getRealPath();
+            $path = $request->file('file')[0];
             $array = Excel::toArray(new PeopleImport, $path);
             //$datos=array_splice($array[0], 1, count($array[0]));
             $datos = $array[0];
@@ -90,7 +91,8 @@ public function postLoadPeople(Request $request){
             ->withInput();
         }else{
 
-            $path = $request->file('archivo')->getRealPath();
+            //$path = $request->file('archivo')->getRealPath();
+            $path = $request->file('file')[0];
             //print_r($path);           
             //$data = Excel::import(new ApprenticeImport, $path);
             $array = Excel::toArray(new ApprenticeImport, $path);

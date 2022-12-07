@@ -66,7 +66,7 @@ class BasicDataController extends Controller
                     break;
             }
             $ea = EventAttendance::create(['event_id' => $event,'person_id' => $people->id,'date' => date('Y-m-d')]);
-            return redirect(route('sica.attendance.people.events_attendance'))->with('message_result', 'Registro Exitoso')->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
+            return redirect(route('sica.attendance.people.events_attendance'))->with('message_result', 'Registro Exitoso - '.ucfirst($people->full_name))->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
                 break;
         }
     }
