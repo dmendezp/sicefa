@@ -43,16 +43,16 @@
 
       <div class="user-panel mt-1 pb-1 mb-1 d-flex">
         <nav class="">
-            <ul class="nav nav-pills nav-sidebar flex-column">
-                <li class="nav-item">
-                  <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
-                    <i class="fas fa-puzzle-piece"></i>
-                    <p>
-                      {{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}
-                    </p>
-                  </a>
-                </li>  
-            </ul>
+          <ul class="nav nav-pills nav-sidebar flex-column">
+            <li class="nav-item">
+              <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
+                <i class="fas fa-puzzle-piece"></i>
+                <p>
+                  {{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}
+                </p>
+              </a>
+            </li>  
+          </ul>
         </nav>      
       </div>
 
@@ -78,6 +78,41 @@
               </p>
             </a>
           </li>
+
+          @if (Route::is('*admin.*'))
+            @guest
+              @else
+              <!-- MENU PARA PEOPLE -->
+              <li class="nav-item {{ ! Route::is('sica.admin.people.*') ?: 'menu-is-opening menu-open' }}">
+                <a href="#" class="nav-link {{ ! Route::is('sica.admin.people.*') ?: 'active' }}">
+                  <i class="fas fa-users"></i>
+                  <p>
+                    {{ trans('sica::menu.People') }}
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  @if(Auth::user()->havePermission('home.people.personal_data'))
+                  <li class="nav-item">
+                    <a href="{{ route('sica.admin.people.config') }}" class="nav-link {{ ! Route::is('sica.admin.people.config*') ?: 'active' }}">
+                      <i class="fas fa-cogs"></i>
+                      <p>{{ trans('sica::menu.Config') }}</p>
+                    </a>
+                  </li>
+                  @endif
+                  @if(Auth::user()->havePermission('sica.admin.people.search_apprentices'))
+                  <li class="nav-item">
+                    <a href="{{ route('sica.admin.people.search_apprentices') }}" class="nav-link {{ ! Route::is('sica.admin.people.search_apprentices*') ?: 'active' }}">
+                      <i class="fas fa-user-graduate"></i>
+                      <p>{{ trans('sica::menu.Apprentices') }}</p>
+                    </a>
+                  </li>
+                  @endif
+                </ul>
+              </li>
+              <!-- CIERRA MENU PARA PEOPLE -->
+            @endguest
+          @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

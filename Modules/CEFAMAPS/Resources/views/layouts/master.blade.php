@@ -18,7 +18,7 @@
         <div class="row">
           <div class="col-md-12" id="breadvar">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href=""><i class="fas fa-map-marked-alt"></i> {{ __('Cefamaps') }}</a></li>
+              <li class="breadcrumb-item"><a href=""><i class="fas fa-map-marked-alt"></i> {{ trans('cefamaps::menu.cefamaps') }}</a></li>
               @section('breadcrumb')
               @show
             </ol>

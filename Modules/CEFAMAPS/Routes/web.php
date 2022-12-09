@@ -10,7 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware(['lang'])->group(function(){
 
-Route::prefix('cefamaps')->group(function() {
-    Route::get('/index', 'CEFAMAPSController@index')->name('cefa.cefamaps.index');;
+    Route::prefix('cefamaps')->group(function() {
+
+        Route::get('/index', 'CEFAMAPSController@index')->name('cefa.cefamaps.index');
+
+        Route::get('/admin', 'AdminController@dashboard')->name('cefamaps.admin.dashboard');
+
+    });
+
 });
