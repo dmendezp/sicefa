@@ -14,7 +14,8 @@ class CEFAMAPSController extends Controller
      */
     public function index()
     {
-        return view('cefamaps::index');
+        $data = ['title'=>trans('cefamaps::menu.Home')];
+        return view('cefamaps::index',$data);
     }
 
     /**

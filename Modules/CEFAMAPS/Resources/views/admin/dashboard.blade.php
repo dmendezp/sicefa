@@ -8,8 +8,22 @@
 
 <div class="content">
   <div class="container-fluid">
-    <h3>Bienvenido {{ Auth::user()->roles[0]->name }} - {{ Auth::user()->nickname }}</h3>
     
   </div>
 </div>
+@endsection
+
+@section('script')
+
+  <script>
+
+  Swal.fire({
+    title: 'Bienvenido {{ Auth::user()->roles[0]->name }} - {{ Auth::user()->nickname }}',
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+  })
+
+  </script>
+
 @endsection
