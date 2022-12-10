@@ -63,7 +63,7 @@
                with font-awesome or any other icon font library -->
 
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Mapa General
@@ -83,28 +83,20 @@
             @guest
               @else
               <!-- MENU PARA PEOPLE -->
-              <li class="nav-item {{ ! Route::is('sica.admin.people.*') ?: 'menu-is-opening menu-open' }}">
-                <a href="#" class="nav-link {{ ! Route::is('sica.admin.people.*') ?: 'active' }}">
-                  <i class="fas fa-users"></i>
+              <li class="nav-item {{ ! Route::is('cefamaps.admin.environment.*') ?: 'menu-is-opening menu-open' }}">
+                <a href="#" class="nav-link {{ ! Route::is('cefamaps.admin.environment.*') ?: 'active' }}">
+                  <i class="fa-solid fa-school"></i>
                   <p>
-                    {{ trans('sica::menu.People') }}
+                    {{ trans('cefamaps::environment.Environment') }}
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
                   @if(Auth::user()->havePermission('home.people.personal_data'))
                   <li class="nav-item">
-                    <a href="{{ route('sica.admin.people.config') }}" class="nav-link {{ ! Route::is('sica.admin.people.config*') ?: 'active' }}">
-                      <i class="fas fa-cogs"></i>
-                      <p>{{ trans('sica::menu.Config') }}</p>
-                    </a>
-                  </li>
-                  @endif
-                  @if(Auth::user()->havePermission('sica.admin.people.search_apprentices'))
-                  <li class="nav-item">
-                    <a href="{{ route('sica.admin.people.search_apprentices') }}" class="nav-link {{ ! Route::is('sica.admin.people.search_apprentices*') ?: 'active' }}">
-                      <i class="fas fa-user-graduate"></i>
-                      <p>{{ trans('sica::menu.Apprentices') }}</p>
+                    <a href="{{ route('cefamaps.admin.environment.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.environment*') ?: 'active' }}">
+                    <i class="fas fa-user-graduate"></i>
+                      <p>{{ trans('cefamaps::environment.Setting') }}</p>
                     </a>
                   </li>
                   @endif

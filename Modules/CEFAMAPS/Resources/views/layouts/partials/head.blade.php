@@ -9,9 +9,14 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
 
-   <link rel="stylesheet" href="{{ asset('cefamaps/css/styles.css') }}">
+  <link rel="stylesheet" href="{{ asset('cefamaps/css/styles.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <!-- Loading the v6 core styles and the Solid and Brands styles -->
+  <link href="{{ asset('fontawesome6/css/fontawesome.css') }}" rel="stylesheet">
+  <link href="{{ asset('fontawesome6/css/brands.css') }}" rel="stylesheet">
+  <link href="{{ asset('fontawesome6/css/solid.css') }}" rel="stylesheet">
 
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5i6F3rWoYH3-xf4GCCKs6qSV4eEW4L3s"
   type="text/javascript"></script>

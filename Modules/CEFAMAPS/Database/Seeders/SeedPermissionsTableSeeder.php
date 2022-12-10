@@ -68,7 +68,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "name" => "Administrador CEFAMAPS",
                 "slug" => "cefamaps.admin",
                 "description" => "Rol administrador de la aplicacion CEFAMAPS",
-                "description_english" => "English - Rol administrador de la aplicacion CEFAMAPS",
+                "description_english" => "CEFAMAPS application administrator role",
                 "full-access" => "yes",
                 "app_id" => $app->id
             ]);
@@ -79,6 +79,18 @@ class SeedPermissionsTableSeeder extends Seeder
         // lista de permisos para asignar al rol superadmin y admin
         $permission_admin = [];
 // repita para cada permiso -- estos permisos son de su aplicacion, agregue los necesarios
+
+        $permission = Permission::where('slug','cefamaps.admin.environment.index')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Inicio de la configuracion de Ambientes",
+                "slug" => "cefamaps.admin.environment.index",
+                "description" => "Puedes hacer todo lo de un crud para los ambientes",
+                "description_english" => "You can do all of a crud for environments",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
 
         /*$permission = Permission::where('slug','cefamaps.admin.dashboard')->first();
         if(!$permission){
