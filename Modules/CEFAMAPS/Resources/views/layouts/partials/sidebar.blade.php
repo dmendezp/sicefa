@@ -95,7 +95,7 @@
                   @if(Auth::user()->havePermission('home.people.personal_data'))
                   <li class="nav-item">
                     <a href="{{ route('cefamaps.admin.environment.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.environment*') ?: 'active' }}">
-                    <i class="fas fa-user-graduate"></i>
+                    <i class="fa-solid fa-gears"></i>
                       <p>{{ trans('cefamaps::environment.Setting') }}</p>
                     </a>
                   </li>
