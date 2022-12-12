@@ -76,18 +76,24 @@ class AsistenciaTurnosController extends Controller
         //return $id;
 
         //$aprendices = Apprentice::where('course_id',$id)->orderBy('id','asc')->pluck('id');
-        $aprendices = Apprentice::where('course_id',$id)->get() ;
+        $aprendices = Apprentice::where('course_id',$id)->get();
         
-    
+        $size = sizeof($aprendices);
         //$asistencias = Asistencia::where('$this->Apprentice->course_id',$id)->get();
         
         //return $asistencias;
 
         //$data = ['aprendices'=>$aprendices,'asistencias'=>$asistencias];
-        $data = ['aprendices'=>$aprendices];
+        $data = ['aprendices'=>$aprendices, 'size'=>$size];
+       /*  
+        if($size == 0){
+            return view('senaempresa::Asistencia.asignar',$data)->with('message_result','Error al asignar, No hay aprendices en el programa')->with('icon','error');
+        }else{
         //return $asistencias;
         return view('senaempresa::Asistencia.asignar', $data);
-        
+    } */
+
+    return view('senaempresa::Asistencia.asignar', $data)->with(['message_result'=>'No hay aprendices en este programa','icon'=>'error']);    
        
     }
 
@@ -122,8 +128,8 @@ public function postAsignarTurno(Request $request){
     $asistencia = $request->all();
     $apprenticePost = $request->input('aprendices',[]);
     //if($validator->fails()){
-        return $apprenticePost;
-    if($apprenticePost == ''){
+       // return $apprenticePost;
+    if(!$apprenticePost){
         return redirect(route('listaTurnos'))->with('message_result','Error al asignar, No hay aprendices en el programa')->with('icon','error');
     }
     else{

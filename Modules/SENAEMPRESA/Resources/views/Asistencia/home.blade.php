@@ -153,14 +153,11 @@ $(document).on("change","#course_id", function(){  //change se utiliza para sabe
 
 
 </script>         
-           
+        
           <!-- ajax para traer el id de los aprendices -->
           <script>
-             $.ajaxSetup({
-            headers:{
-             'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-               }
-              });
+            
+             
             $(document).on("change","#course_", function(){  //change se utiliza para saber si hay cambios en el section "click" se puede utilizar cuando se da click en un boton
             //alert($(this).val());  //la función de val me trae el id de los cursos para traer todos los datos relacionados y este es un alert para mostrar el id; también se puede colocar alert('mensaje'); para saber si entró a la función.
 
@@ -226,7 +223,7 @@ $(document).on("change","#course_id", function(){  //change se utiliza para sabe
   @endif
   title: '{{$messages}}',
   showConfirmButton: false,
-  timer: 2400
+  timer: 3500
   });
   
   

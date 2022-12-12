@@ -13,6 +13,11 @@
     integrity="sha512-9tISBnhZjiw7MV4a1gbemtB9tmPcoJ7ahj8QWIc0daBCdvlKjEA48oLlo6zALYm3037tPYYulT0YQyJIJJoyMQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+<!-- DataTables -->
+<link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+
 <!-- DataTables  & Plugins -->
 {{--//estos datos se sacaron de public/libs/AdminLTE/tables/data.html--}}
 <script src="{{asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>

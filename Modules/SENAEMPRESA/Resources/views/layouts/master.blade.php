@@ -56,6 +56,6 @@
 
         @section('dataTables')
         @show
-       
+        
     </body>
 </html>
