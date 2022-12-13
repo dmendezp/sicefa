@@ -15,7 +15,7 @@ class CreateProducersTable extends Migration
     {
         Schema::create('producers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->softDeletes();
             $table->timestamps();
         });

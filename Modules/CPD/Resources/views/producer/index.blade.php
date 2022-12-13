@@ -23,9 +23,11 @@
                                                 <th class="align-middle text-center">#</th>
                                                 <th class="align-middle text-center">Productor</th>
                                                 <th class="text-center" >
-                                                    <a href="{{ route('cpd.admin.producer.create') }}" class="btn btn-primary py-0 px-1 btn-sm" data-toggle='tooltip' data-placement="top" title="Registrar productor">
-                                                        <i class="fas fa-plus-circle"></i>
-                                                        Registrar
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.producer.create') }}')">
+                                                        <b class="btn btn-primary py-0 px-1 btn-sm" data-toggle="tooltip" data-placement="top" title="Registrar productor">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                            Registrar
+                                                        </b>
                                                     </a>
                                                 </th>
                                             </tr>
@@ -36,10 +38,12 @@
                                                     <td class="align-middle text-center">{{ $loop->iteration }}</td>
                                                     <td class="align-middle">{{ $producer->name }}</td>
                                                     <td class="align-middle text-center">
-                                                        <a href="#" class="text-success"  data-toggle='tooltip' data-placement="top" title="Actualizar productor">
-                                                            <i class="fas fa-edit"></i>
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.producer.edit', $producer->id) }}')">
+                                                            <b class="text-success" data-toggle="tooltip" data-placement="top" title="Actualizar productor">
+                                                                <i class="far fa-edit"></i>
+                                                            </b>
                                                         </a>
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.delete') }}')">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.producer.delete', $producer->id) }}')">
                                                             <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar monitoreo">
                                                                 <i class="far fa-trash-alt"></i>
                                                             </b>
@@ -57,32 +61,31 @@
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
+
+    <!-- General modal -->
+    <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content" id="modal-content"></div>
+        </div>
+    </div>
+    <div id="loader" style="display: none;"> {{-- Loader modal --}}
+        <div class="modal-body text-center" id="modal-loader">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div><br>
+            <b id="loader-message"></b>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('cpd/js/tables.js') }}"></script> {{-- Import settings for tables with Datatables --}}
+    <script src="{{ asset('cpd/js/ajax.js') }}"></script> {{-- Import settings for modals with ajax consult --}}
+
     <script>
         $(function () {
             $('#table-producers').DataTable({
-                language: {
-                    "decimal": "",
-                    "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "Mostrar _MENU_ Entradas",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "search": "Buscar:",
-                    "zeroRecords": "Sin resultados encontrados",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Ultimo",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    }
-                },
+                language: language_datatables,
                 lengthMenu: [
                     [5, 10, 20, -1 ],
                     ['5', '10', '20', 'Todas' ]
@@ -93,26 +96,21 @@
             })
         });
 
-        function ajaxAction(route){ /* Ajax to show content modal to add event */
-            $('#loader-message').text('Cargando contenido...'); /* Add content to loader */
-            $('#modal-content').append($('#modal-loader').clone()); /* Add the loader to the modal */
-            $.ajaxSetup({
-                headers:     {
-                    'X-CSRF-TOKE': $('meta[name="csrf-token"]').attr('content')
+        function titleCase(texto) { /* Convert the parameter to text title Case */
+            const re = /(^|[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ])(?:([a-záéíóúüñ])|([A-ZÁÉÍÓÚÜÑ]))|([A-ZÁÉÍÓÚÜÑ]+)/gu;
+            return texto.replace(re,
+                (m, caracterPrevio, minuscInicial, mayuscInicial, mayuscIntermedias) => {
+                    const locale = ['es', 'gl', 'ca', 'pt', 'en'];
+                    if (mayuscIntermedias)
+                        return mayuscIntermedias.toLocaleLowerCase(locale);
+                    return caracterPrevio
+                        + (minuscInicial ? minuscInicial.toLocaleUpperCase(locale) : mayuscInicial);
                 }
-            });
-            $.ajax({
-                method: "get",
-                url: route,
-                data: {}
-            })
-            .done(function(html){
-                $("#modal-content").html(html);
-            });
+            );
         }
 
-        $("#generalModal").on("hidden.bs.modal", function () { /* Modal content is removed when the modal is closed */
-            $("#modal-content").empty();
-        });
+        function mayus(e) { /* Convert the content of a field to title Case */
+            e.value = titleCase(e.value);
+        }
     </script>
 @endsection

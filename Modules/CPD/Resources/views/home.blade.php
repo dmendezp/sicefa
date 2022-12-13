@@ -6,15 +6,15 @@
 
 @section('content')
     <div class="content">
-        <div class="container-fluid">
-            <div class="card card-warning card-outline">
+        <div class="container-fluid row">
+            <div class="card card-warning card-outline col-auto mx-auto">
                 <div class="card-body">
                     <div class="row justify-content-center">
                         <div class="col-auto p-1">
-                            <img src="{{ asset('cpd/images/CPD Portada.jpg') }}" alt="Main cover image" class="img-fluid" style="max-height: 500px">
+                            <img src="{{ asset('cpd/images/CPD Portada.jpg') }}" alt="Main cover image" class="img-fluid" style="max-height:450px">
                         </div>
                         <div class="col-auto p-1">
-                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="max-width:420px; max-height:500px;">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="max-width:378px; max-height:450px;">
                                 <ol class="carousel-indicators">
                                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>

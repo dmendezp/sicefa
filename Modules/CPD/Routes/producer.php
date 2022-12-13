@@ -9,15 +9,13 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/admin/producer/index', [ProducerController::class, 'index'])->name('cpd.admin.producer.index');
         // Create
         Route::get('/admin/producer/create', [ProducerController::class, 'create'])->name('cpd.admin.producer.create');
-        /* Route::post('/admin/producer/add', [ProducerController::class, 'add'])->name('cpd.admin.producer.add'); */
+        Route::post('/admin/producer/store', [ProducerController::class, 'store'])->name('cpd.admin.producer.store');
         // Update
-        /* Route::get('/admin/producer/update/{id}', [ProducerController::class, 'updateGet'])->name('cpd.admin.producer.update');
-        Route::post('/admin/producer/update', [ProducerController::class, 'updatePost'])->name('cpd.admin.producer.update'); */
-        // Detail
-        /* Route::get('/admin/producer/detail/{id}', [ProducerController::class, 'detailGet'])->name('cpd.admin.producer.detail'); */
+        Route::get('/admin/producer/edit/{id}', [ProducerController::class, 'edit'])->name('cpd.admin.producer.edit');
+        Route::post('/admin/producer/update', [ProducerController::class, 'update'])->name('cpd.admin.producer.update');
         // Delete
-        /* Route::get('/admin/producer/delete/{id}', [ProducerController::class, 'deleteGet'])->name('cpd.admin.producer.delete');
-        Route::post('/admin/producer/delete', [ProducerController::class, 'deletePost'])->name('cpd.admin.producer.delete'); */
+        Route::get('/admin/producer/delete/{id}', [ProducerController::class, 'delete'])->name('cpd.admin.producer.delete');
+        Route::post('/admin/producer/destroy', [ProducerController::class, 'destroy'])->name('cpd.admin.producer.destroy');
 
     });
 });

@@ -41,7 +41,7 @@
                                                     @foreach ($datas as $data)
                                                         @if($data->metadatas->count())
                                                             @foreach ($data->metadatas as $metadata)
-                                                                <th class="text-center" data-toggle='tooltip' data-placement="top" title="{{ $metadata->description }}">{{ $metadata->abbreviation }}</th>
+                                                                <th class="text-center" data-toggle='tooltip' data-placement="top" title="{{ $metadata->description }} ({{ $metadata->unit_measure }})">{{ $metadata->abbreviation }}</th>
                                                             @endforeach
                                                         @endif
                                                     @endforeach
@@ -110,100 +110,62 @@
 @endsection
 
 @section('scripts')
-<script>
-    $(function () {
-        $('#table-studies').DataTable({
-            language: {
-                "decimal": "",
-                "emptyTable": "No hay información",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                "infoPostFix": "",
-                "thousands": ",",
-                "lengthMenu": "Mostrar _MENU_ Entradas",
-                "loadingRecords": "Cargando...",
-                "processing": "Procesando...",
-                "search": "Buscar:",
-                "zeroRecords": "Sin resultados encontrados",
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Ultimo",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
-                }
-            },
-            lengthMenu: [
-                [ 10, 25, 50, -1 ],
-                [ '10', '25', '50', 'Todas' ]
-            ],
-            scrollX: true, "lengthChange": true, "buttons": [/* "copy", "csv", "excel", "pdf", "print" */
-                {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: ':visible'
+    <script src="{{ asset('cpd/js/tables.js') }}"></script> {{-- Import settings for tables with Datatables --}}
+    <script src="{{ asset('cpd/js/ajax.js') }}"></script> {{-- Import settings for modals with ajax consult --}}
+
+    <script>
+        $(function () {
+            $('#table-studies').DataTable({
+                language: language_datatables,
+                lengthMenu: [
+                    [ 10, 25, 50, -1 ],
+                    [ '10', '25', '50', 'Todas' ]
+                ],
+                scrollX: true, "lengthChange": true, "buttons": [/* "copy", "csv", "excel", "pdf", "print" */
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: ['Mostrar/Ocultar']},
+                    {
+                        extend: 'colvisGroup',
+                        text: 'Fisicoquímico',
+                        show: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],
+                        hide: [28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51],
+                    },
+                    {
+                        extend: 'colvisGroup',
+                        text: 'Biota',
+                        show: [1,2,3,4,5,6,28,29,30,31,32,33,34],
+                        hide: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51],
+                    },
+                    {
+                        extend: 'colvisGroup',
+                        text: 'Cultivo',
+                        show: [1,2,3,4,5,6,35,36,37,38,39,40],
+                        hide: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,41,42,43,44,45,46,47,48,49,50,51],
+                    },
+                    {
+                        extend: 'colvisGroup',
+                        text: 'Clima',
+                        show: [1,2,3,4,5,6,41,42,43,44,45,46,47,48,49,50,51],
+                        hide: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40],
+                    },
+                    {
+                        extend: 'colvisGroup',
+                        text: 'Todo',
+                        show: ':hidden'
                     }
-                },
-                {
-                    extend: 'colvis',
-                    text: ['Mostrar/Ocultar']},
-                {
-                    extend: 'colvisGroup',
-                    text: 'Fisicoquímico',
-                    show: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],
-                    hide: [28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51],
-                },
-                {
-                    extend: 'colvisGroup',
-                    text: 'Biota',
-                    show: [1,2,3,4,5,6,28,29,30,31,32,33,34],
-                    hide: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51],
-                },
-                {
-                    extend: 'colvisGroup',
-                    text: 'Cultivo',
-                    show: [1,2,3,4,5,6,35,36,37,38,39,40],
-                    hide: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,41,42,43,44,45,46,47,48,49,50,51],
-                },
-                {
-                    extend: 'colvisGroup',
-                    text: 'Clima',
-                    show: [1,2,3,4,5,6,41,42,43,44,45,46,47,48,49,50,51],
-                    hide: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40],
-                },
-                {
-                    extend: 'colvisGroup',
-                    text: 'Todo',
-                    show: ':hidden'
-                }
-            ],
-            columnDefs: [
-                { orderable: false, targets: 0 }
-            ],
-            order: [[1, 'asc']]
-        }).buttons().container().appendTo('#table-studies_wrapper .col-md-6:eq(0)');
-    });
-
-    function ajaxAction(route){ /* Ajax to show content modal to add event */
-        $('#loader-message').text('Cargando contenido...'); /* Add content to loader */
-        $('#modal-content').append($('#modal-loader').clone()); /* Add the loader to the modal */
-        $.ajaxSetup({
-            headers:     {
-                'X-CSRF-TOKE': $('meta[name="csrf-token"]').attr('content')
-            }
+                ],
+                columnDefs: [
+                    { orderable: false, targets: 0 }
+                ],
+                order: [[1, 'asc']]
+            }).buttons().container().appendTo('#table-studies_wrapper .col-md-6:eq(0)');
         });
-        $.ajax({
-            method: "get",
-            url: route,
-            data: {}
-        })
-        .done(function(html){
-            $("#modal-content").html(html);
-        });
-    }
-
-    $("#generalModal").on("hidden.bs.modal", function () { /* Modal content is removed when the modal is closed */
-        $("#modal-content").empty();
-    });
-  </script>
+    </script>
 @endsection
