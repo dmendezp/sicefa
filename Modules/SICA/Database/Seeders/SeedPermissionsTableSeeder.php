@@ -30,7 +30,7 @@ class SeedPermissionsTableSeeder extends Seeder
         //crear usuario Superadministrador -- no modificar
         $usersuperadmin = User::where('nickname','damendez')->first();
         if(!$usersuperadmin){
-            $person = Person::where('document','7713344')->first();
+            $person = Person::where('document_number','7713344')->first();
             $usersuperadmin = User::create([
                 "nickname" => "damendez",
                 "person_id" => $person->id,
@@ -51,20 +51,20 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         //crear usuario administrador
-        $useradmin = User::where('nickname','zet612')->first();
+        $useradmin = User::where('nickname','Jfelipe')->first();
         if(!$useradmin){
-            $person = Person::where('document','1004225163')->first();
+            $person = Person::where('document_number','1007677808')->first();
             $useradmin = User::create([
-                "nickname" => "zet612",
+                "nickname" => "Jfelipe",
                 "person_id" => $person->id,
-                "email" => "jsperdomo361@misena.edu.co",
+                "email" => "juan.duque877@misena.edu.co",
                 "password" => Hash::make("12345678")
             ]);
         }
         //crear usuario coordinador
         $usercoordinador = User::where('nickname','gmsanchez')->first();
         if(!$usercoordinador){
-            $person = Person::where('document','87654321')->first();
+            $person = Person::where('document_number','87654321')->first();
             $usercoordinador = User::create([
                 "nickname" => "gmsanchez",
                 "person_id" => $person->id,
@@ -123,7 +123,7 @@ class SeedPermissionsTableSeeder extends Seeder
             $permission = Permission::create([
                 "name" => "Busqueda de aprendices",
                 "slug" => "sica.admin.people.search_apprentices",
-                "description" => "Puede acceder a lista de aprendices por titulación",
+                "description" => "Puede acceder a Busqueda de aprendices por titulaciónes",
                 "description_english" => "English - Puede acceder a lista de aprendices por titulación",
                 "app_id" => $app->id
             ]);
@@ -187,7 +187,7 @@ class SeedPermissionsTableSeeder extends Seeder
         $permission = Permission::where('slug','sica.admin.academy.curriculums')->first();
         if(!$permission){
             $permission = Permission::create([
-                "name" => "Listar Contratistas",
+                "name" => "Listar Programas",
                 "slug" => "sica.admin.academy.curriculums",
                 "description" => "Puede acceder a lista de Programas de formacion",
                 "description_english" => "English - Puede acceder a lista de Programas de formacion",
@@ -200,9 +200,9 @@ class SeedPermissionsTableSeeder extends Seeder
         $permission = Permission::where('slug','sica.admin.academy.courses')->first();
         if(!$permission){
             $permission = Permission::create([
-                "name" => "Listar Contratistas",
+                "name" => "Listar Titulaciones",
                 "slug" => "sica.admin.academy.courses",
-                "description" => "Puede acceder a lista de Titulaciones",
+                "description" => "Puede acceder a lista de ",
                 "description_english" => "English - Puede acceder a lista de Titulaciones",
                 "app_id" => $app->id
             ]);
