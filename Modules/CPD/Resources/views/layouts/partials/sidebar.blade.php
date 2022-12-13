@@ -68,26 +68,28 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                <li class="nav-item">
-                    <a href="{{ route('cpd.admin.study.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.study.')) active @endif">
-                        <i class="nav-icon fas fa-clipboard-list"></i>
-                        <p>Monitoreos</p>
-                    </a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a href="{{ route('cpd.admin.study.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.study.')) active @endif">
+                            <i class="nav-icon fas fa-clipboard-list"></i>
+                            <p>Monitoreos</p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('cpd.admin.producer.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.producer.')) active @endif">
-                        <i class="nav-icon fas fa-people-carry"></i>
-                        <p>Productores</p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cpd.admin.producer.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.producer.')) active @endif">
+                            <i class="nav-icon fas fa-people-carry"></i>
+                            <p>Productores</p>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('cefa.cpd.metadata.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.metadata')) active @endif">
-                        <i class="nav-icon fas fa-database"></i>
-                        <p>Metadatos</p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.cpd.metadata.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.metadata')) active @endif">
+                            <i class="nav-icon fas fa-database"></i>
+                            <p>Metadatos</p>
+                        </a>
+                    </li>
+                @endauth
 
             </ul>
         </nav>

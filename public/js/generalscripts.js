@@ -1,4 +1,4 @@
-var base = 'http://sicefa.test';
+var base = 'http://127.0.0.1:8000';
 
 
 function ajaxReplace(element, route, data){
@@ -8,15 +8,15 @@ function ajaxReplace(element, route, data){
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-        });            
+        });
         $.ajax({
             method: "POST",
             url: base+route,
-            data: { data } 
+            data: { data }
         })
         .done(function(html) {
             $("#"+element).html(html);
-        });            
+        });
     }else{
         $("#"+element).empty()
     }

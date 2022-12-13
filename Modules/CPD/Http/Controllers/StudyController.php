@@ -20,7 +20,7 @@ class StudyController extends Controller
         return view('cpd::study.index', compact('view','datas','studies'));
     }
 
-    public function addGet(){
+    public function create(){
         $view = ['titlePage'=>'Monitoreos - registro', 'titleView'=>'Registro de monitoreo de cultivo de cacao'];
         $datas = Data::all();
         $producers = Producer::orderBy('name','ASC')->pluck('name','id');
@@ -28,7 +28,7 @@ class StudyController extends Controller
         return view('cpd::study.add', compact('view','datas','producers','villages'));
     }
 
-    public function addPost(Request $request){
+    public function store(Request $request){
         $st = new Study;
         $metadas = Metadata::all();
         $st->producer_id = e($request->input('producer_id'));
@@ -54,7 +54,7 @@ class StudyController extends Controller
         return redirect(route('cpd.admin.study.index'))->with(['message_cpd_type'=>$message_cpd_type, 'message_cpd'=>$message_cpd]);
     }
 
-    public function updateGet($id){
+    public function edit($id){
         $view = ['titlePage'=>'Monitoreos - actualizar', 'titleView'=>'Actualización de monitoreo de cultivo de cacao'];
         $datas = Data::all();
         $producers = Producer::orderBy('name','ASC')->pluck('name','id');
@@ -63,7 +63,7 @@ class StudyController extends Controller
         return view('cpd::study.edit', compact('view','datas','producers','villages','study'));
     }
 
-    public function updatePost(Request $request){
+    public function update(Request $request){
         $metadas = Metadata::all();
         $st = Study::findOrFail(e($request->input('study_id')));
         $st->producer_id = e($request->input('producer_id'));
@@ -89,21 +89,21 @@ class StudyController extends Controller
         return redirect(route('cpd.admin.study.index'))->with(['message_cpd_type'=>$message_cpd_type, 'message_cpd'=>$message_cpd]);
     }
 
-    public function detailGet($id){
+    public function show($id){
         $titleView = 'Detalle de monitoreo';
         $datas = Data::all();
         $study = Study::find($id);
         return view('cpd::study.detail', compact('titleView','study','datas'));
     }
 
-    public function deleteGet($id){
+    public function delete($id){
         $titleView = '¿Confirma eliminar el siguiente monitoreo?';
         $datas = Data::all();
         $study = Study::find($id);
         return view('cpd::study.delete', compact('titleView','study','datas'));
     }
 
-    public function deletePost(Request $request){
+    public function destroy(Request $request){
         $st = Study::findOrFail($request->input('study_id'));
         if($st->delete()){
             $message_cpd_type = 'success';

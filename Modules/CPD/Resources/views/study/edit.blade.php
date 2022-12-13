@@ -61,10 +61,28 @@
 
         //Initialize Select2 Element to producers
         $('#producer_id').select2({
-            theme: 'bootstrap4'
+            theme: 'bootstrap4',
+            language: {
+                noResults: function() {
+                    return "No hay resultado";
+                },
+                searching: function() {
+                    return "Buscando..";
+                }
+            }
         });
+
+        //Initialize Select2 Element to villages
         $('#village_id').select2({
-            theme: 'bootstrap4'
+            theme: 'bootstrap4',
+            language: {
+                noResults: function() {
+                    return "No hay resultado";
+                },
+                searching: function() {
+                    return "Buscando..";
+                }
+            }
         });
     </script>
 @endsection
