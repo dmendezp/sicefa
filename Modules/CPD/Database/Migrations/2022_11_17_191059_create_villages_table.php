@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProducersTable extends Migration
+class CreateVillagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateProducersTable extends Migration
      */
     public function up()
     {
-        Schema::create('producers', function (Blueprint $table) {
+        Schema::create('villages', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
+            $table->foreignId('municipality_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ class CreateProducersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('producers');
+        Schema::dropIfExists('villages');
     }
 }
