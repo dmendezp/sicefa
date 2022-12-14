@@ -8,16 +8,16 @@ Route::middleware(['lang'])->group(function(){
     // Studies
         Route::get('/admin/study/index', [StudyController::class, 'index'])->name('cpd.admin.study.index');
         // Add
-        Route::get('/admin/study/add', [StudyController::class, 'addGet'])->name('cpd.admin.study.add');
-        Route::post('/admin/study/add', [StudyController::class, 'addPost'])->name('cpd.admin.study.add');
+        Route::get('/admin/study/create', [StudyController::class, 'create'])->name('cpd.admin.study.create');
+        Route::post('/admin/study/store', [StudyController::class, 'store'])->name('cpd.admin.study.store');
         // Update
-        Route::get('/admin/study/update/{id}', [StudyController::class, 'updateGet'])->name('cpd.admin.study.update');
-        Route::post('/admin/study/update', [StudyController::class, 'updatePost'])->name('cpd.admin.study.update');
-        // Detail
-        Route::get('/admin/study/detail/{id}', [StudyController::class, 'detailGet'])->name('cpd.admin.study.detail');
+        Route::get('/admin/study/edit/{id}', [StudyController::class, 'edit'])->name('cpd.admin.study.edit');
+        Route::post('/admin/study/update', [StudyController::class, 'update'])->name('cpd.admin.study.update');
+        // show
+        Route::get('/admin/study/show/{id}', [StudyController::class, 'show'])->name('cpd.admin.study.show');
         // Delete
-        Route::get('/admin/study/delete/{id}', [StudyController::class, 'deleteGet'])->name('cpd.admin.study.delete');
-        Route::post('/admin/study/delete', [StudyController::class, 'deletePost'])->name('cpd.admin.study.delete');
+        Route::get('/admin/study/delete/{id}', [StudyController::class, 'delete'])->name('cpd.admin.study.delete');
+        Route::post('/admin/study/destroy', [StudyController::class, 'destroy'])->name('cpd.admin.study.destroy');
 
     });
 });

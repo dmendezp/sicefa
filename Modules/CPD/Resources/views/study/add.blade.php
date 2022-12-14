@@ -19,7 +19,7 @@
                         <div class="card-header py-2">
                             <h4><b>{{ $view['titleView'] }}</b></h4>
                         </div>
-                        {!! Form::open(['route' => 'cpd.admin.study.add', 'method' => 'POST', 'role' => 'form']) !!}
+                        {!! Form::open(['route' => 'cpd.admin.study.store', 'method' => 'POST', 'role' => 'form']) !!}
                         <form>
                             <div class="card-body pb-0">
                                 @include('cpd::study.form')

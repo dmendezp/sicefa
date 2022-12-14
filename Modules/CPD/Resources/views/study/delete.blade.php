@@ -40,7 +40,7 @@
     </div>
     <div class="modal-footer py-1">
         <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cerrar</button>
-        {!! Form::open(['route'=>'cpd.admin.study.delete', 'method'=>'POST', 'id'=>'form-study']) !!}
+        {!! Form::open(['route'=>'cpd.admin.study.destroy', 'method'=>'POST', 'id'=>'form-study']) !!}
             {!! Form::hidden('study_id', $study->id) !!}
             {!! Form::submit('Eliminar', ['class'=>'btn btn-danger btn-md py-0']) !!}
         {!! Form::close() !!}
