@@ -63,13 +63,26 @@
                with font-awesome or any other icon font library -->
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.index') ?: 'active' }}">
+              <i class="nav-icon fas fa-solid fa-map"></i>
               <p>
                 Mapa General
               </p>
             </a>
           </li>
+          @if (Route::is('*admin.*'))
+            @guest
+              @else
+                @if(Auth::user()->havePermission('cefamaps.admin.setting.index'))
+                <li class="nav-item">
+                  <a href="{{ route('cefamaps.admin.environment.config') }}" class="nav-link {{ ! Route::is('cefamaps.admin.environment.config*') ?: 'active' }}">
+                  <i class="nav-icon fa-solid fa-gears"></i>
+                    <p>{{ trans('cefamaps::environment.Setting') }}</p>
+                  </a>
+                </li>
+                @endif
+            @endguest
+          @endif
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -78,33 +91,21 @@
               </p>
             </a>
           </li>
+          <!-- MENU PARA ENVIRONMENT -->
+          <li class="nav-item {{ ! Route::is('cefamaps.admin.environment.views*') ?: 'menu-is-opening menu-open' }}">
+            <a href="#" class="nav-link {{ ! Route::is('cefamaps.admin.environment.*') ?: 'active' }}">
+              <i class="nav-icon fa-solid fa-school"></i>
+              <p>
+                {{ trans('cefamaps::environment.Environment') }}
+                <i class="right fa-solid fa-map-pin"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+                  
+            </ul>
+          </li>
+          <!-- CIERRA MENU PARA ENVIRONMENT -->
 
-          @if (Route::is('*admin.*'))
-            @guest
-              @else
-              <!-- MENU PARA PEOPLE -->
-              <li class="nav-item {{ ! Route::is('cefamaps.admin.environment.*') ?: 'menu-is-opening menu-open' }}">
-                <a href="#" class="nav-link {{ ! Route::is('cefamaps.admin.environment.*') ?: 'active' }}">
-                  <i class="fa-solid fa-school"></i>
-                  <p>
-                    {{ trans('cefamaps::environment.Environment') }}
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  @if(Auth::user()->havePermission('home.people.personal_data'))
-                  <li class="nav-item">
-                    <a href="{{ route('cefamaps.admin.environment.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.environment*') ?: 'active' }}">
-                    <i class="fa-solid fa-gears"></i>
-                      <p>{{ trans('cefamaps::environment.Setting') }}</p>
-                    </a>
-                  </li>
-                  @endif
-                </ul>
-              </li>
-              <!-- CIERRA MENU PARA PEOPLE -->
-            @endguest
-          @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

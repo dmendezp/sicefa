@@ -1,0 +1,4 @@
+<?php
+return [
+    'Home'=>'Inicio',
+];

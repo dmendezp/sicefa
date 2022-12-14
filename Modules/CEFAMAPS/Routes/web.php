@@ -10,7 +10,6 @@ Route::middleware(['lang'])->group(function(){
 
         Route::get('/admin', 'AdminController@dashboard')->name('cefamaps.admin.dashboard');
 
-        Route::get('/environment/index', 'AdminController@environment')->name('cefamaps.admin.environment.index');
     });
 
 });
