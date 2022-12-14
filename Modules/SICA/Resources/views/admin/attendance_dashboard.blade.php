@@ -16,12 +16,8 @@
         <i class="fas fa-user-graduate"></i> Aprendices
       </a>
       <a class="btn btn-app  btn-app-2">
-<<<<<<< HEAD
         <span class="badge bg-info">{{ number_format($event,0,",",".") }}</span>
         <i class="fa-regular fa-calendar-check"></i> Eventos
-=======
-        <span class="badge bg-info">0</span>
-        <i class="fas fa-chalkboard-teacher"></i> Instructores
       </a>
       <a class="btn btn-app btn-app-2">
         <span class="badge bg-info">0</span>
@@ -34,7 +30,6 @@
       <a class="btn btn-app btn-app-2">
         <span class="badge bg-info">0</span>
         <i class="fas fa-map-marked-alt"></i> Ambientes
->>>>>>> f3988bec51fa25b1d4a064c75a64deb172f633a8
       </a>
 
     </div>
@@ -42,7 +37,6 @@
     <h3>Asistencia a eventos</h3>
 
     <div class="mtop16">
-<<<<<<< HEAD
       <div class="row">
      @foreach($eas as $a)
       
@@ -102,10 +96,9 @@
      @endforeach
 
      </div>
-=======
+
       <p>Tablas o graficas por evento, tipo persona, población</p>
       {{ $attendance }}
->>>>>>> f3988bec51fa25b1d4a064c75a64deb172f633a8
     </div>
   </div>
 </div>

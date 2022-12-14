@@ -30,9 +30,7 @@ class SeedPermissionsTableSeeder extends Seeder
         //crear usuario Superadministrador -- no modificar
         $usersuperadmin = User::where('nickname','damendez')->first();
         if(!$usersuperadmin){
-
             $person = Person::where('document_number','7713344')->first();
-
             $usersuperadmin = User::create([
                 "nickname" => "damendez",
                 "person_id" => $person->id,
@@ -68,7 +66,6 @@ class SeedPermissionsTableSeeder extends Seeder
         if(!$usercoordinator){
             $person = Person::where('document_number','51784954')->first();
             $usercoordinator = User::create([
-
                 "nickname" => "gmsanchez",
                 "person_id" => $person->id,
                 "email" => "gmsanchez@sena.edu.co",

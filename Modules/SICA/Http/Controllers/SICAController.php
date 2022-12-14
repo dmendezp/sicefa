@@ -70,9 +70,9 @@ class SICAController extends Controller
             $eas[$i]['pop']=$pop;
             $i++;       
         }
-        return $eas;
+        //return $eas;
         $attendance = EventAttendance::select('date',DB::raw('count(id) as total'))->groupBy('date')->with('event')->get();
-        $data = ['title'=>trans('sica::menu.Dashboard'),'people'=>$people,'apprentices'=>$apprentices,'attendance'=>$attendance];
+        $data = ['title'=>trans('sica::menu.Dashboard'),'event'=>$event,'eas'=>$eas,'people'=>$people,'apprentices'=>$apprentices,'attendance'=>$attendance];
         return view('sica::admin.attendance_dashboard',$data);
     }
 
