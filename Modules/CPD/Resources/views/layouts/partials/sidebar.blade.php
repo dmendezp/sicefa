@@ -14,7 +14,11 @@
             <div class="row col-md-12">
                 <div class="image mt-2 mb-2">
                     @if(isset(Auth::user()->person->avatar))
-                        <img src="{{ asset('storage/'.Auth::user()->person->avatar) }}" class="img-circle elevation-2" alt="User Image">
+                        @if (file_exists(asset('storage/'.Auth::user()->person->avatar)))
+                            <img src="{{ asset('storage/'.Auth::user()->person->avatar) }}" class="img-circle elevation-2" alt="User Image">
+                        @else
+                            <img src="{{ asset('cpd/images/user-white.png') }}" class="img-circle elevation-2" alt="User Image">
+                        @endif
                     @else
                         <img src="{{ asset('cpd/images/user-white.png') }}" class="img-circle elevation-2" alt="User Image">
                     @endif
@@ -53,7 +57,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column">
                 <li class="nav-item">
                     <a href="{{ route('cefa.welcome') }}" class="nav-link">
-                        <i class="fas fa-puzzle-piece"></i>
+                        <i class="nav-icon fas fa-puzzle-piece"></i>
                         <p>{{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}</p>
                     </a>
                 </li>
@@ -64,12 +68,28 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                <li class="nav-item">
-                    <a href="{{ route('cefa.cpd.admin.study.index') }}" class="nav-link {{ ! Route::is('cefa.cpd.admin.study.index') ?: 'active' }}  {{ ! Route::is('cefa.cpd.admin.study.add') ?: 'active' }}">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>Monitoreos</p>
-                    </a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a href="{{ route('cpd.admin.study.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.study.')) active @endif">
+                            <i class="nav-icon fas fa-clipboard-list"></i>
+                            <p>Monitoreos</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('cpd.admin.producer.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.producer.')) active @endif">
+                            <i class="nav-icon fas fa-people-carry"></i>
+                            <p>Productores</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.cpd.metadata.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.metadata')) active @endif">
+                            <i class="nav-icon fas fa-database"></i>
+                            <p>Metadatos</p>
+                        </a>
+                    </li>
+                @endauth
 
             </ul>
         </nav>
