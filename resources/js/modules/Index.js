@@ -22,7 +22,7 @@ async handleSubmit(event)  {
 
     event.preventDefault();
 
-    let result = await fetch(`http://127.0.0.1:8000/cafeto/admin/sales/search/${this.state.value}`, {
+    let result = await fetch(base+`/cafeto/admin/sales/search/${this.state.value}`, {
         method: 'GET'
       });
       if (result != null) {
