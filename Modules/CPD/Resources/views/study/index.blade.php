@@ -22,7 +22,7 @@
                                             <thead>
                                                 <tr>
                                                     <th colspan="1" class="text-center" >
-                                                        <a href="{{ route('cpd.admin.study.add') }}" class="text-primary" class="text-primary" data-toggle='tooltip' data-placement="top" title="Registrar monitoreo" style="font-size: 20px;">
+                                                        <a href="{{ route('cpd.admin.study.create') }}" class="text-primary" class="text-primary" data-toggle='tooltip' data-placement="top" title="Registrar monitoreo" style="font-size: 20px;">
                                                             <i class="fas fa-plus-circle"></i>
                                                         </a>
                                                     </th>
@@ -51,15 +51,15 @@
                                                 @foreach ($studies as $study)
                                                     <tr>
                                                         <td class="align-middle text-center">
-                                                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.detail', $study->id) }}')">
+                                                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.show', $study->id) }}')">
                                                                 <b class="text-info" data-toggle="tooltip" data-placement="top" title="Ver detalle de monitoreo">
                                                                     <i class="fas fa-eye"></i>
                                                                 </b>
                                                             </a>
-                                                            <a href="{{ route('cpd.admin.study.update') }}/{{ $study->id }}" class="text-success"  data-toggle='tooltip' data-placement="top" title="Actualizar monitoreo">
+                                                            <a href="{{ route('cpd.admin.study.edit', $study->id) }}" class="text-success"  data-toggle='tooltip' data-placement="top" title="Actualizar monitoreo">
                                                                 <i class="fas fa-edit"></i>
                                                             </a>
-                                                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.delete') }}/{{ $study->id }}')">
+                                                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.delete', $study->id) }}')">     
                                                                 <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar monitoreo">
                                                                     <i class="far fa-trash-alt"></i>
                                                                 </b>
