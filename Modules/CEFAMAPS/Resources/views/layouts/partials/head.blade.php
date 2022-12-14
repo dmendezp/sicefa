@@ -20,12 +20,3 @@
 
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5i6F3rWoYH3-xf4GCCKs6qSV4eEW4L3s"
   type="text/javascript"></script>
-
-  <!-- REQUIRED SCRIPTS -->
-
-  <!-- jQuery -->
-  <script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
-  <!-- Bootstrap 4 -->
-  <script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <!-- AdminLTE App -->
-  <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
