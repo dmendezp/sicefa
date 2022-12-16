@@ -6,6 +6,15 @@
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!-- DataTables -->
+<script src="{{ asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.js') }}"></script>
+<script src="{{ asset('js/generalscripts.js') }}"></script>
+<script src="{{ asset('sica/js/scripts.js') }}"></script>
+
 <script src="{{ asset('AdminLTE/plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- API del mapa AIzaSyB1qoTEmrsKndvyprM5-h4BHkADHPU7ts4 -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1qoTEmrsKndvyprM5-h4BHkADHPU7ts4&callback=initMap&v=weekly"

@@ -15,7 +15,7 @@ class SSTController extends Controller
      */
     public function index()
     {
-        $data = ['title'=>trans('cefamaps::environment.Environment')];
+        $data = ['title'=>trans('cefamaps::SST.Home')];
         return view('cefamaps::sst.index',$data);
     }
 }
