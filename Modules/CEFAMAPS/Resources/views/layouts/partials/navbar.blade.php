@@ -7,7 +7,7 @@
       <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*cefa.*') ?: 'active' }}">
         <a href="{{ route('cefa.cefamaps.index')}}" class="nav-link">{{ trans('cefamaps::menu.Home') }}</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*sst*') ?: 'active'}}">
+      <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*sst.*') ?: 'active'}}">
         <a href="{{ route('cefamaps.sst.index')}}" class="nav-link">{{ trans('cefamaps::SST.Home') }}</a>
       </li>
       @guest
@@ -17,8 +17,6 @@
         </li>
       @endguest
     </ul>
-
-
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">

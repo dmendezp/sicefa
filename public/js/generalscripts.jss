@@ -1,5 +1,8 @@
 var base = 'http://sicefa.test';
 
+if (window.history.replaceState) { // verificamos disponibilidad
+    window.history.replaceState(null, null, window.location.href);
+}
 
 function ajaxReplace(element, route, data){
 	//alert(data);

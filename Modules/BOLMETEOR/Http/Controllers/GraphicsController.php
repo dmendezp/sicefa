@@ -9,9 +9,9 @@ use Modules\BOLMETEOR\Imports\ClimaticImport;
 
 use Validator, Str, DB, Excel;
 
-use Modules\BOLMETEOR\entities\Sensor;
-use Modules\BOLMETEOR\entities\Variable;
-use Modules\BOLMETEOR\Entities\climaticdata;
+use Modules\BOLMETEOR\Entities\Sensor;
+use Modules\BOLMETEOR\Entities\Variable;
+use Modules\BOLMETEOR\Entities\Climaticdata;
 
 
 class GraphicsController extends Controller
@@ -155,7 +155,7 @@ class GraphicsController extends Controller
                     break;
             }
             if($_REQUEST['variable'] != 5){
-                $query = climaticdata::select(
+                $query = Climaticdata::select(
                     DB::raw($est.'('.$variable_nombre.') as value'),
                     ($formatoFechaSelect == "") ? DB::raw("DATE_FORMAT(date_time ,$formatoFechaGroupBy) as date_time"): "date_time",
                     DB::raw($_REQUEST['variable'].' as variable_id')
@@ -172,7 +172,7 @@ class GraphicsController extends Controller
                 $name = "&lt; 5 m/s";
                 $rangoFinal = 0;
                 // Calcular los rangos
-                $query = climaticdata::select(DB::raw('max('.$variable_nombre[1].') as max'))
+                $query = Climaticdata::select(DB::raw('max('.$variable_nombre[1].') as max'))
                 ->whereBetween('date_time', [$_REQUEST['start_date'].' 00:00:00', $_REQUEST['end_date'].' 23:59:59'])
                 ->get();
                 $rangoFinal = ceil($query->toArray()[0]['max'] / 5);
@@ -181,7 +181,7 @@ class GraphicsController extends Controller
                     // consultar direcciones
                     $cordenadas = [];
                     foreach($this->direccion as $ii => $direccion){
-                        $query = climaticdata::select(DB::raw('max('.$variable_nombre[1].') as max'))
+                        $query = Climaticdata::select(DB::raw('max('.$variable_nombre[1].') as max'))
                             ->whereBetween('winds_peed', [((($i == 0)? 1 :$i) - 1)*5, $i*5])
                             ->whereBetween('winds_direction', [$direccion[1], $direccion[2]])
                             ->whereBetween('date_time', [$_REQUEST['start_date'].' 00:00:00', $_REQUEST['end_date'].' 23:59:59'])

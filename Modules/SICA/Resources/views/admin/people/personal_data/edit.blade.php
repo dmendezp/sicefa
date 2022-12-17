@@ -76,10 +76,11 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Tipo documento *</label>
-                                {!! Form::select('document_type', getEnumValues('people', 'document_type','required'),
+                                {!! Form::select('document_type', getEnumValues('people', 'document_type'),
                                 $people->document_type,['class' => 'form-control'
                                 ,'placeholder' => 'Seleccione...']) !!}
                             </div>
+                            
                         </div>
                         <div class="col-sm-3">
 
@@ -201,7 +202,7 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Grupo de votacion</label>
+                                <label>Grupo poblacional</label>
                                 {!! Form::select('population_group_id', $population_groups,
                                 $people->population_group_id,['class' =>
                                 'form-control'

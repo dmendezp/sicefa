@@ -14,6 +14,7 @@ class LangMiddleware
         if(!empty(session('lang'))){
             \App::setlocale(session('lang'));
         }
+        //Codigo para que las vistas puedan ser accedidas sin loguearse
         //print_r($request->route()->getAction()['uses']);
         if($request->route()->getName()!=''){
             $pos = strpos($request->route()->getName(), 'cefa');

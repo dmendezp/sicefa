@@ -17,9 +17,8 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
-* **Ana Maria Falla Molina** - *Configuracion del proyecto* 
-* **Kevin Sneyder Daza** - *Actividades a realizar*
-* **Neythan Sabogal Gaitan** - *Listar Ambientes*
+* **Integrante 1** - *Actividades a realizar*
+* **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -34,9 +33,14 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
+<<<<<<< HEAD
 * **Ana Maria Falla Molina** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Kevin Sneyder Daza** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Neythan Sabogal Gaitan** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+=======
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+>>>>>>> a3030d7a27201be61874522bc151759c340c2087
 ---
 #### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -159,6 +163,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
+<<<<<<< HEAD
 * **Integrante 1** - *Actividades a realizar* 
 * **Integrante 2** - *Actividades a realizar*
 ...
@@ -181,6 +186,55 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 #### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+=======
+* **Diego Tovar** - *Actividades a realizar:*
+*Crear nuevo modulo con nwidart*, 
+*Asociar modulo a la tabla apps*, 
+*Realizar estructura de layouts*,
+*Definir ruta para el master*, 
+*Crear modelo de asistencia* 
+* **Jesús Guevara** -*Actividades a realizar:* 
+...
+#### Meet 28-Oct-2022
+* **Diego Tovar** - *Actividades realizadas:* 
+*Crear migraciones de asistencia y tabla pivote "apprentice_asistencia"*, 
+*Definir relación entre el modelo Apprentice y Asistencia*,
+*Crear controlador de AsistenciaTurnosController*,
+*Hacer vista principal para asignar turno*  - *Avance: 45 %* - *No se encuentran dificultades* - *Realizar las sigientes actividades*
+* **Jesus Guevara** - *Actividades realizadas:* - *45 %* - *Dificultades* - *Acciones*   
+---
+#### Meet 31-Oct-2022
+* **Diego Tovar** - *Actividades realizadas:* *Select con programas y código de los técnicos y técnologos vista Turnos Rutinarios*
+*Agregar modal en la vista home para agregar turnos rutinarios*
+*Filtrar aprendices por el id del curso método buscarLista controlador *
+ - *Avance 65%* - *Dificultades: * *Trabajo de diseño con select2 dentro del modal*, *Trabajo con eloquent laravel* - *Documentarse sobre el manejo de las relaciones con eloquent*
+* **Jesus Guevara** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 02-Nov-2022
+* **Diego Tovar** - *Actividades realizadas: * *Definir una fecha para el turno y obtener el get para crear asistencia*
+*Método getAsignarTurno para implementar filtro ajax y traer los datos de todos los aprendices*
+*Definir ruta para el  ajax*
+*Método postAsignarTurno los aprendices del curso con la relación de la asistencia a la tabla pivote*
+*definir ruta para el post/get de los datos* - *Avance 81%* - *Siguen las dificultades con eloquent y estilos* - *Investigar nuevos métodos de aplicación*
+* **Jesus Guevara** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 04-Nov-2022
+* **Diego Tovar** - *Actividades realizadas:*
+*Definir ruta para listar asistencias*
+*Definir método de editar junto con su ruta*
+*añadir botón de editar turno para ejecutar el método de editar*
+*mostrar input date con fecha asignada y cambiar*
+*mostrar mensaje de cambio exitoso al dar submit*
+*mostrar lista con la nueva fecha*  - *Avance 100%* - *Diseño* - *Reeplantear estructura de la vista para no utilizar modal en la asignación de turno*
+* **Jesus Guevara** - *Actividades realizadas:*
+*Organización estructural * - *Avance 100%* - *Organización de tiempos* - *Reemplanteamiento de cronograma*
+---
+#### Meet 07-Nov-2022
+* **Diego Tovar** - *Actividades realizadas: Se realizan ajustes de diseño en base a los colores seleccionados* - *Avance 100%* - *reemplantear vistas de asignación* - *Realizar la propuesta y definir nueva ruta*
+* **Jesus Guevara** - *Actividades realizadas:*
+*Determinación de los nuevos requerimientos para el módulo nuevo*
+ - *Avance 100%* - *Dificultades* - *Acciones*
+>>>>>>> a3030d7a27201be61874522bc151759c340c2087
 ---
 
 ## KOLINA 🏕
@@ -215,6 +269,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
+<<<<<<< HEAD
 * **Integrante 1** - *Actividades a realizar* 
 * **Integrante 2** - *Actividades a realizar*
 ...
@@ -237,6 +292,70 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 #### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+=======
+* **Integrante 1** - *Actividades a realizar: Crear carpeta proyecto, Clonar Sicefa Rama-Proyecto, Asociar usuario damendezp, Commit,Push, Merge, Pull* 
+
+...
+#### Meet 28-Oct-2022
+* **Integrante 1** - *Actividades realizadas: Crear carpeta proyecto, Clonar Sicefa Rama-Proyecto,* - *Avance 38%* - *Dificultades: Dificultar al asocuar al usuario "damendezp" al repositorio para crear los commits dentro de SICEFA en github* - *Acciones: Clonar nuevamente el repositorio desde el aplicativo github*
+
+---
+#### Meet 31-Oct-2022
+* **Integrante 1** - *Actividades realizadas: clonar repositorio desde git* - *Avance 13%* - *Dificultades:* - *Acciones:*
+
+---
+#### Meet 02-Nov-2022
+* **Integrante 1** - *Actividades realizadas:Commit,Push, Merge, Pull* - *Avance 50%* - *Dificultades* - *Acciones: Se realizaron cambios en el proyecto tales como las vistas para poder subir el primer commit*
+* 
+
+### Sprint 2 🔄
+#### Sprint Planning 09-Nov-2022
+* **Integrante 1** - *Actividades a realizar: Clonar o Crear proyecto Laravel, Crear Modulo (SICEFA), Creacion del Layout (definir estilos, colores y maqueta general), subir las migraciones y corregir las tablas que crean conflicto, Definir usuarios, Roles, Permisos, Responsabilidades., Crear Modelo Relacional, Definir Estilos y paleta de colores, Agregar Librerias y herramientas al proyecto, Definir Rutas de acuerdo al Estandar de Laravel y SICEFA.*
+
+...
+#### Meet 04-Nov-2022
+* **Integrante 1** - *Actividades realizadas:Crear Modulo Radiocefa, * - *Avance 22%* - *Dificultades:Crear modulo en el repositorio sicefa de damendezp * - *Acciones:Se creo el modulo "RADIOCEFA" desde la terminal*
+
+---
+#### Meet 07-Nov-2022
+* **Integrante 1** - *Actividades realizadas:Creacion del Layout (definir estilos, colores y maqueta general), subir las migraciones y corregir las tablas que crean conflicto,Definir Estilos y paleta de colores, * - *Avance 33%* - *Dificultades: Las tablas de migraciones del modulo "SICA", entraban en conflicto y no permitian realizar las migraciones del modulo "RADIOCEFA" * - *Acciones: Verificar las tablas y migraciones e ir corrigiendo las que causan conflicto*
+
+---
+
+#### Meet 09-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+---
+
+#### Meet 11-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+---
+
+#### Meet 14-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+---
+
+#### Meet 16-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+---
+
+#### Meet 18-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+---
+
+#### Meet 21-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+---
+
+#### Meet 23-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+>>>>>>> a3030d7a27201be61874522bc151759c340c2087
 ---
 
 ## BURGUER WEB 🍔

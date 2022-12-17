@@ -18,4 +18,10 @@ class SSTController extends Controller
         $data = ['title'=>trans('cefamaps::SST.Home')];
         return view('cefamaps::sst.index',$data);
     }
+    
+    public function evacuation()
+    {
+        $data = ['title'=>trans('cefamaps::menu.Home')];
+        return view('cefamaps::sst.evacuation', $data);
+    }
 }

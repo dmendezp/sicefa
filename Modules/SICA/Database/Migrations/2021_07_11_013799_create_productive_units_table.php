@@ -18,6 +18,7 @@ class CreateProductiveUnitsTable extends Migration
             $table->string('name');
             $table->foreignId('person_id')->constrained()->ondelete('cascade');
             $table->text('description');
+            $table->string('icon');
             $table->softDeletes();
             $table->timestamps();
         });

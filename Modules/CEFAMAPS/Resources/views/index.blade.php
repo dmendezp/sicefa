@@ -1,6 +1,7 @@
 @extends('cefamaps::layouts.master')
 
 @section('content')
+
   <div class="content">
     <div class="container-fluid">
       <div class="row">
@@ -20,7 +21,8 @@
       <!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>
-
+@endsection
+@section('script')
 
 <script type="text/javascript">
     // Initialize and add the map
@@ -57,7 +59,6 @@
       "</div>" +
       "</div>");
 
-
       marker.addListener("click", () => {
       infoCultivo.open(map, marker);
       });
@@ -81,15 +82,14 @@
         { lat: 2.612299, lng: -75.361779 },
       ];
 
-        // Coordenadas de lote de arroz 2
-        const Rice2Coords = [    
+      // Coordenadas de lote de arroz 2
+      const Rice2Coords = [    
         { lat: 2.612886, lng: -75.359148 },
         { lat: 2.615346, lng: -75.359567 },
         { lat: 2.615530, lng: -75.359193 },
         { lat: 2.613165, lng: -75.358139 },
         { lat: 2.612894, lng: -75.359118 },
       ];
-      
       
       // Construct the polygon.
       const RicePolygon = new google.maps.Polygon({

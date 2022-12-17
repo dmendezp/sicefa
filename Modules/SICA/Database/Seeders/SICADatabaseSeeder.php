@@ -15,7 +15,8 @@ class SICADatabaseSeeder extends Seeder
     public function run()
     {
         //Model::unguard();
-
+        $this->call(SeedConfigurationsTableSeeder::class);
         $this->call(SeedPermissionsTableSeeder::class);
+        
     }
 }

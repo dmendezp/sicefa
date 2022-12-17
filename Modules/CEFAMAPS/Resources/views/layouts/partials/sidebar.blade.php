@@ -61,7 +61,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
+        @if(!Route::is('*.sst.*'))
           <li class="nav-item">
             <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.index') ?: 'active' }}">
               <i class="nav-icon fas fa-solid fa-map"></i>
@@ -105,7 +105,40 @@
             </ul>
           </li>
           <!-- CIERRA MENU PARA ENVIRONMENT -->
-
+        @else
+          <li class="nav-item">
+            <a href="{{ route('cefamaps.sst.evacuation') }}" class="nav-link {{ ! Route::is('cefamaps.sst.evacuation*') ?: 'active' }}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Rutas de evacuacion
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Extintores
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Salud
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Videos
+              </p>
+            </a>
+          </li>
+        @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
