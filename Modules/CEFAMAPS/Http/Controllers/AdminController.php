@@ -31,10 +31,4 @@ class AdminController extends Controller
         $data = ['title'=>trans('cefamaps::environment.Environment')];
         return view('cefamaps::admin.environment.index',$data);
     }
-
-    public function config()
-    {
-        $data = ['title'=>trans('cefamaps::environment.Environment')];
-        return view('cefamaps.admin.environment.config',$data);
-    }
 }

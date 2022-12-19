@@ -16,7 +16,8 @@ class EnvironmentController extends Controller
      */
     public function config()
     {
-        $data = ['title'=>trans('cefamaps::environment.Environment')];
+        $environ = Environment::get();
+        $data = ['title'=>trans('cefamaps::environment.Environment'), 'environ'=>$environ];
         return view('cefamaps::admin.environment.config',$data);
     }
 }

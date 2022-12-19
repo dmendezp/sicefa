@@ -93,7 +93,7 @@
           </li>
           <!-- MENU PARA ENVIRONMENT -->
           <li class="nav-item {{ ! Route::is('cefamaps.admin.environment.views*') ?: 'menu-is-opening menu-open' }}">
-            <a href="#" class="nav-link {{ ! Route::is('cefamaps.admin.environment.*') ?: 'active' }}">
+            <a href="#" class="nav-link {{ ! Route::is('cefamaps.admin.environment.views.*') ?: 'active' }}">
               <i class="nav-icon fa-solid fa-school"></i>
               <p>
                 {{ trans('cefamaps::environment.Environment') }}
