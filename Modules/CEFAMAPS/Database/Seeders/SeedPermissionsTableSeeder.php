@@ -92,6 +92,18 @@ class SeedPermissionsTableSeeder extends Seeder
         }
         $permission_admin[] = $permission->id;
 
+        $permission = Permission::where('slug','cefamaps.admin.environment.config')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Configuracion de Ambientes",
+                "slug" => "cefamaps.admin.environment.config",
+                "description" => "Puedes mirar todos los ambientes del CEFA",
+                "description_english" => "You can look at all the CEFA environments",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
         /*$permission = Permission::where('slug','cefamaps.admin.dashboard')->first();
         if(!$permission){
             $permission = Permission::create([

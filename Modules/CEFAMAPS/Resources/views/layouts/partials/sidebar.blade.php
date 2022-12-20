@@ -66,7 +66,7 @@
             <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.index') ?: 'active' }}">
               <i class="nav-icon fas fa-solid fa-map"></i>
               <p>
-                Mapa General
+              {{ trans('cefamaps::menu.Overview map') }}
               </p>
             </a>
           </li>
@@ -74,11 +74,30 @@
             @guest
               @else
                 @if(Auth::user()->havePermission('cefamaps.admin.setting.index'))
-                <li class="nav-item">
-                  <a href="{{ route('cefamaps.admin.environment.config') }}" class="nav-link {{ ! Route::is('cefamaps.admin.environment.config*') ?: 'active' }}">
-                  <i class="nav-icon fa-solid fa-gears"></i>
-                    <p>{{ trans('cefamaps::environment.Setting') }}</p>
+                <li class="nav-item {{ ! Route::is('cefamaps.admin.config.*') ?: 'menu-is-opening menu-open' }}">
+                  <a href="#" class="nav-link {{ ! Route::is('cefamaps.admin.config.*') ?: 'active' }}">
+                    <i class="nav-icon fa-solid fa-gears"></i>
+                    <p>
+                      {{ trans('cefamaps::environment.Setting') }}
+                      <i class="right fa-solid fa-gear"></i>
+                    </p>
                   </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="{{ route('cefamaps.admin.config.environment.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.config.environment.*') ?: 'active' }}">
+                        <i class="nav-icon fas fa-solid fa-chalkboard-user"></i>
+                        <p>{{ trans('cefamaps::environment.Environment') }}</p>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="{{ route('cefamaps.admin.config.unit.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.config.unit.*') ?: 'active' }}">
+                        <i class="fas fa-solid fa-mountain-sun"></i>
+                        <p>{{ trans('cefamaps::unit.Units') }}</p>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
                 @endif
             @endguest

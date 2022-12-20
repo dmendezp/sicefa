@@ -2,10 +2,13 @@
 return [
     'Setting'=>'Setting',
     'Environment' => 'Environment',
+    'Type' => 'Type of',
     'Name' => 'Name',
     'Picture' => 'Picture',
     'Description' => 'Description',
     'Length' => 'Length',
     'Latitude' => 'Latitude',
     'Productive units' => 'Productive units',
+    'Add' => 'Add',
+    'Save' => 'Save',
 ];

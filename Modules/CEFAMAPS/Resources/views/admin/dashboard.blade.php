@@ -19,13 +19,13 @@
               <div class="content">
                 <div class="container-fluid">
                   <div class="mtop16">
-                    <a class="btn btn-app  btn-app-2">
+                    <a class="btn btn-app  btn-app-2" href="{{ route('cefamaps.admin.config.unit.index')}}">
                       <i class="fas fa-solid fa-mountain-sun"></i> Unidades
                     </a>
                     <a class="btn btn-app btn-app-2">
                       <i class="fas fa-solid fa-kaaba"></i> Areas
                     </a>
-                    <a class="btn btn-app btn-app-2">
+                    <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.environment.index') }}">
                       <i class="fas fa-solid fa-chalkboard-user"></i> Ambientes
                     </a>
                   </div>

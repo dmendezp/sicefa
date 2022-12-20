@@ -1,8 +1,13 @@
 @extends('cefamaps::layouts.master')
 
+@section('breadcrumb')
+  <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
+  <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-gears"></i> {{ trans('cefamaps::environment.Setting') }}</a></li>
+@endsection
+
 @section('content')
 
-<div class="content">
+  <div class="content">
     <div class="container-fluid">
       <div class="row">
         <!-- /.col-md-6 -->
@@ -22,8 +27,9 @@
                       <th>{{ trans('cefamaps::environment.Length') }}</th>
                       <th>{{ trans('cefamaps::environment.Latitude') }}</th>
                       <th>{{ trans('cefamaps::environment.Productive units') }}</th>
+                      <th>{{ trans('cefamaps::environment.Type') }} {{ trans('cefamaps::environment.Environment') }}</th>
                       <th>
-                        <a href="#" class="btn btn-success">
+                        <a href="{{ route('cefamaps.admin.environment.add')}}" class="btn btn-success">
                           <i class="fa-solid fa-square-plus"></i>
                         </a>
                       </th>
@@ -33,14 +39,20 @@
                   <tbody>
                     <tr>
                       <td>{{$env->name}}</td>
-                      <td>{{$env->picture}}</td>
+                      src="{{ asset('storage/'.Auth::user()->person->avatar) }}"
+                      <td><img src="{{ asset('cefamaps/imagenes/')}}"></td>
                       <td>{{$env->description}}</td>
                       <td>{{$env->length}}</td>
                       <td>{{$env->latitude}}</td>
                       <td>{{$env->productive_units_id}}</td>
+                      <td>{{$env->type_environment}}</td>
                       <td>
-                        <i class="fa-solid fa-trash"></i>
-                        <i class="fas fa-map-signs"></i>
+                        <a href="#" class="btn btn-warning">
+                          <i class="fas fa-map-signs"></i>
+                        </a>
+                        <a href="#" class="btn btn-warning">
+                          <i class="fa-solid fa-trash"></i>
+                        </a>
                       </td>
                     </tr>
                   </tbody>
@@ -53,6 +65,7 @@
                       <th>{{ trans('cefamaps::environment.Length') }}</th>
                       <th>{{ trans('cefamaps::environment.Latitude') }}</th>
                       <th>{{ trans('cefamaps::environment.Productive units') }}</th>
+                      <th>{{ trans('cefamaps::environment.Type') }} {{ trans('cefamaps::environment.Environment') }}</th>
                       <th></th>
                     </tr>
                   </tfoot>
