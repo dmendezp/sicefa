@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ asset('cefamaps/css/dashboard.css') }}">
   <link rel="stylesheet" href="{{ asset('cefamaps/css/styles.css') }}">
+  <link rel="stylesheet" href="{{ asset('cefamaps/css/mapa.css') }}">
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">

@@ -16,6 +16,8 @@
 <script src="{{ asset('sica/js/scripts.js') }}"></script>
 
 <script src="{{ asset('AdminLTE/plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- jQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <!-- API del mapa AIzaSyB1qoTEmrsKndvyprM5-h4BHkADHPU7ts4 -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1qoTEmrsKndvyprM5-h4BHkADHPU7ts4&callback=initMap&v=weekly"
 defer

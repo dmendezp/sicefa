@@ -103,7 +103,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "slug" => "sica.coordinator",
                 "description" => "Rol Coordinador Academico",
                 "description_english" => "English - Rol administrador de la aplicacion SICA",
-                "full-access" => "no",
+                "full_access" => "no",
                 "app_id" => $app->id
             ]);
         } 
@@ -116,7 +116,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "slug" => "sica.attendance",
                 "description" => "Rol para el registro de asistencia",
                 "description_english" => "English - Rol para el registro de asistencia",
-                "full-access" => "no",
+                "full_access" => "no",
                 "app_id" => $app->id
             ]);
         }
@@ -146,7 +146,7 @@ class SeedPermissionsTableSeeder extends Seeder
         $permission = Permission::where('slug','sica.attendance.dashboard')->first();
         if(!$permission){
             $permission = Permission::create([
-                  "name" => "Attendance Dashboard",
+                "name" => "Attendance Dashboard",
                 "slug" => "sica.attendance.dashboard",
                 "description" => "Puede ver el dashboard de asistencia",
                 "description_english" => "English - Puede ver el dashboard de asistencia",

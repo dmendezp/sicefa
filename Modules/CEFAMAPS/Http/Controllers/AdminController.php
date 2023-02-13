@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 //Para hacer los crud del administrador
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Environment;
+use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\Farm;
 
 class AdminController extends Controller
 {
@@ -17,18 +19,11 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
+        $unit = ProductiveUnit::get();
+        $farm = Farm::get();
+        $environ = Environment::get();
         $roles = Role::count();
-        $data = ['title'=>trans('cefamaps::menu.Dashboard'),'roles'=>$roles];
+        $data = ['title'=>trans('cefamaps::menu.Dashboard'), 'roles'=>$roles, 'unit'=>$unit, 'farm'=>$farm, 'environ'=>$environ];
         return view('cefamaps::admin.dashboard',$data);
-    }
-
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function environment()
-    {
-        $data = ['title'=>trans('cefamaps::environment.Environment')];
-        return view('cefamaps::admin.environment.index',$data);
     }
 }

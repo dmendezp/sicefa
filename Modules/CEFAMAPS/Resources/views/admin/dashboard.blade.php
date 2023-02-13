@@ -20,13 +20,16 @@
                 <div class="container-fluid">
                   <div class="mtop16">
                     <a class="btn btn-app  btn-app-2" href="{{ route('cefamaps.admin.config.unit.index')}}">
-                      <i class="fas fa-solid fa-mountain-sun"></i> Unidades
+                      <i class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::unit.Units') }}
                     </a>
-                    <a class="btn btn-app btn-app-2">
-                      <i class="fas fa-solid fa-kaaba"></i> Areas
+                    <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.farm.index') }}">
+                      <i class="fas fa-solid fa-tractor"></i> {{ trans('cefamaps::farm.Farm') }}
                     </a>
                     <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.environment.index') }}">
-                      <i class="fas fa-solid fa-chalkboard-user"></i> Ambientes
+                      <i class="fas fa-solid fa-chalkboard-user"></i> {{ trans('cefamaps::environment.Environment') }}
+                    </a>
+                    <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.coordenate.index') }}">
+                      <i class=" fas fa-solid fa-arrows-to-circle"></i> {{ trans('cefamaps::coordinate.Coordinate') }}
                     </a>
                   </div>
                 </div>
@@ -47,7 +50,7 @@
   <script>
 
   Swal.fire({
-    title: 'Bienvenido {{ Auth::user()->roles[0]->name }} - {{ Auth::user()->nickname }}',
+    title: "{{ trans('cefamaps::menu.Welcome') }} {{ Auth::user()->roles[0]->name }} - {{ Auth::user()->nickname }}",
     position: 'top-end',
     showConfirmButton: false,
     timer: 2000,

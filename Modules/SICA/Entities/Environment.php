@@ -4,6 +4,7 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\CEFAMAPS\Entities\Coordinate;
 
 class Environment extends Model
 {
@@ -11,4 +12,8 @@ class Environment extends Model
     protected $fillable = [];
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
+
+    public function coordinates(){
+        return $this->hasMany(Coordinate::class);
+    }
 }

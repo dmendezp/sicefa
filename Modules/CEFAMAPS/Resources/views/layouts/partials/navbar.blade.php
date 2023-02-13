@@ -20,7 +20,6 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
 
       <!-- Notifications Dropdown Menu -->
 

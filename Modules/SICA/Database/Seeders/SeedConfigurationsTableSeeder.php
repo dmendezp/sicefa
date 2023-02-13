@@ -16,8 +16,6 @@ class SeedConfigurationsTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $eps = array{
-            
-        }
+        
     }
 }

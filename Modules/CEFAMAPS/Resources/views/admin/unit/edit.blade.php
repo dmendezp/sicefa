@@ -1,8 +1,11 @@
 @extends('cefamaps::layouts.master')
 
 @section('breadcrumb')
+
   <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
-  <li class="breadcrumb-item"><a href="#"><i class="fa-solid fa-square-plus"></i> {{ trans('cefamaps::unit.Add') }} {{ trans('cefamaps::unit.Unit') }}</a></li>
+  <li class="breadcrumb-item"><a href="#"><i class="fas fa-map-signs"></i> {{ trans('cefamaps::menu.Edit') }}</a></li>
+  <li class="breadcrumb-item"><a href="#"><i class="fas {{$editunit->icon}}"></i> {{$editunit->name}}</a></li>
+
 @endsection
 
 @section('content')
@@ -13,18 +16,19 @@
         <div class="col-lg-12">
           <div class="card card-lightblue card-outline">
             <div class="card-header">
-              <h3 class="m-0">{{ trans('cefamaps::menu.Add') }} {{ trans('cefamaps::unit.Units') }}</h3>
+              <h3 class="m-0">{{ trans('cefamaps::menu.Edit') }} {{$editunit->name}}</h3>
             </div>
             <div class="card-body">
               <div class="content">
-                <form method="post" action="{{ route('cefamaps.admin.config.unit.add')}}">
+                <form action="{{ route('cefamaps.admin.unit.edit') }}" method="post">
                   @csrf
+                  <input type="hidden" name="id" value="{{ $editunit->id }}" required>
                   <div class="row align-items-start">
                     <!-- inicio del nombre -->
                     <div class="col">
                       <div class="form-group">
-                        <label for="name">{{ trans('cefamaps::menu.Name') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <label for="name">{{ trans('cefamaps::unit.Name') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ $editunit->name }}" required>
                       </div>
                     </div>
                     <!-- fin del nombre -->
@@ -32,7 +36,7 @@
                     <div class="col">
                       <div class="form-group">
                         <label for="description">{{ trans('cefamaps::unit.Description') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
-                        <input type="text" class="form-control" id="description" name="description" required>
+                        <input type="text" class="form-control" id="description" name="description" value="{{ $editunit->description }}" required>
                       </div>
                     </div>
                     <!-- fin de la descripcion -->
@@ -68,7 +72,7 @@
                   </div>
                   <!-- inicio boton de agregar -->
                   <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-light btn-block btn-outline-info btn-lg" id="addunit">{{ trans('cefamaps::unit.Save') }} {{ trans('cefamaps::unit.Unit') }}</button>
+                    <button type="submit" class="btn btn-light btn-block btn-outline-info btn-lg">{{ trans('cefamaps::menu.Edit') }} {{ trans('cefamaps::unit.Unit') }}</button>
                   </div>
                   <!-- fin boton de agregar -->
                 </form>
@@ -76,26 +80,16 @@
             </div>
           </div>
         </div>
+        <!-- /.col-md-6 -->
       </div>
-    </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
   </div>
 
 @endsection
 
 @section('script')
 
-  <script>
-    /* Inicio alerta para agregar una unidad en ambientes */
-    document.getElementById('addunit').onclick = function(){
-      Swal.fire({
-        title:'Do you want to save the changes?',
-        showdenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: 'Save',
-        denyButtonText:'Dont save',
-      })
-    }
-    /* Fin alerta para agregar una unidad en ambientes */
-  </script>
+
 
 @endsection

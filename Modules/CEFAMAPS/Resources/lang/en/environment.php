@@ -9,6 +9,5 @@ return [
     'Length' => 'Length',
     'Latitude' => 'Latitude',
     'Productive units' => 'Productive units',
-    'Add' => 'Add',
-    'Save' => 'Save',
+    'File' => 'File'
 ];
