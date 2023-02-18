@@ -16,12 +16,12 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ## CEFAMAPS 📌
 
 ### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar*
+#### Sprint Planning 24-Ene-2023
+* **Neythan Sabogal** - *CRUDS de environment, unidades y granjas* - *100%* - *Me dificulto un poco al principio hacer mi primer CRUD que fue el de unidades* - *Ninguna*
 * **Integrante 2** - *Actividades a realizar*
 ...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 07-Feb-2023
+* **Neythan Sabogal** - *Avance de agregar coordenadas, aunque ya me muestra las cordenadas en el mapa, con las coordenadas guardadas en la base de datos* - *40%* - *Me dificulto poder que las coordenas me agrgaran en el programa, pero con ayuda del profesor se pudo resolver, ahora me dificul hacer input con jQuery* - *Ninguna*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 31-Oct-2022
