@@ -6,6 +6,12 @@ use Modules\CEFAMAPS\Http\Controllers\config\UnitController;
 use Modules\CEFAMAPS\Http\Controllers\config\FarmController;
 use Modules\CEFAMAPS\Http\Controllers\config\CoordinateController;
 
+/*
+ * TO DO:
+ * Falta agregar en el seedPermissions los de methodo POST;
+ * Falta todas las rutas de Coordenadas;
+ */
+
 Route::middleware(['lang'])->group(function(){
 
     Route::prefix('cefamaps')->group(function() {

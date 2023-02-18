@@ -39,7 +39,7 @@
                   </div>
                   <!-- fin de la descripcion -->
                   <!-- inicio de las longitudes y latitudes -->
-                  <div class="row align-items-center">
+                  <!--div class="row align-items-center">
                     <div class="col">
                       <div class="form-group">
                         <label for="length">{{ trans('cefamaps::environment.Length') }}</label>
@@ -52,8 +52,24 @@
                         <input type="text" class="form-control" id="latitude" name="latitude">
                       </div>
                     </div>
-                  </div>
+                  </div-->
                   <!-- fin de las longitudes y latitudes -->
+
+                  <!-- inicio de la prueba -->
+                  <div class="form-group">
+                    <label>{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::coordinates.Coordinate') }}</label>
+                    <select id="option" class="form-control select2">
+                      <option>Seleccione...</option>
+                      <option value="poligono">poligono</option>
+                      <option value="punto">punto</option>
+                      <option value="evacuacion">ruta de evacuacion</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <p id="aqui"></p>
+                  </div>
+                  <!-- fin de la prueba -->
+
                   <!-- inicio para el id del Farm -->
                   <div class="row align-items-center">
                     <div class="col">
@@ -147,6 +163,56 @@
 @endsection
 
 @section('script')
+
+  <script type="text/javascript">
+    let seleccionar = document.getElementById('option');
+    let parrafo = document.getElementById('aqui');
+
+    seleccionar.addEventListener('change', establecerOption);
+
+    function establecerOption() {
+      let eleccion = seleccionar.value;
+
+      if (eleccion === 'poligono') {
+        parrafo.innerHTML +=  "<div class='row align-items-start'>" +
+                                "<div class='col'>" +
+                                  "<div class='form-group'>" +
+                                    "<label for='length'>{{ trans('cefamaps::environment.Length') }}</label>" +
+                                    "<input type='text' class='form-control m-input' id='length' name='length[]' autocomplete='off'>" +
+                                  "</div>" +
+                                "</div>" +
+                                "<div class='col'>" +
+                                  "<div class='form-group'>" +
+                                    "<label for='latitude'>{{ trans('cefamaps::environment.Latitude') }}</label>" +
+                                    "<input type='text' class='form-control  m-input' id='latitude' name='latitude[]' autocomplete='off'>" +
+                                  "</div>" +
+                                "</div>" +
+                              "</div>"
+      } else if (eleccion === 'punto') {
+        parrafo.innerHTML +=  "<div class='row align-items-start'>" +
+                                "<div class='col'>" +
+                                  "<div class='form-group'>" +
+                                    "<label for='length'>{{ trans('cefamaps::environment.Length') }}</label>" +
+                                    "<input type='text' class='form-control m-input' id='length' name='length[]'>" +
+                                  "</div>" +
+                                "</div>" +
+                                "<div class='col'>" +
+                                  "<div class='form-group'>" +
+                                    "<label for='latitude'>{{ trans('cefamaps::environment.Latitude') }}</label>" +
+                                    "<input type='text' class='form-control  m-input' id='latitude' name='latitude'>" +
+                                  "</div>" +
+                                "</div>" +
+                              "</div>";
+      } else if (eleccion === 'evacuacion') {
+        parrafo.innerHTML +=  "<button type='button' class='btn btn-default' data-toggle='modal' data-target='#modal-default'>" +
+                              "Launch Default Modal" +
+                              "</button>";
+      } else {
+        parrafo.innerHTML +=  "";
+      }
+    }
+    
+  </script>
 
   <script type="text/javascript">
     /*

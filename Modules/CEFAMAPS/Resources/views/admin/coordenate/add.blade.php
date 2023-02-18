@@ -9,7 +9,7 @@
 
 @section('content')
 
-<div class="content">
+  <div class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
@@ -37,13 +37,13 @@
                       <div class="col">
                         <div class="form-group">
                           <label for="length">{{ trans('cefamaps::environment.Length') }}</label>
-                          <input type="text" class="form-control m-input" id="length" name="length" autocomplete="off">
+                          <input type="text" class="form-control m-input" id="length" name="length[]" autocomplete="off">
                         </div>
                       </div>
                       <div class="col">
                         <div class="form-group">
                           <label for="latitude">{{ trans('cefamaps::environment.Latitude') }}</label>
-                          <input type="text" class="form-control  m-input" id="latitude" name="latitude" autocomplete="off">
+                          <input type="text" class="form-control  m-input" id="latitude" name="latitude[]" autocomplete="off">
                         </div>
                       </div>
                       <div class="col-2">
@@ -88,13 +88,13 @@ html += '<div class="row align-items-center">';
 html += '<div class="col">';
 html += '<div class="form-group">';
 html += '<label for="length">{{ trans("cefamaps::environment.Length") }}</label>';
-html += '<input type="text" class="form-control m-input" id="length" name="length">';
+html += '<input type="text" class="form-control m-input" id="length" name="length[]">';
 html += '</div>';
 html += '</div>';
 html += '<div class="col">';
 html += '<div class="form-group">';
 html += '<label for="latitude">{{ trans("cefamaps::environment.Latitude") }}</label>';
-html += '<input type="text" class="form-control m-input" id="latitude" name="latitude">';
+html += '<input type="text" class="form-control m-input" id="latitude" name="latitude[]">';
 html += '</div>';
 html += '</div>';
 html += '<div class="col-2">';

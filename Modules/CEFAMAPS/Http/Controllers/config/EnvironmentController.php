@@ -23,7 +23,7 @@ class EnvironmentController extends Controller
         $environ = Environment::get();
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
-        $data = ['title'=>trans('cefamaps::environment.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
+        $data = ['title'=>trans('cefamaps::menu.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
         return view('cefamaps::admin.environment.index',$data);
     }
 
@@ -36,7 +36,7 @@ class EnvironmentController extends Controller
         $environ = Environment::get();
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
-        $data = ['title'=>trans('cefamaps::environment.Add'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
+        $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
         return view('cefamaps::admin.environment.add',$data);
     }
 
@@ -78,7 +78,7 @@ class EnvironmentController extends Controller
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
         $editenviron = Environment::findOrFail($id);
-        $data = ['title'=>trans('cefamaps::environment.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'editenviron'=>$editenviron];
+        $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'editenviron'=>$editenviron];
         return view('cefamaps::admin.environment.edit',$data);
     }
 

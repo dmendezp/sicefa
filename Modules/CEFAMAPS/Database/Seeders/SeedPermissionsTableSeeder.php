@@ -46,8 +46,8 @@ class SeedPermissionsTableSeeder extends Seeder
                 "url" => "/cefamaps/index",
                 "color" => "#4FB1D9",
                 "icon" => "fas fa-map",
-                "description" => "En esta aplicación se mostra el mapa del S-......",
-                "description_english" => "English -> En esta aplicación se mostra el mapa del S-......"
+                "description" => "Zonificacion de las Areas, Unidades y Ambientes del CEFA",
+                "description_english" => "Zoning of CEFA Areas, Units and Environments"
             ]);
         }
         //crear usuario administrador
@@ -80,11 +80,13 @@ class SeedPermissionsTableSeeder extends Seeder
         $permission_admin = [];
 // repita para cada permiso -- estos permisos son de su aplicacion, agregue los necesarios
 
-        $permission = Permission::where('slug','cefamaps.admin.environment.index')->first();
+        // Estos son los permisos de ambientes (environment)
+
+        $permission = Permission::where('slug','cefamaps.admin.config.environment.index')->first();
         if(!$permission){
             $permission = Permission::create([
                 "name" => "Inicio de la configuracion de Ambientes",
-                "slug" => "cefamaps.admin.environment.index",
+                "slug" => "cefamaps.admin.config.environment.index",
                 "description" => "Puedes hacer todo lo de un crud para los ambientes",
                 "description_english" => "You can do all of a crud for environments",
                 "app_id" => $app->id
@@ -92,13 +94,137 @@ class SeedPermissionsTableSeeder extends Seeder
         }
         $permission_admin[] = $permission->id;
 
-        $permission = Permission::where('slug','cefamaps.admin.environment.config')->first();
+        $permission = Permission::where('slug','cefamaps.admin.config.environment.add')->first();
         if(!$permission){
             $permission = Permission::create([
-                "name" => "Configuracion de Ambientes",
-                "slug" => "cefamaps.admin.environment.config",
-                "description" => "Puedes mirar todos los ambientes del CEFA",
-                "description_english" => "You can look at all the CEFA environments",
+                "name" => "Agregar un Ambientes",
+                "slug" => "cefamaps.admin.config.environment.add",
+                "description" => "Puedes agregar un ambiente",
+                "description_english" => "You can add an environment",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        $permission = Permission::where('slug','cefamaps.admin.config.environment.edit')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Editar un Ambientes",
+                "slug" => "cefamaps.admin.config.environment.edit",
+                "description" => "Puedes editar un ambiente",
+                "description_english" => "You can edit an environment",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        $permission = Permission::where('slug','cefamaps.admin.environment.delete')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Eliminar un Ambientes",
+                "slug" => "cefamaps.admin.environment.delete",
+                "description" => "Puedes eliminar un ambiente",
+                "description_english" => "You can delete an environment",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        // Estos son los permisos de las unidades (Unit)
+
+        $permission = Permission::where('slug','cefamaps.admin.config.unit.index')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Inicio de la configuracion de las unidades",
+                "slug" => "cefamaps.admin.config.unit.index",
+                "description" => "Puedes hacer todo lo de un crud para la unidad",
+                "description_english" => "You can do all of a crud for unit",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        $permission = Permission::where('slug','cefamaps.admin.config.unit.add')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Agregar una Unidad",
+                "slug" => "cefamaps.admin.config.unit.add",
+                "description" => "Puedes agregar una unidad",
+                "description_english" => "You can add a unit",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        $permission = Permission::where('slug','cefamaps.admin.config.unit.edit')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Editar una Unidad",
+                "slug" => "cefamaps.admin.config.unit.edit",
+                "description" => "Puedes editar una unidad",
+                "description_english" => "You can edit a unit",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        $permission = Permission::where('slug','cefamaps.admin.unit.delete')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Eliminar una Nnidad",
+                "slug" => "cefamaps.admin.unit.delete",
+                "description" => "Puedes eliminar una unidad",
+                "description_english" => "You can delete a unit",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        // Estos son los permisos de las granjas (Farm)
+
+        $permission = Permission::where('slug','cefamaps.admin.config.farm.index')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Inicio de la configuracion de las granjas",
+                "slug" => "cefamaps.admin.config.farm.index",
+                "description" => "Puedes hacer todo lo de un crud para la granja",
+                "description_english" => "You can do all of a crud for farm",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        $permission = Permission::where('slug','cefamaps.admin.config.farm.add')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Agregar una Granja",
+                "slug" => "cefamaps.admin.config.farm.add",
+                "description" => "Puedes agregar una granja",
+                "description_english" => "You can add a farm",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        $permission = Permission::where('slug','cefamaps.admin.config.farm.edit')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Editar una Granja",
+                "slug" => "cefamaps.admin.config.farm.edit",
+                "description" => "Puedes editar una granja",
+                "description_english" => "You can edit a farm",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        $permission = Permission::where('slug','cefamaps.admin.farm.delete')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Eliminar una Granja",
+                "slug" => "cefamaps.admin.farm.delete",
+                "description" => "Puedes eliminar una granja",
+                "description_english" => "You can delete a farm",
                 "app_id" => $app->id
             ]);
         }

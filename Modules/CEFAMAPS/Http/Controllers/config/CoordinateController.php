@@ -47,13 +47,18 @@ class CoordinateController extends Controller
    */
   public function addpost(Request $request)
   {
-    $add = new Coordinate;
-    $add -> environment_id = e ($request->input('environ'));
-    $add -> length = e ($request->input('length'));
-    $add -> latitude = e ($request->input('latitude'));
-    if ($add -> save()) {
-      return redirect(route('cefamaps.admin.config.coordenate.index'));
+    $c = 0;
+    foreach ($request->input('length') as $le) {
+      $add = new Coordinate;
+      $add -> environment_id = e ($request->input('environ'));
+      $add -> length = $le;
+      $add -> latitude = e ($request->input('latitude')[$c]);
+      $c++;
+      if ($add -> save()) {
+        
+      }
     }
+    return redirect(route('cefamaps.admin.config.coordenate.index'));
   }
 
   /**
