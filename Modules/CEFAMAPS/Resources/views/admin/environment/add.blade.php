@@ -39,7 +39,7 @@
                   </div>
                   <!-- fin de la descripcion -->
                   <!-- inicio de las longitudes y latitudes -->
-                  <!--div class="row align-items-center">
+                  <div class="row align-items-center">
                     <div class="col">
                       <div class="form-group">
                         <label for="length">{{ trans('cefamaps::environment.Length') }}</label>
@@ -52,24 +52,8 @@
                         <input type="text" class="form-control" id="latitude" name="latitude">
                       </div>
                     </div>
-                  </div-->
+                  </div>
                   <!-- fin de las longitudes y latitudes -->
-
-                  <!-- inicio de la prueba -->
-                  <div class="form-group">
-                    <label>{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::coordinates.Coordinate') }}</label>
-                    <select id="option" class="form-control select2">
-                      <option>Seleccione...</option>
-                      <option value="poligono">poligono</option>
-                      <option value="punto">punto</option>
-                      <option value="evacuacion">ruta de evacuacion</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <p id="aqui"></p>
-                  </div>
-                  <!-- fin de la prueba -->
-
                   <!-- inicio para el id del Farm -->
                   <div class="row align-items-center">
                     <div class="col">
@@ -119,15 +103,15 @@
                   <!-- inicio de los complementos de environment -->
                   <div class="row align-items-end">
                     <!-- inicio del tipo de ambiente -->
-                    <div class="col-4">
+                    <!--div class="col-4">
                       <div class="form-group">
                         <label for="type">{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::environment.Environment') }}</label>
                         <input type="text" class="form-control" id="type" name="type" required>
                       </div>
-                    </div>
+                    </div-->
                     <!-- fin del tipo de ambiente -->
                     <!-- inicio de la clase de ambiente -->
-                    <div class="col-4">
+                    <div class="col">
                       <div class="form-group">
                         <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
                         <input type="text" class="form-control" name="class" id="class" required>
@@ -135,7 +119,7 @@
                     </div>
                     <!-- fin de la clase de ambiente -->
                     <!-- inicio del status del environment -->
-                    <div class="col-4">
+                    <div class="col">
                       <div class="form-group">
                         <label for="status">{{ trans('cefamaps::menu.Status') }} {{ trans('cefamaps::environment.Environment') }}</label>
                         <input type="text" class="form-control" id="status" name="status" required>
@@ -144,6 +128,19 @@
                     <!-- fin del status del environment -->
                   </div>
                   <!-- fin de los complementos de environment -->
+                  <!-- inicio de la prueba -->
+                  <div class="form-group">
+                    <label>{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::environment.Coordinate') }}</label>
+                    <select id="option" class="form-control select2">
+                      <option>Seleccione...</option>
+                      <option value="poligono">{{ trans('cefamaps::environment.Coordinate') }}</option>
+                      <option value="evacuacion">{{ trans('cefamaps::environment.RutadeEvacuacion') }}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <p id="aqui"></p>
+                  </div>
+                  <!-- fin de la prueba -->
                   <!-- inicio boton de agregar -->
                   <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-light btn-block btn-outline-info btn-lg">{{ trans('cefamaps::environment.Save') }}</button>
@@ -174,35 +171,66 @@
       let eleccion = seleccionar.value;
 
       if (eleccion === 'poligono') {
-        parrafo.innerHTML +=  "<div class='row align-items-start'>" +
-                                "<div class='col'>" +
-                                  "<div class='form-group'>" +
-                                    "<label for='length'>{{ trans('cefamaps::environment.Length') }}</label>" +
-                                    "<input type='text' class='form-control m-input' id='length' name='length[]' autocomplete='off'>" +
+        parrafo.innerHTML +=  "<div id='inputFormRow'>" +
+                                "<div class='row align-items-center'>" +
+                                  "<div class='col'>" +
+                                    "<div class='form-group'>" +
+                                      "<label for='length'>{{ trans('cefamaps::environment.Length') }}</label>" +
+                                      "<input type='text' class='form-control m-input' id='length' name='length[]' autocomplete='off'>" +
+                                    "</div>" +
+                                  "</div>" +
+                                  "<div class='col'>" +
+                                    "<div class='form-group'>" +
+                                      "<label for='latitude'>{{ trans('cefamaps::environment.Latitude') }}</label>" +
+                                      "<input type='text' class='form-control  m-input' id='latitude' name='latitude[]' autocomplete='off'>" +
+                                    "</div>" +
+                                  "</div>" +
+                                  "<div class='col-2'>" +
+                                    "<div class='input-group-append'>" +
+                                      "<button id='Eliminar' type='button' class='btn btn-danger'>{{ trans('cefamaps::menu.Delete') }}</button>" +
+                                    "</div>" +
                                   "</div>" +
                                 "</div>" +
-                                "<div class='col'>" +
-                                  "<div class='form-group'>" +
-                                    "<label for='latitude'>{{ trans('cefamaps::environment.Latitude') }}</label>" +
-                                    "<input type='text' class='form-control  m-input' id='latitude' name='latitude[]' autocomplete='off'>" +
-                                  "</div>" +
-                                "</div>" +
+                              "</div>" +
+                              "<div id='Agregar'></div>" +
+                              "<div class='d-grid gap-2'>" +
+                                "<button id='addRow' type='button' class='btn btn-info'>{{ trans('cefamaps::menu.Add') }}</button>" +
                               "</div>"
-      } else if (eleccion === 'punto') {
-        parrafo.innerHTML +=  "<div class='row align-items-start'>" +
-                                "<div class='col'>" +
-                                  "<div class='form-group'>" +
-                                    "<label for='length'>{{ trans('cefamaps::environment.Length') }}</label>" +
-                                    "<input type='text' class='form-control m-input' id='length' name='length[]'>" +
-                                  "</div>" +
-                                "</div>" +
-                                "<div class='col'>" +
-                                  "<div class='form-group'>" +
-                                    "<label for='latitude'>{{ trans('cefamaps::environment.Latitude') }}</label>" +
-                                    "<input type='text' class='form-control  m-input' id='latitude' name='latitude'>" +
-                                  "</div>" +
-                                "</div>" +
-                              "</div>";
+                              
+                              // agregar registro
+                              $('#addRow').click(function () {
+                              var html = "";
+
+                              html += '<div id="inputFormRow">';
+                              html += '<div class="row align-items-end">';
+                              html += '<div class="col">';
+                              html += '<div class="form-group">';
+                              html += '<label for="length">{{ trans("cefamaps::environment.Length") }}</label>';
+                              html += '<input type="text" class="form-control m-input" id="length" name="length[]">';
+                              html += '</div>';
+                              html += '</div>';
+                              html += '<div class="col">';
+                              html += '<div class="form-group">';
+                              html += '<label for="latitude">{{ trans("cefamaps::environment.Latitude") }}</label>';
+                              html += '<input type="text" class="form-control m-input" id="latitude" name="latitude[]">';
+                              html += '</div>';
+                              html += '</div>';
+                              html += '<div class="col-2">';
+                              html += '<div class="input-group-append">';
+                              html += '<button id="Eliminar" type="button" class="btn btn-danger">{{ trans("cefamaps::menu.Delete") }}</button>';
+                              html += '</div>';
+                              html += '</div>';
+                              html += '</div>';
+                              html += '</div>';
+
+                              $('#Agregar').append(html);
+                              });
+
+                              // borrar registro
+                              $(document).on('click', '#Eliminar', function () {
+                                $(this).closest('#inputFormRow').remove();
+                              });
+
       } else if (eleccion === 'evacuacion') {
         parrafo.innerHTML +=  "<button type='button' class='btn btn-default' data-toggle='modal' data-target='#modal-default'>" +
                               "Launch Default Modal" +
@@ -211,7 +239,7 @@
         parrafo.innerHTML +=  "";
       }
     }
-    
+
   </script>
 
   <script type="text/javascript">
