@@ -11,6 +11,7 @@ use Validator, Str;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Farm;
+use Modules\CEFAMAPS\Entities\Coordinate;
 
 class EnvironmentController extends Controller
 {
@@ -55,14 +56,25 @@ class EnvironmentController extends Controller
             $add -> name = e ($request->input('name'));
             $add -> description = e ($request->input('description'));
             $add -> picture = e ($final_name);
-            $add -> length = e ($request->input('length'));
-            $add -> latitude = e ($request->input('latitude'));
             $add -> farms_id = e ($request->input('farm'));
             $add -> productive_units_id = e ($request->input('unit'));
+            $add -> length = e ($request->input('lengthspot'));
+            $add -> latitude = e ($request->input('latitudespot'));
             $add -> status = e ($request->input('status'));
             $add -> type_environment = e ($request->input('type'));
             $add -> environment_classroom = e ($request->input('class'));
             if($add -> save()){
+                $c = 0;
+                foreach ($request->input('length') as $le) {
+                    $addcoor = new Coordinate;
+                    $addcoor -> environment_id = $add->id;
+                    $addcoor -> length = $le;
+                    $addcoor -> latitude = e ($request->input('latitude')[$c]);
+                    $c++;
+                    if ($addcoor -> save()) {
+                        
+                    }
+                }
                 return redirect(route('cefamaps.admin.config.environment.index'));
             }
         } 
@@ -107,7 +119,7 @@ class EnvironmentController extends Controller
             if($edit -> save()){
                 return redirect(route('cefamaps.admin.config.environment.index'));
             }
-        } 
+        }
     }
 
     /**

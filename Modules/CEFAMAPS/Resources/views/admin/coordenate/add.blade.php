@@ -47,9 +47,10 @@
                         </div>
                       </div>
                       <div class="col-2">
-                        <div class="input-group-append"> 
-                          <button id="Eliminar" type="button" class="btn btn-danger">{{ trans('cefamaps::menu.Delete') }}</button>
-                        </div>                        
+                        <div class="form-group">
+                          <br>
+                          <button id="Eliminar" type="button" class="btn btn-block btn-danger">{{ trans('cefamaps::menu.Delete') }}</button>
+                        </div>
                       </div>
                     </div>
                   </div>
