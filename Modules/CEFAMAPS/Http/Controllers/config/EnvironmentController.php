@@ -24,7 +24,8 @@ class EnvironmentController extends Controller
         $environ = Environment::get();
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
-        $data = ['title'=>trans('cefamaps::menu.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
+        $coor = Coordinate::get();
+        $data = ['title'=>trans('cefamaps::menu.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'coor'=>$coor];
         return view('cefamaps::admin.environment.index',$data);
     }
 
@@ -144,7 +145,9 @@ class EnvironmentController extends Controller
     public function destroy($id)
     {
         $remove = Environment::findOrFail($id);
-        if($remove->delete());
-        return back()->with('message', 'Unidad Borrada Exitosamente')->with('typealert', 'succes');
+        $remove->coordinates()->delete();
+        if ($remove->delete()) {
+            return back(); 
+        }   
     }
 }

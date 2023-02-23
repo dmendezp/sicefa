@@ -51,7 +51,38 @@
                       <td>{{$env->farms_id}}</td>
                       <td>{{$env->productive_units_id}}</td>
                       <td>{{$env->status}}</td>
-                      <td>{{$env->type_environment}}</td>
+                      <!-- inicio de la prueba -->
+                      <td>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">{{$env->type_environment}}</button>
+                        <div class="modal fade" id="modal-info">
+                          <div class="modal-dialog">
+                            <div class="modal-content bg-info">
+                              <div class="modal-header">
+                                <h4 class="modal-title">{{$env->type_environment}} {{$env->name}}</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <i class="fa-solid fa-xmark"></i>
+                                </button>
+                              </div>
+                              @foreach($coor as $c)
+                              <div class="modal-body">
+                                <p>
+                                  {{$c->length}}
+                                </p>
+                                <p>
+                                  {{$c->latitude}}
+                                </p>
+                              </div>
+                              @endforeach
+                              <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline-light">Save changes</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </td>
+                      <!-- fin de la prueba -->
                       <td>{{$env->environment_classroom}}</td>
                       <td>
                         <a href="#" class="btn btn-warning editenviron" data-object="{{ $env->id }}">
