@@ -1,0 +1,13 @@
+{
+    "name": "PTVENTA",
+    "alias": "ptventa",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PTVENTA\\Providers\\PTVENTAServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
