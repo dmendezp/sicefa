@@ -1,9 +1,10 @@
 @extends('ptventa::layouts.master')
 
 @section('content')
-    <h1>Hello World</h1>
+    <h1>Bienvenido grupo <strong>AdsiCodingGroup</strong></h1>
 
     <p>
-        This view is loaded from module: {!! config('ptventa.name') !!}
+        Esta es la vista principal del modulo PTVENTA para el proyecto Punto de Venta.
+        <a href="{{ route('cefa.welcome') }}">Volver a SICEFA</a>
     </p>
 @endsection
