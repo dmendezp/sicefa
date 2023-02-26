@@ -3,7 +3,6 @@
 namespace Modules\PTVENTA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class PTVENTADatabaseSeeder extends Seeder
 {
@@ -14,8 +13,8 @@ class PTVENTADatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(PTVENTAAppTableSeeder::class); // llamar seeder de aplicación PTVENTA
+
     }
 }
