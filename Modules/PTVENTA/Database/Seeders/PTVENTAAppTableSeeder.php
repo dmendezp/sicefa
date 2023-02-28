@@ -22,17 +22,15 @@ class PTVENTAAppTableSeeder extends Seeder
         }
 
         /* Registro o actualización de la nueva aplicación para punto de venta */
-        $app = App::where('name', 'PTVENTA')->first();
-        if(!$app){
-            $app = new App();
-        }
-        $app->name = "PTVENTA";
-        $app->url = "/ptventa/index";
-        $app->color = "#809848";
-        $app->icon = "fas fa-dolly";
-        $app->description = "Registro de ventas en Punto de venta del CEFA";
-        $app->description_english = "Sales record of the CEFA point of sale";
-        $app->save();
+        $app = [
+            'name' => 'PTVENTA',
+            'url' => '/ptventa/index',
+            'color' => '#809848',
+            'icon' => 'fas fa-dolly',
+            'description' => 'Registro de ventas en Punto de venta del CEFA',
+            'description_english' => 'Sales record of the CEFA point of sale'
+        ];
+        App::updateOrCreate(['name' => $app['name']], $app); // Registrar o actualizar
 
     }
 }
