@@ -64,7 +64,7 @@ class EnvironmentController extends Controller
             $add -> status = e ($request->input('status'));
             $add -> type_environment = e ($request->input('type'));
             $add -> environment_classroom = e ($request->input('class'));
-            if($add -> save()){
+            if($add -> save()) {
                 $c = 0;
                 foreach ($request->input('length') as $le) {
                     $addcoor = new Coordinate;
@@ -102,26 +102,34 @@ class EnvironmentController extends Controller
      */
     public function editpost(Request $request)
     {
-        /* este metodo es para poder guardar imagenes */
-        $path = 'uploads/';
-        $final_name = Str::slug($request->file('file')->getClientOriginalName().'_'.time()).'.'.trim($request->file('file')->getClientOriginalName());
-        
-        if($request->file->storeAs($path, $final_name, 'uploads')) {
-            $edit = Environment::findOrFail($request->input('id'));
-            $edit -> name = e ($request->input('name'));
-            $edit -> description = e ($request->input('description'));
-            $edit -> picture = e ($final_name);
-            $edit -> length = e ($request->input('length'));
-            $edit -> latitude = e ($request->input('latitude'));
-            $edit -> farms_id = e ($request->input('farm'));
-            $edit -> productive_units_id = e ($request->input('unit'));
-            $edit -> status = e ($request->input('status'));
-            $edit -> type_environment = e ($request->input('type'));
-            $edit -> environment_classroom = e ($request->input('class'));
-            if($edit -> save()){
-                return redirect(route('cefamaps.admin.config.environment.index'));
+        $edit = Environment::findOrFail($request->input('id'));
+        return $edit;
+        $edit -> name = e ($request->input('name'));
+        $edit -> description = e ($request->input('description'));
+        $edit -> picture = e ($request->input('file'));
+        $edit -> farms_id = e ($request->input('farm'));
+        $edit -> productive_units_id = e ($request->input('unit'));
+        $edit -> length = e ($request->input('lengthspot'));
+        $edit -> latitude = e ($request->input('latitudespot'));
+        $edit -> status = e ($request->input('status'));
+        $edit -> type_environment = e ($request->input('type'));
+        $edit -> environment_classroom = e ($request->input('class'));
+        if ($edit = save()) {
+            return $edit;
+            $c = 0;
+            foreach ($request->input('length') as $le) {
+                $editcoor = Coordinate::findOrFail($edit->id);
+                $editcoor -> environment_id = $edit->id;
+                $editcoor -> length = $le;
+                $editcoor -> latitude = e ($request->input('latitude')[$c]);
+                $c++;
+                if ($edit -> save()) {
+                    
+                }
             }
         }
+
+            //return redirect(route('cefamaps.admin.config.environment.index'));
     }
 
     /**
