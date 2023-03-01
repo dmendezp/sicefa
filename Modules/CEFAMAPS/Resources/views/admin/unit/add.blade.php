@@ -68,7 +68,7 @@
                   </div>
                   <!-- inicio boton de agregar -->
                   <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-light btn-block btn-outline-info btn-lg" id="addunit">{{ trans('cefamaps::unit.Save') }} {{ trans('cefamaps::unit.Unit') }}</button>
+                    <button type="submit" class="btn btn-light btn-block btn-outline-info btn-lg" id="addunit">{{ trans('cefamaps::menu.Save') }} {{ trans('cefamaps::unit.Unit') }}</button>
                   </div>
                   <!-- fin boton de agregar -->
                 </form>

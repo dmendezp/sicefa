@@ -15,6 +15,9 @@
 <script src="{{ asset('js/generalscripts.js') }}"></script>
 <script src="{{ asset('sica/js/scripts.js') }}"></script>
 
+<!-- CKEditor -->
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
 <script src="{{ asset('AdminLTE/plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- jQuery -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

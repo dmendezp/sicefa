@@ -5,6 +5,7 @@ use Modules\CEFAMAPS\Http\Controllers\config\EnvironmentController;
 use Modules\CEFAMAPS\Http\Controllers\config\UnitController;
 use Modules\CEFAMAPS\Http\Controllers\config\FarmController;
 use Modules\CEFAMAPS\Http\Controllers\config\CoordinateController;
+use Modules\CEFAMAPS\Http\Controllers\config\PageController;
 
 /*
  * TO DO:
@@ -61,6 +62,17 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/coordenate/edit/{id}',[CoordinateController::class, 'edit'])->name('cefamaps.admin.config.coordenate.edit');
         // para poder eliminar coordenate
         Route::get('/coordenate/delete/{id}', [CoordinateController::class, 'destroy'])->name('cefamaps.admin.coordenate.delete');
+
+        // Todas las rutas de las Page 
+        Route::get('/page/index', [PageController::class, 'index'])->name('cefamaps.admin.config.page.index');
+        // para poder aregar una Page
+        Route::get('/page/add', [PageController::class, 'add'])->name('cefamaps.admin.config.page.add');
+        Route::post('/page/add', [PageController::class, 'addpost'])->name('cefamaps.admin.config.page.add');
+        // para poder editar una Page
+        Route::get('/page/edit/{id}', [PageController::class, 'edit'])->name('cefamaps.admin.config.page.edit');
+        Route::post('/page/edit/',[PageController::class, 'editpost'])->name('cefamaps.admin.config.page.edit');
+        // para poder borrar una Page
+        Route::get('/page/delete/{id}', [PageController::class, 'destroy'])->name('cefamaps.admin.page.delete');
 
     });
 

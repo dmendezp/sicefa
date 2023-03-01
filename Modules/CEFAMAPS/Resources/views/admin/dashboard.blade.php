@@ -29,7 +29,10 @@
                       <i class="fas fa-solid fa-chalkboard-user"></i> {{ trans('cefamaps::environment.Environment') }}
                     </a>
                     <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.coordenate.index') }}">
-                      <i class=" fas fa-solid fa-arrows-to-circle"></i> {{ trans('cefamaps::coordinate.Coordinate') }}
+                      <i class="fas fa-solid fa-arrows-to-circle"></i> {{ trans('cefamaps::coordinate.Coordinate') }}
+                    </a>
+                    <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.page.index') }}">
+                      <i class="fas fa-regular fa-file-lines"></i> {{ trans('cefamaps::page.Page') }}
                     </a>
                   </div>
                 </div>
