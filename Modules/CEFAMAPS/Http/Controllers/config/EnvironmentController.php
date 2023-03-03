@@ -21,11 +21,12 @@ class EnvironmentController extends Controller
      */
     public function index()
     {
-        $environ = Environment::get();
+        //$environ = Environment::get();
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
-        $coor = Coordinate::get();
-        $data = ['title'=>trans('cefamaps::menu.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'coor'=>$coor];
+        //$coor = Coordinate::get();
+        $environ = Environment::with('coordinates')->get();
+        $data = ['title'=>trans('cefamaps::menu.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
         return view('cefamaps::admin.environment.index',$data);
     }
 
@@ -103,7 +104,6 @@ class EnvironmentController extends Controller
     public function editpost(Request $request)
     {
         $edit = Environment::findOrFail($request->input('id'));
-        return $edit;
         $edit -> name = e ($request->input('name'));
         $edit -> description = e ($request->input('description'));
         $edit -> picture = e ($request->input('file'));
@@ -114,11 +114,10 @@ class EnvironmentController extends Controller
         $edit -> status = e ($request->input('status'));
         $edit -> type_environment = e ($request->input('type'));
         $edit -> environment_classroom = e ($request->input('class'));
-        if ($edit = save()) {
-            return $edit;
+        if ($edit -> save()){
+            $editcoor = Coordinate::findOrFail($request->input('id'));
             $c = 0;
             foreach ($request->input('length') as $le) {
-                $editcoor = Coordinate::findOrFail($edit->id);
                 $editcoor -> environment_id = $edit->id;
                 $editcoor -> length = $le;
                 $editcoor -> latitude = e ($request->input('latitude')[$c]);
@@ -127,9 +126,8 @@ class EnvironmentController extends Controller
                     
                 }
             }
+            return redirect(route('cefamaps.admin.config.environment.index'));
         }
-
-            //return redirect(route('cefamaps.admin.config.environment.index'));
     }
 
     /**
