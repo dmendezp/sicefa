@@ -1,7 +1,7 @@
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex align-items-center">
+<section class="d-flex align-items-center">
 
-    <img src="{{asset('radi__cefa/headerRadio.jpg')}}" style="bacgraund-color:rgb(194, 194, 194, 0.5)">
+    <img src="{{asset('radi__cefa/headerRadio.jpg')}}" >
     <div class="container">
       <div class="row">
         <div class=" d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
