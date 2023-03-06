@@ -6,12 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Module RADIOCEFA</title>
 
-       {{-- Laravel Mix - CSS File --}}
+       @include('layouts/partials/head')
+        {{-- Laravel Mix - CSS File --}}
        {{-- <link rel="stylesheet" href="{{ mix('css/radiocefa.css') }}"> --}}
 
     </head>
     <body>
+        
         @yield('content')
+        @include('layouts/partials/scripts')
 
         {{-- Laravel Mix - JS File --}}
         {{-- <script src="{{ mix('js/radiocefa.js') }}"></script> --}}
