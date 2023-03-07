@@ -1,8 +1,16 @@
 window._ = require('lodash');
 
-try {
-    require('bootstrap');
-} catch (e) {}
+/**
+ * We'll load jQuery and the Bootstrap jQuery plugin which provides support
+ * for JavaScript based Bootstrap features such as modals and tabs. This
+ * code may be modified to fit the specific needs of your application.
+ */
+
+import '@popperjs/core'
+
+const bootstrap = require('bootstrap')
+
+window.bootstrap = bootstrap
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
