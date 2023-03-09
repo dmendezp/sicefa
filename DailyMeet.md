@@ -41,33 +41,48 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 
+
 ## PUNTO DE VENTA 🛒
 
 ### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
+#### Sprint Planning 20-Feb-2023 <!-- 3/6 HU -->
+* **Anyi Katherine Rojas Arce** - *Configuración de trabajo en equipo - Instalación y sincronización del repositorio SICEFA* 
+* **Cesar Augusto Pastrana Quimbaya** - *Configuración de trabajo en equipo - Instalación y sincronización del repositorio SICEFA*
+* **Jesús David Guevara Munar** - *Configuración de trabajo en equipo - Instalación y sincronización del repositorio SICEFA - Crear módulo PTVENTA*
+* **Manuel Steven Ossa Lievano** - *Configuración de trabajo en equipo - Instalación y sincronización del repositorio SICEFA*
+* **Nelsy Yulied Gómez Morales** - *Configuración de trabajo en equipo - Instalación y sincronización del repositorio SICEFA*
+* **Oscar Andres Gil Marin** - *Configuración de trabajo en equipo - Instalación y sincronización del repositorio SICEFA*
 ...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 24-Feb-2023
+* **Anyi Katherine Rojas Arce** - *Configuración de trabajo en equipo* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Cesar Augusto Pastrana Quimbaya** - *Configuración de trabajo en equipo* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Jesús David Guevara Munar** - *Configuración de trabajo en equipo* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Manuel Steven Ossa Lievano** - *Configuración de trabajo en equipo* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Nelsy yulied Gómez Morales** - *Configuración de trabajo en equipo* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Oscar Andres Gil Marin** - *Configuración de trabajo en equipo* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 ---
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 25-Feb-2023 
+* **Anyi Katherine Rojas Arce** - *Instalación y sincronización del repositorio SICEFA* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Cesar Augusto Pastrana Quimbaya** - *Instalación y sincronización del repositorio SICEFAs* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Jesús David Guevara Munar** - *Instalación y sincronización del repositorio SICEFA* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Manuel Steven Ossa Lievano** - *Instalación y sincronización del repositorio SICEFA* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Nelsy yulied Gómez Morales** - *Instalación y sincronización del repositorio SICEFA* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Oscar Andres Gil Marin** - *Instalación y sincronización del repositorio SICEFA* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 ---
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet ##-Aaa-2023 
+* **Jesús David Guevara Munar** - *Crear módulo PTVENTA* - *100 %* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 ---
-#### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
+
+<!-- Lo siguiente solo se tomará como plantilla para las otras reuniones -->
+<!-- #### Meet ##-Aaa-2023 
+* **Anyi Katherine Rojas Arce** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Cesar Augusto Pastrana Quimbaya** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Jesús David Guevara Munar** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Manuel Steven Ossa Lievano** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Oscar Andres Gil Marin** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+--- -->
+
 
 ## GANADERIA 🐮
 
