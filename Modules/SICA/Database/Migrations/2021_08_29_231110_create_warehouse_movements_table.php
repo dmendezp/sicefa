@@ -15,7 +15,7 @@ class CreateWarehouseMovementsTable extends Migration
     {
         Schema::create('warehouse_movements', function (Blueprint $table) {
             $table->id();
-
+            $table->enum('rol',['Entrega', 'Recibe']);
             $table->timestamps();
         });
     }

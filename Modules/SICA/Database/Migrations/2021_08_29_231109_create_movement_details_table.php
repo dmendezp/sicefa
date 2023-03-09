@@ -13,12 +13,12 @@ class CreateDetailMovementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('detail_movements', function (Blueprint $table) {
+        Schema::create('movement_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('movement_id')->constrained()->onDelete('cascade');
             $table->foreignId('inventorie_id')->constrained()->onDelete('cascade');
             $table->integer('amount');
-            $table->integer('worth');
+            $table->integer('price');
             $table->timestamps();
             $table->softDeletes();
         });
