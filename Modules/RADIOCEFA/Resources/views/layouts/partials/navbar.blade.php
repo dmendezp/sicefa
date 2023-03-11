@@ -1,16 +1,38 @@
 <!-- Navbar -->
-  <nav class="navbar navbar-expand bg-success">
+  <nav class="navbar navbar-expand bg-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link text-success" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="index3.html" class="nav-link text-success">Home</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="#" class="nav-link text-success">Contact</a>
       </li>
+
+
+      <li class="dropdown text-success">
+              @auth
+                 <a href="{{ route('cefa.home') }}">{{ Auth::user()->nickname }}</a>
+                <ul>
+                  <li><a href="#">Cambiar contraseña</a></li>
+                  <li>
+                    
+                <a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">Salir</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                </form>
+
+                  </li>
+                </ul>              
+              @else
+                  <a href="{{ route('login') }}">Log in</a>
+              @endauth            
+
+          </li>
     </ul>
 
     <!-- Right navbar links -->
