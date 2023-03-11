@@ -1,9 +1,5 @@
-<script src="{{ asset('libs/AdminLTE-3.2.0/plugins/jquery/jquery.min.js') }}"></script> <!-- jQuery -->
-<script src="{{ asset('libs/Sweetalert2-11.4.34/dist/sweetalert2.all.min.js')}}"></script> <!-- Sweetaler2 -->
-<!-- Bootstrap -->
-<script src="{{ asset('libs/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
 <!-- AdminLTE App -->
-<script src="{{ asset('libs/AdminLTE-3.2.0/dist/js/adminlte.js') }}"></script>
-{{-- Boostrap-5.2.0 Local --}}
-<script src="{{ asset('libs/Bootstrap-5.2.0/js/bootstrap.bundle.js') }}"></script>
-
+<script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

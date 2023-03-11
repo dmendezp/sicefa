@@ -14,7 +14,9 @@ class PTVENTAController extends Controller
      */
     public function index()
     {
-        return view('ptventa::index');
+        $titleView = 'Bienvenido a Punto de Venta!';
+        $view = ['titlePage' => 'Inicio'];
+        return view('ptventa::index', compact('view', 'titleView'));
     }
 
     /**
