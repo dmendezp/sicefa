@@ -1,9 +1,9 @@
 <!-- ======= Hero Section ======= -->
 <section class="">
 
-    <img src="{{asset('radi__cefa/headerRadio.jpg')}}" class="position-absolute w-25">
     <div class="container">
       <div class="row">
+    <img src="{{asset('radi__cefa/headerRadio.jpg')}}" class="position-relative w-25">
         <div class=" d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
           <h1>Radio CEFA</h1>
           <h2><p>Radio Institucional </p><p>"La Angostura"</p></h2>
