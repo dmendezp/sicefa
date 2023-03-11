@@ -1,1 +1,0 @@
-@extends('radiocefa::layouts.master')
