@@ -1,17 +1,14 @@
 <!-- Navbar -->
   <nav class="navbar navbar-expand bg-light">
+    <img src="{{asset('radi__cefa/logo.png') }}" alt="Logo" width="120" height="60" class="d-inline-block align-text-start">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link text-success" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
       <li class="nav-item">
         <a href="index3.html" class="nav-link text-success">Home</a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link text-success">Contact</a>
       </li>
-
 
       <li class="dropdown text-success">
               @auth
@@ -33,6 +30,9 @@
               @endauth            
 
           </li>
+          
+          
+          
     </ul>
 
     <!-- Right navbar links -->
