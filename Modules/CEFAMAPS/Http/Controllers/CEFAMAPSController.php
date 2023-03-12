@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\Environment;
+use Modules\CEFAMAPS\Entities\Page;
 
 class CEFAMAPSController extends Controller
 {
@@ -19,9 +20,9 @@ class CEFAMAPSController extends Controller
     {
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
-        $environ = Environment::with('coordinates')->get();
+        $environ = Environment::with('coordinates')->with('pages')->get();
         $data = ['title'=>trans('cefamaps::menu.Home'), 'unit'=>$unit, 'farm'=>$farm, 'environ'=>$environ];
-        return view('cefamaps::index',$data);
+        
     }
 
 }

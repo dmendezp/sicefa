@@ -44,9 +44,7 @@
                 <!-- inicio de agregar el contenido -->
                 <div class="form-group">
                   <label for="content">{{ trans('cefampas::page.Content') }}</label>
-                  <div id="editor" name="content">
-                    <input id="editor" name="editor">
-                  </div>
+                  <textarea id="summernote" name="content"></textarea>
                 </div>
                 <!-- fin de agregar el contenido -->
                 <!-- inicio del boton de guardar -->
@@ -67,11 +65,9 @@
 @section('script')
 
   <script>
-    ClassicEditor
-    .create( document.querySelector( '#editor' ) )
-    .catch( error => {
-      console.error( error );
-    } );
+    $(function() {
+      $('#summernote').summernote()
+    });
   </script>
 
 @endsection

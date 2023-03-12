@@ -109,11 +109,21 @@
                 </li>
               </ul>
               <!-- Fin para los Ambientes del adminitrador -->
+              <!-- Inicio para las paginas del administrador -->
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('cefamaps.admin.config.page.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.config.page.*') ?: 'active' }}">
+                    <i class="nav-icon fas fa-regular fa-file-lines"></i>
+                    <p>{{ trans('cefamaps::page.Page') }}</p>
+                  </a>
+                </li>
+              </ul>
+              <!-- Fin para las paginas del administrador -->
               <!-- inicio para las coordenadas -->
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{ route('cefamaps.admin.config.coordenate.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.config.coordenate.*') ?: 'active' }}">
-                    <i class=" fas fa-solid fa-arrows-to-circle"></i>
+                    <i class="nav-icon fas fa-solid fa-arrows-to-circle"></i>
                     <p>{{ trans('cefamaps::coordinate.Coordinate') }}</p>
                   </a>
                 </li>

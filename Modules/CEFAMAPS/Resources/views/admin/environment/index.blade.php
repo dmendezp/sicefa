@@ -79,11 +79,13 @@
                       </td>
                       <!-- fin de la prueba -->
                       <td>{{$env->environment_classroom}}</td>
+                      @foreach($env->pages as $p)
                       <td>
-                        <a class="btn btn-primary" href="#">
+                        <a class="btn btn-primary" href="{{url('/cefamaps/page/edit/'.$p->id)}}">
                           <i class="fas fa-regular fa-file-lines"></i>
                         </a>
                       </td>
+                      @endforeach
                       <td>
                         <a href="{{url('/cefamaps/environment/edit/'.$env->id)}}" class="btn btn-warning">
                           <i class="fas fa-map-signs"></i>

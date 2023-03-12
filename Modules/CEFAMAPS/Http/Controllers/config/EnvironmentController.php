@@ -67,11 +67,11 @@ class EnvironmentController extends Controller
             $add -> environment_classroom = e ($request->input('class'));
             if($add -> save()) {
                 $c = 0;
-                foreach ($request->input('length') as $le) {
+                foreach ($request->input('lengthcoor') as $le) {
                     $addcoor = new Coordinate;
                     $addcoor -> environment_id = $add->id;
                     $addcoor -> length = $le;
-                    $addcoor -> latitude = e ($request->input('latitude')[$c]);
+                    $addcoor -> latitude = e ($request->input('latitudecoor')[$c]);
                     $c++;
                     if ($addcoor -> save()) {
                         

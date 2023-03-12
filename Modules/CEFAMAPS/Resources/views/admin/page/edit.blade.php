@@ -45,7 +45,7 @@
                 <!-- inicio de agregar el contenido -->
                 <div class="form-group">
                   <label for="content">{{ trans('cefampas::page.Content') }}</label>
-                  <input type="text" class="form-control" name="content" id="content" value="{{$editpage->content}}">
+                  <textarea id="summernote" name="content" value="{{$editpage->content}}"></textarea>
                 </div>
                 <!-- fin de agregar el contenido -->
                 <!-- inicio del boton de guardar -->
@@ -64,5 +64,11 @@
 @endsection
 
 @section('script')
+
+  <script>
+    $(function() {
+      $('#summernote').summernote()
+    });
+  </script>
 
 @endsection
