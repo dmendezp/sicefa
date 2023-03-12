@@ -9,6 +9,15 @@
       <li class="nav-item">
         <a href="#" class="nav-link text-success">Contact</a>
       </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-success">Cronograma</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-success">Sobre Nosotros</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-success">Unete</a>
+      </li>
 
       <li class="dropdown text-success">
               @auth
@@ -26,7 +35,7 @@
                   </li>
                 </ul>              
               @else
-                  <a href="{{ route('login') }}">Log in</a>
+                  <a href="{{ route('login') }}" class="text-success" >Log in</a>
               @endauth            
 
           </li>
