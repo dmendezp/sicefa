@@ -1,6 +1,6 @@
 <!-- Navbar -->
   <nav class="navbar navbar-expand bg-light">
-    <img src="{{asset('radi__cefa/logo.png') }}" alt="Logo" width="120" height="60" class="d-inline-block align-text-start">
+    <img src="{{asset('radi__cefa/logover.png') }}" alt="Logo" width="80" height="50" class="d-inline-block align-text-start">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
