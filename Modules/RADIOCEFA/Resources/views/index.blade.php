@@ -10,35 +10,43 @@
 	<br>
  <div>
 <!--Cards-->
-
-<div class ="row" >
-    <div class="card col-4 card-align-center" style="width: 18rem;">
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div class="card">
         <img src="{{asset('radi__cefa/senalaire.jpg') }}" class="card-img-top" alt="...">
         <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-
-      <div class="card col-4 card-align-center" style="width: 18rem;">
-        <img src="{{asset('radi__cefa/senalaire.jpg') }}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-
-      <div class="card col-4 card-align-center" style="width: 18rem;">
-        <img src="{{asset('radi__cefa/senalaire.jpg') }}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <h5 class="card-title">Colaboraciones</h5>
+          <p class="card-text">En nuestro centro de formacion realizamos diferentes actividades en conjunto con Radio CEFA las cuales podras disfrutar en vivo</p>
         </div>
       </div>
     </div>
+    <div class="col">
+      <div class="card">
+        <img src="{{asset('radi__cefa/senalaire.jpg') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Unidades de produccion</h5>
+          <p class="card-text">Nuestro centro de formacion cuenta con diferentes unidades de producción las cuales podras conocer mediante nuestro informe mensual junto con aprendices de cada area</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <img src="{{asset('radi__cefa/senalaire.jpg') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Entrevistas y Podcasts</h5>
+          <p class="card-text">Realizamos entrevistas a diferentes invitados cada mes, no te lo pierdas cada segunro miercoles del mes</p>
+        </div>
+      </div>
+    </div>
+  </div>
+<br>
 {{-- end cards --}}
 
         <div style="text-align:center;">
         </body>
         <iframe src="https://zeno.fm/player/radio-cefa" width="768" height="600" frameborder="0" scrolling="no"></iframe><a href="https://zeno.fm/" target="_blank" style="display: block; font-size: 0.9em; line-height: 10px;">A Zeno.FM Station</a>
 </div>
+<br>
 
  <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">
