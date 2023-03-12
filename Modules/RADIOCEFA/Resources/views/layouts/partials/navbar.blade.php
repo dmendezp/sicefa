@@ -1,8 +1,8 @@
 <!-- Navbar -->
-  <nav class="navbar navbar-expand bg-light">
+  <nav class="navbar navbar-expand bg-light" style="height: 4rem; margin-left: 4px; margin-right: 4px;">
     <img src="{{asset('radi__cefa/logover.png') }}" alt="Logo" width="80" height="50" class="d-inline-block align-text-start">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+    <ul class="navbar-nav m-3">
       <li class="nav-item">
         <a href="index3.html" class="nav-link text-success">Home</a>
       </li>
