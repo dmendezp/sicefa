@@ -1,6 +1,6 @@
 @extends('radiocefa::layouts.master')
 
-<div class="wrapper">
+
 @include('radiocefa::layouts/partials/hero')
 
 @include('radiocefa::layouts/partials/navbar')
@@ -45,4 +45,3 @@
  
 @endsection
 
-</div>
