@@ -1,5 +1,9 @@
 @extends('radiocefa::layouts.master')
 
+@section('textHero')
+  <h1>Sistema integrado del CEFA</h1>
+  <h2><p>Centro de Formación Agroindustrial</p><p>"La Angostura"</p></h2>
+@endsection
 
 @include('radiocefa::layouts/partials/hero')
 
@@ -7,8 +11,8 @@
 
 @section('content')
 
-	<br>
- <div>
+
+
 <!--Cards-->
 <div class="container-fluid mt-3 p-3">
 <div class="container">
@@ -45,16 +49,18 @@
 </div>
 {{-- end cards --}}
 
-        <div style="text-align:center;">
-        </body>
-        <iframe src="https://zeno.fm/player/radio-cefa" width="768" height="600" frameborder="0" scrolling="no"></iframe><a href="https://zeno.fm/" target="_blank" style="display: block; font-size: 0.9em; line-height: 10px;">A Zeno.FM Station</a>
-</div>
-<br>
+      <div style="text-align:center;">
+        <iframe src="https://zeno.fm/player/radio-cefa" width="810" height="400" frameborder="0" scrolling="no"></iframe><a href="https://zeno.fm/" target="_blank" style="display: block; font-size: 0.9em; line-height: 10px;">A Zeno.FM Station</a>
+      </div>
+
+
+
+
 
  <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">
     <!-- Section: Social media -->
-    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <section class="d-flex jus justify-content-center justify-content-lg-between p-4 border-bottom">
       <!-- Left -->
       <div class="me-5 d-none d-lg-block">
         <span>Get connected with us on social networks:</span>
