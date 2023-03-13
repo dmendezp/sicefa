@@ -13,7 +13,7 @@
 
 Route::prefix('radiocefa')->group(function() {
     
-    Route::get('/', 'RADIOCEFAController@index')->mane('inicioRadio');
+    Route::get('/', 'RADIOCEFAController@index');
 
     // Route::get('/abouts', 'RADIOCEFAController@index')->mane('inicioRadio');
 
