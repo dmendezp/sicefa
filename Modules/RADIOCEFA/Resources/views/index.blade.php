@@ -10,9 +10,11 @@
 	<br>
  <div>
 <!--Cards-->
+<div class="container-fluid mt-3 p-3">
+<div class="container">
 <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col">
-      <div class="card">
+    <div class="col-4">
+      <div class="card h-100">
         <img src="{{asset('radi__cefa/senalaire.jpg') }}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">Colaboraciones</h5>
@@ -20,8 +22,8 @@
         </div>
       </div>
     </div>
-    <div class="col">
-      <div class="card">
+    <div class="col-4">
+      <div class="card h-100">
         <img src="{{asset('radi__cefa/senalaire.jpg') }}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">Unidades de produccion</h5>
@@ -29,8 +31,8 @@
         </div>
       </div>
     </div>
-    <div class="col">
-      <div class="card">
+    <div class="col-4">
+      <div class="card h-100">
         <img src="{{asset('radi__cefa/senalaire.jpg') }}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">Entrevistas y Podcasts</h5>
@@ -39,7 +41,8 @@
       </div>
     </div>
   </div>
-<br>
+</div>
+</div>
 {{-- end cards --}}
 
         <div style="text-align:center;">
