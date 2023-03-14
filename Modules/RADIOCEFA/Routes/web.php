@@ -13,7 +13,7 @@
 
 Route::prefix('radiocefa')->group(function() {
     
-    Route::get('/index', 'RADIOCEFAController@index')->name('inicioRadio');
+    Route::get('/', 'RADIOCEFAController@index')->name('inicioRadio');
 
     Route::get('/peticiones', 'RadioRouteController@PetMusica')->name('peticiones');
 

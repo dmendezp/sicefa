@@ -14,12 +14,6 @@ class RadioRouteController extends Controller
         return view('radiocefa::PetMusica');
     }
 
-     //ruta de index
-      public function index()
-     {
-         return view('radiocefa::index');
-     }
-
     // // ruta para cronograma
       public function cronograma()
      {
