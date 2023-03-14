@@ -107,6 +107,12 @@ class EnvironmentController extends Controller
         $edit -> name = e ($request->input('name'));
         $edit -> description = e ($request->input('description'));
         $edit -> picture = e ($request->input('file'));
+        if ($request->input('file')) {
+            $edit -> picture = e ($request->input('file'));
+        } else {
+            $path = 'uploads/';
+            $final_name = Str::slug($request->file('file')->getClientOriginalName().'_'.time()).'.'.trim($request->file('file')->getClientOriginalName());
+        }
         $edit -> farms_id = e ($request->input('farm'));
         $edit -> productive_units_id = e ($request->input('unit'));
         $edit -> length = e ($request->input('lengthspot'));
@@ -114,6 +120,7 @@ class EnvironmentController extends Controller
         $edit -> status = e ($request->input('status'));
         $edit -> type_environment = e ($request->input('type'));
         $edit -> environment_classroom = e ($request->input('class'));
+        return $edit;
         if ($edit -> save()){
             $editcoor = Coordinate::findOrFail($request->input('id'));
             $c = 0;

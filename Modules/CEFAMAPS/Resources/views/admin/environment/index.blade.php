@@ -39,8 +39,8 @@
                       </th>
                     </tr>
                   </thead>
-                  @foreach($environ as $env)
                   <tbody>
+                    @foreach($environ as $env)
                     <tr>
                       <td>{{$env->id}}</td>
                       <td>{{$env->name}}</td>
@@ -53,8 +53,8 @@
                       <td>{{$env->status}}</td>
                       <!-- inicio de la prueba -->
                       <td>
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">{{$env->type_environment}}</button>
-                        <div class="modal fade" id="modal-info">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info-{{$env->id}}">{{$env->type_environment}}</button>
+                        <div class="modal fade" id="modal-info-{{$env->id}}">
                           <div class="modal-dialog">
                             <div class="modal-content bg-info">
                               <div class="modal-header">
@@ -68,6 +68,7 @@
                                 <p>
                                   {{$c->length}}
                                 </p>
+                                <p></p>
                                 <p>
                                   {{$c->latitude}}
                                 </p>
@@ -95,8 +96,8 @@
                         </a>
                       </td>
                     </tr>
+                    @endforeach
                   </tbody>
-                  @endforeach
                   <tfoot>
                     <tr>
                       <th>N°</th>

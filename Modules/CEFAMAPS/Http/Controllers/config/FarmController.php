@@ -22,7 +22,7 @@ class FarmController extends Controller
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
-    $farm = Farm::get();
+    $farm = Farm::with('municipality')->get();
     $data = ['title'=>trans('cefamaps::farm.Farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
     return view('cefamaps::admin.farm.index',$data);
   }

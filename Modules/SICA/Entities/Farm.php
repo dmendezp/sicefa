@@ -13,4 +13,12 @@ class Farm extends Model implements Auditable
     protected $fillable = [];
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
+
+    public function person(){
+        return $this->belongsTo(Person::class);
+    }
+
+    public function municipality(){
+        return $this->belongsTo(Municipality::class);
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 return [
     'Setting'=>'Configuración',
-    'Environment' => 'Ambientes',
+    'Environment' => 'Ambiente',
     'Type' => 'Tipo de',
     'Name' => 'Nombre',
     'Picture' => 'Imagen',

@@ -34,16 +34,15 @@
                       </th>
                     </tr>
                   </thead>
-                  @foreach($farm as $f)
                   <tbody>
+                    @foreach($farm as $f)
                     <tr>
                       <td>{{$f->id}}</td>
                       <td>{{$f->name}}</td>
                       <td>{{$f->description}}</td>
                       <td>{{$f->area}}</td>
-                      <td>{{$f->person_id}}</td>
-                      <td>{{$f->municipality_id}}
-
+                      <td>{{$f->person->full_name}}</td>
+                      <td>{{$f->municipality->name}}
                       </td>
                       <td>
                         <a href="{{ url('/cefamaps/farm/edit/'.$f->id) }}" class="btn btn-warning">
@@ -54,8 +53,8 @@
                         </a>
                       </td>
                     </tr>
+                    @endforeach
                   </tbody>
-                  @endforeach
                   <tfoot>
                     <tr>
                       <th>N°</th>

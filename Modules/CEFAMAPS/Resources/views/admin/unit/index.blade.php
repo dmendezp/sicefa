@@ -32,12 +32,12 @@
                       </th>
                     </tr>
                   </thead>
-                  @foreach($unit as $u)
                   <tbody>
+                  @foreach($unit as $u)
                     <tr>
                       <td>{{$u->id}}</td>
                       <td>{{$u->name}}</td>
-                      <td>{{$u->person_id}}</td>
+                      <td>{{$u->person->full_name}}</td>
                       <td>{{$u->description}}</td>
                       <td>
                         <i class="{{$u->icon}}"></i>
@@ -49,10 +49,10 @@
                         <a class="btn btn-danger delete-unit" href="#" type="submit" data-action="delete" data-object="{{ $u->id }}" data-path="/cefamaps/unit/delete/">
                           <i class="fa-solid fa-trash"></i>
                         </a>
-                      </td>
+                      </td>  
                     </tr>
+                    @endforeach
                   </tbody>
-                  @endforeach
                   <tfoot>
                     <tr>
                       <th>N°</th>

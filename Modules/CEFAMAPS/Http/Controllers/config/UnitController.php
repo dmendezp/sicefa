@@ -20,7 +20,7 @@ class UnitController extends Controller
     public function index()
     {
         $environ = Environment::get();
-        $unit = ProductiveUnit::get();
+        $unit = ProductiveUnit::with('person')->get();
         $farm = Farm::get();
         $data = ['title'=>trans('cefamaps::unit.Units'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
         return view('cefamaps::admin.unit.index',$data);
