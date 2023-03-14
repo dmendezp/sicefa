@@ -22,7 +22,7 @@ class CEFAMAPSController extends Controller
         $farm = Farm::get();
         $environ = Environment::with('coordinates')->with('pages')->get();
         $data = ['title'=>trans('cefamaps::menu.Home'), 'unit'=>$unit, 'farm'=>$farm, 'environ'=>$environ];
-        
+        return view('cefamaps::index',$data);
     }
 
 }

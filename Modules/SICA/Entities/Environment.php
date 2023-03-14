@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\CEFAMAPS\Entities\Coordinate;
 use Modules\CEFAMAPS\Entities\Page;
+use Modules\SICA\Entities\Farm;
 
 class Environment extends Model
 {
@@ -20,5 +21,13 @@ class Environment extends Model
 
     public function pages(){
         return $this->hasMany(Page::class);
+    }
+
+    public function farms(){
+        return $this->hasMany(Farm::class);
+    }
+
+    public function productive_units(){
+        return $this->hasMany(Environment::class);
     }
 }

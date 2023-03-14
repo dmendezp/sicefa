@@ -42,20 +42,21 @@
                   <tbody>
                     @foreach($environ as $env)
                     <tr>
+                      {{ $env }}
                       <td>{{$env->id}}</td>
                       <td>{{$env->name}}</td>
                       <td><img src="{{ asset('cefamaps/images/uploads/'.$env->picture) }}" width="100" height="100"></td>
                       <td>{{$env->description}}</td>
                       <td>{{$env->length}}</td>
                       <td>{{$env->latitude}}</td>
-                      <td>{{$env->farms_id}}</td>
-                      <td>{{$env->productive_units_id}}</td>
+                      <td>{{$env->farms->name}}</td>
+                      <td>{{$env->productive_units->name}}</td>
                       <td>{{$env->status}}</td>
                       <!-- inicio de la prueba -->
                       <td>
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info-{{$env->id}}">{{$env->type_environment}}</button>
                         <div class="modal fade" id="modal-info-{{$env->id}}">
-                          <div class="modal-dialog">
+                          <div class="modal-dialog modal-xl">
                             <div class="modal-content bg-info">
                               <div class="modal-header">
                                 <h4 class="modal-title">{{$env->type_environment}} {{$env->name}}</h4>
@@ -63,16 +64,29 @@
                                   <i class="fa-solid fa-xmark"></i>
                                 </button>
                               </div>
-                              <div class="modal-body">
-                              @foreach($env->coordinates as $c)
-                                <p>
-                                  {{$c->length}}
-                                </p>
-                                <p></p>
-                                <p>
-                                  {{$c->latitude}}
-                                </p>
-                              @endforeach
+                              <div class="container text-center">
+                                <div class="row align-items-start">
+                                  <div class="col">
+                                    <div class="modal-header">
+                                      <h2 class="modal-title">Longitud</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                      @foreach($env->coordinates as $c)
+                                      <h5>{{$c->length}}</h5>
+                                      @endforeach
+                                    </div>
+                                  </div>
+                                  <div class="col">
+                                    <div class="modal-header">
+                                      <h2 class="modal-title">Latitus</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                      @foreach($env->coordinates as $c)
+                                      <h5>{{$c->latitude}}</h5>
+                                      @endforeach
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>

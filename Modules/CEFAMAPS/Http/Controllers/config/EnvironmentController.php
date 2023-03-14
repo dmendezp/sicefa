@@ -25,7 +25,7 @@ class EnvironmentController extends Controller
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
         //$coor = Coordinate::get();
-        $environ = Environment::with('coordinates')->get();
+        $environ = Environment::with('coordinates')->with('farms')->with('productive_units')->get();
         $data = ['title'=>trans('cefamaps::menu.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
         return view('cefamaps::admin.environment.index',$data);
     }
@@ -103,16 +103,14 @@ class EnvironmentController extends Controller
      */
     public function editpost(Request $request)
     {
+        $path = 'uploads/';
+        $final_name = Str::slug($request->file('file')->getClientOriginalName().'_'.time()).'.'.trim($request->file('file')->getClientOriginalName());
+        $request->file->storeAs($path, $final_name, 'uploads');
+
         $edit = Environment::findOrFail($request->input('id'));
         $edit -> name = e ($request->input('name'));
         $edit -> description = e ($request->input('description'));
-        $edit -> picture = e ($request->input('file'));
-        if ($request->input('file')) {
-            $edit -> picture = e ($request->input('file'));
-        } else {
-            $path = 'uploads/';
-            $final_name = Str::slug($request->file('file')->getClientOriginalName().'_'.time()).'.'.trim($request->file('file')->getClientOriginalName());
-        }
+        $edit -> picture = e ($final_name);
         $edit -> farms_id = e ($request->input('farm'));
         $edit -> productive_units_id = e ($request->input('unit'));
         $edit -> length = e ($request->input('lengthspot'));
@@ -120,16 +118,15 @@ class EnvironmentController extends Controller
         $edit -> status = e ($request->input('status'));
         $edit -> type_environment = e ($request->input('type'));
         $edit -> environment_classroom = e ($request->input('class'));
-        return $edit;
-        if ($edit -> save()){
-            $editcoor = Coordinate::findOrFail($request->input('id'));
+        if($edit -> save()) { 
             $c = 0;
-            foreach ($request->input('length') as $le) {
+            foreach ($edit->coordinates as $co) {
+                $editcoor = Coordinate::findOrFail($co->id);
                 $editcoor -> environment_id = $edit->id;
-                $editcoor -> length = $le;
+                $editcoor -> length = e ($request->input('length')[$c]);
                 $editcoor -> latitude = e ($request->input('latitude')[$c]);
-                $c++;
-                if ($edit -> save()) {
+                $c++;   
+                if ($editcoor -> save()) {
                     
                 }
             }

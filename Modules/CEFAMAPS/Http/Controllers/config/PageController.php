@@ -22,7 +22,7 @@ class PageController extends Controller
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
     $farm = Farm::get();
-    $page = Page::get();
+    $page = Page::with('environment')->get();
     $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page];
     return view('cefamaps::admin.page.index',$data);
   }

@@ -31,13 +31,13 @@
                       </th>
                     </tr>
                   </thead>
-                  @foreach($page as $p)
                   <tbody>
+                  @foreach($page as $p)
                     <tr>
                       <td>{{ $p->id }}</td>
                       <td>{{ $p->name }}</td>
                       <td>{{ $p->content }}</td>
-                      <td>{{ $p->environment_id }}</td>
+                      <td>{{ $p->environment->name }}</td>
                       <td>
                         <a href="{{url('/cefamaps/page/edit/'.$p->id)}}" class="btn btn-warning">
                           <i class="fas fa-map-signs"></i>
@@ -47,8 +47,8 @@
                         </a>
                       </td>
                     </tr>
+                    @endforeach
                   </tbody>
-                  @endforeach
                   <tfoot>
                     <tr>
                       <th>N°</th>
