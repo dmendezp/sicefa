@@ -13,12 +13,15 @@
 
 Route::prefix('radiocefa')->group(function() {
     
-    Route::get('/', 'RADIOCEFAController@index')->name('inicioRadio');
+    Route::get('/index', 'RADIOCEFAController@index')->name('inicioRadio');
 
     Route::get('/peticiones', 'RadioRouteController@PetMusica')->name('peticiones');
 
-    // Route::get('/', 'RADIOCEFAController@index')->name('inicioRadio');
+     Route::get('/cronograma', 'RADIOCEFAController@cronograma')->name('cronograma');
 
+     Route::get('/votes', 'RADIOCEFAController@votaciones')->name('votaciones');
+
+     Route::get('/sobrenosotros', 'RADIOCEFAController@aboutUs')->name('aboutus');
 
 
 });

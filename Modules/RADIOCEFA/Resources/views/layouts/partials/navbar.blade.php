@@ -4,20 +4,22 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav m-3">
       <li class="nav-item">
-        <a href="#" class="nav-link text-success">Home</a>
-        <a href="{{ route('inicioRadio') }}" class="nav-link text-success">Home</a>
+        <a href="{{ route('inicioRadio') }}" class="nav-link text-success">Inicio</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link text-success">Contact</a>
+        <a href="#" class="nav-link text-success">Cronograma</a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('peticiones') }}" class="nav-link text-success">Cronograma</a>
+        <a href="{{ route('peticiones') }}" class="nav-link text-success">Peticiones de musica</a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link text-success">Sobre Nosotros</a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link text-success">Unete</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link text-success">PQRS</a>
       </li>
 
       <li class="dropdown text-success">
