@@ -2,7 +2,7 @@
     <aside class="main-sidebar sidebar-dark-blue elevation-4">
         <!-- Bran Logo: Aqui se realiza el ajuste del logo y titulo que esta en el sidebar-->
         <a href="#" class="brand-link text-decoration-none">
-            <img src="{{ asset('ptventa/images/Logo-Sidebar.png') }}" class="brand-image elevation-3" alt="PTVenta-Logo" style="opacity: .8">{{-- Icono de punto de venta --}}
+            <img src="{{ asset('ptventa/images/Logo-Sidebar.png') }}" class="brand-image" alt="PTVenta-Logo">{{-- Icono de punto de venta --}}
             <span class="brand-text font-weight-bold">Punto de Venta</span>
         </a>
 
@@ -34,6 +34,13 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-shopping-cart"></i>
                             <p>Ventas</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-percentage"></i>
+                            <p>Promociones</p>
                         </a>
                     </li>
 

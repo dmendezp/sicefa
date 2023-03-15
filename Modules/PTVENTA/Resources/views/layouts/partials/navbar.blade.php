@@ -2,7 +2,7 @@
 
     <!-- Left navbar links -->
     <ul class="navbar-nav">
-        <li class="nav-item">
+        <li class="nav-item mx-2">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
@@ -28,19 +28,19 @@
             </div>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item mx-1">
             <a class="nav-link" href="#" role="button" data-toggle="tooltip" title="Internacionalización">
                 <i class="fas fa-flag-usa"></i>
             </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item mx-1">
             <a class="nav-link" href="{{ route('cefa.welcome') }}" role="button" data-toggle="tooltip" title="Volver a SICEFA">
                 <i class="fas fa-hiking"></i>
             </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item mx-1">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-toggle="tooltip" data-placement="left"  title="Ver en pantalla completa">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>

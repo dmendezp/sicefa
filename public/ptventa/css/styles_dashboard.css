@@ -121,7 +121,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 15px;
+  width: 20px;
   transform-origin: 0 0;
   transform: rotate(10deg);
   transition: all .5s ease-in-out;
@@ -181,7 +181,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 16px;
+  width: 25px;
   transform-origin: 50% 0;
   transform: rotate(-5deg);
   transition: all 1s ease-in-out;
@@ -210,3 +210,30 @@
 /* Fin de estilos del boton de iniciar sesion */
 
 /* ----------------------ZONE TESTING CSS----------------- */
+.card {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 576px) {
+  .card-columns {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-columns {
+    column-count: 3;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-columns {
+    column-count: 4;
+  }
+}

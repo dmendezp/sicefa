@@ -2,8 +2,10 @@
 <html lang="es">
     <head>
         @include('ptventa::layouts.partials.head')
+        @section('style') @show
     </head>
-    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
+    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">    
+
         <div class="wrapper">
 
             <!-- Navbar -->
