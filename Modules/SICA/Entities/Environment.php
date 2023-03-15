@@ -24,10 +24,10 @@ class Environment extends Model
     }
 
     public function farms(){
-        return $this->hasMany(Farm::class);
+        return $this->belongsTo(Farm::class);
     }
 
     public function productive_units(){
-        return $this->hasMany(Environment::class);
+        return $this->belongsTo(Environment::class);
     }
 }

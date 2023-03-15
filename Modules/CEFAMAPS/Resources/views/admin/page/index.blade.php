@@ -23,7 +23,7 @@
                       <th>N°</th>
                       <th>{{ trans('cefamaps::page.Name') }}</th>
                       <th>{{ trans('cefamaps::page.Content') }}</th>
-                      <th>{{ trans('cefampas::menu.Id') }} {{ trans('cefamaps::environment.Environment') }}</th>
+                      <th>{{ trans('cefamaps::environment.Environment') }}</th>
                       <th>
                         <a href="{{ route('cefamaps.admin.config.page.add') }}" class="btn btn-success">
                           <i class="fa-solid fa-square-plus"></i>
@@ -54,7 +54,7 @@
                       <th>N°</th>
                       <th>{{ trans('cefamaps::page.Name') }}</th>
                       <th>{{ trans('cefamaps::page.Content') }}</th>
-                      <th>{{ trans('cefampas::menu.Id') }} {{ trans('cefamaps::environment.Environment') }}</th>
+                      <th>{{ trans('cefamaps::environment.Environment') }}</th>
                       <th></th>
                     </tr>
                   </tfoot>

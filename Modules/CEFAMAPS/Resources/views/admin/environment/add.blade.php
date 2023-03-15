@@ -111,6 +111,9 @@
                           <option value="">{{ trans('cefamaps::environment.Environment') }} Polivalente</option>
                           <option value="">{{ trans('cefamaps::environment.Environment') }} TIC</option>
                           <option value="">{{ trans('cefamaps::environment.Environment') }} Productivo</option>
+                          <option value="">Administradtivo</option>
+                          <option value="">sst</option>
+                          <option value="">ambiental</option>
                         </select>
                       </div>
                     </div>

@@ -42,8 +42,7 @@
                       <td>{{$f->description}}</td>
                       <td>{{$f->area}}</td>
                       <td>{{$f->person->full_name}}</td>
-                      <td>{{$f->municipality->name}}
-                      </td>
+                      <td>{{$f->municipality->name}}</td>
                       <td>
                         <a href="{{ url('/cefamaps/farm/edit/'.$f->id) }}" class="btn btn-warning">
                           <i class="fas fa-map-signs"></i>

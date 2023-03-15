@@ -42,7 +42,6 @@
                   <tbody>
                     @foreach($environ as $env)
                     <tr>
-                      {{ $env }}
                       <td>{{$env->id}}</td>
                       <td>{{$env->name}}</td>
                       <td><img src="{{ asset('cefamaps/images/uploads/'.$env->picture) }}" width="100" height="100"></td>
