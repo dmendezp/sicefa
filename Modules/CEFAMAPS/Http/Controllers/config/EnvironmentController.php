@@ -56,15 +56,15 @@ class EnvironmentController extends Controller
         if($request->file->storeAs($path, $final_name, 'uploads')) {
             $add = new Environment;
             $add -> name = e ($request->input('name'));
-            $add -> description = e ($request->input('description'));
             $add -> picture = e ($final_name);
-            $add -> farms_id = e ($request->input('farm'));
-            $add -> productive_units_id = e ($request->input('unit'));
+            $add -> description = e ($request->input('description'));
             $add -> length = e ($request->input('lengthspot'));
             $add -> latitude = e ($request->input('latitudespot'));
+            $add -> farms_id = e ($request->input('farm'));
+            $add -> productive_units_id = e ($request->input('unit'));
+            $add -> environment_classroom = e ($request->input('class'));
             $add -> status = e ($request->input('status'));
             $add -> type_environment = e ($request->input('type'));
-            $add -> environment_classroom = e ($request->input('class'));
             if($add -> save()) {
                 $c = 0;
                 foreach ($request->input('lengthcoor') as $le) {

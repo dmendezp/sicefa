@@ -32,15 +32,26 @@
                       </div>
                     </div>
                     <!-- fin del nombre -->
-                    <!-- inicio de la descripcion -->
+                    <!-- inicio del Sector -->
                     <div class="col">
                       <div class="form-group">
+                        <label for="sector">{{ trans('cefampas::unit.Sector') }}</label>
+                        <select class="form-control select2" name="sector" id="sector" required>
+                          @foreach ($sector as $s)
+                          <option value="{{ $s->id }}">{{ $s->name }}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+                    <!-- fin del Sector -->
+                    
+                  </div>
+                  <!-- inicio de la descripcion -->
+                  <div class="form-group">
                         <label for="description">{{ trans('cefamaps::unit.Description') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
                         <input type="text" class="form-control" id="description" name="description" value="{{ $editunit->description }}" required>
                       </div>
-                    </div>
-                    <!-- fin de la descripcion -->
-                  </div>
+                      <!-- fin de la descripcion -->
                   <div class="row align-items-center">
                     <!-- inicio de la persona encargada de la unidad -->                  
                     <div class="col">
@@ -59,12 +70,21 @@
                       <div class="form-group">
                         <label for="icon">{{ trans('cefamaps::unit.Icon') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
                         <select class="form-control select2" name="icon" id="icon">
+                          <!-- Iconos Animales -->
+                          <option value="fa-solid fa-hippo">Hipopotamo</option>
+                          <option value="fa-solid fa-otter">Nutria</option>
+                          <option value="fa-solid fa-dog">Perro</option>
+                          <option value="fa-solid fa-cow">Vaca</option>
                           <option value="fa-solid fa-fish">Pescado</option>
+                          <option value="fa-solid fa-shrimp">Camarón</option>
                           <option value="fa-solid fa-horse">Caballo</option>
+                          <option value="fa-solid fa-frog">Rana</option>
+                          <option value="fa-solid fa-dove">Paloma</option>
+                          <option value="fa-solid fa-cat">Gato</option>
+                          <option value="fa-solid fa-piggy-bank">Cerdo</option>
+                          <!-- Iconos Adicionales -->
                           <option value="fas fa-seedling">Arroz</option>
                           <option value="fa-solid fa-building-wheat">Edificio de Trigo</option>
-                          <option value="fa-solid fa-piggy-bank">Cerdo</option>
-                          <option value="fa-solid fa-cow">Vaca</option>
                         </select>
                       </div>
                     </div>

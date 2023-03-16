@@ -44,13 +44,13 @@
                     <div class="col">
                       <div class="form-group">
                         <label for="length">{{ trans('cefamaps::environment.Length') }}</label>
-                        <input type="text" class="form-control" id="length" name="lengthspot">
+                        <input type="text" class="form-control" id="length" name="lengthspot" placeholder="2.0000">
                       </div>
                     </div>
                     <div class="col">
                       <div class="form-group">
                         <label for="latitude">{{ trans('cefamaps::environment.Latitude') }}</label>
-                        <input type="text" class="form-control" id="latitude" name="latitudespot">
+                        <input type="text" class="form-control" id="latitude" name="latitudespot" placeholder="-2.0000">
                       </div>
                     </div>
                   </div>
@@ -108,12 +108,12 @@
                       <div class="form-group">
                         <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
                         <select class="form-control select2" style="width: 100%;" id="class" name="class" required>
-                          <option value="">{{ trans('cefamaps::environment.Environment') }} Polivalente</option>
-                          <option value="">{{ trans('cefamaps::environment.Environment') }} TIC</option>
-                          <option value="">{{ trans('cefamaps::environment.Environment') }} Productivo</option>
-                          <option value="">Administradtivo</option>
-                          <option value="">sst</option>
-                          <option value="">ambiental</option>
+                          <option value="Polivalente">{{ trans('cefamaps::environment.Environment') }} Polivalente</option>
+                          <option value="TIC">{{ trans('cefamaps::environment.Environment') }} TIC</option>
+                          <option value="Productivo">{{ trans('cefamaps::environment.Environment') }} Productivo</option>
+                          <option value="Administradtivo">{{ trans('cefamaps::environment.Environment') }} Administradtivo</option>
+                          <option value="SST">{{ trans('cefamaps::environment.Environment') }} SST</option>
+                          <option value="Ambiental">{{ trans('cefamaps::environment.Environment') }} Ambiental</option>
                         </select>
                       </div>
                     </div>
@@ -123,8 +123,8 @@
                       <div class="form-group">
                         <label for="status">{{ trans('cefamaps::menu.Status') }} {{ trans('cefamaps::environment.Environment') }}</label>
                         <select class="form-control select2" style="width: 100%;" id="status" name="status" required>
-                          <option value="available">Disponible</option>
-                          <option value="notavailable">No Disponible</option>
+                          <option value="Activo">Disponible</option>
+                          <option value="Inactivo">No Disponible</option>
                         </select>
                       </div>
                     </div>
@@ -134,7 +134,7 @@
                   <!-- inicio de la prueba -->
                   <div class="form-group">
                     <label>{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::environment.Coordinate') }}</label>
-                    <select id="option" class="form-control select2" name="type">
+                    <select id="option" class="form-control select2" name="type" required>
                       <option>Seleccione...</option>
                       <option value="poligono">{{ trans('cefamaps::environment.Coordinate') }}</option>
                       <option value="evacuacion">{{ trans('cefamaps::environment.RutadeEvacuacion') }}</option>

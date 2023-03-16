@@ -69,7 +69,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "slug" => "cefamaps.admin",
                 "description" => "Rol administrador de la aplicacion CEFAMAPS",
                 "description_english" => "CEFAMAPS application administrator role",
-                "full-access" => "yes",
+                "full_access" => "yes",
                 "app_id" => $app->id
             ]);
         }

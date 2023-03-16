@@ -93,13 +93,13 @@
                       </td>
                       <!-- fin de la prueba -->
                       <td>{{$env->environment_classroom}}</td>
-                      @foreach($env->pages as $p)
                       <td>
+                        @foreach($env->pages as $p)
                         <a class="btn btn-primary" href="{{url('/cefamaps/page/edit/'.$p->id)}}">
                           <i class="fas fa-regular fa-file-lines"></i>
                         </a>
+                        @endforeach
                       </td>
-                      @endforeach
                       <td>
                         <a href="{{url('/cefamaps/environment/edit/'.$env->id)}}" class="btn btn-warning">
                           <i class="fas fa-map-signs"></i>
@@ -140,6 +140,9 @@
 @endsection
 @section('script')
 
+  <script>
+  </script>
+
   <script type="text/javascript">
     /*
       Para poder eliminar un Environment
@@ -166,12 +169,5 @@
     })
   </script>
 
-  <script>
-  $(document).ready(function () {
-    $('#example1').DataTable({
-      order: [[3, 'desc']],
-    });
-  });
-  </script>
 
 @endsection
