@@ -108,6 +108,7 @@
                       <div class="form-group">
                         <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
                         <select class="form-control select2" style="width: 100%;" id="class" name="class" required>
+                          <option>Seleccione...</option>
                           <option value="">{{ trans('cefamaps::environment.Environment') }} Polivalente</option>
                           <option value="">{{ trans('cefamaps::environment.Environment') }} TIC</option>
                           <option value="">{{ trans('cefamaps::environment.Environment') }} Productivo</option>
@@ -123,6 +124,7 @@
                       <div class="form-group">
                         <label for="status">{{ trans('cefamaps::menu.Status') }} {{ trans('cefamaps::environment.Environment') }}</label>
                         <select class="form-control select2" style="width: 100%;" id="status" name="status" required>
+                          <option>Seleccione...</option>
                           <option value="available">Disponible</option>
                           <option value="notavailable">No Disponible</option>
                         </select>

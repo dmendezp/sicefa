@@ -28,6 +28,6 @@ class Environment extends Model
     }
 
     public function productive_units(){
-        return $this->belongsTo(Environment::class);
+        return $this->belongsTo(ProductiveUnit::class);
     }
 }
