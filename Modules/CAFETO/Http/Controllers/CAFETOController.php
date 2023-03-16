@@ -17,11 +17,6 @@ class CAFETOController extends Controller
         return view('cafeto::index');
     }
 
-    public function developers()
-    {
-        return view('cafeto::developers');
-    }
-
     /**
      * Show the form for creating a new resource.
      * @return Renderable

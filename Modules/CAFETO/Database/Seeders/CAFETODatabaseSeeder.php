@@ -3,7 +3,6 @@
 namespace Modules\CAFETO\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class CAFETODatabaseSeeder extends Seeder
 {
@@ -14,8 +13,8 @@ class CAFETODatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
-
         // $this->call("OthersTableSeeder");
+        // Llama el seeder de aplicación CAFETO
+        $this->call(AppTableSeeder::class);
     }
 }

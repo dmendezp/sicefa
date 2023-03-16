@@ -34,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-        $this->mapAdminRoutes();
+
         $this->mapWebRoutes();
     }
 
@@ -52,13 +52,6 @@ class RouteServiceProvider extends ServiceProvider
             ->group(module_path('CAFETO', '/Routes/web.php'));
     }
 
-    protected function mapAdminRoutes()
-    {
-        Route::middleware('web')
-        ->namespace($this->moduleNamespace)
-        ->group(module_path('CAFETO', '/Routes/admin.php'));
-    }
-
     /**
      * Define the "api" routes for the application.
      *
@@ -73,5 +66,4 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->moduleNamespace)
             ->group(module_path('CAFETO', '/Routes/api.php'));
     }
-   
 }
