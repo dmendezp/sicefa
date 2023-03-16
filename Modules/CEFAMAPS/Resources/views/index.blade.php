@@ -59,11 +59,18 @@
     // Inicio poligono
     @foreach($environ as $e)
 
+    // para el icono
+    /* var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+    var iconBase = '{{ asset("cefamaps/images/uploads/".$e->picture) }}'; */
+
     // The marker, positioned at Uluru
     const marker{{$e->id}} = new google.maps.Marker({
       position: { lat: {{$e->latitude}},  lng: {{$e->length}} },
       map: map,
       tittle: "{{$e->name}}",
+      content: priceTag,
+      //lo necesario
+      //icon: iconBase,
     });
       
     const infoCultivo{{$e->id}} = new google.maps.InfoWindow();
@@ -90,7 +97,7 @@
       @foreach($e->coordinates as $c)
         { lat: {{$c->latitude}}, lng: {{$c->length}} },
       @endforeach
-      ];
+    ];
       
     // Construct the polygon.
     const Polygon{{$e->id}} = new google.maps.Polygon({

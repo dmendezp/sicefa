@@ -55,13 +55,13 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="length">{{ trans('cefamaps::environment.Length') }}</label>
-                      <input type="text" class="form-control" id="length" name="lengthspot" value="{{ $editenviron->length }}">
+                      <input type="text" class="form-control" id="length" name="lengthspot" value="{{ $editenviron->length }}" placeholder="-1.2345">
                     </div>
                   </div>
                  <div class="col">
                     <div class="form-group">
                       <label for="latitude">{{ trans('cefamaps::environment.Latitude') }}</label>
-                      <input type="text" class="form-control" id="latitude" name="latitudespot" value="{{ $editenviron->latitude }}">
+                      <input type="text" class="form-control" id="latitude" name="latitudespot" value="{{ $editenviron->latitude }}" placeholder="1.2345">
                     </div>
                   </div>
                 </div>
@@ -96,36 +96,26 @@
                 <!-- fin de los complementos para id del Farm y el id de la unidad -->
                 <!-- inicio de los complementos de environment -->
                 <div class="row align-items-end">
-                  <!-- inicio del tipo de ambiente -->
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="type">{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::environment.Environment') }}</label>
-                      <input type="text" class="form-control" id="type" name="type" value="{{ $editenviron->type_environment }}">
-                    </div>
-                  </div>
-                  <!-- fin del tipo de ambiente -->
                   <!-- inicio de la clase de ambiente -->
-                  <div class="col-4">
+                  <div class="col">
                     <div class="form-group">
                       <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
                       <select class="form-control select2" style="width: 100%;" id="class" value="{{ $editenviron->environment_classroom }}" name="class" required>
-                          <option>Seleccione...</option>
-                          <option value="">{{ trans('cefamaps::environment.Environment') }} Polivalente</option>
-                          <option value="">{{ trans('cefamaps::environment.Environment') }} TIC</option>
-                          <option value="">{{ trans('cefamaps::environment.Environment') }} Productivo</option>
-                          <option value="">Administradtivo</option>
-                          <option value="">sst</option>
-                          <option value="">ambiental</option>
-                        </select>
+                        <option value="Polivalente">{{ trans('cefamaps::environment.Environment') }} Polivalente</option>
+                        <option value="TIC">{{ trans('cefamaps::environment.Environment') }} TIC</option>
+                        <option value="Productivo">{{ trans('cefamaps::environment.Environment') }} Productivo</option>
+                        <option value="Administradtivo">{{ trans('cefamaps::environment.Environment') }} Administradtivo</option>
+                        <option value="SST">{{ trans('cefamaps::environment.Environment') }} SST</option>
+                        <option value="Ambiental">{{ trans('cefamaps::environment.Environment') }} Ambiental</option>
+                      </select>
                     </div>
                   </div>
                   <!-- fin de la clase de ambiente -->
                   <!-- inicio del status del environment -->
-                  <div class="col-4">
+                  <div class="col">
                     <div class="form-group">
                       <label for="status">{{ trans('cefamaps::menu.Status') }} {{ trans('cefamaps::environment.Environment') }}</label>
                       <select class="form-control select2" style="width: 100%;" id="status" value="{{ $editenviron->status }}" name="status" required>
-                          <option>Seleccione...</option>
                           <option value="available">Disponible</option>
                           <option value="notavailable">No Disponible</option>
                         </select>

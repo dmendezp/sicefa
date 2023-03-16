@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 //Para hacer los crud del administrador
+use Modules\SICA\Entities\Environment;
 
 class SSTController extends Controller
 {
@@ -15,7 +16,8 @@ class SSTController extends Controller
      */
     public function index()
     {
-        $data = ['title'=>trans('cefamaps::SST.Home')];
+        $environ = Environment::with('coordinates')->with('farms')->with('productive_units')->get();
+        $data = ['title'=>trans('cefamaps::SST.Home'), 'environ'=>$environ];
         return view('cefamaps::sst.index',$data);
     }
     

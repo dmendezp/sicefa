@@ -123,7 +123,6 @@
                       <div class="form-group">
                         <label for="status">{{ trans('cefamaps::menu.Status') }} {{ trans('cefamaps::environment.Environment') }}</label>
                         <select class="form-control select2" style="width: 100%;" id="status" name="status" required>
-                          <option>Seleccione...</option>
                           <option value="available">Disponible</option>
                           <option value="notavailable">No Disponible</option>
                         </select>
@@ -136,9 +135,8 @@
                   <div class="form-group">
                     <label>{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::environment.Coordinate') }}</label>
                     <select id="option" class="form-control select2" name="type" required>
-                      <option>Seleccione...</option>
-                      <option value="poligono">{{ trans('cefamaps::environment.Coordinate') }}</option>
-                      <option value="evacuacion">{{ trans('cefamaps::environment.RutadeEvacuacion') }}</option>
+                      <option value="Poligono">{{ trans('cefamaps::environment.Coordinate') }}</option>
+                      <option value="Evacuacion">{{ trans('cefamaps::environment.RutadeEvacuacion') }}</option>
                     </select>
                   </div>
                   <div class="form-group">
