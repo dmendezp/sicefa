@@ -123,8 +123,9 @@
                       <div class="form-group">
                         <label for="status">{{ trans('cefamaps::menu.Status') }} {{ trans('cefamaps::environment.Environment') }}</label>
                         <select class="form-control select2" style="width: 100%;" id="status" name="status" required>
-                          <option value="Activo">Disponible</option>
-                          <option value="Inactivo">No Disponible</option>
+                          <option>Seleccione...</option>
+                          <option value="available">Disponible</option>
+                          <option value="notavailable">No Disponible</option>
                         </select>
                       </div>
                     </div>

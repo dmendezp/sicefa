@@ -103,14 +103,21 @@ class EnvironmentController extends Controller
      */
     public function editpost(Request $request)
     {
-        $path = 'uploads/';
-        $final_name = Str::slug($request->file('file')->getClientOriginalName().'_'.time()).'.'.trim($request->file('file')->getClientOriginalName());
-        $request->file->storeAs($path, $final_name, 'uploads');
-
+        /* crear imagen */
         $edit = Environment::findOrFail($request->input('id'));
         $edit -> name = e ($request->input('name'));
         $edit -> description = e ($request->input('description'));
-        $edit -> picture = e ($final_name);
+       
+         if ($request->file('file')){
+            $path = 'uploads/';
+            $final_name = Str::slug($request->file('file')->getClientOriginalName().'_'.time()).'.'.trim($request->file('file')->getClientOriginalName());
+            $request->file->storeAs($path, $final_name, 'uploads'); 
+            $edit -> picture = e ($final_name);
+
+        }else{
+            $edit -> picture = e ($request->input('imagenAntigua')); 
+        }
+ 
         $edit -> farms_id = e ($request->input('farm'));
         $edit -> productive_units_id = e ($request->input('unit'));
         $edit -> length = e ($request->input('lengthspot'));
@@ -118,7 +125,7 @@ class EnvironmentController extends Controller
         $edit -> status = e ($request->input('status'));
         $edit -> type_environment = e ($request->input('type'));
         $edit -> environment_classroom = e ($request->input('class'));
-        if($edit -> save()) { 
+        if($edit->save()) { 
             $c = 0;
             foreach ($edit->coordinates as $co) {
                 $editcoor = Coordinate::findOrFail($co->id);
@@ -126,7 +133,7 @@ class EnvironmentController extends Controller
                 $editcoor -> length = e ($request->input('length')[$c]);
                 $editcoor -> latitude = e ($request->input('latitude')[$c]);
                 $c++;   
-                if ($editcoor -> save()) {
+                if ($editcoor->save()) {
                     
                 }
             }

@@ -35,6 +35,8 @@
                     <div class="form-group">
                       <label for="file">{{ trans('cefamaps::menu.Edit') }} {{ trans('cefamaps::environment.File') }}</label>
                       <input type="file" class="form-control" id="file" name="file" value="{{ $editenviron->picture }}" accept="image/*" style="width: 100%;">
+                      <!-- Para que aperesca el nombre de la imagen antigua -->
+                      <input type="text" class="form-control" name="imagenAntigua" id="class" value="{{ $editenviron->picture }}" style="visibility:hidden">
                     </div>
                   </div>
                   <div class="col-2">
@@ -106,7 +108,15 @@
                   <div class="col-4">
                     <div class="form-group">
                       <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
-                      <input type="text" class="form-control" name="class" id="class" value="{{ $editenviron->environment_classroom }}">
+                      <select class="form-control select2" style="width: 100%;" id="class" value="{{ $editenviron->environment_classroom }}" name="class" required>
+                          <option>Seleccione...</option>
+                          <option value="">{{ trans('cefamaps::environment.Environment') }} Polivalente</option>
+                          <option value="">{{ trans('cefamaps::environment.Environment') }} TIC</option>
+                          <option value="">{{ trans('cefamaps::environment.Environment') }} Productivo</option>
+                          <option value="">Administradtivo</option>
+                          <option value="">sst</option>
+                          <option value="">ambiental</option>
+                        </select>
                     </div>
                   </div>
                   <!-- fin de la clase de ambiente -->
@@ -114,7 +124,11 @@
                   <div class="col-4">
                     <div class="form-group">
                       <label for="status">{{ trans('cefamaps::menu.Status') }} {{ trans('cefamaps::environment.Environment') }}</label>
-                      <input type="text" class="form-control" id="status" name="status" value="{{ $editenviron->status }}">
+                      <select class="form-control select2" style="width: 100%;" id="status" value="{{ $editenviron->status }}" name="status" required>
+                          <option>Seleccione...</option>
+                          <option value="available">Disponible</option>
+                          <option value="notavailable">No Disponible</option>
+                        </select>
                     </div>
                   </div>
                   <!-- fin del status del environment -->
@@ -173,6 +187,8 @@
     </div>
   </div>
 </div>
+
+
 
 @endsection
 
