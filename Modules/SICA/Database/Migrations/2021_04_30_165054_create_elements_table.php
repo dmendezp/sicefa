@@ -19,8 +19,9 @@ class CreateElementsTable extends Migration
             $table->foreignId('measurement_unit_id')->constrained()->onDelete('cascade');
             $table->text('description');
             $table->foreignId('kind_of_purchase_id')->constrained()->onDelete('cascade');
-            $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
-            $table->unsignedInteger('UNSPSC_code')->unique();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->unsignedInteger('UNSPSC_code')->unique()->nullable();
+            $table->string('image')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
