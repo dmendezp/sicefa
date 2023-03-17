@@ -17,48 +17,41 @@
             </div>
             <div class="card-body">
               <div class="content">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>N°</th>
-                      <th>{{ trans('cefamaps::page.Name') }}</th>
-                      <th>{{ trans('cefamaps::page.Content') }}</th>
-                      <th>{{ trans('cefamaps::environment.Environment') }}</th>
-                      <th>
-                        <a href="{{ route('cefamaps.admin.config.page.add') }}" class="btn btn-success">
-                          <i class="fa-solid fa-square-plus"></i>
-                        </a>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  @foreach($page as $p)
-                    <tr>
-                      <td>{{ $p->id }}</td>
-                      <td>{{ $p->name }}</td>
-                      <td>{{ $p->content }}</td>
-                      <td>{{ $p->environment->name }}</td>
-                      <td>
-                        <a href="{{url('/cefamaps/page/edit/'.$p->id)}}" class="btn btn-warning">
-                          <i class="fas fa-map-signs"></i>
-                        </a>
-                        <a class="btn btn-danger delete-page" href="#" type="submit" data-action="delete" data-object="{{ $p->id }}" data-path="/cefamaps/page/delete/">
-                          <i class="fa-solid fa-trash"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <th>N°</th>
-                      <th>{{ trans('cefamaps::page.Name') }}</th>
-                      <th>{{ trans('cefamaps::page.Content') }}</th>
-                      <th>{{ trans('cefamaps::environment.Environment') }}</th>
-                      <th></th>
-                    </tr>
-                  </tfoot>
-                </table>
+                <form action="{{ route('cefamaps.admin.config.page.index') }}" method="get">
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>N°</th>
+                        <th>{{ trans('cefamaps::page.Name') }}</th>
+                        <th>{{ trans('cefamaps::page.Content') }}</th>
+                        <th>{{ trans('cefamaps::environment.Environment') }}</th>
+                        <th>
+                          <a href="#" class="btn btn-success">
+                            <i class="fa-solid fa-square-plus"></i>
+                          </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($final as $r)
+                      <tr>
+                        <td>{{ $r->id }}</td>
+                        <td>{{ $r->name }}</td>
+                        <td>{{ $r->content }}</td>
+                        <td>{{ $r->environment_id }}</td>
+                        <td>
+                          <a href="{{url('/cefamaps/page/edit/'.$r->id)}}" class="btn btn-warning">
+                            <i class="fas fa-map-signs"></i>
+                          </a>
+                          <a class="btn btn-danger delete-page" href="#" type="submit" data-action="delete" data-object="{{ $r->id }}" data-path="/cefamaps/page/delete/">
+                            <i class="fa-solid fa-trash"></i>
+                          </a>
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </form>
               </div>
             </div>
           </div>

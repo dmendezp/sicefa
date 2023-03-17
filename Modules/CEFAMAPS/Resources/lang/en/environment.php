@@ -9,5 +9,8 @@ return [
     'Length' => 'Length',
     'Latitude' => 'Latitude',
     'Productive units' => 'Productive units',
-    'File' => 'File'
+    'File' => 'File',
+    'Coordinates' => 'Coordinates',
+    'Polygon' => 'Polygon',
+    'Evacuation route' => 'Evacuation route'
 ];

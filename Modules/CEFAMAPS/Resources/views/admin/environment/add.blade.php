@@ -44,13 +44,13 @@
                     <div class="col">
                       <div class="form-group">
                         <label for="length">{{ trans('cefamaps::environment.Length') }}</label>
-                        <input type="text" class="form-control" id="length" name="lengthspot" placeholder="2.0000">
+                        <input type="text" class="form-control" id="length" name="lengthspot" placeholder="-1.2345">
                       </div>
                     </div>
                     <div class="col">
                       <div class="form-group">
                         <label for="latitude">{{ trans('cefamaps::environment.Latitude') }}</label>
-                        <input type="text" class="form-control" id="latitude" name="latitudespot" placeholder="-2.0000">
+                        <input type="text" class="form-control" id="latitude" name="latitudespot" placeholder="1.2345">
                       </div>
                     </div>
                   </div>
@@ -133,10 +133,11 @@
                   <!-- fin de los complementos de environment -->
                   <!-- inicio de la prueba -->
                   <div class="form-group">
-                    <label>{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::environment.Coordinate') }}</label>
+                    <label>{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::environment.Coordinates') }}</label>
                     <select id="option" class="form-control select2" name="type" required>
-                      <option value="Poligono">{{ trans('cefamaps::environment.Coordinate') }}</option>
-                      <option value="Evacuacion">{{ trans('cefamaps::environment.RutadeEvacuacion') }}</option>
+                      <option value="">Seleccione...</option>
+                      <option value="Poligono">{{ trans('cefamaps::environment.Polygon') }}</option>
+                      <option value="Evacuacion">{{ trans('cefamaps::environment.Evacuation route') }}</option>
                     </select>
                   </div>
                   <div class="form-group">
@@ -172,7 +173,7 @@
     function establecerOption() {
       let eleccion = seleccionar.value;
 
-      if (eleccion === 'poligono') {
+      if (eleccion === 'Poligono') {
         parrafo.innerHTML +=  '<div id="inputFormRow">' +
                                 '<div class="row align-items-center">' +
                                   '<div class="col">' +
@@ -235,7 +236,7 @@
                                 $(this).closest('#inputFormRow').remove();
                               });
 
-      } else if (eleccion === 'evacuacion') {
+      } else if (eleccion === 'Evacuacion') {
         parrafo.innerHTML +=  '<div id="inputFormRow">' +
                                 '<div class="row align-items-center">' +
                                   '<div class="col">' +

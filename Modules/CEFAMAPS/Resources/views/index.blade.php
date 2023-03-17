@@ -68,7 +68,6 @@
       position: { lat: {{$e->latitude}},  lng: {{$e->length}} },
       map: map,
       tittle: "{{$e->name}}",
-      content: priceTag,
       //lo necesario
       //icon: iconBase,
     });

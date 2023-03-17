@@ -21,11 +21,9 @@ class EnvironmentController extends Controller
      */
     public function index()
     {
-        //$environ = Environment::get();
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
-        //$coor = Coordinate::get();
-        $environ = Environment::with('coordinates')->with('farms')->with('productive_units')->get();
+        $environ = Environment::with('coordinates')->get();
         $data = ['title'=>trans('cefamaps::menu.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
         return view('cefamaps::admin.environment.index',$data);
     }

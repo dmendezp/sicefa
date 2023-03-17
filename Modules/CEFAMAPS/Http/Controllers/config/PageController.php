@@ -5,6 +5,7 @@ namespace Modules\CEFAMAPS\Http\Controllers\config;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use DB;
 //Para hacer los crud del administrador
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
@@ -17,14 +18,19 @@ class PageController extends Controller
    * Display a listing of the resource.
    * @return Renderable
    */
-  public function index()
+  public function index(Request $request)
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
     $farm = Farm::get();
-    $page = Page::with('environment')->get();
-    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page];
-    return view('cefamaps::admin.page.index',$data);
+    // filtro de la pagina con el id
+    $query = DB::table('pages');
+    if ($request->has('id')) {
+      $query->where('environment_id', $request->id);
+    }
+    $final = $query->get();
+    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
+    return view('cefamaps::admin.page.index',$data, compact('final'));
   }
 
   /**
