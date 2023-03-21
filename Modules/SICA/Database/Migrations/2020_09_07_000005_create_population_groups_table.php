@@ -16,7 +16,7 @@ class CreatePopulationGroupsTable extends Migration
         Schema::create('population_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
