@@ -26,7 +26,7 @@
                         <th>{{ trans('cefamaps::page.Content') }}</th>
                         <th>{{ trans('cefamaps::environment.Environment') }}</th>
                         <th>
-                          <a href="#" class="btn btn-success">
+                          <a href="{{ route('cefamaps.admin.config.page.add') }}" class="btn btn-success">
                             <i class="fa-solid fa-square-plus"></i>
                           </a>
                         </th>

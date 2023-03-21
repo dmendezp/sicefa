@@ -5,7 +5,6 @@ namespace Modules\CEFAMAPS\Http\Controllers\config;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use DB;
 //Para hacer los crud del administrador
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
@@ -24,12 +23,12 @@ class PageController extends Controller
     $unit = ProductiveUnit::get();
     $farm = Farm::get();
     // filtro de la pagina con el id
-    $query = DB::table('pages');
+    $query = Page::query();
     if ($request->has('id')) {
       $query->where('environment_id', $request->id);
     }
     $final = $query->get();
-    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
+    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'query'=>$query];
     return view('cefamaps::admin.page.index',$data, compact('final'));
   }
 
@@ -56,10 +55,34 @@ class PageController extends Controller
     $add = new Page;
     $add -> name = e ($request->input('name'));
     $add -> environment_id = e ($request->input('environ'));
-    $add -> content = e ($request->input('content'));
     if ($add -> save()) {
-      return redirect(route('cefamaps.admin.config.page.index'));
+      $storage = "uploads/";
+      $dom = new \DOMDocument();
+      libxml_use_internal_errors(true);
+      $dom->loadHTML($request->desc, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
+      libxml_clear_errors();
+
+      $images = $dom->getElementsByTagName('img');
+
+      foreach ($images as $img) {
+        $src = $img->getAttribute('src');
+        
+        if (preg_match('/data:image/', $src)) {
+          preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+          $mimetype = $groups['mime'];
+          $fileNameContent = uniqid();
+          $fileNameContentRand = substr(md5($fileNameContent),6,6).'_'.time();
+          $filePath = ("$storage/$fileNameContentRand.$mimetype");
+          $image = Image::make($src)->resize(1200, 1200)->encode($mimetype, 100)->save(public_path($filePath));
+          $new_src = asset($filePath);
+          $img->removeAttribute('src');
+          $img->setAttribute('src', $new_src);
+          $img->setAttribute('class', 'img-responsive');
+        }
+      }
+      $add -> content = e ($request->$img);
     }
+    return redirect(route('cefamaps.admin.config.page.index'));
   }
 
   /**
