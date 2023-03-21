@@ -14,7 +14,7 @@ class PTVENTADatabaseSeeder extends Seeder
     public function run()
     {
 
-        $this->call(PTVENTAAppTableSeeder::class); // llamar seeder de aplicación PTVENTA
+        $this->call(AppTableSeeder::class); // llamar seeder de aplicación PTVENTA
 
     }
 }
