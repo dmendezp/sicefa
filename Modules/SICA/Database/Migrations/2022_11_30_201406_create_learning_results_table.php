@@ -27,6 +27,7 @@ class CreateLearningResultsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('learning_results');
     }
 }

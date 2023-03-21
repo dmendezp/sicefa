@@ -31,6 +31,7 @@ class CreateMovementDetailsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('movement_details');
     }
 }
