@@ -17,7 +17,7 @@ Route::prefix('radiocefa')->group(function() {
 
     Route::get('/peticiones', 'RadioRouteController@PetMusica')->name('peticiones');
 
-     Route::get('/cronograma', 'RADIOCEFAController@cronograma')->name('cronograma');
+     Route::get('/cronograma', 'RadioRouteController@cronograma')->name('cronograma');
 
      Route::get('/votes', 'RADIOCEFAController@votaciones')->name('votaciones');
 
