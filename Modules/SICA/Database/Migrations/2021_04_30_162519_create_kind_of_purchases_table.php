@@ -29,6 +29,7 @@ class CreateKindOfPurchasesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('kind_of_purchases');
     }
 }

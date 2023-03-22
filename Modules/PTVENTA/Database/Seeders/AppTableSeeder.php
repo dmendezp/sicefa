@@ -5,7 +5,7 @@ namespace Modules\PTVENTA\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Modules\SICA\Entities\App;
 
-class PTVENTAAppTableSeeder extends Seeder
+class AppTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
