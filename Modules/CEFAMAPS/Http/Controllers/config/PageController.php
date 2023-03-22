@@ -53,28 +53,28 @@ class PageController extends Controller
   public function addpost(Request $request)
   {
     $content = $request->content;
-       $dom = new \DomDocument();
-       $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-       $imageFile = $dom->getElementsByTagName('imageFile');
- 
-       foreach($imageFile as $item => $image){
-           $data = $img->getAttribute('src');
-           list($type, $data) = explode(';', $data);
-           list(, $data)      = explode(',', $data);
-           $imgeData = base64_decode($data);
-           $image_name= "/upload/" . time().$item.'.png';
-           $path = public_path() . $image_name;
-           file_put_contents($path, $imgeData);
-           
-           $image->removeAttribute('src');
-           $image->setAttribute('src', $image_name);
-        }
- 
-       $content = $dom->saveHTML();
-       $fileUpload = new Page;
-       $fileUpload->name = $request->name;
-       $fileUpload -> environment_id = $request->environ;
-       $fileUpload->content = $content;
+    $dom = new \DomDocument();
+    $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    $imageFile = $dom->getElementsByTagName('imageFile');
+
+    foreach($imageFile as $item => $image){
+      $data = $img->getAttribute('src');
+      list($type, $data) = explode(';', $data);
+      list(, $data)      = explode(',', $data);
+      $imgeData = base64_decode($data);
+      $image_name= "/upload/" . time().$item.'.png';
+      $path = public_path() . $image_name;
+      file_put_contents($path, $imgeData);
+
+      $image->removeAttribute('src');
+      $image->setAttribute('src', $image_name);
+    }
+
+    $content = $dom->saveHTML();
+    $fileUpload = new Page;
+    $fileUpload->name = $request->name;
+    $fileUpload -> environment_id = $request->environ;
+    $fileUpload->content = $content;
     if ($fileUpload->save()) {
       return redirect(route('cefamaps.admin.config.page.index'));
     }
@@ -102,11 +102,30 @@ class PageController extends Controller
    */
   public function editpost(Request $request)
   {
-    $edit = Page::findOrFail($request->input('id'));
-    $edit -> name = e ($request->input('name'));
-    $edit -> environment_id = e ($request->input('environ'));
-    $edit -> content = e ($request->input('content'));
-    if ($edit -> save()) {
+    $content = $request->content;
+    $dom = new \DomDocument();
+    $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    $imageFile = $dom->getElementsByTagName('imageFile');
+
+    foreach($imageFile as $item => $image){
+      $data = $img->getAttribute('src');
+      list($type, $data) = explode(';', $data);
+      list(, $data)      = explode(',', $data);
+      $imgeData = base64_decode($data);
+      $image_name= "/upload/" . time().$item.'.png';
+      $path = public_path() . $image_name;
+      file_put_contents($path, $imgeData);
+
+      $image->removeAttribute('src');
+      $image->setAttribute('src', $image_name);
+    }
+
+    $content = $dom->saveHTML();
+    $fileUpload = Page::findOrFail($request->input('id'));
+    $fileUpload->name = $request->name;
+    $fileUpload -> environment_id = $request->environ;
+    $fileUpload->content = $content;
+    if ($fileUpload->save()) {
       return redirect(route('cefamaps.admin.config.page.index'));
     }
   }
