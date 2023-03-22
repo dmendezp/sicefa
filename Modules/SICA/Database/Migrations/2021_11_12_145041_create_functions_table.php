@@ -21,9 +21,9 @@ class CreateFunctionsTable extends Migration
             $table->timestamps();
         });
     }
-// normograma salarial nivel denominacionde de empleo 
+// normograma salarial nivel denominacionde de empleo
 //             grado tipo enum   denominacion profecional aseceso directovi tecnico instructor asistencial /grado  1 -20
- 
+
     /**
      * Reverse the migrations.
      *
@@ -31,6 +31,7 @@ class CreateFunctionsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('functions');
     }
 }
