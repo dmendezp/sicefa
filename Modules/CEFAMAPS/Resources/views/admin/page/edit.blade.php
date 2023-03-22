@@ -45,7 +45,9 @@
                 <!-- inicio de agregar el contenido -->
                 <div class="form-group">
                   <label for="content">{{ trans('cefampas::page.Content') }}</label>
-                  <textarea id="summernote" name="content" value="{{$editpage->content}}"></textarea>
+                  <textarea id="summernote" name="content">
+                    {{$editpage->content}}
+                  </textarea>
                 </div>
                 <!-- fin de agregar el contenido -->
                 <!-- inicio del boton de guardar -->

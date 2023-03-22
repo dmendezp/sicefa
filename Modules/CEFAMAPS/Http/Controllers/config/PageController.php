@@ -52,37 +52,33 @@ class PageController extends Controller
    */
   public function addpost(Request $request)
   {
-    $add = new Page;
-    $add -> name = e ($request->input('name'));
-    $add -> environment_id = e ($request->input('environ'));
-    if ($add -> save()) {
-      $storage = "uploads/";
-      $dom = new \DOMDocument();
-      libxml_use_internal_errors(true);
-      $dom->loadHTML($request->desc, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NOIMPLIED);
-      libxml_clear_errors();
-
-      $images = $dom->getElementsByTagName('img');
-
-      foreach ($images as $img) {
-        $src = $img->getAttribute('src');
-        
-        if (preg_match('/data:image/', $src)) {
-          preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
-          $mimetype = $groups['mime'];
-          $fileNameContent = uniqid();
-          $fileNameContentRand = substr(md5($fileNameContent),6,6).'_'.time();
-          $filePath = ("$storage/$fileNameContentRand.$mimetype");
-          $image = Image::make($src)->resize(1200, 1200)->encode($mimetype, 100)->save(public_path($filePath));
-          $new_src = asset($filePath);
-          $img->removeAttribute('src');
-          $img->setAttribute('src', $new_src);
-          $img->setAttribute('class', 'img-responsive');
+    $content = $request->content;
+       $dom = new \DomDocument();
+       $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+       $imageFile = $dom->getElementsByTagName('imageFile');
+ 
+       foreach($imageFile as $item => $image){
+           $data = $img->getAttribute('src');
+           list($type, $data) = explode(';', $data);
+           list(, $data)      = explode(',', $data);
+           $imgeData = base64_decode($data);
+           $image_name= "/upload/" . time().$item.'.png';
+           $path = public_path() . $image_name;
+           file_put_contents($path, $imgeData);
+           
+           $image->removeAttribute('src');
+           $image->setAttribute('src', $image_name);
         }
-      }
-      $add -> content = e ($request->$img);
+ 
+       $content = $dom->saveHTML();
+       $fileUpload = new Page;
+       $fileUpload->name = $request->name;
+       $fileUpload -> environment_id = $request->environ;
+       $fileUpload->content = $content;
+    if ($fileUpload->save()) {
+      return redirect(route('cefamaps.admin.config.page.index'));
     }
-    return redirect(route('cefamaps.admin.config.page.index'));
+    
   }
 
   /**

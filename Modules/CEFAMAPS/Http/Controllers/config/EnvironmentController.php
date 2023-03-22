@@ -12,6 +12,7 @@ use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Farm;
 use Modules\CEFAMAPS\Entities\Coordinate;
+use Modules\CEFAMAPS\Entities\Page;
 
 class EnvironmentController extends Controller
 {
@@ -148,7 +149,8 @@ class EnvironmentController extends Controller
         $unit = ProductiveUnit::get();
         $environ = Environment::get();
         $farm = Farm::get();
-        $viewenviron = Environment::findOrFail($id);
+        $viewenviron = Environment::with('pages')->findOrFail($id);
+        /* $viewenviron = Environment::findOrFail($id); */
         $data = ['title'=>trans('cefamaps::environment.View'), 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'viewenviron'=>$viewenviron];
         return view('cefamaps::admin.environment.view',$data);
     }

@@ -22,7 +22,7 @@
                     <thead>
                       <tr>
                         <th>N°</th>
-                        <th>{{ trans('cefamaps::page.Name') }}</th>
+                        <th>{{ trans('cefamaps::page.Page') }}</th>
                         <th>{{ trans('cefamaps::page.Content') }}</th>
                         <th>{{ trans('cefamaps::environment.Environment') }}</th>
                         <th>
@@ -37,7 +37,26 @@
                       <tr>
                         <td>{{ $r->id }}</td>
                         <td>{{ $r->name }}</td>
-                        <td>{{ $r->content }}</td>
+                        <td>
+                          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$r->id}}">
+                            {{ trans('cefamaps::page.Page') }} {{ $r->id }}
+                          </button>
+                          <div class="modal fade" id="modal{{$r->id}}">
+                            <div class="modal-dialog modal-xl">
+                              <div class="modal-content">
+                                <div class="modal-header bg-primary">
+                                  <h4 class="modal-title">{{ trans('cefamaps::page.Content') }} {{ trans('cefamaps::page.Page') }} {{ $r->id }}</h4>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <i class="fa-solid fa-minus fa-spin"></i>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <p>{!! $r->content !!}</p>
+                                </div>  
+                              </div>
+                            </div>
+                          </div>
+                        </td>
                         <td>{{ $r->environment_id }}</td>
                         <td>
                           <a href="{{url('/cefamaps/page/edit/'.$r->id)}}" class="btn btn-warning">
