@@ -3,7 +3,6 @@
 namespace Modules\SICA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class SICADatabaseSeeder extends Seeder
 {
@@ -14,9 +13,12 @@ class SICADatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //Model::unguard();
-        $this->call(SeedConfigurationsTableSeeder::class);
-        $this->call(SeedPermissionsTableSeeder::class);
-        
+
+        $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
+        $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
+        $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
+        $this->call(RolesTableSeeder::class); // Ejecutar Seeder de roles para usuarios
+        $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de permisos para roles
+
     }
 }

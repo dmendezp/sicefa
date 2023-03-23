@@ -20,7 +20,8 @@ class CreateElementsTable extends Migration
             $table->text('description');
             $table->foreignId('kind_of_purchase_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->unsignedInteger('UNSPSC_code')->unique();
+            $table->unsignedInteger('UNSPSC_code')->unique()->nullable();
+            $table->string('image')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,6 +34,7 @@ class CreateElementsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('elements');
     }
 }
