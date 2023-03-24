@@ -3,7 +3,7 @@
 @section('styles')
 
 <!-- fullCalendar -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/fullcalendar/lib/main.css') }}">
+  <link rel="stylesheet" href="{{ asset('radi__cefa/css/main.css') }}">
  
 
 @endsection
@@ -95,7 +95,7 @@
 <script src="{{ asset('AdminLTE/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- fullCalendar 2.2.5 -->
 <script src="{{ asset('AdminLTE/plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('AdminLTE/plugins/fullcalendar/lib/main.js') }}"></script>
+<script src="{{ asset('radi__cefa/js/main.js') }}"></script>
 <script>
   $(function () {
 
