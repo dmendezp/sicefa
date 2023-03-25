@@ -24,7 +24,7 @@ class CreatePeopleTable extends Migration
             $table->date('date_of_birth')->nullable();
             $table->enum('blood_type',['O+','O-','A+','A-','B+','B-','AB+','AB-'])->nullable();
             $table->enum('gender', ['No registra','Masculino','Femenino'])->nullable();
-            $table->foreignId('eps_id')->constrained('e_p_s')->onDelete('cascade')->nullable();
+            $table->foreignId('eps_id')->constrained('e_p_s')->onDelete('cascade');
             $table->enum('marital_status', ['No registra','Soltero(a)','Casado(a)','Separado(a)'])->nullable();
             $table->unsignedInteger('military_card')->nullable();
             $table->enum('socioeconomical_status', ['No registra','1','2','3','4','5','6'])->nullable();
@@ -49,6 +49,7 @@ class CreatePeopleTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('people');
     }
 }

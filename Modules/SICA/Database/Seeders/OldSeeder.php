@@ -61,7 +61,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "password" => Hash::make("12345678")
             ]);
         }
-        /**/ 
+        /**/
         $usercoordinator = User::where('nickname','gmsanchez')->first();
         if(!$usercoordinator){
             $person = Person::where('document_number','51784954')->first();
@@ -82,7 +82,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "email" => "jdguevara01@misena.edu.co",
                 "password" => Hash::make("12345678")
             ]);
-        }     
+        }
         //crear rol administrador
         $roladmin = Role::where('slug','sica.admin')->first();
         if(!$roladmin){
@@ -106,7 +106,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "full-access" => "no",
                 "app_id" => $app->id
             ]);
-        } 
+        }
         /**/
         //crear rol asistencia attendance
         $rolattendance = Role::where('slug','sica.attendance')->first();
@@ -294,7 +294,7 @@ class SeedPermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id;
         $permission_coordinator[] = $permission->id;
 
-        
+
         $permission = Permission::where('slug','sica.admin.academy.quarters')->first();
         if(!$permission){
             $permission = Permission::create([

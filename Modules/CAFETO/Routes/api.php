@@ -15,6 +15,4 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/cafeto', function (Request $request) {
     return $request->user();
-   
-    // Route::get('sales/search/{doc}', [Admin\SalesController::Class,'search']);
-}); 
+});

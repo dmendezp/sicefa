@@ -28,6 +28,7 @@ class CreateEPSTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('e_p_s');
     }
 }

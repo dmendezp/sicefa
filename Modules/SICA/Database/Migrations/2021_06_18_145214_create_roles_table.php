@@ -19,7 +19,7 @@ class CreateRolesTable extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->text('description_english')->nullable();
-            $table->enum('full_access',['yes','no'])->nullable();
+            $table->enum('full_access',['yes','no'])->default('no');
             $table->foreignId('app_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
@@ -33,6 +33,7 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('roles');
     }
 }

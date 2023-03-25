@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +13,8 @@
 |
 */
 
-Route::prefix('cafeto')->group(function() {
-    Route::get('/index', 'CAFETOController@index')->name('cafeto.index');
-    Route::get('/developers', 'CAFETOController@developers')->name('cafeto.developers');
+Route::prefix('cafeto')->group(function(){ //Agrega el prefijo en la url (sicefa.test/cafeto/...).
+    Route::controller(CAFETOController::class)->group(function(){ //Agrega por única vez el controlador, para que seguidamente sea solo.
+        Route::get('index', 'index')->name('cefa.cafeto.index'); //Vista principal y pública de la aplicación.
+    });
 });
