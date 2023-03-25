@@ -16,10 +16,11 @@ class PeopleTableSeeder extends Seeder
      */
     public function run()
     {
-
-        // Consulta o registro de datos para Diego Andrés Méndez Pastrana
+        
         $population_group = PopulationGroup::firstOrCreate(['name' => 'NINGUNA']); // Consultar o registrar Grupo Poblacional
         $eps = EPS::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar EPS
+
+        // Consulta o registro de datos para Diego Andrés Méndez Pastrana
         Person::firstOrCreate(['document_number' => 7713344],[ // Consultar o registrar Persona
             'document_type' => 'Cedula de ciudadania',
             'first_name' => 'DIEGO ANDRÉS',
@@ -30,8 +31,6 @@ class PeopleTableSeeder extends Seeder
         ]);
 
         // Consulta o registro de datos para Gloria Maritza Sanchez Alarcón
-        $population_group = PopulationGroup::firstOrCreate(['name' => 'NINGUNA']); // Consultar o registrar Grupo Poblacional
-        $eps = EPS::firstOrCreate(['name' => 'NUEVA EPS']); // Consultar o registrar EPS
         Person::firstOrCreate(['document_number' => 51784954],[ // Consultar o registrar Persona
             'document_type' => 'Cedula de ciudadania',
             'first_name' => 'GLORIA MARITZA',
@@ -42,8 +41,6 @@ class PeopleTableSeeder extends Seeder
         ]);
 
         // Consulta o registro de datos para Diego Andrés Tovar Rodriguez
-        $population_group = PopulationGroup::firstOrCreate(['name' => 'NINGUNA']); // Consultar o registrar Grupo Poblacional
-        $eps = EPS::firstOrCreate(['name' => 'NUEVA EPS']); // Consultar o registrar EPS
         Person::firstOrCreate(['document_number' => 1004224747],[ // Consultar o registrar Persona
             'document_type' => 'Cedula de ciudadania',
             'first_name' => 'DIEGO ANDRÉS',
@@ -54,8 +51,6 @@ class PeopleTableSeeder extends Seeder
         ]);
 
         // Consulta o registro de datos para Jesús David Guevara Munar
-        $population_group = PopulationGroup::firstOrCreate(['name' => 'NINGUNA']); // Consultar o registrar Grupo Poblacional
-        $eps = EPS::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar EPS
         Person::firstOrCreate(['document_number' => 1004494010],[ // Consultar o registrar Persona
             'document_type' => 'Cedula de ciudadania',
             'first_name' => 'JESÚS DAVID',

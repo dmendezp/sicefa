@@ -25,6 +25,14 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make("12345678")
         ]);
 
+        // Registrar o actualizar usuario para Jesús David Guevara Munar
+        $person = Person::where('document_number', 1004494010)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'JDGM0331'], [ // Actualizar o crear usuario
+            'person_id' => $person->id,
+            'email' => 'jdguevara01@soy.sena.edu.co',
+            'password' => Hash::make("12345678")
+        ]);
+
         // Registrar o actualizar usuario para Gloria Maritza Sanchez Alarcón
         $person = Person::where('document_number', 51784954)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'gmsanchez'], [ // Actualizar o crear usuario
@@ -38,14 +46,6 @@ class UsersTableSeeder extends Seeder
         User::updateOrCreate(['nickname' => 'DiegoT'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
             'email' => 'datovar74@misena.edu.co',
-            'password' => Hash::make("12345678")
-        ]);
-
-        // Registrar o actualizar usuario para Jesús David Guevara Munar
-        $person = Person::where('document_number', 1004494010)->first(); // Consultar Persona
-        User::updateOrCreate(['nickname' => 'JDGM0331'], [ // Actualizar o crear usuario
-            'person_id' => $person->id,
-            'email' => 'jdguevara01@soy.sena.edu.co',
             'password' => Hash::make("12345678")
         ]);
 

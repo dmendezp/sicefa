@@ -1,20 +1,21 @@
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
-      <li class="nav-item">
+      <li class="nav-item mr-1">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*home.*') ?: 'active' }}">
+      <li class="nav-item d-none d-sm-inline-block mr-1 {{ ! Route::is('*home.*') ?: 'active' }}">
         <a href="{{ route('cefa.sica.home.index') }}" class="nav-link">{{ trans('sica::menu.Home') }}</a>
       </li>
 @guest
 @else
-@if(Auth::user()->roles[0]->slug=='sica.admin')
-      <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*admin.*') ?: 'active' }}">
+@if(checkRol('sica.admin'))
+      <li class="nav-item d-none d-sm-inline-block mr-1 {{ ! Route::is('*admin.*') ?: 'active' }}">
         <a href="{{ route('sica.admin.dashboard') }}" class="nav-link">{{ trans('sica::menu.Administrator') }}</a>
       </li>
-@elseif(Auth::user()->roles[0]->slug=='sica.attendance') 
-      <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*attendance.*') ?: 'active' }}">
+@endif
+@if(checkRol('sica.attendance'))
+      <li class="nav-item d-none d-sm-inline-block mr-1 {{ ! Route::is('*attendance.*') ?: 'active' }}">
         <a href="{{ route('sica.attendance.dashboard') }}" class="nav-link">{{ trans('sica::menu.Attendance') }}</a>
       </li>
 @endif
@@ -59,8 +60,8 @@
         <div class="dropdown-menu p-0">
           <a href="{{ url('lang',['es']) }}" class="dropdown-item">Español</a>
           <a href="{{ url('lang',['en']) }}" class="dropdown-item">English</a>
-        </div> 
-        
+        </div>
+
       </li>
 
     </ul>
