@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 function getEnumValues($table, $column){
@@ -12,13 +15,21 @@ function getEnumValues($table, $column){
 	return $enum;
 }
 
+function checkRol($slug){ // Verficar si tiene acceso a los distintos roles de la aplicación
+    if(Auth::user()->roles[0]->slug==$slug OR Auth::user()->roles[0]->slug=='superadmin'){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 function getAppsArray(){
 	$a = [
 		'0' => 'Portal SICEFA',
 		'1' => 'Cefa-Maps',
 		'2' => 'Voto electrónico',
 		'3' => 'Transporte',
-		'4' => 'Estación de cafe',	
+		'4' => 'Estación de cafe',
 		'5' => 'Maquinaria agrícola',
 		'6' => 'Ganaderia',
 		'7' => 'Laboratorio',
@@ -39,7 +50,7 @@ function getURLAppsArray($id){
 		'1' => 'http://sicefa-master.test:8081/cefamaps/index',
 		'2' => 'http://sicefa-master.test:8081/evs/index',
 		'3' => 'http://siscefa.com/index',
-		'4' => 'http://sicefa-master.test:8081/cafetto/index',	
+		'4' => 'http://sicefa-master.test:8081/cafetto/index',
 		'5' => 'http://siscefa.com/index',
 		'6' => 'http://siscefa.com/index',
 		'7' => 'http://siscefa.com/index',
@@ -60,7 +71,7 @@ function getColorsArray($id){
 		'1' => '#00acff',
 		'2' => '#5e35b1',
 		'3' => '#00c900',
-		'4' => '#ff1585',	
+		'4' => '#ff1585',
 		'5' => '#4d4d4d',
 		'6' => '#fdd835',
 		'7' => '#795548',
@@ -81,7 +92,7 @@ function getIconsArray($id){
 		'1' => 'fas fa-map-marked-alt',
 		'2' => 'fas fa-vote-yea',
 		'3' => 'fas fa-bus-alt',
-		'4' => 'fas fa-coffee',	
+		'4' => 'fas fa-coffee',
 		'5' => 'fas fa-tractor',
 		'6' => 'fas fa-horse-head',
 		'7' => 'fas fa-flask',
@@ -102,7 +113,7 @@ function getInfoArray($id){
 		'1' => 'CEFAMAPS es un aplicativo que permite visualizar la información descriptiva de cada unidad productiva o área del centro de formación agroindustrial “La Angostura”, a través de puntos geo-referenciados usando las herramientas de Google maps.',
 		'2' => 'Esta aplicación administra toda la información de las elecciones que se realizan en el Centro de Formación Agroindustrial "La Angostura", el proceso se realiza de manera virtual lo que hace que sea ágil y oportuno. Además, permite obtener las estadísticas por cada candidato, generando así un reporte rápido de las votaciones.',
 		'3' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maiores facere eos. Omnis modi expedita sapiente culpa vitae totam unde possimus officiis delectus natus in ipsa, nesciunt, voluptas ab eos.',
-		'4' => 'Caffeto es un sistema de información que incluye las siguientes funcionalidades: Registra los pedidos de la tienda de café, genera cobros y facturación de los productos comercializados y realiza pedidos de manera remota desde cualquier dependencia del centro de formación.',	
+		'4' => 'Caffeto es un sistema de información que incluye las siguientes funcionalidades: Registra los pedidos de la tienda de café, genera cobros y facturación de los productos comercializados y realiza pedidos de manera remota desde cualquier dependencia del centro de formación.',
 		'5' => 'Este aplicativo con el fin de que la bodega de herramientas y la zona de maquinaria halladas en el CEFA , este proyecto tendra un registro de todos los elementos ubicados en la zona de Maquinaria y en Bodega de herramientas, inventarios, bases de datos e historiales de los elementos que estan ubicados allí.',
 		'6' => 'El sistema de caracterización ganadera Oviboprino maneja la información de esta área, registrando toda actividad que se realiza a diario para así obtener resultados y análisis de producción, inventario, gastos, entre otros.',
 		'7' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, quasi vel qui reprehenderit vero numquam id voluptates neque voluptate asperiores dignissimos, quisquam voluptatibus cum! Laudantium vel quis labore consequuntur blanditiis!',
