@@ -130,7 +130,6 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
         $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
-        $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
 
         // Listar Funcionarios
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.officers'], [ // Registro o actualización de permiso
@@ -193,7 +192,6 @@ class PermissionsTableSeeder extends Seeder
         $rol_admin->permissions()-> syncWithoutDetaching($permission_admin);
         $rol_coordinator->permissions()->syncWithoutDetaching($permission_coordinator);
         $rol_attendance->permissions()->syncWithoutDetaching($permission_attendance);
-
 
     }
 }
