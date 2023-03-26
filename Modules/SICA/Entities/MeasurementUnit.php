@@ -16,7 +16,7 @@ class MeasurementUnit extends Model
         'conversion_factor',
     ];
 
-    protected $dates = [ // Asignación de fechas
+    protected $dates = [ // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formato y manipulación de fecha y hora)
         'deleted_at',
         'created_at',
         'updated_at'
