@@ -1,7 +1,7 @@
 @extends('radiocefa::layouts.master')
 
 @section('textHero')
-  <h1>Sistema integrado del CEFA</h1>
+  <h1>Radio CEFA</h1>
   <h2><p>Centro de Formación Agroindustrial</p><p>"La Angostura"</p></h2>
 @endsection
 
