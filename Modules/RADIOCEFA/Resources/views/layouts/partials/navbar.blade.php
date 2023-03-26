@@ -7,7 +7,7 @@
         <a href="{{ route('inicioRadio') }}" class="nav-link text-success">Inicio</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link text-success">Cronograma</a>
+        <a href="{{ route('cronograma') }}" class="nav-link text-success">Cronograma</a>
       </li>
       <li class="nav-item">
         <a href="{{ route('peticiones') }}" class="nav-link text-success">Peticiones de musica</a>
