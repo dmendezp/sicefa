@@ -5,7 +5,7 @@
       <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars" style="color:aliceblue"></i></a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="index3.html" class="nav-link text-dark">Inicio</a>
+      <a href="{{ route('cefa.cafeto.home.index') }}" class="nav-link text-light">Inicio</a>
     </li>
   </ul>
 
@@ -24,4 +24,3 @@
     </li>
   </ul>
 </nav>
-    

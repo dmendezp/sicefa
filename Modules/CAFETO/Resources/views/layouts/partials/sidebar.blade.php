@@ -1,8 +1,10 @@
-<aside class="main-sidebar sidebar-dark-primary sidebar-background-cafeto elevation-4">
+<aside class="main-sidebar sidebar-light-primary sidebar-background-cafeto elevation-4">
   <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
-    <i class="fas fa-mug-hot fa-spin mr-4"></i>
-    <span class="brand-text font-weight-light">Estación De Café</span>
+  <a href="{{ route('cefa.cafeto.home.index') }}" class="brand-link pb-1">
+    <h3 class="text-light">
+        <i class="nav-icon fas fa-mug-hot ml-3 mr-1"></i>
+        <span class="brand-text">CAFETO</span>
+    </h3>
   </a>
 
   <!-- Sidebar -->
@@ -11,10 +13,10 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-      
+
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-truck-loading fa-spin text-light mr-4"></i>
+            <i class="nav-icon fas fa-truck-loading text-light"></i>
             <p class="text-light">
               Productos
             </p>
@@ -22,7 +24,7 @@
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-list-ul fa-spin text-light mr-4"></i>
+            <i class="nav-icon fas fa-list-ul text-light"></i>
             <p class="text-light">
               Inventario
             </p>
@@ -30,7 +32,7 @@
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-shopping-cart fa-spin text-light mr-4"></i>
+            <i class="nav-icon fas fa-shopping-cart text-light"></i>
             <p class="text-light">
               Ventas
             </p>
@@ -42,4 +44,3 @@
   </div>
   <!-- /.sidebar -->
 </aside>
-    
