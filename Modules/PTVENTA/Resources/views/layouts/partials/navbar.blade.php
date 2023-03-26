@@ -29,19 +29,19 @@
         </li>
 
         <li class="nav-item mx-1">
-            <a class="nav-link" href="#" role="button" data-toggle="tooltip" title="Internacionalización">
+            <a class="nav-link" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Internacionalización">
                 <i class="fas fa-flag-usa"></i>
             </a>
         </li>
 
         <li class="nav-item mx-1">
-            <a class="nav-link" href="{{ route('cefa.welcome') }}" role="button" data-toggle="tooltip" title="Volver a SICEFA">
+            <a class="nav-link" href="{{ route('cefa.welcome') }}" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Volver a SICEFA">
                 <i class="fas fa-hiking"></i>
             </a>
         </li>
 
         <li class="nav-item mx-1">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-toggle="tooltip" data-placement="left"  title="Ver en pantalla completa">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Modo pantalla completa">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>

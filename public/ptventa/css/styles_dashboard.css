@@ -92,13 +92,11 @@
   font-size: 17px;
   font-weight: 500;
   color: #181818;
-  border: 1px solid #809848;
   border-radius: 8px;
   filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .2));
 }
 
 .button-login:hover{
-  border: 1px solid #496F5D;
   background: linear-gradient(85deg, #496F5D, #496f5dda, #496f5daf, #496f5dda, #496F5D);
   animation: wind 2s ease-in-out infinite;
 }
@@ -210,6 +208,11 @@
 /* Fin de estilos del boton de iniciar sesion */
 
 /* ----------------------ZONE TESTING CSS----------------- */
+
+.custom-tooltip {
+  --bs-tooltip-bg: var(--bs-primary);
+}
+
 .card {
   width: 100%;
   margin-bottom: 20px;
