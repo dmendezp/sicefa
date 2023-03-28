@@ -64,6 +64,29 @@
                       <input type="text" class="form-control" id="latitude" name="latitudespot" value="{{ $editenviron->latitude }}" placeholder="1.2345">
                     </div>
                   </div>
+                  <div class="col-1">
+                      <div class="form-group">
+                        <br>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalPunto">
+                          {{ trans('cefamaps::environment.Map') }}
+                        </button>
+                        <div class="modal fade" id="modalPunto">
+                          <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                              <div class="modal-header bg-info">
+                                <h4 class="modal-title"></h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div id="mapa" style="width: 100%; height: 500px;"></div>
+                              </div>  
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 </div>
                 <!-- fin de las longitudes y latitudes -->
                 <!-- inicio de los complementos para id del Farm y el id de la unidad -->
@@ -221,5 +244,43 @@
   });
 
   </script>
+
+  <!-- Inicio mapa para las cooordenadas -->
+  <script type="text/javascript">
+    function initMap(){
+      var latitude = 2.612320;
+      var length = -75.360842;
+
+      coordenas = {
+        lng: length,
+        lat: latitude
+      };
+
+      generarMapa(coordenas);
+      
+    }
+
+    function generarMapa(coordenas) {
+      var mapa = new google.maps.Map(document.getElementById('mapa'),
+      {
+        zoom: 16,
+        mapTypeId: 'satellite',
+        center: new google.maps.LatLng(coordenas.lat, coordenas.lng)
+      });
+
+      marcador = new google.maps.Marker({
+        map: mapa,
+        draggable: true,
+        position: new google.maps.LatLng(coordenas.lat, coordenas.lng)
+      });
+
+      marcador.addListener('dragend', function(event){
+        document.getElementById("latitude").value = this.getPosition().lat();
+        document.getElementById("length").value = this.getPosition().lng();
+      })
+    }
+    
+  </script>
+  <!-- Fin mapa para las cooordenadas -->
 
 @endsection
