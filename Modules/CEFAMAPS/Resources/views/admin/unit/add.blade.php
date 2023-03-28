@@ -64,20 +64,21 @@
                         <label for="icon">{{ trans('cefamaps::unit.Icon') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
                         <select class="form-control select2" name="icon" id="icon">
                           <!-- Iconos Animales -->
-                          <option value="fa-solid fa-hippo">Hipopotamo</option>
-                          <option value="fa-solid fa-otter">Nutria</option>
-                          <option value="fa-solid fa-dog">Perro</option>
-                          <option value="fa-solid fa-cow">Vaca</option>
-                          <option value="fa-solid fa-fish">Pescado</option>
-                          <option value="fa-solid fa-shrimp">Camarón</option>
-                          <option value="fa-solid fa-horse">Caballo</option>
-                          <option value="fa-solid fa-frog">Rana</option>
-                          <option value="fa-solid fa-dove">Paloma</option>
-                          <option value="fa-solid fa-cat">Gato</option>
-                          <option value="fa-solid fa-piggy-bank">Cerdo</option>
+                          <option value="fa-solid fa-hippo">{{ trans('cefamaps::unit.Hipopotamo') }}</option>
+                          <option value="fa-solid fa-otter">{{ trans('cefamaps::unit.Nutria') }}</option>
+                          <option value="fa-solid fa-dog">{{ trans('cefamaps::unit.Perro') }}</option>
+                          <option value="fa-solid fa-cow">{{ trans('cefamaps::unit.Vaca') }}</option>
+                          <option value="fa-solid fa-fish">{{ trans('cefamaps::unit.Pescado') }}</option>
+                          <option value="fa-solid fa-shrimp">{{ trans('cefamaps::unit.Camarón') }}</option>
+                          <option value="fa-solid fa-horse">{{ trans('cefamaps::unit.Caballo') }}</option>
+                          <option value="fa-solid fa-frog">{{ trans('cefamaps::unit.Rana') }}</option>
+                          <option value="fa-solid fa-dove">{{ trans('cefamaps::unit.Paloma') }}</option>
+                          <option value="fa-solid fa-cat">{{ trans('cefamaps::unit.Gato') }}</option>
+                          <option value="fa-solid fa-piggy-bank">{{ trans('cefamaps::unit.Cerdo') }}</option>
+                          <option value="fa-regular fa-lemon">{{ trans('cefamaps::unit.Limon') }}</option>
                           <!-- Iconos Adicionales -->
-                          <option value="fas fa-seedling">Arroz</option>
-                          <option value="fa-solid fa-building-wheat">Edificio de Trigo</option>
+                          <option value="fas fa-seedling">{{ trans('cefamaps::unit.Arroz') }}</option>
+                          <option value="fa-solid fa-building-wheat">{{ trans('cefamaps::unit.Edificio de Trigo') }}</option>
                         </select>
                       </div>
                     </div>

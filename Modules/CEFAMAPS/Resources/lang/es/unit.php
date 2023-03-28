@@ -10,5 +10,19 @@ return [
     'Add' => 'Agregar',
     'Icon' => 'Icono',
     'Save' => 'Guardar',
-    'Sector' => 'Sector'
+    'Sector' => 'Sector',
+    'Hipopotamo' => 'Hipopotamo',
+    'Nutria' => 'Nutria',
+    'Perro' => 'Perro',
+    'Pescado'=> 'Pescado',
+    'Vaca'=> 'Vaca',
+    'Camarón'=> 'Camarón',
+    'Caballo'=> 'Caballo',
+    'Rana'=> 'Rana',
+    'Paloma'=> 'Paloma',
+    'Gato'=> 'Gato',
+    'Cerdo' => 'Cerdo',
+    'Limon'=> 'Limon',
+    'Arroz' => 'Arroz',
+    'Edificio de Trigo' => 'Edificio de Trigo'
 ];

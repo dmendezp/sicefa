@@ -92,6 +92,7 @@ class EnvironmentController extends Controller
         $farm = Farm::get();
         $coor = Coordinate::get();
         $editenviron = Environment::with('coordinates')->find($id);
+        //return $editenviron;
         $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'coor'=>$coor, 'editenviron'=>$editenviron];
         return view('cefamaps::admin.environment.edit',$data);
     }
@@ -102,10 +103,14 @@ class EnvironmentController extends Controller
      */
     public function editpost(Request $request)
     {
+        
         /* crear imagen */
+        //return $request;
         $edit = Environment::findOrFail($request->input('id'));
         $edit -> name = e ($request->input('name'));
         $edit -> description = e ($request->input('description'));
+
+        
        
          if ($request->file('file')){
             $path = 'uploads/';
@@ -113,8 +118,8 @@ class EnvironmentController extends Controller
             $request->file->storeAs($path, $final_name, 'uploads'); 
             $edit -> picture = e ($final_name);
 
-        }else{
-            $edit -> picture = e ($request->input('imagenAntigua')); 
+        //}else{
+            //$edit -> picture = e ($request->input('imagenAntigua')); 
         }
  
         $edit -> farms_id = e ($request->input('farm'));
@@ -131,11 +136,12 @@ class EnvironmentController extends Controller
                 $editcoor -> environment_id = $edit->id;
                 $editcoor -> length = e ($request->input('length')[$c]);
                 $editcoor -> latitude = e ($request->input('latitude')[$c]);
-                $c++;   
-                if ($editcoor->save()) {
-                    
+                $c++;  
+                if ( $editcoor->save()); {
+                
                 }
-            }
+            
+         }
             return redirect(route('cefamaps.admin.config.environment.index'));
         }
     }
