@@ -53,6 +53,29 @@
                         <input type="text" class="form-control" id="latitude" name="latitudespot" placeholder="1.2345">
                       </div>
                     </div>
+                    <div class="col-1">
+                      <div class="form-group">
+                        <br>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalPunto">
+                          {{ trans('cefamaps::environment.Map') }}
+                        </button>
+                        <div class="modal fade" id="modalPunto">
+                          <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                              <div class="modal-header bg-info">
+                                <h4 class="modal-title"></h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div id="mapa" style="width: 100%; height: 500px;"></div>
+                              </div>  
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <!-- fin de las longitudes y latitudes -->
                   <!-- inicio para el id del Farm -->
@@ -185,7 +208,7 @@
                                   '<div class="col">' +
                                     '<div class="form-group">' +
                                       '<label for="latitudecoor">{{ trans("cefamaps::environment.Latitude") }}</label>' +
-                                      '<input type="text" class="form-control  m-input" id="latitudecoor" name="latitudecoor[]">' +
+                                      '<input type="text" class="form-control m-input" id="latitudecoor" name="latitudecoor[]">' +
                                     '</div>' +
                                   '</div>' +
                                   '<div class="col-1">' +
@@ -248,7 +271,7 @@
                                   '<div class="col">' +
                                     '<div class="form-group">' +
                                       '<label for="latitude">{{ trans("cefamaps::environment.Latitude") }}</label>' +
-                                      '<input type="text" class="form-control  m-input" id="latitude" name="latitude[]">' +
+                                      '<input type="text" class="form-control m-input" id="latitude" name="latitude[]">' +
                                     '</div>' +
                                   '</div>' +
                                   '<div class="col-1">' +
@@ -305,6 +328,44 @@
 
   </script>
 
+  <!-- Inicio mapa para las cooordenadas -->
+  <script type="text/javascript">
+    function initMap(){
+      var latitude = 2.612320;
+      var length = -75.360842;
+
+      coordenas = {
+        lng: length,
+        lat: latitude
+      };
+
+      generarMapa(coordenas);
+      
+    }
+
+    function generarMapa(coordenas) {
+      var mapa = new google.maps.Map(document.getElementById('mapa'),
+      {
+        zoom: 16,
+        mapTypeId: 'satellite',
+        center: new google.maps.LatLng(coordenas.lat, coordenas.lng)
+      });
+
+      marcador = new google.maps.Marker({
+        map: mapa,
+        draggable: true,
+        position: new google.maps.LatLng(coordenas.lat, coordenas.lng)
+      });
+
+      marcador.addListener('dragend', function(event){
+        document.getElementById("latitude").value = this.getPosition().lat();
+        document.getElementById("length").value = this.getPosition().lng();
+      })
+    }
+    
+  </script>
+  <!-- Fin mapa para las cooordenadas -->
+
   <script type="text/javascript">
     /*
       esta es la alerta para ir a crear una UNIDAD
@@ -314,7 +375,7 @@
         var url = "{{ url('/cefamaps/unit/add') }}";
           Swal.fire({
           title: '{{ trans("cefamaps::menu.You Want") }} {{ trans("cefamaps::menu.Add") }} {{ trans("cefamaps::menu.A") }} {{ trans("cefamaps::unit.Unit") }}?',
-          text: "Si aceptas, se eliminara todos los campos llenados",
+          text: "Si aceptas, se eliminara todos los campos",
           icon: 'question',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -335,7 +396,7 @@
         var url = "{{ url('/cefamaps/farm/add') }}";
         Swal.fire({
           title: '{{ trans("cefamaps::menu.You Want") }} {{ trans("cefamaps::menu.Add") }} {{ trans("cefamaps::menu.A") }} {{ trans("cefamaps::farm.Farm") }}?',
-          text: "Si aceptas, se eliminara todos los campos llenados",
+          text: "Si aceptas, se eliminara todos los campos",
           icon: 'question',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',

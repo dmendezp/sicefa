@@ -173,5 +173,12 @@
     })
   </script>
 
+  <script>
+  $(document).ready(function () {
+    $('#example1').DataTable({
+      order: [[3, 'desc']],
+    });
+  });
+  </script>
 
 @endsection

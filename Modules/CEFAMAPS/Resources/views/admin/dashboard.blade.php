@@ -54,6 +54,9 @@
     position: 'top-end',
     showConfirmButton: false,
     timer: 2000,
+    html:
+    "<lord-icon src='https://cdn.lordicon.com/vusrdugn.json' trigger='loop' delay='2000' colors='primary:#121331,secondary:#b26836,tertiary:#848484,quaternary:#f9c9c0,quinary:#30e849' style='width:150px;height:150px'>" +
+    "</lord-icon>",
   })
 
   </script>

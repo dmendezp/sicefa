@@ -3,7 +3,11 @@
 <head>
   @include('cefamaps::layouts.partials.head')
 </head>
+@if (Route::is('*admin.*'))
+<body class="hold-transition sidebar-collapse sidebar-mini">
+@else
 <body class="hold-transition sidebar-mini">
+@endif
 <div class="wrapper">
   <!-- Navbar -->
     @include('cefamaps::layouts.partials.navbar')

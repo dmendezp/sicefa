@@ -5,6 +5,7 @@ namespace Modules\CEFAMAPS\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+//Para hacer los crud del administrador
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\Environment;

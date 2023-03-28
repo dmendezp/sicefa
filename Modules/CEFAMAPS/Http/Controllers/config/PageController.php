@@ -23,7 +23,7 @@ class PageController extends Controller
     $unit = ProductiveUnit::get();
     $farm = Farm::get();
     // filtro de la pagina con el id
-    $query = Page::query();
+    $query = Page::query()->with('environment');
     if ($request->has('id')) {
       $query->where('environment_id', $request->id);
     }

@@ -9,5 +9,6 @@ return [
     'Description' => 'Description',
     'Add' => 'Agregar',
     'Icon' => 'Icon',
-    'Save' => 'Save'
+    'Save' => 'Save',
+    'Sector' => 'Sector'
 ];

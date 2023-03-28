@@ -12,5 +12,6 @@ return [
     'File' => 'Imagen',
     'Coordinates' => 'Coordenadas',
     'Polygon' => 'Polígono',
-    'Evacuation route' => 'Ruta Evacuación'
+    'Evacuation route' => 'Ruta Evacuación',
+    'Map' => 'Mapa'
 ];

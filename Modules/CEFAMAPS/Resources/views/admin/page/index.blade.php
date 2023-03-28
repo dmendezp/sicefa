@@ -18,7 +18,7 @@
             <div class="card-body">
               <div class="content">
                 <form action="{{ route('cefamaps.admin.config.page.index') }}" method="get">
-                  <table class="table table-bordered table-striped">
+                  <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>N°</th>
@@ -57,7 +57,7 @@
                             </div>
                           </div>
                         </td>
-                        <td>{{ $r->environment_id }}</td>
+                        <td>{{ $r->environment->name }}</td>
                         <td>
                           <a href="{{url('/cefamaps/page/edit/'.$r->id)}}" class="btn btn-warning">
                             <i class="fas fa-map-signs"></i>
@@ -106,6 +106,14 @@
         })
       })
     })
+  </script>
+
+  <script>
+  $(document).ready(function () {
+    $('#example1').DataTable({
+      order: [[3, 'desc']],
+    });
+  });
   </script>
 
 @endsection

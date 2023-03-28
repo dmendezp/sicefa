@@ -23,7 +23,7 @@
                       <th>N°</th>
                       <th>{{ trans('cefamaps::unit.Name') }}</th>
                       <th>{{ trans('cefamaps::unit.Person in charge') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</th>
-                      <td>{{ trans('cefamaps::unit.Sector') }}</td>
+                      <th>{{ trans('cefamaps::unit.Sector') }}</th>
                       <th>{{ trans('cefamaps::unit.Description') }}</th>
                       <th>{{ trans('cefamaps::unit.Icon') }}</th>
                       <th>
@@ -60,7 +60,7 @@
                       <th>N°</th>
                       <th>{{ trans('cefamaps::unit.Name') }}</th>
                       <th>{{ trans('cefamaps::unit.Person in charge') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</th>
-                      <td>{{ trans('cefamaps::unit.Sector') }}</td>
+                      <th>{{ trans('cefamaps::unit.Sector') }}</th>
                       <th>{{ trans('cefamaps::unit.Description') }}</th>
                       <th>{{ trans('cefamaps::unit.Icon') }}</th>
                       <th></th>
