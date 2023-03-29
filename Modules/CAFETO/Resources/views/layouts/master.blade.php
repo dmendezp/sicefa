@@ -39,8 +39,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- /.content-header -->
 
             <!-- Main content -->
-                @section('content')
-                @show
+            <section class="content">
+                <!-- Container-fluid -->
+                <div class="container-fluid">
+                    @section('content') @show
+                </div>
+                <!--/. container-fluid -->
+            </section>
             <!-- /.content -->
 
         </div>
