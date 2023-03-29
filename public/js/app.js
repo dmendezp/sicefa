@@ -6491,7 +6491,7 @@ var Index = /*#__PURE__*/function (_Component) {
                   isLoading: true
                 });
                 _context.next = 5;
-                return axios__WEBPACK_IMPORTED_MODULE_6___default().get("http://127.0.0.1:8000/cafeto/admin/sales/search/".concat(this.state.value));
+                return axios__WEBPACK_IMPORTED_MODULE_6___default().get(base+"/cafeto/admin/sales/search/".concat(this.state.value));
 
               case 5:
                 response = _context.sent;

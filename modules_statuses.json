@@ -6,5 +6,7 @@
     "PTOVENTA": true,
     "CEFAMAPS": true,
     "TILABS": true,
-    "GANADERIA": true
+    "GANADERIA": true,
+    "SENAEMPRESA": true,
+    "CPD": true
 }

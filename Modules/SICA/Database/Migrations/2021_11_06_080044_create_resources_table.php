@@ -15,8 +15,8 @@ class CreateResourcesTable extends Migration
     {
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('labor_id')->constrained()->onDelete('cascade');  
-            $table->foreignId('inventorie_id')->constrained()->onDelete('cascade');  
+            $table->foreignId('labor_id')->constrained()->onDelete('cascade');
+            $table->foreignId('inventorie_id')->constrained()->onDelete('cascade');
             $table->integer('amount');
             $table->integer('value');
             $table->enum('status',['pendiente','realizado']);
@@ -33,6 +33,7 @@ class CreateResourcesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('resources');
     }
 }

@@ -11,6 +11,19 @@
 |
 */
 
-Route::prefix('cefamaps')->group(function() {
-    Route::get('/index', 'CEFAMAPSController@index')->name('cefa.cefamaps.index');;
-});
+Route::middleware(['lang'])->group(function(){
+
+    Route::prefix('cefamaps')->group(function() {
+        
+        Route::get('/index', 'CEFAMAPSController@index')->name('cefa.cefamaps.index');;
+        Route::get('/sst', 'CEFAMAPSController@sst')->name('cefa.cefamaps.sst');
+        Route::get('/sst/evacuation', 'CEFAMAPSController@evacuation')->name('cefa.cefamaps.sst.evacuation');
+
+
+    });  
+
+}); 
+
+
+
+

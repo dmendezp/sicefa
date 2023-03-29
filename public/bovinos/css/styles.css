@@ -7,9 +7,15 @@
 .mbottom16
 	{margin-bottom:16px}
 .main-header .navbar-nav .active
+<<<<<<< HEAD
 	{background-color:#0bb33e !important}
 .main-sidebar .nav-sidebar .active
 	{background-color:#0bb33e!important}
+=======
+	{background-color:#55cf3c !important}
+.main-sidebar .nav-sidebar .active
+	{background-color:#55cf3c!important}
+>>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
 #breadvar
 	{padding:8px;background-color:#0bb33e;border-radius:4px}
 .breadcrumb .breadcrumb-item a

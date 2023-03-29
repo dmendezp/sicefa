@@ -11,6 +11,7 @@ Route::middleware(['lang'])->group(function(){
 
         Route::get('/index', 'GANADERIAController@index')->name('cefa.ganaderia.home.index');
         Route::get('/developers', 'GANADERIA@developers')->name('cefa.ganaderia.home.developers');
+<<<<<<< HEAD
         Route::get('/property', 'GANADERIAController@property')->name('cefa.ganaderia.home.property');
         
         //rutas vistas y rol//
@@ -59,6 +60,12 @@ Route::middleware(['lang'])->group(function(){
         
         
         
+=======
+        Route::get('/contact', 'GANADERIAController@contact')->name('cefa.ganaderia.home.contact');
+        Route::get('/admin', 'AdminController@dashboard')->name('ganaderia.admin.dashboard');
+        
+        Route::get('/unidades', 'UnidadesController@index')->name('cefa.ganaderia.home.unidades');
+>>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
        
         
         

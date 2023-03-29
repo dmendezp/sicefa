@@ -18,7 +18,10 @@
         <div class="row">
           <div class="col-md-12" id="breadvar">
             <ol class="breadcrumb float-sm-right">
+<<<<<<< HEAD
               
+=======
+>>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
               <li class="breadcrumb-item"><a href=""><i class="fas fa-hat-cowboy"></i> {{ __('Ganaderia') }}</a></li>
               @section('breadcrumb')
               @show
@@ -58,11 +61,14 @@
   <!-- Main Footer -->
     @include('ganaderia::layouts.partials.footer')
 </div>
+<<<<<<< HEAD
 
 @include('ganaderia::layouts.partials.scripts')
 
 @section('script')
 @show
+=======
+>>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
 <!-- ./wrapper -->
 </body>
 </html>

@@ -19,15 +19,15 @@ class CreateInventoriesTable extends Migration
             $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
             $table->foreignId('element_id')->constrained()->onDelete('cascade');
             $table->text('description');
-            $table->integer('value');
+            $table->integer('price');
             $table->integer('amount');
             $table->integer('stock');
-            $table->date('produton_date');
+            $table->date('production_date');
             $table->integer('lot_number');
             $table->date('expiration_date');
-            $table->enum('state',['available','disabled']);
+            $table->enum('state',['Disponible','No disponible']);
             $table->string('mark');
-            $table->unsignedInteger('inventoryCode');
+            $table->unsignedInteger('inventory_code')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -40,6 +40,7 @@ class CreateInventoriesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('inventories');
     }
 }

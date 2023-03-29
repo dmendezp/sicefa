@@ -62,6 +62,10 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
+{{ Route::currentRouteName(); }}
+
+@if(!Route::is('*.sst*'))
+
           <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-th"></i>
@@ -78,6 +82,43 @@
               </p>
             </a>
           </li>
+@else
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Rutas de evacuacion
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Extintores
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Salud
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Videos
+              </p>
+            </a>
+          </li>
+
+@endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
