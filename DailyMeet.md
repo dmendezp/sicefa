@@ -17,7 +17,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar*
+
 * **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
@@ -73,8 +73,12 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
+
+* **Santiago Hernandez** - *Implementacion de roles* 
+* **Juan Felipe Duque** - *crear controlador para definir la vista*
+* **Anggy Lorena Cortes** - *Agregar vista de usuarios al sidevar* 
+* **Karen Dallana Murcia** - *Implementacion de datatable a la tabla de usuario* 
+
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -89,8 +93,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+* **Santiago Hernandez** - *Implementacion de roles* - *Avance %* - *Dificultades* - *Acciones*
+* **Juan Felipe Duque** - *crear controlador para definir la vista* - *Avance %* - *Dificultades* - *Acciones*
+* **Anggy Lorena Cortes** - *Agregar vista de usuarios al sidebar* - *Avance %* - *Dificultades* - *Acciones*
+* **Karen Dallana Murcia** - *Implementacion de datatable a la tabla de usuario* - *Avance %* - *Dificultades* - *Acciones*
+
+
 ---
 #### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
