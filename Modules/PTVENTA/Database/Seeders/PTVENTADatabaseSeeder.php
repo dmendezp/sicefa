@@ -15,6 +15,7 @@ class PTVENTADatabaseSeeder extends Seeder
     {
 
         $this->call(AppTableSeeder::class); // llamar seeder de aplicación PTVENTA
+        $this->call(ElementTableSeeder::class); // llamar seeder de elementos
 
     }
 }
