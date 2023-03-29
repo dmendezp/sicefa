@@ -8,72 +8,23 @@ use Illuminate\Routing\Controller;
 
 class GANADERIAController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+
     public function index()
     {
-        return view('ganaderia::index');
+        $data = ['title'=>trans('ganaderia::menu.Home')];
+        return view('ganaderia::index',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function property()
     {
-        return view('ganaderia::create');
-    }
+        $data = ['title'=>trans('ganaderia::menu.property')];
+        return view('ganaderia::property',$data);
+    }    
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function developers()
     {
-        //
+        $data = ['title'=>trans('ganaderia::menu.Developers')];
+        return view('ganaderia::developers',$data);
     }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('ganaderia::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('ganaderia::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }
