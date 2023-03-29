@@ -18,6 +18,7 @@ class CreateProductiveUnitsTable extends Migration
             $table->string('name');
             $table->foreignId('person_id')->constrained()->ondelete('cascade');
             $table->text('description');
+            $table->string('icon');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +31,7 @@ class CreateProductiveUnitsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('productive_units');
     }
 }

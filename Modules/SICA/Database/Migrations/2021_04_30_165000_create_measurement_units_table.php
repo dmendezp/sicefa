@@ -16,6 +16,8 @@ class CreateMeasurementUnitsTable extends Migration
         Schema::create('measurement_units', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('minimum_unit_measure');
+            $table->float('conversion_factor', 8, 2);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +30,7 @@ class CreateMeasurementUnitsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('measurement_units');
     }
 }

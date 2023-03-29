@@ -69,10 +69,23 @@
               </a>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
               <a href="{{ route('cefa.ganaderia.home.property') }}" class="nav-link {{ ! Route::is('cefa.ganaderia.home.property') ?: 'active' }}">
               <i class="fas fa-mountain"></i>
                 <p>
                   Predios
+<<<<<<< HEAD
+=======
+=======
+              <a href="{{ route('cefa.ganaderia.home.contact') }}" class="nav-link {{ ! Route::is('cefa.ganaderia.home.contact') ?: 'active' }}">
+                <i class="fas fa-envelope-open-text"></i>
+                <p>
+                  Contactenos
+>>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
+>>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
                 </p>
               </a>
             </li>
@@ -87,7 +100,11 @@
           @endif
 
           <!-- CIERRA MENU PARA HOME (DE ACCESO GENERAL) -->
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
 <!-- MENU PARA VETERINARIO -->
           @if (Route::is('*admin.*'))
 
@@ -116,6 +133,7 @@
                     <p>Reproduccion</p>
                   </a>
                 </li>
+<<<<<<< HEAD
                 </ul>
             </li>
             <!-- MENU PARA REGISTRO DE ACTIVIDAD -->
@@ -125,10 +143,50 @@
               <i class="fas fa-pen-square"></i>
                 <p>
                   Registro de Actividades
+=======
+
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.medicalhistory.reproductivebehavior') }}" class="nav-link {{ ! Route::is('ganaderia.admin.medicalhistory.reproductivebehavior*') ?: 'active' }}">
+                  <i class="fas fa-medkit"></i>
+                    <p>Comportamiento Reproductivo</p>
+                  </a>
+                  </ul>
+                </li>
+      
+
+            <!-- MENU PARA INVENTARIO -->
+
+                <li class="nav-item {{ ! Route::is('ganaderia.admin.inventory.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('ganaderia.admin.inventory.*') ?: 'active' }}">
+              <i class="fas fa-boxes"></i>
+                <p>
+                  Inventario
+=======
+<!-- MENU PARA ADMINISTRADOR -->
+          @if (Route::is('*admin.*'))
+
+
+            <li class="nav-item">
+              <a href="{{ route('ganaderia.admin.dashboard') }}" class="nav-link {{ ! Route::is('ganaderia.admin.dashboard') ?: 'active' }}" >
+                <i class="fas fa-tachometer-alt"></i>
+                <p>Volver al panel</p>
+              </a>
+            </li>
+            @guest
+            @else
+<!-- MENU PARA PEOPLE -->
+           <li class="nav-item {{ ! Route::is('ganaderia.admin.people.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('ganaderia.admin.people.*') ?: 'active' }}">
+                <i class="fas fa-users"></i>
+                <p>
+                  Personal
+>>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
+>>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
+<<<<<<< HEAD
 
               <li class="nav-item">
                   <a href="{{ route('ganaderia.admin.activity.productive_unit') }}" class="nav-link {{ ! Route::is('ganaderia.admin.activity.productive_unit*') ?: 'active' }}">
@@ -152,10 +210,87 @@
               <i class="fas fa-pencil-alt"></i>
                 <p>
                   Registro 
+=======
+<<<<<<< HEAD
+               
+              <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.inventory.supplies') }}" class="nav-link {{ ! Route::is('ganaderia.admin.inventory.supplies*') ?: 'active' }}">
+                  <i class="fas fa-dolly"></i>
+                    <p>Insumos</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.inventory.medicine') }}" class="nav-link {{ ! Route::is('ganaderia.admin.inventory.medicine*') ?: 'active' }}">
+                  <i class="fas fa-pills"></i>
+                    <p>Medicamentos</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.inventory.animals') }}" class="nav-link {{ ! Route::is('ganaderia.admin.inventory.animals*') ?: 'active' }}">
+                  <i class="fas fa-weight-hanging"></i>
+                    <p> Animales</p>
+                  </a>
+                  </ul>
+                </li>
+ 
+                <!-- MENU PARA HISTORIAL CLINICO-->
+
+                <li class="nav-item {{ ! Route::is('ganaderia.admin.medicalhistory.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('ganaderia.admin.medicalhistory.*') ?: 'active' }}">
+              <i class="fas fa-stethoscope"></i>
+=======
+                @if(Auth::user()->havePermission('home.people.personal_data'))
+               
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.people.personal_data') }}" class="nav-link {{ ! Route::is('ganaderia.admin.people.personal_data*') ?: 'active' }}">
+                    <i class="fas fa-id-card"></i>
+                    <p>Aprendiz</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('ganaderia.admin.people.search_apprentices'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.people.search_apprentices') }}" class="nav-link {{ ! Route::is('ganaderia.admin.people.search_apprentices*') ?: 'active' }}">
+                    <i class="fas fa-user-graduate"></i>
+                    <p>{{ trans('ganaderia::menu.Apprentices') }}</p>
+                  </a>
+                </li>
+                @endif
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.people.instructors') }}" class="nav-link {{ ! Route::is('ganaderia.admin.people.instructors*') ?: 'active' }}">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <p>{{ trans('ganaderia::menu.Instructors') }}</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.people.officers') }}" class="nav-link {{ ! Route::is('ganaderia.admin.people.officers*') ?: 'active' }}">
+                    <i class="fas fa-id-card"></i>
+                    <p>{{ trans('ganaderia::menu.Officers') }}</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.people.contractors') }}" class="nav-link {{ ! Route::is('ganaderia.admin.people.contractors*') ?: 'active' }}">
+                    <i class="far fa-id-card"></i>
+                    <p>{{ trans('ganaderia::menu.Contractors') }}</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+    <!-- CIERRA MENU PARA PEOPLE -->    
+    <!-- MENU PARA ACADEMY -->
+            <li class="nav-item {{ ! Route::is('ganaderia.admin.academy.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('ganaderia.admin.academy.*') ?: 'active' }}">
+                <i class="fas fa-school"></i>
+                <p>
+                  Unidades
+>>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
+<<<<<<< HEAD
 
               <li class="nav-item">
                   <a href="{{ route('ganaderia.admin.activity.productive_unit') }}" class="nav-link {{ ! Route::is('ganaderia.admin.activity.productive_unit*') ?: 'active' }}">
@@ -176,11 +311,224 @@
                   </a>
                 </li>
                 </ul>
+=======
+                @if(Auth::user()->havePermission('ganaderia.admin.academy.quarters'))
+                <li class="nav-item">
+                  <a href="{{ route('cefa.ganaderia.home.unidades') }}" class="nav-link {{ ! Route::is('ganaderia.admin.academy.quarters*') ?: 'active' }}">
+                    <i class="fas fa-calendar-alt"></i>
+                    <p>{{ trans('ganaderia::menu.Quarters') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('ganaderia.admin.academy.curriculums'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.academy.curriculums') }}" class="nav-link {{ ! Route::is('ganaderia.admin.academy.curriculums*') ?: 'active' }}">
+                    <i class="fas fa-book"></i>
+                    <p>{{ trans('ganaderia::menu.Curriculums') }}</p>
+                  </a>
+                </li>
+                @endif
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.academy.courses') }}" class="nav-link {{ ! Route::is('ganaderia.admin.academy.courses*') ?: 'active' }}">
+                    <i class="fas fa-graduation-cap"></i>
+                    <p>{{ trans('ganaderia::menu.Courses') }}</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+    <!-- CIERRA MENU PARA ACADEMY -->
+    <!-- MENU PARA LOCATION -->
+            <li class="nav-item {{ ! Route::is('ganaderia.admin.location.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('ganaderia.admin.location.*') ?: 'active' }}">
+                <i class="fas fa-atlas"></i>
+>>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
+                <p>
+                  Historial Clinico
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+<<<<<<< HEAD
+
+              <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.medicalhistory.generaldata') }}" class="nav-link {{ ! Route::is('ganaderia.admin.medicalhistory.generaldata*') ?: 'active' }}">
+                  <i class="fas fa-file-signature"></i>
+                    <p>Historial Animal</p>
+                  </a>
+                </li>
+
+
+                <!-- MENU PARA PRODUCCION-->
+
+                <li class="nav-item {{ ! Route::is('ganaderia.admin.medicalhistory.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('ganaderia.admin.medicalhistory.*') ?: 'active' }}">
+              <i class="fas fa-hand-holding-usd"></i>
+                <p>
+                  Produccion
+=======
+                @if(Auth::user()->havePermission('ganaderia.admin.location.countries'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.location.countries') }}" class="nav-link {{ ! Route::is('ganaderia.admin.location.countries*') ?: 'active' }}">
+                    <i class="fas fa-globe-americas"></i></i>
+                    <p>{{ trans('ganaderia::menu.Countries') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('ganaderia.admin.location.farms'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.location.farms') }}" class="nav-link {{ ! Route::is('ganaderia.admin.location.farms*') ?: 'active' }}">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <p>{{ trans('ganaderia::menu.Farms') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('ganaderia.admin.location.environments'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.location.environments') }}" class="nav-link {{ ! Route::is('ganaderia.admin.location.environments*') ?: 'active' }}">
+                    <i class="fas fa-street-view"></i>
+                    <p>{{ trans('ganaderia::menu.Environments') }}</p>
+                  </a>
+                </li>
+                @endif
+              </ul>
+            </li>    
+    <!-- CIERRA MENU PARA LOCATION -->
+    <!-- MENU PARA INVENTORY -->
+            <li class="nav-item {{ ! Route::is('ganaderia.admin.inventory.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('ganaderia.admin.inventory.*') ?: 'active' }}">
+                <i class="fa-solid fa-boxes-stacked"></i>
+                <p>
+                  Insumos
+>>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+<<<<<<< HEAD
+>>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
 
              
             @endguest
          
 <!-- CIERRA MENU PARA VETERINARIO -->
+<<<<<<< HEAD
+=======
+=======
+                @if(Auth::user()->havePermission('ganaderia.admin.inventory.warehouses'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.inventory.warehouses') }}" class="nav-link {{ ! Route::is('ganaderia.admin.inventory.warehouses*') ?: 'active' }}">
+                    <i class="fas fa-warehouse"></i>
+                    <p>{{ trans('ganaderia::menu.Warehouses') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('ganaderia.admin.inventory.elements'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.inventory.elements') }}" class="nav-link {{ ! Route::is('ganaderia.admin.inventory.elements*') ?: 'active' }}">
+                    <i class="fas fa-shapes"></i>
+                    <p>{{ trans('ganaderia::menu.Elements') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('ganaderia.admin.inventory.transactions'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.inventory.transactions') }}" class="nav-link {{ ! Route::is('ganaderia.admin.inventory.transactions*') ?: 'active' }}">
+                    <i class="fas fa-dolly-flatbed"></i>
+                    <p>{{ trans('ganaderia::menu.Transactions') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('ganaderia.admin.inventory.inventory'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.inventory.inventory') }}" class="nav-link {{ ! Route::is('ganaderia.admin.inventory.inventory*') ?: 'active' }}">
+                    <i class="fas fa-clipboard-list"></i>
+                    <p>{{ trans('ganaderia::menu.Inventory') }}</p>
+                  </a>
+                </li>
+                @endif              
+              </ul>
+            </li>    
+    <!-- CIERRA MENU PARA INVENTORY -->
+    <!-- MENU PARA UNITS -->
+            <li class="nav-item {{ ! Route::is('ganaderia.admin.units.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('ganaderia.admin.units.*') ?: 'active' }}">
+                <i class="fas fa-network-wired"></i>
+                <p>
+                  Poblacion
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                @if(Auth::user()->havePermission('ganaderia.admin.units.areas'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.units.areas') }}" class="nav-link {{ ! Route::is('ganaderia.admin.units.areas*') ?: 'active' }}">
+                    <i class="fas fa-sign"></i>
+                    <p>{{ trans('ganaderia::menu.Areas') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('ganaderia.admin.units.consumption'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.units.consumption') }}" class="nav-link {{ ! Route::is('ganaderia.admin.units.consumption*') ?: 'active' }}">
+                    <i class="fas fa-folder-minus"></i>
+                    <p>{{ trans('ganaderia::menu.Consumption') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('ganaderia.admin.units.production'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.units.production') }}" class="nav-link {{ ! Route::is('ganaderia.admin.units.production*') ?: 'active' }}">
+                    <i class="fas fa-folder-plus"></i>
+                    <p>{{ trans('ganaderia::menu.Production') }}</p>
+                  </a>
+                </li>
+                @endif
+              </ul>
+            </li>    
+    <!-- CIERRA MENU PARA UNITS -->
+    <!-- MENU PARA SECURITY -->
+            <li class="nav-item {{ ! Route::is('ganaderia.admin.security.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('ganaderia.admin.security.*') ?: 'active' }}">
+                <i class="fas fa-shield-alt"></i>
+                <p>
+                  R
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                @if(Auth::user()->havePermission('ganaderia.admin.security.apps'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.security.apps') }}" class="nav-link {{ ! Route::is('ganaderia.admin.security.apps*') ?: 'active' }}">
+                    <i class="fas fa-th"></i>
+                    <p>{{ trans('ganaderia::menu.Apps') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('ganaderia.admin.security.roles'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.security.roles') }}" class="nav-link {{ ! Route::is('ganaderia.admin.security.roles*') ?: 'active' }}">
+                    <i class="fas fa-user-tag"></i>
+                    <p>{{ trans('ganaderia::menu.Roles') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('ganaderia.admin.security.users'))
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.security.users') }}" class="nav-link {{ ! Route::is('ganaderia.admin.security.users*') ?: 'active' }}">
+                    <i class="fas fa-user-shield"></i>
+                    <p>{{ trans('ganaderia::menu.Users') }}</p>
+                  </a>
+                </li>
+                @endif
+              </ul>
+            </li>
+    <!-- CIERRA MENU PARA SECURITY -->                       
+            @endguest
+          @endif
+<!-- CIERRA MENU PARA ADMINISTRADOR -->
+>>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
+>>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
 
         </ul>
       </nav>

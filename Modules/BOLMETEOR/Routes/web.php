@@ -19,9 +19,9 @@
 		    return view('bolmeteor::estacion.index');
 		})->name('bolmeteor.estacion.index');
 
-		Route::get('/climaticdata', 'BolmeteorController@getClimaticData')->name('bolmeteor.estacion.climaticdata');
-		Route::delete('/climaticdata/delete/{id}', 'BolmeteorController@destroy')->name('bolmeteor.estacion.climaticdata.delete');
-		Route::post('climaticdata/update','BolmeteorController@update')->name('bolmeteor.estacion.climaticdata.update');
+		Route::get('/climaticdata', 'BOLMETEORController@getClimaticData')->name('bolmeteor.estacion.climaticdata');
+		Route::delete('/climaticdata/delete/{id}', 'BOLMETEORController@destroy')->name('bolmeteor.estacion.climaticdata.delete');
+		Route::post('climaticdata/update','BOLMETEORController@update')->name('bolmeteor.estacion.climaticdata.update');
 
 		Route::get('/desarrolladores', function () {
 		    return view('bolmeteor::estacion.desarrolladores');
@@ -46,9 +46,9 @@
 			return view('bolmeteor::admin.dashboard');
 		})->name('bolmeteor.admin.dashboard');
 		
-		Route::get('/climaticdata', 'BolmeteorController@getClimaticData')->name('bolmeteor.admin.estacion.climaticdata');
-		Route::delete('/{id}', 'BolmeteorController@destroy')->name('bolmeteor.admin.estacion.climaticdata.delete');
-		Route::post('/','BolmeteorController@store')->name('bolmeteor.admin.estacion.climaticdata.store');
+		Route::get('/climaticdata', 'BOLMETEORController@getClimaticData')->name('bolmeteor.admin.estacion.climaticdata');
+		Route::delete('/{id}', 'BOLMETEORController@destroy')->name('bolmeteor.admin.estacion.climaticdata.delete');
+		Route::post('/','BOLMETEORController@store')->name('bolmeteor.admin.estacion.climaticdata.store');
 		
 		Route::get('/graficas','GraphicsController@getGraficas')->name('bolmeteor.admin.graficas');
 		Route::post('/graficas/search','GraphicsController@postValuesSearch')->name('bolmeteor.admin.graficas.search');

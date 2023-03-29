@@ -1,0 +1,13 @@
+{
+    "name": "CPD",
+    "alias": "cpd",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CPD\\Providers\\CPDServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

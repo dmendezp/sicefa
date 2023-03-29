@@ -7,6 +7,12 @@
     "CEFAMAPS": true,
     "TILABS": true,
     "GANADERIA": true,
+<<<<<<< HEAD
     "Migration": true,
     "CreateProductiveUnitTable": true
 }
+=======
+    "SENAEMPRESA": true,
+    "CPD": true
+}
+>>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3

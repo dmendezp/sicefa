@@ -15,10 +15,23 @@ class GANADERIAController extends Controller
         return view('ganaderia::index',$data);
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
     public function property()
     {
         $data = ['title'=>trans('ganaderia::menu.property')];
         return view('ganaderia::property',$data);
+<<<<<<< HEAD
+=======
+=======
+    public function contact()
+    {
+        $data = ['title'=>trans('ganaderia::menu.Contact')];
+        return view('ganaderia::form_contact',$data);
+>>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
+>>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
     }    
 
     public function developers()
