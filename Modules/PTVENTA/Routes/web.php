@@ -18,6 +18,8 @@ Route::prefix('ptventa')->group(function() {  // agrega el prefijo en la url (si
     // Rutas generales para el modulo PTVENTA
     Route::controller(PTVENTAController::class)->group(function(){ // Agregar por única vez el controlodaar para posteriormente solo definir rutas con el formato (url, método_controlador)->name(nombre_de_ruta)
         Route::get('index', 'index')->name('cefa.ptventa.index'); // Vista principal y pública de la aplicación.
+        Route::get('sales', 'indexSales')->name('cefa.ptventa.indexSales'); // Vista principal y pública de la aplicación.
+        Route::get('products', 'indexProducts')->name('cefa.ptventa.indexProducts'); // Vista principal y pública de la aplicación.
     });
 
     // Rutas para elementos

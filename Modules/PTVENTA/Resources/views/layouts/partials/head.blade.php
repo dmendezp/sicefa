@@ -14,3 +14,4 @@
 <link rel="stylesheet" href="{{ asset('ptventa/css/card_styles.css') }}"> {{-- En este archivo se modifican las propiedades de estilos de las cards --}}
  {{-- Boostrap-5.3.0--}}
  <link rel="stylesheet" href=" {{ asset('ptventa/libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css') }}" crossorigin="anonymous"> {{-- Se llaman todos los estilos de bootstrap 5.3.0 de manera local desde la ruta que esta mencionanda --}}
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

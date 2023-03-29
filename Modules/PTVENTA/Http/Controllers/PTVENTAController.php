@@ -19,6 +19,20 @@ class PTVENTAController extends Controller
         return view('ptventa::index', compact('view', 'titleView'));
     }
 
+    public function indexSales()
+    {
+        $titleView = 'Sección de Ventas';
+        $view = ['titlePage' => 'Ventas'];
+        return view('ptventa::sales/index', compact('view', 'titleView'));
+    }
+
+    public function indexProducts()
+    {
+        $titleView = 'Sección de Productos e Inventariado';
+        $view = ['titlePage' => 'Productos'];
+        return view('ptventa::products/index', compact('view', 'titleView'));
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable
