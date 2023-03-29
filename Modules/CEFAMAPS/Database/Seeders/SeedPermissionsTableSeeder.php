@@ -51,13 +51,13 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         //crear usuario administrador
-        $useradmin = User::where('nickname','Sabogal22')->first();
+        $useradmin = User::where('nickname','Lola Fernada')->first();
         if(!$useradmin){
-            $person = Person::where('document_number','1079172063')->first();
+            $person = Person::where('document_number','1010115617')->first();
             $useradmin = User::create([
-                "nickname" => "Sabogal22",
+                "nickname" => "Lola Fernada",
                 "person_id" => $person->id,
-                "email" => "nsabogalgaitan@gmail.com",
+                "email" => "thejorgecool@gmail.com",
                 "password" => Hash::make("12345678")
             ]);
         }

@@ -5,6 +5,7 @@ namespace Modules\CEFAMAPS\Http\Controllers\sst;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Models\Carrusel;
 //Para hacer los crud del administrador
 
 class SSTController extends Controller
@@ -16,7 +17,7 @@ class SSTController extends Controller
     public function index()
     {
         $data = ['title'=>trans('cefamaps::SST.Home')];
-        return view('cefamaps::sst.index',$data);
+        return view('cefamaps::sst.index', $data);
     }
     
     public function evacuation()
@@ -24,4 +25,20 @@ class SSTController extends Controller
         $data = ['title'=>trans('cefamaps::menu.Home')];
         return view('cefamaps::sst.evacuation', $data);
     }
+    public function Extintores()
+    {
+        $data = ['title'=>trans('cefamaps::menu.Home')];
+        return view('cefamaps::sst.Extintores', $data);
+    }
+    public function healt()
+    {
+        $data = ['title'=>trans('cefamaps::menu.Home')];
+        return view('cefamaps::sst.healt', $data);
+    }
+    public function videos()
+    {
+        $data = ['title'=>trans('cefamaps::menu.Home')];
+        return view('cefamaps::sst.videos', $data);
+    }
+
 }

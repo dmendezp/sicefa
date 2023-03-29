@@ -88,6 +88,8 @@
                   </a>
                 </li>
               </ul>
+
+              
               <!-- Fin para las Unidades del adminitrador -->
               <!-- Inicio para las granjas del adminitrador -->
               <ul class="nav nav-treeview">
@@ -198,36 +200,29 @@
         @else
           <li class="nav-item">
             <a href="{{ route('cefamaps.sst.evacuation') }}" class="nav-link {{ ! Route::is('cefamaps.sst.evacuation*') ?: 'active' }}">
-              <i class="nav-icon fas fa-th"></i>
+            <i class="fas fa-door-open"></i>
               <p>
                 Rutas de evacuacion
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{ route('cefamaps.sst.Extintores') }}" class="nav-link">
+            <i class="fas fa-fire-extinguisher"></i>
               <p>
                 Extintores
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{ route('cefamaps.sst.healt') }}" class="nav-link">
+            <i class="fas fa-heartbeat"></i>
               <p>
                 Salud
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Videos
-              </p>
-            </a>
-          </li>
+          
         @endif
         </ul>
       </nav>
