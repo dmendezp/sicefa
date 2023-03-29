@@ -23,7 +23,7 @@
                   <tr>
                     <th>Id</th>
                     <th>Nickname</th>
-                    <th>Nombre</th>
+                    <th>{{ trans('sica::forms.Name') }}</th>
                     <th>Correo</th>
                     <th>Acciones</th>
                   </tr>

@@ -4,6 +4,7 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\PopulationGroup;
 use Modules\SICA\Entities\Apprentice;
@@ -11,9 +12,12 @@ use Modules\EVS\Entities\Candidate;
 use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
+use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\Event;
 
-class Person extends Model
+class Person extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
@@ -79,6 +83,14 @@ class Person extends Model
 
     public function juries(){
         return $this->hasMany(Jury::class);
+    }
+
+    public function productive_units(){
+        return $this->hasMany(ProductiveUnit::class);
+    }
+
+    public function events(){
+        return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
     }
 
 }

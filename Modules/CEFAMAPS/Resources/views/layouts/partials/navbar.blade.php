@@ -5,9 +5,11 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link active">Home</a>
+        <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link active">Home</a>
       </li>
-
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{{ route('cefa.cefamaps.sst') }}" class="nav-link active">SST</a>
+      </li>
     </ul>
 
 

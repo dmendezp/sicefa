@@ -20,8 +20,8 @@ class CreateMovementsTable extends Migration
             $table->unsignedInteger('voucher_number')->nullable();
             $table->integer('total');
             $table->text('observation');
-            $table->enum('state',['solicitud','aprovacion','anulada','devuelto']);
-            $table->enum('type_movement',['MovInterno','ventas','bajas','PresInterno','PresExtreno']);
+            $table->enum('state',['Solicitud','Aprovacion','Anulada','Devuelto']);
+            $table->enum('type_movement',['MovInterno','Ventas','Bajas','PresInterno','PresExtreno']);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +34,7 @@ class CreateMovementsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('movements');
     }
 }
