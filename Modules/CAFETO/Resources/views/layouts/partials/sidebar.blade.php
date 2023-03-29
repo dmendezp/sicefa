@@ -15,7 +15,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ route('cefa.cafeto.home.productos')}}" class="nav-link">
             <i class="nav-icon fas fa-truck-loading text-light"></i>
             <p class="text-light">
               Productos
@@ -23,7 +23,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ route('cefa.cafeto.home.inventario')}}" class="nav-link">
             <i class="nav-icon fas fa-list-ul text-light"></i>
             <p class="text-light">
               Inventario
@@ -31,7 +31,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ route('cefa.cafeto.home.ventas')}}" class="nav-link">
             <i class="nav-icon fas fa-shopping-cart text-light"></i>
             <p class="text-light">
               Ventas

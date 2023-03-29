@@ -21,9 +21,19 @@ class CAFETOController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function productos()
     {
-        return view('cafeto::create');
+        return view('cafeto::productos');
+    }
+
+    public function inventario()
+    {
+        return view('cafeto::inventario');
+    }
+
+    public function ventas()
+    {
+        return view('cafeto::ventas');
     }
 
     /**
