@@ -30,7 +30,7 @@
                     <!-- fin del nombre -->
                     <div class="col">
                       <div class="form-group">
-                        <label for="sector">{{ trans('cefampas::unit.Sector') }}</label>
+                        <label for="sector">{{ trans('cefamaps::unit.Sector') }}</label>
                         <select class="form-control select2" name="sector" id="sector" required>
                           @foreach ($sector as $s)
                           <option value="{{ $s->id }}">{{ $s->name }}</option>

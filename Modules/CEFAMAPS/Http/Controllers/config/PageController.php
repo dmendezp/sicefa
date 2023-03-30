@@ -54,11 +54,11 @@ class PageController extends Controller
   {
     $content = $request->content;
     $dom = new \DomDocument();
-    $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-    $imageFile = $dom->getElementsByTagName('imageFile');
+    $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR);
+    $imageFile = $dom->getElementsByTagName('image');
 
     foreach($imageFile as $item => $image){
-      $data = $img->getAttribute('src');
+      $data = $image->getAttribute('src');
       list($type, $data) = explode(';', $data);
       list(, $data)      = explode(',', $data);
       $imgeData = base64_decode($data);
@@ -73,7 +73,7 @@ class PageController extends Controller
     $content = $dom->saveHTML();
     $fileUpload = new Page;
     $fileUpload->name = $request->name;
-    $fileUpload -> environment_id = $request->environ;
+    $fileUpload ->environment_id = $request->environ;
     $fileUpload->content = $content;
     if ($fileUpload->save()) {
       return redirect(route('cefamaps.admin.config.page.index'));
@@ -104,11 +104,11 @@ class PageController extends Controller
   {
     $content = $request->content;
     $dom = new \DomDocument();
-    $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-    $imageFile = $dom->getElementsByTagName('imageFile');
+    $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR);
+    $imageFile = $dom->getElementsByTagName('img');
 
     foreach($imageFile as $item => $image){
-      $data = $img->getAttribute('src');
+      $data = $image->getAttribute('src');
       list($type, $data) = explode(';', $data);
       list(, $data)      = explode(',', $data);
       $imgeData = base64_decode($data);
@@ -138,6 +138,7 @@ class PageController extends Controller
   {
     $remove = Page::findOrFail($id);
     if ($remove->delete()) {
+
       return back();
     }
   }

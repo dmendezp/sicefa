@@ -17,7 +17,7 @@
               <h3 class="m-0">{{ trans('cefamaps::menu.Add') }} {{ trans('cefamaps::page.Page') }}</h3>
             </div>
             <div class="card-body">
-              <form method="post" action="{{ route('cefamaps.admin.config.page.add')}}">
+              <form method="post" action="{{ route('cefamaps.admin.config.page.add')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="row align-items-start">
                   <!-- inicio del nombre -->

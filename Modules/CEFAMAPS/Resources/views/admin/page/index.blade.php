@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
   <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
-  <li class="breadcrumb-item"><a href="#"><i class="fas fa-regular fa-file-lines"></i> {{ trans('cefamaps::page.page') }}</a></li>
+  <li class="breadcrumb-item"><a href="#"><i class="fas fa-regular fa-file-lines"></i> {{ trans('cefamaps::page.Page') }}</a></li>
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
         <div class="col-lg-12">
           <div class="card card-lightblue card-outline">
             <div class="card-header">
-              <h3 class="m-0">{{ trans('cefamaps::unit.Units') }}</h3>
+              <h3 class="m-0">{{ trans('cefamaps::page.Page') }}</h3>
             </div>
             <div class="card-body">
               <div class="content">
@@ -47,7 +47,7 @@
                                 <div class="modal-header bg-primary">
                                   <h4 class="modal-title">{{ trans('cefamaps::page.Content') }} {{ trans('cefamaps::page.Page') }} {{ $r->id }}</h4>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <i class="fa-solid fa-minus fa-spin"></i>
+                                    <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
                                   </button>
                                 </div>
                                 <div class="modal-body">
