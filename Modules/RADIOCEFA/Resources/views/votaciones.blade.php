@@ -8,3 +8,9 @@
 @include('radiocefa::layouts/partials/hero')
 
 @include('radiocefa::layouts/partials/navbar')
+
+@section('content')
+
+
+
+@endsection

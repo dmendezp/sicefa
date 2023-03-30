@@ -1,8 +1,8 @@
 @extends('radiocefa::layouts.master')
 
 @section('textHero')
-  <h1 style="font-size: 70px; font-family: fantasy;">Pide tu musica</h1>
-  <h2><p>Pide o dedica esa cancion que tanto te gusta</p></h2>
+  <h1 style="font-size: 70px; font-family: fantasy;">Pide tu música</h1>
+  <h2><p>Pide o dedica esa canción que tanto te gusta</p></h2>
 @endsection
 @include('radiocefa::layouts/partials/hero')
 
@@ -37,7 +37,7 @@
             <!-- peticion -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Has tu peticion</h3>
+                <h3 class="card-title">Haz tu petición</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">

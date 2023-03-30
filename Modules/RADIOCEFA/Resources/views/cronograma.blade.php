@@ -2,10 +2,6 @@
 
 @section('styles')
 
-<!-- fullCalendar -->
-  <link rel="stylesheet" href="{{ asset('radi__cefa/css/main.css') }}">
- 
-
 @endsection
 
  @section('textHero')
@@ -17,7 +13,6 @@
 @include('radiocefa::layouts/partials/navbar')
 
 @section('content')
-
 
     <!-- Main content -->
     <section class="content">
@@ -226,4 +221,5 @@
   })
 </script>
 
+@include('radiocefa::layouts/partials/footer')
 @endsection
