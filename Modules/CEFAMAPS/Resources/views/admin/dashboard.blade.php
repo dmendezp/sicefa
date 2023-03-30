@@ -28,9 +28,6 @@
                     <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.environment.index') }}">
                       <i class="fas fa-solid fa-chalkboard-user"></i> {{ trans('cefamaps::environment.Environment') }}
                     </a>
-                    <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.coordenate.index') }}">
-                      <i class="fas fa-solid fa-arrows-to-circle"></i> {{ trans('cefamaps::coordinate.Coordinate') }}
-                    </a>
                     <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.page.index') }}">
                       <i class="fas fa-regular fa-file-lines"></i> {{ trans('cefamaps::page.Page') }}
                     </a>
@@ -57,6 +54,9 @@
     position: 'top-end',
     showConfirmButton: false,
     timer: 2000,
+    html:
+    "<lord-icon src='https://cdn.lordicon.com/vusrdugn.json' trigger='loop' delay='2000' colors='primary:#121331,secondary:#b26836,tertiary:#848484,quaternary:#f9c9c0,quinary:#30e849' style='width:150px;height:150px'>" +
+    "</lord-icon>",
   })
 
   </script>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\Carrusel;
 //Para hacer los crud del administrador
+use Modules\SICA\Entities\Environment;
 
 class SSTController extends Controller
 {
@@ -34,11 +35,6 @@ class SSTController extends Controller
     {
         $data = ['title'=>trans('cefamaps::menu.Home')];
         return view('cefamaps::sst.healt', $data);
-    }
-    public function videos()
-    {
-        $data = ['title'=>trans('cefamaps::menu.Home')];
-        return view('cefamaps::sst.videos', $data);
     }
 
 }

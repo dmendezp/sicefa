@@ -17,14 +17,19 @@ class PageController extends Controller
    * Display a listing of the resource.
    * @return Renderable
    */
-  public function index()
+  public function index(Request $request)
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
     $farm = Farm::get();
-    $page = Page::with('environment')->get();
-    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page];
-    return view('cefamaps::admin.page.index',$data);
+    // filtro de la pagina con el id
+    $query = Page::query()->with('environment');
+    if ($request->has('id')) {
+      $query->where('environment_id', $request->id);
+    }
+    $final = $query->get();
+    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'query'=>$query];
+    return view('cefamaps::admin.page.index',$data, compact('final'));
   }
 
   /**
@@ -47,13 +52,33 @@ class PageController extends Controller
    */
   public function addpost(Request $request)
   {
-    $add = new Page;
-    $add -> name = e ($request->input('name'));
-    $add -> environment_id = e ($request->input('environ'));
-    $add -> content = e ($request->input('content'));
-    if ($add -> save()) {
+    $content = $request->content;
+    $dom = new \DomDocument();
+    $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR);
+    $imageFile = $dom->getElementsByTagName('image');
+
+    foreach($imageFile as $item => $image){
+      $data = $image->getAttribute('src');
+      list($type, $data) = explode(';', $data);
+      list(, $data)      = explode(',', $data);
+      $imgeData = base64_decode($data);
+      $image_name= "/upload/" . time().$item.'.png';
+      $path = public_path() . $image_name;
+      file_put_contents($path, $imgeData);
+
+      $image->removeAttribute('src');
+      $image->setAttribute('src', $image_name);
+    }
+
+    $content = $dom->saveHTML();
+    $fileUpload = new Page;
+    $fileUpload->name = $request->name;
+    $fileUpload ->environment_id = $request->environ;
+    $fileUpload->content = $content;
+    if ($fileUpload->save()) {
       return redirect(route('cefamaps.admin.config.page.index'));
     }
+    
   }
 
   /**
@@ -77,11 +102,30 @@ class PageController extends Controller
    */
   public function editpost(Request $request)
   {
-    $edit = Page::findOrFail($request->input('id'));
-    $edit -> name = e ($request->input('name'));
-    $edit -> environment_id = e ($request->input('environ'));
-    $edit -> content = e ($request->input('content'));
-    if ($edit -> save()) {
+    $content = $request->content;
+    $dom = new \DomDocument();
+    $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR);
+    $imageFile = $dom->getElementsByTagName('img');
+
+    foreach($imageFile as $item => $image){
+      $data = $image->getAttribute('src');
+      list($type, $data) = explode(';', $data);
+      list(, $data)      = explode(',', $data);
+      $imgeData = base64_decode($data);
+      $image_name= "/upload/" . time().$item.'.png';
+      $path = public_path() . $image_name;
+      file_put_contents($path, $imgeData);
+
+      $image->removeAttribute('src');
+      $image->setAttribute('src', $image_name);
+    }
+
+    $content = $dom->saveHTML();
+    $fileUpload = Page::findOrFail($request->input('id'));
+    $fileUpload->name = $request->name;
+    $fileUpload -> environment_id = $request->environ;
+    $fileUpload->content = $content;
+    if ($fileUpload->save()) {
       return redirect(route('cefamaps.admin.config.page.index'));
     }
   }
@@ -94,6 +138,7 @@ class PageController extends Controller
   {
     $remove = Page::findOrFail($id);
     if ($remove->delete()) {
+
       return back();
     }
   }

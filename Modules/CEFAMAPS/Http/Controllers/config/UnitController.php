@@ -10,6 +10,7 @@ use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\Sector;
 
 class UnitController extends Controller
 {
@@ -36,7 +37,8 @@ class UnitController extends Controller
         $environ = Environment::get();
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
-        $data = ['title'=>trans('cefamaps::unit.Add'), 'person'=>$person, 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
+        $sector = Sector::get();
+        $data = ['title'=>trans('cefamaps::unit.Add'), 'person'=>$person, 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'sector'=>$sector];
         return view('cefamaps::admin.unit.add',$data);
     }
 
@@ -51,6 +53,7 @@ class UnitController extends Controller
         $add -> description = e ($request->input('description'));
         $add -> icon = e ($request->input('icon'));
         $add -> person_id = e ($request->input('person'));
+        $add -> sector_id = e ($request->input('sector'));
         if($add -> save()){
             return redirect(route('cefamaps.admin.config.unit.index'));
         }
@@ -66,8 +69,9 @@ class UnitController extends Controller
         $unit = ProductiveUnit::get();
         $environ = Environment::get();
         $farm = Farm::get();
+        $sector = Sector::get();
         $editunit = ProductiveUnit::findOrFail($id);
-        $data = ['title'=>trans('cefamaps::unit.Edit'), 'person'=>$person, 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'editunit'=>$editunit];
+        $data = ['title'=>trans('cefamaps::unit.Edit'), 'person'=>$person, 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'sector'=>$sector, 'editunit'=>$editunit];
         return view('cefamaps::admin.unit.edit',$data);
     }
 
@@ -82,6 +86,7 @@ class UnitController extends Controller
         $edit -> description = e ($request->input('description'));
         $edit -> icon = e ($request->input('icon'));
         $edit -> person_id = e ($request->input('person'));
+        $edit -> sector_id = e ($request->input('sector'));
         if($edit -> save()){
             return redirect(route('cefamaps.admin.config.unit.index'));
         }

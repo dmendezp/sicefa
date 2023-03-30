@@ -44,13 +44,36 @@
                     <div class="col">
                       <div class="form-group">
                         <label for="length">{{ trans('cefamaps::environment.Length') }}</label>
-                        <input type="text" class="form-control" id="length" name="lengthspot">
+                        <input type="text" class="form-control" id="length" name="lengthspot" placeholder="-1.2345">
                       </div>
                     </div>
                     <div class="col">
                       <div class="form-group">
                         <label for="latitude">{{ trans('cefamaps::environment.Latitude') }}</label>
-                        <input type="text" class="form-control" id="latitude" name="latitudespot">
+                        <input type="text" class="form-control" id="latitude" name="latitudespot" placeholder="1.2345">
+                      </div>
+                    </div>
+                    <div class="col-1">
+                      <div class="form-group">
+                        <br>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalPunto">
+                          {{ trans('cefamaps::environment.Map') }}
+                        </button>
+                        <div class="modal fade" id="modalPunto">
+                          <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                              <div class="modal-header bg-info">
+                                <h4 class="modal-title"></h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div id="mapa" style="width: 100%; height: 500px;"></div>
+                              </div>  
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -108,12 +131,12 @@
                       <div class="form-group">
                         <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
                         <select class="form-control select2" style="width: 100%;" id="class" name="class" required>
-                          <option value="">{{ trans('cefamaps::environment.Environment') }} Polivalente</option>
-                          <option value="">{{ trans('cefamaps::environment.Environment') }} TIC</option>
-                          <option value="">{{ trans('cefamaps::environment.Environment') }} Productivo</option>
-                          <option value="">Administradtivo</option>
-                          <option value="">sst</option>
-                          <option value="">ambiental</option>
+                          <option value="Polivalente">{{ trans('cefamaps::environment.Environment') }} Polivalente</option>
+                          <option value="TIC">{{ trans('cefamaps::environment.Environment') }} TIC</option>
+                          <option value="Productivo">{{ trans('cefamaps::environment.Environment') }} Productivo</option>
+                          <option value="Administradtivo">{{ trans('cefamaps::environment.Environment') }} Administradtivo</option>
+                          <option value="SST">{{ trans('cefamaps::environment.Environment') }} SST</option>
+                          <option value="Ambiental">{{ trans('cefamaps::environment.Environment') }} Ambiental</option>
                         </select>
                       </div>
                     </div>
@@ -133,11 +156,11 @@
                   <!-- fin de los complementos de environment -->
                   <!-- inicio de la prueba -->
                   <div class="form-group">
-                    <label>{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::environment.Coordinate') }}</label>
-                    <select id="option" class="form-control select2" name="type">
-                      <option>Seleccione...</option>
-                      <option value="poligono">{{ trans('cefamaps::environment.Coordinate') }}</option>
-                      <option value="evacuacion">{{ trans('cefamaps::environment.RutadeEvacuacion') }}</option>
+                    <label>{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::environment.Coordinates') }}</label>
+                    <select id="option" class="form-control select2" name="type" required>
+                      <option value="">Seleccione...</option>
+                      <option value="Poligono">{{ trans('cefamaps::environment.Polygon') }}</option>
+                      <option value="Evacuacion">{{ trans('cefamaps::environment.Evacuation route') }}</option>
                     </select>
                   </div>
                   <div class="form-group">
@@ -173,7 +196,7 @@
     function establecerOption() {
       let eleccion = seleccionar.value;
 
-      if (eleccion === 'poligono') {
+      if (eleccion === 'Poligono') {
         parrafo.innerHTML +=  '<div id="inputFormRow">' +
                                 '<div class="row align-items-center">' +
                                   '<div class="col">' +
@@ -185,7 +208,7 @@
                                   '<div class="col">' +
                                     '<div class="form-group">' +
                                       '<label for="latitudecoor">{{ trans("cefamaps::environment.Latitude") }}</label>' +
-                                      '<input type="text" class="form-control  m-input" id="latitudecoor" name="latitudecoor[]">' +
+                                      '<input type="text" class="form-control m-input" id="latitudecoor" name="latitudecoor[]">' +
                                     '</div>' +
                                   '</div>' +
                                   '<div class="col-1">' +
@@ -236,7 +259,7 @@
                                 $(this).closest('#inputFormRow').remove();
                               });
 
-      } else if (eleccion === 'evacuacion') {
+      } else if (eleccion === 'Evacuacion') {
         parrafo.innerHTML +=  '<div id="inputFormRow">' +
                                 '<div class="row align-items-center">' +
                                   '<div class="col">' +
@@ -248,7 +271,7 @@
                                   '<div class="col">' +
                                     '<div class="form-group">' +
                                       '<label for="latitude">{{ trans("cefamaps::environment.Latitude") }}</label>' +
-                                      '<input type="text" class="form-control  m-input" id="latitude" name="latitude[]">' +
+                                      '<input type="text" class="form-control m-input" id="latitude" name="latitude[]">' +
                                     '</div>' +
                                   '</div>' +
                                   '<div class="col-1">' +
@@ -305,6 +328,44 @@
 
   </script>
 
+  <!-- Inicio mapa para las cooordenadas -->
+  <script type="text/javascript">
+    function initMap(){
+      var latitude = 2.612320;
+      var length = -75.360842;
+
+      coordenas = {
+        lng: length,
+        lat: latitude
+      };
+
+      generarMapa(coordenas);
+      
+    }
+
+    function generarMapa(coordenas) {
+      var mapa = new google.maps.Map(document.getElementById('mapa'),
+      {
+        zoom: 16,
+        mapTypeId: 'satellite',
+        center: new google.maps.LatLng(coordenas.lat, coordenas.lng)
+      });
+
+      marcador = new google.maps.Marker({
+        map: mapa,
+        draggable: true,
+        position: new google.maps.LatLng(coordenas.lat, coordenas.lng)
+      });
+
+      marcador.addListener('dragend', function(event){
+        document.getElementById("latitude").value = this.getPosition().lat();
+        document.getElementById("length").value = this.getPosition().lng();
+      })
+    }
+    
+  </script>
+  <!-- Fin mapa para las cooordenadas -->
+
   <script type="text/javascript">
     /*
       esta es la alerta para ir a crear una UNIDAD
@@ -314,7 +375,7 @@
         var url = "{{ url('/cefamaps/unit/add') }}";
           Swal.fire({
           title: '{{ trans("cefamaps::menu.You Want") }} {{ trans("cefamaps::menu.Add") }} {{ trans("cefamaps::menu.A") }} {{ trans("cefamaps::unit.Unit") }}?',
-          text: "Si aceptas, se eliminara todos los campos llenados",
+          text: "Si aceptas, se eliminara todos los campos",
           icon: 'question',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -335,7 +396,7 @@
         var url = "{{ url('/cefamaps/farm/add') }}";
         Swal.fire({
           title: '{{ trans("cefamaps::menu.You Want") }} {{ trans("cefamaps::menu.Add") }} {{ trans("cefamaps::menu.A") }} {{ trans("cefamaps::farm.Farm") }}?',
-          text: "Si aceptas, se eliminara todos los campos llenados",
+          text: "Si aceptas, se eliminara todos los campos",
           icon: 'question',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',

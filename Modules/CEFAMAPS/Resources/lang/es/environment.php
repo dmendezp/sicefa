@@ -9,5 +9,9 @@ return [
     'Length' => 'Longitud',
     'Latitude' => 'Latitud',
     'Productive units' => 'Unidad Productiva',
-    'File' => 'Imagen'
+    'File' => 'Imagen',
+    'Coordinates' => 'Coordenadas',
+    'Polygon' => 'Polígono',
+    'Evacuation route' => 'Ruta Evacuación',
+    'Map' => 'Mapa'
 ];

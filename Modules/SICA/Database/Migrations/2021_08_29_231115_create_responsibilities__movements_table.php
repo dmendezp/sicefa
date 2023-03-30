@@ -17,7 +17,7 @@ class CreateResponsibilitiesMovementsTable extends Migration
             $table->id();
             $table->foreignId('people_id')->constrained()->onDelete('cascade');
             $table->foreignId('movement_id')->constrained()->onDelete('cascade');
-            $table->enum('rol',['vendedor', 'comprador', 'saliente', 'entrega', 'recibe', 'autoriza', 'cuentadante', 'vigilanciaSalida', 'vigilanciaEntrada']);
+            $table->enum('rol',['Vendedor', 'Comprador', 'Registra', 'Entrega', 'Recibe', 'Autoriza', 'Cuentadante', 'VigilanciaSalida', 'VigilanciaEntrada']);
             $table->datetime('date');
             $table->timestamps();
             $table->softDeletes();

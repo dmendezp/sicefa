@@ -1,6 +1,6 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="index" class="brand-link">
       <img src="{{ asset('cefamaps/images/logo.png') }}" alt="AdminLTE Logo" class="brand-image elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">CEFAMAPS</span>
@@ -121,16 +121,6 @@
                 </li>
               </ul>
               <!-- Fin para las paginas del administrador -->
-              <!-- inicio para las coordenadas -->
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('cefamaps.admin.config.coordenate.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.config.coordenate.*') ?: 'active' }}">
-                    <i class="nav-icon fas fa-solid fa-arrows-to-circle"></i>
-                    <p>{{ trans('cefamaps::coordinate.Coordinate') }}</p>
-                  </a>
-                </li>
-              </ul>
-              <!-- fin para las coordenadas -->
             </li>
           @endif
           <!-- Fin para las configuraciones del adminitrador -->

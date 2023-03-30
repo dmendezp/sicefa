@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\CEFAMAPS\Entities\Coordinate;
 use Modules\CEFAMAPS\Entities\Page;
 use Modules\SICA\Entities\Farm;
+use Modules\SICA\Entities\ProductiveUnit;
 
 class Environment extends Model
 {
@@ -28,6 +29,6 @@ class Environment extends Model
     }
 
     public function productive_units(){
-        return $this->belongsTo(Environment::class);
+        return $this->belongsTo(ProductiveUnit::class);
     }
 }

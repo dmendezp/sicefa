@@ -12,6 +12,7 @@ use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Farm;
 use Modules\CEFAMAPS\Entities\Coordinate;
+use Modules\CEFAMAPS\Entities\Page;
 
 class EnvironmentController extends Controller
 {
@@ -21,11 +22,9 @@ class EnvironmentController extends Controller
      */
     public function index()
     {
-        //$environ = Environment::get();
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
-        //$coor = Coordinate::get();
-        $environ = Environment::with('coordinates')->with('farms')->with('productive_units')->get();
+        $environ = Environment::with('coordinates')->get();
         $data = ['title'=>trans('cefamaps::menu.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
         return view('cefamaps::admin.environment.index',$data);
     }
@@ -56,15 +55,15 @@ class EnvironmentController extends Controller
         if($request->file->storeAs($path, $final_name, 'uploads')) {
             $add = new Environment;
             $add -> name = e ($request->input('name'));
-            $add -> description = e ($request->input('description'));
             $add -> picture = e ($final_name);
-            $add -> farms_id = e ($request->input('farm'));
-            $add -> productive_units_id = e ($request->input('unit'));
+            $add -> description = e ($request->input('description'));
             $add -> length = e ($request->input('lengthspot'));
             $add -> latitude = e ($request->input('latitudespot'));
+            $add -> farms_id = e ($request->input('farm'));
+            $add -> productive_units_id = e ($request->input('unit'));
+            $add -> environment_classroom = e ($request->input('class'));
             $add -> status = e ($request->input('status'));
             $add -> type_environment = e ($request->input('type'));
-            $add -> environment_classroom = e ($request->input('class'));
             if($add -> save()) {
                 $c = 0;
                 foreach ($request->input('lengthcoor') as $le) {
@@ -93,6 +92,7 @@ class EnvironmentController extends Controller
         $farm = Farm::get();
         $coor = Coordinate::get();
         $editenviron = Environment::with('coordinates')->find($id);
+        //return $editenviron;
         $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'coor'=>$coor, 'editenviron'=>$editenviron];
         return view('cefamaps::admin.environment.edit',$data);
     }
@@ -103,14 +103,25 @@ class EnvironmentController extends Controller
      */
     public function editpost(Request $request)
     {
-        $path = 'uploads/';
-        $final_name = Str::slug($request->file('file')->getClientOriginalName().'_'.time()).'.'.trim($request->file('file')->getClientOriginalName());
-        $request->file->storeAs($path, $final_name, 'uploads');
-
+        
+        /* crear imagen */
+        //return $request;
         $edit = Environment::findOrFail($request->input('id'));
         $edit -> name = e ($request->input('name'));
         $edit -> description = e ($request->input('description'));
-        $edit -> picture = e ($final_name);
+
+        
+       
+         if ($request->file('file')){
+            $path = 'uploads/';
+            $final_name = Str::slug($request->file('file')->getClientOriginalName().'_'.time()).'.'.trim($request->file('file')->getClientOriginalName());
+            $request->file->storeAs($path, $final_name, 'uploads'); 
+            $edit -> picture = e ($final_name);
+
+        //}else{
+            //$edit -> picture = e ($request->input('imagenAntigua')); 
+        }
+ 
         $edit -> farms_id = e ($request->input('farm'));
         $edit -> productive_units_id = e ($request->input('unit'));
         $edit -> length = e ($request->input('lengthspot'));
@@ -118,18 +129,19 @@ class EnvironmentController extends Controller
         $edit -> status = e ($request->input('status'));
         $edit -> type_environment = e ($request->input('type'));
         $edit -> environment_classroom = e ($request->input('class'));
-        if($edit -> save()) { 
+        if($edit->save()) { 
             $c = 0;
             foreach ($edit->coordinates as $co) {
                 $editcoor = Coordinate::findOrFail($co->id);
                 $editcoor -> environment_id = $edit->id;
                 $editcoor -> length = e ($request->input('length')[$c]);
                 $editcoor -> latitude = e ($request->input('latitude')[$c]);
-                $c++;   
-                if ($editcoor -> save()) {
-                    
+                $c++;  
+                if ( $editcoor->save()); {
+                
                 }
-            }
+            
+         }
             return redirect(route('cefamaps.admin.config.environment.index'));
         }
     }
@@ -143,7 +155,8 @@ class EnvironmentController extends Controller
         $unit = ProductiveUnit::get();
         $environ = Environment::get();
         $farm = Farm::get();
-        $viewenviron = Environment::findOrFail($id);
+        $viewenviron = Environment::with('pages')->findOrFail($id);
+        /* $viewenviron = Environment::findOrFail($id); */
         $data = ['title'=>trans('cefamaps::environment.View'), 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'viewenviron'=>$viewenviron];
         return view('cefamaps::admin.environment.view',$data);
     }

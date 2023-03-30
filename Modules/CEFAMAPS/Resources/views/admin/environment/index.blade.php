@@ -51,7 +51,7 @@
                       <td>{{$env->farms->name}}</td>
                       <td>{{$env->productive_units->name}}</td>
                       <td>{{$env->status}}</td>
-                      <!-- inicio de la prueba -->
+                      <!-- Inicio del modal pra las coordenadas -->
                       <td>
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info-{{$env->id}}">{{$env->type_environment}}</button>
                         <div class="modal fade" id="modal-info-{{$env->id}}">
@@ -67,7 +67,7 @@
                                 <div class="row align-items-start">
                                   <div class="col">
                                     <div class="modal-header">
-                                      <h2 class="modal-title">Longitud</h2>
+                                      <h2 class="modal-title">{{ trans('cefamaps::environment.Length') }}</h2>
                                     </div>
                                     <div class="modal-body">
                                       @foreach($env->coordinates as $c)
@@ -77,7 +77,7 @@
                                   </div>
                                   <div class="col">
                                     <div class="modal-header">
-                                      <h2 class="modal-title">Latitus</h2>
+                                      <h2 class="modal-title">{{ trans('cefamaps::environment.Latitude') }}</h2>
                                     </div>
                                     <div class="modal-body">
                                       @foreach($env->coordinates as $c)
@@ -91,15 +91,18 @@
                           </div>
                         </div>
                       </td>
-                      <!-- fin de la prueba -->
+                      <!-- Fin del modal pra las coordenadas -->
                       <td>{{$env->environment_classroom}}</td>
-                      @foreach($env->pages as $p)
+                      <!-- Inicio del ID para el filtro de las paginas -->
                       <td>
-                        <a class="btn btn-primary" href="{{url('/cefamaps/page/edit/'.$p->id)}}">
+                        
+                        <a class="btn btn-primary" href="{{url('/cefamaps/page/index?id='.$env->id)}}">
                           <i class="fas fa-regular fa-file-lines"></i>
                         </a>
+                        
                       </td>
-                      @endforeach
+                      <!-- Fin del ID para el filtro de las paginas -->
+                      <!-- Inico para Editar y Eliminar -->
                       <td>
                         <a href="{{url('/cefamaps/environment/edit/'.$env->id)}}" class="btn btn-warning">
                           <i class="fas fa-map-signs"></i>
@@ -108,6 +111,7 @@
                           <i class="fa-solid fa-trash"></i>
                         </a>
                       </td>
+                      <!-- Fin para Editar y Eliminar -->
                     </tr>
                     @endforeach
                   </tbody>
@@ -139,6 +143,9 @@
 
 @endsection
 @section('script')
+
+  <script>
+  </script>
 
   <script type="text/javascript">
     /*

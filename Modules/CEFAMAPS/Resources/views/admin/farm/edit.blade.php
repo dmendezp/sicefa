@@ -36,7 +36,7 @@
                     <div class="col">
                       <div class="form-group">
                         <label for="area">{{ trans('cefamaps::farm.Area') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::farm.Farm') }}</label>
-                        <input type="text" class="form-control" id="area" name="area" value="{{ $editfarm->area }}" required>
+                        <input type="number" class="form-control" id="area" name="area" value="{{ $editfarm->area }}" required>
                       </div>
                     </div>
                     <!-- fin del area -->
