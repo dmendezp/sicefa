@@ -6,18 +6,7 @@
 <script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
-<<<<<<< HEAD
 <script src="sweetalert2.all.min.js"></script>
-=======
-<<<<<<< HEAD
-<script src="sweetalert2.all.min.js"></script>
-=======
-<<<<<<< HEAD
-<script src="sweetalert2.all.min.js"></script>
-=======
->>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
->>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
->>>>>>> 38c7f0aef500bd787694266d92d1596b42416e45
 <!-- DataTables -->
 <script src="{{ asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
