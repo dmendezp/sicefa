@@ -24,7 +24,3 @@
   <link href="{{ asset('fontawesome6/css/fontawesome.css') }}" rel="stylesheet">
   <link href="{{ asset('fontawesome6/css/brands.css') }}" rel="stylesheet">
   <link href="{{ asset('fontawesome6/css/solid.css') }}" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-  
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5i6F3rWoYH3-xf4GCCKs6qSV4eEW4L3s" type="text/javascript"></script>
