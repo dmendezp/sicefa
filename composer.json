@@ -16,10 +16,12 @@
         "laravelcollective/html": "^6.2",
         "maatwebsite/excel": "^3.1",
         "nwidart/laravel-modules": "^8.2",
+        "owen-it/laravel-auditing": "^13.0",
         "unisharp/laravel-filemanager": "^2.4",
         "yajra/laravel-datatables-oracle": "^9.19"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
@@ -35,7 +37,7 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/http/Function.php"
+            "app/Http/Function.php"
         ]
     },
     "autoload-dev": {

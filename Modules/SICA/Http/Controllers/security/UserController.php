@@ -13,6 +13,14 @@ use Validator, Str, Hash;
 class UserController extends Controller
 {
 
+
+    public function users()
+    {
+        $users = User::with('person')->get();
+        $data = ['title'=>trans('sica::menu.Users'),'users'=>$users];
+        return view('sica::admin.security.users.home',$data);
+    }
+    
     public function getUserAdd()
     {
         $users = User::with('person')->get();

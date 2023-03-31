@@ -28,6 +28,7 @@ class CreateTypeOfContractorsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('type_of_contractors');
     }
 }

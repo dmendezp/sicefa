@@ -3,6 +3,7 @@
 return [
 	'Home' => 'Home',
 	'Administrator' => 'Administrator',
+	'Attendance' => 'Attendance',
 	'Contact' => 'Contact',
 	'Notifications' => 'Notifications',
 	'new messages' => 'new messages',
@@ -21,6 +22,7 @@ return [
 	'Instructors' => 'Instructors',
 	'Officers' => 'Officers',
 	'Contractors' => 'Contractors',
+	'Events attendance' => 'Events attendance',
 	'Users' => 'Users',
 	'Academy' => 'Academy',
 	'Quarters' => 'Quarters',

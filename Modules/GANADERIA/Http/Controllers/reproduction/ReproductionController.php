@@ -11,13 +11,32 @@ use Modules\GANADERIA\Entities\Page;
 
 class ReproductionController extends Controller
 {
+<<<<<<< HEAD
    
+=======
+    public function medicine(){
+        
+        $data = ['title'=>trans('ganaderia::menu.reproduction')];
+        return view('ganaderia::admin.medicine.home',$data);
+    }
+
+
+>>>>>>> 38c7f0aef500bd787694266d92d1596b42416e45
     public function animalrecord(){
         $page = Page::get();
         $data = ['title'=>trans('ganaderia::menu.reproduction'), 'page'=>$page];
         return view('ganaderia::admin.animalrecord.home',$data);        
     }
 
+<<<<<<< HEAD
+=======
+    public function reproductivebehavior(){
+        
+        $data = ['title'=>trans('ganaderia::menu.reproduction')];
+        return view('ganaderia::admin.reproductivebehavior.home',$data);
+    }
+
+>>>>>>> 38c7f0aef500bd787694266d92d1596b42416e45
     public function add(){
         $page = Page::get();
         $data = ['title'=>trans('ganaderia::page.add'), 'page'=>$page];
