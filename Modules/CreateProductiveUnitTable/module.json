@@ -1,0 +1,13 @@
+{
+    "name": "CreateProductiveUnitTable",
+    "alias": "createproductiveunittable",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CreateProductiveUnitTable\\Providers\\CreateProductiveUnitTableServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

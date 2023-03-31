@@ -14,7 +14,11 @@ class GANADERIADatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        //Model::unguard();
+        
+        $this->call(SeedConfigurationsTableSeeder::class);
+        $this->call(SeedPermissionsTableSeeder::class);
+        
 
         // $this->call("OthersTableSeeder");
     }

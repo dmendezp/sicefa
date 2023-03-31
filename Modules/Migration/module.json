@@ -1,0 +1,13 @@
+{
+    "name": "Migration",
+    "alias": "migration",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Migration\\Providers\\MigrationServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

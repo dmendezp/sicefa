@@ -98,7 +98,7 @@
             </li>
             @guest
             @else
-    <!-- MENU PARA PEOPLE -->
+<!-- MENU PARA PEOPLE -->
            <li class="nav-item {{ ! Route::is('sica.admin.people.*') ?: 'menu-is-opening menu-open' }}">
               <a href="#" class="nav-link {{ ! Route::is('sica.admin.people.*') ?: 'active' }}">
                 <i class="fas fa-users"></i>
@@ -150,7 +150,7 @@
                 </li>
               </ul>
             </li>
-    <!-- CIERRA MENU PARA PEOPLE -->
+    <!-- CIERRA MENU PARA PEOPLE -->    
     <!-- MENU PARA ACADEMY -->
             <li class="nav-item {{ ! Route::is('sica.admin.academy.*') ?: 'menu-is-opening menu-open' }}">
               <a href="#" class="nav-link {{ ! Route::is('sica.admin.academy.*') ?: 'active' }}">
