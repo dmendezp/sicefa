@@ -23,7 +23,7 @@ Route::prefix('ptventa')->group(function() {  // agrega el prefijo en la url (si
     });
 
     // Rutas para elementos
-    Route::prefix('element')->controller(ElementController::class)->group(function(){ 
+    Route::prefix('images')->controller(ElementController::class)->group(function(){ 
         Route::get('index', 'index')->name('ptventa.admin.element.index'); // Vista principal de elementos para administrar imagenes
         Route::get('/edit/{element}', 'edit')->name('ptventa.admin.element.edit');
     });

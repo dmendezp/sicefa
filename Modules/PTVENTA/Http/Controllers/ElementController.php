@@ -15,15 +15,16 @@ class ElementController extends Controller
     public function index()
     {
         $element = Element::all();
-        $titleView = 'Administración de productos generales';
+        $titleView = 'Administración de imagenes de productos generales';
         $view = ['titlePage' => 'Productos'];
         return view('ptventa::element.index', compact('element','titleView','view'));
     }
 
     public function edit(Element $element)
     {
-        $titleView = 'Actualización de productos generales';
+        $titleView = 'Actualización imagenes de productos generales';
         $view = ['titlePage' => 'Actualizar | Producto'];
         return view('ptventa::element.edit', compact('element','titleView','view'));
     }
+
 }

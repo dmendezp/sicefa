@@ -4,6 +4,7 @@
 <head>
     @include('ptventa::layouts.partials.head')
     @section('style') @show
+    @section('head') @show
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">

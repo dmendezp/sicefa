@@ -1,37 +1,54 @@
 @extends('ptventa::layouts.master')
 
+@section('head')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('AminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+@endsection
+
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Home</a></li>
-    <li class="breadcrumb-item active">Elementos</li>
+    <li class="breadcrumb-item active">Imagenes</li>
 @endsection
 
 @section('content')
-<div class="card card-primary card-outline col-12 mx-auto">
+
+<div class="card card-primary card-outline col-9 mx-auto">
     <div class="table table-responsive table-sm px-3 py-1">
-        <table class="table table-striped" id="table-element">
-            {{-- The id is the one coming from the javascript function of the datatatble located in the view scripts file --}}
+        <table class="table table-striped" id="element">
             <thead class="table-dark mt-0 pt-0">
                 <tr>
-                    <th class="text-center">#</th>
-                    <th>Nombre</th>
-                    <th class="text-center">Unidad de medida</th>
-                    <th class="text-center">Tipo de compra</th>
-                    <th class="text-center">Categoria</th>
-                    <th class="text-center">Acciones</th>
+                    <th>Imagenes</th>
                 </tr>
             </thead>
-            <tbody  style="font-size: 14px">
+            <tbody>
                 @foreach ($element as $e)
-                    <tr class="text-center">
-                        <td>{{ $loop->iteration }}</td>
-                        <td class="text-left">{{ $e->name }}</td>
-                        <td>{{ $e->measurement_unit->name }}</td>
-                        <td>{{ $e->kind_of_purchase->name }}</td>
-                        <td>{{ $e->category->name }}</td>
+                    <tr>
                         <td>
-                            <a href="{{ route('ptventa.admin.element.edit', $e) }}" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip" data-placement="top" title="Actualizar empleado">
-                                <i class="fas fa-pen-alt"></i>
-                            </a>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card mb-3" style="max-width: 540px;">
+                                        <div class="row g-0">
+                                          <div class="col-md-4">
+                                            <img src="{{ asset('ptventa/images/dona.jpeg') }}" class="img-fluid rounded-start" alt="...">
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="card-body">
+                                              <p class="card-text">{{ $e->name }}</p>
+                                              <p class="card-text">$8.000</p>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-2">
+                                              <br>
+                                            <a href="{{ route('ptventa.admin.element.edit', $e) }}" class="btn btn-outline-warning btn-sm py-1" title="Actualizar Categoria">
+                                                Actualizar
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div> 
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
@@ -40,7 +57,17 @@
     </div>
 </div>
 
+
 @endsection
 
 @section('scripts')
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+<script>
+    let table = new DataTable('#element', {
+});
+</script>
+
 @endsection
+
+
+
