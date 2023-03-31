@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   @include('cefamaps::layouts.partials.head')
+
+  @section('style')
+  @show
 </head>
 @if (Route::is('*admin.*'))
 <body class="hold-transition sidebar-collapse sidebar-mini">

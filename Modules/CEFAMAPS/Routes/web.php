@@ -10,6 +10,8 @@ Route::middleware(['lang'])->group(function(){
 
         Route::get('/admin', 'AdminController@dashboard')->name('cefamaps.admin.dashboard');
 
+        Route::get('/pruebas', 'CEFAMAPSController@pruebas')->name('cefa.cefamaps.pruebas');
+
     });
 
 });

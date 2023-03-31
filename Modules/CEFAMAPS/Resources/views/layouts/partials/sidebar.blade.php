@@ -197,7 +197,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('cefamaps.sst.Extintores') }}" class="nav-link">
+            <a href="{{ route('cefamaps.sst.Extintores') }}" class="nav-link {{ ! Route::is('cefamaps.sst.Extintores*') ?: 'active' }}">
             <i class="fas fa-fire-extinguisher"></i>
               <p>
                 Extintores

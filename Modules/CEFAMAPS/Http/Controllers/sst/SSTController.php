@@ -11,13 +11,11 @@ use Modules\SICA\Entities\Environment;
 
 class SSTController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    
     public function index()
     {
-        $data = ['title'=>trans('cefamaps::SST.Home')];
+        $environ = Environment::get();
+        $data = ['title'=>trans('cefamaps::SST.Home'), 'environ'=>$environ];
         return view('cefamaps::sst.index', $data);
     }
     
