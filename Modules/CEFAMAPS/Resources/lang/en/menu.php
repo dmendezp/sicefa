@@ -19,5 +19,9 @@ return [
     'Class' => 'Class',
     'Type' => 'Tipo',
     'To' => 'To',
-    'Are You Sure' => 'Are You Sure'
+    'Are You Sure' => 'Are You Sure',
+    'Polyvalent' => 'Polyvalent',
+    'Productive' => 'Productive',
+    'Administrative' => 'Administrative',
+    'Environmental' => 'Environmental'
 ];

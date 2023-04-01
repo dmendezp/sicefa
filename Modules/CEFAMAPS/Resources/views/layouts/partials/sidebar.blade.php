@@ -169,7 +169,7 @@
           <!-- MENU PARA ENVIRONMENT -->
           <li class="nav-item {{ ! Route::is('cefamaps.admin.environment.views*') ?: 'menu-is-opening menu-open' }}">
             <a href="#" class="nav-link {{ ! Route::is('cefamaps.admin.environment.views.*') ?: 'active' }}">
-              <i class="nav-icon fa-solid fa-school"></i>
+              <i class="nav-icon fa-solid fa-city"></i>
               <p>
                 {{ trans('cefamaps::environment.Environment') }}
                 <i class="right fa-solid fa-map-pin"></i>
@@ -177,12 +177,30 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav nav-item">
-                @foreach($environ as $e)
-                  <a href="{{ url('/cefamaps/environment/view/'.$e->id) }}" class="nav-link {{ ! Route::is('#') ?: 'active' }}">
-                    <img src="{{ asset('cefamaps/images/uploads/'.$e->picture) }}" width="25" height="25">
-                    <p>{{$e->name}}</p>
-                  </a>
-                @endforeach
+                <a href="{{ route('cefa.cefamaps.environment.view') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'active' }}">
+                  <i class="nav-icon fa-solid fa-school-flag"></i>
+                  <p>{{ trans('cefamaps::menu.Polyvalent') }}</p>
+                </a>
+                <a href="{{ route('#') }}" class="nav-link {{ ! Route::is('') ?: 'active' }}">
+                  <i class="nav-icon fa-solid fa-mountain-city"></i>
+                  <p>TIC</p>
+                </a>
+                <a href="{{ route('#') }}" class="nav-link {{ ! Route::is('') ?: 'active' }}">
+                  <i class="nav-icon fa-solid fa-building-wheat"></i>
+                  <p>{{ trans('cefamaps::menu.Productive') }}</p>
+                </a>
+                <a href="{{ route('#') }}" class="nav-link {{ ! Route::is('') ?: 'active' }}">
+                <i class="nav-icon fa-solid fa-landmark"></i>
+                  <p>{{ trans('cefamaps::menu.Administrative') }}</p>
+                </a>
+                <a href="{{ route('#') }}" class="nav-link {{ ! Route::is('') ?: 'active' }}">
+                  <i class="nav-icon fa-solid fa-house-medical-flag"></i>
+                  <p>SST</p>
+                </a>
+                <a href="{{ route('#') }}" class="nav-link {{ ! Route::is('') ?: 'active' }}">
+                  <i class="nav-icon fa-solid fa-tree-city"></i>
+                  <p>{{ trans('cefamaps::menu.Environmental') }}</p>
+                </a>
               </li>
             </ul>
           </li>

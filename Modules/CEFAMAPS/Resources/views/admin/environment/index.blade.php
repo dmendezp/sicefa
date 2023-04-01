@@ -92,7 +92,7 @@
                         </div>
                       </td>
                       <!-- Fin del modal pra las coordenadas -->
-                      <td>{{$env->environment_classroom}}</td>
+                      <td>{{$env->class_environments->name}}</td>
                       <!-- Inicio del ID para el filtro de las paginas -->
                       <td>
                         

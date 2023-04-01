@@ -131,12 +131,9 @@
                       <div class="form-group">
                         <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
                         <select class="form-control select2" style="width: 100%;" id="class" name="class" required>
-                          <option value="Polivalente">{{ trans('cefamaps::environment.Environment') }} Polivalente</option>
-                          <option value="TIC">{{ trans('cefamaps::environment.Environment') }} TIC</option>
-                          <option value="Productivo">{{ trans('cefamaps::environment.Environment') }} Productivo</option>
-                          <option value="Administradtivo">{{ trans('cefamaps::environment.Environment') }} Administradtivo</option>
-                          <option value="SST">{{ trans('cefamaps::environment.Environment') }} SST</option>
-                          <option value="Ambiental">{{ trans('cefamaps::environment.Environment') }} Ambiental</option>
+                          @foreach($classenviron as $c)
+                            <option value="{{ $c->id }}">{{ $c->name }}</option>
+                          @endforeach
                         </select>
                       </div>
                     </div>

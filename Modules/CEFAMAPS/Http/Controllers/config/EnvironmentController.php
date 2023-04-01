@@ -11,6 +11,7 @@ use Validator, Str;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Farm;
+use Modules\SICA\Entities\ClassEnvironment;
 use Modules\CEFAMAPS\Entities\Coordinate;
 use Modules\CEFAMAPS\Entities\Page;
 
@@ -38,7 +39,8 @@ class EnvironmentController extends Controller
         $environ = Environment::get();
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
-        $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
+        $classenviron = ClassEnvironment::get();
+        $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron];
         return view('cefamaps::admin.environment.add',$data);
     }
 
@@ -90,6 +92,7 @@ class EnvironmentController extends Controller
         $environ = Environment::get();
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
+        $classenviron = ClassEnvironment::get();
         $coor = Coordinate::get();
         $editenviron = Environment::with('coordinates')->find($id);
         //return $editenviron;
