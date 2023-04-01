@@ -14,7 +14,7 @@ class page extends Model
     protected $hidden = ['created_at','updated_at'];
     protected $fillable = ['name','content','environment_id'];
 
-    public function environments(){
+    public function environment(){
         return $this->belongsTo(Environment::class);
     }
 }

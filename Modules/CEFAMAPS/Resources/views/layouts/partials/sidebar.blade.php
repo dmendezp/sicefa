@@ -176,32 +176,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+            @foreach($classenviron as $c)
               <li class="nav nav-item">
-                <a href="{{ route('cefa.cefamaps.environment.view') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'active' }}">
+                <a href="{{ url('/cefamaps/environment/view/'.$c->id) }}" class="nav-link {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'active' }}">
                   <i class="nav-icon fa-solid fa-school-flag"></i>
-                  <p>{{ trans('cefamaps::menu.Polyvalent') }}</p>
-                </a>
-                <a href="{{ route('#') }}" class="nav-link {{ ! Route::is('') ?: 'active' }}">
-                  <i class="nav-icon fa-solid fa-mountain-city"></i>
-                  <p>TIC</p>
-                </a>
-                <a href="{{ route('#') }}" class="nav-link {{ ! Route::is('') ?: 'active' }}">
-                  <i class="nav-icon fa-solid fa-building-wheat"></i>
-                  <p>{{ trans('cefamaps::menu.Productive') }}</p>
-                </a>
-                <a href="{{ route('#') }}" class="nav-link {{ ! Route::is('') ?: 'active' }}">
-                <i class="nav-icon fa-solid fa-landmark"></i>
-                  <p>{{ trans('cefamaps::menu.Administrative') }}</p>
-                </a>
-                <a href="{{ route('#') }}" class="nav-link {{ ! Route::is('') ?: 'active' }}">
-                  <i class="nav-icon fa-solid fa-house-medical-flag"></i>
-                  <p>SST</p>
-                </a>
-                <a href="{{ route('#') }}" class="nav-link {{ ! Route::is('') ?: 'active' }}">
-                  <i class="nav-icon fa-solid fa-tree-city"></i>
-                  <p>{{ trans('cefamaps::menu.Environmental') }}</p>
+                  <p>{{$c->name}}</p>
                 </a>
               </li>
+              @endforeach
             </ul>
           </li>
           <!-- CIERRA MENU PARA ENVIRONMENT -->

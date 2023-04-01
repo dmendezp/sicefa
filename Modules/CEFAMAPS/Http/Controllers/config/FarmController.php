@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Farm;
+use Modules\SICA\Entities\ClassEnvironment;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Municipality;
 
@@ -22,8 +23,9 @@ class FarmController extends Controller
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
+    $classenviron = ClassEnvironment::get();
     $farm = Farm::with('municipality')->get();
-    $data = ['title'=>trans('cefamaps::farm.Farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm];
+    $data = ['title'=>trans('cefamaps::farm.Farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron];
     return view('cefamaps::admin.farm.index',$data);
   }
 
@@ -35,10 +37,11 @@ class FarmController extends Controller
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
+    $classenviron = ClassEnvironment::get();
     $farm = Farm::get();
     $person = Person::get();
     $muni = Municipality::get();
-    $data = ['title'=>trans('cefamaps::farm.Add farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni];
+    $data = ['title'=>trans('cefamaps::farm.Add farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'classenviron'=>$classenviron];
     return view('cefamaps::admin.farm.add',$data);
   }
 
@@ -67,11 +70,12 @@ class FarmController extends Controller
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
+    $classenviron = ClassEnvironment::get();
     $farm = Farm::get();
     $person = Person::get();
     $muni = Municipality::get();
     $editfarm = Farm::findOrFail($id);
-    $data = ['title'=>trans('cefamaps::farm.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'editfarm'=>$editfarm];
+    $data = ['title'=>trans('cefamaps::farm.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'editfarm'=>$editfarm, 'classenviron'=>$classenviron ];
     return view('cefamaps::admin.farm.edit',$data);
   }
 

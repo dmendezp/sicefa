@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\Environment;
+use Modules\SICA\Entities\ClassEnvironment;
 use Modules\CEFAMAPS\Entities\Page;
 use Modules\CEFAMAPS\Entities\Coordinate;
 
@@ -21,23 +22,11 @@ class CEFAMAPSController extends Controller
     public function index()
     {
         $unit = ProductiveUnit::get();
+        $classenviron = ClassEnvironment::get();
         $farm = Farm::get();
         $environ = Environment::with('pages')->get();
-        $data = ['title'=>trans('cefamaps::menu.Home'), 'unit'=>$unit, 'farm'=>$farm, 'environ'=>$environ];
+        $data = ['title'=>trans('cefamaps::menu.Home'), 'unit'=>$unit, 'farm'=>$farm, 'environ'=>$environ, 'classenviron'=>$classenviron];
         return view('cefamaps::index',$data);
-    }
-
-    public function pruebas(Request $request)
-    {
-        $unit = ProductiveUnit::get();
-        $farm = Farm::get();
-        $environ = Environment::with('pages')->get();
-        //mio aparte pruebas
-        $userId = $request->input('environments_id');
-        $class = Environment::all();
-        $selectedUser = $userId ? Environment::findOrFail($userId) : null;
-        $data = ['title'=>trans('cefamaps::menu.Home'), 'unit'=>$unit, 'farm'=>$farm, 'environ'=>$environ];
-        return view('cefamaps::pruebas',$data, compact('class', 'selectedUser'));
     }
 
 }

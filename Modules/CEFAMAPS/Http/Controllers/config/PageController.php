@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 //Para hacer los crud del administrador
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\ClassEnvironment;
 use Modules\SICA\Entities\Farm;
 use Modules\CEFAMAPS\Entities\Page;
 
@@ -21,6 +22,7 @@ class PageController extends Controller
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
+    $classenviron = ClassEnvironment::get();
     $farm = Farm::get();
     // filtro de la pagina con el id
     $query = Page::query()->with('environment');
@@ -28,7 +30,7 @@ class PageController extends Controller
       $query->where('environment_id', $request->id);
     }
     $final = $query->get();
-    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'query'=>$query];
+    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'query'=>$query, 'classenviron'=>$classenviron];
     return view('cefamaps::admin.page.index',$data, compact('final'));
   }
 
@@ -40,9 +42,10 @@ class PageController extends Controller
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
+    $classenviron = ClassEnvironment::get();
     $farm = Farm::get();
     $page = Page::get();
-    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page];
+    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page, 'classenviron'=>$classenviron];
     return view('cefamaps::admin.page.add',$data);
   }
 
@@ -89,10 +92,11 @@ class PageController extends Controller
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
+    $classenviron = ClassEnvironment::get();
     $farm = Farm::get();
     $page = Page::get();
     $editpage = Page::findOrFail($id);
-    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page, 'editpage'=>$editpage];
+    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page, 'editpage'=>$editpage, 'classenviron'=>$classenviron];
     return view('cefamaps::admin.page.edit',$data);
   }
 

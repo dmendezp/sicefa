@@ -45,6 +45,6 @@ class Environment extends Model
     }
 
     public function class_environments(){
-        return $this->hasMAny(ClassEnvironment::class);
+        return $this->belongsTo(ClassEnvironment::class);
     }
 }
