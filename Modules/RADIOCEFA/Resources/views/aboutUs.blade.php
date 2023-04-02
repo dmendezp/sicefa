@@ -2,9 +2,9 @@
 
 @section('styles')
 
-    <!-- Libraries Stylesheet -->
+{{--     <!-- Libraries Stylesheet -->
     <link href="{{ asset('radi__cefa/lib/animate/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('radi__cefa/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('radi__cefa/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet"> --}}
 
 @endsection
 @include('radiocefa::layouts/partials/navbar')
@@ -93,10 +93,10 @@
 @endsection
 @section('scripts')
 
-    <script src="{{ asset('radi__cefa/lib/wow/wow.min.js') }}"></script>
+   {{--  <script src="{{ asset('radi__cefa/lib/wow/wow.min.js') }}"></script>
     <script src="{{ asset('radi__cefa/lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('radi__cefa/lib/waypoints/waypoints.min.js') }}"></script>
     <script src="{{ asset('radi__cefa/lib/owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('radi__cefa/lib/counterup/counterup.min.js') }}"></script>
-
+ --}}
 @endsection

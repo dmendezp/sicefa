@@ -18,9 +18,6 @@
       <li class="nav-item">
         <a href="#" class="nav-link text-success">Unete</a>
       </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link text-success">PQRS</a>
-      </li>
 
       <li class="dropdown text-success">
               @auth
