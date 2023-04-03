@@ -52,8 +52,8 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('ptventa.admin.element.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-sitemap"></i>
-                            <p>Elementos</p>
+                            <i class="nav-icon fas fa-image"></i>
+                            <p>Imagenes</p>
                         </a>
                     </li>
                 </ul>
