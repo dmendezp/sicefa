@@ -7,6 +7,7 @@
 @endsection
 
 @section('content')
+
     <div class="card shadow-sm">
         <div class="card-body">
             <div class="row mx-3">
@@ -21,15 +22,11 @@
                         <option value="3">Productos vencidos</option>
                       </select>
                 </div>
-
-                <div class="col text-end">
-                    <button type="button" class="btn btn-success btn-md shadow"><i class="fas fa-plus"></i> Agregar</button>
-                </div>
             </div>
         </div>
     </div>
 
-
+    @foreach ($product as $p)
     <div class="row mx-3">
         <div class="col-md-12 h-100">
             <div class="card shadow-sm">
@@ -40,93 +37,19 @@
                                 <th scope="col">Cod Producto</th>
                                 <th scope="col">Nombre del producto</th>
                                 <th scope="col">Unidad de medida</th>
-                                <th scope="col">Cantidad</th>
-                                <th scope="col">Precio</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Fecha de Ingreso</th>
-                                <th scope="col">Fecha de Vencimiento</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Tipo de compra</th>
+                                <th scope="col">Categoria</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th scope="row">09098</th>
-                                <td>Yogurt Riquisimo</td>
-                                <td>Lt</td>
-                                <td>2</td>
-                                <td>$ 2.500</td>
-                                <td>Disponible</td>
-                                <td>20/04/2023</td>
-                                <td>20/06/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">09098</th>
-                                <td>Yogurt Riquisimo</td>
-                                <td>Lt</td>
-                                <td>2</td>
-                                <td>$ 2.500</td>
-                                <td>Disponible</td>
-                                <td>20/04/2023</td>
-                                <td>20/06/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">09098</th>
-                                <td>Yogurt Riquisimo</td>
-                                <td>Lt</td>
-                                <td>2</td>
-                                <td>$ 2.500</td>
-                                <td>Disponible</td>
-                                <td>20/04/2023</td>
-                                <td>20/06/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">09098</th>
-                                <td>Yogurt Riquisimo</td>
-                                <td>Lt</td>
-                                <td>2</td>
-                                <td>$ 2.500</td>
-                                <td>Disponible</td>
-                                <td>20/04/2023</td>
-                                <td>20/06/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">09098</th>
-                                <td>Yogurt Riquisimo</td>
-                                <td>Lt</td>
-                                <td>2</td>
-                                <td>$ 2.500</td>
-                                <td>Disponible</td>
-                                <td>20/04/2023</td>
-                                <td>20/06/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">09098</th>
-                                <td>Yogurt Riquisimo</td>
-                                <td>Lt</td>
-                                <td>2</td>
-                                <td>$ 2.500</td>
-                                <td>Disponible</td>
-                                <td>20/04/2023</td>
-                                <td>20/06/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">09098</th>
-                                <td>Yogurt Riquisimo</td>
-                                <td>Lt</td>
-                                <td>2</td>
-                                <td>$ 2.500</td>
-                                <td>Disponible</td>
-                                <td>20/04/2023</td>
-                                <td>20/06/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">09098</th>
-                                <td>Yogurt Riquisimo</td>
-                                <td>Lt</td>
-                                <td>2</td>
-                                <td>$ 2.500</td>
-                                <td>Disponible</td>
-                                <td>20/04/2023</td>
-                                <td>20/06/2023</td>
+                                <td>{{ $p->name }}</td>
+                                <td>{{ $p->measurement_unit->name }}</td>
+                                <td>{{ $p->description }}</td>
+                                <td>{{ $p->kind_of_purchase->name }}</td>
+                                <td>{{ $p->category->name }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -134,6 +57,7 @@
             </div>
         </div>
     </div>
+@endforeach
 @endsection
 
 @section('scripts')

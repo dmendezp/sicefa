@@ -5,6 +5,12 @@ namespace Modules\PTVENTA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\Element;
+use Modules\SICA\Entities\Category;
+use Modules\SICA\Entities\MeasurementUnit;
+use Modules\SICA\Entities\KindOfPurchase;
+
+
 
 class PTVENTAController extends Controller
 {
@@ -28,9 +34,10 @@ class PTVENTAController extends Controller
 
     public function indexProducts()
     {
+        $product = Element::all();
         $titleView = 'Sección de Productos e Inventariado';
         $view = ['titlePage' => 'Productos'];
-        return view('ptventa::products/index', compact('view', 'titleView'));
+        return view('ptventa::products/index', compact('product','view', 'titleView'));
     }
 
     /**

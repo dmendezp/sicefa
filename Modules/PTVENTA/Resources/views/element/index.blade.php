@@ -16,7 +16,7 @@
 
 <div class="card card-primary card-outline col-9 mx-auto">
     <div class="table table-responsive table-sm px-3 py-1">
-        <table class="table table-striped" id="element">
+        <table id="element">
             <thead class="table-dark mt-0 pt-0">
                 <tr>
                     <th>Imagenes</th>
@@ -31,7 +31,7 @@
                                     <div class="card mb-3" style="max-width: 540px;">
                                         <div class="row g-0">
                                           <div class="col-md-4">
-                                            <img src="{{ asset('ptventa/images/dona.jpeg') }}" class="img-fluid rounded-start" alt="...">
+                                            <img src="{{ asset($e->image) }}" class="img-fluid rounded-start" alt="...">
                                           </div>
                                           <div class="col-md-6">
                                             <div class="card-body">

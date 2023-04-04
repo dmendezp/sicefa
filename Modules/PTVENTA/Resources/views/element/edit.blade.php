@@ -19,16 +19,7 @@
                         <label><b>Nombre: </b><small>{{ $element->name }}</small></label>
                     </div>
                     <div class="row">
-                        <label><b>Unidad de medida: </b><small>{{ $element->measurement_unit->name }}</small></label>
-                    </div>
-                    <div class="row">
-                        <label><b>Descripción: </b><small>{{ $element->description }}</small></label>
-                    </div>
-                    <div class="row">
-                        <label><b>Tipo de compra: </b><small>{{ $element->kind_of_purchase->name }}</small></label>
-                    </div>
-                    <div class="row">
-                        <label><b>Categoria: </b><small>{{ $element->category->name}}</small></label>
+                        <label><b>Precio: </b><small>$3.000</small></label>
                     </div>
                 </div>
           </div>
@@ -36,7 +27,7 @@
             <div class="card border-warning mb-3" style="max-width: 25rem;">
                 <div class="card-header">Imagen</div>
                 <div class="card-body">
-                    <img src="{{ asset('ptventa/images/Card1.jpg') }}" class="img-fluid rounded-start" style="max-height: 200px">
+                    <img src="{{ asset($element->image) }}" class="img-fluid rounded-start" style="max-height: 200px">
                 </div>
             </div>
           </div>
