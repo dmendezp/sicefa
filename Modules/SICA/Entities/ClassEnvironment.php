@@ -1,20 +1,19 @@
 <?php
 
-namespace Modules\CEFAMAPS\Entities;
+namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\Environment;
 
-class page extends Model
+class ClassEnvironment extends Model
 {
     use SoftDeletes;
-
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
-    protected $fillable = ['name','content','environment_id'];
+    protected $fillable = ['name'];
 
-    public function environment(){
-        return $this->belongsTo(Environment::class);
+    public function environments(){
+        return $this->hasMany(Environment::class);
     }
 }

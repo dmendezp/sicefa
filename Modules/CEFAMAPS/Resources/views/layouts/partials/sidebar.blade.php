@@ -250,21 +250,21 @@
           <!-- MENU PARA ENVIRONMENT -->
           <li class="nav-item {{ ! Route::is('cefamaps.admin.environment.views*') ?: 'menu-is-opening menu-open' }}">
             <a href="#" class="nav-link {{ ! Route::is('cefamaps.admin.environment.views.*') ?: 'active' }}">
-              <i class="nav-icon fa-solid fa-school"></i>
+              <i class="nav-icon fa-solid fa-city"></i>
               <p>
                 {{ trans('cefamaps::environment.Environment') }}
                 <i class="right fa-solid fa-map-pin"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+            @foreach($classenviron as $c)
               <li class="nav nav-item">
-                @foreach($environ as $e)
-                  <a href="{{ url('/cefamaps/environment/view/'.$e->id) }}" class="nav-link {{ ! Route::is('#') ?: 'active' }}">
-                    <img src="{{ asset('cefamaps/images/uploads/'.$e->picture) }}" width="25" height="25">
-                    <p>{{$e->name}}</p>
-                  </a>
-                @endforeach
+                <a href="{{ url('/cefamaps/environment/view/'.$c->id) }}" class="nav-link {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'active' }}">
+                  <i class="nav-icon fa-solid fa-school-flag"></i>
+                  <p>{{$c->name}}</p>
+                </a>
               </li>
+              @endforeach
             </ul>
           </li>
           <!-- CIERRA MENU PARA ENVIRONMENT -->

@@ -92,14 +92,12 @@
                         </div>
                       </td>
                       <!-- Fin del modal pra las coordenadas -->
-                      <td>{{$env->environment_classroom}}</td>
+                      <td>{{$env->class_environments->name}}</td>
                       <!-- Inicio del ID para el filtro de las paginas -->
                       <td>
-                        
                         <a class="btn btn-primary" href="{{url('/cefamaps/page/index?id='.$env->id)}}">
                           <i class="fas fa-regular fa-file-lines"></i>
                         </a>
-                        
                       </td>
                       <!-- Fin del ID para el filtro de las paginas -->
                       <!-- Inico para Editar y Eliminar -->
@@ -142,9 +140,15 @@
   </div>
 
 @endsection
+
 @section('script')
 
   <script>
+    $(document).ready(function () {
+      $('#example1').DataTable({
+        order: [[3, 'desc']],
+      });
+    });
   </script>
 
   <script type="text/javascript">
@@ -171,14 +175,6 @@
         })
       })
     })
-  </script>
-
-  <script>
-  $(document).ready(function () {
-    $('#example1').DataTable({
-      order: [[3, 'desc']],
-    });
-  });
   </script>
 
 @endsection

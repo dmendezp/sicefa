@@ -24,7 +24,7 @@ class CreateEnvironmentsTable extends Migration
             $table->foreignId('productive_units_id')->constrained()->ondelete('cascade');
             $table->string('status')->nullable();
             $table->string('type_environment')->nullable();
-            $table->string('environment_classroom')->nullable();
+            $table->foreignId('class_environments_id')->constrained()->ondelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
