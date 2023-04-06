@@ -24,5 +24,7 @@ return [
     'Cerdo' => 'Cerdo',
     'Limon'=> 'Limon',
     'Arroz' => 'Arroz',
-    'Edificio de Trigo' => 'Edificio de Trigo'
+    'Edificio de Trigo' => 'Edificio de Trigo',
+    'Arbol de Mango' => 'Arbol de Mango',
+    'Cafe'=>'Cafe'
 ];

@@ -24,6 +24,8 @@ return [
     'Cerdo' => 'Piggy',
     'Limon' => 'Lemon',
     'Arroz' => 'Rice',
-    'Edificio de Trigo' => 'wheat building'
+    'Edificio de Trigo' => 'wheat building',
+    'Arbol de Mango' => 'tree mango',
+    'Cafe' => 'Coffee'
     
 ];

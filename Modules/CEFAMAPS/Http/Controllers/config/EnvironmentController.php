@@ -132,13 +132,12 @@ class EnvironmentController extends Controller
         if($edit->save()) { 
             $c = 0;
             foreach ($edit->coordinates as $co) {
-                $editcoor = Coordinate::findOrFail($co->id);
+                $editcoor = new Coordinate;
                 $editcoor -> environment_id = $edit->id;
                 $editcoor -> length = e ($request->input('length')[$c]);
                 $editcoor -> latitude = e ($request->input('latitude')[$c]);
-                $c++;  
-                if ( $editcoor->save()); {
-                
+                $c++;
+                if ($editcoor -> save()) {
                 }
             
          }

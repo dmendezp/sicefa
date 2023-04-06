@@ -57,7 +57,7 @@ class SeedPermissionsTableSeeder extends Seeder
             $useradmin = User::create([
                 "nickname" => "LolaFernada",
                 "person_id" => $person->id,
-                "email" => "nsabogalgaitan@gmail.com",
+                "email" => "ana.falla3@misena.edu.co", 
                 "password" => Hash::make("12345678")
             ]);
         }

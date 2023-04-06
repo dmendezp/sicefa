@@ -86,6 +86,8 @@
                           <!-- Iconos Adicionales -->
                           <option value="fas fa-seedling">{{ trans('cefamaps::unit.Arroz') }}</option>
                           <option value="fa-solid fa-building-wheat">{{ trans('cefamaps::unit.Edificio de Trigo') }}</option>
+                          <option value="fa-solid fa-tree">{{ trans('cefamaps::unit.Arbol de Mango') }}</option>
+                          <option value="fas fa-coffee">{{ trans('cefamaps::unit.Cafe') }}</option>
                         </select>
                       </div>
                     </div>
