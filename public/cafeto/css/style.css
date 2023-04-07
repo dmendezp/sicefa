@@ -1,0 +1,23 @@
+body {
+    background-image: url('/cafeto/images/Coffe-background.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content-wrapper {
+    background-color: transparent !important;
+  }
+
+.sidebar-background-cafeto {
+    background: #578497 !important;
+    opacity: 0.7 !important;
+}
+
+.navbar-background-cafeto {
+    background: #C39C69 !important;
+}
+
+.footer-background-cafeto {
+    background: #CBA371 !important;
+}
