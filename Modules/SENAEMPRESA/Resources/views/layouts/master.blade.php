@@ -7,9 +7,12 @@
         @csrf
         <div class="wrapper">
 
+      
+
         <!-- Navbar -->
         @include('senaempresa::layouts.structure.navbar')
         <!-- /.navbar -->
+
 
         <!-- Main Sidebar Container -->
         @include('senaempresa::layouts.structure.aside')

@@ -27,17 +27,20 @@ class Apprentice extends Model implements Auditable
     }
 
     public function asistencias(){
-        return $this->belongsToMany(Asistencia::class, 'apprentice_asistencias')->withTimestamps()->withPivot('asistencia','id');
+        return $this->belongsToMany(Asistencia::class, 'apprentice_asistencias')->withTimestamps()->withPivot('asistencia','id','work_id');
     }
 
     public function getCursoyProgramaNameAttribute(){
         return $this->Course->Program->name.' - '.$this->Course->code;
     }
 
-    public function getCodeCursoAttribute(){
-        return $this->course->code;
+    
+    public function getapprenticeFullNameAttribute(){
+        return $this->Person->first_name.' '.$this->Person->first_last_name.' '.$this->Person->second_last_name;
     }
 
+   
 
+   
     
 }

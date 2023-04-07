@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-
-class CreateAsistenciasTable extends Migration
+class CreateWorksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +13,13 @@ class CreateAsistenciasTable extends Migration
      */
     public function up()
     {
-        Schema::create('asistencias', function (Blueprint $table) {
+        Schema::create('works', function (Blueprint $table) {
             $table->id();
-            //$table->date('date');
-            $table->text('title');
-            $table->dateTime('start');
-            $table->dateTime('end');
-            $table->boolean('guardado')->nullable();
+            $table->text('name');
+            $table->text('description');
+            $table->foreignId('productive_unit_id')->nullable()->constrained();
             $table->timestamps();
-            $table->softDeletes();  
+            $table->softDeletes();
         });
     }
 
@@ -33,6 +30,6 @@ class CreateAsistenciasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asistencias');
+        Schema::dropIfExists('works');
     }
 }

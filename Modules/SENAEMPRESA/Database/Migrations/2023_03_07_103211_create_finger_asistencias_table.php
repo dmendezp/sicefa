@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-
-class CreateAsistenciasTable extends Migration
+class CreateFingerAsistenciasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +13,14 @@ class CreateAsistenciasTable extends Migration
      */
     public function up()
     {
-        Schema::create('asistencias', function (Blueprint $table) {
+        Schema::create('finger_asistencias', function (Blueprint $table) {
             $table->id();
-            //$table->date('date');
-            $table->text('title');
-            $table->dateTime('start');
-            $table->dateTime('end');
-            $table->boolean('guardado')->nullable();
+            $table->foreignId('person_id')->constrained()->nullable();
+            $table->string('area');
+            $table->dateTime('Date_In_Exit');
+            $table->string('name_equipment');
             $table->timestamps();
-            $table->softDeletes();  
+            $table->softDeletes();
         });
     }
 
@@ -33,6 +31,6 @@ class CreateAsistenciasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asistencias');
+        Schema::dropIfExists('finger_asistencias');
     }
 }

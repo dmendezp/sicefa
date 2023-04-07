@@ -21,11 +21,23 @@ class SeedPermissionsTableSeeder extends Seeder
             $app = App::create([
                 "name" => "SENAEMPRESA",
                 "url" => "/senaempresa/index",
-                "color" => "#ff5e1f",
-                "icon" => "fas fa-puzzle-piece",
-                "description" => "En esta aplicación se administra la confgur-......",
-                "description_english" => "English -> En esta aplicación se administra la confgur-......"
+                "color" => "#237286",
+                "icon" => "fas fa-desktop",
+                "description" => "Actividades de senaempresa y relacionado con asistencias",
+                "description_english" => "English -> Actividades de senaempresa y relacionado con asistencias"
             ]);
         }
+
+        $rolattendanceTurn = Role::where('slug','sica.attendanceTurn')->first();
+        if(!$rolattendanceTurn){
+            $rolattendanceTurn = Role::create([
+                "name" => "Asistencia Turnos",
+                "slug" => "sica.attendanceTurn",
+                "description" => "Rol Encargado de las asistencias de turnos",
+                "description_english" => "English - Rol Encargado de las asistencias de turnos",
+                "full-access" => "no",
+                "app_id" => $app->id
+            ]);
+        } 
     }
 }

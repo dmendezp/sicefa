@@ -26,11 +26,11 @@
         </a>
       </li>
       
-      <li class="nav-item" title="Salir">
+      <!-- <li class="nav-item" title="Salir">
       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="">
       @csrf
       <button type="submit" class="btn btn-outline nav-link"><i class="fas fa-sign-out-alt" ></i></button>
-      </form>
+      </form> -->
         
       </li>
     </ul>

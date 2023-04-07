@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Sector;
+use Modules\SENAEMPRESA\Entities\Work;
 
 class ProductiveUnit extends Model implements Auditable
 {
@@ -21,6 +22,10 @@ class ProductiveUnit extends Model implements Auditable
 
     public function person(){
         return $this->belongsTo(Person::class);
+    }
+
+    public function works(){
+        return $this->hasMany(Work::class);
     }
 
 }

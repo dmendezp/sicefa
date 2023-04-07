@@ -23,13 +23,17 @@
   <!-- SweetAlert2 -->
   <link rel="stylesheet" type="text/css" href="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.css')}}">
 
-  <!-- ijaboCropTool-master para recortar imagenes y redimensionarlas-->
-  <link rel="stylesheet" href="{{ asset('libs/ijaboCropTool-master/ijaboCropTool.min.css') }}">
+ 
 
   <!-- Select 2-->
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
   <!-- Estilos Propios -->
   <link rel="stylesheet" type="text/css" href="{{ asset('senaempresa/css/style_senaempresa.css')}}">
+
+  <!-- Estilos de fullcalendar -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css">
+
+  
 
 </head>

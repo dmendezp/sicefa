@@ -15,7 +15,7 @@ use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Event;
 use Modules\SICA\Entities\EventAttendance;
-use Modules\SICA\Entities\Event;
+
 Use DB;
 
 class SICAController extends Controller
@@ -56,12 +56,12 @@ class SICAController extends Controller
        
         $people = Person::count();
         $apprentices = Apprentice::count();
-<<<<<<< HEAD
+/* <<<<<<< HEAD
         //$attendance = EventAttendance::select('date',DB::raw('count(id) as total'))->groupBy('date')->with('event')->get();
         $attendance = EventAttendance::select('date',DB::raw('count(id) as total'))->groupBy('date')->orderBy('date','desc')->with('event')->get();
     
         
-=======
+======= */
         $event = Event::count();
         $events = Event::get();
         $eas = $events;
@@ -80,7 +80,8 @@ class SICAController extends Controller
         }
         return $eas;
         $attendance = EventAttendance::select('date',DB::raw('count(id) as total'))->groupBy('date')->with('event')->get();
->>>>>>> e70fa6db5c7880216b279cab69538183e1c4e441
+
+
         $data = ['title'=>trans('sica::menu.Dashboard'),'people'=>$people,'apprentices'=>$apprentices,'attendance'=>$attendance];
         return view('sica::admin.attendance_dashboard',$data);
     }

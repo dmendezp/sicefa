@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-
-class CreateAsistenciasTable extends Migration
+class CreateApprenticeAsistenciaWorkTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +13,12 @@ class CreateAsistenciasTable extends Migration
      */
     public function up()
     {
-        Schema::create('asistencias', function (Blueprint $table) {
+        Schema::create('apprentice_asistencia_work', function (Blueprint $table) {
             $table->id();
-            //$table->date('date');
-            $table->text('title');
-            $table->dateTime('start');
-            $table->dateTime('end');
-            $table->boolean('guardado')->nullable();
+            $table->foreignId('apprentice_asistencia_id')->constrained('apprentice_asistencias');
+            $table->foreignId('work_id')->constrained();
             $table->timestamps();
-            $table->softDeletes();  
+            $table->softDeletes();
         });
     }
 
@@ -33,6 +29,6 @@ class CreateAsistenciasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asistencias');
+        Schema::dropIfExists('apprentice_asistencia_work');
     }
 }
