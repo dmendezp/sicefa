@@ -2,10 +2,8 @@
     "SICA": true,
     "EVS": true,
     "BOLMETEOR": true,
-    "PTOVENTA": true,
     "CEFAMAPS": true,
     "TILABS": true,
     "SENAEMPRESA": true,
-    "CPD": true,
-    "CAFETO": true
+    "CPD": true
 }
