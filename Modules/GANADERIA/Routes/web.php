@@ -38,6 +38,7 @@ use Modules\GANADERIA\Http\Controllers\cattle\CattleController;
         // RUTAS PARA EL REGISTRO DE GANADO//
        
         Route::get('/admin/cattle/register_cattle', [CattleController::class, 'register_cattle'])->name('ganaderia.admin.cattle.register_cattle');
+        Route::get('/admin/cattle/reproduction', [CattleController::class, 'reproduction'])->name('ganaderia.admin.cattle.reproduction');
 
     });
 

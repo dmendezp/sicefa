@@ -14,5 +14,13 @@ class CattleController extends Controller
         return view('ganaderia::admin.register_cattle.home',$data);
     }
 
-   
-}
+  
+    public function reproduction(){
+        
+        $data = ['title'=>trans('ganaderia::menu.cattle')];
+        return view('ganaderia::admin.reproduction.home',$data);
+    }
+
+	}
+
+

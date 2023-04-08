@@ -171,7 +171,7 @@
                 </li>
 
                 <li class="nav-item">
-                  <a href="{{ route('ganaderia.admin.activity.movement') }}" class="nav-link {{ ! Route::is('ganaderia.admin.activity.movement*') ?: 'active' }}">
+                  <a href="{{ route('ganaderia.admin.cattle.reproduction') }}" class="nav-link {{ ! Route::is('ganaderia.admin.cattle.reproductiont*') ?: 'active' }}">
                   
                     <p>Reproduccion </p>
                   </a>

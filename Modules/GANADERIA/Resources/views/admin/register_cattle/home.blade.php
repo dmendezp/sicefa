@@ -9,6 +9,7 @@
           <div class="card card-success card-outline">
             <div class="card-header">
               <h3 class="m-0">Registro de Ganado</h3>
+
             </div>
             <div class="card-body">
               <div class="content">
@@ -21,22 +22,19 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="small mb-1" for="inputFirstName">Nombre Animal</label>
-                    <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Ingresa Nombre de Animal" name="nombre" required="">
+                    <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Ingresa Nombre de Animal" name="nombre" required="value="value="{{ old('name') }} autofocus">
                   </input>
                 </div>
             </div>
 
-            <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="small mb-1" for="inputFirstName">Color</label>
-                        <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Ingresa Color " name="Color" required="">
-                    </div>
-                </div>
+            
+
+          
 
                 <div class="col-md-6">
                 <div class="form-group">
-                  <label class="small mb-1" for="inputFirstName">Sexo</label>
-                  <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Ingresa Sexo" name="sexo" required="">
+                  <label class="small mb-1" for="inputFirstName">Identificacion</label>
+                  <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Ingresa Codigo" name="identificacion" required="">
                 </div>
               </div>
 
@@ -61,6 +59,13 @@
                     </div>
                 </div>
 
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="small mb-1" for="inputFirstName">Sexo</label>
+                      <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Ingresa Sexo" name="Sexo" required="">
+                    </div>
+                  </div>
+                  
             <div class="col-md-6">
                  <div class="form-group">
                  <label class="small mb-1" for="inputFirstName">Fecha de Nacimiento</label>
@@ -70,14 +75,17 @@
                 </div>
               </div>
 
-                    <div class="col-md-6">
+                <div class="col-md-6">
                     <div class="form-group">
-                      <label class="small mb-1" for="inputFirstName">Estado</label>
-                      <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Ingresa Estado" name="estado" required="">
+                        <label class="small mb-1" for="inputFirstName">Color</label>
+                        <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Ingresa Color " name="Color" required="">
                     </div>
-                  </div
+                </div>
 
-                
+                    
+
+                 
+
                 </div>
               </div>
 
