@@ -21,10 +21,10 @@ class CEFAMAPSController extends Controller
      */
     public function index()
     {
-        $unit = ProductiveUnit::get();
+        $unit = ProductiveUnit::where($id)->get();
         $classenviron = ClassEnvironment::get();
         $farm = Farm::get();
-        $environ = Environment::with('pages')->get();
+        $environ = Environment::get();
         $data = ['title'=>trans('cefamaps::menu.Home'), 'unit'=>$unit, 'farm'=>$farm, 'environ'=>$environ, 'classenviron'=>$classenviron];
         return view('cefamaps::index',$data);
     }

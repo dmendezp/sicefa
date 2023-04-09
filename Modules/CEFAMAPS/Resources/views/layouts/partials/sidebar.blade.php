@@ -125,128 +125,130 @@
           @endif
           <!-- Fin para las configuraciones del adminitrador -->
           <!-- MENU PARA UNITS -->
-      <li class="nav-item {{ ! Route::is('cefa.cefamaps.unit.view*') ?: 'menu-is-opening menu-open' }}">
-          <a href="#" class="nav-link {{ ! Route::is('cefa.cefamaps.unit.view.*') ?: 'active' }}">
-            <i class="nav-icon fa-solid fa-mountain-sun"></i>
+<!--           <li class="nav-item {{ ! Route::is('cefa.cefamaps.unit.view*') ?: 'menu-is-opening menu-open' }}">
+            <a href="#" class="nav-link {{ ! Route::is('cefa.cefamaps.unit.view.*') ?: 'active' }}">
+              <i class="nav-icon fa-solid fa-mountain-sun"></i>
               <p>
                 {{ trans('Areas') }}
                 <i class="right fa-solid fa-map-pin"></i>
-             </p>
-           </a>
-        <ul class="nav nav-treeview">
+              </p>
+            </a>
+            <ul class="nav nav-treeview"> -->
               
-            <!-- area agricola -->  
-         <li class="nav-item {{ ! Route::is('cefa.cefamaps.unit.view*') ?: 'menu-is-opening menu-open' }}">
-            <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.unit.view.*') ?: 'active' }}">
-                <i class="fas fa-seedling"></i>
-                  <p>
-                     {{ trans('Agricola') }}
-                  </p>
-              </a>
-           <ul class="nav nav-treeview">
-              <center><h6>UNIDADES</h6></center>
-                 <li class="nav nav-item">
-                   @foreach($unit as $u)
-                      <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('/cefamaps/unit/view/*'.$u->id) ?: 'active' }}">
-                       <i class="nav-icon {{$u->icon}}"></i>
-                         <p>{{$u->name}}</p>
-                      </a>
-                    @endforeach
-                 </li>
-             </ul>
-          </li>
-            
-        
-          <!-- area pecuaria --> 
-         <li class="nav-item {{ ! Route::is('cefa.cefamaps.unit.view*') ?: 'menu-is-opening menu-open' }}">
-            <a href="{{ route('cefa.cefamaps.index') }}"  class="nav-link {{ ! Route::is('cefa.cefamaps.unit.view.*') ?: 'active' }}">
-               <i class="fa-solid fa-fish"></i>
-                  <p>
-                    {{ trans('Pecuaria') }}
-                 </p>
-             </a>
-           <ul class="nav nav-treeview">
-              <center><h6>UNIDADES</h6></center>
-                 <li class="nav nav-item">
+              <!-- area agricola -->  
+<!--               <li class="nav-item {{ ! Route::is('cefa.cefamaps.unit.view*') ?: 'menu-is-opening menu-open' }}">
+                <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.unit.view.*') ?: 'active' }}">
+                  <i class="fas fa-seedling"></i>
+                  <p>{{ trans('Agricola') }}</p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <center><h6>UNIDADES</h6></center>
+                  <li class="nav nav-item">
                     @foreach($unit as $u)
                       <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('/cefamaps/unit/view/*'.$u->id) ?: 'active' }}">
                         <i class="nav-icon {{$u->icon}}"></i>
-                          <p>{{$u->name}}</p>
+                        <p>{{$u->name}}</p>
                       </a>
                     @endforeach
-                 </li>
-             </ul>
-         </li>  
+                  </li>
+                </ul>
+              </li> -->
 
-
-         <!-- area ambiental --> 
-         <li class="nav-item {{ ! Route::is('cefa.cefamaps.unit.view*') ?: 'menu-is-opening menu-open' }}">
-            <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.unit.view.*') ?: 'active' }}">
-                <i class="fas fa-chalkboard-teacher"></i>
-                   <p>
-                      {{ trans('Ambiental') }}
-                  </p>
-              </a>
-           <ul class="nav nav-treeview">
-             <center><h6>UNIDADES</h6></center>
-                 <li class="nav nav-item">
-                   @foreach($unit as $u)
-                     <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('/cefamaps/unit/view/*'.$u->id) ?: 'active' }}">
-                       <i class="nav-icon {{$u->icon}}"></i>
-                         <p>{{$u->name}}</p>
+              <!-- area pecuaria --> 
+<!--               <li class="nav-item {{ ! Route::is('cefa.cefamaps.unit.view*') ?: 'menu-is-opening menu-open' }}">
+                <a href="{{ route('cefa.cefamaps.index') }}"  class="nav-link {{ ! Route::is('cefa.cefamaps.unit.view.*') ?: 'active' }}">
+                  <i class="fa-solid fa-fish"></i>
+                  <p>{{ trans('Pecuaria') }}</p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <center><h6>UNIDADES</h6></center>
+                  <li class="nav nav-item">
+                    @foreach($unit as $u)
+                      <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('/cefamaps/unit/view/*'.$u->id) ?: 'active' }}">
+                        <i class="nav-icon {{$u->icon}}"></i>
+                        <p>{{$u->name}}</p>
                       </a>
-                   @endforeach
-                 </li>
-             </ul>
-         </li>
+                    @endforeach
+                  </li>
+                </ul>
+              </li> -->
 
-           <!-- area infraestructura --> 
-         <li class="nav-item {{ ! Route::is('cefa.cefamaps.unit.view*') ?: 'menu-is-opening menu-open' }}">
-            <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.unit.view.*') ?: 'active' }}">
-               <i class="fas fa-house-user"></i>
-                   <p>
-                       {{ trans('Infraestructura') }}
-                   </p>
-               </a>
-            <ul class="nav nav-treeview">
-              <center><h6>UNIDADES</h6></center>
-                   <li class="nav nav-item">
-                     @foreach($unit as $u)
-                       <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('/cefamaps/unit/view/*'.$u->id) ?: 'active' }}">
-                         <i class="nav-icon {{$u->icon}}"></i>
-                            <p>{{$u->name}}</p>
-                       </a>
-                     @endforeach
-                   </li>
-              </ul>
-         </li>
+              <!-- area ambiental --> 
+<!--               <li class="nav-item {{ ! Route::is('cefa.cefamaps.unit.view*') ?: 'menu-is-opening menu-open' }}">
+                <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.unit.view.*') ?: 'active' }}">
+                  <i class="fas fa-chalkboard-teacher"></i>
+                  <p>{{ trans('Ambiental') }}</p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <center><h6>UNIDADES</h6></center>
+                  <li class="nav nav-item">
+                    @foreach($unit as $u)
+                      <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('/cefamaps/unit/view/*'.$u->id) ?: 'active' }}">
+                        <i class="nav-icon {{$u->icon}}"></i>
+                        <p>{{$u->name}}</p>
+                      </a>
+                    @endforeach
+                  </li>
+                </ul>
+              </li> -->
 
-         
-        </ul>
-     </li>
+              <!-- area infraestructura --> 
+<!--               <li class="nav-item {{ ! Route::is('cefa.cefamaps.unit.view*') ?: 'menu-is-opening menu-open' }}">
+                <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.unit.view.*') ?: 'active' }}">
+                  <i class="fas fa-house-user"></i>
+                  <p>{{ trans('Infraestructura') }}</p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <center><h6>UNIDADES</h6></center>
+                  <li class="nav nav-item">
+                    @foreach($unit as $u)
+                      <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('/cefamaps/unit/view/*'.$u->id) ?: 'active' }}">
+                        <i class="nav-icon {{$u->icon}}"></i>
+                        <p>{{$u->name}}</p>
+                      </a>
+                    @endforeach
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li> -->
 
           <!-- CIERRA MENU PARA UNITS -->
-          <!-- MENU PARA FARMS -->
-          <li class="nav-item {{ ! Route::is('cefa.cefamaps.farm.view*') ?: 'menu-is-opening menu-open' }}">
+
+          <!-- MENU PARA LAS FARM NUEVAS -->
+          <li class="nav-item {{ ! Route::is('cefa.cefamaps.farm.view') ?: 'menu-is-opening menu-open' }}">
             <a href="#" class="nav-link {{ ! Route::is('cefa.cefamaps.farm.view.*') ?: 'active' }}">
               <i class="nav-icon fa-solid fa-tractor"></i>
               <p>
-                {{ trans('cefamaps::farm.Farm') }}
+                {{ trans('cefamaps::farm.Area') }}
                 <i class="right fa-solid fa-map-pin"></i>
               </p>
             </a>
+            @foreach($farm as $f)
             <ul class="nav nav-treeview">
-              <li class="nav nav-item">
-                @foreach($farm as $f)
-                  <a href="{{ url('/cefamaps/farm/view/'.$f->id) }}" class="nav-link {{ ! Route::is('cefa.cefamaps.farm.view.*') ?: 'active' }}">
-                    <i class="nav-icon <!-- falta el icono para Farm -->"></i>
-                    <p>{{$f->name}}</p>
-                  </a>
+              <li class="nav nav-item {{ ! Route::is('cefa.cefamaps.farm.view') ?: 'menu-is-opening menu-open' }}">
+                <a href="#" class="nav-link {{ ! Route::is('cefa.cefamaps.farm.view.*') ?: 'active' }}">
+                  <i class="nav-icon fa-solid fa-tractor"></i>
+                  <p>
+                    {{ $f->name }}
+                    <i class="right fa-solid fa-map-pin"></i>
+                  </p>
+                </a>
+                @foreach($unit as $u)
+                <ul class="nav nav-treeview">
+                  <li class="nav nav-item">
+                    <a href="{{ url('/cefamaps/unit/view/'.$u->id) }}" class="nav-link {{ ! Route::is('cefa.cefamaps.unit.view.*') ?: 'active' }}">
+                      <i class="nav-icon {{ $u->icon }}"></i>
+                      <p>{{$u->name}}</p>
+                    </a>
+                  </li>
+                </ul>
                 @endforeach
               </li>
             </ul>
+            @endforeach
           </li>
-          <!-- CIERRA MENU PARA FARMS -->
+          <!-- CIERRE MENU PARA LAS FARM NUEVAS -->
           <!-- MENU PARA ENVIRONMENT -->
           <li class="nav-item {{ ! Route::is('cefamaps.admin.environment.views*') ?: 'menu-is-opening menu-open' }}">
             <a href="#" class="nav-link {{ ! Route::is('cefamaps.admin.environment.views.*') ?: 'active' }}">
@@ -257,13 +259,13 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-            @foreach($classenviron as $c)
-              <li class="nav nav-item">
-                <a href="{{ url('/cefamaps/environment/view/'.$c->id) }}" class="nav-link {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'active' }}">
-                  <i class="nav-icon fa-solid fa-school-flag"></i>
-                  <p>{{$c->name}}</p>
-                </a>
-              </li>
+              @foreach($classenviron as $c)
+                <li class="nav nav-item">
+                  <a href="{{ url('/cefamaps/environment/view/'.$c->id) }}" class="nav-link {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'active' }}">
+                    <i class="nav-icon fa-solid fa-school-flag"></i>
+                    <p>{{$c->name}}</p>
+                  </a>
+                </li>
               @endforeach
             </ul>
           </li>

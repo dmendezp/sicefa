@@ -10,6 +10,7 @@ use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\ClassEnvironment;
+use Modules\CEFAMAPS\Entities\Page;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Sector;
 
@@ -22,7 +23,8 @@ class UnitController extends Controller
     public function index()
     {
         $environ = Environment::get();
-        $unit = ProductiveUnit::with('person')->get();
+        /* $unit = ProductiveUnit::with('person')->get(); */
+        $unit = Environment::where('productive_units_id',$id)->get();
         $farm = Farm::get();
         $classenviron = ClassEnvironment::get();
         $data = ['title'=>trans('cefamaps::unit.Units'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron];
@@ -104,9 +106,11 @@ class UnitController extends Controller
     {
         $unit = ProductiveUnit::get();
         $environ = Environment::get();
+        $classenviron = ClassEnvironment::get();
         $farm = Farm::get();
-        $viewunit = ProductiveUnit::findOrFail($id);
-        $data = ['title'=>trans('cefamaps::unit.View'), 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'viewunit'=>$viewunit];
+        $pages = Page::get();
+        $viewunit = Environment::where('productive_units_id',$id)->get();
+        $data = ['title'=>trans('cefamaps::unit.View'), 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'viewunit'=>$viewunit, 'classenviron'=>$classenviron, 'pages'=>$pages];
         return view('cefamaps::admin.unit.view',$data);
     }
 

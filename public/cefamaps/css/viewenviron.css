@@ -1,0 +1,69 @@
+.card-content {
+    position: relative;
+    display: inline-block;
+    width: 250px; /* Largo */
+    height: 200px; /* Ancho */
+    overflow: hidden;
+}
+
+.card-content .button-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.card-content:hover .button-container {
+    opacity: 1;
+}
+
+.card-content .button-container button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.card-content .image-container {
+    position: relative;
+}
+
+.card-content .image {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card-content:hover .image {
+    transform: scale(1.1);
+}
+
+.card-content .image-container .image-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+
+.card-content .image-container .image-text p {
+    margin: 0;
+}
+
+.card-content .image {
+    display: none;
+}
+
+.card-content:not(:hover) .image {
+    display: block;
+}

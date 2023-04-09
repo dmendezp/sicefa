@@ -109,21 +109,18 @@ class EnvironmentController extends Controller
     {
         
         /* crear imagen */
-        //return $request;
         $edit = Environment::findOrFail($request->input('id'));
         $edit -> name = e ($request->input('name'));
         $edit -> description = e ($request->input('description'));
 
-        
-       
          if ($request->file('file')){
             $path = 'uploads/';
             $final_name = Str::slug($request->file('file')->getClientOriginalName().'_'.time()).'.'.trim($request->file('file')->getClientOriginalName());
             $request->file->storeAs($path, $final_name, 'uploads'); 
             $edit -> picture = e ($final_name);
 
-        //}else{
-            //$edit -> picture = e ($request->input('imagenAntigua')); 
+        /* }else{
+            $edit -> picture = e ($request->input('imagenAntigua'));  */
         }
  
         $edit -> farms_id = e ($request->input('farm'));
