@@ -21,7 +21,7 @@ class CEFAMAPSController extends Controller
      */
     public function index()
     {
-        $unit = ProductiveUnit::where($id)->get();
+        $unit = ProductiveUnit::get();
         $classenviron = ClassEnvironment::get();
         $farm = Farm::get();
         $environ = Environment::get();

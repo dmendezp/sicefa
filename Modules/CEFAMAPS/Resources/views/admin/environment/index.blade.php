@@ -24,8 +24,7 @@
                       <th>{{ trans('cefamaps::environment.Name') }}</th>
                       <th>{{ trans('cefamaps::environment.Picture') }}</th>
                       <th>{{ trans('cefamaps::environment.Description') }}</th>
-                      <th>{{ trans('cefamaps::environment.Length') }}</th>
-                      <th>{{ trans('cefamaps::environment.Latitude') }}</th>
+                      <th>{{ trans('cefamaps::environment.Spot') }} {{ trans('cefamaps::environment.Environment') }}</th>
                       <th>{{ trans('cefamaps::farm.Farm') }}</th>
                       <th>{{ trans('cefamaps::environment.Productive units') }}</th>
                       <th>{{ trans('cefamaps::menu.Status') }}</th>
@@ -46,8 +45,24 @@
                       <td>{{$env->name}}</td>
                       <td><img src="{{ asset('cefamaps/images/uploads/'.$env->picture) }}" width="100" height="100"></td>
                       <td>{{$env->description}}</td>
-                      <td>{{$env->length}}</td>
-                      <td>{{$env->latitude}}</td>
+                      <td>
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-spot-{{$env->id}}">{{ trans('cefamaps::environment.Spot') }}</button>
+                        <div class="modal fade" id="modal-spot-{{$env->id}}">
+                          <div class="modal-dialog modal-xl">
+                            <div class="modal-content bg-info">
+                              <div class="modal-header">
+                                <h4 class="modal-title">{{$env->type_environment}} {{$env->name}}</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <i class="fa-solid fa-xmark"></i>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div id="map"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
                       <td>{{$env->farms->name}}</td>
                       <td>{{$env->productive_units->name}}</td>
                       <td>{{$env->status}}</td>
@@ -119,8 +134,7 @@
                       <th>{{ trans('cefamaps::environment.Name') }}</th>
                       <th>{{ trans('cefamaps::environment.Picture') }}</th>
                       <th>{{ trans('cefamaps::environment.Description') }}</th>
-                      <th>{{ trans('cefamaps::environment.Length') }}</th>
-                      <th>{{ trans('cefamaps::environment.Latitude') }}</th>
+                      <th>{{ trans('cefamaps::environment.Spot') }} {{ trans('cefamaps::environment.Environment') }}</th>
                       <th>{{ trans('cefamaps::farm.Farm') }}</th>
                       <th>{{ trans('cefamaps::environment.Productive units') }}</th>
                       <th>{{ trans('cefamaps::menu.Status') }}</th>
@@ -177,4 +191,30 @@
     })
   </script>
 
+  <script type="text/javascript">
+    
+    // Initialize and add the map
+    function initMap() {
+      @foreach($environ as $e)
+
+      // The location of Uluru
+      const adsi = { lat: {{$e->latitude}}, lng: {{$e->length}} };
+      // The map, centered at Uluru
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 18,
+        center: adsi,
+        mapTypeId: 'satellite'
+      });
+
+      // The marker, positioned at Uluru
+      const marker{{$e->id}} = new google.maps.Marker({
+        position: { lat: {{$e->latitude}},  lng: {{$e->length}} },
+        map: map,
+      });
+
+      @endforeach
+
+    }
+
+  </script>
 @endsection

@@ -64,7 +64,7 @@
         </div>
         @foreach($pages as $p)
         <div class="modal-body">
-          <p>{{!! $p->content !!}}</p>
+          <p>{!! $p->content !!}</p>
         </div>
         @endforeach
       </div>

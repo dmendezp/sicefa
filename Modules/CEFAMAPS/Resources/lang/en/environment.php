@@ -14,5 +14,6 @@ return [
     'Polygon' => 'Polygon',
     'Evacuation route' => 'Evacuation route',
     'Map' => 'Map',
-    'View' => 'View'
+    'View' => 'View',
+    'Spot' => 'Spot'
 ];
