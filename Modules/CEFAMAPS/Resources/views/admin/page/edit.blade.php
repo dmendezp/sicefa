@@ -32,7 +32,7 @@
                   <!-- inicio de los id de los environments -->
                   <div class="col">
                     <div class="form-group">
-                      <label for="environ">{{ trans('cefamaps::unit.Unit') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::page.Page') }}</label>
+                      <label for="environ">{{ trans('cefamaps::environment.Environment') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::page.Page') }}</label>
                       <select class="form-control select2" name="environ" id="environ" value="{{$editpage->environment_id}}">
                         @foreach($environ as $e)
                           <option value="{{ $e->id }}">{{ $e->name }}</option>

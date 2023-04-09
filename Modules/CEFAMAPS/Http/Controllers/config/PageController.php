@@ -45,7 +45,7 @@ class PageController extends Controller
     $classenviron = ClassEnvironment::get();
     $farm = Farm::get();
     $page = Page::get();
-    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page, 'classenviron'=>$classenviron];
+    $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page, 'classenviron'=>$classenviron];
     return view('cefamaps::admin.page.add',$data);
   }
 
@@ -96,7 +96,7 @@ class PageController extends Controller
     $farm = Farm::get();
     $page = Page::get();
     $editpage = Page::findOrFail($id);
-    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page, 'editpage'=>$editpage, 'classenviron'=>$classenviron];
+    $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page, 'editpage'=>$editpage, 'classenviron'=>$classenviron];
     return view('cefamaps::admin.page.edit',$data);
   }
 

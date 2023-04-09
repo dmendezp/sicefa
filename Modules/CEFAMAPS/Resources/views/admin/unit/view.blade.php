@@ -1,9 +1,9 @@
 @extends('cefamaps::layouts.master')
 
 @section('breadcrumb')
-@foreach($viewunit as $u) 
-  <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::unit.Units') }}</a></li>
-  <li class="breadcrumb-item"><a href="#"><i class="fas {{ $u->productive_units->icon }}"></i> {{ $u->productive_units->name }}</a></li>
+  @foreach($viewunit as $u) 
+    <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::unit.Units') }}</a></li>
+    <li class="breadcrumb-item"><a href="#"><i class="fas {{ $u->productive_units->icon }}"></i> {{ $u->productive_units->name }}</a></li>
   @endforeach
 @endsection
 
@@ -90,11 +90,14 @@
       // Inicio poligono
       @foreach($viewunit as $u)
 
+      var iconBase = '{{ asset("cefamaps/images/cow.png") }}';
+
       // The marker, positioned at Uluru
       const marker{{$u->id}} = new google.maps.Marker({
         position: { lat: {{$u->latitude}},  lng: {{$u->length}} },
         map: map,
         tittle: "{{$u->name}}",
+        icon: iconBase, /* Para poder tener un icono diferente */
       });
         
       const infoCultivo{{$u->id}} = new google.maps.InfoWindow();

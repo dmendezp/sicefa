@@ -31,7 +31,7 @@
                   <!-- inicio de los id de los environments -->
                   <div class="col">
                     <div class="form-group">
-                      <label for="environ">{{ trans('cefamaps::unit.Id') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::page.Page') }}</label>
+                      <label for="environ">{{ trans('cefamaps::environment.Environment') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::page.Page') }}</label>
                       <select class="form-control select2" name="environ" id="environ" required>
                         @foreach($environ as $e)
                           <option value="{{ $e->id }}">{{ $e->name }}</option>
@@ -43,7 +43,7 @@
                 </div>
                 <!-- inicio de agregar el contenido -->
                 <div class="form-group">
-                  <label for="content">{{ trans('cefampas::page.Content') }}</label>
+                  <label for="content">{{ trans('cefamaps::page.Content') }}</label>
                   <textarea id="summernote" name="content"></textarea>
                 </div>
                 <!-- fin de agregar el contenido -->

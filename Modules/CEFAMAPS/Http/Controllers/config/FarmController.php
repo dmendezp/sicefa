@@ -75,7 +75,7 @@ class FarmController extends Controller
     $person = Person::get();
     $muni = Municipality::get();
     $editfarm = Farm::findOrFail($id);
-    $data = ['title'=>trans('cefamaps::farm.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'editfarm'=>$editfarm, 'classenviron'=>$classenviron ];
+    $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'editfarm'=>$editfarm, 'classenviron'=>$classenviron ];
     return view('cefamaps::admin.farm.edit',$data);
   }
 

@@ -23,8 +23,8 @@ class UnitController extends Controller
     public function index()
     {
         $environ = Environment::get();
-        /* $unit = ProductiveUnit::with('person')->get(); */
-        $unit = Environment::where('productive_units_id',$id)->get();
+        $unit = ProductiveUnit::with('person')->get();
+        /* $unit = Environment::where('productive_units_id',$id)->get(); */
         $farm = Farm::get();
         $classenviron = ClassEnvironment::get();
         $data = ['title'=>trans('cefamaps::unit.Units'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron];
@@ -43,7 +43,7 @@ class UnitController extends Controller
         $classenviron = ClassEnvironment::get();
         $farm = Farm::get();
         $sector = Sector::get();
-        $data = ['title'=>trans('cefamaps::unit.Add'), 'person'=>$person, 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'sector'=>$sector, 'classenviron'=>$classenviron];
+        $data = ['title'=>trans('cefamaps::menu.Add'), 'person'=>$person, 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'sector'=>$sector, 'classenviron'=>$classenviron];
         return view('cefamaps::admin.unit.add',$data);
     }
 
@@ -77,7 +77,7 @@ class UnitController extends Controller
         $farm = Farm::get();
         $sector = Sector::get();
         $editunit = ProductiveUnit::findOrFail($id);
-        $data = ['title'=>trans('cefamaps::unit.Edit'), 'person'=>$person, 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'sector'=>$sector, 'editunit'=>$editunit, 'classenviron'=>$classenviron];
+        $data = ['title'=>trans('cefamaps::menu.Edit'), 'person'=>$person, 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'sector'=>$sector, 'editunit'=>$editunit, 'classenviron'=>$classenviron];
         return view('cefamaps::admin.unit.edit',$data);
     }
 

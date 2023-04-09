@@ -27,7 +27,7 @@ class EnvironmentController extends Controller
         $farm = Farm::get();
         $classenviron = ClassEnvironment::get();
         $environ = Environment::with('coordinates')->get();
-        $data = ['title'=>trans('cefamaps::menu.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron];
+        $data = ['title'=>trans('cefamaps::environment.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron];
         return view('cefamaps::admin.environment.index',$data);
     }
 
@@ -158,7 +158,7 @@ class EnvironmentController extends Controller
         $classenviron = ClassEnvironment::get();
         $pages = Page::get();
         $viewenviron = Environment::where('class_environments_id',$id)->get();
-        $data = ['title'=>trans('cefamaps::environment.View'), 'unit'=>$unit, 'farm'=>$farm, 'environ'=>$environ, 'classenviron'=>$classenviron, 'viewenviron'=>$viewenviron, 'pages'=>$pages];
+        $data = ['title'=>trans('cefamaps::environment.Environment'), 'unit'=>$unit, 'farm'=>$farm, 'environ'=>$environ, 'classenviron'=>$classenviron, 'viewenviron'=>$viewenviron, 'pages'=>$pages];
         return view('cefamaps::admin.environment.view',$data);
     }
 

@@ -261,8 +261,8 @@
             <ul class="nav nav-treeview">
               @foreach($classenviron as $c)
                 <li class="nav nav-item">
-                  <a href="{{ url('/cefamaps/environment/view/'.$c->id) }}" class="nav-link {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'active' }}">
-                    <i class="nav-icon fa-solid fa-school-flag"></i>
+                  <a href="{{ url('/cefamaps/environment/view/'.$c->id) }}" class="nav-link {{ ! Route::is('/cefamaps/environment/view/$c->id') ?: 'active' }}">
+                    <i class="nav-icon fa-solid fa-school"></i>
                     <p>{{$c->name}}</p>
                   </a>
                 </li>
@@ -295,7 +295,6 @@
               </p>
             </a>
           </li>
-          
         @endif
         </ul>
       </nav>

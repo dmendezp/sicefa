@@ -60,16 +60,15 @@
     @foreach($environ as $e)
 
     // para el icono
-    /* var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-    var iconBase = '{{ asset("cefamaps/images/uploads/".$e->picture) }}'; */
+    /* var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/'; */
+    /* var iconBase = '{{ asset("cefamaps/images/cow.png") }}'; */
 
     // The marker, positioned at Uluru
     const marker{{$e->id}} = new google.maps.Marker({
       position: { lat: {{$e->latitude}},  lng: {{$e->length}} },
       map: map,
       tittle: "{{$e->name}}",
-      //lo necesario
-      //icon: iconBase,
+      /* icon: iconBase, */
     });
       
     const infoCultivo{{$e->id}} = new google.maps.InfoWindow();
