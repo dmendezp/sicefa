@@ -28,23 +28,25 @@ class ElementController extends Controller
         return view('ptventa::element.edit', compact('element','titleView','view'));
     }
 
-    public function update(Request $request, $element)
+    public function update(Request $request, Element $element)
     {
-        //Obtener la imagen enviada por el usuario
-        $image = $request->file('image');
-    
-        //Eliminar la imagen anterior del sistema de archivos
-        $previousImage = Element::find($element)->image;
-        Storage::delete($previousImage);
-    
-        //Guardar la nueva imagen en el sistema de archivos
-        $newImagePath = $image->store('public/image');
-    
-        //Actualizar la ruta de la imagen en la base de datos
-        $image = Element::find($element);
-        $image->image = $newImagePath;
-        $image->save();
-    
-        return redirect()->route('ptventa::element.index');
+        if($request->hasFile('image')){ // Verificar si se ha subido una nueva imagen
+            //Obtener la imagen enviada por el usuario
+            $image = $request->file('image');
+
+            //Eliminar la imagen anterior del sistema de archivos
+            unlink(public_path($element->image));
+
+            //Guardar la nueva imagen en el sistema de archivos
+            $extension =  pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION); // Capturar la extensión de la nueva imagen
+            $name_image =  $element->slug . '.' . $extension; // Generar el nombre por defecto de la nueva imagen
+            $image->move(public_path('modules/sica/images/elements/'), $name_image); // Guarda la imagen dentro de public
+
+            //Actualizar la ruta de la imagen en la base de datos
+            $element->image = 'modules/sica/images/elements/' . $name_image; // Generar ruta relativa de la nueva imagen
+            $element->save(); // Actualizar el registro del elemento con la nueva imagen cargada
+        }
+
+        return redirect()->route('ptventa.admin.element.index');
     }
 }
