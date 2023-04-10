@@ -52,23 +52,23 @@
   <!-- Fin El modal para que aparezacan todas la paginas -->
 
   <!-- Inicio El modal para mostrar la pagina -->
-  <div class="modal fade" id="modal{{$p->id}}">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">{{$p->name}}</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
-          </button>
+  @foreach($pages as $p)
+    <div class="modal fade" id="modal{{$p->id}}">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">{{$p->name}}</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{!! $p->content !!}</p>
+          </div>
         </div>
-        @foreach($pages as $p)
-        <div class="modal-body">
-          <p>{!! $p->content !!}</p>
-        </div>
-        @endforeach
       </div>
     </div>
-  </div>
+  @endforeach
   <!-- Fin El modal para mostrar la pagina -->
 @endsection
 
