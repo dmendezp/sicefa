@@ -1,9 +1,9 @@
 @extends('senaempresa::layouts.master')
 @section('content')
 <div class="col-md-12" id="card-works"> {{-- Start of events table section --}}
-            <div class="card card-green card-outline shadow">
+            <div class="card card-primary card-outline shadow">
                 <div class="card-header">
-                    <h3 class="card-title">Eventos</h3>
+                    <h3 class="card-title">Works</h3>
                 </div>
                 <div class="card-body">
                     <div>

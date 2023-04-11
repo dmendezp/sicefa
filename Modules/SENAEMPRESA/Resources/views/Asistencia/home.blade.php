@@ -10,10 +10,10 @@
 
 <div>
 
-  
+@if(Auth::user()->havePermission('senaempresa.listaTurnos'))
 <a name="" id="" class="btn btn-success float-right thead" style="margin-left:0.3%" href="{{route('listaTurnos')}}" role="button">Asignar y ver turnos</a>
 
-
+@endif
 
   
   </div>

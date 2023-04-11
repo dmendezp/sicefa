@@ -23,14 +23,15 @@
         Route::get('TurnoRutinario/Guardado/', 'AsistenciaTurnosController@postAsignarTurno')->name('guardarTurno');
         Route::get('ListaTurnos', 'AsistenciaTurnosController@listaTurnos')->name('listaTurnos');
         Route::post('/updateTurno', 'AsistenciaTurnosController@updateTurno')->name('updateTurno');
-
+        Route::get('TurnoRutinario/listaTurnos/deleteTurn', 'AsistenciaTurnosController@deleteTurn')->name('attendance.turnDelete'); 
         
         //Route::resource('turnos', 'AsistenciaTurnosController');
         //Route::resource('reports', 'ProductController')
+        
         Route::get('/updateAttendance', 'AsistenciaTurnosController@updateAttendance')->name('updateAttendance');
         Route::get('/workAsign', 'AsistenciaTurnosController@workAsign')->name('workAsign');
-        //Route::get('TurnoRutinario/listaTurnos/deleteTurn/{id]', 'AsistenciaTurnosController@deleteTurn')->name('attendance.turnDelete');
-        Route::get('TurnoRutinario/listaTurnos/deleteTurn', 'AsistenciaTurnosController@deleteTurn')->name('attendance.turnDelete'); 
+       
+        
 
        /*  Rutas del calendario - Full Calendar */
         Route::get('TurnoRutinario/calendarTurn', 'CalendarTurnController@index')->name('calendarTurno.home');
