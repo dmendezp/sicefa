@@ -9,9 +9,9 @@ use Illuminate\Routing\Controller;
 class RadioRouteController extends Controller
 {
     // ruta para peticiones
-    public function PetMusica()
+    public function Expresate()
     {
-        return view('radiocefa::PetMusica');
+        return view('radiocefa::Expresate');
     }
 
     // // ruta para cronograma

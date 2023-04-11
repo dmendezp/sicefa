@@ -10,7 +10,7 @@
         <a href="{{ route('cronograma') }}" class="nav-link text-success">Cronograma</a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('peticiones') }}" class="nav-link text-success">expresate</a>
+        <a href="{{ route('Expresate') }}" class="nav-link text-success">expresate</a>
       </li>
       <li class="nav-item">
       <a href="{{ route('aboutus') }}" class="nav-link text-success">Sobre Nosotros</a>

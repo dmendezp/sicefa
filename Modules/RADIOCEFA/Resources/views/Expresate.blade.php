@@ -12,7 +12,7 @@
  
 
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    {{-- <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -26,13 +26,13 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    </section>
+    </section> --}}
 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-3">
+{{--           <div class="col-md-3">
 
             <!-- peticion -->
             <div class="card card-primary">
@@ -50,7 +50,7 @@
               <!-- /.card-body -->
             </div>
             <!-- /peticion -->
-          </div>
+          </div> --}}
           <!-- /.col -->
           <div class="col-md-9">
             <div class="card">
@@ -178,7 +178,7 @@
                   </div>
                   <!-- /.tab-pane -->
 
-                  
+                  <!-- para borrar      ............-->
                   <div class="tab-pane" id="timeline">
                     <!-- The timeline -->
                     <div class="timeline timeline-inverse">
