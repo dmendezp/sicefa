@@ -26,10 +26,18 @@
 <!-- SweetAlert2 -->
 <link rel="stylesheet" type="text/css" href="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.css')}}">
 
- 
-
 <!-- Select 2-->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+ <!--  {{-- Sweatalert and toast --}} -->
+ <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/toastr/toastr.min.css') }}">
+
+<link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
+
+<!-- {{-- Sweatalert and toast --}} -->
+<script src="{{ asset('AdminLTE/plugins/toastr/toastr.min.js') }}"></script>
+
+<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
 
 <!-- {{$asistencia1}} -->
 
@@ -210,13 +218,20 @@ $(document).ready(function() {
             success: function(data) {
                 console.log(data.message);
 
-                Swal.fire({
+                /* Swal.fire({
                 position: 'top-end',
                 icon: data.icon,
                 title: '',
                 showConfirmButton: false,
                 timer: 800
-})
+                }) */
+
+                if (data.icon == 'success'){
+                toastr.success(data.message);
+                }else if(data.icon =='error'){
+                    toastr.error(data.message);
+                }
+          
             }
         });
     });

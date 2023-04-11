@@ -15,6 +15,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
 
+   
+
    <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -33,6 +35,14 @@
 
   <!-- Estilos de fullcalendar -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css">
+
+
+   <!--  {{-- Sweatalert and toast --}} -->
+ <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/toastr/toastr.min.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
+
+
 
   
 

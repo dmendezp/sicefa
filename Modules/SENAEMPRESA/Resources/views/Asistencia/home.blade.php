@@ -11,7 +11,7 @@
 <div>
 
   
-<a name="" id="" class="btn btn-success float-right " style="margin-left:0.3%" href="{{route('listaTurnos')}}" role="button">Asignar y ver turnos</a>
+<a name="" id="" class="btn btn-success float-right thead" style="margin-left:0.3%" href="{{route('listaTurnos')}}" role="button">Asignar y ver turnos</a>
 
 
 

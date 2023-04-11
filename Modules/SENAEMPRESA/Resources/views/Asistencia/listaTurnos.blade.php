@@ -398,8 +398,7 @@ $(document).on("change", "#select_work",
                 icon: data.icon,
                 title: data.message,
                 showConfirmButton: false,
-                timer: 1500
-})
+                timer: 1500})
             }
         });
     });

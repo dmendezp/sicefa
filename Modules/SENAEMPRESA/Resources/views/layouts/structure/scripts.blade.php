@@ -40,3 +40,7 @@
 <!-- axios -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js" integrity="sha512-L4lHq2JI/GoKsERT8KYa72iCwfSrKYWEyaBxzJeeITM9Lub5vlTj8tufqYk056exhjo2QDEipJrg6zen/DDtoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<!-- {{-- Sweatalert and toast --}} -->
+<script src="{{ asset('AdminLTE/plugins/toastr/toastr.min.js') }}"></script>
+
+<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>

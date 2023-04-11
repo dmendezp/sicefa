@@ -69,7 +69,7 @@
                with font-awesome or any other icon font library -->
             <li class="nav-item menu-open">
                 <a href="#" class="nav-link ">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="nav-icon far fa-list-alt"></i>
                     <p>
                         Turnos
                         <i class="right fas fa-angle-left "></i>
@@ -98,10 +98,10 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
+                <a href="{{route('work.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-hammer"></i>
                     <p>
-                        Simple Link
+                        Works
                         <span class="right badge badge-danger">New</span>
                     </p>
                 </a>

@@ -41,7 +41,14 @@
         Route::get('FingerPrint/SenaEmpresa', 'FingerAsistenciaController@index')->name('fingerPrint.home');
         Route::post('FingerPrint/SenaEmpresa/import', 'FingerAsistenciaController@import')->name('fingerPrint.import');
 
-        
+        /* Rutas de crud de works */
+        Route::resource('Work', 'WorkController')->names('work');
+
+        Route::get('Work/edit/{id}', 'WorkController@workEdit')->name('works.edit');
+        Route::post('Work/edit', 'WorkController@workUpdate')->name('works.edit');
+
+        Route::get('Work/delete/{id}', 'WorkController@workDelete')->name('works.destroy');
+        Route::post('Work/delete', 'WorkController@workDestroy')->name('works.destroy');
         
     });
 
