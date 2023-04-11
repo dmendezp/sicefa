@@ -156,8 +156,8 @@
                     <label>{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::environment.Coordinates') }}</label>
                     <select id="option" class="form-control select2" name="type" required>
                       <option value="">Seleccione...</option>
-                      <option value="Poligono">{{ trans('cefamaps::environment.Polygon') }}</option>
-                      <option value="Evacuacion">{{ trans('cefamaps::environment.Evacuation route') }}</option>
+                      <option value="Polygon">{{ trans('cefamaps::environment.Polygon') }}</option>
+                      <option value="EvacuationRoute">{{ trans('cefamaps::environment.Evacuation route') }}</option>
                     </select>
                   </div>
                   <div class="form-group">
@@ -193,7 +193,7 @@
     function establecerOption() {
       let eleccion = seleccionar.value;
 
-      if (eleccion === 'Poligono') {
+      if (eleccion === 'Polygon') {
         parrafo.innerHTML +=  '<div id="inputFormRow">' +
                                 '<div class="row align-items-center">' +
                                   '<div class="col">' +
@@ -256,7 +256,7 @@
                                 $(this).closest('#inputFormRow').remove();
                               });
 
-      } else if (eleccion === 'Evacuacion') {
+      } else if (eleccion === 'EvacuationRoute') {
         parrafo.innerHTML +=  '<div id="inputFormRow">' +
                                 '<div class="row align-items-center">' +
                                   '<div class="col">' +

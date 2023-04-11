@@ -124,7 +124,7 @@
               </div>
             </div>
             <div class="card-header">
-              <h3 class="m-0">{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::environment.Coordinate') }}</h3>
+              <h3 class="m-0"> {{ trans('cefamaps::environment.Coordinates') }} {{ trans('cefamaps::menu.Of The') }} {{ $editenviron->type_environment }}</h3>
             </div>
             <div class="card-body">
               <div class="content">
