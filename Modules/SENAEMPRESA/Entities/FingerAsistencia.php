@@ -16,7 +16,7 @@ class FingerAsistencia extends Model
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
 
-    protected $fillable = ['person_id','area','Date_In_Exit','name_equipment'];
+    protected $fillable = ['person_id','area','date_turn','time_in','time_exit','hours_work'];
     
     protected static function newFactory()
     {

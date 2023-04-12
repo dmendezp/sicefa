@@ -194,7 +194,7 @@
             }, 1000);
             /* Show the message */
             @if (Session::get('icon') == 'success')
-                toastr.success("{{ Session::get('message') }}");
+                toastr.error("{{ Session::get('message') }}");
             @elseif (Session::get('icon')=='error')
                 toastr.error("{{ Session::get('message') }}");
             @endif
@@ -364,6 +364,11 @@ $(function() {
     $("#myTable").DataTable({
         "responsive": true,
         "autoWidth": false,
+        language: {
+        "search": "Buscar:",
+        "Show": "Mostrar",
+        "entries": "Registros",
+        }
     });
 
 });

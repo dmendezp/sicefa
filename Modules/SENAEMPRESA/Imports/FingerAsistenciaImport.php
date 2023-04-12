@@ -2,7 +2,7 @@
 
 namespace Modules\SENAEMPRESA\Imports;
 
-
+use Carbon\Carbon;
 
 use Modules\SENAEMPRESA\Entities\FingerAsistencia;
 use Modules\SICA\Entities\Person;
@@ -30,12 +30,23 @@ class FingerAsistenciaImport implements ToModel, WithChunkReading, WithBatchInse
             //'user_id' => ($row['N_º']),
             'user_id' => $this->people[$row['n']], */
 
+
+            /* Calcular las horas de trabajo */
+            /* $in = $row[3],
+            $exit = $row[4],
+            $inicio = strtotime($in),
+            $fin = strtotime($exit) ,
+            $hours = ($fin-$inicio)/3600, */
+
             'area' => $row[2], //el nombre en la base de datos es el primero el de $row es el de la tabla de excel
-            'Date_In_Exit' => $row[4],
-            'name_equipment' => $row[3],
-            //'user_id' => ($row['N_º']),
+            'date_turn' => $row[3],
+            'time_in' => $row[4],
+            'time_exit' => $row[5],
+           /*  'hours_work' =>$hours, */
+            /* 'user_id' => ($user), */
             'person_id' => $this->people[$row[1]],
 
+            
 
             //2023-03-09 17:43:31
 

@@ -1,7 +1,7 @@
 <div id="content-config"style="padding:2%">
     <div class="modal-header py-2">
         <h5 class="modal-title" id="exampleModalLabel">
-            <b>Crear Tarea</b>
+            <b>Editar Tarea</b>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>

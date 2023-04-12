@@ -15,10 +15,12 @@ class CreateFingerAsistenciasTable extends Migration
     {
         Schema::create('finger_asistencias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained()->nullable();
+            $table->foreignId('person_id')->nullable()->constrained();
             $table->string('area');
-            $table->dateTime('Date_In_Exit');
-            $table->string('name_equipment');
+            $table->date('date_turn');
+            $table->time('time_in');
+            $table->time('time_exit');
+            $table->integer('hours_work');
             $table->timestamps();
             $table->softDeletes();
         });

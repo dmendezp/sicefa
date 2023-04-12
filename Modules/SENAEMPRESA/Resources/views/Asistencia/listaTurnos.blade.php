@@ -456,13 +456,13 @@ Array.prototype.slice.call(forms)
             event.preventDefault() //esta función impide que se ejecute el submite del delete
             event.stopPropagation()
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'Esta seguro?',
+                text: "Es un proceso inreversible!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Si, Eliminarlo!'
             }).then((result) => {
                 if (result.isConfirmed) {
                     /*  Swal.fire(
