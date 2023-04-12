@@ -83,7 +83,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <div class="input-group">
-                        <button type="button" class="btn btn-success form-control text-truncate">Guardar Todo <i class="fas fa-save"></i></button>
+                        <button type="button" class="btn btn-success form-control text-truncate">Agregar Producto <i class="fas fa-plus"></i></button>
                     </div>
                 </div>
             </div>
@@ -121,8 +121,8 @@
                             <td>340-FCH</td>
                             <td>15/06/23</td>
                             <td class="text-center">
-                                <a href="#" class="btn btn-outline-info btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Ver a detalle el producto">
-                                    <i class="fas fa-eye"></i>
+                                <a href="#" class="btn btn-outline-warning btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Editar Producto">
+                                    <i class="fas fa-pen"></i>
                                 </a>
                                 <button type="button" class="btn btn-outline-danger btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Eliminar Producto">
                                     <i class="far fa-trash-alt"></i>
@@ -140,8 +140,8 @@
                             <td>355-GCH</td>
                             <td>17/06/23</td>
                             <td class="text-center">
-                                <a href="#" class="btn btn-outline-info btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Ver a detalle el producto">
-                                    <i class="fas fa-eye"></i>
+                                <a href="#" class="btn btn-outline-warning btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Editar Producto">
+                                    <i class="fas fa-pen"></i>
                                 </a>
                                 <button type="button" class="btn btn-outline-danger btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Eliminar Producto">
                                     <i class="far fa-trash-alt"></i>
@@ -154,6 +154,14 @@
         </div>
     </div>
 </div>
+<div class="d-flex justify-content-evenly">
+    <div class="row">
+        <div class="col-12 mb-3">
+            <button type="button" class="btn btn-success form-control text-truncate">Guardar Todo <i class="fas fa-save"></i></button>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('scripts')
