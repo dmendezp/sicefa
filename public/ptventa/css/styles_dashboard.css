@@ -48,6 +48,12 @@
   display: block !important;
 }
 
+/* Al ir a una funcion del sidebar este quedara activo mientras se esta en el grupo de vistas de las rutas especificadas */
+.nav-item .active{
+  background-color: #198754 !important;
+  color:  #ffffff !important;
+}
+
 /* Al pasar el Mouse se aplicara el color asigando */
 .nav-item:hover {
   background-color: #496F5D !important;
@@ -240,3 +246,4 @@
     column-count: 4;
   }
 }
+

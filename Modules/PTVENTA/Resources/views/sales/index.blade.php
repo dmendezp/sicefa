@@ -1,5 +1,12 @@
 @extends('ptventa::layouts.master')
 
+@section('head')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+@endsection
+
 @section('breadcrumb')
     {{-- The breadcrumb is the tracking af the displayed view --}}
     <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Ventas</a></li>
@@ -38,8 +45,8 @@
         <div class="col-md-9 h-100">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <table class="table">
-                        <thead>
+                    <table id="element">
+                        <thead class="table-dark">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">First</th>
@@ -113,96 +120,6 @@
                                     </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip"
-                                        data-placement="top" title="Actualizar producto">
-                                        <i class="fas fa-pen-alt"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip"
-                                        data-placement="top" title="Eliminar producto">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip"
-                                        data-placement="top" title="Actualizar producto">
-                                        <i class="fas fa-pen-alt"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip"
-                                        data-placement="top" title="Eliminar producto">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip"
-                                        data-placement="top" title="Actualizar producto">
-                                        <i class="fas fa-pen-alt"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip"
-                                        data-placement="top" title="Eliminar producto">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip"
-                                        data-placement="top" title="Actualizar producto">
-                                        <i class="fas fa-pen-alt"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip"
-                                        data-placement="top" title="Eliminar producto">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip"
-                                        data-placement="top" title="Actualizar producto">
-                                        <i class="fas fa-pen-alt"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip"
-                                        data-placement="top" title="Eliminar producto">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip"
-                                        data-placement="top" title="Actualizar producto">
-                                        <i class="fas fa-pen-alt"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip"
-                                        data-placement="top" title="Eliminar producto">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -230,4 +147,13 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+<script>
+    let table = new DataTable('#element', {
+});
+</script>
+
 @endsection

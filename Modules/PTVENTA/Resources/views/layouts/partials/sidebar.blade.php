@@ -12,14 +12,20 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                    with font-awesome or any other icon font library -->
+                    <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
                     {{-- List of options available in the sidebar --}}
                     <li class="nav-item">
-                        <a href="{{route('cefa.ptventa.indexProducts')}}" class="nav-link">
+                        <a href="{{route('cefa.ptventa.indexProducts')}}" class="nav-link {{ !Route::is('cefa.ptventa.indexProducts*') ?: 'active'}}">
                             <i class="nav-icon fas fa-truck-loading"></i>
                             <p>Productos</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{route('cefa.ptventa.indexInventory')}}" class="nav-link {{ !Route::is('cefa.ptventa.indexInventory*') ?: 'active'}}">
+                            <i class="nav-icon fas fa-boxes"></i>
+                            <p>Inventario</p>
                         </a>
                     </li>
 
@@ -31,7 +37,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{route('cefa.ptventa.indexSales')}}" class="nav-link">
+                        <a href="{{route('cefa.ptventa.indexSales')}}" class="nav-link {{ !Route::is('cefa.ptventa.indexSales*') ?: 'active'}}">
                             <i class="nav-icon fas fa-shopping-cart"></i>
                             <p>Ventas</p>
                         </a>
@@ -51,7 +57,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('ptventa.admin.element.index') }}" class="nav-link">
+                        <a href="{{ route('ptventa.admin.element.index') }}" class="nav-link {{ !Route::is('ptventa.admin.element.*') ?: 'active'}}">
                             <i class="nav-icon fas fa-image"></i>
                             <p>Imagenes</p>
                         </a>
