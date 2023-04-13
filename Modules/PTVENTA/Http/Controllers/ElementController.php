@@ -23,7 +23,7 @@ class ElementController extends Controller
 
     public function edit(Element $element)
     {
-        $titleView = 'Actualización imagenes de productos generales';
+        $titleView = 'Actualizar imagen de producto';
         $view = ['titlePage' => 'Actualizar | Imagen de Producto'];
         return view('ptventa::element.edit', compact('element','titleView','view'));
     }
