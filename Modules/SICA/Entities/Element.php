@@ -4,10 +4,13 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Support\Str;
 
-class Element extends Model
+class Element extends Model implements Auditable
 {
+
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
 
     use SoftDeletes; // Borrado suave
 
@@ -34,22 +37,22 @@ class Element extends Model
     }
 
     // MUTADORES Y ACCESORES
-    public function setNameAttribute($value){ // Convierte el primer carácter en mayúscula del dato name (MUTADOR)
+    public function setNameAttribute($value){ // Convierte el primer carácter en mayúscula del dato name y genera el slug para la ruta amigable del modelo (MUTADOR)
         $this->attributes['name'] = ucfirst($value);
-        $this->attributes['slug'] = Str::slug($value, '-');
+        $this->attributes['slug'] = Str::slug($value, '-'); // Generación del slug
     }
     public function setDescriptionAttribute($value){ // Convierte el primer carácter en mayúscula del dato description (MUTADOR)
         $this->attributes['description'] = ucfirst($value);
     }
 
     // RELACIONES
-    public function measurement_unit(){ // Accede a la información de unidad de medidad
+    public function measurement_unit(){ // Accede a la información de unidad de medidad asociada
         return $this->belongsTo(MeasurementUnit::class);
     }
-    public function kind_of_purchase(){ // Accede a la información de unidad del tipo de compra
+    public function kind_of_purchase(){ // Accede a la información del tipo de compra asociada
         return $this->belongsTo(KindOfPurchase::class);
     }
-    public function category(){ // Accede a la información de categoría
+    public function category(){ // Accede a la información de la categoría asociada
         return $this->belongsTo(Category::class);
     }
 
