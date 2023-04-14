@@ -106,5 +106,8 @@ class Person extends Model implements Auditable
     public function events(){ // Accede a todos los eventos que se le han sigdo asignados
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
     }
+    public function inventories(){ // Accede a todos los registros de inventarios que están relacionados con esta persona
+        return $this->hasMany(Inventory::class); 
+    }
 
 }
