@@ -15,18 +15,19 @@ class CreateInventoriesTable extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('people_id')->constrained()->onDelete('cascade');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
             $table->foreignId('element_id')->constrained()->onDelete('cascade');
-            $table->text('description');
+            $table->enum('destination',['Producción','Formación'])->nullable();
+            $table->text('description')->nullable();
             $table->integer('price');
             $table->integer('amount');
             $table->integer('stock');
-            $table->date('production_date');
-            $table->integer('lot_number');
-            $table->date('expiration_date');
-            $table->enum('state',['Disponible','No disponible']);
-            $table->string('mark');
+            $table->date('production_date')->nullable();
+            $table->integer('lot_number')->nullable();
+            $table->date('expiration_date')->nullable();
+            $table->enum('state',['Disponible','No disponible'])->default('Disponible');
+            $table->string('mark')->nullable();
             $table->unsignedInteger('inventory_code')->nullable();
             $table->timestamps();
             $table->softDeletes();
