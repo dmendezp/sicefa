@@ -38,7 +38,7 @@ class Inventory extends Model implements Auditable
     ];
 
     // ACESORES Y MUTADORES
-    public function setDescriptionAttibute($value){ // Convierte el primer carácter en mayúscula del dato description (MUTADOR)
+    public function setDescriptionAttribute($value){ // Convierte el primer carácter en mayúscula del dato description (MUTADOR)
         $this->attributes['description'] = ucfirst($value);
     }
     public function setMarkAttribute($value){ // Convierte el primer carácter en mayúscula del dato mark (MUTADOR)
@@ -53,7 +53,7 @@ class Inventory extends Model implements Auditable
         return $this->belongsTo(Warehouse::class);
     }
     public function person(){ // Accede a la información de los datos personales de la persona responsable
-        return $this->belongsTo(Persona::class);
+        return $this->belongsTo(Person::class);
     }
 
 }
