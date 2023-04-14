@@ -17,8 +17,9 @@ class PTVENTADatabaseSeeder extends Seeder
 
         DB::beginTransaction(); // Iniciar transacción
 
-        $this->call(AppTableSeeder::class); // llamar seeder de aplicación PTVENTA
-        $this->call(ElementTableSeeder::class); // llamar seeder de elementos
+        $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
+        $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación PTVENTA
+        $this->call(ElementTableSeeder::class); // Ejecutar Seeder de elementos
 
         DB::commit(); // Finalizar transación
 
