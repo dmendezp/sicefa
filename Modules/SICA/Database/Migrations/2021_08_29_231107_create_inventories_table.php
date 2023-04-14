@@ -18,7 +18,7 @@ class CreateInventoriesTable extends Migration
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
             $table->foreignId('element_id')->constrained()->onDelete('cascade');
-            $table->enum('destination',['Producción','Formación'])->nullable();
+            $table->enum('destination',['Producción','Formación']);
             $table->text('description')->nullable();
             $table->integer('price');
             $table->integer('amount');
