@@ -69,8 +69,28 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Nelsy yulied Gómez Morales** - *Instalación y sincronización del repositorio SICEFA* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 * **Oscar Andres Gil Marin** - *Instalación y sincronización del repositorio SICEFA* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 ---
-#### Meet ##-Aaa-2023 
-* **Jesús David Guevara Munar** - *Crear módulo PTVENTA* - *100 %* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+
+#### Sprint Planning 13-Abr-2023 
+* **Anyi Katherine Rojas Arce** - *Ajuste del modal con la librería cropper.js* 
+* **Cesar Augusto Pastrana Quimbaya** - *Casos de uso de PTVENTA*
+* **Jesús David Guevara Munar** - *Preparación y activación del inventario (Modelo)*
+* **Manuel Steven Ossa Lievano** - *Generar vista de formulario para la entrada de inventario*
+* **Nelsy Yulied Gómez Morales** - *Documentación SRS y manual técnico*
+* **Oscar Andres Gil Marin** - *Replicación de sección de imágenes en cafeto*
+...
+#### Meet 14-ABR-2023 
+* **Anyi Katherine Rojas Arce** - *Instalación de cropper.js* - *10 %* - *Falla la actualización de imagen* - *Revisión de errores con el equipo*
+* **Cesar Augusto Pastrana Quimbaya** - *No se presentó*
+* **Jesús David Guevara Munar** - *Preparación y activación del inventario* - *100 %* - *Dificultades* - *Acciones*
+* **Manuel Steven Ossa Lievano** - *Generar vista de formulario para la entrada de inventario* - *100 %* - *Dificultades* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *Documentación SRS y manual técnico* - *90 %* - *Necesita el diagrama de casos de usos, conocimiento sobre el desarrollo del manual técnico* - *Acciones*
+* **Oscar Andres Gil Marin** - *No se presentó*
+---
+#### Meet 15-Abr-2023 
+* **Anyi Katherine Rojas Arce** - *Ajuste del modal con la librería cropper.js* - *Avance %* - *Dificultades* - *Acciones*
+* **Jesús David Guevara Munar** - *Galería de imágenes* - *Avance %* - *Dificultades* - *Acciones*
+* **Manuel Steven Ossa Lievano** - *CRUD de Categorias en SICA* - *Avance %* - *Dificultades* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *Listar inventario* - *Avance %* - *Dificultades* - *Acciones*
 ---
 
 <!-- Lo siguiente solo se tomará como plantilla para las otras reuniones -->
