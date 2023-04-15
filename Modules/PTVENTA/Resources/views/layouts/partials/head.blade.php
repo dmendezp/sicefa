@@ -16,5 +16,5 @@
  {{-- Boostrap-5.3.0--}}
  <link rel="stylesheet" href=" {{ asset('ptventa/libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css') }}" crossorigin="anonymous"> {{-- Se llaman todos los estilos de bootstrap 5.3.0 de manera local desde la ruta que esta mencionanda --}}
 
- {{--  --}}
+ {{--Sweet Alert2--}}
  <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
