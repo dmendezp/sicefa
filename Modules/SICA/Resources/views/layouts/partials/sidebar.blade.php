@@ -248,6 +248,14 @@
                   </a>
                 </li>
                 @endif
+                @if(Auth::user()->havePermission('sica.admin.inventory.parameters'))
+                <li class="nav-item">
+                  <a href="{{ route('sica.admin.inventory.parameters') }}" class="nav-link {{ ! Route::is('sica.admin.inventory.parameters*') ?: 'active' }}">
+                    <i class="fas fa-stream"></i>
+                    <p>{{ trans('sica::menu.Parameters') }}</p>
+                  </a>
+                </li>
+                @endif
                 @if(Auth::user()->havePermission('sica.admin.inventory.elements'))
                 <li class="nav-item">
                   <a href="{{ route('sica.admin.inventory.elements') }}" class="nav-link {{ ! Route::is('sica.admin.inventory.elements*') ?: 'active' }}">
