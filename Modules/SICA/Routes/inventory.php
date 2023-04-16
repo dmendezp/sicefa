@@ -13,6 +13,8 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/admin/inventory/transactions', [InventoryController::class, 'transactions'])->name('sica.admin.inventory.transactions');
 
         Route::get('/admin/inventory/inventory', [InventoryController::class, 'inventory'])->name('sica.admin.inventory.inventory');   
+
+        Route::get('/admin/inventory/parameters', [InventoryController::class, 'parameters'])->name('sica.admin.inventory.parameters');   
              
     });  
 

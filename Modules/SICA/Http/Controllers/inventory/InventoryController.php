@@ -5,6 +5,7 @@ namespace Modules\SICA\Http\Controllers\inventory;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\Element;
 
@@ -32,5 +33,11 @@ class InventoryController extends Controller
         $warehouses = Warehouse::pluck('name','id');
         $data = ['title'=>trans('sica::menu.Inventory'),'warehouses'=>$warehouses];
         return view('sica::admin.inventory.inventory.home',$data);
+    }
+
+    public function parameters(){
+        $categories = Category::get();
+        $data = ['title'=>trans('sica::menu.Parameters'),'categories'=>$categories];
+        return view('sica::admin.inventory.parameters.home',$data);
     }
 }
