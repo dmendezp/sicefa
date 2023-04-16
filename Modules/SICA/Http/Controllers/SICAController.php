@@ -68,7 +68,7 @@ class SICAController extends Controller
             $eas[$i]['total']=$dis;
             $eas[$i]['rage']=$rage;
             $eas[$i]['pop']=$pop;
-            $i++;       
+            $i++;
         }
         //return $eas;
         $attendance = EventAttendance::select('date',DB::raw('count(id) as total'))->groupBy('date')->with('event')->get();
