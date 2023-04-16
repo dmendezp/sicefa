@@ -28,6 +28,7 @@ Route::prefix('ptventa')->group(function() {  // agrega el prefijo en la url (si
         Route::get('index', 'index')->name('ptventa.admin.element.index'); // Vista principal de elementos para administrar imagenes
         Route::get('/edit/{element}', 'edit')->name('ptventa.admin.element.edit');
         Route::post('/update/{element}', 'update')->name('ptventa.admin.element.update');
+        Route::post('crop-image-upload-ajax', 'cropImageUploadAjax');
     });
 
 });
