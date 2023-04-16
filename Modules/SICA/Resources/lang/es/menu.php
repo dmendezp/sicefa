@@ -35,6 +35,8 @@ return [
 	'Inventory' => 'Inventario',
 	'Warehouses' => 'Bodegas',
 	'Elements' => 'Elementos',
+	'Categories' => 'Categorías',
+	'Parameters' => 'Parámetros',
 	'Transactions' => 'Movimientos',
 	'Units' => 'Unidades',
 	'Areas' => 'Areas',
