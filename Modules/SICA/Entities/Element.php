@@ -3,6 +3,7 @@
 namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Support\Str;
@@ -13,6 +14,8 @@ class Element extends Model implements Auditable
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
 
     use SoftDeletes; // Borrado suave
+
+    use HasFactory; // Generación de datos de prueba
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'name',
@@ -57,6 +60,13 @@ class Element extends Model implements Auditable
     }
     public function inventories(){ // Accede a todos los registros de inventarios que están relacionados con este elemento
         return $this->hasMany(Inventory::class);
+    }
+
+
+    // Configuración de factory para la generación de datos de pruebas
+    protected static function newFactory()
+    {
+        return \Modules\SICA\Database\factories\ElementFactory::new();
     }
 
 }

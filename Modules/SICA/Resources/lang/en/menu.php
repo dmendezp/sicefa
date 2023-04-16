@@ -35,6 +35,8 @@ return [
 	'Inventory' => 'Inventory',
 	'Warehouses' => 'Warehouses',
 	'Elements' => 'Elements',
+	'Categories' => 'Categories',
+	'Parameters' => 'Parameters',
 	'Transactions' => 'Transactions',
 	'Units' => 'Units',
 	'Areas' => 'Areas',
