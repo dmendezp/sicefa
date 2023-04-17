@@ -94,6 +94,15 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Nelsy yulied Gómez Morales** - *No se presentó a la reunión* - *90 %* - *Problema con el estado de salud* - *Acciones*
 * **Oscar Andres Gil Marin** - *No se presentó a la reunión*
 ---
+---
+#### Meet 16-Abr-2023 
+* **Anyi Katherine Rojas Arce** - *Instalación de cropper.js* - *15 %* - *Conflicto en commits* - *Acciones*
+* **Cesar Augusto Pastrana Quimbaya** - *No se presentó a la reunión* *Novedad => Degregado del grupo*
+* **Jesús David Guevara Munar** - *Galería de imágenes* - *25 %* - *Dificultades* - *Acciones*
+* **Manuel Steven Ossa Lievano** - *CRUD de Categorias en SICA | Diseño UI general, inventario e imagenes* - *25 %| 100 %* - *Esperando revisió para el CRUD de categorías* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *Listar inventario* - *0 %* - *Problemas al bajar cambios del repositorio* - *Acciones*
+* **Oscar Andres Gil Marin** - *Replicación de sección de imágenes en cafeto* - *0 %* - *Problemas técnicos con el equipo* - *Acciones*
+---
 
 <!-- Lo siguiente solo se tomará como plantilla para las otras reuniones -->
 <!-- #### Meet ##-Aaa-2023 
