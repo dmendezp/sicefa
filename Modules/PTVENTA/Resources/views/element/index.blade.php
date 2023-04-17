@@ -15,6 +15,11 @@
 @section('content')
 
 <div class="card card-primary card-outline col-9 mx-auto">
+    <div class="card-header">
+        <a href="{{ route('ptventa.admin.element.gallery') }}" class="btn btn-outline-success btn-sm">
+            Ver galería de imágenes
+        </a>
+    </div>
     <div class="table table-responsive table-sm px-3 py-1">
         <table id="element">
             <thead class="table-dark mt-0 pt-0">
@@ -46,7 +51,7 @@
                                             </a>
                                           </div>
                                         </div>
-                                      </div> 
+                                      </div>
                                 </div>
                             </div>
                         </td>

@@ -2,13 +2,10 @@
 
 namespace Modules\PTVENTA\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Element;
-use Modules\SICA\Entities\Category;
 use Validator;
-use Illuminate\Support\Facades\Storage;
 
 
 class ElementController extends Controller
@@ -21,6 +18,14 @@ class ElementController extends Controller
         return view('ptventa::element.index', compact('element','titleView','view'));
     }
 
+    public function gallery()
+    {
+        $elements = Element::all();
+        $titleView = 'Galería de imágenes de productos';
+        $view = ['titlePage' => 'Galería de productos'];
+        return view('ptventa::element.gallery', compact('elements','titleView','view'));
+    }
+
     public function edit(Element $element)
     {
         $titleView = 'Actualizar imagen de producto';
@@ -31,11 +36,11 @@ class ElementController extends Controller
     public function update(Request $request, Element $element)
     {
 
-        $rules = [ 
+        $rules = [
             'image' => 'required',
         ];
 
-        $messages = [ 
+        $messages = [
             'image.required' => 'La imagen es obligatoria',
         ];
 
@@ -72,22 +77,22 @@ class ElementController extends Controller
     public function cropImageUploadAjax(Request $request)
     {
         $folderPath = public_path('upload/');
- 
+
         $image_parts = explode(";base64,", $request->image);
         $image_type_aux = explode("image/", $image_parts[0]);
         $image_type = $image_type_aux[1];
         $image_base64 = base64_decode($image_parts[1]);
- 
+
         $imageName = uniqid() . '.png';
- 
+
         $imageFullPath = $folderPath.$imageName;
- 
+
         file_put_contents($imageFullPath, $image_base64);
- 
+
          $saveFile = new CropImage;
          $saveFile->name = $imageName;
          $saveFile->save();
-    
+
         return response()->json(['success'=>'Crop Image Uploaded Successfully']);
     }
 
