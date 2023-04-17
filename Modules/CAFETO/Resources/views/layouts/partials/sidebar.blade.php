@@ -38,6 +38,14 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route('cefa.cafeto.home.imagenes')}}" class="nav-link">
+            <i class="nav-icon fas fa-image text-light"></i>
+            <p class="text-light">
+              Imagenes
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

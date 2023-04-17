@@ -4,7 +4,7 @@
 .card {
     color: green;
     justify-content: center;
-    align-items: center;
+    align-items: center;  
 }
 
 
