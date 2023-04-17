@@ -1,21 +1,37 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use Modules\SICA\Http\Controllers\inventory\InventoryController;
+use Modules\SICA\Http\Controllers\inventory\ParameterController;
 
 Route::middleware(['lang'])->group(function(){
+    /* RUTAS PARA EL ROL DE ADMINISTRADOR */
+    Route::prefix('sica/admin')->group(function() {
+        // --------------  Rutas de Inventario ---------------------------------
+        Route::prefix('inventory')->group(function(){ // Agregar por única vez el controlodaar para posteriormente solo definir rutas con el formato (url, método_controlador)->name(nombre_de_ruta)
+            // --------------  Rutas de Bodegas ---------------------------------
+            Route::get('warehouses', [InventoryController::class,  'warehouses'])->name('sica.admin.inventory.warehouses'); // Lista de bodegas
 
-    Route::prefix('sica')->group(function() {
+            // --------------  Rutas de Elementos ---------------------------------
+            Route::get('elements', [InventoryController::class,  'elements'])->name('sica.admin.inventory.elements'); // Lista de bodegas
 
-        Route::get('/admin/inventory/warehouses', [InventoryController::class, 'warehouses'])->name('sica.admin.inventory.warehouses');
+            // --------------  Rutas de Transacciones ---------------------------------
+            Route::get('transactions', [InventoryController::class,  'transactions'])->name('sica.admin.inventory.transactions'); // Lista de transacciones
 
-        Route::get('/admin/inventory/elements', [InventoryController::class, 'elements'])->name('sica.admin.inventory.elements');
+            // --------------  Rutas de Inventario ---------------------------------
+            Route::get('inventory', [InventoryController::class,  'inventory'])->name('sica.admin.inventory.inventory'); // Lista de inventario
+        });
 
-        Route::get('/admin/inventory/transactions', [InventoryController::class, 'transactions'])->name('sica.admin.inventory.transactions');
+        // --------------  Rutas de Parámetros ---------------------------------
+        Route::prefix('inventory/parameters')->group(function () {
+            Route::get('index', [ParameterController::class, 'index'])->name('sica.admin.inventory.parameters.index'); // Vista de tablas de parámetros
 
-        Route::get('/admin/inventory/inventory', [InventoryController::class, 'inventory'])->name('sica.admin.inventory.inventory');   
+            // --------------  Rutas de Categorías ---------------------------------
+            /* Route::prefix('category')->group(function () {
+                //Route::get('create', [ParameterController::class, 'create'])->name('sica.admin.inventory.parameters.category.create'); // Formulario de registro de categoría
+                // ...
+            }); */
 
-        Route::get('/admin/inventory/parameters', [InventoryController::class, 'parameters'])->name('sica.admin.inventory.parameters');   
-             
-    });  
-
-}); 
+        });
+    });
+});
