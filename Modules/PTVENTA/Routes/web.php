@@ -20,7 +20,7 @@ Route::prefix('ptventa')->group(function() {  // agrega el prefijo en la url (si
         Route::get('index', 'index')->name('cefa.ptventa.index'); // Vista principal y pública de la aplicación.
         Route::get('sales', 'indexSales')->name('cefa.ptventa.indexSales'); // Vista principal de ventas y pública de la aplicación.
         Route::get('products', 'indexProducts')->name('cefa.ptventa.indexProducts'); // Vista principal de productos y pública de la aplicación.
-        Route::get('inventory', 'indexInventory')->name('cefa.ptventa.indexInventory'); // Vista principal de inventario y pública de la aplicación.
+        Route::get('inventory', 'indexInventory')->name('cefa.ptventa.indexInventory');
     });
 
     // Rutas para elementos

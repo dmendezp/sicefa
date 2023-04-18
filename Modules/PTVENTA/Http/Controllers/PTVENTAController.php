@@ -37,7 +37,9 @@ class PTVENTAController extends Controller
         $titleView = 'Inventariado';
         $view = ['titlePage' => 'Inventario de Productos'];
         return view('ptventa::inventory/index', compact('view', 'titleView'));
+        
     }
+    
 
     public function indexProducts()
     {

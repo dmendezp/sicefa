@@ -15,29 +15,22 @@ class InventoryTableSeeder extends Seeder
      */
     public function run()
     {
-       Model:unguard();
+        inventory::create([
 
-        // $this->call("OthersTableSeeder");
-        invetories::create([
-
-            'person_id' => '1',
-            'werehouse_id' => '1',
-            'element_id' => '1',
+            'person_id' => 1,
+            'warehouse_id' => 1,
+            'element_id' => 1,
             'destination' => 'Producción',
-            'description' => 'Texto largo',
-            'price' => 'Número entero',
-            'amount' => 'Número entero',
-            'stock' => 'Número entero',
-            'production_date' => 'Fecha',
-            'lot_number' => 'Número entero',
-            'expiration_date' => 'Fecha',
+            'description' => null,
+            'price' => 1200,
+            'amount' => 6,
+            'stock' => 12,
+            'production_date' => '2023-04-17',
+            'lot_number' => 2112,
+            'expiration_date' => '2023-04-24',
             'state' => 'Disponible',
-            'mark' => 'Texto corto',
-            'inventory_code' => 'Número entero no asignado',
-
-
-        ]);
-
-        
+            'mark' => 'CEFA',
+            'inventory_code' => null,
+        ]);    
     }
 }
