@@ -37,11 +37,10 @@
                                                 <td>{{ $c->kind_of_property }}</td>
                                                 <td>
                                                     <div class="opts">
-                                                        <a href="#" data-toggle='tooltip' data-placement="top" title="Ver">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                        <a href="#" data-toggle='tooltip' data-placement="top" title="Editar">
-                                                            <i class="fas fa-edit"></i>
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.category.edit') }}/{{ $c->id }}')">
+                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                                <i class="fas fa-edit"></i>
+                                                            </b>
                                                         </a>
                                                         <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="#" data-path="admin/role" title="Eliminar">
                                                             <i class="fas fa-trash-alt"></i>

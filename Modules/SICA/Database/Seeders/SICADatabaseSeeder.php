@@ -4,6 +4,7 @@ namespace Modules\SICA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Modules\SICA\Entities\Category;
 
 class SICADatabaseSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class SICADatabaseSeeder extends Seeder
         DB::beginTransaction(); // Iniciar transacción
 
         $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
-        $this->call(CategoriesTableSeeder::class); // Ejecutar Seeder de categorias para los elementos
+        Category::factory()->count(10)->create(); //Ejecuta el factory con datos aleatorios en la tabla categories
         $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
         $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
         $this->call(RolesTableSeeder::class); // Ejecutar Seeder de roles para usuarios

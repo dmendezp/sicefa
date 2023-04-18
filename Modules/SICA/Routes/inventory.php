@@ -26,6 +26,10 @@ Route::middleware(['lang'])->group(function(){
         Route::prefix('inventory/parameters')->group(function () {
             Route::get('index', [ParameterController::class, 'index'])->name('sica.admin.inventory.parameters.index'); // Vista de tablas de parámetros
 
+            // Edit
+            Route::get('/admin/inventory/parameters/category/edit/{id}', [ParameterController::class, 'editCategoryGet'])->name('sica.admin.inventory.parameters.category.edit');
+            Route::post('/admin/inventory/parameters/category/edit', [ParameterController::class, 'editCategoryPost'])->name('sica.admin.inventory.parameters.category.edit');
+
             // --------------  Rutas de Categorías ---------------------------------
             /* Route::prefix('category')->group(function () {
                 //Route::get('create', [ParameterController::class, 'create'])->name('sica.admin.inventory.parameters.category.create'); // Formulario de registro de categoría
