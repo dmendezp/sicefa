@@ -103,7 +103,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Nelsy yulied Gómez Morales** - *Listar inventario* - *0 %* - *Problemas al bajar cambios del repositorio* - *Acciones*
 * **Oscar Andres Gil Marin** - *Replicación de sección de imágenes en cafeto* - *0 %* - *Problemas técnicos con el equipo* - *Acciones*
 ---
-
+#### Meet 17-Abr-2023 
+* **Anyi Katherine Rojas Arce** - *Instalación de cropper.js* - *15 %* - *Errores de codificacion (generado por commit de otro colaborador)* - *Revisión y mantenimiento por Jesús Guevara*
+* **Jesús David Guevara Munar** - *Galería de imágenes* - *35 %* - *No se ejecutan algunas funcionalidades de la librería PhotoSwipe* - *Investigación en las funcionalidades y manejo de la librería*
+* **Manuel Steven Ossa Lievano** - *CRUD de Categorias en SICA* - *40 %* - *Comportamiento inesperado en la función de acutalizar categoría* - *Revisión y mantenimiento por Manuel Ossa*
+* **Nelsy yulied Gómez Morales** - *Listar inventario* - *40 %* - *Estructuración del seeder* - *Revisión y mantenimiento por Jesús Guevara*
+* **Oscar Andres Gil Marin** - *No se presentó* - *0 %* - *No se puede acceder a la aplicación de CAFETO (producto de los cambios subidos)* - *Revisión y mantenimiento por Jesús Guevara | Asignación de nuevo requerimiento*
+--- 
 <!-- Lo siguiente solo se tomará como plantilla para las otras reuniones -->
 <!-- #### Meet ##-Aaa-2023 
 * **Anyi Katherine Rojas Arce** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
