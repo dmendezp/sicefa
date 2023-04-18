@@ -14,8 +14,9 @@ class InventoryTableSeeder extends Seeder
      * @return void
      */
     public function run()
+
     {
-        inventory::create([
+        Inventory::create([
 
             'person_id' => 1,
             'warehouse_id' => 1,
