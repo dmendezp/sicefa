@@ -26,10 +26,10 @@ class ParameterController extends Controller
         $card = 'card-category';
         if($c->save()){
             $icon = 'success';
-            $message_config = 'Categoria actualizada exitosamente.';
+            $message_config = 'Categoria agregada exitosamente.';
         }else{
             $icon = 'error';
-            $message_config = 'No se pudo actualizar la categoria.';
+            $message_config = 'No se pudo agregar la categoria.';
         }
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
     }
@@ -54,14 +54,14 @@ class ParameterController extends Controller
     }
 
     public function deleteCategoryGet($id){
-        $c = Category::find($id);
+        $category = Category::find($id);
         return view('sica::admin.inventory.parameters.category.delete',compact('category'));
     }
 
-    public function deleteEpsPost(Request $request){
-        $c = Category::findOrFail($request->input('id'));
+    public function deleteCategoryPost(Request $request){
+        $category = Category::findOrFail($request->input('id'));
         $card = 'card-category';
-        if($c->delete()){
+        if($category->delete()){
             $icon = 'success';
             $message_config = 'Categoría eliminada exitosamente.';
         }else{
@@ -70,5 +70,4 @@ class ParameterController extends Controller
         }
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
     }
-
 }

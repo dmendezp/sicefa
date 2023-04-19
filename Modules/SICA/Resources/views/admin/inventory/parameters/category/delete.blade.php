@@ -9,12 +9,12 @@
     </div>
     {!! Form::open(['route'=>'sica.admin.inventory.parameters.category.delete', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-3" style="font-size: 20px;">
-            {!! Form::hidden('id', $c->id) !!}
+            {!! Form::hidden('id', $category->id) !!}
             <div class="row">
-                <div class="col-4 text-right"><b>Nombre: </b></div>
-                <div class="col">{{ $c->name }}</div>
-                <div class="col-4 text-right"><b>Tipo de Propiedad: </b></div>
-                <div class="col">{{ $c->kind_of_property }}</div>
+                <div class="col-6 text-right"><b>Nombre: </b></div>
+                <div class="col">{{ $category->name }}</div>
+                <div class="col-6 text-right"><b>Tipo de Propiedad: </b></div>
+                <div class="col">{{ $category->kind_of_property }}</div>
             </div>
         </div>
         <div class="modal-footer py-1">
