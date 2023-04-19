@@ -9,8 +9,8 @@ use Modules\SICA\Entities\Category;
 class ParameterController extends Controller
 {
 
-    public function index(){ // Carga vista de parametros con la tabla de categorías
-        $categories = Category::get();
+    public function index(){ // Carga de vista de parametros con la tabla de categorías
+        $categories = Category::orderBy('updated_at', 'DESC')->get(); // Consultar categorías de manera descende por el dato updated_at
         $data = ['title'=>trans('sica::menu.Parameters'),'categories'=>$categories];
         return view('sica::admin.inventory.parameters.index',$data);
     }
@@ -35,7 +35,7 @@ class ParameterController extends Controller
     }
 
     public function editCategoryGet($id){
-        $c = Category::find($id);
+        $category = Category::find($id);
         return view('sica::admin.inventory.parameters.category.edit',compact('category'));
     }
 

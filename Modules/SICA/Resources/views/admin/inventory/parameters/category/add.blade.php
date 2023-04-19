@@ -13,7 +13,7 @@
         </div>
         <div class="modal-footer py-1">
                 <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cancelar</button>
-                {!! Form::submit('Actualizar', ['class'=>'btn btn-success btn-md py-0']) !!}
+                {!! Form::submit('Registrar', ['class'=>'btn btn-primary btn-md py-0']) !!}
         </div>
     {!! Form::close() !!}
 </div>

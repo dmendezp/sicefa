@@ -1,5 +1,5 @@
-@if (isset($c))
-    {!! Form::hidden('id', $c->id) !!}
+@if (isset($category))
+    {!! Form::hidden('id', $category->id) !!}
 @endif
 {!! Form::label('name', 'Nombre:', ['class' => 'mt-3']) !!}
 <div class="input-group">
@@ -8,7 +8,7 @@
             <i class="far fa-keyboard"></i>
         </span>
     </div>
-    {!! Form::text('name', isset($c) ? $c->name : null, ['class' => 'form-control', 'required', 'onkeyup'=>"mayus(this)"]) !!}
+    {!! Form::text('name', isset($category) ? $category->name : null, ['class' => 'form-control', 'required']) !!}
 </div>
 
 {!! Form::label('kind_of_property', 'Tipo de Propiedad:', ['class' => 'mt-3']) !!}
@@ -18,5 +18,6 @@
             <i class="far fa-keyboard"></i>
         </span>
     </div>
-    {!! Form::text('kind_of_property', isset($c) ? $c->kind_of_property : null, ['class' => 'form-control', 'required', 'onkeyup'=>"mayus(this)"]) !!}
+    {!! Form::select('kind_of_property', getEnumValues('categories','kind_of_property'), isset($category) ? $category->kind_of_property : 'Bodega',
+        ['class' => 'form-control', 'required']) !!}
 </div>

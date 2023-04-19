@@ -64,8 +64,7 @@
     </div>
 
     <!-- General modal -->
-    <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document">
             <div class="modal-content" id="modal-content"></div>
         </div>
@@ -129,14 +128,10 @@
                 });
         }
 
+        // Vaciar el contenido del modal cuando sea cerrado
         $("#generalModal").on("hidden.bs.modal", function() {
-            /* Modal content is removed when the modal is closed */
             $("#modal-content").empty();
         });
 
-        function mayus(e) {
-            /* Convert the content of a field to uppercase */
-            e.value = e.value.toUpperCase();
-        }
     </script>
 @endsection
