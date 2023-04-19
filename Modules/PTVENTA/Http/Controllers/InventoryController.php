@@ -5,14 +5,8 @@ namespace Modules\PTVENTA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\Element;
-use Modules\SICA\Entities\Category;
-use Modules\SICA\Entities\MeasurementUnit;
-use Modules\SICA\Entities\KindOfPurchase;
 
-
-
-class PTVENTAController extends Controller
+class InventoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,34 +14,9 @@ class PTVENTAController extends Controller
      */
     public function index()
     {
-        $titleView = 'Bienvenido a Punto de Venta!';
-        $view = ['titlePage' => 'Inicio'];
-        return view('ptventa::index', compact('view', 'titleView'));
-    }
-
-    public function indexSales()
-    {
-        $titleView = 'Sección de Ventas';
-        $view = ['titlePage' => 'Ventas'];
-        return view('ptventa::sales/index', compact('view', 'titleView'));
-    }
-
-    public function indexInventory()
-    {
-        $titleView = 'Inventariado';
-        $view = ['titlePage' => 'Inventario de Productos'];
-        return view('ptventa::inventory/index', compact('view', 'titleView'));
-       
+        return view('ptventa::index');
         
-    }
-    
-
-    public function indexProducts()
-    {
-        $product = Element::all();
-        $titleView = 'Sección de Productos';
-        $view = ['titlePage' => 'Productos'];
-        return view('ptventa::products/index', compact('product','view', 'titleView'));
+        
     }
 
     /**
@@ -57,6 +26,9 @@ class PTVENTAController extends Controller
     public function create()
     {
         return view('ptventa::create');
+        $titleView = 'Agregar Productos';
+        $view = ['titlePage' => 'Agregar Productos'];
+        return view('ptventa::inventory.create', compact('inventory','titleView','view'));
     }
 
     /**

@@ -31,5 +31,12 @@ Route::prefix('ptventa')->group(function() {  // agrega el prefijo en la url (si
         Route::post('/update/{element}', 'update')->name('ptventa.admin.element.update');
         Route::post('crop-image-upload-ajax', 'cropImageUploadAjax');
     });
+    
+    //Rutas para Inventory
+    Route::prefix('inventory')->controller(InventoryController::class)->group(function(){
+        Route::get('inventory', 'create')->name('ptventa.admin.inventory.create'); // Vista para agrgar producto
+        
+    });
+
 
 });

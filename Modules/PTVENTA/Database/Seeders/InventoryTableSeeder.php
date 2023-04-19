@@ -3,10 +3,12 @@
 namespace Modules\PTVENTA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\SICA\Entities\Inventory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 
-class InventoryTableSeeder extends Seeder
+ class InventoryTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

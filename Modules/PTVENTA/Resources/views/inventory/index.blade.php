@@ -19,7 +19,7 @@
         <div class="card-body">
             <div class="row mx-3">
                 <div class="col-auto">
-                    <i class="fas fa-search"></i> <label class="col-form-label">Buscar por: </label>
+                    <i class="fas fa-search"></i> <label class="col-form-label">Buscar por: </label>   
                 </div>
                 <div class="col-auto">
                     <select class="form-select" aria-label="Default select example">
@@ -28,6 +28,8 @@
                         <option value="2">Productos por vencer</option>
                         <option value="3">Productos vencidos</option>
                     </select>
+                    <a href="ptventa.admin.inventory.create'" class="btn btn-success btn-sm" style="btn-align: right;" >
+                        Agregar </a>
                 </div>
             </div>
         </div>
@@ -36,11 +38,8 @@
     <div class="row mx-3">
         <div class="col-md-12 h-100">
             <div class="card shadow-sm">
-            
                 <div class="card-body">
-                    <table id="inventory">
-                    <button type="button" class="btn btn-success">Agregar
-                    </button>
+                    <table id="inventory">                  
                         <thead class="table-dark">
                             <tr>
                                 <th scope="col">Producto</th>
