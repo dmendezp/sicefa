@@ -1,27 +1,18 @@
-<div id="content-config">
-    <div class="modal-header py-2">
-        <h5 class="modal-title" id="exampleModalLabel">
-            <b>Agregar Categoría</b>
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+@if (isset($c))
+    {!! Form::hidden('id', $c->id) !!}
+@endif
+{!! Form::label('name', 'Nombre:', ['class' => 'mt-3']) !!}
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">
+            <i class="far fa-keyboard"></i>
+        </span>
     </div>
-    {!! Form::open(['route'=>'sica.admin.inventory.parameters.category.add', 'method'=>'POST', 'id'=>'form-config']) !!}
-        <div class="modal-body px-4 pt-0">
-                @include('sica::admin.inventory.parameters.category.form')
-        </div>
-        <div class="modal-footer py-1">
-                <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cancelar</button>
-                {!! Form::submit('Registrar', ['class'=>'btn btn-primary btn-md py-0']) !!}
-        </div>
-    {!! Form::close() !!}
+    {!! Form::text('name', isset($c) ? $c->name : null, ['class' => 'form-control', 'required', 'onkeyup'=>"mayus(this)"]) !!}
+    <div class="input-group-prepend">
+        <span class="input-group-text">
+            <i class="far fa-keyboard"></i>
+        </span>
+    </div>
+    {!! Form::text('kind_of_property', isset($c) ? $c->kind_of_property : null, ['class' => 'form-control', 'required', 'onkeyup'=>"mayus(this)"]) !!}
 </div>
-
-<script>
-    $('#form-config').submit(function () { /* Effect for status sending information */
-        $('#loader-message').text('Enviando información...'); /* Add content to loader */
-        $("#content-config").hide(); /* Hide the content of the modal */
-        $('#modal-content').append($('#modal-loader').clone()); /* Add the loader to the modal */
-    });
-</script>

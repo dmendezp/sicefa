@@ -1,7 +1,7 @@
 <div id="content-config">
     <div class="modal-header py-2">
         <h5 class="modal-title" id="exampleModalLabel">
-            <b>Actualizar Categoria</b>
+            <b>Agregar Categoria</b>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>

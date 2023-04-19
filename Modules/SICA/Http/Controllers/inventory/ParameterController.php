@@ -22,7 +22,7 @@ class ParameterController extends Controller
     public function addCategoryPost(Request $request){
         $c = new Category;
         $c->name = e($request->input('name'));
-        $c->kind_of_property = 'Bodega';
+        $c->kind_of_property = e($request->input('kind_of_property'));
         $card = 'card-category';
         if($c->save()){
             $icon = 'success';
