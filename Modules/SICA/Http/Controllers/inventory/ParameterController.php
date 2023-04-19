@@ -40,10 +40,11 @@ class ParameterController extends Controller
     }
 
     public function editCategoryPost(Request $request){
-        $c = Category::findOrFail($request->input('id'));
-        $c->name = e($request->input('name'));
+        $category = Category::findOrFail($request->input('id'));
+        $category->name = e($request->input('name'));
+        $category->kind_of_property = e($request->input('kind_of_property'));
         $card = 'card-category';
-        if($c->save()){
+        if($category->save()){
             $icon = 'success';
             $message_config = 'Categoria actualizada exitosamente.';
         }else{
