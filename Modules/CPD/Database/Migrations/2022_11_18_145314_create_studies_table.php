@@ -13,12 +13,12 @@ class CreateStudiesTable extends Migration
      */
     public function up()
     {
-
+        Schema::dropIfExists('studies');
         Schema::create('studies', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('producer_id')->constrained()->onDelete('cascade');
-            $table->year('monitoring');
-            $table->foreignId('village_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('person_id');
+            $table->unsignedBigInteger('election_id');
+            //$table->foreignId('village_id')->constrained()->onDelete('cascade');
             $table->enum('typology', ['Hibrido','Clon','Hibrido - Clon']);
             $table->integer('altitud');
             $table->double('pH', 7, 3)->nullable();

@@ -5,10 +5,10 @@ namespace Modules\SICA\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use Modules\GANADERIA\Entities\Person;
-use Modules\GANADERIA\Entities\App;
-use Modules\GANADERIA\Entities\Role;
-use Modules\GANADERIA\Entities\Permission;
+use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\App;
+use Modules\SICA\Entities\Role;
+use Modules\SICA\Entities\Permission;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
@@ -101,9 +101,9 @@ class SeedPermissionsTableSeeder extends Seeder
          }
         
         // asigno el rol de admin al usuario superadmin y admin
-        $usersuperadmin->roles()->syncWithoutDetaching([$roladmin->id]);
-        $useradmin->roles()->syncWithoutDetaching([$roladmin->id]);
-        $rolveterinario->roles()->syncWithoutDetaching([$rolveterinario->id]);
+        //$usersuperadmin->roles()->syncWithoutDetaching([$roladmin->id]);
+       // $useradmin->roles()->syncWithoutDetaching([$roladmin->id]);
+        //$rolveterinario->roles()->syncWithoutDetaching([$rolveterinario->id]);
        
         // lista de permisos para asignar al rol superadmin y admin
         $permission_admin = [];
@@ -124,8 +124,6 @@ class SeedPermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id;
         $permission_veterinary[] = $permission->id;
         $permission_apprentice_leader[] = $permission->id;
-
-
 
         $permission = Permission::where('slug','ganaderia.admin.apprentice_leader.home2')->first();
         if(!$permission){
@@ -151,14 +149,11 @@ class SeedPermissionsTableSeeder extends Seeder
                 "app_id" => $app->id
             ]);
         }
-      
-
 
         // se asignan los permisos a los roles
-        $roladmin->permissions()-> syncWithoutDetaching($permission_admin);
-        $rolapprentice_leader->permissions()-> syncWithoutDetaching($permission_apprentice_leader);
-        $rolveterinary->permissions()-> syncWithoutDetaching($permission_veterinary);
+        /* $roladmin->permissions()-> syncWithoutDetaching($permission_admin); */
+        $rolaprendiz_lider->permissions()-> syncWithoutDetaching($permission_apprentice_leader);
+        $rolveterinario->permissions()-> syncWithoutDetaching($permission_veterinary);
         
-
     }
 }

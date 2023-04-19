@@ -13,10 +13,11 @@ class CreateJuriesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('juries');
         Schema::create('juries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained()->onDelete('cascade');
-            $table->foreignId('election_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('person_id');
+            $table->unsignedBigInteger('election_id');
             $table->string('password');
             $table->softDeletes();
             $table->timestamps();
@@ -25,7 +26,7 @@ class CreateJuriesTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
+     * 
      * @return void
      */
     public function down()

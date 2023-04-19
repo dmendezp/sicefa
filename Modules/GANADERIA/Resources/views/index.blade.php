@@ -15,7 +15,7 @@
           <p class="lead">Sistema integrado de control administrativo.</p>
           <hr class="my-4">
           <p>GANADERIA administra la configuración, seguridad y los datos iniciales de todas las aplicaciones integradas en SICEFA, permitiendo la gestión eficiente de los recursos del centro de formación, incluyendo la información del personal, inventarios, localización geografica, procesos académicos, operativos y productivos.</p>
-
+        
           
                 
         </div>

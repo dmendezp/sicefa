@@ -1,4 +1,3 @@
-
 <!-- jQuery -->
 <script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
@@ -15,7 +14,7 @@
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.js') }}"></script>
 <script src="{{ asset('js/generalscripts.js') }}"></script>
 <script src="{{ asset('sica/js/scripts.js') }}"></script>
-
+<!-- FullCalendar -->
 <script src="{{ asset('AdminLTE/plugins/fullcalendar/lib/main.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/fullcalendar/lib/locales-all.js') }}"></script>
 <!-- Select2 -->

@@ -62,8 +62,6 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-{{ Route::currentRouteName(); }}
-
 @if(!Route::is('*.sst*'))
 
           <li class="nav-item">
