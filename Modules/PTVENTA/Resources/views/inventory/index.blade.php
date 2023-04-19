@@ -49,6 +49,18 @@
                                 <th scope="col">Estado</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            @foreach($inventories as $inventories)
+                            <tr>$inventories->id</tr>
+                            <tr>$inventories->element_id</tr>
+                            <tr>$inventories->price</tr>
+                            <tr>$inventories->amount</tr>
+                            <tr>$inventories->stock</tr>
+                            <tr>$inventories->state</tr>
+                            @endforeach
+                            
+
+                        </tbody>
                         
                     </table>
                 </div>

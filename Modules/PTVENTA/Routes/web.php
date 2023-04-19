@@ -34,7 +34,7 @@ Route::prefix('ptventa')->group(function() {  // agrega el prefijo en la url (si
     
     //Rutas para Inventory
     Route::prefix('inventory')->controller(InventoryController::class)->group(function(){
-        Route::get('inventory', 'create')->name('ptventa.admin.inventory.create'); // Vista para agrgar producto
+        Route::get('inventory.create')->name('ptventa.admin.inventory.create'); // Vista para agrgar producto
         
     });
 
