@@ -2,6 +2,7 @@
 
 namespace Modules\SICA\Entities;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -12,6 +13,8 @@ class MeasurementUnit extends Model implements Auditable
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
 
     use SoftDeletes; // Borrado suave
+
+    use HasFactory; // Generación de datos de prueba
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'name',
@@ -36,6 +39,13 @@ class MeasurementUnit extends Model implements Auditable
     // RELACIONES
     public function elements(){ // Accede a todos los elementos que pertenecen a esta unidad de medida
         return $this->hasMany(Element::class);
+    }
+
+
+    // Configuración de factory para la generación de datos de pruebas
+    protected static function newFactory()
+    {
+        return \Modules\SICA\Database\factories\MeasurementUnitFactory::new();
     }
 
 }
