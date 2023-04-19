@@ -22,9 +22,10 @@
                                             <th>Nombre</th>
                                             <th>Tipo de propiedad</th>
                                             <th>
-                                                <a href="" class="text-success" data-toggle='tooltip'
-                                                    data-placement="top" title="Agregar">
-                                                    <i class="fas fa-plus-circle"></i>
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.category.add') }}')">
+                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                    </b>
                                                 </a>
                                             </th>
                                         </tr>
@@ -42,8 +43,10 @@
                                                                 <i class="fas fa-edit"></i>
                                                             </b>
                                                         </a>
-                                                        <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="#" data-path="admin/role" title="Eliminar">
-                                                            <i class="fas fa-trash-alt"></i>
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.category.delete') }}/{{ $c->id }}')">
+                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </b>
                                                         </a>
                                                     </div>
                                                 </td>
