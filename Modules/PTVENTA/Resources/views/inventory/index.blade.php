@@ -14,53 +14,48 @@
 @endsection
 
 @section('content')
-
-    <div class="card shadow-sm">
+    <div class="card card-success card-outline shadow-sm">
         <div class="card-body">
-            <div class="row mx-3">
+            <div class="row mb-3">
                 <div class="col-auto">
-                    <i class="fas fa-search"></i> <label class="col-form-label">Buscar por: </label>   
+                    <i class="fas fa-search"></i>
+                    <label class="form-label-sm">Buscar por: </label>
                 </div>
                 <div class="col-auto">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Selecciona...</option>
+                    <select class="form-select form-select-sm" aria-label="Default select example">
+                        <option selected>Selecciona ...</option>
                         <option value="1">Disponibles</option>
                         <option value="2">Productos por vencer</option>
                         <option value="3">Productos vencidos</option>
                     </select>
-                    <a href="ptventa.admin.inventory.create'" class="btn btn-success btn-sm" style="btn-align: right;" >
-                        Agregar </a>
+                </div>
+                <div class="col"></div>
+                <div class="col-auto">
+                    <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm"> Registrar </a>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="row mx-3">
-        <div class="col-md-12 h-100">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <table id="inventory">                  
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">Producto</th>
-                                <th scope="col">Valor</th>
-                                <th scope="col">Cantidad Existente</th>
-                                <th scope="col">Cantidad minima</th>
-                                <th scope="col">Estado</th>
-                            </tr>
-                        </thead>
-                        
-                    </table>
-                </div>
-            </div>
+            <hr>
+
+            <table id="inventory">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Cantidad Existente</th>
+                        <th scope="col">Cantidad minima</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+
+            </table>
         </div>
     </div>
 @endsection
 
 @section('scripts')
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-<script>
-    let table = new DataTable('#inventory', {
-    });
-</script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script>
+        let table = new DataTable('#inventory', {});
+    </script>
 @endsection

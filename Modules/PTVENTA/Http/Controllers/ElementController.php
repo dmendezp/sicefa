@@ -10,32 +10,24 @@ use Validator;
 
 class ElementController extends Controller
 {
-    public function index()
-    {
-        $element = Element::all();
-        $titleView = 'Administración de imagenes de productos generales';
-        $view = ['titlePage' => 'Imagenes de productos'];
-        return view('ptventa::element.index', compact('element','titleView','view'));
+    public function index(){ // Vista de galería de imágenes
+        $elements = Element::orderBy('updated_at', 'DESC')->get(); // Consultar elementos por fecha de actualización de manera descendente
+        $view = ['titlePage'=>'Productos - Galería de imágenes', 'titleView'=>'Administración de imágenes de productos'];
+        return view('ptventa::element.index', compact('elements','view'));
     }
 
-    public function gallery()
-    {
+    public function gallery(){  // Vista de galería de imágenes
         $elements = Element::all();
-        $titleView = 'Galería de imágenes de productos';
-        $view = ['titlePage' => 'Galería de productos'];
-        return view('ptventa::element.gallery', compact('elements','titleView','view'));
+        $view = ['titlePage'=>'Productos - Galería de imágenes', 'titleView'=>'Administración de imágenes de productos'];
+        return view('ptventa::element.gallery', compact('elements','view'));
     }
 
-    public function edit(Element $element)
-    {
-        $titleView = 'Actualizar imagen de producto';
-        $view = ['titlePage' => 'Actualizar | Imagen de Producto'];
-        return view('ptventa::element.edit', compact('element','titleView','view'));
+    public function edit(Element $element){ // Vista de formulario para actualizar imagen de elemento
+        $view = ['titlePage'=>'Productos - Actualizar imagen', 'titleView'=>'Actualizar imagen de producto'];
+        return view('ptventa::element.edit', compact('element','view'));
     }
 
-    public function update(Request $request, Element $element)
-    {
-
+    public function update(Request $request, Element $element){ // Actualización de imagen de elemento
         $rules = [
             'image' => 'required',
         ];
@@ -69,7 +61,7 @@ class ElementController extends Controller
                     $message_ptventa = "Se ha producido un error en el momento de actualizar la imagen";
                     $message_ptventa_type = 'error';
                   }
-                  return redirect(route('ptventa.admin.element.index'))->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
+                  return redirect(route('ptventa.element.index'))->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
             }
        endif;
     }

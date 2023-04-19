@@ -1,4 +1,4 @@
-{{{-- Jquery --}}
+{{-- Jquery --}}
 <script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
@@ -30,4 +30,4 @@
         })
     @endif
 </script>
-}
+

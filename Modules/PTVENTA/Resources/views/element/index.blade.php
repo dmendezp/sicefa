@@ -15,8 +15,8 @@
 @section('content')
 
 <div class="card card-primary card-outline col-9 mx-auto">
-    <div class="card-header">
-        <a href="{{ route('ptventa.admin.element.gallery') }}" class="btn btn-outline-success btn-sm">
+    <div class="card-header text-center">
+        <a href="{{ route('ptventa.element.gallery') }}" class="btn btn-outline-success btn-sm">
             Ver galería de imágenes
         </a>
     </div>
@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($element as $e)
+                @foreach ($elements as $element)
                     <tr>
                         <td>
                             <div class="card">
@@ -36,17 +36,17 @@
                                     <div class="card mb-3" style="max-width: 540px;">
                                         <div class="row g-0">
                                           <div class="col-md-4">
-                                            <img src="{{ asset($e->image) }}" class="img-fluid rounded-start" alt="...">
+                                            <img src="{{ asset($element->image) }}" class="img-fluid rounded-start" alt="...">
                                           </div>
                                           <div class="col-md-6">
                                             <div class="card-body">
-                                              <p class="card-text">{{ $e->name }}</p>
+                                              <p class="card-text">{{ $element->name }}</p>
                                               <p class="card-text">$8.000</p>
                                             </div>
                                           </div>
                                           <div class="col-md-2">
                                               <br>
-                                            <a href="{{ route('ptventa.admin.element.edit', $e) }}" class="btn btn-outline-warning btn-sm py-1" title="Actualizar Categoria">
+                                            <a href="{{ route('ptventa.element.edit', $element) }}" class="btn btn-outline-warning btn-sm py-1" title="Actualizar Categoria">
                                                 Actualizar
                                             </a>
                                           </div>

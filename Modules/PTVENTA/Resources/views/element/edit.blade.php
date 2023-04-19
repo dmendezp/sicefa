@@ -1,14 +1,14 @@
 @extends('ptventa::layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('ptventa.admin.element.index') }}" class="text-decoration-none">Inicio</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('ptventa.element.index') }}" class="text-decoration-none">Inicio</a></li>
     <li class="breadcrumb-item active">Productos</li>
     <li class="breadcrumb-item active">Actualizar imagen</li>
 @endsection
 
 <style type="text/css">
     body{
-        background:#f6d352; 
+        background:#f6d352;
     }
     h1{
         font-weight: bold;
@@ -21,7 +21,7 @@
     .preview {
         text-align: center;
         overflow: hidden;
-        width: 160px; 
+        width: 160px;
         height: 160px;
         margin: 10px;
         border: 1px solid red;
@@ -40,7 +40,7 @@
 </style>
 
 @section('content')
-    <form action="{{ route('ptventa.admin.element.update', $element) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('ptventa.element.update', $element) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card card-success card-outline col-10 mx-auto">
 
@@ -82,7 +82,7 @@
             </div>
 
             <div class="card-footer bg-white text-right">
-                <a href="{{ route('ptventa.admin.element.index') }}" class="btn btn-sm btn-light mr-2">
+                <a href="{{ route('ptventa.element.index') }}" class="btn btn-sm btn-light mr-2">
                     <b>Cancelar</b>
                 </a>
                 <button type="submit" class="btn btn-sm btn-success">
@@ -158,7 +158,7 @@
                 var reader = new FileReader();
                 reader.readAsDataURL(blob);
                 reader.onloadend = function() {
-                    var base64data = reader.result; 
+                    var base64data = reader.result;
                     $.ajax({
                         type: "POST",
                         dataType: "json",
