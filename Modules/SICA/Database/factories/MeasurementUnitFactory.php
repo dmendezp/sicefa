@@ -3,14 +3,14 @@ namespace Modules\SICA\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CategoryFactory extends Factory
+class MeasurementUnitFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = \Modules\SICA\Entities\Category::class;
+    protected $model = \Modules\SICA\Entities\MeasurementUnit::class;
 
     /**
      * Define the model's default state.
@@ -20,9 +20,9 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->words(rand(1,2), true),
-            'kind_of_property' => $this->faker->randomElement(['Devolutivo','Bodega'])
+            'name' => $this->faker->unique()->word(),
+            'minimum_unit_measure' => $this->faker->unique()->word(),
+            'conversion_factor' => $this->faker->numberBetween(1, 12500)
         ];
     }
 }
-

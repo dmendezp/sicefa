@@ -18,7 +18,9 @@ class SICADatabaseSeeder extends Seeder
         DB::beginTransaction(); // Iniciar transacción
 
         $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
-        $this->call(CategoriesTableSeeder::class); // Ejecutar Seeder de categorias para los elementos
+        $this->call(CategoriesTableSeeder::class); // Ejecutar Seeder de categorías
+        $this->call(MeasurementUnitsTableSeeder::class); // Ejecutar Seeder de unidades de medida
+        $this->call(KindOfPurchasesTableSeeder::class); // Ejecutar Seeder de tipos de campra
         $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
         $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
         $this->call(RolesTableSeeder::class); // Ejecutar Seeder de roles para usuarios
