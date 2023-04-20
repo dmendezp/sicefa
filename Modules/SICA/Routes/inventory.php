@@ -24,14 +24,28 @@ Route::middleware(['lang'])->group(function(){
 
         // --------------  Rutas de Parámetros ---------------------------------
         Route::prefix('inventory/parameters')->group(function () {
+            //  Listar
             Route::get('index', [ParameterController::class, 'index'])->name('sica.admin.inventory.parameters.index'); // Vista de tablas de parámetros
 
+            // Agregar
+            Route::get('/category/add', [ParameterController::class, 'addCategoryGet'])->name('sica.admin.inventory.parameters.category.add'); //Solicitud GET que tenga esta URL se manejará a través de esta ruta.
+            Route::post('/category/add', [ParameterController::class, 'addCategoryPost'])->name('sica.admin.inventory.parameters.category.add');
+
+            // Editar
+            Route::get('/category/edit/{id}', [ParameterController::class, 'editCategoryGet'])->name('sica.admin.inventory.parameters.category.edit');
+            Route::post('/category/edit', [ParameterController::class, 'editCategoryPost'])->name('sica.admin.inventory.parameters.category.edit');
+
+            // Eliminar
+            Route::get('/category/delete/{id}', [ParameterController::class, 'deleteCategoryGet'])->name('sica.admin.inventory.parameters.category.delete');
+            Route::post('/category/delete/', [ParameterController::class, 'deleteCategoryPost'])->name('sica.admin.inventory.parameters.category.delete');
             // --------------  Rutas de Categorías ---------------------------------
             /* Route::prefix('category')->group(function () {
                 //Route::get('create', [ParameterController::class, 'create'])->name('sica.admin.inventory.parameters.category.create'); // Formulario de registro de categoría
                 // ...
             }); */
 
+            // Listar de measurementUnit
+            Route::get('index', [ParameterController::class, 'index'])->name('sica.admin.inventory.parameters.index'); // Vista de tablas de parámetros
         });
     });
 });

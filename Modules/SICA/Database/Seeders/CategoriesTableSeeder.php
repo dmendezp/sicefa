@@ -3,7 +3,6 @@
 namespace Modules\SICA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use Modules\SICA\Entities\Category;
 
 class CategoriesTableSeeder extends Seeder
@@ -15,47 +14,14 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
 
-        // $this->call("OthersTableSeeder");
-        Category::create([
-            'name' => 'Lácteos',
+        $number_categories = 12; // Definir la cantidad de categorías de prueba
+
+        Category::updateOrCreate(['name' => 'Lácteos'],[  // Actualizar o registrar Unidad de medida
             'kind_of_property' => 'Bodega'
         ]);
 
-        Category::create([
-            'name' => 'Cárnicos',
-            'kind_of_property' => 'Bodega'
-        ]);
+        Category::factory()->count($number_categories)->create(); // Generar categorías de prueba de acuerdo a la cantidad requerida
 
-        Category::create([
-            'name' => 'Frutas',
-            'kind_of_property' => 'Bodega'
-        ]);
-
-        Category::create([
-            'name' => 'Vegetales',
-            'kind_of_property' => 'Bodega'
-        ]);
-
-        Category::create([
-            'name' => 'Cereales',
-            'kind_of_property' => 'Bodega'
-        ]);
-
-        Category::create([
-            'name' => 'Legumbres',
-            'kind_of_property' => 'Bodega'
-        ]);
-
-        Category::create([
-            'name' => 'Utensilios',
-            'kind_of_property' => 'Devolutivo'
-        ]);
-
-        Category::create([
-            'name' => 'Repostería',
-            'kind_of_property' => 'Bodega'
-        ]);
     }
 }
