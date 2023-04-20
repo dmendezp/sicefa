@@ -110,15 +110,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Nelsy yulied Gómez Morales** - *Listar inventario* - *40 %* - *Estructuración del seeder* - *Revisión y mantenimiento por Jesús Guevara*
 * **Oscar Andres Gil Marin** - *No se presentó* - *0 %* - *No se puede acceder a la aplicación de CAFETO (producto de los cambios subidos)* - *Revisión y mantenimiento por Jesús Guevara | Asignación de nuevo requerimiento*
 --- 
-<!-- Lo siguiente solo se tomará como plantilla para las otras reuniones -->
-<!-- #### Meet ##-Aaa-2023 
-* **Anyi Katherine Rojas Arce** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Cesar Augusto Pastrana Quimbaya** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Jesús David Guevara Munar** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Manuel Steven Ossa Lievano** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Nelsy yulied Gómez Morales** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Oscar Andres Gil Marin** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
---- -->
+#### Meet 18-Abr-2023 
+* **Anyi Katherine Rojas Arce** - *Instalación de cropper.js* - *No presenta avances* - *Errores de codificacion (generado por commit de otro colaborador)* - *Revisión y mantenimiento por Jesús Guevara*
+* **Jesús David Guevara Munar** - *Galería de imágenes* - *No presenta avances* - *Disponibilidad de tiempo, verificación y depuración de cambios subidos por los colaboradores* - *Generar un avance al menos del 50% en el próximo DailyMeet*
+* **Manuel Steven Ossa Lievano** - *CRUD de Categorias en SICA* - *60 %* - *No se lanza el alert modal cuando se realiza un registro o actualización de manera exitosa* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *Listar inventario* - *40 %* - *Generación de seeder para generar inventarios de prueba* - *Revisión y mantenimiento por Jesús Guevara*
+* **Oscar Andres Gil Marin** - *No se presentó* - *No presenta avances* - *Disponiblidad de tiempo* - *Reasignación de funcionalidad y notificación de posible degregación en caso de no presentar al menos un 25% de avance en el próximo DailyMeet*  
+--- 
 
 
 ## GANADERIA 🐮
