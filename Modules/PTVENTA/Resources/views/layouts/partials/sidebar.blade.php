@@ -14,52 +14,24 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
-                    {{-- List of options available in the sidebar --}}
                     <li class="nav-item">
-                        <a href="{{route('cefa.ptventa.indexProducts')}}" class="nav-link {{ !Route::is('cefa.ptventa.indexProducts*') ?: 'active'}}">
-                            <i class="nav-icon fas fa-truck-loading"></i>
-                            <p>Productos</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{route('cefa.ptventa.indexInventory')}}" class="nav-link {{ !Route::is('cefa.ptventa.indexInventory*') ?: 'active'}}">
+                        <a href="{{route('ptventa.inventory.index')}}" class="nav-link {{ !Route::is('ptventa.inventory.index*') ?: 'active'}}">
                             <i class="nav-icon fas fa-boxes"></i>
                             <p>Inventario</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-people-carry"></i>
-                            <p>Empleados</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{route('cefa.ptventa.indexSales')}}" class="nav-link {{ !Route::is('cefa.ptventa.indexSales*') ?: 'active'}}">
+                        <a href="{{route('ptventa.sale.index')}}" class="nav-link {{ !Route::is('ptventa.sale.index*') ?: 'active'}}">
                             <i class="nav-icon fas fa-shopping-cart"></i>
                             <p>Ventas</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-percentage"></i>
-                            <p>Promociones</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-code"></i>
-                            <p>Desarrolladores</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('ptventa.admin.element.index') }}" class="nav-link {{ !Route::is('ptventa.admin.element.*') ?: 'active'}}">
+                        <a href="{{ route('ptventa.element.index') }}" class="nav-link {{ !Route::is('ptventa.element.index*') ?: 'active'}}">
                             <i class="nav-icon fas fa-image"></i>
-                            <p>Imagenes</p>
+                            <p>Productos</p>
                         </a>
                     </li>
                 </ul>

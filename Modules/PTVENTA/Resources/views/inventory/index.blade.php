@@ -28,7 +28,7 @@
                         <option value="2">Productos por vencer</option>
                         <option value="3">Productos vencidos</option>
                     </select>
-                    <a href="ptventa.admin.inventory.create'" class="btn btn-success btn-sm" style="btn-align: right;" >
+                    <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm" style="btn-align: right;" >
                         Agregar </a>
                 </div>
             </div>
@@ -50,13 +50,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($inventories as $inventories)
-                            <tr>$inventories->id</tr>
-                            <tr>$inventories->element_id</tr>
-                            <tr>$inventories->price</tr>
-                            <tr>$inventories->amount</tr>
-                            <tr>$inventories->stock</tr>
-                            <tr>$inventories->state</tr>
+                            @foreach($inventories as $in)
+                            <tr>{{ $in->id }}</tr>
+                            <tr>{{ $in->element_id }}</tr>
+                            <tr>{{ $in->price }}</tr>
+                            <tr>{{ $in->amount }}</tr>
+                            <tr>{{ $in->stock }}</tr>
+                            <tr>{{ $in->state }}</tr>
                             @endforeach
                             
 
