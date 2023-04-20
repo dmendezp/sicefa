@@ -44,6 +44,8 @@ Route::middleware(['lang'])->group(function(){
                 // ...
             }); */
 
+            // Listar de measurementUnit
+            Route::get('index', [ParameterController::class, 'index'])->name('sica.admin.inventory.parameters.index'); // Vista de tablas de parámetros
         });
     });
 });
