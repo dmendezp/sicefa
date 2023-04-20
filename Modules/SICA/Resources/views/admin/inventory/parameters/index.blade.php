@@ -22,9 +22,10 @@
                                             <th>Nombre</th>
                                             <th>Tipo de propiedad</th>
                                             <th>
-                                                <a href="" class="text-success" data-toggle='tooltip'
-                                                    data-placement="top" title="Agregar">
-                                                    <i class="fas fa-plus-circle"></i>
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.category.add') }}')">
+                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                    </b>
                                                 </a>
                                             </th>
                                         </tr>
@@ -42,8 +43,10 @@
                                                                 <i class="fas fa-edit"></i>
                                                             </b>
                                                         </a>
-                                                        <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="#" data-path="admin/role" title="Eliminar">
-                                                            <i class="fas fa-trash-alt"></i>
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.category.delete') }}/{{ $c->id }}')">
+                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </b>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -56,13 +59,64 @@
                     </div>
                 </div>
                 {{-- Aqui finaliza la tabla categorías --}}
+
+                {{-- Aqui finaliza la tabla unidades de medida --}}
+                <div class="col-md-6">
+                    <div class="card card-orange card-outline shadow">
+                        <div class="card-header">
+                            <h3 class="card-title">Unidades de medida</h3>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <table id="example2" class="display table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Medida unitaria minima</th>
+                                            <th>Factor de converción</th>
+                                            <th>
+                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                    </b>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($measurementUnit as $m)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $m->name }}</td>
+                                                <td>{{ $m->minimum_unit_measure }}</td>
+                                                <td>{{ $m->conversion_factor }}</td>
+                                                <td>
+                                                    <div class="opts">
+                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                                <i class="fas fa-edit"></i>
+                                                            </b>
+                                                        </a>
+                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </b>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- Aqui finaliza la tabla unidades de medida --}}
             </div>
         </div>
     </div>
 
     <!-- General modal -->
-    <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document">
             <div class="modal-content" id="modal-content"></div>
         </div>
@@ -126,14 +180,10 @@
                 });
         }
 
+        // Vaciar el contenido del modal cuando sea cerrado
         $("#generalModal").on("hidden.bs.modal", function() {
-            /* Modal content is removed when the modal is closed */
             $("#modal-content").empty();
         });
 
-        function mayus(e) {
-            /* Convert the content of a field to uppercase */
-            e.value = e.value.toUpperCase();
-        }
     </script>
 @endsection
