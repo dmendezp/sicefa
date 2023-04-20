@@ -36,7 +36,7 @@
     </div>
 
     <div class="row mx-3">
-        <div class="col-md-12 h-100">
+        <div class="col-md-15 h-100">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <table id="inventory">                  
@@ -48,20 +48,25 @@
                                 <th scope="col">Cantidad minima</th>
                                 <th scope="col">Estado</th>
                             </tr>
+
                         </thead>
                         <tbody>
-                            @foreach($inventories as $in)
-                            <tr>{{ $in->id }}</tr>
-                            <tr>{{ $in->element_id }}</tr>
-                            <tr>{{ $in->price }}</tr>
-                            <tr>{{ $in->amount }}</tr>
-                            <tr>{{ $in->stock }}</tr>
-                            <tr>{{ $in->state }}</tr>
+
+                            @foreach($inventories as $inventory)
+            
+                            <td>{{ $inventory->element_id }}</td>
+                            <td>{{ $inventory->price }}</td>
+                            <td>{{ $inventory->amount }}</td>
+                            <td>{{ $inventory->stock }}</td>
+                            <td>{{ $inventory->state }}</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-secondary btn-sm py-0" title="Ver datos del empleado">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </td>
                             @endforeach
                             
-
                         </tbody>
-                        
                     </table>
                 </div>
             </div>

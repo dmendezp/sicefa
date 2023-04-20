@@ -17,7 +17,7 @@ class InventoryController extends Controller
     // Listado del inventario actual
 public function index() {
   
-        $inventories = Inventory::all();
+        $inventories = Inventory::get();
         $view = ['titlePage'=>'Inventario - Listado', 'titleView'=>'Administración de inventario'];
         return view('ptventa::inventory.index', compact('view', 'inventories'));
     }
