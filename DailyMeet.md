@@ -117,6 +117,20 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Nelsy yulied Gómez Morales** - *Listar inventario* - *40 %* - *Generación de seeder para generar inventarios de prueba* - *Revisión y mantenimiento por Jesús Guevara*
 * **Oscar Andres Gil Marin** - *No se presentó* - *No presenta avances* - *Disponiblidad de tiempo* - *Reasignación de funcionalidad y notificación de posible degregación en caso de no presentar al menos un 25% de avance en el próximo DailyMeet*  
 --- 
+#### Meet 19-Abr-2023 
+* **Anyi Katherine Rojas Arce** - *Instalación de cropper.js* - *No presenta avances* - *Desconocimiento del manejo de la librería* - *Reasignación de requerimiento*
+* **Jesús David Guevara Munar** - *Manteimiento SICA | Galería de imágenes PTVENTA* - * 20% | 35%* - ** - **
+* **Manuel Steven Ossa Lievano** - *CRUD de Categorias en SICA* - *95 %* - ** - *Acciones*
+* **Nelsy yulied Gómez Morales** - *Listar inventario* - *40 %* - *Generación de seeder para generar inventarios de prueba* - *Revisión y mantenimiento por Jesús Guevara*
+* **Oscar Andres Gil Marin** - *CRUD Unidades de medida* - *25 %* - *Ejecución del seeder MeasurementUnits(con el factory)* - **  
+--- 
+#### Meet 20-Abr-2023 
+* **Anyi Katherine Rojas Arce** - *CRUD Tipos de compra* - *Avance %* - *Dificultades* - *Acciones*
+* **Jesús David Guevara Munar** - *Mantenimiento SICA | Galería de imágenes PTVENTA* - * Avance % | Avance %* - ** - **
+* **Manuel Steven Ossa Lievano** - *CRUD de Categorias en SICA | Pasar a componentes livewire el formulario de entrada de ingreso* - *Avance %* - *Dificultades* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *Listar inventario | CRUD de actividades* - *40 %* - *Generación de seeder para generar inventarios de prueba* - *Revisión y mantenimiento por Jesús Guevara*
+* **Oscar Andres Gil Marin** - *Crud para unidades de medida* - *No presenta avances* - *Disponiblidad de tiempo* - *Reasignación de funcionalidad y notificación de posible degregación en caso de no presentar al menos un 25% de avance en el próximo DailyMeet*  
+--- 
 
 
 ## GANADERIA 🐮
