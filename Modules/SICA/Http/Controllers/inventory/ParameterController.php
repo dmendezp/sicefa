@@ -5,13 +5,15 @@ namespace Modules\SICA\Http\Controllers\inventory;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Category;
+use Modules\SICA\Entities\MeasurementUnit;
 
 class ParameterController extends Controller
 {
 
     public function index(){ // Carga de vista de parametros con la tabla de categorías
         $categories = Category::orderBy('updated_at', 'DESC')->get(); // Consultar categorías de manera descende por el dato updated_at
-        $data = ['title'=>trans('sica::menu.Parameters'),'categories'=>$categories];
+        $measurementUnit = MeasurementUnit::orderBy('updated_at', 'DESC')->get(); // Consultar measurementUnit de manera descende por el dato updated_at
+        $data = ['title'=>trans('sica::menu.Parameters'),'categories'=>$categories, 'measurementUnit'=>$measurementUnit];
         return view('sica::admin.inventory.parameters.index',$data);
     }
 
