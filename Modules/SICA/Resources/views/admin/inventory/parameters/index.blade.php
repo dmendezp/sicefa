@@ -15,7 +15,7 @@
                         </div>
                         <div class="card-body">
                             <div>
-                                <table id="example2" class="display table table-bordered table-striped table-sm">
+                                <table id="tableCategory" class="display table table-bordered table-striped table-sm">
                                     <thead>
                                         <tr>
                                             <th>Id</th>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="card-body">
                             <div>
-                                <table id="example3" class="display table table-bordered table-striped table-sm">
+                                <table id="tableKindOfPurchase" class="display table table-bordered table-striped table-sm">
                                     <thead>
                                         <tr>
                                             <th>Id</th>
@@ -118,7 +118,7 @@
                         </div>
                         <div class="card-body">
                             <div>
-                                <table id="example4" class="display table table-bordered table-striped table-sm">
+                                <table id="tableMeasurementUnit" class="display table table-bordered table-striped table-sm">
                                     <thead>
                                         <tr>
                                             <th>Id</th>
@@ -240,17 +240,17 @@
     </script>
 <script>
     $(document).ready(function () { /* Initialización of Datatables ---Category */
-        $("#example2").DataTable();
-    });
-</script>
-<script>
-    $(document).ready(function () { /* Initialización of Datatables ---Kind Of Purchase */
-        $("#example3").DataTable();
-    });
-</script>
-<script>
-    $(document).ready(function () { /* Initialización of Datatables ----Measurement Unit  */
-        $("#example4").DataTable();
+        $('#tableCategory').DataTable({
+            // opciones de configuración para la tabla 1
+        });
+
+        $('#tableMeasurementUnit').DataTable({
+            // opciones de configuración para la tabla 2
+        });
+
+        $('#tableKindOfPurchase').DataTable({
+            // opciones de configuración para la tabla 2
+        });
     });
 </script>
 @endsection
