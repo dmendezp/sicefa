@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateActivitieTable extends Migration
+class CreateAnimalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class CreateActivitieTable extends Migration
      */
     public function up()
     {
-        Schema::create('activitie', function (Blueprint $table) {
+        Schema::create('animals', function (Blueprint $table) {
             $table->id();
-
+            $table->string('mother');
+            $table->string('weight');
+            $table->string('sex');
+            $table->string('color');
+            $table->string('location');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
-    
 
     /**
      * Reverse the migrations.
@@ -28,6 +32,6 @@ class CreateActivitieTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activitie');
+        Schema::dropIfExists('animals');
     }
 }

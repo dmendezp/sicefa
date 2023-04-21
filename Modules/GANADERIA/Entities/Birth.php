@@ -5,7 +5,7 @@ namespace Modules\GANADERIA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Activity extends Model
+class Birth extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,6 @@ class Activity extends Model
     
     protected static function newFactory()
     {
-        return \Modules\GANADERIA\Database\factories\ActivityFactory::new();
+        return \Modules\GANADERIA\Database\factories\BirthFactory::new();
     }
 }

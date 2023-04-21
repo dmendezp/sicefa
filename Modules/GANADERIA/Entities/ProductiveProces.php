@@ -5,7 +5,7 @@ namespace Modules\GANADERIA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class page extends Model
+class Productive_proces extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,6 @@ class page extends Model
     
     protected static function newFactory()
     {
-        return \Modules\GANADERIA\Database\factories\PageFactory::new();
+        return \Modules\GANADERIA\Database\factories\ProductiveProcesFactory::new();
     }
 }
