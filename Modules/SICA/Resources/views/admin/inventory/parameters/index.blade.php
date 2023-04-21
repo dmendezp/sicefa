@@ -57,6 +57,56 @@
                             </div>
                         </div>
                     </div>
+                    {{-- Aqui inicia la tabla de Tipo de Compra --}}
+                    <div class="card card-orange card-outline shadow">
+                        <div class="card-header">
+                            <h3 class="card-title">Tipo de Compra</h3>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <table id="example3" class="display table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.add') }}')">
+                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                    </b>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($kindOfPurchase as $k)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $k->name }}</td>
+                                                <td>{{ $k->description }}</td>
+                                                <td>
+                                                    <div class="opts">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.edit') }}/{{ $k->id }}')">
+                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                                <i class="fas fa-edit"></i>
+                                                            </b>
+                                                        </a>
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.delete') }}/{{ $k->id }}')">
+                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </b>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Aqui finaliza la tabla Tipo de Compra --}}
                 </div>
                 {{-- Aqui finaliza la tabla categorías --}}
 
@@ -68,7 +118,7 @@
                         </div>
                         <div class="card-body">
                             <div>
-                                <table id="example2" class="display table table-bordered table-striped table-sm">
+                                <table id="example4" class="display table table-bordered table-striped table-sm">
                                     <thead>
                                         <tr>
                                             <th>Id</th>
@@ -115,6 +165,8 @@
         </div>
     </div>
 
+
+
     <!-- General modal -->
     <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document">
@@ -145,7 +197,7 @@
             @endif
         @endif
 
-        $(function() {
+        /* $(function() {
             $("#example1").DataTable({
                 "responsive": true,
                 "autoWidth": false,
@@ -159,7 +211,7 @@
                 "autoWidth": false,
                 "responsive": true,
             });
-        });
+        }); */
 
         function ajaxAction(route) {
             /* Ajax to show content modal to add event */
@@ -186,4 +238,19 @@
         });
 
     </script>
+<script>
+    $(document).ready(function () { /* Initialización of Datatables ---Category */
+        $("#example2").DataTable();
+    });
+</script>
+<script>
+    $(document).ready(function () { /* Initialización of Datatables ---Kind Of Purchase */
+        $("#example3").DataTable();
+    });
+</script>
+<script>
+    $(document).ready(function () { /* Initialización of Datatables ----Measurement Unit  */
+        $("#example4").DataTable();
+    });
+</script>
 @endsection

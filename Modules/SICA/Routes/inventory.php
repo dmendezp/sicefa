@@ -46,6 +46,21 @@ Route::middleware(['lang'])->group(function(){
 
             // Listar de measurementUnit
             Route::get('index', [ParameterController::class, 'index'])->name('sica.admin.inventory.parameters.index'); // Vista de tablas de parámetros
+
+            //-------------------------Rutas de Tipo de Compra----------------------//
+            //Agregar
+            Route::get('/kindOfPurchase/add', [ParameterController::class, 'addKindOfPurchaseGet'])->name('sica.admin.inventory.parameters.kindOfPurchase.add'); 
+            Route::post('/kindOfPurchase/add', [ParameterController::class, 'addKindOfPurchasePost'])->name('sica.admin.inventory.parameters.kindOfPurchase.add');
+
+            //Editar
+            Route::get('/kindOfPurchase/edit/{id}', [ParameterController::class, 'editKindOfPurchaseGet'])->name('sica.admin.inventory.parameters.kindOfPurchase.edit');
+            Route::post('/kindOfPurchase/edit', [ParameterController::class, 'editKindOfPurchasePost'])->name('sica.admin.inventory.parameters.kindOfPurchase.edit');
+
+            //Eliminar
+            Route::get('/kindOfPurchase/delete/{id}', [ParameterController::class, 'deleteKindOfPurchaseGet'])->name('sica.admin.inventory.parameters.kindOfPurchase.delete');
+            Route::post('/kindOfPurchase/delete/', [ParameterController::class, 'deleteKindOfPurchasePost'])->name('sica.admin.inventory.parameters.kindOfPurchase.delete');
+
+            
         });
     });
 });
