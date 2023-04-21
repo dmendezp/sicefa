@@ -125,11 +125,11 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Oscar Andres Gil Marin** - *CRUD Unidades de medida* - *25 %* - *Ejecución del seeder MeasurementUnits(con el factory)* - **  
 --- 
 #### Meet 20-Abr-2023 
-* **Anyi Katherine Rojas Arce** - *CRUD Tipos de compra* - *Avance %* - *Dificultades* - *Acciones*
-* **Jesús David Guevara Munar** - *Mantenimiento SICA | Galería de imágenes PTVENTA* - * Avance % | Avance %* - ** - **
-* **Manuel Steven Ossa Lievano** - *CRUD de Categorias en SICA | Pasar a componentes livewire el formulario de entrada de ingreso* - *Avance %* - *Dificultades* - *Acciones*
-* **Nelsy yulied Gómez Morales** - *Listar inventario | CRUD de actividades* - *40 %* - *Generación de seeder para generar inventarios de prueba* - *Revisión y mantenimiento por Jesús Guevara*
-* **Oscar Andres Gil Marin** - *Crud para unidades de medida* - *No presenta avances* - *Disponiblidad de tiempo* - *Reasignación de funcionalidad y notificación de posible degregación en caso de no presentar al menos un 25% de avance en el próximo DailyMeet*  
+* **Anyi Katherine Rojas Arce** - *CRUD Tipos de compra* - *95 %* - *rutas de actualizacion de tipo de compras* - *Apoyo del equipo*
+* **Jesús David Guevara Munar** - *No se presento* - * Avance % | Avance %* - *Problemas de salud* - **
+* **Manuel Steven Ossa Lievano** - *No se presento* - *Avance %* - *Razon desconocida* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *Listar inventario | CRUD de actividades* - *95 %* - *Fallo de estilos de la tabla listar inventario* - *Apoyo del equipo*
+* **Oscar Andres Gil Marin** - *No se presento* - *No presenta avances* - *Razon desconocida* - **  
 --- 
 
 
