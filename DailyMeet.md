@@ -131,6 +131,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Nelsy yulied Gómez Morales** - *Listar inventario | CRUD de actividades* - *95 %* - *Fallo de estilos de la tabla listar inventario* - *Apoyo del equipo*
 * **Oscar Andres Gil Marin** - *No se presento* - *No presenta avances* - *Razon desconocida* - **  
 --- 
+#### Meet 21-Abr-2023 
+* **Anyi Katherine Rojas Arce** - *CRUD Tipos de compra* - *100 %* - *Dificultades* - *Acciones*
+* **Jesús David Guevara Munar** - *Mantenimiento SICA | Galería de imágenes PTVENTA* - *No presenta avances* - *Depuración de código de los cambios por los colaboradores* - *Acciones*
+* **Manuel Steven Ossa Lievano** - *CRUD de Categorias en SICA* - *100 %* - *Dificultades* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *No se presentó* - *Avance %* - *Conexión de internet* - *Acciones*
+* **Oscar Andres Gil Marin** - *CRUD Unidades de medida en SICA* - *No presenta avances* - *Disponibilidad de tiempo* - *Acciones*  
+--- 
 
 
 ## GANADERIA 🐮
