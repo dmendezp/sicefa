@@ -27,15 +27,15 @@ class ParameterController extends Controller
         $c = new Category;
         $c->name = e($request->input('name'));
         $c->kind_of_property = e($request->input('kind_of_property'));
-        $card = 'card-category';
+        $card = 'card-categories';
         if($c->save()){
             $icon = 'success';
-            $message_config = 'Categoria agregada exitosamente.';
+            $message_parameter = 'Categoria agregada exitosamente.';
         }else{
             $icon = 'error';
-            $message_config = 'No se pudo agregar la categoria.';
+            $message_parameter = 'No se pudo agregar la categoria.';
         }
-        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
     public function editCategoryGet($id){
@@ -47,15 +47,15 @@ class ParameterController extends Controller
         $category = Category::findOrFail($request->input('id'));
         $category->name = e($request->input('name'));
         $category->kind_of_property = e($request->input('kind_of_property'));
-        $card = 'card-category';
+        $card = 'card-categories';
         if($category->save()){
             $icon = 'success';
-            $message_config = 'Categoria actualizada exitosamente.';
+            $message_parameter = 'Categoria actualizada exitosamente.';
         }else{
             $icon = 'error';
-            $message_config = 'No se pudo actualizar la categoria.';
+            $message_parameter = 'No se pudo actualizar la categoria.';
         }
-        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
     public function deleteCategoryGet($id){
@@ -65,15 +65,15 @@ class ParameterController extends Controller
 
     public function deleteCategoryPost(Request $request){
         $category = Category::findOrFail($request->input('id'));
-        $card = 'card-category';
+        $card = 'card-categories';
         if($category->delete()){
             $icon = 'success';
-            $message_config = 'Categoría eliminada exitosamente.';
+            $message_parameter = 'Categoría eliminada exitosamente.';
         }else{
             $icon = 'error';
-            $message_config = 'No se pudo eliminar la categoría.';
+            $message_parameter = 'No se pudo eliminar la categoría.';
         }
-        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
     //Funciones para Tipo de compra
@@ -85,14 +85,15 @@ class ParameterController extends Controller
         $k = new KindOfPurchase;
         $k->name = e($request->input('name'));
         $k->description = e($request->input('description'));
+        $card = 'card-kind_of_purchases';
         if($k->save()){
             $icon = 'success';
-            $message_config = 'Tipo de compra agregada exitosamente.';
+            $message_parameter = 'Tipo de compra agregada exitosamente.';
         }else{
             $icon = 'error';
-            $message_config = 'No se pudo agregar el tipo de compra';
+            $message_parameter = 'No se pudo agregar el tipo de compra';
         }
-        return back()->with(['icon'=>$icon, 'message_config'=>$message_config]);
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
     public function editKindOfPurchaseGet($id){
@@ -104,14 +105,15 @@ class ParameterController extends Controller
         $k = KindOfPurchase::findOrFail($request->input('id'));
         $k->name = e($request->input('name'));
         $k->description = e($request->input('description'));
+        $card = 'card-kind_of_purchases';
         if($k->save()){
             $icon = 'success';
-            $message_config = 'Tipo de compra actualizada exitosamente.';
+            $message_parameter = 'Tipo de compra actualizada exitosamente.';
         }else{
             $icon = 'error';
-            $message_config = 'No se pudo actualizar el tipo de compra.';
+            $message_parameter = 'No se pudo actualizar el tipo de compra.';
         }
-        return back()->with(['icon'=>$icon, 'message_config'=>$message_config]);
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
     public function deleteKindOfPurchaseGet($id){
@@ -121,13 +123,14 @@ class ParameterController extends Controller
 
     public function deleteKindOfPurchasePost(Request $request){
         $kindOfPurchase = KindOfPurchase::findOrFail($request->input('id'));
+        $card = 'card-kind_of_purchases';
         if($kindOfPurchase->delete()){
             $icon = 'success';
-            $message_config = 'Tipo de compra eliminada exitosamente.';
+            $message_parameter = 'Tipo de compra eliminada exitosamente.';
         }else{
             $icon = 'error';
-            $message_config = 'No se pudo eliminar el tipo de compra.';
+            $message_parameter = 'No se pudo eliminar el tipo de compra.';
         }
-        return back()->with(['icon'=>$icon, 'message_config'=>$message_config]);
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 }

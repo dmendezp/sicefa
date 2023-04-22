@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row justify-content-center">
                 {{-- Aqui inicia la tabla de Categorías --}}
-                <div class="col-md-6">
+                <div class="col-md-6" id="card-categories">
                     <div class="card card-orange card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Categorías</h3>
@@ -57,10 +57,14 @@
                             </div>
                         </div>
                     </div>
-                    {{-- Aqui inicia la tabla de Tipo de Compra --}}
+                </div>
+                {{-- Aqui finaliza la tabla categorías --}}
+
+                {{-- Aqui inicia la tabla de Tipos de Compra --}}
+                <div class="col-md-6" id="card-kind_of_purchases">
                     <div class="card card-orange card-outline shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Tipo de Compra</h3>
+                            <h3 class="card-title">Tipos de Compra</h3>
                         </div>
                         <div class="card-body">
                             <div>
@@ -106,12 +110,11 @@
                             </div>
                         </div>
                     </div>
-                    {{-- Aqui finaliza la tabla Tipo de Compra --}}
                 </div>
-                {{-- Aqui finaliza la tabla categorías --}}
+                {{-- Aqui finaliza la tabla Tipos de Compra --}}
 
                 {{-- Aqui finaliza la tabla unidades de medida --}}
-                <div class="col-md-6">
+                <div class="col-md-6"  id="card-measurement_units">
                     <div class="card card-orange card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Unidades de medida</h3>
@@ -165,8 +168,6 @@
         </div>
     </div>
 
-
-
     <!-- General modal -->
     <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered" role="document">
@@ -184,34 +185,18 @@
 @endsection
 @section('script')
     <script>
-        @if (Session::get('message_config'))
+        @if (Session::get('message_parameter'))
             $('html, body').animate({
                 /* Move the page to the previously selected configuration */
                 scrollTop: $("#{{ Session::get('card') }}").offset().top
             }, 1000);
             /* Show the message */
             @if (Session::get('icon') == 'success')
-                toastr.success("{{ Session::get('message_config') }}");
+                toastr.success("{{ Session::get('message_parameter') }}");
             @elseif (Session::get('icon') == 'error')
-                toastr.error("{{ Session::get('message_config') }}");
+                toastr.error("{{ Session::get('message_parameter') }}");
             @endif
         @endif
-
-        /* $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-            });
-            $('table.display').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        }); */
 
         function ajaxAction(route) {
             /* Ajax to show content modal to add event */

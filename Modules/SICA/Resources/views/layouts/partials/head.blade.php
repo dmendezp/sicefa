@@ -33,9 +33,6 @@
   {{-- Sweatalert and toast --}}
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/toastr/toastr.min.css') }}">
 
-<link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
-
-<link rel="stylesheet" type="text/css" href="{{ asset('libs/DataTables-1.13.1/datatables.min.css') }} " /> {{-- DataTables Local --}}
-
+  <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
 
 </head>

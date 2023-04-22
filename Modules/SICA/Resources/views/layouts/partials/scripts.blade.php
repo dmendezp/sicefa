@@ -14,8 +14,6 @@
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.js') }}"></script>
 <script src="{{ asset('js/generalscripts.js') }}"></script>
 <script src="{{ asset('sica/js/scripts.js') }}"></script>
-<script type="text/javascript" src="{{ asset('libs/DataTables-1.13.1/datatables.min.js')}} "></script> {{-- DataTables Local --}}
-
 
 <script src="{{ asset('AdminLTE/plugins/fullcalendar/lib/main.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/fullcalendar/lib/locales-all.js') }}"></script>
