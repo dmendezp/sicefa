@@ -1,5 +1,3 @@
-{{-- Jquery --}}
-<script src="{{ asset('AdminLTE/plugins/jquery/jquery.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
 {{-- Boostrap 5 --}}
@@ -8,7 +6,6 @@
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
 <script type="text/javascript">
-
     @if (Session::has('message_ptventa'))
         Swal.fire({
             @if (Session::get('message_ptventa_type') == 'success')
@@ -27,7 +24,8 @@
                 confirmButtonText: 'Aceptar',
                 confirmButtonColor: 'green',
             @endif
-        })
+        });
     @endif
 </script>
+
 

@@ -1,83 +1,93 @@
 @extends('ptventa::layouts.master')
 
 @section('head')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    {{-- Recursos de Datatables 1.13.4 --}}
+    @include('ptventa::layouts.partials.plugins.datatables')
 @endsection
 
 @section('breadcrumb')
     {{-- The breadcrumb is the tracking af the displayed view --}}
-    <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Ventas</a></li>
-    <li class="breadcrumb-item active">Página principal</li>
+    <li class="breadcrumb-item"><a href="{{ route('ptventa.inventory.index') }}" class="text-decoration-none">Inventario</a></li>
+    <li class="breadcrumb-item active">Productos</li>
 @endsection
 
 @section('content')
-
-    <div class="card shadow-sm">
+    <div class="card card-success card-outline shadow-sm">
         <div class="card-body">
-            <div class="row mx-3">
+            <div class="row bg-light">
                 <div class="col-auto">
-                    <i class="fas fa-search"></i> <label class="col-form-label">Buscar por: </label>   
+                    <i class="fas fa-search"></i>
+                    <label class="form-label-sm">Productos: </label>
                 </div>
                 <div class="col-auto">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Selecciona...</option>
-                        <option value="1">Disponibles</option>
-                        <option value="2">Productos por vencer</option>
-                        <option value="3">Productos vencidos</option>
+                    <select class="form-select form-select-sm" aria-label="Default select example">
+                        <option value="1">Todos</option>
+                        <option value="2">Disponibles</option>
+                        <option value="3">Productos por vencer</option>
+                        <option value="4">Productos vencidos</option>
                     </select>
-                    <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm" style="btn-align: right;" >
-                        Agregar </a>
+                </div>
+                <div class="col"></div>
+                <div class="col-auto">
+                    <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm"> Registrar entrada </a>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="row mx-3">
-        <div class="col-md-15 h-100">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <table id="inventory">                  
-                        <thead class="table-dark">
+            <hr>
+            <h6 class="text-center bg-secondary py-1 rounded-2"><strong>Todos los productos</strong></h6>
+            <div class="table-responsive">
+                <table class="table table-hover" id="inventories-table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Producto</th>
+                            <th class="text-center">Categoría</th>
+                            <th class="text-center">Precio Unitario</th>
+                            <th class="text-center">Stock</th>
+                            <th class="text-center">Cantidad</th>
+                            <th class="text-center">Estado</th>
+                            <th class="text-center">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        @foreach ($inventories as $inventory)
                             <tr>
-                                <th scope="col">Producto</th>
-                                <th scope="col">Valor</th>
-                                <th scope="col">Cantidad Existente</th>
-                                <th scope="col">Cantidad minima</th>
-                                <th scope="col">Estado</th>
+                                <td><strong>{{ $inventory->element->name }}</strong></td>
+                                <td class="text-center">{{ $inventory->element->category->name }}</td>
+                                <td class="text-center"><strong>{{ $inventory->stock }}</strong></td>
+                                <td class="text-center">{{ $inventory->amount }}</td>
+                                <td class="text-center"><strong>{{ $inventory->amount }}</strong></td>
+                                <td class="text-center">
+                                    @if ($inventory->state == 'Disponible')
+                                        <b class="bg-success rounded-5 ps-2 pe-2" style="font-size: 12px;">Disponible</b>
+                                    @else
+                                        <b class="bg-gradient-dark rounded-5 ps-2 pe-2" style="font-size: 12px;">No disponible</b>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm py-0" title="Ver detalles">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </td>
                             </tr>
-
-                        </thead>
-                        <tbody>
-
-                            @foreach($inventories as $inventory)
-            
-                            <td>{{ $inventory->element_id }}</td>
-                            <td>{{ $inventory->price }}</td>
-                            <td>{{ $inventory->amount }}</td>
-                            <td>{{ $inventory->stock }}</td>
-                            <td>{{ $inventory->state }}</td>
-                            <td>
-                                <button type="button" class="btn btn-outline-secondary btn-sm py-0" title="Ver datos del empleado">
-                                    <i class="far fa-eye"></i>
-                                </button>
-                            </td>
-                            @endforeach
-                            
-                        </tbody>
-                    </table>
-                </div>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 @endsection
 
 @section('scripts')
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-<script>
-    let table = new DataTable('#inventory', {
-    });
-</script>
+    <script>
+        $(document).ready(function () {
+            // Configuración de Datatables para la tabla de registros de inventario
+            $('#inventories-table').DataTable({
+                language: language_datatables, // Agregar traducción a español
+                "order": [],
+                "columnDefs": [{
+                    "targets": [2,3,4,5,6],
+                    "orderable": false
+                }]
+            });
+        });
+    </script>
 @endsection

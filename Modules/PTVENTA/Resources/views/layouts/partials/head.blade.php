@@ -13,8 +13,9 @@
 <link rel="stylesheet" href="{{ asset('ptventa/css/googlefonts.css') }}"> {{-- En este archivo se modifican las fuentes que se estan utilizando en la aplicacion --}}
 <link rel="stylesheet" href="{{ asset('ptventa/css/card_styles.css') }}"> {{-- En este archivo se modifican las propiedades de estilos de las cards --}}
 <link rel="stylesheet" href="{{ asset('ptventa/css/custom_styles.css') }}"> {{-- En este archivo se modifican las propiedades de estilos generales --}}
- {{-- Boostrap-5.3.0--}}
- <link rel="stylesheet" href=" {{ asset('ptventa/libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css') }}" crossorigin="anonymous"> {{-- Se llaman todos los estilos de bootstrap 5.3.0 de manera local desde la ruta que esta mencionanda --}}
-
- {{--Sweet Alert2--}}
- <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+{{-- Boostrap-5.3.0 --}}
+<link rel="stylesheet" href=" {{ asset('ptventa/libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css') }}" crossorigin="anonymus"> {{-- Se llaman todos los estilos de bootstrap 5.3.0 de manera local desde la ruta que esta mencionanda --}}
+{{-- Sweet Alert2 --}}
+<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+{{-- Jquery --}}
+<script src="{{ asset('ptventa/libs/jquery-3.6.4.min.js') }}"></script>

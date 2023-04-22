@@ -9,15 +9,9 @@ use Illuminate\Routing\Controller;
 
 class InventoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-        
-    // Listado del inventario actual
-public function index() {
-  
-        $inventories = Inventory::get();
+
+    public function index() { // Listado del inventario actual
+        $inventories = Inventory::orderBy('updated_at', 'DESC')->get(); // Consultar registros de inventario de manera descende por el dato updated_at
         $view = ['titlePage'=>'Inventario - Listado', 'titleView'=>'Administración de inventario'];
         return view('ptventa::inventory.index', compact('view', 'inventories'));
     }
