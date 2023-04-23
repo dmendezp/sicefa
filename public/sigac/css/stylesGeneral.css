@@ -1,0 +1,106 @@
+/* ---- Personalizacion de estilos de cada boton del sidebar ---- */
+
+.content-wrapper {
+  background-image: url('/sigac/images/books.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Estilos del navbar personalizados: En caso de no quererlos solo borre la clase CSS */
+/* Color de la barra de navegacion superior, donde se agregan los botones como iniciar sesion, entre otros */
+.navbar{
+  background-color: #ffffff;
+}
+
+/* Color de los iconos, botones o links que se agreguen a la barra de navegacion superior */
+.navbar-nav .nav-item .nav-link {
+  color:  #0a2472a0 !important;
+}
+
+/* Color del texto o icono al pasar el mouse sobre el, va ajuntado con el  */
+.navbar-nav .nav-item .nav-link:hover {
+  color:  #ffffff !important;
+}
+
+/* Similar al estilo anterior solo que este es cuanto el boton se quede activado */
+.navbar-nav .active {
+  background-color: #CCDDD3 !important;
+  border-radius: 5px;
+}
+
+/* Color para el boton o icono del navbar al pasar el mouse */
+.navbar-nav .nav-item:hover {
+  background-color: #0a2472cd !important;
+  border-radius: 5px;
+}
+
+/* Estilos del sidebar personalizados: En caso de no quererlos solo borre la clase CSS */
+/* Color del sidebar */
+.sidebar-dark-blue{
+  background: #0A2472 !important;
+}
+
+.sidebar-mini.sidebar-collapse .info {
+  animation-name: fadeOut;
+  animation-duration: .3s;
+  animation-fill-mode: both;
+  display: none;
+}
+
+
+.sidebar-collapse .main-sidebar:hover .info {
+  animation-name: fadeIn;
+  animation-duration: .1s;
+  display: block !important;
+}
+
+/* Al ir a una funcion del sidebar este quedara activo mientras se esta en el grupo de vistas de las rutas especificadas */
+.nav-item .active{
+  background-color: #07194e !important;
+  color:  #ffffff !important;
+}
+
+/* Al pasar el Mouse se aplicara el color asigando */
+.nav-item:hover {
+  background-color: #07194e !important;
+  color: #fff !important;
+  border-radius: 5px;
+}
+
+/* Color de los botones que se encuentran en el sidebar */
+.nav-link{
+  color: #ffffff !important;
+}
+
+/* Al pasar el Mouse por el boton */
+.nav-item .active:hover {
+  color: #fff !important;
+  border-radius: 5px;
+}
+
+/* Borde del siderbar que separa el nombre y el logo del las opciones del sidebar */
+.brand-link{
+  border-bottom: 1px solid #ffffff83 !important;
+  box-shadow: 0px 2px 3px rgba(191, 191, 191, 0.3);
+}
+
+/* Estilos varios personalizados: En caso de no quererlos solo borre la clase CSS */
+/* Color de la zona de trabajo */
+
+/* Al navegar por las vistas la primera en la guia del breadcrum tendra un tono mas claro */
+.breadcrumb-item a{
+  color:  #6c757d !important;
+}
+
+/* Tamaño del texto de la pantalla inicial */
+.hmax{
+  font-size: 80px;
+}
+
+/* Clase que aplica la propiedad de tamaño de la imagen que este dentro de la card de la pagina principal */
+.custom-img {
+  width: 100px !important;
+  height: auto !important;
+}
+
