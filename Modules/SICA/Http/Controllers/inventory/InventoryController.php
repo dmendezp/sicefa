@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Category;
+use Modules\SICA\Entities\MeasurementUnit;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\Element;
 

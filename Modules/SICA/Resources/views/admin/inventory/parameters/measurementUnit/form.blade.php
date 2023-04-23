@@ -11,13 +11,13 @@
     {!! Form::text('name', isset($measurementUnit) ? $measurementUnit->name : null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-{!! Form::label('measurement_unit', 'Tipo de Propiedad:', ['class' => 'mt-3']) !!}
+{!! Form::label('minimum_unit_measure', 'Medida unitaria minima:', ['class' => 'mt-3']) !!}
 <div class="input-group">
     <div class="input-group-prepend">
         <span class="input-group-text">
             <i class="far fa-keyboard"></i>
         </span>
     </div>
-    {!! Form::select('measurement_unit', getEnumValues('measurementUnit','measurement_unit'), isset($measurementUnit) ? $measurementUnit->measurement_unit : 'medida unitaria minima', 'factor de converción',
+    {!! Form::select('measurement_unit', getEnumValues('measurementUnit','minimum_unit_measure'), isset($measurementUnit) ? $measurementUnit->minimum_unit_measure : 'bodega',
         ['class' => 'form-control', 'required']) !!}
 </div>
