@@ -18,6 +18,15 @@
             <i class="far fa-keyboard"></i>
         </span>
     </div>
-    {!! Form::select('measurement_unit', getEnumValues('measurementUnit','minimum_unit_measure'), isset($measurementUnit) ? $measurementUnit->minimum_unit_measure : 'bodega',
-        ['class' => 'form-control', 'required']) !!}
+    {!! Form::text('minimum_unit_measure', isset($measurementUnit) ? $measurementUnit->minimum_unit_measure : null, ['class' => 'form-control', 'required']) !!}
+</div>
+
+{!! Form::label('conversion_factor', 'Factor de converción:', ['class' => 'mt-3']) !!}
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">
+            <i class="far fa-keyboard"></i>
+        </span>
+    </div>
+    {!! Form::text('conversion_factor', isset($measurementUnit) ? $measurementUnit->conversion_factor : null, ['class' => 'form-control', 'required']) !!}
 </div>
