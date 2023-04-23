@@ -8,14 +8,14 @@
         <div class="container-fluid">
             <div class="row justify-content-center">
                 {{-- Aqui inicia la tabla de Categorías --}}
-                <div class="col-md-6">
+                <div class="col-md-6" id="card-categories">
                     <div class="card card-orange card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Categorías</h3>
                         </div>
                         <div class="card-body">
                             <div>
-                                <table id="example2" class="display table table-bordered table-striped table-sm">
+                                <table id="tableCategory" class="display table table-bordered table-striped table-sm">
                                     <thead>
                                         <tr>
                                             <th>Id</th>
@@ -60,8 +60,61 @@
                 </div>
                 {{-- Aqui finaliza la tabla categorías --}}
 
+                {{-- Aqui inicia la tabla de Tipos de Compra --}}
+                <div class="col-md-6" id="card-kind_of_purchases">
+                    <div class="card card-orange card-outline shadow">
+                        <div class="card-header">
+                            <h3 class="card-title">Tipos de Compra</h3>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <table id="tableKindOfPurchase" class="display table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.add') }}')">
+                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                    </b>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($kindOfPurchase as $k)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $k->name }}</td>
+                                                <td>{{ $k->description }}</td>
+                                                <td>
+                                                    <div class="opts">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.edit') }}/{{ $k->id }}')">
+                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                                <i class="fas fa-edit"></i>
+                                                            </b>
+                                                        </a>
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.delete') }}/{{ $k->id }}')">
+                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </b>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- Aqui finaliza la tabla Tipos de Compra --}}
+
                 {{-- Aqui finaliza la tabla unidades de medida --}}
-                <div class="col-md-6">
+                <div class="col-md-6"  id="card-measurement_units">
                     <div class="card card-orange card-outline shadow">
                         <div class="card-header">
                             <h3 class="card-title">Unidades de medida</h3>
@@ -135,34 +188,18 @@
 @endsection
 @section('script')
     <script>
-        @if (Session::get('message_config'))
+        @if (Session::get('message_parameter'))
             $('html, body').animate({
                 /* Move the page to the previously selected configuration */
                 scrollTop: $("#{{ Session::get('card') }}").offset().top
             }, 1000);
             /* Show the message */
             @if (Session::get('icon') == 'success')
-                toastr.success("{{ Session::get('message_config') }}");
+                toastr.success("{{ Session::get('message_parameter') }}");
             @elseif (Session::get('icon') == 'error')
-                toastr.error("{{ Session::get('message_config') }}");
+                toastr.error("{{ Session::get('message_parameter') }}");
             @endif
         @endif
-
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-            });
-            $('table.display').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
 
         function ajaxAction(route) {
             /* Ajax to show content modal to add event */
@@ -189,4 +226,19 @@
         });
 
     </script>
+<script>
+    $(document).ready(function () { /* Initialización of Datatables ---Category */
+        $('#tableCategory').DataTable({
+            // opciones de configuración para la tabla 1
+        });
+
+        $('#tableMeasurementUnit').DataTable({
+            // opciones de configuración para la tabla 2
+        });
+
+        $('#tableKindOfPurchase').DataTable({
+            // opciones de configuración para la tabla 2
+        });
+    });
+</script>
 @endsection
