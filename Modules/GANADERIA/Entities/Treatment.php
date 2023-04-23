@@ -3,16 +3,23 @@
 namespace Modules\GANADERIA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\GANADERIA\Entities\Disease;
+use Modules\GANADERIA\Entities\Productive_proces;
 
 class Treatment extends Model
 {
-    use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [];
-    
-    protected static function newFactory()
-    {
-        return \Modules\GANADERIA\Database\factories\TreatmentFactory::new();
+    protected $dates = ['deleted_at'];
+    protected $hidden = ['created_at','updated_at'];
+
+    public function diseases() {
+        return $this->belongsTo(Disease::class);
+    }
+
+    public function productive_proces() {
+        return $this->hasMany(Productive_proces::class);
     }
 }

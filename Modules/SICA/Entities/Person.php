@@ -14,6 +14,7 @@ use Modules\EVS\Entities\Authorized;
 use App\Models\User;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Event;
+use Modules\GANADERIA\Entities\Human_talent;
 
 class Person extends Model implements Auditable
 {
@@ -91,6 +92,10 @@ class Person extends Model implements Auditable
 
     public function events(){
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
+    }
+
+    public function humantalent() {
+        return $this->hasMany(Human_talent::class);
     }
 
 }

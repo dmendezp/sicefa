@@ -22,6 +22,7 @@ class CreateDiseasesTable extends Migration
             $table->string('novelty');
             $table->string('responsible');
             $table->string('observations');
+            $table->foreignId('treatments_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -18,6 +18,7 @@ class CreateBirthsTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->string('description');
+            $table->foreignId('reproductions_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

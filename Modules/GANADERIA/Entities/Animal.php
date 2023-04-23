@@ -3,16 +3,13 @@
 namespace Modules\GANADERIA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Animal extends Model
 {
-    use HasFactory;
+    use SoftDeletes;
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
-    {
-        return \Modules\GANADERIA\Database\factories\AnimalFactory::new();
-    }
+    protected $fillable = ['mother', 'weight', 'sex', 'color', 'location'];
+    protected $dates = ['deleted_at'];
+    protected $hidden = ['created_at','updated_at'];
 }
