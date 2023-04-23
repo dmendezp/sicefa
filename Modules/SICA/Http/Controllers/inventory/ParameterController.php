@@ -19,15 +19,12 @@ class ParameterController extends Controller
         return view('sica::admin.inventory.parameters.index',$data);
     }
 
-    public function addCategoryGet(){
-        return view('sica::admin.inventory.parameters.category.add');
+    //Funciones para Categoria
+    public function createCategory(){
+        return view('sica::admin.inventory.parameters.category.create');
     }
 
-    public function addmeasurementUnitGet(){
-        return view('sica::admin.inventory.parameters.measurementUnit.add');
-    }
-
-    public function addCategoryPost(Request $request){
+    public function storeCategory(Request $request){
         $c = new Category;
         $c->name = e($request->input('name'));
         $c->kind_of_property = e($request->input('kind_of_property'));
@@ -40,6 +37,49 @@ class ParameterController extends Controller
             $message_parameter = 'No se pudo agregar la categoria.';
         }
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
+    }
+
+    public function editCategory($id){
+        $category = Category::find($id);
+        return view('sica::admin.inventory.parameters.category.edit',compact('category'));
+    }
+
+    public function updateCategory(Request $request){
+        $category = Category::findOrFail($request->input('id'));
+        $category->name = e($request->input('name'));
+        $category->kind_of_property = e($request->input('kind_of_property'));
+        $card = 'card-categories';
+        if($category->save()){
+            $icon = 'success';
+            $message_parameter = 'Categoria actualizada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_parameter = 'No se pudo actualizar la categoria.';
+        }
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
+    }
+
+    public function deleteCategory($id){
+        $category = Category::find($id);
+        return view('sica::admin.inventory.parameters.category.delete',compact('category'));
+    }
+
+    public function destroyCategory(Request $request){
+        $category = Category::findOrFail($request->input('id'));
+        $card = 'card-categories';
+        if($category->delete()){
+            $icon = 'success';
+            $message_parameter = 'Categoría eliminada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_parameter = 'No se pudo eliminar la categoría.';
+        }
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
+    }
+
+    //Funciones para Unidades de Medida
+    public function addmeasurementUnitGet(){
+        return view('sica::admin.inventory.parameters.measurementUnit.add');
     }
 
     public function addmeasurementUnitPost(Request $request){
@@ -58,29 +98,9 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
     }
 
-    public function editCategoryGet($id){
-        $category = Category::find($id);
-        return view('sica::admin.inventory.parameters.category.edit',compact('category'));
-    }
-
     public function editmeasurementUnitGet($id){
         $measurementUnit = MeasurementUnit::find($id);
         return view('sica::admin.inventory.parameters.measurementUnit.edit',compact('measurementUnit'));
-    }
-
-    public function editCategoryPost(Request $request){
-        $category = Category::findOrFail($request->input('id'));
-        $category->name = e($request->input('name'));
-        $category->kind_of_property = e($request->input('kind_of_property'));
-        $card = 'card-categories';
-        if($category->save()){
-            $icon = 'success';
-            $message_parameter = 'Categoria actualizada exitosamente.';
-        }else{
-            $icon = 'error';
-            $message_parameter = 'No se pudo actualizar la categoria.';
-        }
-        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
     public function editmeasurementUnitPost(Request $request){
@@ -99,27 +119,22 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
     }
 
-    public function deleteCategoryGet($id){
-        $category = Category::find($id);
-        return view('sica::admin.inventory.parameters.category.delete',compact('category'));
-    }
-
     public function deletemeasurementUnitGet($id){
         $measurementUnit = MeasurementUnit  ::find($id);
         return view('sica::admin.inventory.parameters.measurementUnit.delete',compact('measurementUnit'));
     }
 
-    public function deleteCategoryPost(Request $request){
-        $category = Category::findOrFail($request->input('id'));
-        $card = 'card-categories';
-        if($category->delete()){
+    public function deletemeasurementUnitPost(Request $request){
+        $measurementUnit = MeasurementUnit::findOrFail($request->input('id'));
+        $card = 'card-measurementUnit';
+        if($measurementUnit->delete()){
             $icon = 'success';
-            $message_parameter = 'Categoría eliminada exitosamente.';
+            $message_config = 'Unidad de medida eliminada exitosamente.';
         }else{
             $icon = 'error';
-            $message_parameter = 'No se pudo eliminar la categoría.';
+            $message_config = 'No se pudo eliminar la Unidad de medida.';
         }
-        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
     }
 
     //Funciones para Tipo de compra
@@ -180,16 +195,4 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
-    public function deletemeasurementUnitPost(Request $request){
-        $measurementUnit = MeasurementUnit::findOrFail($request->input('id'));
-        $card = 'card-measurementUnit';
-        if($measurementUnit->delete()){
-            $icon = 'success';
-            $message_config = 'Unidad de medida eliminada exitosamente.';
-        }else{
-            $icon = 'error';
-            $message_config = 'No se pudo eliminar la Unidad de medida.';
-        }
-        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
-    }
 }
