@@ -41,16 +41,16 @@ Route::middleware(['lang'])->group(function(){
 
             //-------------------------Rutas de Unidades de Medida----------------------//
             // Agregar de measurementUnit
-            Route::get('/measurementUnit/add', [ParameterController::class, 'addmeasurementUnitGet'])->name('sica.admin.inventory.parameters.measurementUnit.add'); //Solicitud GET que tenga esta URL se manejará a través de esta ruta.
-            Route::post('/measurementUnit/add', [ParameterController::class, 'addmeasurementUnitPost'])->name('sica.admin.inventory.parameters.measurementUnit.add');
+            Route::get('/measurementUnit/create', [ParameterController::class, 'createMeasurementUnit'])->name('sica.admin.inventory.parameters.measurementUnit.create'); //Solicitud GET que tenga esta URL se manejará a través de esta ruta.
+            Route::post('/measurementUnit/store', [ParameterController::class, 'storeMeasurementUnit'])->name('sica.admin.inventory.parameters.measurementUnit.store');
 
             // Editar de measurementUnit
-            Route::get('/measurementUnit/edit/{id}', [ParameterController::class, 'editmeasurementUnitGet'])->name('sica.admin.inventory.parameters.measurementUnit.edit');
-            Route::post('/measurementUnit/edit', [ParameterController::class, 'editmeasurementUnitPost'])->name('sica.admin.inventory.parameters.measurementUnit.edit');
+            Route::get('/measurementUnit/edit/{id}', [ParameterController::class, 'editMeasurementUnit'])->name('sica.admin.inventory.parameters.measurementUnit.edit');
+            Route::post('/measurementUnit/edit', [ParameterController::class, 'updateMeasurementUnit'])->name('sica.admin.inventory.parameters.measurementUnit.update');
             
             // Eliminar de measurementUnit
-            Route::get('/measurementUnit/delete/{id}', [ParameterController::class, 'deletemeasurementUnitGet'])->name('sica.admin.inventory.parameters.measurementUnit.delete');
-            Route::post('/measurementUnit/delete/', [ParameterController::class, 'deletemeasurementUnitPost'])->name('sica.admin.inventory.parameters.measurementUnit.delete');
+            Route::get('/measurementUnit/delete/{id}', [ParameterController::class, 'deletemeasurementUnit'])->name('sica.admin.inventory.parameters.measurementUnit.delete');
+            Route::post('/measurementUnit/delete/', [ParameterController::class, 'destroymeasurementUnit'])->name('sica.admin.inventory.parameters.measurementUnit.destroy');
 
             //-------------------------Rutas de Tipo de Compra----------------------//
             //Agregar

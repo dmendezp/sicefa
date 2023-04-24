@@ -78,11 +78,11 @@ class ParameterController extends Controller
     }
 
     //Funciones para Unidades de Medida
-    public function addmeasurementUnitGet(){
-        return view('sica::admin.inventory.parameters.measurementUnit.add');
+    public function createMeasurementUnit(){
+        return view('sica::admin.inventory.parameters.measurementUnit.create');
     }
 
-    public function addmeasurementUnitPost(Request $request){
+    public function storeMeasurementUnit(Request $request){
         $m = new MeasurementUnit();
         $m->name = e($request->input('name'));
         $m->minimum_unit_measure = e($request->input('minimum_unit_measure'));
@@ -98,12 +98,12 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
     }
 
-    public function editmeasurementUnitGet($id){
+    public function editMeasurementUnit($id){
         $measurementUnit = MeasurementUnit::find($id);
         return view('sica::admin.inventory.parameters.measurementUnit.edit',compact('measurementUnit'));
     }
 
-    public function editmeasurementUnitPost(Request $request){
+    public function updateMeasurementUnit(Request $request){
         $measurementUnit = MeasurementUnit::findOrFail($request->input('id'));
         $measurementUnit->name = e($request->input('name'));
         $measurementUnit->minimum_unit_measure = e($request->input('minimum_unit_measure'));
@@ -119,12 +119,12 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
     }
 
-    public function deletemeasurementUnitGet($id){
+    public function deleteMeasurementUnit($id){
         $measurementUnit = MeasurementUnit  ::find($id);
         return view('sica::admin.inventory.parameters.measurementUnit.delete',compact('measurementUnit'));
     }
 
-    public function deletemeasurementUnitPost(Request $request){
+    public function destroyMeasurementUnit(Request $request){
         $measurementUnit = MeasurementUnit::findOrFail($request->input('id'));
         $card = 'card-measurementUnit';
         if($measurementUnit->delete()){
