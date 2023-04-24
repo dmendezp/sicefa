@@ -54,16 +54,16 @@ Route::middleware(['lang'])->group(function(){
 
             //-------------------------Rutas de Tipo de Compra----------------------//
             //Agregar
-            Route::get('/kindOfPurchase/add', [ParameterController::class, 'addKindOfPurchaseGet'])->name('sica.admin.inventory.parameters.kindOfPurchase.add'); 
-            Route::post('/kindOfPurchase/add', [ParameterController::class, 'addKindOfPurchasePost'])->name('sica.admin.inventory.parameters.kindOfPurchase.add');
+            Route::get('/kindOfPurchase/create', [ParameterController::class, 'createKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.create'); 
+            Route::post('/kindOfPurchase/add', [ParameterController::class, 'storeKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.store');
 
             //Editar
-            Route::get('/kindOfPurchase/edit/{id}', [ParameterController::class, 'editKindOfPurchaseGet'])->name('sica.admin.inventory.parameters.kindOfPurchase.edit');
-            Route::post('/kindOfPurchase/edit', [ParameterController::class, 'editKindOfPurchasePost'])->name('sica.admin.inventory.parameters.kindOfPurchase.edit');
+            Route::get('/kindOfPurchase/edit/{id}', [ParameterController::class, 'editKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.edit');
+            Route::post('/kindOfPurchase/edit', [ParameterController::class, 'updateKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.update');
 
             //Eliminar
-            Route::get('/kindOfPurchase/delete/{id}', [ParameterController::class, 'deleteKindOfPurchaseGet'])->name('sica.admin.inventory.parameters.kindOfPurchase.delete');
-            Route::post('/kindOfPurchase/delete/', [ParameterController::class, 'deleteKindOfPurchasePost'])->name('sica.admin.inventory.parameters.kindOfPurchase.delete');
+            Route::get('/kindOfPurchase/delete/{id}', [ParameterController::class, 'deleteKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.delete');
+            Route::post('/kindOfPurchase/delete/', [ParameterController::class, 'destroyKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.destroy');
 
         });
     });

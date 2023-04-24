@@ -7,7 +7,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {!! Form::open(['route'=>'sica.admin.inventory.parameters.kindOfPurchase.add', 'method'=>'POST', 'id'=>'form-config']) !!}
+    {!! Form::open(['route'=>'sica.admin.inventory.parameters.kindOfPurchase.store', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-0">
             @include('sica::admin.inventory.parameters.kindofpurchase.form')
         </div>

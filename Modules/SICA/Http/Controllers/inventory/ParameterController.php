@@ -138,11 +138,11 @@ class ParameterController extends Controller
     }
 
     //Funciones para Tipo de compra
-    public function addKindOfPurchaseGet(){
-        return view('sica::admin.inventory.parameters.kindOfPurchase.add');
+    public function createKindOfPurchase(){
+        return view('sica::admin.inventory.parameters.kindOfPurchase.create');
     }
 
-    public function addKindOfPurchasePost(Request $request){
+    public function storeKindOfPurchase(Request $request){
         $k = new KindOfPurchase;
         $k->name = e($request->input('name'));
         $k->description = e($request->input('description'));
@@ -157,12 +157,12 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
-    public function editKindOfPurchaseGet($id){
+    public function editKindOfPurchase($id){
         $kindOfPurchase = KindOfPurchase::find($id);
         return view('sica::admin.inventory.parameters.kindOfPurchase.edit',compact('kindOfPurchase'));
     }
 
-    public function editKindOfPurchasePost(Request $request){
+    public function updateKindOfPurchase(Request $request){
         $k = KindOfPurchase::findOrFail($request->input('id'));
         $k->name = e($request->input('name'));
         $k->description = e($request->input('description'));
@@ -177,12 +177,12 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
-    public function deleteKindOfPurchaseGet($id){
+    public function deleteKindOfPurchase($id){
         $kindOfPurchase = KindOfPurchase::find($id);
         return view('sica::admin.inventory.parameters.kindOfPurchase.delete',compact('kindOfPurchase'));
     }
 
-    public function deleteKindOfPurchasePost(Request $request){
+    public function destroyKindOfPurchase(Request $request){
         $kindOfPurchase = KindOfPurchase::findOrFail($request->input('id'));
         $card = 'card-kind_of_purchases';
         if($kindOfPurchase->delete()){

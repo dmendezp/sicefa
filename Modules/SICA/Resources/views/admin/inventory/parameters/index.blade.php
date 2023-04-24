@@ -75,7 +75,7 @@
                                             <th>Nombre</th>
                                             <th>Descripción</th>
                                             <th>
-                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.add') }}')">
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.create') }}')">
                                                     <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
                                                         <i class="fas fa-plus-circle"></i>
                                                     </b>
@@ -91,12 +91,12 @@
                                                 <td>{{ $k->description }}</td>
                                                 <td>
                                                     <div class="opts">
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.edit') }}/{{ $k->id }}')">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.update') }}/{{ $k->id }}')">
                                                             <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                                                 <i class="fas fa-edit"></i>
                                                             </b>
                                                         </a>
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.delete') }}/{{ $k->id }}')">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.destroy') }}/{{ $k->id }}')">
                                                             <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </b>
