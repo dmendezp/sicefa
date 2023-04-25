@@ -25,7 +25,7 @@ class PopulationGroup extends Model implements Auditable
 
     // MUTADORES Y ACCESORES
     public function setNameAttribute($value){ // Convierte todos los caracteres en mayúsculas del dato name (MUTADOR)
-        $this->attributes['name'] = strtoupper($value);
+        $this->attributes['name'] = mb_strtoupper($value);
     }
     public function setDescriptionAttribute($value){ // Convierte el primer carácter en mayúscula del dato description (MUTADOR)
         $this->attributes['description'] = ucfirst($value);
