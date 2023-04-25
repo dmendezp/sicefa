@@ -33,7 +33,6 @@ Route::prefix('ptventa')->group(function() {  // agrega el prefijo en la url (si
 
     // Rutas para Elementos
     Route::prefix('images')->controller(ElementController::class)->group(function(){
-        Route::get('gallery', 'gallery')->name('ptventa.element.gallery'); // Vista temporal para el desarrollo de la galería de imágenes
         Route::get('index', 'index')->name('ptventa.element.index'); // Vista principal de elementos para administrar imagenes
         Route::get('edit/{element}', 'edit')->name('ptventa.element.edit'); // Vista del formulario para acutalizar imagen de elemento
         Route::post('update/{element}', 'update')->name('ptventa.element.update'); // Carga de nueva imagen para elemento

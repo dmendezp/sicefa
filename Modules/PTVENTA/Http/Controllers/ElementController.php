@@ -11,15 +11,8 @@ use Validator;
 class ElementController extends Controller
 {
     public function index(){ // Vista de galería de imágenes
-        $elements = Element::orderBy('updated_at', 'DESC')->get(); // Consultar elementos por fecha de actualización de manera descendente
         $view = ['titlePage'=>'Productos - Galería de imágenes', 'titleView'=>'Administración de imágenes de productos'];
-        return view('ptventa::element.index', compact('elements','view'));
-    }
-
-    public function gallery(){  // Vista de galería de imágenes
-        $elements = Element::all();
-        $view = ['titlePage'=>'Productos - Galería de imágenes', 'titleView'=>'Administración de imágenes de productos'];
-        return view('ptventa::element.gallery', compact('elements','view'));
+        return view('ptventa::element.index', compact('view'));
     }
 
     public function edit(Element $element){ // Vista de formulario para actualizar imagen de elemento
