@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\SICA\Http\Controllers\inventory\InventoryController;
 use Modules\SICA\Http\Controllers\inventory\ParameterController;
 
+
 Route::middleware(['lang'])->group(function(){
     /* RUTAS PARA EL ROL DE ADMINISTRADOR */
     Route::prefix('sica/admin')->group(function() {
@@ -14,6 +15,11 @@ Route::middleware(['lang'])->group(function(){
 
             // --------------  Rutas de Elementos ---------------------------------
             Route::get('elements', [InventoryController::class,  'elements'])->name('sica.admin.inventory.elements'); // Lista de bodegas
+            Route::get('elements/create', [InventoryController::class, 'createElement'])->name('sica.admin.inventory.elements.create'); 
+            Route::get('/elements/edit/{id}', [InventoryController::class, 'editElement'])->name('sica.admin.inventory.elements.edit');
+            Route::get('/elements/show/{id}', [InventoryController::class, 'showElement'])->name('sica.admin.inventory.elements.show');
+
+
 
             // --------------  Rutas de Transacciones ---------------------------------
             Route::get('transactions', [InventoryController::class,  'transactions'])->name('sica.admin.inventory.transactions'); // Lista de transacciones
@@ -68,3 +74,5 @@ Route::middleware(['lang'])->group(function(){
         });
     });
 });
+
+
