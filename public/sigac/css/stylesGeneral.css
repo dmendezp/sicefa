@@ -104,3 +104,37 @@
   height: auto !important;
 }
 
+
+/* --------------------------------------- CSS TEST --------------------------------------- */
+.services .icon-box {
+  box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);
+  padding: 20px 20px 10px;
+  border-radius: 10px;
+  transition: all ease-in-out 0.4s;
+  background: #fff;
+}
+
+.services .icon-box .icon {
+  margin-bottom: 10px;
+}
+
+.services .icon-box .icon i {
+  color: rgba(0, 0, 0);
+  font-size: 36px;
+  transition: 0.3s;
+}
+
+.services .icon-box h4 {
+  font-weight: 500;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.services .icon-box h4 a {
+  color: #4B4B4B;
+  transition: ease-in-out 0.3s;
+}
+
+.services .icon-box:hover {
+  transform: translateY(-10px);
+}

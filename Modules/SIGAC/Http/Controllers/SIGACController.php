@@ -3,12 +3,14 @@
 namespace Modules\SIGAC\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\App;
 
 class SIGACController extends Controller
 {
 
     public function index(){
-        return view('sigac::index'); // Parar enviar información a travez de una vista se recomienda utilizar la función compact para el envío de estos
+        $title = 'Incio';
+        $apps = App::get();
+        return view('sigac::index', compact('apps', 'title'));
     }
-
 }
