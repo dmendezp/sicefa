@@ -138,6 +138,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Nelsy yulied Gómez Morales** - *No se presentó* - *Avance %* - *Conexión de internet* - *Acciones*
 * **Oscar Andres Gil Marin** - *CRUD Unidades de medida en SICA* - *No presenta avances* - *Disponibilidad de tiempo* - *Acciones*  
 --- 
+#### Meet 24-Abr-2023 
+* **Anyi Katherine Rojas Arce** - *CRUD de elementos en SICA* - *Avance %* - *Problemas en la ejecución de migraciones o seeder* - *Revisión y mantenimiento por Anyi Rojas y Jesús Guevara*
+* **Jesús David Guevara Munar** - *Mantenimiento SICA | Galería de imágenes PTVENTA* - *0% | 50%* - *Dificultades* - *Acciones*
+* **Manuel Steven Ossa Lievano** - *Crear compoente livewire del formulario de entrada de inventario* - *Avance %* - *Dificultades* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *No se presentó* - *Avance %* - *Estado de salud* - *Acciones*
+* **Oscar Andres Gil Marin** - *No se presnetó* - *Avance %* - *Actividades laborales* - *Acciones*  
+--- 
 
 
 ## GANADERIA 🐮
