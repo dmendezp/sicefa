@@ -145,7 +145,14 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Nelsy yulied Gómez Morales** - *No se presentó* - *Avance %* - *Estado de salud* - *Acciones*
 * **Oscar Andres Gil Marin** - *No se presnetó* - *Avance %* - *Actividades laborales* - *Acciones*  
 --- 
-
+--- 
+#### Meet 25-Abr-2023 
+* **Anyi Katherine Rojas Arce** - *CRUD de elementos en SICA* - *Avance 20%* - *Dificultades en la estructuración del formmualrio* - *Revisión y mantenimiento por Anyi Rojas*
+* **Jesús David Guevara Munar** - *No se presentó* - *Avance %* - *Galería de imágaenes con Livewire* - *Acciones*
+* **Manuel Steven Ossa Lievano** - *Crear compoente livewire del formulario de entrada de inventario* - *Avance 0%* - *Manjeo de Livewire* - *Retroalimentación de Livewire*
+* **Nelsy yulied Gómez Morales** - *Listar inventario | CRUD de actividade* - *Avance 20%* - *Descarga de las dependencias de Composer* - *Revisión y mantenimiento por Jesús Guevara y Nelsy Gómez*
+* **Oscar Andres Gil Marin** - *No se presentó* - *Avance %* - *Actividades laborales* - *Acciones*  
+--- 
 
 ## GANADERIA 🐮
 
