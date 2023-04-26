@@ -146,7 +146,8 @@
                                                 <td>{{ $m->conversion_factor }}</td>
                                                 <td>
                                                     <div class="opts">
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.measurementUnit.update') }}/{{ $m->id }}')">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('
+                                                        /{{ $m->id }}')">
                                                             <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                                                 <i class="fas fa-edit"></i>
                                                             </b>
