@@ -18,12 +18,12 @@
         </div>
         @guest
           <div class="col info info-user">
-            <div>{{ trans('menu.Welcome') }}</div>             
+            <div>{{ trans('menu.Welcome') }}</div>
             <div><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
 
           </div>
           <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block" ><i class="fas fa-sign-in-alt"></i></a>
-          </div>  
+          </div>
         @else
           <div class="col info info-user">
             <div data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">{{ Auth::user()->nickname }}</div>
@@ -49,9 +49,9 @@
                       {{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}
                     </p>
                   </a>
-                </li>  
+                </li>
             </ul>
-        </nav>      
+        </nav>
       </div>
 
       <!-- Sidebar Menu -->
@@ -228,7 +228,7 @@
                 </li>
                 @endif
               </ul>
-            </li>    
+            </li>
     <!-- CIERRA MENU PARA LOCATION -->
     <!-- MENU PARA INVENTORY -->
             <li class="nav-item {{ ! Route::is('sica.admin.inventory.*') ?: 'menu-is-opening menu-open' }}">
@@ -245,6 +245,14 @@
                   <a href="{{ route('sica.admin.inventory.warehouses') }}" class="nav-link {{ ! Route::is('sica.admin.inventory.warehouses*') ?: 'active' }}">
                     <i class="fas fa-warehouse"></i>
                     <p>{{ trans('sica::menu.Warehouses') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('sica.admin.inventory.parameters.index'))
+                <li class="nav-item">
+                  <a href="{{ route('sica.admin.inventory.parameters.index') }}" class="nav-link {{ ! Route::is('sica.admin.inventory.parameters.index*') ?: 'active' }}">
+                    <i class="fas fa-stream"></i>
+                    <p>{{ trans('sica::menu.Parameters') }}</p>
                   </a>
                 </li>
                 @endif
@@ -271,9 +279,9 @@
                     <p>{{ trans('sica::menu.Inventory') }}</p>
                   </a>
                 </li>
-                @endif              
+                @endif
               </ul>
-            </li>    
+            </li>
     <!-- CIERRA MENU PARA INVENTORY -->
     <!-- MENU PARA UNITS -->
             <li class="nav-item {{ ! Route::is('sica.admin.units.*') ?: 'menu-is-opening menu-open' }}">
@@ -310,7 +318,7 @@
                 </li>
                 @endif
               </ul>
-            </li>    
+            </li>
     <!-- CIERRA MENU PARA UNITS -->
     <!-- MENU PARA SECURITY -->
             <li class="nav-item {{ ! Route::is('sica.admin.security.*') ?: 'menu-is-opening menu-open' }}">
@@ -348,7 +356,7 @@
                 @endif
               </ul>
             </li>
-    <!-- CIERRA MENU PARA SECURITY -->                       
+    <!-- CIERRA MENU PARA SECURITY -->
           @endif
 <!-- CIERRA MENU PARA ADMINISTRADOR -->
 <!-- MENU PARA ATTENDANCE -->
@@ -379,7 +387,7 @@
                 @endif
               </ul>
             </li>
-    <!-- CIERRA MENU PARA PEOPLE -->          
+    <!-- CIERRA MENU PARA PEOPLE -->
           @endif
 <!-- CIERRA MENU PARA ATTENDANCE -->
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDetailMovementsTable extends Migration
+class CreateMovementDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -31,6 +31,7 @@ class CreateDetailMovementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_movements');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('movement_details');
     }
 }

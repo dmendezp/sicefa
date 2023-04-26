@@ -30,6 +30,7 @@ class CreateMeasurementUnitsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('measurement_units');
     }
 }

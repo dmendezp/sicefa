@@ -27,6 +27,7 @@ class CreateWarehouseMovementsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('warehouse_movements');
     }
 }

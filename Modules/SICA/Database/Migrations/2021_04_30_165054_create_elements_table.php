@@ -22,6 +22,7 @@ class CreateElementsTable extends Migration
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->unsignedInteger('UNSPSC_code')->unique()->nullable();
             $table->string('image')->nullable();
+            $table->string('slug'); // Campo para almacenar url amigable
             $table->softDeletes();
             $table->timestamps();
         });
@@ -34,6 +35,7 @@ class CreateElementsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('elements');
     }
 }
