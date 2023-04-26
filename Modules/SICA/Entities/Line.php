@@ -27,13 +27,20 @@ class Line extends Model implements Auditable
     ];
 
     // MUTADORES Y ACCESORES
-    public function setNameAttribute($value){ // Convierte el primer carácter en mayúscula del dato name (MUTADOR)
+    public function setNameAttribute($value){ // Convierte todos los carácteres en mayúsculas del dato name (MUTADOR)
         $this->attributes['name'] = mb_strtoupper($value);
     }
 
     // RELACIONES
-    public function networks(){
+    public function networks(){ // Accede a todas las redes asociadas a esta línea
         return $this->hasMany(Network::class);
+    }
+
+
+    // Configuración de factory para la generación de datos de pruebas
+    protected static function newFactory()
+    {
+        return \Modules\SICA\Database\factories\LineFactory::new();
     }
 
 }
