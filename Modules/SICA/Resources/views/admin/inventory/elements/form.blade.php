@@ -24,7 +24,7 @@
                     <i class="far fa-list"></i>
                 </span>
             </div>
-            {!! Form::select('measurement_unit_id', $measurement_units,  isset($element) ? $element->measurement_unit_id->name : null, [
+            {!! Form::select('measurement_unit_id', $measurement_units,  isset($element) ? $element->measurement_unit_id : null, [
                     'placeholder' => '-- Seleccione --',
                     'class' => 'form-control',
                     'required',
