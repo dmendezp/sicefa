@@ -1,5 +1,5 @@
-@if (isset($elements))
-    {!! Form::hidden('id', $elements->id) !!}
+@if (isset($element))
+    {!! Form::hidden('id', $element->id) !!}
 @endif
 <div class="row">
     <div class="col-md-4">
@@ -10,7 +10,7 @@
                     <i class="far fa-keyboard"></i>
                 </span>
             </div>
-            {!! Form::text('name', isset($elements) ? $elements->name : null, [
+            {!! Form::text('name', isset($element) ? $element->name : null, [
                 'class' => 'form-control',
                 'required',
                 'placeholder' => 'Nombre',
@@ -24,10 +24,10 @@
                     <i class="far fa-list"></i>
                 </span>
             </div>
-            {!! Form::select('measurement_unit_id', $measurementUnit,  isset($elements) ? $elements->measurement_unit->name : null, [
+            {!! Form::select('measurement_unit_id', $measurement_units,  isset($element) ? $element->measurement_unit_id->name : null, [
+                    'placeholder' => '-- Seleccione --',
                     'class' => 'form-control',
                     'required',
-                    'placeholder' => 'Medida',
             ]) !!}
         </div>
 
@@ -38,7 +38,7 @@
                     <i class="far fa-keyboard"></i>
                 </span>
             </div>
-            {!! Form::text('description', isset($elements) ? $elements->description : null, [
+            {!! Form::text('description', isset($element) ? $element->description : null, [
                 'class' => 'form-control',
                 'required',
                 'placeholder' => 'Descripción',
@@ -54,11 +54,11 @@
                     <i class="far fa-list"></i>
                 </span>
             </div>
-            {!! Form::select('categoty_id', $categories,  isset($elements) ? $elements->categoty->name : null, [
+            {{-- {!! Form::select('categoty_id', $categories,  isset($element) ? $element->categoty->name : null, [
                     'class' => 'form-control',
                     'required',
                     'placeholder' => 'Categoria',
-            ]) !!}
+            ]) !!} --}}
         </div>
 
         {!! Form::label('code', 'Codigo', ['class' => 'mt-3']) !!}
@@ -68,7 +68,7 @@
                     <i class="far fa-keyboard"></i>
                 </span>
             </div>
-            {!! Form::text('description', isset($elements) ? $elements->description : null, [
+            {!! Form::text('description', isset($element) ? $element->description : null, [
                 'class' => 'form-control',
                 'required',
                 'placeholder' => 'Codigo',

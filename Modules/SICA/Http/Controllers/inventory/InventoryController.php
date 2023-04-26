@@ -18,7 +18,7 @@ class InventoryController extends Controller
         $data = ['title'=>trans('sica::menu.Warehouses'),'warehouses'=>$warehouses];
         return view('sica::admin.inventory.warehouses.home',$data);
     }
-    
+
     /* Inicio de funciones de elementos */
     public function elements(){
         $elements = Element::orderBy('updated_at', 'DESC')->get();
@@ -32,7 +32,8 @@ class InventoryController extends Controller
     public function createElement()
     {
         $title = 'Agregar Elemento';
-        return view('sica::admin.inventory.elements.create', compact('title'));
+        $measurement_units = MeasurementUnit::orderBy('name','ASC')->pluck('name','id'); // Consulta de unidades de medida (se selecciona solo en name y el id y se ordena alfabeticamente para una merjor visualización en el select del formulario)
+        return view('sica::admin.inventory.elements.create', compact('title','measurement_units'));
     }
 
     public function storeElement(){
