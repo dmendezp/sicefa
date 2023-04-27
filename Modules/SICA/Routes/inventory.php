@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\SICA\Http\Controllers\inventory\InventoryController;
 use Modules\SICA\Http\Controllers\inventory\ParameterController;
 
+
 Route::middleware(['lang'])->group(function(){
     /* RUTAS PARA EL ROL DE ADMINISTRADOR */
     Route::prefix('sica/admin')->group(function() {
@@ -14,6 +15,11 @@ Route::middleware(['lang'])->group(function(){
 
             // --------------  Rutas de Elementos ---------------------------------
             Route::get('elements', [InventoryController::class,  'elements'])->name('sica.admin.inventory.elements'); // Lista de bodegas
+            Route::get('elements/create', [InventoryController::class, 'createElement'])->name('sica.admin.inventory.elements.create'); 
+            Route::get('/elements/edit/{id}', [InventoryController::class, 'editElement'])->name('sica.admin.inventory.elements.edit');
+            Route::get('/elements/show/{id}', [InventoryController::class, 'showElement'])->name('sica.admin.inventory.elements.show');
+
+
 
             // --------------  Rutas de Transacciones ---------------------------------
             Route::get('transactions', [InventoryController::class,  'transactions'])->name('sica.admin.inventory.transactions'); // Lista de transacciones
@@ -26,41 +32,47 @@ Route::middleware(['lang'])->group(function(){
         Route::prefix('inventory/parameters')->group(function () {
             //  Listar
             Route::get('index', [ParameterController::class, 'index'])->name('sica.admin.inventory.parameters.index'); // Vista de tablas de parámetros
-
+            //-------------------------Rutas de Categorias----------------------//
             // Agregar
-            Route::get('/category/add', [ParameterController::class, 'addCategoryGet'])->name('sica.admin.inventory.parameters.category.add'); //Solicitud GET que tenga esta URL se manejará a través de esta ruta.
-            Route::post('/category/add', [ParameterController::class, 'addCategoryPost'])->name('sica.admin.inventory.parameters.category.add');
+            Route::get('/category/create', [ParameterController::class, 'createCategory'])->name('sica.admin.inventory.parameters.category.create'); //Solicitud GET que tenga esta URL se manejará a través de esta ruta.
+            Route::post('/category/store', [ParameterController::class, 'storeCategory'])->name('sica.admin.inventory.parameters.category.store');
 
             // Editar
-            Route::get('/category/edit/{id}', [ParameterController::class, 'editCategoryGet'])->name('sica.admin.inventory.parameters.category.edit');
-            Route::post('/category/edit', [ParameterController::class, 'editCategoryPost'])->name('sica.admin.inventory.parameters.category.edit');
-
+            Route::get('/category/edit/{id}', [ParameterController::class, 'editCategory'])->name('sica.admin.inventory.parameters.category.edit');
+            Route::post('/category/edit', [ParameterController::class, 'updateCategory'])->name('sica.admin.inventory.parameters.category.update');
+        
             // Eliminar
-            Route::get('/category/delete/{id}', [ParameterController::class, 'deleteCategoryGet'])->name('sica.admin.inventory.parameters.category.delete');
-            Route::post('/category/delete/', [ParameterController::class, 'deleteCategoryPost'])->name('sica.admin.inventory.parameters.category.delete');
-            // --------------  Rutas de Categorías ---------------------------------
-            /* Route::prefix('category')->group(function () {
-                //Route::get('create', [ParameterController::class, 'create'])->name('sica.admin.inventory.parameters.category.create'); // Formulario de registro de categoría
-                // ...
-            }); */
+            Route::get('/category/delete/{id}', [ParameterController::class, 'deleteCategory'])->name('sica.admin.inventory.parameters.category.delete');
+            Route::post('/category/delete/', [ParameterController::class, 'destroyCategory'])->name('sica.admin.inventory.parameters.category.destroy');
 
-            // Listar de measurementUnit
-            Route::get('index', [ParameterController::class, 'index'])->name('sica.admin.inventory.parameters.index'); // Vista de tablas de parámetros
+            //-------------------------Rutas de Unidades de Medida----------------------//
+            // Agregar de measurementUnit
+            Route::get('/measurementUnit/create', [ParameterController::class, 'createMeasurementUnit'])->name('sica.admin.inventory.parameters.measurementUnit.create'); //Solicitud GET que tenga esta URL se manejará a través de esta ruta.
+            Route::post('/measurementUnit/store', [ParameterController::class, 'storeMeasurementUnit'])->name('sica.admin.inventory.parameters.measurementUnit.store');
+
+            // Editar de measurementUnit
+            Route::get('/measurementUnit/edit/{id}', [ParameterController::class, 'editMeasurementUnit'])->name('sica.admin.inventory.parameters.measurementUnit.edit');
+            Route::post('/measurementUnit/edit', [ParameterController::class, 'updateMeasurementUnit'])->name('sica.admin.inventory.parameters.measurementUnit.update');
+            
+            // Eliminar de measurementUnit
+            Route::get('/measurementUnit/delete/{id}', [ParameterController::class, 'deletemeasurementUnit'])->name('sica.admin.inventory.parameters.measurementUnit.delete');
+            Route::post('/measurementUnit/delete/', [ParameterController::class, 'destroymeasurementUnit'])->name('sica.admin.inventory.parameters.measurementUnit.destroy');
 
             //-------------------------Rutas de Tipo de Compra----------------------//
             //Agregar
-            Route::get('/kindOfPurchase/add', [ParameterController::class, 'addKindOfPurchaseGet'])->name('sica.admin.inventory.parameters.kindOfPurchase.add'); 
-            Route::post('/kindOfPurchase/add', [ParameterController::class, 'addKindOfPurchasePost'])->name('sica.admin.inventory.parameters.kindOfPurchase.add');
+            Route::get('/kindOfPurchase/create', [ParameterController::class, 'createKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.create'); 
+            Route::post('/kindOfPurchase/add', [ParameterController::class, 'storeKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.store');
 
             //Editar
-            Route::get('/kindOfPurchase/edit/{id}', [ParameterController::class, 'editKindOfPurchaseGet'])->name('sica.admin.inventory.parameters.kindOfPurchase.edit');
-            Route::post('/kindOfPurchase/edit', [ParameterController::class, 'editKindOfPurchasePost'])->name('sica.admin.inventory.parameters.kindOfPurchase.edit');
+            Route::get('/kindOfPurchase/edit/{id}', [ParameterController::class, 'editKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.edit');
+            Route::post('/kindOfPurchase/edit', [ParameterController::class, 'updateKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.update');
 
             //Eliminar
-            Route::get('/kindOfPurchase/delete/{id}', [ParameterController::class, 'deleteKindOfPurchaseGet'])->name('sica.admin.inventory.parameters.kindOfPurchase.delete');
-            Route::post('/kindOfPurchase/delete/', [ParameterController::class, 'deleteKindOfPurchasePost'])->name('sica.admin.inventory.parameters.kindOfPurchase.delete');
+            Route::get('/kindOfPurchase/delete/{id}', [ParameterController::class, 'deleteKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.delete');
+            Route::post('/kindOfPurchase/delete/', [ParameterController::class, 'destroyKindOfPurchase'])->name('sica.admin.inventory.parameters.kindOfPurchase.destroy');
 
-            
         });
     });
 });
+
+

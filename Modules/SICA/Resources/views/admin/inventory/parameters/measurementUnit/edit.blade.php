@@ -1,22 +1,21 @@
 <div id="content-config">
     <div class="modal-header py-2">
         <h5 class="modal-title" id="exampleModalLabel">
-            <b>Agregar Tipo de Compra</b>
+            <b>Actualizar Unidad de medida</b>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {!! Form::open(['route'=>'sica.admin.inventory.parameters.kindOfPurchase.add', 'method'=>'POST', 'id'=>'form-config']) !!}
+    {!! Form::open(['route'=>'sica.admin.inventory.parameters.measurementUnit.update', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-0">
-            @include('sica::admin.inventory.parameters.kindofpurchase.form')
+                @include('sica::admin.inventory.parameters.measurementUnit.form')
         </div>
         <div class="modal-footer py-1">
                 <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cancelar</button>
-                {!! Form::submit('Registrar', ['class'=>'btn btn-primary btn-md py-0']) !!}
+                {!! Form::submit('Actualizar', ['class'=>'btn btn-success btn-md py-0']) !!}
         </div>
     {!! Form::close() !!}
-
 </div>
 
 <script>

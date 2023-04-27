@@ -1,13 +1,13 @@
 <div id="content-config">
     <div class="modal-header py-2">
         <h5 class="modal-title" id="exampleModalLabel">
-            <b>¿Desea eliminar el siguiente tipo de compra?</b>
+            <b>¿Desea eliminar el siguiente Tipo de Compra?</b>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {!! Form::open(['route'=>'sica.admin.inventory.parameters.kindOfPurchase.delete', 'method'=>'POST', 'id'=>'form-config']) !!}
+    {!! Form::open(['route'=>'sica.admin.inventory.parameters.kindOfPurchase.destroy', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-3" style="font-size: 20px;">
             {!! Form::hidden('id', $kindOfPurchase->id) !!}
             <div class="row">

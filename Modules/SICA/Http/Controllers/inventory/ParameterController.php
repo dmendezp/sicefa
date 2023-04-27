@@ -19,11 +19,12 @@ class ParameterController extends Controller
         return view('sica::admin.inventory.parameters.index',$data);
     }
 
-    public function addCategoryGet(){
-        return view('sica::admin.inventory.parameters.category.add');
+    //Funciones para Categoria
+    public function createCategory(){
+        return view('sica::admin.inventory.parameters.category.create');
     }
 
-    public function addCategoryPost(Request $request){
+    public function storeCategory(Request $request){
         $c = new Category;
         $c->name = e($request->input('name'));
         $c->kind_of_property = e($request->input('kind_of_property'));
@@ -38,12 +39,12 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
-    public function editCategoryGet($id){
+    public function editCategory($id){
         $category = Category::find($id);
         return view('sica::admin.inventory.parameters.category.edit',compact('category'));
     }
 
-    public function editCategoryPost(Request $request){
+    public function updateCategory(Request $request){
         $category = Category::findOrFail($request->input('id'));
         $category->name = e($request->input('name'));
         $category->kind_of_property = e($request->input('kind_of_property'));
@@ -58,12 +59,12 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
-    public function deleteCategoryGet($id){
+    public function deleteCategory($id){
         $category = Category::find($id);
         return view('sica::admin.inventory.parameters.category.delete',compact('category'));
     }
 
-    public function deleteCategoryPost(Request $request){
+    public function destroyCategory(Request $request){
         $category = Category::findOrFail($request->input('id'));
         $card = 'card-categories';
         if($category->delete()){
@@ -76,12 +77,72 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
-    //Funciones para Tipo de compra
-    public function addKindOfPurchaseGet(){
-        return view('sica::admin.inventory.parameters.kindOfPurchase.add');
+    //Funciones para Unidades de Medida
+    public function createMeasurementUnit(){
+        return view('sica::admin.inventory.parameters.measurementUnit.create');
     }
 
-    public function addKindOfPurchasePost(Request $request){
+    public function storeMeasurementUnit(Request $request){
+        $m = new MeasurementUnit();
+        $m->name = e($request->input('name'));
+        $m->minimum_unit_measure = e($request->input('minimum_unit_measure'));
+        $m->conversion_factor = e($request->input('conversion_factor'));
+        $card = 'card-measurementUnit';
+        if($m->save()){
+            $icon = 'success';
+            $message_config = 'Unidad de medida agregada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_config = 'No se pudo agregar la Unidad de medida.';
+        }
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
+    }
+
+    public function editMeasurementUnit($id){
+        $measurementUnit = MeasurementUnit::find($id);
+        return view('sica::admin.inventory.parameters.measurementUnit.edit',compact('measurementUnit'));
+    }
+
+    public function updateMeasurementUnit(Request $request){
+        $measurementUnit = MeasurementUnit::findOrFail($request->input('id'));
+        $measurementUnit->name = e($request->input('name'));
+        $measurementUnit->minimum_unit_measure = e($request->input('minimum_unit_measure'));
+        $measurementUnit->conversion_factor = e($request->input('conversion_factor'));
+        $card = 'card-measurementUnit';
+        if($measurementUnit->save()){
+            $icon = 'success';
+            $message_config = 'Unidad de medida actualizada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_config = 'No se pudo actualizar la Unidad de medida.';
+        }
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
+    }
+
+    public function deleteMeasurementUnit($id){
+        $measurementUnit = MeasurementUnit  ::find($id);
+        return view('sica::admin.inventory.parameters.measurementUnit.delete',compact('measurementUnit'));
+    }
+
+    public function destroyMeasurementUnit(Request $request){
+        $measurementUnit = MeasurementUnit::findOrFail($request->input('id'));
+        $card = 'card-measurementUnit';
+        if($measurementUnit->delete()){
+            $icon = 'success';
+            $message_config = 'Unidad de medida eliminada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_config = 'No se pudo eliminar la Unidad de medida.';
+        }
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_config'=>$message_config]);
+    }
+
+    //Funciones para Tipo de compra
+    public function createKindOfPurchase(){
+        return view('sica::admin.inventory.parameters.kindOfPurchase.create');
+    }
+
+    public function storeKindOfPurchase(Request $request){
         $k = new KindOfPurchase;
         $k->name = e($request->input('name'));
         $k->description = e($request->input('description'));
@@ -96,12 +157,12 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
-    public function editKindOfPurchaseGet($id){
+    public function editKindOfPurchase($id){
         $kindOfPurchase = KindOfPurchase::find($id);
         return view('sica::admin.inventory.parameters.kindOfPurchase.edit',compact('kindOfPurchase'));
     }
 
-    public function editKindOfPurchasePost(Request $request){
+    public function updateKindOfPurchase(Request $request){
         $k = KindOfPurchase::findOrFail($request->input('id'));
         $k->name = e($request->input('name'));
         $k->description = e($request->input('description'));
@@ -116,12 +177,12 @@ class ParameterController extends Controller
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
-    public function deleteKindOfPurchaseGet($id){
+    public function deleteKindOfPurchase($id){
         $kindOfPurchase = KindOfPurchase::find($id);
         return view('sica::admin.inventory.parameters.kindOfPurchase.delete',compact('kindOfPurchase'));
     }
 
-    public function deleteKindOfPurchasePost(Request $request){
+    public function destroyKindOfPurchase(Request $request){
         $kindOfPurchase = KindOfPurchase::findOrFail($request->input('id'));
         $card = 'card-kind_of_purchases';
         if($kindOfPurchase->delete()){
@@ -133,4 +194,5 @@ class ParameterController extends Controller
         }
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
+
 }
