@@ -2,6 +2,7 @@
 
 namespace Modules\PTVENTA\Http\Controllers;
 use Modules\SICA\Entities\Inventory;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 
@@ -21,4 +22,11 @@ class InventoryController extends Controller
         return view('ptventa::inventory.create', compact('view'));
     }
 
+    public function pdf(){
+        $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
+        $pdf = Pdf::loadView('ptventa::inventory.pdf', compact('inventories'));
+        return $pdf->stream();
+   
+
+    }
 }

@@ -29,9 +29,9 @@
                 </div>
                 <div class="col"></div>
                 <div class="col-auto">
-                    <a href="{{ route('ptventa.inventory.download') }}" class="btn btn-success btn-sm"> PDF </a>
+                    <a href="{{ route('ptventa.inventory.pdf') }}" class="btn btn-success btn-sm"> PDF </a>
                 </div> 
-                
+
                 <div class="col"></div>
                 <div class="col-auto">
                     <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm"> Registrar entrada </a>
