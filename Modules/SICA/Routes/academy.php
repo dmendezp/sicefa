@@ -16,12 +16,16 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/admin/academy/lines', [AcademyController::class, 'lines'])->name('sica.admin.academy.lines');
 
         //Agregar
-        Route::get('/admin/line/create', [AcademyController::class, 'createLines'])->name('sica.admin.academy.lines.create'); //Solicitud GET que tenga esta URL se manejará a través de esta ruta.
-        Route::post('/admin/line/store', [AcademyController::class, 'storeLines'])->name('sica.admin.academy.lines.store');
+        Route::get('/admin/line/create', [AcademyController::class, 'createLine'])->name('sica.admin.academy.line.create'); //Solicitud GET que tenga esta URL se manejará a través de esta ruta.
+        Route::post('/admin/line/store', [AcademyController::class, 'storeLine'])->name('sica.admin.academy.line.store');
 
         //Editar
-        Route::get('/admin/line/edit/{id}', [AcademyController::class, 'editLines'])->name('sica.admin.academy.line.edit');
-        Route::post('/admin/line/edit', [AcademyController::class, 'updateLines'])->name('sica.admin.academy.line.update');
+        Route::get('/admin/line/edit/{id}', [AcademyController::class, 'editLine'])->name('sica.admin.academy.line.edit');
+        Route::post('/admin/line/edit', [AcademyController::class, 'updateLine'])->name('sica.admin.academy.line.update');
+
+         // Eliminar
+         Route::get('/admin/line/delete/{id}', [AcademyController::class, 'deleteLine'])->name('sica.admin.academy.line.delete');
+         Route::post('/admin/line/delete/', [AcademyController::class, 'destroyLine'])->name('sica.admin.academy.line.destroy');
 
     });
 
