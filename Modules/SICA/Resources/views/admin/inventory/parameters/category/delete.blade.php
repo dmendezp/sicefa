@@ -7,7 +7,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {!! Form::open(['route'=>'sica.admin.inventory.parameters.category.delete', 'method'=>'POST', 'id'=>'form-config']) !!}
+    {!! Form::open(['route'=>'sica.admin.inventory.parameters.category.destroy', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-3" style="font-size: 20px;">
             {!! Form::hidden('id', $category->id) !!}
             <div class="row">

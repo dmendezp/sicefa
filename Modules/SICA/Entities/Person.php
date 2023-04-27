@@ -56,13 +56,13 @@ class Person extends Model implements Auditable
 
     // MUTADORES Y ACCESORES
     public function setFirstNameAttribute($value){ // Convertir a mayúsculas en valor del dato first_name (MUTADOR)
-        return $this->attributes['first_name'] = strtoupper($value);
+        return $this->attributes['first_name'] = mb_strtoupper($value);
     }
     public function setFirstLastNameAttribute($value){ // Convertir a mayúsculas en valor del dato first_last_name (MUTADOR)
-        return $this->attributes['first_last_name'] = strtoupper($value);
+        return $this->attributes['first_last_name'] = mb_strtoupper($value);
     }
     public function setSecondLastNameAttribute($value){ // Convertir a mayúsculas en valor del dato second_last_name (MUTADOR)
-        return $this->attributes['second_last_name'] = strtoupper($value);
+        return $this->attributes['second_last_name'] = mb_strtoupper($value);
     }
     public function setAddressAttribute($value){ // Convierte el primer carácter en mayúscula del dato address (MUTADOR)
         $this->attributes['address'] = ucfirst($value);
@@ -107,7 +107,7 @@ class Person extends Model implements Auditable
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
     }
     public function inventories(){ // Accede a todos los registros de inventarios que están relacionados con esta persona
-        return $this->hasMany(Inventory::class); 
+        return $this->hasMany(Inventory::class);
     }
 
 }

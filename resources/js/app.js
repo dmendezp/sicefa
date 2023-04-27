@@ -13,5 +13,4 @@ require('./bootstrap');
  */
 
 require('./modules/Index');
-require('./modules/ptoventa/Index');
 require('./modules/bolmeteor/Example');

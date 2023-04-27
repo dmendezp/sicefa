@@ -25,7 +25,7 @@ class EPS extends Model implements Auditable
 
     // MUTADORES Y ACCESORES
     public function setNameAttribute($value){ // Convertir a mayúsculas el valor del dato name (MUTADOR)
-        $this->attributes['name'] = strtoupper($value);
+        $this->attributes['name'] = mb_strtoupper($value);
     }
 
     // RELACIONES
