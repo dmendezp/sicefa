@@ -36,10 +36,29 @@ class AcademyController extends Controller
         return view('sica::admin.academy.networks.home',$data);
     }
 
+    //-------------------Seccion de Líneas------------------------
     public function lines(){
-        $lines = Line::orderBy('id','asc')->get();
-        $data = ['title'=>trans('sica::menu.Lines'),'lines'=>$lines];
+        $line = Line::orderBy('updated_at','DESC')->get();
+        $data = ['title'=>trans('sica::menu.Lines'),'lines'=>$line];
         return view('sica::admin.academy.lines.home',$data);
+    }
+
+    public function createLines(){
+        return view('sica::admin.academy.lines.create');
+    }
+
+    public function storeLines(Request $request){
+        $line = new Line;
+        $line->name = e($request->input('name'));
+        $card = 'card-lines';
+        if($line->save()){
+            $icon = 'success';
+            $message_parameter = 'Líneas agregada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_parameter = 'No se pudo agregar la línea.';
+        }
+        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
     }
 
 }

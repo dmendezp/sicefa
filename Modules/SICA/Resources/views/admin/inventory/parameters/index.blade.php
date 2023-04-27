@@ -22,7 +22,7 @@
                                             <th>Nombre</th>
                                             <th>Tipo de propiedad</th>
                                             <th>
-                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.category.add') }}')">
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.category.create') }}')">
                                                     <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
                                                         <i class="fas fa-plus-circle"></i>
                                                     </b>
@@ -38,12 +38,12 @@
                                                 <td>{{ $c->kind_of_property }}</td>
                                                 <td>
                                                     <div class="opts">
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.category.edit') }}/{{ $c->id }}')">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.category.update') }}/{{ $c->id }}')">
                                                             <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                                                 <i class="fas fa-edit"></i>
                                                             </b>
                                                         </a>
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.category.delete') }}/{{ $c->id }}')">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.category.destroy') }}/{{ $c->id }}')">
                                                             <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </b>
@@ -75,7 +75,7 @@
                                             <th>Nombre</th>
                                             <th>Descripción</th>
                                             <th>
-                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.add') }}')">
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.create') }}')">
                                                     <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
                                                         <i class="fas fa-plus-circle"></i>
                                                     </b>
@@ -91,12 +91,12 @@
                                                 <td>{{ $k->description }}</td>
                                                 <td>
                                                     <div class="opts">
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.edit') }}/{{ $k->id }}')">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.update') }}/{{ $k->id }}')">
                                                             <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                                                 <i class="fas fa-edit"></i>
                                                             </b>
                                                         </a>
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.delete') }}/{{ $k->id }}')">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.kindOfPurchase.destroy') }}/{{ $k->id }}')">
                                                             <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </b>
@@ -117,7 +117,7 @@
                 <div class="col-md-6"  id="card-measurement_units">
                     <div class="card card-orange card-outline shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Unidades de medida</h3>
+                            <h3 class="card-title">Unidades de Medida</h3>
                         </div>
                         <div class="card-body">
                             <div>
@@ -129,6 +129,7 @@
                                             <th>Medida unitaria minima</th>
                                             <th>Factor de converción</th>
                                             <th>
+                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.measurementUnit.create') }}')">
                                                     <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
                                                         <i class="fas fa-plus-circle"></i>
                                                     </b>
@@ -145,10 +146,13 @@
                                                 <td>{{ $m->conversion_factor }}</td>
                                                 <td>
                                                     <div class="opts">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('
+                                                        /{{ $m->id }}')">
                                                             <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                                                 <i class="fas fa-edit"></i>
                                                             </b>
                                                         </a>
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.measurementUnit.destroy') }}/{{ $m->id }}')">
                                                             <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </b>
