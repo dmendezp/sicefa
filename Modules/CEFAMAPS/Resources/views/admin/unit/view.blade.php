@@ -1,35 +1,35 @@
 @extends('cefamaps::layouts.master')
 
-@section('breadcrumb')
-  @foreach($viewunit as $u) 
+@foreach($viewunit as $u) 
+  @section('breadcrumb')  
+
     <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::unit.Units') }}</a></li>
     <li class="breadcrumb-item"><a href="#"><i class="fas {{ $u->productive_units->icon }}"></i> {{ $u->productive_units->name }}</a></li>
-  @endforeach
-@endsection
+    
+  @endsection
+@endforeach
 
 @section('style')
 	<link rel="stylesheet" href="{{ asset('cefamaps/css/viewenviron.css') }}">
 @endsection
 
 @section('content')
-  @foreach($viewunit as $u) 
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="card card-lightblue card-outline">
-              <div class="card-header">
-                <h3 class="m-0">{{ trans('cefamaps::unit.Unit') }} - {{ $u->productive_units->name }}</h3>
-              </div>
-              <div class="card-body">
-                <div id="map"></div>
-              </div>
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card card-lightblue card-outline">
+            <div class="card-header">
+              <h3 class="m-0">{{ trans('cefamaps::unit.Unit') }} - {{ $u->productive_units->name }}</h3>
+            </div>
+            <div class="card-body">
+              <div id="map"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  @endforeach
+  </div>
 
   <!-- Inicio El modal para que aparezacan todas la paginas -->
   <div class="modal fade" id="modal-lg">
@@ -74,7 +74,7 @@
 
 @section('script')
 
-<script>
+  <script>
 
     // Initialize and add the map
     function initMap() {

@@ -193,24 +193,24 @@
 
   <script type="text/javascript">
     
-    // Initialize and add the map
     function initMap() {
+
+      const mapId = document.getElementById("map");
+      
       @foreach($environ as $e)
 
-      // The location of Uluru
-      const adsi = { lat: {{$e->latitude}}, lng: {{$e->length}} };
-      // The map, centered at Uluru
-      const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 18,
-        center: adsi,
-        mapTypeId: 'satellite'
-      });
-
-      // The marker, positioned at Uluru
-      const marker{{$e->id}} = new google.maps.Marker({
-        position: { lat: {{$e->latitude}},  lng: {{$e->length}} },
-        map: map,
-      });
+        // The map, centered at Uluru
+        const map{{$e->id}} = new google.maps.Map(mapId, {
+          zoom: 18,
+          center: { lat: {{$e->latitude}}, lng: {{$e->length}} },
+          mapTypeId: 'satellite'
+        });
+        
+        // The marker, positioned at Uluru
+        const marker{{$e->id}} = new google.maps.Marker({
+          position: { lat: {{$e->latitude}},  lng: {{$e->length}} },
+          map: map{{$e->id}},
+        });
 
       @endforeach
 

@@ -75,13 +75,11 @@ class EnvironmentController extends Controller
                     $addcoor -> length = $le;
                     $addcoor -> latitude = e ($request->input('latitudecoor')[$c]);
                     $c++;
-                    if ($addcoor -> save()) {
-                        
-                    }
+                    if ($addcoor -> save()) {}
                 }
                 return redirect(route('cefamaps.admin.config.environment.index'));
             }
-        } 
+        }
     }
 
     /**
@@ -107,22 +105,9 @@ class EnvironmentController extends Controller
      */
     public function editpost(Request $request)
     {
-        
-        /* crear imagen */
         $edit = Environment::findOrFail($request->input('id'));
         $edit -> name = e ($request->input('name'));
         $edit -> description = e ($request->input('description'));
-
-         if ($request->file('file')){
-            $path = 'uploads/';
-            $final_name = Str::slug($request->file('file')->getClientOriginalName().'_'.time()).'.'.trim($request->file('file')->getClientOriginalName());
-            $request->file->storeAs($path, $final_name, 'uploads'); 
-            $edit -> picture = e ($final_name);
-
-        /* }else{
-            $edit -> picture = e ($request->input('imagenAntigua'));  */
-        }
- 
         $edit -> farms_id = e ($request->input('farm'));
         $edit -> productive_units_id = e ($request->input('unit'));
         $edit -> length = e ($request->input('lengthspot'));
@@ -130,20 +115,60 @@ class EnvironmentController extends Controller
         $edit -> status = e ($request->input('status'));
         $edit -> type_environment = e ($request->input('type'));
         $edit -> class_environments_id = e ($request->input('class'));
-        if($edit->save()) { 
-            $c = 0;
-            foreach ($edit->coordinates as $co) {
-                $editcoor = new Coordinate;
+
+        if ($request->file('file')){
+            $path = 'uploads/';
+            $final_name = Str::slug($request->file('file')->getClientOriginalName().'_'.time()).'.'.trim($request->file('file')->getClientOriginalName());
+            $request->file->storeAs($path, $final_name, 'uploads');
+            $edit -> picture = e ($final_name);
+        }
+
+        $c = 0;
+        if(is_object($edit->coordinates)){
+            foreach ($edit->coordinates as $editcoor) {
+                $editcoor = Coordinate::find($editcoor->id);
                 $editcoor -> environment_id = $edit->id;
                 $editcoor -> length = e ($request->input('length')[$c]);
                 $editcoor -> latitude = e ($request->input('latitude')[$c]);
                 $c++;
-                if ($editcoor -> save()) {
-                }
-            
-         }
+                $editcoor->save();
+            }
+        }else{
+        }
+        foreach($edit->coordinates as $editcoor => $value){
+        }
+        if($edit->save()) {
             return redirect(route('cefamaps.admin.config.environment.index'));
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function eliminar($id)
+    {
+        $remove = Coordinate::findOrFail($id);
+        $remove->delete();
+        return response()->json($remove);
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function addinput(Request $request)
+    {
+        try {
+            $editcoor = new Coordinate;
+            $editcoor -> environment_id = $request->id;
+            $editcoor -> length = $request->long;
+            $editcoor -> latitude =$request->ltn ;
+            $editcoor->save();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+        return $editcoor;
     }
 
     /**
@@ -171,7 +196,7 @@ class EnvironmentController extends Controller
         $remove = Environment::findOrFail($id);
         $remove->coordinates()->delete();
         if ($remove->delete()) {
-            return back(); 
-        }   
+            return back();
+        }
     }
 }

@@ -142,7 +142,6 @@ class PageController extends Controller
   {
     $remove = Page::findOrFail($id);
     if ($remove->delete()) {
-
       return back();
     }
   }
