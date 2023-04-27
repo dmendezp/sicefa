@@ -39,7 +39,7 @@ class Network extends Model implements Auditable
     public function line(){ // Accede a la línea tecnologica que pertenece
         return $this->belongsTo(Line::class);
     }
-    public function programs(){
+    public function programs(){ // Accede a todos los programas asociados a esta red de conocimiento
         return $this->hasMany(Program::class);
     }
 
