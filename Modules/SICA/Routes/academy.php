@@ -11,11 +11,18 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/admin/academy/network', [AcademyController::class, 'networks'])->name('sica.admin.academy.networks');
         Route::get('/admin/academy/courses', [AcademyController::class, 'courses'])->name('sica.admin.academy.courses');
 
-        /* Rutas de lineas */
+        /* ------------Rutas de lineas----------- */
+        //Listar
         Route::get('/admin/academy/lines', [AcademyController::class, 'lines'])->name('sica.admin.academy.lines');
-        Route::get('/line/create', [AcademyController::class, 'createLines'])->name('sica.admin.academy.lines.create'); //Solicitud GET que tenga esta URL se manejará a través de esta ruta.
-        Route::post('/line/store', [AcademyController::class, 'storeLines'])->name('sica.admin.academy.lines.store');
- 
+
+        //Agregar
+        Route::get('/admin/line/create', [AcademyController::class, 'createLines'])->name('sica.admin.academy.lines.create'); //Solicitud GET que tenga esta URL se manejará a través de esta ruta.
+        Route::post('/admin/line/store', [AcademyController::class, 'storeLines'])->name('sica.admin.academy.lines.store');
+
+        //Editar
+        Route::get('/admin/line/edit/{id}', [AcademyController::class, 'editLines'])->name('sica.admin.academy.line.edit');
+        Route::post('/admin/line/edit', [AcademyController::class, 'updateLines'])->name('sica.admin.academy.line.update');
+
     });
 
 }); 

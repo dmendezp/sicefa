@@ -19,7 +19,6 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-
                         <div class="">
                             <table id="tableLines" class="table table-bordered table-striped">
                                 <thead>
@@ -42,16 +41,14 @@
                                             <td>{{ $l->name }}</td>
                                             <td>
                                                 <div class="opts">
-                                                    <a href="{{ url('admin/re/edit/' . $l->id) }}" class="text-warning"
-                                                        data-toggle='tooltip' data-placement="top" title="Ver"><i
-                                                            class="fas fa-eye"></i></a>
-                                                    <a href="{{ url('admin/re/edit/' . $l->id) }}" class="text-info"
-                                                        data-toggle='tooltip' data-placement="top" title="Editar"><i
-                                                            class="fas fa-edit"></i></a>
-                                                    <a class="text-danger btn-delete" href="#" data-action="delete"
-                                                        data-toggle='tooltip' data-placement="top"
-                                                        data-object="{{ $l->id }}" data-path="admin/role"
-                                                        title="Eliminar"><i class="fas fa-trash-alt"></i></a>
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.line.edit', $l->id) }}')">
+                                                        <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                            <i class="fas fa-edit"></i>
+                                                        </b>
+                                                    </a>
+                                                    <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="{{ $l->id }}" data-path="admin/role" title="Eliminar">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -84,16 +81,12 @@
 @endsection
 @section('script')
     <script>
-        @if (Session::get('message_parameter'))
-            $('html, body').animate({
-                /* Move the page to the previously selected configuration */
-                scrollTop: $("#{{ Session::get('card') }}").offset().top
-            }, 1000);
+        @if (Session::get('message_line'))
             /* Show the message */
             @if (Session::get('icon') == 'success')
-                toastr.success("{{ Session::get('message_parameter') }}");
+                toastr.success("{{ Session::get('message_line') }}");
             @elseif (Session::get('icon') == 'error')
-                toastr.error("{{ Session::get('message_parameter') }}");
+                toastr.error("{{ Session::get('message_line') }}");
             @endif
         @endif
 

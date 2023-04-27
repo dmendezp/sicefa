@@ -2,6 +2,7 @@
 
 namespace Modules\SICA\Http\Controllers\academy;
 
+use Dotenv\Parser\Lines;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -59,6 +60,24 @@ class AcademyController extends Controller
             $message_parameter = 'No se pudo agregar la línea.';
         }
         return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
+    }
+
+    public function editLines($id){
+        $line = Line::find($id);
+        return view('sica::admin.academy.lines.edit',compact('line'));
+    }
+
+    public function updateLines(Request $request){
+        $line = Line::findOrFail($request->input('id'));
+        $line->name = e($request->input('name'));
+        if($line->save()){
+            $icon = 'success';
+            $message_line = 'Línea tecnólogica actualizada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_line = 'No se pudo actualizar la línea tecnólogica.';
+        }
+        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
     }
 
 }
