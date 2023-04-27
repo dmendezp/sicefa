@@ -38,7 +38,9 @@ class ElementController extends Controller
                 $image = $request->file('image');
 
                 //Eliminar la imagen anterior del sistema de archivos
-                unlink(public_path($element->image));
+                if(file_exists(public_path($element->image))){  // Valida que la imagen realmente existe en el almacenamiento
+                    unlink(public_path($element->image));
+                }
 
                 //Guardar la nueva imagen en el sistema de archivos
                 $extension =  pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION); // Capturar la extensión de la nueva imagen

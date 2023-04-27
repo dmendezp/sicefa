@@ -53,7 +53,7 @@
                                 Imagen
                             </div>
                             <div class="card-body mx-auto">
-                                <img src="{{ asset($element->image) }}" id="selected_image" class="img-fluid img-thumbnail" style="max-height: 400px; max-width: 600px">
+                                <img src="@if($element->image && file_exists(public_path($element->image))) {{ asset($element->image) }} @else {{ asset('modules/sica/images/sinImagen.png') }} @endif" id="selected_image" class="img-fluid img-thumbnail" style="max-height: 400px; max-width: 600px">
                             </div>
                         </div>
                     </div>

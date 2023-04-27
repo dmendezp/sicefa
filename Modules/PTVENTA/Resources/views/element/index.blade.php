@@ -3,6 +3,8 @@
 @section('head')
     {{-- Estilos de la galería de imágenes --}}
     <link rel="stylesheet" href="{{ asset('modules/ptventa/css/image-gallery-styles.css') }}">
+    {{-- Estilos de livewire --}}
+    @livewireStyles()
 @endsection
 
 @section('breadcrumb')
@@ -19,4 +21,6 @@
 @endsection
 
 @section('scripts')
+    {{-- Scripts de livewire --}}
+    @livewireScripts()
 @endsection
