@@ -20,7 +20,7 @@ class ElementController extends Controller
         return view('ptventa::element.edit', compact('element','view'));
     }
 
-    public function update(Request $request, Element $element){ // Actualización de imagen de elemento
+    public function update(Request $request, Element $element){ // Actualización de imagen de element
         $rules = [
             'image' => 'required',
         ];
@@ -38,7 +38,7 @@ class ElementController extends Controller
                 $image = $request->file('image');
 
                 //Eliminar la imagen anterior del sistema de archivos
-                if(file_exists(public_path($element->image))){  // Valida que la imagen realmente existe en el almacenamiento
+                if(file_exists(public_path($element->image) and $element->image <> null)){  // Valida que la imagen realmente existe en el almacenamiento
                     unlink(public_path($element->image));
                 }
 
