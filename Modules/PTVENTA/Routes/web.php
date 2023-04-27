@@ -24,6 +24,8 @@ Route::prefix('ptventa')->group(function() {  // agrega el prefijo en la url (si
     Route::prefix('inventory')->controller(InventoryController::class)->group(function(){
         Route::get('index', 'index')->name('ptventa.inventory.index'); // Vista principal del inventario (listado de actual productos en inventario)
         Route::get('create', 'create')->name('ptventa.inventory.create'); // Formulario de registro de entrada de inventario (registro de productos)
+        route::get('download-pdf', 'download-pdf')->name('ptventa.inventory.download'); // Descarga de formato de pdf
+    
     });
 
     //Rutas para Ventas
