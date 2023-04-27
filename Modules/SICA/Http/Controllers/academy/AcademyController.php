@@ -2,6 +2,7 @@
 
 namespace Modules\SICA\Http\Controllers\academy;
 
+use Dotenv\Parser\Lines;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -43,22 +44,56 @@ class AcademyController extends Controller
         return view('sica::admin.academy.lines.home',$data);
     }
 
-    public function createLines(){
+    public function createLine(){
         return view('sica::admin.academy.lines.create');
     }
 
-    public function storeLines(Request $request){
+    public function storeLine(Request $request){
         $line = new Line;
         $line->name = e($request->input('name'));
-        $card = 'card-lines';
         if($line->save()){
             $icon = 'success';
-            $message_parameter = 'Líneas agregada exitosamente.';
+            $message_line = 'Línea tecnólogica agregada exitosamente.';
         }else{
             $icon = 'error';
-            $message_parameter = 'No se pudo agregar la línea.';
+            $message_line = 'No se pudo agregar la línea tecnológica.';
         }
-        return back()->with(['card'=>$card, 'icon'=>$icon, 'message_parameter'=>$message_parameter]);
+        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
+    }
+
+    public function editLine($id){
+        $line = Line::find($id);
+        return view('sica::admin.academy.lines.edit',compact('line'));
+    }
+
+    public function updateLine(Request $request){
+        $line = Line::findOrFail($request->input('id'));
+        $line->name = e($request->input('name'));
+        if($line->save()){
+            $icon = 'success';
+            $message_line = 'Línea tecnólogica actualizada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_line = 'No se pudo actualizar la línea tecnólogica.';
+        }
+        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
+    }
+
+    public function deleteLine($id){
+        $line = Line::find($id);
+        return view('sica::admin.academy.lines.delete',compact('line'));
+    }
+
+    public function destroyLine(Request $request){
+        $line = Line::findOrFail($request->input('id'));
+        if($line->delete()){
+            $icon = 'success';
+            $message_line = 'Línea tecnólogica eliminada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_line = 'No se pudo eliminar la línea tecnólogica.';
+        }
+        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
     }
 
 }
