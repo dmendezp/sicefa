@@ -24,11 +24,16 @@
                     <i class="far fa-list"></i>
                 </span>
             </div>
-            {!! Form::select('measurement_unit_id', $measurement_units,  isset($element) ? $element->measurement_unit_id : null, [
+            {!! Form::select(
+                'measurement_unit_id',
+                $measurement_units,
+                isset($element) ? $element->measurement_unit_id : null,
+                [
                     'placeholder' => '-- Seleccione --',
                     'class' => 'form-control',
                     'required',
-            ]) !!}
+                ],
+            ) !!}
         </div>
 
         {!! Form::label('description', 'Descripción:', ['class' => 'mt-3']) !!}
@@ -47,35 +52,54 @@
     </div>
 
     <div class="col-md-4">
-        {!! Form::label('category', 'Categoria:', ['class' => 'mt-3']) !!}
+        {!! Form::label('category_id', 'Categoria:', ['class' => 'mt-3']) !!}
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">
                     <i class="far fa-list"></i>
                 </span>
             </div>
-            {{-- {!! Form::select('categoty_id', $categories,  isset($element) ? $element->categoty->name : null, [
-                    'class' => 'form-control',
-                    'required',
-                    'placeholder' => 'Categoria',
-            ]) !!} --}}
+            {!! Form::select('category_id', $categories, isset($element) ? $element->category_id : null, [
+                'class' => 'form-control',
+                'required',
+                'placeholder' => 'Categoria',
+            ]) !!}
         </div>
 
-        {!! Form::label('code', 'Codigo', ['class' => 'mt-3']) !!}
+        {!! Form::label('UNSPSC_code', 'Codigo', ['class' => 'mt-3']) !!}
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">
                     <i class="far fa-keyboard"></i>
                 </span>
             </div>
-            {!! Form::text('description', isset($element) ? $element->description : null, [
+            {!! Form::text('UNSPSC_code', isset($element) ? $element->UNSPSC_code : null, [
                 'class' => 'form-control',
-                'required',
                 'placeholder' => 'Codigo',
             ]) !!}
         </div>
 
-        <br>
+        {!! Form::label('kind_of_purchase', 'Tipo de Compra:', ['class' => 'mt-3']) !!}
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="far fa-list"></i>
+                </span>
+            </div>
+            {!! Form::select(
+                'kind_of_purchase_id',
+                $kind_of_purchase,
+                isset($element) ? $element->kind_of_purchase_id : null,
+                [
+                    'class' => 'form-control',
+                    'required',
+                    'placeholder' => 'Tipo de Compra',
+                ],
+            ) !!}
+        </div>
+    </div>
+
+    <div class="col-md-4">
         <div class="input-group">
             <div class="row">
                 <label>Subir imagen:</label>
@@ -84,15 +108,19 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="card border-secondary mb-3" style="max-width: 18rem;">
+        <div class="card border-secondary mb-3 mt-4" style="max-width: 18rem;">
             <div class="card-header"><b>Imagen</b></div>
             <div class="card-body">
-                <img id="imagenSeleccionada" style="width: 90%; height: 90%; float: left;">
+                @if (isset($element))
+                    <img src="@if ($element->image && file_exists(public_path($element->image))) {{ asset($element->image) }} @else {{ asset('modules/sica/images/sinImagen.png') }} @endif"
+                        id="imagenSeleccionada" class="img-fluid img-thumbnail"
+                        style="max-height: 200px; max-width:300px float: left;">
+                @else
+                    <img src="" id="imagenSeleccionada" class="img-fluid img-thumbnail"
+                        style="max-height: 200px; max-width:300px float: left;">
+                @endif
             </div>
         </div>
     </div>
 </div>
-

@@ -44,13 +44,17 @@
                                             <td>{{ $e->category->name }}</td>
                                             <td>
                                                 <div class="opts">
-                                                  <a data-path="admin/role" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.elements.show', $e->id) }}')">
+                                                  <a data-path="admin/role" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.elements.show', $e) }}')">
                                                     <b class="text-primary" data-toggle="tooltip" data-placement="top" title="Ver">
                                                         <i class="fas fa-eye"></i>
                                                     </b>
                                                   </a>                                                    
                                                   <a href="{{ route('sica.admin.inventory.elements.edit', $e) }}" data-path="admin/role"  data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-                                                  <a class="btn-delete" href="#" data-action="delete"  data-toggle='tooltip' data-placement="top"  data-object="{{ $e->id }}" data-path="admin/role" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
+                                                  <a data-path="admin/role" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.elements.delete', $e->id) }}')">
+                                                    <b class="text-primary" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </b>
+                                                  </a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -66,19 +70,34 @@
             </div>
         </div>
     </div>
+
+    <!-- General modal -->
+    <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered" role="document">
+            <div class="modal-content" id="modal-content"></div>
+        </div>
+    </div>
+    <div id="loader" style="display: none;"> {{-- Loader modal --}}
+        <div class="modal-body text-center" id="modal-loader">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div><br>
+            <b id="loader-message"></b>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script>
-       @if (Session::get('message_parameter'))
+       @if (Session::get('message_config'))
             $('html, body').animate({
                 /* Move the page to the previously selected configuration */
                 scrollTop: $("#{{ Session::get('card') }}").offset().top
             }, 1000);
             /* Show the message */
             @if (Session::get('icon') == 'success')
-                toastr.success("{{ Session::get('message_parameter') }}");
+                toastr.success("{{ Session::get('message_config') }}");
             @elseif (Session::get('icon') == 'error')
-                toastr.error("{{ Session::get('message_parameter') }}");
+                toastr.error("{{ Session::get('message_config') }}");
             @endif
         @endif
         function ajaxAction(route) {

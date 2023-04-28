@@ -3,26 +3,35 @@ use Illuminate\Support\Facades\Route;
 use Modules\SICA\Http\Controllers\academy\AcademyController;
 
 Route::middleware(['lang'])->group(function(){
+    /* RUTAS PARA EL ROL DE ADMINISTRADOR */
+    Route::prefix('sica/admin')->group(function() {
+        // ------------- Rutas de Academy -------------
+        Route::prefix('academy')->group(function(){
+            // ------------ Rutas de Trimestres ------------------
+            Route::get('/quarters', [AcademyController::class, 'quarters'])->name('sica.admin.academy.quarters');
+            // ------------- Rutas de Programas
+            Route::get('/curriculums', [AcademyController::class, 'curriculums'])->name('sica.admin.academy.curriculums');
+            // ------------- Rutas de Redes ----------------------
+            Route::get('/network', [AcademyController::class, 'networks'])->name('sica.admin.academy.networks');
+            // ------------- Rutas de Titulaciones
+            Route::get('/courses', [AcademyController::class, 'courses'])->name('sica.admin.academy.courses');
 
-    Route::prefix('sica')->group(function() {
+            // ------------Rutas de lineas-----------
+            //Listar
+            Route::get('/lines', [AcademyController::class, 'lines'])->name('sica.admin.academy.lines');
 
-        Route::get('/admin/academy/quarters', [AcademyController::class, 'quarters'])->name('sica.admin.academy.quarters');
-        Route::get('/admin/academy/curriculums', [AcademyController::class, 'curriculums'])->name('sica.admin.academy.curriculums');
-        Route::get('/admin/academy/network', [AcademyController::class, 'networks'])->name('sica.admin.academy.networks');
-        Route::get('/admin/academy/courses', [AcademyController::class, 'courses'])->name('sica.admin.academy.courses');
+            //Agregar
+            Route::get('/line/create', [AcademyController::class, 'createLine'])->name('sica.admin.academy.line.create');
+            Route::post('/line/store', [AcademyController::class, 'storeLine'])->name('sica.admin.academy.line.store');
 
-        /* ------------Rutas de lineas----------- */
-        //Listar
-        Route::get('/admin/academy/lines', [AcademyController::class, 'lines'])->name('sica.admin.academy.lines');
+            //Editar
+            Route::get('/line/edit/{id}', [AcademyController::class, 'editLine'])->name('sica.admin.academy.line.edit');
+            Route::post('/line/edit', [AcademyController::class, 'updateLine'])->name('sica.admin.academy.line.update');
 
-        //Agregar
-        Route::get('/admin/line/create', [AcademyController::class, 'createLines'])->name('sica.admin.academy.lines.create'); //Solicitud GET que tenga esta URL se manejará a través de esta ruta.
-        Route::post('/admin/line/store', [AcademyController::class, 'storeLines'])->name('sica.admin.academy.lines.store');
-
-        //Editar
-        Route::get('/admin/line/edit/{id}', [AcademyController::class, 'editLines'])->name('sica.admin.academy.line.edit');
-        Route::post('/admin/line/edit', [AcademyController::class, 'updateLines'])->name('sica.admin.academy.line.update');
-
+            // Eliminar
+            Route::get('/line/delete/{id}', [AcademyController::class, 'deleteLine'])->name('sica.admin.academy.line.delete');
+            Route::post('/line/delete/', [AcademyController::class, 'destroyLine'])->name('sica.admin.academy.line.destroy');
+        });
     });
 
 }); 

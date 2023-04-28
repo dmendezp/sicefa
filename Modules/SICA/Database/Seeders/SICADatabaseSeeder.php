@@ -4,6 +4,7 @@ namespace Modules\SICA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Modules\SICA\Entities\Element;
 
 class SICADatabaseSeeder extends Seeder
 {
