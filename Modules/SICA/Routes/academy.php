@@ -38,7 +38,14 @@ Route::middleware(['lang'])->group(function(){
             //Agregar
             Route::get('/network/create', [AcademyController::class, 'createNetwork'])->name('sica.admin.academy.network.create');
             Route::post('/network/store', [AcademyController::class, 'storeNetwork'])->name('sica.admin.academy.network.store');
+
+            //Editar
+            Route::get('/network/edit/{id}', [AcademyController::class, 'editNetwork'])->name('sica.admin.academy.network.edit');
+            Route::post('/network/update/', [AcademyController::class, 'updateNetwork'])->name('sica.admin.academy.network.update');
+
+            //Eliminar
+            Route::get('/network/delete/{id}', [AcademyController::class, 'deleteNetwork'])->name('sica.admin.academy.network.delete');
+            Route::post('/network/delete/', [AcademyController::class, 'destroyNetwork'])->name('sica.admin.academy.network.destroy');
         });
     });
-
 }); 

@@ -43,14 +43,15 @@
                                             <td>{{ $n->line->name }}</td>
                                             <td>
                                                 <div class="opts">
-                                                    <a href="{{ url('admin/re/edit/' . $n->id) }}" class="text-warning" data-toggle='tooltip' data-placement="top" title="Ver">
-                                                        <i class="fas fa-eye"></i>
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.network.edit', $n->id) }}')">
+                                                        <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                            <i class="fas fa-edit"></i>
+                                                        </b>
                                                     </a>
-                                                    <a href="{{ url('admin/re/edit/' . $n->id) }}" class="text-info" data-toggle='tooltip' data-placement="top" title="Editar">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="{{ $n->id }}" data-path="admin/role" title="Eliminar">
-                                                        <i class="fas fa-trash-alt"></i>
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.network.destroy') }}/{{ $n->id }}')">
+                                                        <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </b>
                                                     </a>
                                                 </div>
                                             </td>
