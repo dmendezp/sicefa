@@ -12,7 +12,7 @@
                         <h3 class="card-title">Líneas Tecnológicas</h3>
                         <div class="btns">
                             <a href="{{ route('sica.admin.academy.curriculums') }}" class="btn btn-info float-right ml-1"> Programas <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
-                            <a href="{{ route('sica.admin.academy.networks') }}" class="btn btn-info float-right ml-1"> Redes <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
+                            <a href="{{ route('sica.admin.academy.networks') }}" class="btn btn-info float-right ml-1"> Redes de Conocimeinto <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
                         </div>
                     </div>
                     <!-- /.card-header -->

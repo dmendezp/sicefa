@@ -31,12 +31,6 @@ class AcademyController extends Controller
         return view('sica::admin.academy.courses.home',$data);
     }
 
-    public function networks(){
-        $networks = Network::with('line')->orderBy('id','asc')->get();
-        $data = ['title'=>trans('sica::menu.Networks'),'networks'=>$networks];
-        return view('sica::admin.academy.networks.home',$data);
-    }
-
     //-------------------Seccion de Líneas------------------------
     public function lines(){
         $line = Line::orderBy('updated_at','DESC')->get();
@@ -96,4 +90,29 @@ class AcademyController extends Controller
         return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
     }
 
+    //-------------------Seccion de Redes Tecnológicas------------------------
+    public function networks(){
+        $networks = Network::with('line')->orderBy('updated_at','DESC')->get();
+        $data = ['title'=>trans('sica::menu.Networks'),'networks'=>$networks];
+        return view('sica::admin.academy.networks.home',$data);
+    }
+
+    public function createNetwork(){
+        $lines = Line::orderBy('name', 'ASC')->pluck('name', 'id');
+        return view('sica::admin.academy.networks.create', compact('lines'));
+    }
+
+    public function storeNetwork(Request $request){
+        $network = new Network();
+        $network->name = e($request->input('name'));
+        $network->line()->associate(Line::find($request->input('line_id')));
+        if($network->save()){
+            $icon = 'success';
+            $message_network = 'Red de conocimiento agregada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_network = 'No se pudo agregar la red de conocimiento.';
+        }
+        return back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
+    }
 }
