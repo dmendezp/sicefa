@@ -16,7 +16,9 @@ class PeopleTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
+        $number_people = 3600; // Definir la cantidad de personas
+
         $population_group = PopulationGroup::firstOrCreate(['name' => 'NINGUNA']); // Consultar o registrar Grupo Poblacional
         $eps = EPS::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar EPS
 
@@ -59,6 +61,8 @@ class PeopleTableSeeder extends Seeder
             'eps_id' => $eps->id,
             'population_group_id' => $population_group->id
         ]);
+
+        Person::factory()->count($number_people)->create(); // Generar personas de prueba de acuerdo a la cantidad definida
 
     }
 }
