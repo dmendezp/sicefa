@@ -90,7 +90,7 @@ class AcademyController extends Controller
         return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
     }
 
-    //-------------------Seccion de Redes Tecnológicas------------------------
+    //-------------------Seccion de Redes de Conocimiento------------------------
     public function networks(){
         $networks = Network::with('line')->orderBy('updated_at','DESC')->get();
         $data = ['title'=>trans('sica::menu.Networks'),'networks'=>$networks];
@@ -115,4 +115,30 @@ class AcademyController extends Controller
         }
         return back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
     }
+
+    public function editNetwork($id){
+        $network = Network::find($id);
+        $lines = Line::orderBy('name', 'ASC')->pluck('name', 'id');
+        $data = [
+            'title' => 'Editar Red de Conocimiento',
+            'network' => $network,
+            'lines' => $lines
+        ];
+        return view('sica::admin.academy.networks.edit', $data);
+    }
+
+    public function updateNetwork(Request $request){
+        $network = Network::find($request->input('id'));
+        $network->name = e($request->input('name'));
+        $network->line_id = e($request->input('line_id'));
+        if($network->save()){
+            $icon = 'success';
+            $message_network = 'Red de conocimiento actualizada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_network = 'No se pudo actualizar la red de conocimiento.';
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
+    }
+
 }

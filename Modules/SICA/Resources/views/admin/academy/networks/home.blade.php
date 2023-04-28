@@ -46,8 +46,10 @@
                                                     <a href="{{ url('admin/re/edit/' . $n->id) }}" class="text-warning" data-toggle='tooltip' data-placement="top" title="Ver">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                    <a href="{{ url('admin/re/edit/' . $n->id) }}" class="text-info" data-toggle='tooltip' data-placement="top" title="Editar">
-                                                        <i class="fas fa-edit"></i>
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.network.edit', $n->id) }}')">
+                                                        <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                            <i class="fas fa-edit"></i>
+                                                        </b>
                                                     </a>
                                                     <a class="text-danger btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="{{ $n->id }}" data-path="admin/role" title="Eliminar">
                                                         <i class="fas fa-trash-alt"></i>
