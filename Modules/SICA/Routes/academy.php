@@ -11,8 +11,7 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/quarters', [AcademyController::class, 'quarters'])->name('sica.admin.academy.quarters');
             // ------------- Rutas de Programas
             Route::get('/curriculums', [AcademyController::class, 'curriculums'])->name('sica.admin.academy.curriculums');
-            // ------------- Rutas de Redes ----------------------
-            Route::get('/network', [AcademyController::class, 'networks'])->name('sica.admin.academy.networks');
+
             // ------------- Rutas de Titulaciones
             Route::get('/courses', [AcademyController::class, 'courses'])->name('sica.admin.academy.courses');
 
@@ -31,6 +30,14 @@ Route::middleware(['lang'])->group(function(){
             // Eliminar
             Route::get('/line/delete/{id}', [AcademyController::class, 'deleteLine'])->name('sica.admin.academy.line.delete');
             Route::post('/line/delete/', [AcademyController::class, 'destroyLine'])->name('sica.admin.academy.line.destroy');
+
+            // ------------- Rutas de Redes ----------------------
+            //Listar
+            Route::get('/network', [AcademyController::class, 'networks'])->name('sica.admin.academy.networks');
+
+            //Agregar
+            Route::get('/network/create', [AcademyController::class, 'createNetwork'])->name('sica.admin.academy.network.create');
+            Route::post('/network/store', [AcademyController::class, 'storeNetwork'])->name('sica.admin.academy.network.store');
         });
     });
 
