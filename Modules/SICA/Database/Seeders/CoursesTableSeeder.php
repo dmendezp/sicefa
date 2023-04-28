@@ -19,7 +19,7 @@ class CoursesTableSeeder extends Seeder
         $number_courses = 120; // Definir la cantidad de cursos formativos
 
         $program = Program::where('name','ANÁLISIS Y DESARROLLO DE SISTEMAS DE INFORMACIÓN')->first();
-        Course::updateOrCreate(['code' => 2397491],[ // Consultar o registrar curso de formación
+        Course::updateOrCreate(['code' => 2397491],[ // Actualizar o registrar curso de formación
             'star_date' => '2021-10-04',
             'end_date' => '2023-10-03',
             'status' => 'Activo',

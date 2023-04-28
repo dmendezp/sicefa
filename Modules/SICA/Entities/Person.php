@@ -114,7 +114,7 @@ class Person extends Model implements Auditable
     }
 
 
-    // configuración de factory para la generación de datos de pruebas
+    // Configuración de factory para la generación de datos de pruebas
     protected static function newFactory()
     {
         return \Modules\SICA\Database\factories\PersonFactory::new();
