@@ -22,7 +22,7 @@ class InventoryController extends Controller
         return view('ptventa::inventory.create', compact('view'));
     }
 
-    public function pdf(){
+    public function pdf(){ //Descarga de archivos PDF
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
         $pdf = Pdf::loadView('ptventa::inventory.pdf', compact('inventories'));
         return $pdf->stream();
