@@ -4,6 +4,7 @@ namespace Modules\SICA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Modules\SICA\Entities\Element;
 
 class SICADatabaseSeeder extends Seeder
 {
@@ -28,6 +29,7 @@ class SICADatabaseSeeder extends Seeder
         $this->call(LinesTableSeeder::class); // Ejecutar Seeder de líneas tecnológicas
         $this->call(NetworksTableSeeder::class); // Ejecutar Seeder de redes de conocimiento
         $this->call(ProgramsTableSeeder::class); // Ejecutar Seeder de programas de formación
+        Element::factory()->count(5)->create();
 
         DB::commit(); // Finalizar transacción
 

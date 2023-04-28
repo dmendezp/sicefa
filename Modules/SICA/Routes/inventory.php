@@ -16,8 +16,11 @@ Route::middleware(['lang'])->group(function(){
             // --------------  Rutas de Elementos ---------------------------------
             Route::get('elements', [InventoryController::class,  'elements'])->name('sica.admin.inventory.elements'); // Lista de bodegas
             Route::get('elements/create', [InventoryController::class, 'createElement'])->name('sica.admin.inventory.elements.create'); 
-            Route::get('/elements/edit/{id}', [InventoryController::class, 'editElement'])->name('sica.admin.inventory.elements.edit');
-            Route::get('/elements/show/{id}', [InventoryController::class, 'showElement'])->name('sica.admin.inventory.elements.show');
+            Route::get('/elements/edit/{element}', [InventoryController::class, 'editElement'])->name('sica.admin.inventory.elements.edit');
+            Route::get('/elements/show/{element}', [InventoryController::class, 'showElement'])->name('sica.admin.inventory.elements.show');
+            Route::post('/elements/store', [InventoryController::class, 'storeElement'])->name('sica.admin.inventory.elements.store');
+            Route::get('/elements/delete/{id}', [InventoryController::class, 'deleteElement'])->name('sica.admin.inventory.elements.delete');
+            Route::post('/elements/delete/', [InventoryController::class, 'destroyElement'])->name('sica.admin.inventory.elements.destroy');
 
 
 
