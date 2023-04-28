@@ -18,7 +18,7 @@ class ProgramsTableSeeder extends Seeder
 
         $number_programs = 24; // Definir la cantidad de programas de prueba
 
-        $network = Network::where('name','TECNOLOGÍAS DE LA INFORMACIÓN, DISEÑO Y DESARROLLO DE SOFTWARE')->first(); // Consultar red de conocimiento
+        $network = Network::where('name','TECNOLOGÍAS DE LA INFORMACIÓN, DISEÑO Y DESARROLLO DE SOFTWARE')->first(); // Consultar o registrar red de conocimiento
         Program::updateOrCreate(['sofia_code' => 822106],[ // Actualizar o registrar Programa de formación
             'name' => 'ANÁLISIS Y DESARROLLO DE SISTEMAS DE INFORMACIÓN',
             'network_id' => $network->id,
@@ -26,7 +26,7 @@ class ProgramsTableSeeder extends Seeder
             'sofia_code' => 822106
         ]);
 
-        Program::factory()->count($number_programs)->create(); // Generar programas de formación de prueba de acuerdo a la cantidad requerida
+        Program::factory()->count($number_programs)->create(); // Generar cursos de formación de prueba de acuerdo a la cantidad requerida
 
     }
 }

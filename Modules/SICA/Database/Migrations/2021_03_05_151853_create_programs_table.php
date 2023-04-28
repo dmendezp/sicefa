@@ -17,7 +17,7 @@ class CreateProgramsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->foreignId('network_id')->constrained()->onDelete('cascade');
-            $table->enum('program_type', ['Tecnólogo','Técnico','Operario' ]);
+            $table->enum('program_type', ['Tecnólogo','Técnico','Operario']);
             $table->unsignedInteger('sofia_code')->unique();
             $table->softDeletes();
             $table->timestamps();

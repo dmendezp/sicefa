@@ -24,7 +24,7 @@ class ProgramFactory extends Factory
             'name' => rtrim($this->faker->unique()->sentence(),'.'),
             'network_id' => Network::pluck('id')->random(),
             'program_type' => $this->faker->randomElement(['Tecnólogo','Técnico','Operario']),
-            'sofia_code' => $this->faker->randomNumber(6, true)
+            'sofia_code' => $this->faker->unique()->randomNumber(6, true)
         ];
     }
 }

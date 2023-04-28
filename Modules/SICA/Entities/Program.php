@@ -41,15 +41,15 @@ class Program extends Model implements Auditable
     public function network(){ // Accede a la red de conocimiento que pertenece
         return $this->belongsTo(Network::class);
     }
-    public function courses(){
+    public function courses(){ // Accede a todos los cursos asociados a este programa de formación
         return $this->hasMany(Course::class);
     }
 
 
-    // Configuración de factor para la generación de datos de pruebas
+    // Configuración de factory para la generación de datos de pruebas
     protected static function newFactory()
     {
-        return \Modules\SICA\Database\factories\ProgramFactory::new(); 
+        return \Modules\SICA\Database\factories\ProgramFactory::new();
     }
 
 }
