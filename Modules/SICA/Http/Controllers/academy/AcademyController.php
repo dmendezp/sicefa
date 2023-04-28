@@ -141,4 +141,22 @@ class AcademyController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
     }
 
+    public function deleteNetwork($id){
+        $network = Network::find($id);
+        $data = [ 'title' => 'Eliminar Red de Conocimiento', 'network' => $network,];
+        return view('sica::admin.academy.networks.delete', $data);
+    }
+
+    public function destroyNetwork(Request $request){
+        $network = Network::findOrFail($request->input('id'));
+        if($network->delete()){
+            $icon = 'success';
+            $message_network = 'Red de conocimiento eliminada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_network = 'No se pudo eliminar la red de conocimiento.';
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
+    }
+    
 }

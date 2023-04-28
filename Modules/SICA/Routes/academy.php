@@ -42,7 +42,10 @@ Route::middleware(['lang'])->group(function(){
             //Editar
             Route::get('/network/edit/{id}', [AcademyController::class, 'editNetwork'])->name('sica.admin.academy.network.edit');
             Route::post('/network/update/', [AcademyController::class, 'updateNetwork'])->name('sica.admin.academy.network.update');
+
+            //Eliminar
+            Route::get('/network/delete/{id}', [AcademyController::class, 'deleteNetwork'])->name('sica.admin.academy.network.delete');
+            Route::post('/network/delete/', [AcademyController::class, 'destroyNetwork'])->name('sica.admin.academy.network.destroy');
         });
     });
-
 }); 
