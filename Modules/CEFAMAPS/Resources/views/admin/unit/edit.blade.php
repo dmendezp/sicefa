@@ -2,7 +2,8 @@
 
 @section('breadcrumb')
 
-  <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
+  <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
+  <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.unit.index') }}"><i class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::unit.Units') }}</a></li>
   <li class="breadcrumb-item"><a href="#"><i class="fas fa-map-signs"></i> {{ trans('cefamaps::menu.Edit') }}</a></li>
   <li class="breadcrumb-item"><a href="#"><i class="fas {{$editunit->icon}}"></i> {{$editunit->name}}</a></li>
 

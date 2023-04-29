@@ -19,21 +19,27 @@ class FarmController extends Controller
    * Display a listing of the resource.
     * @return Renderable
    */
-  public function index()
+  public function index(Request $request)
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
     $classenviron = ClassEnvironment::get();
     $farm = Farm::with('municipality')->get();
-    $data = ['title'=>trans('cefamaps::farm.Farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron];
-    return view('cefamaps::admin.farm.index',$data);
+    $filter = Environment::query()->with('farms','productive_units');
+    if ($request->has('id')) {
+      $filter->where('farms_id', $request->id);
+      $filter->where('productive_units_id', $request->id);
+    }
+    $result = $filter->get();
+    $data = ['title'=>trans('cefamaps::farm.Farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    return view('cefamaps::admin.farm.index',$data, compact('result'));
   }
 
   /**
    * Display a listing of the resource.
    * @return Renderable
    */
-  public function add()
+  public function add(Request $request)
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
@@ -41,8 +47,14 @@ class FarmController extends Controller
     $farm = Farm::get();
     $person = Person::get();
     $muni = Municipality::get();
-    $data = ['title'=>trans('cefamaps::farm.Add farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'classenviron'=>$classenviron];
-    return view('cefamaps::admin.farm.add',$data);
+    $filter = Environment::query()->with('farms','productive_units');
+    if ($request->has('id')) {
+      $filter->where('farms_id', $request->id);
+      $filter->where('productive_units_id', $request->id);
+    }
+    $result = $filter->get();
+    $data = ['title'=>trans('cefamaps::farm.Add farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    return view('cefamaps::admin.farm.add',$data, compact('result'));
   }
 
   /**
@@ -66,7 +78,7 @@ class FarmController extends Controller
    * Display a listing of the resource.
    * @return Renderable
    */
-  public function edit($id)
+  public function edit($id, Request $request)
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
@@ -75,8 +87,14 @@ class FarmController extends Controller
     $person = Person::get();
     $muni = Municipality::get();
     $editfarm = Farm::findOrFail($id);
-    $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'editfarm'=>$editfarm, 'classenviron'=>$classenviron ];
-    return view('cefamaps::admin.farm.edit',$data);
+    $filter = Environment::query()->with('farms','productive_units');
+    if ($request->has('id')) {
+      $filter->where('farms_id', $request->id);
+      $filter->where('productive_units_id', $request->id);
+    }
+    $result = $filter->get();
+    $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'editfarm'=>$editfarm, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    return view('cefamaps::admin.farm.edit',$data, compact('result'));
   }
 
   /**
@@ -100,7 +118,7 @@ class FarmController extends Controller
    * Display a listing of the resource.
    * @return Renderable
    */
-  public function view($id)
+/*   public function view($id)
   {
     $unit = ProductiveUnit::get();
     $environ = Environment::get();
@@ -108,7 +126,7 @@ class FarmController extends Controller
     $viewfarm = Farm::findOrFail($id);
     $data = ['title'=>trans('cefamaps::unit.View'), 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'viewfarm'=>$viewfarm];
     return view('cefamaps::admin.farm.view',$data);
-  }
+  } */
 
   /**
    * Display a listing of the resource.

@@ -88,8 +88,6 @@
                   </a>
                 </li>
               </ul>
-
-
               <!-- Fin para las Unidades del adminitrador -->
               <!-- Inicio para las granjas del adminitrador -->
               <ul class="nav nav-treeview">
@@ -126,35 +124,22 @@
           <!-- Fin para las configuraciones del adminitrador -->
           <!-- MENU PARA LAS FARM NUEVAS -->
           <li class="nav-item {{ ! Route::is('cefa.cefamaps.farm.view') ?: 'menu-is-opening menu-open' }}">
-            <a href="#" class="nav-link {{ ! Route::is('cefa.cefamaps.farm.view.*') ?: 'active' }}">
-              <i class="nav-icon fa-solid fa-tractor"></i>
-              <p>
-                {{ trans('cefamaps::farm.Area') }}
-                <i class="right fa-solid fa-map-pin"></i>
-              </p>
-            </a>
-            @foreach($farm as $f)
-            <ul class="nav nav-treeview">
-              <li class="nav nav-item {{ ! Route::is('cefa.cefamaps.farm.view') ?: 'menu-is-opening menu-open' }}">
-                <a href="#" class="nav-link {{ ! Route::is('cefa.cefamaps.farm.view.*') ?: 'active' }}">
-                  <i class="nav-icon fa-solid fa-tractor"></i>
-                  <p>
-                    {{ $f->name }}
-                    <i class="right fa-solid fa-map-pin"></i>
-                  </p>
-                </a>
-                @foreach($unit as $u)
-                <ul class="nav nav-treeview">
+            @foreach($result as $r)
+              <a href="#" class="nav-link {{ ! Route::is('cefa.cefamaps.farm.view'.$r->id) ?: 'active' }}">
+                <i class="nav-icon fa-solid fa-tractor"></i>
+                <p>
+                  {{ $r->farms->name }}
+                  <i class="right fa-solid fa-map-pin"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
                   <li class="nav nav-item">
-                    <a href="{{ url('/cefamaps/unit/view/'.$u->id) }}" class="nav-link {{ ! Route::is('/cefamaps/unit/view/'.$u->id) ?: 'active'}} ">
-                      <i class="nav-icon {{ $u->icon }}"></i>
-                      <p>{{$u->name}}</p>
+                    <a href="{{ url('/cefamaps/unit/view/'.$r->id) }}" class="nav-link {{ ! Route::is('/cefamaps/unit/view/'.$r->id) ?: 'active'}} ">
+                      <i class="nav-icon {{ $r->icon }}"></i>
+                      <p>{{$r->productive_units->name}}</p>
                     </a>
                   </li>
-                </ul>
-                @endforeach
-              </li>
-            </ul>
+              </ul>
             @endforeach
           </li>
           <!-- CIERRE MENU PARA LAS FARM NUEVAS -->

@@ -11,7 +11,6 @@ use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ClassEnvironment;
 use Modules\CEFAMAPS\Entities\Page;
-use Modules\CEFAMAPS\Entities\Coordinate;
 
 class CEFAMAPSController extends Controller
 {
@@ -19,14 +18,20 @@ class CEFAMAPSController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         $unit = ProductiveUnit::get();
         $classenviron = ClassEnvironment::get();
         $farm = Farm::get();
         $environ = Environment::get();
-        $data = ['title'=>trans('cefamaps::menu.Home'), 'unit'=>$unit, 'farm'=>$farm, 'environ'=>$environ, 'classenviron'=>$classenviron];
-        return view('cefamaps::index',$data);
+        $filter = Environment::query()->with('farms','productive_units');
+        if ($request->has('id')) {
+            $filter->where('farms_id', $request->id);
+            $filter->where('productive_units_id', $request->id);
+        }
+        $result = $filter->get();
+        $data = ['title'=>trans('cefamaps::menu.Home'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron, 'filter'=>$filter];
+        return view('cefamaps::index',$data, compact('result'));
     }
 
 }

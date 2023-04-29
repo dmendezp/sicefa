@@ -1,7 +1,8 @@
 @extends('cefamaps::layouts.master')
 
 @section('breadcrumb')
-  <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
+  <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
+  <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.unit.index') }}"><i class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::unit.Units') }}</a></li>
   <li class="breadcrumb-item"><a href="#"><i class="fa-solid fa-square-plus"></i> {{ trans('cefamaps::unit.Add') }} {{ trans('cefamaps::unit.Unit') }}</a></li>
 @endsection
 

@@ -7,12 +7,6 @@ use Modules\CEFAMAPS\Http\Controllers\config\FarmController;
 use Modules\CEFAMAPS\Http\Controllers\config\CoordinateController;
 use Modules\CEFAMAPS\Http\Controllers\config\PageController;
 
-/*
- * TO DO:
- * Falta agregar en el seedPermissions los de methodo POST;
- * Falta todas las rutas de Coordenadas;
- */
-
 Route::middleware(['lang'])->group(function(){
 
     Route::prefix('cefamaps')->group(function() {
@@ -56,16 +50,6 @@ Route::middleware(['lang'])->group(function(){
         Route::post('/farm/edit/',[FarmController::class, 'editpost'])->name('cefamaps.admin.farm.edit');
         // para poder eliminar Farms
         Route::get('/farm/delete/{id}', [FarmController::class, 'destroy'])->name('cefamaps.admin.farm.delete');
-
-        //Todas las rutas para poder agregar Coordenadas
-        Route::get('/coordenate/index',[CoordinateController::class, 'index'])->name('cefamaps.admin.config.coordenate.index');
-        //para poder agregar Coordenadas
-        Route::get('/coordenate/add',[CoordinateController::class, 'add'])->name('cefamaps.admin.config.coordenate.add');
-        Route::post('/coordenate/add',[CoordinateController::class, 'addpost'])->name('cefamaps.admin.config.coordenate.add');
-        // para poder editar coordenate
-        Route::get('/coordenate/edit/{id}',[CoordinateController::class, 'edit'])->name('cefamaps.admin.config.coordenate.edit');
-        // para poder eliminar coordenate
-        Route::get('/coordenate/delete/{id}', [CoordinateController::class, 'destroy'])->name('cefamaps.admin.coordenate.delete');
 
         // Todas las rutas de las Page 
         Route::get('/page/index', [PageController::class, 'index'])->name('cefamaps.admin.config.page.index');

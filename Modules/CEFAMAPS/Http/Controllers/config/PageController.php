@@ -30,23 +30,35 @@ class PageController extends Controller
       $query->where('environment_id', $request->id);
     }
     $final = $query->get();
-    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'query'=>$query, 'classenviron'=>$classenviron];
-    return view('cefamaps::admin.page.index',$data, compact('final'));
+    $filter = Environment::query()->with('farms','productive_units');
+    if ($request->has('id')) {
+      $filter->where('farms_id', $request->id);
+      $filter->where('productive_units_id', $request->id);
+    }
+    $result = $filter->get();
+    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'query'=>$query, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    return view('cefamaps::admin.page.index',$data, compact('final','result'));
   }
 
   /**
    * Display a listing of the resource.
    * @return Renderable
    */
-  public function add()
+  public function add(Request $request)
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
     $classenviron = ClassEnvironment::get();
     $farm = Farm::get();
     $page = Page::get();
-    $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page, 'classenviron'=>$classenviron];
-    return view('cefamaps::admin.page.add',$data);
+    $filter = Environment::query()->with('farms','productive_units');
+    if ($request->has('id')) {
+      $filter->where('farms_id', $request->id);
+      $filter->where('productive_units_id', $request->id);
+    }
+    $result = $filter->get();
+    $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    return view('cefamaps::admin.page.add',$data, compact('result'));
   }
 
   /**
@@ -88,7 +100,7 @@ class PageController extends Controller
    * Display a listing of the resource.
    * @return Renderable
    */
-  public function edit($id)
+  public function edit($id, Request $request)
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
@@ -96,8 +108,14 @@ class PageController extends Controller
     $farm = Farm::get();
     $page = Page::get();
     $editpage = Page::findOrFail($id);
-    $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page, 'editpage'=>$editpage, 'classenviron'=>$classenviron];
-    return view('cefamaps::admin.page.edit',$data);
+    $filter = Environment::query()->with('farms','productive_units');
+    if ($request->has('id')) {
+      $filter->where('farms_id', $request->id);
+      $filter->where('productive_units_id', $request->id);
+    }
+    $result = $filter->get();
+    $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'page'=>$page, 'editpage'=>$editpage, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    return view('cefamaps::admin.page.edit',$data, compact('result'));
   }
 
   /**
