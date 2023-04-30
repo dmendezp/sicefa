@@ -42,7 +42,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="intro text-center">
-                        <h1>Team Members</h1>
+                        <h1>Equipo de trabajo</h1>
                         <p class="mx-auto">Nuestro gran equipo  de trabajao</p>
                     </div>
                 </div>

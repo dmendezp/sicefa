@@ -33,6 +33,11 @@ class RadioRouteController extends Controller
      }
 
      
+     public function parrilla()
+     {
+        $parrilla = Parrilla::get();
 
+        return json_encode($parrilla);
+     }
 
 }

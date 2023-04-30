@@ -32,9 +32,9 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-{{--           <div class="col-md-3">
+          <div class="col-md-2">
 
-            <!-- peticion -->
+            {{-- <!-- peticion -->
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Haz tu petición</h3>
@@ -49,23 +49,19 @@
               </div>
               <!-- /.card-body -->
             </div>
-            <!-- /peticion -->
-          </div> --}}
+            <!-- /peticion --> --}}
+          </div>
           <!-- /.col -->
-          <div class="col-md-9">
+          <div class="col-md-8 p-3 ">
             <div class="card">
               <div class="card-header p-2">
-                <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
-                </ul>
+               
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
                   <div class="active tab-pane" id="activity">
                     <!-- Post -->
-                    <div class="post">
+                    <div class="post border border-secondary p-2">
                       <div class="user-block">
                         <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
                         <span class="username">
@@ -93,7 +89,14 @@
                         </span>
                       </p>
 
-                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+                      <form class="form-horizontal">
+                        <div class="input-group input-group-sm mb-0">
+                          <input class="form-control form-control-sm" placeholder="Response">
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-danger">Send</button>
+                          </div>
+                        </div>
+                      </form>
                     </div>
                     <!-- /.post -->
 
@@ -159,6 +162,9 @@
                           <!-- /.row -->
                         </div>
                         <!-- /.col -->
+                        <div class="col-md-2">
+                          
+                        </div>
                       </div>
                       <!-- /.row -->
 

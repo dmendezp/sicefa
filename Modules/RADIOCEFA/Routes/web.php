@@ -23,5 +23,10 @@ Route::prefix('radiocefa')->group(function() {
 
      Route::get('/sobrenosotros', 'RadioRouteController@sobrenosotros')->name('aboutus');
 
+     // parrilla de programacion
+     Route::get('/parrilla', 'RadioRouteController@parrilla')->name('parrilla');
+     
+     Route::get('/prueba', 'VotoController@VotoIngreso')->name('prueba');
+
 
 });
