@@ -19,7 +19,12 @@
                     {{-- Galería de imágenes --}}
                     <div wire:loading.remove>
                         @if ($elements->count())
-                            <div class="text-center text-muted my-2">@if(count($elements) == 1) Mostrando 1 resultado @else Mostrando {{ count($elements) }} resultados @endif</div>
+                            <div class="text-center text-muted my-2">
+                                @if(count($elements) == 1) Mostrando <strong>1</strong> resultado @else Mostrando <strong>{{ count($elements) }}</strong> resultados @endif
+                                @if (!empty($category))
+                                    para la categoría <strong>{{ $category }}</strong>
+                                @endif
+                            </div>
                             <div class="d-inline-flex">
                                 <div class="row  justify-content-center mx-auto">
                                     @foreach ($elements as $e)
@@ -40,7 +45,9 @@
                                 </div>
                             </div>
                         @else
-                            <div class="text-center text-muted my-3">No se encontraron resultados</div>
+                            <div class="text-center text-muted my-3">
+                                <strong>No se encontraron resultados</strong>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -49,9 +56,28 @@
             <!-- Categorías -->
             <div class="col-auto" id="sidebar">
                 <h4>Categorías</h4>
-                <ul class="list-group mt-3">
-                    <li class="list-group-item">Test <span class="badge mr-1 bg-success float-right">10</span></li>
-                </ul>
+                @if($categories->count())
+                    <style> /* Stilos para el hover por categorías */
+                        .list-group-item:hover {
+                            background-color: #a5acb3;
+                            cursor: pointer;
+                        }
+                    </style>
+                    <ul class="list-group my-1 overflow-auto" style="max-height: 500px;">
+                        <li class="list-group-item py-1 mb-1 list-group-item-action rounded-3 text-center" wire:click="defaultSearch()">
+                            Sin categoría
+                        </li>
+                        @foreach ($categories as $c)
+                            @if($c->elements->count()) {{-- Mostrar categorías que almenos tenga un elemento asociado --}}
+                                <li class="list-group-item py-1 list-group-item-action rounded-3" wire:click="searchByCategory({{ $c->id }})">
+                                    {{ $c->name }} <span class="badge mr-1 bg-success float-right">{{ $c->elements->count() }}</span>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                @else
+                    No hay categorías.
+                @endif
             </div>
 
         </div>
