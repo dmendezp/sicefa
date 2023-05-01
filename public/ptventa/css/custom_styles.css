@@ -1,1 +1,12 @@
 /* -------------------ZONE CUSTOM GENERAL STYLES ---------------------- */
+
+/* Creacion de ajustes de tamaño para la card de inventario, aqui se configura para que esta tenga un tamaño definido y lo que tenga dentro tambien sea adaptable */
+.custom-height {
+    height: 70px; /* Ajusta la altura según tus necesidades */
+  }
+  
+  .object-fit {
+    object-fit: cover;
+    height: 100%; /* Establece la altura de la imagen en 100% para que se ajuste a la altura de la tarjeta */
+  }
+  

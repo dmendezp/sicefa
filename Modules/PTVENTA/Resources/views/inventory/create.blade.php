@@ -21,12 +21,28 @@
                     <label for="warehouse">Bodega:</label>
                     <input type="text" class="form-control" id="warehouse" name="warehouse" disabled>
                 </div>
+                <div class="form-group">
+                    <label for="warehouse">Encargado quien recibe:</label>
+                    <input type="text" class="form-control" id="person" name="person" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="warehouse">Bodega que recibe:</label>
+                    <input type="text" class="form-control" id="warehouse" name="warehouse" disabled>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-9 h-100">
+    <div class="col-md-2">
+        <div class="card mb-3" style="width: 16rem;">
+            <div class="card-header text-bg-success text-center">Imagen del Producto</div>
+            <div class="card-body">
+                <img src="{{asset('ptventa/images/card1.jpg')}}" class="img-fluid" alt="...">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7 h-100">
         <div class="row mx-3 align-items-end">
-            <div class="col-md-6">
+            <div class="col-md-9">
                 <div class="form-group">
                     <label for="producto">Producto:</label>
                     <input type="text" class="form-control" id="producto" name="producto">
@@ -38,46 +54,49 @@
                     <input type="number" class="form-control" id="precio" name="precio">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="cantidad">Cantidad:</label>
                     <input type="number" class="form-control" id="precio" name="precio">
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="fechaProduccion">Fecha de Producción:</label>
-                    <input type="date" class="form-control" id="fechaProduccion" name="fechaProduccion">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="numeroLote">Número de lote:</label>
-                    <input type="number" class="form-control" id="numeroLote" name="numeroLote">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="fechaExpiracion">Fecha de Expiración:</label>
-                    <input type="date" class="form-control" id="fechaExpiracion" name="fechaExpiracion">
-                </div>
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="marca">Marca:</label>
                     <input type="text" class="form-control" id="marca" name="marca">
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
-                    <label for="descripcion">Observación:</label>
-                    <input type="text" class="form-control" id="descripcion" name="descripcion">
+                    <label for="numeroLote">Número de lote:</label>
+                    <input type="number" class="form-control" id="numeroLote" name="numeroLote">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="fechaProduccion">Fecha de Producción:</label>
+                    <input type="date" class="form-control" id="fechaProduccion" name="fechaProduccion">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="fechaExpiracion">Fecha de Expiración:</label>
+                    <input type="date" class="form-control" id="fechaExpiracion" name="fechaExpiracion">
+                </div>
+            </div>  
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="codInventario">Código de Inventario:</label>
                     <input type="number" class="form-control" id="codInventario" name="codInventario">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Acerca de:</label>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3">
