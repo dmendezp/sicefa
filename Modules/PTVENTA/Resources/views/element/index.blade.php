@@ -15,7 +15,7 @@
 @section('content')
     <div class="card card-success card-outline col-12 mx-auto">
         <div class="card-body">
-            @livewire('modules.p-t-v-e-n-t-a.element.gallery.show-images')
+            @livewire('ptventa::element.show-images')
         </div>
     </div>
 @endsection

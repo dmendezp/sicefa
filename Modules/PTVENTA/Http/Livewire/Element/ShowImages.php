@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Modules\PTVENTA\Element\Gallery;
+namespace Modules\PTVENTA\Http\Livewire\Element;
 
 use Livewire\Component;
 use Modules\SICA\Entities\Element;
@@ -25,7 +25,7 @@ class ShowImages extends Component
     }
 
     public function render(){
-        return view('livewire.modules.p-t-v-e-n-t-a.element.gallery.show-images');
+        return view('ptventa::livewire.element.show-images');
     }
 
     public function searchElements(){ // Buscar elementos por nombre
