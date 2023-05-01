@@ -18,6 +18,7 @@
         "laravelcollective/html": "^6.2",
         "livewire/livewire": "^2.12",
         "maatwebsite/excel": "^3.1",
+        "mhmiton/laravel-modules-livewire": "^1.6",
         "nwidart/laravel-modules": "^8.2",
         "owen-it/laravel-auditing": "^13.0",
         "unisharp/laravel-filemanager": "^2.4",

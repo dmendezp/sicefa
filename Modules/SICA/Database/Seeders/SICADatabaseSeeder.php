@@ -27,8 +27,11 @@ class SICADatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de permisos para roles
         $this->call(LinesTableSeeder::class); // Ejecutar Seeder de líneas tecnológicas
         $this->call(NetworksTableSeeder::class); // Ejecutar Seeder de redes de conocimiento
+        $this->call(ProgramsTableSeeder::class); // Ejecutar Seeder de programas de formación
+        $this->call(CoursesTableSeeder::class); // Ejecutar Seeder de cursos de formación
+        $this->call(ApprenticesTableSeeder::class); // Ejecutar Seeder de aprendices
 
-        DB::commit(); // Finalizar transación
+        DB::commit(); // Finalizar transacción
 
     }
 }
