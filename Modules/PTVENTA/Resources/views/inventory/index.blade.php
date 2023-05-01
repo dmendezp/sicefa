@@ -28,14 +28,13 @@
                     </select>
                 </div>
                 <div class="col"></div>
-                <div class="col-auto">
-                    <a href="{{ route('ptventa.inventory.pdf') }}" class="btn btn-success btn-sm"> PDF </a>
-                </div> 
-
-                <div class="col"></div>
-                <div class="col-auto">
+                <div class="col-auto pe-2">
                     <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm"> Registrar entrada </a>
                 </div>
+                <div class="col-auto ps-0">
+                    <a href="{{ route('ptventa.inventory.pdf') }}" class="btn btn-danger btn-sm"> <strong>PDF</strong> </a>
+                </div>
+
             </div>
             <hr>
             <h6 class="text-center bg-secondary py-1 rounded-2"><strong>Todos los productos</strong></h6>
