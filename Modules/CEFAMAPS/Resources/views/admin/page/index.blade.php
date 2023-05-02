@@ -34,39 +34,39 @@
                     </thead>
                     <tbody>
                       @foreach ($final as $r)
-                      <tr>
-                        <td>{{ $r->id }}</td>
-                        <td>{{ $r->name }}</td>
-                        <td>
-                          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$r->id}}">
-                            {{ trans('cefamaps::page.Page') }} {{ $r->id }}
-                          </button>
-                          <div class="modal fade" id="modal{{$r->id}}">
-                            <div class="modal-dialog modal-xl">
-                              <div class="modal-content">
-                                <div class="modal-header bg-primary">
-                                  <h4 class="modal-title">{{ trans('cefamaps::page.Content') }} {{ trans('cefamaps::page.Page') }} {{ $r->id }}</h4>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
-                                  </button>
+                        <tr>
+                          <td>{{ $r->id }}</td>
+                          <td>{{ $r->name }}</td>
+                          <td>
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$r->id}}">
+                              {{ trans('cefamaps::page.Page') }} {{ $r->id }}
+                            </button>
+                            <div class="modal fade" id="modal{{$r->id}}">
+                              <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                  <div class="modal-header bg-primary">
+                                    <h4 class="modal-title">{{ trans('cefamaps::page.Content') }} {{ trans('cefamaps::page.Page') }} {{ $r->id }}</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p>{!! $r->content !!}</p>
+                                  </div>  
                                 </div>
-                                <div class="modal-body">
-                                  <p>{!! $r->content !!}</p>
-                                </div>  
                               </div>
                             </div>
-                          </div>
-                        </td>
-                        <td>{{ $r->name }}</td>
-                        <td>
-                          <a href="{{url('/cefamaps/page/edit/'.$r->id)}}" class="btn btn-warning">
-                            <i class="fas fa-map-signs"></i>
-                          </a>
-                          <a class="btn btn-danger delete-page" href="#" type="submit" data-action="delete" data-object="{{ $r->id }}" data-path="/cefamaps/page/delete/">
-                            <i class="fa-solid fa-trash"></i>
-                          </a>
-                        </td>
-                      </tr>
+                          </td>
+                          <td>{{ $r->environment->name }}</td>
+                          <td>
+                            <a href="{{url('/cefamaps/page/edit/'.$r->id)}}" class="btn btn-warning">
+                              <i class="fas fa-map-signs"></i>
+                            </a>
+                            <a class="btn btn-danger delete-page" href="#" type="submit" data-action="delete" data-object="{{ $r->id }}" data-path="/cefamaps/page/delete/">
+                              <i class="fa-solid fa-trash"></i>
+                            </a>
+                          </td>
+                        </tr>
                       @endforeach
                     </tbody>
                   </table>
@@ -75,10 +75,8 @@
             </div>
           </div>
         </div>
-        <!-- /.col-md-6 -->
       </div>
-      <!-- /.row -->
-    </div><!-- /.container-fluid -->
+    </div>
   </div>
 
 @endsection
@@ -109,11 +107,11 @@
   </script>
 
   <script>
-  $(document).ready(function () {
-    $('#example1').DataTable({
-      order: [[3, 'desc']],
+    $(document).ready(function () {
+      $('#example1').DataTable({
+        order: [[3, 'desc']],
+      });
     });
-  });
   </script>
 
 @endsection

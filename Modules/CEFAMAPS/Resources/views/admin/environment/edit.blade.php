@@ -288,8 +288,8 @@
     <!-- Inicio mapa para las cooordenadas -->
     <script type="text/javascript">
     function initMap(){
-      var latitude = 2.612320;
-      var length = -75.360842;
+      var latitude = {{$c->latitude}};
+      var length = {{$c->length}};
 
       coordenas = {
         lng: length,
@@ -303,7 +303,7 @@
     function generarMapa(coordenas) {
       var mapa = new google.maps.Map(document.getElementById('mapa'),
       {
-        zoom: 16,
+        zoom: 17,
         mapTypeId: 'satellite',
         center: new google.maps.LatLng(coordenas.lat, coordenas.lng)
       });

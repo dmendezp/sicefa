@@ -194,11 +194,9 @@
   <script type="text/javascript">
     
     function initMap() {
-
       const mapId = document.getElementById("map");
       
       @foreach($environ as $e)
-
         // The map, centered at Uluru
         const map{{$e->id}} = new google.maps.Map(mapId, {
           zoom: 18,
@@ -211,10 +209,7 @@
           position: { lat: {{$e->latitude}},  lng: {{$e->length}} },
           map: map{{$e->id}},
         });
-
       @endforeach
-
     }
-
   </script>
 @endsection
