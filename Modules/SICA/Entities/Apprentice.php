@@ -36,7 +36,7 @@ class Apprentice extends Model implements Auditable
 
     // MUTADORES Y ACCESORES
     public function setGuardianAttribute($value){ // Convertir a mayúsculas en valor del dato guardian (MUTADOR)
-        return $this->attibutes['guardian'] = mb_strtoupper($value);
+        return $this->attributes['guardian'] = mb_strtoupper($value);
     }
     public function getCursoyProgramaNameAttribute(){ // Obtener el nombre del programa y el código del curso (ACCESOR)
         return $this->Course->Program->name.' - '.$this->Course->code;
@@ -60,7 +60,7 @@ class Apprentice extends Model implements Auditable
     // Configuración de factory para la generación de datos de pruebas
     protected static function newFactory()
     {
-        return \Modules\SICA\Database\factories\ApprenticeFactory::new(); 
+        return \Modules\SICA\Database\factories\ApprenticeFactory::new();
     }
 
 }

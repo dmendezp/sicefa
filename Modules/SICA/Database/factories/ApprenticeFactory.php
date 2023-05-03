@@ -21,10 +21,22 @@ class ApprenticeFactory extends Factory
      */
     public function definition()
     {
+
+        $aprentice_status = [ // Establecer los estados para los aprendices
+            'NO REGISTRA',
+            'CERTIFICADO',
+            'EN FORMACIÓN',
+            'RETIRO VOLUNTARIO',
+            'CANCELADO',
+            'TRASLADADO',
+            'APLAZADO',
+            'INDUCCIÓN'
+        ];
+
         return [
-            'person_id' => Person::pluck('id')->random(),
-            'course_id' => Course::pluck('id')->random(),
-            'apprentice_status' => $this->faker->randomElement(getEnumValues('apprentices','apprentice_status'))
+            'person_id' => Person::inRandomOrder()->first()->id,
+            'course_id' => Course::inRandomOrder()->first()->id,
+            'apprentice_status' => $this->faker->randomElement($aprentice_status)
         ];
     }
 }
