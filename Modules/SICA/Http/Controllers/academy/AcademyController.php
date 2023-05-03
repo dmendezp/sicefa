@@ -19,12 +19,6 @@ class AcademyController extends Controller
         return view('sica::admin.academy.quarters.home',$data);
     }
 
-    public function curriculums(){
-        $programs = Program::with('network')->orderBy('sofia_code','desc')->get();
-        $data = ['title'=>trans('sica::menu.Curriculums'),'programs'=>$programs];
-        return view('sica::admin.academy.curriculums.home',$data);
-    }
-
     public function courses(){
         $courses = Course::with('program')->orderBy('code','desc')->get();
         $data = ['title'=>trans('sica::menu.Courses'),'courses'=>$courses];
@@ -158,5 +152,77 @@ class AcademyController extends Controller
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
     }
-    
+
+    //-------------------Seccion de Programas de Formación------------------------
+    public function programs(){
+        $programs = Program::with('network')->orderBy('sofia_code','desc')->get();
+        $data = ['title'=>trans('sica::menu.Programs'),'programs'=>$programs];
+        return view('sica::admin.academy.programs.home',$data);
+    }
+
+    public function createProgram(){
+        $network = Network::orderBy('name', 'ASC')->pluck('name', 'id');
+        return view('sica::admin.academy.programs.create', compact('network'));
+    }
+
+    public function storeProgram(Request $request){
+        $program = new Program();
+        $program->sofia_code = e($request->input('sofia_code'));
+        $program->program_type = e($request->input('program_type'));
+        $program->name = e($request->input('name'));
+        $program->network()->associate(Network::find($request->input('network_id')));
+        if($program->save()){
+            $icon = 'success';
+            $message_program = 'Programa agregado exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_program = 'No se pudo agregar el programa.';
+        }
+        return back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
+    }
+
+    public function editProgram($id){
+        $program = Program::find($id);
+        $network = Network::orderBy('name', 'ASC')->pluck('name', 'id');
+        $data = [
+            'title' => 'Editar programa de formación',
+            'program' => $program,
+            'network' => $network
+        ];
+        return view('sica::admin.academy.programs.edit', $data);
+    }
+
+    public function updateProgram(Request $request){
+        $program = Program::find($request->input('id'));
+        $program->sofia_code = e($request->input('sofia_code'));
+        $program->program_type = e($request->input('program_type'));
+        $program->name = e($request->input('name'));
+        $program->network_id = e($request->input('network_id'));
+        if($program->save()){
+            $icon = 'success';
+            $message_program = 'Programa de formación actualizado exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_program = 'No se pudo actualizar el programa de formación.';
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
+    }
+
+    public function deleteProgram($id){
+        $program = Program::find($id);
+        $data = [ 'title' => 'Eliminar programa de formación', 'program' => $program];
+        return view('sica::admin.academy.programs.delete', $data);
+    }
+
+    public function destroyProgram(Request $request){
+        $program = Program::findOrFail($request->input('id'));
+        if($program->delete()){
+            $icon = 'success';
+            $message_program = 'Programa de formación eliminado exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_program = 'No se pudo eliminar el programa de formación.';
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
+    }
 }
