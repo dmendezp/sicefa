@@ -19,7 +19,7 @@
                             <th class="text-center">Cantidad</th>
                             <th class="text-center">Estado</th>
                         </tr>
-                    </thead>
+                    </thead><br>
                     <tbody class="table-group-divider">
                         @foreach ($inventories as $inventory)
                             <tr>
