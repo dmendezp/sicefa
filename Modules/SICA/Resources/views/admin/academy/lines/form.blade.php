@@ -1,5 +1,5 @@
-@if (isset($category))
-    {!! Form::hidden('id', $lines->id) !!}
+@if (isset($line))
+    {!! Form::hidden('id', $line->id) !!}
 @endif
 {!! Form::label('name', 'Nombre:', ['class' => 'mt-3']) !!}
 <div class="input-group">
@@ -8,6 +8,6 @@
             <i class="far fa-keyboard"></i>
         </span>
     </div>
-    {!! Form::text('name', isset($lines) ? $lines->name : null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::text('name', isset($line) ? $line->name : null, ['class' => 'form-control', 'required']) !!}
 </div>
 

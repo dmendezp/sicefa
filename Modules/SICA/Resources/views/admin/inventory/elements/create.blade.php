@@ -4,10 +4,11 @@
 @endsection
 
 @section('content')
-    <div class="card card-primary card-outline col-8 mx-auto">
+    <div class="card card-primary card-outline col-10 mx-auto">
         <div class="card-header">
             <h4>Formulario Elementos</h4>
         </div>
+        {!! Form::open(['route'=>'sica.admin.inventory.elements.store', 'method'=>'POST', 'id'=>'form-config']) !!}
             <div class="card-body">
                 @include('sica::admin.inventory.elements.form')
             </div>
@@ -17,6 +18,7 @@
                     <b>Cancelar</b>
                 </a>
            </div>
+        {!! Form::close() !!}   
     </div>
 @endsection
 

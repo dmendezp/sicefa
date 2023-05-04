@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-    <div class="card card-primary card-outline col-8 mx-auto">
+    <div class="card card-primary card-outline col-10 mx-auto">
         <div class="card-header">
             <h4>Formulario Elementos</h4>
         </div>
@@ -21,4 +21,16 @@
 @endsection
 
 @section('script')
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function (e) {
+            $('#image').change(function () {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    $('#imagenSeleccionada').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+        });
+    </script>
 @endsection   

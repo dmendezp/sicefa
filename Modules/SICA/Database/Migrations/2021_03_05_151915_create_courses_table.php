@@ -18,8 +18,9 @@ class CreateCoursesTable extends Migration
             $table->unsignedInteger('code')->unique();
             $table->date('star_date');
             $table->date('end_date');
+            $table->enum('status',['Activo','Inactivo'])->default('Activo');
             $table->foreignId('program_id')->constrained()->onDelete('cascade');
-            $table->enum('deschooling', ['Lunes','Martes','Miercoles','Jueves','Viernes' ]);
+            $table->enum('deschooling', ['Lunes','Martes','Miércoles','Jueves','Viernes'])->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
