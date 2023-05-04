@@ -48,4 +48,21 @@ return [
 	'Developers' => 'Desarrolladores',
 	'Contact' => 'Contactanos',
 	'Back to' => 'Volver a',
+
+	/* Botones */
+	'Knowledge Networks' => 'Redes de Conocimento',
+	'Register' => 'Registrar',
+	'Cancel' => 'Cancelar',
+
+	/* Generales de tablas */
+	'Name' => 'Nombre',
+	'Actions' => 'Acciones',
+
+	/* Lineas */
+	'Lines' => 'Lines',
+	'Technological lines' => 'Líneas tecnológicas',
+	'Add Technological Line' => 'Agregar Línea Tecnológicas',
+
+	/* Programas de formación */
+	'Programs' => 'Programas',
 ];
