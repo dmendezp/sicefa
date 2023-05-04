@@ -17,11 +17,12 @@ class CreateApprenticesTable extends Migration
             $table->id();
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
-            $table->enum('apprentice_status', ['CERTIFICADO','EN FORMACION','RETIRO VOLUNTARIO','CANCELADO','TRASLADADO' ]);
+            $table->enum('apprentice_status', ['NO REGISTRA','CERTIFICADO','EN FORMACIÓN','RETIRO VOLUNTARIO','CANCELADO','TRASLADADO','APLAZADO','INDUCCIÓN']);
             $table->string('guardian')->nullable();
             $table->unsignedInteger('guardian_telephone')->nullable();
             $table->softDeletes();
             $table->timestamps();
+            $table->unique(['person_id', 'course_id']); // Generar llave única entre la columnas person_id y course_id
         });
     }
 

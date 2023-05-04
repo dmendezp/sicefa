@@ -1,5 +1,5 @@
-@if (isset($elements))
-    {!! Form::hidden('id', $elements->id) !!}
+@if (isset($element))
+    {!! Form::hidden('id', $element->id) !!}
 @endif
 <div id="content-config">
     <div class="modal-header py-2">
@@ -8,7 +8,24 @@
         </h5>
     </div>
         <div class="modal-body px-4 pt-0">
-            <h1>holaaa</h1>
+            <h3>{{ $element->name }}</h3>
+                <ul class="mt-3">
+                    <li>
+                        <p><b>Unidad de Medida: </b>{{ $element->measurement_unit->name }}</p>
+                    </li>
+                    <li>
+                        <p><b>Descripción: </b>{{ $element->description }}</p>
+                    </li>
+                    <li>
+                        <p><b>Tipo de compra:</b>{{ $element->kind_of_purchase->name }}</p>
+                    </li>
+                    <li>
+                        <p><b>Categoria:</b>{{ $element->category->name }}</p>
+                    </li>
+                    <li>
+                        <p><b>Codigo:</b>{{ $element->UNSPSC_code }}</p>
+                    </li>
+                </ul>
         </div>
 </div>
 

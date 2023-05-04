@@ -1,15 +1,15 @@
 <div id="content-config">
     <div class="modal-header py-2">
         <h5 class="modal-title" id="exampleModalLabel">
-            <b>Agregar Línea</b>
+            <b>Agregar titulación</b>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {!! Form::open(['route'=>'sica.admin.academy.line.store', 'method'=>'POST', 'id'=>'form-config']) !!}
+    {!! Form::open(['route'=>'sica.admin.academy.course.store', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-0">
-                @include('sica::admin.academy.lines.form')
+                @include('sica::admin.academy.courses.form')
         </div>
         <div class="modal-footer py-1">
                 <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cancelar</button>

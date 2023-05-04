@@ -175,11 +175,11 @@
                   </a>
                 </li>
                 @endif
-                @if(Auth::user()->havePermission('sica.admin.academy.curriculums'))
+                @if(Auth::user()->havePermission('sica.admin.academy.programs'))
                 <li class="nav-item">
-                  <a href="{{ route('sica.admin.academy.curriculums') }}" class="nav-link {{ ! Route::is('sica.admin.academy.curriculums*') ?: 'active' }}">
+                  <a href="{{ route('sica.admin.academy.programs') }}" class="nav-link {{ ! Route::is('sica.admin.academy.programs*') ?: 'active' }}">
                     <i class="fas fa-book"></i>
-                    <p>{{ trans('sica::menu.Curriculums') }}</p>
+                    <p>{{ trans('sica::menu.Programs') }}</p>
                   </a>
                 </li>
                 @endif

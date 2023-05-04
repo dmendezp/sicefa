@@ -23,7 +23,7 @@ class Network extends Model implements Auditable
         'line_id'
     ];
 
-    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon (para aprovechas las funciones de formato y manipulación de fecha y hora)
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formato y manipulación de fecha y hora)
 
     protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
@@ -39,7 +39,7 @@ class Network extends Model implements Auditable
     public function line(){ // Accede a la línea tecnologica que pertenece
         return $this->belongsTo(Line::class);
     }
-    public function programs(){
+    public function programs(){ // Accede a todos los programas asociados a esta red de conocimiento
         return $this->hasMany(Program::class);
     }
 
