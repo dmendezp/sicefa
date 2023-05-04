@@ -19,12 +19,6 @@ class AcademyController extends Controller
         return view('sica::admin.academy.quarters.home',$data);
     }
 
-    public function courses(){
-        $courses = Course::with('program')->orderBy('code','desc')->get();
-        $data = ['title'=>trans('sica::menu.Courses'),'courses'=>$courses];
-        return view('sica::admin.academy.courses.home',$data);
-    }
-
     //-------------------Seccion de Líneas------------------------
     public function lines(){
         $line = Line::orderBy('updated_at','DESC')->get();
@@ -224,5 +218,82 @@ class AcademyController extends Controller
             $message_program = 'No se pudo eliminar el programa de formación.';
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
+    }
+
+    //-------------------Seccion de Titulaciones------------------------
+    public function courses(){
+        $courses = Course::with('program')->orderBy('code','desc')->get();
+        $data = ['title'=>trans('sica::menu.Courses'),'courses'=>$courses];
+        return view('sica::admin.academy.courses.home',$data);
+    }
+
+    public function createCourse(){
+        $program = Program::orderBy('name', 'ASC')->pluck('name','id');
+        return view('sica::admin.academy.courses.create', compact('program'));
+    }
+
+    public function storeCourse(Request $request){
+        $course = new Course();
+        $course->code = e($request->input('code'));
+        $course->star_date = e($request->input('star_date'));
+        $course->end_date = e($request->input('end_date'));
+        $course->status = e($request->input('status'));
+        $course->program()->associate(Program::find($request->input('program_id')));
+        $course->deschooling = e($request->input('deschooling'));
+        if($course->save()){
+            $icon = 'success';
+            $message_course = 'Titulación agregada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_course = 'No se pudo agregar la titulación.';
+        }
+        return back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
+    }
+
+    public function editCourse($id){
+        $course = Course::find($id);
+        $program = Program::orderBy('name', 'ASC')->pluck('name','id');
+        $data = [
+            'title' => 'Editar titulada',
+            'course' => $course,
+            'program' => $program
+        ];
+        return view('sica::admin.academy.courses.edit', $data);
+    }
+
+    public function updateCourse(Request $request){
+        $course = Course::find($request->input('id'));
+        $course->code = e($request->input('code'));
+        $course->program_id = e($request->input('program_id'));
+        $course->star_date = e($request->input('star_date'));
+        $course->end_date = e($request->input('end_date'));
+        $course->status = e($request->input('status'));
+        $course->deschooling = e($request->input('deschooling'));
+        if($course->save()){
+            $icon = 'success';
+            $message_course = 'Titulada actualizada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_course = 'No se pudo actualizar la titulada.';
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
+    }
+
+    public function deleteCourse($id){
+        $course = Course::find($id);
+        $data = ['title' => 'Eliminar Titulada', 'course' => $course];
+        return view('sica::admin.academy.courses.delete', $data);
+    }
+
+    public function destroyCourse(Request $request){
+        $course = Course::findOrFail($request->input('id'));
+        if($course->delete()){
+            $icon = 'success';
+            $message_course = 'Titulada eliminada exitosamente.';
+        }else{
+            $icon = 'error';
+            $message_course = 'No se pudo eliminar la titulada.';
+        }
+        return redirect()->back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
     }
 }
