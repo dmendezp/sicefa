@@ -22,5 +22,6 @@ return [
     'Polyvalent' => 'Polivalente',
     'Productive' => 'Productivo',
     'Administrative' => 'Administrativo',
-    'Environmental' => 'Ambiental'
+    'Environmental' => 'Ambiental',
+    'Search' => 'Buscar'
 ];

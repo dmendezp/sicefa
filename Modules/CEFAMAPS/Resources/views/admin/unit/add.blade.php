@@ -20,47 +20,21 @@
               <div class="content">
                 <form method="post" action="{{ route('cefamaps.admin.config.unit.add')}}">
                   @csrf
-                  <div class="row align-items-start">
-                    <!-- inicio del nombre -->
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="name">{{ trans('cefamaps::menu.Name') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                      </div>
-                    </div>
-                    <!-- fin del nombre -->
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="sector">{{ trans('cefamaps::unit.Sector') }}</label>
-                        <select class="form-control select2" name="sector" id="sector" required>
-                          @foreach ($sector as $s)
-                          <option value="{{ $s->id }}">{{ $s->name }}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
+                  <!-- inicio del nombre -->
+                  <div class="form-group">
+                    <label for="name">{{ trans('cefamaps::menu.Name') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
                   </div>
+                  <!-- fin del nombre -->
                   <!-- inicio de la descripcion -->
-                      <div class="form-group">
-                        <label for="description">{{ trans('cefamaps::unit.Description') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
-                        <input type="text" class="form-control" id="description" name="description" required>
-                    </div>
-                    <!-- fin de la descripcion -->
-                  <div class="row align-items-center">
-                    <!-- inicio de la persona encargada de la unidad -->                  
+                  <div class="form-group">
+                    <label for="description">{{ trans('cefamaps::unit.Description') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
+                    <input type="text" class="form-control" id="description" name="description" required>
+                  </div>
+                  <!-- fin de la descripcion -->
+                  <div class="row align-items-end">
                     <div class="col">
-                      <div class="form-group">
-                        <label for="person">{{ trans('cefamaps::unit.Person in charge') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
-                        <select class="form-control select2" name="person" id="person">
-                          @foreach ($person as $p)
-                            <option value="{{$p->id}}">{{$p->first_name}} {{$p->first_last_name}} {{$p->second_last_name}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
-                    <!-- fin de la persona encargada de la unidad -->
-                    <!-- inicio del icono -->
-                    <div class="col">
+                      <!-- inicio del icono -->
                       <div class="form-group">
                         <label for="icon">{{ trans('cefamaps::unit.Icon') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
                         <select class="form-control select2" name="icon" id="icon">
@@ -84,9 +58,39 @@
                           <option value="fas fa-coffee">{{ trans('cefamaps::unit.Cafe') }}</option>
                         </select>
                       </div>
+                      <!-- fin del icono -->
                     </div>
-                    <!-- fin del icono -->
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="sector">{{ trans('cefamaps::unit.Sector') }}</label>
+                        <select class="form-control select2" name="sector" id="sector" required>
+                          @foreach ($sector as $s)
+                          <option value="{{ $s->id }}">{{ $s->name }}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
                   </div>
+                  <div class="row align-items-end">
+                    <!-- inicio de la persona encargada de la unidad -->                  
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="person">{{ trans('cefamaps::unit.Person in charge') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
+                        <div class="input-group mb-3">
+                          <input type="number" class="form-control" placeholder="{{ trans('cefamaps::unit.Number') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::unit.Document') }}" id="document" name="document">
+                          <div class="input-group-append">
+                            <button id="search" class="btn btn-info btn-block" type="button">{{ trans('cefamaps::menu.Search') }}</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                        <div id="resultDocument"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- fin de la persona encargada de la unidad -->
                   <!-- inicio boton de agregar -->
                   <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-light btn-block btn-outline-info btn-lg">{{ trans('cefamaps::menu.Save') }} {{ trans('cefamaps::unit.Unit') }}</button>
@@ -104,5 +108,48 @@
 @endsection
 
 @section('script')
+
+  <script>
+
+    const inputDocument = document.getElementById('document');
+    const btnSearch = document.getElementById('search');
+    const result = document.getElementById('resultDocument');
+
+    btnSearch.addEventListener('click', () => {
+      const documento = inputDocument.value;
+      const url = `/cefamaps/unit/search/${documento}`;
+
+      if (inputDocument.value === '') {
+        /* alert('Por favor ingresa el número de documento'); */
+        Swal.fire({
+          title: 'Escribe el documento?',
+          text: 'Debe escribir tu documento?',
+          icon: 'question',
+          showConfirmButton: false,
+          timer: 3300
+        })
+        return;
+      }
+      
+      // Envía la solicitud AJAX al servidor
+      fetch(url)
+      .then(response => response.json())
+      .then(search => {
+        // Muestra los resultados en la vista
+        let htmlResultados = '';
+        search.forEach(person => {
+          htmlResultados += `<label>${person.first_name} ${person.first_last_name} ${person.second_last_name}</label>`;
+          htmlResultados += `<input type="hidden" value="${person.id}" name="person">`;
+        });
+        // Por si el docuemnto no existe
+        if (htmlResultados === '') {
+          htmlResultados += `<label>el documento no existe</label>`;
+        }
+        result.innerHTML = htmlResultados;
+      })
+      .catch(error => console.error(error));
+    });
+
+  </script>
 
 @endsection

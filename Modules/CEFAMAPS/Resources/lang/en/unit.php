@@ -9,8 +9,10 @@ return [
     'Description' => 'Description',
     'Add' => 'Agregar',
     'Icon' => 'Icon',
-    'Save' => 'Save',
     'Sector' => 'Sector',
+    'Number' => 'Number',
+    'Document' => 'Document',
+    /* Icon traduction */
     'Hipopotamo' => 'Hippo',
     'Nutria' => 'Otter',
     'Perro'=> 'Dog',

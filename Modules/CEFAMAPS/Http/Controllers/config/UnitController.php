@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 //Para hacer los crud del administrador
+use Validator;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Farm;
@@ -64,15 +65,26 @@ class UnitController extends Controller
      */
     public function addpost(Request $request)
     {
-        $add = new ProductiveUnit;
-        $add -> name = e ($request->input('name'));
-        $add -> description = e ($request->input('description'));
-        $add -> icon = e ($request->input('icon'));
-        $add -> person_id = e ($request->input('person'));
-        $add -> sector_id = e ($request->input('sector'));
-        if($add -> save()){
-            return redirect(route('cefamaps.admin.config.unit.index'));
-        }
+        $rules = [
+            "person" => "required|max:5"
+        ];
+        $messages = [
+            "person.required" => 'Algo salio mal en tu numero de documento, intenta de nuevo buscandolo',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()):
+            return back()->withErrors($validator)->with('message', 'Algo fallo en el proceso')->with('typealert', 'danger');
+            else:
+            $add = new ProductiveUnit;
+            $add -> name = e ($request->input('name'));
+            $add -> description = e ($request->input('description'));
+            $add -> icon = e ($request->input('icon'));
+            $add -> person_id = e ($request->input('person'));
+            $add -> sector_id = e ($request->input('sector'));
+            if($add -> save()){
+                return redirect(route('cefamaps.admin.config.unit.index'));
+            }
+        endif;
     }
 
     /**
@@ -113,6 +125,16 @@ class UnitController extends Controller
         if($edit -> save()){
             return redirect(route('cefamaps.admin.config.unit.index'));
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function search($document)
+    {
+        $search = Person::where('document_number', $document)->get();
+        return response()->json($search);
     }
 
     /**
