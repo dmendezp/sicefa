@@ -15,7 +15,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <li class="nav-item">
-          <a href="{{ route('cefa.cafeto.home.productos')}}" class="nav-link">
+          <a href="{{ route('cafeto.product.index')}}" class="nav-link">
             <i class="nav-icon fas fa-truck-loading text-light"></i>
             <p class="text-light">
               Productos

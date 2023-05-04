@@ -5,9 +5,8 @@ namespace Modules\CAFETO\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\Element;
 
-class ElementController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,9 @@ class ElementController extends Controller
      */
     public function index()
     {
-        return view('cafeto::index');
+        return view('cafeto::product.index');
     }
-    
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable

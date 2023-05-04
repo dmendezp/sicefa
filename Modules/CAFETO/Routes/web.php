@@ -16,10 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('cafeto')->group(function(){ //Agrega el prefijo en la url (sicefa.test/cafeto/...).
     Route::controller(CAFETOController::class)->group(function(){ //Agrega por única vez el controlador, para que seguidamente sea solo.
         Route::get('index', 'index')->name('cefa.cafeto.home.index'); 
-        Route::get('productos', 'productos')->name('cefa.cafeto.home.productos');
         Route::get('inventario', 'inventario')->name('cefa.cafeto.home.inventario');
         Route::get('ventas', 'ventas')->name('cefa.cafeto.home.ventas');
         
+    });
+    Route::controller(ProductController::class)->group(function(){
+        Route::get('/product', 'index')->name('cafeto.product.index'); 
     });
 
 });
