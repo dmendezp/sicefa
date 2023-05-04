@@ -19,34 +19,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('cafeto::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('cafeto::show');
-    }
-
+     * Show the form for cr
     /**
      * Show the form for editing the specified resource.
      * @param int $id
@@ -93,24 +66,15 @@ class ProductController extends Controller
                 //Actualizar la ruta de la imagen en la base de datos
                 $element->image = 'modules/sica/images/elements/' . $name_image; // Generar ruta relativa de la nueva imagen
                   if ($element->save()){// Actualizar el registro del elemento con la nueva imagen cargada
-                    $message_ptventa = "Imagen actualizada exitosamente";
-                    $message_ptventa_type = 'success';
+                    $message_cafeto = "Imagen actualizada exitosamente";
+                    $message_cafeto_type = 'success';
                   }else{
-                    $message_ptventa = "Se ha producido un error en el momento de actualizar la imagen";
-                    $message_ptventa_type = 'error';
+                    $message_cafeto = "Se ha producido un error en el momento de actualizar la imagen";
+                    $message_cafeto_type = 'error';
                   }
-                  return redirect(route('cafeto.product.index'))->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
+                  return redirect(route('cafeto.product.index'))->with('message_cafeto',$message_cafeto)->with('message_cafeto_type',$message_cafeto_type);
             }
        endif;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
