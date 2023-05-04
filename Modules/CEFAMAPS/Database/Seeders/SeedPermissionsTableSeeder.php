@@ -74,13 +74,23 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         // asigno el rol de admin al usuario superadmin y admin
-        $usersuperadmin->roles()->sync([$roladmin->id]);
-        $useradmin->roles()->sync([$roladmin->id]);
+        $useradmin->roles()->syncWithoutDetaching([$roladmin->id]);
         // lista de permisos para asignar al rol superadmin y admin
         $permission_admin = [];
 // repita para cada permiso -- estos permisos son de su aplicacion, agregue los necesarios
 
         // Estos son los permisos de ambientes (environment)
+        $permission = Permission::where('slug','sica.admin.dashboard')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Admin Dashboard",
+                "slug" => "cefamaps.admin.dashboard",
+                "description" => "Puede ver el dashboard de administrador",
+                "description_english" => "You can see the admin dashboard",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
 
         $permission = Permission::where('slug','cefamaps.admin.config.environment.index')->first();
         if(!$permission){
@@ -243,7 +253,7 @@ class SeedPermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id;*/
 
         // se asignan los permisos a los roles
-        $roladmin->permissions()->sync($permission_admin);
+        $roladmin->permissions()->syncWithoutDetaching($permission_admin);
 
     }
 }
