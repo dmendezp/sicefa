@@ -21,14 +21,24 @@ class PersonFactory extends Factory
      */
     public function definition()
     {
+
+        $document_types = [ // Establecer los tipos de documentos existentes
+            'Cédula de ciudadanía',
+            'Tarjeta de identidad',
+            'Cédula de extranjería',
+            'Pasaporte',
+            'Documento nacional de identidad',
+            'Registro civil'
+        ];
+
         return [
             'document_number' => $this->faker->unique()->randomNumber(rand(5,9), true),
-            'document_type' => $this->faker->randomElement(getEnumValues('people','document_type')),
+            'document_type' => $this->faker->randomElement($document_types),
             'first_name' => $this->faker->firstName(),
             'first_last_name' => $this->faker->lastName(),
             'second_last_name' => $this->faker->lastName(),
-            'eps_id' => EPS::pluck('id')->random(),
-            'population_group_id' => PopulationGroup::pluck('id')->random()
+            'eps_id' => EPS::inRandomOrder()->first()->id,
+            'population_group_id' => PopulationGroup::inRandomOrder()->first()->id
         ];
     }
 }

@@ -9,8 +9,6 @@ Route::middleware(['lang'])->group(function(){
         Route::prefix('academy')->group(function(){
             // ------------ Rutas de Trimestres ------------------
             Route::get('/quarters', [AcademyController::class, 'quarters'])->name('sica.admin.academy.quarters');
-            // ------------- Rutas de Programas
-            Route::get('/curriculums', [AcademyController::class, 'curriculums'])->name('sica.admin.academy.curriculums');
 
             // ------------- Rutas de Titulaciones
             Route::get('/courses', [AcademyController::class, 'courses'])->name('sica.admin.academy.courses');
@@ -46,6 +44,22 @@ Route::middleware(['lang'])->group(function(){
             //Eliminar
             Route::get('/network/delete/{id}', [AcademyController::class, 'deleteNetwork'])->name('sica.admin.academy.network.delete');
             Route::post('/network/delete/', [AcademyController::class, 'destroyNetwork'])->name('sica.admin.academy.network.destroy');
+
+            // ------------- Rutas de Programas de Formación ---------------------
+            //Listar
+            Route::get('/programs', [AcademyController::class, 'programs'])->name('sica.admin.academy.programs');
+
+            //Agregar
+            Route::get('/program/create', [AcademyController::class, 'createProgram'])->name('sica.admin.academy.program.create');
+            Route::post('/program/store', [AcademyController::class, 'storeProgram'])->name('sica.admin.academy.program.store');
+
+            //Editar
+            Route::get('/program/edit/{id}', [AcademyController::class, 'editProgram'])->name('sica.admin.academy.program.edit');
+            Route::post('/program/update/', [AcademyController::class, 'updateProgram'])->name('sica.admin.academy.program.update');
+
+            // Eliminar
+            Route::get('/program/delete/{id}', [AcademyController::class, 'deleteProgram'])->name('sica.admin.academy.program.delete');
+            Route::post('/program/delete/', [AcademyController::class, 'destroyProgram'])->name('sica.admin.academy.program.destroy');
         });
     });
 }); 
