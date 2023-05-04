@@ -16,7 +16,7 @@
 
         <li class="nav-item">
           <a href="{{ route('cafeto.product.index')}}" class="nav-link">
-            <i class="nav-icon fas fa-truck-loading text-light"></i>
+            <i class="nav-icon fas fa-image text-light"></i>
             <p class="text-light">
               Productos
             </p>

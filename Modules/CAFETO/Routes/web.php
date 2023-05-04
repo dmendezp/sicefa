@@ -22,6 +22,8 @@ Route::prefix('cafeto')->group(function(){ //Agrega el prefijo en la url (sicefa
     });
     Route::controller(ProductController::class)->group(function(){
         Route::get('/product', 'index')->name('cafeto.product.index'); 
+        Route::get('edit/{element}', 'edit')->name('cafeto.product.edit'); 
+        Route::post('update/{element}', 'update')->name('cafeto.product.update');
     });
 
 });
