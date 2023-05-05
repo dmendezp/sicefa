@@ -81,7 +81,7 @@ class AcademyController extends Controller
     //-------------------Seccion de Redes de Conocimiento------------------------
     public function networks(){
         $networks = Network::with('line')->orderBy('updated_at','DESC')->get();
-        $data = ['title'=>trans('sica::menu.Networks'),'networks'=>$networks];
+        $data = ['title'=>trans('sica::menu.Knowledge Networks'),'networks'=>$networks];
         return view('sica::admin.academy.networks.home',$data);
     }
 

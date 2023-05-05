@@ -49,8 +49,10 @@ return [
 	'Contact' => 'Contact us',
 	'Back to' => 'Back to',
 
+	/* Personalizables */
+	'Loading Content' => 'Loading Content',
+
 	/* Botones */
-	'Knowledge Networks' => 'Knowledge Networks',
 	'Register' => 'Register',
 	'Cancel' => 'Cancel',
 	'Update' => 'Update',
@@ -63,12 +65,18 @@ return [
 	/* Lineas */
 	'Lines' => 'Lines',
 	'Technological lines' => 'Technological lines',
+	'Technological line' => 'Technological line',
 	'Add Technological Line' => 'Add Technological Line',
 	'Update Technological Line' => 'Update Technological Line',
 	'You Want to Delete the Following Technological Line?' => 'You Want to Delete the Following Technological Line?',
 
+	/* Redes de Conocimeinto */
+	'Knowledge Networks' => 'Knowledge Networks',
+	'Knowledge Network' => 'Knowledge Network',
+	'Add Knowledge Network' => 'Add Knowledge Network',
+	'Update Knowledge Network' => 'Update Knowledge Network',
+	'Do you want to remove the following knowledge network?' => 'Do you want to remove the following knowledge network?',
+
 	/* Programas de formación */
 	'Programs' => 'Programs',
-	
-
 ];
