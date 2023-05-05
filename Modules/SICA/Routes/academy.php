@@ -10,9 +10,6 @@ Route::middleware(['lang'])->group(function(){
             // ------------ Rutas de Trimestres ------------------
             Route::get('/quarters', [AcademyController::class, 'quarters'])->name('sica.admin.academy.quarters');
 
-            // ------------- Rutas de Titulaciones
-            Route::get('/courses', [AcademyController::class, 'courses'])->name('sica.admin.academy.courses');
-
             // ------------Rutas de lineas-----------
             //Listar
             Route::get('/lines', [AcademyController::class, 'lines'])->name('sica.admin.academy.lines');
@@ -60,6 +57,22 @@ Route::middleware(['lang'])->group(function(){
             // Eliminar
             Route::get('/program/delete/{id}', [AcademyController::class, 'deleteProgram'])->name('sica.admin.academy.program.delete');
             Route::post('/program/delete/', [AcademyController::class, 'destroyProgram'])->name('sica.admin.academy.program.destroy');
+
+            // ------------- Rutas de Titulaciones ------------------------------
+            //Listar
+            Route::get('/courses', [AcademyController::class, 'courses'])->name('sica.admin.academy.courses');
+            
+            //Agregar
+            Route::get('/course/create', [AcademyController::class, 'createCourse'])->name('sica.admin.academy.course.create');
+            Route::post('/course/store', [AcademyController::class, 'storeCourse'])->name('sica.admin.academy.course.store');
+
+            //Editar
+            Route::get('/course/edit/{id}', [AcademyController::class, 'editCourse'])->name('sica.admin.academy.course.edit');
+            Route::post('/course/update/', [AcademyController::class, 'updateCourse'])->name('sica.admin.academy.course.update');
+
+            // Eliminar
+            Route::get('/course/delete/{id}', [AcademyController::class, 'deleteCourse'])->name('sica.admin.academy.course.delete');
+            Route::post('/course/delete/', [AcademyController::class, 'destroyCourse'])->name('sica.admin.academy.course.destroy');
         });
     });
 }); 
