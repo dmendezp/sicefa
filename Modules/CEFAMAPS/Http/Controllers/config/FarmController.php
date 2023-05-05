@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 //Para hacer los crud del administrador
+use Validator;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Farm;
@@ -63,15 +64,26 @@ class FarmController extends Controller
    */
   public function addpost(Request $request)
   {
-    $add = new Farm;
-    $add -> name = e ($request->input('name'));
-    $add -> description = e ($request->input('description'));
-    $add -> area = e ($request->input('area'));
-    $add -> person_id = e ($request->input('person'));
-    $add -> municipality_id = e ($request->input('muni'));
-    if($add -> save()){
-      return redirect(route('cefamaps.admin.config.farm.index'));
-    }
+    $rules = [
+      "person" => "required|max:5"
+    ];
+    $messages = [
+      "person.required" => 'Algo salio mal en tu numero de documento, intenta de nuevo buscandolo',
+    ];
+    $validator = Validator::make($request->all(), $rules, $messages);
+    if($validator->fails()):
+      return back()->withErrors($validator)->with('message', 'Algo fallo en el proceso')->with('typealert', 'danger');
+      else:
+      $add = new Farm;
+      $add -> name = e ($request->input('name'));
+      $add -> description = e ($request->input('description'));
+      $add -> area = e ($request->input('area'));
+      $add -> person_id = e ($request->input('person'));
+      $add -> municipality_id = e ($request->input('muni'));
+      if($add -> save()){
+        return redirect(route('cefamaps.admin.config.farm.index'));
+      }
+    endif;
   }
 
   /**
@@ -103,30 +115,27 @@ class FarmController extends Controller
    */
   public function editpost(Request $request)
   {
-    $edit = Farm::findOrFail($request->input('id'));
-    $edit -> name = e ($request->input('name'));
-    $edit -> description = e ($request->input('description'));
-    $edit -> area = e ($request->input('area'));
-    $edit -> person_id = e ($request->input('person'));
-    $edit -> municipality_id = e ($request->input('muni'));
-    if($edit -> save()){
-      return redirect(route('cefamaps.admin.config.farm.index'));
-    }
+    $rules = [
+      "person" => "required|max:5"
+    ];
+    $messages = [
+      "person.required" => 'Algo salio mal en tu numero de documento, intenta de nuevo buscandolo',
+    ];
+    $validator = Validator::make($request->all(), $rules, $messages);
+    if($validator->fails()):
+      return back()->withErrors($validator)->with('message', 'Algo fallo en el proceso')->with('typealert', 'danger');
+    else:
+      $edit = Farm::findOrFail($request->input('id'));
+      $edit -> name = e ($request->input('name'));
+      $edit -> description = e ($request->input('description'));
+      $edit -> area = e ($request->input('area'));
+      $edit -> person_id = e ($request->input('person'));
+      $edit -> municipality_id = e ($request->input('muni'));
+      if($edit -> save()){
+        return redirect(route('cefamaps.admin.config.farm.index'));
+      }
+    endif;
   }
-
-  /**
-   * Display a listing of the resource.
-   * @return Renderable
-   */
-/*   public function view($id)
-  {
-    $unit = ProductiveUnit::get();
-    $environ = Environment::get();
-    $farm = Farm::get();
-    $viewfarm = Farm::findOrFail($id);
-    $data = ['title'=>trans('cefamaps::unit.View'), 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'viewfarm'=>$viewfarm];
-    return view('cefamaps::admin.farm.view',$data);
-  } */
 
   /**
    * Display a listing of the resource.

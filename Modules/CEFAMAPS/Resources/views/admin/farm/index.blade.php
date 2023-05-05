@@ -40,7 +40,7 @@
                       <td>{{$f->id}}</td>
                       <td>{{$f->name}}</td>
                       <td>{{$f->description}}</td>
-                      <td>{{$f->area}}</td>
+                      <td>{{$f->area}}m²</td>
                       <td>{{$f->person->full_name}}</td>
                       <td>{{$f->municipality->name}}</td>
                       <td>

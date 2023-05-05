@@ -79,7 +79,7 @@ class EnvironmentController extends Controller
             $add -> class_environments_id = e ($request->input('class'));
             $add -> status = e ($request->input('status'));
             $add -> type_environment = e ($request->input('type'));
-            if($add -> save()) {
+            if($request->input('lengthcoor')) {
                 $c = 0;
                 foreach ($request->input('lengthcoor') as $le) {
                     $addcoor = new Coordinate;
@@ -89,6 +89,8 @@ class EnvironmentController extends Controller
                     $c++;
                     if ($addcoor -> save()) {}
                 }
+                return redirect(route('cefamaps.admin.config.environment.index'));
+            } else {
                 return redirect(route('cefamaps.admin.config.environment.index'));
             }
         }
