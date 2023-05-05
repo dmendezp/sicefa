@@ -25,7 +25,7 @@ Route::prefix('ptventa')->group(function() {  // agrega el prefijo en la url (si
         Route::get('index', 'index')->name('ptventa.inventory.index'); // Vista principal del inventario (listado de actual productos en inventario)
         Route::get('create', 'create')->name('ptventa.inventory.create'); // Formulario de registro de entrada de inventario (registro de productos)
         route::get('pdf', 'pdf')->name('ptventa.inventory.pdf'); // Descarga de formato de pdf
-    
+
     });
 
     //Rutas para Ventas
@@ -38,7 +38,6 @@ Route::prefix('ptventa')->group(function() {  // agrega el prefijo en la url (si
         Route::get('index', 'index')->name('ptventa.element.index'); // Vista principal de elementos para administrar imagenes
         Route::get('edit/{element}', 'edit')->name('ptventa.element.edit'); // Vista del formulario para acutalizar imagen de elemento
         Route::post('update/{element}', 'update')->name('ptventa.element.update'); // Carga de nueva imagen para elemento
-        Route::post('crop-image-upload-ajax', 'cropImageUploadAjax'); // Carga de previsualización de imagen en el momento es que es seleccionada
     });
 
 

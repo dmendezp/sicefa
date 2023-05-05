@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    @include('ptventa::layouts.partials.head')
-    @section('style') @show
-    @section('head') @show
-</head>
-
-
-
+    <head>
+        @include('ptventa::layouts.partials.head')
+        @stack('head')
+    </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
 
     <div class="wrapper">
-
         <!-- Navbar -->
         @include('ptventa::layouts.partials.navbar')
         <!-- /.navbar -->
@@ -31,7 +25,8 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                @section('breadcrumb') @show
+                                <li class="breadcrumb-item"><a href="{{ route('cefa.ptventa.index') }}" class="text-decoration-none">PTVENTA</a></li>
+                                @stack('breadcrumbs')
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -59,7 +54,7 @@
 
     <!-- REQUIRED SCRIPTS -->
     @include('ptventa::layouts.partials.scripts')
-    @section('scripts') @show
+    @stack('scripts')
 </body>
 
 </html>

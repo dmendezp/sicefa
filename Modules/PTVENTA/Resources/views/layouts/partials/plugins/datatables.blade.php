@@ -1,10 +1,12 @@
-{{-- Styles --}}
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/DataTables-1.13.4/css/dataTables.bootstrap5.min.css') }}">
+@push('head')
+<!-- DataTables-1.13.4 -->
+<link rel="stylesheet" href="{{ asset('libs/DataTables-1.13.4/DataTables-1.13.4/css/dataTables.bootstrap5.min.css') }}">
+@endpush
 
-{{-- Scripts --}}
-<script src="{{ asset('DataTables-1.13.4/DataTables-1.13.4/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('DataTables-1.13.4/DataTables-1.13.4/js/dataTables.bootstrap5.min.js') }}"></script>
-
+@push('scripts')
+<!-- DataTables-1.13.4  -->
+<script src="{{ asset('libs/DataTables-1.13.4/DataTables-1.13.4/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('libs/DataTables-1.13.4/DataTables-1.13.4/js/dataTables.bootstrap5.min.js') }}"></script>
 <script>
     language_datatables = { // Traducción a español de datatables
         "decimal": "",
@@ -27,3 +29,4 @@
         }
     }
 </script>
+@endpush

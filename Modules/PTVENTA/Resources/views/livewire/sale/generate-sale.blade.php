@@ -1,13 +1,10 @@
 <div>
 
-    {{$products}}
-
     <div class="row mx-3">
-        <div class="col-md-5">  
+        <div class="col-md-5">
             <div class="form-group">
                 <label for="producto">Producto:</label>
                 <input type="text" class="form-control" id="producto" name="producto">
-                {!! Form::select('inventory_id', $products, null, ['placeholder' => 'Seleccionar producto ...']) !!}
             </div>
         </div>
         <div class="col-md-2">

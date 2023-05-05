@@ -2,7 +2,7 @@
     <aside class="main-sidebar sidebar-dark-blue elevation-4">
         <!-- Bran Logo: Aqui se realiza el ajuste del logo y titulo que esta en el sidebar-->
         <a href="{{route('cefa.ptventa.index')}}" class="brand-link text-decoration-none">
-            <img src="{{ asset('ptventa/images/Logo-Sidebar.png') }}" class="brand-image" alt="PTVenta-Logo">{{-- Icono de punto de venta --}}
+            <img src="{{ asset('modules/ptventa/images/Logo-Sidebar.png') }}" class="brand-image" alt="PTVenta-Logo">{{-- Icono de punto de venta --}}
             <span class="brand-text font-weight-bold">Punto de Venta</span>
         </a>
 
@@ -12,7 +12,13 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+
+                    <li class="nav-item">
+                        <a href="{{route('cefa.ptventa.index')}}" class="nav-link {{ !Route::is('cefa.ptventa.index*') ?: 'active'}}">
+                            <i class="nav-icon fas fa-home"></i>
+                            <p>Inicio</p>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a href="{{route('ptventa.inventory.index')}}" class="nav-link {{ !Route::is('ptventa.inventory.index*') ?: 'active'}}">

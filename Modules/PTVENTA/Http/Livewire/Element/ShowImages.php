@@ -49,7 +49,7 @@ class ShowImages extends Component
     public function searchByCategory($category_id){
         $this->loading = true;
         $this->reset('elements'); // Vaciar elementos para evitar duplicación de datos
-        $this->elements = Element::where('category_id',$category_id)->orderBy('updated_at', 'DESC')->get(); // Consultar por categoría
+        $this->elements = Element::where('category_id',$category_id)->orderBy('name', 'ASC')->get(); // Consultar por categoría
         $this->category = Category::find($category_id)->name;
         $this->loading = false;
     }

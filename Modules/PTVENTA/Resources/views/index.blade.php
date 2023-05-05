@@ -1,14 +1,8 @@
 @extends('ptventa::layouts.master')
 
-@section('style')
-
-@endsection
-
-@section('breadcrumb')
-    {{-- The breadcrumb is the tracking af the displayed view --}}
-    <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Home</a></li>
+@push('breadcrumbs')
     <li class="breadcrumb-item active">Página principal</li>
-@endsection
+@endpush
 
 @section('content')
 <div class="card text-center mb-3 shadow-sm">
@@ -26,7 +20,7 @@
             <div>
                 <h6>Repostería</h6>
                 <div class="card-products">
-                    <img src="{{ asset('ptventa/images/Card1.jpg') }}" alt="" class="img">
+                    <img src="{{ asset('modules/ptventa/images/Card1.jpg') }}" alt="" class="img">
                     <div class="textBox">
                         <p class="text head">Donas</p>
                         <span>Crispy, Choco, Oreo y Chips</span>
@@ -38,7 +32,7 @@
             <div>
                 <h6>Lácteos</h6>
                 <div class="card-products">
-                    <img src="{{ asset('ptventa/images/Card2.jpg') }}" alt="" class="img">
+                    <img src="{{ asset('modules/ptventa/images/Card2.jpg') }}" alt="" class="img">
                     <div class="textBox">
                         <p class="text head">Leche</p>
                         <span>Producida en la unidad de ganaderia</span>
@@ -50,7 +44,7 @@
             <div>
                 <h6>Lácteos</h6>
                 <div class="card-products">
-                    <img src="{{ asset('ptventa/images/Card3.jpg') }}" alt="" class="img">
+                    <img src="{{ asset('modules/ptventa/images/Card3.jpg') }}" alt="" class="img">
                     <div class="textBox">
                         <p class="text head">Yogurt</p>
                         <span>Producido en el sector de Agroindustria</span>
@@ -62,7 +56,7 @@
             <div>
                 <h6>Verduras</h6>
                 <div class="card-products">
-                    <img src="{{ asset('ptventa/images/Card4.jpg') }}" alt="" class="img">
+                    <img src="{{ asset('modules/ptventa/images/Card4.jpg') }}" alt="" class="img">
                     <div class="textBox">
                         <p class="text head">Lechuga</p>
                         <span>Producida en los sectores de viveros</span>

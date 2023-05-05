@@ -1,15 +1,9 @@
 @extends('ptventa::layouts.master')
 
-@section('head')
-    {{-- Recursos de Datatables 1.13.4 --}}
-    @include('ptventa::layouts.partials.plugins.datatables')
-@endsection
-
-@section('breadcrumb')
-    {{-- The breadcrumb is the tracking af the displayed view --}}
+@push('breadcrumbs')
     <li class="breadcrumb-item"><a href="{{ route('ptventa.inventory.index') }}" class="text-decoration-none">Inventario</a></li>
     <li class="breadcrumb-item active">Productos</li>
-@endsection
+@endpush
 
 @section('content')
     <div class="card card-success card-outline shadow-sm">
@@ -80,7 +74,8 @@
     </div>
 @endsection
 
-@section('scripts')
+@include('ptventa::layouts.partials.plugins.datatables')
+@push('scripts')
     <script>
         $(document).ready(function () {
             // Configuración de Datatables para la tabla de registros de inventario
@@ -94,4 +89,4 @@
             });
         });
     </script>
-@endsection
+@endpush

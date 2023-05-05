@@ -1,16 +1,15 @@
 @extends('ptventa::layouts.master')
 
-@section('head')
-    {{-- Estilos de la galería de imágenes --}}
+@push('head')
+    <!-- Estilos de la galería de imágenes -->
     <link rel="stylesheet" href="{{ asset('modules/ptventa/css/image-gallery-styles.css') }}">
-    {{-- Estilos de livewire --}}
     @livewireStyles()
-@endsection
+@endpush
 
-@section('breadcrumb')
+@push('breadcrumbs')
     <li class="breadcrumb-item"><a href="{{ route('ptventa.element.index') }}" class="text-decoration-none">Productos</a></li>
     <li class="breadcrumb-item active">Imágenes</li>
-@endsection
+@endpush
 
 @section('content')
     <div class="card card-success card-outline col-12 mx-auto">
@@ -20,7 +19,7 @@
     </div>
 @endsection
 
-@section('scripts')
-    {{-- Scripts de livewire --}}
+@include('ptventa::layouts.partials.plugins.sweetalert2')
+@push('scripts')
     @livewireScripts()
-@endsection
+@endpush
