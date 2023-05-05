@@ -116,15 +116,26 @@ class UnitController extends Controller
      */
     public function editpost(Request $request)
     {
-        $edit = ProductiveUnit::findOrFail($request->input('id'));
-        $edit -> name = e ($request->input('name'));
-        $edit -> description = e ($request->input('description'));
-        $edit -> icon = e ($request->input('icon'));
-        $edit -> person_id = e ($request->input('person'));
-        $edit -> sector_id = e ($request->input('sector'));
-        if($edit -> save()){
-            return redirect(route('cefamaps.admin.config.unit.index'));
-        }
+        $rules = [
+            "person" => "required|max:5"
+        ];
+        $messages = [
+            "person.required" => 'Algo salio mal en tu numero de documento, intenta de nuevo buscandolo',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if($validator->fails()):
+            return back()->withErrors($validator)->with('message', 'Algo fallo en el proceso')->with('typealert', 'danger');
+            else:
+            $edit = ProductiveUnit::findOrFail($request->input('id'));
+            $edit -> name = e ($request->input('name'));
+            $edit -> description = e ($request->input('description'));
+            $edit -> icon = e ($request->input('icon'));
+            $edit -> person_id = e ($request->input('person'));
+            $edit -> sector_id = e ($request->input('sector'));
+            if($edit -> save()){
+                return redirect(route('cefamaps.admin.config.unit.index'));
+            }
+        endif;
     }
 
     /**

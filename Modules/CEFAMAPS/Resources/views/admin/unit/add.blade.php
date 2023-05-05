@@ -39,23 +39,23 @@
                         <label for="icon">{{ trans('cefamaps::unit.Icon') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
                         <select class="form-control select2" name="icon" id="icon">
                           <!-- Iconos Animales -->
-                          <option value="fa-solid fa-hippo">{{ trans('cefamaps::unit.Hipopotamo') }}</option>
-                          <option value="fa-solid fa-otter">{{ trans('cefamaps::unit.Nutria') }}</option>
-                          <option value="fa-solid fa-dog">{{ trans('cefamaps::unit.Perro') }}</option>
-                          <option value="fa-solid fa-cow">{{ trans('cefamaps::unit.Vaca') }}</option>
-                          <option value="fa-solid fa-fish">{{ trans('cefamaps::unit.Pescado') }}</option>
-                          <option value="fa-solid fa-shrimp">{{ trans('cefamaps::unit.Camarón') }}</option>
-                          <option value="fa-solid fa-horse">{{ trans('cefamaps::unit.Caballo') }}</option>
-                          <option value="fa-solid fa-frog">{{ trans('cefamaps::unit.Rana') }}</option>
-                          <option value="fa-solid fa-dove">{{ trans('cefamaps::unit.Paloma') }}</option>
-                          <option value="fa-solid fa-cat">{{ trans('cefamaps::unit.Gato') }}</option>
-                          <option value="fa-solid fa-piggy-bank">{{ trans('cefamaps::unit.Cerdo') }}</option>
-                          <option value="fa-regular fa-lemon">{{ trans('cefamaps::unit.Limon') }}</option>
+                          <option value="fa-solid fa-hippo">{{ trans('cefamaps::unit.Hippo') }}</option>
+                          <option value="fa-solid fa-otter">{{ trans('cefamaps::unit.Otter') }}</option>
+                          <option value="fa-solid fa-dog">{{ trans('cefamaps::unit.Dog') }}</option>
+                          <option value="fa-solid fa-cow">{{ trans('cefamaps::unit.Cow') }}</option>
+                          <option value="fa-solid fa-fish">{{ trans('cefamaps::unit.Fish') }}</option>
+                          <option value="fa-solid fa-shrimp">{{ trans('cefamaps::unit.Shrimp') }}</option>
+                          <option value="fa-solid fa-horse">{{ trans('cefamaps::unit.Horse') }}</option>
+                          <option value="fa-solid fa-frog">{{ trans('cefamaps::unit.Frog') }}</option>
+                          <option value="fa-solid fa-dove">{{ trans('cefamaps::unit.Dove') }}</option>
+                          <option value="fa-solid fa-cat">{{ trans('cefamaps::unit.Cat') }}</option>
+                          <option value="fa-solid fa-piggy-bank">{{ trans('cefamaps::unit.Piggy') }}</option>
+                          <option value="fa-regular fa-lemon">{{ trans('cefamaps::unit.Lemon') }}</option>
                           <!-- Iconos Adicionales -->
-                          <option value="fas fa-seedling">{{ trans('cefamaps::unit.Arroz') }}</option>
-                          <option value="fa-solid fa-building-wheat">{{ trans('cefamaps::unit.Edificio de Trigo') }}</option>
-                          <option value="fa-solid fa-tree">{{ trans('cefamaps::unit.Arbol de Mango') }}</option>
-                          <option value="fas fa-coffee">{{ trans('cefamaps::unit.Cafe') }}</option>
+                          <option value="fas fa-seedling">{{ trans('cefamaps::unit.Rice') }}</option>
+                          <option value="fa-solid fa-building-wheat">{{ trans('cefamaps::unit.Wheat Building') }}</option>
+                          <option value="fa-solid fa-tree">{{ trans('cefamaps::unit.Tree Mango') }}</option>
+                          <option value="fas fa-coffee">{{ trans('cefamaps::unit.Coffee') }}</option>
                         </select>
                       </div>
                       <!-- fin del icono -->
@@ -72,8 +72,8 @@
                     </div>
                   </div>
                   <div class="row align-items-end">
-                    <!-- inicio de la persona encargada de la unidad -->                  
                     <div class="col">
+                      <!-- inicio de la persona encargada de la unidad -->
                       <div class="form-group">
                         <label for="person">{{ trans('cefamaps::unit.Person in charge') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
                         <div class="input-group mb-3">
@@ -83,14 +83,16 @@
                           </div>
                         </div>
                       </div>
+                      <!-- fin de la persona encargada de la unidad -->
                     </div>
                     <div class="col-4">
+                      <!-- Inicio del resultado de la busqueda -->
                       <div class="form-group">
                         <div id="resultDocument"></div>
                       </div>
+                      <!-- Fin del resultado de la busqueda -->
                     </div>
                   </div>
-                  <!-- fin de la persona encargada de la unidad -->
                   <!-- inicio boton de agregar -->
                   <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-light btn-block btn-outline-info btn-lg">{{ trans('cefamaps::menu.Save') }} {{ trans('cefamaps::unit.Unit') }}</button>
@@ -122,8 +124,8 @@
       if (inputDocument.value === '') {
         /* alert('Por favor ingresa el número de documento'); */
         Swal.fire({
-          title: 'Escribe el documento?',
-          text: 'Debe escribir tu documento?',
+          title: '{{ trans("cefamaps::unit.AlertDocumentTitle") }}',
+          text: '{{ trans("cefamaps::unit.AlertDocumentText") }}?',
           icon: 'question',
           showConfirmButton: false,
           timer: 3300
@@ -143,7 +145,7 @@
         });
         // Por si el docuemnto no existe
         if (htmlResultados === '') {
-          htmlResultados += `<label>el documento no existe</label>`;
+          htmlResultados += `<label>{{trans("cefamaps::unit.Document notfound")}}</label>`;
         }
         result.innerHTML = htmlResultados;
       })
