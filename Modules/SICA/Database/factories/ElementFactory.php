@@ -30,16 +30,13 @@ class ElementFactory extends Factory
 
         $base_path = 'modules/sica/images/elements/'; // Define la ruta base donde se guardarán las imágenes.
         $image_faker = $this->faker->image('public/' . $base_path, 600, 400, null, false); // Genera una imagen aleatoria con las dimensiones 640x480 en la ruta base definida.
-        $image_file = new File(public_path($base_path . $image_faker)); // Crea un objeto File a partir de la imagen generada.
-        Storage::disk('public')->putFileAs($base_path, $image_file, $image_faker); // Almacena la imagen en el disco público de Laravel.
-
 
         return [
             'name' => $element_name,
-            'measurement_unit_id' => MeasurementUnit::pluck('id')->random(),
+            'measurement_unit_id' => MeasurementUnit::inRandomOrder()->first()->id,
             'description' => rtrim($this->faker->unique()->sentence(), '.'),
-            'kind_of_purchase_id' => KindOfPurchase::pluck('id')->random(),
-            'category_id' => Category::pluck('id')->random(),
+            'kind_of_purchase_id' => KindOfPurchase::inRandomOrder()->first()->id,
+            'category_id' => Category::inRandomOrder()->first()->id,
             'slug' => Str::slug($element_name, '-'),
             'image' => $base_path . $image_faker // Devuelve la ruta completa de la imagen guardada.
         ];
