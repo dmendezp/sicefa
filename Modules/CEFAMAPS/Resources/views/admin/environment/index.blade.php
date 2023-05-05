@@ -24,7 +24,6 @@
                       <th>{{ trans('cefamaps::environment.Name') }}</th>
                       <th>{{ trans('cefamaps::environment.Picture') }}</th>
                       <th>{{ trans('cefamaps::environment.Description') }}</th>
-                      <th>{{ trans('cefamaps::environment.Spot') }} {{ trans('cefamaps::environment.Environment') }}</th>
                       <th>{{ trans('cefamaps::farm.Farm') }}</th>
                       <th>{{ trans('cefamaps::environment.Productive units') }}</th>
                       <th>{{ trans('cefamaps::menu.Status') }}</th>
@@ -45,25 +44,7 @@
                       <td>{{$env->name}}</td>
                       <td><img src="{{ asset('cefamaps/images/uploads/'.$env->picture) }}" width="100" height="100"></td>
                       <td>{{$env->description}}</td>
-                      <td>
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-spot-{{$env->id}}">{{ trans('cefamaps::environment.Spot') }}</button>
-                        <div class="modal fade" id="modal-spot-{{$env->id}}">
-                          <div class="modal-dialog modal-xl">
-                            <div class="modal-content bg-info">
-                              <div class="modal-header">
-                                <h4 class="modal-title">{{$env->type_environment}} {{$env->name}}</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <i class="fa-solid fa-xmark"></i>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                <div id="map"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>{{$env->farms->name}}</td>
+                      <td>{{$env->name}}</td>
                       <td>{{$env->productive_units->name}}</td>
                       <td>{{$env->status}}</td>
                       <!-- Inicio del modal pra las coordenadas -->
@@ -73,13 +54,38 @@
                           <div class="modal-dialog modal-xl">
                             <div class="modal-content bg-info">
                               <div class="modal-header">
-                                <h4 class="modal-title">{{$env->type_environment}} {{$env->name}}</h4>
+                                <br>
+                                 <!-- aqui va el nombre del punto  -->
+                                 <h1 class="modal-title" style="center">{{trans('cefamaps::environment.Spot')}} {{$env->name}}</h1>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <i class="fa-solid fa-xmark"></i>
                                 </button>
                               </div>
+                              <!-- Inicio del punto del mapa -->
                               <div class="container text-center">
                                 <div class="row align-items-start">
+                                  <div class="col">
+                                    <div class="modal-header">
+                                      <h3 class="modal-title">{{ trans('cefamaps::environment.Length') }}</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                      <h5>{{$env->length}}</h5>
+                                    </div>
+                                  </div>
+                                  <div class="col">
+                                    <div class="modal-header">
+                                      <h3 class="modal-title">{{ trans('cefamaps::environment.Latitude') }}</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                      <h5>{{$env->latitude}}</h5>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- Fin del punto del mapa -->
+                              <!-- aqui va el nombre del poligono -->
+                              <h1 class="modal-title" style="center">{{trans('cefamaps::environment.Polygon')}} {{$env->name}}</h1>
+                                <div class="row align-items-center">
                                   <div class="col">
                                     <div class="modal-header">
                                       <h2 class="modal-title">{{ trans('cefamaps::environment.Length') }}</h2>
@@ -100,9 +106,8 @@
                                       @endforeach
                                     </div>
                                   </div>
-                                </div>
                               </div>
-                            </div>
+                            </div>                      
                           </div>
                         </div>
                       </td>
@@ -134,7 +139,6 @@
                       <th>{{ trans('cefamaps::environment.Name') }}</th>
                       <th>{{ trans('cefamaps::environment.Picture') }}</th>
                       <th>{{ trans('cefamaps::environment.Description') }}</th>
-                      <th>{{ trans('cefamaps::environment.Spot') }} {{ trans('cefamaps::environment.Environment') }}</th>
                       <th>{{ trans('cefamaps::farm.Farm') }}</th>
                       <th>{{ trans('cefamaps::environment.Productive units') }}</th>
                       <th>{{ trans('cefamaps::menu.Status') }}</th>
@@ -194,9 +198,11 @@
   <script type="text/javascript">
     
     function initMap() {
+
       const mapId = document.getElementById("map");
       
       @foreach($environ as $e)
+
         // The map, centered at Uluru
         const map{{$e->id}} = new google.maps.Map(mapId, {
           zoom: 18,
@@ -209,7 +215,10 @@
           position: { lat: {{$e->latitude}},  lng: {{$e->length}} },
           map: map{{$e->id}},
         });
+
       @endforeach
+
     }
+
   </script>
 @endsection

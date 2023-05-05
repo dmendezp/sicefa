@@ -16,4 +16,5 @@ return [
     'Map' => 'Map',
     'View' => 'View',
     'Spot' => 'Spot'
+    
 ];

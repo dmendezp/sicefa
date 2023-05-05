@@ -9,9 +9,13 @@
   @endsection
 @endforeach
 
+<!--estos cosas siempren van hay, solo cambia el href por si necesitas agregar css en la vista-->
 @section('style')
 	<link rel="stylesheet" href="{{ asset('cefamaps/css/viewenviron.css') }}">
+  <!--este link es para que la carta se mueva, este es el css, asi que puede usar este o para que no se complique puede usar otro y pegarlo hay sin miedo
+  esta es la ruta que se necesita para poder ingresar, donde esta eso en public y mas todo eso-->
 @endsection
+<!-- con esto puede hacer lo del css -->
 
 @section('content')
   <div class="content">
@@ -20,7 +24,7 @@
         <div class="col-lg-12">
           <div class="card card-lightblue card-outline">
             <div class="card-header">
-              <h3 class="m-0">{{ trans('cefamaps::unit.Unit') }} - {{ $u->productive_units->name }}</h3>
+              <h3 class="m-0">{{ trans('cefamaps::unit.Unit') }} - </h3>
             </div>
             <div class="card-body">
               <div id="map"></div>
@@ -46,6 +50,7 @@
           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
         </div>
         @endforeach
+        <!--aqui es donde tiene que mirar eso, porque al darle al boton el me saca a este modal y depsues me entra al otro modal de abajo-->
       </div>
     </div>
   </div>
