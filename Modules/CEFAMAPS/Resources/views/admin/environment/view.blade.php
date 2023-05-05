@@ -31,29 +31,29 @@
       </div>
     </div>
   </div>
-
-  <!-- Inicio El modal para que aparezacan todas la paginas -->
-  <div class="modal fade" id="modal-lg">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">{{trans('cefamaps::page.Page')}}</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
-          </button>
+  
+  @foreach($pages as $p)
+    <!-- Inicio El modal para que aparezacan todas la paginas -->
+    <div class="modal fade" id="modal-lg">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">{{trans('cefamaps::page.Page')}}</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
+            </button>
+          </div>
+          
+          <div class="modal-body">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
+          </div>
+          
         </div>
-        @foreach($pages as $p)
-        <div class="modal-body">
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
-        </div>
-        @endforeach
       </div>
     </div>
-  </div>
-  <!-- Fin El modal para que aparezacan todas la paginas -->
+    <!-- Fin El modal para que aparezacan todas la paginas -->
 
-  <!-- Inicio El modal para mostrar la pagina -->
-  @foreach($pages as $p)
+    <!-- Inicio El modal para mostrar la pagina -->
     <div class="modal fade" id="modal{{$p->id}}">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -69,8 +69,8 @@
         </div>
       </div>
     </div>
+    <!-- Fin El modal para mostrar la pagina -->
   @endforeach
-  <!-- Fin El modal para mostrar la pagina -->
 
 @endsection
 
