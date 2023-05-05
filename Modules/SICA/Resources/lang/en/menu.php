@@ -53,6 +53,8 @@ return [
 	'Knowledge Networks' => 'Knowledge Networks',
 	'Register' => 'Register',
 	'Cancel' => 'Cancel',
+	'Update' => 'Update',
+	'Delete' => 'Delete',
 
 	/* Generales de tablas */
 	'Name' => 'Name',
@@ -62,6 +64,8 @@ return [
 	'Lines' => 'Lines',
 	'Technological lines' => 'Technological lines',
 	'Add Technological Line' => 'Add Technological Line',
+	'Update Technological Line' => 'Update Technological Line',
+	'You Want to Delete the Following Technological Line?' => 'You Want to Delete the Following Technological Line?',
 
 	/* Programas de formación */
 	'Programs' => 'Programs',
