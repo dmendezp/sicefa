@@ -49,4 +49,26 @@ return [
 	'Contact' => 'Contact us',
 	'Back to' => 'Back to',
 
+	/* Botones */
+	'Knowledge Networks' => 'Knowledge Networks',
+	'Register' => 'Register',
+	'Cancel' => 'Cancel',
+	'Update' => 'Update',
+	'Delete' => 'Delete',
+
+	/* Generales de tablas */
+	'Name' => 'Name',
+	'Actions' => 'Actions',
+
+	/* Lineas */
+	'Lines' => 'Lines',
+	'Technological lines' => 'Technological lines',
+	'Add Technological Line' => 'Add Technological Line',
+	'Update Technological Line' => 'Update Technological Line',
+	'You Want to Delete the Following Technological Line?' => 'You Want to Delete the Following Technological Line?',
+
+	/* Programas de formación */
+	'Programs' => 'Programs',
+	
+
 ];

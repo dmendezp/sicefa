@@ -1,7 +1,7 @@
 @if (isset($line))
     {!! Form::hidden('id', $line->id) !!}
 @endif
-{!! Form::label('name', 'Nombre:', ['class' => 'mt-3']) !!}
+{!! Form::label('name', trans('sica::menu.Name'), ['class' => 'mt-3']) !!}
 <div class="input-group">
     <div class="input-group-prepend">
         <span class="input-group-text">

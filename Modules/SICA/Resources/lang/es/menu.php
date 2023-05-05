@@ -48,4 +48,24 @@ return [
 	'Developers' => 'Desarrolladores',
 	'Contact' => 'Contactanos',
 	'Back to' => 'Volver a',
+
+	/* Botones */
+	'Knowledge Networks' => 'Redes de Conocimento',
+	'Register' => 'Registrar',
+	'Cancel' => 'Cancelar',
+	'Update' => 'Actualizar',
+	'Delete' => 'Eliminar',
+
+	/* Generales de tablas */
+	'Name' => 'Nombre',
+	'Actions' => 'Acciones',
+
+	/* Lineas */
+	'Lines' => 'Líneas',
+	'Technological lines' => 'Líneas tecnológicas',
+	'Add Technological Line' => 'Agregar Línea Tecnológicas',
+	'You Want to Delete the Following Technological Line?' => '¿Desea Eliminar la Siguiente Línea Tecnológica?',
+
+	/* Programas de formación */
+	'Programs' => 'Programas',
 ];
