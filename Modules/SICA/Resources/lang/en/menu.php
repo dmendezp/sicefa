@@ -69,6 +69,12 @@ return [
 	'Add Technological Line' => 'Add Technological Line',
 	'Update Technological Line' => 'Update Technological Line',
 	'You Want to Delete the Following Technological Line?' => 'You Want to Delete the Following Technological Line?',
+	'Technological line successfully added' => 'Technological line successfully added',
+	'Could not add technological line' => 'Could not add technological line',
+	'Technological line updated successfully' => 'Technological line updated successfully',
+	'Could not update technological line' => 'Could not update technological line',
+	'Technological line successfully removed' => 'Technological line successfully removed',
+	'Could not delete technological line' => 'Could not delete technological line',
 
 	/* Redes de Conocimeinto */
 	'Knowledge Networks' => 'Knowledge Networks',
