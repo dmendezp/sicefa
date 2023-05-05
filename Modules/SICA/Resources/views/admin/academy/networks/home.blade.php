@@ -12,7 +12,7 @@
                         <h3 class="card-title">{{trans('sica::menu.Knowledge Networks')}}</h3>
                         <div class="btns">
                             <a href="{{ route('sica.admin.academy.programs') }}" class="btn btn-info float-right ml-1"> 
-                                {{trans('sica::menu.Programs')}} <i class="fa-solid fa-angles-right fa-beat-fade"></i>
+                                {{trans('sica::menu.Formation Programs')}} <i class="fa-solid fa-angles-right fa-beat-fade"></i>
                             </a>
                             <a href="{{ route('sica.admin.academy.lines') }}" class="btn btn-info float-right ml-1">
                                 <i class="fa-solid fa-angles-left fa-beat-fade"></i> {{trans('sica::menu.Technological lines')}}

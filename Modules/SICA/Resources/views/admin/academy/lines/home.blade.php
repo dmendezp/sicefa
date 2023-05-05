@@ -11,7 +11,7 @@
                     <div class="card-header">
                         <h3 class="card-title">{{ trans('sica::menu.Technological lines')}}</h3>
                         <div class="btns">
-                            <a href="{{ route('sica.admin.academy.programs') }}" class="btn btn-info float-right ml-1">{{ trans('sica::menu.Programs')}} <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
+                            <a href="{{ route('sica.admin.academy.programs') }}" class="btn btn-info float-right ml-1">{{ trans('sica::menu.Formation Programs')}} <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
                             <a href="{{ route('sica.admin.academy.networks') }}" class="btn btn-info float-right ml-1"> {{ trans('sica::menu.Knowledge Networks')}} <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
                         </div>
                     </div>

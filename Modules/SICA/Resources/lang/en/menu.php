@@ -79,4 +79,17 @@ return [
 
 	/* Programas de formación */
 	'Programs' => 'Programs',
+	'Formation Programs' => 'Formation Programs',
+	'Code' => 'Code',
+	'Type' => 'Type',
+	'Program Type' => 'Program Type',
+	'Add Formation Program' => 'Add Formation Program',
+	'Update Formation Program' => 'Update Formation Program',
+	'Do you want to delete the following training program?' => 'Do you want to delete the following training program?',
+	'Formation Program successfully added' => 'Formation Program successfully added',
+	'Could not add Formation Program' => 'Could not add Formation Program',
+	'Formation Program successfully updated' => 'Formation Program successfully updated',
+	'Failed to update formation program' => 'Failed to update formation program',
+	'Formation program successfully removed' => 'Formation program successfully removed',
+	'Could not delete formation program' => 'Could not delete formation program',
 ];

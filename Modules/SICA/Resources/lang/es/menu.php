@@ -77,7 +77,19 @@ return [
 	'Update Knowledge Network' => 'Actualizar Red de Conocimento',
 	'Do you want to remove the following knowledge network?' => '¿Desea eliminar la siguiente red de conocimiento?',
 
-
 	/* Programas de formación */
 	'Programs' => 'Programas',
+	'Formation Programs' => 'Programas de Formación',
+	'Code' => 'Código',
+	'Type' => 'Tipo',
+	'Program Type' => 'Tipo de Programa',
+	'Add Formation Program' => 'Agregar Programa de Formación',
+	'Update Formation Program' => 'Actualizar Programa de Formación',
+	'Do you want to delete the following training program?' => '¿Desea eliminar el siguiente programa de formación?',
+	'Formation Program successfully added' => 'Programa de Formación agregada exitosamente',
+	'Could not add Formation Program' => 'No se pudo agregar el programa de formación',
+	'Formation Program successfully updated' => 'Programa de formación actualizado exitosamente',
+	'Failed to update formation program' => 'No se pudo actualizar el programa de formación',
+	'Formation program successfully removed' => 'Programa de formación eliminado exitosamente',
+	'Could not delete formation program' => 'No se pudo eliminar el programa de formación',
 ];

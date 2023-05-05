@@ -149,8 +149,8 @@ class AcademyController extends Controller
 
     //-------------------Seccion de Programas de Formación------------------------
     public function programs(){
-        $programs = Program::with('network')->orderBy('sofia_code','desc')->get();
-        $data = ['title'=>trans('sica::menu.Programs'),'programs'=>$programs];
+        $programs = Program::with('network')->orderBy('updated_at','DESC')->get();
+        $data = ['title'=>trans('sica::menu.Formation Programs'),'programs'=>$programs];
         return view('sica::admin.academy.programs.home',$data);
     }
 
@@ -167,10 +167,10 @@ class AcademyController extends Controller
         $program->network()->associate(Network::find($request->input('network_id')));
         if($program->save()){
             $icon = 'success';
-            $message_program = 'Programa agregado exitosamente.';
+            $message_program = trans('sica::menu.Formation Program successfully added');
         }else{
             $icon = 'error';
-            $message_program = 'No se pudo agregar el programa.';
+            $message_program = trans('sica::menu.Could not add Formation Program');
         }
         return back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }
@@ -194,10 +194,10 @@ class AcademyController extends Controller
         $program->network_id = e($request->input('network_id'));
         if($program->save()){
             $icon = 'success';
-            $message_program = 'Programa de formación actualizado exitosamente.';
+            $message_program = trans('sica::menu.Formation Program successfully updated');
         }else{
             $icon = 'error';
-            $message_program = 'No se pudo actualizar el programa de formación.';
+            $message_program = trans('sica::menu.Failed to update formation program');
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }
@@ -212,10 +212,10 @@ class AcademyController extends Controller
         $program = Program::findOrFail($request->input('id'));
         if($program->delete()){
             $icon = 'success';
-            $message_program = 'Programa de formación eliminado exitosamente.';
+            $message_program = trans('sica::menu.Formation program successfully removed');
         }else{
             $icon = 'error';
-            $message_program = 'No se pudo eliminar el programa de formación.';
+            $message_program = trans('sica::menu.Could not delete formation program');
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }
