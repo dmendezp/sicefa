@@ -15,15 +15,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('cafeto')->group(function(){ //Agrega el prefijo en la url (sicefa.test/cafeto/...).
     Route::controller(CAFETOController::class)->group(function(){ //Agrega por única vez el controlador, para que seguidamente sea solo.
-        Route::get('index', 'index')->name('cefa.cafeto.home.index'); 
-        Route::get('inventario', 'inventario')->name('cefa.cafeto.home.inventario');
-        Route::get('ventas', 'ventas')->name('cefa.cafeto.home.ventas');
-        
+        Route::get('index', 'index')->name('cefa.cafeto.index');
     });
-    Route::controller(ProductController::class)->group(function(){
-        Route::get('/product', 'index')->name('cafeto.product.index'); 
-        Route::get('edit/{element}', 'edit')->name('cafeto.product.edit'); 
-        Route::post('update/{element}', 'update')->name('cafeto.product.update');
+
+    /* Rutas para administrar el inventario */
+    Route::controller(InventoryController::class)->group(function(){
+        Route::get('/inventory', 'index')->name('cafeto.inventory.index'); // Ver inventario de la boadega de la aplicación
     });
+
+    /* Rutas para administrar las ventas */
+    Route::controller(SaleController::class)->group(function(){
+        Route::get('/sale', 'index')->name('cafeto.sale.index'); // Formulario para registrar venta
+    });
+
+    /* Ruta para admiistrar los pruductos */
+    Route::controller(ElementController::class)->group(function(){
+        Route::get('/element', 'index')->name('cafeto.element.index'); // Ver impagenes de productos
+    });
+
 
 });

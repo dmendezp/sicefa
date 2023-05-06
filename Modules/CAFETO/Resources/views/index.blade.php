@@ -1,15 +1,13 @@
 @extends('cafeto::layouts.master')
 
+@push('breadcrumbs')
+    <li class="breadcrumb-item active">Inicio</li>
+@endpush
+
 @section('content')
-
-<div class="card">
-    <div class="card-body">
-        <h1>Hello CAFETO</h1>
-
-        <p>
-            This view is loaded from module: {!! config('cafeto.name') !!}
-        </p>
+    <div class="card">
+        <div class="card-body">
+            <h1>Contenido de la página principal</h1>
+        </div>
     </div>
-</div>
-
 @endsection
