@@ -30,7 +30,9 @@ Route::prefix('cafeto')->group(function(){ //Agrega el prefijo en la url (sicefa
 
     /* Ruta para admiistrar los pruductos */
     Route::controller(ElementController::class)->group(function(){
-        Route::get('/element', 'index')->name('cafeto.element.index'); // Ver impagenes de productos
+        Route::get('/element', 'index')->name('cafeto.element.index'); // Ver imagenes de productos
+        Route::get('edit/{element}', 'edit')->name('cafeto.element.edit'); // Vista del formulario para acutalizar imagen de elemento
+        Route::post('update/{element}', 'update')->name('cafeto.element.update'); // Carga de nueva imagen para elemento
     });
 
 

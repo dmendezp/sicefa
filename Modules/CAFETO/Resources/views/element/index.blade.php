@@ -1,7 +1,9 @@
 @extends('cafeto::layouts.master')
 
 @push('head')
-    {{-- Agrega los estilos necesarios aquí --}}
+    <!-- Estilos de la galería de imágenes -->
+    <link rel="stylesheet" href="{{ asset('modules/cafeto/css/image-gallery-styles.css') }}">
+    @livewireStyles()
 @endpush
 
 @push('breadcrumbs')
@@ -10,13 +12,14 @@
 @endpush
 
 @section('content')
-    <div class="card col-12 mx-auto">
+    <div class="card card-success card-outline col-12 mx-auto">
         <div class="card-body">
-            <h1>Contenido de la galería de imágenes</h1>
+            @livewire('cafeto::element.show-images')
         </div>
     </div>
 @endsection
 
+@include('cafeto::layouts.partials.plugins.sweetalert2')
 @push('scripts')
-    {{-- Agrega los scripts necesarios aquí --}}
+    @livewireScripts()
 @endpush
