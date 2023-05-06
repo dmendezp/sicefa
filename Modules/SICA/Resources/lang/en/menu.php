@@ -49,10 +49,14 @@ return [
 	'Contact' => 'Contact us',
 	'Back to' => 'Back to',
 
+	/* Personalizables */
+	'Loading Content' => 'Loading Content',
+
 	/* Botones */
-	'Knowledge Networks' => 'Knowledge Networks',
 	'Register' => 'Register',
 	'Cancel' => 'Cancel',
+	'Update' => 'Update',
+	'Delete' => 'Delete',
 
 	/* Generales de tablas */
 	'Name' => 'Name',
@@ -61,10 +65,37 @@ return [
 	/* Lineas */
 	'Lines' => 'Lines',
 	'Technological lines' => 'Technological lines',
+	'Technological line' => 'Technological line',
 	'Add Technological Line' => 'Add Technological Line',
+	'Update Technological Line' => 'Update Technological Line',
+	'You Want to Delete the Following Technological Line?' => 'You Want to Delete the Following Technological Line?',
+	'Technological line successfully added' => 'Technological line successfully added',
+	'Could not add technological line' => 'Could not add technological line',
+	'Technological line updated successfully' => 'Technological line updated successfully',
+	'Could not update technological line' => 'Could not update technological line',
+	'Technological line successfully removed' => 'Technological line successfully removed',
+	'Could not delete technological line' => 'Could not delete technological line',
+
+	/* Redes de Conocimeinto */
+	'Knowledge Networks' => 'Knowledge Networks',
+	'Knowledge Network' => 'Knowledge Network',
+	'Add Knowledge Network' => 'Add Knowledge Network',
+	'Update Knowledge Network' => 'Update Knowledge Network',
+	'Do you want to remove the following knowledge network?' => 'Do you want to remove the following knowledge network?',
 
 	/* Programas de formación */
 	'Programs' => 'Programs',
-	
-
+	'Formation Programs' => 'Formation Programs',
+	'Code' => 'Code',
+	'Type' => 'Type',
+	'Program Type' => 'Program Type',
+	'Add Formation Program' => 'Add Formation Program',
+	'Update Formation Program' => 'Update Formation Program',
+	'Do you want to delete the following training program?' => 'Do you want to delete the following training program?',
+	'Formation Program successfully added' => 'Formation Program successfully added',
+	'Could not add Formation Program' => 'Could not add Formation Program',
+	'Formation Program successfully updated' => 'Formation Program successfully updated',
+	'Failed to update formation program' => 'Failed to update formation program',
+	'Formation program successfully removed' => 'Formation program successfully removed',
+	'Could not delete formation program' => 'Could not delete formation program',
 ];

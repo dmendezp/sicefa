@@ -49,20 +49,53 @@ return [
 	'Contact' => 'Contactanos',
 	'Back to' => 'Volver a',
 
+	/* Personalizables */
+	'Loading Content' => 'Cargando Contenido',
+
 	/* Botones */
-	'Knowledge Networks' => 'Redes de Conocimento',
 	'Register' => 'Registrar',
 	'Cancel' => 'Cancelar',
+	'Update' => 'Actualizar',
+	'Delete' => 'Eliminar',
 
 	/* Generales de tablas */
 	'Name' => 'Nombre',
 	'Actions' => 'Acciones',
 
 	/* Lineas */
-	'Lines' => 'Lines',
+	'Lines' => 'Líneas',
 	'Technological lines' => 'Líneas tecnológicas',
+	'Technological line' => 'Línea tecnológica',
 	'Add Technological Line' => 'Agregar Línea Tecnológicas',
+	'Update Technological Line' => 'Actualizar Línea Tecnológicas',
+	'You Want to Delete the Following Technological Line?' => '¿Desea Eliminar la Siguiente Línea Tecnológica?',
+	'Technological line successfully added' => 'Línea tecnólogica agregada exitosamente',
+	'Could not add technological line' => 'No se pudo agregar la línea tecnológica',
+	'Technological line updated successfully' => 'Línea tecnólogica actualizada exitosamente',
+	'Could not update technological line' => 'No se pudo actualizar la línea tecnólogica',
+	'Technological line successfully removed' => 'Línea tecnólogica eliminada exitosamente',
+	'Could not delete technological line' => 'No se pudo eliminar la línea tecnólogica',
+
+	/* Redes de Conocimeinto */
+	'Knowledge Networks' => 'Redes de Conocimento',
+	'Knowledge Network' => 'Red de Conocimento',
+	'Add Knowledge Network' => 'Agregar Red de Conocimento',
+	'Update Knowledge Network' => 'Actualizar Red de Conocimento',
+	'Do you want to remove the following knowledge network?' => '¿Desea eliminar la siguiente red de conocimiento?',
 
 	/* Programas de formación */
 	'Programs' => 'Programas',
+	'Formation Programs' => 'Programas de Formación',
+	'Code' => 'Código',
+	'Type' => 'Tipo',
+	'Program Type' => 'Tipo de Programa',
+	'Add Formation Program' => 'Agregar Programa de Formación',
+	'Update Formation Program' => 'Actualizar Programa de Formación',
+	'Do you want to delete the following training program?' => '¿Desea eliminar el siguiente programa de formación?',
+	'Formation Program successfully added' => 'Programa de Formación agregada exitosamente',
+	'Could not add Formation Program' => 'No se pudo agregar el programa de formación',
+	'Formation Program successfully updated' => 'Programa de formación actualizado exitosamente',
+	'Failed to update formation program' => 'No se pudo actualizar el programa de formación',
+	'Formation program successfully removed' => 'Programa de formación eliminado exitosamente',
+	'Could not delete formation program' => 'No se pudo eliminar el programa de formación',
 ];

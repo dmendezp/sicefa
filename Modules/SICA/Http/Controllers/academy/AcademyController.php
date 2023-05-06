@@ -35,10 +35,10 @@ class AcademyController extends Controller
         $line->name = e($request->input('name'));
         if($line->save()){
             $icon = 'success';
-            $message_line = 'Línea tecnólogica agregada exitosamente.';
+            $message_line = trans('sica::menu.Technological line successfully added');
         }else{
             $icon = 'error';
-            $message_line = 'No se pudo agregar la línea tecnológica.';
+            $message_line = trans('sica::menu.Could not add technological line');
         }
         return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
     }
@@ -53,10 +53,10 @@ class AcademyController extends Controller
         $line->name = e($request->input('name'));
         if($line->save()){
             $icon = 'success';
-            $message_line = 'Línea tecnólogica actualizada exitosamente.';
+            $message_line = trans('sica::menu.Technological line updated successfully');
         }else{
             $icon = 'error';
-            $message_line = 'No se pudo actualizar la línea tecnólogica.';
+            $message_line = trans('sica::menu.Could not update technological line');
         }
         return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
     }
@@ -70,10 +70,10 @@ class AcademyController extends Controller
         $line = Line::findOrFail($request->input('id'));
         if($line->delete()){
             $icon = 'success';
-            $message_line = 'Línea tecnólogica eliminada exitosamente.';
+            $message_line = trans('sica::menu.Technological line successfully removed');
         }else{
             $icon = 'error';
-            $message_line = 'No se pudo eliminar la línea tecnólogica.';
+            $message_line = trans('sica::menu.Could not delete technological line');
         }
         return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
     }
@@ -81,7 +81,7 @@ class AcademyController extends Controller
     //-------------------Seccion de Redes de Conocimiento------------------------
     public function networks(){
         $networks = Network::with('line')->orderBy('updated_at','DESC')->get();
-        $data = ['title'=>trans('sica::menu.Networks'),'networks'=>$networks];
+        $data = ['title'=>trans('sica::menu.Knowledge Networks'),'networks'=>$networks];
         return view('sica::admin.academy.networks.home',$data);
     }
 
@@ -149,8 +149,8 @@ class AcademyController extends Controller
 
     //-------------------Seccion de Programas de Formación------------------------
     public function programs(){
-        $programs = Program::with('network')->orderBy('sofia_code','desc')->get();
-        $data = ['title'=>trans('sica::menu.Programs'),'programs'=>$programs];
+        $programs = Program::with('network')->orderBy('updated_at','DESC')->get();
+        $data = ['title'=>trans('sica::menu.Formation Programs'),'programs'=>$programs];
         return view('sica::admin.academy.programs.home',$data);
     }
 
@@ -167,10 +167,10 @@ class AcademyController extends Controller
         $program->network()->associate(Network::find($request->input('network_id')));
         if($program->save()){
             $icon = 'success';
-            $message_program = 'Programa agregado exitosamente.';
+            $message_program = trans('sica::menu.Formation Program successfully added');
         }else{
             $icon = 'error';
-            $message_program = 'No se pudo agregar el programa.';
+            $message_program = trans('sica::menu.Could not add Formation Program');
         }
         return back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }
@@ -194,10 +194,10 @@ class AcademyController extends Controller
         $program->network_id = e($request->input('network_id'));
         if($program->save()){
             $icon = 'success';
-            $message_program = 'Programa de formación actualizado exitosamente.';
+            $message_program = trans('sica::menu.Formation Program successfully updated');
         }else{
             $icon = 'error';
-            $message_program = 'No se pudo actualizar el programa de formación.';
+            $message_program = trans('sica::menu.Failed to update formation program');
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }
@@ -212,10 +212,10 @@ class AcademyController extends Controller
         $program = Program::findOrFail($request->input('id'));
         if($program->delete()){
             $icon = 'success';
-            $message_program = 'Programa de formación eliminado exitosamente.';
+            $message_program = trans('sica::menu.Formation program successfully removed');
         }else{
             $icon = 'error';
-            $message_program = 'No se pudo eliminar el programa de formación.';
+            $message_program = trans('sica::menu.Could not delete formation program');
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }

@@ -3,7 +3,7 @@
 @endif
 
 
-{!! Form::label('sofia_code', 'Código:', ['class' => 'mt-3']) !!}
+{!! Form::label('sofia_code', trans('sica::menu.Code'), ['class' => 'mt-3']) !!}
 <div class="input-group">
     <div class="input-group-prepend">
         <span class="input-group-text">
@@ -13,7 +13,7 @@
     {!! Form::text('sofia_code', isset($program) ? $program->sofia_code : null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-{!! Form::label('program_type', 'Tipo:', ['class' => 'mt-3']) !!}
+{!! Form::label('program_type', trans('sica::menu.Type'), ['class' => 'mt-3']) !!}
 <div class="input-group">
     <div class="input-group-prepend">
         <span class="input-group-text">
@@ -23,7 +23,7 @@
     {!! Form::select('program_type', getEnumValues('programs','program_type'), isset($program) ? $program->program_type : null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-{!! Form::label('name', 'Nombre:', ['class' => 'mt-3']) !!}
+{!! Form::label('name', trans('sica::menu.Name'), ['class' => 'mt-3']) !!}
 <div class="input-group">
     <div class="input-group-prepend">
         <span class="input-group-text">
@@ -33,7 +33,7 @@
     {!! Form::text('name', isset($program) ? $program->name : null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-{!! Form::label('network_id', 'Red de Conocimiento:', ['class' => 'mt-3']) !!}
+{!! Form::label('network_id', trans('sica::menu.Knowledge Network'), ['class' => 'mt-3']) !!}
 <div class="form-group">
     <div class="input-group-prepend">
         <span class="input-group-text">
