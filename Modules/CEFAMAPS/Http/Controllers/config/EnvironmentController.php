@@ -80,17 +80,21 @@ class EnvironmentController extends Controller
             $add -> status = e ($request->input('status'));
             $add -> type_environment = e ($request->input('type'));
             if($add -> save()) {
-                $c = 0;
-                foreach ($request->input('lengthcoor') as $le) {
-                    $addcoor = new Coordinate;
-                    $addcoor -> environment_id = $add->id;
-                    $addcoor -> length = $le;
-                    $addcoor -> latitude = e ($request->input('latitudecoor')[$c]);
-                    $c++;
-                    if ($addcoor -> save()) {}
+                if ($request->input('lengthcoor') == '') {
+                    return redirect(route('cefamaps.admin.config.environment.index'));
+                } else {
+                    $c = 0;
+                    foreach ($request->input('lengthcoor') as $le) {
+                        $addcoor = new Coordinate;
+                        $addcoor -> environment_id = $add -> id;
+                        $addcoor -> length = $le;
+                        $addcoor -> latitude = e ($request->input('latitudecoor')[$c]);
+                        $c++;
+                        if ($addcoor -> save()) {}
+                    }
+                    return redirect(route('cefamaps.admin.config.environment.index'));
                 }
-                return redirect(route('cefamaps.admin.config.environment.index'));
-            }
+            } 
         }
     }
 

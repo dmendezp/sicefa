@@ -24,49 +24,21 @@
                 <form action="{{ route('cefamaps.admin.farm.edit') }}" method="post">
                   @csrf
                   <input type="hidden" name="id" value="{{ $editfarm->id }}" required>
-                  <div class="row align-items-start">
-                    <!-- inicio del nombre -->
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="name">{{ trans('cefamaps::menu.Name') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::farm.Farm') }}</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ $editfarm->name }}" required>
-                      </div>
-                    </div>
-                    <!-- fin del nombre -->
-                    <!-- inicio del area -->
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="area">{{ trans('cefamaps::farm.Area') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::farm.Farm') }}</label>
-                        <input type="number" class="form-control" id="area" name="area" value="{{ $editfarm->area }}" required>
-                      </div>
-                    </div>
-                    <!-- fin del area -->
+                  <!-- inicio del nombre -->
+                  <div class="form-group">
+                    <label for="name">{{ trans('cefamaps::menu.Name') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::farm.Farm') }}</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ $editfarm->name }}" required>
                   </div>
+                  <!-- fin del nombre -->
+                  <!-- inicio de la descripcion -->
+                  <div class="form-group">
+                    <label for="description">{{ trans('cefamaps::farm.Description') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::farm.Farm') }}</label>
+                    <input type="text" class="form-control" id="description" name="description" value="{{ $editfarm->description }}" required>
+                  </div>
+                  <!-- fin de la descripcion -->
                   <div class="row align-items-center">
-                    <!-- inicio de la descripcion -->
                     <div class="col">
-                      <div class="form-group">
-                        <label for="description">{{ trans('cefamaps::farm.Description') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::farm.Farm') }}</label>
-                        <input type="text" class="form-control" id="description" name="description" value="{{ $editfarm->description }}" required>
-                      </div>
-                    </div>
-                    <!-- fin de la descripcion -->
-                  </div>
-                  <div class="row align-items-footer">
-                    <!-- inicio de la persona encargada de la FARM -->                  
-                    <div class="col">
-                      <div class="form-group">
-                        <label for="person">{{ trans('cefamaps::farm.Person in charge') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::farm.Farm') }}</label>
-                        <select class="form-control select2" name="person" id="person">
-                          @foreach ($person as $p)
-                            <option value="{{$p->id}}">{{$p->first_name}} {{$p->first_last_name}} {{$p->second_last_name}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
-                    <!-- fin de la persona encargada de la FARM -->
-                    <!-- inicio del municipio -->
-                    <div class="col">
+                      <!-- inicio del municipio -->
                       <div class="form-group">
                         <label for="muni">{{ trans('cefamaps::farm.Municipality') }}</label>
                         <select class="form-control select2" name="muni" id="muni">
@@ -75,8 +47,38 @@
                           @endforeach
                         </select>
                       </div>
+                      <!-- fin del municipio -->
                     </div>
-                    <!-- fin del municipio -->
+                    <div class="col">
+                      <!-- inicio del area -->
+                      <div class="form-group">
+                        <label for="area">{{ trans('cefamaps::farm.Area') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::farm.Farm') }}</label>
+                        <input type="number" class="form-control" id="area" name="area" value="{{ $editfarm->area }}" required>
+                      </div>
+                      <!-- fin del area -->
+                    </div>
+                  </div>
+                  <div class="row align-items-end">
+                    <div class="col">
+                      <!-- inicio de la persona encargada de la granja -->
+                      <div class="form-group">
+                        <label for="person">{{ trans('cefamaps::unit.Person in charge') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::farm.Farm') }}</label>
+                        <div class="input-group mb-3">
+                          <input type="number" class="form-control" placeholder="{{ trans('cefamaps::unit.Number') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::unit.Document') }}" id="document" name="document" value="{{ $editfarm->person->document_number }}">
+                          <div class="input-group-append">
+                            <button id="search" class="btn btn-info btn-block" type="button">{{ trans('cefamaps::menu.Search') }}</button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- fin de la persona encargada de la granja -->
+                    </div>
+                    <div class="col-4">
+                      <!-- Inicio del resultado de la busqueda -->
+                      <div class="form-group">
+                        <div id="resultDocument"></div>
+                      </div>
+                      <!-- Fin del resultado de la busqueda -->
+                    </div>
                   </div>
                   <!-- inicio del boton de agregar -->
                   <div class="d-grip gap-2">
@@ -93,5 +95,52 @@
       </div>
     </div>
   </div>
+
+@endsection
+
+@section('script')
+
+  <script>
+
+    const inputDocument = document.getElementById('document');
+    const btnSearch = document.getElementById('search');
+    const result = document.getElementById('resultDocument');
+
+    btnSearch.addEventListener('click', () => {
+      const documento = inputDocument.value;
+      const url = `/cefamaps/unit/search/${documento}`;
+
+      if (inputDocument.value === '') {
+        /* alert('Por favor ingresa el número de documento'); */
+        Swal.fire({
+          title: '{{ trans("cefamaps::unit.AlertDocumentTitle") }}',
+          text: '{{ trans("cefamaps::unit.AlertDocumentText") }}?',
+          icon: 'question',
+          showConfirmButton: false,
+          timer: 3300
+        })
+        return;
+      }
+      
+      // Envía la solicitud AJAX al servidor
+      fetch(url)
+      .then(response => response.json())
+      .then(search => {
+        // Muestra los resultados en la vista
+        let htmlResultados = '';
+        search.forEach(person => {
+          htmlResultados += `<label>${person.first_name} ${person.first_last_name} ${person.second_last_name}</label>`;
+          htmlResultados += `<input type="hidden" value="${person.id}" name="person">`;
+        });
+        // Por si el docuemnto no existe
+        if (htmlResultados === '') {
+          htmlResultados += `<label>{{trans("cefamaps::unit.Document notfound")}}</label>`;
+        }
+        result.innerHTML = htmlResultados;
+      })
+      .catch(error => console.error(error));
+    });
+
+  </script>
 
 @endsection

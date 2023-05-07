@@ -57,7 +57,7 @@
                               </div>
                             </div>
                           </td>
-                          <td>{{ $r->environment->name }}</td>
+                          <td>{{ $r->environment }}</td>
                           <td>
                             <a href="{{url('/cefamaps/page/edit/'.$r->id)}}" class="btn btn-warning">
                               <i class="fas fa-map-signs"></i>

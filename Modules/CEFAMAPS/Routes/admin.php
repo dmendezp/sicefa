@@ -21,7 +21,7 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/environment/edit/{id}',[EnvironmentController::class, 'edit'])->name('cefamaps.admin.config.environment.edit');
         Route::post('/environment/edit/',[EnvironmentController::class, 'editpost'])->name('cefamaps.admin.environment.edit');
         // para poder eliminar un Environments
-        Route::delete('/environment/delete/{id}', [EnvironmentController::class, 'destroy'])->name('cefamaps.admin.environment.delete');
+        Route::get('/environment/delete/{id}', [EnvironmentController::class, 'destroy'])->name('cefamaps.admin.environment.delete');
         /* para eliminar coordenadas en editar */
         Route::delete('/environment/eliminar/{id}', [EnvironmentController::class, 'eliminar'])->name('cefamaps.admin.environment.eliminar');
         /* para agregar coordenadas en editar */

@@ -144,15 +144,15 @@
           @endforeach
           <!-- CIERRE MENU PARA LAS FARM NUEVAS -->
           <!-- MENU PARA ENVIRONMENT -->
-          @foreach($classenviron as $c)
-            <li class="nav-item {{ ! (Request::url() == url('/cefamaps/environment/view/'.$c->id)) ?: 'menu-is-opening menu-open' }}">
-              <a href="#" class="nav-link {{ ! Route::is('cefamaps.admin.environment.views'.$c->id) ?: 'active' }}">
+            <li class="nav-item {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'active' }}">
                 <i class="nav-icon fa-solid fa-city"></i>
                 <p>
                   {{ trans('cefamaps::environment.Environment') }}
                   <i class="right fa-solid fa-map-pin"></i>
                 </p>
               </a>
+              @foreach($classenviron as $c)
               <ul class="nav nav-treeview">
                 <li class="nav nav-item">
                   <a href="{{ url('/cefamaps/environment/view/'.$c->id) }}" class="nav-link {{ ! (Request::url() == url('/cefamaps/environment/view/'.$c->id)) ?: 'active' }}">
@@ -161,8 +161,8 @@
                   </a>
                 </li>
               </ul>
+              @endforeach
             </li>
-          @endforeach
           <!-- CIERRA MENU PARA ENVIRONMENT -->
         @else
           <li class="nav-item">
