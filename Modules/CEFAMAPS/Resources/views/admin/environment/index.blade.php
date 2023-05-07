@@ -88,7 +88,7 @@
                                 <div class="row align-items-center">
                                   <div class="col">
                                     <div class="modal-header">
-                                      <h2 class="modal-title">{{ trans('cefamaps::environment.Length') }}</h2>
+                                      <h3 class="modal-title">{{ trans('cefamaps::environment.Length') }}</h3>
                                     </div>
                                     <div class="modal-body">
                                       @foreach($env->coordinates as $c)
@@ -98,7 +98,7 @@
                                   </div>
                                   <div class="col">
                                     <div class="modal-header">
-                                      <h2 class="modal-title">{{ trans('cefamaps::environment.Latitude') }}</h2>
+                                      <h3 class="modal-title">{{ trans('cefamaps::environment.Latitude') }}</h3>
                                     </div>
                                     <div class="modal-body">
                                       @foreach($env->coordinates as $c)
