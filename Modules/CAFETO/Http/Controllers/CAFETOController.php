@@ -10,7 +10,7 @@ class CAFETOController extends Controller
     public function index()
     {
         $page_title = 'Inicio';
-        $view_title = 'Página principal';
+        $view_title = ' ';
         return view('cafeto::index', compact('page_title', 'view_title'));
     }
 
