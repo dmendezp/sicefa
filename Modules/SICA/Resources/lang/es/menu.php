@@ -82,6 +82,12 @@ return [
 	'Add Knowledge Network' => 'Agregar Red de Conocimento',
 	'Update Knowledge Network' => 'Actualizar Red de Conocimento',
 	'Do you want to remove the following knowledge network?' => '¿Desea eliminar la siguiente red de conocimiento?',
+	'Knowledge Network successfully added' => 'Red de Conocimiento agregada exitosamente',
+	'Could not add Knowledge Network' => 'No se pudo agregar la Red de Conocimiento',
+	'Knowledge Network successfully updated' => 'Red de conocimiento actualizada exitosamente',
+	'Failed to update Knowledge Network' => 'No se pudo actualizar la red de conocimiento',
+	'Knowledge Network successfully removed' => 'Red de conocimiento eliminada exitosamente',
+	'Could not delete Knowledge Network' => 'No se pudo eliminar la red de conocimiento',
 
 	/* Programas de formación */
 	'Programs' => 'Programas',

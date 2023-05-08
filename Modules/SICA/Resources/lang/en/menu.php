@@ -82,6 +82,12 @@ return [
 	'Add Knowledge Network' => 'Add Knowledge Network',
 	'Update Knowledge Network' => 'Update Knowledge Network',
 	'Do you want to remove the following knowledge network?' => 'Do you want to remove the following knowledge network?',
+	'Knowledge Network successfully added' => 'Knowledge Network successfully added',
+	'Could not add Knowledge Network' => 'Could not add Knowledge Network',
+	'Knowledge Network successfully updated' => 'Knowledge Network successfully updated',
+	'Failed to update Knowledge Network' => 'Failed to update Knowledge Network',
+	'Knowledge Network successfully removed' => 'Knowledge Network successfully removed',
+	'Could not delete Knowledge Network' => 'Could not delete Knowledge Network',
 
 	/* Programas de formación */
 	'Programs' => 'Programs',

@@ -96,10 +96,10 @@ class AcademyController extends Controller
         $network->line()->associate(Line::find($request->input('line_id')));
         if($network->save()){
             $icon = 'success';
-            $message_network = 'Red de conocimiento agregada exitosamente.';
+            $message_network = trans('sica::menu.Knowledge Network successfully added');
         }else{
             $icon = 'error';
-            $message_network = 'No se pudo agregar la red de conocimiento.';
+            $message_network = trans('sica::menu.Could not add Knowledge Network');
         }
         return back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
     }
@@ -121,10 +121,10 @@ class AcademyController extends Controller
         $network->line_id = e($request->input('line_id'));
         if($network->save()){
             $icon = 'success';
-            $message_network = 'Red de conocimiento actualizada exitosamente.';
+            $message_network = trans('sica::menu.Knowledge Network successfully updated');
         }else{
             $icon = 'error';
-            $message_network = 'No se pudo actualizar la red de conocimiento.';
+            $message_network = trans('sica::menu.Failed to update Knowledge Network');
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
     }
@@ -139,10 +139,10 @@ class AcademyController extends Controller
         $network = Network::findOrFail($request->input('id'));
         if($network->delete()){
             $icon = 'success';
-            $message_network = 'Red de conocimiento eliminada exitosamente.';
+            $message_network = trans('sica::menu.Knowledge Network successfully removed');
         }else{
             $icon = 'error';
-            $message_network = 'No se pudo eliminar la red de conocimiento.';
+            $message_network = trans('sica::menu.Could not delete Knowledge Network');
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
     }
