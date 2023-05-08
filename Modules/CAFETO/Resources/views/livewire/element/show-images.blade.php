@@ -11,7 +11,7 @@
                 <div class="text-center">
                     <!-- Spinner para el loader -->
                     <div class="p-3" wire:loading>
-                        <div class="spinner-border text-success" role="status">
+                        <div class="spinner-border text-primary" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div><br>
                         <strong>Cargando...</strong>
@@ -59,7 +59,7 @@
                 @if($categories->count())
                     <style> /* Stilos para el hover por categorías */
                         .list-group-item:hover {
-                            background-color: #a5acb3;
+                            background-color: #af9e83;
                             cursor: pointer;
                         }
                     </style>
@@ -70,7 +70,7 @@
                         @foreach ($categories as $c)
                             @if($c->elements->count()) {{-- Mostrar categorías que almenos tenga un elemento asociado --}}
                                 <li class="list-group-item py-1 list-group-item-action rounded-3" wire:click="searchByCategory({{ $c->id }})">
-                                    {{ $c->name }} <span class="badge mr-1 bg-success float-right">{{ $c->elements->count() }}</span>
+                                    {{ $c->name }} <span class="badge mr-1 bg-primary float-right">{{ $c->elements->count() }}</span>
                                 </li>
                             @endif
                         @endforeach
