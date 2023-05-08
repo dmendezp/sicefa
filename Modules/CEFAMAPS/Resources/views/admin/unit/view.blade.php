@@ -45,7 +45,7 @@
             <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
           </button>
         </div>
-        @foreach($pages as $p)
+  @foreach($pages as $p)
         <div class="modal-body">
           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
         </div>
