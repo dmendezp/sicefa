@@ -12,7 +12,7 @@
 @endpush
 
 @section('content')
-    <div class="card card-success card-outline col-12 mx-auto">
+    <div class="card card-info card-outline col-12 mx-auto">
         <div class="card-body">
             @livewire('cafeto::element.show-images')
         </div>

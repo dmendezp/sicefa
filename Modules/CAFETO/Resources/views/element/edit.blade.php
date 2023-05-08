@@ -8,13 +8,13 @@
 @section('content')
     <form action="{{ route('cafeto.element.update', $element) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="card card-success card-outline col-10 mx-auto">
+        <div class="card card-primary card-outline col-10 mx-auto">
 
             <div class="card-body pb-0">
                 <div class="row">
 
                     <div class="col-7">
-                        <div class="card card-success border-success">
+                        <div class="card card-primary border-primary">
                             <div class="card-header text-center h5 py-1">
                                 Imagen
                             </div>
@@ -51,7 +51,7 @@
                 <a href="{{ route('cafeto.element.index') }}" class="btn btn-sm btn-light mr-2">
                     <b>Cancelar</b>
                 </a>
-                <button type="submit" class="btn btn-sm btn-success">
+                <button type="submit" class="btn btn-sm btn-primary">
                     <b>Actualizar</b>
                 </button>
             </div>
