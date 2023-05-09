@@ -2,7 +2,7 @@
 return [
   'Sector' => 'Sector',
   'Index' => 'Inicio del Sector',
-  'Add farm' => 'Agregar Granja',
+  'Add' => 'Agregar Sector',
   'Name' => 'Nombre',
   'Description' => 'Descripcion',
   'Person in charge' => 'Persona Encargada',

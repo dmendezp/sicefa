@@ -45,16 +45,14 @@ class SectorController extends Controller
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
     $classenviron = ClassEnvironment::get();
-    $farm = Farm::get();
-    $person = Person::get();
-    $muni = Municipality::get();
+    $sector = Sector::get();
     $filter = Environment::query()->with('farms','productive_units');
     if ($request->has('id')) {
       $filter->where('farms_id', $request->id);
       $filter->where('productive_units_id', $request->id);
     }
     $result = $filter->get();
-    $data = ['title'=>trans('cefamaps::farm.Add farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    $data = ['title'=>trans('cefamaps::sector.Add'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'classenviron'=>$classenviron, 'filter'=>$filter];
     return view('cefamaps::admin.sector.add',$data, compact('result'));
   }
 
@@ -64,26 +62,12 @@ class SectorController extends Controller
    */
   public function addpost(Request $request)
   {
-    $rules = [
-      "person" => "required|max:5"
-    ];
-    $messages = [
-      "person.required" => 'Algo salio mal en tu numero de documento, intenta de nuevo buscandolo',
-    ];
-    $validator = Validator::make($request->all(), $rules, $messages);
-    if($validator->fails()):
-      return back()->withErrors($validator)->with('message', 'Algo fallo en el proceso')->with('typealert', 'danger');
-      else:
-      $add = new Farm;
-      $add -> name = e ($request->input('name'));
-      $add -> description = e ($request->input('description'));
-      $add -> area = e ($request->input('area'));
-      $add -> person_id = e ($request->input('person'));
-      $add -> municipality_id = e ($request->input('muni'));
-      if($add -> save()){
-        return redirect(route('cefamaps.admin.config.sector.index'));
-      }
-    endif;
+    $add = new Sector;
+    $add -> name = e ($request->input('name'));
+    $add -> description = e ($request->input('description'));
+    if($add -> save()){
+      return redirect(route('cefamaps.admin.config.sector.index'));
+    }
   }
 
   /**
