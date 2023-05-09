@@ -24,5 +24,7 @@ return [
     'Productive' => 'Productive',
     'Administrative' => 'Administrative',
     'Environmental' => 'Environmental',
+    'Accept' => 'Accept',
+    'Cancel' => 'Cancel',
     'Search' => 'Search'
 ];

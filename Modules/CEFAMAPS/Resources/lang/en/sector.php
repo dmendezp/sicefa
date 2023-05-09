@@ -1,11 +1,11 @@
 <?php
 return [
   'Sector' => 'Sector',
-  'Index' => 'Index of the Sector',
+  'Index' => 'Sector Index',
   'Add' => 'Sector Add',
+  'Edit' => 'Sector Edit',
   'Name' => 'Name',
   'Description' => 'Description',
-  'Person in charge' => 'Person in chargena Encargada',
-  'Municipality' => 'Municipality',
-  'Area' => 'Area'
+  'delete_alert_title' => 'Are you sure to delete it??',
+  'delete_alert_text' => 'If you delete it, you wont see it again'
 ];

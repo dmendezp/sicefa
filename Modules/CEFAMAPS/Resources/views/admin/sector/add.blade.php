@@ -37,7 +37,7 @@
                   <!-- inicio del boton -->
                   <div class="d-grip gap-2">
                     <button type="submit" class="btn btn-light btn-block btn-outline-info btn-lg">
-                        {{ trans('cefamaps::menu.Add') }} {{ trans('cefamaps::sector.Sector') }}
+                      {{ trans('cefamaps::menu.Add') }} {{ trans('cefamaps::sector.Sector') }}
                     </button>
                   </div>
                   <!-- fin del boton -->

@@ -23,7 +23,7 @@
               <div class="content">
                 <form action="{{ route('cefamaps.admin.sector.edit') }}" method="post">
                   @csrf
-                  <input type="hidden" name="id" value="{{ $editsector->id }}" required>
+                  <input type="hidden" name="id" value="{{ $editsector->id }}">
                   <!-- inicio del nombre -->
                   <div class="form-group">
                     <label for="name">{{ trans('cefamaps::menu.Name') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::sector.Sector') }}</label>

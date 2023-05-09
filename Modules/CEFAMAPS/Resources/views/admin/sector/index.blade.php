@@ -10,7 +10,6 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <!-- /.col-md-6 -->
         <div class="col-lg-12">
           <div class="card card-lightblue card-outline">
             <div class="card-header">
@@ -61,10 +60,8 @@
             </div>
           </div>
         </div>
-        <!-- /.col-md-6 -->
       </div>
-      <!-- /.row -->
-    </div><!-- /.container-fluid -->
+    </div>
   </div>
 
 @endsection
@@ -77,14 +74,14 @@
         var id = $(this).data('object');
         var url = "{{ url('/cefamaps/sector/delete/') }}/"+id;
         Swal.fire({
-          title: 'Estas seguro de elimar',
-          text: "Aca no sirve el control Z",
+          title: '{{ trans("cefamaps::sector.delete_alert_title") }}',
+          text: '{{ trans("cefamaps::sector.delete_alert_text") }}',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Aceptar',
-          cancelButtonText: 'Cancelar'
+          confirmButtonText: '{{ trans("cefamaps::menu.Accept") }}',
+          cancelButtonText: '{{ trans("cefamaps::menu.Cancel") }}'
         }).then((result) => {
           if (result.isConfirmed){
             window.location.href=url
@@ -94,14 +91,14 @@
     })
   </script>
 
-<script>
+  <script>
 
-$(document).ready(function () {
-  $('#example1').DataTable({
-    order: [[3, 'desc']],
-  });
-});
+    $(document).ready(function () {
+      $('#example1').DataTable({
+        order: [[3, 'desc']],
+      });
+    });
 
-</script>
+  </script>
 
 @endsection

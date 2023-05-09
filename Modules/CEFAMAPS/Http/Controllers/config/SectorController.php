@@ -87,7 +87,7 @@ class SectorController extends Controller
       $filter->where('productive_units_id', $request->id);
     }
     $result = $filter->get();
-    $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'editsector'=>$editsector, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    $data = ['title'=>trans('cefamaps::sector.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'editsector'=>$editsector, 'classenviron'=>$classenviron, 'filter'=>$filter];
     return view('cefamaps::admin.sector.edit',$data, compact('result'));
   }
 
@@ -111,8 +111,9 @@ class SectorController extends Controller
    */
   public function destroy($id)
   {
-    $remove = Farm::findOrFail($id);
-    if($remove->delete());
-    return back()->with('message', 'Unidad Borrada Exitosamente')->with('typealert', 'succes');
+    $remove = Sector::findOrFail($id);
+    if($remove->delete()){
+      return back();
+    }
   }
 }
