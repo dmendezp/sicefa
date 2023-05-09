@@ -202,16 +202,18 @@ class EnvironmentController extends Controller
         $environ = Environment::get();
         $farm = Farm::get();
         $classenviron = ClassEnvironment::get();
-        $pages = Page::get();
         $viewenviron = Environment::where('class_environments_id',$id)->get();
+        $pages = Page::query()->with('environment');
         $filter = Environment::query()->with('farms','productive_units');
         if ($request->has('id')) {
             $filter->where('farms_id', $request->id);
             $filter->where('productive_units_id', $request->id);
+            $pages->where('environment_id', $request->id);
         }
+        $resultpage = $pages->get();
         $result = $filter->get();
         $data = ['title'=>trans('cefamaps::environment.Environment'), 'unit'=>$unit, 'farm'=>$farm, 'environ'=>$environ, 'classenviron'=>$classenviron, 'viewenviron'=>$viewenviron, 'pages'=>$pages, 'filter'=>$filter];
-        return view('cefamaps::admin.environment.view',$data, compact('result'));
+        return view('cefamaps::admin.environment.view',$data, compact('result','resultpage'));
     }
 
     /**

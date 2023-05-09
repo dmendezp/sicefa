@@ -163,7 +163,7 @@
                 <!-- fin de la prueba -->
                 <!-- inicio boton de agregar -->
                 <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-light btn-block btn-outline-info btn-lg">{{ trans('cefamaps::environment.Save') }}</button>
+                  <button type="submit" class="btn btn-light btn-block btn-outline-info btn-lg">{{ trans('cefamaps::menu.Save') }}</button>
                 </div>
                 <!-- fin boton de agregar -->
               </form>

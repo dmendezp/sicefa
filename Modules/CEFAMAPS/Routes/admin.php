@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\CEFAMAPS\Http\Controllers\config\EnvironmentController;
 use Modules\CEFAMAPS\Http\Controllers\config\UnitController;
-use Modules\CEFAMAPS\Http\Controllers\config\FarmController;
+use Modules\CEFAMAPS\Http\Controllers\config\SectorController;
 use Modules\CEFAMAPS\Http\Controllers\config\CoordinateController;
 use Modules\CEFAMAPS\Http\Controllers\config\PageController;
 
@@ -41,17 +41,16 @@ Route::middleware(['lang'])->group(function(){
         // para buscar el usuario por numero de documento
         Route::get('/unit/search/{document}',[UnitController::class, 'search'])->name('cefamaps.admin.unit.search');
 
-        // Todas las rutas de las Farms
-        Route::get('/farm/index',[FarmController::class, 'index'])->name('cefamaps.admin.config.farm.index');
-        Route::get('/farm/view/{id}',[FarmController::class, 'view'])->name('cefa.cefamaps.farm.view');
-        // para poder agregar Farms
-        Route::get('/farm/add',[FarmController::class, 'add'])->name('cefamaps.admin.config.farm.add');
-        Route::post('/farm/add',[FarmController::class, 'addpost'])->name('cefamaps.admin.config.farm.add');
-        // para poder editar Farms
-        Route::get('/farm/edit/{id}',[FarmController::class, 'edit'])->name('cefamaps.admin.config.farm.edit');
-        Route::post('/farm/edit/',[FarmController::class, 'editpost'])->name('cefamaps.admin.farm.edit');
-        // para poder eliminar Farms
-        Route::get('/farm/delete/{id}', [FarmController::class, 'destroy'])->name('cefamaps.admin.farm.delete');
+        // Todas las rutas de las Sector
+        Route::get('/sector/index',[SectorController::class, 'index'])->name('cefamaps.admin.config.sector.index');
+        // para poder agregar Sector
+        Route::get('/sector/add',[SectorController::class, 'add'])->name('cefamaps.admin.config.sector.add');
+        Route::post('/sector/add',[SectorController::class, 'addpost'])->name('cefamaps.admin.config.sector.add');
+        // para poder editar Sector
+        Route::get('/sector/edit/{id}',[SectorController::class, 'edit'])->name('cefamaps.admin.config.sector.edit');
+        Route::post('/sector/edit/',[SectorController::class, 'editpost'])->name('cefamaps.admin.sector.edit');
+        // para poder eliminar Sector
+        Route::get('/sector/delete/{id}', [SectorController::class, 'destroy'])->name('cefamaps.admin.sector.delete');
 
         // Todas las rutas de las Page 
         Route::get('/page/index', [PageController::class, 'index'])->name('cefamaps.admin.config.page.index');

@@ -24,7 +24,7 @@ class CEFAMAPSController extends Controller
         $classenviron = ClassEnvironment::get();
         $farm = Farm::get();
         $environ = Environment::get();
-        $filter = Environment::query()->with('farms','productive_units');
+        $filter = Environment::query()->with('farms');
         if ($request->has('id')) {
             $filter->where('farms_id', $request->id);
             $filter->where('productive_units_id', $request->id);
@@ -33,5 +33,4 @@ class CEFAMAPSController extends Controller
         $data = ['title'=>trans('cefamaps::menu.Home'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron, 'filter'=>$filter];
         return view('cefamaps::index',$data, compact('result'));
     }
-
 }

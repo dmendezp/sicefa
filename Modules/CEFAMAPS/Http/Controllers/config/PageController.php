@@ -25,10 +25,9 @@ class PageController extends Controller
     $classenviron = ClassEnvironment::get();
     $farm = Farm::get();
     // filtro de la pagina con el id
-    $query = Page::query()->with('environment', 'page');
+    $query = Page::query()->with('environment');
     if ($request->has('id')) {
       $query->where('environment_id', $request->id);
-     
     }
     $final = $query->get();
     $filter = Environment::query()->with('farms','productive_units');
@@ -81,7 +80,6 @@ class PageController extends Controller
       $image_name= "/upload/" . time().$item.'.png';
       $path = public_path() . $image_name;
       file_put_contents($path, $imgeData);
-
       $image->removeAttribute('src');
       $image->setAttribute('src', $image_name);
     }
@@ -138,7 +136,6 @@ class PageController extends Controller
       $image_name= "/upload/" . time().$item.'.png';
       $path = public_path() . $image_name;
       file_put_contents($path, $imgeData);
-
       $image->removeAttribute('src');
       $image->setAttribute('src', $image_name);
     }

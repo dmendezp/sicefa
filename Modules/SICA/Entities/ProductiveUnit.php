@@ -13,7 +13,7 @@ class ProductiveUnit extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
-    protected $fillable = ['name','description','person_id','sector_id','icon'];
+    protected $fillable = ['name','description','person_id','sector_id','farms_id','icon'];
 
     public function sector(){
         return $this->belongsTo(Sector::class);
@@ -21,6 +21,10 @@ class ProductiveUnit extends Model implements Auditable
 
     public function person(){
         return $this->belongsTo(Person::class);
+    }
+
+    public function farms(){
+        return $this->belongsTo(Farm::class);
     }
 
 }

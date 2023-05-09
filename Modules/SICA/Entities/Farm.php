@@ -21,4 +21,8 @@ class Farm extends Model implements Auditable
     public function municipality(){
         return $this->belongsTo(Municipality::class);
     }
+
+    public function productive_units(){
+        return $this->hasMany(ProductiveUnit::class);
+    }
 }

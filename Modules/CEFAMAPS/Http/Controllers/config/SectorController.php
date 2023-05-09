@@ -14,7 +14,7 @@ use Modules\SICA\Entities\ClassEnvironment;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Municipality;
 
-class FarmController extends Controller
+class SectorController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -33,7 +33,7 @@ class FarmController extends Controller
     }
     $result = $filter->get();
     $data = ['title'=>trans('cefamaps::farm.Farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron, 'filter'=>$filter];
-    return view('cefamaps::admin.farm.index',$data, compact('result'));
+    return view('cefamaps::admin.sector.index',$data, compact('result'));
   }
 
   /**
@@ -55,7 +55,7 @@ class FarmController extends Controller
     }
     $result = $filter->get();
     $data = ['title'=>trans('cefamaps::farm.Add farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'classenviron'=>$classenviron, 'filter'=>$filter];
-    return view('cefamaps::admin.farm.add',$data, compact('result'));
+    return view('cefamaps::admin.sector.add',$data, compact('result'));
   }
 
   /**
@@ -81,7 +81,7 @@ class FarmController extends Controller
       $add -> person_id = e ($request->input('person'));
       $add -> municipality_id = e ($request->input('muni'));
       if($add -> save()){
-        return redirect(route('cefamaps.admin.config.farm.index'));
+        return redirect(route('cefamaps.admin.config.sector.index'));
       }
     endif;
   }
@@ -106,7 +106,7 @@ class FarmController extends Controller
     }
     $result = $filter->get();
     $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'editfarm'=>$editfarm, 'classenviron'=>$classenviron, 'filter'=>$filter];
-    return view('cefamaps::admin.farm.edit',$data, compact('result'));
+    return view('cefamaps::admin.sector.edit',$data, compact('result'));
   }
 
   /**
@@ -132,7 +132,7 @@ class FarmController extends Controller
       $edit -> person_id = e ($request->input('person'));
       $edit -> municipality_id = e ($request->input('muni'));
       if($edit -> save()){
-        return redirect(route('cefamaps.admin.config.farm.index'));
+        return redirect(route('cefamaps.admin.config.sector.index'));
       }
     endif;
   }

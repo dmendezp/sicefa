@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
   <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
-  <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.farm.index') }}"><i class="fas fa-solid fa-tractor"></i> {{ trans('cefamaps::farm.Farm') }}</a></li>
+  <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.sector.index') }}"><i class="fas fa-solid fa-tractor"></i> {{ trans('cefamaps::farm.Farm') }}</a></li>
 @endsection
 
 @section('content')
@@ -28,7 +28,7 @@
                       <th>{{ trans('cefamaps::farm.Person in charge of the') }} {{ trans('cefamaps::farm.Farm') }}</th>
                       <th>{{ trans('cefamaps::farm.Municipality') }}</th>
                       <th>
-                        <a href="{{ route('cefamaps.admin.config.farm.add')}}" class="btn btn-success">
+                        <a href="{{ route('cefamaps.admin.config.sector.add')}}" class="btn btn-success">
                           <i class="fa-solid fa-square-plus"></i>
                         </a>
                       </th>
@@ -44,7 +44,7 @@
                       <td>{{$f->person->full_name}}</td>
                       <td>{{$f->municipality->name}}</td>
                       <td>
-                        <a href="{{ url('/cefamaps/farm/edit/'.$f->id) }}" class="btn btn-warning">
+                        <a href="{{ url('/cefamaps/sector/edit/'.$f->id) }}" class="btn btn-warning">
                           <i class="fas fa-map-signs"></i>
                         </a>
                         <a class="btn btn-danger delete-farm" href="#" type="submit" data-action="delete" data-object="{{ $f->id }}" data-path="/cefamaps/farm/delete/">

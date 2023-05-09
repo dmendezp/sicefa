@@ -1,11 +1,13 @@
 @extends('cefamaps::layouts.master')
 
-@section('breadcrumb')
+@foreach($viewenviron as $v)
+  @section('breadcrumb')
 
-  <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-school"></i> {{ trans('cefamaps::environment.Environment') }}</a></li>
-  <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-school-flag"></i> {{ trans('cefamaps::menu.Polyvalent') }}</a></li>
+    <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-school"></i> {{ trans('cefamaps::environment.Environment') }}</a></li>
+    <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-school-flag"></i> {{ $v->class_environments->name }}</a></li>
 
-@endsection
+  @endsection
+@endforeach
 
 @section('style')
 	<link rel="stylesheet" href="{{ asset('cefamaps/css/viewenviron.css') }}">
@@ -13,13 +15,14 @@
 
 @section('content')
 
+@foreach($viewenviron as $v)
   <div class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
           <div class="card card-lightblue card-outline">
             <div class="card-header">
-              <h3 class="m-0">{{ trans('cefamaps::environment.Environment') }} - {{ trans('cefamaps::menu.Polyvalent') }}</h3>
+              <h3 class="m-0">{{ trans('cefamaps::environment.Environment') }} - {{ $v->class_environments->name }}</h3>
             </div>
             <div class="card-body">
               <div class="row align-items-start">
@@ -31,8 +34,8 @@
       </div>
     </div>
   </div>
-  
-  @foreach($pages as $p)
+  @endforeach  
+
     <!-- Inicio El modal para que aparezacan todas la paginas -->
     <div class="modal fade" id="modal-lg">
       <div class="modal-dialog modal-lg">
@@ -43,16 +46,14 @@
               <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
             </button>
           </div>
-          @foreach($pages as $p)
+          @foreach($resultpage as $p)
           <div class="modal-body">
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
           </div>
-          @endforeach
         </div>
       </div>
     </div>
     <!-- Fin El modal para que aparezacan todas la paginas -->
-
     <!-- Inicio El modal para mostrar la pagina -->
     <div class="modal fade" id="modal{{$p->id}}">
       <div class="modal-dialog modal-xl">
