@@ -242,10 +242,10 @@ class AcademyController extends Controller
         $course->deschooling = e($request->input('deschooling'));
         if($course->save()){
             $icon = 'success';
-            $message_course = 'Titulación agregada exitosamente.';
+            $message_course = trans('sica::menu.Successfully added Course');
         }else{
             $icon = 'error';
-            $message_course = 'No se pudo agregar la titulación.';
+            $message_course = trans('sica::menu.Course could not be added');
         }
         return back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
     }
@@ -271,10 +271,10 @@ class AcademyController extends Controller
         $course->deschooling = e($request->input('deschooling'));
         if($course->save()){
             $icon = 'success';
-            $message_course = 'Titulada actualizada exitosamente.';
+            $message_course = trans('sica::menu.Successfully upgraded Course');
         }else{
             $icon = 'error';
-            $message_course = 'No se pudo actualizar la titulada.';
+            $message_course = trans('sica::menu.Could not update the Course');
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
     }
@@ -289,10 +289,10 @@ class AcademyController extends Controller
         $course = Course::findOrFail($request->input('id'));
         if($course->delete()){
             $icon = 'success';
-            $message_course = 'Titulada eliminada exitosamente.';
+            $message_course = trans('sica::menu.Course successfully removed');
         }else{
             $icon = 'error';
-            $message_course = 'No se pudo eliminar la titulada.';
+            $message_course = trans('sica::menu.Could not remove the Course');
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
     }

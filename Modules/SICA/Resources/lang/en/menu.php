@@ -92,6 +92,7 @@ return [
 	/* Programas de formación */
 	'Programs' => 'Programs',
 	'Formation Programs' => 'Formation Programs',
+	'Formation Program' => 'Formation Program',
 	'Code' => 'Code',
 	'Type' => 'Type',
 	'Program Type' => 'Program Type',
@@ -104,4 +105,22 @@ return [
 	'Failed to update formation program' => 'Failed to update formation program',
 	'Formation program successfully removed' => 'Formation program successfully removed',
 	'Could not delete formation program' => 'Could not delete formation program',
+
+	/* Titulaciones */
+	'Courses' => 'Courses',
+	'Course' => 'Course',
+	'Start Date' => 'Start Date',
+	'End Date' => 'End Date',
+	'Status' => 'Status',
+	'Deschooling' => 'Deschooling',
+	'Add Course' => 'Add Course',
+	'Fiche' => 'Fiche',
+	'Update Course' => 'Update Course',
+	'Do you want to delete the following title?' => 'Do you want to delete the following title?',
+	'Successfully added Course' => 'Successfully added Course',
+	'Course could not be added' => 'Course could not be added',
+	'Successfully upgraded Course' => 'Successfully upgraded Course',
+	'Could not update the Course' => 'Could not update the course',
+	'Course successfully removed' => 'Course successfully removed',
+	'Could not remove the Course' => 'Could not remove the Course',
 ];
