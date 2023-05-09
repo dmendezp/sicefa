@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
   <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
-  <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.sector.index') }}"><i class="fas fa-solid fa-tractor"></i> {{ trans('cefamaps::farm.Farm') }}</a></li>
+  <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.sector.index') }}"><i class="fas fa-solid fa-tractor"></i> {{ trans('cefamaps::sector.Farm') }}</a></li>
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
         <div class="col-lg-12">
           <div class="card card-lightblue card-outline">
             <div class="card-header">
-              <h3 class="m-0">{{ trans('cefamaps::farm.Farm') }}</h3>
+              <h3 class="m-0">{{ trans('cefamaps::sector.Farm') }}</h3>
             </div>
             <div class="card-body">
               <div class="content">
@@ -22,11 +22,8 @@
                   <thead>
                     <tr>
                       <th>N°</th>
-                      <th>{{ trans('cefamaps::farm.Name') }}</th>
-                      <th>{{ trans('cefamaps::farm.Description') }}</th>
-                      <th>{{ trans('cefamaps::farm.Area') }}</th>
-                      <th>{{ trans('cefamaps::farm.Person in charge of the') }} {{ trans('cefamaps::farm.Farm') }}</th>
-                      <th>{{ trans('cefamaps::farm.Municipality') }}</th>
+                      <th>{{ trans('cefamaps::sector.Name') }}</th>
+                      <th>{{ trans('cefamaps::sector.Description') }}</th>
                       <th>
                         <a href="{{ route('cefamaps.admin.config.sector.add')}}" class="btn btn-success">
                           <i class="fa-solid fa-square-plus"></i>
@@ -35,19 +32,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($farm as $f)
+                    @foreach($sector as $s)
                     <tr>
-                      <td>{{$f->id}}</td>
-                      <td>{{$f->name}}</td>
-                      <td>{{$f->description}}</td>
-                      <td>{{$f->area}}m²</td>
-                      <td>{{$f->person->full_name}}</td>
-                      <td>{{$f->municipality->name}}</td>
+                      <td>{{$s->id}}</td>
+                      <td>{{$s->name}}</td>
+                      <td>{{$s->description}}</td>
                       <td>
-                        <a href="{{ url('/cefamaps/sector/edit/'.$f->id) }}" class="btn btn-warning">
+                        <a href="{{ url('/cefamaps/sector/edit/'.$s->id) }}" class="btn btn-warning">
                           <i class="fas fa-map-signs"></i>
                         </a>
-                        <a class="btn btn-danger delete-farm" href="#" type="submit" data-action="delete" data-object="{{ $f->id }}" data-path="/cefamaps/farm/delete/">
+                        <a class="btn btn-danger delete-sector" href="#" type="submit" data-action="delete" data-object="{{ $s->id }}" data-path="/cefamaps/farm/delete/">
                           <i class="fa-solid fa-trash"></i>
                         </a>
                       </td>
@@ -57,11 +51,8 @@
                   <tfoot>
                     <tr>
                       <th>N°</th>
-                      <th>{{ trans('cefamaps::farm.Name') }}</th>
-                      <th>{{ trans('cefamaps::farm.Description') }}</th>
-                      <th>{{ trans('cefamaps::farm.Area') }}</th>
-                      <th>{{ trans('cefamaps::farm.Person in charge of the') }} {{ trans('cefamaps::farm.Farm') }}</th>
-                      <th>{{ trans('cefamaps::farm.Municipality') }}</th>
+                      <th>{{ trans('cefamaps::sector.Name') }}</th>
+                      <th>{{ trans('cefamaps::sector.Description') }}</th>
                       <th></th>
                     </tr>
                   </tfoot>
@@ -82,9 +73,9 @@
 
   <script>
     $(document).ready(function(){
-      $(document).on("click", ".delete-farm", function() {
+      $(document).on("click", ".delete-sector", function() {
         var id = $(this).data('object');
-        var url = "{{ url('/cefamaps/farm/delete/') }}/"+id;
+        var url = "{{ url('/cefamaps/sector/delete/') }}/"+id;
         Swal.fire({
           title: 'Estas seguro de elimar',
           text: "Aca no sirve el control Z",

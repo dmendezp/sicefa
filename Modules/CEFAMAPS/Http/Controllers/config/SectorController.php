@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 use Validator;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
-use Modules\SICA\Entities\Farm;
+use Modules\SICA\Entities\Sector;
 use Modules\SICA\Entities\ClassEnvironment;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Municipality;
@@ -25,14 +25,14 @@ class SectorController extends Controller
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
     $classenviron = ClassEnvironment::get();
-    $farm = Farm::with('municipality')->get();
+    $sector = Sector::get();
     $filter = Environment::query()->with('farms','productive_units');
     if ($request->has('id')) {
       $filter->where('farms_id', $request->id);
       $filter->where('productive_units_id', $request->id);
     }
     $result = $filter->get();
-    $data = ['title'=>trans('cefamaps::farm.Farm'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    $data = ['title'=>trans('cefamaps::sector.Farm'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'classenviron'=>$classenviron, 'filter'=>$filter];
     return view('cefamaps::admin.sector.index',$data, compact('result'));
   }
 

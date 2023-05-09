@@ -123,7 +123,7 @@
           @endif
           <!-- Fin para las configuraciones del adminitrador -->
           <!-- Inicio de las pruebas nuevas -->
-          @foreach($farm as $f)
+          @foreach($sector as $f)
             <li class="nav-item {{ ! (Request::url() == url('/cefamaps/unit/view/'.$f->id)) ?: 'menu-is-opening menu-open' }}">
               <a href="#" class="nav-link {{ ! (Request::url() == url('/cefamaps/unit/view/'.$f->id)) ?: 'active' }}">
                 <i class="nav-icon fa-solid fa-tractor"></i>
