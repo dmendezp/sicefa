@@ -78,18 +78,16 @@ class SectorController extends Controller
   {
     $environ = Environment::get();
     $unit = ProductiveUnit::get();
+    $sector = Sector::get();
     $classenviron = ClassEnvironment::get();
-    $farm = Farm::get();
-    $person = Person::get();
-    $muni = Municipality::get();
-    $editfarm = Farm::findOrFail($id);
+    $editsector = Sector::findOrFail($id);
     $filter = Environment::query()->with('farms','productive_units');
     if ($request->has('id')) {
       $filter->where('farms_id', $request->id);
       $filter->where('productive_units_id', $request->id);
     }
     $result = $filter->get();
-    $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'person'=>$person, 'muni'=>$muni, 'editfarm'=>$editfarm, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'editsector'=>$editsector, 'classenviron'=>$classenviron, 'filter'=>$filter];
     return view('cefamaps::admin.sector.edit',$data, compact('result'));
   }
 
@@ -99,26 +97,12 @@ class SectorController extends Controller
    */
   public function editpost(Request $request)
   {
-    $rules = [
-      "person" => "required|max:5"
-    ];
-    $messages = [
-      "person.required" => 'Algo salio mal en tu numero de documento, intenta de nuevo buscandolo',
-    ];
-    $validator = Validator::make($request->all(), $rules, $messages);
-    if($validator->fails()):
-      return back()->withErrors($validator)->with('message', 'Algo fallo en el proceso')->with('typealert', 'danger');
-    else:
-      $edit = Farm::findOrFail($request->input('id'));
+      $edit = Sector::findOrFail($request->input('id'));
       $edit -> name = e ($request->input('name'));
       $edit -> description = e ($request->input('description'));
-      $edit -> area = e ($request->input('area'));
-      $edit -> person_id = e ($request->input('person'));
-      $edit -> municipality_id = e ($request->input('muni'));
       if($edit -> save()){
         return redirect(route('cefamaps.admin.config.sector.index'));
       }
-    endif;
   }
 
   /**
