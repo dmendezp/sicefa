@@ -97,12 +97,12 @@ class SectorController extends Controller
    */
   public function editpost(Request $request)
   {
-      $edit = Sector::findOrFail($request->input('id'));
-      $edit -> name = e ($request->input('name'));
-      $edit -> description = e ($request->input('description'));
-      if($edit -> save()){
-        return redirect(route('cefamaps.admin.config.sector.index'));
-      }
+    $edit = Sector::findOrFail($request->input('id'));
+    $edit -> name = e ($request->input('name'));
+    $edit -> description = e ($request->input('description'));
+    if($edit -> save()){
+      return redirect(route('cefamaps.admin.config.sector.index'));
+    }
   }
 
   /**
