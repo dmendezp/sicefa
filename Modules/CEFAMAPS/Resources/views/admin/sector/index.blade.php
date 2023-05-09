@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
   <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
-  <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.sector.index') }}"><i class="fas fa-solid fa-tractor"></i> {{ trans('cefamaps::sector.Farm') }}</a></li>
+  <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.sector.index') }}"><i class="fas fa-solid fa-vector-square"></i> {{ trans('cefamaps::sector.Sector') }}</a></li>
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
         <div class="col-lg-12">
           <div class="card card-lightblue card-outline">
             <div class="card-header">
-              <h3 class="m-0">{{ trans('cefamaps::sector.Farm') }}</h3>
+              <h3 class="m-0">{{ trans('cefamaps::sector.Sector') }}</h3>
             </div>
             <div class="card-body">
               <div class="content">

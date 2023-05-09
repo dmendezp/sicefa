@@ -32,7 +32,7 @@ class SectorController extends Controller
       $filter->where('productive_units_id', $request->id);
     }
     $result = $filter->get();
-    $data = ['title'=>trans('cefamaps::sector.Farm'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    $data = ['title'=>trans('cefamaps::sector.Index'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'classenviron'=>$classenviron, 'filter'=>$filter];
     return view('cefamaps::admin.sector.index',$data, compact('result'));
   }
 

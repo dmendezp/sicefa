@@ -1,11 +1,9 @@
 <?php
 return [
-  'Farm' => 'Farm',
+  'Sector' => 'Sector',
+  'Index' => 'Index of the Sector',
   'Name' => 'Name',
   'Description' => 'Description',
-  'Area' => 'Area',
-  'Person in charge of the' => 'Person in charge of the',
-  'Municipality' => 'Municipality',
   'Person in charge' => 'Person in chargena Encargada',
   'Municipality' => 'Municipality',
   'Area' => 'Area'

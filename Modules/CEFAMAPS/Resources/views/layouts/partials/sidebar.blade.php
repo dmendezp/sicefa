@@ -79,6 +79,16 @@
                   <i class="right fa-solid fa-gear"></i>
                 </p>
               </a>
+              <!-- Inicio para el sector del adminitrador -->
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('cefamaps.admin.config.sector.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.config.sector.*') ?: 'active' }}">
+                    <i class="nav-icon fa-solid fa-vector-square"></i>
+                    <p>{{ trans('cefamaps::sector.Sector') }}</p>
+                  </a>
+                </li>
+              </ul>
+              <!-- Fin para el sector del adminitrador -->
               <!-- Inicio para las Unidades del adminitrador -->
               <ul class="nav nav-treeview">
                 <li class="nav-item">
@@ -89,16 +99,6 @@
                 </li>
               </ul>
               <!-- Fin para las Unidades del adminitrador -->
-              <!-- Inicio para las granjas del adminitrador -->
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('cefamaps.admin.config.sector.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.config.sector.*') ?: 'active' }}">
-                    <i class="nav-icon fa-solid fa-tractor"></i>
-                    <p>{{ trans('cefamaps::farm.Farm') }}</p>
-                  </a>
-                </li>
-              </ul>
-              <!-- Fin para las granjas del adminitrador -->
               <!-- Inicio para los Ambientes del adminitrador -->
               <ul class="nav nav-treeview">
                 <li class="nav-item">

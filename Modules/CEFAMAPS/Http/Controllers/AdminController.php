@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ProductiveUnit;
-use Modules\SICA\Entities\Farm;
+use Modules\SICA\Entities\Sector;
 use Modules\SICA\Entities\ClassEnvironment;
 
 class AdminController extends Controller
@@ -21,7 +21,7 @@ class AdminController extends Controller
     public function dashboard(Request $request)
     {
         $unit = ProductiveUnit::get();
-        $farm = Farm::get();
+        $sector = Sector::get();
         $environ = Environment::get();
         $classenviron = ClassEnvironment::get();
         $roles = Role::count();
@@ -31,7 +31,7 @@ class AdminController extends Controller
             $filter->where('productive_units_id', $request->id);
         }
         $result = $filter->get();
-        $data = ['title'=>trans('cefamaps::menu.Dashboard'), 'roles'=>$roles, 'unit'=>$unit, 'farm'=>$farm, 'environ'=>$environ, 'classenviron'=>$classenviron, 'filter'=>$filter];
+        $data = ['title'=>trans('cefamaps::menu.Dashboard'), 'roles'=>$roles, 'unit'=>$unit, 'sector'=>$sector, 'environ'=>$environ, 'classenviron'=>$classenviron, 'filter'=>$filter];
         return view('cefamaps::admin.dashboard',$data, compact('result'));
     }
 }

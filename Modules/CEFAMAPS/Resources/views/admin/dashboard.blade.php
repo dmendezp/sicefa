@@ -23,7 +23,7 @@
                       <i class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::unit.Units') }}
                     </a>
                     <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.sector.index') }}">
-                      <i class="fas fa-solid fa-tractor"></i> {{ trans('cefamaps::farm.Farm') }}
+                    <i class="fas fa-solid fa-vector-square"></i> {{ trans('cefamaps::sector.Sector') }}
                     </a>
                     <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.environment.index') }}">
                       <i class="fas fa-solid fa-chalkboard-user"></i> {{ trans('cefamaps::environment.Environment') }}
