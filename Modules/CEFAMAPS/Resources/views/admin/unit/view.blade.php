@@ -9,13 +9,9 @@
   @endsection
 @endforeach
 
-<!--estos cosas siempren van hay, solo cambia el href por si necesitas agregar css en la vista-->
 @section('style')
 	<link rel="stylesheet" href="{{ asset('cefamaps/css/viewenviron.css') }}">
-  <!--este link es para que la carta se mueva, este es el css, asi que puede usar este o para que no se complique puede usar otro y pegarlo hay sin miedo
-  esta es la ruta que se necesita para poder ingresar, donde esta eso en public y mas todo eso-->
 @endsection
-<!-- con esto puede hacer lo del css -->
 
 @section('content')
   <div class="content">
@@ -45,12 +41,11 @@
             <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
           </button>
         </div>
-  @foreach($pages as $p)
-        <div class="modal-body">
-          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
-        </div>
+        @foreach($pages as $p)
+          <div class="modal-body">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
+          </div>
         @endforeach
-        <!--aqui es donde tiene que mirar eso, porque al darle al boton el me saca a este modal y depsues me entra al otro modal de abajo-->
       </div>
     </div>
   </div>

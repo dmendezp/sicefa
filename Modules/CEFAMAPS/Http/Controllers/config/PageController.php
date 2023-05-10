@@ -45,12 +45,6 @@ class PageController extends Controller
     $classenviron = ClassEnvironment::get();
     $sector = Sector::get();
     $page = Page::get();
-    $filter = Environment::query()->with('farms','productive_units');
-    if ($request->has('id')) {
-      $filter->where('farms_id', $request->id);
-      $filter->where('productive_units_id', $request->id);
-    }
-    $result = $filter->get();
     $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'page'=>$page, 'classenviron'=>$classenviron];
     return view('cefamaps::admin.page.add',$data, compact('result'));
   }
@@ -101,12 +95,6 @@ class PageController extends Controller
     $sector = Sector::get();
     $page = Page::get();
     $editpage = Page::findOrFail($id);
-    $filter = Environment::query()->with('farms','productive_units');
-    if ($request->has('id')) {
-      $filter->where('farms_id', $request->id);
-      $filter->where('productive_units_id', $request->id);
-    }
-    $result = $filter->get();
     $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'page'=>$page, 'editpage'=>$editpage, 'classenviron'=>$classenviron];
     return view('cefamaps::admin.page.edit',$data, compact('result'));
   }

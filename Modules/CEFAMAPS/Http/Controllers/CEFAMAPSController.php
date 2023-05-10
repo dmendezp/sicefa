@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 //Para hacer los crud del administrador
 use Modules\SICA\Entities\ProductiveUnit;
-use Modules\SICA\Entities\Farm;
+use Modules\SICA\Entities\Sector;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\ClassEnvironment;
 use Modules\CEFAMAPS\Entities\Page;
@@ -22,9 +22,9 @@ class CEFAMAPSController extends Controller
     {
         $unit = ProductiveUnit::get();
         $classenviron = ClassEnvironment::get();
-        $farm = Farm::get();
+        $sector = Sector::get();
         $environ = Environment::get();
-        $data = ['title'=>trans('cefamaps::menu.Home'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron];
+        $data = ['title'=>trans('cefamaps::menu.Home'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'classenviron'=>$classenviron];
         return view('cefamaps::index',$data);
     }
 }

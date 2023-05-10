@@ -14,6 +14,7 @@ use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\ClassEnvironment;
 use Modules\CEFAMAPS\Entities\Coordinate;
 use Modules\CEFAMAPS\Entities\Page;
+use Modules\SICA\Entities\Sector;
 
 class EnvironmentController extends Controller
 {
@@ -25,9 +26,10 @@ class EnvironmentController extends Controller
     {
         $unit = ProductiveUnit::get();
         $farm = Farm::get();
+        $sector = Sector::get();
         $classenviron = ClassEnvironment::get();
         $environ = Environment::with('coordinates')->get();
-        $data = ['title'=>trans('cefamaps::environment.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron];
+        $data = ['title'=>trans('cefamaps::environment.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'sector'=>$sector, 'classenviron'=>$classenviron];
         return view('cefamaps::admin.environment.index',$data);
     }
 

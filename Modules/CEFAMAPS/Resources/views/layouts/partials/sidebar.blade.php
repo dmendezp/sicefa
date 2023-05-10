@@ -132,7 +132,7 @@
                   <i class="right fa-solid fa-map-pin"></i>
                 </p>
               </a>
-              @foreach($unit as $u)
+              @foreach($f->productive_units as $u)
               <ul class="nav nav-treeview">
                 <li class="nav nav-item">
                   <a  href="{{ url('/cefamaps/unit/view/'.$u->id) }}" class="nav-link {{ ! (Request::url() == url('/cefamaps/unit/view/'.$u->id)) ?: 'active' }}">

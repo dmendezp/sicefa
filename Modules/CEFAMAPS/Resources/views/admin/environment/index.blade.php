@@ -24,7 +24,7 @@
                       <th>{{ trans('cefamaps::environment.Name') }}</th>
                       <th>{{ trans('cefamaps::environment.Picture') }}</th>
                       <th>{{ trans('cefamaps::environment.Description') }}</th>
-                      <th>{{ trans('cefamaps::farm.Farm') }}</th>
+                      <th>{{ trans('cefamaps::unit.Farm') }}</th>
                       <th>{{ trans('cefamaps::environment.Productive units') }}</th>
                       <th>{{ trans('cefamaps::menu.Status') }}</th>
                       <th>{{ trans('cefamaps::environment.Type') }} {{ trans('cefamaps::environment.Environment') }}</th>
@@ -139,7 +139,7 @@
                       <th>{{ trans('cefamaps::environment.Name') }}</th>
                       <th>{{ trans('cefamaps::environment.Picture') }}</th>
                       <th>{{ trans('cefamaps::environment.Description') }}</th>
-                      <th>{{ trans('cefamaps::farm.Farm') }}</th>
+                      <th>{{ trans('cefamaps::unit.Farm') }}</th>
                       <th>{{ trans('cefamaps::environment.Productive units') }}</th>
                       <th>{{ trans('cefamaps::menu.Status') }}</th>
                       <th>{{ trans('cefamaps::environment.Type') }} {{ trans('cefamaps::environment.Environment') }}</th>

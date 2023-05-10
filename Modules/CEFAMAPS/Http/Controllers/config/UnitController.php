@@ -142,10 +142,10 @@ class UnitController extends Controller
         $unit = ProductiveUnit::get();
         $environ = Environment::get();
         $classenviron = ClassEnvironment::get();
-        $farm = Farm::get();
+        $sector = Sector::get();
         $pages = Page::get();
         $viewunit = Environment::where('productive_units_id',$id)->get();
-        $data = ['title'=>trans('cefamaps::unit.Units'), 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'viewunit'=>$viewunit, 'classenviron'=>$classenviron, 'pages'=>$pages];
+        $data = ['title'=>trans('cefamaps::unit.Units'), 'unit'=>$unit, 'environ'=>$environ, 'sector'=>$sector, 'viewunit'=>$viewunit, 'classenviron'=>$classenviron, 'pages'=>$pages];
         return view('cefamaps::admin.unit.view',$data);
     }
 
