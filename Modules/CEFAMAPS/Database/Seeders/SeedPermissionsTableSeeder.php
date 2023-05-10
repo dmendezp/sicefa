@@ -50,14 +50,14 @@ class SeedPermissionsTableSeeder extends Seeder
                 "description_english" => "Zoning of CEFA Areas, Units and Environments"
             ]);
         }
-        //crear usuario administrador
+        //crear usuario administrador -- no modificar
         $useradmin = User::where('nickname','LolaFernada')->first();
         if(!$useradmin){
             $person = Person::where('document_number','1079172063')->first();
             $useradmin = User::create([
                 "nickname" => "LolaFernada",
                 "person_id" => $person->id,
-                "email" => "ana.falla3@misena.edu.co", 
+                "email" => "lolafernanda@misena.edu.co",
                 "password" => Hash::make("12345678")
             ]);
         }

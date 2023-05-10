@@ -23,7 +23,8 @@
                       <th>N°</th>
                       <th>{{ trans('cefamaps::unit.Name') }}</th>
                       <th>{{ trans('cefamaps::unit.Person in charge') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</th>
-                      <th>{{ trans('cefamaps::unit.Sector') }}</th>
+                      <th>{{ trans('cefamaps::sector.Sector') }}</th>
+                      <th>{{ trans('cefamaps::unit.Farm') }}</th>
                       <th>{{ trans('cefamaps::unit.Description') }}</th>
                       <th>{{ trans('cefamaps::unit.Icon') }}</th>
                       <th>
@@ -40,6 +41,7 @@
                       <td>{{$u->name}}</td>
                       <td>{{$u->person->full_name}}</td>
                       <td>{{$u->sector->name}}</td>
+                      <td>{{$u->farms->name}}</td>
                       <td>{{$u->description}}</td>
                       <td>
                         <i class="{{$u->icon}}"></i>
@@ -60,7 +62,8 @@
                       <th>N°</th>
                       <th>{{ trans('cefamaps::unit.Name') }}</th>
                       <th>{{ trans('cefamaps::unit.Person in charge') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</th>
-                      <th>{{ trans('cefamaps::unit.Sector') }}</th>
+                      <th>{{ trans('cefamaps::sector.Sector') }}</th>
+                      <th>{{ trans('cefamaps::unit.Farm') }}</th>
                       <th>{{ trans('cefamaps::unit.Description') }}</th>
                       <th>{{ trans('cefamaps::unit.Icon') }}</th>
                       <th></th>
