@@ -25,13 +25,7 @@ class AdminController extends Controller
         $environ = Environment::get();
         $classenviron = ClassEnvironment::get();
         $roles = Role::count();
-        $filter = Environment::query()->with('farms','productive_units');
-        if ($request->has('id')) {
-            $filter->where('farms_id', $request->id);
-            $filter->where('productive_units_id', $request->id);
-        }
-        $result = $filter->get();
-        $data = ['title'=>trans('cefamaps::menu.Dashboard'), 'roles'=>$roles, 'unit'=>$unit, 'sector'=>$sector, 'environ'=>$environ, 'classenviron'=>$classenviron, 'filter'=>$filter];
-        return view('cefamaps::admin.dashboard',$data, compact('result'));
+        $data = ['title'=>trans('cefamaps::menu.Dashboard'), 'roles'=>$roles, 'unit'=>$unit, 'sector'=>$sector, 'environ'=>$environ, 'classenviron'=>$classenviron];
+        return view('cefamaps::admin.dashboard',$data);
     }
 }

@@ -9,7 +9,7 @@ return [
     'Description' => 'Descripcion',
     'Add' => 'Agregar',
     'Icon' => 'Icono',
-    'Sector' => 'Sector',
+    'Farm' => 'Granja',
     'Number' => 'Numero',
     'Document' => 'Documento',
     'Document notfound' => 'Numero de Documento no existe',

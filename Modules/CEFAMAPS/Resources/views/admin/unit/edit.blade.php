@@ -70,6 +70,18 @@
                       </div>
                       <!-- fin del Sector -->
                     </div>
+                    <div class="col">
+                      <!-- incio de la farm -->
+                      <div class="form-group">
+                        <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
+                        <select class="form-control select2" name="farm" id="farm" required>
+                          @foreach ($farm as $f)
+                          <option value="{{ $f->id }}">{{ $f->name }}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                      <!-- fin de la farm -->
+                    </div>
                   </div>
                   <!-- inicio de la descripcion -->
                   <div class="form-group">

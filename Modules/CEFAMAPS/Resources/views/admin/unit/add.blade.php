@@ -61,14 +61,28 @@
                       <!-- fin del icono -->
                     </div>
                     <div class="col">
+                      <!-- inicio del Sector -->
                       <div class="form-group">
-                        <label for="sector">{{ trans('cefamaps::unit.Sector') }}</label>
+                        <label for="sector">{{ trans('cefamaps::sector.Sector') }}</label>
                         <select class="form-control select2" name="sector" id="sector" required>
                           @foreach ($sector as $s)
                           <option value="{{ $s->id }}">{{ $s->name }}</option>
                           @endforeach
                         </select>
                       </div>
+                      <!-- fin del Sector -->
+                    </div>
+                    <div class="col">
+                      <!-- incio de la farm -->
+                      <div class="form-group">
+                        <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
+                        <select class="form-control select2" name="farm" id="farm" required>
+                          @foreach ($farm as $f)
+                          <option value="{{ $f->id }}">{{ $f->name }}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                      <!-- fin de la farm -->
                     </div>
                   </div>
                   <div class="row align-items-end">

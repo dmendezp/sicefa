@@ -132,12 +132,12 @@
                   <i class="right fa-solid fa-map-pin"></i>
                 </p>
               </a>
-              @foreach($result as $u)
+              @foreach($unit as $u)
               <ul class="nav nav-treeview">
                 <li class="nav nav-item">
-                  <a  href="{{ url('/cefamaps/unit/view/'.$u->productive_units->id) }}" class="nav-link {{ ! (Request::url() == url('/cefamaps/unit/view/'.$u->productive_units->id)) ?: 'active' }}">
-                    <i class="nav-icon {{ $u->productive_units->icon }}"></i>
-                    <p>{{ $u->productive_units->name }}</p>
+                  <a  href="{{ url('/cefamaps/unit/view/'.$u->id) }}" class="nav-link {{ ! (Request::url() == url('/cefamaps/unit/view/'.$u->id)) ?: 'active' }}">
+                    <i class="nav-icon {{ $u->icon }}"></i>
+                    <p>{{ $u->name }}</p>
                   </a>
                 </li>
               </ul>
@@ -145,27 +145,6 @@
             </li>
           @endforeach
           <!-- Fin de las pruebas nuevas -->
-          <!-- MENU PARA LAS FARM -->
-          <!-- @foreach($result as $r)
-            <li class="nav-item {{ ! (Request::url() == url('/cefamaps/unit/view/'.$r->id)) ?: 'menu-is-opening menu-open' }}">
-              <a href="#" class="nav-link {{ ! (Request::url() == url('/cefamaps/unit/view/'.$r->id)) ?: 'active' }}">
-                <i class="nav-icon fa-solid fa-tractor"></i>
-                <p>
-                  {{ $r->farms->name }}
-                  <i class="right fa-solid fa-map-pin"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav nav-item">
-                  <a href="{{ url('/cefamaps/unit/view/'.$r->id) }}" class="nav-link {{ ! (Request::url() == url('/cefamaps/unit/view/'.$r->id)) ?: 'active' }}">
-                    <i class="nav-icon {{ $r->productive_units->icon }}"></i>
-                    <p>{{$r->productive_units->name}}</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          @endforeach -->
-          <!-- CIERRE MENU PARA LAS FARM -->
           <!-- MENU PARA ENVIRONMENT -->
             <li class="nav-item {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'menu-is-opening menu-open' }}">
               <a href="#" class="nav-link {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'active' }}">

@@ -30,14 +30,8 @@ class PageController extends Controller
       $query->where('environment_id', $request->id);
     }
     $final = $query->get();
-    $filter = Environment::query()->with('farms','productive_units');
-    if ($request->has('id')) {
-      $filter->where('farms_id', $request->id);
-      $filter->where('productive_units_id', $request->id);
-    }
-    $result = $filter->get();
-    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'query'=>$query, 'classenviron'=>$classenviron, 'filter'=>$filter];
-    return view('cefamaps::admin.page.index',$data, compact('final','result'));
+    $data = ['title'=>trans('cefamaps::page.Page'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'query'=>$query, 'classenviron'=>$classenviron];
+    return view('cefamaps::admin.page.index',$data, compact('final'));
   }
 
   /**
@@ -57,7 +51,7 @@ class PageController extends Controller
       $filter->where('productive_units_id', $request->id);
     }
     $result = $filter->get();
-    $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'page'=>$page, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'page'=>$page, 'classenviron'=>$classenviron];
     return view('cefamaps::admin.page.add',$data, compact('result'));
   }
 
@@ -113,7 +107,7 @@ class PageController extends Controller
       $filter->where('productive_units_id', $request->id);
     }
     $result = $filter->get();
-    $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'page'=>$page, 'editpage'=>$editpage, 'classenviron'=>$classenviron, 'filter'=>$filter];
+    $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'page'=>$page, 'editpage'=>$editpage, 'classenviron'=>$classenviron];
     return view('cefamaps::admin.page.edit',$data, compact('result'));
   }
 

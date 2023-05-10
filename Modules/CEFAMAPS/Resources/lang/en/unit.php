@@ -9,7 +9,7 @@ return [
     'Description' => 'Description',
     'Add' => 'Agregar',
     'Icon' => 'Icon',
-    'Sector' => 'Sector',
+    'Farm' => 'Farm',
     'Number' => 'Number',
     'Document' => 'Document',
     'Document notfound' => 'Document number does not exist',
