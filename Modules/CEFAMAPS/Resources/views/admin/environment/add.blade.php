@@ -75,29 +75,6 @@
                   </div>
                 </div>
                 <!-- fin de las longitudes y latitudes -->
-                <!-- inicio para el id del Farm -->
-                <div class="row align-items-center">
-                  <div class="col">
-                    <div class="form-group">
-                      <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
-                      <select class="form-control select2" style="width: 100%;" name="farm" id="farm">
-                        @foreach ($farm as $f)
-                          <option value="{{$f->id}}">{{$f->name}}</option>
-                        @endforeach
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="form-group">
-                      <label>{{ trans('cefamaps::menu.Add') }} {{ trans('cefamaps::unit.Farm') }}</label>
-                      <br>
-                      <a href="#" class="btn btn-light btn-block btn-outline-success addfarm" type="button">
-                        <i class="fa-solid fa-square-plus"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <!-- fin para el id del Farm -->
                 <!-- inicio para el id de la unidad -->
                 <div class="row align-items-end">
                   <div class="col">
@@ -135,6 +112,18 @@
                     </div>
                   </div>
                   <!-- fin de la clase de ambiente -->
+                  <div class="col">
+                    <!-- inicio de la Farm id -->
+                    <div class="form-group">
+                      <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
+                      <select class="form-control select2" style="width: 100%;" name="farm" id="farm">
+                        @foreach ($farm as $f)
+                          <option value="{{$f->id}}">{{$f->name}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <!-- fin de la Farm id -->
+                  </div>
                   <!-- inicio del estado del environment -->
                   <div class="col">
                     <div class="form-group">
@@ -364,25 +353,6 @@
         var url = "{{ url('/cefamaps/unit/add') }}";
           Swal.fire({
           title: '{{ trans("cefamaps::menu.You Want") }} {{ trans("cefamaps::menu.Add") }} {{ trans("cefamaps::menu.A") }} {{ trans("cefamaps::unit.Unit") }}?',
-          text: "Si aceptas, se eliminara todos los campos",
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href=url
-          }
-        })
-      })
-    })
-    /* esta es la alerta para ir a crear una GRANJA */
-    $(document).ready(function() {
-      $(document).on("click", ".addfarm", function() {
-        var url = "{{ url('/cefamaps/farm/add') }}";
-        Swal.fire({
-          title: '{{ trans("cefamaps::menu.You Want") }} {{ trans("cefamaps::menu.Add") }} {{ trans("cefamaps::menu.A") }} {{ trans("cefamaps::farm.Farm") }}?',
           text: "Si aceptas, se eliminara todos los campos",
           icon: 'question',
           showCancelButton: true,

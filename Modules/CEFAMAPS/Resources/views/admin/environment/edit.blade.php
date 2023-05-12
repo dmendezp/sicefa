@@ -89,34 +89,16 @@
                                         </div>
                                     </div>
                                     <!-- fin de las longitudes y latitudes -->
-                                    <!-- inicio de los complementos para id del Farm y el id de la unidad -->
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <!-- inicio para el id del Farm -->
-                                            <div class="form-group">
-                                                <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
-                                                <select class="form-control select2" style="width: 100%;" name="farm" id="farm">
-                                                    @foreach ($farm as $f)
-                                                        <option value="{{$f->id}}">{{$f->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <!-- fin para el id del Farm -->
-                                        </div>
-                                        <div class="col">
-                                            <!-- inicio para el id de la unidad -->
-                                            <div class="form-group">
-                                                <label for="unit">{{ trans('cefamaps::environment.Productive units') }}</label>
-                                                <select class="form-control select2" style="width: 100%;" id="unit" name="unit">
-                                                    @foreach ($unit as $u)
-                                                        <option value="{{$u->id}}">{{$u->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <!-- fin para el id de la unidad -->
-                                        </div>
+                                    <!-- inicio para el id de la unidad -->
+                                    <div class="form-group">
+                                        <label for="unit">{{ trans('cefamaps::environment.Productive units') }}</label>
+                                        <select class="form-control select2" style="width: 100%;" id="unit" name="unit">
+                                            @foreach ($unit as $u)
+                                                <option value="{{$u->id}}">{{$u->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                    <!-- fin de los complementos para id del Farm y el id de la unidad -->
+                                    <!-- fin para el id de la unidad -->
                                     <!-- inicio de los complementos de environment -->
                                     <div class="row align-items-end">
                                         <!-- inicio de la clase de ambiente -->
@@ -131,6 +113,18 @@
                                             </div>
                                         </div>
                                         <!-- fin de la clase de ambiente -->
+                                        <div class="col">
+                                            <!-- inicio para el id del Farm -->
+                                            <div class="form-group">
+                                                <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
+                                                <select class="form-control select2" style="width: 100%;" name="farm" id="farm">
+                                                    @foreach ($farm as $f)
+                                                        <option value="{{$f->id}}">{{$f->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <!-- fin para el id del Farm -->
+                                        </div>
                                         <!-- inicio del status del environment -->
                                         <div class="col">
                                             <div class="form-group">
