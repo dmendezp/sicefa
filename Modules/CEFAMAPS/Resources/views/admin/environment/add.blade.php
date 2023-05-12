@@ -79,7 +79,7 @@
                 <div class="row align-items-center">
                   <div class="col">
                     <div class="form-group">
-                      <label for="farm">{{ trans('cefamaps::farm.Farm') }}</label>
+                      <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
                       <select class="form-control select2" style="width: 100%;" name="farm" id="farm">
                         @foreach ($farm as $f)
                           <option value="{{$f->id}}">{{$f->name}}</option>
@@ -89,7 +89,7 @@
                   </div>
                   <div class="col-3">
                     <div class="form-group">
-                      <label>{{ trans('cefamaps::menu.Add') }} {{ trans('cefamaps::farm.Farm') }}</label>
+                      <label>{{ trans('cefamaps::menu.Add') }} {{ trans('cefamaps::unit.Farm') }}</label>
                       <br>
                       <a href="#" class="btn btn-light btn-block btn-outline-success addfarm" type="button">
                         <i class="fa-solid fa-square-plus"></i>

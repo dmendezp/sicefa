@@ -126,7 +126,7 @@
           @foreach($sector as $f)
             <li class="nav-item {{ ! (Request::url() == url('/cefamaps/unit/view/'.$f->id)) ?: 'menu-is-opening menu-open' }}">
               <a href="#" class="nav-link {{ ! (Request::url() == url('/cefamaps/unit/view/'.$f->id)) ?: 'active' }}">
-                <i class="nav-icon fa-solid fa-tractor"></i>
+                <i class="nav-icon fa-solid fa-mountain-city"></i>
                 <p>
                   {{ $f->name }}
                   <i class="right fa-solid fa-map-pin"></i>

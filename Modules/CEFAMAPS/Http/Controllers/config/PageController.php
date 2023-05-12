@@ -46,7 +46,7 @@ class PageController extends Controller
     $sector = Sector::get();
     $page = Page::get();
     $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'page'=>$page, 'classenviron'=>$classenviron];
-    return view('cefamaps::admin.page.add',$data, compact('result'));
+    return view('cefamaps::admin.page.add',$data);
   }
 
   /**

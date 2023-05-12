@@ -94,7 +94,7 @@
                                         <div class="col">
                                             <!-- inicio para el id del Farm -->
                                             <div class="form-group">
-                                                <label for="farm">{{ trans('cefamaps::farm.Farm') }}</label>
+                                                <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
                                                 <select class="form-control select2" style="width: 100%;" name="farm" id="farm">
                                                     @foreach ($farm as $f)
                                                         <option value="{{$f->id}}">{{$f->name}}</option>

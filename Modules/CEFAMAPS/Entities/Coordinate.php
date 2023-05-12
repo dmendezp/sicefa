@@ -10,7 +10,7 @@ class Coordinate extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = [];
+    protected $fillable = ['length','latitude','environment_id'];
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
 

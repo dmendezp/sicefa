@@ -15,7 +15,7 @@
 
 @section('content')
 
-@foreach($viewenviron as $v)
+  @foreach($viewenviron as $v)
   <div class="content">
     <div class="container-fluid">
       <div class="row">
@@ -34,7 +34,6 @@
       </div>
     </div>
   </div>
-  @endforeach  
 
     <!-- Inicio El modal para que aparezacan todas la paginas -->
     <div class="modal fade" id="modal-lg">
@@ -46,14 +45,16 @@
               <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
             </button>
           </div>
-          @foreach($resultpage as $p)
+          @foreach($v->pages as $p)
           <div class="modal-body">
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
           </div>
+          @endforeach
         </div>
       </div>
     </div>
     <!-- Fin El modal para que aparezacan todas la paginas -->
+    @foreach($v->pages as $p)
     <!-- Inicio El modal para mostrar la pagina -->
     <div class="modal fade" id="modal{{$p->id}}">
       <div class="modal-dialog modal-xl">
@@ -71,6 +72,7 @@
       </div>
     </div>
     <!-- Fin El modal para mostrar la pagina -->
+    @endforeach
   @endforeach
 
 @endsection
@@ -106,7 +108,7 @@
         '<div class="card-content">' +
           '<div class="button-container">' +
             '<h2>{{trans("cefamaps::page.Page")}}</h2>' +
-            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">{{$e->id}}</button>' +
+            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">{{$e->name}}</button>' +
           '</div>' +
           '<div class="image-container">' +
             '<img src="{{ asset("cefamaps/images/uploads/".$e->picture) }}" alt="Imagen de la tarjeta" class="image">' +
