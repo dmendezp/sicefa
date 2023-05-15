@@ -57,7 +57,6 @@
     });
 
     // para el icono
-    /* var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/'; */
     var iconBase = '{{ asset("sica/favicon.ico") }}';
 
     // The marker, positioned at Uluru
@@ -67,16 +66,6 @@
       tittle: "General CEFA",
       icon: iconBase,
     });
-      
-    const infoGeneral = new google.maps.InfoWindow();
-
-    infoGeneral.setContent(
-      '<div id="content">'+
-        '<div id="siteNotice">'+
-        '</div>'+
-        '<h1>Hello Word!</h1>' +
-      '</div>'
-    );
 
     markerGeneral.addListener("click", () => {
       infoGeneral.open(map, markerGeneral);

@@ -14,62 +14,65 @@
 @endsection
 
 @section('content')
-  <div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card card-lightblue card-outline">
-            <div class="card-header">
-              <h3 class="m-0">{{ trans('cefamaps::unit.Unit') }} - </h3>
-            </div>
-            <div class="card-body">
-              <div id="map"></div>
+
+  @foreach($viewunit as $u)
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card card-lightblue card-outline">
+              <div class="card-header">
+                <h3 class="m-0">{{ trans('cefamaps::unit.Unit') }} - {{ $u->name }}</h3>
+              </div>
+              <div class="card-body">
+                <div id="map"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Inicio El modal para que aparezacan todas la paginas -->
-  <div class="modal fade" id="modal-lg">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">{{trans('cefamaps::page.Page')}}</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
-          </button>
-        </div>
-        @foreach($pages as $p)
-          <div class="modal-body">
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
-          </div>
-        @endforeach
-      </div>
-    </div>
-  </div>
-  <!-- Fin El modal para que aparezacan todas la paginas -->
-
-  <!-- Inicio El modal para mostrar la pagina -->
-  @foreach($pages as $p)
-    <div class="modal fade" id="modal{{$p->id}}">
-      <div class="modal-dialog modal-xl">
+    <!-- Inicio El modal para que aparezacan todas la paginas -->
+    <div class="modal fade" id="modal-lg">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">{{$p->name}}</h4>
+            <h4 class="modal-title">{{trans('cefamaps::page.Page')}}</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
             </button>
           </div>
-          <div class="modal-body">
-            <p>{!! $p->content !!}</p>
-          </div>
+          @foreach($u->pages as $p)
+            <div class="modal-body">
+              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
+            </div>
+          @endforeach
         </div>
       </div>
     </div>
+    <!-- Fin El modal para que aparezacan todas la paginas -->
+
+    <!-- Inicio El modal para mostrar la pagina -->
+    @foreach($u->pages as $p)
+      <div class="modal fade" id="modal{{$p->id}}">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">{{$p->name}}</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>{!! $p->content !!}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endforeach
+    <!-- Fin El modal para mostrar la pagina -->
   @endforeach
-  <!-- Fin El modal para mostrar la pagina -->
 @endsection
 
 @section('script')
@@ -90,7 +93,7 @@
       // Inicio poligono
       @foreach($viewunit as $u)
 
-      var iconBase = '{{ asset("cefamaps/images/cow.png") }}';
+      var iconBase = '{{ asset("cefamaps/images/park.png") }}';
 
       // The marker, positioned at Uluru
       const marker{{$u->id}} = new google.maps.Marker({

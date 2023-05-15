@@ -92,6 +92,8 @@
         mapTypeId: 'satellite'
       });
 
+      var iconBase = '{{ asset("cefamaps/images/bank.png") }}';
+
       // Inicio poligono
       @foreach($viewenviron as $e)
 
@@ -100,6 +102,7 @@
         position: { lat: {{$e->latitude}},  lng: {{$e->length}} },
         map: map,
         tittle: "{{$e->name}}",
+        icon: iconBase, /* Para poder tener un icono diferente */
       });
         
       const infoCultivo{{$e->id}} = new google.maps.InfoWindow();
