@@ -15,4 +15,5 @@
 
 @push('scripts')
     @livewireScripts()
+    @section('inputs') @show <!-- Configuración de campos de datos necesarios para la venta -->
 @endpush
