@@ -86,7 +86,6 @@
 }
 
 /* Estilos varios personalizados: En caso de no quererlos solo borre la clase CSS */
-/* Color de la zona de trabajo */
 
 /* Al navegar por las vistas la primera en la guia del breadcrum tendra un tono mas claro */
 .breadcrumb-item a{
@@ -104,30 +103,22 @@
   height: auto !important;
 }
 
-
-/* --------------------------------------- CSS TEST --------------------------------------- */
+/* Seccion de acceso rapido a aplicaciones */
+/* Ajusta el tamano de la caja donde se encuentra el icono de la aplicacion y a la vez se realizan los ajustes personalizables de bordes, tamaño, alto y ancho especifico */
 .services .icon-box {
   box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);
-  padding: 20px 20px 10px;
+  padding: 15px 20px 10px 20px;
   border-radius: 10px;
   transition: all ease-in-out 0.4s;
   background: #fff;
+  min-width: 80px; /* Ancho fijo deseado */ 
 }
 
-.services .icon-box .icon {
-  margin-bottom: 10px;
-}
-
+/* Ajusta el tamaño y color que tiene en el primer momento de mostra la seccion de aplicaciones, aqui se puede ajustar el tamaño del icono y a la vez el color que tiene por defecto si pasar el mouse aun sobre el */
 .services .icon-box .icon i {
   color: rgba(0, 0, 0);
-  font-size: 36px;
+  font-size: 30px;
   transition: 0.3s;
-}
-
-.services .icon-box h4 {
-  font-weight: 500;
-  margin-bottom: 15px;
-  font-size: 24px;
 }
 
 .services .icon-box h4 a {
@@ -136,5 +127,7 @@
 }
 
 .services .icon-box:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
 }
+
+/* --------------------------------------- CSS TEST --------------------------------------- */

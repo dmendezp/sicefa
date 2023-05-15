@@ -1,4 +1,4 @@
-<aside id="mySidebar" class="control-sidebar control-sidebar-dark">
+<aside id="mySidebar" class="control-sidebar control-sidebar-dark control-sidebar-overlap">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
         <h5>Navega!</h5>
@@ -13,14 +13,15 @@
                                 color: {{ $app->color }} !important;
                             }
                         </style>
-                        <div class="col-xl-6 col-md-3 d-flex align-items-stretch mt-2" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="col-xl-6 col-md-3 d-flex align-items-stretch mt-2" data-aos="zoom-in"
+                            data-aos-delay="100">
                             <div class="icon-box">
                                 <div class="icon">
                                     <h4>
                                         <a class="colorapp{{ $app->id }}" href="{{ url($app->url) }}"
-                                            style="text-decoration: none">
+                                            style="text-decoration: none" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" title="{{ $app->name }}">
                                             <i class="colorapp{{ $app->id }} {{ $app->icon }}"></i>
-                                            {{ $app->name }}
                                         </a>
                                     </h4>
                                 </div>
