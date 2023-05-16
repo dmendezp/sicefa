@@ -5,6 +5,7 @@ namespace Modules\SIGAC\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\App;
 
 class AttendanceController extends Controller
 {
@@ -14,7 +15,9 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        return view('sigac::index');
+        $view = ['titlePage'=>'Asistencia', 'titleView'=>'Registro de Asistencia'];
+        $apps = App::get();
+        return view('sigac::attendance.index', compact('apps', 'view'));
     }
 
     /**

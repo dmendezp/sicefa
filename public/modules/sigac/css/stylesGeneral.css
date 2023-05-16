@@ -9,18 +9,18 @@
 
 /* Estilos del navbar personalizados: En caso de no quererlos solo borre la clase CSS */
 /* Color de la barra de navegacion superior, donde se agregan los botones como iniciar sesion, entre otros */
-.navbar{
+.navbar {
   background-color: #ffffff;
 }
 
 /* Color de los iconos, botones o links que se agreguen a la barra de navegacion superior */
 .navbar-nav .nav-item .nav-link {
-  color:  #0a2472a0 !important;
+  color: #0a2472a0 !important;
 }
 
 /* Color del texto o icono al pasar el mouse sobre el, va ajuntado con el  */
 .navbar-nav .nav-item .nav-link:hover {
-  color:  #ffffff !important;
+  color: #ffffff !important;
 }
 
 /* Similar al estilo anterior solo que este es cuanto el boton se quede activado */
@@ -37,7 +37,7 @@
 
 /* Estilos del sidebar personalizados: En caso de no quererlos solo borre la clase CSS */
 /* Color del sidebar */
-.sidebar-dark-blue{
+.sidebar-dark-blue {
   background: #0A2472 !important;
 }
 
@@ -56,9 +56,9 @@
 }
 
 /* Al ir a una funcion del sidebar este quedara activo mientras se esta en el grupo de vistas de las rutas especificadas */
-.nav-item .active{
+.nav-item .active {
   background-color: #07194e !important;
-  color:  #ffffff !important;
+  color: #ffffff !important;
 }
 
 /* Al pasar el Mouse se aplicara el color asigando */
@@ -69,7 +69,7 @@
 }
 
 /* Color de los botones que se encuentran en el sidebar */
-.nav-link{
+.nav-link {
   color: #ffffff !important;
 }
 
@@ -80,7 +80,7 @@
 }
 
 /* Borde del siderbar que separa el nombre y el logo del las opciones del sidebar */
-.brand-link{
+.brand-link {
   border-bottom: 1px solid #ffffff83 !important;
   box-shadow: 0px 2px 3px rgba(191, 191, 191, 0.3);
 }
@@ -88,12 +88,12 @@
 /* Estilos varios personalizados: En caso de no quererlos solo borre la clase CSS */
 
 /* Al navegar por las vistas la primera en la guia del breadcrum tendra un tono mas claro */
-.breadcrumb-item a{
-  color:  #6c757d !important;
+.breadcrumb-item a {
+  color: #6c757d !important;
 }
 
 /* Tamaño del texto de la pantalla inicial */
-.hmax{
+.hmax {
   font-size: 80px;
 }
 
@@ -111,7 +111,8 @@
   border-radius: 10px;
   transition: all ease-in-out 0.4s;
   background: #fff;
-  min-width: 80px; /* Ancho fijo deseado */ 
+  min-width: 80px;
+  /* Ancho fijo deseado */
 }
 
 /* Ajusta el tamaño y color que tiene en el primer momento de mostra la seccion de aplicaciones, aqui se puede ajustar el tamaño del icono y a la vez el color que tiene por defecto si pasar el mouse aun sobre el */
@@ -128,6 +129,23 @@
 
 .services .icon-box:hover {
   transform: translateY(-5px);
+}
+
+/* Los siguientes estilos son lo que se aplican a los selects del llamado de asistencia, cada uno esta segun el valor del select que se tome */
+.green-background {
+  background-color: green !important;
+}
+
+.yellow-background {
+  background-color: yellow !important;
+}
+
+.orange-background {
+  background-color: orange !important;
+}
+
+.red-background {
+  background-color: red !important;
 }
 
 /* --------------------------------------- CSS TEST --------------------------------------- */

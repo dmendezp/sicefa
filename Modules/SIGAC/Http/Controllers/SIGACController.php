@@ -9,8 +9,8 @@ class SIGACController extends Controller
 {
 
     public function index(){
-        $title = 'Incio';
+        $view = ['titlePage'=>'Inicio', 'titleView'=>' '];
         $apps = App::get();
-        return view('sigac::index', compact('apps', 'title'));
+        return view('sigac::index', compact('apps', 'view'));
     }
 }
