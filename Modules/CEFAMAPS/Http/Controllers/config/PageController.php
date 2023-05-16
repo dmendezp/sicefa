@@ -96,7 +96,7 @@ class PageController extends Controller
     $page = Page::get();
     $editpage = Page::findOrFail($id);
     $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'page'=>$page, 'editpage'=>$editpage, 'classenviron'=>$classenviron];
-    return view('cefamaps::admin.page.edit',$data, compact('result'));
+    return view('cefamaps::admin.page.edit',$data);
   }
 
   /**
