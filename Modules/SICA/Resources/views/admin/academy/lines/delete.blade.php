@@ -1,7 +1,7 @@
 <div id="content-config">
     <div class="modal-header py-2">
         <h5 class="modal-title" id="exampleModalLabel">
-            <b>¿Desea eliminar la siguiente línea tecnológica?</b>
+            <b>{{ trans('sica::menu.You Want to Delete the Following Technological Line?')}}</b>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -11,13 +11,13 @@
         <div class="modal-body px-4 pt-3" style="font-size: 20px;">
             {!! Form::hidden('id', $line->id) !!}
             <div class="row">
-                <div class="col-6 text-right"><b>Nombre: </b></div>
-                <div class="col">{{ $line->name }}</div>
+                <div class="col-2 text-right"><b>{{ trans('sica::menu.Name')}}</b></div>
+                <div class="col-10">{{ $line->name }}</div>
             </div>
         </div>
         <div class="modal-footer py-1">
-                <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cancelar</button>
-                {!! Form::submit('Eliminar', ['class'=>'btn btn-danger btn-md py-0']) !!}
+                <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">{{ trans('sica::menu.Cancel')}}</button>
+                {!! Form::submit( trans('sica::menu.Delete'), ['class'=>'btn btn-danger btn-md py-0']) !!}
         </div>
     {!! Form::close() !!}
 </div>
