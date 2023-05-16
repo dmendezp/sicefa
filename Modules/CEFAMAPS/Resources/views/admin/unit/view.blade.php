@@ -13,9 +13,9 @@
 	<link rel="stylesheet" href="{{ asset('cefamaps/css/viewenviron.css') }}">
 @endsection
 
-@section('content')
+@foreach($viewunit as $u)
+  @section('content')
 
-  @foreach($viewunit as $u)
     <div class="content">
       <div class="container-fluid">
         <div class="row">
@@ -72,8 +72,8 @@
       </div>
     @endforeach
     <!-- Fin El modal para mostrar la pagina -->
-  @endforeach
-@endsection
+  @endsection
+@endforeach
 
 @section('script')
 
@@ -109,7 +109,7 @@
         '<div class="card-content">' +
           '<div class="button-container">' +
             '<h2>{{trans("cefamaps::page.Page")}}</h2>' +
-            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">{{$u->id}}</button>' +
+            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">{{$u->name}}</button>' +
           '</div>' +
           '<div class="image-container">' +
             '<img src="{{ asset("cefamaps/images/uploads/".$u->picture) }}" alt="Imagen de la tarjeta" class="image">' +
