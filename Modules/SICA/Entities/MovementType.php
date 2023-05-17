@@ -29,4 +29,9 @@ class MovementType extends Model implements Auditable
         $this->attributes['name'] = ucwords(strtolower($value));
     }
 
+    // RELACIONES
+    public function movements(){ // Accede a todos los registros de inventarios que están relacionados con este elemento
+        return $this->hasMany(Movement::class);
+    }
+
 }
