@@ -33,9 +33,6 @@ class SICADatabaseSeeder extends Seeder
         $this->call(ApprenticesTableSeeder::class); // Ejecutar Seeder de aprendices
         $this->call(MovementTypesTableSeeder::class); // Ejecutar Seeder de tipos de movimientos
 
-        print_r("Generando 100 movimientos.\n"); // Notifcar cantidad de registros de movimientos a generar
-        Movement::factory()->count(100)->create(); // Generar registros de movimientos
-
         DB::commit(); // Finalizar transacción
 
     }

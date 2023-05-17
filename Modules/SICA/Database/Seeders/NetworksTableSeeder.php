@@ -16,7 +16,7 @@ class NetworksTableSeeder extends Seeder
     public function run()
     {
 
-        $number_networks = 12; // Definir la cantida Redes de conocimientos de prueba
+        $number_networks = 5; // Definir la cantida Redes de conocimientos de prueba
 
         $line = Line::where('name','TECNOLOGÍAS DE LA INFORMACIÓN Y LAS COMUNICACIONES GESTIÓN DE LA INFORMACIÓN')->first(); // Consultar línea tecnológica
         Network::updateOrCreate(['name' => 'TECNOLOGÍAS DE LA INFORMACIÓN, DISEÑO Y DESARROLLO DE SOFTWARE'],[ // Actualizar o registrar Red de conocimiento

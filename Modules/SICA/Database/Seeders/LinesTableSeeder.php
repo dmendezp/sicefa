@@ -15,7 +15,7 @@ class LinesTableSeeder extends Seeder
     public function run()
     {
 
-        $number_lines = 6; // Definir la cantidad de líneas tecnológicas de prueba
+        $number_lines = 2; // Definir la cantidad de líneas tecnológicas de prueba
 
         Line::updateOrCreate([ // Actualizar o registrar línea tecnológica
             'name' => 'TECNOLOGÍAS DE LA INFORMACIÓN Y LAS COMUNICACIONES GESTIÓN DE LA INFORMACIÓN'
