@@ -155,6 +155,30 @@
               </ul>
             </li>
             <!-- CIERRA MENU PARA VETERINARIO -->
+            <!-- Inicio del menu para los filtros -->
+            <li class="nav-item {{ ! Route::is('ganaderia.admin.filter.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('ganaderia.admin.filter.*') ?: 'active' }}">
+                <i class="fas fa-filter"></i>
+                <p>
+                  {{ trans('ganaderia::menu.Filter') }} 
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('ganaderia.admin.filter.animals') }}" class="nav-link {{ ! Route::is('ganaderia.admin.filter.animals') ?: 'active' }}">
+                    <i class="fas fa-hat-cowboy"></i>
+                    <p>{{ trans('ganaderia::menu.animals') }}</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link {{ ! Route::is('*') ?: 'active' }}">
+                    <p>{{ trans('ganaderia::menu.productive_proces') }}</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- Fin del menu para los filtros -->
           </li>
         @endif
       </ul>

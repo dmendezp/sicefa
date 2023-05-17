@@ -40,5 +40,8 @@ use Modules\GANADERIA\Http\Controllers\cattle\CattleController;
         Route::get('/admin/cattle/register_cattle', [CattleController::class, 'register_cattle'])->name('ganaderia.admin.cattle.register_cattle');
         Route::get('/admin/cattle/reproduction', [CattleController::class, 'reproduction'])->name('ganaderia.admin.cattle.reproduction');
 
+        // RUTAS PARA LOS FILTROS //
+        Route::get('/admin/filter/animals', 'AdminController@animals')->name('ganaderia.admin.filter.animals');
+
     });
 
