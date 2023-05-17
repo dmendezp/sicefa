@@ -14,28 +14,12 @@ use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Event;
 use Modules\SICA\Entities\EventAttendance;
 Use DB;
-use Modules\SICA\Entities\Inventory;
-use Modules\SICA\Entities\Warehouse;
 
 class SICAController extends Controller
 {
 
     public function index()
     {
-        $warehouse = Warehouse::where('name', 'Punto de venta')->first();
-
-        $inventories = Inventory::where('warehouse_id', $warehouse->id)
-            ->where('destination', 'Producción')
-            ->where('state', 'Disponible')
-            ->join('elements', 'inventories.element_id', '=', 'elements.id')
-            ->orderBy('elements.name', 'ASC')
-            ->orderBy('inventories.production_date', 'ASC')
-            ->get();
-        $products = $inventories->pluck('elements.name', 'inventories.id');
-
-        return $inventories;
-
-
         $data = ['title'=>trans('sica::menu.Home')];
         return view('sica::index',$data);
     }
