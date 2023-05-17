@@ -90,10 +90,10 @@
         mapTypeId: 'satellite'
       });
 
+      var iconBase = '{{ asset("cefamaps/images/bank.png") }}';
+
       // Inicio poligono
       @foreach($viewunit as $u)
-
-      var iconBase = '{{ asset("cefamaps/images/park.png") }}';
 
       // The marker, positioned at Uluru
       const marker{{$u->id}} = new google.maps.Marker({
@@ -127,7 +127,7 @@
       // Define the LatLng coordinates for the polygon's path.
       const Coords{{$u->id}} = [
         @foreach($u->coordinates as $c)
-          { lat: {{$u->latitude}}, lng: {{$u->length}} },
+          { lat: {{$c->latitude}}, lng: {{$c->length}} },
         @endforeach
       ];
         

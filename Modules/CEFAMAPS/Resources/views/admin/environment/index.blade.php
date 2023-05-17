@@ -44,7 +44,7 @@
                       <td>{{$env->name}}</td>
                       <td><img src="{{ asset('cefamaps/images/uploads/'.$env->picture) }}" width="100" height="100"></td>
                       <td>{{$env->description}}</td>
-                      <td>{{$env->name}}</td>
+                      <td>{{$env->farms->name}}</td>
                       <td>{{$env->productive_units->name}}</td>
                       <td>{{$env->status}}</td>
                       <!-- Inicio del modal pra las coordenadas -->
