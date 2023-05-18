@@ -1,8 +1,8 @@
 <aside id="mySidebar" class="control-sidebar control-sidebar-dark control-sidebar-overlap">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
-        <h5>Navega!</h5>
-        <p>Si quieres ir a otra app solo haz clic.</p>
+        <h5>{{ trans('sigac::general.Browse!')}}</h5>
+        <p>{{ trans('sigac::general.If you want to go to another app just click.')}}</p>
         <!-- Seccion de acceso rapido de Apps -->
         <section class="services">
             <div class="container" data-aos="fade-up">

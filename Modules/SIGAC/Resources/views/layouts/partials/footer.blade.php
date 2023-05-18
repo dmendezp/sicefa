@@ -4,5 +4,5 @@
       <b>Version Alpha</b> 1.0 
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2023 <a href="{{ route('cefa.welcome') }}" style="text-decoration: none">Centro de Fomación Agroindustrial "La Angostura"</a>.</strong> Todos los derechos reservados.
+    <strong>Copyright &copy; 2023 <a href="{{ route('cefa.welcome') }}" style="text-decoration: none">Centro de Fomación Agroindustrial "La Angostura"</a>.</strong> {{trans('sigac::general.All Rights Reserved.')}}
 </footer>

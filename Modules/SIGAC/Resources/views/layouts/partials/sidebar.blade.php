@@ -26,14 +26,14 @@
                     <li class="nav-item">
                         <a href="{{ route('cefa.sigac.attendance.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-user-check"></i>
-                            <p>Registro de Asitencia</p>
+                            <p>{{trans('sigac::general.Attendance Register')}}</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-search"></i>
-                            <p>Consulta</p>
+                            <p>{{trans('sigac::general.Consult Apprentice')}}</p>
                         </a>
                     </li>
                 </ul>

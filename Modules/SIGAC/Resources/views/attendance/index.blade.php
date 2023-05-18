@@ -5,18 +5,18 @@
 @endpush
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Asistencia</a></li>
-    <li class="breadcrumb-item active">Registro</li>
+    <li class="breadcrumb-item"><a href="#" class="text-decoration-none">{{ trans('sigac::attendance.Attendance') }}</a></li>
+    <li class="breadcrumb-item active">{{ trans('sigac::attendance.Register') }}</li>
 @endpush
 
 @section('content')
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h3>Ambiente N°: 1</h3>
+                <h3>{{ trans('sigac::attendance.Environment N° 1') }}</h3>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="fas fa-plus"></i> Registrar Anterior
+                    <i class="fas fa-plus"></i> {{ trans('sigac::attendance.Register Previous') }}
                 </button>
 
                 <!-- Modal -->
@@ -48,7 +48,7 @@
             <div class="d-flex justify-content-between">
                 <div class="col-md-6">
                     <select class="form-select" aria-label="Default select example">
-                        <option selected>Selecciona el Tecnólogo</option>
+                        <option selected>{{trans('sigac::attendance.Choose the technologist')}}</option>
                         <option value="1">Prueba 1</option>
                         <option value="2">Prueba 2</option>
                         <option value="3">Prueba 3</option>
@@ -57,19 +57,19 @@
 
                 <div class="col-md-2 mx-1 my-1">
                     <div class="form-group">
-                        <label for="producto">Fecha y hora actual</label>
+                        <label for="producto">{{trans('sigac::attendance.Current date and time')}}</label>
                         <p class="card-text" id="fecha-hora"></p>
                     </div>
                 </div>
                 <div class="col-md-2 mx-1 my-1">
                     <div class="form-group">
-                        <label for="producto">Inicio de la Formación</label>
+                        <label for="producto">{{trans('sigac::attendance.Start of training')}}</label>
                         <p>16/05/2023 12:50</p>
                     </div>
                 </div>
                 <div class="col-md-2 mx-1 m-1">
                     <div class="form-group">
-                        <label for="precio">Fin de la Formación</label>
+                        <label for="precio">{{trans('sigac::attendance.End of training')}}</label>
                         <p>16/05/2023 12:50</p>
                     </div>
                 </div>
@@ -83,10 +83,10 @@
                     <table class="table table-striped">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col">Cod</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Número de Documento</th>
-                                <th scope="col">Asitencia</th>
+                                <th scope="col">{{trans('sigac::attendance.Code')}}</th>
+                                <th scope="col">{{trans('sigac::attendance.Name')}}</th>
+                                <th scope="col">{{trans('sigac::attendance.Document Number')}}</th>
+                                <th scope="col">{{trans('sigac::attendance.Attendance')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -144,7 +144,7 @@
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
-                    <h4>Resumen de la sesion</h4>
+                    <h4>{{trans('sigac::attendance.Summary of the session')}}</h4>
                     <hr>
                     <div class="container">
                         <div class="row">
@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <p>Total del presentes:</p>
+                                <p>{{trans('sigac::attendance.Total present:')}}</p>
                             </div>
                             <div class="col-4">
                                 <div class="card">
@@ -169,7 +169,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <p>Total del fallas justificadas:</p>
+                                <p>{{trans('sigac::attendance.Total justified failures:')}}</p>
                             </div>
                             <div class="col-4">
                                 <div class="card">
@@ -184,7 +184,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <p>Total del fallas injustificadas:</p>
+                                <p>{{trans('sigac::attendance.Total unjustified failures:')}}</p>
                             </div>
                             <div class="col-4">
                                 <div class="card">
@@ -199,7 +199,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <p>Total de medias falta:</p>
+                                <p>{{trans('sigac::attendance.Total missing stockings:')}}</p>
                             </div>
                             <div class="col-4">
                                 <div class="card">
