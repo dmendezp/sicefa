@@ -16,7 +16,7 @@ class ProgramsTableSeeder extends Seeder
     public function run()
     {
 
-        $number_programs = 24; // Definir la cantidad de programas de prueba
+        $number_programs = 11; // Definir la cantidad de programas de prueba
 
         $network = Network::where('name','TECNOLOGÍAS DE LA INFORMACIÓN, DISEÑO Y DESARROLLO DE SOFTWARE')->first(); // Consultar o registrar red de conocimiento
         Program::updateOrCreate(['sofia_code' => 822106],[ // Actualizar o registrar Programa de formación

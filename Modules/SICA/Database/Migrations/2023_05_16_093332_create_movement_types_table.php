@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateKindOfPurchasesTable extends Migration
+class CreateMovementTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateKindOfPurchasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('kind_of_purchases', function (Blueprint $table) {
+        Schema::create('movement_types', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->text('description');
+            $table->integer('consecutive');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateKindOfPurchasesTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('kind_of_purchases');
+        Schema::dropIfExists('movement_types');
     }
 }

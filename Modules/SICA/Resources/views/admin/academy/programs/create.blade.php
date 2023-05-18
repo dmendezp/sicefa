@@ -1,7 +1,7 @@
 <div id="content-config">
     <div class="modal-header py-2">
         <h5 class="modal-title" id="exampleModalLabel">
-            <b>Agregar programa de formación</b>
+            <b>{{trans('sica::menu.Add Formation Program')}}</b>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -12,8 +12,8 @@
                 @include('sica::admin.academy.programs.form')
         </div>
         <div class="modal-footer py-1">
-                <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cancelar</button>
-                {!! Form::submit('Registrar', ['class'=>'btn btn-primary btn-md py-0']) !!}
+                <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">{{trans('sica::menu.Cancel')}}</button>
+                {!! Form::submit(trans('sica::menu.Register'), ['class'=>'btn btn-primary btn-md py-0']) !!}
         </div>
     {!! Form::close() !!}
 </div>

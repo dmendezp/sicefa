@@ -17,7 +17,7 @@ class PeopleTableSeeder extends Seeder
     public function run()
     {
 
-        $number_people = 1500; // Definir la cantidad de personas
+        $number_people = 120; // Definir la cantidad de personas
 
         $population_group = PopulationGroup::firstOrCreate(['name' => 'NINGUNA']); // Consultar o registrar Grupo Poblacional
         $eps = EPS::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar EPS

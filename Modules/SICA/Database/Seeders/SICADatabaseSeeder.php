@@ -4,6 +4,7 @@ namespace Modules\SICA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Modules\SICA\Entities\Movement;
 
 class SICADatabaseSeeder extends Seeder
 {
@@ -30,6 +31,7 @@ class SICADatabaseSeeder extends Seeder
         $this->call(ProgramsTableSeeder::class); // Ejecutar Seeder de programas de formación
         $this->call(CoursesTableSeeder::class); // Ejecutar Seeder de cursos de formación
         $this->call(ApprenticesTableSeeder::class); // Ejecutar Seeder de aprendices
+        $this->call(MovementTypesTableSeeder::class); // Ejecutar Seeder de tipos de movimientos
 
         DB::commit(); // Finalizar transacción
 
