@@ -12,4 +12,7 @@
     <link rel="stylesheet" href="{{ asset('modules/sigac/css/stylesGeneral.css')}}">
     <link rel="stylesheet" href="{{ asset('modules/sigac/css/googlefonts.css')}}">
     <link rel="stylesheet" href="{{ asset('libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css')}}">
+      <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 </head>

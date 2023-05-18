@@ -15,7 +15,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $view = ['titlePage'=>'Asistencia', 'titleView'=>'Registro de Asistencia'];
+        $view = ['titlePage'=>trans('sigac::attendance.Attendance'), 'titleView'=>trans('sigac::attendance.Attendance registration')];
         $apps = App::get();
         return view('sigac::attendance.index', compact('apps', 'view'));
     }
