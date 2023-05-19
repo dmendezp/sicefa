@@ -112,6 +112,9 @@ class Person extends Model implements Auditable
     public function inventories(){ // Accede a todos los registros de inventarios que están relacionados con esta persona
         return $this->hasMany(Inventory::class);
     }
+    public function movement_responsabilities(){ // Accede a todos los registros de responsables de movimiento que esten asociados con esta persona
+        return $this->hasMany(MovementResponsability::class);
+    }
 
 
     // Configuración de factory para la generación de datos de pruebas
