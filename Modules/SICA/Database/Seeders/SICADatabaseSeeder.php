@@ -9,7 +9,6 @@ use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\KindOfPurchase;
 use Modules\SICA\Entities\Line;
 use Modules\SICA\Entities\MeasurementUnit;
-use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\Network;
 use Modules\SICA\Entities\Program;
 

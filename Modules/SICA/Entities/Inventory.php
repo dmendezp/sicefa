@@ -58,6 +58,9 @@ class Inventory extends Model implements Auditable
     public function person(){ // Accede a la información de los datos personales de la persona responsable
         return $this->belongsTo(Person::class);
     }
+    public function movement_details(){ // Accede a todos los registros de detalle de movimientos que esten asociados con este inventario
+        return $this->hasMany(MovementDetail::class);
+    }
 
 
     // configuración de fcoty para la generació de datos de pruebas

@@ -41,6 +41,9 @@ class Movement extends Model implements Auditable
     public function movement_type(){ // Accede a la información del tipo de movimiento asociado
         return $this->belongsTo(MovementType::class);
     }
+    public function movement_details(){ // Accede a todos los registros de detalle de movimientos que esten asociados con este movimiento 
+        return $this->hasMany(MovementDetail::class);
+    }
 
 
     // Configuración de factory para la generación de datos de pruebas
