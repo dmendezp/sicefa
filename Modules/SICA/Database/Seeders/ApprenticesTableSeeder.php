@@ -20,12 +20,6 @@ class ApprenticesTableSeeder extends Seeder
 
         $number_apprentices = 150; // Definir la cantidad aprendices
 
-        $person = Person::where('document_number',1004494010)->first(); // Obtener los datos personales de Jesús David Guevara Munar
-        $course = Course::where('code',2397491)->first(); // Obtenere la información del curso de Análisis y Desarrollo de Sitemas de Información (2397491)
-        Apprentice::updateOrCreate(['person_id' => $person->id, 'course_id' => $course->id],[ // Actualizar o registrar aprendiz
-            'apprentice_status' => 'EN FORMACIÓN'
-        ]);
-
         print_r("Generando " . $number_apprentices . " aprendices.\n");
         $failures = 0;
         for ($i=0; $i < $number_apprentices; $i++) {

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResponsibilitiesMovementsTable extends Migration
+class CreateMovementResponsabilitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateResponsibilitiesMovementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('responsibilities__movements', function (Blueprint $table) {
+        Schema::create('movement_responsabilities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('people_id')->constrained()->onDelete('cascade');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('movement_id')->constrained()->onDelete('cascade');
-            $table->enum('rol',['Vendedor', 'Comprador', 'Registra', 'Entrega', 'Recibe', 'Autoriza', 'Cuentadante', 'VigilanciaSalida', 'VigilanciaEntrada']);
-            $table->datetime('date');
-            $table->timestamps();
+            $table->enum('role', ['AUTORIZA','CLIENTE','CUENTADANTE','ENTREGA','RECIBE','REGISTRO','VENDEDOR','VIGILANTE ENTRADA','VIGILANTE SALIDA']);
+            $table->dateTime('date');
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -32,6 +32,6 @@ class CreateResponsibilitiesMovementsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('responsibilities__movements');
+        Schema::dropIfExists('movement_responsabilities');
     }
 }
