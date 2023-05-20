@@ -15,7 +15,10 @@ class CreateWarehouseMovementsTable extends Migration
     {
         Schema::create('warehouse_movements', function (Blueprint $table) {
             $table->id();
-            $table->enum('rol',['Entrega', 'Recibe']);
+            $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
+            $table->foreignId('movement_id')->constrained()->onDelete('cascade');
+            $table->enum('role',['Entrega','Recibe']);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

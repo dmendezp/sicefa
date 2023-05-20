@@ -42,7 +42,10 @@ class Warehouse extends Model implements Auditable
         return $this->belongsToMany(ProductiveUnit::class);
     }
     public function inventories(){ // Accede a todos los registro de inventarios que están relacionados con esta bodega
-        return $this->hasMany(Inventory::class); 
+        return $this->hasMany(Inventory::class);
+    }
+    public function warehouse_movements(){ // Accede a todos los registros de movimientos de bodega que esten asociados con esta bodega
+        return $this->hasMany(WarehouseMovement::class);
     }
 
 }
