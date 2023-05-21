@@ -18,7 +18,7 @@ class ElementsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
         $number_elements = 100; // Definir la cantidad de elementos de prueba
 
         // La siguiente línea se recomienda dejarla al iniciar todo los registros que son generados en este seeder
@@ -35,7 +35,7 @@ class ElementsTableSeeder extends Seeder
             'description' => 'Delicioso yogurt con sabor a Mora y trocitos de fruta',
             'kind_of_purchase_id' => $kind_of_purchase->id,
             'category_id' => $category->id,
-            'image' => ElementFactory::new()->make()->image  // Generar imagen faker
+            //'image' => ElementFactory::new()->make()->image  // Generar imagen faker
         ]);
 
         Element::updateOrCreate(['name' => 'Dona de chocolate x 50gr'],[ // Actualizar o registrar Elemento
@@ -43,7 +43,7 @@ class ElementsTableSeeder extends Seeder
             'description' => 'Deliciosas donas de chocolate y crispy',
             'kind_of_purchase_id' => $kind_of_purchase->id,
             'category_id' => $category->id,
-            'image' => ElementFactory::new()->make()->image // // Generar imagen faker
+            //'image' => ElementFactory::new()->make()->image // // Generar imagen faker
         ]);
 
         $this->createElements($number_elements); // Generar elementos de prueba de acuerdo a la cantidad requerida
