@@ -117,13 +117,13 @@ class EnvironmentController extends Controller
         $edit = Environment::findOrFail($request->input('id'));
         $edit -> name = e ($request->input('name'));
         $edit -> description = e ($request->input('description'));
-        $edit -> farms_id = e ($request->input('farm'));
-        $edit -> productive_units_id = e ($request->input('unit'));
+        $edit -> farms_id = e ($request->input('farms_id'));
+        $edit -> productive_units_id = e ($request->input('productive_units_id'));
         $edit -> length = e ($request->input('lengthspot'));
         $edit -> latitude = e ($request->input('latitudespot'));
         $edit -> status = e ($request->input('status'));
         $edit -> type_environment = e ($request->input('type'));
-        $edit -> class_environments_id = e ($request->input('class'));
+        $edit -> class_environments_id = e ($request->input('class_environments_id'));
 
         if ($request->file('file')){
             $path = 'uploads/';
