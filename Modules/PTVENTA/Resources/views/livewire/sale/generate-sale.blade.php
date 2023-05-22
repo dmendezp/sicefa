@@ -137,19 +137,18 @@
 @section('inputs')
     <script>
         $(document).ready(function() {
-          $("#payment_value").click(function() {
-            $(this).select(); // Seleccionar todo el contenido del input cuando se de un click dentro del campo de valor de pago
-          });
+            $("#payment_value").click(function() {
+                $(this).select(); // Seleccionar todo el contenido del input cuando se de un click dentro del campo de valor de pago
+            });
         });
 
         function calculate(total) { // Calcular el valor de cambio de acuerdo al total de la comprar y el valor de pago de la compra
             var payment_value = parseInt($("#payment_value").val());
-            if (payment_value >= total) {
+            $("#change_value").attr('class', 'text-danger').text(payment_value - total);
+            $('#sale_button').prop('disabled', true); // Desactivar botón de realizar venta
+            if (total!=0 && payment_value>=total) {
                 $("#change_value").attr('class', 'text-success').text(payment_value - total);
                 $("#sale_button").prop('disabled', false); // Activar botón de realizar venta
-            } else {
-                $("#change_value").attr('class', 'text-danger').text(payment_value - total);
-                $("#sale_button").prop('disabled', true); // Desactivar botón de realizar venta
             }
         }
 
@@ -162,7 +161,7 @@
             calculate($total.val());
 
             if (product_total_amount == 0) {
-                $product_amount.prop('disabled', true); // Activar y enfocar el campo Cantidad
+                $product_amount.prop('disabled', true); // Desactivar el campo Cantidad
             } else {
                 $product_amount.prop('disabled', false).focus(); // Desactivar campo Cantidad
                 $product_amount.off('input').on('input', function() { // Establecer propiedades para el campo de cantidad, subtotal de productos y total de la venta
@@ -207,6 +206,9 @@
             });
             $('#total').val(total);
             $payment_value.trigger('input');
+            if(total == 0){
+                $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
+            }
         });
     </script>
 @endsection
