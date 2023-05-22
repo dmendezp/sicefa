@@ -103,12 +103,21 @@
                     <hr>
 
                     <ul class="list-group list-group-flush text-center px-5 rounded-3 fs-5">
-                        <li class="list-group-item list-group-item-primary">
-                            <strong id="total">{{ is_null($total) ? 0 : $total }}</strong>
+                        <li class="list-group-item list-group-item-primary py-0 px-0">
+                            {!! Form::number('total', $total ? $total : 0, [
+                                'class'=>'form-control form-control-lg text-center mx-0',
+                                'id'=>'total',
+                                'style' => 'background-color: #d1e2ff',
+                                'disabled'])
+                            !!}
                         </li>
                         <li class="list-group-item py-1 px-0">
-                            {!! Form::number('payment_value', null, ['class'=>'form-control form-control-lg text-center mx-0', 'id'=>'payment_value', 'wire:click'=>'resetValues()', $input_payment_value ? '' : 'disabled']) !!}
-
+                            {!! Form::number('payment_value', $payment_value ? $payment_value : 0, [
+                                'class'=>'form-control form-control-lg text-center mx-0',
+                                'id'=>'payment_value',
+                                'wire:click'=>'resetValues',
+                                $input_payment_value ? '' : 'disabled'])
+                            !!}
                         </li>
                         <li class="list-group-item list-group-item-dark">
                             <strong class="text-danger" id="change_value">0</strong>
@@ -127,12 +136,30 @@
 
 @section('inputs')
     <script>
+        $(document).ready(function() {
+          $("#payment_value").click(function() {
+            $(this).select(); // Seleccionar todo el contenido del input cuando se de un click dentro del campo de valor de pago
+          });
+        });
+
+        function calculate(total) { // Calcular el valor de cambio de acuerdo al total de la comprar y el valor de pago de la compra
+            var payment_value = parseInt($("#payment_value").val());
+            if (payment_value >= total) {
+                $("#change_value").attr('class', 'text-success').text(payment_value - total);
+                $("#sale_button").prop('disabled', false); // Activar botón de realizar venta
+            } else {
+                $("#change_value").attr('class', 'text-danger').text(payment_value - total);
+                $("#sale_button").prop('disabled', true); // Desactivar botón de realizar venta
+            }
+        }
+
         Livewire.on('input-product-amount', function(product_total_amount, product_price, product_subtotal, total) { // Establecer funciones para el campo de ingreso de cantidad
             var $product_amount = $('#product_amount'); // Instanciar el campo de cantidad de producto
             var $product_subtotal = $('#product_subtotal'); // Instancia el campo subtotal del producto
             var $total = $('#total'); // Instanciar el campo total de la venta
 
-            $total.text(total + product_subtotal); // Establecer valor total en tiempo real (especialmente cuando se edita un producto).
+            $total.val(total + product_subtotal); // Establecer valor total en tiempo real (especialmente cuando se edita un producto).
+            calculate($total.val());
 
             if (product_total_amount == 0) {
                 $product_amount.prop('disabled', true); // Activar y enfocar el campo Cantidad
@@ -144,16 +171,17 @@
                     if (isNaN(val) || val < 0) {
                         input.val(0);
                         $product_subtotal.val(0);
-                        $total.text(total);
+                        $total.val(total);
                     } else if (val > product_total_amount) {
                         input.val(product_total_amount);
                         $product_subtotal.val(product_total_amount*product_price);
-                        $total.text(product_total_amount * product + total);
+                        $total.val(product_total_amount * product_price + total);
                     } else {
                         input.val(val);
                         $product_subtotal.val(val*product_price);
-                        $total.text(val * product_price + total);
+                        $total.val(val * product_price + total);
                     }
+                    calculate($total.val());
                 });
             }
         });
@@ -177,6 +205,8 @@
                     $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
                 }
             });
+            $('#total').val(total);
+            $payment_value.trigger('input');
         });
     </script>
 @endsection

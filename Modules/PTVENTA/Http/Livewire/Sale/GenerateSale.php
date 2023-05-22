@@ -20,6 +20,7 @@ class GenerateSale extends Component
     public $product_subtotal; // Contiene el Subtotal del valor del producto
     public $total = 0; // Contiene el valor total de todos los productos seleccionados
     public $input_payment_value = false; //
+    public $payment_value; //
     public Collection $selected_products; // Productos seleccionados
 
     public function __construct()
@@ -129,7 +130,6 @@ class GenerateSale extends Component
             if ($product['product_element_id'] == $product_id) {
                 $this->selected_products->forget($index); // Eliminar el producto encontrado
                 $this->resetValues();
-                $this->totalValueProducts(); // Calcular el valor total de los productos seleccionados
                 break;
             }
         }
@@ -152,6 +152,7 @@ class GenerateSale extends Component
 
     public function resetValues(){ // Vaciar variables del componente
         $this->reset('product_id','product_total_amount','product_price','product_amount','product_subtotal');
+        $this->totalValueProducts(); // Calcular el valor total de los productos seleccionados
     }
 
 }
