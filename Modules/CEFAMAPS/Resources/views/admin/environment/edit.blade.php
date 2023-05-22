@@ -92,11 +92,7 @@
                                     <!-- inicio para el id de la unidad -->
                                     <div class="form-group">
                                         <label for="unit">{{ trans('cefamaps::environment.Productive units') }}</label>
-                                        <select class="form-control select2" style="width: 100%;" id="unit" name="unit">
-                                            @foreach ($unit as $u)
-                                                <option value="{{$u->id}}">{{$u->name}}</option>
-                                            @endforeach
-                                        </select>
+                                        {!! Form::select('productive_units_id',$unitedit, $editenviron->productive_units_id,['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                                     </div>
                                     <!-- fin para el id de la unidad -->
                                     <!-- inicio de los complementos de environment -->
@@ -105,11 +101,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
-                                                <select class="form-control select2" style="width: 100%;" id="class" name="class" required>
-                                                    @foreach($classenviron as $c)
-                                                        <option value="{{ $c->id }}">{{ $c->name }}</option>
-                                                    @endforeach
-                                                </select>
+                                                {!! Form::select('class_environments_id',$classenvironedit, $editenviron->class_environments_id,['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                                             </div>
                                         </div>
                                         <!-- fin de la clase de ambiente -->
@@ -117,11 +109,7 @@
                                             <!-- inicio para el id del Farm -->
                                             <div class="form-group">
                                                 <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
-                                                <select class="form-control select2" style="width: 100%;" name="farm" id="farm">
-                                                    @foreach ($farm as $f)
-                                                        <option value="{{$f->id}}">{{$f->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                {!! Form::select('farms_id',$farm, $editenviron->farms_id,['class' => 'form-control','placeholder' => 'Seleccione...', 'required']) !!}
                                             </div>
                                             <!-- fin para el id del Farm -->
                                         </div>
@@ -130,8 +118,8 @@
                                             <div class="form-group">
                                                 <label for="status">{{ trans('cefamaps::menu.Status') }} {{ trans('cefamaps::environment.Environment') }}</label>
                                                 <select class="form-control select2" style="width: 100%;" id="status" value="{{ $editenviron->status }}" name="status" required>
-                                                    <option value="available">Disponible</option>
-                                                    <option value="notavailable">No Disponible</option>
+                                                    <option value="available">{{ trans('cefamaps::environment.Available') }}</option>
+                                                    <option value="notavailable">{{ trans('cefamaps::environment.Not available') }}</option>
                                                 </select>
                                             </div>
                                         </div>

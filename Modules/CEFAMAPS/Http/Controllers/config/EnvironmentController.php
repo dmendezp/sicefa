@@ -97,12 +97,14 @@ class EnvironmentController extends Controller
     {
         $environ = Environment::get();
         $unit = ProductiveUnit::get();
-        $farm = Farm::get();
+        $unitedit = ProductiveUnit::pluck('name','id');
+        $farm = Farm::pluck('name','id');
         $sector = Sector::get();
         $classenviron = ClassEnvironment::get();
+        $classenvironedit = ClassEnvironment::pluck('name','id');
         $coor = Coordinate::get();
         $editenviron = Environment::with('coordinates')->find($id);
-        $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'coor'=>$coor, 'editenviron'=>$editenviron, 'classenviron'=>$classenviron, 'sector'=>$sector];
+        $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'coor'=>$coor, 'editenviron'=>$editenviron, 'classenviron'=>$classenviron, 'sector'=>$sector, 'unitedit'=>$unitedit, 'classenvironedit'=>$classenvironedit];
         return view('cefamaps::admin.environment.edit',$data);
     }
 

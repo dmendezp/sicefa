@@ -16,7 +16,7 @@ class CreatePagesTable extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->text('content');
+            $table->mediumText('content');
             $table->foreignId('environment_id')->constrained()->ondelete('cascade');
             $table->softDeletes();
             $table->timestamps();

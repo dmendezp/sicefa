@@ -15,5 +15,7 @@ return [
     'Evacuation route' => 'Ruta Evacuación',
     'Map' => 'Mapa',
     'View' => 'Vista',
-    'Spot' => 'Punto'
+    'Spot' => 'Punto',
+    'Available' => 'Disponible',
+    'Not available' => 'No Disponible',
 ];

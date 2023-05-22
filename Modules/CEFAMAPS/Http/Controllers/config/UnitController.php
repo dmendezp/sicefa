@@ -62,7 +62,7 @@ class UnitController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()):
-            return back()->withErrors($validator)->with('message', 'Algo fallo en el proceso')->with('typealert', 'danger');
+            return back()->withErrors($validator)->with('message', 'Algo fallo en el proceso')->with('typealert', 'danger')->withInput();
             else:
             $add = new ProductiveUnit;
             $add -> name = e ($request->input('name'));
@@ -87,10 +87,11 @@ class UnitController extends Controller
         $unit = ProductiveUnit::get();
         $environ = Environment::get();
         $classenviron = ClassEnvironment::get();
-        $farm = Farm::get();
+        $farm = Farm::pluck('name','id');
         $sector = Sector::get();
+        $prueba = Sector::pluck('name','id');
         $editunit = ProductiveUnit::findOrFail($id);
-        $data = ['title'=>trans('cefamaps::menu.Edit'), 'person'=>$person, 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'sector'=>$sector, 'editunit'=>$editunit, 'classenviron'=>$classenviron];
+        $data = ['title'=>trans('cefamaps::menu.Edit'), 'person'=>$person, 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'sector'=>$sector, 'editunit'=>$editunit, 'classenviron'=>$classenviron, 'prueba'=>$prueba];
         return view('cefamaps::admin.unit.edit',$data);
     }
 
@@ -101,22 +102,26 @@ class UnitController extends Controller
     public function editpost(Request $request)
     {
         $rules = [
-            "person" => "required|max:5"
+            "person" => "required|max:5",
+            "sector_id" => "required",
+            "farms_id" => "required",
         ];
         $messages = [
             "person.required" => 'Algo salio mal en tu numero de documento, intenta de nuevo buscandolo',
+            "sector_id.required" => 'El sector es requerido',
+            "farms_id.required" => 'La granja es requerida',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()):
-            return back()->withErrors($validator)->with('message', 'Algo fallo en el proceso')->with('typealert', 'danger');
+            return back()->withErrors($validator)->with('message', 'Algo fallo en el proceso')->with('typealert', 'danger')->withInput();
             else:
             $edit = ProductiveUnit::findOrFail($request->input('id'));
             $edit -> name = e ($request->input('name'));
             $edit -> description = e ($request->input('description'));
             $edit -> icon = e ($request->input('icon'));
             $edit -> person_id = e ($request->input('person'));
-            $edit -> sector_id = e ($request->input('sector'));
-            $edit -> farms_id = e ($request->input('farm'));
+            $edit -> sector_id = e ($request->input('sector_id'));
+            $edit -> farms_id = e ($request->input('farms_id'));
             if($edit -> save()){
                 return redirect(route('cefamaps.admin.config.unit.index'));
             }

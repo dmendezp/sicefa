@@ -3,7 +3,8 @@
 @section('breadcrumb')
   <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
   <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.page.index') }}"><i class="fas fa-regular fa-file-lines"></i> {{ trans('cefamaps::page.Page') }}</a></li>
-  <li class="breadcrumb-item"><a href="#"><i class=""> {{ trans('cefamaps::menu.Edit') }} {{$editpage->name}}</a></li>
+  <li class="breadcrumb-item"><a href="#"><i class="fas fa-map-signs"></i> {{ trans('cefamaps::menu.Edit') }}</a></li>
+  <li class="breadcrumb-item"><a href="#"><i class=""> {{$editpage->name}}</a></li>
 @endsection
 
 @section('content')
@@ -33,11 +34,7 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="environ">{{ trans('cefamaps::environment.Environment') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::page.Page') }}</label>
-                      <select class="form-control select2" name="environ" id="environ" value="{{$editpage->environment_id}}">
-                        @foreach($environ as $e)
-                          <option value="{{ $e->id }}">{{ $e->name }}</option>
-                        @endforeach
-                      </select>
+                      {!! Form::select('environment_id',$environ, $editpage->environment_id,['class' => 'form-control','placeholder' => 'Seleccione...', 'required']) !!}
                     </div>
                   </div>
                   <!-- fin de los id de los environments -->

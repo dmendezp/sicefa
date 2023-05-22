@@ -89,7 +89,7 @@ class PageController extends Controller
    */
   public function edit($id, Request $request)
   {
-    $environ = Environment::get();
+    $environ = Environment::pluck('name','id');
     $unit = ProductiveUnit::get();
     $classenviron = ClassEnvironment::get();
     $sector = Sector::get();
@@ -110,16 +110,18 @@ class PageController extends Controller
     $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR);
     $imageFile = $dom->getElementsByTagName('img');
 
-    foreach($imageFile as $item => $image){
-      $data = $image->getAttribute('src');
-      list($type, $data) = explode(';', $data);
-      list(, $data)      = explode(',', $data);
-      $imgeData = base64_decode($data);
-      $image_name= "/upload/" . time().$item.'.png';
-      $path = public_path() . $image_name;
-      file_put_contents($path, $imgeData);
-      $image->removeAttribute('src');
-      $image->setAttribute('src', $image_name);
+    if ($request->file('img')) {
+      foreach($imageFile as $item => $image){
+        $data = $image->getAttribute('src');
+        list($type, $data) = explode(';', $data);
+        list(, $data)      = explode(',', $data);
+        $imgeData = base64_decode($data);
+        $image_name= "/upload/" . time().$item.'.png';
+        $path = public_path() . $image_name;
+        file_put_contents($path, $imgeData);
+        $image->removeAttribute('src');
+        $image->setAttribute('src', $image_name);
+      }
     }
 
     $content = $dom->saveHTML();
