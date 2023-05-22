@@ -50,8 +50,8 @@
                             <tr>
                                 <td><strong>{{ $inventory->element->name }}</strong></td>
                                 <td class="text-center">{{ $inventory->element->category->name }}</td>
-                                <td class="text-center"><strong>{{ $inventory->stock }}</strong></td>
-                                <td class="text-center">{{ $inventory->amount }}</td>
+                                <td class="text-center"><strong>{{ $inventory->price }}</strong></td>
+                                <td class="text-center">{{ $inventory->stock }}</td>
                                 <td class="text-center"><strong>{{ $inventory->amount }}</strong></td>
                                 <td class="text-center">
                                     @if ($inventory->state == 'Disponible')
