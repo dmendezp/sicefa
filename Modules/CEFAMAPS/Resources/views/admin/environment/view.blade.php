@@ -13,9 +13,10 @@
 	<link rel="stylesheet" href="{{ asset('cefamaps/css/viewenviron.css') }}">
 @endsection
 
-@section('content')
+@foreach($viewenviron as $v)
+  @section('content')
 
-  @foreach($viewenviron as $v)
+
   <div class="content">
     <div class="container-fluid">
       <div class="row">
@@ -46,9 +47,9 @@
             </button>
           </div>
           @foreach($v->pages as $p)
-          <div class="modal-body">
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
-          </div>
+            <div class="modal-body">
+              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
+            </div>
           @endforeach
         </div>
       </div>
@@ -71,13 +72,14 @@
         </div>
       </div>
     </div>
-    <!-- Fin El modal para mostrar la pagina -->
     @endforeach
-  @endforeach
+    <!-- Fin El modal para mostrar la pagina -->
+    
+    @endsection
+    @endforeach
 
-@endsection
 
-@section('script')
+    @section('script')
 
   <script>
 
