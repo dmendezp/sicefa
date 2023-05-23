@@ -92,9 +92,9 @@ class UnitController extends Controller
         $classenviron = ClassEnvironment::get();
         $farm = Farm::pluck('name','id');
         $sector = Sector::get();
-        $prueba = Sector::pluck('name','id');
+        $sectoredit = Sector::pluck('name','id');
         $editunit = ProductiveUnit::findOrFail($id);
-        $data = ['title'=>trans('cefamaps::menu.Edit'), 'person'=>$person, 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'sector'=>$sector, 'editunit'=>$editunit, 'classenviron'=>$classenviron, 'prueba'=>$prueba];
+        $data = ['title'=>trans('cefamaps::menu.Edit'), 'person'=>$person, 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'sector'=>$sector, 'editunit'=>$editunit, 'classenviron'=>$classenviron, 'sectoredit'=>$sectoredit];
         return view('cefamaps::admin.unit.edit',$data);
     }
 

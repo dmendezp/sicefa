@@ -62,7 +62,7 @@
                       <!-- inicio del Sector -->
                       <div class="form-group">
                         <label for="sector">{{ trans('cefamaps::sector.Sector') }}</label>
-                        {!! Form::select('sector_id',$prueba, $editunit->sector_id,['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
+                        {!! Form::select('sector_id',$sectoredit, $editunit->sector_id,['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                       </div>
                       <!-- fin del Sector -->
                     </div>
