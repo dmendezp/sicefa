@@ -42,9 +42,10 @@ class UnitController extends Controller
         $environ = Environment::get();
         $unit = ProductiveUnit::get();
         $classenviron = ClassEnvironment::get();
-        $farm = Farm::get();
+        $farm = Farm::pluck('name','id');
         $sector = Sector::get();
-        $data = ['title'=>trans('cefamaps::menu.Add'), 'person'=>$person, 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'sector'=>$sector, 'classenviron'=>$classenviron];
+        $sectoradd = Sector::pluck('name','id');
+        $data = ['title'=>trans('cefamaps::menu.Add'), 'person'=>$person, 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'sector'=>$sector, 'classenviron'=>$classenviron, 'sectoradd'=>$sectoradd];
         return view('cefamaps::admin.unit.add',$data);
     }
 
@@ -55,10 +56,12 @@ class UnitController extends Controller
     public function addpost(Request $request)
     {
         $rules = [
-            "person" => "required|max:5"
+            "person" => "required|max:5",
+            "icon" => "required"
         ];
         $messages = [
             "person.required" => 'Algo salio mal en tu numero de documento, intenta de nuevo buscandolo',
+            "icon.required" => 'No seleccionaste ningun icono'
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()):
@@ -69,8 +72,8 @@ class UnitController extends Controller
             $add -> description = e ($request->input('description'));
             $add -> icon = e ($request->input('icon'));
             $add -> person_id = e ($request->input('person'));
-            $add -> sector_id = e ($request->input('sector'));
-            $add -> farms_id = e ($request->input('farm'));
+            $add -> sector_id = e ($request->input('sector_id'));
+            $add -> farms_id = e ($request->input('farms_id'));
             if($add -> save()){
                 return redirect(route('cefamaps.admin.config.unit.index'));
             }

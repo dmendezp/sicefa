@@ -38,6 +38,7 @@
                       <div class="form-group">
                         <label for="icon">{{ trans('cefamaps::unit.Icon') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
                         <select class="form-control select2" name="icon" id="icon">
+                          <option value="">Seleccione...</option>
                           <!-- Iconos Animales -->
                           <option value="fa-solid fa-hippo">{{ trans('cefamaps::unit.Hippo') }}</option>
                           <option value="fa-solid fa-otter">{{ trans('cefamaps::unit.Otter') }}</option>
@@ -64,11 +65,7 @@
                       <!-- inicio del Sector -->
                       <div class="form-group">
                         <label for="sector">{{ trans('cefamaps::sector.Sector') }}</label>
-                        <select class="form-control select2" name="sector" id="sector" required>
-                          @foreach ($sector as $s)
-                          <option value="{{ $s->id }}">{{ $s->name }}</option>
-                          @endforeach
-                        </select>
+                        {!! Form::select('sector_id',$sectoradd, [],['class' => 'form-control','placeholder' => 'Selecciona...','required']) !!}
                       </div>
                       <!-- fin del Sector -->
                     </div>
@@ -76,11 +73,7 @@
                       <!-- incio de la farm -->
                       <div class="form-group">
                         <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
-                        <select class="form-control select2" name="farm" id="farm" required>
-                          @foreach ($farm as $f)
-                          <option value="{{ $f->id }}">{{ $f->name }}</option>
-                          @endforeach
-                        </select>
+                        {!! Form::select('farms_id',$farm, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                       </div>
                       <!-- fin de la farm -->
                     </div>
