@@ -80,11 +80,7 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="unit">{{ trans('cefamaps::environment.Productive units') }}</label>
-                      <select class="form-control select2" style="width: 100%;" id="unit" name="unit">
-                        @foreach ($unit as $u)
-                          <option value="{{$u->id}}">{{$u->name}}</option>
-                        @endforeach
-                      </select>
+                      {!! Form::select('productive_units_id',$unitadd, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                     </div>
                   </div>
                   <div class="col-3">
@@ -104,11 +100,7 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
-                      <select class="form-control select2" style="width: 100%;" id="class" name="class" required>
-                        @foreach($classenviron as $c)
-                          <option value="{{ $c->id }}">{{ $c->name }}</option>
-                        @endforeach
-                      </select>
+                      {!! Form::select('class_environments_id',$classenvironadd, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                     </div>
                   </div>
                   <!-- fin de la clase de ambiente -->
@@ -116,11 +108,7 @@
                     <!-- inicio de la Farm id -->
                     <div class="form-group">
                       <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
-                      <select class="form-control select2" style="width: 100%;" name="farm" id="farm">
-                        @foreach ($farm as $f)
-                          <option value="{{$f->id}}">{{$f->name}}</option>
-                        @endforeach
-                      </select>
+                      {!! Form::select('farms_id',$farm, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                     </div>
                     <!-- fin de la Farm id -->
                   </div>
@@ -128,10 +116,7 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="status">{{ trans('cefamaps::menu.Status') }} {{ trans('cefamaps::environment.Environment') }}</label>
-                      <select class="form-control select2" style="width: 100%;" id="status" name="status" required>
-                        <option value="available">Disponible</option>
-                        <option value="notavailable">No Disponible</option>
-                      </select>
+                      {!! Form::select('status',getEnumValues('environments', 'status'),null, ['class' =>'form-control','placeholder' => 'Selecciona...','required'])!!}
                     </div>
                   </div>
                   <!-- fin del estado del environment -->

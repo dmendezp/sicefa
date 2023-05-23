@@ -41,10 +41,12 @@ class EnvironmentController extends Controller
     {
         $environ = Environment::get();
         $unit = ProductiveUnit::get();
-        $farm = Farm::get();
+        $unitadd = ProductiveUnit::pluck('name','id');
+        $farm = Farm::pluck('name','id');
         $sector = Sector::get();
         $classenviron = ClassEnvironment::get();
-        $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron, 'sector'=>$sector];
+        $classenvironadd = ClassEnvironment::pluck('name','id');
+        $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron, 'sector'=>$sector, 'unitadd'=>$unitadd, 'classenvironadd'=>$classenvironadd];
         return view('cefamaps::admin.environment.add',$data);
     }
 
@@ -65,9 +67,9 @@ class EnvironmentController extends Controller
             $add -> description = e ($request->input('description'));
             $add -> length = e ($request->input('lengthspot'));
             $add -> latitude = e ($request->input('latitudespot'));
-            $add -> farms_id = e ($request->input('farm'));
-            $add -> productive_units_id = e ($request->input('unit'));
-            $add -> class_environments_id = e ($request->input('class'));
+            $add -> farms_id = e ($request->input('farms_id'));
+            $add -> productive_units_id = e ($request->input('productive_units_id'));
+            $add -> class_environments_id = e ($request->input('class_environments_id'));
             $add -> status = e ($request->input('status'));
             $add -> type_environment = e ($request->input('type'));
             if($add -> save()) {
