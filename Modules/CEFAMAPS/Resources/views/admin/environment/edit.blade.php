@@ -117,10 +117,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="status">{{ trans('cefamaps::menu.Status') }} {{ trans('cefamaps::environment.Environment') }}</label>
-                                                <select class="form-control select2" style="width: 100%;" id="status" value="{{ $editenviron->status }}" name="status" required>
-                                                    <option value="available">{{ trans('cefamaps::environment.Available') }}</option>
-                                                    <option value="notavailable">{{ trans('cefamaps::environment.Not available') }}</option>
-                                                </select>
+                                                {!! Form::select('status',getEnumValues('environments','status'),$editenviron->status,['class'=>'form-control','placeholder'=>'seleccione...']) !!}
                                             </div>
                                         </div>
                                         <!-- fin del status del environment -->
