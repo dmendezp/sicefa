@@ -56,7 +56,7 @@ class ElementController extends Controller
                     $message_ptventa = "Se ha producido un error en el momento de actualizar la imagen";
                     $message_ptventa_type = 'error';
                   }
-                  return redirect(route('ptventa.element.index'))->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
+                  return redirect(route('ptventa.element.image.index'))->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
             }
        endif;
     }

@@ -6,7 +6,7 @@
 @endpush
 
 @section('content')
-    <form action="{{ route('ptventa.element.update', $element) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('ptventa.element.image.update', $element) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card card-success card-outline col-10 mx-auto">
 
@@ -48,7 +48,7 @@
             </div>
 
             <div class="card-footer bg-white text-right">
-                <a href="{{ route('ptventa.element.index') }}" class="btn btn-sm btn-light mr-2">
+                <a href="{{ route('ptventa.element.image.index') }}" class="btn btn-sm btn-light mr-2">
                     <b>Cancelar</b>
                 </a>
                 <button type="submit" class="btn btn-sm btn-success">
