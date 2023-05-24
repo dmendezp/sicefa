@@ -35,26 +35,38 @@
                       <!-- inicio del icono -->
                       <div class="form-group">
                         <label for="icon">{{ trans('cefamaps::unit.Icon') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
-                        <select class="form-control select2" name="icon" id="icon">
-                          <!-- Iconos Animales -->
-                          <option value="fa-solid fa-hippo">{{ trans('cefamaps::unit.Hippo') }}</option>
-                          <option value="fa-solid fa-otter">{{ trans('cefamaps::unit.Otter') }}</option>
-                          <option value="fa-solid fa-dog">{{ trans('cefamaps::unit.Dog') }}</option>
-                          <option value="fa-solid fa-cow">{{ trans('cefamaps::unit.Cow') }}</option>
-                          <option value="fa-solid fa-fish">{{ trans('cefamaps::unit.Fish') }}</option>
-                          <option value="fa-solid fa-shrimp">{{ trans('cefamaps::unit.Shrimp') }}</option>
-                          <option value="fa-solid fa-horse">{{ trans('cefamaps::unit.Horse') }}</option>
-                          <option value="fa-solid fa-frog">{{ trans('cefamaps::unit.Frog') }}</option>
-                          <option value="fa-solid fa-dove">{{ trans('cefamaps::unit.Dove') }}</option>
-                          <option value="fa-solid fa-cat">{{ trans('cefamaps::unit.Cat') }}</option>
-                          <option value="fa-solid fa-piggy-bank">{{ trans('cefamaps::unit.Piggy') }}</option>
-                          <option value="fa-regular fa-lemon">{{ trans('cefamaps::unit.Lemon') }}</option>
-                          <!-- Iconos Adicionales -->
-                          <option value="fas fa-seedling">{{ trans('cefamaps::unit.Rice') }}</option>
-                          <option value="fa-solid fa-building-wheat">{{ trans('cefamaps::unit.Wheat Building') }}</option>
-                          <option value="fa-solid fa-tree">{{ trans('cefamaps::unit.Tree Mango') }}</option>
-                          <option value="fas fa-coffee">{{ trans('cefamaps::unit.Coffee') }}</option>
-                        </select>
+                        <?php
+                          $datosDefinidos = [
+                            'fa-solid fa-hippo' => 'Hipopotamo',
+                            'fa-solid fa-otter' => 'Nutria',
+                            'fa-solid fa-dog' => 'Perro',
+                            'fa-solid fa-cow' => 'Vaca',
+                            'fa-solid fa-fish' => 'Pescado',
+                            'fa-solid fa-shrimp' => 'Camarón',
+                            'fa-solid fa-horse' => 'Caballo',
+                            'fa-solid fa-frog' => 'Rana',
+                            'fa-solid fa-dove' => 'Paloma',
+                            'fa-solid fa-cat' => 'Gato',
+                            'fa-solid fa-piggy-bank' => 'Cerdo',
+                            'fa-regular fa-lemon' => 'Limon',
+                            'fas fa-seedling' => 'Arroz',
+                            'fa-solid fa-building-wheat' => 'Edificio de Trigo',
+                            'fa-solid fa-tree' => 'Arbol de Mango',
+                            'fas fa-coffee' => 'Cafe'
+                          ];
+
+                          $datoIngresado = $editunit->icon;
+
+                          echo '<select class="form-control select2" name="icon" id="icon">';
+                          foreach ($datosDefinidos as $valor => $texto) {
+                            echo '<option value="' . $valor . '"';
+                            if ($valor === $datoIngresado) {
+                              echo ' selected';
+                            }
+                            echo '>' . $texto . '</option>';
+                          }
+                          echo '</select>';
+                        ?>
                       </div>
                       <!-- fin del icono -->
                     </div>
