@@ -4,8 +4,6 @@ namespace Modules\PTVENTA\Http\Controllers;
 use Modules\SICA\Entities\Inventory;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-
-
 use Illuminate\Routing\Controller;
 
 class InventoryController extends Controller
@@ -26,7 +24,12 @@ class InventoryController extends Controller
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
         $pdf = Pdf::loadView('ptventa::inventory.pdf', compact('inventories'));
         return $pdf->stream();
-   
 
     }
+
+    public function status() { // Formulario de registro (entrada) de inventario
+        $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de inventario'];
+        return view('ptventa::inventory.status', compact('view'));
+    }
 }
+

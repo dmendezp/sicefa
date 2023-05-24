@@ -28,6 +28,9 @@
                 <div class="col-auto ps-0">
                     <a href="{{ route('ptventa.inventory.pdf') }}" class="btn btn-danger btn-sm"> <strong>PDF</strong> </a>
                 </div>
+                <div class="col-auto ps-0">
+                    <a href="{{ route('ptventa.inventory.status') }}" class="btn btn-success btn-sm"> <strong>Estado</strong> </a>
+                </div>
 
             </div>
             <hr>
