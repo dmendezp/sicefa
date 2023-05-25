@@ -27,9 +27,18 @@ class InventoryController extends Controller
 
     }
 
-    public function status() { // Formulario de registro (entrada) de inventario
+    public function status() { // Estado de productos vencidos y por vencer 
         $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de inventario'];
         return view('ptventa::inventory.status', compact('view'));
     }
+
+    public function low() { //registro de bajas
+        $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de inventario'];
+        return view('ptventa::inventory.low', compact('view'));
+
+    }
+
+
+
 }
 

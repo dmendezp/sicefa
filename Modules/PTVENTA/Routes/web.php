@@ -24,7 +24,9 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
         Route::prefix('inventory')->controller(InventoryController::class)->group(function(){
             Route::get('index', 'index')->name('ptventa.inventory.index'); // Vista principal del inventario (listado de actual productos en inventario)
             Route::get('create', 'create')->name('ptventa.inventory.create'); // Formulario de registro de entrada de inventario (registro de productos)
-            route::get('pdf', 'pdf')->name('ptventa.inventory.pdf'); // Descarga de formato de pdf
+            Route::get('pdf', 'pdf')->name('ptventa.inventory.pdf'); // Descarga de formato de pdf
+            Route::get('status', 'status')->name('ptventa.inventory.status');
+            Route::get('low', 'low')->name('ptventa.inventory.low');
 
         });
 
