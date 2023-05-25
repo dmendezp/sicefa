@@ -4,6 +4,7 @@ return [
     'Dashboard' => 'Panel de control',
     'Administrator' => 'Administrador',
     'cefamaps' => 'CEFAMAPS',
+    'Config' => 'Configuracion',
     'Overview map' => 'Mapa General',
     'Welcome' => 'Bienvenido',
     'Delete' => 'Eliminar',

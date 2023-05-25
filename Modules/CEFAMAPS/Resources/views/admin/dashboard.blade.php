@@ -13,17 +13,17 @@
         <div class="col-lg-12">
           <div class="card card-lightblue card-outline">
             <div class="card-header">
-              <h3 class="m-0">Configuracion del mapa</h3>
+              <h3 class="m-0">{{ trans('cefamaps::environment.Setting') }} {{ trans('cefamaps::menu.To') }} {{ trans('cefamaps::menu.cefamaps') }}</h3>
             </div>
             <div class="card-body">
               <div class="content">
                 <div class="container-fluid">
                   <div class="mtop16">
+                    <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.sector.index') }}">
+                      <i class="fas fa-solid fa-vector-square"></i> {{ trans('cefamaps::sector.Sector') }}
+                    </a>
                     <a class="btn btn-app  btn-app-2" href="{{ route('cefamaps.admin.config.unit.index')}}">
                       <i class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::unit.Units') }}
-                    </a>
-                    <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.sector.index') }}">
-                    <i class="fas fa-solid fa-vector-square"></i> {{ trans('cefamaps::sector.Sector') }}
                     </a>
                     <a class="btn btn-app btn-app-2" href="{{ route('cefamaps.admin.config.environment.index') }}">
                       <i class="fas fa-solid fa-chalkboard-user"></i> {{ trans('cefamaps::environment.Environment') }}
