@@ -14,86 +14,45 @@
 
 @section('content')
 <div class="m-4">
-  <table class="table table-bordered text-center">
+  <table id="tabla" class="table table-bordered text-center">
     <tr id="fecha">
-      <th></th>
-      <th>dd/mm/aaaa</th>
-      <th>dd/mm/aaaa</th>
-      <th>dd/mm/aaaa</th>
-      <th>dd/mm/aaaa</th>
+      <th>Hora</th>
       
     </tr>
-    <tr>
-      <td style="width: 60px;">8:00 AM</td>
-      <td class="bg-dark">
-        <div class="">
-          <B><h2>Radiocefa</h2></B>
-          <p>Musica para ti</p>
-        </div>
-      </td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    {{-- FILA 2  ..........--}}
-    <tr>
-      <td style="width: 60px;">9:00 AM</td>
-      <td class="bg-dark">
-        <div class="">
-          <B><h2>Radiocefa</h2></B>
-          <p>Musica para ti</p>
-        </div>
-      </td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    {{-- FILA 3  ..........--}}
-    <tr>
-      <td style="width: 60px;">10:00 AM</td>
-      <td class="bg-dark">
-        <div class="">
-          <B><h2>Radiocefa</h2></B>
-          <p>Musica para ti</p>
-        </div>
-      </td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    {{-- FILA 4  ..........--}}
-    <tr>
-      <td style="width: 60px;">11:00 AM</td>
-      <td class="bg-dark">
-        <div class="">
-          <B><h2>Radiocefa</h2></B>
-          <p>Musica para ti</p>
-        </div>
-      </td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    {{-- FILA 5  ..........--}}
-    <tr>
-      <td style="width: 60px;">12:00 AM</td>
-      <td class="bg-dark">
-        <div class="">
-          <B><h2>Radiocefa</h2></B>
-          <p>Musica para ti</p>
-        </div>
-      </td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
+    {{-- aqui se debe de crear un ciclo para que se repita la tabla --}}
+
   </table>  
 </div>
+
+{{-- <template id="programa-template">
+  <tr id="programa-item">
+    <td id="programa-hora">8:00</td>
+    <td class="bg-dark">
+      <div id="programa-title" class="">
+        <B><h2>Radiocefa</h2></B>
+        <p>Musica para ti</p>
+      </div>
+    </td>
+    <td class="bg-dark">
+      <div class="">
+        <B><h2>Radiocefa</h2></B>
+        <p>Musica para ti</p>
+      </div>
+    </td>
+    <td class="bg-dark">
+      <div class="">
+        <B><h2>Radiocefa</h2></B>
+        <p>Musica para ti</p>
+      </div>
+    </td>
+    <td class="bg-dark">
+      <div class="">
+        <B><h2>Radiocefa</h2></B>
+        <p>Musica para ti</p>
+      </div>
+    </td>
+  </tr>
+</template> --}}
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -194,7 +153,6 @@
   
   
 </script>
-
 @include('radiocefa::layouts/partials/script')
 
 @include('radiocefa::layouts/partials/footer')

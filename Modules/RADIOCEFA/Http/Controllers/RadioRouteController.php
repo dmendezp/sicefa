@@ -5,6 +5,7 @@ namespace Modules\RADIOCEFA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\RADIOCEFA\Entities\Parrilla;
 
 class RadioRouteController extends Controller
 {
@@ -32,12 +33,12 @@ class RadioRouteController extends Controller
          return view('radiocefa::aboutUs');
      }
 
-     
      public function parrilla()
      {
         $parrilla = Parrilla::get();
-
+        
         return json_encode($parrilla);
      }
+
 
 }

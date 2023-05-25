@@ -13,7 +13,7 @@
     <body>
         
         @yield('content')
-        @include('radiocefa::layouts/partials/scripts')
+        {{-- @include('radiocefa::layouts/partials/scripts') --}}
         {{-- Laravel Mix - JS File --}}
         {{-- <script src="{{ mix('js/radiocefa.js') }}"></script> --}}
     </body>
