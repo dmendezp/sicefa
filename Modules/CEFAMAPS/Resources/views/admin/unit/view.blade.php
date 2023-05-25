@@ -3,7 +3,7 @@
 @foreach($viewunit as $u) 
   @section('breadcrumb')  
 
-    <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::unit.Units') }}</a></li>
+    <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-mountain-city"></i> {{ $u->productive_units->sector->name }}</a></li>
     <li class="breadcrumb-item"><a href="#"><i class="fas {{ $u->productive_units->icon }}"></i> {{ $u->productive_units->name }}</a></li>
     
   @endsection
@@ -22,7 +22,7 @@
           <div class="col-lg-12">
             <div class="card card-lightblue card-outline">
               <div class="card-header">
-                <h3 class="m-0">{{ trans('cefamaps::unit.Unit') }} - {{ $u->name }}</h3>
+                <h3 class="m-0">{{ trans('cefamaps::unit.Unit') }} - {{ $u->productive_units->sector->name }} - {{ $u->name }}</h3>
               </div>
               <div class="card-body">
                 <div id="map"></div>

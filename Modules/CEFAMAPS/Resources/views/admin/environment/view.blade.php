@@ -3,8 +3,8 @@
 @foreach($viewenviron as $v)
   @section('breadcrumb')
 
-    <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-school"></i> {{ trans('cefamaps::environment.Environment') }}</a></li>
-    <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-school-flag"></i> {{ $v->class_environments->name }}</a></li>
+    <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-city"></i> {{ trans('cefamaps::environment.Environment') }}</a></li>
+    <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-school"></i> {{ $v->class_environments->name }}</a></li>
 
   @endsection
 @endforeach
@@ -14,27 +14,27 @@
 @endsection
 
 @foreach($viewenviron as $v)
+  
   @section('content')
 
-
-  <div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card card-lightblue card-outline">
-            <div class="card-header">
-              <h3 class="m-0">{{ trans('cefamaps::environment.Environment') }} - {{ $v->class_environments->name }}</h3>
-            </div>
-            <div class="card-body">
-              <div class="row align-items-start">
-                <div id="map"></div>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card card-lightblue card-outline">
+              <div class="card-header">
+                <h3 class="m-0">{{ trans('cefamaps::environment.Environment') }} - {{ $v->class_environments->name }}</h3>
+              </div>
+              <div class="card-body">
+                <div class="row align-items-start">
+                  <div id="map"></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
     <!-- Inicio El modal para que aparezacan todas la paginas -->
     <div class="modal fade" id="modal-lg">
@@ -55,31 +55,32 @@
       </div>
     </div>
     <!-- Fin El modal para que aparezacan todas la paginas -->
-    @foreach($v->pages as $p)
+
     <!-- Inicio El modal para mostrar la pagina -->
-    <div class="modal fade" id="modal{{$p->id}}">
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">{{$p->name}}</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>{!! $p->content !!}</p>
+    @foreach($v->pages as $p)
+      <div class="modal fade" id="modal{{$p->id}}">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">{{$p->name}}</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>{!! $p->content !!}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     @endforeach
     <!-- Fin El modal para mostrar la pagina -->
     
-    @endsection
-    @endforeach
+  @endsection
 
+@endforeach
 
-    @section('script')
+@section('script')
 
   <script>
 

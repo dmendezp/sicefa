@@ -127,7 +127,7 @@ class PageController extends Controller
     $content = $dom->saveHTML();
     $fileUpload = Page::findOrFail($request->input('id'));
     $fileUpload->name = $request->name;
-    $fileUpload -> environment_id = $request->environ;
+    $fileUpload -> environment_id = $request->environment_id;
     $fileUpload->content = $content;
     if ($fileUpload->save()) {
       return redirect(route('cefamaps.admin.config.page.index'));
