@@ -80,6 +80,13 @@
                             <p>Inicio</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.ptventa.devs') }}"
+                            class="nav-link {{ !Route::is('cefa.ptventa.devs*') ?: 'active' }}">
+                            <i class="nav-icon fas fa-code"></i>
+                            <p>Desarrolladores</p>
+                        </a>
+                    </li>
                     @auth {{-- Muestra lo siguiente para los USUARIOS AUTENTICADOS --}}
                         @if (Auth::user()->havePermission('ptventa.inventory.index'))
                             <li class="nav-item">
