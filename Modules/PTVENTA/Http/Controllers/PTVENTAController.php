@@ -8,7 +8,7 @@ class PTVENTAController extends Controller
 {
 
     public function index(){
-        $view = ['titlePage'=>'PTVENTA - Inicio', 'titleView'=>'Bienvenido a Punto de Venta!'];
+        $view = ['titlePage'=>'PTVENTA - Inicio', 'titleView'=>'Bienvenido a PTVENTA'];
         return view('ptventa::index', compact('view'));
     }
 

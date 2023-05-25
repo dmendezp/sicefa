@@ -1,6 +1,6 @@
 .card-products {
-    width: 195px;
-    height: 315px;
+    width: 140px;
+    height: 260px;
     background: #CCDDD3;
     display: flex;
     flex-direction: column;
@@ -12,8 +12,8 @@
   }
   
   .img {
-    width: 195px;
-    height: 315px;
+    width: 140px;
+    height: 260px;
     position: absolute;
     transition: 0.2s ease-in-out;
     z-index: 1;
