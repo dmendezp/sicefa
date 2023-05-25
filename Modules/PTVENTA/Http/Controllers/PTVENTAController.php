@@ -12,4 +12,8 @@ class PTVENTAController extends Controller
         return view('ptventa::index', compact('view'));
     }
 
+    public function devs(){
+        $view = ['titlePage'=>'PTVENTA - Desarrolladores', 'titleView'=>'Desarrolladores y créditos de PTVENTA'];
+        return view('ptventa::developers.index', compact('view'));
+    }
 }

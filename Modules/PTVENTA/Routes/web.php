@@ -18,6 +18,7 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
         // Rutas generales para el modulo PTVENTA
         Route::controller(PTVENTAController::class)->group(function(){ // Agregar por única vez el controlodaar para posteriormente solo definir rutas con el formato (url, método_controlador)->name(nombre_de_ruta)
             Route::get('index', 'index')->name('cefa.ptventa.index'); // Vista principal y pública de la aplicación.
+            Route::get('developers', 'devs')->name('cefa.ptventa.devs'); // Vista principal y pública de la aplicación.
         });
 
         //Rutas para Inventario
