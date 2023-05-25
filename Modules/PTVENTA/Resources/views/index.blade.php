@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-    <h1 class="display-3">{{ $view['titleView'] }}</h1>
+    <h1 class="display-3">Bienvenido a punto de venta</h1>
     <p>Punto de venta es una unidad productiva perteneciente al centro de Formación Agroindustrial "La Angostura", aqui se
         ofertan los diferentes
         productos que se fabrican en este centro, contamos con productos que provienen directamente del campo como tambien

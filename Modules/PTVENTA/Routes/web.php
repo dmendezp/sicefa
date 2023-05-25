@@ -33,6 +33,7 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
         //Rutas para Ventas
         Route::prefix('sale')->controller(SaleController::class)->group(function(){
             Route::get('index', 'index')->name('ptventa.sale.index'); // Vista principal de ventas
+            Route::get('register', 'register')->name('ptventa.sale.register'); // Vista de registro de venta
         });
 
         // Rutas para Elementos
