@@ -63,9 +63,6 @@
           </div>
           <div class="col-6">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item border-dark"><a class="text-dark" href="{{ route('prueba') }}">An item</a></li>
-              <li class="list-group-item border-dark"><a class="text-dark" href="{{ route('prueba') }}">A second item</a></li>
-              <li class="list-group-item border-dark"><a class="text-dark" href="{{ route('prueba') }}">A third item</a> </li>
             </ul>
           </div>
         </div>
