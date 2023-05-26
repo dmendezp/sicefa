@@ -364,7 +364,4 @@
 @endsection
 
 @section('scripts')
-    <script>
-        AOS.init();
-    </script>
 @endsection

@@ -42,5 +42,10 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('edit/{element}', 'edit')->name('ptventa.element.image.edit'); // Vista del formulario para acutalizar imagen de elemento
             Route::post('update/{element}', 'update')->name('ptventa.element.image.update'); // Carga de nueva imagen para elemento
         });
+
+        // Rutas para Caja
+        Route::prefix('cash')->controller(CashController::class)->group(function(){
+            Route::get('cash', 'index')->name('ptventa.cash.index'); // Vista principal de caja
+        });
     });
 });
