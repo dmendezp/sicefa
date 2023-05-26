@@ -15,8 +15,8 @@ class CreateNetworksTable extends Migration
     {
         Schema::create('networks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('line_id')->constrained()->onDelete('cascade');  
+            $table->string('name')->unique();
+            $table->foreignId('line_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +29,7 @@ class CreateNetworksTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('networks');
     }
 }

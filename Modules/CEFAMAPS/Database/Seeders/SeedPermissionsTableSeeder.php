@@ -80,7 +80,7 @@ class SeedPermissionsTableSeeder extends Seeder
 // repita para cada permiso -- estos permisos son de su aplicacion, agregue los necesarios
 
         // Estos son los permisos de ambientes (environment)
-        $permission = Permission::where('slug','sica.admin.dashboard')->first();
+        $permission = Permission::where('slug','cefamaps.admin.dashboard')->first();
         if(!$permission){
             $permission = Permission::create([
                 "name" => "Admin Dashboard",
@@ -181,7 +181,7 @@ class SeedPermissionsTableSeeder extends Seeder
         $permission = Permission::where('slug','cefamaps.admin.unit.delete')->first();
         if(!$permission){
             $permission = Permission::create([
-                "name" => "Eliminar una Nnidad",
+                "name" => "Eliminar una Unidad",
                 "slug" => "cefamaps.admin.unit.delete",
                 "description" => "Puedes eliminar una unidad",
                 "description_english" => "You can delete a unit",

@@ -30,6 +30,7 @@ class CreateMunicipalityEventsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('municipality_events');
     }
 }

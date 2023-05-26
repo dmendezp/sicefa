@@ -15,7 +15,7 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->enum('kind_of_property', ['Devolutivo','Bodega']);
             $table->softDeletes();
             $table->timestamps();
@@ -29,6 +29,7 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('categories');
     }
 }

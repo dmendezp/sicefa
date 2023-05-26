@@ -19,7 +19,7 @@ class CreatePermissionRoleTable extends Migration
             $table->foreignId('role_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
-    }   
+    }
 
     /**
      * Reverse the migrations.
@@ -28,6 +28,7 @@ class CreatePermissionRoleTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('permission_role');
     }
 }

@@ -35,6 +35,7 @@ class CreateTempAppreticesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('temp_appretices');
     }
 }
