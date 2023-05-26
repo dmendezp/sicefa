@@ -14,7 +14,7 @@ class Permission extends Model implements Auditable
     use \OwenIt\Auditing\Auditable;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
-    protected $fillable = ['name','slug','description','full-access','app_id'];
+    protected $fillable = ['name','slug','description','description_english','full-access','app_id'];
 
     public function app(){
         return $this->belongsTo(App::class);

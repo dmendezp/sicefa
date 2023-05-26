@@ -1,4 +1,4 @@
-<?php
+Z<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -31,7 +31,6 @@ class CreateMovementDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('movement_details');
+        Schema::dropIfExists('detail_movements');
     }
 }

@@ -14,8 +14,8 @@ class CEFAMAPSDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
-
-        // $this->call("OthersTableSeeder");
+        //Model::unguard();
+        
+        $this->call(SeedPermissionsTableSeeder::class);
     }
 }
