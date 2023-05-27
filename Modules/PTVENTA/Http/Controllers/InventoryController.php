@@ -37,8 +37,6 @@ class InventoryController extends Controller
         return view('ptventa::inventory.low', compact('view'));
 
     }
-
-
-
 }
+
 

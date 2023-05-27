@@ -43,19 +43,22 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                    </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card ">
-                                        <div class="card-body">
+                                        </div>
+            </div>
+           </div>
+     </div>
+                 </div>
+                                <div class="row">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6 text-right">
+                                    <div class="col-auto pe-2">
+                                        <div class="card">
+                                            <div class="card-body">
                                             <table class="table">
                                                 <h6 class="text-center bg-black py-1 rounded-2"><strong>POR VENCER </strong></h6>
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover" id="inventories-table">
-                                                        <thead class="table-dark">
+                                                <div class="table-responsive style="max-height: 500px">
+                                                    <table class="table table-hover">
+                                                        <thead class="table-dark"></thead>
                                                             <thead>
                                                                 <tr>
                                                                     <th scope="col">#</th>
@@ -73,7 +76,12 @@
                                                         </table>
                                                     </div>
                                                 </div>
-    
+                                            </div>
+                                        </div>
+                                    </div>
+</div>
+                            
+
 @endsection
 
 @include('ptventa::layouts.partials.plugins.datatables')
