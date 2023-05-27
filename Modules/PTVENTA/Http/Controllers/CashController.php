@@ -5,6 +5,7 @@ namespace Modules\PTVENTA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\PTVENTA\Entities\Arqueo;
 
 class CashController extends Controller
 {
@@ -34,7 +35,20 @@ class CashController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'fecha' => 'required|date',
+            'saldo_inicial' => 'required|numeric',
+            'saldo_final' => 'required|numeric',
+        ]);
+
+        $arqueo = new Arqueo();
+        $arqueo->fecha = $request->fecha;
+        $arqueo->saldo_inicial = $request->saldo_inicial;
+        $arqueo->saldo_final = $request->saldo_final;
+        $arqueo->diferencia = $request->saldo_final - $request->saldo_inicial;
+        $arqueo->save();
+
+        return redirect()->route('arqueo.create')->with('success', 'Arqueo de caja guardado correctamente.');
     }
 
     /**
