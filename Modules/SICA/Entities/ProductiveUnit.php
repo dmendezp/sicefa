@@ -9,6 +9,7 @@ use Modules\SICA\Entities\Sector;
 
 class ProductiveUnit extends Model implements Auditable
 {
+
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
 
     use SoftDeletes; // Borrado suave
@@ -48,9 +49,6 @@ class ProductiveUnit extends Model implements Auditable
     }
     public function warehouses(){ // Accede a una o varias unidades bodegas asociadas a él (Relación muchos a muchos)
         return $this->belongsToMany(Warehouse::class);
-    }
-    public function farms(){
-        return $this->belongsTo(Farm::class);
     }
 
 }

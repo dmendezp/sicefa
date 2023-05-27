@@ -4,22 +4,19 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*cefa.*') ?: 'active' }}">
-        <a href="{{ route('cefa.cefamaps.index')}}" class="nav-link">{{ trans('cefamaps::menu.Home') }}</a>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link active">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*sst.*') ?: 'active'}}">
-        <a href="{{ route('cefamaps.sst.index')}}" class="nav-link">{{ trans('cefamaps::SST.Home') }}</a>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{{ route('cefa.cefamaps.sst') }}" class="nav-link active">SST</a>
       </li>
-      @guest
-      @else
-        <li class="nav-item d-none d-sm-inline-block {{ ! Route::is('*admin.*') ?: 'active' }}">
-          <a href="{{ route('cefamaps.admin.dashboard') }}" class="nav-link">{{ trans('cefamaps::menu.Administrator') }}</a>
-        </li>
-      @endguest
     </ul>
+
+
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+      <!-- Messages Dropdown Menu -->
 
       <!-- Notifications Dropdown Menu -->
 

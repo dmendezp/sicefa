@@ -17,8 +17,6 @@ class CreateProductiveUnitsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->foreignId('person_id')->constrained()->ondelete('cascade');
-            $table->foreignId('sectors_id')->constrained()->ondelete('cascade');
-            $table->foreignId('farms_id')->constrained()->ondelete('cascade');
             $table->text('description');
             $table->foreignId('sector_id')->constrained()->ondelete('cascade');
             $table->string('icon')->nullable();
