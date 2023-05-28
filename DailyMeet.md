@@ -155,6 +155,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 --- 
 #### Meet 27-May-2023 
 * **Anyi Katherine Rojas Arce** - *No se asigna requerimiento (equipo de computa con averia)* - *Avance 0%* - *Dificultades* - *Acciones*
+* **Jesús David Guevara Munar** - *Registro de venta* - *33 %* - *Dificultades* - *Acciones*
+* **Manuel Steven Ossa Lievano** - *Apertura y cierre de caja* - *Avance 20%* - *Dificultades* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *Mostrar productos vencidos y por vencer* - *Avance 25%* - *Dificultades* - *Acciones*
+* **Oscar Andres Gil Marin** - *No asisitió*
+--- 
+#### Meet 29-May-2023 
+* **Anyi Katherine Rojas Arce** - *Reporte de entradas de inventario por rango de fechas* - *Avance 0%* - *Dificultades* - *Acciones*
 * **Jesús David Guevara Munar** - *Registro de venta* - *Avance %* - *Dificultades* - *Acciones*
 * **Manuel Steven Ossa Lievano** - *Apertura y cierre de caja* - *Avance 0%* - *Dificultades* - *Acciones*
 * **Nelsy yulied Gómez Morales** - *Mostrar productos vencidos y por vencer* - *Avance 0%* - *Dificultades* - *Acciones*
