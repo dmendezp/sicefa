@@ -29,7 +29,7 @@ class InventoryController extends Controller
 
     }
 
-    public function status() { // Estado de productos vencidos y por vencer 
+    public function status() { // Estado de productos vencidos y por vencer
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
         $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de inventario'];
         $productosPorVencer = Inventory::where('expiration_date', '>', Carbon::now())->get();
@@ -42,6 +42,11 @@ class InventoryController extends Controller
         $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de inventario'];
         return view('ptventa::inventory.low', compact('view'));
 
+    }
+
+    public function form() { //formulario de fechas para generar reporte
+        $view = ['titlePage'=>'Reporte - Productos', 'titleView'=>'Reporte de productos'];
+        return view('ptventa::report.form', compact('view'));
     }
 
 

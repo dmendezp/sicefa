@@ -30,6 +30,9 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('status', 'status')->name('ptventa.inventory.status');
             Route::get('low', 'low')->name('ptventa.inventory.low');
 
+            //Ruta de reporte
+            Route::get('form', 'form')->name('ptventa.report.form');
+
         });
 
         //Rutas para Ventas
