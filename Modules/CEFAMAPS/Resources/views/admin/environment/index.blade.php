@@ -42,10 +42,10 @@
                     <tr>
                       <td>{{$env->id}}</td>
                       <td>{{$env->name}}</td>
-                      <td><img src="{{ asset('cefamaps/images/uploads/'.$env->picture) }}" width="100" height="100"></td>
+                      <td><img src="{{ asset('modules/cefamaps/images/uploads/'.$env->picture) }}" width="100" height="100"></td>
                       <td>{{$env->description}}</td>
-                      <td>{{$env->farms->name}}</td>
-                      <td>{{$env->productive_units->name}}</td>
+                      <td>{{$env->farms}}</td>
+                      <td>{{$env->productive_units}}</td>
                       <td>{{$env->status}}</td>
                       <!-- Inicio del modal pra las coordenadas -->
                       <td>
@@ -91,7 +91,7 @@
                                       <h3 class="modal-title">{{ trans('cefamaps::environment.Length') }}</h3>
                                     </div>
                                     <div class="modal-body">
-                                      @foreach($env->coordinates as $c)
+                                      @foreach($env->coordinate as $c)
                                       <h5>{{$c->length}}</h5>
                                       @endforeach
                                     </div>
@@ -101,7 +101,7 @@
                                       <h3 class="modal-title">{{ trans('cefamaps::environment.Latitude') }}</h3>
                                     </div>
                                     <div class="modal-body">
-                                      @foreach($env->coordinates as $c)
+                                      @foreach($env->coordinate as $c)
                                       <h5>{{$c->latitude}}</h5>
                                       @endforeach
                                     </div>
@@ -112,7 +112,7 @@
                         </div>
                       </td>
                       <!-- Fin del modal pra las coordenadas -->
-                      <td>{{$env->class_environments->name}}</td>
+                      <td>{{$env->class_environments}}</td>
                       <!-- Inicio del ID para el filtro de las paginas -->
                       <td>
                         <a class="btn btn-primary" href="{{url('/cefamaps/page/index?id='.$env->id)}}">
@@ -195,30 +195,4 @@
     })
   </script>
 
-  <script type="text/javascript">
-    
-    function initMap() {
-
-      const mapId = document.getElementById("map");
-      
-      @foreach($environ as $e)
-
-        // The map, centered at Uluru
-        const map{{$e->id}} = new google.maps.Map(mapId, {
-          zoom: 18,
-          center: { lat: {{$e->latitude}}, lng: {{$e->length}} },
-          mapTypeId: 'satellite'
-        });
-        
-        // The marker, positioned at Uluru
-        const marker{{$e->id}} = new google.maps.Marker({
-          position: { lat: {{$e->latitude}},  lng: {{$e->length}} },
-          map: map{{$e->id}},
-        });
-
-      @endforeach
-
-    }
-
-  </script>
 @endsection

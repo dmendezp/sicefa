@@ -5,6 +5,8 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\CEFAMAPS\Entities\Coordinate;
+use Modules\CEFAMAPS\Entities\Page;
 
 class Environment extends Model implements Auditable
 {
@@ -18,11 +20,11 @@ class Environment extends Model implements Auditable
         'description',
         'length',
         'latitude',
-        'farms_id',
-        'productive_units_id',
+        'farm_id',
+        'productive_unit_id',
         'status',
         'type_environment',
-        'class_environments_id'
+        'class_environment_id'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formato y manipulación de fecha y hora)
@@ -41,23 +43,23 @@ class Environment extends Model implements Auditable
     }
 
     // RELACIONES
-    public function coordinate(){ // Accede a todos los elementos que pertenecen a esta categoría
+    public function coordinates(){ // Accede a la información del coordinate al que pertenece
         return $this->hasMany(Coordinate::class);
     }
 
-    public function page(){ // Accede a todos los elementos que pertenecen a esta categoría
+    public function pages(){ // Accede a la información del page al que pertenece
         return $this->hasMany(Page::class);
     }
 
-    public function farms(){ // Accede a todos los elementos que pertenecen a esta categoría
+    public function farm(){ // Accede a la información del farm al que pertenece
         return $this->belongsTo(Farm::class);
     }
 
-    public function productive_units(){ // Accede a todos los elementos que pertenecen a esta categoría
+    public function productive_unit(){ // Accede a la información del productive_unit al que pertenece
         return $this->belongsTo(ProductiveUnit::class);
     }
 
-    public function class_environments(){ // Accede a todos los elementos que pertenecen a esta categoría
+    public function class_environment(){ // Accede a la información del class_environment al que pertenece
         return $this->belongsTo(ClassEnvironment::class);
     }
 }

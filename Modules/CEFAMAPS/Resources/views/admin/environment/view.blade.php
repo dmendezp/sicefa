@@ -4,13 +4,13 @@
   @section('breadcrumb')
 
     <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-city"></i> {{ trans('cefamaps::environment.Environment') }}</a></li>
-    <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-school"></i> {{ $v->class_environments->name }}</a></li>
+    <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-school"></i> {{ $v->class_environment->name }}</a></li>
 
   @endsection
 @endforeach
 
 @section('style')
-	<link rel="stylesheet" href="{{ asset('cefamaps/css/viewenviron.css') }}">
+	<link rel="stylesheet" href="{{ asset('modules/cefamaps/css/viewenviron.css') }}">
 @endsection
 
 @foreach($viewenviron as $v)
@@ -23,7 +23,7 @@
           <div class="col-lg-12">
             <div class="card card-lightblue card-outline">
               <div class="card-header">
-                <h3 class="m-0">{{ trans('cefamaps::environment.Environment') }} - {{ $v->class_environments->name }}</h3>
+                <h3 class="m-0">{{ trans('cefamaps::environment.Environment') }} - {{ $v->class_environment->name }}</h3>
               </div>
               <div class="card-body">
                 <div class="row align-items-start">
@@ -46,11 +46,15 @@
               <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
             </button>
           </div>
-          @foreach($v->pages as $p)
             <div class="modal-body">
-              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
+              <div class="row align-items-start">
+                @foreach($v->pages as $p)
+                  <div class="col-4">
+                    <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
+                  </div>
+                @endforeach
+              </div>
             </div>
-          @endforeach
         </div>
       </div>
     </div>
@@ -95,7 +99,7 @@
         mapTypeId: 'satellite'
       });
 
-      var iconBase = '{{ asset("cefamaps/images/bank.png") }}';
+      var iconBase = '{{ asset("modules/cefamaps/images/bank.png") }}';
 
       // Inicio poligono
       @foreach($viewenviron as $e)
@@ -114,10 +118,10 @@
         '<div class="card-content">' +
           '<div class="button-container">' +
             '<h2>{{trans("cefamaps::page.Page")}}</h2>' +
-            '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">{{$e->name}}</button>' +
+            '<button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#modal-lg">{{$e->name}}</button>' +
           '</div>' +
           '<div class="image-container">' +
-            '<img src="{{ asset("cefamaps/images/uploads/".$e->picture) }}" alt="Imagen de la tarjeta" class="image">' +
+            '<img src="{{ asset("modules/cefamaps/images/uploads/".$e->picture) }}" alt="Imagen de la tarjeta" class="image">' +
             '<div class="image-text">' +
               '<p>{{$e->description}}</p>' +
             '</div>' +

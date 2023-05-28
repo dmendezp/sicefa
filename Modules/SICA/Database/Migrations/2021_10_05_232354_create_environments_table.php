@@ -20,11 +20,11 @@ class CreateEnvironmentsTable extends Migration
             $table->string('description')->nullable();
             $table->string('length')->nullable();
             $table->string('latitude')->nullable();
-            $table->foreignId('farms_id')->constrained()->ondelete('cascade');
-            $table->foreignId('productive_units_id')->constrained()->ondelete('cascade');
+            $table->foreignId('farm_id')->constrained()->ondelete('cascade');
+            $table->foreignId('productive_unit_id')->constrained()->ondelete('cascade');
             $table->enum('status',['Disponible','No Disponible'])->nullable();
             $table->string('type_environment')->nullable();
-            $table->foreignId('class_environments_id')->constrained()->ondelete('cascade');
+            $table->foreignId('class_environment_id')->constrained()->ondelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

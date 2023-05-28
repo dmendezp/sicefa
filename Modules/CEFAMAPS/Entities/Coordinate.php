@@ -5,6 +5,7 @@ namespace Modules\CEFAMAPS\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\SICA\Entities\Environment;
 
 class Coordinate extends Model implements Auditable
 {
@@ -26,7 +27,7 @@ class Coordinate extends Model implements Auditable
     ];
 
     // RELACIONES
-    public function environment(){ // Accede a todos los elementos que pertenecen a esta categoría
+    public function environment(){ // Accede a la información del environment al que pertenece
         return $this->belongsTo(Environment::class);
     }
 }

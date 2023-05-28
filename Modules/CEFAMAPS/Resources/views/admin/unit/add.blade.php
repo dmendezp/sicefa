@@ -73,7 +73,7 @@
                       <!-- incio de la farm -->
                       <div class="form-group">
                         <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
-                        {!! Form::select('farms_id',$farm, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
+                        {!! Form::select('farm_id',$farm, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                       </div>
                       <!-- fin de la farm -->
                     </div>

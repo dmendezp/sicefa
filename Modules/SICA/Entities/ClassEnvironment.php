@@ -29,7 +29,7 @@ class ClassEnvironment extends Model implements Auditable
     }
 
     // RELACIONES
-    public function environment(){ // Accede a todos los elementos que pertenecen a esta categoría
+    public function environments(){ // Accede a todos los elementos que pertenecen a esta categoría
         return $this->hasMany(Environment::class);
     }
 }

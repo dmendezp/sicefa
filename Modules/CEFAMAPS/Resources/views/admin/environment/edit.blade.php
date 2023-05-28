@@ -5,7 +5,7 @@
     <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
     <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.environment.index') }}"><i class="nav-icon fas fa-solid fa-chalkboard-user"></i> {{ trans('cefamaps::environment.Environment') }}</a></li>
     <li class="breadcrumb-item"><a href="#"><i class="fas fa-map-signs"></i> {{ trans('cefamaps::menu.Edit') }}</a></li>
-    <li class="breadcrumb-item"><a href="#"><img src="{{ asset('cefamaps/images/uploads/'.$editenviron->picture) }}" width="25" height="25">{{$editenviron->name}}</a></li>
+    <li class="breadcrumb-item"><a href="#"><img src="{{ asset('modules/cefamaps/images/uploads/'.$editenviron->picture) }}" width="25" height="25">{{$editenviron->name}}</a></li>
 
 @endsection
 
@@ -39,7 +39,7 @@
                                             </div>
                                         </div>
                                         <div class="col-2">
-                                            <img src="{{ asset('cefamaps/images/uploads/'.$editenviron->picture) }}" width="90" height="90">
+                                            <img src="{{ asset('modules/cefamaps/images/uploads/'.$editenviron->picture) }}" width="90" height="90">
                                         </div>
                                     </div>
                                     <!-- fin de la imagen -->
@@ -92,7 +92,7 @@
                                     <!-- inicio para el id de la unidad -->
                                     <div class="form-group">
                                         <label for="unit">{{ trans('cefamaps::environment.Productive units') }}</label>
-                                        {!! Form::select('productive_units_id',$unitedit, $editenviron->productive_units_id,['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
+                                        {!! Form::select('productive_unit_id',$unitedit, $editenviron->productive_unit_id,['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                                     </div>
                                     <!-- fin para el id de la unidad -->
                                     <!-- inicio de los complementos de environment -->
@@ -101,7 +101,7 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
-                                                {!! Form::select('class_environments_id',$classenvironedit, $editenviron->class_environments_id,['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
+                                                {!! Form::select('class_environment_id',$classenvironedit, $editenviron->class_environment_id,['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                                             </div>
                                         </div>
                                         <!-- fin de la clase de ambiente -->
@@ -109,7 +109,7 @@
                                             <!-- inicio para el id del Farm -->
                                             <div class="form-group">
                                                 <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
-                                                {!! Form::select('farms_id',$farm, $editenviron->farms_id,['class' => 'form-control','placeholder' => 'Seleccione...', 'required']) !!}
+                                                {!! Form::select('farm_id',$farm, $editenviron->farm_id,['class' => 'form-control','placeholder' => 'Seleccione...', 'required']) !!}
                                             </div>
                                             <!-- fin para el id del Farm -->
                                         </div>
@@ -137,7 +137,7 @@
                                         <div class="content">
                                             <!-- inicio de las longitudes y latitudes -->
                                             <div class="form-group">
-                                                @foreach($editenviron->coordinates as $c)
+                                                @foreach($editenviron->coordinate as $c)
                                                     <div id="inputFormRow{{$c->id}}">
                                                         <div class="row align-items-center">
                                                             <div class="col">
@@ -218,7 +218,7 @@
     html += '</div>';
     html += '</div>';
     html += '</div>';
-                              
+
     $('#Agregar').append(html);
   });
 
@@ -257,6 +257,7 @@
                 long: longitud,
             },
             success: function(response){
+                console.log(response);
                 $("#btnCrear").closest('#btnCrear').remove();
             }
         });
@@ -267,8 +268,10 @@
     <!-- Inicio mapa para las cooordenadas -->
     <script type="text/javascript">
     function initMap(){
+      @foreach($editenviron->coordinate as $c)
       var latitude = {{$c->latitude}};
       var length = {{$c->length}};
+      @endforeach
 
       coordenas = {
         lng: length,

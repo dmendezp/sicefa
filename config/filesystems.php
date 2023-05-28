@@ -44,7 +44,7 @@ return [
 
         'uploads' => [
             'driver' => 'local',
-            'root' => 'c:/laragon/www/sicefa/public/cefamaps/images',
+            'root' => 'c:/laragon/www/sicefa/public/modules/cefamaps/images',
             'visibility' => 'public',
         ],
 

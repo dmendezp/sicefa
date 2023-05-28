@@ -7,10 +7,10 @@
 <!-- SweetAlert -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- DataTables -->
-<script src="{{ asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('libs/DataTables-1.13.4/dataTables.min.js') }}"></script>
+<script src="{{ asset('libs/DataTables-1.13.4/DataTables-1.13.4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('libs/DataTables-1.13.4/Responsive-2.4.1/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('libs/DataTables-1.13.4/Responsive-2.4.1/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('js/generalscripts.js') }}"></script>
 <script src="{{ asset('sica/js/scripts.js') }}"></script>
 <!-- LordIcon -->

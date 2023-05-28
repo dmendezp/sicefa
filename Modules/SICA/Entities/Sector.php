@@ -5,7 +5,6 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
-use Modules\SICA\Entities\ProductiveUnit;
 
 class Sector extends Model implements Auditable
 {

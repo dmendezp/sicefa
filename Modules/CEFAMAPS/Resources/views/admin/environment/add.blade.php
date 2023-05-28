@@ -80,7 +80,7 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="unit">{{ trans('cefamaps::environment.Productive units') }}</label>
-                      {!! Form::select('productive_units_id',$unitadd, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
+                      {!! Form::select('productive_unit_id',$unitadd, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                     </div>
                   </div>
                   <div class="col-3">
@@ -100,7 +100,7 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
-                      {!! Form::select('class_environments_id',$classenvironadd, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
+                      {!! Form::select('class_environment_id',$classenvironadd, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                     </div>
                   </div>
                   <!-- fin de la clase de ambiente -->
@@ -108,7 +108,7 @@
                     <!-- inicio de la Farm id -->
                     <div class="form-group">
                       <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
-                      {!! Form::select('farms_id',$farm, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
+                      {!! Form::select('farm_id',$farm, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
                     </div>
                     <!-- fin de la Farm id -->
                   </div>
@@ -229,14 +229,14 @@
                                 '<div class="row align-items-center">' +
                                   '<div class="col">' +
                                     '<div class="form-group">' +
-                                      '<label for="length">{{ trans("cefamaps::environment.Length") }}</label>' +
-                                      '<input type="text" class="form-control m-input" id="length" name="length[]">' +
+                                      '<label for="lengthrou">{{ trans("cefamaps::environment.Length") }}</label>' +
+                                      '<input type="text" class="form-control m-input" id="lengthrou" name="lengthrou[]">' +
                                     '</div>' +
                                   '</div>' +
                                   '<div class="col">' +
                                     '<div class="form-group">' +
-                                      '<label for="latitude">{{ trans("cefamaps::environment.Latitude") }}</label>' +
-                                      '<input type="text" class="form-control m-input" id="latitude" name="latitude[]">' +
+                                      '<label for="latituderou">{{ trans("cefamaps::environment.Latitude") }}</label>' +
+                                      '<input type="text" class="form-control m-input" id="latituderou" name="latituderou[]">' +
                                     '</div>' +
                                   '</div>' +
                                   '<div class="col-1">' +
@@ -260,14 +260,14 @@
                                 html += '<div class="row align-items-end">';
                                 html += '<div class="col">';
                                 html += '<div class="form-group">';
-                                html += '<label for="length">{{ trans("cefamaps::environment.Length") }}</label>';
-                                html += '<input type="text" class="form-control m-input" id="length" name="length[]">';
+                                html += '<label for="lengthrou">{{ trans("cefamaps::environment.Length") }}</label>';
+                                html += '<input type="text" class="form-control m-input" id="lengthrou" name="lengthrou[]">';
                                 html += '</div>';
                                 html += '</div>';
                                 html += '<div class="col">';
                                 html += '<div class="form-group">';
-                                html += '<label for="latitude">{{ trans("cefamaps::environment.Latitude") }}</label>';
-                                html += '<input type="text" class="form-control m-input" id="latitude" name="latitude[]">';
+                                html += '<label for="latituderou">{{ trans("cefamaps::environment.Latitude") }}</label>';
+                                html += '<input type="text" class="form-control m-input" id="latituderou" name="latituderou[]">';
                                 html += '</div>';
                                 html += '</div>';
                                 html += '<div class="col-1">';

@@ -122,17 +122,17 @@
             </li>
           @endif
           <!-- Fin para las configuraciones del adminitrador -->
-          <!-- Inicio de las pruebas nuevas -->
-          @foreach($sector as $f)
-            <li class="nav-item {{ ! (Request::url() == url('/cefamaps/unit/view/'.$f->id)) ?: 'menu-is-opening menu-open' }}">
-              <a href="#" class="nav-link {{ ! (Request::url() == url('/cefamaps/unit/view/'.$f->id)) ?: 'active' }}">
+          <!-- Inicio de los sectores y unidades -->
+          @foreach($sector as $s)
+            <li class="nav-item {{ ! (Request::url() == url('/cefamaps/unit/view/'.$s->id)) ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! (Request::url() == url('/cefamaps/sector/view/'.$s->id)) ?: 'active' }}">
                 <i class="nav-icon fa-solid fa-mountain-city"></i>
                 <p>
-                  {{ $f->name }}
+                  {{ $s->name }}
                   <i class="right fa-solid fa-map-pin"></i>
                 </p>
               </a>
-              @foreach($f->productive_units as $u)
+              @foreach($s->productive_units as $u)
               <ul class="nav nav-treeview">
                 <li class="nav nav-item">
                   <a  href="{{ url('/cefamaps/unit/view/'.$u->id) }}" class="nav-link {{ ! (Request::url() == url('/cefamaps/unit/view/'.$u->id)) ?: 'active' }}">
@@ -144,7 +144,7 @@
               @endforeach
             </li>
           @endforeach
-          <!-- Fin de las pruebas nuevas -->
+          <!-- Fin de los sectores y unidades -->
           <!-- MENU PARA ENVIRONMENT -->
             <li class="nav-item {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'menu-is-opening menu-open' }}">
               <a href="#" class="nav-link {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'active' }}">

@@ -41,7 +41,7 @@
                       <td>{{$u->name}}</td>
                       <td>{{$u->person->full_name}}</td>
                       <td>{{$u->sector->name}}</td>
-                      <td>{{$u->farms->name}}</td>
+                      <td>{{$u->farm->name}}</td>
                       <td>{{$u->description}}</td>
                       <td>
                         <i class="{{$u->icon}}"></i>

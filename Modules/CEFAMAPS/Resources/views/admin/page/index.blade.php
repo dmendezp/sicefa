@@ -84,6 +84,14 @@
 @section('script')
 
   <script>
+    $(document).ready(function () {
+      $('#example1').DataTable({
+        order: [[3, 'desc']],
+      });
+    });
+  </script>
+
+  <script>
     $(document).ready(function(){
       $(document).on("click", ".delete-page", function() {
         var id = $(this).data('object');
@@ -104,14 +112,6 @@
         })
       })
     })
-  </script>
-
-  <script>
-    $(document).ready(function () {
-      $('#example1').DataTable({
-        order: [[3, 'desc']],
-      });
-    });
   </script>
 
 @endsection

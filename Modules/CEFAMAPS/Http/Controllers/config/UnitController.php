@@ -73,7 +73,7 @@ class UnitController extends Controller
             $add -> icon = e ($request->input('icon'));
             $add -> person_id = e ($request->input('person'));
             $add -> sector_id = e ($request->input('sector_id'));
-            $add -> farms_id = e ($request->input('farms_id'));
+            $add -> farm_id = e ($request->input('farm_id'));
             if($add -> save()){
                 return redirect(route('cefamaps.admin.config.unit.index'));
             }
@@ -107,12 +107,12 @@ class UnitController extends Controller
         $rules = [
             "person" => "required|max:5",
             "sector_id" => "required",
-            "farms_id" => "required",
+            "farm_id" => "required",
         ];
         $messages = [
             "person.required" => 'Algo salio mal en tu numero de documento, intenta de nuevo buscandolo',
             "sector_id.required" => 'El sector es requerido',
-            "farms_id.required" => 'La granja es requerida',
+            "farm_id.required" => 'La granja es requerida',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()):
@@ -124,7 +124,7 @@ class UnitController extends Controller
             $edit -> icon = e ($request->input('icon'));
             $edit -> person_id = e ($request->input('person'));
             $edit -> sector_id = e ($request->input('sector_id'));
-            $edit -> farms_id = e ($request->input('farms_id'));
+            $edit -> farm_id = e ($request->input('farm_id'));
             if($edit -> save()){
                 return redirect(route('cefamaps.admin.config.unit.index'));
             }
@@ -152,7 +152,7 @@ class UnitController extends Controller
         $classenviron = ClassEnvironment::get();
         $sector = Sector::get();
         $pages = Page::get();
-        $viewunit = Environment::where('productive_units_id',$id)->get();
+        $viewunit = Environment::where('productive_unit_id',$id)->get();
         $data = ['title'=>trans('cefamaps::unit.Units'), 'unit'=>$unit, 'environ'=>$environ, 'sector'=>$sector, 'viewunit'=>$viewunit, 'classenviron'=>$classenviron, 'pages'=>$pages];
         return view('cefamaps::admin.unit.view',$data);
     }
