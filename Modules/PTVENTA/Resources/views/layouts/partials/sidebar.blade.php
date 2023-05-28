@@ -125,6 +125,13 @@
                             <p>Desarrolladores</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.ptventa.info') }}"
+                            class="nav-link {{ !Route::is('cefa.ptventa.info*') ?: 'active' }}">
+                            <i class="nav-icon fas fa-info"></i>
+                            <p>Acerca de</p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
