@@ -2,11 +2,13 @@
 
 namespace Modules\PTVENTA\Http\Livewire\Sale;
 
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Inventory;
+use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\Warehouse;
 
 class GenerateSale extends Component
@@ -37,7 +39,9 @@ class GenerateSale extends Component
         return view('ptventa::livewire.sale.generate-sale');
     }
 
+    // Restaurar todos los valores de la variables y consultar productos disponibles en inventario para la venta
     public function defaultAction(){
+        $this->reset();
         $this->reset('products'); // Vaciar variable inventories para evitar la duplicación de la información contenida
         $warehouse = Warehouse::where('name','Punto de venta')->first(); // Consultar bodega de la aplicación
         $inventories = Inventory::where('warehouse_id',$warehouse->id)
@@ -48,6 +52,7 @@ class GenerateSale extends Component
         $this->products = Element::whereIn('id', $elementIds)->orderBy('name')->get(); // Consultar elementos para acceder a su nombre
     }
 
+    // Consultar información del producto seleccionado (cantidad y precio unitario)
     public function inventoryProduct($element_id){
         $warehouse = Warehouse::where('name','Punto de venta')->first();
         $inventory = Inventory::where('warehouse_id',$warehouse->id)
@@ -60,7 +65,8 @@ class GenerateSale extends Component
         return $inventory;
     }
 
-    public function updatedProductId(){ // Se ejecuta automaticamente cuando se detecta un cambio en $name
+    // Detectar cambio el select de productos del formulario
+    public function updatedProductId(){
         if(empty($this->product_id)){
             $this->reset('product_total_amount','product_price');
             $this->emit('input-product-amount', 0, 0, 0, 0);
@@ -74,6 +80,7 @@ class GenerateSale extends Component
         }
     }
 
+    // Agregar producto a la lista de productos seleccionados
     public function addProduct() {
         if($this->product_amount <> 0){
             // Buscar si el product_element_id ya existe en la colección
@@ -107,6 +114,7 @@ class GenerateSale extends Component
         $this->resetValues();
     }
 
+    // Editar producto de la tabla de productos seleccionados
     public function editProduct($product_id){
         foreach ($this->selected_products as $index => $product) {
             if ($product['product_element_id'] == $product_id) {
@@ -125,6 +133,7 @@ class GenerateSale extends Component
         }
     }
 
+    // Eliminar producto de lo tabla de productos seleccionados
     public function deleteProduct($product_id){
         foreach ($this->selected_products as $index => $product) {
             if ($product['product_element_id'] == $product_id) {
@@ -135,7 +144,8 @@ class GenerateSale extends Component
         }
     }
 
-    public function totalValueProducts(){ // Calcular el valor total de los productos seleccionados
+    // Calcular el valor total de los productos seleccionados
+    public function totalValueProducts(){
         $this->reset('total');
         $total = 0;
         foreach ($this->selected_products as $index => $product) {
@@ -150,9 +160,37 @@ class GenerateSale extends Component
         $this->emit('input-payment-value', $this->total); // Configuración de validación para valor de cambio de venta y activación/desactivación del botón guardar venta
     }
 
-    public function resetValues(){ // Vaciar variables del componente
+    // Vaciar variables del componente
+    public function resetValues(){
         $this->reset('product_id','product_total_amount','product_price','product_amount','product_subtotal');
         $this->totalValueProducts(); // Calcular el valor total de los productos seleccionados
     }
 
+    // Ristrar venta
+    public function registerSale(){
+        // Verificar si hay algún producto seleccionado
+        if($this->product_id <> null){
+            if($this->product_amount >= 1){
+                $this->addProduct();
+            }else{
+                $this->resetValues();
+            }
+        }
+
+        // Registrar venta como movimiento
+        try {
+            DB::beginTransaction(); // Iniciar transacción
+                // Consultar y modificar el número de comprobante de venta
+                $movementType = MovementType::where('name','Venta')->first();
+                $movementType->update(['consecutive' => $movementType->consecutive + 1]);
+            DB::commit(); // Confirmar cambios realizados durante la transacción
+
+            // Transacción completada exitosamente
+            $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta. Por favor intente nuevamente ('.$this->total.').');
+        } catch (Exception $e) { // Capturar error durante la transacción
+            DB::rollBack(); // Devolver cambios realizados durante la transacción
+            $this->defaultAction();
+            $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente ('.$this->total.').');
+        }
+    }
 }

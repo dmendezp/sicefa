@@ -19,7 +19,7 @@
     </div>
 @endsection
 
-@include('ptventa::layouts.partials.plugins.sweetalert2')
+@include('ptventa::layouts.partials.plugins.sweetalert2') {{-- Implementación de Sweetalert2 --}}
 @push('scripts')
     @livewireScripts()
 @endpush
