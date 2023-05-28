@@ -3,6 +3,8 @@
 namespace Modules\PTVENTA\Http\Controllers;
 use Modules\SICA\Entities\Inventory;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Carbon;
+
 
 use Illuminate\Routing\Controller;
 
@@ -28,8 +30,12 @@ class InventoryController extends Controller
     }
 
     public function status() { // Estado de productos vencidos y por vencer 
+        $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
         $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de inventario'];
-        return view('ptventa::inventory.status', compact('view'));
+        $productosPorVencer = Inventory::where('expiration_date', '>', Carbon::now())->get();
+        $productosVencidos = Inventory::where('expiration_date', '<', Carbon::now())->get();
+
+    return view('ptventa::inventory.status', compact('view'));
     }
 
     public function low() { //registro de bajas
@@ -39,6 +45,4 @@ class InventoryController extends Controller
     }
 
 
-
 }
-

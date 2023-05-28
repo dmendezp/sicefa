@@ -1,7 +1,9 @@
 @extends('ptventa::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">Productos</li>
+    <li class="breadcrumb-item active">
+        <a href="{{ route('ptventa.element.image.index') }}" class="text-decoration-none">Productos</a>
+    </li>
     <li class="breadcrumb-item active">Actualizar imagen</li>
 @endpush
 

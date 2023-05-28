@@ -80,13 +80,6 @@
                             <p>Inicio</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('cefa.ptventa.devs') }}"
-                            class="nav-link {{ !Route::is('cefa.ptventa.devs*') ?: 'active' }}">
-                            <i class="nav-icon fas fa-code"></i>
-                            <p>Desarrolladores</p>
-                        </a>
-                    </li>
                     @auth {{-- Muestra lo siguiente para los USUARIOS AUTENTICADOS --}}
                         @if (Auth::user()->havePermission('ptventa.inventory.index'))
                             <li class="nav-item">
@@ -115,7 +108,30 @@
                                 </a>
                             </li>
                         @endif
+                        @if (Auth::user()->havePermission('ptventa.cash.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('ptventa.cash.index') }}"
+                                    class="nav-link {{ !Route::is('ptventa.cash.index*') ?: 'active' }}">
+                                    <i class="nav-icon fas fa-cash-register"></i>
+                                    <p>Caja</p>
+                                </a>
+                            </li>
+                        @endif
                     @endauth
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.ptventa.devs') }}"
+                            class="nav-link {{ !Route::is('cefa.ptventa.devs*') ?: 'active' }}">
+                            <i class="nav-icon fas fa-code"></i>
+                            <p>Desarrolladores</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.ptventa.info') }}"
+                            class="nav-link {{ !Route::is('cefa.ptventa.info*') ?: 'active' }}">
+                            <i class="nav-icon fas fa-info"></i>
+                            <p>Acerca de</p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
