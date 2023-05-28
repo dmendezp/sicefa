@@ -49,7 +49,7 @@ class ProductiveUnit extends Model implements Auditable
     public function warehouses(){ // Accede a una o varias unidades bodegas asociadas a él (Relación muchos a muchos)
         return $this->belongsToMany(Warehouse::class);
     }
-    public function farm(){
+    public function farm(){ // Accede a la información del farm al que pertenece
         return $this->belongsTo(Farm::class);
     }
 
