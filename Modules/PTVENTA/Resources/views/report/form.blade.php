@@ -8,7 +8,15 @@
 @endpush
 
 @section('content')
-   <h1>holaaaaaaaaaa</h1>
+<div class="card w-50 mb-3">
+    <div class="card-body">
+        <label>Fecha inicio</label>
+        <input type="date" id="fecha" name="fecha" class="form-control" required>
+
+        <label>Fecha final</label>
+        <input type="date" id="fecha" name="fecha" class="form-control" required>
+    </div>
+  </div>
 @endsection
 
 @include('ptventa::layouts.partials.plugins.datatables')
