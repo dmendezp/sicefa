@@ -20,6 +20,7 @@ class CreateElementsTable extends Migration
             $table->text('description');
             $table->foreignId('kind_of_purchase_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->integer('price')->nullable();
             $table->unsignedInteger('UNSPSC_code')->unique()->nullable();
             $table->string('image')->nullable();
             $table->string('slug'); // Campo para almacenar url amigable
