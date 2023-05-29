@@ -54,19 +54,20 @@ class GenerateSale extends Component
                                 ->where('state','Disponible')
                                 ->pluck('id','element_id');  // Obtener elemen_id unicos para conocer los elementos activos del inventario
         $elementIds = $inventories->keys()->toArray(); // Obtenemos solo el id de los elementos
-        $this->products = Element::whereIn('id', $elementIds)->orderBy('name')->get(); // Consultar elementos para acceder a su nombre
+        $this->products = Element::whereIn('id', $elementIds)->whereNotNull('price')->orderBy('name')->get(); // Consultar elementos que tenga precio para acceder a su nombre
     }
 
-    // Consultar información del producto seleccionado (cantidad y precio unitario)
-    public function inventoryProduct($element_id){
+    // Consultar información del producto seleccionado (cantidad y precio)
+    public function inventoryProduct($element_id){ // Consultar cantidad disponible del producto
         $warehouse = Warehouse::where('name','Punto de venta')->first();
         $inventory = Inventory::where('warehouse_id',$warehouse->id)
                                 ->where('element_id',$element_id)
                                 ->where('destination','Producción')
                                 ->where('state','Disponible')
-                                ->select('element_id', DB::raw('SUM(amount) as product_total_amount'), DB::raw('MAX(price) as min_price'))
+                                ->select('element_id', DB::raw('SUM(amount) as product_total_amount'))
                                 ->groupBy('element_id')
                                 ->first();
+        $inventory->sale_price = Element::findOrFail($element_id)->price; // Consultar precio de venta del producto
         return $inventory;
     }
 
@@ -79,7 +80,7 @@ class GenerateSale extends Component
             $inventory = $this->inventoryProduct($this->product_id);
             $produc_amount_selected = $this->selected_products->where('product_element_id', $this->product_id)->sum('product_amount');
             $this->product_total_amount = $inventory->product_total_amount - $produc_amount_selected;
-            $this->product_price = $inventory->min_price;
+            $this->product_price = $inventory->sale_price;
             $this->reset('product_subtotal','product_amount');
             $this->emit('input-product-amount', $this->product_total_amount, $this->product_price, $this->product_subtotal, $this->total);
         }
@@ -126,7 +127,7 @@ class GenerateSale extends Component
                 $this->resetValues();
                 $this->product_id = $product['product_element_id'];
                 $inventory = $this->inventoryProduct($this->product_id); // Consultar información del inventario del producto
-                $this->product_price = $inventory->min_price;
+                $this->product_price = $inventory->sale_price;
                 $this->product_amount = $product['product_amount'];
                 $this->product_total_amount = $inventory->product_total_amount;
                 $this->product_subtotal = $product['product_subtotal'];
@@ -188,17 +189,16 @@ class GenerateSale extends Component
 
             $current_datetime = now()->milliseconds(0); // Generer fecha y hora actual
 
-            // Consultar y modificar el número de comprobante de venta
+            // Consultar tipo de movimiento para una venta
             $error = 'TIPO DE MOVIMIENTO';
             $movementType = MovementType::where('name','Venta')->firstOrFail();
-            $movementType->update(['consecutive' => $movementType->consecutive + 1]);
 
             // Registrar movimiento
             $error = 'MOVIMIENTO';
             $movement = Movement::create([
                 'registration_date' => $current_datetime,
-                'movement_type_id' => $movementType->id,
-                'voucher_number' => $movementType->consecutive,
+                'movement_type_id' => $movementType->id+564,
+                'voucher_number' => 0,
                 'state' => 'Aprobado',
                 'price' => $this->total
             ]);
@@ -212,7 +212,7 @@ class GenerateSale extends Component
                 $inventories = Inventory::where('element_id', $product['product_element_id'])
                     ->where('state', 'Disponible')
                     ->where('destination', 'Producción')
-                    ->orderBy('production_date', 'asc')
+                    ->orderBy('expiration_date', 'asc')
                     ->get();
 
                 // Recorrer inventario y disminuir cantidades de acuerdo a la cantidad requerida para la venta
@@ -261,6 +261,12 @@ class GenerateSale extends Component
                 'movement_id' => $movement->id,
                 'role' => 'Entrega'
             ]);
+
+            // Generar número de comprobante
+            $error = 'NÚMERO DE COMPROBANTE';
+            $movementType = MovementType::where('name','Venta')->firstOrFail();
+            $movementType->update(['consecutive' => $movementType->consecutive + 1]);
+            $movement->update(['voucher_number' => $movementType->consecutive]);
 
             DB::commit(); // Confirmar cambios realizados durante la transacción
 

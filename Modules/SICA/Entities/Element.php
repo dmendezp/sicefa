@@ -23,6 +23,7 @@ class Element extends Model implements Auditable
         'description',
         'kind_of_purchase_id',
         'category_id',
+        'price',
         'UNSPSC_code',
         'image',
         'slug'
