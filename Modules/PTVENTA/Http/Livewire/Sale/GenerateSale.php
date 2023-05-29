@@ -28,7 +28,8 @@ class GenerateSale extends Component
     public $product_subtotal; // Contiene el Subtotal del valor del producto
     public $total = 0; // Contiene el valor total de todos los productos seleccionados
     public $input_payment_value = false; // Activar o desactivar input de valor de pago
-    public $payment_value; //
+    public $payment_value; // Contiene el valor de pago
+    public $change_value; // Contiene el valor de cambio a partir de la resta entre el valor de pago y el total de la venta
     public Collection $selected_products; // Productos seleccionados
 
     public function __construct()

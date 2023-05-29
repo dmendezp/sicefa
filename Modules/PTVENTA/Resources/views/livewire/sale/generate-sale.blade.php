@@ -118,8 +118,13 @@
                                 $input_payment_value ? '' : 'disabled'])
                             !!}
                         </li>
-                        <li class="list-group-item list-group-item-dark">
-                            <strong class="text-danger" id="change_value">0</strong>
+                        <li class="list-group-item list-group-item-dark py-0 px-0">
+                            {!! Form::number('total', $change_value ? $change_value : 0, [
+                                'class'=>'form-control form-control-lg text-center mx-0 text-success fw-bold',
+                                'id'=>'change_value',
+                                'style' => 'background-color: #ced4da',
+                                'disabled'])
+                            !!}
                         </li>
                     </ul>
 
@@ -147,10 +152,10 @@
         // Calcular el valor de cambio de acuerdo al total de la comprar y el valor de pago de la compra
         function calculate(total) {
             var payment_value = parseInt($("#payment_value").val());
-            $("#change_value").attr('class', 'text-danger').text(payment_value - total);
+            $("#change_value").removeClass('text-success').addClass('text-danger').val(payment_value - total);
             $('#sale_button').prop('disabled', true); // Desactivar botón de realizar venta
             if (total!=0 && payment_value>=total) {
-                $("#change_value").attr('class', 'text-success').text(payment_value - total);
+                $("#change_value").removeClass('text-danger').addClass('text-success').val(payment_value - total);
                 $("#sale_button").prop('disabled', false); // Activar botón de realizar venta
             }
             if(total>0){ // Verificar que el total sea mayor a 0 para así activiar o desactivar el botón de realizar venta
@@ -171,13 +176,13 @@
                 var val_payment_value = parseInt(input_payment_value.val());
                 if(isNaN(val_payment_value) || val_payment_value < 0){
                     input_payment_value.val(0);
-                    $change_value.attr('class', 'text-danger').text(0);
+                    $change_value.removeClass('text-success').addClass('text-danger').val(0);
                     $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
                 } else if (val_payment_value >= total) {
-                    $change_value.attr('class', 'text-success').text(val_payment_value - total);
+                    $change_value.removeClass('text-danger').addClass('text-success').val(val_payment_value - total);
                     $sale_button.prop('disabled', false); // Activar botón de realizar venta
                 } else {
-                    $change_value.attr('class', 'text-danger').text(val_payment_value - total);
+                    $change_value.removeClass('text-success').addClass('text-danger').val(val_payment_value - total);
                     $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
                 }
             });
@@ -192,7 +197,7 @@
         Livewire.on('clear-sale-values', function() {
             $("#total").val(0);
             $("#payment_value").val(0);
-            $("#change_value").text(0);
+            $("#change_value").val(0);
         });
 
         // lanzar mensajes
