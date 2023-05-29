@@ -35,6 +35,7 @@ class ElementsTableSeeder extends Seeder
             'description' => 'Delicioso yogurt con sabor a Mora y trocitos de fruta',
             'kind_of_purchase_id' => $kind_of_purchase->id,
             'category_id' => $category->id,
+            'price' => 2000,
             //'image' => ElementFactory::new()->make()->image  // Generar imagen faker
         ]);
 
@@ -43,6 +44,7 @@ class ElementsTableSeeder extends Seeder
             'description' => 'Deliciosas donas de chocolate y crispy',
             'kind_of_purchase_id' => $kind_of_purchase->id,
             'category_id' => $category->id,
+            'price' => 2500,
             //'image' => ElementFactory::new()->make()->image // // Generar imagen faker
         ]);
 
