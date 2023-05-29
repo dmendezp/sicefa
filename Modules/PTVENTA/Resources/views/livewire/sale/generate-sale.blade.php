@@ -125,7 +125,10 @@
                     </ul>
 
                     <div class="text-center mt-2">
-                        <button class="btn btn-sm btn-success" id="sale_button" disabled><i class="far fa-plus-square"></i> Registrar Venta</button>
+                        <button class="btn btn-sm btn-success" id="sale_button" wire:click="registerSale" disabled>
+                            <i class="far fa-plus-square"></i>
+                            Registrar Venta
+                        </button>
                     </div>
 
                 </div>
@@ -134,7 +137,7 @@
     </div>
 </div>
 
-@section('inputs')
+@section('sripts-generate-sale')
     <script>
         $(document).ready(function() {
             $("#payment_value").click(function() {
@@ -142,7 +145,8 @@
             });
         });
 
-        function calculate(total) { // Calcular el valor de cambio de acuerdo al total de la comprar y el valor de pago de la compra
+        // Calcular el valor de cambio de acuerdo al total de la comprar y el valor de pago de la compra
+        function calculate(total) {
             var payment_value = parseInt($("#payment_value").val());
             $("#change_value").attr('class', 'text-danger').text(payment_value - total);
             $('#sale_button').prop('disabled', true); // Desactivar botón de realizar venta
@@ -152,7 +156,8 @@
             }
         }
 
-        Livewire.on('input-product-amount', function(product_total_amount, product_price, product_subtotal, total) { // Establecer funciones para el campo de ingreso de cantidad
+        // Establecer funciones para el campo de ingreso de cantidad
+        Livewire.on('input-product-amount', function(product_total_amount, product_price, product_subtotal, total) {
             var $product_amount = $('#product_amount'); // Instanciar el campo de cantidad de producto
             var $product_subtotal = $('#product_subtotal'); // Instancia el campo subtotal del producto
             var $total = $('#total'); // Instanciar el campo total de la venta
@@ -185,7 +190,8 @@
             }
         });
 
-        Livewire.on('input-payment-value', function(total) { // Configuración para el calcula el valor de cambio de una venta y activación/desactivación del botón guardar venta
+        // Configuración para calcular el valor de cambio de una venta y activación/desactivación del botón guardar venta
+        Livewire.on('input-payment-value', function(total) {
             var $payment_value = $('#payment_value'); // Instanciar el elemento de valor de cambio
             var $change_value = $('#change_value'); // Instanciar el elemento de valor de cambio
             var $sale_button = $('#sale_button'); // Instanciar botón de realizar venta
@@ -209,6 +215,19 @@
             if(total == 0){
                 $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
             }
+        });
+
+        // Función para emitir mensajes
+        Livewire.on('message', function(type, action, message) {
+            color = (type=='success') ? 'green' : ((type=='error') ? 'red' : 'default');
+            Swal.fire({
+                title: action,
+                text: message,
+                icon: type,
+                iconColor: color,
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: 'green'
+            });
         });
     </script>
 @endsection

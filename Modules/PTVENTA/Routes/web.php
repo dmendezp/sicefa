@@ -30,11 +30,15 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('status', 'status')->name('ptventa.inventory.status');
             Route::get('low', 'low')->name('ptventa.inventory.low');
 
+            //Ruta de reporte
+            Route::get('form', 'form')->name('ptventa.report.form');
+            Route::get('table', 'table')->name('ptventa.report.table');
         });
 
         //Rutas para Ventas
         Route::prefix('sale')->controller(SaleController::class)->group(function(){
             Route::get('index', 'index')->name('ptventa.sale.index'); // Vista principal de ventas
+            Route::get('register', 'register')->name('ptventa.sale.register'); // Vista de registro de venta
         });
 
         // Rutas para Elementos
@@ -47,7 +51,7 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
         // Rutas para Caja
         Route::prefix('cash')->controller(CashController::class)->group(function(){
             Route::get('cash', 'index')->name('ptventa.cash.index'); // Vista principal de caja
-            Route::post('arqueo', 'store')->name('arqueo.store');
+            Route::post('cashCount', 'store')->name('ptventa.cashCount.store');
         });
     });
 });

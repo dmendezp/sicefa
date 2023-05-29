@@ -7,15 +7,10 @@
 @endpush
 
 @push('breadcrumbs')
-    <div class="col-sm-6">
-        <h1 class="m-0">{{ $view['titleView'] }}</h1>
-    </div>
-    <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ route('ptventa.element.image.index') }}" class="text-decoration-none">Productos</a></li>
-            <li class="breadcrumb-item active">Imágenes</li>
-        </ol>
-    </div>
+    <li class="breadcrumb-item">
+        <a href="{{ route('ptventa.element.image.index') }}" class="text-decoration-none">Productos</a>
+    </li>
+    <li class="breadcrumb-item active">Imágenes</li>
 @endpush
 
 @section('content')
@@ -26,7 +21,7 @@
     </div>
 @endsection
 
-@include('ptventa::layouts.partials.plugins.sweetalert2')
+@include('ptventa::layouts.partials.plugins.sweetalert2') {{-- Implementación de Sweetalert2 --}}
 @push('scripts')
     @livewireScripts()
 @endpush

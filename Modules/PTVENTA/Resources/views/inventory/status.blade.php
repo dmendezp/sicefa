@@ -1,15 +1,10 @@
 @extends('ptventa::layouts.master')
 
 @push('breadcrumbs')
-    <div class="col-sm-6">
-        <h1 class="m-0">{{ $view['titleView'] }}</h1>
-    </div>
-    <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active">Productos</li>
-            <li class="breadcrumb-item active">Estado de productos </li>
-        </ol>
-    </div>
+    <li class="breadcrumb-item active">
+        <a href="{{ route('ptventa.inventory.index') }}" class="text-decoration-none">Inventario</a>
+    </li>
+    <li class="breadcrumb-item active">Estado de productos </li>
 @endpush
 
 @section('content')
@@ -89,7 +84,7 @@
                     </div>
                 </div>
             </div>
-                            
+
 
 @endsection
 

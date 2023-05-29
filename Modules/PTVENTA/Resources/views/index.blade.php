@@ -1,18 +1,11 @@
 @extends('ptventa::layouts.master')
 
 @push('breadcrumbs')
-    <div class="col-sm-6">
-        <h1 class="m-0">{{-- Text --}}</h1>
-    </div>
-    <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active">Página principal</li>
-        </ol>
-    </div>
+    <li class="breadcrumb-item active">Página principal</li>
 @endpush
 
 @section('content')
-    <h1 class="display-3">{{ $view['titleView'] }}</h1>
+    <h1 class="display-3">Bienvenido a punto de venta</h1>
     <p>Punto de venta es una unidad productiva perteneciente al centro de Formación Agroindustrial "La Angostura", aqui se
         ofertan los diferentes
         productos que se fabrican en este centro, contamos con productos que provienen directamente del campo como tambien

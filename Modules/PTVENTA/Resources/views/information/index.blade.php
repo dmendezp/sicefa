@@ -1,14 +1,7 @@
 @extends('ptventa::layouts.master')
 
 @push('breadcrumbs')
-    <div class="col-sm-6">
-        <h1 class="m-0">{{-- Text --}}</h1>
-    </div>
-    <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item active">Acerca de:</li>
-        </ol>
-    </div>
+    <li class="breadcrumb-item active">Acerca de:</li>
 @endpush
 
 @section('content')
@@ -69,7 +62,7 @@
                       <p class="text-body-secondary">Cuenta con un sistema de seguridad óptimo para que la información almacenada sea manejada solo por quienes se desea.</p>
                     </div>
                   </div>
-              
+
                   <div class="col d-flex align-items-start gap-2">
                     <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-success bg-gradient rounded-1 p-2">
                       <i class="fas fa-tachometer-alt fs-4"></i>
@@ -79,7 +72,7 @@
                       <p class="text-body-secondary">Los procesos se realizan en el menor tiempo posible, haciendo que el tiempo de respuesta ante una petición sea casi instantáneo.</p>
                     </div>
                   </div>
-              
+
                   <div class="col d-flex align-items-start gap-2">
                     <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-success bg-gradient rounded-1 p-2">
                       <i class="fas fa-tachometer-alt fs-4"></i>
@@ -89,7 +82,7 @@
                       <p class="text-body-secondary">Cuenta con un diseño elegante y minimalista, agradable para el cliente interno, donde puede hacer uso de este sistema sin complicaciones.</p>
                     </div>
                   </div>
-              
+
                   <div class="col d-flex align-items-start gap-2">
                     <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-success bg-gradient rounded-1 p-2">
                       <i class="fas fa-layer-group fs-4"></i>
@@ -101,7 +94,7 @@
                   </div>
                 </div>
               </div>
-              
+
 
 
         </div>

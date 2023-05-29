@@ -117,6 +117,15 @@
                                 </a>
                             </li>
                         @endif
+                        @if (Auth::user()->havePermission('ptventa.report.form'))
+                        <li class="nav-item">
+                            <a href="{{ route('ptventa.report.form') }}"
+                                class="nav-link {{ !Route::is('ptventa.report.form*') ?: 'active' }}">
+                                <i class="nav-icon fas fa-poll"></i>
+                                <p>Reporte</p>
+                            </a>
+                        </li>
+                    @endif
                     @endauth
                     <li class="nav-item">
                         <a href="{{ route('cefa.ptventa.devs') }}"

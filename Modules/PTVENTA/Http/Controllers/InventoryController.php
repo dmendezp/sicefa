@@ -5,7 +5,7 @@ use Modules\SICA\Entities\Inventory;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
-
+use Modules\SICA\Entities\Element;
 
 use Illuminate\Routing\Controller;
 
@@ -30,7 +30,8 @@ class InventoryController extends Controller
 
     }
 
-    public function status(Request $request ) { // Estado de productos vencidos y por vencer 
+    public function status(Request $request) { // Estado de productos vencidos y por vencer
+
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
         $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de inventario'];
         $productosVencidos = Inventory::where('expiration_date', '<', now())->get()->toArray();
@@ -46,6 +47,21 @@ class InventoryController extends Controller
         $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de inventario'];
         return view('ptventa::inventory.low', compact('view'));
 
+    }
+
+    //funciones para reporte
+    public function form(Request $request) { //formulario de fechas para generar reporte
+        $view = ['titlePage'=>'Reporte - Productos', 'titleView'=>'Reporte de productos'];
+        $fi = $request->fecha_ini.' 00:00:00';
+        $ff = $request->fecha_fin.' 23:59:59';
+        $element = Element::whereBetween('created_at', [$fi, $ff])->get();
+        return view('ptventa::report.form', compact('view', 'element'));
+    }
+
+    public function table() { //Tabla con resultados de busqueda
+        $view = ['titlePage'=>'Reporte - Productos', 'titleView'=>'Reporte de productos'];
+        $element = Element::whereDate('created_at', Carbon::now())->get();
+        return view('ptventa::report.table', compact('view', 'element'));
     }
 
 

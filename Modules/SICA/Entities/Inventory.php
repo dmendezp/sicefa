@@ -68,4 +68,5 @@ class Inventory extends Model implements Auditable
     {
         return \Modules\SICA\Database\factories\InventoryFactory::new();
     }
+
 }

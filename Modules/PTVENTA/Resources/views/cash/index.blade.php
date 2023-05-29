@@ -1,46 +1,74 @@
 @extends('ptventa::layouts.master')
 
 @push('breadcrumbs')
-<div class="col-sm-6">
-    <h1 class="m-0">{{ $view['titleView'] }}</h1>
-</div>
-<div class="col-sm-6">
-    <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item active">Caja</li>
-    </ol>
-</div>
+    <li class="breadcrumb-item">
+        <a href="{{ route('ptventa.cash.index') }}" class="text-decoration-none">Caja</a>
+    <li class="breadcrumb-item active">Arqueo Caja</li>
+    </li>
 @endpush
 
 @section('content')
-    <div class="container">
-        <h1>Arqueo de Caja</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1>Arqueo de Caja</h1>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('ptventa.cashCount.store') }}">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="date">Fecha de Apertura</label>
+                            <input type="date" id="date" name="date" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="initial_balance">Saldo Inicial</label>
+                            <input type="number" id="initial_balance" name="initial_balance" class="form-control" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="final_balance">Saldo Final</label>
+                            <input type="number" id="final_balance" name="final_balance" class="form-control" step="0.01" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
             </div>
-        @endif
-
-        <form method="POST" action="{{ route('arqueo.store') }}">
-            @csrf
-
-            <div class="form-group">
-                <label for="fecha">Fecha</label>
-                <input type="date" id="fecha" name="fecha" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">N°</th>
+                                <th scope="col">Encargado</th>
+                                <th scope="col">Fecha de apertura</th>
+                                <th scope="col">Saldo Inicial</th>
+                                <th scope="col">Saldo Final</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>25-05-2023</td>
+                                <td>300000</td>
+                                <td>300000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="saldo_inicial">Saldo Inicial</label>
-                <input type="number" id="saldo_inicial" name="saldo_inicial" class="form-control" step="0.01" required>
-            </div>
-
-            <div class="form-group">
-                <label for="saldo_final">Saldo Final</label>
-                <input type="number" id="saldo_final" name="saldo_final" class="form-control" step="0.01" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Guardar</button>
-        </form>
+        </div>
     </div>
 @endsection
 
