@@ -33,18 +33,19 @@ class InventoryController extends Controller
     public function status(Request $request) { // Estado de productos vencidos y por vencer
 
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
-        $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de inventario'];
-        $productosVencidos = Inventory::where('expiration_date', '<', now())->get()->toArray();
-        $productosPorVencer = Inventory::where('expiration_date', '>=', now())->get()->toArray();
+        $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Estado de productos '];
+        $productosVencidos = Inventory::where('expiration_date', '<', now())->get();
+        $productosPorVencer = Inventory::where('expiration_date', '>=', now())
+                                    ->where('expiration_date', '<=', now()->addDays(7))
+                                    ->get();
 
-        $resultados = array_merge($productosVencidos, $productosPorVencer);
-        return $resultados;
 
-    //return view('ptventa::inventory.status', compact('view'),$productosPorVencer, $productosVencidos );
+    return view('ptventa::inventory.status', compact('view','productosVencidos', 'productosPorVencer'));
+
     }
  
     public function low() { //registro de bajas
-        $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de inventario'];
+        $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de Bajas'];
         return view('ptventa::inventory.low', compact('view'));
 
     }
