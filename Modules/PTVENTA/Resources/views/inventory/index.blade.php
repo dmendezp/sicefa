@@ -21,12 +21,6 @@
                     <label class="form-label-sm">Productos: </label>
                 </div>
                 <div class="col-auto">
-                    <select class="form-select form-select-sm" aria-label="Default select example">
-                        <option value="1">Todos</option>
-                        <option value="2">Disponibles</option>
-                        <option value="3">Productos por vencer</option>
-                        <option value="4">Productos vencidos</option>
-                    </select>
                 </div>
                 <div class="col"></div>
                 <div class="col-auto pe-2">

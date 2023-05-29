@@ -4,6 +4,7 @@ namespace Modules\PTVENTA\Http\Controllers;
 use Modules\SICA\Entities\Inventory;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
+use Illuminate\Http\Request;
 
 
 use Illuminate\Routing\Controller;
@@ -29,15 +30,18 @@ class InventoryController extends Controller
 
     }
 
-    public function status() { // Estado de productos vencidos y por vencer 
+    public function status(Request $request ) { // Estado de productos vencidos y por vencer 
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
         $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de inventario'];
-        $productosPorVencer = Inventory::where('expiration_date', '>', Carbon::now())->get();
-        $productosVencidos = Inventory::where('expiration_date', '<', Carbon::now())->get();
+        $productosVencidos = Inventory::where('expiration_date', '<', now())->get()->toArray();
+        $productosPorVencer = Inventory::where('expiration_date', '>=', now())->get()->toArray();
 
-    return view('ptventa::inventory.status', compact('view'));
+        $resultados = array_merge($productosVencidos, $productosPorVencer);
+        return $resultados;
+
+    //return view('ptventa::inventory.status', compact('view'),$productosPorVencer, $productosVencidos );
     }
-
+ 
     public function low() { //registro de bajas
         $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de inventario'];
         return view('ptventa::inventory.low', compact('view'));

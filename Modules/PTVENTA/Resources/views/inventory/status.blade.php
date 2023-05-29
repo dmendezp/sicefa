@@ -76,7 +76,7 @@
                                         </thead>
                                         <tbody class="table-group-divider">
                                             <tr>
-                                            @foreach ($productosVencidos as $producto)
+                                            @foreach ($productosPorVencer as $producto)
                                             <td><strong>{{ $producto->element->name }}</strong></td>
                                             <td class="text-center">{{ $producto->expiration_date }}</p>
                                             @endforeach
