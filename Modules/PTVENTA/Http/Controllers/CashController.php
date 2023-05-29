@@ -48,6 +48,7 @@ class CashController extends Controller
         $arqueo->initial_balance = $request->initial_balance;
         $arqueo->final_balance = $request->final_balance;
         $arqueo->difference = $request->final_balance - $request->initial_balance;
+        $arqueo->state = "Abierta";
         $arqueo->save();
 
         return redirect()->route('ptventa.cash.index')->with('success', 'Arqueo de caja guardado correctamente.');

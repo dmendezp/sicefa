@@ -23,6 +23,7 @@ class CashCount extends Model implements Auditable
         'initial_balance',
         'final_balance',
         'difference',
+        'state',
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objeto Carbon (para aprovechar las funcines de formato y manipulación de fecha y hora)

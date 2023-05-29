@@ -20,6 +20,7 @@ class CreateCashCountsTable extends Migration
             $table->decimal('initial_balance', 8, 2);
             $table->decimal('final_balance', 8, 2);
             $table->decimal('difference', 8, 2)->nullable();
+            $table->enum('state', ['Abierta', 'Cerrada'])->default('Abierta');
             $table->timestamps();
             $table->softDeletes(); // Add soft delete column
         });
