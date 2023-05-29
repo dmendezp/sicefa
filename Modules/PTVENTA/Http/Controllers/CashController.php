@@ -5,6 +5,7 @@ namespace Modules\PTVENTA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\PTVENTA\Entities\CashCount;
 
 class CashController extends Controller
@@ -42,6 +43,7 @@ class CashController extends Controller
         ]);
 
         $arqueo = new CashCount();
+        $arqueo->person_id = Auth::user()->person_id;
         $arqueo->date = $request->date;
         $arqueo->initial_balance = $request->initial_balance;
         $arqueo->final_balance = $request->final_balance;

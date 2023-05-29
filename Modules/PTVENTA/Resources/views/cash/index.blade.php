@@ -24,8 +24,13 @@
                         @csrf
 
                         <div class="form-group">
+                            <label for="person_id">Nombre del encargado de apertura:</label>
+                            <input type="text" id="person_id" class="form-control" value="{{Auth::User()->person->full_name}}" disabled>
+                        </div>
+                        
+                        <div class="form-group">
                             <label for="date">Fecha de Apertura</label>
-                            <input type="date" id="date" name="date" class="form-control" required>
+                            <input type="datetime-local" id="date" name="date" class="form-control" required>
                         </div>
 
                         <div class="form-group">
