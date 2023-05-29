@@ -30,5 +30,14 @@ class PeopleTableSeeder extends Seeder
             'population_group_id' => $population_group->id
         ]);
 
+        // Consulta o registro de datos para Punto de venta (para cuando se quiere generar un venta sin persona natural como cliente)
+        Person::firstOrCreate(['document_number' => 123456789], [ // Consultar o registrar Persona
+            'document_type' => 'Cédula de ciudadanía',
+            'first_name' => 'PUNTO DE',
+            'first_last_name' => 'VENTA',
+            'eps_id' => $eps->id,
+            'population_group_id' => $population_group->id
+        ]);
+
     }
 }
