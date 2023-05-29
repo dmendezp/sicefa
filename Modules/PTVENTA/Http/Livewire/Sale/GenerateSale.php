@@ -27,7 +27,7 @@ class GenerateSale extends Component
     public $product_total_amount; // Contiene la cantidad total del producto seleccionado de acuerdo a su inventario
     public $product_subtotal; // Contiene el Subtotal del valor del producto
     public $total = 0; // Contiene el valor total de todos los productos seleccionados
-    public $input_payment_value = false; //
+    public $input_payment_value = false; // Activar o desactivar input de valor de pago
     public $payment_value; //
     public Collection $selected_products; // Productos seleccionados
 
@@ -266,6 +266,7 @@ class GenerateSale extends Component
 
             // Transacción completada exitosamente
             $this->defaultAction();
+            $this->emit('clear-sale-values'); // Limpiar valores de venta
             $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente ('.$movement->price.').');
         } catch (Exception $e) { // Capturar error durante la transacción
             // Transacción rechazada
