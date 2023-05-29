@@ -115,7 +115,6 @@
                             {!! Form::number('payment_value', $payment_value ? $payment_value : 0, [
                                 'class'=>'form-control form-control-lg text-center mx-0',
                                 'id'=>'payment_value',
-                                'wire:click'=>'resetValues',
                                 $input_payment_value ? '' : 'disabled'])
                             !!}
                         </li>
@@ -154,9 +153,67 @@
                 $("#change_value").attr('class', 'text-success').text(payment_value - total);
                 $("#sale_button").prop('disabled', false); // Activar botón de realizar venta
             }
+            if(total>0){ // Verificar que el total sea mayor a 0 para así activiar o desactivar el botón de realizar venta
+                $("#payment_value").prop('disabled', false); // Activar el input del valor de pago
+            }else{
+                $("#payment_value").prop('disabled', true); // Desactivar el input del valor de pago
+            }
+            input_payment_value(total);
         }
 
-        // Establecer funciones para el campo de ingreso de cantidad
+        // Configuración para calcular el valor de cambio de una venta y activación/desactivación del botón guardar venta
+        function input_payment_value(total){
+            var $payment_value = $('#payment_value'); // Instanciar el elemento de valor de cambio
+            var $change_value = $('#change_value'); // Instanciar el elemento de valor de cambio
+            var $sale_button = $('#sale_button'); // Instanciar botón de realizar venta
+            $payment_value.off('input').on('input', function(){
+                var input_payment_value = $(this);
+                var val_payment_value = parseInt(input_payment_value.val());
+                if(isNaN(val_payment_value) || val_payment_value < 0){
+                    input_payment_value.val(0);
+                    $change_value.attr('class', 'text-danger').text(0);
+                    $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
+                } else if (val_payment_value >= total) {
+                    $change_value.attr('class', 'text-success').text(val_payment_value - total);
+                    $sale_button.prop('disabled', false); // Activar botón de realizar venta
+                } else {
+                    $change_value.attr('class', 'text-danger').text(val_payment_value - total);
+                    $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
+                }
+            });
+            $('#total').val(total);
+            $payment_value.trigger('input');
+            if(total == 0){
+                $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
+            }
+        }
+
+        // Limpiar valores de venta
+        Livewire.on('clear-sale-values', function() {
+            $("#total").val(0);
+            $("#payment_value").val(0);
+            $("#change_value").text(0);
+        });
+
+        // lanzar mensajes
+        Livewire.on('message', function(type, action, message) {
+            color = (type=='success') ? 'green' : ((type=='error') ? 'red' : 'default');
+            Swal.fire({
+                title: action,
+                text: message,
+                icon: type,
+                iconColor: color,
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: 'green'
+            });
+        });
+
+        // Llamado de función para calcular el valor de cambio de una venta y activación/desactivación del botón guardar venta
+        Livewire.on('input-payment-value', function(total) {
+            input_payment_value(total);
+        });
+
+        // Establecer configuraciones para el campo de ingreso de cantidad
         Livewire.on('input-product-amount', function(product_total_amount, product_price, product_subtotal, total) {
             var $product_amount = $('#product_amount'); // Instanciar el campo de cantidad de producto
             var $product_subtotal = $('#product_subtotal'); // Instancia el campo subtotal del producto
@@ -188,46 +245,6 @@
                     calculate($total.val());
                 });
             }
-        });
-
-        // Configuración para calcular el valor de cambio de una venta y activación/desactivación del botón guardar venta
-        Livewire.on('input-payment-value', function(total) {
-            var $payment_value = $('#payment_value'); // Instanciar el elemento de valor de cambio
-            var $change_value = $('#change_value'); // Instanciar el elemento de valor de cambio
-            var $sale_button = $('#sale_button'); // Instanciar botón de realizar venta
-            $payment_value.off('input').on('input', function(){
-                var input_payment_value = $(this);
-                var val_payment_value = parseInt(input_payment_value.val());
-                if(isNaN(val_payment_value) || val_payment_value < 0){
-                    input_payment_value.val(0);
-                    $change_value.attr('class', 'text-danger').text(0);
-                    $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
-                } else if (val_payment_value >= total) {
-                    $change_value.attr('class', 'text-success').text(val_payment_value - total);
-                    $sale_button.prop('disabled', false); // Activar botón de realizar venta
-                } else {
-                    $change_value.attr('class', 'text-danger').text(val_payment_value - total);
-                    $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
-                }
-            });
-            $('#total').val(total);
-            $payment_value.trigger('input');
-            if(total == 0){
-                $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
-            }
-        });
-
-        // Función para emitir mensajes
-        Livewire.on('message', function(type, action, message) {
-            color = (type=='success') ? 'green' : ((type=='error') ? 'red' : 'default');
-            Swal.fire({
-                title: action,
-                text: message,
-                icon: type,
-                iconColor: color,
-                confirmButtonText: 'Aceptar',
-                confirmButtonColor: 'green'
-            });
         });
     </script>
 @endsection
