@@ -5,11 +5,17 @@ namespace Modules\PTVENTA\Http\Livewire\Sale;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Inventory;
+use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementDetail;
+use Modules\SICA\Entities\MovementResponsability;
 use Modules\SICA\Entities\MovementType;
+use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Warehouse;
+use Modules\SICA\Entities\WarehouseMovement;
 
 class GenerateSale extends Component
 {
@@ -41,8 +47,7 @@ class GenerateSale extends Component
 
     // Restaurar todos los valores de la variables y consultar productos disponibles en inventario para la venta
     public function defaultAction(){
-        $this->reset();
-        $this->reset('products'); // Vaciar variable inventories para evitar la duplicación de la información contenida
+        $this->reset(); // Vaciar los valores de todos los atributos para evitar irregularidades en los valores de estos
         $warehouse = Warehouse::where('name','Punto de venta')->first(); // Consultar bodega de la aplicación
         $inventories = Inventory::where('warehouse_id',$warehouse->id)
                                 ->where('destination','Producción')
@@ -148,7 +153,7 @@ class GenerateSale extends Component
     public function totalValueProducts(){
         $this->reset('total');
         $total = 0;
-        foreach ($this->selected_products as $index => $product) {
+        foreach ($this->selected_products as $product) {
             $total += $product['product_subtotal'];
         }
         $this->total = $total;
@@ -180,17 +185,92 @@ class GenerateSale extends Component
         // Registrar venta como movimiento
         try {
             DB::beginTransaction(); // Iniciar transacción
-                // Consultar y modificar el número de comprobante de venta
-                $movementType = MovementType::where('name','Venta')->first();
-                $movementType->update(['consecutive' => $movementType->consecutive + 1]);
+
+            $current_datetime = now()->milliseconds(0); // Generer fecha y hora actual
+
+            // Consultar y modificar el número de comprobante de venta
+            $error = 'TIPO DE MOVIMIENTO';
+            $movementType = MovementType::where('name','Venta')->firstOrFail();
+            $movementType->update(['consecutive' => $movementType->consecutive + 1]);
+
+            // Registrar movimiento
+            $error = 'MOVIMIENTO';
+            $movement = Movement::create([
+                'registration_date' => $current_datetime,
+                'movement_type_id' => $movementType->id,
+                'voucher_number' => $movementType->consecutive,
+                'state' => 'Aprobado',
+                'price' => $this->total
+            ]);
+
+            // Registrar detalles de movimiento (productos, cantidades y precios)
+            $error = 'DETALLES DE MOVIMIENTO';
+            foreach ($this->selected_products as $product) {
+                $amountLeft = $product['product_amount']; // Definir cantidad restante (cantidad del producto a vender)
+
+                // Consultar todo el inventario del producto seleccionado
+                $inventories = Inventory::where('element_id', $product['product_element_id'])
+                    ->where('state', 'Disponible')
+                    ->where('destination', 'Producción')
+                    ->orderBy('production_date', 'asc')
+                    ->get();
+
+                // Recorrer inventario y disminuir cantidades de acuerdo a la cantidad requerida para la venta
+                foreach ($inventories as $inventory) {
+                    if ($amountLeft <= 0) { // Validar si la cantidad restante es menor o igual a cero
+                        break;
+                    }
+
+                    $amountToSubtract = min($amountLeft, $inventory->amount); // Cantidad para restar del inventario actual
+
+                    // Actualizar inventario
+                    $inventory->amount -= $amountToSubtract;
+                    $inventory->state = ($inventory->amount > 0) ? 'Disponible' : 'No disponible';
+                    $inventory->save();
+
+                    $amountLeft -= $amountToSubtract; // Disminuir cantidad restante
+
+                    MovementDetail::create([ // Registrar detalle de movimiento
+                        'movement_id' => $movement->id,
+                        'inventory_id' => $inventory->id,
+                        'amount' => $amountToSubtract,
+                        'price' => $product['product_price']
+                    ]);
+                }
+            }
+
+            // Registrar responsables de movimientos
+            $error = 'RESPONSABLES DE MOVIMIENTO';
+            MovementResponsability::create([ // Registrar Vendedor
+                'person_id' => Auth::user()->person_id,
+                'movement_id' => $movement->id,
+                'role' => 'VENDEDOR',
+                'date' => $current_datetime
+            ]);
+            MovementResponsability::create([ // Registrar Cliente
+                'person_id' => Person::where('document_number',123456789)->first()->id,
+                'movement_id' => $movement->id,
+                'role' => 'CLIENTE',
+                'date' => $current_datetime
+            ]);
+
+            // Registrar movimientos de bodega
+            $error = 'MOVIMIENTOS DE BODEGA';
+            WarehouseMovement::create([
+                'warehouse_id' => Warehouse::where('name','Punto de venta')->first()->id,
+                'movement_id' => $movement->id,
+                'role' => 'Entrega'
+            ]);
+
             DB::commit(); // Confirmar cambios realizados durante la transacción
 
             // Transacción completada exitosamente
-            $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta. Por favor intente nuevamente ('.$this->total.').');
-        } catch (Exception $e) { // Capturar error durante la transacción
-            DB::rollBack(); // Devolver cambios realizados durante la transacción
             $this->defaultAction();
-            $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente ('.$this->total.').');
+            $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente ('.$movement->price.').');
+        } catch (Exception $e) { // Capturar error durante la transacción
+            // Transacción rechazada
+            DB::rollBack(); // Devolver cambios realizados durante la transacción
+            $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta en '.$error.'. Por favor intente nuevamente.');
         }
     }
 }
