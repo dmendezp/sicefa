@@ -4,7 +4,8 @@ namespace Modules\PTVENTA\Http\Controllers;
 use Modules\SICA\Entities\Inventory;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
-
+use Modules\SICA\Entities\Element;
+use Illuminate\Http\Request;
 
 use Illuminate\Routing\Controller;
 
@@ -44,9 +45,19 @@ class InventoryController extends Controller
 
     }
 
-    public function form() { //formulario de fechas para generar reporte
+    //funciones para reporte
+    public function form(Request $request) { //formulario de fechas para generar reporte
         $view = ['titlePage'=>'Reporte - Productos', 'titleView'=>'Reporte de productos'];
-        return view('ptventa::report.form', compact('view'));
+        $fi = $request->fecha_ini.' 00:00:00';
+        $ff = $request->fecha_fin.' 23:59:59';
+        $element = Element::whereBetween('created_at', [$fi, $ff])->get();
+        return view('ptventa::report.form', compact('view', 'element'));
+    }
+
+    public function table() { //Tabla con resultados de busqueda
+        $view = ['titlePage'=>'Reporte - Productos', 'titleView'=>'Reporte de productos'];
+        $element = Element::whereDate('created_at', Carbon::now())->get();
+        return view('ptventa::report.table', compact('view', 'element'));
     }
 
 

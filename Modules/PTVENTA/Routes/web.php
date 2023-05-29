@@ -32,7 +32,7 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
 
             //Ruta de reporte
             Route::get('form', 'form')->name('ptventa.report.form');
-
+            Route::get('table', 'table')->name('ptventa.report.table');
         });
 
         //Rutas para Ventas
