@@ -15,10 +15,12 @@ class CreateCashCountsTable extends Migration
     {
         Schema::create('cash_counts', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->dateTime('date');
             $table->decimal('initial_balance', 8, 2);
             $table->decimal('final_balance', 8, 2);
             $table->decimal('difference', 8, 2)->nullable();
+            $table->enum('state', ['Abierta', 'Cerrada'])->default('Abierta');
             $table->timestamps();
             $table->softDeletes(); // Add soft delete column
         });

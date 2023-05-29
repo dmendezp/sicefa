@@ -12,6 +12,7 @@ use Modules\SICA\Entities\Apprentice;
 use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
+use Modules\PTVENTA\Entities\CashCount;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Event;
 
@@ -114,6 +115,9 @@ class Person extends Model implements Auditable
     }
     public function movement_responsabilities(){ // Accede a todos los registros de responsables de movimiento que esten asociados con esta persona
         return $this->hasMany(MovementResponsability::class);
+    }
+    public function cash_counts(){ // Accede a todos los registros de arqueo de caja que esten asociados con esta persona
+        return $this->hasMany(CashCount::class);
     }
 
 
