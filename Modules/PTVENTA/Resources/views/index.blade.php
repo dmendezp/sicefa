@@ -1,16 +1,12 @@
 @extends('ptventa::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">Página principal</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::mainPage.Main page')}}</li>
 @endpush
 
 @section('content')
-    <h1 class="display-3">Bienvenido a punto de venta</h1>
-    <p>Punto de venta es una unidad productiva perteneciente al centro de Formación Agroindustrial "La Angostura", aqui se
-        ofertan los diferentes
-        productos que se fabrican en este centro, contamos con productos que provienen directamente del campo como tambien
-        aquellos que con son procesados en el sector de agroindustria.
-    </p>
+    <h1 class="display-3">{{ trans('ptventa::mainPage.Welcome to point of sale')}}</h1>
+    <p>{{ trans('ptventa::mainPage.Point of sale is a productive unit belonging to the Agroindustrial Training Center "La Angostura", here are offered the different products that are manufactured in this center, we have products that come directly from the field as well as those that are processed in the agribusiness sector.')}}</p>
 
     <div class="row">
         <div class="col-md-6">
@@ -18,41 +14,40 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-center">
                         <div>
-                            <h4 class="text-center">Productos más populares del centro de formación</h4>
-                            <p>Punto de venta es un sitio de administración para los productos que son exportados desde aquí
-                                para todo en centro de formación entre ellos tenemos como:</p>
+                            <h4 class="text-center">{{ trans('ptventa::mainPage.Most popular products from the training center')}}</h4>
+                            <p>{{ trans('ptventa::mainPage.News of the moment:')}}</p>
                         </div>
                     </div>
                     <div class="d-flex flex-wrap justify-content-center mt-3">
                         <div class="col-lg-4 col-md-6 col-sm-12">
-                            <h5 class="text-center">Frutas</h5>
+                            <h5 class="text-center">{{ trans('ptventa::mainPage.Fruits')}}</h5>
                             <div class="card-products mx-auto">
                                 <img src="{{ asset('modules/ptventa/images/Card6.jpg') }}" alt=""
                                     class="card-img-top">
                                 <div class="card-body">
-                                    <p class="card-text head">Piña</p>>
+                                    <p class="card-text head">{{ trans('ptventa::mainPage.Pinneapple')}}</p>>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12">
-                            <h5 class="text-center">Lácteos</h5>
+                            <h5 class="text-center">{{ trans('ptventa::mainPage.Milk products')}}</h5>
                             <div class="card-products mx-auto">
                                 <img src="{{ asset('modules/ptventa/images/Card3.jpg') }}" alt=""
                                     class="card-img-top">
                                 <div class="card-body">
-                                    <p class="card-text head">Yogurt</p>
+                                    <p class="card-text head">{{ trans('ptventa::mainPage.Yogurt')}}</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-12">
-                            <h5 class="text-center">Verduras</h5>
+                            <h5 class="text-center">{{ trans('ptventa::mainPage.Vegetables')}}</h5>
                             <div class="card-products mx-auto">
                                 <img src="{{ asset('modules/ptventa/images/Card4.jpg') }}" alt=""
                                     class="card-img-top">
                                 <div class="card-body">
-                                    <p class="card-text head">Lechuga</p>
+                                    <p class="card-text head">{{ trans('ptventa::mainPage.Lettuce')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -66,11 +61,8 @@
                     <hr class="featurette-divider">
                     <div class="row featurette align-items-center">
                         <div class="col-md-7 order-md-2">
-                            <h2 class="featurette-heading">Oh, sí, es tan bueno. <span class="text-muted">Míralo tú
-                                    mismo.</span></h2>
-                            <p class="lead">Prueba unos deliciosos Croissant, hechos por las mejores manos de los
-                                aprendices del centro de formación, es decir de los tecnólogos que se dan en el complejo
-                                agroindustrial.</p>
+                            <h2 class="featurette-heading">{{ trans('ptventa::mainPage.Oh, yes, it is so good.')}} <span class="text-muted">{{ trans('ptventa::mainPage.See for yourself.')}}</span></h2>
+                            <p class="lead">{{ trans('ptventa::mainPage.Taste some delicious Croissant, made by the best hands of the apprentices of the training center the best hands of the apprentices of the training center, i.e. of the technologists who work in the agro-industrial complex.')}} </p>
                         </div>
                         <div class="col-md-5 order-md-1">
                             <img src="{{ asset('modules/ptventa/images/Card5.jpg') }}" alt="" class="img-fluid"

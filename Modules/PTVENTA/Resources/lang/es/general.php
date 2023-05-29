@@ -7,7 +7,7 @@ return [
     'English' => 'Inglés',
     'Spanish' => 'Español',
     'Full Screen Mode' => 'Modo Pantalla Completa',
-    'Go to applications' => 'Ir a aplicaciones',
+
     //Siderbar
     'Sales Point' => 'Punto de Venta',
     'Back to SICEFA' => 'Volver a SICEFA',
@@ -18,7 +18,6 @@ return [
     'Reports' => 'Reportes',
     'Developers' => 'Desarrolladores',
     'About us' => 'Acerca de',
-    //Index
     
     //Footer
     'All Rights Reserved.' => 'Todos los derechos reservados.',

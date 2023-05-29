@@ -7,7 +7,7 @@ return [
     'English' => 'English',
     'Spanish' => 'Spanish',
     'Full Screen Mode' => 'Full Screen Mode',
-    'Go to applications' => 'Go to applications',
+    
     //Sidebar
     'Sales Point' => 'Sales Point',
     'Back to SICEFA' => 'Back to SICEFA',
@@ -18,8 +18,7 @@ return [
     'Reports' => 'Reports',
     'Developers' => 'Developers',
     'About us' => 'About us',
-    //Index
-    
+
     //Footer
     'All Rights Reserved.' => 'All Rights Reserved.',
 ];
