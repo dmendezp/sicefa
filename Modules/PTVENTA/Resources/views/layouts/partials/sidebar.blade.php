@@ -109,12 +109,28 @@
                             </li>
                         @endif
                         @if (Auth::user()->havePermission('ptventa.cash.index'))
-                            <li class="nav-item">
-                                <a href="{{ route('ptventa.cash.index') }}"
-                                    class="nav-link {{ !Route::is('ptventa.cash.index*') ?: 'active' }}">
-                                    <i class="nav-icon fas fa-cash-register"></i>
-                                    <p>{{ trans('ptventa::general.Cash')}}</p>
+                            <li class="nav-item menu-closed">
+                                <a href="#" class="nav-link {{ !Route::is('ptventa.cash.index*') ?: 'active' }}">
+                                <i class="nav-icon fas fa-cash-register"></i>
+                                <p>
+                                    {{ trans('ptventa::general.Cash')}}
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('ptventa.cash.index') }}" class="nav-link active">
+                                    <i class="fas fa-store nav-icon"></i>
+                                    <p>{{ trans('ptventa::general.Cash Opening')}}</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                    <i class="fas fa-store-slash nav-icon"></i>
+                                    <p>{{ trans('ptventa::general.Cash Closing')}}</p>
+                                    </a>
+                                </li>
+                                </ul>
                             </li>
                         @endif
                         @if (Auth::user()->havePermission('ptventa.report.form'))
