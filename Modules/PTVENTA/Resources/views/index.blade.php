@@ -2,7 +2,7 @@
 
 @push('head')
     <!-- Estilos de la galería de imágenes -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="{{asset('modules/ptventa/libs/aos2.3.1/dist/aos.css')}}" rel="stylesheet">
 @endpush
 
 @push('breadcrumbs')
@@ -81,8 +81,8 @@
 @endsection
 
 @push('scripts')
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{asset('modules/ptventa/libs/aos2.3.1/dist/aos.js')}}"></script>
     <script>
         AOS.init();
-      </script>
+    </script>
 @endpush
