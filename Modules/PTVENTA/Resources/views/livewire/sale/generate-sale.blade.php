@@ -213,6 +213,11 @@
             });
         });
 
+        // Calcular valor de cambio
+        Livewire.on('change_value', function(){
+            $('#payment_value').trigger('input');
+        });
+
         // Llamado de función para calcular el valor de cambio de una venta y activación/desactivación del botón guardar venta
         Livewire.on('input-payment-value', function(total) {
             input_payment_value(total);

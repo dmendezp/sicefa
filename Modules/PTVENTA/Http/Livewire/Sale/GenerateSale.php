@@ -198,7 +198,7 @@ class GenerateSale extends Component
             $error = 'MOVIMIENTO';
             $movement = Movement::create([
                 'registration_date' => $current_datetime,
-                'movement_type_id' => $movementType->id+564,
+                'movement_type_id' => $movementType->id,
                 'voucher_number' => 0,
                 'state' => 'Aprobado',
                 'price' => $this->total
@@ -278,6 +278,7 @@ class GenerateSale extends Component
         } catch (Exception $e) { // Capturar error durante la transacción
             // Transacción rechazada
             DB::rollBack(); // Devolver cambios realizados durante la transacción
+            $this->emit('change_value'); // Calcular valor de cambio
             $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta en '.$error.'. Por favor intente nuevamente.');
         }
     }
