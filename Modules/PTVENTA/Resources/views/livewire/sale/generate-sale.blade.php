@@ -201,18 +201,24 @@
         });
 
         // lanzar mensajes
-        Livewire.on('message', function(type, action, message) {
+        Livewire.on('message', function(type, action, message, change_value) {
             color = (type=='success') ? 'green' : ((type=='error') ? 'red' : 'default');
             Swal.fire({
                 title: action,
                 text: message,
+                html: (type == 'success') ?
+                    '<div class="bg-light py-2">' +
+                        '<p class="text-secondary">Tiene un cambio de:</p>' +
+                        '<h1>'+ $('#change_value') +'</h1>' +
+                    '</div>'
+                    : null,
                 icon: type,
                 iconColor: color,
                 confirmButtonText: 'Aceptar',
                 confirmButtonColor: 'green'
             });
         });
-
+        
         // Calcular valor de cambio
         Livewire.on('change_value', function(){
             $('#payment_value').trigger('input');
