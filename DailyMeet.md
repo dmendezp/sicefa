@@ -161,10 +161,17 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Oscar Andres Gil Marin** - *No asisitió*
 --- 
 #### Meet 29-May-2023 
-* **Anyi Katherine Rojas Arce** - *Reporte de entradas de inventario por rango de fechas* - *Avance 0%* - *Dificultades* - *Acciones*
+* **Anyi Katherine Rojas Arce** - *No asisitió*
+* **Jesús David Guevara Munar** - *Registro de venta* - *Avance 50%* - *Dificultades* - *Acciones*
+* **Manuel Steven Ossa Lievano** - *Apertura y cierre de caja* - *Avance 50%* - *Dificultades* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *No asisitió*
+* **Oscar Andres Gil Marin** - *No asisitió*
+--- 
+#### Meet 31-May-2023 
+* **Anyi Katherine Rojas Arce** - *Reporte de entradas de inventario por rango de fechas* - *Avance %* - *Dificultades* - *Acciones*
 * **Jesús David Guevara Munar** - *Registro de venta* - *Avance %* - *Dificultades* - *Acciones*
-* **Manuel Steven Ossa Lievano** - *Apertura y cierre de caja* - *Avance 0%* - *Dificultades* - *Acciones*
-* **Nelsy yulied Gómez Morales** - *Mostrar productos vencidos y por vencer* - *Avance 0%* - *Dificultades* - *Acciones*
+* **Manuel Steven Ossa Lievano** - *Apertura y cierre de caja* - *Avance %* - *Dificultades* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *Mostrar productos vencidos y por vencer* - *Avance %* - *Dificultades* - *Acciones*
 * **Oscar Andres Gil Marin** - *Reporte de ventas por rango de fechas* - *Avance %* - *Dificultades* - *Acciones*  
 --- 
 
