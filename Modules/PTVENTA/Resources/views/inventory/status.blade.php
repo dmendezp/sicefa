@@ -21,10 +21,10 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-hover" id="inventories-table">
+                    <table class="table table-hover" id="status-table">
                         <h6 class="text-center bg-success py-1 rounded-2"><strong>VENCIDOS</strong></h6>
                         <div class="table-responsive">
-                            <table class="table table-hover" id="inventories-table">
+                            <table class="table table-hover">
                                 <thead class="table-dark">
                                     <thead>
                                         <tr>
@@ -50,32 +50,35 @@
                 <div class="row">
                     <div class="col-md-6 offset-md-6">
                         <div class="card" style="position: relative; top: 0; right: 0;">
-                        <table class="table">
-                            <h6 class="text-center bg-success py-1 rounded-2"><strong>POR VENCER </strong></h6>
-                            <div class="table-responsive">
-                            <table class="table table-hover" id="inventories-table">
-                                <thead class="table-dark"></thead>
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Productos</th>
-                                        <th class="text-center">Fecha</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr>
-                                        @foreach ($productosPorVencer as $producto)
-                                        <td><strong>{{ $producto->element->name }}</strong></td>
-                                        <td class="text-center">{{ $producto->expiration_date }}</p>
-                                        @endforeach
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="card-body">
+                            <table class="table">
+                                <h6 class="text-center bg-success py-1 rounded-2"><strong>POR VENCER </strong></h6>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="table-dark"></thead>
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Productos</th>
+                                                <th class="text-center">Fecha</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-group-divider">
+                                            <tr>
+                                                @foreach ($productosPorVencer as $producto)
+                                                <td><strong>{{ $producto->element->name }}</strong></td>
+                                                <td class="text-center">{{ $producto->expiration_date }}</p>
+                                                @endforeach
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 @endsection
 
 @include('ptventa::layouts.partials.plugins.datatables')
+
