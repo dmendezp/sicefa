@@ -16,8 +16,9 @@ class CashController extends Controller
      */
     public function index()
     {
+        $arqueos = CashCount::orderBy('updated_at', 'DESC')->get(); 
         $view = ['titlePage'=>'PTVENTA - Inicio', 'titleView'=>'Caja'];
-        return view('ptventa::cash.index', compact('view'));
+        return view('ptventa::cash.index', compact('view', 'arqueos'));
     }
 
     /**
