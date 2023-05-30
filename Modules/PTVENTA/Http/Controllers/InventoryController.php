@@ -52,16 +52,21 @@ class InventoryController extends Controller
     }
 
     //funciones para reporte
-    public function form(Request $request) { //formulario de fechas para generar reporte
-        $view = ['titlePage'=>'Reporte - Productos', 'titleView'=>'Reporte de productos'];
+    public function form(){
+        $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de inventario'];
+        return view('ptventa::report.form', compact('view'));
+    }
+
+    public function result_form(Request $request) { //formulario de fechas para generar reporte
+        $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de inventario'];
         $fi = $request->fecha_ini.' 00:00:00';
         $ff = $request->fecha_fin.' 23:59:59';
         $report = MovementDetail::whereBetween('created_at', [$fi, $ff])->get();
-        return view('ptventa::report.form', compact('view', 'report'));
+        return view('ptventa::report.table', compact('view', 'report'));
     }
 
     public function table() { //Tabla con resultados de busqueda
-        $view = ['titlePage'=>'Reporte - Productos', 'titleView'=>'Reporte de productos'];
+        $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de Inventario'];
         $report = MovementDetail::whereDate('created_at', Carbon::today('America/Bogota'))->get();
         return view('ptventa::report.table', compact('view', 'report'));
     }
