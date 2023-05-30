@@ -4,7 +4,7 @@
         <a href="{{ route('cefa.ptventa.index') }}" class="brand-link text-decoration-none">
             <img src="{{ asset('modules/ptventa/images/Logo-Sidebar.png') }}" class="brand-image"
                 alt="PTVenta-Logo">{{-- Icono de punto de venta --}}
-            <span class="brand-text font-weight-bold">Punto de Venta</span>
+            <span class="brand-text font-weight-bold">{{ trans('ptventa::general.Sales Point')}}</span>
         </a>
 
         <!-- Sidebar -->
@@ -61,7 +61,7 @@
                                 class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
                                 <i class="fas fa-puzzle-piece"></i>
                                 <p>
-                                    Volver a SICEFA
+                                    {{ trans('ptventa::general.Back to SICEFA')}}
                                 </p>
                             </a>
                         </li>
@@ -77,7 +77,7 @@
                         <a href="{{ route('cefa.ptventa.index') }}"
                             class="nav-link {{ !Route::is('cefa.ptventa.index*') ?: 'active' }}">
                             <i class="nav-icon fas fa-home"></i>
-                            <p>Inicio</p>
+                            <p>{{ trans('ptventa::general.Home')}}</p>
                         </a>
                     </li>
                     @auth {{-- Muestra lo siguiente para los USUARIOS AUTENTICADOS --}}
@@ -86,7 +86,7 @@
                                 <a href="{{ route('ptventa.inventory.index') }}"
                                     class="nav-link {{ !Route::is('ptventa.inventory.index*') ?: 'active' }}">
                                     <i class="nav-icon fas fa-boxes"></i>
-                                    <p>Inventario</p>
+                                    <p>{{ trans('ptventa::general.Inventory')}}</p>
                                 </a>
                             </li>
                         @endif
@@ -95,7 +95,7 @@
                                 <a href="{{ route('ptventa.sale.index') }}"
                                     class="nav-link {{ !Route::is('ptventa.sale.index*') ?: 'active' }}">
                                     <i class="nav-icon fas fa-shopping-cart"></i>
-                                    <p>Ventas</p>
+                                    <p>{{ trans('ptventa::general.Sales')}}</p>
                                 </a>
                             </li>
                         @endif
@@ -104,7 +104,7 @@
                                 <a href="{{ route('ptventa.element.image.index') }}"
                                     class="nav-link {{ !Route::is('ptventa.element.image.index*') ?: 'active' }}">
                                     <i class="nav-icon fas fa-image"></i>
-                                    <p>Productos</p>
+                                    <p>{{ trans('ptventa::general.Products')}}</p>
                                 </a>
                             </li>
                         @endif
@@ -113,7 +113,7 @@
                                 <a href="{{ route('ptventa.cash.index') }}"
                                     class="nav-link {{ !Route::is('ptventa.cash.index*') ?: 'active' }}">
                                     <i class="nav-icon fas fa-cash-register"></i>
-                                    <p>Caja</p>
+                                    <p>{{ trans('ptventa::general.Cash')}}</p>
                                 </a>
                             </li>
                         @endif
@@ -122,7 +122,7 @@
                             <a href="{{ route('ptventa.report.form') }}"
                                 class="nav-link {{ !Route::is('ptventa.report.form*') ?: 'active' }}">
                                 <i class="nav-icon fas fa-poll"></i>
-                                <p>Reporte</p>
+                                <p>{{ trans('ptventa::general.Reports')}}</p>
                             </a>
                         </li>
                     @endif
@@ -131,14 +131,14 @@
                         <a href="{{ route('cefa.ptventa.devs') }}"
                             class="nav-link {{ !Route::is('cefa.ptventa.devs*') ?: 'active' }}">
                             <i class="nav-icon fas fa-code"></i>
-                            <p>Desarrolladores</p>
+                            <p>{{ trans('ptventa::general.Developers')}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('cefa.ptventa.info') }}"
                             class="nav-link {{ !Route::is('cefa.ptventa.info*') ?: 'active' }}">
                             <i class="nav-icon fas fa-info"></i>
-                            <p>Acerca de</p>
+                            <p>{{ trans('ptventa::general.About us')}}</p>
                         </a>
                     </li>
                 </ul>

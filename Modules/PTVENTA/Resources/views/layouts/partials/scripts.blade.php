@@ -3,6 +3,6 @@
 <!-- AdminLTE -->
 <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
 <!-- Boostrap 5 -->
-<link rel="stylesheet" href=" {{ asset('libs/Bootstrap-5.3.0-alpha/js/bootstrap.bundle.min.js') }}" crossorigin="anonymous">
-
-
+<script src="{{ asset('libs/Bootstrap-5.3.0-alpha/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

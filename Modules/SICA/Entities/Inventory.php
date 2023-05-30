@@ -70,4 +70,3 @@ class Inventory extends Model implements Auditable
     }
 
 }
-
