@@ -40,6 +40,11 @@
                              step="0.01" required>
                      </div>
 
+                     <div class="form-group">
+                        <label for="closing_time">Hora de Cierre</label>
+                        <input type="time" id="closing_time" name="closing_time" class="form-control" required>
+                     </div>
+
                      <button type="submit" class="btn btn-primary">Guardar</button>
                  </form>
              </div>

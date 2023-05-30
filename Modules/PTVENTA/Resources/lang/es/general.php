@@ -15,6 +15,8 @@ return [
     'Sales' => 'Ventas',
     'Products' => 'Productos',
     'Cash' => 'Caja',
+    'Cash Opening' => 'Apertura de Caja',
+    'Cash Closing' => 'Cierre de Caja',
     'Reports' => 'Reportes',
     'Developers' => 'Desarrolladores',
     'About us' => 'Acerca de',

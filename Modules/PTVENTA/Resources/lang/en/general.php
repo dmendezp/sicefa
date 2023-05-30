@@ -15,6 +15,8 @@ return [
     'Sales' => 'Sales',
     'Products' => 'Products',
     'Cash' => 'Cash',
+    'Cash Opening' => 'Cash Opening',
+    'Cash Closing' => 'Cash Closing',
     'Reports' => 'Reports',
     'Developers' => 'Developers',
     'About us' => 'About us',

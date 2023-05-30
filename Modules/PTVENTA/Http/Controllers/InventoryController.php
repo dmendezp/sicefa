@@ -4,6 +4,7 @@ namespace Modules\PTVENTA\Http\Controllers;
 use Modules\SICA\Entities\Inventory;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
+use Modules\SICA\Entities\MovementDetail;
 use Illuminate\Http\Request;
 use Modules\SICA\Entities\Element;
 
@@ -43,7 +44,7 @@ class InventoryController extends Controller
     return view('ptventa::inventory.status', compact('view','productosVencidos', 'productosPorVencer'));
 
     }
- 
+
     public function low() { //registro de bajas
         $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Registro de Bajas'];
         return view('ptventa::inventory.low', compact('view'));
@@ -51,18 +52,23 @@ class InventoryController extends Controller
     }
 
     //funciones para reporte
-    public function form(Request $request) { //formulario de fechas para generar reporte
-        $view = ['titlePage'=>'Reporte - Productos', 'titleView'=>'Reporte de productos'];
+    public function form(){
+        $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de inventario'];
+        return view('ptventa::report.form', compact('view'));
+    }
+
+    public function result_form(Request $request) { //formulario de fechas para generar reporte
+        $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de inventario'];
         $fi = $request->fecha_ini.' 00:00:00';
         $ff = $request->fecha_fin.' 23:59:59';
-        $element = Element::whereBetween('created_at', [$fi, $ff])->get();
-        return view('ptventa::report.form', compact('view', 'element'));
+        $report = MovementDetail::whereBetween('created_at', [$fi, $ff])->get();
+        return view('ptventa::report.table', compact('view', 'report'));
     }
 
     public function table() { //Tabla con resultados de busqueda
-        $view = ['titlePage'=>'Reporte - Productos', 'titleView'=>'Reporte de productos'];
-        $element = Element::whereDate('created_at', Carbon::now())->get();
-        return view('ptventa::report.table', compact('view', 'element'));
+        $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de Inventario'];
+        $report = MovementDetail::whereDate('created_at', Carbon::today('America/Bogota'))->get();
+        return view('ptventa::report.table', compact('view', 'report'));
     }
 
 

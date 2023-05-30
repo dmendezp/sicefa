@@ -26,12 +26,12 @@
                         <th class="text-center">Total</th>
                 </thead>
                 <tbody class="table-group-divider">
-                    @foreach ($element as $e)
+                    @foreach ($report as $r)
                         <tr>
-                            <td class="text-center">{{ $e->name }}</td>
+                            <td class="text-center">{{ $r->movement_details->inventory->element->name }}</td>
                             <td class="text-center">xxxxxxxx</td>
-                            <td class="text-center">{{ $e->}}</td>
-                            <td class="text-center">mbrpmbr</td>
+                            <td class="text-center">{{ $r->price }}</td>
+                            <td class="text-center">{{ $r->amount }}</td>
                             <td class="text-center">kmogmnotg</td>
                             <td class="text-center">65265872365326</td>
                         </tr>

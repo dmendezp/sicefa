@@ -8,17 +8,17 @@
 @endpush
 
 @section('content')
-<form action="{{ route('ptventa.report.form') }}" method="POST">
+<form action="{{ route('ptventa.report.result_form') }}" method="POST">
 <div class="card w-50 mb-3">
     <div class="card-body">
         <label>Fecha inicial</label>
         <input type="date" value="{{old('fecha_ini')}}" id="fecha_ini" name="fecha_ini" class="form-control" required>
 
         <label>Fecha final</label>
-        <input type="date" value="{{old('fecha_fin')}}" id="fecha_fin" name="fecha_fin" class="form-control" required>
+        <input type="date" value="{{old('fecha_fin')}}" id="fecha_fin" name="fecha_fin" class="form-control" disabled>
     </div>
     <div class="card-footer">
-        <button type="submit" class="btn btn-succes btn-sm">Consultar</button>
+        <button type="submit" class="btn btn-success">Consultar</button>
     </div>
   </div>
 
@@ -29,7 +29,7 @@
 @push('scripts')
 <script>
     window.onload = function(){
-        var fecha = new.Date(); //fecha actual
+        var fecha = new Date(); //fecha actual
         var mes = fecha.getMonth()+1; //obteniendo mes
         var dia = fecha.getDate(); //obteniendo dia
         var ano = fecha.getFullYear(); //obteniendo año
