@@ -31,8 +31,8 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('low', 'low')->name('ptventa.inventory.low');
 
             //Ruta de reporte
-            Route::get('form', 'form')->name('ptventa.report.form');
-            Route::get('table', 'table')->name('ptventa.report.table');
+            Route::get('report/form', 'form')->name('ptventa.report.form');
+            Route::get('report/table', 'table')->name('ptventa.report.table');
         });
 
         //Rutas para Ventas
