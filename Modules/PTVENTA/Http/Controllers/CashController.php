@@ -48,6 +48,7 @@ class CashController extends Controller
         $arqueo->initial_balance = $request->initial_balance;
         $arqueo->final_balance = $request->final_balance;
         $arqueo->difference = $request->final_balance - $request->initial_balance;
+        $arqueo->closing_time = $request->closing_time;
         $arqueo->state = "Abierta";
         $arqueo->save();
 
