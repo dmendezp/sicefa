@@ -265,16 +265,16 @@ class GenerateSale extends Component
 
             // Generar número de comprobante
             $error = 'NÚMERO DE COMPROBANTE';
-            $movementType = MovementType::where('name','Venta')->firstOrFail();
+            $movementType = MovementType::where('name','Venta')->first();
             $movementType->update(['consecutive' => $movementType->consecutive + 1]);
             $movement->update(['voucher_number' => $movementType->consecutive]);
 
             DB::commit(); // Confirmar cambios realizados durante la transacción
 
             // Transacción completada exitosamente
+            $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente.', 2000);
             $this->defaultAction();
             $this->emit('clear-sale-values'); // Limpiar valores de venta
-            $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente ('.$movement->price.').');
         } catch (Exception $e) { // Capturar error durante la transacción
             // Transacción rechazada
             DB::rollBack(); // Devolver cambios realizados durante la transacción
