@@ -129,7 +129,7 @@
                     </ul>
 
                     <div class="text-center mt-2">
-                        <button class="btn btn-sm btn-success" id="sale_button" wire:click="registerSale" disabled>
+                        <button class="btn btn-sm btn-success" id="sale_button" wire:click="registerSale($('#change_value').val())" disabled>
                             <i class="far fa-plus-square"></i>
                             Registrar Venta
                         </button>
@@ -209,7 +209,7 @@
                 html: (type == 'success') ?
                     '<div class="bg-light py-2">' +
                         '<p class="text-secondary">Tiene un cambio de:</p>' +
-                        '<h1>'+ $('#change_value') +'</h1>' +
+                        '<h1>'+ change_value +'</h1>' +
                     '</div>'
                     : null,
                 icon: type,
@@ -218,7 +218,7 @@
                 confirmButtonColor: 'green'
             });
         });
-        
+
         // Calcular valor de cambio
         Livewire.on('change_value', function(){
             $('#payment_value').trigger('input');
