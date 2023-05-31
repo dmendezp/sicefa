@@ -30,7 +30,7 @@ class RolesTableSeeder extends Seeder
 
     // Registrar o actualizar rol de ADMINISTRADOR
     $rol_admin = Role::updateOrCreate(['slug' => 'cefamaps.admin'], [
-      'name' => 'Administrador',
+      'name' => 'Administrador CEFAMAPS',
       'description' => 'Rol Administrador de la aplicacion CEFAMAPS',
       'description_english' => 'CEFAMAPS Application Administrator Role',
       'app_id' => $app->id
