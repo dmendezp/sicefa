@@ -2,6 +2,7 @@
 
 namespace Modules\PTVENTA\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -16,9 +17,9 @@ class CashController extends Controller
      */
     public function index()
     {
-        $arqueos = CashCount::orderBy('updated_at', 'DESC')->get(); 
+        $cashCounts = CashCount::orderBy('updated_at', 'DESC')->get(); 
         $view = ['titlePage'=>'PTVENTA - Inicio', 'titleView'=>'Caja'];
-        return view('ptventa::cash.index', compact('view', 'arqueos'));
+        return view('ptventa::cash.index', compact('view', 'cashCounts'));
     }
 
     /**
@@ -43,15 +44,15 @@ class CashController extends Controller
             'final_balance' => 'required|numeric',
         ]);
 
-        $arqueo = new CashCount();
-        $arqueo->person_id = Auth::user()->person_id;
-        $arqueo->date = $request->date;
-        $arqueo->initial_balance = $request->initial_balance;
-        $arqueo->final_balance = $request->final_balance;
-        $arqueo->difference = $request->final_balance - $request->initial_balance;
-        $arqueo->closing_time = $request->closing_time;
-        $arqueo->state = "Abierta";
-        $arqueo->save();
+        $cashCount = new CashCount();
+        $cashCount->person_id = Auth::user()->person_id;
+        $cashCount->date = Carbon::now(); //La función now() es una función proporcionada por Laravel que devuelve una instancia de la clase Carbon, capturando el valor de la hora en tiempo real.
+        $cashCount->initial_balance = $request->initial_balance;
+        $cashCount->final_balance = $request->final_balance;
+        $cashCount->difference = $request->final_balance - $request->initial_balance;
+        $cashCount->closing_time = $request->closing_time;
+        $cashCount->state = "Abierta";
+        $cashCount->save();
 
         return redirect()->route('ptventa.cash.index')->with('success', 'Arqueo de caja guardado correctamente.');
     }

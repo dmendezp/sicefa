@@ -9,23 +9,23 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h1>Arqueo de Caja</h1>
+                    <h3>Arqueo de Caja</h3>
 
                     <form id="arqueo-form" method="POST" action="{{ route('ptventa.cashCount.store') }}">
                         @csrf
 
                         <div class="form-group">
-                            <label for="person_id">Nombre del encargado de apertura:</label>
+                            <label for="person_id">Encargado de apertura:</label>
                             <input type="text" id="person_id" class="form-control"
                                 value="{{ Auth::User()->person->full_name }}" disabled>
                         </div>
 
                         <div class="form-group">
                             <label for="date">Fecha de Apertura</label>
-                            <input type="datetime-local" id="date" name="date" class="form-control" required>
+                            <input type="datetime-local" id="date" name="date" class="form-control" required readonly>
                         </div>
 
                         <div class="form-group">
@@ -50,10 +50,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
+            <div class="card-header">
+                <h4>Historico de Cajas</h4>
+            </div>
             <div class="card">
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table" id="tableCashCount">
                         <thead>
                             <tr>
                                 <th scope="col">N°</th>
@@ -67,16 +70,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($arqueos as $arqueo)
+                            @foreach ($cashCounts as $cashCount)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $arqueo->person->full_name}}</td>
-                                <td>{{ $arqueo->date }}</td>
-                                <td>{{ $arqueo->initial_balance }}</td>
-                                <td>{{ $arqueo->final_balance }}</td>
-                                <td>{{ $arqueo->difference }}</td>
-                                <td>{{ $arqueo->closing_time }}</td>
-                                <td>{{ $arqueo->state }}</td>
+                                <td>{{ $cashCount->person->full_name}}</td>
+                                <td>{{ $cashCount->date }}</td>
+                                <td>{{ $cashCount->initial_balance }}</td>
+                                <td>{{ $cashCount->final_balance }}</td>
+                                <td>{{ $cashCount->difference }}</td>
+                                <td>{{ $cashCount->closing_time }}</td>
+                                <td>{{ $cashCount->state }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -88,6 +91,7 @@
 @endsection
 
 @include('ptventa::layouts.partials.plugins.sweetalert2')
+@include('ptventa::layouts.partials.plugins.datatables')
 
 @push('scripts')
     <script>
@@ -123,4 +127,36 @@
             @endif
         });
     </script>
+    <script>
+        $(document).ready(function () { /* Initialización of Datatables ---Category */
+            $('#tableCashCount').DataTable({
+                // opciones de configuración para la tabla 1
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('date');
+    
+            function formatDateTime(date) {
+                const year = date.getFullYear();
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                const day = date.getDate().toString().padStart(2, '0');
+                const hours = date.getHours().toString().padStart(2, '0');
+                const minutes = date.getMinutes().toString().padStart(2, '0');
+                const seconds = date.getSeconds().toString().padStart(2, '0');
+                return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+            }
+    
+            function updateDate() {
+                const currentDate = formatDateTime(new Date());
+                dateInput.value = currentDate;
+            }
+    
+            updateDate(); // Actualizar la fecha inicialmente
+    
+            setInterval(updateDate, 1000); // Actualizar la fecha cada segundo
+        });
+    </script>
+    
 @endpush
