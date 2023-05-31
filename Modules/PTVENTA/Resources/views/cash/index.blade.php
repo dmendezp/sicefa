@@ -12,15 +12,13 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h3>Arqueo de Caja</h3>
-
+                    <h4 class="text-center">Arqueo de Caja</h4>
+                    <hr>
                     <form id="arqueo-form" method="POST" action="{{ route('ptventa.cashCount.store') }}">
                         @csrf
-
                         <div class="form-group">
                             <label for="person_id">Encargado de apertura:</label>
-                            <input type="text" id="person_id" class="form-control"
-                                value="{{ Auth::User()->person->full_name }}" disabled>
+                            <input type="text" id="person_id" class="form-control" value="{{ Auth::User()->person->full_name }}" disabled>
                         </div>
 
                         <div class="form-group">
@@ -30,14 +28,13 @@
 
                         <div class="form-group">
                             <label for="initial_balance">Saldo Inicial</label>
-                            <input type="number" id="initial_balance" name="initial_balance" class="form-control"
-                                step="0.01" required>
+                            <input type="number" id="initial_balance" name="initial_balance" class="form-control" step="0.01" required>
+                            <div class="form-text">*Utilice directamente las teclas de su teclado</div>
                         </div>
 
                         <div class="form-group">
                             <label for="final_balance">Saldo Final</label>
-                            <input type="number" id="final_balance" name="final_balance" class="form-control"
-                                step="0.01" required>
+                            <input type="number" id="final_balance" name="final_balance" class="form-control" step="0.01" required>
                         </div>
 
                         <div class="form-group">
@@ -45,48 +42,51 @@
                             <input type="time" id="closing_time" name="closing_time" class="form-control" required>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <div class="text-center"> <!-- Agregar la clase text-center al contenedor del botón -->
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
         <div class="col-md-8">
-            <div class="card-header">
-                <h4>Historico de Cajas</h4>
-            </div>
             <div class="card">
                 <div class="card-body">
-                    <table class="table" id="tableCashCount">
-                        <thead>
-                            <tr>
-                                <th scope="col">N°</th>
-                                <th scope="col">Encargado</th>
-                                <th scope="col">Fecha de apertura</th>
-                                <th scope="col">Saldo Inicial</th>
-                                <th scope="col">Saldo Final</th>
-                                <th scope="col">Diferencia</th>
-                                <th scope="col">Hora de cierre</th>
-                                <th scope="col">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($cashCounts as $cashCount)
-                            <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $cashCount->person->full_name}}</td>
-                                <td>{{ $cashCount->date }}</td>
-                                <td>{{ $cashCount->initial_balance }}</td>
-                                <td>{{ $cashCount->final_balance }}</td>
-                                <td>{{ $cashCount->difference }}</td>
-                                <td>{{ $cashCount->closing_time }}</td>
-                                <td>{{ $cashCount->state }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <h4 class="text-center">Histórico de Cajas</h4>
+                    <hr>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="tableCashCount">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">N°</th>
+                                    <th scope="col">Encargado</th>
+                                    <th scope="col">Fecha de apertura</th>
+                                    <th scope="col">Saldo Inicial</th>
+                                    <th scope="col">Saldo Final</th>
+                                    <th scope="col">Diferencia</th>
+                                    <th scope="col">Hora de cierre</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($cashCounts as $cashCount)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $cashCount->person->full_name}}</td>
+                                    <td>{{ $cashCount->date }}</td>
+                                    <td>{{ $cashCount->initial_balance }}</td>
+                                    <td>{{ $cashCount->final_balance }}</td>
+                                    <td>{{ $cashCount->difference }}</td>
+                                    <td>{{ $cashCount->closing_time }}</td>
+                                    <td>{{ $cashCount->state }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>        
+        </div>          
     </div>
 @endsection
 
