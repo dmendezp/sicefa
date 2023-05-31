@@ -44,8 +44,8 @@
                       <td>{{$env->name}}</td>
                       <td><img src="{{ asset('modules/cefamaps/images/uploads/'.$env->picture) }}" width="100" height="100"></td>
                       <td>{{$env->description}}</td>
-                      <td>{{$env->farms}}</td>
-                      <td>{{$env->productive_units}}</td>
+                      <td>{{$env->farm->name}}</td>
+                      <td>{{$env->productive_unit->name}}</td>
                       <td>{{$env->status}}</td>
                       <!-- Inicio del modal pra las coordenadas -->
                       <td>
@@ -91,7 +91,7 @@
                                       <h3 class="modal-title">{{ trans('cefamaps::environment.Length') }}</h3>
                                     </div>
                                     <div class="modal-body">
-                                      @foreach($env->coordinate as $c)
+                                      @foreach($env->coordinates as $c)
                                       <h5>{{$c->length}}</h5>
                                       @endforeach
                                     </div>
@@ -101,7 +101,7 @@
                                       <h3 class="modal-title">{{ trans('cefamaps::environment.Latitude') }}</h3>
                                     </div>
                                     <div class="modal-body">
-                                      @foreach($env->coordinate as $c)
+                                      @foreach($env->coordinates as $c)
                                       <h5>{{$c->latitude}}</h5>
                                       @endforeach
                                     </div>
@@ -112,7 +112,7 @@
                         </div>
                       </td>
                       <!-- Fin del modal pra las coordenadas -->
-                      <td>{{$env->class_environments}}</td>
+                      <td>{{$env->class_environment->name}}</td>
                       <!-- Inicio del ID para el filtro de las paginas -->
                       <td>
                         <a class="btn btn-primary" href="{{url('/cefamaps/page/index?id='.$env->id)}}">

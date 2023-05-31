@@ -137,13 +137,13 @@
                                         <div class="content">
                                             <!-- inicio de las longitudes y latitudes -->
                                             <div class="form-group">
-                                                @foreach($editenviron->coordinate as $c)
+                                                @foreach($editenviron->coordinates as $c)
                                                     <div id="inputFormRow{{$c->id}}">
+                                                        <input type="hidden" name="idcoord[]" id="idcoordenada" value="{{$c->id}}">
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="length">{{ trans('cefamaps::environment.Length') }}</label>
-                                                                    <input type="hidden" name="idcoord[]" id="idcoordenada" value="{{$c->id}}">
                                                                     <input type="text" class="form-control m-input" id="length[]" name="length[]" value="{{$c->length}}">
                                                                 </div>
                                                             </div>
@@ -257,7 +257,6 @@
                 long: longitud,
             },
             success: function(response){
-                console.log(response);
                 $("#btnCrear").closest('#btnCrear').remove();
             }
         });
@@ -268,10 +267,8 @@
     <!-- Inicio mapa para las cooordenadas -->
     <script type="text/javascript">
     function initMap(){
-      @foreach($editenviron->coordinate as $c)
       var latitude = {{$c->latitude}};
       var length = {{$c->length}};
-      @endforeach
 
       coordenas = {
         lng: length,

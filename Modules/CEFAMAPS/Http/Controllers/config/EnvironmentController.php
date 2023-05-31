@@ -28,7 +28,7 @@ class EnvironmentController extends Controller
         $farm = Farm::get();
         $sector = Sector::get();
         $classenviron = ClassEnvironment::get();
-        $environ = Environment::with('coordinate')->get();
+        $environ = Environment::with('coordinates')->get();
         $data = ['title'=>trans('cefamaps::environment.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'sector'=>$sector, 'classenviron'=>$classenviron];
         return view('cefamaps::admin.environment.index',$data);
     }
@@ -105,7 +105,7 @@ class EnvironmentController extends Controller
         $classenviron = ClassEnvironment::get();
         $classenvironedit = ClassEnvironment::pluck('name','id');
         $coor = Coordinate::get();
-        $editenviron = Environment::with('coordinate')->find($id);
+        $editenviron = Environment::with('coordinates')->find($id);
         $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'coor'=>$coor, 'editenviron'=>$editenviron, 'classenviron'=>$classenviron, 'sector'=>$sector, 'unitedit'=>$unitedit, 'classenvironedit'=>$classenvironedit];
         return view('cefamaps::admin.environment.edit',$data);
     }
@@ -205,8 +205,8 @@ class EnvironmentController extends Controller
     public function destroy($id)
     {
         $remove = Environment::findOrFail($id);
-        $remove->coordinate()->delete();
-        $remove->page()->delete();
+        $remove->coordinates()->delete();
+        $remove->pages()->delete();
         if ($remove->delete()) {
             return back();
         }
