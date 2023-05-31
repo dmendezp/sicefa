@@ -70,16 +70,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($arqueos as $arqueo)
+                            @foreach ($cashCounts as $cashCount)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $arqueo->person->full_name}}</td>
-                                <td>{{ $arqueo->date }}</td>
-                                <td>{{ $arqueo->initial_balance }}</td>
-                                <td>{{ $arqueo->final_balance }}</td>
-                                <td>{{ $arqueo->difference }}</td>
-                                <td>{{ $arqueo->closing_time }}</td>
-                                <td>{{ $arqueo->state }}</td>
+                                <td>{{ $cashCount->person->full_name}}</td>
+                                <td>{{ $cashCount->date }}</td>
+                                <td>{{ $cashCount->initial_balance }}</td>
+                                <td>{{ $cashCount->final_balance }}</td>
+                                <td>{{ $cashCount->difference }}</td>
+                                <td>{{ $cashCount->closing_time }}</td>
+                                <td>{{ $cashCount->state }}</td>
                             </tr>
                             @endforeach
                         </tbody>
