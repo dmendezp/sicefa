@@ -2,6 +2,7 @@
 
 namespace Modules\PTVENTA\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -45,7 +46,7 @@ class CashController extends Controller
 
         $cashCount = new CashCount();
         $cashCount->person_id = Auth::user()->person_id;
-        $cashCount->date = $request->date;
+        $cashCount->date = Carbon::now(); //La función now() es una función proporcionada por Laravel que devuelve una instancia de la clase Carbon, capturando el valor de la hora en tiempo real.
         $cashCount->initial_balance = $request->initial_balance;
         $cashCount->final_balance = $request->final_balance;
         $cashCount->difference = $request->final_balance - $request->initial_balance;
