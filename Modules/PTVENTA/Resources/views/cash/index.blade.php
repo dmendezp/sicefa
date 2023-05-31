@@ -9,10 +9,10 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h1>Arqueo de Caja</h1>
+                    <h3>Arqueo de Caja</h3>
 
                     <form id="arqueo-form" method="POST" action="{{ route('ptventa.cashCount.store') }}">
                         @csrf
@@ -50,10 +50,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
+            <div class="card-header">
+                <h4>Historico de Cajas</h4>
+            </div>
             <div class="card">
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table" id="tableCashCount">
                         <thead>
                             <tr>
                                 <th scope="col">N°</th>
@@ -88,6 +91,7 @@
 @endsection
 
 @include('ptventa::layouts.partials.plugins.sweetalert2')
+@include('ptventa::layouts.partials.plugins.datatables')
 
 @push('scripts')
     <script>
@@ -121,6 +125,13 @@
                     'success'
                 );
             @endif
+        });
+    </script>
+    <script>
+        $(document).ready(function () { /* Initialización of Datatables ---Category */
+            $('#tableCashCount').DataTable({
+                // opciones de configuración para la tabla 1
+            });
         });
     </script>
 @endpush

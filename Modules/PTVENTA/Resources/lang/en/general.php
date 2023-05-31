@@ -14,7 +14,7 @@ return [
     'Inventory' => 'Inventory',
     'Sales' => 'Sales',
     'Products' => 'Products',
-    'Cash' => 'Cash',
+    'Cash control' => 'Cash control',
     'Cash Opening' => 'Cash Opening',
     'Cash Closing' => 'Cash Closing',
     'Reports' => 'Reports',

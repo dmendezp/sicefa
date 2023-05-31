@@ -113,7 +113,7 @@
                                 <a href="#" class="nav-link {{ !Route::is('ptventa.cash.index*') ?: 'active' }}">
                                 <i class="nav-icon fas fa-cash-register"></i>
                                 <p>
-                                    {{ trans('ptventa::general.Cash')}}
+                                    {{ trans('ptventa::general.Cash control')}}
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                                 </a>
