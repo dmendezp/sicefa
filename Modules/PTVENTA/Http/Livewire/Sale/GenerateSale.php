@@ -174,7 +174,7 @@ class GenerateSale extends Component
     }
 
     // Ristrar venta
-    public function registerSale(){
+    public function registerSale($value){
         // Verificar si hay algún producto seleccionado
         if($this->product_id <> null){
             if($this->product_amount >= 1){
@@ -265,21 +265,21 @@ class GenerateSale extends Component
 
             // Generar número de comprobante
             $error = 'NÚMERO DE COMPROBANTE';
-            $movementType = MovementType::where('name','Venta')->firstOrFail();
+            $movementType = MovementType::where('name','Venta')->first();
             $movementType->update(['consecutive' => $movementType->consecutive + 1]);
             $movement->update(['voucher_number' => $movementType->consecutive]);
 
             DB::commit(); // Confirmar cambios realizados durante la transacción
 
             // Transacción completada exitosamente
+            $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente.', $value);
             $this->defaultAction();
             $this->emit('clear-sale-values'); // Limpiar valores de venta
-            $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente ('.$movement->price.').');
         } catch (Exception $e) { // Capturar error durante la transacción
             // Transacción rechazada
             DB::rollBack(); // Devolver cambios realizados durante la transacción
             $this->emit('change_value'); // Calcular valor de cambio
-            $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta en '.$error.'. Por favor intente nuevamente.');
+            $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta en '.$error.'. Por favor intente nuevamente.', null);
         }
     }
 }

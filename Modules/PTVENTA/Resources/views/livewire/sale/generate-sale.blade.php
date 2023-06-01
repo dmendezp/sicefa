@@ -129,7 +129,7 @@
                     </ul>
 
                     <div class="text-center mt-2">
-                        <button class="btn btn-sm btn-success" id="sale_button" wire:click="registerSale" disabled>
+                        <button class="btn btn-sm btn-success" id="sale_button" wire:click="registerSale($('#change_value').val())" disabled>
                             <i class="far fa-plus-square"></i>
                             Registrar Venta
                         </button>
@@ -201,11 +201,17 @@
         });
 
         // lanzar mensajes
-        Livewire.on('message', function(type, action, message) {
+        Livewire.on('message', function(type, action, message, change_value) {
             color = (type=='success') ? 'green' : ((type=='error') ? 'red' : 'default');
             Swal.fire({
                 title: action,
                 text: message,
+                html: (type == 'success') ?
+                    '<div class="bg-light py-2">' +
+                        '<p class="text-secondary">Tiene un cambio de:</p>' +
+                        '<h1>'+ change_value +'</h1>' +
+                    '</div>'
+                    : null,
                 icon: type,
                 iconColor: color,
                 confirmButtonText: 'Aceptar',
