@@ -37,7 +37,7 @@ class InventoryController extends Controller
         $view = ['titlePage'=>'Inventario - Registro', 'titleView'=>'Estado de productos '];
         $productosVencidos = Inventory::where('expiration_date', '<', now())->get();
         $productosPorVencer = Inventory::where('expiration_date', '>=', now())
-                                    ->where('expiration_date', '<=', now()->addDays(7))
+                                    ->where('expiration_date', '<=', now()->addDays(3))
                                     ->get();
 
 

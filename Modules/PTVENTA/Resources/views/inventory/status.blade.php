@@ -3,9 +3,9 @@
     
     .table-status{
         top:20px;
-        width:400px;
+        width:600px;
         float: left;
-        margin-right: 10px;
+        margin-right: 18px;
 
     }
 
@@ -13,7 +13,7 @@
         top:20px;
         width:600px;
         float: left;
-        margin-right: 10px;
+        margin-right: 90px;
     }
 </style>
 
@@ -45,17 +45,22 @@
                         <thead class="table-dark">
                             <thead>
                                 <tr>
+                                <th class="text-center">Cantidad</th>
                                     <th class="text-center">Productos</th>
                                     <th class="text-center">Fecha</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                <tr>
+                                
                                     @foreach ($productosVencidos as $producto)
+                                    <tr>
+                                    <td><strong>{{ $producto->amount}}</strong></td>
                                     <td><strong>{{ $producto->element->name }}</strong></td>
                                     <td class="text-center">{{ $producto->expiration_date }}</td>
+                                    
+                                    </tr>
                                     @endforeach
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -76,17 +81,20 @@
                             <thead class="table-dark"></thead>
                             <thead>
                                 <tr>
+                                    <th class="text-center">Cantidad</th>
                                     <th class="text-center">Productos</th>
                                     <th class="text-center">Fecha</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                <tr>
                                     @foreach ($productosPorVencer as $producto)
+                                <tr>
+                                    <td><strong>{{ $producto->amount}}</strong></td>
                                     <td><strong>{{ $producto->element->name }}</strong></td>
                                     <td class="text-center">{{ $producto->expiration_date }}</p>
-                                    @endforeach
                                 </tr>
+
+                                    @endforeach
                             </tbody>
                         </table>
                     </div>
