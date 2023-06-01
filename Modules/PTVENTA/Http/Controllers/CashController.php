@@ -41,7 +41,6 @@ class CashController extends Controller
         $request->validate([
             'date' => 'required|date',
             'initial_balance' => 'required|numeric',
-            'final_balance' => 'required|numeric',
         ]);
 
         $cashCount = new CashCount();
