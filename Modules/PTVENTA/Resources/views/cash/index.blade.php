@@ -3,7 +3,7 @@
 @push('breadcrumbs')
     <li class="breadcrumb-item">
         <a href="{{ route('ptventa.cash.index') }}" class="text-decoration-none">Caja</a>
-    <li class="breadcrumb-item active">Arqueo Caja</li>
+    <li class="breadcrumb-item active">Apertura de Caja</li>
     </li>
 @endpush
 
@@ -12,40 +12,41 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="text-center">Arqueo de Caja</h4>
+                    <h4 class="text-center">Apertura de Caja</h4>
                     <hr>
-                    <form id="arqueo-form" method="POST" action="{{ route('ptventa.cashCount.store') }}">
-                        @csrf
+                    {!! Form::open(['route' => 'ptventa.cashCount.store', 'id' => 'arqueo-form']) !!}
+                        <!-- Campos del formulario -->
                         <div class="form-group">
-                            <label for="person_id">Encargado de apertura:</label>
-                            <input type="text" id="person_id" class="form-control" value="{{ Auth::User()->person->full_name }}" disabled>
+                            {{ Form::label('person_id', 'Encargado de apertura:') }}
+                            {{ Form::text('person_id', Auth::user()->person->full_name, ['class' => 'form-control', 'disabled']) }}
                         </div>
 
                         <div class="form-group">
-                            <label for="date">Fecha de Apertura</label>
-                            <input type="datetime-local" id="date" name="date" class="form-control" required readonly>
+                            {{ Form::label('date', 'Fecha de Apertura') }}
+                            {{ Form::datetimeLocal('date', null, ['class' => 'form-control', 'required', 'readonly']) }}
                         </div>
 
                         <div class="form-group">
-                            <label for="initial_balance">Saldo Inicial</label>
-                            <input type="number" id="initial_balance" name="initial_balance" class="form-control" step="0.01" required>
+                            {{ Form::label('initial_balance', 'Saldo Inicial') }}
+                            {{ Form::number('initial_balance', null, ['class' => 'form-control', 'step' => '0.01', 'required']) }}
                             <div class="form-text">*Utilice directamente las teclas de su teclado</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="final_balance">Saldo Final</label>
-                            <input type="number" id="final_balance" name="final_balance" class="form-control" step="0.01" required>
+                            {{ Form::label('final_balance', 'Saldo Final') }}
+                            {{ Form::number('final_balance', null, ['class' => 'form-control', 'step' => '0.01', 'required'])}}
                         </div>
 
                         <div class="form-group">
-                            <label for="closing_time">Hora de Cierre</label>
-                            <input type="time" id="closing_time" name="closing_time" class="form-control" required>
+                            {{ Form::label('closing_time', 'Hora de Cierre') }}
+                            {{ Form::time('closing_time', null, ['class' => 'form-control', 'required'])}}
                         </div>
 
-                        <div class="text-center"> <!-- Agregar la clase text-center al contenedor del botón -->
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        <div class="text-center">
+                            {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
                         </div>
-                    </form>
+                    {!! Form::close() !!}
+
                 </div>
             </div>
         </div>
@@ -101,7 +102,6 @@
             'arqueo-form'); // Se obtiene el elemento del formulario con el ID "arqueo-form" y se almacena en la variable form.
 
             form.addEventListener('submit', (event) => {
-                event.preventDefault();
 
                 Swal.fire({
                     title: '¿Deseas guardar el arqueo?',
@@ -134,29 +134,5 @@
             });
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const dateInput = document.getElementById('date');
-    
-            function formatDateTime(date) {
-                const year = date.getFullYear();
-                const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                const day = date.getDate().toString().padStart(2, '0');
-                const hours = date.getHours().toString().padStart(2, '0');
-                const minutes = date.getMinutes().toString().padStart(2, '0');
-                const seconds = date.getSeconds().toString().padStart(2, '0');
-                return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-            }
-    
-            function updateDate() {
-                const currentDate = formatDateTime(new Date());
-                dateInput.value = currentDate;
-            }
-    
-            updateDate(); // Actualizar la fecha inicialmente
-    
-            setInterval(updateDate, 1000); // Actualizar la fecha cada segundo
-        });
-    </script>
-    
+    <script src="{{ asset('modules/ptventa/js/cashCount/dateTimeNow.js')}}"></script>    
 @endpush
