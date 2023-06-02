@@ -16,7 +16,7 @@ class CreateCashCountsTable extends Migration
         Schema::create('cash_counts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
-            $table->dateTime('date');
+            $table->dateTime('opening_date');
             $table->decimal('initial_balance', 10, 2);
             $table->decimal('final_balance', 10, 2)->nullable();
             $table->decimal('difference', 10, 2)->nullable();

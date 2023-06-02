@@ -19,7 +19,7 @@ class CashCount extends Model implements Auditable
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'person_id',
-        'date',
+        'opening_date',
         'initial_balance',
         'final_balance',
         'difference',
