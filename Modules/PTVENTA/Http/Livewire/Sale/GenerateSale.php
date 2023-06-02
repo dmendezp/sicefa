@@ -31,18 +31,23 @@ class GenerateSale extends Component
     public $payment_value; // Contiene el valor de pago
     public $change_value; // Contiene el valor de cambio a partir de la resta entre el valor de pago y el total de la venta
     public Collection $selected_products; // Productos seleccionados
+    public $customer_document_number = 123456789; // Número de documento del cliente
+    public $customer_document_type; // Tipo de documento del cliente
+    public $customer_full_name; // Nombre completo del cliente
 
     public function __construct()
     {
         $this->selected_products = collect(); // Inicializar la varible que cotiene la información de los productos seleccionados
     }
 
-    public function mount(){ // Ejecución del método cuando se llama por primera vez el componente
-        $this->defaultAction();
+    // La siquiente función es ejecutada cuando el componente es llamado por primera vez
+    public function mount(){
+        $this->defaultAction(); // Restablecer valores de todos los atributos y consultar productos disponibles para la venta
+        $this->consultCustomer(); // Consultar y verificar cliente
+
     }
 
-    public function render()
-    {
+    public function render(){
         return view('ptventa::livewire.sale.generate-sale');
     }
 
@@ -280,6 +285,21 @@ class GenerateSale extends Component
             DB::rollBack(); // Devolver cambios realizados durante la transacción
             $this->emit('change_value'); // Calcular valor de cambio
             $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta en '.$error.'. Por favor intente nuevamente.', null);
+        }
+    }
+
+    // Consultar cliente para el registro de la venta
+    public function consultCustomer(){
+        $customer = Person::where('document_number',$this->customer_document_number)->first();
+        if($customer){
+            $this->customer_document_number = $customer->document_number;
+            $this->customer_document_type = $customer->document_type;
+            $this->customer_full_name = $customer->full_name;
+        }else{
+            $this->customer_document_number = null;
+            $this->customer_document_type = '----------------';
+            $this->customer_full_name = '----------------';
+            $this->emit('register-customer'); // Llamar evento para abrir el formulario de registro de cliente
         }
     }
 }
