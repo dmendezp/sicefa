@@ -12,14 +12,14 @@ class CashCount extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
 
-    use HasFactory; // Borrado suave
+    use HasFactory; // Generación de datos de prueba
 
-    use SoftDeletes; // Generación de datos de prueba
+    use SoftDeletes; // Borrado suave
 
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'person_id',
-        'date',
+        'opening_date',
         'initial_balance',
         'final_balance',
         'difference',

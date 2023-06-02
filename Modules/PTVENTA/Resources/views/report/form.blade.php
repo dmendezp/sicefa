@@ -4,11 +4,12 @@
     <li class="breadcrumb-item">
         <a href="{{ route('ptventa.report.form') }}" class="text-decoration-none">Reporte</a>
     </li>
-    <li class="breadcrumb-item active">Reporte de producto</li>
+    <li class="breadcrumb-item active">Reporte de inventario</li>
 @endpush
 
 @section('content')
 <form action="{{ route('ptventa.report.result_form') }}" method="POST">
+    @csrf
 <div class="card w-50 mb-3">
     <div class="card-body">
         <label>Fecha inicial</label>

@@ -34,7 +34,7 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             //Ruta de reporte
         Route::prefix('report')->controller(InventoryController::class)->group(function(){
             Route::get('form', 'form')->name('ptventa.report.form');
-            Route::post('result_form', 'form')->name('ptventa.report.result_form');
+            Route::post('result_form', 'result_form')->name('ptventa.report.result_form');
             Route::get('table', 'table')->name('ptventa.report.table');
         });
 
@@ -55,6 +55,9 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
         Route::prefix('cash')->controller(CashController::class)->group(function(){
             Route::get('cashOpen', 'index')->name('ptventa.cash.index'); // Vista principal de caja
             Route::post('cashCount', 'store')->name('ptventa.cashCount.store');
+            Route::get('cashCountClosed', 'closeCash')->name('ptventa.cashCount.close');
+            Route::post('cashCountClosed1', 'close')->name('ptventa.cashCount.close1');
         });
+        
     });
 });

@@ -2,7 +2,7 @@
 
 @push('head')
     <!-- Estilos de la galería de imágenes -->
-    <link href="{{asset('modules/ptventa/libs/aos2.3.1/dist/aos.css')}}" rel="stylesheet">
+    <link href="{{asset('libs/AOS-2.3.1/dist/aos.css')}}" rel="stylesheet">
 @endpush
 
 @push('breadcrumbs')
@@ -11,7 +11,7 @@
 
 @section('content')
     <h1 class="display-3">{{ trans('ptventa::mainPage.Welcome to point of sale')}}</h1>
-    <p data-aos="fade-down">{{ trans('ptventa::mainPage.Point of sale is a productive unit belonging to the Agroindustrial Training Center "La Angostura", here are offered the different products that are manufactured in this center, we have products that come directly from the field as well as those that are processed in the agribusiness sector.')}}</p>
+    <h4 data-aos="fade-down">{{ trans('ptventa::mainPage.Point of sale is a productive unit belonging to the Agroindustrial Training Center "La Angostura", here are offered the different products that are manufactured in this center, we have products that come directly from the field as well as those that are processed in the agribusiness sector.')}}</h4>
 
     <div class="row">
         <div class="col-md-6">
@@ -81,7 +81,7 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('modules/ptventa/libs/aos2.3.1/dist/aos.js')}}"></script>
+    <script src="{{asset('libs/AOS-2.3.1/dist/aos.js')}}"></script>
     <script>
         AOS.init();
     </script>
