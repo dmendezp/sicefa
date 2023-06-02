@@ -18,7 +18,7 @@ class CashController extends Controller
     public function index()
     {
         $cashCounts = CashCount::orderBy('updated_at', 'DESC')->get(); 
-        $view = ['titlePage'=>'PTVENTA - Inicio', 'titleView'=>'Caja'];
+        $view = ['titlePage'=>'Inicio', 'titleView'=>'Caja'];
         return view('ptventa::cash.index', compact('view', 'cashCounts'));
     }
 
@@ -54,6 +54,13 @@ class CashController extends Controller
         $cashCount->save();
 
         return redirect()->route('ptventa.cash.index')->with('success', 'Arqueo de caja guardado correctamente.');
+    }
+
+    public function closeCash()
+    {
+        $view = ['titlePage'=>'Caja', 'titleView'=>'Cierre de Caja'];
+        $cashCounts = CashCount::where('state', 'Abierta')->get();
+        return view('ptventa::cash.cashCount', compact('view', 'cashCounts'));
     }
 
     /**

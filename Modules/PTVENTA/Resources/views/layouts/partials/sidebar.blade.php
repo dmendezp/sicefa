@@ -125,7 +125,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('ptventa.cashCount.close') }}" class="nav-link">
                                     <i class="fas fa-store-slash nav-icon"></i>
                                     <p>{{ trans('ptventa::general.Cash Closing')}}</p>
                                     </a>
