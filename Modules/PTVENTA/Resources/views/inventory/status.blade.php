@@ -3,7 +3,7 @@
     
     .table-status{
         top:20px;
-        width:650px;
+        width:600px;
         float: left;
         margin-right: 18px;
         
