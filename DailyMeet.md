@@ -168,6 +168,14 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Oscar Andres Gil Marin** - *No asisitió*
 --- 
 #### Meet 31-May-2023 
+* **Anyi Katherine Rojas Arce** - *Reporte de entradas de inventario por rango de fechas* - *Avance 50%* - *Dificultades* - *Acciones*
+* **Jesús David Guevara Munar** - *Registro de venta* - *66 %* - *Dificultades* - *Acciones*
+* **Manuel Steven Ossa Lievano** - *Apertura y cierre de caja* - *Avance 55%* - *Dificultades* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *Mostrar productos vencidos y por vencer* - *Avance 66%* - *Dificultades* - *Acciones*
+* **Oscar Andres Gil Marin** - *No asistió*
+--- 
+--- 
+#### Meet 2-Jun-2023 
 * **Anyi Katherine Rojas Arce** - *Reporte de entradas de inventario por rango de fechas* - *Avance %* - *Dificultades* - *Acciones*
 * **Jesús David Guevara Munar** - *Registro de venta* - *Avance %* - *Dificultades* - *Acciones*
 * **Manuel Steven Ossa Lievano** - *Apertura y cierre de caja* - *Avance %* - *Dificultades* - *Acciones*
