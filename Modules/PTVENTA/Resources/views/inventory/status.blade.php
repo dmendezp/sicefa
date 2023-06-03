@@ -3,17 +3,19 @@
     
     .table-status{
         top:20px;
-        width:400px;
+        width:650px;
         float: left;
-        margin-right: 10px;
+        margin-right: 18px;
+        
 
     }
 
     .table-status{
         top:20px;
-        width:600px;
+        width:650px;
         float: left;
-        margin-right: 10px;
+        margin-right: 45px;
+        
     }
 </style>
 
@@ -40,61 +42,71 @@
                 <div class="col-sm-12">
                     <div class="card">
                     <div class="card-body">
-                    <table class="table table-hover" id="status-table">
+                    <div style="overflow-y: auto; height: 400px;">
+                    <table class="table table-bordered" id="status-table">
                     <h6 class="text-center bg-success py-1 rounded-2"><strong>VENCIDOS</strong></h6>
-                        <thead class="table-dark">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">Productos</th>
-                                    <th class="text-center">Fecha</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                                <tr>
-                                    @foreach ($productosVencidos as $producto)
-                                    <td><strong>{{ $producto->element->name }}</strong></td>
-                                    <td class="text-center">{{ $producto->expiration_date }}</td>
-                                    @endforeach
-                                </tr>
-                            </tbody>
-                        </table>
+                    <thead class="table-secondary">
+                        <tr>
+                            <th class="text-center">Cantidad</th>
+                            <th class="text-center">Productos</th>
+                            <th class="text-center">Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        @foreach ($productosVencidos as $producto)
+                        <tr>
+                            <td><strong>{{ $producto->amount}}</strong></td>
+                            <td><strong>{{ $producto->element->name }}</strong></td>
+                            <td class="text-center">{{ $producto->expiration_date }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    </thead>
+                    </table>
+                    </div>
+                    </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 <div class="table-status">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="card">
                     <div class="card-body">
-                        <table class="table table-hover" id="status-table">
-                            <h6 class="text-center bg-success py-1 rounded-2"><strong>POR VENCER </strong></h6>
-                            <thead class="table-dark"></thead>
-                            <thead>
+                    <div style="overflow-y: auto; height: 400px;">
+                    <table class="table table-bordered" id="status-table">
+                    <h6 class="text-center bg-success py-1 rounded-2"><strong>POR VENCER</strong></h6>
+                    <thead class="table-secondary">
                                 <tr>
+                                <th class="text-center">Cantidad</th>
                                     <th class="text-center">Productos</th>
                                     <th class="text-center">Fecha</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                <tr>
                                     @foreach ($productosPorVencer as $producto)
+                                <tr>
+                                    <td><strong>{{ $producto->amount}}</strong></td>
                                     <td><strong>{{ $producto->element->name }}</strong></td>
                                     <td class="text-center">{{ $producto->expiration_date }}</p>
-                                    @endforeach
                                 </tr>
+
+                                    @endforeach
                             </tbody>
-                        </table>
+                        </thead>
+                    </table>
+                    </div>
+                    </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 @endsection
 
 @include('ptventa::layouts.partials.plugins.datatables')

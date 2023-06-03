@@ -10,6 +10,7 @@
 @endpush
 
 @section('content')
+    {{-- Se incluye el componente para registrar una venta --}}
     @livewire('ptventa::sale.generate-sale')
 @endsection
 
