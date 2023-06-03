@@ -34,7 +34,7 @@
 
                     <div class="form-group col-md-2 d-flex align-items-center justify-content-end">
                         <button type="submit" class="btn btn-success btn-block">
-                            <i class="fas fa-check"></i> Abrir
+                            <i class="fas fa-check"></i> Abrir Caja
                         </button>
                     </div>
                 {!! Form::close() !!}
@@ -72,7 +72,7 @@
                                     <td>{{ $cashCount->initial_balance }}</td>
                                     <td>{{ $cashCount->final_balance ?: 'N/A' }}</td>
                                     <td>{{ $cashCount->difference ?: '0' }}</td>
-                                    <td>{{ $cashCount->closing_time ?: 'N/A' }}</td>
+                                    <td>{{ $cashCount->closing_date ?: 'N/A' }}</td>
                                     <td>{{ $cashCount->state }}</td>
                                 </tr>
                                 @endforeach

@@ -49,7 +49,7 @@ class CashController extends Controller
         $cashCount->initial_balance = $request->initial_balance;
         $cashCount->final_balance = $request->final_balance;
         $cashCount->difference = $request->final_balance - $request->initial_balance;
-        $cashCount->closing_time = $request->closing_time;
+        $cashCount->closing_date = $request->closing_date;
         $cashCount->state = 'Abierta';
         $cashCount->save();
 
@@ -72,13 +72,12 @@ class CashController extends Controller
         // Validar los datos recibidos
         $validatedData = $request->validate([
             'final_balance' => 'required',
-            'closing_time' => 'required',
         ]);
 
         $cashCount = CashCount::find($request->input('cash_count_id'));
 
         $cashCount->final_balance = $validatedData['final_balance'];
-        $cashCount->closing_time = $validatedData['closing_time'];
+        $cashCount->closing_date = Carbon::now();
         $cashCount->state = 'Cerrada';
         $cashCount->save();
 
