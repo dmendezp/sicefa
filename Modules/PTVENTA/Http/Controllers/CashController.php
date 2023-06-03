@@ -11,14 +11,14 @@ use Modules\PTVENTA\Entities\CashCount;
 
 class CashController extends Controller
 {
-    /**
+ /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
     {
-        $cashCounts = CashCount::orderBy('updated_at', 'DESC')->get(); 
-        $view = ['titlePage'=>'PTVENTA - Inicio', 'titleView'=>'Caja'];
+        $cashCounts = CashCount::orderBy('updated_at', 'desc')->get(); 
+        $view = ['titlePage' => 'Caja', 'titleView' => 'Caja'];
         return view('ptventa::cash.index', compact('view', 'cashCounts'));
     }
 
@@ -28,7 +28,7 @@ class CashController extends Controller
      */
     public function create()
     {
-        return view('ptventa::create');
+        return view('ptventa::cash.create');
     }
 
     /**
@@ -45,15 +45,44 @@ class CashController extends Controller
 
         $cashCount = new CashCount();
         $cashCount->person_id = Auth::user()->person_id;
-        $cashCount->date = Carbon::now(); //La función now() es una función proporcionada por Laravel que devuelve una instancia de la clase Carbon, capturando el valor de la hora en tiempo real.
+        $cashCount->opening_date = Carbon::now();
         $cashCount->initial_balance = $request->initial_balance;
         $cashCount->final_balance = $request->final_balance;
         $cashCount->difference = $request->final_balance - $request->initial_balance;
         $cashCount->closing_time = $request->closing_time;
-        $cashCount->state = "Abierta";
+        $cashCount->state = 'Abierta';
         $cashCount->save();
 
         return redirect()->route('ptventa.cash.index')->with('success', 'Arqueo de caja guardado correctamente.');
+    }
+
+    /**
+     * Show the form for closing the cash count.
+     * @return Renderable
+     */
+    public function closeCash()
+    {
+        $view = ['titlePage' => 'Cierre de Caja', 'titleView' => 'Cierre de Caja'];
+        $cashCounts = CashCount::where('state', 'Abierta')->get();
+        return view('ptventa::cash.cashCount', compact('view', 'cashCounts'));
+    }
+
+    public function close(Request $request)
+    {
+        // Validar los datos recibidos
+        $validatedData = $request->validate([
+            'final_balance' => 'required',
+            'closing_time' => 'required',
+        ]);
+
+        $cashCount = CashCount::find($request->input('cash_count_id'));
+
+        $cashCount->final_balance = $validatedData['final_balance'];
+        $cashCount->closing_time = $validatedData['closing_time'];
+        $cashCount->state = 'Cerrada';
+        $cashCount->save();
+
+        return redirect()->back()->with('success', 'Caja cerrada exitosamente.');
     }
 
     /**
@@ -63,7 +92,7 @@ class CashController extends Controller
      */
     public function show($id)
     {
-        return view('ptventa::show');
+        return view('ptventa::cash.show');
     }
 
     /**
@@ -73,7 +102,7 @@ class CashController extends Controller
      */
     public function edit($id)
     {
-        return view('ptventa::edit');
+        return view('ptventa::cash.edit');
     }
 
     /**

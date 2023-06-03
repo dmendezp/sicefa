@@ -118,18 +118,18 @@
                                 </p>
                                 </a>
                                 <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('ptventa.cash.index') }}" class="nav-link active">
-                                    <i class="fas fa-store nav-icon"></i>
-                                    <p>{{ trans('ptventa::general.Cash Opening')}}</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                    <i class="fas fa-store-slash nav-icon"></i>
-                                    <p>{{ trans('ptventa::general.Cash Closing')}}</p>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('ptventa.cash.index') }}" class="nav-link active">
+                                        <i class="fas fa-store nav-icon"></i>
+                                        <p>{{ trans('ptventa::general.Cash Opening')}}</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('ptventa.cashCount.close') }}" class="nav-link">
+                                        <i class="fas fa-store-slash nav-icon"></i>
+                                        <p>{{ trans('ptventa::general.Cash Closing')}}</p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         @endif

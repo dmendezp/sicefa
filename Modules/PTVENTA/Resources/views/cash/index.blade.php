@@ -57,6 +57,9 @@
                                     <th scope="col">Encargado</th>
                                     <th scope="col">Fecha de apertura</th>
                                     <th scope="col">Saldo Inicial</th>
+                                    <th scope="col">Saldo Final</th>
+                                    <th scope="col">Diferencia</th>
+                                    <th scope="col">Fecha de Cierre</th>
                                     <th scope="col">Estado</th>
                                 </tr>
                             </thead>
@@ -65,8 +68,11 @@
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td>{{ $cashCount->person->full_name}}</td>
-                                    <td>{{ $cashCount->date }}</td>
+                                    <td>{{ $cashCount->opening_date }}</td>
                                     <td>{{ $cashCount->initial_balance }}</td>
+                                    <td>{{ $cashCount->final_balance ?: 'N/A' }}</td>
+                                    <td>{{ $cashCount->difference ?: '0' }}</td>
+                                    <td>{{ $cashCount->closing_time ?: 'N/A' }}</td>
                                     <td>{{ $cashCount->state }}</td>
                                 </tr>
                                 @endforeach
