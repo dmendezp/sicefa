@@ -41,7 +41,7 @@ class CashController extends Controller
         $request->validate([
             'initial_balance' => 'required|numeric',
         ]);
-
+    
         $cashCount = new CashCount();
         $cashCount->person_id = Auth::user()->person_id;
         $cashCount->opening_date = Carbon::now();
@@ -51,9 +51,10 @@ class CashController extends Controller
         $cashCount->closing_date = $request->closing_date;
         $cashCount->state = 'Abierta';
         $cashCount->save();
-
+    
         return redirect()->route('ptventa.cash.index')->with('success', 'Arqueo de caja guardado correctamente.');
     }
+    
 
     /**
      * Show the form for closing the cash count.
@@ -72,16 +73,18 @@ class CashController extends Controller
         $validatedData = $request->validate([
             'final_balance' => 'required',
         ]);
-
+    
         $cashCount = CashCount::find($request->input('cash_count_id'));
-
+    
         $cashCount->final_balance = $validatedData['final_balance'];
+        $cashCount->difference = $cashCount->final_balance - $cashCount->initial_balance;
         $cashCount->closing_date = Carbon::now();
         $cashCount->state = 'Cerrada';
         $cashCount->save();
-
+    
         return redirect()->back()->with('success', 'Caja cerrada exitosamente.');
     }
+    
 
     /**
      * Show the specified resource.
