@@ -1,3 +1,9 @@
+// Muestra la hora actual
+// Se esta usadno en la svista de caja, para capturar la hora actual en el campo de los furmuarios que estan en los modales
+// En la vista index captura la fecha actual de apertura
+// En la vista CashcCount captura la fecha actual de cierre
+
+// Se resalta que es solo con fines de muestra porque la hora que se guarda en la base de datos es desde el controlador, con la funcion Carbon::now()
 document.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.getElementById('date');
 
@@ -20,3 +26,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setInterval(updateDate, 1000); // Actualizar la fecha cada segundo
 });
+

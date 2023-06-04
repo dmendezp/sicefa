@@ -34,7 +34,7 @@
 
                     <div class="form-group col-md-2 d-flex align-items-center justify-content-end">
                         <button type="submit" class="btn btn-success btn-block">
-                            <i class="fas fa-check"></i> Abrir
+                            <i class="fas fa-check"></i> Abrir Caja
                         </button>
                     </div>
                 {!! Form::close() !!}
@@ -53,34 +53,35 @@
                     <table class="table table-striped table-hover" id="tableCashCount">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col">N°</th>
-                                <th scope="col">Encargado</th>
-                                <th scope="col">Fecha de apertura</th>
-                                <th scope="col">Saldo Inicial</th>
-                                <th scope="col">Saldo Final</th>
-                                <th scope="col">Diferencia</th>
-                                <th scope="col">Hora de cierre</th>
-                                <th scope="col">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($cashCounts as $cashCount)
-                            <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $cashCount->person->full_name}}</td>
-                                <td>{{ $cashCount->date }}</td>
-                                <td>{{ $cashCount->initial_balance }}</td>
-                                <td>{{ $cashCount->final_balance }}</td>
-                                <td>{{ $cashCount->difference }}</td>
-                                <td>{{ $cashCount->closing_time }}</td>
-                                <td>{{ $cashCount->state }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                    <th scope="col">N°</th>
+                                    <th scope="col">Encargado</th>
+                                    <th scope="col">Fecha de apertura</th>
+                                    <th scope="col">Saldo Inicial</th>
+                                    <th scope="col">Saldo Final</th>
+                                    <th scope="col">Diferencia</th>
+                                    <th scope="col">Fecha de Cierre</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($cashCounts as $cashCount)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $cashCount->person->full_name}}</td>
+                                    <td>{{ $cashCount->opening_date }}</td>
+                                    <td>{{ $cashCount->initial_balance }}</td>
+                                    <td>{{ $cashCount->final_balance ?: 'N/A' }}</td>
+                                    <td>{{ $cashCount->difference ?: '0' }}</td>
+                                    <td>{{ $cashCount->closing_date ?: 'N/A' }}</td>
+                                    <td>{{ $cashCount->state }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>          
+        </div>
     </div>
 </div>
 @endsection
@@ -129,5 +130,5 @@
             });
         });
     </script>
-    <script src="{{ asset('modules/ptventa/js/cash/index/dateTimeNow.js')}}"></script>    
+    <script src="{{ asset('modules/ptventa/js/cash/index/dateTimeNow.js')}}"></script>
 @endpush
