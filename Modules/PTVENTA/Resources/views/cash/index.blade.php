@@ -113,13 +113,21 @@
                     }
                 });
             });
-
+            
             @if (session('success'))
                 Swal.fire(
                     'Operación realizada con Éxito',
                     'Has iniciado una nueva caja!',
                     'success'
                 );
+            @endif
+
+            @if (session('error')) 
+                Swal.fire(
+                        'Operación rechazada!',
+                        'Ya existe una caja abierta',
+                        'error'
+                    );
             @endif
         });
     </script>

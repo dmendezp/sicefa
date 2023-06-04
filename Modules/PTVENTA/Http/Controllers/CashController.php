@@ -30,7 +30,7 @@ class CashController extends Controller
     {
         return view('ptventa::cash.create');
     }
-
+    
     /**
      * Store a newly created resource in storage.
      * @param Request $request
@@ -38,6 +38,12 @@ class CashController extends Controller
      */
     public function store(Request $request)
     {
+
+        // Verificar si hay una caja abierta
+        $openCashCount = CashCount::where('state', 'Abierta')->first();
+        if ($openCashCount) {
+            return redirect()->route('ptventa.cash.index')->with('error', 'Ya existe una caja abierta. Debes cerrarla antes de abrir una nueva.');
+        }
         $request->validate([
             'initial_balance' => 'required|numeric',
         ]);
