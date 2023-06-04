@@ -53,7 +53,7 @@ class CashController extends Controller
         $cashCount->opening_date = Carbon::now();
         $cashCount->initial_balance = $request->initial_balance;
         $cashCount->final_balance = $request->final_balance;
-        $cashCount->difference = $request->final_balance - $request->initial_balance;
+        $cashCount->difference = '0';
         $cashCount->closing_date = $request->closing_date;
         $cashCount->state = 'Abierta';
         $cashCount->save();
