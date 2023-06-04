@@ -37,7 +37,7 @@
                                     <td>{{ $cashCount->opening_date }}</td>
                                     <td>{{ $cashCount->initial_balance }}</td>
                                     <td>{{ $cashCount->final_balance ?: 'N/A' }}</td>
-                                    <td>{{ $cashCount->final_balance ? $cashCount->final_balance - $cashCount->initial_balance : 'N/A' }}</td>
+                                    <td>{{ $cashCount->final_balance ?: 'N/A' }}</td>
                                     <td>{{ $cashCount->closing_time ?: 'N/A' }}</td>
                                     <td>{{ $cashCount->state }}</td>
                                     <td>

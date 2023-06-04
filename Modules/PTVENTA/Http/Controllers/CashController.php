@@ -39,7 +39,6 @@ class CashController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'date' => 'required|date',
             'initial_balance' => 'required|numeric',
         ]);
 
