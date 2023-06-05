@@ -161,7 +161,7 @@
     </div>
 
     <!-- Modal para registro rápido de cliente -->
-    <div class="modal fade" id="registerCustomer" tabindex="-1" aria-labelledby="registerCustomerLabel" aria-hidden="true">
+    <div class="modal fade" id="registerCustomer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="registerCustomerLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header py-2">
@@ -178,10 +178,11 @@
                             <div class="row">
                                 <div class="col-6 pe-1">
                                     {{ Form::select('person_document_type', $document_types, $person_document_type, [
+                                        'placeholder' => '-- Seleccionar --',
                                         'class' => 'form-select form-select-sm',
                                         'wire:model.defer' => 'person_document_type'])
                                     }}
-                                    @error('person_document_type') <span class="error">{{ $message }}</span> @enderror
+                                    @error('person_document_type') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
                                 </div>
                                 <div class="col-6 ps-1">
                                     {{ Form::number('person_document_number', $person_document_number, [
@@ -189,7 +190,7 @@
                                         'placeholder' => 'Número',
                                         'wire:model.defer' => 'person_document_number'])
                                     }}
-                                    @error('person_document_number') <span class="error">{{ $message }}</span> @enderror
+                                    @error('person_document_number') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
@@ -200,7 +201,7 @@
                                 'placeholder' => 'Primer y segundo nombre',
                                 'wire:model.defer' => 'person_first_name'])
                             }}
-                            @error('person_first_name') <span class="error">{{ $message }}</span> @enderror
+                            @error('person_first_name') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group">
                             <label>Apellidos</label>
@@ -211,7 +212,7 @@
                                         'placeholder' => 'Primer apellido',
                                         'wire:model.defer' => 'person_first_last_name'])
                                     }}
-                                    @error('person_first_last_name') <span class="error">{{ $message }}</span> @enderror
+                                    @error('person_first_last_name') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
                                 </div>
                                 <div class="col-6">
                                     {{ Form::text('person_second_last_name', $person_second_last_name, [
@@ -219,11 +220,11 @@
                                         'placeholder' => 'Segundo apellido',
                                         'wire:model.defer' => 'person_second_last_name'])
                                     }}
-                                    @error('person_second_last_name') <span class="error">{{ $message }}</span> @enderror
+                                    @error('person_second_last_name') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-sm btn-secondary py-0" data-bs-dismiss="modal" wire:click="resetFormPerson">Cancelar</button>
+                        <button type="button" class="btn btn-sm btn-secondary py-0" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-sm btn-success py-0">Registrar</button>
                     </form>
                 </div>
