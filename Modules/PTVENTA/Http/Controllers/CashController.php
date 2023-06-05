@@ -30,7 +30,7 @@ class CashController extends Controller
     {
         return view('ptventa::cash.create');
     }
-
+    
     /**
      * Store a newly created resource in storage.
      * @param Request $request
@@ -38,23 +38,29 @@ class CashController extends Controller
      */
     public function store(Request $request)
     {
+
+        // Verificar si hay una caja abierta
+        $openCashCount = CashCount::where('state', 'Abierta')->first();
+        if ($openCashCount) {
+            return redirect()->route('ptventa.cash.index')->with('error', 'Ya existe una caja abierta. Debes cerrarla antes de abrir una nueva.');
+        }
         $request->validate([
-            'date' => 'required|date',
             'initial_balance' => 'required|numeric',
         ]);
-
+    
         $cashCount = new CashCount();
         $cashCount->person_id = Auth::user()->person_id;
         $cashCount->opening_date = Carbon::now();
         $cashCount->initial_balance = $request->initial_balance;
         $cashCount->final_balance = $request->final_balance;
-        $cashCount->difference = $request->final_balance - $request->initial_balance;
+        $cashCount->difference = '0';
         $cashCount->closing_date = $request->closing_date;
         $cashCount->state = 'Abierta';
         $cashCount->save();
-
+    
         return redirect()->route('ptventa.cash.index')->with('success', 'Arqueo de caja guardado correctamente.');
     }
+    
 
     /**
      * Show the form for closing the cash count.
@@ -73,16 +79,18 @@ class CashController extends Controller
         $validatedData = $request->validate([
             'final_balance' => 'required',
         ]);
-
+    
         $cashCount = CashCount::find($request->input('cash_count_id'));
-
+    
         $cashCount->final_balance = $validatedData['final_balance'];
+        $cashCount->difference = $cashCount->final_balance - $cashCount->initial_balance;
         $cashCount->closing_date = Carbon::now();
         $cashCount->state = 'Cerrada';
         $cashCount->save();
-
+    
         return redirect()->back()->with('success', 'Caja cerrada exitosamente.');
     }
+    
 
     /**
      * Show the specified resource.
