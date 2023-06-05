@@ -118,15 +118,9 @@ Livewire.on('input-product-amount', function(product_total_amount, product_price
     }
 });
 
-// Bloquear el cierre del modal por tecla ESC o cierre por click fuera del modal
-$(document).ready(function() {
-    $('#registerCustomer').modal({
-        keyboard: false,
-        backdrop: 'static'
-    });
+    new bootstrap.Modal($('#registerCustomer')).show();
 
-    $('#registerCustomer').modal('show');
-});
-
-
+window.addEventListener('closeFormModal', event => {
+    new bootstrap.Modal($('#registerCustomer')).hide();
+})
 

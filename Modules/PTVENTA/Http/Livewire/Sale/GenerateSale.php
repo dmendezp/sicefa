@@ -35,8 +35,14 @@ class GenerateSale extends Component
     public $customer_document_type; // Tipo de documento del cliente
     public $customer_full_name; // Nombre completo del cliente
 
-    public function __construct()
-    {
+    public $document_types; // Tipos de documento para registro de persona
+    public $person_document_type; // Tipo de  para registro de persona
+    public $person_document_number; // Número de documento para registro de persona
+    public $person_first_name; // Primer y/o segundo nombre para registro de persona
+    public $person_first_last_name; // Primer apellido para registro de persona
+    public $person_second_last_name; // Segundo apellido para registro de persona
+
+    public function __construct(){
         $this->selected_products = collect(); // Inicializar la varible que cotiene la información de los productos seleccionados
     }
 
@@ -44,7 +50,6 @@ class GenerateSale extends Component
     public function mount(){
         $this->defaultAction(); // Restablecer valores de todos los atributos y consultar productos disponibles para la venta
         $this->consultCustomer(); // Consultar y verificar cliente
-
     }
 
     public function render(){
@@ -61,6 +66,7 @@ class GenerateSale extends Component
                                 ->pluck('id','element_id');  // Obtener elemen_id unicos para conocer los elementos activos del inventario
         $elementIds = $inventories->keys()->toArray(); // Obtenemos solo el id de los elementos
         $this->products = Element::whereIn('id', $elementIds)->whereNotNull('price')->orderBy('name')->get(); // Consultar elementos que tenga precio para acceder a su nombre
+        $this->document_types = getEnumValues('people','document_type'); // Obtener los tipos de documentos
     }
 
     // Consultar información del producto seleccionado (cantidad y precio)
@@ -296,10 +302,15 @@ class GenerateSale extends Component
             $this->customer_document_type = $customer->document_type;
             $this->customer_full_name = $customer->full_name;
         }else{
+            $this->person_document_number = $this->customer_document_number; // Recuperar el número de documento ingresado para mostrar en el formulario de registro de cliente(persona)
             $this->customer_document_number = null;
             $this->customer_document_type = '----------------';
             $this->customer_full_name = '----------------';
-            $this->emit('register-customer'); // Llamar evento para abrir el formulario de registro de cliente
         }
+    }
+
+    // Registrar cliente como person
+    public function registerCustomer(){
+        $this->dispatchBrowserEvent('closeFormModal');
     }
 }
