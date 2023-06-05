@@ -17,7 +17,7 @@
             <div type="button" class="button-login">
                 @guest
                     <a href="{{ route('login') }}" class="text-decoration-none text-black">
-                        <span>Iniciar sesión</span>
+                        <span>Usuario</span>
                     </a>
                 @else
                     <span>{{ Auth::user()->person->fullname }}</span>
@@ -36,10 +36,10 @@
 
         <li>
           <div class="nav-item dropdown mx-1">
-            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{trans('sigac::general.Internacionalization')}}>
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="{{trans('sigac::general.Internacionalization')}}">
               <i class="fas fa-globe-americas"></i> {{ session('lang') }}
             </button>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu dropdown-menu-end"> <!-- Agregar la clase dropdown-menu-end -->
               <li>
                 <a href="{{ url('lang',['en']) }}" class="dropdown-item">
                   <img src="{{asset('modules/ptventa/images/flags/estados-unidos.png')}}" alt=""> {{ trans('ptventa::general.English')}}
@@ -52,7 +52,7 @@
               </li>
             </ul>
           </div>
-        </li>
+        </li>    
 
         <li class="nav-item mx-1">
             <a class="nav-link" href="{{ route('cefa.welcome') }}" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Volver a SICEFA">
