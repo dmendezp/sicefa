@@ -187,8 +187,8 @@ class GenerateSale extends Component
         $this->totalValueProducts(); // Calcular el valor total de los productos seleccionados
     }
 
-    // Ristrar venta
-    public function registerSale($value){
+    // Veriricar si hay un producto seleccionado
+    public function verifySelectedProduct(){
         // Verificar si hay algún producto seleccionado
         if($this->product_id <> null){
             if($this->product_amount >= 1){
@@ -198,6 +198,12 @@ class GenerateSale extends Component
             }
         }
         $this->change_value = $this->payment_value - $this->total; // Recalcular el valor de cambio
+        $this->emit('change_value'); // Calcular valor de cambio
+    }
+
+    // Ristrar venta
+    public function registerSale($value){
+        $this->verifySelectedProduct(); // Verficar seleccion de productos
 
         // Verificar si el cliente (persona) seleccionado se encuentra registrado en la base de datos
         if (Person::where('document_number', $this->customer_document_number)->exists()) {
@@ -317,6 +323,7 @@ class GenerateSale extends Component
             $this->customer_full_name = '----------------';
             $this->emit('open-modal-register-customer'); // Abrir el modal con el formulario de registro
         }
+        $this->verifySelectedProduct(); // Verficar seleccion de productos
     }
 
     // Registrar cliente como person
@@ -343,17 +350,22 @@ class GenerateSale extends Component
 
         // Verificar que la persona ha sido registrada exitosamente
         if ($person) {
-            $this->reset( // Restablecer valores del formulario de registro de cliente (persona)
-                'person_document_type',
-                'person_document_number',
-                'person_first_name',
-                'person_first_last_name',
-                'person_second_last_name',
-            );
+            $this->resetFormRegisterCustomer();
             $this->emit('close-modal-register-customer'); // Cerrar el modal con el formulario de registro
             $this->emit('message', 'alert-success', null, 'Cliente registrado.', null); // Emitir mensaje de registro exitoso
             $this->customer_document_number = $person->document_number; // Asignar número de documento de la persona registrado al campo de consulta de cliente
             $this->consultCustomer(); // Consultar cliente
         }
+    }
+
+    // Vaciar formulario de registro de cliente (persona)
+    public function resetFormRegisterCustomer(){
+        $this->reset( // Restablecer valores del formulario de registro de cliente (persona)
+            'person_document_type',
+            'person_document_number',
+            'person_first_name',
+            'person_first_last_name',
+            'person_second_last_name',
+        );
     }
 }

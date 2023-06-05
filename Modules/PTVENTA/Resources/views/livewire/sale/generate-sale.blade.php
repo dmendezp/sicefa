@@ -102,7 +102,7 @@
                         <div class="col-5 pe-1">
                             {!! Form::number('document_number', $customer_document_number, [
                                 'class'=>'form-control form-control-sm',
-                                'wire:model' => 'customer_document_number',
+                                'wire:model.defer' => 'customer_document_number',
                                 'wire:keydown.enter' => 'consultCustomer',
                                 'wire:loading.attr' => 'disabled',
                                 'wire:target' => 'consultCustomer'])
@@ -166,7 +166,7 @@
             <div class="modal-content">
                 <div class="modal-header py-2">
                     <h1 class="modal-title fs-5" id="registerCustomerLabel">Registro de cliente</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="resetFormRegisterCustomer"></button>
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="registerCustomer">
@@ -224,8 +224,8 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-sm btn-secondary py-0" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-sm btn-success py-0">Registrar</button>
+                        <button type="submit" class="btn btn-sm btn-success py-0 float-end">Registrar</button>
+                        <button type="button" class="btn btn-sm btn-secondary py-0 me-1 float-end" data-bs-dismiss="modal" wire:click="resetFormRegisterCustomer">Cancelar</button>
                     </form>
                 </div>
             </div>
