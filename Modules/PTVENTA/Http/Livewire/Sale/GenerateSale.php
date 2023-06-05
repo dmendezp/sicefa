@@ -306,6 +306,9 @@ class GenerateSale extends Component
             }
         }else{
             $this->emit('message', 'alert-warning', null, 'Es necesario seleccionar un cliente.', null); // Emitir mensaje de registro exitoso
+            $this->customer_document_number = null;
+            $this->customer_document_type = '----------------';
+            $this->customer_full_name = '----------------';
         }
     }
 
