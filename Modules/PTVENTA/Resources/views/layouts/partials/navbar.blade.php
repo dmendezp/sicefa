@@ -17,7 +17,7 @@
             <div type="button" class="button-login">
                 @guest
                     <a href="{{ route('login') }}" class="text-decoration-none text-black">
-                        <span>Usuario</span>
+                        <span>{{ trans('ptventa::general.Log In')}}</span>
                     </a>
                 @else
                     <span>{{ Auth::user()->person->fullname }}</span>
@@ -36,7 +36,7 @@
 
         <li>
           <div class="nav-item dropdown mx-1">
-            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="{{trans('sigac::general.Internacionalization')}}">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="{{trans('ptventa::general.Internacionalization')}}">
               <i class="fas fa-globe-americas"></i> {{ session('lang') }}
             </button>
             <ul class="dropdown-menu dropdown-menu-end"> <!-- Agregar la clase dropdown-menu-end -->
@@ -55,7 +55,7 @@
         </li>    
 
         <li class="nav-item mx-1">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Modo pantalla completa">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{trans('ptventa::general.Full Screen Mode')}}">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
             

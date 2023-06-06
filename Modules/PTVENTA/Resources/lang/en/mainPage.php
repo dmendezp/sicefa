@@ -10,7 +10,7 @@ return [
 	'Most popular products from the training center' => 'Most popular products from the training center',
 	'News of the moment:' => 'News of the moment:',
 	'Fruits' => 'Fruits',
-	'Pinneapple' => 'Pinneapple',
+	'Pineapple' => 'Pineapple',
 	'Milk products' => 'Milk products',
 	'Yogurt' => 'Yogurt',
 	'Vegetables' => 'Vegetables',
