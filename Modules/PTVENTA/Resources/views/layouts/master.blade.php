@@ -3,6 +3,20 @@
     <head>
         @include('ptventa::layouts.partials.head')
         @stack('head')
+        <style>
+            .whatsapp {
+                position:fixed;
+                width:60px;
+                height:60px;
+                bottom:50px;
+                right:20px;
+                color:#FFF;
+                border-radius:60px;
+                text-align:center;
+                font-size:30px;
+                z-index:100;
+            }
+        </style>
     </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
 
@@ -39,6 +53,9 @@
                 <!-- Container-fluid -->
                 <div class="container-fluid">
                     @section('content') @show
+                    <a href="https://wa.me/5211234567890?text=Me%20gustaría%20saber%20el%20precio%20del%20coche" class="whatsapp bg-success pt-2 pe-1" target="_blank">
+                         <i class="fas fa-shopping-cart"></i>
+                    </a>
                 </div>
                 <!--/. container-fluid -->
             </section>
