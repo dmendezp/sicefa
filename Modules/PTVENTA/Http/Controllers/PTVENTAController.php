@@ -13,7 +13,7 @@ class PTVENTAController extends Controller
     }
 
     public function devs(){
-        $view = ['titlePage'=>'PTVENTA - Desarrolladores', 'titleView'=>'Desarrolladores y créditos de PTVENTA'];
+        $view = ['titlePage'=>'PTVENTA - Desarrolladores', 'titleView'=>trans('ptventa::devs.Developers and credits')];
         return view('ptventa::developers.index', compact('view'));
     }
 

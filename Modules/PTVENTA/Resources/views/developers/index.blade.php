@@ -6,14 +6,14 @@
 @endpush
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">Desarrolladores y Créditos</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::devs.Developers and credits')}}</li>
 @endpush
 
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <h3 class="text-center mt-2">Desarrolladores</h3>
+                <h3 class="text-center mt-2">{{ trans('ptventa::devs.Developers')}}</h3>
                 <div class="card-body">
                     <div class="container text-center">
                         <div class="row">
@@ -25,7 +25,7 @@
                                     <rect width="100%" height="100%" fill="#777" />
                                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
                                 </svg>
-                                <h4>Aprendiz</h4>
+                                <h4>{{ trans('ptventa::devs.Apprentice')}}</h4>
                                 <p>Jesús David Guevara Munar</p>
                                 <a class="btn btn-primary" href="#"><i class="fab fa-linkedin-in"></i></a>
                                 <a class="btn btn-dark" href="#"><i class="fab fa-github"></i></a>
@@ -39,7 +39,7 @@
                                     <rect width="100%" height="100%" fill="#777" />
                                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
                                 </svg>
-                                <h4>Aprendiz</h4>
+                                <h4>{{ trans('ptventa::devs.Apprentice')}}</h4>
                                 <p>Manuel Steven Ossa Lievano</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/manuel-steven-ossa-lievano-014b3b267/"><i class="fab fa-linkedin-in"></i></a>
                                 <a class="btn btn-dark" href="https://github.com/SrManuel-1"><i class="fab fa-github"></i></a>
@@ -53,7 +53,7 @@
                                     <rect width="100%" height="100%" fill="#777" />
                                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
                                 </svg>
-                                <h4>Aprendiz</h4>
+                                <h4>{{ trans('ptventa::devs.Apprentice')}}</h4>
                                 <p>Nelsy Yulied Gomez Morales</p>
                                 <a class="btn btn-primary" href="#"><i class="fab fa-linkedin-in"></i></a>
                                 <a class="btn btn-dark" href="#"><i class="fab fa-github"></i></a>
@@ -67,7 +67,7 @@
                                     <rect width="100%" height="100%" fill="#777" />
                                     <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
                                 </svg>
-                                <h4>Aprendiz</h4>
+                                <h4>{{ trans('ptventa::devs.Apprentice')}}</h4>
                                 <p>Anyi Katherine Rojas Arce</p>
                                 <a class="btn btn-primary" href="#"><i class="fab fa-linkedin-in"></i></a>
                                 <a class="btn btn-dark" href="#"><i class="fab fa-github"></i></a>
@@ -77,7 +77,7 @@
                     </div>
                     <br>
                     <div class="d-flex justify-content-center">
-                        <a class="btn" id="scrollButton"><h5>Ver los créditos</h5> <i class="fas fa-chevron-down"></i></a>
+                        <a class="btn" id="scrollButton"><h5>{{ trans('ptventa::devs.View credits')}}</h5> <i class="fas fa-chevron-down"></i></a>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
         <div class="col-md-12">
             <div class="card" data-aos="zoom-in-up">
                 <div class="container">
-                    <h3 class="text-center mt-2">Créditos</h3>
+                    <h3 class="text-center mt-2">{{ trans('ptventa::devs.Credits')}}</h3>
                     <div class="row">
                         <div class="col-sm-6 col-md-3" >
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="500" style="height: 200px;">
@@ -99,7 +99,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Laravel v9.x</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://laravel.com/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://laravel.com/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>PHP</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://www.php.net/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://www.php.net/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +127,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Datatables</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://datatables.net/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://datatables.net/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -141,7 +141,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>AdminLTE3</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://adminlte.io/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://adminlte.io/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +156,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>FontAwesome v.5.15.4</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://fontawesome.com/icons">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://fontawesome.com/icons">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Google Fonts - Quicksand</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://fonts.google.com/specimen/Quicksand?preview.text=Infinity%20Mellow&preview.text_type=custom&selection.family=Yellowtail&sidebar.open=true&query=quicksa">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://fonts.google.com/specimen/Quicksand?preview.text=Infinity%20Mellow&preview.text_type=custom&selection.family=Yellowtail&sidebar.open=true&query=quicksa">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -184,7 +184,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Pixabay</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://pixabay.com/es/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://pixabay.com/es/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +198,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>SweetAlert2</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://sweetalert2.github.io/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://sweetalert2.github.io/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -213,7 +213,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Javascript</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://developer.mozilla.org/es/docs/Web/JavaScript">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://developer.mozilla.org/es/docs/Web/JavaScript">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +227,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Jquery</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://jquery.com/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://jquery.com/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -241,7 +241,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>CSS3</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://developer.mozilla.org/es/docs/Web/CSS">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://developer.mozilla.org/es/docs/Web/CSS">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -255,7 +255,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Bootstrap v5.3</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://getbootstrap.com/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://getbootstrap.com/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -270,7 +270,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Codepen</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://codepen.io/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://codepen.io/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -284,7 +284,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Livewire</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://laravel-livewire.com/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://laravel-livewire.com/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -298,7 +298,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Laravel Collective</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://laravelcollective.com/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://laravelcollective.com/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -312,7 +312,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>UI Verse</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://uiverse.io/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://uiverse.io/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -328,7 +328,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Xampp</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://www.apachefriends.org/es/index.html">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://www.apachefriends.org/es/index.html">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -342,7 +342,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>SQLyog</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://webyog.com/product/sqlyog/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://webyog.com/product/sqlyog/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -356,7 +356,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Git Hub</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100" href="https://github.com/">Más Info</a>
+                                    <a class="btn btn-success btn-block w-100" href="https://github.com/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
