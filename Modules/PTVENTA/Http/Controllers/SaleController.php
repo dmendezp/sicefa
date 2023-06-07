@@ -2,18 +2,22 @@
 
 namespace Modules\PTVENTA\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementType;
 
 class SaleController extends Controller
 {
 
     public function index(){
-        $movements = Movement::all();
-        $view = ['titlePage'=>'PVENTA - Ventas', 'titleView'=>'Ventas realizadas'];
-        return view('ptventa::sale.index', compact('view','movements'));
+        $movement_type = MovementType::where('name','Venta')->first();
+        $sales = Movement::whereDate('registration_date', Carbon::today()->toDateString())
+                            ->where('movement_type_id',$movement_type->id)
+                            ->orderBy('registration_date','DESC')
+                            ->get();
+        $view = ['titlePage'=>'PVENTA - Ventas', 'titleView'=>'Ventas realizadas hoy'];
+        return view('ptventa::sale.index', compact('view','sales'));
     }
 
     public function register(){

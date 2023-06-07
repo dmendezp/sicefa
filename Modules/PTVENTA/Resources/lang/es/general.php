@@ -7,6 +7,7 @@ return [
     'English' => 'Inglés',
     'Spanish' => 'Español',
     'Full Screen Mode' => 'Modo Pantalla Completa',
+    'Log In' => 'Iniciar Sesión',
 
     //Siderbar
     'Sales Point' => 'Punto de Venta',
