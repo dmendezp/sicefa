@@ -14,11 +14,11 @@ class CreateProgramsTable extends Migration
     public function up()
     {
         Schema::create('programs', function (Blueprint $table) {
-            $table->id();            
-            $table->string('name');
+            $table->id();
+            $table->string('name')->unique();
             $table->foreignId('network_id')->constrained()->onDelete('cascade');
-            $table->enum('program_type', ['Tecnólogo','Técnico','Operario' ]);
-            $table->unsignedInteger('sofia_code');
+            $table->enum('program_type', ['Tecnólogo','Técnico','Operario']);
+            $table->unsignedInteger('sofia_code')->unique();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +31,7 @@ class CreateProgramsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('programs');
     }
 }

@@ -1,0 +1,352 @@
+<?php
+
+namespace Modules\SICA\Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\App;
+use Modules\SICA\Entities\Role;
+use Modules\SICA\Entities\Permission;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
+class SeedPermissionsTableSeeder extends Seeder
+{
+    public function run()
+    {
+        //limpiar tablas
+        /*
+        DB::statement("SET foreign_key_checks=0");
+            DB::table('role_user')->truncate();
+            DB::table('permission_role')->truncate();
+            //App::truncate();
+            User::truncate();
+            //Role::truncate();
+            Permission::truncate();
+        DB::statement("SET foreign_key_checks=1");
+        */
+        //crear usuario Superadministrador -- no modificar
+        $usersuperadmin = User::where('nickname','damendez')->first();
+        if(!$usersuperadmin){
+            $person = Person::where('document_number','7713344')->first();
+            $usersuperadmin = User::create([
+                "nickname" => "damendez",
+                "person_id" => $person->id,
+                "email" => "ing.diego.mendez@gmail.com",
+                "password" => Hash::make("12345678")
+            ]);
+        }
+        //crear aplicacion
+        $app = App::where('name','SICA')->first();
+        if(!$app){
+            $app = App::create([
+                "name" => "SICA",
+                "url" => "/sica/index",
+                "color" => "#ff5e1f",
+                "icon" => "fas fa-puzzle-piece",
+                "description" => "En esta aplicación se administra la configur-......",
+                "description_english" => "English -> En esta aplicación se administra la configur-......"
+            ]);
+        }
+        //crear usuario administrador
+        $useradmin = User::where('nickname','DiegoT')->first();
+        if(!$useradmin){
+            $person = Person::where('document_number','1004224747')->first();
+
+            $userattendanceadmin = User::create([
+                "nickname" => "DiegoT",
+                "person_id" => $person->id,
+                "email" => "datovar74@misena.edu.co",
+                "password" => Hash::make("12345678")
+            ]);
+        }
+        /**/
+        $usercoordinator = User::where('nickname','gmsanchez')->first();
+        if(!$usercoordinator){
+            $person = Person::where('document_number','51784954')->first();
+            $usercoordinator = User::create([
+                "nickname" => "gmsanchez",
+                "person_id" => $person->id,
+                "email" => "datovar74@soy.sena.edu.co",
+                "password" => Hash::make("12345678")
+            ]);
+        }
+        //crear aplicacion
+        $app = App::where('name','SENAEMPRESA')->first();
+        if(!$app){
+            $app = App::create([
+                "name" => "SENAEMPRESA",
+                "url" => "/senaempresa/index",
+                "color" => "#237286",
+                "icon" => "fas fa-desktop",
+                "description" => "Actividades de senaempresa y relacionado con asistencias",
+                "description_english" => "English -> Actividades de senaempresa y relacionado con asistencias"
+            ]);
+        }
+        //crear rol administrador
+        $roladmin = Role::where('slug','senaempresa.admin')->first();
+        if(!$roladmin){
+            $roladmin = Role::create([
+                "name" => "Administrador Asistencias",
+                "slug" => "senaempresa.admin",
+                "description" => "Rol administrador de la aplicacion SENAEMPRESA",
+                "description_english" => "English - Rol administrador de la aplicacion SENAEMPRESA",
+                "full-access" => "yes",
+                "app_id" => $app->id
+            ]);
+        }
+        //crear rol coordinador
+        $rolattendance = Role::where('slug','senaempresa.attendance')->first();
+        if(!$rolattendance){
+            $rolattendance = Role::create([
+                "name" => "Coordinador Asistencia",
+                "slug" => "senaempresa.attendance",
+                "description" => "Rol Coordinador Asistencias",
+                "description_english" => "English - Rol Coordinador de las asistencias",
+                "full-access" => "no",
+                "app_id" => $app->id
+            ]);
+        }
+        /**/
+       
+        // asigno el rol de admin al usuario superadmin y admin
+        $userattendanceadmin->roles()->syncWithoutDetaching([$roladmin->id]);
+        $userattendanceturn->roles()->syncWithoutDetaching([$rolattendance->id]);
+        
+        // lista de permisos para asignar al rol admin y coordinador
+        $permission_admin = [];
+        $permission_attendance = [];
+       
+// repita para cada permiso -- estos permisos son de su aplicacion, agregue los necesarios
+        $permission = Permission::where('slug','senaempresa.index')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Admin main index",
+                "slug" => "senaempresa.index",
+                "description" => "Puede ver el dashboard de administrador",
+                "description_english" => "English - Puede ver el dashboard de administrador",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_attendance[] = $permission->id;
+
+        $permission = Permission::where('slug','senaempresa.turnosRutinarios')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                  "name" => "Lista de aprendices",
+                "slug" => "senaempresa.turnosRutinarios",
+                "description" => "Puede ver el dashboard de asistencia",
+                "description_english" => "English - Puede ver el dashboard de asistencia",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_attendance[] = $permission->id;
+
+        $permission = Permission::where('slug','senaempresa.buscarLista')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Filtrado por programa",
+                "slug" => "senaempresa.buscarLista",
+                "description" => "Puede gestionar la informacion de las personas",
+                "description_english" => "English - Puede gestionar la informacion de las personas",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_attendance[] = $permission->id;
+
+        $permission = Permission::where('slug','senaempresa.adicionarTurno')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Crear un nuevo turno",
+                "slug" => "senaempresa.adicionarTurno",
+                "description" => "Registro de asistencia a eventos",
+                "description_english" => "English - Registro de asistencia a eventos",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        $permission = Permission::where('slug','senaempresa.guardarTurno')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Crea el turno",
+                "slug" => "senaempresa.guardarTurno",
+                "description" => "Permite buscar los datos de una persona por numero de documento para registrar su asistencia",
+                "description_english" => "English - Permite buscar los datos de una persona por numero de documento para registrar su asistencia",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        $permission = Permission::where('slug','senaempresa.listaTurnos')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Lista todos los turnos",
+                "slug" => "senaempresa.listaTurnos",
+                "description" => "Permite registrar datos personales basicos y asistencias",
+                "description_english" => "English - Permite registrar datos personales basicos y asistencias",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+        $permission = Permission::where('slug','senaempresa.attendance.turnDelete')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Eliminar el turno rutinario",
+                "slug" => "senaempresa.attendance.turnDelete",
+                "description" => "Registro de asistencia a eventos",
+                "description_english" => "English - Registro de asistencia a eventos",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+
+
+        $permission = Permission::where('slug','senaempresa.updateAttendance')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Marcar la asistencia del aprendiz",
+                "slug" => "senaempresa.updateAttendance",
+                "description" => "Permite buscar los datos de una persona por numero de documento para registrar su asistencia",
+                "description_english" => "English - Permite buscar los datos de una persona por numero de documento para registrar su asistencia",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_attendance[] = $permission->id;
+
+        $permission = Permission::where('slug','senaempresa.workAsign')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Asignar actividad por unidad",
+                "slug" => "senaempresa.workAsign",
+                "description" => "Permite registrar datos personales basicos y asistencias",
+                "description_english" => "English - Permite registrar datos personales basicos y asistencias",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_attendance[] = $permission->id;
+
+
+        $permission = Permission::where('slug','sica.admin.people.apprentices')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Busqueda de aprendices",
+                "slug" => "sica.admin.people.apprentices",
+                "description" => "Puede acceder a lista de aprendices por titulación",
+                "description_english" => "English - Puede acceder a lista de aprendices por titulación",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        $permission_attendance[] = $permission->id;
+
+        $permission = Permission::where('slug','senaempresa.fingerPrint.home')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Home del finger print",
+                "slug" => "senaempresa.fingerPrint.home",
+                "description" => "Puede acceder a lista de instructores",
+                "description_english" => "English - Puede acceder a lista de instructores",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        
+
+        $permission = Permission::where('slug','senaempresa.fingerPrint.import')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Importar archivo excel de turnos fingerprint",
+                "slug" => "senaempresa.fingerPrint.import",
+                "description" => "Puede acceder a lista de funcionarios",
+                "description_english" => "English - Puede acceder a lista de funcionarios",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        
+
+        $permission = Permission::where('slug','senaempresa.work.index')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Lista de tareas",
+                "slug" => "senaempresa.work.index",
+                "description" => "Puede acceder a lista de funcionarios",
+                "description_english" => "English - Puede acceder a lista de contratistas",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        
+
+
+        $permission = Permission::where('slug','sica.admin.academy.quarters')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Editar works",
+                "slug" => "senaempresa.works.edit",
+                "description" => "Puede acceder a lista de trimestres academicos",
+                "description_english" => "English - Puede acceder a lista de trimestres academicos",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+       
+
+        $permission = Permission::where('slug','senaempresa.works.destroy')->first();
+        if(!$permission){
+            $permission = Permission::create([
+                "name" => "Eliminar tarea",
+                "slug" => "senaempresa.works.destroy",
+                "description" => "Puede acceder a lista de Programas de formacion",
+                "description_english" => "English - Puede acceder a lista de Programas de formacion",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+        
+
+        $permission = Permission::where('slug','senaempresa.work.create')->first();
+        if(!$permission){
+            $permission = Permission::create([
+
+                "name" => "Crear tareas",
+                "slug" => "senaempresa.work.create",
+                "description" => "Puede acceder a lista de Titulaciones",
+                "description_english" => "English - Puede acceder a lista de Titulaciones",
+                "app_id" => $app->id
+            ]);
+        }
+        $permission_admin[] = $permission->id;
+       
+        $permission = Permission::where('slug','senaempresa.work.store')->first();
+        if(!$permission){
+            $permission = Permission::create([
+
+                "name" => "Guardar tareas",
+                "slug" => "senaempresa.work.store",
+                "description" => "Puede acceder a lista de Titulaciones",
+                "description_english" => "English - Puede acceder a lista de Titulaciones",
+                "app_id" => $app->id
+            ]);
+        }
+        /**/
+
+        // se asignan los permisos a los roles
+        $roladmin->permissions()-> syncWithoutDetaching($permission_admin);
+        $rolattendance->permissions()->syncWithoutDetaching($permission_attendance);
+
+
+    }
+
+
+    
+}

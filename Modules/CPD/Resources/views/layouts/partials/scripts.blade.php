@@ -18,9 +18,32 @@
 <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 {{-- Select2 --}}
 <script src="{{ asset('AdminLTE/plugins/select2/js/select2.full.min.js') }}"></script>
+{{-- Sweetalert2 --}}
+<script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
 <script type="text/javascript">
 	$(function () {
   		$('[data-toggle="tooltip"]').tooltip()
 	})
+
+    @if (Session::has('message_cpd'))
+        Swal.fire({
+            @if (Session::get('message_cpd_type') == 'success')
+                title: 'Operación realizada',
+                text: '{{ Session::get('message_cpd') }}',
+                icon: 'success',
+                iconColor: 'green',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: 'green',
+            @endif
+            @if (Session::get('message_cpd_type') == 'error')
+                title: 'Operación rechada',
+                text: '{{ Session::get('message_cpd') }}',
+                icon: 'error',
+                iconColor: 'red',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: 'green',
+            @endif
+        })
+    @endif
 </script>

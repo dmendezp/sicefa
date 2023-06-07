@@ -3,7 +3,7 @@
     <head>
         @include('cpd::layouts.partials.head')
     </head>
-    <body class="hold-transition sidebar-mini">
+    <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
             <!-- Navbar -->
             @include('cpd::layouts.partials.navbar')
@@ -34,24 +34,6 @@
                         </div><!-- /.row -->
                     </div><!-- /.container-fluid -->
                 </div>
-                @if(Session::has('message'))
-                    <div class="container-fluid">
-                        <div class="mtop16 alert alert-{{ Session::get('typealert') }}" style="display: block; margin-bottom: 16px;">
-                            {{ Session::get('message') }}
-                            @if ($errors->any())
-                                <ul>
-                                    @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            @endif
-                            <script>
-                                $('.alert').slideDown();
-                                setTimeout(function(){$('.alert').slideUp();}, 10000);
-                            </script>
-                        </div>
-                    </div>
-                @endif
                 <!-- /.content-header -->
 
                 <!-- Main content -->
