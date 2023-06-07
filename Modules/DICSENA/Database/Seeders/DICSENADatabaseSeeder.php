@@ -14,7 +14,11 @@ class DICSENADatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        
+        DB::beginTransaction();
+        $thi->call(ApptableSeeder::class);
+        DB::commit();
+
 
         // $this->call("OthersTableSeeder");
     }
