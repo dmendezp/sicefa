@@ -104,7 +104,7 @@ class EnvironmentController extends Controller
         $sector = Sector::get();
         $classenviron = ClassEnvironment::get();
         $classenvironedit = ClassEnvironment::pluck('name','id');
-        $coor = Coordinate::get();
+        $coor = Coordinate::find($id);
         $editenviron = Environment::with('coordinates')->find($id);
         $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'coor'=>$coor, 'editenviron'=>$editenviron, 'classenviron'=>$classenviron, 'sector'=>$sector, 'unitedit'=>$unitedit, 'classenvironedit'=>$classenvironedit];
         return view('cefamaps::admin.environment.edit',$data);
@@ -134,19 +134,17 @@ class EnvironmentController extends Controller
             $edit -> picture = e ($final_name);
         }
 
-        $c = 0;
-        if(is_object($edit->coordinate)){
-            foreach ($edit->coordinate as $editcoor) {
+        if($request->input('length')){
+            $c = 0;
+            foreach ($edit->coordinates as $editcoor) {
                 $editcoor = Coordinate::find($editcoor->id);
                 $editcoor -> environment_id = $edit->id;
                 $editcoor -> length = e ($request->input('length')[$c]);
                 $editcoor -> latitude = e ($request->input('latitude')[$c]);
                 $c++;
-                $editcoor->save();
+                if ($editcoor->save()){}
             }
         }else{
-        }
-        foreach($edit->coordinate as $editcoor => $value){
         }
         if($edit->save()) {
             return redirect(route('cefamaps.admin.config.environment.index'));

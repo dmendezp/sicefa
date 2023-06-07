@@ -212,10 +212,8 @@
     html += '<div class="col-1">';
     html += '<div class="form-group">';
     html += '<br>';
-    html += '@foreach($editenviron->coordinates as $c)';
-    html += '<button id="btnEliminar" onclick="eliminarInput({{$c->id}})" type="button" class="btn btn-danger">{{ trans("cefamaps::menu.Delete") }}</button>';
-    html += '@endforeach';
-    html += '<button id="btnCrear" onclick="addInput()" type="button" class="btn btn-info">{{ trans("cefamaps::menu.Add") }}</button>';
+    html += '<button id="btnEliminar" onclick="eliminarInput({{$coor->id}})" type="button" class="btn btn-danger">{{ trans("cefamaps::menu.Delete") }}</button>';
+    html += '<button id="btnCrear" onclick="addInput()" type="button" class="btn btn-info">{{ trans("cefamaps::menu.Save") }}</button>';
     html += '</div>';
     html += '</div>';
     html += '</div>';
