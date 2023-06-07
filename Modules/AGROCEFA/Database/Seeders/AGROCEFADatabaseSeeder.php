@@ -14,8 +14,12 @@ class AGROCEFADatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        DB::beginTransaction(); // Iniciar transacción
 
-        // $this->call("OthersTableSeeder");
+        $this->call(AppTableSeeder::class); //Ejecutar seeder de la app
+
+        DB::commit(); //Finalizar transaccion
+
+
     }
 }
