@@ -182,7 +182,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Nelsy yulied Gómez Morales** - *Mostrar productos vencidos y por vencer* - *Avance 100%* - *Dificultades* - *Acciones*
 * **Oscar Andres Gil Marin** - *Degregado del grupo por no asistir a 4 DailyMeets seguidos y no subir cambios en el repositorio*  
 --- 
-#### Meet 4-Jun-2023 
+#### Meet 6-Jun-2023 
+* **Anyi Katherine Rojas Arce** - *Reporte de entradas de inventario por rango de fechas* - *Avance 60%* - *Construir consulta para obtener las entradas de inventario* - *Acciones*
+* **Jesús David Guevara Munar** - *Registro de venta* - *Avance 90%* - *Dificultades* - *Acciones*
+* **Manuel Steven Ossa Lievano** - *Apertura y cierre de caja* - *Avance 95%* - *Dificultades* - *Acciones*
+* **Nelsy yulied Gómez Morales** - *Mostrar las ventas del día y generar reporte PDF* - *Avance 0%* - *Instalación del paquete para la generacion de archivos pdf* - *Acciones*
+--- 
+#### Meet 8-Jun-2023 
 * **Anyi Katherine Rojas Arce** - *Reporte de entradas de inventario por rango de fechas* - *Avance %* - *Dificultades* - *Acciones*
 * **Jesús David Guevara Munar** - *Registro de venta* - *Avance %* - *Dificultades* - *Acciones*
 * **Manuel Steven Ossa Lievano** - *Apertura y cierre de caja* - *Avance %* - *Dificultades* - *Acciones*
