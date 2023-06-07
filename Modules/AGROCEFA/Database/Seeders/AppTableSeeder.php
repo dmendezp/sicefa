@@ -4,6 +4,7 @@ namespace Modules\AGROCEFA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\SICA\Entities\App;
 
 class AppTableSeeder extends Seeder
 {
