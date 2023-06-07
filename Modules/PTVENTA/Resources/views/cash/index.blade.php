@@ -134,7 +134,8 @@
     <script>
         $(document).ready(function () { /* Initialización of Datatables CashCount */
             $('#tableCashCount').DataTable({
-                // opciones de configuración para la tabla 1
+            language: 
+                language_datatables, // Agregar traducción a español
             });
         });
     </script>
