@@ -21,8 +21,8 @@ class AppTableSeeder extends Seeder
             'url' => '/agrocefa/index',
             'color' => '#239953',
             'icon' => 'fas fa-seedling',
-            'description' => 'Sistema de registro y control de unidades agricolas',
-            'description_english' => 'Registration and control system of agricultural units'
+            'description' => 'Sistema de Registro y Control de Unidades Agrícolas',
+            'description_english' => 'Registration and Control System of Agricultural Units'
 
         ]);
 
