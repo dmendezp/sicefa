@@ -22,9 +22,6 @@
                                 <th scope="col">Encargado</th>
                                 <th scope="col">Fecha de apertura</th>
                                 <th scope="col">Saldo Inicial</th>
-                                <th scope="col">Saldo Final</th>
-                                <th scope="col">Diferencia</th>
-                                <th scope="col">Hora de cierre</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Cierre</th>
                             </tr>
@@ -36,9 +33,6 @@
                                     <td>{{ $cashCount->person->full_name }}</td>
                                     <td>{{ $cashCount->opening_date }}</td>
                                     <td>{{ $cashCount->initial_balance }}</td>
-                                    <td>{{ $cashCount->final_balance ?: 'N/A' }}</td>
-                                    <td>{{ $cashCount->final_balance ? $cashCount->final_balance - $cashCount->initial_balance : 'N/A' }}</td>
-                                    <td>{{ $cashCount->closing_time ?: 'N/A' }}</td>
                                     <td>{{ $cashCount->state }}</td>
                                     <td>
                                         <!-- Button trigger modal -->
@@ -46,7 +40,7 @@
                                             data-cash-count-id="{{ $cashCount->id }}"
                                             data-initial-balance="{{ $cashCount->initial_balance }}"
                                             data-date="{{ $cashCount->opening_date }}">
-                                            <i class="fas fa-close"></i> Cerrar Caja
+                                            <i class="fas fa-store-slash"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -69,38 +63,36 @@
             </div>
             <div class="modal-body">
                 {!! Form::open(['route' => 'ptventa.cashCount.close1', 'id' => 'cierre-caja-form', 'class' => 'form-row']) !!}
-                <!-- Campos del formulario -->
-                <div class="form-group col-md-4">
-                    {{ Form::label('person_name', 'Encargado de apertura:') }}
-                    {{ Form::text('person_name', Auth::user()->person->full_name, ['class' => 'form-control', 'disabled']) }}
-                </div>
-            
-                <div class="form-group col-md-3">
-                    {{ Form::label('opening_date', 'Fecha de Apertura') }}
-                    {{ Form::text('opening_date', null, ['class' => 'form-control', 'readonly']) }}
-                </div>
-            
-                <div class="form-group col-md-3">
-                    {{ Form::label('initial_balance', 'Saldo Inicial') }}
-                    {{ Form::text('initial_balance', null, ['class' => 'form-control', 'readonly']) }}
-                    <div class="form-text">*Utilice directamente las teclas de su teclado</div>
-                </div>
-            
-                <div class="form-group col-md-3">
-                    {{ Form::label('final_balance', 'Saldo Final') }}
-                    {{ Form::number('final_balance', null, ['class' => 'form-control', 'step' => '0.01', 'required']) }}
-                </div>
-            
-                <div class="form-group col-md-3">
-                    {{ Form::label('closing_time', 'Hora de Cierre') }}
-                    {{ Form::time('closing_time', null, ['class' => 'form-control', 'required']) }}
-                </div>
-            
-                <div class="form-group col-md-2 d-flex align-items-center justify-content-end">
-                    {{ Form::hidden('cash_count_id', null, ['id' => 'cash-count-id']) }}
-                    <button type="submit" class="btn btn-primary">Cerrar Caja</button>
-                </div>
-            
+                    <!-- Campos del formulario -->
+                    <div class="form-group col-md-4">
+                        {{ Form::label('person_name', 'Encargado de apertura:') }}
+                        {{ Form::text('person_name', Auth::user()->person->full_name, ['class' => 'form-control', 'disabled']) }}
+                    </div>
+                
+                    <div class="form-group col-md-4">
+                        {{ Form::label('opening_date', 'Fecha de Apertura') }}
+                        {{ Form::datetimeLocal('opening_date', null, ['class' => 'form-control', 'readonly']) }}
+                    </div>
+                
+                    <div class="form-group col-md-4">
+                        {{ Form::label('initial_balance', 'Saldo Inicial') }}
+                        {{ Form::text('initial_balance', null, ['class' => 'form-control', 'readonly']) }}
+                    </div>
+                
+                    <div class="form-group col-md-4">
+                        {{ Form::label('final_balance', 'Saldo Final') }}
+                        {{ Form::number('final_balance', null, ['class' => 'form-control', 'step' => '0.01', 'required']) }}
+                    </div>
+                
+                    <div class="form-group col-md-4">
+                        {{ Form::label('date', 'Hora de Cierre') }}
+                        {{ Form::datetimeLocal('date', null, ['class' => 'form-control', 'readonly']) }}
+                    </div>
+                
+                    <div class="form-group mt-4 col-md-4 d-flex align-items-center justify-content-end">
+                        {{ Form::hidden('cash_count_id', null, ['id' => 'cash-count-id']) }}
+                        <button type="submit" class="btn btn-danger btn-block">Cerrar Caja</button>
+                    </div>
                 {!! Form::close() !!}
             </div>
         </div>
@@ -134,4 +126,44 @@
             modal._element.querySelector('#opening_date').value = openingDate;
         });
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('cierre-caja-form');
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                Swal.fire({
+                    title: 'Cerrar Caja',
+                    text: '¿Estás seguro de que deseas cerrar la caja?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, cerrar caja',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    } else {
+                        Swal.fire('Operación cancelada', '', 'info');
+                    }
+                });
+            });
+
+            // Verificar si hay mensajes de éxito o error desde el servidor
+            const successMessage = "{{ session('success') }}";
+            const errorMessage = "{{ session('error') }}";
+
+            if (successMessage) {
+                Swal.fire('Operación exitosa', successMessage, 'success');
+            }
+
+            if (errorMessage) {
+                Swal.fire('Error', errorMessage, 'error');
+            }
+        });
+    </script>
+
+
+    <script src="{{ asset('modules/ptventa/js/cash/index/dateTimeNow.js')}}"></script>  
 @endpush

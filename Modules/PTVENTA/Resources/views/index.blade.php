@@ -30,7 +30,7 @@
                                 <img src="{{ asset('modules/ptventa/images/Card6.jpg') }}" alt=""
                                     class="card-img-top">
                                 <div class="card-body">
-                                    <p class="card-text head">{{ trans('ptventa::mainPage.Pinneapple')}}</p>>
+                                    <p class="card-text head">{{ trans('ptventa::mainPage.Pineapple')}}</p>>
                                 </div>
                             </div>
                         </div>

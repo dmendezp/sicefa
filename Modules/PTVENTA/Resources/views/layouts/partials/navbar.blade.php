@@ -17,7 +17,7 @@
             <div type="button" class="button-login">
                 @guest
                     <a href="{{ route('login') }}" class="text-decoration-none text-black">
-                        <span>Iniciar sesión</span>
+                        <span>{{ trans('ptventa::general.Log In')}}</span>
                     </a>
                 @else
                     <span>{{ Auth::user()->person->fullname }}</span>
@@ -34,28 +34,28 @@
             </div>
         </li>
 
-        <li class="nav-item dropdown mx-1">
-            <a class="nav-link" data-toggle="dropdown" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{trans('sigac::general.Internacionalization')}}>
+        <li>
+          <div class="nav-item dropdown mx-1">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="{{trans('ptventa::general.Internacionalization')}}">
               <i class="fas fa-globe-americas"></i> {{ session('lang') }}
-            </a>
-            <div class="dropdown-menu dropdown-menu-right p-0">
-              <a href="{{ url('lang',['en']) }}" class="dropdown-item">
-                <img src="{{asset('modules/ptventa/images/flags/estados-unidos.png')}}" alt=""> {{ trans('ptventa::general.English')}}
-              </a>
-              <a href="{{ url('lang',['es']) }}" class="dropdown-item">
-                <img src="{{asset('modules/ptventa/images/flags/colombia.png')}}" alt=""> {{ trans('ptventa::general.Spanish')}}
-              </a>
-            </div>
-          </li>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end"> <!-- Agregar la clase dropdown-menu-end -->
+              <li>
+                <a href="{{ url('lang',['en']) }}" class="dropdown-item">
+                  <img src="{{asset('modules/ptventa/images/flags/estados-unidos.png')}}" alt=""> {{ trans('ptventa::general.English')}}
+                </a>
+              </li>
+              <li>
+                <a href="{{ url('lang',['es']) }}" class="dropdown-item">
+                  <img src="{{asset('modules/ptventa/images/flags/colombia.png')}}" alt=""> {{ trans('ptventa::general.Spanish')}}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>    
 
         <li class="nav-item mx-1">
-            <a class="nav-link" href="{{ route('cefa.welcome') }}" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Volver a SICEFA">
-                <i class="fas fa-hiking"></i>
-            </a>
-        </li>
-
-        <li class="nav-item mx-1">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Modo pantalla completa">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{trans('ptventa::general.Full Screen Mode')}}">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
             

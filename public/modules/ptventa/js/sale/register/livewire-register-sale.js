@@ -57,21 +57,42 @@ Livewire.on('clear-sale-values', function() {
 
 // lanzar mensajes
 Livewire.on('message', function(type, action, message, change_value) {
-    color = (type=='success') ? 'green' : ((type=='error') ? 'red' : 'default');
-    Swal.fire({
-        title: action,
-        text: message,
-        html: (type == 'success') ?
-            '<div class="bg-light py-2">' +
-                '<p class="text-secondary">Tiene un cambio de:</p>' +
-                '<h1>'+ change_value +'</h1>' +
-            '</div>'
-            : null,
-        icon: type,
-        iconColor: color,
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: 'green'
-    });
+    const color = {
+        success: 'green',
+        error: 'red'
+    };
+    if(type=='alert-success'){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: message,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }else if(type=='alert-warning'){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: message,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }else{
+        Swal.fire({
+            title: action,
+            text: message,
+            html: (type == 'success') ?
+                '<div class="bg-light py-2">' +
+                    '<p class="text-secondary">Tiene un cambio de:</p>' +
+                    '<h1>'+ change_value +'</h1>' +
+                '</div>'
+                : null,
+            icon: type,
+            iconColor: color[type],
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: 'green'
+        });
+    }
 });
 
 // Calcular valor de cambio
@@ -118,15 +139,19 @@ Livewire.on('input-product-amount', function(product_total_amount, product_price
     }
 });
 
-// Bloquear el cierre del modal por tecla ESC o cierre por click fuera del modal
-$(document).ready(function() {
-    $('#registerCustomer').modal({
-        keyboard: false,
-        backdrop: 'static'
-    });
+// Definir constante para manipular los distintos eventos manejados por el modal de registro de cliente (persona)
+const modalRegisterCustomer = new bootstrap.Modal($('#registerCustomer'));
 
-    $('#registerCustomer').modal('show');
+// Abrir el formulario de registro de cliente (persona)
+Livewire.on('open-modal-register-customer', function() {
+    modalRegisterCustomer.show();
 });
+
+// Cerrar el formulario de registro de cliente (persona)
+Livewire.on('close-modal-register-customer', function() {
+    modalRegisterCustomer.hide();
+});
+
 
 
 

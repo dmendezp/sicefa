@@ -8,12 +8,14 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Modules\SICA\Entities\Element;
+use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementDetail;
 use Modules\SICA\Entities\MovementResponsability;
 use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\PopulationGroup;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\WarehouseMovement;
 
@@ -35,8 +37,14 @@ class GenerateSale extends Component
     public $customer_document_type; // Tipo de documento del cliente
     public $customer_full_name; // Nombre completo del cliente
 
-    public function __construct()
-    {
+    public $document_types; // Tipos de documento para registro de persona
+    public $person_document_type; // Tipo de  para registro de persona
+    public $person_document_number; // Número de documento para registro de persona
+    public $person_first_name; // Primer y/o segundo nombre para registro de persona
+    public $person_first_last_name; // Primer apellido para registro de persona
+    public $person_second_last_name; // Segundo apellido para registro de persona
+
+    public function __construct(){
         $this->selected_products = collect(); // Inicializar la varible que cotiene la información de los productos seleccionados
     }
 
@@ -44,7 +52,6 @@ class GenerateSale extends Component
     public function mount(){
         $this->defaultAction(); // Restablecer valores de todos los atributos y consultar productos disponibles para la venta
         $this->consultCustomer(); // Consultar y verificar cliente
-
     }
 
     public function render(){
@@ -54,6 +61,7 @@ class GenerateSale extends Component
     // Restaurar todos los valores de la variables y consultar productos disponibles en inventario para la venta
     public function defaultAction(){
         $this->reset(); // Vaciar los valores de todos los atributos para evitar irregularidades en los valores de estos
+        $this->consultCustomer(); // Consultar cliente predeterminado
         $warehouse = Warehouse::where('name','Punto de venta')->first(); // Consultar bodega de la aplicación
         $inventories = Inventory::where('warehouse_id',$warehouse->id)
                                 ->where('destination','Producción')
@@ -61,6 +69,7 @@ class GenerateSale extends Component
                                 ->pluck('id','element_id');  // Obtener elemen_id unicos para conocer los elementos activos del inventario
         $elementIds = $inventories->keys()->toArray(); // Obtenemos solo el id de los elementos
         $this->products = Element::whereIn('id', $elementIds)->whereNotNull('price')->orderBy('name')->get(); // Consultar elementos que tenga precio para acceder a su nombre
+        $this->document_types = getEnumValues('people','document_type'); // Obtener los tipos de documentos
     }
 
     // Consultar información del producto seleccionado (cantidad y precio)
@@ -178,8 +187,8 @@ class GenerateSale extends Component
         $this->totalValueProducts(); // Calcular el valor total de los productos seleccionados
     }
 
-    // Ristrar venta
-    public function registerSale($value){
+    // Veriricar si hay un producto seleccionado
+    public function verifySelectedProduct(){
         // Verificar si hay algún producto seleccionado
         if($this->product_id <> null){
             if($this->product_amount >= 1){
@@ -188,103 +197,118 @@ class GenerateSale extends Component
                 $this->resetValues();
             }
         }
+        $this->change_value = $this->payment_value - $this->total; // Recalcular el valor de cambio
+        $this->emit('change_value'); // Calcular valor de cambio
+    }
 
-        // Registrar venta como movimiento
-        try {
-            DB::beginTransaction(); // Iniciar transacción
+    // Ristrar venta
+    public function registerSale($value){
+        $this->verifySelectedProduct(); // Verficar seleccion de productos
 
-            $current_datetime = now()->milliseconds(0); // Generer fecha y hora actual
+        // Verificar si el cliente (persona) seleccionado se encuentra registrado en la base de datos
+        if (Person::where('document_number', $this->customer_document_number)->exists()) {
+            // Registrar venta como movimiento
+            try {
+                DB::beginTransaction(); // Iniciar transacción
 
-            // Consultar tipo de movimiento para una venta
-            $error = 'TIPO DE MOVIMIENTO';
-            $movementType = MovementType::where('name','Venta')->firstOrFail();
+                $current_datetime = now()->milliseconds(0); // Generer fecha y hora actual
 
-            // Registrar movimiento
-            $error = 'MOVIMIENTO';
-            $movement = Movement::create([
-                'registration_date' => $current_datetime,
-                'movement_type_id' => $movementType->id,
-                'voucher_number' => 0,
-                'state' => 'Aprobado',
-                'price' => $this->total
-            ]);
+                // Consultar tipo de movimiento para una venta
+                $error = 'TIPO DE MOVIMIENTO';
+                $movementType = MovementType::where('name','Venta')->firstOrFail();
 
-            // Registrar detalles de movimiento (productos, cantidades y precios)
-            $error = 'DETALLES DE MOVIMIENTO';
-            foreach ($this->selected_products as $product) {
-                $amountLeft = $product['product_amount']; // Definir cantidad restante (cantidad del producto a vender)
+                // Registrar movimiento
+                $error = 'MOVIMIENTO';
+                $movement = Movement::create([
+                    'registration_date' => $current_datetime,
+                    'movement_type_id' => $movementType->id,
+                    'voucher_number' => 0,
+                    'state' => 'Aprobado',
+                    'price' => $this->total
+                ]);
 
-                // Consultar todo el inventario del producto seleccionado
-                $inventories = Inventory::where('element_id', $product['product_element_id'])
-                    ->where('state', 'Disponible')
-                    ->where('destination', 'Producción')
-                    ->orderBy('expiration_date', 'asc')
-                    ->get();
+                // Registrar detalles de movimiento (productos, cantidades y precios)
+                $error = 'DETALLES DE MOVIMIENTO';
+                foreach ($this->selected_products as $product) {
+                    $amountLeft = $product['product_amount']; // Definir cantidad restante (cantidad del producto a vender)
 
-                // Recorrer inventario y disminuir cantidades de acuerdo a la cantidad requerida para la venta
-                foreach ($inventories as $inventory) {
-                    if ($amountLeft <= 0) { // Validar si la cantidad restante es menor o igual a cero
-                        break;
+                    // Consultar todo el inventario del producto seleccionado
+                    $inventories = Inventory::where('element_id', $product['product_element_id'])
+                        ->where('state', 'Disponible')
+                        ->where('destination', 'Producción')
+                        ->orderBy('expiration_date', 'asc')
+                        ->get();
+
+                    // Recorrer inventario y disminuir cantidades de acuerdo a la cantidad requerida para la venta
+                    foreach ($inventories as $inventory) {
+                        if ($amountLeft <= 0) { // Validar si la cantidad restante es menor o igual a cero
+                            break;
+                        }
+
+                        $amountToSubtract = min($amountLeft, $inventory->amount); // Cantidad para restar del inventario actual
+
+                        // Actualizar inventario
+                        $inventory->amount -= $amountToSubtract;
+                        $inventory->state = ($inventory->amount > 0) ? 'Disponible' : 'No disponible';
+                        $inventory->save();
+
+                        $amountLeft -= $amountToSubtract; // Disminuir cantidad restante
+
+                        MovementDetail::create([ // Registrar detalle de movimiento
+                            'movement_id' => $movement->id,
+                            'inventory_id' => $inventory->id,
+                            'amount' => $amountToSubtract,
+                            'price' => $product['product_price']
+                        ]);
                     }
-
-                    $amountToSubtract = min($amountLeft, $inventory->amount); // Cantidad para restar del inventario actual
-
-                    // Actualizar inventario
-                    $inventory->amount -= $amountToSubtract;
-                    $inventory->state = ($inventory->amount > 0) ? 'Disponible' : 'No disponible';
-                    $inventory->save();
-
-                    $amountLeft -= $amountToSubtract; // Disminuir cantidad restante
-
-                    MovementDetail::create([ // Registrar detalle de movimiento
-                        'movement_id' => $movement->id,
-                        'inventory_id' => $inventory->id,
-                        'amount' => $amountToSubtract,
-                        'price' => $product['product_price']
-                    ]);
                 }
+
+                // Registrar responsables de movimientos
+                $error = 'RESPONSABLES DE MOVIMIENTO';
+                MovementResponsability::create([ // Registrar Vendedor
+                    'person_id' => Auth::user()->person_id,
+                    'movement_id' => $movement->id,
+                    'role' => 'VENDEDOR',
+                    'date' => $current_datetime
+                ]);
+                MovementResponsability::create([ // Registrar Cliente
+                    'person_id' => Person::where('document_number',$this->customer_document_number)->first()->id,
+                    'movement_id' => $movement->id,
+                    'role' => 'CLIENTE',
+                    'date' => $current_datetime
+                ]);
+
+                // Registrar movimientos de bodega
+                $error = 'MOVIMIENTOS DE BODEGA';
+                WarehouseMovement::create([
+                    'warehouse_id' => Warehouse::where('name','Punto de venta')->first()->id,
+                    'movement_id' => $movement->id,
+                    'role' => 'Entrega'
+                ]);
+
+                // Generar número de comprobante
+                $error = 'NÚMERO DE COMPROBANTE';
+                $movementType = MovementType::where('name','Venta')->first();
+                $movementType->update(['consecutive' => $movementType->consecutive + 1]);
+                $movement->update(['voucher_number' => $movementType->consecutive]);
+
+                DB::commit(); // Confirmar cambios realizados durante la transacción
+
+                // Transacción completada exitosamente
+                $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente.', $value);
+                $this->defaultAction();
+                $this->emit('clear-sale-values'); // Limpiar valores de venta
+            } catch (Exception $e) { // Capturar error durante la transacción
+                // Transacción rechazada
+                DB::rollBack(); // Devolver cambios realizados durante la transacción
+                $this->emit('change_value'); // Calcular valor de cambio
+                $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta en '.$error.'. Por favor intente nuevamente.', null);
             }
-
-            // Registrar responsables de movimientos
-            $error = 'RESPONSABLES DE MOVIMIENTO';
-            MovementResponsability::create([ // Registrar Vendedor
-                'person_id' => Auth::user()->person_id,
-                'movement_id' => $movement->id,
-                'role' => 'VENDEDOR',
-                'date' => $current_datetime
-            ]);
-            MovementResponsability::create([ // Registrar Cliente
-                'person_id' => Person::where('document_number',123456789)->first()->id,
-                'movement_id' => $movement->id,
-                'role' => 'CLIENTE',
-                'date' => $current_datetime
-            ]);
-
-            // Registrar movimientos de bodega
-            $error = 'MOVIMIENTOS DE BODEGA';
-            WarehouseMovement::create([
-                'warehouse_id' => Warehouse::where('name','Punto de venta')->first()->id,
-                'movement_id' => $movement->id,
-                'role' => 'Entrega'
-            ]);
-
-            // Generar número de comprobante
-            $error = 'NÚMERO DE COMPROBANTE';
-            $movementType = MovementType::where('name','Venta')->first();
-            $movementType->update(['consecutive' => $movementType->consecutive + 1]);
-            $movement->update(['voucher_number' => $movementType->consecutive]);
-
-            DB::commit(); // Confirmar cambios realizados durante la transacción
-
-            // Transacción completada exitosamente
-            $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente.', $value);
-            $this->defaultAction();
-            $this->emit('clear-sale-values'); // Limpiar valores de venta
-        } catch (Exception $e) { // Capturar error durante la transacción
-            // Transacción rechazada
-            DB::rollBack(); // Devolver cambios realizados durante la transacción
-            $this->emit('change_value'); // Calcular valor de cambio
-            $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta en '.$error.'. Por favor intente nuevamente.', null);
+        }else{
+            $this->emit('message', 'alert-warning', null, 'Es necesario seleccionar un cliente.', null); // Emitir mensaje de registro exitoso
+            $this->customer_document_number = null;
+            $this->customer_document_type = '----------------';
+            $this->customer_full_name = '----------------';
         }
     }
 
@@ -296,10 +320,55 @@ class GenerateSale extends Component
             $this->customer_document_type = $customer->document_type;
             $this->customer_full_name = $customer->full_name;
         }else{
+            $this->person_document_number = $this->customer_document_number; // Recuperar el número de documento ingresado para mostrar en el formulario de registro de cliente(persona)
             $this->customer_document_number = null;
             $this->customer_document_type = '----------------';
             $this->customer_full_name = '----------------';
-            $this->emit('register-customer'); // Llamar evento para abrir el formulario de registro de cliente
+            $this->emit('open-modal-register-customer'); // Abrir el modal con el formulario de registro
         }
+        $this->verifySelectedProduct(); // Verficar seleccion de productos
+    }
+
+    // Registrar cliente como person
+    public function registerCustomer(){
+        // Aplicar reglas de validación
+        $validatedData = $this->validate([
+            'person_document_type' => 'required',
+            'person_document_number' => 'required|digits_between:6,12|unique:people,document_number',
+            'person_first_name' => 'required|min:3',
+            'person_first_last_name' => 'required|min:3',
+            'person_second_last_name' => 'required|min:3',
+        ]);
+
+        // Registro de persona
+        $person = Person::create([
+            'document_type' => $validatedData['person_document_type'],
+            'document_number' => $validatedData['person_document_number'],
+            'first_name' => $validatedData['person_first_name'],
+            'first_last_name' => $validatedData['person_first_last_name'],
+            'second_last_name' => $validatedData['person_second_last_name'],
+            'eps_id' => EPS::firstOrCreate(['name'=>'NO REGISTRA'])->id, // Consulta o registro de EPS
+            'population_group_id' => PopulationGroup::firstOrCreate(['name'=>'NINGUNA'])->id // Consulta o registro de grupo poblacional
+        ]);
+
+        // Verificar que la persona ha sido registrada exitosamente
+        if ($person) {
+            $this->resetFormRegisterCustomer();
+            $this->emit('close-modal-register-customer'); // Cerrar el modal con el formulario de registro
+            $this->emit('message', 'alert-success', null, 'Cliente registrado.', null); // Emitir mensaje de registro exitoso
+            $this->customer_document_number = $person->document_number; // Asignar número de documento de la persona registrado al campo de consulta de cliente
+            $this->consultCustomer(); // Consultar cliente
+        }
+    }
+
+    // Vaciar formulario de registro de cliente (persona)
+    public function resetFormRegisterCustomer(){
+        $this->reset( // Restablecer valores del formulario de registro de cliente (persona)
+            'person_document_type',
+            'person_document_number',
+            'person_first_name',
+            'person_first_last_name',
+            'person_second_last_name',
+        );
     }
 }

@@ -1,5 +1,6 @@
 <div>
 
+    <!-- Seleccionar y agregar producto -->
     <div class="row mx-3">
         <div class="col-4">
             <div class="form-group">
@@ -40,6 +41,7 @@
         </div>
     </div>
 
+    <!-- Productos seleccionados -->
     <div class="row mx-3">
         <div class="col-md-9">
             <div class="card shadow-sm">
@@ -86,6 +88,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- Datos de la venta -->
         <div class="col-md-3">
             <div class="card card-success">
                 <div class="card-header text-center">
@@ -98,7 +102,7 @@
                         <div class="col-5 pe-1">
                             {!! Form::number('document_number', $customer_document_number, [
                                 'class'=>'form-control form-control-sm',
-                                'wire:model' => 'customer_document_number',
+                                'wire:model.defer' => 'customer_document_number',
                                 'wire:keydown.enter' => 'consultCustomer',
                                 'wire:loading.attr' => 'disabled',
                                 'wire:target' => 'consultCustomer'])
@@ -156,11 +160,80 @@
         </div>
     </div>
 
-    {{-- Se incluye el componente para registar cliente (es un modal con un formulario para registrar datos básicos) --}}
-    @livewire('ptventa::sale.register-customer')
+    <!-- Modal para registro rápido de cliente -->
+    <div class="modal fade" id="registerCustomer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="registerCustomerLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h1 class="modal-title fs-5" id="registerCustomerLabel">Registro de cliente</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="resetFormRegisterCustomer"></button>
+                </div>
+                <div class="modal-body">
+                    <form wire:submit.prevent="registerCustomer">
+                        <div class="alert alert-danger py-1" role="alert">
+                            <strong style="font-size: 12px">La persona consultada no se encuentra registrado.</strong>
+                        </div>
+                        <div class="form-group">
+                            <label>Identificación</label>
+                            <div class="row">
+                                <div class="col-6 pe-1">
+                                    {{ Form::select('person_document_type', $document_types, $person_document_type, [
+                                        'placeholder' => '-- Seleccionar --',
+                                        'class' => 'form-select form-select-sm',
+                                        'wire:model.defer' => 'person_document_type'])
+                                    }}
+                                    @error('person_document_type') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="col-6 ps-1">
+                                    {{ Form::number('person_document_number', $person_document_number, [
+                                        'class' => 'form-control form-control-sm',
+                                        'placeholder' => 'Número',
+                                        'wire:model.defer' => 'person_document_number'])
+                                    }}
+                                    @error('person_document_number') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombres</label>
+                            {{ Form::text('person_first_name', $person_first_name, [
+                                'class' => 'form-control form-control-sm',
+                                'placeholder' => 'Primer y segundo nombre',
+                                'wire:model.defer' => 'person_first_name'])
+                            }}
+                            @error('person_first_name') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Apellidos</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    {{ Form::text('person_first_last_name', $person_first_last_name, [
+                                        'class' => 'form-control form-control-sm',
+                                        'placeholder' => 'Primer apellido',
+                                        'wire:model.defer' => 'person_first_last_name'])
+                                    }}
+                                    @error('person_first_last_name') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="col-6">
+                                    {{ Form::text('person_second_last_name', $person_second_last_name, [
+                                        'class' => 'form-control form-control-sm',
+                                        'placeholder' => 'Segundo apellido',
+                                        'wire:model.defer' => 'person_second_last_name'])
+                                    }}
+                                    @error('person_second_last_name') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-success py-0 float-end">Registrar</button>
+                        <button type="button" class="btn btn-sm btn-secondary py-0 me-1 float-end" data-bs-dismiss="modal" wire:click="resetFormRegisterCustomer">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @section('sripts-generate-sale')
-        {{-- Scripts del componente --}}
+        <!-- Scripts del componente register-sale -->
         <script src="{{ asset('modules/ptventa/js/sale/register/livewire-register-sale.js') }}"></script>
     @endsection
 </div>
