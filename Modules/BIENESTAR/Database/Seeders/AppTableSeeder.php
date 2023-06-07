@@ -18,7 +18,7 @@ class AppTableSeeder extends Seeder
         App::updateOrCreate(['name' => 'BIENESTAR'], [
         'url' => '/bienestar/index',
         'color' => '#33105D',
-        'icon' => 'fa-solid fa-hand-holding-heart',
+        'icon' => 'fas fa-hand-holding-heart',
         'description' => 'Sistema de Gestión de Bienestar al aprendiz',
         'description_english' => 'Trainee Welfare Management System'
     ]);
