@@ -20,7 +20,7 @@ class AppTableSeeder extends Seeder
         App::updateOrCreate(['name' => 'AGROCEFA'], [
             'url' => '/agrocefa/index',
             'color' => '#239953',
-            'icon' => 'fa-duotone fa-seedling',
+            'icon' => 'fas fa-seedling',
             'description' => 'Sistema de registro y control de unidades agricolas',
             'description_english' => 'Registration and control system of agricultural units'
 
