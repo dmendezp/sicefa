@@ -212,7 +212,9 @@
     html += '<div class="col-1">';
     html += '<div class="form-group">';
     html += '<br>';
+    html += '@foreach($editenviron->coordinates as $c)';
     html += '<button id="btnEliminar" onclick="eliminarInput({{$c->id}})" type="button" class="btn btn-danger">{{ trans("cefamaps::menu.Delete") }}</button>';
+    html += '@endforeach';
     html += '<button id="btnCrear" onclick="addInput()" type="button" class="btn btn-info">{{ trans("cefamaps::menu.Add") }}</button>';
     html += '</div>';
     html += '</div>';
@@ -266,9 +268,10 @@
 
     <!-- Inicio mapa para las cooordenadas -->
     <script type="text/javascript">
+    
     function initMap(){
-      var latitude = {{$c->latitude}};
-      var length = {{$c->length}};
+      var latitude = {{$editenviron->latitude}};
+      var length = {{$editenviron->length}};
 
       coordenas = {
         lng: length,
@@ -277,7 +280,7 @@
 
       generarMapa(coordenas);
       
-    }
+    };
 
     function generarMapa(coordenas) {
       var mapa = new google.maps.Map(document.getElementById('mapa'),
@@ -296,7 +299,7 @@
       marcador.addListener('dragend', function(event){
         document.getElementById("latitude").value = this.getPosition().lat();
         document.getElementById("length").value = this.getPosition().lng();
-      })
+      });
     }
     
   </script>
