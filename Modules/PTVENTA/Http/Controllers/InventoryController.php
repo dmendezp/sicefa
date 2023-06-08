@@ -1,14 +1,12 @@
 <?php
 
 namespace Modules\PTVENTA\Http\Controllers;
-use Modules\SICA\Entities\Inventory;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Carbon;
-use Modules\SICA\Entities\MovementDetail;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
-use Modules\SICA\Entities\Element;
-
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Carbon;
+use Modules\SICA\Entities\Inventory;
+use Modules\SICA\Entities\MovementDetail;
 
 class InventoryController extends Controller
 {
@@ -25,9 +23,9 @@ class InventoryController extends Controller
     }
 
     public function pdf(){ //Descarga de archivos PDF
-        $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
-        $pdf = Pdf::loadView('ptventa::inventory.pdf', compact('inventories'));
-        return $pdf->stream();
+        $inventories = Inventory::all();
+        $pdf = PDF\Pdf::loadView('ptventa::inventory.pdf', compact('inventories'));
+        return $pdf->download('Listado_de _productos.pdf');
 
     }
 
@@ -41,6 +39,8 @@ class InventoryController extends Controller
                                     ->orderBy('expiration_date')
                                         ->get();
                                         
+
+
     return view('ptventa::inventory.status', compact('view','productosVencidos', 'productosPorVencer'));
 
     }
