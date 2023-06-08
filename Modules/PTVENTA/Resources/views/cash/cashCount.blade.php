@@ -14,7 +14,7 @@
             <div class="card-body">
                 <h4 class="text-center">Cierre de Caja</h4>
                 <hr>
-                <div class="table-responsive" style="width: 500px;">
+                <div class="table-responsive">
                     <table class="table table-striped table-hover" id="tableCashCount">
                         <thead class="table-dark">
                             <tr>
@@ -113,6 +113,7 @@
             });
         });
     </script>
+    
     <script>
         var modal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
 
@@ -164,7 +165,6 @@
             }
         });
     </script>
-
 
     <script src="{{ asset('modules/ptventa/js/cash/index/dateTimeNow.js')}}"></script>  
 @endpush
