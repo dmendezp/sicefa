@@ -40,7 +40,6 @@ class InventoryController extends Controller
                                     ->where('expiration_date', '<=', now()->addDays(3))
                                     ->orderBy('expiration_date')
                                         ->get();
-                                        
     return view('ptventa::inventory.status', compact('view','productosVencidos', 'productosPorVencer'));
 
     }
