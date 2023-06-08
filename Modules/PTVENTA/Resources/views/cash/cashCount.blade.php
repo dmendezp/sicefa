@@ -14,7 +14,7 @@
             <div class="card-body">
                 <h4 class="text-center">Cierre de Caja</h4>
                 <hr>
-                <div class="table-responsive">
+                <div class="table-responsive" style="width: 500px;">
                     <table class="table table-striped table-hover" id="tableCashCount">
                         <thead class="table-dark">
                             <tr>
@@ -108,7 +108,8 @@
         $(document).ready(function() {
             /* Initialización of Datatables CashCount */
             $('#tableCashCount').DataTable({
-                // opciones de configuración para la tabla 1
+                language: 
+                    language_datatables, // Agregar traducción a español
             });
         });
     </script>
