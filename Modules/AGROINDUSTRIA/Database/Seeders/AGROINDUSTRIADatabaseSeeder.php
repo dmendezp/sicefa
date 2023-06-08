@@ -14,8 +14,10 @@ class AGROINDUSTRIADatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        DB::beginTransaction(); // Iniciar transacción
 
-        // $this->call("OthersTableSeeder");
+        $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
+
+        DB::commit(); // Finalizar transacción
     }
 }
