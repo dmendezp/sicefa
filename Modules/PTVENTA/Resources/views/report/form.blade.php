@@ -16,7 +16,7 @@
         <input type="date" value="{{old('fecha_ini')}}" id="fecha_ini" name="fecha_ini" class="form-control" required>
 
         <label>Fecha final</label>
-        <input type="date" value="{{old('fecha_fin')}}" id="fecha_fin" name="fecha_fin" class="form-control" disabled>
+        <input type="date" value="{{old('fecha_fin')}}" id="fecha_fin" name="fecha_fin" class="form-control" >
     </div>
     <div class="card-footer">
         <button type="submit" class="btn btn-success">Consultar</button>
