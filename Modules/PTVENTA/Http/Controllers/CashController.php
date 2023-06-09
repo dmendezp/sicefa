@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\PTVENTA\Entities\CashCount;
+use Modules\SICA\Entities\Warehouse;
 
 class CashController extends Controller
 {
@@ -50,6 +51,7 @@ class CashController extends Controller
     
         $cashCount = new CashCount();
         $cashCount->person_id = Auth::user()->person_id;
+        $cashCount->warehouse_id = 1;
         $cashCount->opening_date = Carbon::now();
         $cashCount->initial_balance = $request->initial_balance;
         $cashCount->final_balance = $request->final_balance;

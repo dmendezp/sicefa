@@ -19,6 +19,7 @@ return [
     'Difference' => 'Difference',
     'Closing date' => 'Closing date',
     'State' => 'State',
+    'Warehouse' => 'Warehouse',
     'Action' => 'Action',
     'Open cash' => 'Open cash',
     'Perform cash closing' => 'Perform cash closing',

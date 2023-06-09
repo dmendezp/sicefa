@@ -61,6 +61,7 @@
                                     <th scope="col">{{ trans('ptventa::cash.Difference')}}</th>
                                     <th scope="col">{{ trans('ptventa::cash.Closing date')}}</th>
                                     <th scope="col">{{ trans('ptventa::cash.State')}}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.Warehouse')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,6 +75,7 @@
                                     <td>{{ $cashCount->difference ?: '0' }}</td>
                                     <td>{{ $cashCount->closing_date ?: 'N/A' }}</td>
                                     <td>{{ $cashCount->state }}</td>
+                                    <td>{{ $cashCount->warehouse->name }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
