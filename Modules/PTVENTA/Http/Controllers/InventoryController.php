@@ -1,12 +1,12 @@
 <?php
 
 namespace Modules\PTVENTA\Http\Controllers;
-use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\MovementDetail;
+use TCPDF;
 
 class InventoryController extends Controller
 {
@@ -23,10 +23,14 @@ class InventoryController extends Controller
     }
 
     public function pdf(){ //Descarga de archivos PDF
-        $inventories = Inventory::all();
-        $pdf = PDF\Pdf::loadView('ptventa::inventory.pdf', compact('inventories'));
-        return $pdf->download('Listado_de _productos.pdf');
-
+        $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
+        $pdf = new TCPDF();
+        $pdf->SetTitle('LISTA DE PRODUCTOS');
+        $pdf->SetMargins(10, 10, 10);
+        $html = view('ptventa::inventory.pdf')->render();
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Output('Productos');
+        return view('ptventa::inventory.pdf', compact('view', 'inventories')); 
     }
 
     public function status(Request $request) { // Estado de productos vencidos y por vencer
@@ -38,9 +42,6 @@ class InventoryController extends Controller
                                     ->where('expiration_date', '<=', now()->addDays(3))
                                     ->orderBy('expiration_date')
                                         ->get();
-                                        
-
-
     return view('ptventa::inventory.status', compact('view','productosVencidos', 'productosPorVencer'));
 
     }
