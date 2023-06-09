@@ -2,8 +2,8 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('ptventa.cash.index') }}" class="text-decoration-none">Caja</a>
-    <li class="breadcrumb-item active">Apertura de Caja</li>
+        <a href="{{ route('ptventa.cash.index') }}" class="text-decoration-none">{{ trans('ptventa::cash.Cash')}}</a>
+    <li class="breadcrumb-item active">{{ trans('ptventa::cash.Cash Opening')}}</li>
     </li>
 @endpush
 
@@ -12,29 +12,29 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="text-center">Apertura de Caja</h4>
+                <h4 class="text-center">{{ trans('ptventa::cash.Cash Opening')}}</h4>
                 <hr>
                 {!! Form::open(['route' => 'ptventa.cashCount.store', 'id' => 'arqueo-form', 'class' => 'form-row']) !!}
                     <!-- Campos del formulario -->
                     <div class="form-group col-md-4">
-                        {{ Form::label('person_id', 'Encargado de apertura:') }}
+                        {{ Form::label('person_id', trans('ptventa::cash.Opening manager')) }}
                         {{ Form::text('person_id', Auth::user()->person->full_name, ['class' => 'form-control', 'disabled']) }}
                     </div>
 
                     <div class="form-group col-md-3">
-                        {{ Form::label('date', 'Fecha de Apertura') }}
+                        {{ Form::label('date', trans('ptventa::cash.Opening date')) }}
                         {{ Form::datetimeLocal('date', null, ['class' => 'form-control', 'required', 'readonly']) }}
                     </div>
 
                     <div class="form-group col-md-3">
-                        {{ Form::label('initial_balance', 'Saldo Inicial') }}
+                        {{ Form::label('initial_balance', trans('ptventa::cash.Initial balance')) }}
                         {{ Form::number('initial_balance', null, ['class' => 'form-control', 'step' => '0.01', 'required']) }}
-                        <div class="form-text">*Utilice directamente las teclas de su teclado</div>
+                        <div class="form-text">{{ trans('ptventa::cash.*Use directly the keys on your keyboard')}}</div>
                     </div>
 
                     <div class="form-group col-md-2 d-flex align-items-center justify-content-end">
                         <button type="submit" class="btn btn-success btn-block">
-                            <i class="fas fa-check"></i> Abrir Caja
+                            <i class="fas fa-check"></i> {{ trans('ptventa::cash.Open cash')}}
                         </button>
                     </div>
                 {!! Form::close() !!}
@@ -47,20 +47,20 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="text-center">Histórico de Cajas</h4>
+                <h4 class="text-center">{{ trans('ptventa::cash.Cash History')}}</h4>
                 <hr>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover" id="tableCashCount">
                         <thead class="table-dark">
                             <tr>
                                     <th scope="col">N°</th>
-                                    <th scope="col">Encargado</th>
-                                    <th scope="col">Fecha de apertura</th>
-                                    <th scope="col">Saldo Inicial</th>
-                                    <th scope="col">Saldo Final</th>
-                                    <th scope="col">Diferencia</th>
-                                    <th scope="col">Fecha de Cierre</th>
-                                    <th scope="col">Estado</th>
+                                    <th scope="col">{{ trans('ptventa::cash.Opening manager')}}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.Opening date')}}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.Initial balance')}}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.Final balance')}}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.Difference')}}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.Closing date')}}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.State')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -100,12 +100,12 @@
                 event.preventDefault();
 
                 Swal.fire({
-                    title: '¿Iniciar una nueva caja?',
-                    text: 'Esta acción no se puede deshacer',
+                    title: '{{ trans('ptventa::cash.Start_a_new_cash?')}}',
+                    text: '{{ trans('ptventa::cash.This_action_cannot_be_undone')}}',
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Confirmar',
-                    cancelButtonText: 'Cancelar'
+                    confirmButtonText: '{{ trans('ptventa::cash.Confirm')}}',
+                    cancelButtonText: '{{ trans('ptventa::cash.Cancel')}}'
                 }).then((
                 result) => { //  Promesa (then) que se activa cuando el usuario hace clic en uno de los botones del cuadro de diálogo. Si el usuario confirma (isConfirmed), se envía el formulario llamando a form.submit().
                     if (result.isConfirmed) {
@@ -116,18 +116,18 @@
             
             @if (session('success'))
                 Swal.fire(
-                    'Operación realizada con Éxito',
-                    'Has iniciado una nueva caja!',
+                    '{{ trans('ptventa::cash.Successful_Operation')}}',
+                    '{{ trans('ptventa::cash.You_have_started_a_new_cash!')}}',
                     'success'
                 );
             @endif
 
             @if (session('error')) 
                 Swal.fire(
-                        'Operación rechazada!',
-                        'Ya existe una caja abierta',
-                        'error'
-                    );
+                    '{{ trans('ptventa::cash.Operation_declined!')}}',
+                    '{{ trans('ptventa::cash.An_open_cash_already_exists')}}',
+                    'error'
+                );
             @endif
         });
     </script>

@@ -18,7 +18,7 @@ class CashController extends Controller
     public function index()
     {
         $cashCounts = CashCount::orderBy('updated_at', 'desc')->get();
-        $view = ['titlePage' => 'Caja', 'titleView' => 'Caja'];
+        $view = ['titlePage' => trans('ptventa::cash.Cash'), 'titleView' => trans('ptventa::cash.Cash')];
         return view('ptventa::cash.index', compact('view', 'cashCounts'));
     }
 
