@@ -18,7 +18,7 @@ class CashController extends Controller
     public function index()
     {
         $cashCounts = CashCount::orderBy('updated_at', 'desc')->get();
-        $view = ['titlePage' => 'Caja', 'titleView' => 'Caja'];
+        $view = ['titlePage' => trans('ptventa::cash.Cash'), 'titleView' => trans('ptventa::cash.Cash')];
         return view('ptventa::cash.index', compact('view', 'cashCounts'));
     }
 
@@ -42,7 +42,7 @@ class CashController extends Controller
         // Verificar si hay una caja abierta
         $openCashCount = CashCount::where('state', 'Abierta')->first();
         if ($openCashCount) {
-            return redirect()->route('ptventa.cash.index')->with('error', 'Ya existe una caja abierta. Debes cerrarla antes de abrir una nueva.');
+            return redirect()->route('ptventa.cash.index')->with('error');
         }
         $request->validate([
             'initial_balance' => 'required|numeric',
@@ -58,7 +58,7 @@ class CashController extends Controller
         $cashCount->state = 'Abierta';
         $cashCount->save();
     
-        return redirect()->route('ptventa.cash.index')->with('success', 'Arqueo de caja guardado correctamente.');
+        return redirect()->route('ptventa.cash.index')->with('success');
     }
     
 
@@ -68,7 +68,7 @@ class CashController extends Controller
      */
     public function closeCash()
     {
-        $view = ['titlePage' => 'Cierre de Caja', 'titleView' => 'Cierre de Caja'];
+        $view = ['titlePage' => trans('ptventa::cash.Cash Closing'), 'titleView' => trans('ptventa::cash.Cash Closing')];
         $cashCounts = CashCount::where('state', 'Abierta')->get();
         return view('ptventa::cash.cashCount', compact('view', 'cashCounts'));
     }
@@ -88,7 +88,7 @@ class CashController extends Controller
         $cashCount->state = 'Cerrada';
         $cashCount->save();
     
-        return redirect()->back()->with('success', 'Caja cerrada exitosamente.');
+        return redirect()->back()->with('success', trans('ptventa::cash.Successfully closed box.'));
     }
     
 

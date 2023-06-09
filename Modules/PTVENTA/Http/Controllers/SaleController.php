@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
+use Modules\PTVENTA\Entities\CashCount;
 
 class SaleController extends Controller
 {
@@ -21,7 +22,14 @@ class SaleController extends Controller
     }
 
     public function register(){
-        $view = ['titlePage'=>'PTVENTA - Ventas', 'titleView'=>'Registro de venta'];
+        // Verificar si hay una caja abierta
+        $openCashCount = CashCount::where('state', 'Abierta')->first();
+        if (!$openCashCount) {
+            return redirect()->route('ptventa.sale.index')->with('error', 'Primero debes abrir una caja.');
+        }
+                
+        // Continuar con la vista de registro de venta si hay una caja abierta
+        $view = ['titlePage' => 'PTVENTA - Ventas', 'titleView' => 'Registro de venta'];
         return view('ptventa::sale.register', compact('view'));
     }
 
