@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\PTVENTA\Entities\CashCount;
+use Modules\SICA\Entities\Warehouse;
 
 class CashController extends Controller
 {
@@ -38,10 +39,13 @@ class CashController extends Controller
         $request->validate([
             'initial_balance' => 'required|numeric',
         ]);
+
+        
+        $warehouse = Warehouse::where('name','Punto de venta')->first();
     
         $cashCount = new CashCount();
         $cashCount->person_id = Auth::user()->person_id;
-        $cashCount->warehouse_id = 1;
+        $cashCount->warehouse_id = $warehouse->id;
         $cashCount->opening_date = Carbon::now();
         $cashCount->initial_balance = $request->initial_balance;
         $cashCount->final_balance = $request->final_balance;
@@ -62,7 +66,8 @@ class CashController extends Controller
     {
         $view = ['titlePage' => trans('ptventa::cash.Cash Closing'), 'titleView' => trans('ptventa::cash.Cash Closing')];
         $cashCounts = CashCount::where('state', 'Abierta')->get();
-        return view('ptventa::cash.cashCount', compact('view', 'cashCounts'));
+        $warehouse = Warehouse::where('name','Punto de venta')->first();
+        return view('ptventa::cash.cashCount', compact('view', 'cashCounts','warehouse'));
     }
 
     public function close(Request $request)
