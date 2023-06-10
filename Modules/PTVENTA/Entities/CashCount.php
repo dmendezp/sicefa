@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\Warehouse;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class CashCount extends Model implements Auditable
@@ -19,6 +20,7 @@ class CashCount extends Model implements Auditable
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'person_id',
+        'warehouse_id',
         'opening_date',
         'initial_balance',
         'final_balance',
@@ -37,5 +39,9 @@ class CashCount extends Model implements Auditable
     // RELACIONES
     public function person(){ // Accede a la persona que esta administrando el arqueo de caja
         return $this->belongsTo(Person::class);
+    }
+
+    public function warehouse(){ // Accede a la bodega que pertenece la caja
+        return $this->belongsTo(Warehouse::class);
     }
 }

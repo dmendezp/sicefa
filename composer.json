@@ -8,6 +8,8 @@
         "php": "^7.3|^8.0",
         "alexusmai/laravel-file-manager": "^2.5",
         "barryvdh/laravel-dompdf": "^2.0",
+        "barryvdh/laravel-snappy": "^1.0",
+        "elibyy/tcpdf-laravel": "^10.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
@@ -21,6 +23,7 @@
         "mhmiton/laravel-modules-livewire": "^1.6",
         "nwidart/laravel-modules": "^8.2",
         "owen-it/laravel-auditing": "^13.0",
+        "tecnickcom/tcpdf": "^6.6",
         "unisharp/laravel-filemanager": "^2.4",
         "yajra/laravel-datatables-oracle": "^9.19"
     },

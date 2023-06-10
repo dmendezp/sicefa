@@ -1,17 +1,15 @@
 <?php
 
 namespace Modules\PTVENTA\Http\Controllers;
-use Modules\SICA\Entities\Inventory;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Carbon;
-use Modules\SICA\Entities\MovementDetail;
 use Illuminate\Http\Request;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\Warehouse;
-
-
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Carbon;
+use Modules\SICA\Entities\Inventory;
+use Modules\SICA\Entities\MovementDetail;
+use Elibyy\TCPDF\Facades\TCPDF;
 
 class InventoryController extends Controller
 {
@@ -27,12 +25,28 @@ class InventoryController extends Controller
         return view('ptventa::inventory.create', compact('view'));
     }
 
-    public function pdf(){ //Descarga de archivos PDF
+    public function pdf(Request $request)
+    {
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
-        $pdf = Pdf::loadView('ptventa::inventory.pdf', compact('inventories'));
-        return $pdf->stream();
+        $filename = 'Producto.pdf';
 
+        $data = [
+            'title' => 'Generate PDF'
+        ];
+
+        $html = view()->make('ptventa::inventory.pdf', compact('inventories'))->render();
+
+        $pdf = new TCPDF;
+
+        $pdf::SetTitle('Lista de Productos ');
+        $pdf::AddPage();
+        $pdf::writeHTML($html, true, false, true, false, '');
+
+        $pdf::Output(public_path($filename), 'F');
+
+        return response()->download(public_path($filename));
     }
+
 
     public function status(Request $request) { // Estado de productos vencidos y por vencer
 
@@ -53,7 +67,7 @@ class InventoryController extends Controller
 
     }
 
-    public function report() { //Tabla con resultados de busqueda
+   /*  public function report() { //Tabla con resultados de busqueda
         $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de Inventario'];
         $warehouse = Warehouse::where('name','Punto de venta')->first(); // Consultar bodega de la aplicación
         $movement_type = MovementType::where('name','Movimiento Interno')->first();
@@ -69,6 +83,6 @@ class InventoryController extends Controller
         $ff = $request->fecha_fin.' 23:59:59';
         $report = Movement::whereBetween('registration_date', [$fi, $ff])->get();
         return view('ptventa::report.report', compact('report'));
-    }
+    } */
 
 }

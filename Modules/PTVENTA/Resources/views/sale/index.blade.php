@@ -59,6 +59,7 @@
 @endsection
 
 @include('ptventa::layouts.partials.plugins.datatables')
+@include('ptventa::layouts.partials.plugins.sweetalert2')
 @push('scripts')
     <script>
         $(document).ready(function () {
@@ -81,4 +82,14 @@
             });
         });
     </script>
+    @if (session('error'))
+    <script type="text/javascript">
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session('error') }}',
+        });
+    </script>
+@endif
+
 @endpush
