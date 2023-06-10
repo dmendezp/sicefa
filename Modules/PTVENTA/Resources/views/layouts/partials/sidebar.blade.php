@@ -123,10 +123,10 @@
                                 </ul>
                             </li>
                         @endif
-                        @if (Auth::user()->havePermission('ptventa.report.form'))
+                        @if (Auth::user()->havePermission('ptventa.report.report'))
                         <li class="nav-item">
-                            <a href="{{ route('ptventa.report.form') }}"
-                                class="nav-link {{ !Route::is('ptventa.report.form*') ?: 'active' }}">
+                            <a href="{{ route('ptventa.report.report') }}"
+                                class="nav-link {{ !Route::is('ptventa.report.report*') ?: 'active' }}">
                                 <i class="nav-icon fas fa-poll"></i>
                                 <p>{{ trans('ptventa::general.Reports')}}</p>
                             </a>
