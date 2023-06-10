@@ -6,24 +6,27 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class SENAEMPRESAController extends Controller
+class LoanController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function new()
     {
-        return view('index');
+        $data = ['title'=>'nuevo'];
+        return view('senaempresa::interview.loan.new', $data);
     }
+    
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function register()
     {
-        return view('senaempresa::create');
+        $data = ['title'=>'registrados'];
+        return view('senaempresa::interview.loan.register', $data);
     }
 
     /**

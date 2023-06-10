@@ -64,6 +64,88 @@
       
     <!-- Sidebar Menu -->
     <nav class="mt-2">
+        <ul id="tono" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li id="bt" class="nav-item">
+            <a href="{{ route('index') }}" class="nav-link">
+                <i class="fas fa-home"></i>
+              <p>
+                Inicio
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('Nosotros') }}" class="nav-link">
+                <i class="fas fa-users"></i>
+              <p>
+                Nosotros
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('Contactos') }}" class="nav-link">
+                <i class="fas fa-address-book"></i>
+              <p>
+                Contactos
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="fas fa-users"></i>
+              <p>Entrevistas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('vacantes') }}" class="nav-link">
+                        <i class="fas fa-user-secret"></i>
+                      <p>Vacantes</p>
+                    </a>
+                  </li>
+              <li class="nav-item">
+                <a href="{{ route('Registros') }}" class="nav-link">
+                    <i class="fas fa-user-plus"></i>
+                  <p>Registros</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('Postulados') }}" class="nav-link">
+                    <i class="fas fa-address-card"></i>
+                  <p>Postulados</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="fas fa-tags"></i>
+              <p>Prestamos
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('Nuevo') }}" class="nav-link">
+                    <i class="fas fa-external-link-alt"></i>
+                  <p>Nuevo</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('Registrados') }}" class="nav-link">
+                    <i class="fas fa-poll"></i>
+                  <p>Registrados</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+      </nav>
+
+
+
+
+
+    
         <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->

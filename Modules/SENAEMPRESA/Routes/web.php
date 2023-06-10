@@ -50,6 +50,27 @@
 
         Route::get('Work/delete/{id}', 'WorkController@workDelete')->name('works.destroy');
         Route::post('Work/delete', 'WorkController@workDestroy')->name('works.destroy');
+
+
+
+        Route::get('Nosotros/', 'COMPANYController@we')->name('Nosotros');
+        Route::get('Contactos/', 'COMPANYController@contact')->name('Contactos');
+    
+        //Entrevistas
+        Route::get('Entrevistas/Vacantes/', 'InterviewController@application')->name('vacantes');
+        Route::get('Entrevistas/Registros/', 'InterviewController@registration')->name('Registros');
+        Route::get('Entrevistas/Postulados/', 'InterviewController@vacant')->name('Postulados');
+    
+        //Prestamos
+        Route::get('Prestamos/Nuevo/', 'LoanController@new')->name('Nuevo');
+        Route::get('Prestamos/Registrados/', 'LoanController@register')->name('Registrados');
+    
+      
+
+
+
+        
+    
         
     });
 

@@ -6,24 +6,26 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class SENAEMPRESAController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function we()
     {
-        return view('index');
+        $data = ['title'=>'nosotros'];
+        return view('senaempresa::quality.we', $data);
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function contact()
     {
-        return view('senaempresa::create');
+        $data = ['title'=>'Contactos'];
+        return view('senaempresa::quality.contact', $data);
     }
 
     /**
