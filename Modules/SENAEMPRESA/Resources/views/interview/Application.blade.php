@@ -2,12 +2,12 @@
 <html lang="en">
     @include('senaempresa::layouts.structure.head')
 
-    
+
     <body>
         @csrf
         <div class="wrapper">
 
-      
+
 
         <!-- Navbar -->
         @include('senaempresa::layouts.structure.navbar')
@@ -27,10 +27,10 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Starter Page</li>
+                        <li class="breadcrumb-item"><a href="{{ route('index') }}">Inicio</a></li>
+                        <li class="breadcrumb-item active">Aplicados</li>
                     </ol>
-                    
+
                 </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -73,7 +73,7 @@
 
         <!-- /.control-sidebar -->
 
-       
+
 
         </div>
 
@@ -88,9 +88,9 @@
 
         @section('dataTables')
         @show
-       
 
 
-        
+
+
     </body>
 </html>

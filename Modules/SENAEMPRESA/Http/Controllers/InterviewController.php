@@ -15,7 +15,7 @@ class InterviewController extends Controller
     public function application()
     {
         $data = ['title'=>'vacantes'];
-        return view('senaempresa::interview.application', $data);
+        return view('senaempresa::interview.vacant', $data);
     }
 
     /**
@@ -31,7 +31,7 @@ class InterviewController extends Controller
     public function vacant()
     {
         $data = ['title'=>'postulaciones'];
-        return view('senaempresa::interview.vacant', $data);
+        return view('senaempresa::interview.postulate', $data);
     }
 
     /**

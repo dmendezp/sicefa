@@ -19,6 +19,7 @@
 <script src="{{asset('AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
+
 <!--Sweetalert2 online para utilizar en la plantilla-->
 <!--<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --> <!-- trabajar con sweetalert en linea -->
 
@@ -44,3 +45,6 @@
 <script src="{{ asset('AdminLTE/plugins/toastr/toastr.min.js') }}"></script>
 
 <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+
+<!-- Datatable postulados -->
+

@@ -7,12 +7,12 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     @endsection
 
-    
+
     <body>
         @csrf
         <div class="wrapper">
 
-      
+
 
         <!-- Navbar -->
         @include('senaempresa::layouts.structure.navbar')
@@ -26,16 +26,20 @@
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                <div class="col-sm-6">
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Starter Page</li>
-                    </ol>
-             
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="{{ route('index') }}">Inicio</a></li>
+                                <li class="breadcrumb-item active">Registrar</li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+
 
 
                     <div class="container">
@@ -114,7 +118,7 @@
 
         <!-- /.control-sidebar -->
 
-       
+
 
         </div>
 
@@ -129,9 +133,9 @@
 
         @section('dataTables')
         @show
-       
 
 
-        
+
+
     </body>
 </html>
