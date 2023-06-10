@@ -21,7 +21,7 @@ class AppTableSeeder extends Seeder
             $app = App::create([
                 "name" => "SENAEMPRESA",
                 "url" => "/senaempresa/index",
-                "color" => "#237286",
+                "color" => "#28B463",
                 "icon" => "fas fa-desktop",
                 "description" => "Actividades de senaempresa y relacionado con asistencias",
                 "description_english" => "English -> Actividades de senaempresa y relacionado con asistencias"

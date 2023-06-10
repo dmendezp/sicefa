@@ -45,7 +45,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "full-access" => "no",
                 "app_id" => $app->id
             ]);
-        } 
+        }
     }
  */
 
@@ -100,8 +100,8 @@ class SeedPermissionsTableSeeder extends Seeder
                 "description_english" => "English -> Actividades de senaempresa y relacionado con asistencias"
             ]);
         }
-       
-         
+
+
         //crear rol administrador
         $roladmin = Role::where('slug','senaempresa.admin')->first();
         if(!$roladmin){
@@ -125,17 +125,17 @@ class SeedPermissionsTableSeeder extends Seeder
                 "full-access" => "no",
                 "app_id" => $app->id
             ]);
-        } 
+        }
         /**/
-       
+
         // asigno el rol de admin al usuario superadmin y admin
         $userattendanceadmin->roles()->syncWithoutDetaching([$roladmin->id]);
         $userattendanceturn->roles()->syncWithoutDetaching([$rolattendance->id]);
-        
+
         // lista de permisos para asignar al rol admin y coordinador
         $permission_admin = [];
         $permission_attendance = [];
-       
+
 // repita para cada permiso -- estos permisos son de su aplicacion, agregue los necesarios
         $permission = Permission::where('slug','senaempresa.index')->first();
         if(!$permission){
@@ -276,7 +276,7 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-        
+
 
         $permission = Permission::where('slug','senaempresa.fingerPrint.import')->first();
         if(!$permission){
@@ -289,7 +289,7 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-        
+
 
         $permission = Permission::where('slug','senaempresa.work.index')->first();
         if(!$permission){
@@ -302,9 +302,9 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-        
 
-        
+
+
         $permission = Permission::where('slug','senaempresa.works.edit')->first();
         if(!$permission){
             $permission = Permission::create([
@@ -316,7 +316,7 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-       
+
 
         $permission = Permission::where('slug','senaempresa.works.destroy')->first();
         if(!$permission){
@@ -329,7 +329,7 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-        
+
 
         $permission = Permission::where('slug','senaempresa.work.create')->first();
         if(!$permission){
@@ -343,7 +343,7 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
         $permission_admin[] = $permission->id;
-       
+
         $permission = Permission::where('slug','senaempresa.work.store')->first();
         if(!$permission){
             $permission = Permission::create([
