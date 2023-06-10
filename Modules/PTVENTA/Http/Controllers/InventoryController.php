@@ -6,7 +6,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\MovementDetail;
-use TCPDF;
+use Elibyy\TCPDF\Facades\TCPDF;
 
 class InventoryController extends Controller
 {
@@ -22,15 +22,28 @@ class InventoryController extends Controller
         return view('ptventa::inventory.create', compact('view'));
     }
 
-    public function pdf(){ //Descarga de archivos PDF
+    public function pdf(Request $request){ //Descarga de archivos PDF
+        
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
-        $pdf = new TCPDF();
-        $pdf->SetTitle('LISTA DE PRODUCTOS');
-        $pdf->SetMargins(10, 10, 10);
-        $html = view('ptventa::inventory.pdf')->render();
-        $pdf->writeHTML($html, true, false, true, false, '');
-        $pdf->Output('Productos');
-        return view('ptventa::inventory.pdf', compact('view', 'inventories')); 
+
+        $filename = 'Productos.pdf';
+  
+        $data = [
+            'title' => 'Descarga PDF'
+        ];
+  
+        $html = view()->make('pdf', $data)->render();
+  
+        $pdf = new TCPDF;
+          
+        $pdf::SetTitle('PRODUCTOS');
+        $pdf::AddPage();
+        $pdf::writeHTML($html, true, false, true, false, '');
+  
+        $pdf::Output(public_path($filename));
+  
+        return response()->download(public_path($filename));
+
     }
 
     public function status(Request $request) { // Estado de productos vencidos y por vencer
