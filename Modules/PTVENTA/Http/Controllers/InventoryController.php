@@ -22,29 +22,28 @@ class InventoryController extends Controller
         return view('ptventa::inventory.create', compact('view'));
     }
 
-    public function pdf(Request $request){ //Descarga de archivos PDF
-        
+    public function pdf(Request $request)
+    {
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
-
-        $filename = 'Productos.pdf';
+        $filename = 'Producto.pdf';
   
         $data = [
-            'title' => 'Descarga PDF'
+            'title' => 'Generate PDF'
         ];
   
-        $html = view()->make('pdf', $data)->render();
+        $html = view()->make('ptventa::inventory.pdf', compact('inventories'))->render();
   
         $pdf = new TCPDF;
           
-        $pdf::SetTitle('PRODUCTOS');
+        $pdf::SetTitle('Lista de Productos ');
         $pdf::AddPage();
         $pdf::writeHTML($html, true, false, true, false, '');
   
-        $pdf::Output(public_path($filename));
+        $pdf::Output(public_path($filename), 'F');
   
         return response()->download(public_path($filename));
-
     }
+
 
     public function status(Request $request) { // Estado de productos vencidos y por vencer
 
