@@ -47,4 +47,11 @@
 <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
 
 <!-- Datatable postulados -->
+<script>
+    $(document).ready(function () {
+        $('#datatable').DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+          }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
 
+    });</script>
