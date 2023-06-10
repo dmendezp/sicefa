@@ -14,7 +14,7 @@ class SENAEMPRESAController extends Controller
      */
     public function index()
     {
-        return view('index');
+        return view('senaempresa::index');
     }
 
     /**
