@@ -35,7 +35,7 @@
                         Reporte
                     </div>
                     <div class="col-1">
-                        <a href="#" class="btn btn-danger btn-sm"> <strong>PDF</strong> </a>
+                        <a href="{{ route('ptventa.report.rpdf')}}" class="btn btn-danger btn-sm"> <strong>PDF</strong> </a>
                     </div>
                 </div>
             </div>
