@@ -56,7 +56,7 @@ class InventoryController extends Controller
     }
 
     //Funciones para reporte de inventario por rango de fecha
-   /*  public function report() { //Tabla con resultados de busqueda
+    public function report() { //Tabla con resultados de busqueda
         $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de Inventario'];
         $warehouse = Warehouse::where('name','Punto de venta')->first(); // Consultar bodega de la aplicación
         $movement_type = MovementType::where('name','Movimiento Interno')->first();
@@ -72,7 +72,7 @@ class InventoryController extends Controller
         $ff = $request->fecha_fin.' 23:59:59';
         $report = Movement::whereBetween('registration_date', [$fi, $ff])->get();
         return view('ptventa::report.report', compact('report'));
-    } */
+    }
 
     public function rpdf(Request $request)
     {
