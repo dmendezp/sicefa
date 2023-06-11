@@ -41,7 +41,7 @@ class InventoryController extends Controller
         $pdf::SetTitle('Lista de Productos ');
         $pdf::AddPage();
         $pdf::writeHTML($html, true, false, true, false, '');
-
+  
         $pdf::Output(public_path($filename));
 
         return response()->download(public_path($filename));
