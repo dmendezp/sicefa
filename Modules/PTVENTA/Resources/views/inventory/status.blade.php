@@ -1,10 +1,11 @@
 @extends('ptventa::layouts.master')
 <style type="text/css">
-    .card {
+    .card{
   /* Estilos para la card */
   background-color: #fff;
   border-radius: 4px;
   padding: 20px;
+
 }
 
 .tabla-container {
@@ -48,61 +49,58 @@
 </div>
     <hr>
     <h6 class="text-center bg-secondary py-2 rounded-2"><strong>Todos los productos</strong></h6>
-
-    <div class="card">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-md-6">
-      <h6 class="text-center bg-success py-1 rounded-2"><strong>VENCIDOS</strong></h6>
-      <div class="tabla-container">
-        <table class="tabla-estilo">
-                    <thead class="table-secondary">
-                        <tr>
-                            <th class="text-center">Cantidad</th>
-                            <th class="text-center">Productos</th>
-                            <th class="text-center">Fecha</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                        @foreach ($productosVencidos as $producto)
-                        <tr>
-                            <td><strong>{{ $producto->amount}}</strong></td>
-                            <td><strong>{{ $producto->element->name }}</strong></td>
-                            <td class="text-center">{{ $producto->expiration_date }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    </thead>
-        </table>
-    </div>
-      </div>
-      <div class="col-md-6">
-      <h6 class="text-center bg-success py-1 rounded-2"><strong>POR VENCER</strong></h6>
-      <div class="tabla-container">
-        <table class="tabla-estilo">
-                    <thead class="table-secondary">
-                                <tr>
-                                <th class="text-center">Cantidad</th>
-                                    <th class="text-center">Productos</th>
-                                    <th class="text-center">Fecha</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                                    @foreach ($productosPorVencer as $producto)
-                                <tr>
-                                    <td><strong>{{ $producto->amount}}</strong></td>
-                                    <td><strong>{{ $producto->element->name }}</strong></td>
-                                    <td class="text-center">{{ $producto->expiration_date }}</p>
-                                </tr>
-
-                                    @endforeach
-                            </tbody>
-                        </thead>
-        </table>
-</div>
-      </div>
+ <div class="card border-success mb-3">
+    <div class="card-body">
+      <div class="row">
+          <div class="col-md-6">
+            <h6 class="text-center bg-success py-1 rounded-2"><strong>VENCIDOS</strong></h6>
+            <div class="tabla-container">
+            <table class="tabla-estilo">
+                <thead class="table-secondary">
+                  <th class="text-center">Cantidad</th>
+                  <th class="text-center">Productos</th>
+                  <th class="text-center">Fecha</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                 <div class="tabla-container">
+                @foreach ($productosVencidos as $producto)
+                <tr>
+                  <td>{{ $producto->amount }}</td>
+                  <td>{{ $producto->element->name }}</td>
+                  <td class="text-center">{{ $producto->expiration_date }}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </thead>
+          </table>
+            </div>  
+          </div>
+          <div class="col-md-6">
+        <h6 class="text-center bg-success py-1 rounded-2"><strong>POR VENCER</strong></h6>
+        <div class="tabla-container">
+          <table class="tabla-estilo">
+            <thead class="table-secondary">
+              <th class="text-center">Cantidad</th>
+              <th class="text-center">Productos</th>
+              <th class="text-center">Fecha</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            @foreach ($productosPorVencer as $producto)
+            <tr>
+              <td>{{ $producto->amount }}</td>
+              <td>{{ $producto->element->name }}</td>
+              <td class="text-center">{{ $producto->expiration_date }}</p>
+            </tr>
+            @endforeach
+          </tbody>
+        </thead>
+      </table>
     </div>
   </div>
+</div>
+</div>
 </div>
 
 

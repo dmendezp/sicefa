@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\MovementDetail;
-use Elibyy\TCPDF\Facades\TCPDF;
+use TCPDF;
 
 class InventoryController extends Controller
 {
@@ -25,29 +25,17 @@ class InventoryController extends Controller
         return view('ptventa::inventory.create', compact('view'));
     }
 
-    public function pdf(Request $request)
+    public function pdf()
     {
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
-        $filename = 'Producto.pdf';
-
-        $data = [
-            'title' => 'Generate PDF'
-        ];
-
-        $html = view()->make('ptventa::inventory.pdf', compact('inventories'))->render();
-
-        $pdf = new TCPDF;
-
-        $pdf::SetTitle('Lista de Productos ');
-        $pdf::AddPage();
-        $pdf::writeHTML($html, true, false, true, false, '');
-  
-        $pdf::Output(public_path($filename));
-
-        return response()->download(public_path($filename));
+        $pdf = new TCPDF();
+        
+        $html = view('ptventa::inventory.pdf', compact('inventories'))->render();
+        $pdf->AddPage();
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Output('reporte.pdf');
     }
-
-
+ 
     public function status(Request $request) { // Estado de productos vencidos y por vencer
 
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
@@ -89,23 +77,13 @@ class InventoryController extends Controller
     public function rpdf(Request $request)
     {
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
-        $filename = 'Producto.pdf';
-
-        $data = [
-            'title' => 'Generate PDF'
-        ];
-
-        $html = view()->make('ptventa::report.pdf', compact('inventories'))->render();
-
         $pdf = new TCPDF;
 
-        $pdf::SetTitle('Lista de entradas a inventario ');
-        $pdf::AddPage();
-        $pdf::writeHTML($html, true, false, true, false, '');
+        $html = view('ptventa::report.pdf', compact('inventories'))->render();
+        $pdf->AddPage();
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Output('report.pdf');
 
-        $pdf::Output(public_path($filename));
-
-        return response()->download(public_path($filename));
     }
 
 }
