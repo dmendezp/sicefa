@@ -39,7 +39,7 @@ class InventoryController extends Controller
         $pdf::AddPage();
         $pdf::writeHTML($html, true, false, true, false, '');
   
-        $pdf::Output(public_path($filename), 'F');
+        $pdf::Output(public_path($filename));
   
         return response()->download(public_path($filename));
     }

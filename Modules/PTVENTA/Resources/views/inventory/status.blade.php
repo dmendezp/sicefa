@@ -1,22 +1,34 @@
 @extends('ptventa::layouts.master')
 <style type="text/css">
-    
-    .table-status{
-        top:20px;
-        width:650px;
-        float: left;
-        margin-right: 18px;
-        
+    .card {
+  /* Estilos para la card */
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 20px;
+}
 
-    }
+.tabla-container {
+  max-height: 350px; /* Establece una altura máxima para el contenedor */
+  overflow: auto; /* Habilita las barras de desplazamiento cuando sea necesario */
+}
 
-    .table-status{
-        top:20px;
-        width:650px;
-        float: left;
-        margin-right: 45px;
-        
-    }
+.tabla-estilo {
+  /* Estilos para las tablas */
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.tabla-estilo th,
+.tabla-estilo td {
+  /* Estilos para las celdas de encabezado y datos */
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.tabla-estilo th {
+  /* Estilos específicos para las celdas de encabezado */
+  background-color: #f2f2f2;
+}
 </style>
 
 @push('breadcrumbs')
@@ -36,15 +48,14 @@
 </div>
     <hr>
     <h6 class="text-center bg-secondary py-2 rounded-2"><strong>Todos los productos</strong></h6>
-    <div class="table-status">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card">
-                    <div class="card-body">
-                    <div style="overflow-y: auto; height: 400px;">
-                    <table class="table table-bordered" id="status-table">
-                    <h6 class="text-center bg-success py-1 rounded-2"><strong>VENCIDOS</strong></h6>
+
+    <div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+      <h6 class="text-center bg-success py-1 rounded-2"><strong>VENCIDOS</strong></h6>
+      <div class="tabla-container">
+        <table class="tabla-estilo">
                     <thead class="table-secondary">
                         <tr>
                             <th class="text-center">Cantidad</th>
@@ -62,24 +73,13 @@
                         @endforeach
                     </tbody>
                     </thead>
-                    </table>
-                    </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </table>
     </div>
-
-<div class="table-status">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-10">
-                    <div class="card">
-                    <div class="card-body">
-                    <div style="overflow-y: auto; height: 400px;">
-                    <table class="table table-bordered" id="status-table">
-                    <h6 class="text-center bg-success py-1 rounded-2"><strong>POR VENCER</strong></h6>
+      </div>
+      <div class="col-md-6">
+      <h6 class="text-center bg-success py-1 rounded-2"><strong>POR VENCER</strong></h6>
+      <div class="tabla-container">
+        <table class="tabla-estilo">
                     <thead class="table-secondary">
                                 <tr>
                                 <th class="text-center">Cantidad</th>
@@ -98,14 +98,13 @@
                                     @endforeach
                             </tbody>
                         </thead>
-                    </table>
-                    </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </table>
+</div>
+      </div>
     </div>
+  </div>
+</div>
+
 
 @endsection
 
