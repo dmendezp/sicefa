@@ -29,7 +29,7 @@ class InventoryController extends Controller
     {
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
         $pdf = new TCPDF();
-        
+
         $html = view('ptventa::inventory.pdf', compact('inventories'))->render();
         $pdf->AddPage();
         $pdf->writeHTML($html, true, false, true, false, '');
