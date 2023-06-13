@@ -22,6 +22,7 @@
           <div class="col info info-user">
             <div>{{ trans('menu.Welcome') }}</div>
             <div><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
+
           </div>
           <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block" ><i class="fas fa-sign-in-alt"></i></a>
           </div>
@@ -42,16 +43,16 @@
 
       <div class="user-panel mt-1 pb-1 mb-1 d-flex">
         <nav class="">
-          <ul class="nav nav-pills nav-sidebar flex-column">
-            <li class="nav-item">
-              <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
-                <i class="fas fa-puzzle-piece"></i>
-                <p>
-                  {{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}
-                </p>
-              </a>
-            </li>
-          </ul>
+            <ul class="nav nav-pills nav-sidebar flex-column">
+                <li class="nav-item">
+                  <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <p>
+                      {{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}
+                    </p>
+                  </a>
+                </li>
+            </ul>
         </nav>
       </div>
 
@@ -60,15 +61,20 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-        @if(!Route::is('*.sst.*'))
+
+{{ Route::currentRouteName(); }}
+
+@if(!Route::is('*.sst*'))
+
           <li class="nav-item">
-            <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.index') ?: 'active' }}">
-              <i class="nav-icon fas fa-solid fa-map"></i>
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-th"></i>
               <p>
-              {{ trans('cefamaps::menu.Overview map') }}
+                Mapa General
               </p>
             </a>
           </li>
+<<<<<<< HEAD
           <!-- Inicio para las configuraciones del adminitrador -->
           @if (Route::is('*admin.*'))
             <li class="nav-item {{ ! Route::is('cefamaps.admin.config.*') ?: 'menu-is-opening menu-open' }}">
@@ -167,31 +173,53 @@
             </li>
           <!-- CIERRA MENU PARA ENVIRONMENT -->
         @else
+=======
+>>>>>>> FABRICA3
           <li class="nav-item">
-            <a href="{{ route('cefamaps.sst.evacuation') }}" class="nav-link {{ ! Route::is('cefamaps.sst.evacuation*') ?: 'active' }}">
-            <i class="fas fa-door-open"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Unidades Productivas
+              </p>
+            </a>
+          </li>
+@else
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-th"></i>
               <p>
                 Rutas de evacuacion
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('cefamaps.sst.Extintores') }}" class="nav-link {{ ! Route::is('cefamaps.sst.Extintores*') ?: 'active' }}">
-            <i class="fas fa-fire-extinguisher"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
               <p>
                 Extintores
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('cefamaps.sst.healt') }}" class="nav-link">
-            <i class="fas fa-heartbeat"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
               <p>
                 Salud
               </p>
             </a>
           </li>
-        @endif
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Videos
+              </p>
+            </a>
+          </li>
+
+@endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

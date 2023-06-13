@@ -8,6 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class ProductiveUnit extends Model implements Auditable
 {
+
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
 
     use SoftDeletes; // Borrado suave
