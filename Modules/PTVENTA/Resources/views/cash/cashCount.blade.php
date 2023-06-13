@@ -68,7 +68,6 @@
                                     <th scope="col">{{ trans('ptventa::cash.Opening date') }}</th>
                                     <th scope="col">{{ trans('ptventa::cash.Initial balance') }}</th>
                                     <th scope="col">{{ trans('ptventa::cash.Final balance') }}</th>
-                                    <th scope="col">{{ trans('ptventa::cash.Difference') }}</th>
                                     <th scope="col">{{ trans('ptventa::cash.Closing date') }}</th>
                                     <th scope="col">{{ trans('ptventa::cash.State') }}</th>
                                     <th scope="col">{{ trans('ptventa::cash.Warehouse') }}</th>
@@ -82,7 +81,6 @@
                                         <td>{{ $cashCount->opening_date }}</td>
                                         <td>{{ $cashCount->initial_balance }}</td>
                                         <td>{{ $cashCount->final_balance ?: 'N/A' }}</td>
-                                        <td>{{ $cashCount->difference ?: '0' }}</td>
                                         <td>{{ $cashCount->closing_date ?: 'N/A' }}</td>
                                         <td>{{ $cashCount->state }}</td>
                                         <td>{{ $cashCount->warehouse->name }}</td>
@@ -138,7 +136,7 @@
                         {{ Form::text('warehouse_name', $warehouse->name, ['class' => 'form-control', 'readonly']) }}
                     </div>
 
-                    <div class="form-group mt-4 col-md-4 d-flex align-items-center justify-content-end">
+                    <div class="form-group mt-4 col-md-4 d-flex justify-content-end">
                         {{ Form::hidden('cash_count_id', null, ['id' => 'cash-count-id']) }}
                         <button type="submit" class="btn btn-danger btn-block">{{ trans('ptventa::cash.Close cash') }}</button>
                     </div>

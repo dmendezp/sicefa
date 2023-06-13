@@ -39,7 +39,6 @@ class CashController extends Controller
             $cashCount = CashCount::find($request->input('cash_count_id'));
 
             $cashCount->final_balance = $validatedData['final_balance'];
-            $cashCount->difference = $cashCount->final_balance - $cashCount->initial_balance;
             $cashCount->closing_date = Carbon::now();
             $cashCount->state = 'Cerrada';
             
@@ -51,7 +50,6 @@ class CashController extends Controller
                 'opening_date' => Carbon::now()->addDay(),
                 'initial_balance' => 0,
                 'final_balance' => null,
-                'difference' => null,
                 'closing_date' => null,
                 'state' => 'Abierta',
             ]);
