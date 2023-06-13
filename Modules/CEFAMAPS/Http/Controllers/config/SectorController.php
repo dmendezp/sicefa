@@ -39,14 +39,8 @@ class SectorController extends Controller
     $unit = ProductiveUnit::get();
     $classenviron = ClassEnvironment::get();
     $sector = Sector::get();
-    $filter = Environment::query()->with('farms','productive_units');
-    if ($request->has('id')) {
-      $filter->where('farms_id', $request->id);
-      $filter->where('productive_units_id', $request->id);
-    }
-    $result = $filter->get();
     $data = ['title'=>trans('cefamaps::sector.Add'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'classenviron'=>$classenviron];
-    return view('cefamaps::admin.sector.add',$data, compact('result'));
+    return view('cefamaps::admin.sector.add',$data);
   }
 
   /**
@@ -74,14 +68,8 @@ class SectorController extends Controller
     $sector = Sector::get();
     $classenviron = ClassEnvironment::get();
     $editsector = Sector::findOrFail($id);
-    $filter = Environment::query()->with('farms','productive_units');
-    if ($request->has('id')) {
-      $filter->where('farms_id', $request->id);
-      $filter->where('productive_units_id', $request->id);
-    }
-    $result = $filter->get();
     $data = ['title'=>trans('cefamaps::sector.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'editsector'=>$editsector, 'classenviron'=>$classenviron];
-    return view('cefamaps::admin.sector.edit',$data, compact('result'));
+    return view('cefamaps::admin.sector.edit',$data);
   }
 
   /**
