@@ -8,7 +8,6 @@ use Modules\SICA\Entities\Warehouse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
-use Modules\SICA\Entities\MovementDetail;
 use TCPDF;
 
 class InventoryController extends Controller
@@ -81,8 +80,8 @@ class InventoryController extends Controller
 
         $html = view('ptventa::report.rpdf')->render();
         $pdf->AddPage();
-        $pdf->writeHTML($html, true, false, true, false, '');
-        $pdf->Output('report.pdf');
+        $pdf->writeHTML($html, true, true, true, true, public_path('libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css'));
+        $pdf->Output('EntradasInventario.pdf');
 
     }
 
