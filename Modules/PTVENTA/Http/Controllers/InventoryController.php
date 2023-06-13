@@ -2,6 +2,9 @@
 
 namespace Modules\PTVENTA\Http\Controllers;
 use Illuminate\Http\Request;
+use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementType;
+use Modules\SICA\Entities\Warehouse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
@@ -22,17 +25,17 @@ class InventoryController extends Controller
         return view('ptventa::inventory.create', compact('view'));
     }
 
-    public function pdf(){ //Descarga de archivos PDF
+    public function pdf()
+    {
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
         $pdf = new TCPDF();
-        $pdf->SetTitle('LISTA DE PRODUCTOS');
-        $pdf->SetMargins(10, 10, 10);
-        $html = view('ptventa::inventory.pdf')->render();
-        $pdf->writeHTML($html, true, false, true, false, '');
-        $pdf->Output('Productos');
-        return view('ptventa::inventory.pdf', compact('view', 'inventories')); 
-    }
 
+        $html = view('ptventa::inventory.pdf', compact('inventories'))->render();
+        $pdf->AddPage();
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Output('reporte.pdf');
+    }
+ 
     public function status(Request $request) { // Estado de productos vencidos y por vencer
 
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
@@ -52,25 +55,35 @@ class InventoryController extends Controller
 
     }
 
-    //funciones para reporte
-    public function form(){
-        $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de inventario'];
-        return view('ptventa::report.form', compact('view'));
+    //Funciones para reporte de inventario por rango de fecha
+    public function report() { //Tabla con resultados de busqueda
+        $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de Inventario'];
+        $warehouse = Warehouse::where('name','Punto de venta')->first(); // Consultar bodega de la aplicación
+        $movement_type = MovementType::where('name','Movimiento Interno')->first();
+        $report = Movement::whereDate('registration_date', Carbon::today('America/Bogota'))
+                                    ->where('movement_type_id',$movement_type->id)
+                                    ->orderBy('registration_date','DESC')
+                                    ->get();
+        return view('ptventa::report.report', compact('view', 'report'));
     }
 
-    public function result_form(Request $request) { //formulario de fechas para generar reporte
-        $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de inventario'];
+    public function report_results(Request $request) { //formulario de fechas para generar reporte
         $fi = $request->fecha_ini.' 00:00:00';
         $ff = $request->fecha_fin.' 23:59:59';
-        $report = MovementDetail::whereBetween('created_at', [$fi, $ff])->get();
-        return view('ptventa::report.table', compact('view', 'report'));
+        $report = Movement::whereBetween('registration_date', [$fi, $ff])->get();
+        return view('ptventa::report.report', compact('report'));
     }
 
-    public function table() { //Tabla con resultados de busqueda
-        $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de Inventario'];
-        $report = MovementDetail::whereDate('created_at', Carbon::today('America/Bogota'))->get();
-        return view('ptventa::report.table', compact('view', 'report'));
-    }
+    public function rpdf(Request $request)
+    {
+        $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
+        $pdf = new TCPDF;
 
+        $html = view('ptventa::report.pdf', compact('inventories'))->render();
+        $pdf->AddPage();
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Output('report.pdf');
+
+    }
 
 }

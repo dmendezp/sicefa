@@ -19,6 +19,7 @@ return [
     'Difference' => 'Diferencia',
     'Closing date' => 'Fecha de cierre',
     'State' => 'Estado',
+    'Warehouse' => 'Bodega',
     'Action' => 'Acción',
     'Open cash' => 'Abrir caja',
     'Perform cash closing' => 'Realizar cierre de caja',

@@ -88,6 +88,11 @@
                         {{ Form::label('date', trans('ptventa::cash.Closing date')) }}
                         {{ Form::datetimeLocal('date', null, ['class' => 'form-control', 'readonly']) }}
                     </div>
+
+                    <div class="form-group col-md-4">
+                        {{ Form::label('warehouse_name', trans('ptventa::cash.Warehouse')) }}
+                        {{ Form::text('warehouse_name', $warehouse->name, ['class' => 'form-control', 'readonly']) }}
+                    </div>                    
                 
                     <div class="form-group mt-4 col-md-4 d-flex align-items-center justify-content-end">
                         {{ Form::hidden('cash_count_id', null, ['id' => 'cash-count-id']) }}
