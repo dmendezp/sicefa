@@ -1,7 +1,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="{{ asset('cefamaps/images/logo.png') }}" alt="AdminLTE Logo" class="brand-image elevation-3"
+    <a href="index" class="brand-link">
+      <img src="{{ asset('modules/cefamaps/images/logo.png') }}" alt="AdminLTE Logo" class="brand-image elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">CEFAMAPS</span>
     </a>
@@ -20,12 +20,12 @@
         </div>
         @guest
           <div class="col info info-user">
-            <div>{{ trans('menu.Welcome') }}</div>             
+            <div>{{ trans('menu.Welcome') }}</div>
             <div><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
 
           </div>
           <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block" ><i class="fas fa-sign-in-alt"></i></a>
-          </div>  
+          </div>
         @else
           <div class="col info info-user">
             <div data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">{{ Auth::user()->nickname }}</div>
@@ -51,9 +51,9 @@
                       {{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}
                     </p>
                   </a>
-                </li>  
+                </li>
             </ul>
-        </nav>      
+        </nav>
       </div>
 
       <!-- Sidebar Menu -->
@@ -74,6 +74,107 @@
               </p>
             </a>
           </li>
+<<<<<<< HEAD
+          <!-- Inicio para las configuraciones del adminitrador -->
+          @if (Route::is('*admin.*'))
+            <li class="nav-item {{ ! Route::is('cefamaps.admin.config.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('cefamaps.admin.config.*') ?: 'active' }}">
+                <i class="nav-icon fa-solid fa-gears"></i>
+                <p>
+                  {{ trans('cefamaps::environment.Setting') }}
+                  <i class="right fa-solid fa-gear"></i>
+                </p>
+              </a>
+              <!-- Inicio para el sector del adminitrador -->
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('cefamaps.admin.config.sector.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.config.sector.*') ?: 'active' }}">
+                    <i class="nav-icon fa-solid fa-vector-square"></i>
+                    <p>{{ trans('cefamaps::sector.Sector') }}</p>
+                  </a>
+                </li>
+              </ul>
+              <!-- Fin para el sector del adminitrador -->
+              <!-- Inicio para las Unidades del adminitrador -->
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('cefamaps.admin.config.unit.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.config.unit.*') ?: 'active' }}">
+                    <i class="nav-icon fa-solid fa-mountain-sun"></i>
+                    <p>{{ trans('cefamaps::unit.Units') }}</p>
+                  </a>
+                </li>
+              </ul>
+              <!-- Fin para las Unidades del adminitrador -->
+              <!-- Inicio para los Ambientes del adminitrador -->
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('cefamaps.admin.config.environment.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.config.environment.*') ?: 'active' }}">
+                    <i class="nav-icon fas fa-solid fa-chalkboard-user"></i>
+                    <p>{{ trans('cefamaps::environment.Environment') }}</p>
+                  </a>
+                </li>
+              </ul>
+              <!-- Fin para los Ambientes del adminitrador -->
+              <!-- Inicio para las paginas del administrador -->
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('cefamaps.admin.config.page.index') }}" class="nav-link {{ ! Route::is('cefamaps.admin.config.page.*') ?: 'active' }}">
+                    <i class="nav-icon fas fa-regular fa-file-lines"></i>
+                    <p>{{ trans('cefamaps::page.Page') }}</p>
+                  </a>
+                </li>
+              </ul>
+              <!-- Fin para las paginas del administrador -->
+            </li>
+          @endif
+          <!-- Fin para las configuraciones del adminitrador -->
+          <!-- Inicio de los sectores y unidades -->
+          @foreach($sector as $s)
+            <li class="nav-item {{ ! (Request::url() == url('/cefamaps/unit/view/'.$s->id)) ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! (Request::url() == url('/cefamaps/sector/view/'.$s->id)) ?: 'active' }}">
+                <i class="nav-icon fa-solid fa-mountain-city"></i>
+                <p>
+                  {{ $s->name }}
+                  <i class="right fa-solid fa-map-pin"></i>
+                </p>
+              </a>
+              @foreach($s->productive_units as $u)
+              <ul class="nav nav-treeview">
+                <li class="nav nav-item">
+                  <a  href="{{ url('/cefamaps/unit/view/'.$u->id) }}" class="nav-link {{ ! (Request::url() == url('/cefamaps/unit/view/'.$u->id)) ?: 'active' }}">
+                    <i class="nav-icon {{ $u->icon }}"></i>
+                    <p>{{ $u->name }}</p>
+                  </a>
+                </li>
+              </ul>
+              @endforeach
+            </li>
+          @endforeach
+          <!-- Fin de los sectores y unidades -->
+          <!-- MENU PARA ENVIRONMENT -->
+            <li class="nav-item {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('cefa.cefamaps.environment.view') ?: 'active' }}">
+                <i class="nav-icon fa-solid fa-city"></i>
+                <p>
+                  {{ trans('cefamaps::environment.Environment') }}
+                  <i class="right fa-solid fa-map-pin"></i>
+                </p>
+              </a>
+              @foreach($classenviron as $c)
+              <ul class="nav nav-treeview">
+                <li class="nav nav-item">
+                  <a href="{{ url('/cefamaps/environment/view/'.$c->id) }}" class="nav-link {{ ! (Request::url() == url('/cefamaps/environment/view/'.$c->id)) ?: 'active' }}">
+                    <i class="nav-icon fa-solid fa-school"></i>
+                    <p>{{$c->name}}</p>
+                  </a>
+                </li>
+              </ul>
+              @endforeach
+            </li>
+          <!-- CIERRA MENU PARA ENVIRONMENT -->
+        @else
+=======
+>>>>>>> FABRICA3
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>

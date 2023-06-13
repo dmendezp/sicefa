@@ -1,0 +1,46 @@
+.mtop16
+	{margin-top:16px}
+.mbottom16
+	{margin-bottom:16px}
+.main-header .navbar-nav .active
+	{background-color:#4FB1D9 !important}
+.main-sidebar .nav-sidebar .active
+	{background-color:#4FB1D9 !important}
+#breadvar
+	{padding:8px;background-color:#4FB1D9;border-radius:4px}
+.breadcrumb .breadcrumb-item a
+	{color:#e0e0e0 !important;text-decoration:none}
+.breadcrumb li + li:before
+	{color:#e0e0e0 !important}
+.opts a
+	{border-radius:4px;border:1px solid #dedede;display:inline-block;padding:6px 12px}
+.btn-circle
+	{width:35px;height:35px;padding:6px 0px;border-radius:50% !important;font-size:14px;text-align:center;color:#333 !important;} 
+
+/* Set the size of the div element that contains the map */
+#map {
+  height: 400px;
+  /* The height is 400 pixels */
+  width: 100%;
+  /* The width is the width of the web page */
+}
+
+
+.info-user{
+  overflow: visible !important;
+  color:  #c2c7d0 !important;
+}
+
+.sidebar-mini.sidebar-collapse .info {
+  animation-name: fadeOut;
+  animation-duration: .3s;
+  animation-fill-mode: both;
+  display: none;
+}
+
+
+.sidebar-collapse .main-sidebar:hover .info {
+  animation-name: fadeIn;
+  animation-duration: .1s;
+  display: block !important;
+}

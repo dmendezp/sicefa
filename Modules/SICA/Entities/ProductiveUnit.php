@@ -5,7 +5,6 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
-use Modules\SICA\Entities\Sector;
 
 class ProductiveUnit extends Model implements Auditable
 {
@@ -17,9 +16,10 @@ class ProductiveUnit extends Model implements Auditable
     protected $fillable = [ // Atributos modificables (asginación masivaa)
         'name',
         'description',
+        'icon',
         'person_id',
-        'sector_id',
-        'icon'
+        'sectors_id',
+        'farm_id'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon (para aprovecha las funciones de formato y manipulación de fecha y hora)
@@ -49,6 +49,9 @@ class ProductiveUnit extends Model implements Auditable
     }
     public function warehouses(){ // Accede a una o varias unidades bodegas asociadas a él (Relación muchos a muchos)
         return $this->belongsToMany(Warehouse::class);
+    }
+    public function farm(){ // Accede a la información del farm al que pertenece
+        return $this->belongsTo(Farm::class);
     }
 
 }
