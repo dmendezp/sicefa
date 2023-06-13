@@ -24,7 +24,6 @@ class CashCount extends Model implements Auditable
         'opening_date',
         'initial_balance',
         'final_balance',
-        'difference',
         'closing_date',
         'state',
     ];
