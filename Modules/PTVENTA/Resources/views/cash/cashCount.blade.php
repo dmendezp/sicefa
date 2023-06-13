@@ -184,7 +184,7 @@
 
                 Swal.fire({
                     title: '{{ trans('ptventa::cash.Are_you_sure_you_want_to_close_the_cash?') }}',
-                    text: '{{ trans('ptventa::cash.This_action_cannot_be_undone') }}',
+                    text: '{{ trans('ptventa::cash.When_closing_the_cash_a_new_one_will_be_started_with_the_next_days_date.') }}',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: '{{ trans('ptventa::cash.Yes_close_cash') }}',
