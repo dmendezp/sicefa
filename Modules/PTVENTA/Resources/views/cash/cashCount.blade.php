@@ -60,7 +60,7 @@
                     <h4 class="text-center">{{ trans('ptventa::cash.Cash History') }}</h4>
                     <hr>
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover" id="tableCashCount">
+                        <table class="table table-striped table-hover" id="tableCashCountAll">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">N°</th>
@@ -155,6 +155,10 @@
         $(document).ready(function() {
             /* Initialización of Datatables CashCount */
             $('#tableCashCount').DataTable({
+                language: language_datatables, // Agregar traducción a español
+            });
+            /* Initialización of Datatables CashCountAll */
+            $('#tableCashCountAll').DataTable({
                 language: language_datatables, // Agregar traducción a español
             });
         });
