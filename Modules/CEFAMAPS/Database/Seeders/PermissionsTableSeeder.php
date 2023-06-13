@@ -26,7 +26,7 @@ class PermissionsTableSeeder extends Seeder
     // ===================== Registro de todos los permisos de la aplicación CEFAMAPS ==================
     // Dashboard de administrador
     $permission = Permission::updateOrCreate(['slug' => 'cefamaps.admin.dashboard'], [ // Registro o actualización de permiso
-      'name' => 'Admin Dashboard',
+      'name' => 'Admin Dashboard CEFAMAPS',
       'description' => 'Puede ver el dashboard de administrador',
       'description_english' => 'You can see the admin dashboard',
       'app_id' => $app->id
