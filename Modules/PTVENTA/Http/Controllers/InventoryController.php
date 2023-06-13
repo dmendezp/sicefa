@@ -29,13 +29,13 @@ class InventoryController extends Controller
     {
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
         $pdf = new TCPDF();
-        
+
         $html = view('ptventa::inventory.pdf', compact('inventories'))->render();
         $pdf->AddPage();
         $pdf->writeHTML($html, true, false, true, false, '');
         $pdf->Output('reporte.pdf');
     }
- 
+
     public function status(Request $request) { // Estado de productos vencidos y por vencer
 
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
@@ -76,10 +76,9 @@ class InventoryController extends Controller
 
     public function rpdf(Request $request)
     {
-        $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
         $pdf = new TCPDF;
 
-        $html = view('ptventa::report.pdf', compact('inventories'))->render();
+        $html = view('ptventa::report.rpdf')->render();
         $pdf->AddPage();
         $pdf->writeHTML($html, true, false, true, false, '');
         $pdf->Output('report.pdf');
