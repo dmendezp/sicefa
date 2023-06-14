@@ -8,7 +8,6 @@ use Modules\SICA\Entities\Warehouse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
-use Modules\SICA\Entities\MovementDetail;
 use TCPDF;
 
 class InventoryController extends Controller
@@ -28,14 +27,15 @@ class InventoryController extends Controller
     public function pdf()
     {
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
+
         $pdf = new TCPDF();
 
         $html = view('ptventa::inventory.pdf', compact('inventories'))->render();
         $pdf->AddPage();
-        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->writeHTML($html, true, true, true, true, public_path('css/bootstrap.min.css'));
         $pdf->Output('reporte.pdf');
     }
- 
+
     public function status(Request $request) { // Estado de productos vencidos y por vencer
 
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
@@ -76,13 +76,12 @@ class InventoryController extends Controller
 
     public function rpdf(Request $request)
     {
-        $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
         $pdf = new TCPDF;
 
-        $html = view('ptventa::report.pdf', compact('inventories'))->render();
+        $html = view('ptventa::report.rpdf')->render();
         $pdf->AddPage();
-        $pdf->writeHTML($html, true, false, true, false, '');
-        $pdf->Output('report.pdf');
+        $pdf->writeHTML($html, true, true, true, true, public_path('libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css'));
+        $pdf->Output('EntradasInventario.pdf');
 
     }
 
