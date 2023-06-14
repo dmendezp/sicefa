@@ -12,7 +12,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="text-center">{{ trans('ptventa::cash.Cash Closing') }}</h4>
+                    <div class="d-flex justify-content-around">
+                        <h4>{{ trans('ptventa::cash.Cash Closing') }}</h4>
+                        <a href="" type="button" class="btn btn-success">Abrir primera caja</a>
+                    </div>
                     <hr>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover" id="tableCashCount">
@@ -163,7 +166,6 @@
             });
         });
     </script>
-
     <script>
         var modal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
 
@@ -178,7 +180,6 @@
             modal._element.querySelector('#opening_date').value = openingDate;
         });
     </script>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('cierre-caja-form');
@@ -219,6 +220,5 @@
             }
         });
     </script>
-
     <script src="{{ asset('modules/ptventa/js/cash/index/dateTimeNow.js') }}"></script>
 @endpush
