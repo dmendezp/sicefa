@@ -8,6 +8,7 @@
 
        {{-- Laravel Mix - CSS File --}}
        {{-- <link rel="stylesheet" href="{{ mix('css/bienestar.css') }}"> --}}
+       {{-- <link rel="stylesheet" href="{{ asset('bienestarxd/css/styles.css') }}"> --}}
 
     </head>
     <body>
