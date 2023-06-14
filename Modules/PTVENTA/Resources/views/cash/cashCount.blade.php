@@ -12,9 +12,17 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="d-flex justify-content-around">
-                        <h4>{{ trans('ptventa::cash.Cash Closing') }}</h4>
-                        <a href="" type="button" class="btn btn-success">Abrir primera caja</a>
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <h4 class="text-center">{{ trans('ptventa::cash.Cash Closing') }}</h4>
+                        <div>
+                            @if(!Modules\PTVENTA\Entities\CashCount::where('state', 'Abierta')->exists())
+                                {!! Form::open(['route' => 'ptventa.cashCount.store', 'class' => 'form-row']) !!}
+                                    <button type="submit" class="btn btn-success btn-block w-auto">
+                                        <i class="fas fa-check"></i> {{ trans('ptventa::cash.Open cash') }}
+                                    </button>
+                                {!! Form::close() !!}
+                            @endif
+                        </div>
                     </div>
                     <hr>
                     <div class="table-responsive">
@@ -155,6 +163,7 @@
 
 @push('scripts')
     <script>
+        // Permite la aplicacion de datatables y la vez la traduccion de las tablas
         $(document).ready(function() {
             /* Initialización of Datatables CashCount */
             $('#tableCashCount').DataTable({
@@ -167,6 +176,7 @@
         });
     </script>
     <script>
+        // Muestra los datos en el modal de cierre de caja
         var modal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
 
         $('#exampleModal').on('show.bs.modal', function(event) {
@@ -181,6 +191,7 @@
         });
     </script>
     <script>
+        //Alertas de sweetalert que permiten la confirmacion de si desea cerrar la caja
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('cierre-caja-form');
 

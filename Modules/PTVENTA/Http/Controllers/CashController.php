@@ -27,6 +27,34 @@ class CashController extends Controller
         return view('ptventa::cash.cashCount', compact('view', 'cashCounts','warehouse','cashCountAll'));
     }
 
+    /**
+     * Store a newly created resource in storage.
+     * @param Request $request
+     * @return Renderable
+     */
+    public function store(Request $request)
+    {
+        $warehouse = Warehouse::where('name','Punto de venta')->first();
+
+        // Verificar si hay una caja abierta
+        $openCashCount = CashCount::where('warehouse_id', $warehouse->id)->where('state', 'Abierta')->first();
+        if ($openCashCount) {
+            return redirect()->route('ptventa.cashCount.index')->with('error', ' ');
+        }
+
+        $cashCount = new CashCount();
+        $cashCount->person_id = Auth::user()->person_id;
+        $cashCount->warehouse_id = Warehouse::where('name','Punto de venta')->first()->id;
+        $cashCount->opening_date = Carbon::now();
+        $cashCount->initial_balance = 0;
+        $cashCount->final_balance = null;
+        $cashCount->closing_date = null;
+        $cashCount->state = 'Abierta';
+        $cashCount->save();
+
+        return redirect()->route('ptventa.cashCount.index')->with('success', ' ');
+    }
+
     public function close(Request $request)
     {
         try {
