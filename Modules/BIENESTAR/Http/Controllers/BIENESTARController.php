@@ -76,4 +76,84 @@ class BIENESTARController extends Controller
     {
         //
     }
+    public function APEalimentacion()
+    {
+        return view('bienestar::APEalimentacion');
+    }
+    public function APEinterno()
+    {
+        return view('bienestar::APEinterno');
+    }
+    public function APEsena()
+    {
+        return view('bienestar::APEsena');
+    }
+    public function APEtransporte()
+    {
+        return view('bienestar::APEtransporte');
+    }
+    public function HISeventos()
+    {
+        return view('bienestar::HISeventos');
+    }
+    public function home()
+    {
+        return view('bienestar::home');
+    }
+    public function LIDretorant()
+    {
+        return view('bienestar::LIDretorant');
+    }
+    public function SCANrestorant()
+    {
+        return view('bienestar::SCANrestorant');
+    }
+    public function SCANrutas()
+    {
+        return view('bienestar::SCANrutas');
+    }
+    public function APEformulario()
+    {
+        return view('bienestar::APEformulario');
+    }
+    public function LIDrutas()
+    {
+        return view('bienestar::LIDrutas');
+    }
+    
+    
+
+    /**
+     * Show the form for creating a new resource.
+     * @return Renderable
+     */
+    
+
+    /**
+     * Store a newly created resource in storage.
+     * @param Request $request
+     * @return Renderable
+     */
+    
+
+    /**
+     * Show the specified resource.
+     * @param int $id
+     * @return Renderable
+     */
+    
+
+    /**
+     * Show the form for editing the specified resource.
+     * @param int $id
+     * @return Renderable
+     */
+    
+    /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    
 }
