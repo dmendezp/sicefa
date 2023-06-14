@@ -12,5 +12,13 @@
 */
 
 Route::prefix('agroindustria')->group(function() {
-    Route::get('/', 'AGROINDUSTRIAController@index');
+    Route::get('/index', 'AGROINDUSTRIAController@index')->name('agroindustria.index');
+
+    Route::get('/unidd', 'AGROINDUSTRIAController@unidd')->name('agroindustria.unidd');
+
+    Route::get('/solicitud', 'AGROINDUSTRIAController@solicitud')->name('agroindustria.solicitud');
+
+    Route::get('/invb', 'AGROINDUSTRIAController@invb')->name('agroindustria.invb');
+
+    Route::post('/enviarsolicitud', 'AGROINDUSTRIAController@enviarsolicitud')->name('agroindustria.enviarsolicitud');
 });
