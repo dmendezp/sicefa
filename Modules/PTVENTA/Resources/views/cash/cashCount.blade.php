@@ -43,7 +43,7 @@
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $cashCount->person->full_name }}</td>
                                         <td>{{ $cashCount->opening_date }}</td>
-                                        <td>{{ $cashCount->initial_balance }}</td>
+                                        <td>{{ priceFormat($cashCount->initial_balance) }}</td>
                                         <td>{{ $cashCount->state }}</td>
                                         <td>
                                             <!-- Button trigger modal -->
@@ -90,8 +90,8 @@
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $cashCount->person->full_name }}</td>
                                         <td>{{ $cashCount->opening_date }}</td>
-                                        <td>{{ $cashCount->initial_balance }}</td>
-                                        <td>{{ $cashCount->final_balance ?: 'N/A' }}</td>
+                                        <td>{{ priceFormat($cashCount->initial_balance) }}</td>
+                                        <td>{{ $cashCount->final_balance !== null ? priceFormat($cashCount->final_balance) : 'N/A' }}</td>
                                         <td>{{ $cashCount->closing_date ?: 'N/A' }}</td>
                                         <td>{{ $cashCount->state }}</td>
                                         <td>{{ $cashCount->warehouse->name }}</td>
@@ -139,7 +139,7 @@
 
                     <div class="form-group col-md-4">
                         {{ Form::label('sum_price', 'Total de venta actual:') }}
-                        {{ Form::text('sum_price', $sales->sum('price'), ['class' => 'form-control', 'disabled']) }}
+                        {{ Form::text('sum_price', priceFormat($sales->sum('price')), ['class' => 'form-control', 'disabled']) }}
                     </div>
 
                     <div class="form-group col-md-4">
