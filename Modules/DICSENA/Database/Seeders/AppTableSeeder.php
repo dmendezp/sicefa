@@ -4,6 +4,7 @@ namespace Modules\DICSENA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\SICA\Entities\App;
 
 class AppTableSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class AppTableSeeder extends Seeder
      */
     public function run()
     {
-        App::updateOrCreate(['name' => 'SICA'], [
+        App::updateOrCreate(['name' => 'DICESENA'], [
             'url' => '/dicsena/index',
             'color' => '#ff5e1f',
             'icon' => 'fas fa-puzzle-piece',

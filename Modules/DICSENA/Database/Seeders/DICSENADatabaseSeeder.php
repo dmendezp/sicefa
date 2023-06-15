@@ -4,6 +4,7 @@ namespace Modules\DICSENA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class DICSENADatabaseSeeder extends Seeder
 {
@@ -15,11 +16,10 @@ class DICSENADatabaseSeeder extends Seeder
     public function run()
     {
         
-        DB::beginTransaction();
-        $thi->call(ApptableSeeder::class);
-        DB::commit();
+        DB::beginTransaction(); // Iniciar transacción
 
+        $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
 
-        // $this->call("OthersTableSeeder");
+        DB::commit(); 
     }
 }
