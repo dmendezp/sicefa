@@ -138,6 +138,11 @@
                     </div>
 
                     <div class="form-group col-md-4">
+                        {{ Form::label('sum_price', 'Total de venta actual:') }}
+                        {{ Form::text('sum_price', $sales->sum('price'), ['class' => 'form-control', 'disabled']) }}
+                    </div>
+
+                    <div class="form-group col-md-4">
                         {{ Form::label('date', trans('ptventa::cash.Closing date')) }}
                         {{ Form::datetimeLocal('date', null, ['class' => 'form-control', 'readonly']) }}
                     </div>

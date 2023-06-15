@@ -10,6 +10,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Modules\PTVENTA\Entities\CashCount;
+use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\Warehouse;
 
 class CashController extends Controller
@@ -24,7 +26,13 @@ class CashController extends Controller
         $cashCounts = CashCount::where('state', 'Abierta')->get();
         $cashCountAll = CashCount::orderBy('closing_date', 'desc')->get();
         $warehouse = Warehouse::where('name','Punto de venta')->first();
-        return view('ptventa::cash.cashCount', compact('view', 'cashCounts','warehouse','cashCountAll'));
+
+        $movement_type = MovementType::where('name','Venta')->first();
+        $sales = Movement::whereDate('registration_date', Carbon::today()->toDateString())
+                            ->where('movement_type_id',$movement_type->id)
+                            ->orderBy('registration_date','DESC')
+                            ->get();
+        return view('ptventa::cash.cashCount', compact('view', 'cashCounts','warehouse','cashCountAll', 'sales'));
     }
 
     /**

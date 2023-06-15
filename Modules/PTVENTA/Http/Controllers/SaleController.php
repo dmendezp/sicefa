@@ -17,7 +17,7 @@ class SaleController extends Controller
                             ->where('movement_type_id',$movement_type->id)
                             ->orderBy('registration_date','DESC')
                             ->get();
-        $view = ['titlePage'=>'PVENTA - Ventas', 'titleView'=>'Ventas realizadas hoy'];
+        $view = ['titlePage'=>'Ventas', 'titleView'=>'Ventas realizadas hoy'];
         return view('ptventa::sale.index', compact('view','sales'));
     }
 
@@ -29,7 +29,7 @@ class SaleController extends Controller
         }
                 
         // Continuar con la vista de registro de venta si hay una caja abierta
-        $view = ['titlePage' => 'PTVENTA - Ventas', 'titleView' => 'Registro de venta'];
+        $view = ['titlePage' => 'Ventas', 'titleView' => 'Registro de venta'];
         return view('ptventa::sale.register', compact('view'));
     }
 
