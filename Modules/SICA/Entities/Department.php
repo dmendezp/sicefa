@@ -10,6 +10,7 @@ use Modules\SICA\Entities\Municipality;
 
 class Department extends Model implements Auditable
 {
+
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
 
     use SoftDeletes; // Borrado suave
@@ -30,7 +31,7 @@ class Department extends Model implements Auditable
     public function country(){ // Accede a la información del pais al que pertenece
         return $this->belongsTo(Country::class);
     }
-    public function municipalities(){
+    public function municipalities(){ // Accede a todos los municipios asociados a este departamento
         return $this->hasMany(Municipality::class);
     }
 
