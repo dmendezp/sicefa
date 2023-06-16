@@ -18,10 +18,13 @@ class Country extends Model implements Auditable
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
-    protected $hidden = ['created_at','updated_at']; // Datos para ocultar en una respuestar array o JSON
+    protected $hidden = [ // Datos para ocultar en una respuesta array o JSON
+        'created_at',
+        'updated_at'
+    ];
 
     // RELACIONES
-    public function departments(){
+    public function departments(){ // Accede a todos los departamentos asociados a este país
         return $this->hasMany(Department::class);
     }
 
