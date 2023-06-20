@@ -78,4 +78,13 @@ class InventoryController extends Controller
     }
 
 
+    public function rpdf(){
+        $html = view('ptventa::report.rpdf')->render();
+        $pdf = new Mpdf();
+        $pdf->WriteHTML($html);
+        $pdf->Output('ReporteEntradasInventario', 'D');
+    }
+
+
+
 }

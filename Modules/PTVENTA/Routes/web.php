@@ -35,7 +35,7 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
         Route::prefix('report')->controller(InventoryController::class)->group(function(){
             Route::get('report', 'report')->name('ptventa.report.report');
             Route::post('report_results')->name('ptventa.report.report_results');
-            Route::get('pdf', 'rpdf')->name('ptventa.report.rpdf'); // Descarga de formato de pdf
+            Route::get('rpdf', 'rpdf')->name('ptventa.report.rpdf'); // Descarga de formato de pdf
 
         });
 
