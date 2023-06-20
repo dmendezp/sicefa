@@ -22,15 +22,8 @@
         "livewire/livewire": "^2.12",
         "maatwebsite/excel": "^3.1",
         "mhmiton/laravel-modules-livewire": "^1.6",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "mpdf/mpdf": "^8.1",
-=======
         "mike42/escpos-php": "^2.2",
->>>>>>> 5ba1386696decbc07ed76fab3557fb9ec47a6d85
-=======
-        "mike42/escpos-php": "^2.2",
->>>>>>> 5ba1386696decbc07ed76fab3557fb9ec47a6d85
         "nwidart/laravel-modules": "^8.2",
         "owen-it/laravel-auditing": "^13.0",
         "tecnickcom/tcpdf": "^6.6",
