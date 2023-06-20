@@ -38,6 +38,7 @@ class InventoryController extends Controller
         $mpdf->Output('ptventa.inventory.pdf');
     }
 
+
     public function status(Request $request) { // Estado de productos vencidos y por vencer
 
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
