@@ -54,10 +54,9 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
 
         // Rutas para Caja
         Route::prefix('cash')->controller(CashController::class)->group(function(){
-            Route::get('cashOpen', 'index')->name('ptventa.cash.index'); // Vista principal de caja
-            Route::post('cashCount', 'store')->name('ptventa.cashCount.store');
-            Route::get('cashCountClosed', 'closeCash')->name('ptventa.cashCount.close');
-            Route::post('cashCountClosed1', 'close')->name('ptventa.cashCount.close1');
+            Route::get('cashCount', 'index')->name('ptventa.cashCount.index'); // Vista principal de caja
+            Route::post('cashCount', 'store')->name('ptventa.cashCount.store'); // Permite inicializar la primera caja de la aplicacion cuando no exita ninguna abierta
+            Route::post('cashCountClosed1', 'close')->name('ptventa.cashCount.close1'); // Permite cerrar la caja y guardar los datos
         });
 
     });

@@ -20,7 +20,6 @@ class CreateCashCountsTable extends Migration
             $table->dateTime('opening_date'); // Genera la fecha de apertura.
             $table->decimal('initial_balance', 10, 2); // Genera el saldo inicial.
             $table->decimal('final_balance', 10, 2)->nullable(); // Genera el saldo final.
-            $table->decimal('difference', 10, 2)->nullable(); // Genera la diferencia entre el saldo final y el saldo inicial.
             $table->dateTime('closing_date')->nullable(); // Genera la fecha de cierre de caja. 
             $table->enum('state', ['Abierta', 'Cerrada'])->default('Abierta'); // Por defecto estara la caja en estado abierta.
             $table->timestamps(); //Genera los campos de creacion y modificacion.

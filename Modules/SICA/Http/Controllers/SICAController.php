@@ -7,7 +7,6 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\App;
-
 use App\Models\User;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Course;

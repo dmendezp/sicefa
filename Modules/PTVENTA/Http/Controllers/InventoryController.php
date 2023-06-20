@@ -30,7 +30,6 @@ class InventoryController extends Controller
     {
 
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
-
         $html = view('ptventa::inventory.pdf', compact('inventories'))->render();
 
         $mpdf = new Mpdf();
@@ -38,7 +37,7 @@ class InventoryController extends Controller
         $mpdf->WriteHTML($html);
         $mpdf->Output('ptventa.inventory.pdf');
     }
- 
+
     public function status(Request $request) { // Estado de productos vencidos y por vencer
 
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
@@ -77,12 +76,5 @@ class InventoryController extends Controller
         return view('ptventa::report.report', compact('report'));
     }
 
-    public function rpdf(Request $request)
-    {
-        $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
-
-        $html = view('ptventa::report.pdf', compact('inventories'))->render();
-      
-    }
 
 }

@@ -8,7 +8,6 @@
 @section('content')
     <div class="card card-success card-outline shadow-sm">
         <div class="card-body pt-0">
-
             <div class="text-end my-2">
                 <a href="{{ route('ptventa.sale.register') }}" class="btn btn-sm btn-success">
                     <i class="far fa-plus"></i>
@@ -26,8 +25,8 @@
                             <th class="text-center">Comprobante</th>
                             <th>Cliente</th>
                             <th class="text-center">Hora</th>
-                            <th class="text-center">Valor</th>
                             <th class="text-center">Estado</th>
+                            <th class="text-center">Valor</th> <!-- Agregada la clase text-center -->
                             <th class="text-center">Acción</th>
                         </tr>
                     </thead>
@@ -38,12 +37,12 @@
                                 <td class="text-center">{{ $s->voucher_number }}</td>
                                 <td>{{ $s->movement_responsabilities->where('role','CLIENTE')->first()->person->full_name }}</td>
                                 <td class="text-center">{{ $s->registration_date->format('H:i A') }}</td>
-                                <td class="text-center"><strong>{{ $s->price }}</strong></td>
                                 <td class="text-center">
                                     <b class="bg-{{ $s->state=='Aprobado' ? 'success' : 'warning'  }} text-dark rounded-5 px-2" style="font-size: 12px;">
                                         {{ $s->state }}
                                     </b>
                                 </td>
+                                <td class="text-center"><strong>{{ $s->price }}</strong></td>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-outline-secondary btn-sm py-0" title="Ver detalles">
                                         <i class="far fa-eye"></i>
@@ -52,6 +51,13 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-center" colspan="5"><strong>Total de ventas:</strong></td>
+                            <td class="text-center"><strong>{{$sales->sum('price')}}</strong></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

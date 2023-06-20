@@ -18,10 +18,11 @@ use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\PopulationGroup;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\WarehouseMovement;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 class GenerateSale extends Component
 {
-
     public $products; // Almacena todos los productos activos del inventario
     public $product_id; // Almacena el id del elemento selecionado
     public $product_price; // Contiene el precio del producto seleccionado de acuerdo a su inventario
@@ -33,7 +34,7 @@ class GenerateSale extends Component
     public $payment_value; // Contiene el valor de pago
     public $change_value; // Contiene el valor de cambio a partir de la resta entre el valor de pago y el total de la venta
     public Collection $selected_products; // Productos seleccionados
-    public $customer_document_number = 123456789; // Número de documento del cliente
+    public $customer_document_number = 123456789; // Número de documento del cliente (Punto de venta)
     public $customer_document_type; // Tipo de documento del cliente
     public $customer_full_name; // Nombre completo del cliente
 
@@ -298,6 +299,7 @@ class GenerateSale extends Component
                 $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente.', $value);
                 $this->defaultAction();
                 $this->emit('clear-sale-values'); // Limpiar valores de venta
+                $this->postPrinting($movement); // Generar impresión pos de venta
             } catch (Exception $e) { // Capturar error durante la transacción
                 // Transacción rechazada
                 DB::rollBack(); // Devolver cambios realizados durante la transacción
@@ -370,5 +372,80 @@ class GenerateSale extends Component
             'person_first_last_name',
             'person_second_last_name',
         );
+    }
+
+    // Realizar impresión pos de la venta realizada
+    public function postPrinting(Movement $movement){
+        try {
+            // Iniciar impresión pos
+            $connector = new WindowsPrintConnector("POS-PTVENTA-80C");
+            $printer = new Printer($connector);
+            // Establecer estilos de texto
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->setEmphasis(true);
+            // Encabezado de la factura
+            $printer->text("CENTRO DE FORMACIÓN AGROINDUSTRIAL\n");
+            $printer->setEmphasis(false);
+            $printer->text("Nit. 899.99934-1\n");
+            $printer->text("Producción de Centro - SENA Empresa\n");
+            $printer->text("La Angostura\n\n");
+            $printer->text("Art 17 Decreto 1001 de 1997\n");
+            $printer->text("------------------------------------\n");
+            $printer->setEmphasis(true);
+            $printer->text("Factura de venta N°: ".$movement->voucher_number."\n");
+            $printer->setEmphasis(false);
+            $printer->text("------------------------------------\n");
+            // Ajustes generales de impresión
+            $printer->setPrintWidth(580); // Establecer ancho de impresión
+            $w = 48; // Definir número de repiticiones de caracteres
+            $linea = str_repeat("-", $w); // Generar línea de separación
+            // Detalles de la factura
+            $customer = $movement->movement_responsabilities->where('role','CLIENTE')->first(); // Obtener cliente
+            $printer->setJustification(Printer::JUSTIFY_LEFT);
+            $printer->text("Fecha:          ".$movement->registration_date."\n");
+            $printer->text("Cliente:        ".$customer->person->full_name."\n");
+            $printer->text("Identificación: ".$customer->person->identification_type_number."\n");
+            $printer->text("Atendido por:   ".$movement->movement_responsabilities->where('role','VENDEDOR')->first()->person->full_name."\n");
+            $printer->text("$linea\n"); // Imprimir la línea
+            $printer->text("#  Producto                Cant  V.Unit SubTotal\n");
+            $printer->text("$linea\n"); // Imprimir la línea
+            // Productos
+            foreach ($movement->movement_details as $index => $product) {
+                $productName = $product->inventory->element->name;
+                $item = str_pad($index + 1, 3, " "); // Número de ítem
+                if (strlen($productName) > 22) {
+                    $name = substr($productName, 0, 21).'-';
+                }else{
+                    $name = $productName;
+                }
+                $name = str_pad($name, 23, " ");
+                $quantity = str_pad($product->amount, 5, " ", STR_PAD_LEFT);
+                $price = str_pad(priceFormat($product->price), 8, " ", STR_PAD_LEFT);
+                $subtotal = str_pad(priceFormat($product->amount * $product->price), 9, " ", STR_PAD_LEFT);
+                $printer->text("$item$name$quantity$price$subtotal\n");
+                // Verificar si el nombre del producto tiene más de 22 caracteres
+                if (strlen($productName) > 22) {
+                    $remainingName = substr($productName, 21); // Obtener la parte restante del nombre
+                    $remainingName = str_pad($remainingName, 23, " ");
+                    $printer->text("    $remainingName\n"); // Imprimir en la siguiente línea
+                }
+            }
+            // Total
+            $printer->text("$linea\n"); // Imprimir la línea
+            $printer->setJustification(Printer::JUSTIFY_RIGHT);
+            $printer->setEmphasis(true);
+            $printer->text("Total:    ".priceFormat($movement->price)."\n");
+            $printer->setEmphasis(false);
+            $printer->text("$linea\n"); // Imprimir la línea
+            // Pie de página
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->text("Gracias por su compra\n");
+            $printer->text("¡Vuelva pronto!\n");
+            $printer->feed();
+            $printer->cut();
+            $printer->close();
+        } catch (Exception $e) {
+            $this->emit('message', 'error', 'Error en impresión', "Causa : ".$e->getMessage(), null);
+        }
     }
 }

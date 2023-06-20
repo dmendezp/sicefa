@@ -74,6 +74,17 @@ class Person extends Model implements Auditable
     public function getFullNameAttribute(){ // Obtener el nombre completo de la persona first_name + first_last_name + second_last_name (ACCESOR)
         return $this->first_name.' '.$this->first_last_name.' '.$this->second_last_name;
     }
+    public function getIdentificationTypeNumberAttribute(){ // Obtener las iniciales del tipo y el número de identificación CC - 123456 (ACCESOR)
+        $document_types = array(
+            "Cédula de ciudadanía" => "CC",
+            "Tarjeta de identidad" => "TI",
+            "Cédula de extranjería" => "CE",
+            "Pasaporte" => "PP",
+            "Documento nacional de identidad" => "DNI",
+            "Registro civil" => "RC"
+        );
+        return $document_types[$this->document_type].' - '.$this->document_number;
+    }
     public function getAgeAttribute(){ // Obtener la edad actual a partir de la fecha nacimiento (ACCESOR)
         if($this->date_of_birth!=''):
             $dias = explode("-", $this->date_of_birth, 3);
