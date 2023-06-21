@@ -32,7 +32,7 @@ class PopulationGroup extends Model implements Auditable
     }
 
     // RELACIONES
-    public function people(){
+    public function people(){ // Accede a todas las personas asociadas a este grupo poblacional
         return $this->hasMany(Person::class);
     }
 }
