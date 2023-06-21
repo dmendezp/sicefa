@@ -12,11 +12,9 @@ use Modules\SICA\Entities\Line;
 class Network extends Model implements Auditable
 {
 
-    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
-
-    use SoftDeletes; // Borrado suave
-
-    use HasFactory; // Generación de datos de prueba
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+        SoftDeletes, // Borrado suave
+        HasFactory; // Generación de datos de prueba
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'name',
@@ -36,7 +34,7 @@ class Network extends Model implements Auditable
     }
 
     // RELACIONES
-    public function line(){ // Accede a la línea tecnologica que pertenece
+    public function line(){ // Accede a la línea tecnologica al que pertenece
         return $this->belongsTo(Line::class);
     }
     public function programs(){ // Accede a todos los programas asociados a esta red de conocimiento

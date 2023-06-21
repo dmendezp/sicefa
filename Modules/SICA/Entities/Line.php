@@ -30,7 +30,7 @@ class Line extends Model implements Auditable
     }
 
     // RELACIONES
-    public function networks(){ // Accede a todas las redes asociadas a esta línea
+    public function networks(){ // Accede a todas las redes de conocimiento asociadas a esta línea tecnológica
         return $this->hasMany(Network::class);
     }
 
