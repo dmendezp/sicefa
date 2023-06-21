@@ -11,15 +11,13 @@ use Modules\SICA\Entities\Network;
 class Line extends Model implements Auditable
 {
 
-    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
-
-    use SoftDeletes; // Borrado suave
-
-    use HasFactory; // Generación de datos de prueba
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+        SoftDeletes, // Borrado suave
+        HasFactory; // Generación de datos de prueba
 
     protected $fillable = ['name']; // Atributos modificableS (asignación masiva)
 
-    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formato y manipulación de fecha y hora)
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
     protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
