@@ -10,16 +10,19 @@ use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Person;
+use OwenIt\Auditing\Contracts\Auditable;
 
 use App\Models\Traits\UserTrait;
 use Illuminate\Support\Facades\Hash;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
+
     use SoftDeletes, // Borrado suave
         HasApiTokens, // Trait que permite la autenticación del usuario a través de tokens API.
         Notifiable, // Trait que permite el envío de notificaciones a través de diferentes canales, como correo electrónico, SMS y notificaciones push.
-        UserTrait; // Trait para validar permisos defenidos o full_access del usuario
+        UserTrait, // Trait para validar permisos defenidos o full_access del usuario
+        \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'nickname',
@@ -39,19 +42,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime'
     ];
 
-    protected $dates = [ // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formato y manipulación de fecha y hora)
+    protected $dates = [ // Atributos que deben ser tratados como objetos Carbon
         'deleted_at'
     ];
 
     // RELACIONES
-    public function person(){ // Accede a la información de la persona
+    public function person(){ // Accede a la información de la persona asociada a este usuario
         return $this->belongsTo(Person::class);
     }
     public function roles(){ // Accede a todos los roles que pertenecen a este usuario
         return $this->belongsToMany(Role::class);
     }
 
-    // DONFIGURACIONES PREESTABLECIDAS PARA MÉTODOS ELOQUENT
+    // CONFIGURACIONES PREESTABLECIDAS PARA MÉTODOS ELOQUENT
     /**
      * The "booting" method of the model.
      *
