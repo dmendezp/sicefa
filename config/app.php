@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         
         
+        
 
         /*
          * Package Service Providers...
@@ -179,6 +180,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         OwenIt\Auditing\AuditingServiceProvider::class,
+
 
 
     ],
@@ -239,6 +241,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Input' => Illuminate\Support\Facades\Input::class,
         'Image' => Intervention\Image\Facades\Image::class, // composer require intervention/image
+        'PDF' => Dompdf\Facade::class,
 
     ],
 
