@@ -22,6 +22,7 @@
         "maatwebsite/excel": "^3.1",
         "mhmiton/laravel-modules-livewire": "^1.6",
         "mike42/escpos-php": "^2.2",
+        "mikehaertl/php-pdftk": "^0.13.0",
         "mpdf/mpdf": "^8.1",
         "nwidart/laravel-modules": "^8.2",
         "owen-it/laravel-auditing": "^13.0",
