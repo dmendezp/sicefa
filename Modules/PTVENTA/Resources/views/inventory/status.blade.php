@@ -16,7 +16,7 @@
     <div class="container" data-aos="fade-down">
         <div class="d-flex justify-content-around">
             <div class="col-9">
-                <h6 class="text-center bg-secondary py-2 rounded-2"><strong>{{ trans('ptventa::statusInventory.All Products')}}</strong></h6>
+                <h3 class="text-center py-2 rounded-2"><strong>{{ trans('ptventa::statusInventory.All Products')}}</strong></h3>
             </div>
             <div class="col-3">
                 <a href="{{ route('ptventa.inventory.low') }}" class="btn btn-success"> {{ trans('ptventa::statusInventory.Registration of Low')}} <i class="far fa-hand-point-down"></i> </a>
@@ -88,11 +88,11 @@
     <script>
         // Permite la aplicacion de datatables y la vez la traduccion de las tablas
         $(document).ready(function() {
-            /* Initialización of Datatables CashCount */
+            /* Initialización of Datatables ExpiredProducts */
             $('#tableExpiredProducts').DataTable({
                 language: language_datatables, // Agregar traducción a español
             });
-            /* Initialización of Datatables CashCountAll */
+            /* Initialización of Datatables ProductsToExpired */
             $('#tableProductsToExpire').DataTable({
                 language: language_datatables, // Agregar traducción a español
             });
