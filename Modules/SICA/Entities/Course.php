@@ -12,11 +12,9 @@ use Modules\SICA\Entities\Apprentice;
 class Course extends Model implements Auditable
 {
 
-    use \OwenIt\Auditing\Auditable; // Seguimientos realizados en BD
-
-    use SoftDeletes; // Borrado suave
-
-    use HasFactory; // Generación de datos de prueba
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+        SoftDeletes, // Borrado suave
+        HasFactory; // Generación de datos de prueba
 
     protected $fillable = [// Atributos modificables (asignación masiva)
         'code',
@@ -27,7 +25,7 @@ class Course extends Model implements Auditable
         'deschooling'
     ];
 
-    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formato y manipulación de fecha y hora)
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
     protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
@@ -40,11 +38,11 @@ class Course extends Model implements Auditable
     }
 
     // RELACIONES
-    public function program(){ // Accede al programa de formación que pertenece
-        return $this->belongsTo(Program::class);
-    }
     public function apprentices(){ // Accede a todos los aprendices de este curso formativo
         return $this->hasMany(Apprentice::class);
+    }
+    public function program(){ // Accede al programa de formación al que pertenece
+        return $this->belongsTo(Program::class);
     }
 
     // Configuración de factory para la generación de datos de pruebas
