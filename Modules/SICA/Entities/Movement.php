@@ -26,10 +26,9 @@ class Movement extends Model implements Auditable
         'state'
     ];
 
-    protected $dates = [ // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formato y manipulación de fecha y hora)
-        'registration_date',
-        'return_date',
-        'deleted_at',
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
+
+    protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
         'updated_at'
     ];

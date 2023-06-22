@@ -77,13 +77,13 @@ class CashController extends Controller
             $cashCount->final_balance = $validatedData['final_balance'];
             $cashCount->closing_date = Carbon::now();
             $cashCount->state = 'Cerrada';
-            
+
             $cashCount->save();
-            
+
             CashCount::create([
                 'person_id' => Auth::user()->person_id,
                 'warehouse_id' =>  Warehouse::where('name','Punto de venta')->first()->id,
-                'opening_date' => Carbon::now()->addDay(),
+                'opening_date' => Carbon::now(),
                 'initial_balance' => 0,
                 'final_balance' => null,
                 'closing_date' => null,
