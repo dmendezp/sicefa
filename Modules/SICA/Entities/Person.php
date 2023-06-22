@@ -18,11 +18,9 @@ use Modules\SICA\Entities\Event;
 class Person extends Model implements Auditable
 {
 
-    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
-
-    use SoftDeletes; // Borrado suave
-
-    use HasFactory; // Generación de datos de prueba
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+        SoftDeletes, // Borrado suave
+        HasFactory; // Generación de datos de prueba
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'document_type',
@@ -85,7 +83,7 @@ class Person extends Model implements Auditable
     }
 
     // RELACIONES
-    public function apprentices(){ // Accede a todos los registros de aprendices que han sido asociados a esta persona
+    public function apprentices(){ // Accede a todos aprendices que han sido asociados con esta persona
         return $this->hasMany(Apprentice::class);
     }
     public function authorizeds(){ // Accede a todas los registros de las personas que han sido autorizados para votar
