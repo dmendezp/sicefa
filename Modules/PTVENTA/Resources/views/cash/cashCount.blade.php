@@ -1,5 +1,9 @@
 @extends('ptventa::layouts.master')
 
+@push('head')
+    <link rel="stylesheet" href="{{asset('modules/ptventa/css/custom_styles.css')}}">
+@endpush
+
 @push('breadcrumbs')
     <li class="breadcrumb-item">
         <a href="{{ route('ptventa.cashCount.index') }}" class="text-decoration-none">{{ trans('ptventa::cash.Cash') }}</a>
@@ -12,18 +16,21 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-body d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-center align-items-center flex-column">
                         <h4 class="text-center">{{ trans('ptventa::cash.Cash Closing') }}</h4>
-                        <div>
-                            @if(!Modules\PTVENTA\Entities\CashCount::where('state', 'Abierta')->exists())
-                                {!! Form::open(['route' => 'ptventa.cashCount.store', 'class' => 'form-row']) !!}
-                                    <button type="submit" class="btn btn-success btn-block w-auto">
-                                        <i class="fas fa-check"></i> {{ trans('ptventa::cash.Open cash') }}
-                                    </button>
-                                {!! Form::close() !!}
-                            @endif
+                        <div class="mt-3">
+                          @if(!Modules\PTVENTA\Entities\CashCount::where('state', 'Abierta')->exists())
+                            {!! Form::open(['route' => 'ptventa.cashCount.store', 'class' => 'form-row']) !!}
+                            <button type="submit" class="btn btn-success btn-block w-auto">
+                              <i class="fas fa-check"></i> {{ trans('ptventa::cash.Open cash') }}
+                            </button>
+                            {!! Form::close() !!}
+                          @endif
                         </div>
-                    </div>
+                      </div>
+                      
+                      
+                      
                     <hr>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover" id="tableCashCount">

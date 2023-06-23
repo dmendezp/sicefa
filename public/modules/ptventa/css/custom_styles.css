@@ -5,8 +5,12 @@
     height: 70px; /* Ajusta la altura según tus necesidades */
   }
   
-  .object-fit {
-    object-fit: cover;
-    height: 100%; /* Establece la altura de la imagen en 100% para que se ajuste a la altura de la tarjeta */
-  }
+.object-fit {
+  object-fit: cover;
+  height: 100%; /* Establece la altura de la imagen en 100% para que se ajuste a la altura de la tarjeta */
+}
   
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
