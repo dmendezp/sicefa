@@ -1,6 +1,7 @@
 @extends('ptventa::layouts.master')
 
 @push('head')
+    <link href="{{asset('libs/AOS-2.3.1/dist/aos.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('modules/ptventa/css/custom_styles.css')}}">
 @endpush
 
@@ -14,7 +15,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card" data-aos="zoom-in-down">
                 <div class="card-body">
                     <div class="d-flex justify-content-center align-items-center flex-column">
                         <h4 class="text-center">{{ trans('ptventa::cash.Cash Closing') }}</h4>
@@ -28,9 +29,6 @@
                           @endif
                         </div>
                       </div>
-                      
-                      
-                      
                     <hr>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover" id="tableCashCount">
@@ -73,7 +71,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card" data-aos="zoom-in-up">
                 <div class="card-body">
                     <h4 class="text-center">{{ trans('ptventa::cash.Cash History') }}</h4>
                     <hr>
@@ -174,6 +172,10 @@
 @include('ptventa::layouts.partials.plugins.datatables')
 
 @push('scripts')
+    <script src="{{asset('libs/AOS-2.3.1/dist/aos.js')}}"></script>
+    <script>
+        AOS.init();
+    </script>
     <script>
         // Permite la aplicacion de datatables y la vez la traduccion de las tablas
         $(document).ready(function() {
