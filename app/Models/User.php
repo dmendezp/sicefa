@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,7 +10,6 @@ use Laravel\Sanctum\HasApiTokens;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Person;
 use OwenIt\Auditing\Contracts\Auditable;
-
 use App\Models\Traits\UserTrait;
 use Illuminate\Support\Facades\Hash;
 

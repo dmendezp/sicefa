@@ -38,7 +38,7 @@ class Role extends Model implements Auditable
     public function permissions(){
         return $this->belongsToMany(Permission::class);
     }
-    public function users(){
+    public function users(){ // Accede todos los usuarios que pertenecen a este rol
         return $this->belongsToMany(User::class);
     }
 
