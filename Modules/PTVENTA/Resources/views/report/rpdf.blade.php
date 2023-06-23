@@ -7,117 +7,169 @@
         <link rel="stylesheet" href=" {{ asset('libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css') }}" crossorigin="anonymus">
     </head>
   <body>
-        <div class="row">
-            <div class="col-sm-4 mb-3 mb-sm-0">
-                <img src="{{ asset('modules/ptventa/images/sena.jpg') }}" style="width: 80px; height: 60px;" >
-            </div>
-            <div class="col-sm-8 mb-3 mb-sm-0">
-                <h1 class="text-center">INFORME LISTA DE PRODUCTOS</h1>
-                <P class="text-center">CENTRO DE FORMACION AGROINDUSTRIAL LA "ANGOSTURA"</P>
-            </div>
+    <style>
+        .centrar-texto {
+            text-align: center;
+         }
+
+         .long-header {
+            width: 80%;
+            padding: 10px;
+        }
+
+        .short-header {
+            width: 20%;
+            padding: 5px;
+        }
+
+        .short-header2 {
+            width: 14%;
+            padding: 5px;
+        }
+
+        .short-header3 {
+            width: 7%;
+            padding: 5px;
+        }
+
+        .short-header4 {
+            width: 9.5%;
+            padding: 5px;
+        }
+
+        .long-header2 {
+            width: 34%;
+            padding: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th class="short-header">
+                    <img src="{{ asset('modules/ptventa/images/sena.jpg') }}" style="width: 85px; height: 65px;" >
+                </th>
+                <th class="long-header">
+                    <div class="centrar-texto">
+                        <h1>INFORME LISTA DE PRODUCTOS</h1>
+                        <P>CENTRO DE FORMACION AGROINDUSTRIAL LA "ANGOSTURA"</P>
+                    </div>
+                </th>
+            </tr>
+        </table>
+    </div>
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table">
                     <thead>
                         <tr>
-                            <th class="text-center" scope="col">#</th>
-                            <th class="text-center" scope="col">Comprobante</th>
-                            <th scope="col">Producto</th>
-                            <th class="text-center" scope="col">Fecha</th>
-                            <th class="text-center" scope="col">Precio</th>
-                            <th class="text-center" scope="col">Cantidad</th>
-                            <th class="text-center" scope="col">SubTotal</th>
+                            <th class="centrar-texto short-header3" scope="col">#</th>
+                            <th class="centrar-texto short-header2" scope="col">Comprobante</th>
+                            <th class="long-header2">Producto</th>
+                            <th class="centrar-texto short-header2" scope="col">Fecha</th>
+                            <th class="centrar-texto short-header2" scope="col">Precio</th>
+                            <th class="centrar-texto short-header4" scope="col">Cantidad</th>
+                            <th class="centrar-texto short-header2" scope="col">SubTotal</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="text-center">1</td>
-                            <td class="text-center">123</td>
-                            <td>YOGURT DE MORA X 25ML</td>
-                            <td class="text-center">08/06/2023</td>
-                            <td class="text-center">2000</td>
-                            <td class="text-center">5</td>
-                            <td class="text-center">10000</td>
+                            <td class="centrar-texto short-header3">1</td>
+                            <td class="centrar-texto short-header2">123</td>
+                            <td class="long-header2">YOGURT DE MORA X 25ML</td>
+                            <td class="centrar-texto short-header2">08/06/2023</td>
+                            <td class="centrar-texto short-header2">2000</td>
+                            <td class="centrar-texto short-header4">5</td>
+                            <td class="centrar-texto short-header2">10000</td>
                         </tr>
                         <tr>
-                            <td class="text-center">2</td>
-                            <td class="text-center">456</td>
-                            <td>DONA DE CHOCOLATE X 50GR</td>
-                            <td class="text-center">10/05/2023</td>
-                            <td class="text-center">1000</td>
-                            <td class="text-center">10</td>
-                            <td class="text-center">10000</td>
+                            <td class="centrar-texto short-header3">2</td>
+                            <td class="centrar-texto short-header2">456</td>
+                            <td class="long-header2">DONA DE CHOCOLATE X 50GR</td>
+                            <td class="centrar-texto short-header2">10/05/2023</td>
+                            <td class="centrar-texto short-header2">1000</td>
+                            <td class="centrar-texto short-header4">10</td>
+                            <td class="centrar-texto short-header2">10000</td>
                         </tr>
                         <tr>
-                            <td class="text-center">3</td>
-                            <td class="text-center">789</td>
-                            <td>QUESILLO X 100GR</td>
-                            <td class="text-center">01/04/2023</td>
-                            <td class="text-center">4000</td>
-                            <td class="text-center">10</td>
-                            <td class="text-center">40000</td>
+                            <td class="centrar-texto short-header3">3</td>
+                            <td class="centrar-texto short-header2">789</td>
+                            <td class="long-header2">QUESILLO X 100GR</td>
+                            <td class="centrar-texto short-header2">01/04/2023</td>
+                            <td class="centrar-texto short-header2">4000</td>
+                            <td class="centrar-texto short-header4">10</td>
+                            <td class="centrar-texto short-header2">40000</td>
                         </tr>
                         <tr>
-                            <td class="text-center">4</td>
-                            <td class="text-center">398</td>
-                            <td>SALCHICHON X 300GR</td>
-                            <td class="text-center">11/06/2023</td>
-                            <td class="text-center">10000</td>
-                            <td class="text-center">20</td>
-                            <td class="text-center">200000</td>
+                            <td class="centrar-texto short-header3">4</td>
+                            <td class="centrar-texto short-header2">398</td>
+                            <td class="long-header2">SALCHICHON X 300GR</td>
+                            <td class="centrar-texto short-header2">11/06/2023</td>
+                            <td class="centrar-texto short-header2">10000</td>
+                            <td class="centrar-texto short-header4">20</td>
+                            <td class="centrar-texto short-header2">200000</td>
                         </tr>
                         <tr>
-                            <td class="text-center">5</td>
-                            <td class="text-center">739</td>
-                            <td>PAN DE YUCA X 20GR</td>
-                            <td class="text-center">03/05/2023</td>
-                            <td class="text-center">1000</td>
-                            <td class="text-center">30</td>
-                            <td class="text-center">30000</td>
+                            <td class="centrar-texto short-header3">5</td>
+                            <td class="centrar-texto short-header2">739</td>
+                            <td class="long-header2">PAN DE YUCA X 20GR</td>
+                            <td class="centrar-texto short-header2">03/05/2023</td>
+                            <td class="centrar-texto short-header2">1000</td>
+                            <td class="centrar-texto short-header4">30</td>
+                            <td class="centrar-texto short-header2">30000</td>
                         </tr>
                         <tr>
-                            <td class="text-center">6</td>
-                            <td class="text-center">013</td>
-                            <td>NECTAR DE GUANABANA X 30ML</td>
-                            <td class="text-center">24/05/2023</td>
-                            <td class="text-center">1500</td>
-                            <td class="text-center">30</td>
-                            <td class="text-center">45000</td>
+                            <td class="centrar-texto short-header3">6</td>
+                            <td class="centrar-texto short-header2">013</td>
+                            <td class="long-header2">NECTAR DE GUANABANA X 30ML</td>
+                            <td class="centrar-texto short-header2">24/05/2023</td>
+                            <td class="centrar-texto short-header2">1500</td>
+                            <td class="centrar-texto short-header4">30</td>
+                            <td class="centrar-texto short-header2">45000</td>
                         </tr>
                         <tr>
-                            <td class="text-center">7</td>
-                            <td class="text-center">519</td>
-                            <td>ARROZ CON LECHE X 70GR</td>
-                            <td class="text-center">29/05/2023</td>
-                            <td class="text-center">2000</td>
-                            <td class="text-center">10</td>
-                            <td class="text-center">20000</td>
+                            <td class="centrar-texto short-header3">7</td>
+                            <td class="centrar-texto short-header2">519</td>
+                            <td class="long-header2">ARROZ CON LECHE X 70GR</td>
+                            <td class="centrar-texto short-header2">29/05/2023</td>
+                            <td class="centrar-texto short-header2">2000</td>
+                            <td class="centrar-texto short-header4">10</td>
+                            <td class="centrar-texto short-header2">20000</td>
                         </tr>
                         <tr>
-                            <td class="text-center">8</td>
-                            <td class="text-center">017</td>
-                            <td>SEVILLANA X 25ML</td>
-                            <td class="text-center">08/06/2023</td>
-                            <td class="text-center">1500</td>
-                            <td class="text-center">20</td>
-                            <td class="text-center">30000</td>
+                            <td class="centrar-texto short-header3">8</td>
+                            <td class="centrar-texto short-header2">017</td>
+                            <td class="long-header2">SEVILLANA X 25ML</td>
+                            <td class="centrar-texto short-header2">08/06/2023</td>
+                            <td class="centrar-texto short-header2">1500</td>
+                            <td class="centrar-texto short-header4">20</td>
+                            <td class="centrar-texto short-header2">30000</td>
                         </tr>
                         <tr>
-                            <td class="text-center">9</td>
-                            <td class="text-center">823</td>
-                            <td>FIGURAS DE CHOCOLATE X 10GR</td>
-                            <td class="text-center">18/04/2023</td>
-                            <td class="text-center">800</td>
-                            <td class="text-center">30</td>
-                            <td class="text-center">24000</td>
+                            <td class="centrar-texto short-header3">9</td>
+                            <td class="centrar-texto short-header2">823</td>
+                            <td class="long-header2">FIGURAS DE CHOCOLATE X 10GR</td>
+                            <td class="centrar-texto short-header2">18/04/2023</td>
+                            <td class="centrar-texto short-header2">800</td>
+                            <td class="centrar-texto short-header4">30</td>
+                            <td class="centrar-texto short-header2">24000</td>
                         </tr>
                         <tr>
-                            <td class="text-center">10</td>
-                            <td class="text-center">193</td>
-                            <td>PAN X 10GR</td>
-                            <td class="text-center">04/06/2023</td>
-                            <td class="text-center">1000</td>
-                            <td class="text-center">50</td>
-                            <td class="text-center">50000</td>
+                            <td class="centrar-texto short-header3">10</td>
+                            <td class="centrar-texto short-header2">193</td>
+                            <td class="long-header2">PAN X 10GR</td>
+                            <td class="centrar-texto short-header2">04/06/2023</td>
+                            <td class="centrar-texto short-header2">1000</td>
+                            <td class="centrar-texto short-header4">50</td>
+                            <td class="centrar-texto short-header2">50000</td>
                         </tr>
                         <tr>
                             <td colspan="5"></td>
@@ -127,7 +179,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
         <script src="{{ asset('libs/Bootstrap-5.3.0-alpha/js/bootstrap.bundle.min.js')}}"></script>
     </body>
 </html>

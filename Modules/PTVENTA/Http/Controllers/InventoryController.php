@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\MovementDetail;
 use Mpdf\Mpdf;
+use TCPDF;
 
 
 class InventoryController extends Controller
@@ -79,10 +80,12 @@ class InventoryController extends Controller
 
 
     public function rpdf(){
+        $pdf = new TCPDF();
+
         $html = view('ptventa::report.rpdf')->render();
-        $pdf = new Mpdf();
-        $pdf->WriteHTML($html);
-        $pdf->Output('ReporteEntradasInventario', 'D');
+        $pdf->AddPage();
+        $pdf->writeHTML($html, true, false, true, false);
+        $pdf->Output('ReporteEntradasInventario');
     }
 
 
