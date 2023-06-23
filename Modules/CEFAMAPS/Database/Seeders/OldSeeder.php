@@ -36,7 +36,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "person_id" => $person->id,
                 "email" => "ing.diego.mendez@gmail.com",
                 "password" => Hash::make("12345678")
-            ]);            
+            ]);
         }
         //crear aplicacion
         $app = App::where('name','CEFAMAPS')->first();
@@ -69,7 +69,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "slug" => "cefamaps.admin",
                 "description" => "Rol administrador de la aplicacion CEFAMAPS",
                 "description_english" => "CEFAMAPS application administrator role",
-                "full_access" => "yes",
+                "full_access" => "Si",
                 "app_id" => $app->id
             ]);
         }
