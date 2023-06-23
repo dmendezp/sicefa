@@ -1,21 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Reporte PDF</title>
-    <link href="{{ public_path('css/bootstrap.min.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <div class="col-sm-4 mb-3 mb-sm-0">
-            <img src="{{ asset('modules/ptventa/images/sena.jpg') }}" alt="">
-        </div>
-        <div class="col-sm-8 mb-3 mb-sm-0">
-            <h1 class="text-center">INFORME LISTA DE PRODUCTOS</h1>
-            <P class="text-center">CENTRO DE FORMACION AGROINDUSTRIAL LA "ANGOSTURA"</P>
-        </div>
-        <table class="table table-striped">
-            <thead>
+<!doctype html>
+<htmll ang="en">
+  <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Descarga PDF</title>
+        <link rel="stylesheet" href=" {{ asset('libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css') }}" crossorigin="anonymus">
+    </head>
+  <body>
+    <style>
+        .centrar-texto {
+            text-align: center;
+         }
+
+         .long-header {
+            width: 80%;
+            padding: 10px;
+        }
+
+        .short-header {
+            width: 20%;
+            padding: 5px;
+        }
+
+        .short-header2 {
+            width: 14%;
+            padding: 5px;
+        }
+
+        .small-header {
+            font-size: 8px;
+            /* Otros estilos... */
+        }
+
+        .short-header3 {
+            width: 7%;
+            padding: 5px;
+        }
+
+        .short-header4 {
+            width: 9.5%;
+            padding: 5px;
+        }
+
+        .short-header5 {
+            width: 9.5%;
+            padding: 5px;
+        }
+
+        .long-header2 {
+            width: 34%;
+            padding: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th class="short-header small-header">
+                    <img src="{{ asset('modules/ptventa/images/sena.jpg') }}" style="width: 85px; height: 65px;" >
+                </th>
+                <th class="long-header small-header">
+                    <div class="centrar-texto">
+                        <h1>INFORME LISTA DE PRODUCTOS</h1>
+                        <P>CENTRO DE FORMACION AGROINDUSTRIAL LA "ANGOSTURA"</P>
+                    </div>
+                </th>
+            </tr>
+        </table>
+    </div>
+            <div class="table-responsive">
+                <table class="table">
+                <thead>
                 <tr>
                         <th>Producto</th>
                         <th class="text-center">Categoría</th>
@@ -42,10 +106,9 @@
                             </td>
                         </tr>
                    @endforeach
-        </tbody>
-    </table>
-</div>
-
-    <script src="{{ public_path('js/bootstrap.bundle.min.js') }}"></script>
-</body>
+                </tbody>
+                </table>
+            </div>
+        <script src="{{ asset('libs/Bootstrap-5.3.0-alpha/js/bootstrap.bundle.min.js')}}"></script>
+    </body>
 </html>
