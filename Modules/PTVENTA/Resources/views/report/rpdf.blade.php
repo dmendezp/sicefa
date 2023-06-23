@@ -27,12 +27,22 @@
             padding: 5px;
         }
 
+        .small-header {
+            font-size: 8px;
+            /* Otros estilos... */
+        }
+
         .short-header3 {
             width: 7%;
             padding: 5px;
         }
 
         .short-header4 {
+            width: 9.5%;
+            padding: 5px;
+        }
+
+        .short-header5 {
             width: 9.5%;
             padding: 5px;
         }
@@ -55,10 +65,10 @@
     <div class="table-responsive">
         <table class="table">
             <tr>
-                <th class="short-header">
+                <th class="short-header small-header">
                     <img src="{{ asset('modules/ptventa/images/sena.jpg') }}" style="width: 85px; height: 65px;" >
                 </th>
-                <th class="long-header">
+                <th class="long-header small-header">
                     <div class="centrar-texto">
                         <h1>INFORME LISTA DE PRODUCTOS</h1>
                         <P>CENTRO DE FORMACION AGROINDUSTRIAL LA "ANGOSTURA"</P>
@@ -75,7 +85,7 @@
                             <th class="centrar-texto short-header2" scope="col">Comprobante</th>
                             <th class="long-header2">Producto</th>
                             <th class="centrar-texto short-header2" scope="col">Fecha</th>
-                            <th class="centrar-texto short-header2" scope="col">Precio</th>
+                            <th class="centrar-texto short-header5" scope="col">Precio</th>
                             <th class="centrar-texto short-header4" scope="col">Cantidad</th>
                             <th class="centrar-texto short-header2" scope="col">SubTotal</th>
                         </tr>
@@ -86,7 +96,7 @@
                             <td class="centrar-texto short-header2">123</td>
                             <td class="long-header2">YOGURT DE MORA X 25ML</td>
                             <td class="centrar-texto short-header2">08/06/2023</td>
-                            <td class="centrar-texto short-header2">2000</td>
+                            <td class="centrar-texto short-header5">2000</td>
                             <td class="centrar-texto short-header4">5</td>
                             <td class="centrar-texto short-header2">10000</td>
                         </tr>
@@ -95,7 +105,7 @@
                             <td class="centrar-texto short-header2">456</td>
                             <td class="long-header2">DONA DE CHOCOLATE X 50GR</td>
                             <td class="centrar-texto short-header2">10/05/2023</td>
-                            <td class="centrar-texto short-header2">1000</td>
+                            <td class="centrar-texto short-header5">1000</td>
                             <td class="centrar-texto short-header4">10</td>
                             <td class="centrar-texto short-header2">10000</td>
                         </tr>
@@ -104,7 +114,7 @@
                             <td class="centrar-texto short-header2">789</td>
                             <td class="long-header2">QUESILLO X 100GR</td>
                             <td class="centrar-texto short-header2">01/04/2023</td>
-                            <td class="centrar-texto short-header2">4000</td>
+                            <td class="centrar-texto short-header5">4000</td>
                             <td class="centrar-texto short-header4">10</td>
                             <td class="centrar-texto short-header2">40000</td>
                         </tr>
@@ -113,7 +123,7 @@
                             <td class="centrar-texto short-header2">398</td>
                             <td class="long-header2">SALCHICHON X 300GR</td>
                             <td class="centrar-texto short-header2">11/06/2023</td>
-                            <td class="centrar-texto short-header2">10000</td>
+                            <td class="centrar-texto short-header5">10000</td>
                             <td class="centrar-texto short-header4">20</td>
                             <td class="centrar-texto short-header2">200000</td>
                         </tr>
@@ -122,7 +132,7 @@
                             <td class="centrar-texto short-header2">739</td>
                             <td class="long-header2">PAN DE YUCA X 20GR</td>
                             <td class="centrar-texto short-header2">03/05/2023</td>
-                            <td class="centrar-texto short-header2">1000</td>
+                            <td class="centrar-texto short-header5">1000</td>
                             <td class="centrar-texto short-header4">30</td>
                             <td class="centrar-texto short-header2">30000</td>
                         </tr>
@@ -131,7 +141,7 @@
                             <td class="centrar-texto short-header2">013</td>
                             <td class="long-header2">NECTAR DE GUANABANA X 30ML</td>
                             <td class="centrar-texto short-header2">24/05/2023</td>
-                            <td class="centrar-texto short-header2">1500</td>
+                            <td class="centrar-texto short-header5">1500</td>
                             <td class="centrar-texto short-header4">30</td>
                             <td class="centrar-texto short-header2">45000</td>
                         </tr>
@@ -140,7 +150,7 @@
                             <td class="centrar-texto short-header2">519</td>
                             <td class="long-header2">ARROZ CON LECHE X 70GR</td>
                             <td class="centrar-texto short-header2">29/05/2023</td>
-                            <td class="centrar-texto short-header2">2000</td>
+                            <td class="centrar-texto short-header5">2000</td>
                             <td class="centrar-texto short-header4">10</td>
                             <td class="centrar-texto short-header2">20000</td>
                         </tr>
@@ -149,7 +159,7 @@
                             <td class="centrar-texto short-header2">017</td>
                             <td class="long-header2">SEVILLANA X 25ML</td>
                             <td class="centrar-texto short-header2">08/06/2023</td>
-                            <td class="centrar-texto short-header2">1500</td>
+                            <td class="centrar-texto short-header5">1500</td>
                             <td class="centrar-texto short-header4">20</td>
                             <td class="centrar-texto short-header2">30000</td>
                         </tr>
@@ -158,7 +168,7 @@
                             <td class="centrar-texto short-header2">823</td>
                             <td class="long-header2">FIGURAS DE CHOCOLATE X 10GR</td>
                             <td class="centrar-texto short-header2">18/04/2023</td>
-                            <td class="centrar-texto short-header2">800</td>
+                            <td class="centrar-texto short-header5">800</td>
                             <td class="centrar-texto short-header4">30</td>
                             <td class="centrar-texto short-header2">24000</td>
                         </tr>
@@ -167,7 +177,7 @@
                             <td class="centrar-texto short-header2">193</td>
                             <td class="long-header2">PAN X 10GR</td>
                             <td class="centrar-texto short-header2">04/06/2023</td>
-                            <td class="centrar-texto short-header2">1000</td>
+                            <td class="centrar-texto short-header5">1000</td>
                             <td class="centrar-texto short-header4">50</td>
                             <td class="centrar-texto short-header2">50000</td>
                         </tr>

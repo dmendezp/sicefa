@@ -9,7 +9,6 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\MovementDetail;
-use Mpdf\Mpdf;
 use TCPDF;
 
 
