@@ -23,16 +23,16 @@ class CashController extends Controller
     public function index()
     {
         $view = ['titlePage' => trans('ptventa::cash.Cash Closing'), 'titleView' => trans('ptventa::cash.Cash Closing')];
-        $cashCounts = CashCount::where('state', 'Abierta')->get();
-        $cashCountAll = CashCount::orderBy('closing_date', 'desc')->get();
+        $cashCounts = CashCount::where('state', 'Abierta')
+                                ->union(CashCount::orderBy('closing_date', 'desc'))
+                                ->get();
         $warehouse = Warehouse::where('name','Punto de venta')->first();
-
         $movement_type = MovementType::where('name','Venta')->first();
         $sales = Movement::whereDate('registration_date', Carbon::today()->toDateString())
                             ->where('movement_type_id',$movement_type->id)
                             ->orderBy('registration_date','DESC')
                             ->get();
-        return view('ptventa::cash.cashCount', compact('view', 'cashCounts','warehouse','cashCountAll', 'sales'));
+        return view('ptventa::cash.cashCount', compact('view', 'cashCounts','warehouse', 'sales'));
     }
 
     /**
