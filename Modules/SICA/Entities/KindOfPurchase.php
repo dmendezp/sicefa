@@ -35,7 +35,7 @@ class KindOfPurchase extends Model implements Auditable
     }
 
     // RELACIONES
-    public function elements(){ // Accede a todos los elementos que pertenecen a esta tipo de compra
+    public function elements(){ // Accede a todos los elementos que pertenecen a este tipo de compra
         return $this->hasMany(Element::class);
     }
 
