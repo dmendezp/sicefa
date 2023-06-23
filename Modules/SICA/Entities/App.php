@@ -42,7 +42,7 @@ class App extends Model implements Auditable
     public function productive_units(){ // Accede a una o varias unidades productivas asociadas a él (Relación muchos a muchos)
         return $this->belongsToMany(ProductiveUnit::class);
     }
-    public function roles(){
+    public function roles(){ // Accede a todos los roles que pertenecen a esta aplicación
         return $this->hasMany(Role::class);
     }
     public function warehouses(){ // Accede a todas las bodegas que usa esta aplicación

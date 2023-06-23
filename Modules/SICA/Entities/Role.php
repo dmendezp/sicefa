@@ -32,7 +32,7 @@ class Role extends Model implements Auditable
     ];
 
     // RELACIONES
-    public function app(){
+    public function app(){ // Accede a la aplicación al que pertenece
         return $this->belongsTo(App::class);
     }
     public function permissions(){
