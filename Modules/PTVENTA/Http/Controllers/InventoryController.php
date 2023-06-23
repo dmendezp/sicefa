@@ -28,18 +28,27 @@ class InventoryController extends Controller
     }
 
     public function pdf()
-    {
 
-        $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
-        $html = view('ptventa::inventory.pdf', compact('inventories'))->render();
+        {
+//$inventories = Inventory::orderBy('updated_at', 'DESC')->get();
 
-        $mpdf = new Mpdf();
+            $data = [
+                'title' => 'Ejemplo de PDF con TCPDF',
+                'content' => 'Este es el contenido del PDF generado con TCPDF',
+            ];
 
-        $mpdf->WriteHTML($html);
-        $mpdf->Output('ptventa.inventory.pdf');
-    }
+            $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+            $pdf->SetMargins(15, 15, 15);
+            $pdf->AddPage();
 
+            $pdf->SetFont('helvetica', 'B', 16);
+            $pdf->Cell(0, 10, $data['title'], 0, 1, 'C');
 
+            $pdf->SetFont('helvetica', '', 12);
+            $pdf->MultiCell(0, 10, $data['content'], 0, 'J');
+
+            $pdf->Output('Reporte PDF',);
+        }
     public function status(Request $request) { // Estado de productos vencidos y por vencer
 
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
