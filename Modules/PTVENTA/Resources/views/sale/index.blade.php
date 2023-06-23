@@ -14,9 +14,7 @@
                     Registrar Venta
                 </a>
             </div>
-            <div class="text-center text-danger" @if(count($sales)) hidden @endif>
-                <strong>No hay ventas registradas</strong>
-            </div>
+            @if($cashCount)
             <div class="table-responsive"  @if(!count($sales)) hidden @endif>
                 <table class="table table-hover" id="sales-table">
                     <thead class="table-dark">
@@ -26,7 +24,7 @@
                             <th>Cliente</th>
                             <th class="text-center">Hora</th>
                             <th class="text-center">Estado</th>
-                            <th class="text-center">Valor</th> <!-- Agregada la clase text-center -->
+                            <th class="text-center">Valor</th>
                             <th class="text-center">Acción</th>
                         </tr>
                     </thead>
@@ -60,6 +58,14 @@
                     </tfoot>
                 </table>
             </div>
+            <div class="text-center text-danger" @if(count($sales)) hidden @endif>
+                <strong>No hay ventas registradas</strong>
+            </div>
+            @else
+            <div class="text-center text-danger">
+                <strong>No existe ninguna caja abierta.</strong>
+            </div>
+            @endif
         </div>
     </div>
 @endsection

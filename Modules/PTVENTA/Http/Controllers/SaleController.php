@@ -13,17 +13,21 @@ class SaleController extends Controller
 {
 
     public function index(){
+        $view = ['titlePage'=>'Ventas', 'titleView'=>'Ventas realizadas hoy'];
         $warehouse = Warehouse::where('name','Punto de venta')->first();
         $cashCount = CashCount::where('warehouse_id',$warehouse->id)
                                 ->where('state','Abierta')
                                 ->first();
-        $movement_type = MovementType::where('name','Venta')->first();
-        $sales = Movement::where('movement_type_id',$movement_type->id)
-                    ->where('registration_date','>=',$cashCount->opening_date)
-                    ->orderBy('registration_date','DESC')
-                    ->get();
-        $view = ['titlePage'=>'Ventas', 'titleView'=>'Ventas realizadas hoy'];
-        return view('ptventa::sale.index', compact('view','sales'));
+        if($cashCount){
+            $movement_type = MovementType::where('name','Venta')->first();
+            $sales = Movement::where('movement_type_id',$movement_type->id)
+                        ->where('registration_date','>=',$cashCount->opening_date)
+                        ->orderBy('registration_date','DESC')
+                        ->get();
+                        return view('ptventa::sale.index', compact('view','sales', 'cashCount'));
+        }else{
+            return view('ptventa::sale.index', compact('view', 'cashCount'));
+        }
     }
 
     public function register(){
