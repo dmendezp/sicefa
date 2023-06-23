@@ -3,10 +3,11 @@
 return [
     //Breadcrumbs Cash Closing
 	'Cash' => 'Cash',
-	'Cash Closing' => 'Cash Closing',
+	'Cash Control' => 'Cash Control',
 
     //Page
     //-Form and table
+    'Cash Closing' => 'Cash Closing',
     'Opening manager' => 'Opening manager',
     'Opening date' => 'Opening date',
     'Initial balance' => 'Initial balance',

@@ -3,10 +3,11 @@
 return [    
     //Breadcrumbs Cash Closing
 	'Cash' => 'Caja',
-	'Cash Closing' => 'Cierre de Caja',
-
+	'Cash Control' => 'Control de Caja',
+    
     //Page
     //-Form and table
+	'Cash Closing' => 'Cierre de Caja',
     'Opening manager' => 'Encargado de apertura',
     'Opening date' => 'Fecha de apertura',
     'Initial balance' => 'Saldo inicial',

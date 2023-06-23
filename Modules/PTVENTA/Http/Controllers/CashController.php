@@ -22,7 +22,7 @@ class CashController extends Controller
      */
     public function index()
     {
-        $view = ['titlePage' => trans('ptventa::cash.Cash Closing'), 'titleView' => trans('ptventa::cash.Cash Closing')];
+        $view = ['titlePage' => trans('ptventa::cash.Cash Control'), 'titleView' => trans('ptventa::cash.Cash Control')];
         $cashCounts = CashCount::where('state', 'Abierta')
                                 ->union(CashCount::orderBy('closing_date', 'desc'))
                                 ->get();

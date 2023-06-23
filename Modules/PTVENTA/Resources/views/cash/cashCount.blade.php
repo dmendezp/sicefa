@@ -8,7 +8,7 @@
 @push('breadcrumbs')
     <li class="breadcrumb-item">
         <a href="{{ route('ptventa.cashCount.index') }}" class="text-decoration-none">{{ trans('ptventa::cash.Cash') }}</a>
-    <li class="breadcrumb-item active">{{ trans('ptventa::cash.Cash Closing') }}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::cash.Cash Control') }}</li>
     </li>
 @endpush
 
