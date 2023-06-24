@@ -48,7 +48,7 @@ class User extends Authenticatable implements Auditable
     public function person(){ // Accede a la información de la persona asociada a este usuario
         return $this->belongsTo(Person::class);
     }
-    public function roles(){ // Accede a todos los roles que pertenecen a este usuario
+    public function roles(){ // Accede a todos los roles que pertenecen a este usuario (PIVOTE)
         return $this->belongsToMany(Role::class);
     }
 
