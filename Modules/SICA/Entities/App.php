@@ -36,7 +36,7 @@ class App extends Model implements Auditable
     }
 
     // RELACIONES
-    public function permissions(){
+    public function permissions(){ // Accede a todos los permisos que pertenecen a esta aplicación
         return $this->hasMany(Permission::class);
     }
     public function productive_units(){ // Accede a una o varias unidades productivas asociadas a él (Relación muchos a muchos)
