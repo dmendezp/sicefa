@@ -14,9 +14,7 @@ class CreatePeriodsTable extends Migration
     public function up()
     {
         Schema::create('periods', function (Blueprint $table) {
-
             $table->id();
-
             $table->string('name');
             $table->string('slime_weight')->nullable();
             $table->string('dried_weight')->nullable();
