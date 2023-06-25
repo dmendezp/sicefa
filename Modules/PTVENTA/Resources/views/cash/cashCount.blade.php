@@ -90,7 +90,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($cashCounts as $cashCount)
+                                @foreach ($cashCountAll as $cashCount)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $cashCount->person->full_name }}</td>
