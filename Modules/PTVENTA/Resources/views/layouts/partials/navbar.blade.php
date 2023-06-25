@@ -42,12 +42,12 @@
             <ul class="dropdown-menu dropdown-menu-end"> <!-- Agregar la clase dropdown-menu-end -->
               <li>
                 <a href="{{ url('lang',['en']) }}" class="dropdown-item">
-                  <img src="{{asset('modules/ptventa/images/flags/estados-unidos.png')}}" alt=""> {{ trans('ptventa::general.English')}}
+                  <img src="{{asset('modules/ptventa/images/flags/estados-unidos.webp')}}" alt=""> {{ trans('ptventa::general.English')}}
                 </a>
               </li>
               <li>
                 <a href="{{ url('lang',['es']) }}" class="dropdown-item">
-                  <img src="{{asset('modules/ptventa/images/flags/colombia.png')}}" alt=""> {{ trans('ptventa::general.Spanish')}}
+                  <img src="{{asset('modules/ptventa/images/flags/colombia.webp')}}" alt=""> {{ trans('ptventa::general.Spanish')}}
                 </a>
               </li>
             </ul>

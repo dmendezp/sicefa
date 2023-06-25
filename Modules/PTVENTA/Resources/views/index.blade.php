@@ -24,21 +24,11 @@
                         </div>
                     </div>
                     <div class="d-flex flex-wrap justify-content-center mt-3">
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <h5 class="text-center">{{ trans('ptventa::mainPage.Fruits')}}</h5>
-                            <div class="card-products mx-auto">
-                                <img src="{{ asset('modules/ptventa/images/Card6.jpg') }}" alt=""
-                                    class="card-img-top">
-                                <div class="card-body">
-                                    <p class="card-text head">{{ trans('ptventa::mainPage.Pineapple')}}</p>>
-                                </div>
-                            </div>
-                        </div>
-
+                        
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <h5 class="text-center">{{ trans('ptventa::mainPage.Milk products')}}</h5>
                             <div class="card-products mx-auto">
-                                <img src="{{ asset('modules/ptventa/images/Card3.jpg') }}" alt=""
+                                <img src="{{ asset('modules/ptventa/images/cardsIndex/Card1.webp') }}" alt=""
                                     class="card-img-top">
                                 <div class="card-body">
                                     <p class="card-text head">{{ trans('ptventa::mainPage.Yogurt')}}</p>
@@ -49,10 +39,21 @@
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <h5 class="text-center">{{ trans('ptventa::mainPage.Vegetables')}}</h5>
                             <div class="card-products mx-auto">
-                                <img src="{{ asset('modules/ptventa/images/Card4.jpg') }}" alt=""
+                                <img src="{{ asset('modules/ptventa/images/cardsIndex/Card2.webp') }}" alt=""
                                     class="card-img-top">
                                 <div class="card-body">
                                     <p class="card-text head">{{ trans('ptventa::mainPage.Lettuce')}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <h5 class="text-center">{{ trans('ptventa::mainPage.Fruits')}}</h5>
+                            <div class="card-products mx-auto">
+                                <img src="{{ asset('modules/ptventa/images/cardsIndex/Card3.webp') }}" alt=""
+                                    class="card-img-top">
+                                <div class="card-body">
+                                    <p class="card-text head">{{ trans('ptventa::mainPage.Pineapple')}}</p>>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +71,7 @@
                             <p class="lead">{{ trans('ptventa::mainPage.Taste some delicious Croissant, made by the best hands of the apprentices of the training center the best hands of the apprentices of the training center, i.e. of the technologists who work in the agro-industrial complex.')}} </p>
                         </div>
                         <div class="col-md-5 order-md-1">
-                            <img src="{{ asset('modules/ptventa/images/Card5.jpg') }}" alt="" class="img-fluid"
+                            <img src="{{ asset('modules/ptventa/images/cardsIndex/Card4.webp') }}" alt="" class="img-fluid"
                                 width="300" height="300">
                         </div>
                     </div>
