@@ -18,7 +18,7 @@ class CreateActivitiesTable extends Migration
             $table->id();
             $table->string('identification');
             $table->foreignId('productive_units_id')->constrained()->onDelete('cascade');
-            $table->foreignId('type_activities_id')->constrained()->onDelete('cascade');
+            $table->foreignId('activity_type_id')->constrained()->onDelete('cascade');
             $table->foreignId('period_id')->constrained()->onDelete('cascade');
             $table->date('date');
             $table->string('value');
