@@ -18,8 +18,8 @@ class CreateFarmsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->float('area', 8, 2);
-            $table->foreignId('person_id')->constrained()->ondelete('cascade');
-            $table->foreignId('municipality_id')->constrained()->ondelete('cascade');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->foreignId('municipality_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

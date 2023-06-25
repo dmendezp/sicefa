@@ -36,7 +36,9 @@ class Municipality extends Model implements Auditable
     public function department(){ // Accede a la información del departamento al que pertenece
         return $this->belongsTo(Department::class);
     }
-
+    public function farms(){ // Accede a todas las granjas que pertenecen a este municipio
+        return $this->hasMany(Farm::class);
+    }
     public function villages(){
         return $this->hasMany(Village::class);
     }
