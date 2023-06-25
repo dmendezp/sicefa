@@ -20,6 +20,7 @@ use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\WarehouseMovement;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Modules\PTVENTA\Entities\CashCount;
 
 class GenerateSale extends Component
 {
@@ -213,6 +214,7 @@ class GenerateSale extends Component
                 DB::beginTransaction(); // Iniciar transacción
 
                 $current_datetime = now()->milliseconds(0); // Generer fecha y hora actual
+                $warehouse = Warehouse::where('name', 'Punto de venta')->first();
 
                 // Consultar tipo de movimiento para una venta
                 $error = 'TIPO DE MOVIMIENTO';
@@ -282,11 +284,21 @@ class GenerateSale extends Component
                 // Registrar movimientos de bodega
                 $error = 'MOVIMIENTOS DE BODEGA';
                 WarehouseMovement::create([
-                    'warehouse_id' => Warehouse::where('name','Punto de venta')->first()->id,
+                    'warehouse_id' => $warehouse->id,
                     'movement_id' => $movement->id,
                     'role' => 'Entrega'
                 ]);
 
+                // Actualizar caja
+                $error = 'CAJA';
+                $cashCount = CashCount::where('warehouse_id', $warehouse->id)
+                                        ->where('state', 'Abierta')
+                                        ->first();
+                if ($cashCount) {
+                    $cashCount->final_balance += $movement->price;
+                    $cashCount->save();
+                }
+            
                 // Generar número de comprobante
                 $error = 'NÚMERO DE COMPROBANTE';
                 $movementType = MovementType::where('name','Venta')->first();
