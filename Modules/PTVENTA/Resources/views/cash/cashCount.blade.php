@@ -53,9 +53,13 @@
                                         <td>
                                             <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-cash-count-id="{{ $cashCount->id }}"
+                                                data-bs-target="#exampleModal" 
+                                                data-cash-count-id="{{ $cashCount->id }}"
+                                                data-opening-manager="{{ $cashCount->person->full_name }}"
+                                                data-date="{{ $cashCount->opening_date }}"
                                                 data-initial-balance="{{ $cashCount->initial_balance }}"
-                                                data-date="{{ $cashCount->opening_date }}">
+                                                data-total-balance="{{ $cashCount->final_balance }}"
+                                                data-warehouse="{{ $cashCount->warehouse->name }}">
                                                 <i class="fas fa-store-slash"></i>
                                             </button>
                                         </td>
@@ -123,8 +127,8 @@
                     {!! Form::open(['route' => 'ptventa.cashCount.close1', 'id' => 'cierre-caja-form', 'class' => 'form-row']) !!}
                     <!-- Campos del formulario -->
                     <div class="form-group col-md-4">
-                        {{ Form::label('person_name', trans('ptventa::cash.Opening manager')) }}
-                        {{ Form::text('person_name', Auth::user()->person->full_name, ['class' => 'form-control', 'disabled']) }}
+                        {{ Form::label('opening_manager', trans('ptventa::cash.Opening manager')) }}
+                        {{ Form::text('opening_manager', null, ['class' => 'form-control', 'readonly', 'id' => 'opening_manager']) }}
                     </div>
 
                     <div class="form-group col-md-4">
@@ -134,7 +138,7 @@
 
                     <div class="form-group col-md-4">
                         {{ Form::label('initial_balance', trans('ptventa::cash.Initial balance')) }}
-                        {{ Form::text('initial_balance', null, ['class' => 'form-control', 'readonly']) }}
+                        {{ Form::text('initial_balance', null, ['class' => 'form-control', 'readonly', 'id' => 'initial_balance']) }}
                     </div>
 
                     <div class="form-group col-md-4">
@@ -143,8 +147,8 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        {{ Form::label('sum_price', 'Total de venta actual:') }}
-                        {{ Form::text('sum_price', priceFormat($sales->sum('price')), ['class' => 'form-control', 'disabled']) }}
+                        {{ Form::label('total_balance', 'Total de venta actual:') }}
+                        {{ Form::text('total_balance', null, ['class' => 'form-control', 'disabled', 'id' => 'total_balance']) }}
                     </div>
 
                     <div class="form-group col-md-4">
@@ -154,7 +158,7 @@
 
                     <div class="form-group col-md-4">
                         {{ Form::label('warehouse_name', trans('ptventa::cash.Warehouse')) }}
-                        {{ Form::text('warehouse_name', $warehouse->name, ['class' => 'form-control', 'readonly']) }}
+                        {{ Form::text('warehouse_name', null, ['class' => 'form-control', 'readonly', 'id' => 'warehouse']) }}
                     </div>
 
                     <div class="form-group mt-4 col-md-4 d-flex justify-content-end">
@@ -196,12 +200,19 @@
         $('#exampleModal').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var cashCountId = button.data('cash-count-id');
-            var initialBalance = button.data('initial-balance');
+            var openingManager = button.data('opening-manager');
             var openingDate = button.data('date');
+            var initialBalance = button.data('initial-balance');
+            var totalBalance = button.data('total-balance');
+            var warehouse = button.data('warehouse');
 
+            console.log(button.data());
             modal._element.querySelector('#cash-count-id').value = cashCountId;
-            modal._element.querySelector('#initial_balance').value = initialBalance;
+            modal._element.querySelector('#opening_manager').value = openingManager;
             modal._element.querySelector('#opening_date').value = openingDate;
+            modal._element.querySelector('#initial_balance').value = initialBalance;
+            modal._element.querySelector('#total_balance').value = totalBalance;
+            modal._element.querySelector('#warehouse').value = warehouse;
         });
     </script>
     <script>
