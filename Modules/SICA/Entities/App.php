@@ -45,7 +45,7 @@ class App extends Model implements Auditable
     public function roles(){ // Accede a todos los roles que pertenecen a esta aplicación
         return $this->hasMany(Role::class);
     }
-    public function warehouses(){ // Accede a todas las bodegas que usa esta aplicación
+    public function warehouses(){ // Accede a todas las bodegas que pertenecen a esta aplicación
         return $this->hasMany(Warehouse::class);
     }
 
