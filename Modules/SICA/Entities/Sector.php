@@ -33,7 +33,7 @@ class Sector extends Model implements Auditable
     }
 
     // RELACIONES
-    public function productive_units(){ // Accede a todas las unidades productivas que pertenecen a este sector
+    public function productive_units(){ // Accede a todas las unidades productivas que pertenecen a este sector producitvo
         return $this->hasMany(ProductiveUnit::class);
     }
 

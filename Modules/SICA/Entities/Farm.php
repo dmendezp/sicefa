@@ -39,10 +39,10 @@ class Farm extends Model implements Auditable
     public function municipality(){ // Accede al municipio al que pertenece
         return $this->belongsTo(Municipality::class);
     }
-    public function person(){ // Accede a la persona responsable de la granja
+    public function person(){ // Accede a la información de la persona líder de esta granja
         return $this->belongsTo(Person::class);
     }
-    public function productive_unit(){ // Accede a todos los elementos que pertenecen a esta categoría
+    public function productive_units(){ // Accede a todas las unidades productivas que pertenecen a esta granja
         return $this->hasMany(ProductiveUnit::class);
     }
 
