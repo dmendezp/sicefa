@@ -1,7 +1,6 @@
 @extends('ptventa::layouts.master')
 
 @push('head')
-    <link href="{{asset('libs/AOS-2.3.1/dist/aos.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('modules/ptventa/css/custom_styles.css')}}">
 @endpush
 
@@ -31,7 +30,7 @@
                       </div>
                     <hr>
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover" id="tableCashCount">
+                        <table class="table table-striped table-hover">
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">N°</th>
@@ -176,17 +175,9 @@
 @include('ptventa::layouts.partials.plugins.datatables')
 
 @push('scripts')
-    <script src="{{asset('libs/AOS-2.3.1/dist/aos.js')}}"></script>
-    <script>
-        AOS.init();
-    </script>
     <script>
         // Permite la aplicacion de datatables y la vez la traduccion de las tablas
         $(document).ready(function() {
-            /* Initialización of Datatables CashCount */
-            $('#tableCashCount').DataTable({
-                language: language_datatables, // Agregar traducción a español
-            });
             /* Initialización of Datatables CashCountAll */
             $('#tableCashCountAll').DataTable({
                 language: language_datatables, // Agregar traducción a español
@@ -206,7 +197,6 @@
             var totalBalance = button.data('total-balance');
             var warehouse = button.data('warehouse');
 
-            console.log(button.data());
             modal._element.querySelector('#cash-count-id').value = cashCountId;
             modal._element.querySelector('#opening_manager').value = openingManager;
             modal._element.querySelector('#opening_date').value = openingDate;
