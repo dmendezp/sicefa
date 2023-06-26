@@ -98,7 +98,7 @@ class Person extends Model implements Auditable
     public function farms(){ // Accede a todas las granjas que lidera esta persona
         return $this->hasMany(Farm::class);
     }
-    public function inventories(){ // Accede a todos los registros de inventarios que están relacionados con esta persona
+    public function inventories(){ // Accede a todos los registros de inventarios que estan a cargo de esta persona
         return $this->hasMany(Inventory::class);
     }
     public function juries(){ // Accede a todos los jurados que están registrados con esta persona

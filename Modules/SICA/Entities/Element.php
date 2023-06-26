@@ -52,7 +52,7 @@ class Element extends Model implements Auditable
     public function category(){ // Accede a la categoría al que pertenece
         return $this->belongsTo(Category::class);
     }
-    public function inventories(){ // Accede a todos los registros de inventarios que están relacionados con este elemento
+    public function inventories(){ // Accede a todos los registros de inventarios que le pertenecen a este elemento
         return $this->hasMany(Inventory::class);
     }
     public function kind_of_purchase(){ // Accede al tipo de compra al que pertenece

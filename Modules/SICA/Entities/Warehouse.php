@@ -18,7 +18,7 @@ class Warehouse extends Model implements Auditable
         'app_id'
     ];
 
-    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formato y manipulación de fecha y hora)
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
     protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
@@ -37,7 +37,7 @@ class Warehouse extends Model implements Auditable
     public function app(){ // Accede a la información de la aplicación al que pertenece
         return $this->belongsTo(App::class);
     }
-    public function inventories(){ // Accede a todos los registro de inventarios que están relacionados con esta bodega
+    public function inventories(){ // Accede a todos los registros de inventarios que le pertenecen a esta bodega
         return $this->hasMany(Inventory::class);
     }
     public function productive_units(){ // Accede a una o varias unidades productivas asociadas a él (Relación muchos a muchos)
