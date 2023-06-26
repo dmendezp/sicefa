@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class ProductiveUnit extends Model implements Auditable
+class Activity extends Model implements Auditable
 {
 
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
@@ -14,11 +14,11 @@ class ProductiveUnit extends Model implements Auditable
 
     protected $fillable = [ // Atributos modificables (asginación masivaa)
         'name',
+        'productive_unit_id',
+        'activity_type_id',
         'description',
-        'icon',
-        'person_id',
-        'sector_id',
-        'farm_id'
+        'period',
+        'status'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
@@ -35,25 +35,16 @@ class ProductiveUnit extends Model implements Auditable
     public function setNameAttribute($value){ // Convierte el primer carácter en mayúscula del dato name (MUTADOR)
         $this->attributes['name'] = ucfirst($value);
     }
+    public function setPeriodAttribute($value){ // Convierte el primer carácter en mayúscula del dato period (MUTADOR)
+        $this->attributes['period'] = ucfirst($value);
+    }
 
     // RELACIONES
-    public function activities(){ // Accede a todas las actividades que pertenecen a esta unidad productiva
-        return $this->hasMany(Activity::class);
+    public function activity_type(){ // Accede a la información del tipo de actividad al que pertenece
+        return $this->belongsTo(ActivityType::class);
     }
-    public function apps(){ // Accede a una o varias aplicaciones asociadas a él (Relación muchos a muchos)
-        return $this->belongsToMany(App::class);
-    }
-    public function farm(){ // Accede a la información de la granja al que pertenece
-        return $this->belongsTo(Farm::class);
-    }
-    public function person(){ // Accede a la información de la persona lider de esta unidad productiva
-        return $this->belongsTo(Person::class);
-    }
-    public function sector(){ // Accede a la información del sector al que pertenece
-        return $this->belongsTo(Sector::class);
-    }
-    public function warehouses(){ // Accede a una o varias unidades bodegas asociadas a él (Relación muchos a muchos)
-        return $this->belongsToMany(Warehouse::class);
+    public function productive_unit(){ // Accede a la información de la unidad productiva al que pertenece
+        return $this->belongsTo(ProductiveUnit::class);
     }
 
 }

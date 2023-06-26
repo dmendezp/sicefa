@@ -16,15 +16,12 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->string('identification');
-            $table->foreignId('productive_units_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->foreignId('productive_unit_id')->constrained()->onDelete('cascade');
             $table->foreignId('activity_type_id')->constrained()->onDelete('cascade');
-            $table->foreignId('period_id')->constrained()->onDelete('cascade');
-            $table->date('date');
-            $table->string('value');
-            $table->string('observation');
-            $table->enum('prioridad', ['1','0'])->default(0);
-            $table->integer("status")->default(0);
+            $table->text('description');
+            $table->string('period');
+            $table->enum('status', ['Activo','Inactivo'])->default('Activo');
             $table->softDeletes();
             $table->timestamps();
         });

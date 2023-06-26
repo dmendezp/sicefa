@@ -21,4 +21,9 @@ class ActivityType extends Model implements Auditable
         'updated_at'
     ];
 
+    // RELACIONES
+    public function activities(){ // Accede a todas las actividades que pertenecen a este tipo de actividad
+        return $this->hasMany(Activity::class);
+    }
+
 }
