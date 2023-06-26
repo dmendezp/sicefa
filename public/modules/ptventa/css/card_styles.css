@@ -12,8 +12,6 @@
   }
   
   .img {
-    width: 140px;
-    height: 260px;
     position: absolute;
     transition: 0.2s ease-in-out;
     z-index: 1;

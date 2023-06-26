@@ -9,3 +9,9 @@
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
+<!-- Start Script Animate On Scroll  -->
+<script src="{{ asset('libs/AOS-2.3.1/dist/aos.js') }}"></script>
+<script>
+    AOS.init();
+</script>
+<!-- End Sript Animate On Scroll  -->
