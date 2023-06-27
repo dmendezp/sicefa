@@ -15,11 +15,11 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->text('description_english')->nullable();
-            $table->enum('full_access',['yes','no'])->default('no');
+            $table->enum('full_access',['Si','No'])->default('No');
             $table->foreignId('app_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();

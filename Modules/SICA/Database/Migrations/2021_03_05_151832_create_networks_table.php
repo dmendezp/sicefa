@@ -15,7 +15,7 @@ class CreateNetworksTable extends Migration
     {
         Schema::create('networks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->foreignId('line_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();

@@ -14,4 +14,4 @@ Route::middleware(['lang'])->group(function(){
         
     });  
 
-}); 
+});

@@ -17,24 +17,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 38c7f0aef500bd787694266d92d1596b42416e45
 * **Integrante 1** - *Actividades a realizar*
-=======
-* **Integrante 1** - *Actividades a realizar* 
->>>>>>> 17d9d02aefe315c992b9e6484798a3f39cd927af
-<<<<<<< HEAD
-=======
-=======
-
-=======
-* **Integrante 1** - *Actividades a realizar* 
->>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
->>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
->>>>>>> 38c7f0aef500bd787694266d92d1596b42416e45
 * **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022
@@ -90,43 +73,8 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
-<<<<<<< HEAD
-<<<<<<< HEAD
 * **Integrante 1** - *Actividades a realizar* 
 * **Integrante 2** - *Actividades a realizar*
-=======
-=======
-<<<<<<< HEAD
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
-=======
-=======
-
-=======
-<<<<<<< HEAD
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
-=======
->>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
->>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
->>>>>>> 38c7f0aef500bd787694266d92d1596b42416e45
-* **Santiago Hernandez** - *Implementacion de roles* 
-* **Juan Felipe Duque** - *crear controlador para definir la vista*
-* **Anggy Lorena Cortes** - *Agregar vista de usuarios al sidevar* 
-* **Karen Dallana Murcia** - *Implementacion de datatable a la tabla de usuario* 
-<<<<<<< HEAD
->>>>>>> 17d9d02aefe315c992b9e6484798a3f39cd927af
-=======
-<<<<<<< HEAD
->>>>>>> 17d9d02aefe315c992b9e6484798a3f39cd927af
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 17d9d02aefe315c992b9e6484798a3f39cd927af
->>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
->>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
->>>>>>> 38c7f0aef500bd787694266d92d1596b42416e45
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -141,50 +89,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
-<<<<<<< HEAD
-<<<<<<< HEAD
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-=======
-=======
-<<<<<<< HEAD
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-=======
-=======
-
-=======
-<<<<<<< HEAD
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-=======
->>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
->>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
->>>>>>> 38c7f0aef500bd787694266d92d1596b42416e45
-* **Santiago Hernandez** - *Implementacion de roles* - *Avance %* - *Dificultades* - *Acciones*
-* **Juan Felipe Duque** - *crear controlador para definir la vista* - *Avance %* - *Dificultades* - *Acciones*
-* **Anggy Lorena Cortes** - *Agregar vista de usuarios al sidebar* - *Avance %* - *Dificultades* - *Acciones*
-* **Karen Dallana Murcia** - *Implementacion de datatable a la tabla de usuario* - *Avance %* - *Dificultades* - *Acciones*
-
-<<<<<<< HEAD
->>>>>>> 17d9d02aefe315c992b9e6484798a3f39cd927af
-=======
-<<<<<<< HEAD
->>>>>>> 17d9d02aefe315c992b9e6484798a3f39cd927af
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 17d9d02aefe315c992b9e6484798a3f39cd927af
->>>>>>> ecf44174427f6326b1453a36d931e98cfb747e27
->>>>>>> 9e522343459ee925d0b5f3facbe07726bbe7eda3
->>>>>>> 38c7f0aef500bd787694266d92d1596b42416e45
 ---
 #### Meet 07-Nov-2022
-* **Santiago Hernandez** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Juan Felipe Duque** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Anggy Lorena Cortes** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Karen Dallana Murcia** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
 
 ## SIS 🛒
 

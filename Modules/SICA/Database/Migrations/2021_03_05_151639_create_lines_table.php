@@ -15,7 +15,7 @@ class CreateLinesTable extends Migration
     {
         Schema::create('lines', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->softDeletes();
             $table->timestamps();
         });
