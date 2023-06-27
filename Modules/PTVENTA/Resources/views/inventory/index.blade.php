@@ -19,19 +19,18 @@
                     <div class="d-flex justify-content-end">
                         <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm me-1">Registrar entrada</a>
                         <a href="{{ route('ptventa.inventory.pdf') }}" class="btn btn-danger btn-sm me-1">PDF</a>
-                        <a href="{{ route('ptventa.inventory.status') }}" class="btn btn-success btn-sm">
-                            <strong>Estado</strong>
-                        </a>
+                        <a href="{{ route('ptventa.inventory.status') }}" class="btn btn-success btn-sm">Estado</a>
                     </div>
                 </div>
             </div>
 
             <hr>
 
-            <div class="table-responsive">
+            <div class="table-responsive" data-aos="zoom-in">
                 <table class="table table-hover" id="inventories-table">
                     <thead class="table-dark">
                         <tr>
+                            <th scope="col">N°</th>
                             <th>Producto</th>
                             <th class="text-center">Categoría</th>
                             <th class="text-center">Precio Unitario</th>
@@ -44,11 +43,12 @@
                     <tbody class="table-group-divider">
                         @foreach ($inventories as $inventory)
                             <tr>
+                                <th scope="row">{{ $loop->iteration }}</th>
                                 <td><strong>{{ $inventory->element->name }}</strong></td>
                                 <td class="text-center">{{ $inventory->element->category->name }}</td>
-                                <td class="text-center"><strong>{{ $inventory->price }}</strong></td>
+                                <td class="text-center">{{ priceFormat($inventory->price) }}</td>
                                 <td class="text-center">{{ $inventory->stock }}</td>
-                                <td class="text-center"><strong>{{ $inventory->amount }}</strong></td>
+                                <td class="text-center">{{ $inventory->amount }}</td>
                                 <td class="text-center">
                                     @if ($inventory->state == 'Disponible')
                                         <b class="bg-success rounded-5 ps-2 pe-2" style="font-size: 12px;">Disponible</b>
