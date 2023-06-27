@@ -10,27 +10,24 @@
 @section('content')
     <div class="card card-success card-outline shadow-sm">
         <div class="card-body">
-            <div class="row bg-light">
-                <div class="col-auto">
-                    <i class="fas fa-search"></i>
-                    <label class="form-label-sm">Productos: </label>
-                </div>
-                <div class="col-auto">
-                </div>
-                <div class="col"></div>
-                <div class="col-auto pe-2">
-                    <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm"> Registrar entrada </a>
-                </div>
-                <div class="col-auto ps-0">
-                    <a href="{{ route('ptventa.inventory.pdf') }}" class="btn btn-danger btn-sm"> <strong>PDF</strong> </a>
-                </div>
-                <div class="col-auto ps-0">
-                    <a href="{{ route('ptventa.inventory.status') }}" class="btn btn-success btn-sm"> <strong>Estado</strong> </a>
-                </div>
 
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <h5 class="text-center"><em>Lista de todos los productos</em></h5>
+                </div>
+                <div class="col-lg-auto col-md-auto col-sm-auto ms-auto">
+                    <div class="d-flex justify-content-end">
+                        <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm me-1">Registrar entrada</a>
+                        <a href="{{ route('ptventa.inventory.pdf') }}" class="btn btn-danger btn-sm me-1">PDF</a>
+                        <a href="{{ route('ptventa.inventory.status') }}" class="btn btn-success btn-sm">
+                            <strong>Estado</strong>
+                        </a>
+                    </div>
+                </div>
             </div>
+
             <hr>
-            <h6 class="text-center bg-secondary py-1 rounded-2"><strong>Todos los productos</strong></h6>
+
             <div class="table-responsive">
                 <table class="table table-hover" id="inventories-table">
                     <thead class="table-dark">
@@ -76,13 +73,13 @@
 @include('ptventa::layouts.partials.plugins.datatables')
 @push('scripts')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Configuración de Datatables para la tabla de registros de inventario
             $('#inventories-table').DataTable({
                 language: language_datatables, // Agregar traducción a español
                 "order": [],
                 "columnDefs": [{
-                    "targets": [2,3,4,5,6],
+                    "targets": [2, 3, 4, 5, 6],
                     "orderable": false
                 }]
             });
