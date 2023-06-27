@@ -1,8 +1,7 @@
 @extends('ptventa::layouts.master')
 
 @push('head')
-    <!-- Estilos de la galería de imágenes -->
-    <link href="{{asset('libs/AOS-2.3.1/dist/aos.css')}}" rel="stylesheet">
+
 @endpush
 
 @push('breadcrumbs')
@@ -24,28 +23,28 @@
             <div class="col-xl-6">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="info-box card text-center" data-aos="fade-down-right">
+                        <div class="info-box card text-center" data-aos="fade-right" data-aos-duration="700">
                             <i class="fas fa-map-marked-alt fa-3x mb-3"></i>
                             <h3>{{ trans('ptventa::about.Find us!')}}</h3>
                             <p>{{ trans('ptventa::about.Agroindustrial Training Center "La Angostura"')}}<br>Campoalegre, Huila</p>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="info-box card text-center" data-aos="fade-down-left">
+                        <div class="info-box card text-center" data-aos="fade-right">
                             <i class="far fa-clock fa-3x mb-3"></i>
                             <h3>{{ trans('ptventa::about.Opening Hours')}}</h3>
                             <p>{{ trans('ptventa::about.Monday - Friday')}}<br>08:00AM - 03:00PM</p>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="info-box card text-center" data-aos="fade-up-right">
+                        <div class="info-box card text-center" data-aos="fade-right" data-aos-duration="700">
                             <i class="fas fa-phone fa-3x mb-3"></i>
                             <h3>{{ trans('ptventa::about.Contact Us')}}</h3>
                             <p>{{ trans('ptventa::about.Coming Soon')}}</p>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="info-box card text-center" data-aos="fade-up-left">
+                        <div class="info-box card text-center" data-aos="fade-right">
                             <i class="fas fa-envelope fa-3x mb-3"></i>
                             <h3>{{ trans('ptventa::about.Email Address')}}</h3>
                             <p>{{ trans('ptventa::about.Coming Soon')}}</p>
@@ -101,8 +100,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{asset('libs/AOS-2.3.1/dist/aos.js')}}"></script>
-    <script>
-        AOS.init();
-    </script>
+
 @endpush
