@@ -36,6 +36,9 @@ class Farm extends Model implements Auditable
     }
 
     // RELACIONES
+    public function environments(){ // Accede a todos los ambientes de formación que pertenecen a esta granja
+        return $this->hasMany(Environment::class);
+    }
     public function municipality(){ // Accede al municipio al que pertenece
         return $this->belongsTo(Municipality::class);
     }

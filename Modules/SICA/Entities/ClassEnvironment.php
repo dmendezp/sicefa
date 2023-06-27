@@ -27,7 +27,7 @@ class ClassEnvironment extends Model implements Auditable
     }
 
     // RELACIONES
-    public function environments(){ // Accede a la información del environment al que pertenece
+    public function environments(){ // Accede a todos los ambientes de formación que pertenecen a esta clase de ambiente de formación
         return $this->hasMany(Environment::class);
     }
 }

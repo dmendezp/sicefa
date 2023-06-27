@@ -43,6 +43,9 @@ class ProductiveUnit extends Model implements Auditable
     public function apps(){ // Accede a una o varias aplicaciones asociadas a él (Relación muchos a muchos)
         return $this->belongsToMany(App::class);
     }
+    public function environments(){ // Accede a todos los ambientes de formación que pertenecen a esta unidad productiva
+        return $this->hasMany(Environment::class);
+    }
     public function farm(){ // Accede a la información de la granja al que pertenece
         return $this->belongsTo(Farm::class);
     }
