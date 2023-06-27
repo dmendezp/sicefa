@@ -19,8 +19,8 @@ class CreateMovementDetailsTable extends Migration
             $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
             $table->integer('amount');
             $table->integer('price');
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
