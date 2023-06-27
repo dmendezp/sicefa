@@ -30,7 +30,7 @@ class MovementType extends Model implements Auditable
     }
 
     // RELACIONES
-    public function movements(){ // Accede a todos los registros de inventarios que están relacionados con este elemento
+    public function movements(){ // Accede a todos los movimientos que pertenecen a este tipo de movimiento
         return $this->hasMany(Movement::class);
     }
 
