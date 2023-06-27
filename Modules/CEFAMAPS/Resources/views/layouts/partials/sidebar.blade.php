@@ -60,13 +60,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-<<<<<<< HEAD
-
-@if(!Route::is('*.sst*'))
-
-=======
         @if(!Route::is('*.sst.*'))
->>>>>>> 66f4c04502d915b8977a7de7506bf87ecf0b5caa
           <li class="nav-item">
             <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link {{ ! Route::is('cefa.cefamaps.index') ?: 'active' }}">
               <i class="nav-icon fas fa-solid fa-map"></i>
