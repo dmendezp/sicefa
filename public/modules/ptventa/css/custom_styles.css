@@ -14,3 +14,22 @@
   display: flex;
   flex-direction: column;
 }
+
+
+/* Animacion del boton para ver los creditos */
+@keyframes bounce {
+  0% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-10px);
+  }
+  100% {
+      transform: translateY(0);
+  }
+}
+
+.animated-icon {
+  animation: bounce 1s infinite;
+  font-size: 24px;
+}

@@ -76,7 +76,7 @@
                     </div>
                     <br>
                     <div class="d-flex justify-content-center">
-                        <a class="btn" id="scrollButton"><h5>{{ trans('ptventa::devs.View credits')}}</h5> <i class="fas fa-chevron-down"></i></a>
+                        <a class="btn" id="scrollButton"><h5>{{ trans('ptventa::devs.View credits')}}</h5> <i class="fas fa-chevron-down animated-icon"></i></a>
                     </div>
                 </div>
             </div>
