@@ -162,7 +162,7 @@
 
                     <div class="form-group mt-4 col-md-4 d-flex justify-content-end">
                         {{ Form::hidden('cash_count_id', null, ['id' => 'cash-count-id']) }}
-                        <button type="submit" class="btn btn-danger btn-block">{{ trans('ptventa::cash.Close cash') }}</button>
+                        <button type="submit" class="btn btn-danger btn-block" id="cerrar-caja-btn">{{ trans('ptventa::cash.Close cash') }}</button>
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -175,6 +175,16 @@
 @include('ptventa::layouts.partials.plugins.datatables')
 
 @push('scripts')
+    <script>
+        // Deshabilitar el botón de cerrar caja al enviar el formulario
+        const form = document.getElementById('cierre-caja-form');
+        const cerrarCajaBtn = document.getElementById('cerrar-caja-btn');
+
+        form.addEventListener('submit', () => {
+            cerrarCajaBtn.disabled = true;
+            cerrarCajaBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+        });
+    </script>
     <script>
         // Permite la aplicacion de datatables y la vez la traduccion de las tablas
         $(document).ready(function() {
