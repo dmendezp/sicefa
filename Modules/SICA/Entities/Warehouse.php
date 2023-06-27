@@ -43,7 +43,7 @@ class Warehouse extends Model implements Auditable
     public function productive_units(){ // Accede a una o varias unidades productivas asociadas a él (Relación muchos a muchos)
         return $this->belongsToMany(ProductiveUnit::class);
     }
-    public function warehouse_movements(){ // Accede a todos los registros de movimientos de bodega que esten asociados con esta bodega
+    public function warehouse_movements(){ // Accede a todos los movimientos de bodega que pertenecen a esta bodega
         return $this->hasMany(WarehouseMovement::class);
     }
 
