@@ -1,8 +1,7 @@
 @extends('ptventa::layouts.master')
 
 @push('head')
-    <!-- Estilos de la galería de imágenes -->
-    <link href="{{asset('libs/AOS-2.3.1/dist/aos.css')}}" rel="stylesheet">
+
 @endpush
 
 @push('breadcrumbs')
@@ -94,7 +93,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="500" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between" >
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/Laravel.png') }}" alt="" class="img-fluid w-100" style="max-height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/laravel.webp') }}" alt="Laravel-logo" class="img-fluid w-100" style="max-height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Laravel v9.x</h6>
@@ -108,7 +107,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="600"  style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/PHP.png') }}" alt="" style="width: 100; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/php.webp') }}" alt="PHP-logo" style="width: 100; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>PHP</h6>
@@ -122,7 +121,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="700" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/Datatables_logo_square.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/datatables_logo.webp') }}" alt="Datatables-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Datatables</h6>
@@ -136,7 +135,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="800" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/adminLTE3.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/adminLTE3.webp') }}" alt="AdminLTE-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>AdminLTE3</h6>
@@ -151,7 +150,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="500" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/fontawesome.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/fontawesome.webp') }}" alt="Fontawesome-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>FontAwesome v.5.15.4</h6>
@@ -165,7 +164,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="600" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/googlefonts.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/googlefonts.webp') }}" alt="GoogleFonts-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Google Fonts - Quicksand</h6>
@@ -179,7 +178,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="700" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/descarga.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/pixabay.webp') }}" alt="Pixabay-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Pixabay</h6>
@@ -193,7 +192,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="800" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/sweetalert2.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/sweetalert2.webp') }}" alt="Sweetalert2-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>SweetAlert2</h6>
@@ -208,7 +207,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="500" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/JavaScript-logo.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/javascript_logo.webp') }}" alt="Javascript-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Javascript</h6>
@@ -222,7 +221,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="600" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/jquery.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/jquery.webp') }}" alt="Jquery-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Jquery</h6>
@@ -236,7 +235,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="700" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/CSS3_logopng.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/css3_logo.webp') }}" alt="CSS3-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>CSS3</h6>
@@ -250,7 +249,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="800" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/Bootstrap_logo.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/bootstrap_logo.webp') }}" alt="Bootstrap-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Bootstrap v5.3</h6>
@@ -265,7 +264,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="500" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/codepen.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/codepen.webp') }}" alt="Codepen-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Codepen</h6>
@@ -279,7 +278,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="600" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/livewire.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/livewire.webp') }}" alt="Livewire-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Livewire</h6>
@@ -293,7 +292,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="700" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/laravelcollective.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/laravelcollective.webp') }}" alt="LaravelCollective-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Laravel Collective</h6>
@@ -307,7 +306,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="800" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/uiverse.jpg') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/uiverse.webp') }}" alt="UIVerse-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>UI Verse</h6>
@@ -323,7 +322,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="500" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/xammp.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/xampp.webp') }}" alt="XAMPP-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Xampp</h6>
@@ -337,7 +336,7 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="600" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/sqlyog.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/sqlyog.webp') }}" alt="SQLYOG-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>SQLyog</h6>
@@ -351,12 +350,26 @@
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="800" style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/logotipo-de-github.png') }}" alt="" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/github_logotipo.webp') }}" alt="GitHub-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Git Hub</h6>
                                     </div>
                                     <a class="btn btn-success btn-block w-100" href="https://github.com/">{{ trans('ptventa::devs.More Info')}}</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="800" style="height: 200px;">
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <div class="align-self-center">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/cleavejs_logo.webp') }}" alt="Cleave.js-logo" style="width: 100px; height: 100px;">
+                                    </div>
+                                    <div class="text-truncate" style="max-height: 40px;">
+                                        <h6>Cleave.js</h6>
+                                    </div>
+                                    <a class="btn btn-success btn-block w-100" href="https://nosir.github.io/cleave.js/">{{ trans('ptventa::devs.More Info')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -376,9 +389,5 @@
                 behavior: "smooth"
             });
         });
-    </script>
-    <script src="{{asset('libs/AOS-2.3.1/dist/aos.js')}}"></script>
-    <script>
-        AOS.init();
     </script>
 @endpush
