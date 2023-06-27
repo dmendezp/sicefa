@@ -9,17 +9,17 @@ use OwenIt\Auditing\Contracts\Auditable;
 class MovementType extends Model implements Auditable
 {
 
-    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
-
-    use SoftDeletes; // Borrado suave
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+        SoftDeletes; // Borrado suave
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'name',
         'consecutive'
     ];
 
-    protected $dates = [ // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formto y manipulación de fecha y hora)
-        'deleted_at',
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objeto Carbon
+
+    protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
         'updated_at'
     ];

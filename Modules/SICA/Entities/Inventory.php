@@ -31,7 +31,7 @@ class Inventory extends Model implements Auditable
         'inventory_code'
     ];
 
-    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objeto Caron
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objeto Carbon
 
     protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
