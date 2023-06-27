@@ -49,5 +49,8 @@ class Activity extends Model implements Auditable
     public function productive_unit(){ // Accede a la información de la unidad productiva al que pertenece
         return $this->belongsTo(ProductiveUnit::class);
     }
+    public function responsibilities(){ // Accede a todas los registros de responsabilidades que pertenecen a esta actividad
+        return $this->hasMany(Responsibility::class);
+    }
 
 }
