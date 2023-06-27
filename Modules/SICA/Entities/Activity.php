@@ -43,6 +43,9 @@ class Activity extends Model implements Auditable
     public function activity_type(){ // Accede a la información del tipo de actividad al que pertenece
         return $this->belongsTo(ActivityType::class);
     }
+    public function labors(){ // Accede a todas las labores que pertenecen a esta actividad
+        return $this->hasMany(Labor::class);
+    }
     public function productive_unit(){ // Accede a la información de la unidad productiva al que pertenece
         return $this->belongsTo(ProductiveUnit::class);
     }
