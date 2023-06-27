@@ -5,6 +5,9 @@ namespace Modules\PTVENTA\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Element;
+use Modules\SICA\Entities\Category;
+use Modules\SICA\Entities\MeasurementUnit;
+use Modules\SICA\Entities\KindOfPurchase;
 use Validator;
 
 
@@ -81,6 +84,15 @@ class ElementController extends Controller
          $saveFile->save();
 
         return response()->json(['success'=>'Crop Image Uploaded Successfully']);
+    }
+
+    public function create()
+    {
+        $title = 'Agregar Elemento';
+        $measurement_units = MeasurementUnit::orderBy('name','ASC')->pluck('name','id');
+        $categories = Category::orderBy('name','ASC')->pluck('name','id');
+        $kind_of_purchase = KindOfPurchase::orderBy('name','ASC')->pluck('name','id');
+        return view('sica::admin.inventory.elements.create', compact('title', 'measurement_units', 'categories', 'kind_of_purchase'));
     }
 
 }

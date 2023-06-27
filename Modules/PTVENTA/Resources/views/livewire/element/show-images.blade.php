@@ -3,6 +3,13 @@
     <div class="container-fluid">
         <div class="row">
 
+            <!-- Boton Agregar Elemento -->
+            <div class="d-grid gap-2 d-md-block">
+                <a href="#" class="btn btn-success">
+                    <i class="fas fa-user-plus"></i> Agregar Elemento
+                </a>
+            </div>
+            <br><br>
             <!-- Búsqueda e imágenes -->
             <div class="col">
                 <div class="input-group input-group-sm">

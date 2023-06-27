@@ -158,6 +158,27 @@
         </div>
     </div>
 </div>
+
+<div class="table">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>nombre</th>
+                <th>descripcion</th>
+                <th>price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ( $report as $r)
+                <tr>
+                    <td>{{ $r->name }}</td>
+                    <td>{{ $r->descripction }}</td>
+                    <td>{{ $r->price }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
   @endsection
 
 @include('ptventa::layouts.partials.plugins.datatables')

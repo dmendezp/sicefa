@@ -81,13 +81,13 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th class="centrar-texto short-header3" scope="col">#</th>
-                            <th class="centrar-texto short-header2" scope="col">Comprobante</th>
-                            <th class="long-header2">Producto</th>
-                            <th class="centrar-texto short-header2" scope="col">Fecha</th>
-                            <th class="centrar-texto short-header5" scope="col">Precio</th>
-                            <th class="centrar-texto short-header4" scope="col">Cantidad</th>
-                            <th class="centrar-texto short-header2" scope="col">SubTotal</th>
+                            <th class="centrar-texto short-header3" scope="col"><b>#</b></th>
+                            <th class="centrar-texto short-header2" scope="col"><b>Comprobante</b></th>
+                            <th class="long-header2"><b>Producto</b></th>
+                            <th class="centrar-texto short-header2" scope="col"><b>Fecha</b></th>
+                            <th class="centrar-texto short-header5" scope="col"><b>Precio</b></th>
+                            <th class="centrar-texto short-header4" scope="col"><b>Cantidad</b></th>
+                            <th class="centrar-texto short-header2" scope="col"><b>SubTotal</b></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -183,7 +183,7 @@
                         </tr>
                         <tr>
                             <td colspan="5"></td>
-                            <th>Total:</th>
+                            <th><b>Total:</b></th>
                             <td>459000</td>
                         </tr>
                     </tbody>

@@ -11,6 +11,10 @@ use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\MovementDetail;
 use TCPDF;
 
+//Pueba de funcion reporte por fecha
+use Modules\SICA\Entities\Element;
+
+
 
 class InventoryController extends Controller
 {
@@ -58,11 +62,8 @@ class InventoryController extends Controller
     //Funciones para reporte de inventario por rango de fecha
     public function report() { //Tabla con resultados de busqueda
         $view = ['titlePage'=>'Reporte - Inventario', 'titleView'=>'Reporte de Inventario'];
-        $warehouse = Warehouse::where('name','Punto de venta')->first(); // Consultar bodega de la aplicación
-        $movement_type = MovementType::where('name','Movimiento Interno')->first();
-        $report = Movement::whereDate('registration_date', Carbon::today('America/Bogota'))
-                                    ->where('movement_type_id',$movement_type->id)
-                                    ->orderBy('registration_date','DESC')
+        $report = Element::whereDate('created_at', Carbon::today('America/Bogota'))
+                                    ->orderBy('created_at','DESC')
                                     ->get();
         return view('ptventa::report.report', compact('view', 'report'));
     }
@@ -70,7 +71,7 @@ class InventoryController extends Controller
     public function report_results(Request $request) { //formulario de fechas para generar reporte
         $fi = $request->fecha_ini.' 00:00:00';
         $ff = $request->fecha_fin.' 23:59:59';
-        $report = Movement::whereBetween('registration_date', [$fi, $ff])->get();
+        $report = Element::whereBetween('created_at', [$fi, $ff])->get();
         return view('ptventa::report.report', compact('report'));
     }
 
