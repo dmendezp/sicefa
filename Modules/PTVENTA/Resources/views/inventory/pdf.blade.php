@@ -81,12 +81,12 @@
                 <table class="table">
                 <thead>
                 <tr>
-                        <th>Producto</th>
-                        <th class="text-center">Categoría</th>
-                        <th class="text-center">Precio Unitario</th>
-                        <th class="text-center">Stock</th>
-                        <th class="text-center">Cantidad</th>
-                        <th class="text-center">Estado</th>
+                            <th class="centrar-texto short-header10" scope="col">Producto</th>
+                            <th class="centrar-texto short-header6" scope="col">Categoria</th>
+                            <th class="long-header1">Precio unitario</th>
+                            <th class="centrar-texto short-header7" scope="col">Stock</th>
+                            <th class="centrar-texto short-header7" scope="col">Cantidad</th>
+                            <th class="centrar-texto short-header6" scope="col">Estado</th>     
                   </tr>
                 </thead>
                 <tbody>
