@@ -88,11 +88,37 @@ class ElementController extends Controller
 
     public function create()
     {
-        $title = 'Agregar Elemento';
+        $view = ['titlePage'=>'Productos - Crear Poducto', 'titleView'=>'Crear Nuevo Producto'];
         $measurement_units = MeasurementUnit::orderBy('name','ASC')->pluck('name','id');
         $categories = Category::orderBy('name','ASC')->pluck('name','id');
         $kind_of_purchase = KindOfPurchase::orderBy('name','ASC')->pluck('name','id');
-        return view('sica::admin.inventory.elements.create', compact('title', 'measurement_units', 'categories', 'kind_of_purchase'));
+        return view('ptventa::element.create', compact('view', 'measurement_units', 'categories', 'kind_of_purchase'));
+    }
+
+    public function store(Request $request){
+        $rules = [
+            'image' => 'required',
+            'name' => 'required',
+            'measurement_unit_id' => 'required',
+            'description' => 'required',
+            'kind_of_purchase_id' => 'required',
+            'category_id' => 'required',
+            'price' => 'required',
+            'UNSPSC_code' => 'required',
+        ];
+
+        $messages = [
+            'image.required' => 'La imagen es obligatoria',
+        ];
+        $element = $request->all();
+
+        if($imagen = $request->file('image')) {
+            $extension =  pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION); // Capturar la extensión de la nueva imagen
+            $name_image =  $element->slug . '.' . $extension; // Generar el nombre por defecto de la nueva imagen
+            $image->move(public_path('modules/sica/images/elements/'), $name_image);
+        }
+        Element::create($element);
+        return redirect()->route('ptventa.element.image.index');
     }
 
 }

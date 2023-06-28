@@ -5,7 +5,7 @@
 
             <!-- Boton Agregar Elemento -->
             <div class="d-grid gap-2 d-md-block">
-                <a href="#" class="btn btn-success">
+                <a href="{{ route('ptventa.element.image.create') }}" class="btn btn-success">
                     <i class="fas fa-user-plus"></i> Agregar Elemento
                 </a>
             </div>

@@ -50,6 +50,9 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('index', 'index')->name('ptventa.element.image.index'); // Vista principal de elementos para administrar imagenes
             Route::get('edit/{element}', 'edit')->name('ptventa.element.image.edit'); // Vista del formulario para acutalizar imagen de elemento
             Route::post('update/{element}', 'update')->name('ptventa.element.image.update'); // Carga de nueva imagen para elemento
+            Route::get('create', 'create')->name('ptventa.element.image.create');
+            Route::post('store', 'store')->name('ptventa.element.image.store');
+
         });
 
         // Rutas para Caja
