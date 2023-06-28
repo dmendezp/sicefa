@@ -95,6 +95,9 @@ class Person extends Model implements Auditable
     public function events(){ // Accede a todos los eventos que se le han sigdo asignados
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
     }
+    public function executors(){ // Accede a todos los registros de ejecutores que pertenecen a esta responsabilidad
+        return $this->hasMany(Executor::class);
+    }
     public function farms(){ // Accede a todas las granjas que lidera esta persona
         return $this->hasMany(Farm::class);
     }

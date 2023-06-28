@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Responsibility extends Model implements Auditable
+class Executor extends Model implements Auditable
 {
 
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
         SoftDeletes; // Borrado suave
 
     protected $fillable = [ // Atributos modificables (asginación masivaa)
-        'activity_id',
-        'role_id'
+        'person_id',
+        'labor_id',
+        'responsibility_id'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
@@ -25,14 +26,14 @@ class Responsibility extends Model implements Auditable
     ];
 
     // RELACIONES
-    public function activity(){ // Accede a la información de la actividad al que pertenece
-        return $this->belongsTo(Activity::class);
+    public function labor(){ // Accede a la información de la labor al que pertenece
+        return $this->belongsTo(Labor::class);
     }
-    public function executors(){ // Accede a todos los registros de ejecutores que pertenecen a esta responsabilidad
-        return $this->hasMany(Executor::class);
+    public function person(){ // Accede a la información de la persona al que pertenece
+        return $this->belongsTo(Person::class);
     }
-    public function role(){ // Accede a la información del rol al que pertenece
-        return $this->belongsTo(Role::class);
+    public function responsibility(){ // Accede a la información de la responsabilidad al que pertenece
+        return $this->belongsTo(Responsibility::class);
     }
 
 }
