@@ -9,6 +9,7 @@
 
 @section('content')
     {!! Form::open(['route'=>'ptventa.element.image.store', 'method'=>'POST', 'id'=>'form-config']) !!}
+        @csrf
             <div class="card card-success card-outline col-10 mx-auto">
 
                 <div class="card-body pb-0">

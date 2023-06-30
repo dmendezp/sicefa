@@ -109,16 +109,34 @@ class ElementController extends Controller
 
         $messages = [
             'image.required' => 'La imagen es obligatoria',
+            'name.required' => 'El nombre del producto es obligatorio',
+            'measurement_unit_id.required' => 'La unidad de medida es obligatoria',
+            'description.required.required'=> 'La descripcion del producto es obligatoria',
+            'kind_of_purchase_id.required' => 'El tipo de compra es obligatoria',
+            'category_id.required' => 'Lacategoria es obligatoria',
+            'price.required' => 'El precio del producto es obligatorio',
+            'UNSPSC_code.required' => 'El codigo del producto es obligatorio',
         ];
-        $element = $request->all();
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()):
+            return back()->withInput()->withErrors($validator)->with('message-validator','Se ha producido un error. Por favor, verifica el formulario.')->with('typealert','danger');
+        else:
+            $element = $request->all();
 
-        if($imagen = $request->file('image')) {
-            $extension =  pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION); // Capturar la extensión de la nueva imagen
-            $name_image =  $element->slug . '.' . $extension; // Generar el nombre por defecto de la nueva imagen
-            $image->move(public_path('modules/sica/images/elements/'), $name_image);
-        }
-        Element::create($element);
-        return redirect()->route('ptventa.element.image.index');
+            $image = $request->file('image');
+                $extension =  pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION); // Capturar la extensión de la nueva imagen
+                $name_image =  $element->slug . '.' . $extension; // Generar el nombre por defecto de la nueva imagen
+                $image->move(public_path('modules/sica/images/elements/'), $name_image);
+
+            if( Element::create($element)){
+                $message_ptventa_type = 'success';
+                $message_ptventa = 'Producto agregado exitosamente.';
+            }else{
+                $message_ptventa_type = 'error';
+                $message_ptventa = 'No se pudo agregar el producto.';
+            }
+            return redirect(route('ptventa.element.image.index'))->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
+         endif;
     }
 
 }
