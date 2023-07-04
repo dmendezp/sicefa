@@ -6,17 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class MunicipalityEvent extends Model implements Auditable
+class EmployeeType extends Model implements Auditable
 {
 
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
         SoftDeletes; // Borrado suave
 
-    protected $fillable = [ // Atributos modificables (asginación masiva)
-        'person_id',
-        'municipality_id',
-        'event_type'
-    ];
+    protected $fillable = ['name']; // Atributos modificables (asginación masiva)
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
@@ -25,12 +21,9 @@ class MunicipalityEvent extends Model implements Auditable
         'updated_at'
     ];
 
-    // RELACIONES
-    public function municipality(){ // Accede a la información del municipio al que pertenece
-        return $this->belongsTo(Municipality::class);
-    }
-    public function person(){ // Accede a la información de la persona al que pertenece
-        return $this->belongsTo(Person::class);
+    // MUTADORES Y ACCESORES
+    public function setNameAttribute($value){ // Convierte el primer carácter en mayúscula del dato name (MUTADOR)
+        $this->attributes['name'] = ucfirst($value);
     }
 
 }

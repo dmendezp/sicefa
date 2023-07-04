@@ -43,11 +43,11 @@ class Element extends Model implements Auditable
     public function setDescriptionAttribute($value){ // Convierte el primer carácter en mayúscula del dato description (MUTADOR)
         $this->attributes['description'] = ucfirst($value);
     }
-
     public function setNameAttribute($value){ // Convierte el primer carácter en mayúscula del dato name y genera el slug para la ruta amigable del modelo (MUTADOR)
         $this->attributes['name'] = ucfirst($value);
         $this->attributes['slug'] = Str::slug($value, '-'); // Generación del slug
     }
+    
     // RELACIONES
     public function category(){ // Accede a la categoría al que pertenece
         return $this->belongsTo(Category::class);
