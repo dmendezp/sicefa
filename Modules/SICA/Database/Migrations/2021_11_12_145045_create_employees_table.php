@@ -20,8 +20,8 @@ class CreateEmployeesTable extends Migration
             $table->string('Professional_card');
             $table->date('professional_card_issuance_date');
             $table->string('pension fund');
-            $table->foreignId('employee_type_id')->constrained()->ondelete('cascade');
-            $table->foreignId('Function_id')->constrained()->ondelete('cascade');
+            $table->foreignId('employee_type_id')->constrained()->onDelete('cascade');
+            $table->foreignId('position_id')->constrained()->onDelete('cascade');
             $table->enum('state',['Activo','Inactivo']);
             $table->softDeletes();
             $table->timestamps();
