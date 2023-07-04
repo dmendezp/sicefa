@@ -110,6 +110,9 @@ class Person extends Model implements Auditable
     public function movement_responsabilities(){ // Accede a todos los registros de responsables de movimiento que esten asociados con esta persona
         return $this->hasMany(MovementResponsability::class);
     }
+    public function municipality_events(){ // Accede a todos los registros de eventos en municipios que le pertenecen a esta persona
+        return $this->hasMany(MunicipalityEvent::class);
+    }
     public function population_group(){ // Accede al grupo poblacional que pertenece
         return $this->belongsTo(PopulationGroup::class);
     }

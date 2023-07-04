@@ -39,6 +39,9 @@ class Municipality extends Model implements Auditable
     public function farms(){ // Accede a todas las granjas que pertenecen a este municipio
         return $this->hasMany(Farm::class);
     }
+    public function municipality_events(){ // Accede a todos los registros de eventos en municipios que le pertenecen a este municipio
+        return $this->hasMany(MunicipalityEvent::class);
+    }
     public function villages(){
         return $this->hasMany(Village::class);
     }
