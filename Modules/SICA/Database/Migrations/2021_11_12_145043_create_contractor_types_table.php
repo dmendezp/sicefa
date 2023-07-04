@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTypeOfContractorsTable extends Migration
+class CreateContractorTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateTypeOfContractorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_of_contractors', function (Blueprint $table) {
+        Schema::create('contractor_types', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
+            $table->string('name')->unique();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreateTypeOfContractorsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('type_of_contractors');
+        Schema::dropIfExists('contractor_types');
     }
 }

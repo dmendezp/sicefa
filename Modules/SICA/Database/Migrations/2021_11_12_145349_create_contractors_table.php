@@ -19,7 +19,7 @@ class CreateContractorsTable extends Migration
             $table->date('Contract_start_date');
             $table->date('Contract_end_date');
             $table->integer('Total_contract_value');
-            $table->foreignId('type_of_contractor')->constrained()->ondelete('cascade');
+            $table->foreignId('contractor_type_id')->constrained()->onDelete('cascade');
             $table->string('sesion');
             $table->date('sesion_date');
             $table->foreignId('employee_type_id')->constrained()->ondelete('cascade');
