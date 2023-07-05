@@ -17,42 +17,15 @@
   <table id="tabla" class="table table-bordered text-center">
     <tr id="fecha">
       <th>Hora</th>
+
       
     </tr>
     {{-- aqui se debe de crear un ciclo para que se repita la tabla --}}
-
+    
   </table>  
 </div>
 
-{{-- <template id="programa-template">
-  <tr id="programa-item">
-    <td id="programa-hora">8:00</td>
-    <td class="bg-dark">
-      <div id="programa-title" class="">
-        <B><h2>Radiocefa</h2></B>
-        <p>Musica para ti</p>
-      </div>
-    </td>
-    <td class="bg-dark">
-      <div class="">
-        <B><h2>Radiocefa</h2></B>
-        <p>Musica para ti</p>
-      </div>
-    </td>
-    <td class="bg-dark">
-      <div class="">
-        <B><h2>Radiocefa</h2></B>
-        <p>Musica para ti</p>
-      </div>
-    </td>
-    <td class="bg-dark">
-      <div class="">
-        <B><h2>Radiocefa</h2></B>
-        <p>Musica para ti</p>
-      </div>
-    </td>
-  </tr>
-</template> --}}
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -61,10 +34,17 @@
   const INITIAL_VALUES = [
     {
       "id": 1,
-      "horary": "2023-04-14 21:15:35",
+      "horary": "2023-04-14 07:15:35",
       "Day": "2023-04-11",      
       "title": "Radiocefa",
-      "descripcion": "Musica para ti"
+      "descripcion": "Musica para ti",
+    },
+    {
+      "id": 2,
+      "horary": "2023-04-14 08:15:35",
+      "Day": "2023-04-11",      
+      "title": "Radiocefa",
+      "descripcion": "Musica para ti",
     }
   ];
   /**

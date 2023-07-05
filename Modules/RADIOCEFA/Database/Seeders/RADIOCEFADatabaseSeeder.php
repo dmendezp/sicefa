@@ -13,9 +13,12 @@ class RADIOCEFADatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        Model::unguard();
+{
+    $usuario = new User();
+    $usuario->name = 'Maria Rosell';
+    $usuario->email = 'MariaRosell@example.com';
+    $usuario->password = bcrypt('contraseña');
+    $usuario->save();
+}
 
-        // $this->call("OthersTableSeeder");
-    }
 }
