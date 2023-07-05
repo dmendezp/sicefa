@@ -12,7 +12,7 @@ class EmployeeType extends Model implements Auditable
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
         SoftDeletes; // Borrado suave
 
-    protected $fillable = ['name']; // Atributos modificables (asginación masiva)
+    protected $fillable = ['name']; // Atributos modificables (asignación masiva)
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
@@ -24,6 +24,11 @@ class EmployeeType extends Model implements Auditable
     // MUTADORES Y ACCESORES
     public function setNameAttribute($value){ // Convierte el primer carácter en mayúscula del dato name (MUTADOR)
         $this->attributes['name'] = ucfirst($value);
+    }
+
+    // RELACIONES
+    public function employees(){ // Accede a todos los registros de empleados que pertenecen a este tipo de empleado
+        return $this->hasMany(Employee::class);
     }
 
 }

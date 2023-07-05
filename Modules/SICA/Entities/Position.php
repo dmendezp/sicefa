@@ -12,7 +12,7 @@ class Position extends Model implements Auditable
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
         SoftDeletes; // Borrado suave
 
-    protected $fillable = [ // Atributos modificables (asginación masiva)
+    protected $fillable = [ // Atributos modificables (asignación masiva)
         'professional_denomination',
         'grade'
     ];
@@ -23,4 +23,9 @@ class Position extends Model implements Auditable
         'created_at',
         'updated_at'
     ];
+
+    // RELACIONES
+    public function employees(){ // Accede a todos los registros de empleados que pertenecen a este normograma salarial
+        return $this->hasMany(Employee::class);
+    }
 }

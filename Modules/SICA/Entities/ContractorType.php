@@ -12,7 +12,7 @@ class ContractorType extends Model implements Auditable
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
         SoftDeletes; // Borrado suave
 
-    protected $fillable = ['name']; // Atributos modificables (asginación masiva)
+    protected $fillable = ['name']; // Atributos modificables (asignación masiva)
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 

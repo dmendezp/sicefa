@@ -89,13 +89,16 @@ class Person extends Model implements Auditable
     public function authorizeds(){ // Accede a todas los registros de las personas que han sido autorizados para votar
         return $this->hasMany(Authorized::class);
     }
+    public function employees(){ // Accede a todos los registros de empleados que pertenecen a esta persona
+        return $this->hasMany(Employee::class);
+    }
     public function e_p_s(){ // Accede a la EPS que se encuentra asociado(a)
         return $this->belongsTo(EPS::class, 'eps_id'); // Se debe agregar el campo eps_id de people para que la convensión no lo tome como e_p_s_id
     }
     public function events(){ // Accede a todos los eventos que se le han sigdo asignados
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
     }
-    public function executors(){ // Accede a todos los registros de ejecutores que pertenecen a esta responsabilidad
+    public function executors(){ // Accede a todos los registros de ejecutores que pertenecen a esta persona
         return $this->hasMany(Executor::class);
     }
     public function farms(){ // Accede a todas las granjas que lidera esta persona
