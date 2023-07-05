@@ -37,13 +37,13 @@
 	</div>	
 
 <section>
-        <div class="container">
-        	<div class="card">
+    <div class="container">
+        <div class="card">
             <div class="row">
                 <div class="col-12">
                     <div class="intro text-center">
                         <h1>Equipo de trabajo</h1>
-                        <p class="mx-auto">Nuestro gran equipo  de trabajao</p>
+                        <p class="mx-auto">Nuestro gran equipo de trabajo</p>
                     </div>
                 </div>
             </div>
@@ -52,11 +52,11 @@
                 <div class="col-lg-4">
                     <div class="team-member">
                         <div class="image">
-                            <img src="{{ asset('radi__cefa/avatar1.jpg') }}" alt="">
+                            <img src="{{ asset('radi__cefa/avatar11.jpg') }}" alt="" class="img-fluid mx-auto">
                         </div>
-
-                        <h5>Marvin McKinney</h5>
-                        <p>Marketing Coordinator</p>
+    
+                        <h5>Maria Rosell</h5>
+                        <p>Programador/fundador</p>
                     </div>
                 </div>
                 {{-- /card person --}}
@@ -64,11 +64,11 @@
                 <div class="col-lg-4">
                     <div class="team-member">
                         <div class="image">
-                            <img src="{{ asset('radi__cefa/avatar2.jpg') }}" alt="">
+                            <img src="{{ asset('radi__cefa/avatar22.jpg') }}" alt="" class="img-fluid mx-auto">
                         </div>
-
-                        <h5>Kathryn Murphy</h5>
-                        <p>Ethical Hacker</p>
+    
+                        <h5>Andres Sanchez</h5>
+                        <p>Locutor/fundador</p>
                     </div>
                 </div>
                 {{-- /card person --}}
@@ -76,12 +76,19 @@
                 <div class="col-lg-4">
                     <div class="team-member">
                         <div class="image">
-                            <img src="{{ asset('radi__cefa/avatar3.jpg') }}" alt="">
-
+                            <img src="{{ asset('radi__cefa/avatar3.jpg') }}" alt="" class="img-fluid mx-auto">
                         </div>
+                        <h5>Lola Fernández Herrera</h5>
+                        <p>Lider de Sena Empresa</p>
+                    </div>
+                </div>
+                {{-- /card person --}}
+            </div>
+        </div>
+    </div>
 
-                        <h5>Darrell Steward</h5>
-                        <p>Software Developer</p>
+                        <h5> </h5>
+                        <p></p>
                     </div>
                 </div>
                 {{-- /card person --}}
