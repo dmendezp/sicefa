@@ -37,7 +37,7 @@ class Event extends Model implements Auditable
     }
 
     // RELACIONES
-    public function people(){
+    public function people(){  // Accede a la información de todas las personas que han asistido a este evento (PIVOTE)
         return $this->belongsToMany(Person::class, 'event_attendances')->withTimestamps();
     }
 

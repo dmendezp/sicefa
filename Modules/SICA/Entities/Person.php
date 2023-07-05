@@ -98,7 +98,7 @@ class Person extends Model implements Auditable
     public function e_p_s(){ // Accede a la EPS que se encuentra asociado(a)
         return $this->belongsTo(EPS::class, 'eps_id'); // Se debe agregar el campo eps_id de people para que la convensión no lo tome como e_p_s_id
     }
-    public function events(){ // Accede a todos los eventos que se le han sigdo asignados
+    public function events(){ // Accede a todos los eventos que ha asistido esta persona (PIVOTE)
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
     }
     public function executors(){ // Accede a todos los registros de ejecutores que pertenecen a esta persona
