@@ -26,4 +26,9 @@ class ContractorType extends Model implements Auditable
         $this->attributes['name'] = ucfirst($value);
     }
 
+    // RELACIONES
+    public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a este tipo de contratación
+        return $this->hasMany(Contractor::class);
+    }
+
 }

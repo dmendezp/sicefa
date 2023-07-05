@@ -89,6 +89,9 @@ class Person extends Model implements Auditable
     public function authorizeds(){ // Accede a todas los registros de las personas que han sido autorizados para votar
         return $this->hasMany(Authorized::class);
     }
+    public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
+        return $this->hasMany(Contractor::class);
+    }
     public function employees(){ // Accede a todos los registros de empleados que pertenecen a esta persona
         return $this->hasMany(Employee::class);
     }

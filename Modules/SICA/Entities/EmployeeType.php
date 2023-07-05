@@ -27,7 +27,10 @@ class EmployeeType extends Model implements Auditable
     }
 
     // RELACIONES
-    public function employees(){ // Accede a todos los registros de empleados que pertenecen a este tipo de empleado
+    public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a este tipo de empleado
+        return $this->hasMany(Contractor::class);
+    }
+    public function employees(){ // Accede a todos los registros de empleados que le pertenecen a este tipo de empleado
         return $this->hasMany(Employee::class);
     }
 
