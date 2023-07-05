@@ -15,7 +15,7 @@ class RADIOCEFADatabaseSeeder extends Seeder
     public function run()
 {
     $usuario = new User();
-    $usuario->name = 'Maria Rosell';
+    $usuario->nickname = 'Maria Rosell';
     $usuario->email = 'MariaRosell@example.com';
     $usuario->password = bcrypt('contraseña');
     $usuario->save();
