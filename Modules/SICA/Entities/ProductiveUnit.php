@@ -55,8 +55,8 @@ class ProductiveUnit extends Model implements Auditable
     public function sector(){ // Accede a la información del sector al que pertenece
         return $this->belongsTo(Sector::class);
     }
-    public function warehouses(){ // Accede a una o varias unidades bodegas asociadas a él (Relación muchos a muchos)
-        return $this->belongsToMany(Warehouse::class);
+    public function warehouses(){ // Accede a todas las bodegas que pertenecen a esta unidad productiva (PIVOTE)
+        return $this->belongsToMany(Warehouse::class)->withTimestamps();
     }
 
 }
