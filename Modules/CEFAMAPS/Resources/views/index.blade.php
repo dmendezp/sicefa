@@ -56,23 +56,22 @@
       mapTypeId: 'satellite' /* El tipo de mapa */
     });
 
-    // para el icono
-    //var iconBase = 'http://sicefa.test/sica/favicon.ico';  
+   
 
 
-    //Inicio del Poligono
+    /* Inicio del Poligono antes de la Carretera*/
     // The marker, positioned at Uluru
     const markerGeneral = new google.maps.Marker({
       position: { lat: 2.611609, lng: -75.367646 }, 
       map: map,
       tittle: "General CEFA",
-      //icon: iconBase,
+     
     });
 
    // Nombre del Sena, dentro del marcador. 
     const infoGeneral = new google.maps.InfoWindow();
         infoGeneral.setContent(
-        '<div id="content">Centro de Formación Agroindustrial Sena "La Angostura" </div>');
+        '<div id="content">Centro de Formación Agroindustrial Sena "La Angostura" </div>'); // Aqui va el Nombre completo del Sena. 
   
 
     markerGeneral.addListener("click", () => {
@@ -425,24 +424,24 @@
 
 
  
- //Inicio del Poligono del potrero 
+ // Aqui empieza el Poligono despues de la carretera (POTRERO)
   // The location of Uluru
  const potrero = { lat: 2.625673,  lng:-75.361339 };
- 
- //var iconBase = 'http://sicefa.test/sica/favicon.ico';   // para el icono
 
+
+   //Inicio del Poligono del potrero 
   // The marker, positioned at Uluru
     const markerPotrero = new google.maps.Marker({
       position: { lat: 2.625673, lng:-75.361339  }, 
       map: map,
-      tittle: "Potrero CEFA",
-      //icon: iconBase,               
+      tittle: "Potrero CEFA", 
+             
     });
 
     // Nombre del Sena dentro del marcador
     const infoGeneralP = new google.maps.InfoWindow();
         infoGeneralP.setContent(
-        '<div id="content">Centro de Formación Agroindustrial Sena "La Angostura"</div>');
+        '<div id="content">Centro de Formación Agroindustrial Sena "La Angostura"</div>'); // Aqui va el Nombre completo del Sena. 
         
 
     markerPotrero.addListener("click", () => {
@@ -450,7 +449,7 @@
         });
 
 // Define the LatLng coordinates for the polygon's path.
-   const General = [
+   const PoGeneral = [
       { lat: 2.616481, lng: -75.359606 },
       { lat: 2.616753, lng: -75.359763 },
       { lat: 2.617707, lng: -75.360326 },
@@ -522,7 +521,7 @@
 
    // Construccion del poligono despues de la carretera.
    const PolygonGeneralPotrero = new google.maps.Polygon({
-      paths: General,
+      paths: PoGeneral,
       /* color de los bordes del area */
       strokeColor: "#E4FF01",
       strokeOpacity: 0.8,
