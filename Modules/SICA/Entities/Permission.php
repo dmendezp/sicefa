@@ -34,7 +34,7 @@ class Permission extends Model implements Auditable
         return $this->belongsTo(App::class);
     }
     public function roles(){ // Accede a todos los rOles que pertenecen a este permiso (PIVOTE)
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
 }
