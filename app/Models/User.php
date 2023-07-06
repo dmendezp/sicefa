@@ -49,7 +49,7 @@ class User extends Authenticatable implements Auditable
         return $this->belongsTo(Person::class);
     }
     public function roles(){ // Accede a todos los roles que pertenecen a este usuario (PIVOTE)
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
     // CONFIGURACIONES PREESTABLECIDAS PARA MÉTODOS ELOQUENT

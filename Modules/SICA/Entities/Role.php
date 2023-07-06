@@ -42,7 +42,7 @@ class Role extends Model implements Auditable
         return $this->hasMany(Responsibility::class);
     }
     public function users(){ // Accede todos los usuarios que pertenecen a este rol (PIVOTE)
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
 }
