@@ -113,8 +113,8 @@ class Person extends Model implements Auditable
     public function juries(){ // Accede a todos los jurados que están registrados con esta persona
         return $this->hasMany(Jury::class);
     }
-    public function movement_responsabilities(){ // Accede a todos los registros de responsables de movimiento que esten asociados con esta persona
-        return $this->hasMany(MovementResponsability::class);
+    public function movement_responsibilities(){ // Accede a todos los registros de responsables de movimiento que ha sido participe esta persona
+        return $this->hasMany(MovementResponsibility::class);
     }
     public function municipality_events(){ // Accede a todos los registros de eventos en municipios que le pertenecen a esta persona
         return $this->hasMany(MunicipalityEvent::class);
