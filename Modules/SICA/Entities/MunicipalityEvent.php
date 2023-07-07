@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class WarehouseMovement extends Model implements Auditable
+class MunicipalityEvent extends Model implements Auditable
 {
 
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
         SoftDeletes; // Borrado suave
 
-    protected $fillable = [ // Atributos modificables (asignación masiva)
-        'warehouse_id',
-        'movement_id',
-        'role'
+    protected $fillable = [ // Atributos modificables (asginación masiva)
+        'person_id',
+        'municipality_id',
+        'event_type'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
@@ -26,11 +26,11 @@ class WarehouseMovement extends Model implements Auditable
     ];
 
     // RELACIONES
-    public function movement(){ // Accede a la información del movimiento al que pertenece
-        return $this->belongsTo(Movement::class);
+    public function municipality(){ // Accede a la información del municipio al que pertenece
+        return $this->belongsTo(Municipality::class);
     }
-    public function warehouse(){ // Accede a la información de la bodega al que pertenece
-        return $this->belongsTo(Warehouse::class);
+    public function person(){ // Accede a la información de la persona al que pertenece
+        return $this->belongsTo(Person::class);
     }
 
 }

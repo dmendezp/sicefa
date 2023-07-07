@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMovementResponsabilitiesTable extends Migration
+class CreateMovementResponsibilitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMovementResponsabilitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('movement_responsabilities', function (Blueprint $table) {
+        Schema::create('movement_responsibilities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('movement_id')->constrained()->onDelete('cascade');
@@ -32,6 +32,6 @@ class CreateMovementResponsabilitiesTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('movement_responsabilities');
+        Schema::dropIfExists('movement_responsibilities');
     }
 }

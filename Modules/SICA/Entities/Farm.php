@@ -8,11 +8,11 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Farm extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
 
-    use SoftDeletes; // Borrado suave
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+        SoftDeletes; // Borrado suave
 
-    protected $fillable = [
+    protected $fillable = [ // Atributos modificables (asignación masiva)
         'name',
         'description',
         'area',
@@ -20,7 +20,7 @@ class Farm extends Model implements Auditable
         'municipality_id'
     ];
 
-    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formato y manipulación de fecha y hora)
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
     protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
@@ -36,15 +36,17 @@ class Farm extends Model implements Auditable
     }
 
     // RELACIONES
-    public function person(){ // Accede a todos los elementos que pertenecen a esta categoría
-        return $this->belongsTo(Person::class);
+    public function environments(){ // Accede a todos los ambientes de formación que pertenecen a esta granja
+        return $this->hasMany(Environment::class);
     }
-
-    public function municipality(){ // Accede a todos los elementos que pertenecen a esta categoría
+    public function municipality(){ // Accede al municipio al que pertenece
         return $this->belongsTo(Municipality::class);
     }
-
-    public function productive_unit(){ // Accede a todos los elementos que pertenecen a esta categoría
+    public function person(){ // Accede a la información de la persona líder de esta granja
+        return $this->belongsTo(Person::class);
+    }
+    public function productive_units(){ // Accede a todas las unidades productivas que pertenecen a esta granja
         return $this->hasMany(ProductiveUnit::class);
     }
+
 }

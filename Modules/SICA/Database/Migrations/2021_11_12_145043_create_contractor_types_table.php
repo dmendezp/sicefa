@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreatePeriodsTable extends Migration
+class CreateContractorTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreatePeriodsTable extends Migration
      */
     public function up()
     {
-        Schema::create('periods', function (Blueprint $table) {
-
+        Schema::create('contractor_types', function (Blueprint $table) {
             $table->id();
-
-            $table->string('name');
-            $table->string('slime_weight')->nullable();
-            $table->string('dried_weight')->nullable();
+            $table->string('name')->unique();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,8 +29,6 @@ class CreatePeriodsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('periods');
+        Schema::dropIfExists('contractor_types');
     }
 }
-
-

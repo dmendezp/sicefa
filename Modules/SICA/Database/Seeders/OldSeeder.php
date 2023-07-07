@@ -91,7 +91,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "slug" => "sica.admin",
                 "description" => "Rol administrador de la aplicacion SICA",
                 "description_english" => "English - Rol administrador de la aplicacion SICA",
-                "full_access" => "yes",
+                "full_access" => "Si",
                 "app_id" => $app->id
             ]);
         }

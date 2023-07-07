@@ -15,7 +15,7 @@ class CreateClassEnvironmentsTable extends Migration
     {
         Schema::create('class_environments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->softDeletes();
             $table->timestamps();
         });

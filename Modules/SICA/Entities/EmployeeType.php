@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class ClassEnvironment extends Model implements Auditable
+class EmployeeType extends Model implements Auditable
 {
 
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
@@ -27,7 +27,11 @@ class ClassEnvironment extends Model implements Auditable
     }
 
     // RELACIONES
-    public function environments(){ // Accede a todos los ambientes de formación que pertenecen a esta clase de ambiente de formación
-        return $this->hasMany(Environment::class);
+    public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a este tipo de empleado
+        return $this->hasMany(Contractor::class);
     }
+    public function employees(){ // Accede a todos los registros de empleados que le pertenecen a este tipo de empleado
+        return $this->hasMany(Employee::class);
+    }
+
 }

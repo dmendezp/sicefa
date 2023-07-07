@@ -18,9 +18,9 @@ class CreateProductiveUnitsTable extends Migration
             $table->string('name')->unique();
             $table->text('description');
             $table->string('icon')->nullable();
-            $table->foreignId('person_id')->constrained()->ondelete('cascade');
-            $table->foreignId('sector_id')->constrained()->ondelete('cascade');
-            $table->foreignId('farm_id')->constrained()->ondelete('cascade');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->foreignId('sector_id')->constrained()->onDelete('cascade');
+            $table->foreignId('farm_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

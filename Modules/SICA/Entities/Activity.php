@@ -5,26 +5,20 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
-use Modules\CEFAMAPS\Entities\Coordinate;
-use Modules\CEFAMAPS\Entities\Page;
 
-class Environment extends Model implements Auditable
+class Activity extends Model implements Auditable
 {
 
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
         SoftDeletes; // Borrado suave
 
-    protected $fillable = [ // Atributos modificables (asignación masiva)
+    protected $fillable = [ // Atributos modificables (asginación masivaa)
         'name',
-        'picture',
-        'description',
-        'length',
-        'latitude',
-        'farm_id',
         'productive_unit_id',
-        'status',
-        'type_environment',
-        'class_environment_id'
+        'activity_type_id',
+        'description',
+        'period',
+        'status'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
@@ -41,22 +35,22 @@ class Environment extends Model implements Auditable
     public function setNameAttribute($value){ // Convierte el primer carácter en mayúscula del dato name (MUTADOR)
         $this->attributes['name'] = ucfirst($value);
     }
+    public function setPeriodAttribute($value){ // Convierte el primer carácter en mayúscula del dato period (MUTADOR)
+        $this->attributes['period'] = ucfirst($value);
+    }
 
     // RELACIONES
-    public function class_environment(){ // Accede a la información de la clase de ambiente de formación al que pertenece
-        return $this->belongsTo(ClassEnvironment::class);
+    public function activity_type(){ // Accede a la información del tipo de actividad al que pertenece
+        return $this->belongsTo(ActivityType::class);
     }
-    public function coordinates(){ // Accede a la información del coordinate al que pertenece
-        return $this->hasMany(Coordinate::class);
-    }
-    public function farm(){ // Accede a la información de la granja al que pertenece
-        return $this->belongsTo(Farm::class);
-    }
-    public function pages(){ // Accede a la información del page al que pertenece
-        return $this->hasMany(Page::class);
+    public function labors(){ // Accede a todas las labores que pertenecen a esta actividad
+        return $this->hasMany(Labor::class);
     }
     public function productive_unit(){ // Accede a la información de la unidad productiva al que pertenece
         return $this->belongsTo(ProductiveUnit::class);
+    }
+    public function responsibilities(){ // Accede a todas los registros de responsabilidades que pertenecen a esta actividad
+        return $this->hasMany(Responsibility::class);
     }
 
 }

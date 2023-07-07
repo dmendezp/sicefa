@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTypeOfContractorsTable extends Migration
+class CreatePositionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateTypeOfContractorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_of_contractors', function (Blueprint $table) {
+        Schema::create('positions', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
+            $table->enum('professional_denomination', ['Asesor','Asistencial','Directivo','Instructor','Profesional','Técnico']);
+            $table->enum('grade',['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +30,6 @@ class CreateTypeOfContractorsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('type_of_contractors');
+        Schema::dropIfExists('positions');
     }
 }
