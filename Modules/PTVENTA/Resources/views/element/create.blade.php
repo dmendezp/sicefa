@@ -31,14 +31,14 @@
                                     @endif
                                 </div>
                             </div>
-                            <br><br>
+                        </div>
+
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="formFile" class="form-label">Seleccionar imagen</label>
                                 <input type="file" name="image" id="image" class="form-control">
                             </div>
-                        </div>
 
-                        <div class="col-md-4">
                             {!! Form::label('name', 'Nombre:', ['class' => 'mt-3']) !!}
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -88,6 +88,20 @@
                         </div>
 
                         <div class="col-md-4">
+                            {!! Form::label('price', 'Precio:', ['class' => 'mt-3']) !!}
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="far fa-keyboard"></i>
+                                    </span>
+                                </div>
+                                {!! Form::text('price', isset($element) ? $element->price : null, [
+                                    'class' => 'form-control',
+                                    'required',
+                                    'placeholder' => 'precio',
+                                ]) !!}
+                            </div>
+
                             {!! Form::label('category_id', 'Categoria:', ['class' => 'mt-3']) !!}
                             <div class="input-group">
                                 <div class="input-group-prepend">

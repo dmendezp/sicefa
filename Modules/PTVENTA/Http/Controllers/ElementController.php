@@ -95,7 +95,7 @@ class ElementController extends Controller
         return view('ptventa::element.create', compact('view', 'measurement_units', 'categories', 'kind_of_purchase'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request, Element $element){
         $rules = [
             'image' => 'required',
             'name' => 'required',
@@ -121,22 +121,38 @@ class ElementController extends Controller
         if ($validator->fails()):
             return back()->withInput()->withErrors($validator)->with('message-validator','Se ha producido un error. Por favor, verifica el formulario.')->with('typealert','danger');
         else:
-            $element = $request->all();
+            $element = new Element();
 
-            $image = $request->file('image');
+            if($request->hasFile('image')){ // Verificar si se ha subido una nueva imagen
+                //Obtener la imagen enviada por el usuario
+                $image = $request->file('image');
+
+                //Guardar la nueva imagen en el sistema de archivos
                 $extension =  pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION); // Capturar la extensión de la nueva imagen
                 $name_image =  $element->slug . '.' . $extension; // Generar el nombre por defecto de la nueva imagen
-                $image->move(public_path('modules/sica/images/elements/'), $name_image);
+                $image->move(public_path('modules/sica/images/elements/'), $name_image); // Guarda la imagen dentro de public
 
-            if( Element::create($element)){
+                //Actualizar la ruta de la imagen en la base de datos
+                $element->image = 'modules/sica/images/elements/' . $name_image; // Generar ruta relativa de la nueva imagen
+                $element->name = e($request->input('name'));
+                $element->measurement_unit_id = e($request->input('measurement_unit_id'));
+                $element->description = e($request->input('description'));
+                $element->kind_of_purchase_id = e($request->input('kind_of_purchase_id'));
+                $element->category_id = e($request->input('category_id'));
+                $element->price = e($request->input('price'));
+                $element->UNSPSC_code = e($request->input('UNSPSC_code'));
+                $element->slug = e($request->input('name'));
+
+                if ($element->save()){// Actualizar el registro del elemento con la nueva imagen cargada
+                $message_ptventa = "Elemento agregado exitosamente";
                 $message_ptventa_type = 'success';
-                $message_ptventa = 'Producto agregado exitosamente.';
-            }else{
+                }else{
+                $message_ptventa = "Se ha producido un error en el momento de agregar el elemento";
                 $message_ptventa_type = 'error';
-                $message_ptventa = 'No se pudo agregar el producto.';
+                }
+                return redirect(route('ptventa.element.image.index'))->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
             }
-            return redirect(route('ptventa.element.image.index'))->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
-         endif;
+       endif;
     }
 
 }
