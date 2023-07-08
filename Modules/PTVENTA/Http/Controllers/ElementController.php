@@ -143,7 +143,7 @@ class ElementController extends Controller
                 $element->UNSPSC_code = e($request->input('UNSPSC_code'));
                 $element->slug = e($request->input('name'));
 
-                if ($element->save()){// Actualizar el registro del elemento con la nueva imagen cargada
+                if ($element->save()){
                 $message_ptventa = "Elemento agregado exitosamente";
                 $message_ptventa_type = 'success';
                 }else{

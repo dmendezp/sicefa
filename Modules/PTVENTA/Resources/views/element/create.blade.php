@@ -4,7 +4,7 @@
     <li class="breadcrumb-item active">
         <a href="{{ route('ptventa.element.image.index') }}" class="text-decoration-none">Productos</a>
     </li>
-    <li class="breadcrumb-item active">Actualizar imagen</li>
+    <li class="breadcrumb-item active">Agregar Producto</li>
 @endpush
 
 @section('content')
