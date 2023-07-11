@@ -13,13 +13,12 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h3>{{ trans('sigac::attendance.Environment N° 1') }}</h3>
-
+            <h3>{{ trans('sigac::attendance.CardTitle') }}</h3>
             <div class="row">
+
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label for="technologist"
-                            class="form-label">{{ trans('sigac::attendance.Choose the technologist') }}</label>
+                        <label for="technologist" class="form-label">{{ trans('sigac::attendance.CardSubtitle') }}</label>
                         <select id="technologist" class="form-select" aria-label="Default select example">
                             <option selected disabled>{{ trans('sigac::attendance.Select...') }}</option>
                             <option value="1">Prueba 1</option>
@@ -168,7 +167,6 @@
 
                                             <!-- SVG -->
                                             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                                                
                                                 <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 22" id="icon-01">
                                                     <!-- Código SVG del nuevo icono -->
                                                     <!-- Por ejemplo, un icono de la letra "p" -->
