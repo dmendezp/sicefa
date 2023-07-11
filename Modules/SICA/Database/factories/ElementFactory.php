@@ -28,8 +28,9 @@ class ElementFactory extends Factory
 
         $element_name = $this->faker->unique()->words(rand(2,5), true); // Generar nombre del elemento
 
-        $base_path = 'modules/sica/images/elements/'; // Define la ruta base donde se guardarán las imágenes.
-        $image_faker = $this->faker->image('public/' . $base_path, 600, 400, null, false); // Genera una imagen aleatoria con las dimensiones 640x480 en la ruta base definida.
+        // La generación de imágenes solo se debe activar para fines de pruebas
+        //$base_path = 'modules/sica/images/elements/'; // Define la ruta base donde se guardarán las imágenes.
+        //$image_faker = $this->faker->image('public/' . $base_path, 600, 400, null, false); // Genera una imagen aleatoria con las dimensiones 640x480 en la ruta base definida.
 
         return [
             'name' => $element_name,
@@ -38,7 +39,7 @@ class ElementFactory extends Factory
             'kind_of_purchase_id' => KindOfPurchase::inRandomOrder()->first()->id,
             'category_id' => Category::inRandomOrder()->first()->id,
             'slug' => Str::slug($element_name, '-'),
-            'image' => $base_path . $image_faker // Devuelve la ruta completa de la imagen guardada.
+            //'image' => $base_path . $image_faker // Devuelve la ruta completa de la imagen guardada.
         ];
 
     }

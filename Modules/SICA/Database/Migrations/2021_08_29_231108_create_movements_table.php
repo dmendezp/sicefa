@@ -15,15 +15,15 @@ class CreateMovementsTable extends Migration
     {
         Schema::create('movements', function (Blueprint $table) {
             $table->id();
-            $table->date('registration_date');
-            $table->date('return_date');
-            $table->unsignedInteger('voucher_number')->nullable();
-            $table->integer('total');
-            $table->text('observation');
-            $table->enum('state',['Solicitud','Aprovacion','Anulada','Devuelto']);
-            $table->enum('type_movement',['MovInterno','Ventas','Bajas','PresInterno','PresExtreno']);
-            $table->timestamps();
+            $table->dateTime('registration_date');
+            $table->dateTime('return_date')->nullable();
+            $table->foreignId('movement_type_id')->constrained()->onDelete('cascade');
+            $table->integer('voucher_number');
+            $table->integer('price');
+            $table->text('observation')->nullable();
+            $table->enum('state',['Anulado','Aprobado','Devuelto','Solicitado']);
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

@@ -1,4 +1,4 @@
-<?php
+Z<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,11 +16,11 @@ class CreateMovementDetailsTable extends Migration
         Schema::create('movement_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('movement_id')->constrained()->onDelete('cascade');
-            $table->foreignId('inventorie_id')->constrained()->onDelete('cascade');
+            $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
             $table->integer('amount');
             $table->integer('price');
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
