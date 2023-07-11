@@ -1,8 +1,7 @@
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      Anything you want
+  <footer class="main-footer bg-ligth">
+    <strong>Copyright &copy; 2022-2023 <a href="#" style="text-decoration: none">ADSI CODING GROUP</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+        <b>Version Alpha</b> 1.0
     </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
   </footer>

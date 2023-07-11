@@ -15,11 +15,9 @@ class CreateWorksTable extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
-            $table->text('description');
-            $table->foreignId('productive_unit_id')->nullable()->constrained();
-            $table->timestamps();
+            $table->string('name')->unique();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -30,6 +28,7 @@ class CreateWorksTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('works');
     }
 }

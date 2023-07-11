@@ -22,8 +22,8 @@ class CreateMovementsTable extends Migration
             $table->integer('price');
             $table->text('observation')->nullable();
             $table->enum('state',['Anulado','Aprobado','Devuelto','Solicitado']);
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

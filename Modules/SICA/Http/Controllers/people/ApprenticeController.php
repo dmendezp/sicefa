@@ -9,8 +9,6 @@ use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Imports\ApprenticeImport;
 
-
-
 use Validator, Str, Excel;
 
 class ApprenticeController extends Controller
