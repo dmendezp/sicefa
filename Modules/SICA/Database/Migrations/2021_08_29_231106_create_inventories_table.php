@@ -29,8 +29,8 @@ class CreateInventoriesTable extends Migration
             $table->enum('state',['Disponible','No disponible'])->default('Disponible');
             $table->string('mark')->nullable();
             $table->unsignedInteger('inventory_code')->nullable();
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

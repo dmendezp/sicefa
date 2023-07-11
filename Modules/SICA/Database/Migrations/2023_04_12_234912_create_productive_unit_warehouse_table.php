@@ -17,6 +17,7 @@ class CreateProductiveUnitWarehouseTable extends Migration
             $table->id();
             $table->foreignId('productive_unit_id')->constrained()->onDelete('cascade');
             $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

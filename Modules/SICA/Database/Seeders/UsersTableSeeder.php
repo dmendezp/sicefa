@@ -4,7 +4,6 @@ namespace Modules\SICA\Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Modules\SICA\Entities\Person;
 
 class UsersTableSeeder extends Seeder
