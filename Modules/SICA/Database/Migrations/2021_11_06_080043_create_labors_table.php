@@ -15,10 +15,10 @@ class CreateLaborsTable extends Migration
     {
         Schema::create('labors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('activity_id')->constrained()->ondelete('cascade');
+            $table->foreignId('activity_id')->constrained()->onDelete('cascade');
             $table->text('description');
-            $table->enum('status',['programado', 'realizado', 'canselado']);
-            $table->text('observaciones');
+            $table->enum('status',['Programado','Realizado','Cancelado']);
+            $table->text('observations');
             $table->softDeletes();
             $table->timestamps();
         });

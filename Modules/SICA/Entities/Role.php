@@ -11,22 +11,38 @@ use App\Models\User;
 
 class Role extends Model implements Auditable
 {
-    use SoftDeletes;
-    use \OwenIt\Auditing\Auditable;
-    protected $dates = ['deleted_at'];
-    protected $hidden = ['created_at','updated_at'];
-    protected $fillable = ['name','slug','description','full-access','app_id'];
 
-    public function app(){
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+        SoftDeletes; // Borrado suave
+
+    protected $fillable = [ // Atributos modificables (asignación masiva)
+        'name',
+        'slug',
+        'description',
+        'description_english',
+        'full_access',
+        'app_id'
+    ];
+
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
+
+    protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
+        'created_at',
+        'updated_at'
+    ];
+
+    // RELACIONES
+    public function app(){ // Accede a la aplicación al que pertenece
         return $this->belongsTo(App::class);
     }
-
-    public function users(){
-        return $this->belongsToMany(User::class);
+    public function permissions(){ // Accede a todos los permisos que pertenecen a este rol (PIVOTE)
+        return $this->belongsToMany(Permission::class)->withTimestamps();
     }
-
-    public function permissions(){
-        return $this->belongsToMany(Permission::class);
+    public function responsibilities(){ // Accede a todas los registros de responsabilidades que pertenecen a este rol
+        return $this->hasMany(Responsibility::class);
+    }
+    public function users(){ // Accede todos los usuarios que pertenecen a este rol (PIVOTE)
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
 }
