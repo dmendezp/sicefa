@@ -350,7 +350,7 @@
         if(confirm("¿Desea eliminar el registro?")){
           $.ajax(
           {
-              url: 'http://127.0.0.1:8000/bolmeteor/admin/' + id,
+              url: base+'/bolmeteor/admin/'+id,
               type: 'POST',
               dataType: "JSON",
               data: {

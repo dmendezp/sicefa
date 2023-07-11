@@ -15,10 +15,12 @@ class CreateProductiveUnitsTable extends Migration
     {
         Schema::create('productive_units',  function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('person_id')->constrained()->ondelete('cascade');
+            $table->string('name')->unique();
             $table->text('description');
-            $table->string('icon');
+            $table->string('icon')->nullable();
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->foreignId('sector_id')->constrained()->onDelete('cascade');
+            $table->foreignId('farm_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +33,7 @@ class CreateProductiveUnitsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('productive_units');
     }
 }

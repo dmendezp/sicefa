@@ -15,7 +15,7 @@ class CreateKindOfPurchasesTable extends Migration
     {
         Schema::create('kind_of_purchases', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('description');
             $table->softDeletes();
             $table->timestamps();
@@ -29,6 +29,7 @@ class CreateKindOfPurchasesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('kind_of_purchases');
     }
 }

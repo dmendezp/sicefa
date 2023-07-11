@@ -18,12 +18,12 @@
         </div>
         @guest
           <div class="col info info-user">
-            <div>{{ trans('menu.Welcome') }}</div>             
+            <div>{{ trans('menu.Welcome') }}</div>
             <div><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
 
           </div>
           <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block" ><i class="fas fa-sign-in-alt"></i></a>
-          </div>  
+          </div>
         @else
           <div class="col info info-user">
             <div data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">{{ Auth::user()->nickname }}</div>
@@ -49,9 +49,9 @@
                       {{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}
                     </p>
                   </a>
-                </li>  
+                </li>
             </ul>
-        </nav>      
+        </nav>
       </div>
 
       <!-- Sidebar Menu -->
@@ -59,7 +59,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <!-- MENU PARA HOME (DE ACCESO GENERAL) -->
+<!-- MENU PARA HOME (DE ACCESO GENERAL) -->
           @if (Route::is('*home.*'))
             <li class="nav-item">
               <a href="{{ route('cefa.sica.home.index') }}" class="nav-link {{ ! Route::is('cefa.sica.home.index') ?: 'active' }}" >
@@ -76,7 +76,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('cefa.sica.home.developers') }}" class="nav-link {{ ! Route::is('cefa.sica.home.Developers') ?: 'active' }}">
+              <a href="{{ route('cefa.sica.home.developers') }}" class="nav-link {{ ! Route::is('cefa.sica.home.developers') ?: 'active' }}">
                 <i class="fas fa-industry"></i>
                 <p>
                   {{ trans('sica::menu.Developers') }}
@@ -85,19 +85,15 @@
             </li>
           @endif
 
-          <!-- CIERRA MENU PARA HOME (DE ACCESO GENERAL) -->
+<!-- CIERRA MENU PARA HOME (DE ACCESO GENERAL) -->
 <!-- MENU PARA ADMINISTRADOR -->
           @if (Route::is('*admin.*'))
-
-
             <li class="nav-item">
               <a href="{{ route('sica.admin.dashboard') }}" class="nav-link {{ ! Route::is('sica.admin.dashboard') ?: 'active' }}" >
                 <i class="fas fa-tachometer-alt"></i>
                 <p> {{ trans('sica::menu.Dashboard') }}</p>
               </a>
             </li>
-            @guest
-            @else
     <!-- MENU PARA PEOPLE -->
            <li class="nav-item {{ ! Route::is('sica.admin.people.*') ?: 'menu-is-opening menu-open' }}">
               <a href="#" class="nav-link {{ ! Route::is('sica.admin.people.*') ?: 'active' }}">
@@ -108,13 +104,15 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                @if(Auth::user()->havePermission('home.people.personal_data'))
+                @if(Auth::user()->havePermission('sica.admin.people.config'))
                 <li class="nav-item">
                   <a href="{{ route('sica.admin.people.config') }}" class="nav-link {{ ! Route::is('sica.admin.people.config*') ?: 'active' }}">
                     <i class="fas fa-cogs"></i>
                     <p>{{ trans('sica::menu.Config') }}</p>
                   </a>
                 </li>
+                @endif
+                @if(Auth::user()->havePermission('sica.admin.people.personal_data'))
                 <li class="nav-item">
                   <a href="{{ route('sica.admin.people.personal_data') }}" class="nav-link {{ ! Route::is('sica.admin.people.personal_data*') ?: 'active' }}">
                     <i class="fas fa-id-card"></i>
@@ -122,9 +120,9 @@
                   </a>
                 </li>
                 @endif
-                @if(Auth::user()->havePermission('sica.admin.people.search_apprentices'))
+                @if(Auth::user()->havePermission('sica.admin.people.apprentices'))
                 <li class="nav-item">
-                  <a href="{{ route('sica.admin.people.search_apprentices') }}" class="nav-link {{ ! Route::is('sica.admin.people.search_apprentices*') ?: 'active' }}">
+                  <a href="{{ route('sica.admin.people.apprentices') }}" class="nav-link {{ ! Route::is('sica.admin.people.apprentices*') ?: 'active' }}">
                     <i class="fas fa-user-graduate"></i>
                     <p>{{ trans('sica::menu.Apprentices') }}</p>
                   </a>
@@ -144,10 +142,18 @@
                 </li>
                 <li class="nav-item">
                   <a href="{{ route('sica.admin.people.contractors') }}" class="nav-link {{ ! Route::is('sica.admin.people.contractors*') ?: 'active' }}">
-                    <i class="far fa-id-card"></i>
+                    <i class="fa-solid fa-id-card-clip"></i>
                     <p>{{ trans('sica::menu.Contractors') }}</p>
                   </a>
                 </li>
+                @if(Auth::user()->havePermission('sica.admin.people.events_attendance'))
+                <li class="nav-item">
+                  <a href="{{ route('sica.admin.people.events_attendance') }}" class="nav-link {{ ! Route::is('sica.admin.people.events_attendance*') ?: 'active' }}">
+                    <i class="fa-solid fa-clipboard-user"></i>
+                    <p>{{ trans('sica::menu.Events attendance') }}</p>
+                  </a>
+                </li>
+                @endif
               </ul>
             </li>
     <!-- CIERRA MENU PARA PEOPLE -->
@@ -169,11 +175,11 @@
                   </a>
                 </li>
                 @endif
-                @if(Auth::user()->havePermission('sica.admin.academy.curriculums'))
+                @if(Auth::user()->havePermission('sica.admin.academy.programs'))
                 <li class="nav-item">
-                  <a href="{{ route('sica.admin.academy.curriculums') }}" class="nav-link {{ ! Route::is('sica.admin.academy.curriculums*') ?: 'active' }}">
+                  <a href="{{ route('sica.admin.academy.programs') }}" class="nav-link {{ ! Route::is('sica.admin.academy.programs*') ?: 'active' }}">
                     <i class="fas fa-book"></i>
-                    <p>{{ trans('sica::menu.Curriculums') }}</p>
+                    <p>{{ trans('sica::menu.Programs') }}</p>
                   </a>
                 </li>
                 @endif
@@ -216,13 +222,13 @@
                 @if(Auth::user()->havePermission('sica.admin.location.environments'))
                 <li class="nav-item">
                   <a href="{{ route('sica.admin.location.environments') }}" class="nav-link {{ ! Route::is('sica.admin.location.environments*') ?: 'active' }}">
-                    <i class="fas fa-street-view"></i>
+                    <i class="fa-solid fa-people-roof"></i>
                     <p>{{ trans('sica::menu.Environments') }}</p>
                   </a>
                 </li>
                 @endif
               </ul>
-            </li>    
+            </li>
     <!-- CIERRA MENU PARA LOCATION -->
     <!-- MENU PARA INVENTORY -->
             <li class="nav-item {{ ! Route::is('sica.admin.inventory.*') ?: 'menu-is-opening menu-open' }}">
@@ -239,6 +245,14 @@
                   <a href="{{ route('sica.admin.inventory.warehouses') }}" class="nav-link {{ ! Route::is('sica.admin.inventory.warehouses*') ?: 'active' }}">
                     <i class="fas fa-warehouse"></i>
                     <p>{{ trans('sica::menu.Warehouses') }}</p>
+                  </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('sica.admin.inventory.parameters.index'))
+                <li class="nav-item">
+                  <a href="{{ route('sica.admin.inventory.parameters.index') }}" class="nav-link {{ ! Route::is('sica.admin.inventory.parameters.index*') ?: 'active' }}">
+                    <i class="fas fa-stream"></i>
+                    <p>{{ trans('sica::menu.Parameters') }}</p>
                   </a>
                 </li>
                 @endif
@@ -265,9 +279,9 @@
                     <p>{{ trans('sica::menu.Inventory') }}</p>
                   </a>
                 </li>
-                @endif              
+                @endif
               </ul>
-            </li>    
+            </li>
     <!-- CIERRA MENU PARA INVENTORY -->
     <!-- MENU PARA UNITS -->
             <li class="nav-item {{ ! Route::is('sica.admin.units.*') ?: 'menu-is-opening menu-open' }}">
@@ -304,7 +318,7 @@
                 </li>
                 @endif
               </ul>
-            </li>    
+            </li>
     <!-- CIERRA MENU PARA UNITS -->
     <!-- MENU PARA SECURITY -->
             <li class="nav-item {{ ! Route::is('sica.admin.security.*') ?: 'menu-is-opening menu-open' }}">
@@ -342,10 +356,40 @@
                 @endif
               </ul>
             </li>
-    <!-- CIERRA MENU PARA SECURITY -->                       
-            @endguest
+    <!-- CIERRA MENU PARA SECURITY -->
           @endif
 <!-- CIERRA MENU PARA ADMINISTRADOR -->
+<!-- MENU PARA ATTENDANCE -->
+          @if (Route::is('*attendance.*'))
+            <li class="nav-item">
+              <a href="{{ route('sica.attendance.dashboard') }}" class="nav-link {{ ! Route::is('sica.attendance.dashboard') ?: 'active' }}" >
+                <i class="fas fa-tachometer-alt"></i>
+                <p> {{ trans('sica::menu.Dashboard') }}</p>
+              </a>
+            </li>
+    <!-- MENU PARA PEOPLE -->
+           <li class="nav-item {{ ! Route::is('sica.attendance.people.*') ?: 'menu-is-opening menu-open' }}">
+              <a href="#" class="nav-link {{ ! Route::is('sica.attendance.people.*') ?: 'active' }}">
+                <i class="fas fa-users"></i>
+                <p>
+                  {{ trans('sica::menu.People') }}
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                @if(Auth::user()->havePermission('sica.attendance.people.events_attendance'))
+                <li class="nav-item">
+                  <a href="{{ route('sica.attendance.people.events_attendance') }}" class="nav-link {{ ! Route::is('sica.attendance.people.events_attendance*') ?: 'active' }}">
+                    <i class="fa-solid fa-clipboard-user"></i>
+                    <p>{{ trans('sica::menu.Events attendance') }}</p>
+                  </a>
+                </li>
+                @endif
+              </ul>
+            </li>
+    <!-- CIERRA MENU PARA PEOPLE -->
+          @endif
+<!-- CIERRA MENU PARA ATTENDANCE -->
 
         </ul>
       </nav>

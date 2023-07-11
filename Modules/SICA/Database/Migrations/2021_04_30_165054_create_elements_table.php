@@ -15,12 +15,15 @@ class CreateElementsTable extends Migration
     {
         Schema::create('elements', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->foreignId('measurement_unit_id')->constrained()->onDelete('cascade');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->foreignId('kind_of_purchase_id')->constrained()->onDelete('cascade');
-            $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
-            $table->unsignedInteger('UNSPSC_code')->unique();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->integer('price')->nullable();
+            $table->unsignedInteger('UNSPSC_code')->unique()->nullable();
+            $table->string('image')->nullable();
+            $table->string('slug'); // Campo para almacenar url amigable
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,6 +36,7 @@ class CreateElementsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('elements');
     }
 }

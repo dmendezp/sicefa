@@ -4,22 +4,35 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Country;
 use Modules\SICA\Entities\Municipality;
 
-class Department extends Model
+class Department extends Model implements Auditable
 {
-    use SoftDeletes;
-    protected $fillable = [];
-    protected $dates = ['deleted_at'];
-    protected $hidden = ['created_at','updated_at'];
 
-    public function municipalities(){
-        return $this->hasMany(Municipality::class);
-    }
+    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
 
-    public function country(){
+    use SoftDeletes; // Borrado suave
+
+    protected $fillable = [ // Atributos modificables (asignación masiva)
+        'name',
+        'country_id'
+    ];
+
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
+
+    protected $hidden = [ // Datos para ocultar en una respuesta array o JSON
+        'created_at',
+        'updated_at'
+    ];
+
+    // RELACIONES
+    public function country(){ // Accede a la información del pais al que pertenece
         return $this->belongsTo(Country::class);
+    }
+    public function municipalities(){ // Accede a todos los municipios asociados a este departamento
+        return $this->hasMany(Municipality::class);
     }
 
 }

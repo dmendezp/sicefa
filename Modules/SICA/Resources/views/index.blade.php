@@ -68,9 +68,9 @@
                   <span class="badge bg-info">53</span>
                   <i class="fas fa-tractor"></i> Maquinaria
                 </a>
-                
+
         </div>
-           
+
         </div>
         <div class="col-md-6">
             <section id="hero" >
@@ -83,4 +83,3 @@
     </div>
 </div>
 @endsection
-    

@@ -2,7 +2,7 @@
 
 namespace Modules\BOLMETEOR\Imports;
 
-use Modules\BOLMETEOR\Entities\climaticdata;
+use Modules\BOLMETEOR\Entities\Climaticdata;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Carbon\Carbon;

@@ -28,6 +28,7 @@
 }
 
 .navbar-nav .nav-item .nav-link {
+  padding-left: 10px;
   color:  #555 !important;
 }
 
@@ -45,6 +46,11 @@
   background-color: #F68953 !important;
   border-radius: 5px;
 }
+
+.nav-treeview .nav-item>.nav-link i{
+  padding-left: 50px !important;
+}
+
 
 .content-wrapper{
   background-color: #feece7;

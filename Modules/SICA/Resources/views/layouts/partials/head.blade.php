@@ -8,8 +8,16 @@
   <link href="{{ asset('sica/favicon.ico') }}" rel="icon">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/fontawesome-free-6/css/all.min.css') }}">
+
+<!-- Loading the v6 core styles and the Solid and Brands styles -->
+  <link href="{{ asset('fontawesome6/css/fontawesome.css') }}" rel="stylesheet">
+  <link href="{{ asset('fontawesome6/css/brands.css') }}" rel="stylesheet">
+  <link href="{{ asset('fontawesome6/css/solid.css') }}" rel="stylesheet">
+
+  <!-- update existing v5 CSS to use v6 icons and assets -->
+  <link href="{{ asset('fontawesome6/css/v5-font-face.css') }}" rel="stylesheet">
+
+
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/fullcalendar/lib/main.css') }}">
@@ -22,6 +30,9 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
-<link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
+  {{-- Sweatalert and toast --}}
+  <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/toastr/toastr.min.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
 
 </head>
