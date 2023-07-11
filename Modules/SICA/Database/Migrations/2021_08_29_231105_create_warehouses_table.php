@@ -18,8 +18,8 @@ class CreateWarehousesTable extends Migration
             $table->string('name')->unique();
             $table->text('description');
             $table->foreignId('app_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

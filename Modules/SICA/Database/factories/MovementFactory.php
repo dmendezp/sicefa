@@ -30,7 +30,7 @@ class MovementFactory extends Factory
         $states = ['Anulado','Aprobado','Devuelto','Solicitado'];
 
         return [
-            'registration_date' => $fr->format('Y-m-d H:i:s'),
+            'registration_date' => $fr->format('Y-m-d'),
             'movement_type_id' => MovementType::inRandomOrder()->first()->id,
             'voucher_number' => function (array $attributes) {
                 $movementType = MovementType::find($attributes['movement_type_id']);

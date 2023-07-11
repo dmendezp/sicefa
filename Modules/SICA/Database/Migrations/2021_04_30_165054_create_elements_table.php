@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -18,7 +17,7 @@ class CreateElementsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->foreignId('measurement_unit_id')->constrained()->onDelete('cascade');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->foreignId('kind_of_purchase_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->integer('price')->nullable();

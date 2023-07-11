@@ -18,8 +18,8 @@ class CreateMeasurementUnitsTable extends Migration
             $table->string('name')->unique();
             $table->string('minimum_unit_measure');
             $table->float('conversion_factor', 8, 2);
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

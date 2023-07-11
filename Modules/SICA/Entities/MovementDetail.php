@@ -9,9 +9,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 class MovementDetail extends Model implements Auditable
 {
 
-    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
-
-    use SoftDeletes; // Borrado suave
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+        SoftDeletes; // Borrado suave
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'movement_id',
@@ -20,18 +19,19 @@ class MovementDetail extends Model implements Auditable
         'price'
     ];
 
-    protected $dates = [ // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formato y manipulación de fecha y hora)
-        'deleted_at',
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objeto Carbon
+
+    protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
         'updated_at'
     ];
 
     // RELACIONES
-    public function movement(){ // Accede a la información del movimiento asociado
-        return $this->belongsTo(Movement::class);
-    }
-    public function inventory(){ // Accede a la información del inventario asociado
+    public function inventory(){ // Accede a la información del inventario al que pertenece
         return $this->belongsTo(Inventory::class);
+    }
+    public function movement(){ // Accede a la información del movimiento al que pertence
+        return $this->belongsTo(Movement::class);
     }
 
 }
