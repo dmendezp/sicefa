@@ -10,11 +10,9 @@ use OwenIt\Auditing\Contracts\Auditable;
 class Inventory extends Model implements Auditable
 {
 
-    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados BD
-
-    use SoftDeletes; // Borrado suave
-
-    use HasFactory; // Generación de datos de prueba
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+        SoftDeletes, // Borrado suave
+        HasFactory; // Generación de datos de prueba
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'person_id',
@@ -33,7 +31,7 @@ class Inventory extends Model implements Auditable
         'inventory_code'
     ];
 
-    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objeto Caron (para aprovechar las funcines de formato y manipulación de fecha y hora)
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objeto Carbon
 
     protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
@@ -49,14 +47,17 @@ class Inventory extends Model implements Auditable
     }
 
     // RELACIONES
-    public function element(){ // Accede a la información de elemento asociado
+    public function element(){ // Accede a la información de elemento al que pertenece
         return $this->belongsTo(Element::class);
     }
-    public function warehouse(){ // Accede a la información de la bodega asociada
-        return $this->belongsTo(Warehouse::class);
+    public function movement_details(){ // Accede a todos los detalles de movimiento que pertenecen a este inventario
+        return $this->hasMany(MovementDetail::class);
     }
     public function person(){ // Accede a la información de los datos personales de la persona responsable
         return $this->belongsTo(Person::class);
+    }
+    public function warehouse(){ // Accede a la información de la bodega al que pertenece
+        return $this->belongsTo(Warehouse::class);
     }
 
 

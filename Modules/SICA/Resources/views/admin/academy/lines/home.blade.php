@@ -11,7 +11,7 @@
                     <div class="card-header">
                         <h3 class="card-title">{{ trans('sica::menu.Technological lines')}}</h3>
                         <div class="btns">
-                            <a href="{{ route('sica.admin.academy.programs') }}" class="btn btn-info float-right ml-1">{{ trans('sica::menu.Programs')}} <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
+                            <a href="{{ route('sica.admin.academy.programs') }}" class="btn btn-info float-right ml-1">{{ trans('sica::menu.Formation Programs')}} <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
                             <a href="{{ route('sica.admin.academy.networks') }}" class="btn btn-info float-right ml-1"> {{ trans('sica::menu.Knowledge Networks')}} <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
     <div id="loader" style="display: none;"> {{-- Loader modal --}}
         <div class="modal-body text-center" id="modal-loader">
             <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
+                <span class="sr-only">{{trans('sica::menu.Loading Content')}}</span>
             </div><br>
             <b id="loader-message"></b>
         </div>
@@ -91,7 +91,7 @@
 
         function ajaxAction(route) {
             /* Ajax to show content modal to add line */
-            $('#loader-message').text('Cargando contenido...'); /* Add content to loader */
+            $('#loader-message').text("{{trans('sica::menu.Loading Content')}}"); /* Add content to loader */
             $('#modal-content').append($('#modal-loader').clone()); /* Add the loader to the modal */
             $.ajaxSetup({
                 headers: {

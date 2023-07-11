@@ -9,13 +9,13 @@
             <div class="d-flex justify-content-center">
                 <div class="card card-orange card-outline shadow col-md-12">
                     <div class="card-header">
-                        <h3 class="card-title">Programas de Formación</h3>
+                        <h3 class="card-title">{{trans('sica::menu.Formation Programs')}}</h3>
                         <div class="btns">
                             <a href="{{ route('sica.admin.academy.networks') }}" class="btn btn-info float-right ml-1">
-                              <i class="fa-solid fa-angles-left fa-beat-fade"></i> Redes
+                              <i class="fa-solid fa-angles-left fa-beat-fade"></i> {{ trans('sica::menu.Knowledge Networks')}}
                             </a>
                             <a href="{{ route('sica.admin.academy.lines') }}" class="btn btn-info float-right ml-1">
-                              <i class="fa-solid fa-angles-left fa-beat-fade"></i> Lineas
+                              <i class="fa-solid fa-angles-left fa-beat-fade"></i> {{trans('sica::menu.Technological lines')}}
                             </a>
                         </div>
                     </div>
@@ -27,11 +27,11 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Código</th>
-                                        <th>Tipo</th>
-                                        <th>Nombre</th>
-                                        <th>Red</th>
-                                        <th>Acciones
+                                        <th>{{trans('sica::menu.Code')}}</th>
+                                        <th>{{trans('sica::menu.Type')}}</th>
+                                        <th>{{trans('sica::menu.Name')}}</th>
+                                        <th>{{trans('sica::menu.Knowledge Network')}}</th>
+                                        <th>{{trans('sica::menu.Actions')}}
                                             <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.program.create') }}')">
                                                 <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
                                                     <i class="fas fa-plus-circle"></i>
@@ -84,7 +84,7 @@
     <div id="loader" style="display: none;"> {{-- Loader modal --}}
         <div class="modal-body text-center" id="modal-loader">
             <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
+                <span class="sr-only">{{trans('sica::menu.Loading Content')}}</span>
             </div><br>
             <b id="loader-message"></b>
         </div>
@@ -103,7 +103,7 @@
 
         function ajaxAction(route) {
             /* Ajax to show content modal to add line */
-            $('#loader-message').text('Cargando contenido...'); /* Add content to loader */
+            $('#loader-message').text("{{trans('sica::menu.Loading Content')}}"); /* Add content to loader */
             $('#modal-content').append($('#modal-loader').clone()); /* Add the loader to the modal */
             $.ajaxSetup({
                 headers: {
