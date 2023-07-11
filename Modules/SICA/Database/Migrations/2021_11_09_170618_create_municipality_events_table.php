@@ -15,9 +15,9 @@ class CreateMunicipalityEventsTable extends Migration
     {
         Schema::create('municipality_events', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained()->ondelete('cascade');
-            $table->foreignId('municipality_id')->constrained()->ondelete('cascade');
-            $table->enum('event_type', ['municipality_of_issue', 'municipality_of_birth', 'municipality']);
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->foreignId('municipality_id')->constrained()->onDelete('cascade');
+            $table->enum('event_type', ['Expedición de identificación','Nacimiento','Residencia']);
             $table->softDeletes();
             $table->timestamps();
         });

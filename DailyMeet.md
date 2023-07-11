@@ -16,12 +16,12 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ## CEFAMAPS 📌
 
 ### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar*
+#### Sprint Planning 24-Ene-2023
+* **Neythan Sabogal** - *CRUDS de environment, unidades y granjas* - *100%* - *Me dificulto un poco al principio hacer mi primer CRUD que fue el de unidades* - *Ninguna*
 * **Integrante 2** - *Actividades a realizar*
 ...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 07-Feb-2023
+* **Neythan Sabogal** - *Avance de agregar coordenadas, aunque ya me muestra las cordenadas en el mapa, con las coordenadas guardadas en la base de datos* - *40%* - *Me dificulto poder que las coordenas me agrgaran en el programa, pero con ayuda del profesor se pudo resolver, ahora me dificul hacer input con jQuery* - *Ninguna*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 31-Oct-2022
@@ -33,8 +33,14 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
+<<<<<<< HEAD
+* **Ana Maria Falla Molina** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Kevin Sneyder Daza** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Neythan Sabogal Gaitan** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+=======
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+>>>>>>> a3030d7a27201be61874522bc151759c340c2087
 ---
 #### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -157,6 +163,30 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
+<<<<<<< HEAD
+* **Integrante 1** - *Actividades a realizar* 
+* **Integrante 2** - *Actividades a realizar*
+...
+#### Meet 28-Oct-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 31-Oct-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 02-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 04-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 07-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+=======
 * **Diego Tovar** - *Actividades a realizar:*
 *Crear nuevo modulo con nwidart*, 
 *Asociar modulo a la tabla apps*, 
@@ -204,6 +234,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Jesus Guevara** - *Actividades realizadas:*
 *Determinación de los nuevos requerimientos para el módulo nuevo*
  - *Avance 100%* - *Dificultades* - *Acciones*
+>>>>>>> a3030d7a27201be61874522bc151759c340c2087
 ---
 
 ## KOLINA 🏕
@@ -238,6 +269,30 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
+<<<<<<< HEAD
+* **Integrante 1** - *Actividades a realizar* 
+* **Integrante 2** - *Actividades a realizar*
+...
+#### Meet 28-Oct-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 31-Oct-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 02-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 04-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 07-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+=======
 * **Integrante 1** - *Actividades a realizar: Crear carpeta proyecto, Clonar Sicefa Rama-Proyecto, Asociar usuario damendezp, Commit,Push, Merge, Pull* 
 
 ...
@@ -300,6 +355,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 #### Meet 23-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 
+>>>>>>> a3030d7a27201be61874522bc151759c340c2087
 ---
 
 ## BURGUER WEB 🍔

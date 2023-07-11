@@ -9,15 +9,15 @@
             <div class="d-flex justify-content-center">
                 <div class="card card-orange card-outline shadow col-md-12">
                     <div class="card-header">
-                        <h3 class="card-title">Tituladas</h3>
+                        <h3 class="card-title">{{trans('sica::menu.Courses')}}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="btns">
                             <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.course.create') }}')" class="btn btn-primary">
                               <b data-toggle="tooltip" data-placement="top" title="Agregar">
-                                <i class="fa-solid fa-file-circle-plus fa-beat-fade"></i>
-                                {{ __('Agregar Titulada') }}
+                                <i class="fa-solid fa-file-circle-plus"></i>
+                                {{trans('sica::menu.Add Course')}}
                               </b>
                             </a>
                         </div>
@@ -26,13 +26,13 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Ficha</th>
-                                        <th>Nombre</th>
-                                        <th>F Inicio</th>
-                                        <th>F Cierre</th>
-                                        <th>Estado</th>
-                                        <th>Descolarizado</th>
-                                        <th>Acciones</th>
+                                        <th>{{trans('sica::menu.Fiche')}}</th>
+                                        <th>{{trans('sica::menu.Name')}}</th>
+                                        <th>{{trans('sica::menu.Start Date')}}</th>
+                                        <th>{{trans('sica::menu.End Date')}}</th>
+                                        <th>{{trans('sica::menu.Status')}}</th>
+                                        <th>{{trans('sica::menu.Deschooling')}}</th>
+                                        <th>{{trans('sica::menu.Actions')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
