@@ -53,7 +53,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column">
                     <li class="nav-item">
                         <a href="{{ route('cefa.welcome') }}" class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
-                            <i class="fas fa-puzzle-piece"></i>
+                            <i class="nav-icon fas fa-puzzle-piece"></i>
                             <p>{{ trans('ptventa::general.Back to SICEFA')}}</p>
                         </a>
                     </li>
@@ -129,6 +129,13 @@
                             class="nav-link {{ !Route::is('cefa.ptventa.info*') ?: 'active' }}">
                             <i class="nav-icon fas fa-info"></i>
                             <p>{{ trans('ptventa::general.About us')}}</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.ptventa.factura') }}"
+                            class="nav-link {{ !Route::is('cefa.ptventa.factura*') ?: 'active' }}">
+                            <i class="nav-icon far fa-sticky-note"></i>
+                            <p>Generar Factura</p>
                         </a>
                     </li>
                 </ul>

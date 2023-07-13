@@ -21,4 +21,9 @@ class PTVENTAController extends Controller
         $view = ['titlePage'=>trans('ptventa::about.About us'), 'titleView'=>trans('ptventa::about.About us')];
         return view('ptventa::information.index', compact('view'));
     }
+
+    public function generarFactura(){
+        $view = ['titlePage'=>trans('ptventa::about.Factura'), 'titleView'=>trans('ptventa::about.Factura')];
+        return view('ptventa::purchaseInvoice', compact('view'));
+    }
 }
