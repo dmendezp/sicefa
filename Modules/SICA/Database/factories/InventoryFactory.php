@@ -33,7 +33,7 @@ class InventoryFactory extends Factory
         $amount =  0;
         $state = $this->faker->randomElement(['Disponible','No disponible']);
         if($state == 'Disponible'){ // Verficar la cantidad para así establecer el estado del inventario del elemento
-            $amount = $this->faker->numberBetween(0, 100);
+            $amount = $this->faker->numberBetween(1, 100);
         }
 
         $destinations = [

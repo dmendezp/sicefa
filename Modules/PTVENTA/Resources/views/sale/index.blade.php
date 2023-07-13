@@ -33,7 +33,7 @@
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td class="text-center">{{ $s->voucher_number }}</td>
-                                <td>{{ $s->movement_responsabilities->where('role','CLIENTE')->first()->person->full_name }}</td>
+                                <td>{{ $s->movement_responsibilities->where('role','CLIENTE')->first()->person->full_name }}</td>
                                 <td class="text-center">{{ $s->registration_date }}</td>
                                 <td class="text-center">
                                     <b class="bg-{{ $s->state=='Aprobado' ? 'success' : 'warning'  }} text-dark rounded-5 px-2" style="font-size: 12px;">
