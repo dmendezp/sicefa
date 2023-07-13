@@ -5,7 +5,8 @@
 @endpush
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item"><a href="#" class="text-decoration-none">{{ trans('sigac::attendance.Attendance') }}</a>
+    <li class="breadcrumb-item">
+        <a href="#" class="text-decoration-none">{{ trans('sigac::attendance.Attendance') }}</a>
     </li>
     <li class="breadcrumb-item active">{{ trans('sigac::attendance.Register') }}</li>
 @endpush

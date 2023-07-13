@@ -25,6 +25,7 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
         
         Route::prefix('attendance')->group(function(){
             Route::get('/register', [AttendanceController::class, 'index'])->name('cefa.sigac.attendance.register'); // Vista principal.
+            Route::get('/consult', [AttendanceController::class, 'consultAttendance'])->name('cefa.sigac.attendance.consult'); // Vista principal.
         });
     
         // Rutas para ....

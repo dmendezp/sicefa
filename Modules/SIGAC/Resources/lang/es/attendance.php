@@ -4,7 +4,9 @@ return [
     //Breadcrumb
     'Attendance'              => 'Asistencia',
     'Register'                => 'Registro',
-    'Attendance registration' => 'Registro de Asistencia',
+    'Consult'                 => 'Consulta',
+    'Attendance Registration' => 'Registro de Asistencia',
+    'Attendance Consult'      => 'Consulta de Asistencia',
 
     //Card
     'CardTitle'               => 'Ambiente N° 1',
