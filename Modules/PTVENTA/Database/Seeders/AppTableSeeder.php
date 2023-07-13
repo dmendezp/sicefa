@@ -37,7 +37,7 @@ class AppTableSeeder extends Seeder
             'description' => 'Unidades encargadas de comercializar o vender productos directos o por producción de centro'
         ]);
 
-        /* Obtner ubicación de la granja */
+        /* Obtener ubicación de la granja */
         $country = Country::firstOrCreate([
             'name' => 'Colombia'
         ]);
