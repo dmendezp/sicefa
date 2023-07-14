@@ -47,6 +47,13 @@
                             <p>{{ trans('sigac::general.Consult Apprentice') }}</p>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.sigac.schedule.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-user-clock"></i>
+                            <p>{{ trans('sigac::schedule.Schedule Instructor') }}</p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
