@@ -25,9 +25,13 @@ class InventoryFactory extends Factory
     public function definition()
     {
         $fa = new DateTime(); // Fecha actual
-        $fmp = $fa->sub(new DateInterval('P5Y')); // Fecha mínima de producción
+
+        $fmp = clone $fa; // Clonar fecha actual para fecha mínima de producción
+        $fmp->modify('-1 week'); // Generar fecha mínima de producción
         $fp = $this->faker->dateTimeBetween($fmp, $fa); // Fecha de producción
-        $fmv = $fp->add(new DateInterval('P3Y')); // Fecha máxima de vencimiento
+
+        $fmv = clone $fp; // Clonar fecha de producción para fecha de vencimiento
+        $fmv->modify('+1 week'); // Generar fecha máxima de vencimiento
         $fv = $this->faker->dateTimeBetween($fp, $fmv); // Fecha de vencimiento
 
         $amount =  0;
@@ -36,16 +40,11 @@ class InventoryFactory extends Factory
             $amount = $this->faker->numberBetween(1, 100);
         }
 
-        $destinations = [
-            'Formación',
-            'Producción'
-        ];
-
         return [
             'person_id' => Person::where('document_number',52829681)->first()->id,
             'warehouse_id' => Warehouse::where('name','Punto de venta')->first()->id,
             'element_id' => Element::pluck('id')->random(),
-            'destination' => $this->faker->randomElement($destinations),
+            'destination' => 'Producción',
             'description' => $this->faker->randomElement([null, rtrim($this->faker->unique()->sentence(), '.')]),
             'price' => $this->faker->numberBetween(10, 100) * 100,
             'amount' => $amount,
@@ -54,8 +53,7 @@ class InventoryFactory extends Factory
             'lot_number' => $this->faker->randomNumber(4, true),
             'expiration_date' => $fv->format('Y-m-d'),
             'state' => $state,
-            'mark' => $this->faker->words(rand(0, 3), true),
-            'inventory_code' => $this->faker->randomElement([null, $this->faker->randomNumber(7, true)])
+            'mark' => 'CEFA'
         ];
     }
 }
