@@ -22,8 +22,11 @@ class PTVENTAController extends Controller
         return view('ptventa::information.index', compact('view'));
     }
 
-    public function generarFactura(){
-        $view = ['titlePage'=>trans('ptventa::about.Factura'), 'titleView'=>trans('ptventa::about.Factura')];
-        return view('ptventa::purchaseInvoice', compact('view'));
+    /* Seccion de pruebas de factura */
+
+    public function indexTicket(){
+        $view = ['titlePage'=>trans('ptventa::ticket.Factura'), 'titleView'=>trans('ptventa::ticket.Factura')];
+        return view('ptventa::purchaseInvoice.index', compact('view'));
     }
+
 }
