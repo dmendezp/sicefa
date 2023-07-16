@@ -54,8 +54,8 @@
                                 </svg>
                                 <h4>{{ trans('ptventa::devs.Apprentice')}}</h4>
                                 <p>Nelsy Yulied Gomez Morales</p>
-                                <a class="btn btn-primary" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-dark" href="#"><i class="fab fa-github"></i></a>
+                                <a class="btn btn-primary" href="www.linkedin.com/in/nelsy-yulied-gomez-morales-5b1b37267"><i class="fab fa-linkedin-in"></i></a>
+                                <a class="btn btn-dark" href="https://github.com/nelsygomez11"><i class="fab fa-github"></i></a>
                                 <a class="btn btn-info" href="#"><i class="fab fa-twitter"></i></a>
                             </div>
                             <div class="col-lg-6 mb-4" data-aos="zoom-in">
