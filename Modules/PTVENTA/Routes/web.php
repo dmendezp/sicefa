@@ -20,6 +20,7 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('index', 'index')->name('cefa.ptventa.index'); // Vista principal y pública de la aplicación.
             Route::get('developers', 'devs')->name('cefa.ptventa.devs'); // Vista de creditos ydesarrolladores, pública de la aplicación.
             Route::get('information', 'info')->name('cefa.ptventa.info'); // Vista mas info sobre PTVENTA y pública de la aplicación.
+            Route::get('ticket', 'indexTicket')->name('cefa.ptventa.ticket');
         });
 
         //Rutas para Inventario

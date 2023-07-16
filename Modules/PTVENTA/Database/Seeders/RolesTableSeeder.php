@@ -26,6 +26,7 @@ class RolesTableSeeder extends Seeder
             'name' => 'Administrador',
             'description' => 'Rol Administrador de la aplicacion PTVENTA',
             'description_english' => 'PTVENTA Application Administrator Role',
+            'full_access' => 'Si',
             'app_id' => $app->id
         ]);
 

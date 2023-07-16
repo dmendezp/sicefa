@@ -26,7 +26,7 @@ class RolesTableSeeder extends Seeder
             'name' => 'Super Administrador',
             'description' => 'Rol Superadministrador de SICEFA',
             'description_english' => 'Role Super administrator of SICEFA',
-            'full_access' => 'yes',
+            'full_access' => 'Si',
             'app_id' => $app->id
         ]);
 

@@ -21,4 +21,12 @@ class PTVENTAController extends Controller
         $view = ['titlePage'=>trans('ptventa::about.About us'), 'titleView'=>trans('ptventa::about.About us')];
         return view('ptventa::information.index', compact('view'));
     }
+
+    /* Seccion de pruebas de factura */
+
+    public function indexTicket(){
+        $view = ['titlePage'=>trans('ptventa::ticket.Factura'), 'titleView'=>trans('ptventa::ticket.Factura')];
+        return view('ptventa::purchaseInvoice.index', compact('view'));
+    }
+
 }

@@ -29,8 +29,8 @@ class EPS extends Model implements Auditable
     }
 
     // RELACIONES
-    public function people(){
-        return $this->hasMany(Person::class, 'eps_id'); // Se debe especificar el campo origin de la relación en la tabla people
+    public function people(){ // Accede a todas las personas asociadas a esta eps
+        return $this->hasMany(Person::class, 'eps_id'); // Se especifica el campo origen de la relación en la tabla people
     }
 
 }

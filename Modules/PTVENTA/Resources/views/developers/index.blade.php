@@ -68,8 +68,8 @@
                                 </svg>
                                 <h4>{{ trans('ptventa::devs.Apprentice')}}</h4>
                                 <p>Anyi Katherine Rojas Arce</p>
-                                <a class="btn btn-primary" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="btn btn-dark" href="#"><i class="fab fa-github"></i></a>
+                                <a class="btn btn-primary" href="https://www.linkedin.com/in/anyi-rojas-25a003268/"><i class="fab fa-linkedin-in"></i></a>
+                                <a class="btn btn-dark" href="https://github.com/anyi-rojas"><i class="fab fa-github"></i></a>
                                 <a class="btn btn-info" href="#"><i class="fab fa-twitter"></i></a>
                             </div>
                         </div>

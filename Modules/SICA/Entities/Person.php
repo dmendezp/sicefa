@@ -12,18 +12,15 @@ use Modules\SICA\Entities\Apprentice;
 use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
-use Modules\PTVENTA\Entities\CashCount;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Event;
 
 class Person extends Model implements Auditable
 {
 
-    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
-
-    use SoftDeletes; // Borrado suave
-
-    use HasFactory; // Generación de datos de prueba
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+        SoftDeletes, // Borrado suave
+        HasFactory; // Generación de datos de prueba
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'document_type',
@@ -51,7 +48,7 @@ class Person extends Model implements Auditable
         'population_group_id'
     ];
 
-    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formato y manipulación de fecha y hora)
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
     protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
@@ -59,32 +56,6 @@ class Person extends Model implements Auditable
     ];
 
     // MUTADORES Y ACCESORES
-    public function setFirstNameAttribute($value){ // Convertir a mayúsculas en valor del dato first_name (MUTADOR)
-        return $this->attributes['first_name'] = mb_strtoupper($value);
-    }
-    public function setFirstLastNameAttribute($value){ // Convertir a mayúsculas en valor del dato first_last_name (MUTADOR)
-        return $this->attributes['first_last_name'] = mb_strtoupper($value);
-    }
-    public function setSecondLastNameAttribute($value){ // Convertir a mayúsculas en valor del dato second_last_name (MUTADOR)
-        return $this->attributes['second_last_name'] = mb_strtoupper($value);
-    }
-    public function setAddressAttribute($value){ // Convierte el primer carácter en mayúscula del dato address (MUTADOR)
-        $this->attributes['address'] = ucfirst($value);
-    }
-    public function getFullNameAttribute(){ // Obtener el nombre completo de la persona first_name + first_last_name + second_last_name (ACCESOR)
-        return $this->first_name.' '.$this->first_last_name.' '.$this->second_last_name;
-    }
-    public function getIdentificationTypeNumberAttribute(){ // Obtener las iniciales del tipo y el número de identificación CC - 123456 (ACCESOR)
-        $document_types = array(
-            "Cédula de ciudadanía" => "CC",
-            "Tarjeta de identidad" => "TI",
-            "Cédula de extranjería" => "CE",
-            "Pasaporte" => "PP",
-            "Documento nacional de identidad" => "DNI",
-            "Registro civil" => "RC"
-        );
-        return $document_types[$this->document_type].' - '.$this->document_number;
-    }
     public function getAgeAttribute(){ // Obtener la edad actual a partir de la fecha nacimiento (ACCESOR)
         if($this->date_of_birth!=''):
             $dias = explode("-", $this->date_of_birth, 3);
@@ -95,40 +66,67 @@ class Person extends Model implements Auditable
             return "--";
         endif;
     }
+    public function getFullNameAttribute(){ // Obtener el nombre completo de la persona first_name + first_last_name + second_last_name (ACCESOR)
+        return $this->first_name.' '.$this->first_last_name.' '.$this->second_last_name;
+    }
+    public function setAddressAttribute($value){ // Convierte el primer carácter en mayúscula del dato address (MUTADOR)
+        $this->attributes['address'] = ucfirst($value);
+    }
+    public function setFirstLastNameAttribute($value){ // Convertir a mayúsculas en valor del dato first_last_name (MUTADOR)
+        return $this->attributes['first_last_name'] = mb_strtoupper($value);
+    }
+    public function setFirstNameAttribute($value){ // Convertir a mayúsculas en valor del dato first_name (MUTADOR)
+        return $this->attributes['first_name'] = mb_strtoupper($value);
+    }
+    public function setSecondLastNameAttribute($value){ // Convertir a mayúsculas en valor del dato second_last_name (MUTADOR)
+        return $this->attributes['second_last_name'] = mb_strtoupper($value);
+    }
 
     // RELACIONES
-    public function e_p_s(){ // Accede a la EPS que se encuentra asociado(a)
-        return $this->belongsTo(EPS::class, 'eps_id'); // Se debe agregar el campo eps_id de people para que la convensión no lo tome como e_p_s_id
-    }
-    public function population_group(){ // Accede al grupo poblacional que pertenece
-        return $this->belongsTo(PopulationGroup::class);
-    }
-    public function users(){ // Accede a todos los usuarios registrados con esta persona
-        return $this->hasMany(User::class);
-    }
-    public function apprentices(){ // Accede a todos los registros de aprendices que han sido asociados a esta persona
+    public function apprentices(){ // Accede a todos aprendices que han sido asociados con esta persona
         return $this->hasMany(Apprentice::class);
     }
     public function authorizeds(){ // Accede a todas los registros de las personas que han sido autorizados para votar
         return $this->hasMany(Authorized::class);
     }
+    public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
+        return $this->hasMany(Contractor::class);
+    }
+    public function employees(){ // Accede a todos los registros de empleados que pertenecen a esta persona
+        return $this->hasMany(Employee::class);
+    }
+    public function e_p_s(){ // Accede a la EPS que se encuentra asociado(a)
+        return $this->belongsTo(EPS::class, 'eps_id'); // Se debe agregar el campo eps_id de people para que la convensión no lo tome como e_p_s_id
+    }
+    public function events(){ // Accede a todos los eventos que ha asistido esta persona (PIVOTE)
+        return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
+    }
+    public function executors(){ // Accede a todos los registros de ejecutores que pertenecen a esta persona
+        return $this->hasMany(Executor::class);
+    }
+    public function farms(){ // Accede a todas las granjas que lidera esta persona
+        return $this->hasMany(Farm::class);
+    }
+    public function inventories(){ // Accede a todos los registros de inventarios que estan a cargo de esta persona
+        return $this->hasMany(Inventory::class);
+    }
     public function juries(){ // Accede a todos los jurados que están registrados con esta persona
         return $this->hasMany(Jury::class);
     }
-    public function productive_units(){ // Accede a todas las unidades productivas que tiene a cargo
+    public function movement_responsibilities(){ // Accede a todos los registros de responsables de movimiento que ha sido participe esta persona
+        return $this->hasMany(MovementResponsibility::class);
+    }
+    public function municipality_events(){ // Accede a todos los registros de eventos en municipios que le pertenecen a esta persona
+        return $this->hasMany(MunicipalityEvent::class);
+    }
+    public function population_group(){ // Accede al grupo poblacional que pertenece
+        return $this->belongsTo(PopulationGroup::class);
+    }
+    public function productive_units(){ // Accede a todas las unidades productivas que lidera esta persona
         return $this->hasMany(ProductiveUnit::class);
     }
-    public function events(){ // Accede a todos los eventos que se le han sigdo asignados
-        return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
-    }
-    public function inventories(){ // Accede a todos los registros de inventarios que están relacionados con esta persona
-        return $this->hasMany(Inventory::class);
-    }
-    public function movement_responsabilities(){ // Accede a todos los registros de responsables de movimiento que esten asociados con esta persona
-        return $this->hasMany(MovementResponsability::class);
-    }
-    public function cash_counts(){ // Accede a todos los registros de arqueo de caja que esten asociados con esta persona
-        return $this->hasMany(CashCount::class);
+    public function users(){ // Accede a todos los usuarios registrados con esta persona
+        return $this->hasMany(User::class);
     }
 
 

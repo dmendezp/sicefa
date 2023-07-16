@@ -21,6 +21,7 @@ use Modules\SICA\Entities\WarehouseMovement;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Modules\PTVENTA\Entities\CashCount;
+use Modules\SICA\Entities\MovementResponsibility;
 
 class GenerateSale extends Component
 {
@@ -268,13 +269,13 @@ class GenerateSale extends Component
 
                 // Registrar responsables de movimientos
                 $error = 'RESPONSABLES DE MOVIMIENTO';
-                MovementResponsability::create([ // Registrar Vendedor
+                MovementResponsibility::create([ // Registrar Vendedor
                     'person_id' => Auth::user()->person_id,
                     'movement_id' => $movement->id,
                     'role' => 'VENDEDOR',
                     'date' => $current_datetime
                 ]);
-                MovementResponsability::create([ // Registrar Cliente
+                MovementResponsibility::create([ // Registrar Cliente
                     'person_id' => Person::where('document_number',$this->customer_document_number)->first()->id,
                     'movement_id' => $movement->id,
                     'role' => 'CLIENTE',
@@ -298,7 +299,7 @@ class GenerateSale extends Component
                     $cashCount->final_balance += $movement->price;
                     $cashCount->save();
                 }
-            
+
                 // Generar número de comprobante
                 $error = 'NÚMERO DE COMPROBANTE';
                 $movementType = MovementType::where('name','Venta')->first();
@@ -412,12 +413,12 @@ class GenerateSale extends Component
             $w = 48; // Definir número de repiticiones de caracteres
             $linea = str_repeat("-", $w); // Generar línea de separación
             // Detalles de la factura
-            $customer = $movement->movement_responsabilities->where('role','CLIENTE')->first(); // Obtener cliente
+            $customer = $movement->movement_responsibilities->where('role','CLIENTE')->first(); // Obtener cliente
             $printer->setJustification(Printer::JUSTIFY_LEFT);
             $printer->text("Fecha:          ".$movement->registration_date."\n");
             $printer->text("Cliente:        ".$customer->person->full_name."\n");
             $printer->text("Identificación: ".$customer->person->identification_type_number."\n");
-            $printer->text("Atendido por:   ".$movement->movement_responsabilities->where('role','VENDEDOR')->first()->person->full_name."\n");
+            $printer->text("Atendido por:   ".$movement->movement_responsibilities->where('role','VENDEDOR')->first()->person->full_name."\n");
             $printer->text("$linea\n"); // Imprimir la línea
             $printer->text("#  Producto                Cant  V.Unit SubTotal\n");
             $printer->text("$linea\n"); // Imprimir la línea
