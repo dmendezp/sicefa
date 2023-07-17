@@ -7,6 +7,18 @@
         <li class="nav-item d-none d-sm-inline-block mx-1">
             <a href="#" class="nav-link">{{ trans('sigac::general.Home') }}</a>
         </li>
+
+        <li class="nav-item d-none d-sm-inline-block mx-1">
+            <a href="#" class="nav-link">Instructor</a>
+        </li>
+
+        <li class="nav-item d-none d-sm-inline-block mx-1">
+            <a href="#" class="nav-link">Coordinación Académica</a>
+        </li>
+
+        <li class="nav-item d-none d-sm-inline-block mx-1">
+            <a href="#" class="nav-link">Administrador</a>
+        </li>
     </ul>
 
     <!-- Right navbar links -->
