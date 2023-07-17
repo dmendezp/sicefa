@@ -67,7 +67,7 @@ Livewire.on('message', function(type, action, message, change_value) {
             icon: 'success',
             title: message,
             showConfirmButton: false,
-            timer: 1500
+            timer: 2000
         })
     }else if(type=='alert-warning'){
         Swal.fire({

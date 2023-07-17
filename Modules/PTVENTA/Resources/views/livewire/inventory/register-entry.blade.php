@@ -13,19 +13,22 @@
                     <label class="form-label my-0 mt-1">Entrega:</label>
                     <div class="row mb-1">
                         <div class="col-5 pe-1">
-                            {!! Form::number(null, 1004494010, [
+                            {!! Form::number(null, null, [
                                 'class'=>'form-control form-control-sm',
-                                'wire:model'=>'delivery_document_number'
+                                'wire:model.defer'=>'delivery_document_number',
+                                'wire:keydown.enter'=>'consultPersonDelivery',
+                                'wire:loading.attr'=>'disabled',
+                                'wire:target'=>'consultPersonDelivery'
                             ])!!}
                         </div>
                         <div class="col ps-1">
-                            {!! Form::text(null, $delivery_person->document_type, [
+                            {!! Form::text(null, $delivery_person ? $delivery_person->document_type : '------------------', [
                                 'class'=>'form-control form-control-sm',
                                 'disabled'
                             ])!!}
                         </div>
                     </div>
-                    {!! Form::text(null, $delivery_person->full_name, [
+                    {!! Form::text(null, $delivery_person ? $delivery_person->full_name : '------------------', [
                         'class'=>'form-control form-control-sm',
                         'disabled'
                     ])!!}
@@ -196,5 +199,10 @@
             </div>
         </div>
     </div>
+
+    @section('sripts-register-entry')
+        <!-- Scripts del componente register-entry -->
+        <script src="{{ asset('modules/ptventa/js/inventory/entry/livewire-register-entry.js') }}"></script>
+    @endsection
 
 </div>

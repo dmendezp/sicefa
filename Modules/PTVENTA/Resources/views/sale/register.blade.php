@@ -19,5 +19,5 @@
 @include('ptventa::layouts.partials.plugins.sweetalert2') {{-- Implementación de Sweetalert2 --}}
 @push('scripts')
     @livewireScripts()
-    @section('sripts-generate-sale') @show <!-- Scripts necesario para los elementos de generar venta -->
+    @section('sripts-generate-sale') @show <!-- Scripts necesarios para generar una venta -->
 @endpush

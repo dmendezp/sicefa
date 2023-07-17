@@ -320,7 +320,7 @@ class GenerateSale extends Component
                 $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta en '.$error.'. Por favor intente nuevamente.', null);
             }
         }else{
-            $this->emit('message', 'alert-warning', null, 'Es necesario seleccionar un cliente.', null); // Emitir mensaje de registro exitoso
+            $this->emit('message', 'alert-warning', null, 'Es necesario seleccionar un cliente.', null); // Emitir mensaje de advertencia para seleccionar un cliente válido
             $this->customer_document_number = null;
             $this->customer_document_type = '----------------';
             $this->customer_full_name = '----------------';
