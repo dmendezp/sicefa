@@ -12,53 +12,56 @@
 @endpush
 
 @section('content')
-    <div class="card">
-        <div class="card-body">
-            <h3>{{ trans('sigac::attendance.CardTitle') }}</h3>
-            <div class="row">
+<div class="card">
+    <div class="card-body">
+        <h3>{{ trans('sigac::attendance.CardTitle') }}</h3>
+        <div class="row">
 
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="technologist" class="form-label">{{ trans('sigac::attendance.CardSubtitle') }}</label>
-                        <select id="technologist" class="form-select" aria-label="Default select example">
-                            <option selected disabled>{{ trans('sigac::attendance.Select...') }}</option>
-                            <option value="1">Prueba 1</option>
-                            <option value="2">Prueba 2</option>
-                            <option value="3">Prueba 3</option>
-                        </select>
-                    </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="technologist" class="form-label">{{ trans('sigac::attendance.CardSubtitle') }}</label>
+                    <select id="technologist" class="form-select" aria-label="Default select example">
+                        <option selected disabled>{{ trans('sigac::attendance.Select...') }}</option>
+                        <option value="1">Prueba 1</option>
+                        <option value="2">Prueba 2</option>
+                        <option value="3">Prueba 3</option>
+                    </select>
                 </div>
+            </div>
 
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="producto">{{ trans('sigac::attendance.Current date and time') }}</label>
-                                <p class="card-text" id="fecha-hora"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="start-training"
-                                    class="form-label">{{ trans('sigac::attendance.Start of training') }}</label>
-                                <p id="start-training">16/05/2023 12:50</p>
-                            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="producto">{{ trans('sigac::attendance.Current date and time') }}</label>
+                            <p class="card-text" id="fecha-hora"></p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="end-training"
-                                    class="form-label">{{ trans('sigac::attendance.End of training') }}</label>
-                                <p id="end-training">16/05/2023 12:50</p>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="start-training"
+                                        class="form-label">{{ trans('sigac::attendance.Start of training') }}</label>
+                                    <p id="start-training">16/05/2023 12:50</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="end-training"
+                                        class="form-label">{{ trans('sigac::attendance.End of training') }}</label>
+                                    <p id="end-training">16/05/2023 12:50</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    <i class="fas fa-plus"></i> {{ trans('sigac::attendance.Register Previous') }}
-                                </button>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">
+                                        <i class="fas fa-plus"></i> {{ trans('sigac::attendance.Register Previous') }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -66,6 +69,8 @@
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -199,7 +204,6 @@
             </div>
         </div>
 
-
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
@@ -225,8 +229,8 @@
                                 <p>{{ trans('sigac::attendance.Total present:') }}</p>
                             </div>
                             <div class="col-4">
-                                <div class="card">
-                                    <h6 class="text-center">35</h6>
+                                <div class="card text-center">
+                                    <h6>35</h6>
                                 </div>
                             </div>
                         </div>
@@ -238,8 +242,8 @@
                                 <p>{{ trans('sigac::attendance.Total justified failures:') }}</p>
                             </div>
                             <div class="col-4">
-                                <div class="card">
-                                    <h6 class="text-center">5</h6>
+                                <div class="card text-center">
+                                    <h6>5</h6>
                                 </div>
                             </div>
                         </div>
@@ -251,8 +255,8 @@
                                 <p>{{ trans('sigac::attendance.Total unjustified failures:') }}</p>
                             </div>
                             <div class="col-4">
-                                <div class="card">
-                                    <h6 class="text-center">13</h6>
+                                <div class="card text-center">
+                                    <h6>13</h6>
                                 </div>
                             </div>
                         </div>
@@ -264,15 +268,15 @@
                                 <p>{{ trans('sigac::attendance.Total missing stockings:') }}</p>
                             </div>
                             <div class="col-4">
-                                <div class="card">
-                                    <h6 class="text-center">14</h6>
+                                <div class="card text-center">
+                                    <h6>14</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
 @endsection
 
