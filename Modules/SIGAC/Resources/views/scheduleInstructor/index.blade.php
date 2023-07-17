@@ -13,17 +13,11 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
+                    <h4>Tu Horario</h4>
+                    <hr>
                     <div id='calendar'></div>
                 </div>
             </div>
@@ -32,7 +26,6 @@
 @endsection
 
 @section('scripts')
-
     <script src='{{ asset('libs/fullcalendar-6.1.8/dist/index.global.min.js') }}'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
