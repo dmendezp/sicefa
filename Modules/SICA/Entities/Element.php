@@ -35,6 +35,9 @@ class Element extends Model implements Auditable
     ];
 
     // FUNCIONES INTERNAS
+    public function getProductNameAttribute(){ // Retorna el nombre del elemento junto con la unidad de medida
+        return $this->name.' ('.$this->measurement_unit->name.')';
+    }
     public function getRouteKeyName(){ // Establece el dato que se muestra cuando este elemento pretende ser llamado desde una ruta
         return 'slug';
     }
@@ -47,7 +50,7 @@ class Element extends Model implements Auditable
         $this->attributes['name'] = ucfirst($value);
         $this->attributes['slug'] = Str::slug($value, '-'); // Generación del slug
     }
-    
+
     // RELACIONES
     public function category(){ // Accede a la categoría al que pertenece
         return $this->belongsTo(Category::class);

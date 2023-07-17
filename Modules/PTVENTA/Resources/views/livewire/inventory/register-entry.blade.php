@@ -2,14 +2,13 @@
 
     <!-- Seleccionar y agregar producto -->
     <div class="row mx-3">
-
         <!-- Responsables y bodegas -->
         <div class="col-md-3">
             <div class="card card-success">
-                <div class="card-header text-center">
+                <div class="card-header text-center py-1">
                     <strong>Responsables y bodegas</strong>
                 </div>
-                <div class="card-body tex-center pt-1">
+                <div class="card-body tex-center pt-0">
                     <label class="form-label my-0 mt-1">Entrega:</label>
                     <div class="row mb-1">
                         <div class="col-5 pe-1">
@@ -55,73 +54,118 @@
         </div>
 
         <!-- Datos de inventario para el producto -->
-        <div class="col-md-7 h-100">
-            <div class="row mx-3 align-items-end">
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label for="producto">Producto:</label>
-                        <input type="text" class="form-control" id="producto" name="producto">
+        <div class="col-md-9 h-100">
+            <form wire:submit.prevent="addProduct" method="POST">
+                <div class="row mx-3 align-items-end">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label><strong class="text-danger">* </strong>Producto:</label>
+                            <select class="form-select" name="product_element_id" wire:model="product_element_id" required>
+                                <option value="">-- Selecciona --</option>
+                                @foreach ($products as $product)
+                                    <option value="{{ $product->id }}">{{ $product->product_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="precio">Precio:</label>
-                        <input type="number" class="form-control" id="precio" name="precio">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Precio:</label>
+                            {!! Form::text('product_price', $product_price, [
+                                'class'=>'form-control text-center',
+                                'wire.model.defer'=>'product_price',
+                                'disabled'
+                            ]) !!}
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="cantidad">Cantidad:</label>
-                        <input type="number" class="form-control" id="precio" name="precio">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label><strong class="text-danger">* </strong>Cantidad:</label>
+                            {!! Form::number('product_amount', null, [
+                                'class'=>'form-control text-center',
+                                'wire.model.defer'=>'product_amount',
+                                'required'
+                            ]) !!}
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="marca">Marca:</label>
-                        <input type="text" class="form-control" id="marca" name="marca">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label>Fecha de Producción:</label>
+                            {!! Form::date('product_production_date', null, [
+                                'class'=>'form-control',
+                                'wire.model.defer'=>'product_production_date'
+                            ]) !!}
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="numeroLote">Número de lote:</label>
-                        <input type="number" class="form-control" id="numeroLote" name="numeroLote">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label>Fecha de Vencimiento:</label>
+                            {!! Form::date('product_expiration_date', null, [
+                                'class'=>'form-control',
+                                'wire.model.defer'=>'product_expiration_date'
+                            ]) !!}
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="fechaProduccion">Fecha de Producción:</label>
-                        <input type="date" class="form-control" id="fechaProduccion" name="fechaProduccion">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label>Número de lote:</label>
+                            {!! Form::number('product_lot_number', null, [
+                                'class'=>'form-control',
+                                'wire.model.defer'=>'product_lot_number'
+                            ]) !!}
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="fechaExpiracion">Fecha de Expiración:</label>
-                        <input type="date" class="form-control" id="fechaExpiracion" name="fechaExpiracion">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label>Código de Inventario:</label>
+                            {!! Form::number('product_inventory_code', null, [
+                                'class'=>'form-control',
+                                'wire.model.defer'=>'product_inventory_code'
+                            ]) !!}
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="codInventario">Código de Inventario:</label>
-                        <input type="number" class="form-control" id="codInventario" name="codInventario">
+                    <div class="col-6">
+                        <div class="form-group my-0">
+                            <div class="form-floating">
+                                {!! Form::textarea('product_description', null, [
+                                    'class'=>'form-control',
+                                    'style'=>'height: 124px',
+                                    'placeholder'=>'Registre alguna observación',
+                                    'wire.model.defer'=>'product_description'
+                                ]) !!}
+                                <label>Descripción:</label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="form-group">
-                        <label for="descripcion">Descripción:</label>
-                        <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2">Acerca de:</label>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>Marca:</label>
+                                    {!! Form::text('product_mark', null, [
+                                        'class'=>'form-control',
+                                        'wire.model.defer'=>'product_mark'
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label><strong class="text-danger">* </strong>Destino:</label>
+                                    {!! Form::select('product_destination', $destinations, 'Producción', [
+                                        'class'=>'form-select',
+                                        'placeholder'=>'-- Selecciona --',
+                                        'wire.model.defer'=>'product_destination',
+                                        'required'
+                                    ]) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto mx-auto">
+                            <button type="submit" class="btn btn-success form-control text-truncate">Agregar Producto <i class="fas fa-plus"></i></button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <button type="button" class="btn btn-success form-control text-truncate">Agregar Producto <i class="fas fa-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -140,50 +184,35 @@
                                 <th scope="col">Precio</th>
                                 <th scope="col">Cantidad</th>
                                 <th scope="col">Fecha Producción</th>
+                                <th scope="col">Fecha Vencimiento</th>
                                 <th scope="col">Núm Lote</th>
-                                <th scope="col">Fecha Expiración</th>
                                 <th scope="col" class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Acciones"><i class="fas fa-arrow-circle-down"></i></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Yogurt Alpine</td>
-                                <td><i class="fas fa-times text-danger"></i></td>
-                                <td><i class="fas fa-check text-success"></i></td>
-                                <td>$ 1.200</td>
-                                <td>16</td>
-                                <td>11/04/23</td>
-                                <td>340-FCH</td>
-                                <td>15/06/23</td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-outline-warning btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Editar Producto">
-                                        <i class="fas fa-pen"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-outline-danger btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Eliminar Producto">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Croquetas</td>
-                                <td><i class="fas fa-check text-success"></i></td>
-                                <td><i class="fas fa-times text-danger"></i></td>
-                                <td>$ 2.200</td>
-                                <td>20</td>
-                                <td>14/04/23</td>
-                                <td>355-GCH</td>
-                                <td>17/06/23</td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-outline-warning btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Editar Producto">
-                                        <i class="fas fa-pen"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-outline-danger btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Eliminar Producto">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            @foreach ($selected_products as $sp)
+                                <tr>
+                                    <th>{{ $loop->iteration }}</th>
+                                    <td>{{ $sp['product_name'] }}</td>
+                                    <td>
+                                        <i class="fas fa-times text-danger"></i>
+                                    </td>
+                                    <td><i class="fas fa-check text-success"></i></td>
+                                    <td>$ 1.200</td>
+                                    <td>16</td>
+                                    <td>11/04/23</td>
+                                    <td>15/06/23</td>
+                                    <td>340-FCH</td>
+                                    <td class="text-center">
+                                        <a href="#" class="btn btn-outline-warning btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Editar Producto">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-outline-danger btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Eliminar Producto">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
