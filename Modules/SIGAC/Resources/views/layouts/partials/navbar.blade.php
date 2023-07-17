@@ -17,11 +17,11 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right p-0">
                 <a href="{{ url('lang', ['en']) }}" class="dropdown-item">
-                    <img src="{{ asset('modules/sigac/images/flags/estados-unidos.png') }}" alt="">
+                    <img src="{{ asset('modules/sigac/images/flags/estados-unidos.webp') }}" alt="">
                     {{ trans('sigac::general.LangEnglish') }}
                 </a>
                 <a href="{{ url('lang', ['es']) }}" class="dropdown-item">
-                    <img src="{{ asset('modules/sigac/images/flags/colombia.png') }}" alt="">
+                    <img src="{{ asset('modules/sigac/images/flags/colombia.webp') }}" alt="">
                     {{ trans('sigac::general.LangSpanish') }}
                 </a>
             </div>

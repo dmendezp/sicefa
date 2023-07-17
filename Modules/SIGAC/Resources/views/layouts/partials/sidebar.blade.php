@@ -2,8 +2,8 @@
     <aside class="main-sidebar sidebar-dark-blue elevation-4">
         <!-- Bran Logo: Aqui se realiza el ajuste del logo y titulo que esta en el sidebar-->
         <a href="{{ route('cefa.sigac.index') }}" class="brand-link text-decoration-none">
-            <img src="{{ asset('modules/sigac/images/logo-sigac.png') }}" class="brand-image"
-                alt="SIGAC-Logo">{{-- Icono de SIGAC --}}
+            <img src="{{ asset('modules/sigac/images/logo_sigac.webp') }}" class="brand-image"
+                alt="SIGAC_Logo">{{-- Icono de SIGAC --}}
             <span class="brand-text">SIGAC</span>
         </a>
 
