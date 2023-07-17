@@ -9,14 +9,44 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-1 d-flex">
                 <div class="image">
-                    <img src="{{ asset('AdminLTE/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+                    @if (isset(Auth::user()->person->avatar))
+                        <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"class="img-circle elevation-2" alt="User Image">
+                    @else
+                        <img src="{{ asset('sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
+                    @endif
                 </div>
-                <div class="info">
-                    <a href="#" class="d-block" style="text-decoration:none">Alexander Pierce</a>
+                @guest
+                <div class="col info info-user">
+                    <div style="color: antiquewhite">{{ trans('menu.Welcome') }}</div>
+                    <div>
+                        <a href="{{ route('login') }}" class="d-block">Iniciar sesión</a>
+                    </div>
                 </div>
+                <div class="col-auto info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}">
+                    <a href="{{ route('login') }}" class="d-block">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </a>
+                    </div>
+                @else
+                    <div class="col info info-user">
+                        <div data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
+                            {{ Auth::user()->nickname }}
+                        </div>
+                        <div class="small">
+                            <em> {{ Auth::user()->roles[0]->name }}</em>
+                        </div>
+                    </div>
+                    <div class="col-auto info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Logout') }}">
+                        <a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                @endguest
             </div>
 
             <div class="user-panel d-flex">
