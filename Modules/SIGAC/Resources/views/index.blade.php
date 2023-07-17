@@ -7,7 +7,7 @@
         </div>
 
         <div class="d-flex flex-wrap justify-content-around">
-            <div class="card col-12 col-md-4 text-center mb-4 shadow-lg border-0" style="width: 18rem;">
+            <div class="card col-12 col-md-4 text-center mb-4 shadow-lg border-0" style="width: 18rem;" data-aos="fade-up" data-aos-duration="1000">
                 <img src="{{ asset('modules/sigac/images/burbuja-de-dialogo.gif') }}" class="card-img-top custom-img align-self-center" alt="...">
                 <div class="card-body">
                     <h3>{{ trans('sigac::index.CardTitle1') }}</h3>
@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="card col-12 col-md-4 text-center mb-4 shadow-lg border-0" style="width: 18rem;">
+            <div class="card col-12 col-md-4 text-center mb-4 shadow-lg border-0" style="width: 18rem;" data-aos="fade-up" data-aos-duration="2000">
                 <img src="{{ asset('modules/sigac/images/libros.gif') }}" class="card-img-top custom-img align-self-center" alt="...">
                 <div class="card-body">
                     <h3>{{ trans('sigac::index.CardTitle2') }}</h3>
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="card col-12 col-md-4 text-center mb-4 shadow-lg border-0" style="width: 18rem;">
+            <div class="card col-12 col-md-4 text-center mb-4 shadow-lg border-0" style="width: 18rem;" data-aos="fade-up" data-aos-duration="3000">
                 <img src="{{ asset('modules/sigac/images/buscar.gif') }}" class="card-img-top custom-img align-self-center" alt="...">
                 <div class="card-body">
                     <h3>{{ trans('sigac::index.CardTitle3') }}</h3>
