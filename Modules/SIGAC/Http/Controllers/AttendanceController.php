@@ -22,7 +22,7 @@ class AttendanceController extends Controller
 
     public function consultAttendance()
     {
-        $view = ['titlePage'=>trans('sigac::attendance.Consult'), 'titleView'=>trans('sigac::attendance.Attendance Consult')];
+        $view = ['titlePage'=>trans('sigac::consult.Consultation'), 'titleView'=>trans('sigac::consult.Attendance Consultation')];
         $apps = App::get();
         return view('sigac::attendance.consult', compact('apps', 'view'));
     }
