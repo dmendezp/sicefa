@@ -23,7 +23,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column">
                     <li class="nav-item">
                         <a href="{{ route('cefa.welcome') }}" class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
-                            <i class="fas fa-puzzle-piece"></i>
+                            <i class="nav-icon fas fa-puzzle-piece"></i>
                             <p>{{ trans('sigac::general.Back')}}</p>
                         </a>
                     </li>
