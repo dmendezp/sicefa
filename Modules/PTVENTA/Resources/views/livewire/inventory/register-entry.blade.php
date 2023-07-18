@@ -73,7 +73,7 @@
                             <label>Precio:</label>
                             {!! Form::text('product_price', $product_price, [
                                 'class'=>'form-control text-center',
-                                'wire.model.defer'=>'product_price',
+                                'wire:model.defer'=>'product_price',
                                 'disabled'
                             ]) !!}
                         </div>
@@ -81,9 +81,9 @@
                     <div class="col-2">
                         <div class="form-group">
                             <label><strong class="text-danger">* </strong>Cantidad:</label>
-                            {!! Form::number('product_amount', null, [
+                            {!! Form::number('product_amount', $product_amount, [
                                 'class'=>'form-control text-center',
-                                'wire.model.defer'=>'product_amount',
+                                'wire:model.defer'=>'product_amount',
                                 'required'
                             ]) !!}
                         </div>
@@ -91,47 +91,47 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label>Fecha de Producción:</label>
-                            {!! Form::date('product_production_date', null, [
+                            {!! Form::date(null, null, [
                                 'class'=>'form-control',
-                                'wire.model.defer'=>'product_production_date'
+                                'wire:model.defer'=>'product_production_date'
                             ]) !!}
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label>Fecha de Vencimiento:</label>
-                            {!! Form::date('product_expiration_date', null, [
+                            {!! Form::date(null, null, [
                                 'class'=>'form-control',
-                                'wire.model.defer'=>'product_expiration_date'
+                                'wire:model.defer'=>'product_expiration_date'
                             ]) !!}
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label>Número de lote:</label>
-                            {!! Form::number('product_lot_number', null, [
+                            {!! Form::number(null, null, [
                                 'class'=>'form-control',
-                                'wire.model.defer'=>'product_lot_number'
+                                'wire:model.defer'=>'product_lot_number'
                             ]) !!}
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label>Código de Inventario:</label>
-                            {!! Form::number('product_inventory_code', null, [
+                            {!! Form::number(null, null, [
                                 'class'=>'form-control',
-                                'wire.model.defer'=>'product_inventory_code'
+                                'wire:model.defer'=>'product_inventory_code'
                             ]) !!}
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group my-0">
                             <div class="form-floating">
-                                {!! Form::textarea('product_description', null, [
+                                {!! Form::textarea(null, null, [
                                     'class'=>'form-control',
                                     'style'=>'height: 124px',
                                     'placeholder'=>'Registre alguna observación',
-                                    'wire.model.defer'=>'product_description'
+                                    'wire:model.defer'=>'product_description'
                                 ]) !!}
                                 <label>Descripción:</label>
                             </div>
@@ -142,19 +142,19 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label>Marca:</label>
-                                    {!! Form::text('product_mark', null, [
+                                    {!! Form::text(null, null, [
                                         'class'=>'form-control',
-                                        'wire.model.defer'=>'product_mark'
+                                        'wire:model.defer'=>'product_mark'
                                     ]) !!}
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label><strong class="text-danger">* </strong>Destino:</label>
-                                    {!! Form::select('product_destination', $destinations, 'Producción', [
+                                    {!! Form::select(null, $destinations, 'null', [
                                         'class'=>'form-select',
                                         'placeholder'=>'-- Selecciona --',
-                                        'wire.model.defer'=>'product_destination',
+                                        'wire:model.defer'=>'product_destination',
                                         'required'
                                     ]) !!}
                                 </div>
@@ -177,38 +177,70 @@
                     <table class="table">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Marca (Producto)</th>
-                                <th scope="col" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Código de Inventario"><i class="fas fa-barcode"></i></th>
-                                <th scope="col" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Observación"><i class="far fa-file-alt"></i></th>
-                                <th scope="col">Precio</th>
-                                <th scope="col">Cantidad</th>
-                                <th scope="col">Fecha Producción</th>
-                                <th scope="col">Fecha Vencimiento</th>
-                                <th scope="col">Núm Lote</th>
-                                <th scope="col" class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Acciones"><i class="fas fa-arrow-circle-down"></i></th>
+                                <th class="text-center">#</th>
+                                <th>Marca (Producto)</th>
+                                <th class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Código de Inventario">
+                                    <i class="fas fa-barcode"></i>
+                                </th>
+                                <th class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descripción">
+                                    <i class="far fa-file-alt"></i>
+                                </th>
+                                <th class="text-center">Precio</th>
+                                <th class="text-center">Cantidad</th>
+                                <th class="text-center">Fecha Producción</th>
+                                <th class="text-center">Fecha Vencimiento</th>
+                                <th class="text-center">Núm Lote</th>
+                                <th class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Acciones"><i class="fas fa-arrow-circle-down"></i></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($selected_products as $sp)
                                 <tr>
-                                    <th>{{ $loop->iteration }}</th>
+                                    <th class="text-center">{{ $loop->iteration }}</th>
                                     <td>{{ $sp['product_name'] }}</td>
-                                    <td>
-                                        <i class="fas fa-times text-danger"></i>
-                                    </td>
-                                    <td><i class="fas fa-check text-success"></i></td>
-                                    <td>$ 1.200</td>
-                                    <td>16</td>
-                                    <td>11/04/23</td>
-                                    <td>15/06/23</td>
-                                    <td>340-FCH</td>
                                     <td class="text-center">
-                                        <a href="#" class="btn btn-outline-warning btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Editar Producto">
+                                        @if (empty($sp['product_inventory_code']))
+                                            <i class="fas fa-times text-danger"></i>
+                                        @else
+                                            <i class="fas fa-check text-success"></i>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if (empty($sp['product_description']))
+                                            <i class="fas fa-times text-danger"></i>
+                                        @else
+                                            <i class="fas fa-check text-success"></i>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">{{ $sp['product_price'] }}</td>
+                                    <td class="text-center">{{ $sp['product_amount'] }}</td>
+                                    <td class="text-center">
+                                        @if (empty($sp['product_production_date']))
+                                            <i class="fas fa-times text-danger"></i>
+                                        @else
+                                            {{ $sp['product_production_date'] }}
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if (empty($sp['product_expiration_date']))
+                                            <i class="fas fa-times text-danger"></i>
+                                        @else
+                                            {{ $sp['product_expiration_date'] }}
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if (empty($sp['product_lot_number']))
+                                            <i class="fas fa-times text-danger"></i>
+                                        @else
+                                            {{ $sp['product_lot_number'] }}
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-outline-warning btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Editar producto">
                                             <i class="fas fa-pen"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-outline-danger btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Eliminar Producto">
-                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger btn-sm py-0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Eliminar producto">
+                                            <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </td>
                                 </tr>

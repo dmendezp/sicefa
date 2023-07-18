@@ -29,7 +29,7 @@ class RegisterEntry extends Component
     public $product_inventory_code; // Número de inventario del producto (elemento) seleccionado
     public $product_description; // Descripción del producto (elemento) sleccionado
     public $product_mark; // Marca del producto (elemento) seleccionado
-    public $product_destination; // Destino del producto (elemento) seleccionado
+    public $product_destination = 'Producción'; // Destino del producto (elemento) seleccionado
 
     public function __construct(){
         $this->selected_products = collect(); // Inicializa la variable que contiene la información de los productos seleccionados
@@ -74,39 +74,28 @@ class RegisterEntry extends Component
         }
     }
 
-    // Agregar productos a la sección de los productos seleccionados
+    // Agregar producto a la sección de los productos seleccionados
     public function addProduct(){
-            $this->selected_products->push([
-                'product_element_id' => $this->product_element_id,
-                'product_name' => Element::find($this->product_element_id)->product_name,
-                'product_price' => $this->product_price,
-                'product_amount' => $this->product_amount,
-                'product_production_date' => $this->product_production_date,
-                'product_expiration_date' => $this->product_expiration_date,
-                'product_lot_number' => $this->product_lot_number,
-                'product_inventory_code' => $this->product_inventory_code,
-                'product_description' => $this->product_description,
-                'product_mark' => $this->product_mark,
-                'product_destination' => $this->product_destination
-            ]);
-            $this->resetValuesProduct();
+        $this->selected_products->push([
+            'product_element_id' => $this->product_element_id,
+            'product_name' => Element::find($this->product_element_id)->product_name,
+            'product_price' => $this->product_price,
+            'product_amount' => $this->product_amount,
+            'product_production_date' => $this->product_production_date,
+            'product_expiration_date' => $this->product_expiration_date,
+            'product_lot_number' => $this->product_lot_number,
+            'product_inventory_code' => $this->product_inventory_code,
+            'product_description' => $this->product_description,
+            'product_mark' => $this->product_mark,
+            'product_destination' => $this->product_destination
+        ]);
+        dd($this->selected_products);
+        $this->resetValuesProduct();
     }
 
     // Vaciar variables del formulario de producto
     public function resetValuesProduct(){
-        $this->reset(
-            'product_element_id',
-            'product_name',
-            'product_price',
-            'product_amount',
-            'product_production_date',
-            'product_expiration_date',
-            'product_lot_number',
-            'product_inventory_code',
-            'product_description',
-            'product_mark',
-            'product_destination'
-        );
+        $this->reset('product_element_id','product_name','product_price','product_amount','product_production_date','product_expiration_date','product_lot_number','product_inventory_code','product_description','product_mark','product_destination');
     }
 
 }
