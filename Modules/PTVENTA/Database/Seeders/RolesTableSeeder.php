@@ -30,12 +30,23 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
+        // Registrar o actualizar rol de ADMINISTRADOR
+        $rol_cashier = Role::updateOrCreate(['slug' => 'ptventa.cashier'], [
+            'name' => 'Operador de Cajero',
+            'description' => 'Rol Cajero de la aplicacion PTVENTA',
+            'description_english' => 'PTVENTA Application Cashier Role',
+            'full_access' => 'No',
+            'app_id' => $app->id
+        ]);
+
 
         // Consulta de usuarios
         $user_admin = User::where('nickname','LFHerre')->first(); // Usuario Administrador (Lola Fernanda Herrera Hernandez)
+        $user_cashier = User::where('nickname','MSOssa')->first(); // Usuario Cajero (Manuel Steven Ossa Lievano)
 
         // Asignación de ROLES para los USUARIOS de la aplicación SICA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]);
+        $user_cashier->roles()->syncWithoutDetaching([$rol_cashier->id]);
 
     }
 }

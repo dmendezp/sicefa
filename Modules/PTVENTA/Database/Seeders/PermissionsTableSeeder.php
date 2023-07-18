@@ -20,6 +20,7 @@ class PermissionsTableSeeder extends Seeder
 
         // Definir arreglos de PERMISOS que van ser asignados a los ROLES
         $permissions_admin = []; // Permisos para Administrador
+        $permissions_cashier = []; // Permisos para Cajero
 
 
         // Consultar aplicación SICA para registrar los roles
@@ -54,13 +55,24 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
-
+        
+        // Visualizar productos de invetario
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.inventory.index'], [ // Registro o actualización de permiso
+            'name' => 'Visualizar elementos de inventario',
+            'description' => 'Puede ver los elementos que se encuentran en inventario (productos)',
+            'description_english' => 'You can see the items that are in inventory (products)',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'ptventa.admin')->first(); // Rol Administrador
+        $rol_cashier = Role::where('slug', 'ptventa.cashier')->first(); // Rol Operador de Cajero
 
         // Asignación de PERMISOS para los ROLES de la aplicación PTVENTA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()-> syncWithoutDetaching($permissions_admin);
+        $rol_cashier->permissions()-> syncWithoutDetaching($permissions_cashier);
     }
 }

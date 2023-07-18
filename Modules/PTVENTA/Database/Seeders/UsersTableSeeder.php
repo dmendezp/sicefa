@@ -23,5 +23,12 @@ class UsersTableSeeder extends Seeder
             'email' => 'lolafernandaherrera@gmail.com',
         ]);
 
+        // Registrar o actualizar usuario para Manuel Steven Ossa Lievano
+        $person = Person::where('document_number',1000226706)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'MSOssa'], [ // Actualizar o crear usuario
+            'person_id' => $person->id,
+            'email' => 'manuelstevenossa@gmail.com',
+        ]);
+
     }
 }
