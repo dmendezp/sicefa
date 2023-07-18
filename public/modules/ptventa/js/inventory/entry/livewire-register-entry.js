@@ -20,5 +20,23 @@ Livewire.on('message', function(type, action, message) {
             showConfirmButton: false,
             timer: 2000
         })
+    }else{
+        Swal.fire({
+            title: action,
+            text: message,
+            icon: type,
+            iconColor: color[type],
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: 'green'
+        });
+    }
+});
+
+// Establecer el precio del producto de acuerdo al elemento seleccionado
+$('#product_element_id').change(function() {
+    value = $(this).find(':selected').data('price');
+    $('#product_price').val(value);
+    if(value!=''){
+        $('#product_amount').focus();
     }
 });

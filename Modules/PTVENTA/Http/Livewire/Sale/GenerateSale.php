@@ -12,7 +12,6 @@ use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementDetail;
-use Modules\SICA\Entities\MovementResponsability;
 use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\PopulationGroup;
@@ -312,7 +311,7 @@ class GenerateSale extends Component
                 $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente.', $value);
                 $this->defaultAction();
                 $this->emit('clear-sale-values'); // Limpiar valores de venta
-                $this->postPrinting($movement); // Generar impresión pos de venta
+                //$this->postPrinting($movement); // Generar impresión pos de venta
             } catch (Exception $e) { // Capturar error durante la transacción
                 // Transacción rechazada
                 DB::rollBack(); // Devolver cambios realizados durante la transacción

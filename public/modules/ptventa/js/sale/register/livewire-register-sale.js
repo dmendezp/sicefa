@@ -117,7 +117,7 @@ Livewire.on('input-product-amount', function(product_total_amount, product_price
     if (product_total_amount == 0) {
         $product_amount.prop('disabled', true); // Desactivar el campo Cantidad
     } else {
-        $product_amount.prop('disabled', false).focus(); // Desactivar campo Cantidad
+        $product_amount.prop('disabled', false).focus(); // Activar campo Cantidad
         $product_amount.off('input').on('input', function() { // Establecer propiedades para el campo de cantidad, subtotal de productos y total de la venta
             var input = $(this);
             var val = parseInt(input.val());
