@@ -16,7 +16,7 @@ class Inventory extends Model implements Auditable
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'person_id',
-        'warehouse_id',
+        'productive_unit_warehouse_id',
         'element_id',
         'destination',
         'description',
@@ -55,6 +55,9 @@ class Inventory extends Model implements Auditable
     }
     public function person(){ // Accede a la información de los datos personales de la persona responsable
         return $this->belongsTo(Person::class);
+    }
+    public function productive_unit_warehouse(){ // Accede a la información de la unidad productiva y bodega al que pertenece
+        return $this->belongsTo(ProductiveUnitWarehouse::class);
     }
 
 
