@@ -16,7 +16,28 @@ class AGROCEFAController extends Controller
     {
         return view('agrocefa::index');
     }
-
+    public function insumos()
+    {
+        return view('agrocefa::insumos');
+    }
+     /**
+    
+      * /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function bodega()
+    {
+        return view('agrocefa::formulariocultivo');
+    }
+     /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function inventory()
+    {
+        return view('agrocefa::inventory');
+    }
     /**
      * Show the form for creating a new resource.
      * @return Renderable
