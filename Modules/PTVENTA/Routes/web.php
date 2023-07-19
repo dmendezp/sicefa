@@ -42,6 +42,9 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
         //Rutas de reportes - Manuel
         Route::prefix('reports')->controller(InventoryController::class)->group(function(){
             Route::get('reports', 'reports')->name('ptventa.reports.index');
+            Route::get('saleReports', 'saleReports')->name('ptventa.reports.sale.index');
+            Route::get('lowReports', 'lowReports')->name('ptventa.reports.low.index');
+            Route::get('inventoryReports', 'inventoryReports')->name('ptventa.reports.inventory.index');
         });
 
         //Rutas para Ventas

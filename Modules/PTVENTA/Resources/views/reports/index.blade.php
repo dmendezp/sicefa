@@ -8,7 +8,7 @@
     <li class="breadcrumb-item">
         <a href="{{ route('ptventa.reports.index') }}" class="text-decoration-none">Reporte</a>
     </li>
-    <li class="breadcrumb-item active">Reporte de inventario</li>
+    <li class="breadcrumb-item active">Panel Principal</li>
 @endpush
 
 @section('content')
@@ -19,20 +19,17 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-4 col-sm-6">
-                        <a class="card-custom human-resources" href="#">
-                            <div class="overlay"></div>
+                        <a class="card-custom human-resources" href="{{ route('ptventa.reports.sale.index') }}">
                             <p>Repotes de Ventas</p>
                         </a>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <a class="card-custom human-resources" href="#">
-                            <div class="overlay"></div>
+                        <a class="card-custom human-resources" href="{{ route('ptventa.reports.low.index') }}">
                             <p>Reportes de Bajas</p>
                         </a>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <a class="card-custom human-resources" href="#">
-                            <div class="overlay"></div>
+                        <a class="card-custom human-resources" href="{{ route('ptventa.reports.inventory.index') }}">
                             <p>Reportes de Inventario</p>
                         </a>
                     </div>

@@ -85,12 +85,25 @@ class InventoryController extends Controller
         $pdf->Output('ReporteEntradasInventario');
     }
 
-    //Funciones para reporte de inventario por rango de fecha
-    public function reports() { //Tabla con resultados de busqueda
+    //Funciones para reporte de inventario
+    public function reports() { //Vista principal del panel de reportes
         $view = ['titlePage'=>'Reportes', 'titleView'=>'Panel de Reportes'];
         return view('ptventa::reports.index', compact('view'));
     }
 
+    public function saleReports() { //Vista de reportes de ventas
+        $view = ['titlePage'=>'Reportes', 'titleView'=>'Reportes de ventas'];
+        return view('ptventa::reports.saleReports.index', compact('view'));
+    }
 
+    public function lowReports() { //Vista de reportes de bajas
+        $view = ['titlePage'=>'Reportes', 'titleView'=>'Reportes de bajas'];
+        return view('ptventa::reports.lowReports.index', compact('view'));
+    }
+
+    public function inventoryReports() { //Vista de reportes de inventario
+        $view = ['titlePage'=>'Reportes', 'titleView'=>'Reportes de inventario'];
+        return view('ptventa::reports.inventoryReports.index', compact('view'));
+    }
 
 }
