@@ -11,6 +11,10 @@
 |
 */
 
-Route::prefix('agrocefa')->group(function() {
-    Route::get('/', 'AGROCEFAController@index');
+Route::prefix('/agrocefa')->group(function() {
+    Route::get('/index', 'AGROCEFAController@index')->name('agrocefa.index');
+    Route::get('/inventory', 'AGROCEFAController@inventory')->name('agrocefa.inventory');
+    Route::get('/insumos', 'AGROCEFAController@insumos')->name('agrocefa.insumos');
+    Route::get('/bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
 });
+
