@@ -56,8 +56,8 @@ class RegisterEntry extends Component
     public function defaultAction(){
         $this->reset(); // Vaciar los valores de todos los atributos para evitar irregularidades en los valores de estos
         $this->warehouse = Warehouse::where('name','Punto de venta')->firstOrFail();
-        $this->warehouses = Warehouse::orderBy('name')->get();
-        $this->products = Element::whereNotNull('price')->orderBy('name')->get();
+        $this->warehouses = Warehouse::orderBy('name','ASC')->get();
+        $this->products = Element::whereNotNull('price')->orderBy('name','ASC')->get();
         $this->destinations = getEnumValues('inventories','destination'); // Consultar destinos para elementos de inventario
     }
 
@@ -176,13 +176,13 @@ class RegisterEntry extends Component
                         // Registrar responsables del movimiento
                         $error = 'RESPONSABLES DE MOVIMIENTO';
                         MovementResponsibility::create([ // Registrar responsable que entrega los productos
-                            'person_id' => Auth::user()->person_id,
+                            'person_id' => $person_delivery->id,
                             'movement_id' => $movement->id,
                             'role' => 'ENTREGA',
                             'date' => $current_datetime
                         ]);
                         MovementResponsibility::create([ // Registrar persona que recibe los productos
-                            'person_id' => $person_delivery->id,
+                            'person_id' => Auth::user()->person_id,
                             'movement_id' => $movement->id,
                             'role' => 'RECIBE',
                             'date' => $current_datetime

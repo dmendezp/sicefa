@@ -32,6 +32,7 @@ class PTVENTADatabaseSeeder extends Seeder
         $this->call(ElementsTableSeeder::class); // Ejecutar Seeder de elementos
         $this->call(InventoriesTableSeeder::class);// Ejecutar el seeder de inventarios
         $this->call(WarehousesTableSeeder::class); // Ejecutar Seeder de bodegas
+        $this->call(MovementTypesTableSeeder::class); // Ejecutar Seeder de tipos de movimiento
         Movement::factory()->count(500)->create(); //  Generar Movimientos de pruebas
 
         DB::commit(); // Finalizar transación
