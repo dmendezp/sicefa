@@ -32,12 +32,16 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('low', 'low')->name('ptventa.inventory.low');
         });
 
-            //Ruta de reporte
+        //Ruta de reporte - Anyi
         Route::prefix('report')->controller(InventoryController::class)->group(function(){
             Route::get('report', 'report')->name('ptventa.report.report');
             Route::post('report_results')->name('ptventa.report.report_results');
             Route::get('rpdf', 'rpdf')->name('ptventa.report.rpdf'); // Descarga de formato de pdf
+        });
 
+        //Rutas de reportes - Manuel
+        Route::prefix('reports')->controller(InventoryController::class)->group(function(){
+            Route::get('reports', 'reports')->name('ptventa.reports.index');
         });
 
         //Rutas para Ventas

@@ -1,0 +1,49 @@
+.human-resources {
+    --text-color-hover: #ffffff;
+    --box-shadow-color: rgba(26, 93, 209, 0.48);
+}
+
+.card-custom {
+    width: 220px;
+    height: 321px;
+    background: #496f5d93;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 14px 26px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease-out;
+    text-decoration: none;
+}
+
+.card-custom:hover {
+    transform: translateY(-5px) scale(1.005) translateZ(0);
+    box-shadow: 0 30px 40px rgba(0, 0, 0, 0.2), /* Aumentamos el desplazamiento vertical */
+                0 24px 46px var(--box-shadow-color);
+}
+
+
+.card-custom:hover .overlay {
+    transform: scale(4) translateZ(0);
+}
+
+.card-custom:hover p {
+    color: var(--text-color-hover);
+}
+
+.card-custom:active {
+    transform: scale(1) translateZ(0);
+    box-shadow: 0 15px 24px rgba(0, 0, 0, 0.11),
+        0 15px 24px var(--box-shadow-color);
+}
+
+.card-custom p {
+    font-size: 20px;
+    color: #4C5656;
+    margin-top: 30px;
+    z-index: 1000;
+    transition: color 0.3s ease-out;
+}

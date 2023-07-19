@@ -115,7 +115,16 @@
                                 <p>{{ trans('ptventa::general.Reports')}}</p>
                             </a>
                         </li>
-                    @endif
+                        @endif
+                        @if (Auth::user()->havePermission('ptventa.reports.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('ptventa.reports.index') }}"
+                                class="nav-link {{ !Route::is('ptventa.reports.index*') ?: 'active' }}">
+                                <i class="nav-icon far fa-chart-bar"></i>
+                                <p>Panel de Reportes</p>
+                            </a>
+                        </li>
+                        @endif
                     @endauth
                     <li class="nav-item">
                         <a href="{{ route('cefa.ptventa.devs') }}"
