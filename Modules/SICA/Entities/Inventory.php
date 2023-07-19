@@ -56,9 +56,6 @@ class Inventory extends Model implements Auditable
     public function person(){ // Accede a la información de los datos personales de la persona responsable
         return $this->belongsTo(Person::class);
     }
-    public function warehouse(){ // Accede a la información de la bodega al que pertenece
-        return $this->belongsTo(Warehouse::class);
-    }
 
 
     // configuración de fcoty para la generació de datos de pruebas
