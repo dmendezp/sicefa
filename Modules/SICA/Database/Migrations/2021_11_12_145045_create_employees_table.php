@@ -15,14 +15,17 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->integer('Contract_number');
-            $table->date('Contract_date');
-            $table->string('Professional_card');
-            $table->date('professional_card_issuance_date');
-            $table->string('pension fund');
-            $table->foreignId('employee_type_id')->constrained()->ondelete('cascade');
-            $table->foreignId('Function_id')->constrained()->ondelete('cascade');
-            $table->enum('state',['Activo','Inactivo']);
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->integer('contract_number');
+            $table->date('contract_date');
+            $table->string('professional_card_number');
+            $table->date('professional_card_issue_date');
+            $table->foreignId('employee_type_id')->constrained()->onDelete('cascade');
+            $table->foreignId('position_id')->constrained()->onDelete('cascade');
+            $table->string('health_entity');
+            $table->string('pension_entity');
+            $table->string('risk_type', 5);
+            $table->enum('state', ['Activo','Inactivo']);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -35,6 +38,7 @@ class CreateEmployeesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('employees');
     }
 }

@@ -18,7 +18,7 @@ class CreateFailedJobsTable extends Migration
             $table->string('uuid')->unique();
             $table->text('connection');
             $table->text('queue');
-            $table->longText('payload')->constraine();
+            $table->longText('payload');
             $table->longText('exception');
             $table->timestamp('failed_at')->useCurrent();
         });
@@ -31,6 +31,7 @@ class CreateFailedJobsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('failed_jobs');
     }
 }

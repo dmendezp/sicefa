@@ -28,6 +28,7 @@ class CreateRoleUserTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('role_user');
     }
 }

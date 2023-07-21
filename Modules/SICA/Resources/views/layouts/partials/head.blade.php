@@ -33,8 +33,6 @@
   {{-- Sweatalert and toast --}}
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/toastr/toastr.min.css') }}">
 
-<link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
-
-
+  <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
 
 </head>

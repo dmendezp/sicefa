@@ -1,10 +1,10 @@
-<?php
+Z<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDetailMovementsTable extends Migration
+class CreateMovementDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,11 +16,11 @@ class CreateDetailMovementsTable extends Migration
         Schema::create('movement_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('movement_id')->constrained()->onDelete('cascade');
-            $table->foreignId('inventorie_id')->constrained()->onDelete('cascade');
+            $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
             $table->integer('amount');
             $table->integer('price');
-            $table->timestamps();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -31,6 +31,7 @@ class CreateDetailMovementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_movements');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('movement_details');
     }
 }
