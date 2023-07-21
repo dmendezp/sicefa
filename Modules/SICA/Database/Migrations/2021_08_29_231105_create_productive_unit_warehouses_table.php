@@ -19,6 +19,7 @@ class CreateProductiveUnitWarehousesTable extends Migration
             $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
+            $table->unique(['productive_unit_id','warehouse_id'], 'unique_productive_unit_warehouse'); // Generar llave única entre la columnas productive_unit_id y warehouse_id
         });
     }
 
