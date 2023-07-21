@@ -18,23 +18,24 @@
                     @endif
                 </div>
                 @guest
-                <div class="col info info-user">
-                    <div style="color: antiquewhite">{{ trans('menu.Welcome') }}</div>
-                    <div>
-                        <a href="{{ route('login') }}" class="d-block">Iniciar sesión</a>
+                    <div class="col info info-user">
+                        <div style="color: antiquewhite">{{ trans('menu.Welcome') }}</div>
+                        <div>
+                            <a href="{{ route('login') }}" class="d-block">Iniciar sesión</a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-auto info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}">
-                    <a href="{{ route('login') }}" class="d-block">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </a>
+                    <div class="col-auto info float-right mt-2" data-toggle="tooltip" data-placement="right"
+                        title="{{ trans('Auth.Login') }}">
+                        <a href="{{ route('login') }}" class="d-block">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </a>
                     </div>
                 @else
                     <div class="col info info-user">
-                        <div data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
+                        <div style="color: antiquewhite" data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
                             {{ Auth::user()->nickname }}
                         </div>
-                        <div class="small">
+                        <div class="small" style="color: antiquewhite">
                             <em> {{ Auth::user()->roles[0]->name }}</em>
                         </div>
                     </div>
@@ -54,7 +55,7 @@
                     <li class="nav-item">
                         <a href="{{ route('cefa.welcome') }}" class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
                             <i class="nav-icon fas fa-puzzle-piece"></i>
-                            <p>{{ trans('sigac::general.Back')}}</p>
+                            <p>{{ trans('sigac::general.Back') }}</p>
                         </a>
                     </li>
                 </ul>
