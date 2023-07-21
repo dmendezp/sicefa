@@ -1,3 +1,5 @@
+Web
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -44,7 +46,9 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('reports', 'reports')->name('ptventa.reports.index');
             Route::get('saleReports', 'saleReports')->name('ptventa.reports.sale.index');
             Route::get('lowReports', 'lowReports')->name('ptventa.reports.low.index');
-            Route::get('inventoryReports', 'inventoryReports')->name('ptventa.reports.inventory.index');
+            //Reportes de inventario
+            Route::post('inventoryReports/show', 'show')->name('ptventa.reports.inventory.show'); // Permite hacer la consulta de las informacion y retornarla a la vista principal.
+            Route::get('inventoryReports', 'inventoryReports')->name('ptventa.reports.inventory.index'); // Pagina principal del reportes de inventario.
         });
 
         //Rutas para Ventas
