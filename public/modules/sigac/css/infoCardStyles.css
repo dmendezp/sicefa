@@ -1,0 +1,18 @@
+/* Estilos para agregar un borde a los botones */
+.with-border {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+}
+
+/* Estilos para hacer que los botones sean más grandes */
+.btn-lg {
+    padding: 20px 30px; /* Ajusta estos valores para cambiar el tamaño del botón */
+}
+
+/* Estilos para que los botones tengan el mismo tamaño y ocupen todo el ancho del contenedor */
+.btn-block {
+    display: block;
+    width: 100%;
+}
