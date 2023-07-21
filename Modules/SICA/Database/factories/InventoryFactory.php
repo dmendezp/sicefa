@@ -41,8 +41,6 @@ class InventoryFactory extends Factory
         }
 
         return [
-            'person_id' => Person::where('document_number',52829681)->first()->id,
-            'warehouse_id' => Warehouse::where('name','Punto de venta')->first()->id,
             'element_id' => Element::pluck('id')->random(),
             'destination' => 'Producción',
             'description' => $this->faker->randomElement([null, rtrim($this->faker->unique()->sentence(), '.')]),

@@ -10,6 +10,7 @@ use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\Municipality;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Sector;
 use Modules\SICA\Entities\Warehouse;
 
@@ -77,7 +78,11 @@ class AppTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
-        $warehouse->productive_units()->syncWithoutDetaching([$productive_unit->id]); // Asociar a bodega con unidad unidad productiva
+        // Asociar a bodega con unidad unidad productiva
+        ProductiveUnitWarehouse::firstOrCreate([
+            'productive_unit_id' => $productive_unit->id,
+            'warehouse_id' => $warehouse->id
+        ]);
 
     }
 }

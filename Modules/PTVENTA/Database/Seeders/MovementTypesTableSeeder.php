@@ -16,14 +16,12 @@ class MovementTypesTableSeeder extends Seeder
     {
 
         // Registrar tipo de movimiento para ventas
-        MovementType::updateOrCreate([
-            'name' => 'Venta',
+        MovementType::firstOrCreate(['name' => 'Venta'],[
             'consecutive' => 0
         ]);
 
         // Registrar tipo de movimiento para entradas de inventario
-        MovementType::updateOrCreate([
-            'name' => 'Movimiento Interno',
+        MovementType::firstOrCreate(['name' => 'Movimiento Interno'],[
             'consecutive' => 0
         ]);
 
