@@ -19,6 +19,10 @@
         <li class="nav-item d-none d-sm-inline-block mx-1">
             <a href="#" class="nav-link">Administrador</a>
         </li>
+
+        <li class="nav-item d-none d-sm-inline-block mx-1">
+            <a href="#" class="nav-link">Bienestar</a>
+        </li>
     </ul>
 
     <!-- Right navbar links -->
