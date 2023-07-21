@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductiveUnitWarehouseTable extends Migration
+class CreateProductiveUnitWarehousesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateProductiveUnitWarehouseTable extends Migration
      */
     public function up()
     {
-        Schema::create('productive_unit_warehouse', function (Blueprint $table) {
+        Schema::create('productive_unit_warehouses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('productive_unit_id')->constrained()->onDelete('cascade');
             $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
+            $table->unique(['productive_unit_id','warehouse_id'], 'unique_productive_unit_warehouse'); // Generar llave única entre la columnas productive_unit_id y warehouse_id
         });
     }
 
@@ -29,6 +31,6 @@ class CreateProductiveUnitWarehouseTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('productive_unit_warehouse');
+        Schema::dropIfExists('productive_unit_warehouses');
     }
 }
