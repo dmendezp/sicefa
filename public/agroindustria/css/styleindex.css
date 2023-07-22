@@ -58,7 +58,7 @@ p {
 .ganaderia {
     width: 100%;
     height: 70vh;
-    background: url("../imgagroindustria/112.jpg")center no-repeat;
+    background: url("../img/112.jpg")center no-repeat;
     background-size: cover;
     display: flex;
     align-items: center;

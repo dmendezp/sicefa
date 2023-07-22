@@ -7,9 +7,9 @@
     <section class="ganaderia" id="ganaderia">
         <div class="container">
             <h2 class="h2-sub1">
-                <span class="fil">B</span>ienvenid@s
+                <span class="fil">B</span>ienvenid@s a 
             </h2>
-            <h1 class="head">Agroindustrial</h1>
+            <h1 class="head">Datagro</h1>
         </div>
             </section>
 
@@ -20,7 +20,7 @@
             <div class="card mb-3" >
                 <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="{{asset('imgagroindustria/foto1.jpg')}}" class="img-fluid rounded-start" alt="...">
+                            <img src="{{asset('agroindustria/img/foto1.jpg')}}" class="img-fluid rounded-start" alt="...">
                         </div>
                      <div class="col-md-8">
                 <div class="card-body">
@@ -36,53 +36,7 @@
 </div>
 <br>
             </center>
-            <div class="container">
-            <div class="profile">
-                <img src="{{asset('imgagroindustria/db.jpeg')}}" alt="John" style="width:100%">
-                <h1>Diego Bonilla</h1>
-                    <p class="title">CEO & Founder, Example</p>
-                    <p>Harvard University</p>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                <p><button>Contact</button></p>
-            </div>
-            <div class="profile">
-                <img src="{{asset('imgagroindustria/jh.jpg')}}" alt="John" style="width:100%">
-                <h1>Julian Ramirez</h1>
-                    <p class="title">CEO & Founder, Example</p>
-                    <p>Que Bendicion ve</p>
-                    <p>Harvard University</p>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                <p><button>Contact</button></p>
-            </div>
-            <div class="profile">
-                <img src="{{asset('imgagroindustria/cadena.jpeg')}}" alt="John" style="width:100%">
-                <h1>David Cadena</h1>
-                    <p class="title">CEO & Founder, Example</p>
-                    <p>Harvard University</p>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                <p><button>Contact</button></p>
-            </div>
-            <div class="profile">
-                <img src="{{asset('imgagroindustria/marin.jpeg')}}" alt="John" style="width:100%">
-                <h1>Jennifer Marin</h1>
-                    <p class="title">CEO & Founder, Example</p>
-                    <p>Harvard University</p>
-                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                <p><button>Contact</button></p>
-            </div>
-        </div>
+    
     </div>
     </div>
     </section>

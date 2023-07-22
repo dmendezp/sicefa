@@ -16,7 +16,7 @@
                     </h2>
                     <h2 class="agrtittle">Productivas</h2>
                     </div>
-                    <img class="imglogo" src="{{asset('imgagroindustria/logo1.png')}}" alt="">  
+                    <img class="imglogo" src="{{asset('agroindustria/img/logo1.png')}}" alt="">  
              </div>
   </section>
 <!-- /tittle -->

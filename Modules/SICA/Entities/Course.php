@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Apprentice;
+use Modules\SIGAC\Entities\InstructorProgram;
 
 class Course extends Model implements Auditable
 {
@@ -43,6 +44,9 @@ class Course extends Model implements Auditable
     }
     public function program(){ // Accede al programa de formación al que pertenece
         return $this->belongsTo(Program::class);
+    }
+    public function instructorprogram(){
+        return $this->hasMany(InstructorProgram::class);
     }
 
     // Configuración de factory para la generación de datos de pruebas
