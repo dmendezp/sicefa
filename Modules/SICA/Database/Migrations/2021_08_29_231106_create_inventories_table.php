@@ -16,7 +16,7 @@ class CreateInventoriesTable extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
-            $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
+            $table->foreignId('productive_unit_warehouse_id')->constrained()->onDelete('cascade');
             $table->foreignId('element_id')->constrained()->onDelete('cascade');
             $table->enum('destination',['Producción','Formación']);
             $table->text('description')->nullable();

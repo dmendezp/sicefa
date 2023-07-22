@@ -47,7 +47,7 @@ class Element extends Model implements Auditable
         $this->attributes['name'] = ucfirst($value);
         $this->attributes['slug'] = Str::slug($value, '-'); // Generación del slug
     }
-    
+
     // RELACIONES
     public function category(){ // Accede a la categoría al que pertenece
         return $this->belongsTo(Category::class);
