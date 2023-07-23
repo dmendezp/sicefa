@@ -28,6 +28,8 @@
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Consultar</button>
+                        <!-- Botón para generar el PDF -->
+                        <button type="submit" class="btn btn-danger" formaction="{{ route('ptventa.reports.inventory.generatePDF') }}">Generar PDF</button>
                     </div>
                 </form>                
             </div>
