@@ -16,6 +16,20 @@
             </li>
         </ul>
     </div>
+    <div class="user-panel mt-1 pb-1 mb-1 d-flex">
+        <nav class="salir">
+            <ul class="nav nav-pills nav-sidebar flex-column">
+                <li class="nav-item">
+                  <a href="{{ route('cefa.welcome') }}" class="nav-link">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <p>
+                      Volver a SICEFA
+                    </p>
+                  </a>
+                </li>
+            </ul>
+        </nav>
+      </div>
 </nav>
 <script>
     // Obtener la URL actual

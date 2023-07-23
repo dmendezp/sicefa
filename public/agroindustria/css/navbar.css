@@ -12,4 +12,21 @@
 .navbar-brand{
     padding: 4px;
 }
+
+.salir p{
+    font-size: 10px;
+}
+
+.user-panel a {
+    text-decoration: none;
+}
   
+.user-panel a:active,
+.user-panel a:focus,
+.user-panel a:hover {
+    color: #000; 
+}
+  
+.user-panel a:visited {
+    color: #000;
+}

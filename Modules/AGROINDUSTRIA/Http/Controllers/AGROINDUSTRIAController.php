@@ -5,6 +5,7 @@ namespace Modules\AGROINDUSTRIA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use DB;
 
 class AGROINDUSTRIAController extends Controller
 {
@@ -14,27 +15,32 @@ class AGROINDUSTRIAController extends Controller
      */
     public function index()
     {
-        return view('agroindustria::index');
+        $title = 'Inicio';
+        return view('agroindustria::index', compact('title'));
     }
 
     public function unidd()
     {
-        return view('agroindustria::unidd');
+        $title = 'Unidades';
+        return view('agroindustria::unidd', compact('title'));
     }
 
     public function solicitud()
     {
-        return view('agroindustria::solicitud');
+        $title = 'Solicitud';
+        return view('agroindustria::solicitud', compact('title'));
     }
 
     public function invb()
     {
-        return view('agroindustria::invb');
+        $title = 'Inventario';
+        return view('agroindustria::invb', compact('title'));
     }
 
     public function enviarsolicitud()
     {
-        return view('agroindustria::enviarsolicitud');
+        $title = 'Enviar Solicitud';
+        return view('agroindustria::enviarsolicitud', compact('title'));
     }
 
     /**
