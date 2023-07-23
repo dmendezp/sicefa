@@ -9,35 +9,27 @@
                     <strong>Responsables y bodegas</strong>
                 </div>
                 <div class="card-body tex-center pt-0">
-                    <label class="form-label my-0 mt-1">Entrega:</label>
-                    <div class="row mb-1">
-                        <div class="col-5 pe-1">
-                            {!! Form::number(null, null, [
-                                'class'=>'form-control form-control-sm',
-                                'wire:model.defer'=>'delivery_document_number',
-                                'wire:keydown.enter'=>'consultPersonDelivery',
-                                'wire:loading.attr'=>'disabled',
-                                'wire:target'=>'consultPersonDelivery'
-                            ])!!}
-                        </div>
-                        <div class="col ps-1">
-                            {!! Form::text(null, $delivery_person ? $delivery_person->document_type : '------------------', [
-                                'class'=>'form-control form-control-sm',
-                                'disabled'
-                            ])!!}
-                        </div>
-                    </div>
-                    {!! Form::text(null, $delivery_person ? $delivery_person->full_name : '------------------', [
-                        'class'=>'form-control form-control-sm',
-                        'disabled'
-                    ])!!}
-                    <label class="form-label my-0">Bodega de origen:</label>
-                    <select class="form-select form-select-sm" wire:model='delivery_warehouse_id'>
-                        <option value="">-- Selecciona --</option>
-                        @foreach ($warehouses as $warehouse)
-                            <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                    <label class="form-label my-0 mt-1">U. Productiva y bodega de origen:</label>
+                    <select class="form-select form-select-sm mb-2" wire:model="dpu_id">
+                        <option value="">-- Selecciona U. Productiva --</option>
+                        @foreach ($productive_units as $pw)
+                            <option value="{{ $pw->id }}">{{ $pw->name }}</option>
                         @endforeach
                     </select>
+                    <select class="form-select form-select-sm" id="dpuw_id" wire:model="dpuw_id" @if(empty($puwarehouses)) disabled @endif>
+                        <option value="" data-name="">-- Selecciona bodega --</option>
+                        @if (!empty($puwarehouses))
+                            @foreach ($puwarehouses as $puwarehouse)
+                                <option value="{{ $puwarehouse->id }}" data-name="{{ $puwarehouse->productive_unit->person->full_name }}">{{ $puwarehouse->warehouse->name }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                    <label class="form-label my-0">Responsable:</label>
+                    {!! Form::text(null, null, [
+                        'class'=>'form-control form-control-sm',
+                        'id'=>'delivery_person',
+                        'readonly'
+                    ])!!}
                     <hr class="mb-1">
                     <label class="form-label my-0">Recibe:</label>
                     {!! Form::text(null, Auth::user()->person->full_name, [
@@ -45,7 +37,7 @@
                         'disabled'
                     ])!!}
                     <label class="form-label my-0">Bodega de destino:</label>
-                    {!! Form::text(null, $warehouse->name, [
+                    {!! Form::text(null, $puw->warehouse->name, [
                         'class'=>'form-control form-control-sm',
                         'disabled'
                     ])!!}
@@ -173,7 +165,7 @@
     </div>
 
     <!-- Productos seleccionados -->
-    <div class="row mx-3">
+    <div class="row mx-3 mt-1">
         <div class="card shadow-sm">
             <div class="col-md-12 h-100">
                 <div class="card-body">

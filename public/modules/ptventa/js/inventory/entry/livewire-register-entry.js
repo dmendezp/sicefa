@@ -40,3 +40,9 @@ $('#product_element_id').change(function() {
         $('#product_amount').focus();
     }
 });
+
+// Establecer el nombre de la persona que entrega de acuerdo a la bodega seleccionada
+$('#dpuw_id').change(function() {
+    value = $(this).find(':selected').data('name');
+    $('#delivery_person').val(value);
+});

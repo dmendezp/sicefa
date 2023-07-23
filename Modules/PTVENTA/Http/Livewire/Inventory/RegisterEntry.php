@@ -15,20 +15,22 @@ use Modules\SICA\Entities\MovementResponsibility;
 use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\WarehouseMovement;
 
 class RegisterEntry extends Component
 {
 
-    public $warehouse; // Bodega de defecto de la aplicación
-    public $warehouses; // Bodegas disponibles
-    public $delivery_warehouse_id; // ID de la bodega que entrega
-    public $delivery_document_number; // Número de identificación de la persona que entrega
-    public $delivery_person; // Persona que entrega los productos para la entrada del inventario
+    public $puw; // Unidad productiva y bodega de la aplicación
     public $products; // Productos (elementos) disponibles
+    public $destinations; // Destinos disponibles para inventario
+    public $productive_units; // Unidades productivas registradas
+    public $dpu_id; // ID de la unidad productiva responsable de entrega
+    public $puwarehouses; // Unidades productivas y bodegas disponibles a partir de la selección de la uniad productiva que entrega
+    public $dpuw_id; // ID de la unidad productiva y bodega responsable de entrega
     public $product_element_id; // Producto (elemento) seleccionado
     public $product_price; // Precio del producto (elemento) seleccionado
-    public $destinations; // Destinos disponibles para inventario
     public Collection $selected_products; // Productos (elementos) seleccionados
     public $product_amount; // Cantidad del producto (elemento) seleccionado
     public $product_production_date; // Fecha de produccón del producto (elemento) seleccionado
@@ -55,20 +57,19 @@ class RegisterEntry extends Component
     // Establecer bodega
     public function defaultAction(){
         $this->reset(); // Vaciar los valores de todos los atributos para evitar irregularidades en los valores de estos
-        $this->warehouse = Warehouse::where('name','Punto de venta')->firstOrFail();
-        $this->warehouses = Warehouse::orderBy('name','ASC')->get();
+        $productive_unit = ProductiveUnit::where('name','Punto de venta')->firstOrFail(); // Unidad productiva de la aplicación
+        $warehouse = Warehouse::where('name','Punto de venta')->firstOrFail(); // Bodega de la aplicación
+        $this->puw = ProductiveUnitWarehouse::where('productive_unit_id',$productive_unit->id)->where('warehouse_id',$warehouse->id)->firstOrFail();
         $this->products = Element::whereNotNull('price')->orderBy('name','ASC')->get();
+        $this->productive_units = ProductiveUnit::whereHas('productive_unit_warehouses')->orderBy('name','ASC')->get();
         $this->destinations = getEnumValues('inventories','destination'); // Consultar destinos para elementos de inventario
     }
 
-    // Consultar persona que entrega
-    public function consultPersonDelivery(){
-        $delivery_person = Person::where('document_number',$this->delivery_document_number)->first();
-        if($delivery_person){
-            $this->delivery_person = $delivery_person;
-        }else{
-            $this->reset('delivery_person','delivery_document_number');
-            $this->emit('message', 'alert-warning', null, 'La persona consultada no se encuentra registrada.'); // Emitir mensaje de advertencia para seleccionar un reponsable de entrega registrado
+    // Detectar cambio del select de unidad productiva de origen
+    public function updatedDpuId($value){
+        $this->reset('puwarehouses','dpuw_id');
+        if(!empty($this->dpu_id)){
+            $this->puwarehouses = ProductiveUnitWarehouse::where('productive_unit_id',$this->dpu_id)->get();
         }
     }
 
