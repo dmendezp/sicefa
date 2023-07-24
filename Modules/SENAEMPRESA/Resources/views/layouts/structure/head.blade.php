@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Starter</title>
+    <title>SENA EMPRESA | Starter</title>
 
     <link rel="icon" href="{{ asset('AdminLTE/dist/img/logo P SENA.png') }}">
 
@@ -47,6 +47,8 @@
 
 
     <link href="{{ asset('senaempresa/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('senaempresa/css/we.css') }}" rel="stylesheet">
+
 
 
 

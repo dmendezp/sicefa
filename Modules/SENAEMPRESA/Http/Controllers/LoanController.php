@@ -14,10 +14,10 @@ class LoanController extends Controller
      */
     public function new()
     {
-        $data = ['title'=>'nuevo'];
+        $data = ['title' => 'Nuevo'];
         return view('senaempresa::interview.loan.new', $data);
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +25,7 @@ class LoanController extends Controller
      */
     public function register()
     {
-        $data = ['title'=>'registrados'];
+        $data = ['title' => 'Registrados'];
         return view('senaempresa::interview.loan.register', $data);
     }
 

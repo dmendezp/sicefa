@@ -14,7 +14,7 @@ class CompanyController extends Controller
      */
     public function we()
     {
-        $data = ['title'=>'nosotros'];
+        $data = ['title' => 'Nosotros'];
         return view('senaempresa::quality.we', $data);
     }
 
@@ -24,7 +24,7 @@ class CompanyController extends Controller
      */
     public function contact()
     {
-        $data = ['title'=>'Contactos'];
+        $data = ['title' => 'Contactos'];
         return view('senaempresa::quality.contact', $data);
     }
 
