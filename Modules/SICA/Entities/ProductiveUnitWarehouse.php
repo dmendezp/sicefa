@@ -25,7 +25,7 @@ class ProductiveUnitWarehouse extends Model implements Auditable
     ];
 
     // RELACIONES
-    public function inventories(){ // Accede a todos los inventarios asociados a esta unidad productive y bodega
+    public function inventories(){ // Accede a todos los inventarios asociados a esta unidad productiva y bodega
         return $this->hasMany(Inventory::class);
     }
     public function productive_unit(){ // Accede a la unidad productiva al que pertenece
@@ -33,6 +33,9 @@ class ProductiveUnitWarehouse extends Model implements Auditable
     }
     public function warehouse(){ // Accede a la bodega al que pertenece
         return $this->belongsTo(Warehouse::class);
+    }
+    public function warehouse_movements(){ // Accede a todos los movimientos de bedega asociados a esta unidad productiva y bodega
+        return $this->hasMany(WarehouseMovement::class);
     }
 
 }

@@ -3,7 +3,7 @@
 namespace Modules\SIGAC\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class SIGACDatabaseSeeder extends Seeder
 {
@@ -14,8 +14,16 @@ class SIGACDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        DB::beginTransaction(); // Iniciar transacción
+
+        $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
+        $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
+        $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
+        $this->call(RolesTableSeeder::class); // Ejecutar Seeder de roles para usuarios
+        $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de permisos para roles
+
+        DB::commit(); // Finalizar transación
+
     }
 }
