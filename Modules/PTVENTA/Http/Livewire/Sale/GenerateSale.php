@@ -21,9 +21,13 @@ use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Modules\PTVENTA\Entities\CashCount;
 use Modules\SICA\Entities\MovementResponsibility;
+use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\ProductiveUnitWarehouse;
 
 class GenerateSale extends Component
 {
+
+    public $puw; // Almacena la unidad productia y bodega asociada a la aplicación
     public $products; // Almacena todos los productos activos del inventario
     public $product_id; // Almacena el id del elemento selecionado
     public $product_price; // Contiene el precio del producto seleccionado de acuerdo a su inventario
@@ -64,8 +68,12 @@ class GenerateSale extends Component
     public function defaultAction(){
         $this->reset(); // Vaciar los valores de todos los atributos para evitar irregularidades en los valores de estos
         $this->consultCustomer(); // Consultar cliente predeterminado
-        $warehouse = Warehouse::where('name','Punto de venta')->first(); // Consultar bodega de la aplicación
-        $inventories = Inventory::where('warehouse_id',$warehouse->id)
+        $warehouse = Warehouse::where('name','Punto de venta')->firstOrFail(); // Consultar granja
+        $productive_unit = ProductiveUnit::where('name','Punto de venta')->firstOrFail(); // Consultar unidad productiva
+        $this->puw = ProductiveUnitWarehouse::where('warehouse_id',$warehouse->id)
+                                                            ->where('productive_unit_id',$productive_unit->id)
+                                                            ->firstOrFail(); // Obtener unidad productiva y bodega relacionada
+        $inventories = Inventory::where('productive_unit_warehouse_id',$this->puw->id)
                                 ->where('destination','Producción')
                                 ->where('state','Disponible')
                                 ->pluck('id','element_id');  // Obtener elemen_id unicos para conocer los elementos activos del inventario
@@ -76,8 +84,7 @@ class GenerateSale extends Component
 
     // Consultar información del producto seleccionado (cantidad y precio)
     public function inventoryProduct($element_id){ // Consultar cantidad disponible del producto
-        $warehouse = Warehouse::where('name','Punto de venta')->first();
-        $inventory = Inventory::where('warehouse_id',$warehouse->id)
+        $inventory = Inventory::where('productive_unit_warehouse_id',$this->puw->id)
                                 ->where('element_id',$element_id)
                                 ->where('destination','Producción')
                                 ->where('state','Disponible')
@@ -236,7 +243,8 @@ class GenerateSale extends Component
                     $amountLeft = $product['product_amount']; // Definir cantidad restante (cantidad del producto a vender)
 
                     // Consultar todo el inventario del producto seleccionado
-                    $inventories = Inventory::where('element_id', $product['product_element_id'])
+                    $inventories = Inventory::where('productive_unit_warehouse', $this->puw->id)
+                        ->where('element_id', $product['product_element_id'])
                         ->where('state', 'Disponible')
                         ->where('destination', 'Producción')
                         ->orderBy('expiration_date', 'asc')
@@ -284,7 +292,7 @@ class GenerateSale extends Component
                 // Registrar movimientos de bodega
                 $error = 'MOVIMIENTOS DE BODEGA';
                 WarehouseMovement::create([
-                    'warehouse_id' => $warehouse->id,
+                    'productive_unit_warehouse_id' => $this->puw->id,
                     'movement_id' => $movement->id,
                     'role' => 'Entrega'
                 ]);
