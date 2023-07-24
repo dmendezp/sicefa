@@ -43,7 +43,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-9">
-                        <div class="card">
+                        <div class="formulario">
                             <div class="card-header">{{ $title }}</div>
 
                             <div class="card-body">
@@ -83,13 +83,13 @@
                                     {!! Form::file('document_number', null, ['class' => 'form-control']) !!}
                                     <br><br>
                                 </div>
-                                {!! Form::submit('Postulación', ['class' => 'btn btn-warning', 'name' => 'postulación']) !!}
+                                {!! Form::submit('Postulación', ['class' => 'btn btn-success', 'name' => 'Postulación']) !!}
                                 {!! Form::close() !!}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div><br>
             @section('content')
             @show
 

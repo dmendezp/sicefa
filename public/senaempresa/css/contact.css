@@ -5,7 +5,7 @@
 }
 
 .area1 {
-    background-color: #16A085;
+    background-color: #000000;
     border-top-left-radius: 14px !important;
     border-top-right-radius: 14px !important;
     padding-top: 83px !important
@@ -32,14 +32,14 @@
 }
 
 .information {
-    color: #16A085;
+    color: #000000;
     font-weight: 500;
     font-size: 16px;
 }
 
 .list-icons {
     display: inline-flex;
-    color: #16A085
+    color: #000000
 }
 
 .list-icons li {
