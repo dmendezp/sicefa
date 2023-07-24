@@ -9,14 +9,8 @@
 </head>
 <body style="display: flex;">
   
-  @if(request()->is('agrocefa/parameters'))
-    <!-- Sidebar Parametros -->
-    @include('agrocefa::partials.sidebarparameters')
-  @else
-    <!--Sidebar-->
-    @include('agrocefa::partials.sidebar')
-  @endif
   <!--Sidebar-->
+  @include('agrocefa::partials.si   debar')
 
   <!--Navbar-->
   <section class="home">

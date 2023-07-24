@@ -38,6 +38,10 @@ class AGROCEFAController extends Controller
     {
         return view('agrocefa::inventory');
     }
+    public function parameters()
+    {
+        return view('agrocefa::parameters');
+    }
     /**
      * Show the form for creating a new resource.
      * @return Renderable

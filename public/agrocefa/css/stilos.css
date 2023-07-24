@@ -56,7 +56,7 @@ body.dark{
     z-index: 100;  
 }
 .sidebar.close{
-    width: 45px;
+    width: 90px;
 }
 
 /* ===== Reusable code - Here ===== */
@@ -67,6 +67,7 @@ body.dark{
     align-items: center;
     margin-top: 10px;
 }
+
 
 .sidebar header .image,
 .sidebar .icon{
@@ -191,7 +192,6 @@ body.dark .sidebar header .toggle{
     background-color: transparent;
     display: flex;
     align-items: center;
-    height: 100%;
     width: 100%;
     border-radius: 6px;
     text-decoration: none;
