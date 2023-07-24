@@ -144,48 +144,61 @@ class InventoryController extends Controller
         // Realiza la misma consulta que usas para mostrar los datos en la tabla
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
-    
+
         // Realiza la consulta y obtén los datos
         $startDateTime = Carbon::parse($startDate)->startOfDay();
         $endDateTime = Carbon::parse($endDate)->endOfDay();
-    
+
         $inventories = Inventory::whereBetween('created_at', [$startDateTime, $endDateTime])->get();
-    
+
         // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
-    
+
         // Establecer el título del documento
         $pdf->SetTitle('Reporte de Inventarios');
-    
+
         // Agregar una nueva página
         $pdf->AddPage();
-    
+
         // Establecer el contenido del PDF
-        $html = '<h1>Reporte de Inventarios</h1>';
-        $html .= '<table border="1">';
-        $html .= '<thead><tr><th>#</th><th>Elemento</th><th>Precio</th><th>Cantidad</th><th>Stock</th><th>Fecha de Producción</th><th>Fecha de Vencimiento</th><th>Número de Lote</th></tr></thead>';
+        $html = '<h1 style="text-align: center;">Reporte de Inventarios</h1>';
+        $html .= '<table style="border-collapse: collapse; width: 100%;">';
+        $html .= '<thead style="background-color: #f2f2f2;">';
+        $html .= '<tr>';
+        // Columna del #
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;">#</th>';
+        // Resto de columnas
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 110px;">Elemento</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Precio</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Cantidad</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Stock</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de Producción</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de Vencimiento</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Número de Lote</th>';
+        $html .= '</tr>';
+        $html .= '</thead>';
         $html .= '<tbody>';
-        
+
         foreach ($inventories as $inventory) {
             $html .= '<tr>';
-            $html .= '<td>' . $inventory->id . '</td>';
-            $html .= '<td>' . $inventory->element->name . '</td>';
-            $html .= '<td>' . $inventory->price . '</td>';
-            $html .= '<td>' . $inventory->amount . '</td>';
-            $html .= '<td>' . $inventory->stock . '</td>';
-            $html .= '<td>' . $inventory->production_date . '</td>';
-            $html .= '<td>' . $inventory->expiration_date . '</td>';
-            $html .= '<td>' . $inventory->lot_number . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 25px;">' . $inventory->id . '</td>';
+            // Resto de columnas (sin cambios)
+            $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 110px;">' . $inventory->element->name . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $inventory->price . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $inventory->amount . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $inventory->stock . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">' . $inventory->production_date . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">' . $inventory->expiration_date . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: right; padding: 8px;">' . $inventory->lot_number . '</td>';
             $html .= '</tr>';
         }
-    
+
         $html .= '</tbody>';
         $html .= '</table>';
-    
+
         $pdf->writeHTML($html, true, false, true, false, '');
-    
+
         // Generar el PDF y devolverlo para su descarga
         $pdf->Output('reporte_inventarios.pdf', 'D');
-    }    
-
+    }
 }
