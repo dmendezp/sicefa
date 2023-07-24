@@ -29,6 +29,7 @@ class RegisterEntry extends Component
     public $dpu_id; // ID de la unidad productiva responsable de entrega
     public $puwarehouses; // Unidades productivas y bodegas disponibles a partir de la selección de la uniad productiva que entrega
     public $dpuw_id; // ID de la unidad productiva y bodega responsable de entrega
+    public $delivery_person; // Persona responsable que entrega
     public $product_element_id; // Producto (elemento) seleccionado
     public $product_price; // Precio del producto (elemento) seleccionado
     public Collection $selected_products; // Productos (elementos) seleccionados
@@ -67,9 +68,18 @@ class RegisterEntry extends Component
 
     // Detectar cambio del select de unidad productiva de origen
     public function updatedDpuId($value){
-        $this->reset('puwarehouses','dpuw_id');
-        if(!empty($this->dpu_id)){
+        $this->reset('puwarehouses','dpuw_id','delivery_person');
+        if(!empty($value)){
             $this->puwarehouses = ProductiveUnitWarehouse::where('productive_unit_id',$this->dpu_id)->get();
+        }
+    }
+
+    // Detectar cambio del select de bodega de origen
+    public function updatedDpuwId($value){
+        $this->reset('delivery_person');
+        if(!empty($value)){
+            $dp_id = ProductiveUnitWarehouse::findOrFail($value)->productive_unit->person_id;
+            $this->delivery_person = Person::findOrFail($dp_id);
         }
     }
 
@@ -121,15 +131,15 @@ class RegisterEntry extends Component
     // Registrar entrada de inventario
     public function registerEntry(){
         if($this->selected_products->isNotEmpty()){
-            $person_delivery = Person::where('document_number',$this->delivery_document_number)->first();
-            if($person_delivery){
-                if(!empty($this->delivery_warehouse_id)){
+            if(!empty($this->dpu_id)){ // Validad que una unidad productiva de origen esté seleccionada
+                if(!empty($this->dpuw_id)){
                     // Registrar venta como movimiento
                     try {
                         DB::beginTransaction(); // Iniciar transacción
 
                         $current_datetime = now()->milliseconds(0); // Generer fecha y hora actual
-                        $warehouse = Warehouse::where('name', 'Punto de venta')->first();
+                        $receive_warehouse = Warehouse::where('name', 'Punto de venta')->firstOrFail(); // Bodega que recibe
+                        $delivery_warehouse = Warehouse::where('name', 'Agroindustria')->firstOrFail(); // Bodega que entrega
 
                         // Consultar tipo de movimiento para una venta
                         $error = 'TIPO DE MOVIMIENTO';
@@ -150,8 +160,8 @@ class RegisterEntry extends Component
                         $movement_price = 0;
                         foreach ($this->selected_products as $product) {
                             $inventory = Inventory::create([
-                                'person_id'=>Auth::user()->person_id,
-                                'warehouse_id'=>$warehouse->id,
+                                'person_id'=>$this->puw->productive_unit->person_id,
+                                'productive_unit_warehouse_id'=>$this->puw->id,
                                 'element_id'=>$product['product_element_id'],
                                 'destination'=>$product['product_destination'],
                                 'description'=>$product['product_description'],
@@ -177,7 +187,7 @@ class RegisterEntry extends Component
                         // Registrar responsables del movimiento
                         $error = 'RESPONSABLES DE MOVIMIENTO';
                         MovementResponsibility::create([ // Registrar responsable que entrega los productos
-                            'person_id' => $person_delivery->id,
+                            'person_id' => $this->delivery_person->id,
                             'movement_id' => $movement->id,
                             'role' => 'ENTREGA',
                             'date' => $current_datetime
@@ -192,12 +202,12 @@ class RegisterEntry extends Component
                         // Registrar movimientos de bodega
                         $error = 'MOVIMIENTOS DE BODEGA';
                         WarehouseMovement::create([
-                            'warehouse_id' => $this->delivery_warehouse_id,
+                            'warehouse_id' => $delivery_warehouse->id,
                             'movement_id' => $movement->id,
                             'role' => 'Entrega'
                         ]);
                         WarehouseMovement::create([
-                            'warehouse_id' => $warehouse->id,
+                            'warehouse_id' => $receive_warehouse->id,
                             'movement_id' => $movement->id,
                             'role' => 'Recibe'
                         ]);
@@ -222,13 +232,16 @@ class RegisterEntry extends Component
                         $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la entrada de inventario en '.$error.'. Por favor intente nuevamente.');
                     }
                 } else {
-                    $this->emit('message', 'alert-warning', null, 'Es necesario seleccionar una bodega de origen.'); // Emitir mensaje de advertencia cuando la bodega de origen no está seleccionado
+                    // Emitir mensaje de advertencia cuando la bodega de origen no está seleccionada
+                    $this->emit('message', 'alert-warning', null, 'Es necesario seleccionar una bodega de origen.');
                 }
             }else{
-                $this->emit('message', 'alert-warning', null, 'Es necesario seleccionar un responsable de entrega existente.'); // Emitir mensaje de advertencia cuando el responsable de entrega no esté seleccionado
+                // Emitir mensaje de advertencia cuando la unidad productiva de origen no esté seleccionada
+                $this->emit('message', 'alert-warning', null, 'Es necesario seleccionar una unidad productiva de origen.');
             }
         } else {
-            $this->emit('message', 'alert-warning', null, 'Es necesario agregar al menos un producto.'); // Emitir mensaje de advertencia cuando no hayan productos seleccionados
+            // Emitir mensaje de advertencia cuando no hayan productos seleccionados
+            $this->emit('message', 'alert-warning', null, 'Es necesario agregar al menos un producto.');
         }
     }
 
