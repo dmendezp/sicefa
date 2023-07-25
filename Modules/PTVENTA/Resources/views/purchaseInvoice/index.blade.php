@@ -31,13 +31,13 @@ $fecha = date('Y-m-d');
     <script src="{{ asset('modules/ptventa/js/sale/conector_javascript_POS80C.js') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
-            
+
                 const conector = new ConectorPluginV3();
                 conector.Iniciar();
                 conector.EstablecerTamañoFuente(1, 1);
                 conector.EstablecerEnfatizado(false);
                 conector.EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO);
-                conector.Feed(1);
+                conector.Corte(1);
                 conector.TextoSegunPaginaDeCodigos(2, "cp850", "CENTRO DE FORMACIÓN AGROINDUSTRIAL\n")
                 conector.EscribirTexto("Nit 899.99934-1\n");
                 conector.DeshabilitarElModoDeCaracteresChinos();
@@ -79,13 +79,12 @@ $fecha = date('Y-m-d');
                 const imprimirBtn = document.getElementById('imprimirBtn');
                 imprimirBtn.addEventListener('click', async (event) => {
                     event.preventDefault();
-
-                    await conector.imprimirEn("<?php echo $nombreImpresora; ?>");
+                    await conector.imprimirEn("POS-80C");
 
                     // Redireccionar al usuario a la vista del botón
                     window.location.href = "{{ route('cefa.ptventa.ticket') }}";
                 });
-            
+
 
         });
     </script>

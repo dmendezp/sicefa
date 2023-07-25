@@ -85,21 +85,26 @@ class RegisterEntry extends Component
 
     // Agregar producto a la sección de los productos seleccionados
     public function addProduct(){
-        $product = Element::find($this->product_element_id);
-        $this->selected_products->push([
-            'product_element_id' => $this->product_element_id,
-            'product_name' => $product->product_name,
-            'product_price' => $product->price,
-            'product_amount' => $this->product_amount,
-            'product_production_date' => $this->product_production_date,
-            'product_expiration_date' => $this->product_expiration_date,
-            'product_lot_number' => $this->product_lot_number,
-            'product_inventory_code' => $this->product_inventory_code,
-            'product_description' => $this->product_description,
-            'product_mark' => $this->product_mark,
-            'product_destination' => $this->product_destination
-        ]);
-        $this->resetValuesProduct();
+        if($this->product_amount == 0){
+            // Emitir mensaje de advertencia cuando la bodega de origen no está seleccionada
+            $this->emit('message', 'alert-warning', null, 'El producto que intentas agregar debe tener una cantidad superior a 0.');
+        } else {
+            $product = Element::find($this->product_element_id);
+            $this->selected_products->push([
+                'product_element_id' => $this->product_element_id,
+                'product_name' => $product->product_name,
+                'product_price' => $product->price,
+                'product_amount' => $this->product_amount,
+                'product_production_date' => $this->product_production_date,
+                'product_expiration_date' => $this->product_expiration_date,
+                'product_lot_number' => $this->product_lot_number,
+                'product_inventory_code' => $this->product_inventory_code,
+                'product_description' => $this->product_description,
+                'product_mark' => $this->product_mark,
+                'product_destination' => $this->product_destination
+            ]);
+            $this->resetValuesProduct();
+        }
     }
 
     // Vaciar variables del formulario de producto
@@ -132,9 +137,8 @@ class RegisterEntry extends Component
     public function registerEntry(){
         if($this->selected_products->isNotEmpty()){
             if(!empty($this->dpu_id)){ // Validad que una unidad productiva de origen esté seleccionada
-                if(!empty($this->dpuw_id)){
-                    // Registrar venta como movimiento
-                    try {
+                if(!empty($this->dpuw_id)){ // Validad que la bodega de origen esté seleccionada
+                    try { // Registrar venta como movimiento
                         DB::beginTransaction(); // Iniciar transacción
 
                         $current_datetime = now()->milliseconds(0); // Generer fecha y hora actual
@@ -223,7 +227,9 @@ class RegisterEntry extends Component
 
                         // Transacción completada exitosamente
                         $this->emit('message', 'success', 'Operación realizada', 'Entrada de inventario registrado exitosamente.');
-                        $this->defaultAction();
+                        // Imprimir factura de entrada de inventario
+                        $this->emit('printTicket', $movement->voucher_number, $current_datetime->format('Y-m-d H:i:s'), $this->delivery_person->full_name, Auth::user()->person->full_name, $this->selected_products, $movement->price);
+                        $this->defaultAction(); // Refrescar totalmente los componentes
                     } catch (Exception $e) { // Capturar error durante la transacción
                         // Transacción rechazada
                         DB::rollBack(); // Devolver cambios realizados durante la transacción

@@ -260,6 +260,8 @@
     </div>
 
     @section('sripts-register-entry')
+        <!-- Scripts del plugin para imprimer en impresoras termicas -->
+        <script src="{{ asset('modules/ptventa/js/sale/conector_javascript_POS80C.js') }}"></script>
         <!-- Scripts del componente register-entry -->
         <script src="{{ asset('modules/ptventa/js/inventory/entry/livewire-register-entry.js') }}"></script>
     @endsection
