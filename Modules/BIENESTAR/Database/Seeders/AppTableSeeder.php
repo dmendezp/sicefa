@@ -16,7 +16,7 @@ class AppTableSeeder extends Seeder
     public function run()
     { 
         App::updateOrCreate(['name' => 'BIENESTAR'], [
-        'url' => '/bienestar/index',
+        'url' => '/bienestar/home',
         'color' => '#33105D',
         'icon' => 'fas fa-hand-holding-heart',
         'description' => 'Sistema de Gestión de Bienestar al aprendiz',
