@@ -138,8 +138,6 @@ class RegisterEntry extends Component
                         DB::beginTransaction(); // Iniciar transacción
 
                         $current_datetime = now()->milliseconds(0); // Generer fecha y hora actual
-                        $receive_warehouse = Warehouse::where('name', 'Punto de venta')->firstOrFail(); // Bodega que recibe
-                        $delivery_warehouse = Warehouse::where('name', 'Agroindustria')->firstOrFail(); // Bodega que entrega
 
                         // Consultar tipo de movimiento para una venta
                         $error = 'TIPO DE MOVIMIENTO';
@@ -202,12 +200,12 @@ class RegisterEntry extends Component
                         // Registrar movimientos de bodega
                         $error = 'MOVIMIENTOS DE BODEGA';
                         WarehouseMovement::create([
-                            'warehouse_id' => $delivery_warehouse->id,
+                            'productive_unit_warehouse_id' => $this->dpuw_id,
                             'movement_id' => $movement->id,
                             'role' => 'Entrega'
                         ]);
                         WarehouseMovement::create([
-                            'warehouse_id' => $receive_warehouse->id,
+                            'productive_unit_warehouse_id' => $this->puw->id,
                             'movement_id' => $movement->id,
                             'role' => 'Recibe'
                         ]);

@@ -9,6 +9,10 @@ use Modules\SICA\Entities\MovementDetail;
 use Modules\SICA\Entities\MovementResponsibility;
 use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\ProductiveUnitWarehouse;
+use Modules\SICA\Entities\Warehouse;
+use Modules\SICA\Entities\WarehouseMovement;
 
 class MovementFactory extends Factory
 {
@@ -66,6 +70,14 @@ class MovementFactory extends Factory
             });
             $movement->update(['price' => $price]);
 
+            // Obtener unidades productivas y bodegas de origen y destino
+            $receive_productive_unit = ProductiveUnit::where('name','Punto de venta')->firstOrFail();
+            $receive_warehouse = Warehouse::where('name','Punto de venta')->firstOrFail();
+            $receive_puw = ProductiveUnitWarehouse::where('productive_unit_id',$receive_productive_unit->id)->where('warehouse_id',$receive_warehouse->id)->firstOrFail();
+            $delivery_productive_unit = ProductiveUnit::where('name','Complejo agroindustrial')->firstOrFail();
+            $delivery_warehouse = Warehouse::where('name','Agroindustria')->firstOrFail();
+            $delivery_puw = ProductiveUnitWarehouse::where('productive_unit_id',$delivery_productive_unit->id)->where('warehouse_id',$delivery_warehouse->id)->firstOrFail();
+
             // Generar responsables de movimientos
             if($movement->movement_type->name == 'Venta'){
                 MovementResponsibility::create([
@@ -80,6 +92,11 @@ class MovementFactory extends Factory
                     'role' => 'CLIENTE',
                     'date' => $movement->registration_date
                 ]);
+                WarehouseMovement::create([
+                    'productive_unit_warehouse_id'=>$receive_puw->id,
+                    'movement_id'=>$movement->id,
+                    'role'=>'ENTREGA'
+                ]);
             }else if($movement->movement_type->name == 'Movimiento Interno'){
                 MovementResponsibility::create([
                     'person_id' => Person::where('document_number',7723876)->first()->id,
@@ -92,6 +109,16 @@ class MovementFactory extends Factory
                     'movement_id' => $movement->id,
                     'role' => 'RECIBE',
                     'date' => $movement->registration_date
+                ]);
+                WarehouseMovement::firstOrCreate([
+                    'productive_unit_warehouse_id'=>$delivery_puw->id,
+                    'movement_id'=>$movement->id,
+                    'role'=>'ENTREGA'
+                ]);
+                WarehouseMovement::firstOrCreate([
+                    'productive_unit_warehouse_id'=>$receive_puw->id,
+                    'movement_id'=>$movement->id,
+                    'role'=>'RECIBE'
                 ]);
             }
             return $this;
