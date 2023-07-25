@@ -14,6 +14,8 @@ use Modules\EVS\Entities\Authorized;
 use App\Models\User;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Event;
+use Modules\SIGAC\Entities\InstructorProgram;
+use Modules\SIGAC\Entities\Attendance;
 
 class Person extends Model implements Auditable
 {
@@ -127,6 +129,12 @@ class Person extends Model implements Auditable
     }
     public function users(){ // Accede a todos los usuarios registrados con esta persona
         return $this->hasMany(User::class);
+    }
+    public function instructorprogram(){
+        return $this->hasMany(InstructorProgram::class);
+    }
+    public function attendance(){
+        return $this->hasMany(Attendance::class);
     }
 
 
