@@ -35,7 +35,7 @@
                         </form>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <a class="card-custom card-resources" href="#">
+                        <a class="card-custom card-resources" href="{{ route('ptventa.reports.inventoryEntries') }}">
                             <i class="fas fa-book-open icon-book"></i>
                             <p>Generar reporte de entrada de inventario</p>
                         </a>

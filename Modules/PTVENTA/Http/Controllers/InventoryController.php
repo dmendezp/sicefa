@@ -80,13 +80,7 @@ class InventoryController extends Controller
         return view('ptventa::reports.index', compact('view'));
     }
 
-    public function saleReports()
-    { //Vista de reportes de ventas
-        $view = ['titlePage' => 'Reportes', 'titleView' => 'Reportes de ventas'];
-        return view('ptventa::reports.saleReports.index', compact('view'));
-    }
-
-    public function generatePDF(Request $request)
+    public function generateInventoryPDF(Request $request)
     {
         // Realiza la consulta y obtén los datos que cumplan con los criterios requeridos
         $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)->where('state', 'Disponible')->get();
@@ -140,5 +134,11 @@ class InventoryController extends Controller
 
         // Generar el PDF y devolverlo para su descarga
         $pdf->Output('reporte_inventarios.pdf', 'D');
+    }
+
+    public function inventoryEntries()
+    { //Vista de reportes de ventas
+        $view = ['titlePage' => 'Reportes', 'titleView' => 'Entradas de Inventario'];
+        return view('ptventa::reports.inventoryEntries', compact('view'));
     }
 }
