@@ -8,11 +8,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Starter</title>
-
+  
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') }}">
+   <!-- DataTables CSS -->
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <!-- DataTables JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js">
   <!-- Theme style -->
   <!-- fullCalendar -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/fullcalendar/main.css') }}">
@@ -50,7 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Home</a>
+        <a href="{{ route('bienestar.home') }}" class="nav-link">Home</a>
       </li>
     </ul>
 
@@ -117,14 +121,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <i class="fas fa-bus"></i>
               <p>
                 Transporte
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('bienestar.HISeventos') }}" class="nav-link">
-              <i class="fas fa-calendar-day"></i>
-              <p>
-                Eventos
               </p>
             </a>
           </li>
@@ -201,6 +197,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- Page specific script -->
 
 @section('script')
+ <!-- Configuración del DataTable -->
+ <script>
+    $(document).ready(function() {
+      // Configura el DataTable en el elemento con el id 'miDataTable'
+      $('#miDataTable').DataTable();
+    });
+  </script>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
