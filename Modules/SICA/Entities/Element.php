@@ -11,11 +11,9 @@ use Illuminate\Support\Str;
 class Element extends Model implements Auditable
 {
 
-    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
-
-    use SoftDeletes; // Borrado suave
-
-    use HasFactory; // Generación de datos de prueba
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+        SoftDeletes, // Borrado suave
+        HasFactory; // Generación de datos de prueba
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'name',
@@ -29,8 +27,9 @@ class Element extends Model implements Auditable
         'slug'
     ];
 
-    protected $dates = [ // Atributos que deben ser tratados como objetos Carbon (para aprovechar las funciones de formato y manipulación de fecha y hora)
-        'deleted_at',
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
+
+    protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
         'updated_at'
     ];
@@ -41,26 +40,26 @@ class Element extends Model implements Auditable
     }
 
     // MUTADORES Y ACCESORES
+    public function setDescriptionAttribute($value){ // Convierte el primer carácter en mayúscula del dato description (MUTADOR)
+        $this->attributes['description'] = ucfirst($value);
+    }
     public function setNameAttribute($value){ // Convierte el primer carácter en mayúscula del dato name y genera el slug para la ruta amigable del modelo (MUTADOR)
         $this->attributes['name'] = ucfirst($value);
         $this->attributes['slug'] = Str::slug($value, '-'); // Generación del slug
     }
-    public function setDescriptionAttribute($value){ // Convierte el primer carácter en mayúscula del dato description (MUTADOR)
-        $this->attributes['description'] = ucfirst($value);
-    }
 
     // RELACIONES
-    public function measurement_unit(){ // Accede a la información de unidad de medidad asociada
-        return $this->belongsTo(MeasurementUnit::class);
-    }
-    public function kind_of_purchase(){ // Accede a la información del tipo de compra asociada
-        return $this->belongsTo(KindOfPurchase::class);
-    }
-    public function category(){ // Accede a la información de la categoría asociada
+    public function category(){ // Accede a la categoría al que pertenece
         return $this->belongsTo(Category::class);
     }
-    public function inventories(){ // Accede a todos los registros de inventarios que están relacionados con este elemento
+    public function inventories(){ // Accede a todos los registros de inventarios que le pertenecen a este elemento
         return $this->hasMany(Inventory::class);
+    }
+    public function kind_of_purchase(){ // Accede al tipo de compra al que pertenece
+        return $this->belongsTo(KindOfPurchase::class);
+    }
+    public function measurement_unit(){ // Accede a la unidad de medida al que pertence
+        return $this->belongsTo(MeasurementUnit::class);
     }
 
 

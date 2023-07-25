@@ -12,11 +12,9 @@ use Modules\SICA\Entities\Course;
 class Program extends Model implements Auditable
 {
 
-    use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
-
-    use SoftDeletes; // Borrado suave
-
-    use HasFactory; // Generación de datos de prueba
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+        SoftDeletes, // Borrado suave
+        HasFactory; // Generación de datos de prueba
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'name',
@@ -25,7 +23,7 @@ class Program extends Model implements Auditable
         'sofia_code'
     ];
 
-    protected $dates = ['deleted_at']; // Atribuso que deben ser tratados como objeots Carbon (para aprovechar las funciones de formato  manipulación de fecha y hora)
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
     protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
         'created_at',
@@ -38,11 +36,11 @@ class Program extends Model implements Auditable
     }
 
     // RELACIONES
-    public function network(){ // Accede a la red de conocimiento que pertenece
-        return $this->belongsTo(Network::class);
-    }
     public function courses(){ // Accede a todos los cursos asociados a este programa de formación
         return $this->hasMany(Course::class);
+    }
+    public function network(){ // Accede a la red de conocimiento al que pertenece
+        return $this->belongsTo(Network::class);
     }
 
 

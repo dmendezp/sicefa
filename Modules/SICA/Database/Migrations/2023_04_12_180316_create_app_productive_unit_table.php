@@ -17,6 +17,7 @@ class CreateAppProductiveUnitTable extends Migration
             $table->id();
             $table->foreignId('app_id')->constrained()->onDelete('cascade');
             $table->foreignId('productive_unit_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

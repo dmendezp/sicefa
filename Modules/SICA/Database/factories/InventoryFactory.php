@@ -36,18 +36,13 @@ class InventoryFactory extends Factory
             $amount = $this->faker->numberBetween(0, 100);
         }
 
-        $destinations = [ // Establecer los destinos del elemento en inventario
-            'Producción',
-            'Formación'
-        ];
-
         return [
-            'person_id' => Person::inRandomOrder()->first()->id,
-            'warehouse_id' => Warehouse::inRandomOrder()->first()->id,
-            'element_id' => Element::inRandomOrder()->first()->id,
-            'destination' => $this->faker->randomElement($destinations),
+            'person_id' => Person::pluck('id')->random(),
+            'warehouse_id' => Warehouse::pluck('id')->random(),
+            'element_id' => Element::pluck('id')->random(),
+            'destination' => $this->faker->randomElement(getEnumValues('inventories','destination')),
             'description' => $this->faker->randomElement([null, rtrim($this->faker->unique()->sentence(), '.')]),
-            'price' => $this->faker->numberBetween(10, 100) * 100,
+            'price' => $this->faker->numberBetween(10, 1000) * 100,
             'amount' => $amount,
             'stock' => $this->faker->numberBetween(5, 30),
             'production_date' => $fp->format('Y-m-d'),

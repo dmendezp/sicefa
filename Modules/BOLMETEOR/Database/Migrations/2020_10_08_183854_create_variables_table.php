@@ -15,7 +15,7 @@ class CreateVariablesTable extends Migration
     {
         Schema::create('variables', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('sensor_id')->constrained()->onDelete('cascade');
+            $table->foreignId('sensor_id')->constrained()->onDelete('cascade');
             $table->string('variable');
             $table->string('unit');
             $table->enum('status', ['Activo','Inactivo']);
