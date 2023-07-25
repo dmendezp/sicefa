@@ -13,62 +13,55 @@
 @endpush
 
 @section('content')
-    <div class="container" data-aos="fade-down">
-        <div class="d-flex justify-content-around">
-            <div class="col-9">
-                <h3 class="text-center py-2 rounded-2"><strong>{{ trans('ptventa::statusInventory.All Products')}}</strong></h3>
-            </div>
-            <div class="col-3">
-                <a href="{{ route('ptventa.inventory.low') }}" class="btn btn-success"> {{ trans('ptventa::statusInventory.Registration of Low')}} <i class="far fa-hand-point-down"></i> </a>
-            </div>
-        </div>
-    </div>
-    <hr data-aos="fade-left" data-aos-duration="3000">
-    <div class="card border-success mb-3" data-aos="fade-up">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
+    <div class="row mb-3" data-aos="fade-up">
+        <div class="col-6">
+            <div class="card border-success">
+                <div class="card-body">
                     <h6 class="text-center bg-danger py-1 rounded-2"><strong>{{ trans('ptventa::statusInventory.Expired')}}</strong></h6>
-                    <div class="tabla-container">
+                    <div class="table table-sm table-responsive">
                         <table class="table table-hover table-bordered" id="tableExpiredProducts">
                             <thead class="table-secondary">
-                                <th class="text-center">{{ trans('ptventa::statusInventory.Amount')}}</th>
-                                <th>{{ trans('ptventa::statusInventory.Products')}}</th>
-                                <th class="text-center">{{ trans('ptventa::statusInventory.Expiration Date')}}</th>
+                                <tr>
+                                    <th class="text-center">{{ trans('ptventa::statusInventory.Amount')}}</th>
+                                    <th>{{ trans('ptventa::statusInventory.Products')}}</th>
+                                    <th class="text-center">{{ trans('ptventa::statusInventory.Expiration Date')}}</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                <div class="tabla-container">
-                                    @foreach ($productosVencidos as $producto)
-                                        <tr>
-                                            <td class="text-center">{{ $producto->amount }}</td>
-                                            <td>{{ $producto->element->name }}</td>
-                                            <td class="text-center">{{ $producto->expiration_date }}</td>
-                                        </tr>
-                                    @endforeach
+                                @foreach ($productosVencidos as $producto)
+                                    <tr>
+                                        <td class="text-center">{{ $producto->amount }}</td>
+                                        <td>{{ $producto->element->name }}</td>
+                                        <td class="text-center">{{ $producto->expiration_date }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="col-md-6">
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card border-success">
+                <div class="card-body">
                     <h6 class="text-center bg-warning py-1 rounded-2"><strong>{{ trans('ptventa::statusInventory.To Expired')}}</strong></h6>
-                    <div class="tabla-container">
+                    <div class="table table-sm table-responsive">
                         <table class="table table-hover table-bordered" id="tableProductsToExpire">
                             <thead class="table-secondary">
-                                <th class="text-center">{{ trans('ptventa::statusInventory.Amount')}}</th>
-                                <th>{{ trans('ptventa::statusInventory.Products')}}</th>
-                                <th class="text-center">{{ trans('ptventa::statusInventory.Expiration Date')}}</th>
+                                <tr>
+                                    <th class="text-center">{{ trans('ptventa::statusInventory.Amount')}}</th>
+                                    <th>{{ trans('ptventa::statusInventory.Products')}}</th>
+                                    <th class="text-center">{{ trans('ptventa::statusInventory.Expiration Date')}}</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                <div class="tabla-container">
-                                    @foreach ($productosPorVencer as $producto)
-                                        <tr>
-                                            <td class="text-center">{{ $producto->amount }}</td>
-                                            <td>{{ $producto->element->name }}</td>
-                                            <td class="text-center">{{ $producto->expiration_date }}</p>
-                                        </tr>
-                                    @endforeach
+                                @foreach ($productosPorVencer as $producto)
+                                    <tr>
+                                        <td class="text-center">{{ $producto->amount }}</td>
+                                        <td>{{ $producto->element->name }}</td>
+                                        <td class="text-center">{{ $producto->expiration_date }}</p>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

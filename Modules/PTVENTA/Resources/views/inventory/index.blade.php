@@ -12,14 +12,21 @@
         <div class="card-body">
 
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <h5 class="text-center"><em>Lista de todos los productos</em></h5>
+                <div class="col">
+                    <h5 class="text-center"><em>Lista de productos disponibles actualmente</em></h5>
                 </div>
-                <div class="col-lg-auto col-md-auto col-sm-auto ms-auto">
+                <div class="col-auto">
                     <div class="d-flex justify-content-end">
-                        <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm me-1">Registrar entrada</a>
-                        <a href="{{ route('ptventa.inventory.pdf') }}" class="btn btn-danger btn-sm me-1">PDF</a>
-                        <a href="{{ route('ptventa.inventory.status') }}" class="btn btn-success btn-sm">Estado</a>
+                        <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm me-1">
+                            <i class="fa-solid fa-thumbs-up mr-2"></i>Registrar entrada
+                        </a>
+                        <a href="{{ route('ptventa.inventory.low') }}" class="btn btn-danger btn-sm me-1">
+                            <i class="fa-solid fa-thumbs-down mr-2"></i>Registrar baja
+                        </a>
+                        {{-- <a href="{{ route('ptventa.inventory.pdf') }}" class="btn btn-danger btn-sm me-1">PDF</a> --}}
+                        <a href="{{ route('ptventa.inventory.status') }}" class="btn btn-secondary btn-sm">
+                            <i class="fa-solid fa-hand-middle-finger mr-2"></i>Vencidos / Por vencer
+                        </a>
                     </div>
                 </div>
             </div>
