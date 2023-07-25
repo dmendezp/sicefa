@@ -19,7 +19,8 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-4 col-sm-6">
-                        <a class="card-custom human-resources" href="#">
+                        <a class="card-custom card-resources" href="#">
+                            <i class="fas fa-book-open icon-book"></i>
                             <p>Generar reporte de venta</p>
                         </a>
                     </div>
@@ -27,11 +28,15 @@
                         <!-- Botón para generar el PDF -->
                         <form method="post" action="{{ route('ptventa.reports.inventory.generatePDF') }}">
                             @csrf
-                            <button type="submit" class="card-custom human-resources"><p>Generar reporte de inventario</p></button>
+                            <button type="submit" class="card-custom card-resources">
+                                <i class="fas fa-book-open icon-book"></i>
+                                <p>Generar reporte de inventario</p>
+                            </button>
                         </form>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <a class="card-custom human-resources" href="#">
+                        <a class="card-custom card-resources" href="#">
+                            <i class="fas fa-book-open icon-book"></i>
                             <p>Generar reporte de entrada de inventario</p>
                         </a>
                     </div>
