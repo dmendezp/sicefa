@@ -47,7 +47,12 @@
         </div>
     </div>
 </div>  
+
             </div>
+
+
+    
+        
             <div class="price_element">
             <div class="cardi">
     <div class="imgi-container">
@@ -63,6 +68,7 @@
 </div>
         </div>
     
+    
 
             <div class="price_element">
             <div class="cardi">
@@ -77,9 +83,19 @@
         </div>
     </div>
 </div>
-            </div>    
+            </div>
+
+            
+            
         </div>
 </section>
+
+
+
+
+
+
+
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-3.1.o.min.js"></script>
     <script src="js/main.js"></script>

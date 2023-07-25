@@ -6,9 +6,8 @@
             </span>
 
             <div class="text logo-text">
-              <span class="profession text-center" ><center><i class="fas fa-tractor"></center></i></span>
-              <span class="name">AGROCEFA</span>
-               
+    <span class="profession text-center" ><center><i class="fas fa-tractor"></center></i></span>
+                <span class="name">AGROCEFA</span> 
             </div>
         </div>
 
@@ -37,7 +36,7 @@
 
                 <li class="nav-link">
                     <a href="{{route('agrocefa.bodegas')}}">
-                      <i class='bx bx-code icon'></i>
+                        <i class='bx bx-code icon'></i>
                         <span class="text nav-text">{{ trans('agrocefa::universal.Developers')}}</span>
                     </a>
                 </li>
@@ -52,13 +51,13 @@
         </div>
 
         <div class="bottom-content">
-          <li class="">
-              <a href="{{ route('login')}}">
-                  <i class='bx bx-lock-open icon'></i>
-                  <span class="text nav-text">login</span>
-              </a>
-          </li>
-          <li class="">
+            <li class="">
+            <a href="{{ route('login')}}">
+            <i class='bx bx-lock-open icon'></i>
+            <span class="text nav-text">login</span>
+            </a>
+            </li>
+            <li class="">
                 <a href="{{ route('cefa.welcome')}}">
                     <i class='bx bx-log-out icon' ></i>
                     <span class="text nav-text">SICEFA</span>
