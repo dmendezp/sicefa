@@ -15,8 +15,8 @@ use PDF;
 
 //Pueba de funcion reporte por fecha
 use Modules\SICA\Entities\Element;
-
-
+use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\ProductiveUnitWarehouse;
 
 class InventoryController extends Controller
 {
@@ -35,7 +35,6 @@ class InventoryController extends Controller
     }
 
     public function pdf()
-
     {
         $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
         $pdf = new TCPDF();
@@ -63,35 +62,6 @@ class InventoryController extends Controller
         return view('ptventa::inventory.low', compact('view'));
     }
 
-    //Funciones para reporte de inventario por rango de fecha
-    public function report()
-    { //Tabla con resultados de busqueda
-        $view = ['titlePage' => 'Reporte - Inventario', 'titleView' => 'Reporte de Inventario'];
-        $report = Element::whereDate('created_at', Carbon::today('America/Bogota'))
-            ->orderBy('created_at', 'DESC')
-            ->get();
-        return view('ptventa::report.report', compact('view', 'report'));
-    }
-
-    public function report_results(Request $request)
-    { //formulario de fechas para generar reporte
-        $fi = $request->fecha_ini . ' 00:00:00';
-        $ff = $request->fecha_fin . ' 23:59:59';
-        $report = Element::whereBetween('created_at', [$fi, $ff])->get();
-        return view('ptventa::report.report', compact('report'));
-    }
-
-
-    public function rpdf()
-    {
-        $pdf = new TCPDF();
-
-        $html = view('ptventa::report.rpdf')->render();
-        $pdf->AddPage();
-        $pdf->writeHTML($html, true, false, true, false);
-        $pdf->Output('ReporteEntradasInventario');
-    }
-
     //Funciones para reporte de inventario
     public function reports()
     { //Vista principal del panel de reportes
@@ -105,63 +75,25 @@ class InventoryController extends Controller
         return view('ptventa::reports.saleReports.index', compact('view'));
     }
 
-    public function lowReports()
-    { //Vista de reportes de bajas
-        $view = ['titlePage' => 'Reportes', 'titleView' => 'Reportes de bajas'];
-        return view('ptventa::reports.lowReports.index', compact('view'));
-    }
-
-    public function inventoryReports()
-    { //Vista de reportes de inventario
-        $view = ['titlePage' => 'Reportes', 'titleView' => 'Reportes de inventario'];
-        return view('ptventa::reports.inventoryReports.index', compact('view'));
-    }
-
-    public function show(Request $request)
-    {
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
-
-        if (!$startDate || !$endDate || !Carbon::createFromFormat('Y-m-d', $startDate) || !Carbon::createFromFormat('Y-m-d', $endDate)) {
-            return redirect()->back()->with('error', 'Por favor, ingresa fechas válidas.');
-        }
-
-        $startDateTime = Carbon::parse($startDate)->startOfDay();
-        $endDateTime = Carbon::parse($endDate)->endOfDay();
-
-        $inventories = Inventory::whereBetween('created_at', [$startDateTime, $endDateTime])->get();
-
-        $view = [
-            'titlePage' => 'Reportes',
-            'titleView' => 'Reportes de inventario',
-        ];
-
-        return view('ptventa::reports.inventoryReports.index', compact('view', 'inventories', 'startDateTime', 'endDateTime'));
-    }
-
     public function generatePDF(Request $request)
     {
-        // Realiza la misma consulta que usas para mostrar los datos en la tabla
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
-
-        // Realiza la consulta y obtén los datos
-        $startDateTime = Carbon::parse($startDate)->startOfDay();
-        $endDateTime = Carbon::parse($endDate)->endOfDay();
-
-        $inventories = Inventory::whereBetween('created_at', [$startDateTime, $endDateTime])->get();
+        // Realiza la consulta y obtén los datos que cumplan con los criterios requeridos
+        $productive_unit = ProductiveUnit::where('name', 'Punto de venta')->firstOrFail();
+        $warehouse = Warehouse::where('name', 'Punto de venta')->firstOrFail();
+        $puw = ProductiveUnitWarehouse::where('productive_unit_id', $productive_unit->id)->where('warehouse_id', $warehouse->id)->firstOrFail();
+        $inventories = Inventory::where('productive_unit_warehouse_id', $puw->id)->where('state', 'Disponible')->get();
 
         // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
 
         // Establecer el título del documento
-        $pdf->SetTitle('Reporte de Inventarios');
+        $pdf->SetTitle('Reporte de Inventario');
 
         // Agregar una nueva página
         $pdf->AddPage();
 
         // Establecer el contenido del PDF
-        $html = '<h1 style="text-align: center;">Reporte de Inventarios</h1>';
+        $html = '<h1 style="text-align: center;">Reporte de Inventario</h1>';
         $html .= '<table style="border-collapse: collapse; width: 100%;">';
         $html .= '<thead style="background-color: #f2f2f2;">';
         $html .= '<tr>';
@@ -179,9 +111,9 @@ class InventoryController extends Controller
         $html .= '</thead>';
         $html .= '<tbody>';
 
-        foreach ($inventories as $inventory) {
+        foreach ($inventories as $key => $inventory) {
             $html .= '<tr>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 25px;">' . $inventory->id . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 25px;">' . $key + 1 . '</td>';
             // Resto de columnas (sin cambios)
             $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 110px;">' . $inventory->element->name . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $inventory->price . '</td>';

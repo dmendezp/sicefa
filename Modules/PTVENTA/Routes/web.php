@@ -32,22 +32,12 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('low', 'low')->name('ptventa.inventory.low');
         });
 
-        //Ruta de reporte - Anyi
-        Route::prefix('report')->controller(InventoryController::class)->group(function(){
-            Route::get('report', 'report')->name('ptventa.report.report');
-            Route::post('report_results')->name('ptventa.report.report_results');
-            Route::get('rpdf', 'rpdf')->name('ptventa.report.rpdf'); // Descarga de formato de pdf
-        });
-
-        //Rutas de reportes - Manuel
+        //Rutas de reportes
         Route::prefix('reports')->controller(InventoryController::class)->group(function(){
-            Route::get('reports', 'reports')->name('ptventa.reports.index');
+            Route::get('reports', 'reports')->name('ptventa.reports.index'); //Vista principal de la seccion de reportes
             Route::get('saleReports', 'saleReports')->name('ptventa.reports.sale.index');
-            Route::get('lowReports', 'lowReports')->name('ptventa.reports.low.index');
             //Reportes de inventario
-            Route::post('inventoryReports/show', 'show')->name('ptventa.reports.inventory.show'); // Permite hacer la consulta de las informacion y retornarla a la vista principal.
-            Route::post('inventoryReports/generatePDF', 'generatePDF')->name('ptventa.reports.inventory.generatePDF'); // Cambiar a POST para generar el PDF
-            Route::get('inventoryReports', 'inventoryReports')->name('ptventa.reports.inventory.index'); // Pagina principal del reportes de inventario.
+            Route::post('inventoryReports/generatePDF', 'generatePDF')->name('ptventa.reports.inventory.generatePDF'); // Genera el PDF de inventario actual
         });
 
         //Rutas para Ventas

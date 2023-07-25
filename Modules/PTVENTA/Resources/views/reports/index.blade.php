@@ -19,18 +19,20 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-4 col-sm-6">
-                        <a class="card-custom human-resources" href="{{ route('ptventa.reports.sale.index') }}">
-                            <p>Repotes de Ventas</p>
+                        <a class="card-custom human-resources" href="#">
+                            <p>Generar reporte de venta</p>
                         </a>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <a class="card-custom human-resources" href="{{ route('ptventa.reports.low.index') }}">
-                            <p>Reportes de Bajas</p>
-                        </a>
+                        <!-- Botón para generar el PDF -->
+                        <form method="post" action="{{ route('ptventa.reports.inventory.generatePDF') }}">
+                            @csrf
+                            <button type="submit" class="card-custom human-resources"><p>Generar reporte de inventario</p></button>
+                        </form>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <a class="card-custom human-resources" href="{{ route('ptventa.reports.inventory.index') }}">
-                            <p>Reportes de Inventario</p>
+                        <a class="card-custom human-resources" href="#">
+                            <p>Generar reporte de entrada de inventario</p>
                         </a>
                     </div>
                 </div>

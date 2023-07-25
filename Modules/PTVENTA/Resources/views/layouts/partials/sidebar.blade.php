@@ -107,15 +107,6 @@
                                 </a>
                             </li>
                         @endif
-                        @if (Auth::user()->havePermission('ptventa.report.report'))
-                        <li class="nav-item">
-                            <a href="{{ route('ptventa.report.report') }}"
-                                class="nav-link {{ !Route::is('ptventa.report.report*') ?: 'active' }}">
-                                <i class="nav-icon fas fa-poll"></i>
-                                <p>{{ trans('ptventa::general.Reports')}}</p>
-                            </a>
-                        </li>
-                        @endif
                         @if (Auth::user()->havePermission('ptventa.reports.index'))
                         <li class="nav-item">
                             <a href="{{ route('ptventa.reports.index') }}"
