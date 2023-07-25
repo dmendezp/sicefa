@@ -89,10 +89,7 @@ class InventoryController extends Controller
     public function generatePDF(Request $request)
     {
         // Realiza la consulta y obtén los datos que cumplan con los criterios requeridos
-        $productive_unit = ProductiveUnit::where('name', 'Punto de venta')->firstOrFail();
-        $warehouse = Warehouse::where('name', 'Punto de venta')->firstOrFail();
-        $puw = ProductiveUnitWarehouse::where('productive_unit_id', $productive_unit->id)->where('warehouse_id', $warehouse->id)->firstOrFail();
-        $inventories = Inventory::where('productive_unit_warehouse_id', $puw->id)->where('state', 'Disponible')->get();
+        $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)->where('state', 'Disponible')->get();
 
         // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
