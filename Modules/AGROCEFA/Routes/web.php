@@ -17,5 +17,8 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/insumos', 'AGROCEFAController@insumos')->name('agrocefa.insumos');
         Route::get('/bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
         Route::get('/parameters', 'AGROCEFAController@parameters')->name('agrocefa.parameters');
+
+        Route::get('/aprendiz', 'AGROCEFAController@vistaaprendiz')->name('agrocefa.aprendiz');
+        Route::get('/user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
     });
 });

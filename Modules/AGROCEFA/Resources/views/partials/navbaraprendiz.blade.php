@@ -1,7 +1,14 @@
 <div class="navbar d-flex align-items-center">
   <div class="text">
-    <a href="#" id="an" style="margin-right: 150px;">AGROCEFA</a>
-    <a href="{{ route('agrocefa.index') }}" id="an" style="margin-right: 240px;">Inicio</a>
+    <a href="#" id="an" style="margin-right: 70px;">AGROCEFA</a>
+    @if (request()->is('agrocefa/user'))
+      <a href="{{ route('agrocefa.aprendiz')}}" id="an" style="margin-right: 20px;">Aprendiz</a>
+    @else
+      <a href="{{ route('agrocefa.user')}}" id="an" style="margin-right: 20px;">User</a>
+    @endif
+    
+    
+    <a href="{{ route('agrocefa.index') }}" id="an" style="margin-right: 100px;">Administrador</a>
     <a href="{{ url('lang',['en']) }}" id="an" style="margin-right: 30px;" class="dropdown-item">
       <img src="{{asset('agrocefa/images/general/en.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English')}}
     </a>

@@ -12,7 +12,7 @@
 <body>
 	<section class="banner">
 		<div class="banner-content">
-			<h1>Bienvenido al software AGROCEFA</h1>	
+			<h1>{{ trans('agrocefa::universal.maintitle')}}</h1>	
 		</div>
 	</section>
     <br>

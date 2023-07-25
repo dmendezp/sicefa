@@ -30,6 +30,13 @@
             <a href="#"><i class="fab fa-instagram-square"></i> Instagram</a>
         </div>
 
+        <div class="box__footer">
+            <div class="logo">
+                <img src="logo-magtimus.png" alt="">
+            </div>
+            
+        </div>
+
     </div>
 
     <div class="box__copyright">

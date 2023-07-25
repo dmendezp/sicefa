@@ -23,29 +23,22 @@
               <ul class="menu-links">
                   <li class="nav-link">
                       <a href="#">
-                          <i class='far fa-seedling icon'></i>
-                          <span class="text nav-text">Unidades</span>
+                          <i class='fa-solid fa-seedling icon'></i>
+                          <span class="text nav-text">{{ trans('agrocefa::universal.Units')}}</span>
                       </a>
                   </li>
 
                   <li class="nav-link">
                       <a href="{{route('agrocefa.inventory')}}">
-                          <i class='bx bx-list-check icon'></i>
-                          <span class="text nav-text">Inventario</span>
+                          <i class="fa-solid fa-list-check icon"></i>
+                          <span class="text nav-text">{{ trans('agrocefa::universal.Inventory')}}</span>
                       </a>
                   </li>
 
                   <li class="nav-link">
                       <a href="{{route('agrocefa.bodegas')}}">
                         <i class='fa-solid fa-square-poll-horizontal icon'></i>
-                          <span class="text nav-text">Registros</span>
-                      </a>
-                  </li>
-
-                  <li class="nav-link">
-                      <a href="{{route('agrocefa.insumos')}}">
-                          <i class='bx bx-leaf icon' ></i>
-                          <span class="text nav-text">{{ trans('agrocefa::universal.Balance')}}</span>
+                          <span class="text nav-text">{{ trans('agrocefa::universal.Records')}}</span>
                       </a>
                   </li>
               </ul>

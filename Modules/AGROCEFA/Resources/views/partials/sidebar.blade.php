@@ -51,6 +51,13 @@
 
                   <li class="nav-link">
                     <a href="{{route('agrocefa.insumos')}}">
+                        <i class='bx bx-lemon icon' ></i>
+                        <span class="text nav-text">{{ trans('agrocefa::universal.Production')}}</span>
+                    </a>
+                  </li>
+
+                  <li class="nav-link">
+                    <a href="{{route('agrocefa.insumos')}}">
                         <i class='bx bx-sort-alt-2 icon' ></i>
                         <span class="text nav-text">{{ trans('agrocefa::universal.Movements')}}</span>
                     </a>
