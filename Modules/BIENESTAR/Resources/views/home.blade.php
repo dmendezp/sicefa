@@ -1,48 +1,63 @@
 @extends('bienestar::layouts.adminlte')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('../bienestarxd/css/home.css') }}">
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <img src="../bienestarxd/img1/sen3.jpg" class="img-fluid" alt="...">
-
-            </div>
-        </div>
-        <div class="container text-center">
-  <div class="row">
-    <div class="col-4">
-      <div class="cardss" style="width: 18rem;">
-  <img src="../bienestarxd/img1/tra3.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h1 class="card-title">Bienestar</h1>
-    <p class="card-text">Se atienden los problemas e inquietudes de nuestros aprendices</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Eventos</li>
-    <li class="list-group-item">Asistencias</li>
-    <li class="list-group-item">Beneficios</li>
-  </ul>
-  <div class="card-body">
-    <a href="{{ route('bienestar.APEsena') }}" class="card-link">Consultar</a>
+  <div class="row justify-content-center">
+  <div class="col-md-4"> <!-- Cambio de col-md-8 a col-md-4 -->
+  <div class="card">
+  <img src="../bienestarxd/img1/home1.jpg" alt="Imagen 3" class="card__image">  <div class="card__content">
+    <p class="card__title">Aprendices</p>
+    <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
   </div>
 </div>
 
     </div>
-    <div class="col-8">
-        <div class="card mb-3">
-  <img src="../bienestarxd/img1/sen1.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
+    <div class="col-md-4"> <!-- Cambio de col-md-8 a col-md-4 -->
+    <div class="card">
+    <img src="../bienestarxd/img1/home2.jpg" alt="Imagen 3" class="card__image">  <div class="card__content">
+    <p class="card__title">Alimentacion</p>
+    <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
   </div>
 </div>
 
     </div>
-    
+
+    <div class="col-md-4"> <!-- Cambio de col-md-8 a col-md-4 -->
+    <div class="card">
+    <img src="../bienestarxd/img1/home3.jpg" alt="Imagen 3" class="card__image">  <div class="card__content">
+    <p class="card__title">Transporte</p>
+    <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
   </div>
 </div>
+
     </div>
+        
+  </div>
+  <div class="row justify-content-center">
+  <div class="col-md-4"> <!-- Cambio de col-md-8 a col-md-4 -->
+  <div class="card">
+  <img src="../bienestarxd/img1/home4.jpg" alt="Imagen 3" class="card__image">  <div class="card__content">
+    <p class="card__title">Internado</p>
+    <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+  </div>
+</div>
+
+    </div>
+
+    <div class="col-md-4"> <!-- Cambio de col-md-8 a col-md-4 -->
+    <div class="card">
+    <img src="../bienestarxd/img1/home5.png" alt="Imagen 3" class="card__image">  <div class="card__content">
+    <p class="card__title">Eventos Bienestar</p>
+    <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+  </div>
+</div>
+
+    </div>
+
+    </div>
+        
+  </div>
 </div>
 @endsection
