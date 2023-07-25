@@ -11,9 +11,9 @@
     <section class="ganaderia" id="ganaderia">
         <div class="container">
             <h2 class="h2-sub1">
-                <span class="fil">B</span>ienvenido
+                <span class="fil">B</span>ienvenido a 
             </h2>
-            <h1 class="head">Agroindustria</h1>
+            <h1 class="head">DATAGRO</h1>
             <div class="he-des">
                 <h5>Cefa</h5>
                 <button class="learn-more"> Mas Informacion

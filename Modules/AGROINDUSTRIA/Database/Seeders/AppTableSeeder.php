@@ -20,8 +20,8 @@ class AppTableSeeder extends Seeder
         'url' => '/agroindustria/index',
         'color' => '#ffd1dc',
         'icon' => 'fas fa-egg',
-        'description' => 'Descubre el poder de controlar tus insumos en la industria',
-        'description_english' => 'Discover the power of controlling your inputs in the industry'
+        'description' => 'Sistema para el registro y control de insumos agroindustriales',
+        'description_english' => 'System for the registration and control of agro-industrial inputs'
     ]);
     }
 }
