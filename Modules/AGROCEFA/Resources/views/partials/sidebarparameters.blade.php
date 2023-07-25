@@ -23,7 +23,7 @@
               <ul class="menu-links">
                   <li class="nav-link">
                       <a href="#">
-                          <i class='bx bx-user-check icon'></i>
+                          <i class='far fa-seedling icon'></i>
                           <span class="text nav-text">Unidades</span>
                       </a>
                   </li>
@@ -37,7 +37,7 @@
 
                   <li class="nav-link">
                       <a href="{{route('agrocefa.bodegas')}}">
-                        <i class='bx bx-store-alt icon'></i>
+                        <i class='fa-solid fa-square-poll-horizontal icon'></i>
                           <span class="text nav-text">Registros</span>
                       </a>
                   </li>

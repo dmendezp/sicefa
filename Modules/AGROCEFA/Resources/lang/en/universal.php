@@ -10,6 +10,7 @@ return [
     'Management' => 'Management',
     'Consumption' => 'Consumption',
     'Balance' => 'Balance',
+    'Movements' => 'Movements',
 
 
 ];

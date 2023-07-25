@@ -23,31 +23,38 @@
               <ul class="menu-links">
                   <li class="nav-link">
                       <a href="#">
-                          <i class='bx bx-user-check icon'></i>
+                          <i class='bx bx-list-check icon'></i>
                           <span class="text nav-text">{{ trans('agrocefa::universal.Inventory')}}</span>
                       </a>
                   </li>
 
                   <li class="nav-link">
                       <a href="{{route('agrocefa.inventory')}}">
-                          <i class='bx bx-list-check icon'></i>
+                          <i class='bx bx-wrench icon'></i>
                           <span class="text nav-text">{{ trans('agrocefa::universal.Management')}}</span>
                       </a>
                   </li>
 
                   <li class="nav-link">
                       <a href="{{route('agrocefa.bodegas')}}">
-                        <i class='bx bx-store-alt icon'></i>
+                        <i class='bx bxl-apple icon'></i>
                           <span class="text nav-text">{{ trans('agrocefa::universal.Consumption')}}</span>
                       </a>
                   </li>
 
                   <li class="nav-link">
                       <a href="{{route('agrocefa.insumos')}}">
-                          <i class='bx bx-leaf icon' ></i>
+                          <i class='bx bx-file icon' ></i>
                           <span class="text nav-text">{{ trans('agrocefa::universal.Balance')}}</span>
                       </a>
                   </li>
+
+                  <li class="nav-link">
+                    <a href="{{route('agrocefa.insumos')}}">
+                        <i class='bx bx-sort-alt-2 icon' ></i>
+                        <span class="text nav-text">{{ trans('agrocefa::universal.Movements')}}</span>
+                    </a>
+                </li>
               </ul>
           </div>
 

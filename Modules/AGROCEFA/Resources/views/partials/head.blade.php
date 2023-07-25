@@ -20,5 +20,6 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/fontawesome-free/css/all.min.css') }}">
   <link rel="stylesheet" href="https://kit.fontawesome.com/dcb1bbced2.css" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/dcb1bbced2.js" crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+
+
   <!--<title>Dashboard Sidebar Menu</title>--> 

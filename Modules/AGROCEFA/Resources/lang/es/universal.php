@@ -10,4 +10,5 @@ return [
     'Management' => 'Gestion',
     'Consumption' => 'Consumos',
     'Balance' => 'Balance',
+    'Movements' => 'Movimientos',
 ];
