@@ -3,18 +3,11 @@
 namespace Modules\PTVENTA\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Modules\SICA\Entities\Movement;
-use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\Warehouse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
-use Modules\SICA\Entities\MovementDetail;
 use TCPDF;
-use PDF;
-
-//Pueba de funcion reporte por fecha
-use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 
