@@ -21,11 +21,11 @@
             <div class="cardi">
     <div class="imgi-container">
         <div class="imgi">
-        <img src=" {{ asset('agrocefa/images/veneno.jpg') }}" width="100%">
+        <img src=" {{ asset('agrocefa/images/agroinsumos.jpg') }}" width="100%">
         </div>
         <div class="description cardi">
             <span class="titlei">
-               AGROINSUMOS
+                AGROINSUMOS
             </span>
         </div>
     </div>
@@ -38,26 +38,21 @@
             <div class="cardi">
     <div class="imgi-container">
         <div class="imgi">
-        <img src=" {{ asset('agrocefa/images/descarga.jpeg') }}" width="100%">
+        <img src=" {{ asset('agrocefa/images/planta.jpg') }}" width="100%">
         </div>
         <div class="description cardi">
             <span class="titlei">
-               FERTILIZANTES
+                FERTILIZANTES
             </span>
         </div>
     </div>
 </div>  
-
             </div>
-
-
-    
-        
             <div class="price_element">
             <div class="cardi">
     <div class="imgi-container">
         <div class="imgi">
-        <img src=" {{ asset('agrocefa/images/pala.jpg') }}" width="100%">
+        <img src=" {{ asset('agrocefa/images/herramienta.png') }}" width="100%">
         </div>
         <div class="description cardi">
             <span class="titlei">
@@ -67,8 +62,6 @@
     </div>
 </div>
         </div>
-   
-    
     
 
             <div class="price_element">
@@ -79,26 +72,14 @@
         </div>
         <div class="description cardi">
             <span class="titlei">
-               MAQUINARIA
+            MAQUINARIA
             </span>
         </div>
     </div>
 </div>
-            </div>
-
-
-          
-            
-            
+            </div>    
         </div>
 </section>
-
-
-
-
-
-
-
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-3.1.o.min.js"></script>
     <script src="js/main.js"></script>
