@@ -54,7 +54,7 @@
                             <select class="form-select" name="product_element_id" id="product_element_id" wire:model.defer="product_element_id" required>
                                 <option value="" data-price="">-- Selecciona --</option>
                                 @foreach ($products as $product)
-                                    <option value="{{ $product->id }}" data-price="{{ $product->price }}">{{ $product->product_name }}</option>
+                                    <option value="{{ $product->id }}" data-price="{{ priceFormat($product->price) }}">{{ $product->product_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -62,7 +62,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label>Precio:</label>
-                            {!! Form::number('product_price', $product_price, [
+                            {!! Form::text('product_price', $product_price, [
                                 'class'=>'form-control text-center',
                                 'wire:model'=>'product_price',
                                 'id'=>'product_price',
@@ -206,7 +206,7 @@
                                             <i class="fas fa-check text-success"></i>
                                         @endif
                                     </td>
-                                    <td class="text-center">{{ $sp['product_price'] }}</td>
+                                    <td class="text-center">{{ priceFormat($sp['product_price']) }}</td>
                                     <td class="text-center">{{ $sp['product_amount'] }}</td>
                                     <td class="text-center">
                                         @if (empty($sp['product_production_date']))
@@ -262,6 +262,8 @@
     @section('sripts-register-entry')
         <!-- Scripts del plugin para imprimer en impresoras termicas -->
         <script src="{{ asset('modules/ptventa/js/sale/conector_javascript_POS80C.js') }}"></script>
+        <!-- Formateadores de datos -->
+        <script src="{{ asset('modules/ptventa/js/data-formats.js') }}"></script>
         <!-- Scripts del componente register-entry -->
         <script src="{{ asset('modules/ptventa/js/inventory/entry/livewire-register-entry.js') }}"></script>
     @endsection

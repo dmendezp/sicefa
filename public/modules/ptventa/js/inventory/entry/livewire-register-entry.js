@@ -136,8 +136,8 @@ Livewire.on('printTicket', async function(voucher_number, date, provider, receiv
             { contenido: autoincrementable.toString(), maximaLongitud: maximaLongitudItem },
                 { contenido: d.product_name, maximaLongitud: maximaLongitudNombre },
                 { contenido: " "+d.product_amount.toString(), maximaLongitud: maximaLongitudCantidad },
-                { contenido: " "+d.product_price.toString(), maximaLongitud: maximaLongitudPrecio },
-                { contenido: " "+(d.product_amount * d.product_price).toString(), maximaLongitud: maximaLongitudSubtotal },
+                { contenido: priceFormat(d.product_price), maximaLongitud: maximaLongitudPrecio },
+                { contenido: priceFormat(d.product_amount * d.product_price), maximaLongitud: maximaLongitudSubtotal },
             ],
             relleno,
             separadorColumnas
@@ -150,47 +150,47 @@ Livewire.on('printTicket', async function(voucher_number, date, provider, receiv
 
     // Inicio de impresión
     const conector = new ConectorPluginV3();
-    conector.Iniciar();
-    conector.EstablecerTamañoFuente(1, 1);
-    conector.EstablecerEnfatizado(false);
-    conector.EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO);
-    conector.Corte(1);
-    conector.TextoSegunPaginaDeCodigos(2, "cp850", "CENTRO DE FORMACIÓN AGROINDUSTRIAL\n")
-    conector.EscribirTexto("Nit 899.99934-1\n");
-    conector.DeshabilitarElModoDeCaracteresChinos();
-    conector.TextoSegunPaginaDeCodigos(2, "cp850", "Producción de Centro - SENA Empresa\n");
-    conector.EscribirTexto("La Angostura\n");
-    conector.EscribirTexto("Art 17 Decreto 1001 de 1997\n");
-    conector.EscribirTexto("------------------------------------------------\n");
-    conector.EstablecerEnfatizado(true);
-    conector.TextoSegunPaginaDeCodigos(2, "cp850", "Factura de entrada N°: "+voucher_number+"\n");
-    conector.EstablecerEnfatizado(false);
-    conector.EscribirTexto("------------------------------------------------\n");
-    conector.EstablecerAlineacion(ConectorPluginV3.ALINEACION_IZQUIERDA);
-    conector.EstablecerEnfatizado(true);
-    conector.EscribirTexto("Fecha y hora: ");
-    conector.EstablecerEnfatizado(false);
-    conector.TextoSegunPaginaDeCodigos(2, "cp850", date+"\n");
-    conector.EstablecerEnfatizado(true);
-    conector.EscribirTexto("Proveedor:    ");
-    conector.EstablecerEnfatizado(false);
-    conector.TextoSegunPaginaDeCodigos(2, "cp850", provider+"\n");
-    conector.EstablecerEnfatizado(true);
-    conector.EscribirTexto("Recibe:       ");
-    conector.EstablecerEnfatizado(false);
-    conector.TextoSegunPaginaDeCodigos(2, "cp850", receive+"\n");
-    conector.EscribirTexto(tabla)
-    conector.EstablecerAlineacion(ConectorPluginV3.ALINEACION_DERECHA);
-    conector.EstablecerEnfatizado(true);
-    conector.EscribirTexto("TOTAL:  "+total+" |\n");
-    conector.EstablecerEnfatizado(false);
-    conector.EscribirTexto("-----------------------------------------------+\n");
-    conector.Feed(4);
-    conector.Corte(1);
-    const respuesta = await conector.imprimirEn("POS-80C");
+    const respuesta = await conector
+    .Iniciar()
+    .EstablecerTamañoFuente(1, 1)
+    .EstablecerEnfatizado(false)
+    .EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
+    .Corte(1)
+    .TextoSegunPaginaDeCodigos(2, "cp850", "CENTRO DE FORMACIÓN AGROINDUSTRIAL\n")
+    .EscribirTexto("Nit 899.99934-1\n")
+    .DeshabilitarElModoDeCaracteresChinos()
+    .TextoSegunPaginaDeCodigos(2, "cp850", "Producción de Centro - SENA Empresa\n")
+    .EscribirTexto("La Angostura\n")
+    .EscribirTexto("Art 17 Decreto 1001 de 1997\n")
+    .EscribirTexto("------------------------------------------------\n")
+    .EstablecerEnfatizado(true)
+    .TextoSegunPaginaDeCodigos(2, "cp850", "Factura de entrada N°: "+voucher_number+"\n")
+    .EstablecerEnfatizado(false)
+    .EscribirTexto("------------------------------------------------\n")
+    .EstablecerAlineacion(ConectorPluginV3.ALINEACION_IZQUIERDA)
+    .EstablecerEnfatizado(true)
+    .EscribirTexto("Fecha y hora: ")
+    .EstablecerEnfatizado(false)
+    .TextoSegunPaginaDeCodigos(2, "cp850", date+"\n")
+    .EstablecerEnfatizado(true)
+    .EscribirTexto("Proveedor:    ")
+    .EstablecerEnfatizado(false)
+    .TextoSegunPaginaDeCodigos(2, "cp850", provider+"\n")
+    .EstablecerEnfatizado(true)
+    .EscribirTexto("Recibe:       ")
+    .EstablecerEnfatizado(false)
+    .TextoSegunPaginaDeCodigos(2, "cp850", receive+"\n")
+    .EscribirTexto(tabla)
+    .EstablecerAlineacion(ConectorPluginV3.ALINEACION_DERECHA)
+    .EstablecerEnfatizado(true)
+    .EscribirTexto("TOTAL:  "+priceFormat(total)+" |\n")
+    .EstablecerEnfatizado(false)
+    .EscribirTexto("-----------------------------------------------+\n")
+    .Feed(4)
+    .Corte(1)
+    .imprimirEn("POS-80C");
     if (respuesta === true) {
     } else {
-        alert("Error: " + respuesta);
+        alert("Error al imprimir comprobante: " + respuesta);
     }
 });
-
