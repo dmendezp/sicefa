@@ -243,7 +243,7 @@ class GenerateSale extends Component
                     $amountLeft = $product['product_amount']; // Definir cantidad restante (cantidad del producto a vender)
 
                     // Consultar todo el inventario del producto seleccionado
-                    $inventories = Inventory::where('productive_unit_warehouse', $this->puw->id)
+                    $inventories = Inventory::where('productive_unit_warehouse_id', $this->puw->id)
                         ->where('element_id', $product['product_element_id'])
                         ->where('state', 'Disponible')
                         ->where('destination', 'Producción')
@@ -317,9 +317,17 @@ class GenerateSale extends Component
 
                 // Transacción completada exitosamente
                 $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente.', $value);
+                $this->emit('printTicket',
+                    $movement->voucher_number,
+                    $current_datetime,
+                    $this->customer_full_name,
+                    $this->customer_document_type.'-'.$this->customer_document_number,
+                    Auth::user()->person->full_name,
+                    $this->selected_products,
+                    $movement->price
+                );
                 $this->defaultAction();
                 $this->emit('clear-sale-values'); // Limpiar valores de venta
-                //$this->postPrinting($movement); // Generar impresión pos de venta
             } catch (Exception $e) { // Capturar error durante la transacción
                 // Transacción rechazada
                 DB::rollBack(); // Devolver cambios realizados durante la transacción

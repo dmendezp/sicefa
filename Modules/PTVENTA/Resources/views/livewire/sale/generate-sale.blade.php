@@ -233,6 +233,10 @@
     </div>
 
     @section('sripts-generate-sale')
+        <!-- Scripts del plugin para imprimer en impresoras termicas -->
+        <script src="{{ asset('modules/ptventa/js/sale/conector_javascript_POS80C.js') }}"></script>
+        <!-- Formateadores de datos -->
+        <script src="{{ asset('modules/ptventa/js/data-formats.js') }}"></script>
         <!-- Scripts del componente register-sale -->
         <script src="{{ asset('modules/ptventa/js/sale/register/livewire-register-sale.js') }}"></script>
     @endsection
