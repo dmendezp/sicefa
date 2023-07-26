@@ -30,3 +30,25 @@
 .user-panel a:visited {
     color: #000;
 }
+
+  /* Estilos para el menú desplegable */
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    list-style: none;
+  }
+  
+  .dropdown-item {
+    margin-bottom: 5px;
+  }
+  
+  /* Estilos para mostrar el menú desplegable cuando se hace clic en el botón */
+  .show {
+    display: block;
+  }
+  

@@ -10,15 +10,16 @@ Route::prefix('agroindustria')->group(function() {
     Route::get('/index', 'AGROINDUSTRIAController@index')->name('agroindustria.index');
 
     //instructor
-    Route::get('/unidd', [UnitController::class, 'unidd'])->name('agroindustria.unidd');
-
-    Route::get('/solicitud', [RequestController::class, 'solicitud'])->name('agroindustria.solicitud');
-    
-    Route::post('/enviarsolicitud', [RequestController::class, 'enviarsolicitud'])->name('agroindustria.enviarsolicitud');
+    Route::prefix('instructor')->group(function (){
+        Route::get('/unidd', [UnitController::class, 'unidd'])->name('agroindustria.unidd');
+        Route::get('/solicitud', [RequestController::class, 'solicitud'])->name('agroindustria.solicitud');  
+        Route::post('/enviarsolicitud', [RequestController::class, 'enviarsolicitud'])->name('agroindustria.enviarsolicitud');
+    });
 
     //intern
-    Route::get('/intern/index', [InventoryController::class ,'index'])->name('agroindustria.index');
-    
-    Route::get('/intern/invb', [InventoryController::class ,'invb'])->name('agroindustria.invb');
+    Route::prefix('intern')->group(function (){
+        Route::get('/index', [InventoryController::class ,'index'])->name('agroindustria.intern.index');
+        Route::get('/invb', [InventoryController::class ,'invb'])->name('agroindustria.intern.invb');
+    });
 
 });

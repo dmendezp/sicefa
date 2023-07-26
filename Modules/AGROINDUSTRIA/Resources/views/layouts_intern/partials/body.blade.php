@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="css/navbar.css">
 <nav class="navbar navbar-expand-sm navbar-Dark" style="background-color:white;">
     <a class="navbar-brand" href="#">DATAGRO</a>
     <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
@@ -6,10 +5,10 @@
     <div class="collapse navbar-collapse" id="collapsibleNavId">
         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="{{route('agroindustria.index')}}">Inicio</a>
+                <a class="nav-link" href="{{route('agroindustria.intern.index')}}">Inicio</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('agroindustria.invb')}}">Unidades</a>
+                <a class="nav-link" href="{{route('agroindustria.intern.invb')}}">Inventario</a>
             </li>
         </ul>
     </div>
