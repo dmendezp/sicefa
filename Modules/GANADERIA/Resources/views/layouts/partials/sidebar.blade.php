@@ -13,7 +13,7 @@
           @if(isset(Auth::user()->person->avatar))
             <img src="{{ asset('storage/'.Auth::user()->person->avatar) }}" class="img-circle elevation-2" alt="User Image">
           @else
-            <img src="{{ asset('bovinos/images/avatar.png') }}" class="img-circle elevation-2" alt="User Image">
+            <img src="{{ asset('sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
           @endif
         </div>
         @guest
@@ -46,7 +46,9 @@
           <li class="nav-item">
             <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
               <i class="fas fa-puzzle-piece"></i>
-              <p>Volver a Laravel</p>
+              <p>
+                {{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}
+              </p>
             </a>
           </li>  
         </ul>
@@ -57,26 +59,18 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
         <!-- MENU PARA HOME (DE ACCESO GENERAL) -->
-        @if (Route::is('*home.*'))
-          <li class="nav-item">
-            <a href="{{ route('cefa.ganaderia.home.index') }}" class="nav-link {{ ! Route::is('cefa.ganaderia.home.index') ?: 'active' }}" >
-              <i class="fas fa-home"></i>
-              <p>Inicio</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('cefa.ganaderia.home.property') }}" class="nav-link {{ ! Route::is('cefa.ganaderia.home.property') ?: 'active' }}">
-              <i class="fas fa-mountain"></i>
-              <p>Predios</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('cefa.ganaderia.home.developers') }}" class="nav-link {{ ! Route::is('cefa.ganaderia.home.Developers') ?: 'active' }}">
-              <i class="fas fa-industry"></i>
-              <p>Desarrolladores</p>
-            </a>
-          </li>
-        @endif
+        <li class="nav-item">
+          <a href="{{ route('cefa.ganaderia.home.index') }}" class="nav-link {{ ! Route::is('cefa.ganaderia.home.index') ?: 'active' }}" >
+            <i class="fas fa-home"></i>
+            <p>Inicio</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('cefa.ganaderia.home.property') }}" class="nav-link {{ ! Route::is('cefa.ganaderia.home.property') ?: 'active' }}">
+            <i class="fas fa-mountain"></i>
+            <p>Predios</p>
+          </a>
+        </li>
         <!-- CIERRA MENU PARA HOME (DE ACCESO GENERAL) -->
         <!-- MENU PARA VETERINARIO -->
         @if (Route::is('*admin.*'))
@@ -180,6 +174,72 @@
             </li>
             <!-- Fin del menu para los filtros -->
           </li>
+        @endif
+        <!-- Inicio para el modo Aprendiz Lider -->
+        @if (Route::is('*leader.*'))
+        <li class="nav-item {{ ! Route::is('ganaderia.admin.leader.*') ?: 'menu-is-opening menu-open' }}">
+          <a href="#" class="nav-link {{ ! Route::is('ganaderia.admin.leader.*') ?: 'active' }}">
+            <i class="nav-icon fa-solid fa-cow"></i>
+            <p>
+              {{ trans('ganaderia::leader.Animal') }}
+              <i class="right fa-solid fa-paw"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('ganaderia.admin.leader.register.index') }}" class="nav-link {{ ! Route::is('ganaderia.admin.leader.register.*') ?: 'active' }}">
+                <i class="nav-icon fas fa-solid fa-clipboard-list"></i>
+                <p>{{ trans('ganaderia::leader.Register') }}</p>
+              </a>
+            </li>
+            <!-- inicio para consultar la vaca por codigo -->
+            <li class="nav-item">
+              <a href="{{ route('ganaderia.admin.leader.search') }}" class="nav-link {{ ! Route::is('ganaderia.admin.leader.search') ?: 'active' }}">
+                <i class="nav-icon fas fa-solid fa-magnifying-glass"></i>
+                <p>{{ trans('ganaderia::leader.Consultar') }}</p>
+              </a>
+            </li>
+            <!-- fin para consultar la vaca por codigo -->
+            <!-- inicio para consultar el historial clinico de la vaca por el codigo -->
+            <li class="nav-item">
+              <a href="#" class="nav-link {{ ! Route::is('#') ?: 'active' }}">
+                <i class="nav-icon fas fa-solid fa-file-waveform"></i>
+                <p>{{ trans('ganaderia::leader.Historial clinico') }}</p>
+              </a>
+            </li>
+            <!-- fin para consultar el historial clinico de la vaca por el codigo -->
+            <!-- inicio para poder registrar una nueva raza -->
+            <li class="nav-item">
+              <a href="{{ route('ganaderia.admin.leader.race.index') }}" class="nav-link {{ ! Route::is('ganaderia.admin.leader.race.*') ?: 'active' }}">
+              <i class="nav-icon fas fa-solid fa-dna"></i>
+              <p>{{ trans('ganaderia::leader.Race') }}</p>
+              </a>
+            </li>
+            <!-- fin para poder registrar una nueva raza -->
+          </ul>
+        </li>
+        @endif
+        <!-- Fin para el modo Aprendiz Lider -->
+        @if (Route::is('*vet.*'))
+        <!-- Inicio para el modo del Veterinario -->
+        <li class="nav-item {{ ! Route::is('ganaderia.admin.vet.*') ?: 'menu-is-opening menu-open' }}">
+          <a href="#" class="nav-link {{ ! Route::is('ganaderia.admin.vet.*') ?: 'active' }}">
+            <i class="nav-icon fa-solid fa-hospital"></i>
+            <p>
+              {{ trans('ganaderia::vet.Clinico') }}
+              <i class="right fa-solid fa-heart"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('ganaderia.admin.vet.register') }}" class="nav-link {{ ! Route::is('ganaderia.admin.vet.register*') ?: 'active' }}">
+                <i class="nav-icon fas fa-solid fa-clipboard-list"></i>
+                <p>{{ trans('ganaderia::vet.Registro') }}</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- Fin para el modo del Veterinario -->
         @endif
       </ul>
     </nav>

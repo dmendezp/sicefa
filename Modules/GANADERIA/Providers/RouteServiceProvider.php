@@ -35,6 +35,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
         $this->mapWebRoutes();
+        $this->mapLeaderRoutes(); //Aprendiz lider
+        $this->mapVetRoutes(); //Veterinario
     }
 
     /**
@@ -57,5 +59,35 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->moduleNamespace)
             ->group(module_path('GANADERIA', '/Routes/api.php'));
+    }
+
+    //Route para Aprendiz Lider
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapLeaderRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->moduleNamespace)
+            ->group(module_path('GANADERIA', '/Routes/leader.php'));
+    }
+
+    //Route para el Veterinario
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapVetRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->moduleNamespace)
+            ->group(module_path('GANADERIA', '/Routes/veterinary.php'));
     }
 }

@@ -16,25 +16,14 @@ class AdminController extends Controller
 {
    public function dashboard()
    {
-      return view('ganaderia::admin.dashboard');
-       
-   }
-
-   public function home2()
-   {
-      return view('ganaderia::admin.apprentice_leader.home2');
-       
-   }
-
-   public function home()
-   {
-      return view('ganaderia::admin.veterinary.home');
-       
+      $data = ['title'=>trans('ganaderia::menu.Admin')];
+      return view('ganaderia::admin.dashboard', $data);
    }
 
    public function index()
    {
-      return view('ganaderia::admin.reproduction.index');
+      $data = ['title'=>trans('ganaderia::menu.Admin')];
+      return view('ganaderia::admin.reproduction.index', $data);
    }
 
    public function animals(Request $request) {

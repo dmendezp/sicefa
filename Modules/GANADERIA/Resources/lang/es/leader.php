@@ -1,0 +1,25 @@
+<?php
+
+return [
+  'Animal' => 'Animal',
+  'Register' => 'Registrar',
+  'Name' => 'Nombre',
+  'Of The' => 'De El',
+  'Of' => 'De',
+  'Code' => 'Codigo',
+  'Weight' => 'Peso',
+  'Sex' => 'Sexo',
+  'Color' => 'Color',
+  'Female' => 'Femenino',
+  'Male' => 'Masculino',
+  'Date' => 'Fecha',
+  'Birth' => 'Nacimiento',
+  'Race' => 'Raza',
+  'Search' => 'Buscar',
+  'Mother' => 'Madre',
+  'Number' => 'Numero',
+  'Document' => 'Documento',
+  'Document notfound' => 'Numero de Documento no existe',
+  'AlertDocumentText' => 'No haz escrito ningun numero de Documento',
+  'AlertDocumentTitle' => 'Escribe tu numero de Documento',
+];

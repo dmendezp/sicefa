@@ -1,0 +1,25 @@
+<?php
+
+return [
+  'Animal' => 'Animal',
+  'Register' => 'Register',
+  'Name' => 'Name',
+  'Of The' => 'Of The',
+  'Of' => 'Of',
+  'Code' => 'Code',
+  'Weight' => 'Weight',
+  'Sex' => 'Sex',
+  'Color' => 'Color',
+  'Female' => 'Female',
+  'Male' => 'Male',
+  'Date' => 'Date',
+  'Birth' => 'Birth',
+  'Race' => 'Race',
+  'Search' => 'Search',
+  'Mother' => 'Mother',
+  'Number' => 'Number',
+  'Document' => 'Document',
+  'Document notfound' => 'Document number does not exist',
+  'AlertDocumentText' => 'You have not written any Document number',
+  'AlertDocumentTitle' => 'Write your Document number',
+];

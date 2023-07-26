@@ -15,11 +15,14 @@ class CreateAnimalsTable extends Migration
     {
         Schema::create('animals', function (Blueprint $table) {
             $table->id();
-            $table->string('mother');
+            $table->string('name');
+            $table->string('code');
+            $table->foreignId('races_id')->constrained()->onDelete('cascade');
+            $table->string('mother')->nullable();
             $table->string('weight');
-            $table->string('sex');
+            $table->enum('sex', ['Male','Female'])->nullable();
             $table->string('color');
-            $table->string('location');
+            $table->date('date_of_birth')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   @include('ganaderia::layouts.partials.head')
+  @section('style')
+  @show
 </head>
 <body class="hold-transition sidebar-mini">
   <div class="wrapper">

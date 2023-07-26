@@ -50,6 +50,7 @@ class SeedPermissionsTableSeeder extends Seeder
                 "description_english" => "English -> En esta aplicación se administra la confgur-......"
             ]);
         }
+
         //crear usuario veterinario
         $useradmin = User::where('nickname','veterinario')->first();
         if(!$useradmin){
@@ -62,7 +63,7 @@ class SeedPermissionsTableSeeder extends Seeder
             ]);
         }
 
-        //crear usuario veterinario
+        //crear usuario aprendiz lider
         $useradmin = User::where('nickname','aprendiz_lider')->first();
         if(!$useradmin){
             $person = Person::where('document','76543332')->first();

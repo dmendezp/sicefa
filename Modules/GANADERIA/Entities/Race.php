@@ -4,17 +4,12 @@ namespace Modules\GANADERIA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\GANADERIA\Entities\Race;
 
-class Animal extends Model
+class Race extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['mother', 'weight', 'races_id', 'sex', 'color', 'location'];
+    protected $fillable = ['name'];
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','updated_at'];
-
-    public function races() {
-        return $this->belongsTo(Race::class);
-    }
 }
