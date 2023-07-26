@@ -170,6 +170,8 @@ class InventoryController extends Controller
                                 ->get();
 
         $view = ['titlePage' => 'Reportes', 'titleView' => 'Entradas de Inventario'];
-        return view('ptventa::reports.inventoryEntries', compact('view', 'movements'));
+        return view('ptventa::reports.inventoryEntries', compact('view', 'movements'))
+                ->with('start_date', $startDateInput)
+                ->with('end_date', $endDateInput);
     }
 }
