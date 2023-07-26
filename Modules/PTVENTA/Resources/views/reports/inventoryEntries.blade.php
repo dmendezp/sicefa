@@ -1,79 +1,79 @@
 @extends('ptventa::layouts.master')
-@push('head')
-    <link rel="stylesheet" href="{{ asset('modules/ptventa/css/card_reports_styles.css') }}">
-@endpush
+
 @push('breadcrumbs')
     <li class="breadcrumb-item">
         <a href="{{ route('ptventa.reports.index') }}" class="text-decoration-none">Reporte</a>
     </li>
-    <li class="breadcrumb-item active">Inventario</li>
+    <li class="breadcrumb-item active">Entradas de Inventario</li>
 @endpush
-@section('content')
-    <div class="row">
-        <div class="card">
-            <div class="card-body">
-                <div class="col-12">
-                    <form class="row g-3">
-                        <form class="row g-3" method="post" action="#">
-                            <div class="col-md-6">
-                                <label class="form-label">Fecha Inicio</label>
-                                <input type="date" class="form-control" name="start_date" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Fecha Fin</label>
-                                <input type="date" class="form-control" name="end_date" required>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Consultar</button>
-                                <button type="submit" class="btn btn-danger">Generar reporte</button>
-                            </div>
-                        </form>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card mt-4">
-                                <div class="card-body">
-                                    <h4>Reportes de ventas desde xxxxxxx a xxxxxxx</h4>
-                                    <hr>
-                                    <table class="table" id="reportInventory">
-                                        <thead class="table-dark">
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Elemento</th>
-                                                <th scope="col">Precio</th>
-                                                <th scope="col">Cantidad</th>
-                                                <th scope="col">Stock</th>
-                                                <th scope="col">Fecha de Prodcción </th>
-                                                <th scope="col">Fecha de Vencimiento </th>
-                                                <th scope="col">Número de Lote</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Prodcuto Prueba</td>
-                                                <td>2000</td>
-                                                <td>40</td>
-                                                <td>2</td>
-                                                <td>19-09-20</td>
-                                                <td>19-09-20</td>
-                                                <td>1234</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+@section('content')
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="row g-3" action="{{ route('ptventa.reports.inventoryEntries') }}" method="GET">
+                        @csrf
+                        <div class="col-md-6">
+                            <label class="form-label">Fecha de Inicio: </label>
+                            <input type="date" class="form-control" name="start_date" id="start_date" required>
                         </div>
-                    </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Fecha Final: </label>
+                            <input type="date" class="form-control" name="end_date" id="end_date" required>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </form>
+                    <hr>
+
+                    @if ($movements->count() > 0)
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Número de Voucher</th>
+                                        <th>Responsable que entrega</th>
+                                        <th>Fecha de ingreso</th>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio</th>
+                                        <th>Subtotal</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $rowNumber = 0; // Variable para hacer un seguimiento del número de fila actual
+                                    @endphp
+                                
+                                @foreach ($movements as $key => $movement)
+                                    @foreach ($movement->movement_details as $index => $movement_detail)
+                                        <tr>
+                                            @if ($index === 0) {{-- Verificar si es la primera fila del movimiento --}}
+                                                <td rowspan="{{ count($movement->movement_details) }}">{{ $key + 1 }}</td>
+                                                <td rowspan="{{ count($movement->movement_details) }}">{{ $movement->voucher_number }}</td>
+                                                <td rowspan="{{ count($movement->movement_details) }}">{{ $movement->movement_responsibilities->where('role', 'ENTREGA')->first()->person->full_name }}</td>
+                                                <td rowspan="{{ count($movement->movement_details) }}">{{ $movement->registration_date }}</td>
+                                            @endif
+                                            <td>{{ $movement_detail->inventory->element->product_name}}</td>
+                                            <td>{{ $movement_detail->amount }}</td>
+                                            <td>{{ priceFormat($movement_detail->price) }}</td>
+                                            <td>{{ priceFormat($movement_detail->amount * $movement_detail->price) }}</td>
+                                            @if ($index === 0) {{-- Solo mostrar el precio en la primera fila del movimiento --}}
+                                                <td rowspan="{{ count($movement->movement_details) }}">{{ priceFormat($movement->price) }}</td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <p>No se encontraron registros para las fechas seleccionadas.</p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -81,14 +81,7 @@
 @endsection
 
 @include('ptventa::layouts.partials.plugins.datatables')
+
 @push('scripts')
-    <script>
-        // Permite la aplicacion de datatables y la vez la traduccion de las tablas
-        $(document).ready(function() {
-            /* Initialización of Datatables Results */
-            $('#reportInventory').DataTable({
-                language: language_datatables, // Agregar traducción a español
-            });
-        });
-    </script>
+
 @endpush

@@ -7,9 +7,11 @@ use Modules\SICA\Entities\Warehouse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
-use TCPDF;
+use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
+use TCPDF;
 
 class InventoryController extends Controller
 {
@@ -17,20 +19,22 @@ class InventoryController extends Controller
     public $app_puw; // Establecer unidad productiva y bodega general de la aplicación
 
     // Obtener unidad productiva y bodega general de la aplicación
-    public function getAppPuw(){
+    public function getAppPuw()
+    {
         if (!$this->app_puw) {
-            $productive_unit = ProductiveUnit::where('name','Punto de venta')->firstOrFail(); // Unidad productiva de la aplicación
-            $warehouse = Warehouse::where('name','Punto de venta')->firstOrFail(); // Bodega de la aplicación
-            $this->app_puw = ProductiveUnitWarehouse::where('productive_unit_id',$productive_unit->id)->where('warehouse_id',$warehouse->id)->firstOrFail();
+            $productive_unit = ProductiveUnit::where('name', 'Punto de venta')->firstOrFail(); // Unidad productiva de la aplicación
+            $warehouse = Warehouse::where('name', 'Punto de venta')->firstOrFail(); // Bodega de la aplicación
+            $this->app_puw = ProductiveUnitWarehouse::where('productive_unit_id', $productive_unit->id)->where('warehouse_id', $warehouse->id)->firstOrFail();
         }
         return $this->app_puw;
     }
 
-    public function index(){ // Listado del inventario actual
-        $inventories = Inventory::where('productive_unit_warehouse_id',$this->getAppPuw()->id)
-                                ->where('state','Disponible')
-                                ->orderBy('updated_at','DESC')
-                                ->get();
+    public function index()
+    { // Listado del inventario actual
+        $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+            ->where('state', 'Disponible')
+            ->orderBy('updated_at', 'DESC')
+            ->get();
         $view = ['titlePage' => 'Inventario - Listado', 'titleView' => 'Administración general de inventario'];
         return view('ptventa::inventory.index', compact('view', 'inventories'));
     }
@@ -51,20 +55,21 @@ class InventoryController extends Controller
         $pdf->Output('ReporteProductos');
     }
 
-    public function status(Request $request){ // Lista de productos vencidos y por vencer
+    public function status(Request $request)
+    { // Lista de productos vencidos y por vencer
         $view = ['titlePage' => 'Inventario - Estado', 'titleView' => 'Productos en riesgo por caducidad'];
-        $productosVencidos = Inventory::where('productive_unit_warehouse_id',$this->getAppPuw()->id)
-                                    ->where('state','Disponible')
-                                    ->where('expiration_date','<',now())
-                                    ->orderBy('expiration_date')
-                                    ->get();
-        $productosPorVencer = Inventory::where('productive_unit_warehouse_id',$this->getAppPuw()->id)
-                                    ->where('state','Disponible')
-                                    ->where('expiration_date','>',now())
-                                    ->where('expiration_date','<=',now()->addDays(3))
-                                    ->orderBy('expiration_date')
-                                    ->get();
-        return view('ptventa::inventory.status', compact('view','productosVencidos','productosPorVencer'));
+        $productosVencidos = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+            ->where('state', 'Disponible')
+            ->where('expiration_date', '<', now())
+            ->orderBy('expiration_date')
+            ->get();
+        $productosPorVencer = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+            ->where('state', 'Disponible')
+            ->where('expiration_date', '>', now())
+            ->where('expiration_date', '<=', now()->addDays(3))
+            ->orderBy('expiration_date')
+            ->get();
+        return view('ptventa::inventory.status', compact('view', 'productosVencidos', 'productosPorVencer'));
     }
 
     public function low()
@@ -136,9 +141,35 @@ class InventoryController extends Controller
         $pdf->Output('reporte_inventarios.pdf', 'D');
     }
 
-    public function inventoryEntries()
-    { //Vista de reportes de ventas
+    public function inventoryEntries(Request $request)
+    {
+        // Captura las fechas ingresadas en el formulario.
+        $startDateInput = $request->input('start_date');
+        $endDateInput = $request->input('end_date');
+
+        // Convertir las fechas al formato "Y-m-d" (año-mes-día) si es necesario.
+        $startDateInput = Carbon::parse($startDateInput)->format('Y-m-d');
+        $endDateInput = Carbon::parse($endDateInput)->format('Y-m-d');
+
+        // Convertir las fechas a objetos Carbon y establecer las horas específicas.
+        $startDate = Carbon::createFromFormat('Y-m-d', $startDateInput)->startOfDay();
+        $endDate = Carbon::createFromFormat('Y-m-d', $endDateInput)->endOfDay();
+
+        // Consulta para obtener los registros de MovementType con nombre "Movimiento Interno"
+        $movement_type = MovementType::where('name', 'Movimiento Interno')->firstOrFail();
+
+        // Consulta para obtener los registros de Movement entre las fechas seleccionadas
+        $movements = Movement::whereHas('warehouse_movements', function ($query) {
+                                    $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+                                    ->where('role','Recibe');
+                                })
+                                ->where('movement_type_id',$movement_type->id)
+                                ->where('state','Aprobado')
+                                ->whereBetween('registration_date', [$startDate, $endDate])
+                                ->orderBy('registration_date','ASC')
+                                ->get();
+
         $view = ['titlePage' => 'Reportes', 'titleView' => 'Entradas de Inventario'];
-        return view('ptventa::reports.inventoryEntries', compact('view'));
+        return view('ptventa::reports.inventoryEntries', compact('view', 'movements'));
     }
 }
