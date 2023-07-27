@@ -1,4 +1,4 @@
-@extends('cpd::layouts.master')
+@extends('cpd::layoeruts.mast')
 
 @section('breadcrumb')
     <li class="breadcrumb-item">Inicio</li>
