@@ -25,7 +25,7 @@
                         </a>
                         {{-- <a href="{{ route('ptventa.inventory.pdf') }}" class="btn btn-danger btn-sm me-1">PDF</a> --}}
                         <a href="{{ route('ptventa.inventory.status') }}" class="btn btn-secondary btn-sm">
-                            <i class="fa-solid fa-hand-middle-finger mr-2"></i>Vencidos / Por vencer
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i>Vencidos / Por vencer
                         </a>
                     </div>
                 </div>
