@@ -6,11 +6,11 @@ $(document).ready(function() {
 
 // Calcular el valor de cambio de acuerdo al total de la comprar y el valor de pago de la compra
 function calculate(total) {
-    var payment_value = parseInt($("#payment_value").val());
-    $("#change_value").removeClass('text-success').addClass('text-danger').val(payment_value - total);
+    var payment_value = revertPriceFormat($("#payment_value").val());
+    $("#change_value").removeClass('text-success').addClass('text-danger').val(priceFormat(payment_value - total));
     $('#sale_button').prop('disabled', true); // Desactivar botón de realizar venta
     if (total!=0 && payment_value>=total) {
-        $("#change_value").removeClass('text-danger').addClass('text-success').val(payment_value - total);
+        $("#change_value").removeClass('text-danger').addClass('text-success').val(priceFormat(payment_value - total));
         $("#sale_button").prop('disabled', false); // Activar botón de realizar venta
     }
     if(total>0){ // Verificar que el total sea mayor a 0 para así activiar o desactivar el botón de realizar venta
@@ -28,20 +28,20 @@ function input_payment_value(total){
     var $sale_button = $('#sale_button'); // Instanciar botón de realizar venta
     $payment_value.off('input').on('input', function(){
         var input_payment_value = $(this);
-        var val_payment_value = parseInt(input_payment_value.val());
+        var val_payment_value = revertPriceFormat(input_payment_value.val());
         if(isNaN(val_payment_value) || val_payment_value < 0){
             input_payment_value.val(0);
-            $change_value.removeClass('text-success').addClass('text-danger').val(0);
+            $change_value.removeClass('text-success').addClass('text-danger').val(priceFormat(0));
             $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
         } else if (val_payment_value >= total) {
-            $change_value.removeClass('text-danger').addClass('text-success').val(val_payment_value - total);
+            $change_value.removeClass('text-danger').addClass('text-success').val(priceFormat(val_payment_value - total));
             $sale_button.prop('disabled', false); // Activar botón de realizar venta
         } else {
-            $change_value.removeClass('text-success').addClass('text-danger').val(val_payment_value - total);
+            $change_value.removeClass('text-success').addClass('text-danger').val(priceFormat(val_payment_value - total));
             $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
         }
     });
-    $('#total').val(total);
+    $('#total').val(priceFormat(total));
     $payment_value.trigger('input');
     if(total == 0){
         $sale_button.prop('disabled', true); // Desactivar botón de realizar venta
@@ -52,7 +52,7 @@ function input_payment_value(total){
 Livewire.on('clear-sale-values', function() {
     $("#total").val(0);
     $("#payment_value").val(0);
-    $("#change_value").val(0);
+    $("#change_value").val(priceFormat(0));
 });
 
 // lanzar mensajes
@@ -110,8 +110,13 @@ Livewire.on('input-product-amount', function(product_total_amount, product_price
     var $product_amount = $('#product_amount'); // Instanciar el campo de cantidad de producto
     var $product_subtotal = $('#product_subtotal'); // Instancia el campo subtotal del producto
     var $total = $('#total'); // Instanciar el campo total de la venta
+    product_price = revertPriceFormat(product_price); // Eliminar el formato de precio al precio del producto
 
-    $total.val(total + product_subtotal); // Establecer valor total en tiempo real (especialmente cuando se edita un producto).
+    // Convertir a números los valores de total y product_subtotal y en caso de que sean nulos me retorne 0
+    total = parseFloat(total) || 0;
+    product_subtotal = parseFloat(product_subtotal) || 0;
+
+    $total.val(total+product_subtotal); // Establecer valor total en tiempo real (especialmente cuando se edita un producto).
     calculate($total.val());
 
     if (product_total_amount == 0) {
@@ -123,15 +128,15 @@ Livewire.on('input-product-amount', function(product_total_amount, product_price
             var val = parseInt(input.val());
             if (isNaN(val) || val < 0) {
                 input.val(0);
-                $product_subtotal.val(0);
+                $product_subtotal.val(priceFormat(0));
                 $total.val(total);
             } else if (val > product_total_amount) {
                 input.val(product_total_amount);
-                $product_subtotal.val(product_total_amount*product_price);
+                $product_subtotal.val(priceFormat(product_total_amount*product_price));
                 $total.val(product_total_amount * product_price + total);
             } else {
                 input.val(val);
-                $product_subtotal.val(val*product_price);
+                $product_subtotal.val(priceFormat(val*product_price));
                 $total.val(val * product_price + total);
             }
             calculate($total.val());
@@ -247,7 +252,7 @@ Livewire.on('printTicket', async function(voucher_number, date, customer, dt_cus
             { contenido: autoincrementable.toString(), maximaLongitud: maximaLongitudItem },
                 { contenido: d.product_name, maximaLongitud: maximaLongitudNombre },
                 { contenido: " "+d.product_amount.toString(), maximaLongitud: maximaLongitudCantidad },
-                { contenido: priceFormat(d.product_price), maximaLongitud: maximaLongitudPrecio },
+                { contenido: d.product_price, maximaLongitud: maximaLongitudPrecio },
                 { contenido: priceFormat(d.product_subtotal), maximaLongitud: maximaLongitudSubtotal },
             ],
             relleno,
@@ -275,7 +280,7 @@ Livewire.on('printTicket', async function(voucher_number, date, customer, dt_cus
     .EscribirTexto("Art 17 Decreto 1001 de 1997\n")
     .EscribirTexto("------------------------------------------------\n")
     .EstablecerEnfatizado(true)
-    .TextoSegunPaginaDeCodigos(2, "cp850", "Factura de entrada N°: "+voucher_number+"\n")
+    .TextoSegunPaginaDeCodigos(2, "cp850", "Factura de venta N°: "+voucher_number+"\n")
     .EstablecerEnfatizado(false)
     .EscribirTexto("------------------------------------------------\n")
     .EstablecerAlineacion(ConectorPluginV3.ALINEACION_IZQUIERDA)
@@ -301,6 +306,9 @@ Livewire.on('printTicket', async function(voucher_number, date, customer, dt_cus
     .EscribirTexto("TOTAL:  "+priceFormat(total)+" |\n")
     .EstablecerEnfatizado(false)
     .EscribirTexto("-----------------------------------------------+\n")
+    .EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO)
+    .EscribirTexto("Muchas gracias por su compra\n")
+    .TextoSegunPaginaDeCodigos(2, "cp850", "¡Vuelva pronto!")
     .Feed(4)
     .Corte(1)
     .imprimirEn("POS-80C");

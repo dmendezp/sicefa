@@ -68,7 +68,7 @@
                                         </td>
                                         <td class="text-center">{{ $sp['product_price'] }}</td>
                                         <td class="text-center">
-                                            <strong>{{ $sp['product_subtotal'] }}</strong>
+                                            <strong>{{ priceFormat($sp['product_subtotal']) }}</strong>
                                         </td>
                                         <td class="text-center">
                                             <a href="#" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip" data-placement="top" title="Actualizar producto"
@@ -124,7 +124,7 @@
 
                     <ul class="list-group list-group-flush text-center px-5 rounded-3 fs-5">
                         <li class="list-group-item list-group-item-primary py-0 px-0">
-                            {!! Form::number('total', $total ? $total : 0, [
+                            {!! Form::text('total', $total ? $total : '$0', [
                                 'class'=>'form-control form-control-lg text-center mx-0',
                                 'id'=>'total',
                                 'style' => 'background-color: #d1e2ff',
@@ -132,14 +132,14 @@
                             !!}
                         </li>
                         <li class="list-group-item py-1 px-0">
-                            {!! Form::number('payment_value', $payment_value ? $payment_value : 0, [
-                                'class'=>'form-control form-control-lg text-center mx-0',
+                            {!! Form::text('payment_value', $payment_value ? $payment_value : '$0', [
+                                'class'=>'form-control form-control-lg text-center mx-0 price-format',
                                 'id'=>'payment_value',
                                 $input_payment_value ? '' : 'disabled'])
                             !!}
                         </li>
                         <li class="list-group-item list-group-item-dark py-0 px-0">
-                            {!! Form::number('total', $change_value ? $change_value : 0, [
+                            {!! Form::text('total', $change_value ? $change_value : '$0', [
                                 'class'=>'form-control form-control-lg text-center mx-0 text-success fw-bold',
                                 'id'=>'change_value',
                                 'style' => 'background-color: #ced4da',
@@ -235,6 +235,8 @@
     @section('sripts-generate-sale')
         <!-- Scripts del plugin para imprimer en impresoras termicas -->
         <script src="{{ asset('modules/ptventa/js/sale/conector_javascript_POS80C.js') }}"></script>
+        <!-- Recursos para los formatedores de datos -->
+        <script src="{{ asset('libs/cleave.js-1.6.0/dist/cleave.js') }}"></script>
         <!-- Formateadores de datos -->
         <script src="{{ asset('modules/ptventa/js/data-formats.js') }}"></script>
         <!-- Scripts del componente register-sale -->

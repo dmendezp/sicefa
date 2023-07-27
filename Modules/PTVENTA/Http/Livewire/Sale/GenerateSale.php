@@ -91,7 +91,7 @@ class GenerateSale extends Component
                                 ->select('element_id', DB::raw('SUM(amount) as product_total_amount'))
                                 ->groupBy('element_id')
                                 ->first();
-        $inventory->sale_price = Element::findOrFail($element_id)->price; // Consultar precio de venta del producto
+        $inventory->sale_price = priceFormat(Element::findOrFail($element_id)->price); // Consultar precio de venta del producto
         return $inventory;
     }
 
@@ -123,7 +123,7 @@ class GenerateSale extends Component
                         'product_name' => $product['product_name'],
                         'product_amount' => $product['product_amount'] + $this->product_amount,
                         'product_price' => $product['product_price'],
-                        'product_subtotal' => $product['product_subtotal'] + ($this->product_amount * $product['product_price'])
+                        'product_subtotal' => $product['product_subtotal'] + ($this->product_amount * revertPriceFormat($product['product_price']))
                     ];
                     $this->selected_products[$key] = $updatedProduct;
                     break;
@@ -136,7 +136,7 @@ class GenerateSale extends Component
                     'product_name' => Element::find($this->product_id)->name,
                     'product_amount' => $this->product_amount,
                     'product_price' => $this->product_price,
-                    'product_subtotal' => $this->product_amount * $this->product_price
+                    'product_subtotal' => $this->product_amount * revertPriceFormat($this->product_price)
                 ]);
             }
             $this->totalValueProducts(); // Calcular el valor total de los productos seleccionados
@@ -154,10 +154,10 @@ class GenerateSale extends Component
                 $this->product_price = $inventory->sale_price;
                 $this->product_amount = $product['product_amount'];
                 $this->product_total_amount = $inventory->product_total_amount;
-                $this->product_subtotal = $product['product_subtotal'];
+                $this->product_subtotal = priceFormat($product['product_subtotal']);
                 $this->selected_products->forget($index); // Eliminar el producto encontrado
                 $this->totalValueProducts(); // Calcular el valor total de los productos seleccionados
-                $this->emit('input-product-amount', $this->product_total_amount, $this->product_price, $this->product_subtotal, $this->total);
+                $this->emit('input-product-amount', $this->product_total_amount, $this->product_price, revertPriceFormat($this->product_subtotal), revertPriceFormat($this->total));
                 break;
             }
         }
@@ -269,7 +269,7 @@ class GenerateSale extends Component
                             'movement_id' => $movement->id,
                             'inventory_id' => $inventory->id,
                             'amount' => $amountToSubtract,
-                            'price' => $product['product_price']
+                            'price' => revertPriceFormat($product['product_price'])
                         ]);
                     }
                 }
@@ -317,11 +317,11 @@ class GenerateSale extends Component
 
                 // Transacción completada exitosamente
                 $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente.', $value);
-                $this->emit('printTicket',
+                $this->emit('printTicket', // Generar impresión de la factura de venta
                     $movement->voucher_number,
-                    $current_datetime,
+                    ($movement->registration_date)->format('Y-m-d H:i:s'),
                     $this->customer_full_name,
-                    $this->customer_document_type.'-'.$this->customer_document_number,
+                    Person::where('document_number',$this->customer_document_number)->first()->identification_type_number,
                     Auth::user()->person->full_name,
                     $this->selected_products,
                     $movement->price
@@ -402,78 +402,4 @@ class GenerateSale extends Component
         );
     }
 
-    // Realizar impresión pos de la venta realizada
-    public function postPrinting(Movement $movement){
-        try {
-            // Iniciar impresión pos
-            $connector = new WindowsPrintConnector("POS-PTVENTA-80C");
-            $printer = new Printer($connector);
-            // Establecer estilos de texto
-            $printer->setJustification(Printer::JUSTIFY_CENTER);
-            $printer->setEmphasis(true);
-            // Encabezado de la factura
-            $printer->text("CENTRO DE FORMACIÓN AGROINDUSTRIAL\n");
-            $printer->setEmphasis(false);
-            $printer->text("Nit. 899.99934-1\n");
-            $printer->text("Producción de Centro - SENA Empresa\n");
-            $printer->text("La Angostura\n\n");
-            $printer->text("Art 17 Decreto 1001 de 1997\n");
-            $printer->text("------------------------------------\n");
-            $printer->setEmphasis(true);
-            $printer->text("Factura de venta N°: ".$movement->voucher_number."\n");
-            $printer->setEmphasis(false);
-            $printer->text("------------------------------------\n");
-            // Ajustes generales de impresión
-            $printer->setPrintWidth(580); // Establecer ancho de impresión
-            $w = 48; // Definir número de repiticiones de caracteres
-            $linea = str_repeat("-", $w); // Generar línea de separación
-            // Detalles de la factura
-            $customer = $movement->movement_responsibilities->where('role','CLIENTE')->first(); // Obtener cliente
-            $printer->setJustification(Printer::JUSTIFY_LEFT);
-            $printer->text("Fecha:          ".$movement->registration_date."\n");
-            $printer->text("Cliente:        ".$customer->person->full_name."\n");
-            $printer->text("Identificación: ".$customer->person->identification_type_number."\n");
-            $printer->text("Atendido por:   ".$movement->movement_responsibilities->where('role','VENDEDOR')->first()->person->full_name."\n");
-            $printer->text("$linea\n"); // Imprimir la línea
-            $printer->text("#  Producto                Cant  V.Unit SubTotal\n");
-            $printer->text("$linea\n"); // Imprimir la línea
-            // Productos
-            foreach ($movement->movement_details as $index => $product) {
-                $productName = $product->inventory->element->name;
-                $item = str_pad($index + 1, 3, " "); // Número de ítem
-                if (strlen($productName) > 22) {
-                    $name = substr($productName, 0, 21).'-';
-                }else{
-                    $name = $productName;
-                }
-                $name = str_pad($name, 23, " ");
-                $quantity = str_pad($product->amount, 5, " ", STR_PAD_LEFT);
-                $price = str_pad(priceFormat($product->price), 8, " ", STR_PAD_LEFT);
-                $subtotal = str_pad(priceFormat($product->amount * $product->price), 9, " ", STR_PAD_LEFT);
-                $printer->text("$item$name$quantity$price$subtotal\n");
-                // Verificar si el nombre del producto tiene más de 22 caracteres
-                if (strlen($productName) > 22) {
-                    $remainingName = substr($productName, 21); // Obtener la parte restante del nombre
-                    $remainingName = str_pad($remainingName, 23, " ");
-                    $printer->text("    $remainingName\n"); // Imprimir en la siguiente línea
-                }
-            }
-            // Total
-            $printer->text("$linea\n"); // Imprimir la línea
-            $printer->setJustification(Printer::JUSTIFY_RIGHT);
-            $printer->setEmphasis(true);
-            $printer->text("Total:    ".priceFormat($movement->price)."\n");
-            $printer->setEmphasis(false);
-            $printer->text("$linea\n"); // Imprimir la línea
-            // Pie de página
-            $printer->setJustification(Printer::JUSTIFY_CENTER);
-            $printer->text("Gracias por su compra\n");
-            $printer->text("¡Vuelva pronto!\n");
-            $printer->feed();
-            $printer->cut();
-            $printer->close();
-        } catch (Exception $e) {
-            $this->emit('message', 'error', 'Error en impresión', "Causa : ".$e->getMessage(), null);
-        }
-    }
 }

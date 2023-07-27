@@ -40,7 +40,7 @@
                                         {{ $s->state }}
                                     </b>
                                 </td>
-                                <td class="text-center"><strong>{{ $s->price }}</strong></td>
+                                <td class="text-center"><strong>{{ priceFormat($s->price) }}</strong></td>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-outline-secondary btn-sm py-0" title="Ver detalles">
                                         <i class="far fa-eye"></i>
@@ -51,8 +51,12 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td class="text-center" colspan="5"><strong>Total de ventas:</strong></td>
-                            <td class="text-center"><strong>{{$sales->sum('price')}}</strong></td>
+                            <td class="text-right" colspan="5">
+                                <h3><strong>Total de ventas:</strong></h3>
+                            </td>
+                            <td class="text-center text-success">
+                                <h3><strong>{{ priceFormat($sales->sum('price')) }}</strong></h3>
+                            </td>
                             <td></td>
                         </tr>
                     </tfoot>
