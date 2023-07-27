@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <form class="row g-3" action="{{ route('ptventa.reports.inventoryEntries') }}" method="GET">
+                    <form class="row g-3" action="{{ route('ptventa.reports.generateInventoryEntries') }}" method="POST">
                         @csrf
                         <div class="col-md-3">
                             <label class="form-label">Fecha de Inicio: </label>
@@ -32,7 +32,7 @@
                     </form>
                     <hr>
 
-                    @if ($movements->count() > 0)
+                    @if (isset($movements) && $movements->count() > 0)
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead class="table-dark">

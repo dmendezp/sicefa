@@ -141,7 +141,20 @@ class InventoryController extends Controller
         $pdf->Output('reporte_inventarios.pdf', 'D');
     }
 
-    public function inventoryEntries(Request $request)
+    // Método para mostrar la vista del formulario de entradas de inventario
+    public function showInventoryEntriesForm()
+    {
+        $view = ['titlePage' => 'Reportes', 'titleView' => 'Entradas de Inventario'];
+
+        // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
+        $start_date = request()->input('start_date', now()->format('Y-m-d'));
+        $end_date = request()->input('end_date', now()->format('Y-m-d'));
+
+        return view('ptventa::reports.inventoryEntriesForm', compact('view', 'start_date', 'end_date'));
+    }
+
+    // Método para realizar la consulta de entradas de inventario y redirigir a la vista
+    public function generateInventoryEntries(Request $request)
     {
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
@@ -160,18 +173,16 @@ class InventoryController extends Controller
 
         // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
-                                    $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
-                                    ->where('role','Recibe');
-                                })
-                                ->where('movement_type_id',$movement_type->id)
-                                ->where('state','Aprobado')
-                                ->whereBetween('registration_date', [$startDate, $endDate])
-                                ->orderBy('registration_date','ASC')
-                                ->get();
+            $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+                ->where('role', 'Recibe');
+        })
+            ->where('movement_type_id', $movement_type->id)
+            ->where('state', 'Aprobado')
+            ->whereBetween('registration_date', [$startDate, $endDate])
+            ->orderBy('registration_date', 'ASC')
+            ->get();
 
-        $view = ['titlePage' => 'Reportes', 'titleView' => 'Entradas de Inventario'];
-        return view('ptventa::reports.inventoryEntries', compact('view', 'movements'))
-                ->with('start_date', $startDateInput)
-                ->with('end_date', $endDateInput);
+            return $this->showInventoryEntriesForm()->with('movements', $movements);
     }
+
 }
