@@ -24,7 +24,7 @@
                             @csrf
                             <button type="submit" class="card-custom card-custom">
                                 <div class="icon">
-                                    <i class="fas fa-book-open"></i>
+                                    <i class="fa-solid fa-file-pdf"></i>
                                 </div>
                                 <p class="title">Inventario</p>
                                 <p class="text">Genera el reporte del inventario actual</p>
@@ -34,7 +34,7 @@
                     <div class="col-md-4 col-sm-6">
                         <a class="card-custom a-custom" href="{{ route('ptventa.reports.inventoryEntries') }}">
                             <div class="icon">
-                                <i class="fas fa-book-open"></i>
+                                <i class="fa-solid fa-file-pdf"></i>
                             </div>
                             <p class="title">Entrada de inventario</p>
                             <p class="text">Genera el reporte de entradas de inventario por fechas</p>
@@ -43,7 +43,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="card-custom">
                             <div class="icon">
-                                <i class="fas fa-book-open"></i>
+                                <i class="fa-solid fa-file-pdf"></i>
                             </div>
                             <p class="title">Ventas</p>
                             <p class="text">Genera el reporte de ventas</p>
