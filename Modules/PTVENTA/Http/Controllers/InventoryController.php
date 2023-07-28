@@ -182,7 +182,95 @@ class InventoryController extends Controller
             ->orderBy('registration_date', 'ASC')
             ->get();
 
-            return $this->showInventoryEntriesForm()->with('movements', $movements);
+        return $this->showInventoryEntriesForm()->with('movements', $movements);
     }
 
+    public function generateInventoryEntriesPDF(Request $request)
+    {
+        // Captura las fechas ingresadas en el formulario.
+        $startDateInput = $request->input('start_date');
+        $endDateInput = $request->input('end_date');
+
+        // Convertir las fechas al formato "Y-m-d" (año-mes-día) si es necesario.
+        $startDateInput = Carbon::parse($startDateInput)->format('Y-m-d');
+        $endDateInput = Carbon::parse($endDateInput)->format('Y-m-d');
+
+        // Convertir las fechas a objetos Carbon y establecer las horas específicas.
+        $startDate = Carbon::createFromFormat('Y-m-d', $startDateInput)->startOfDay();
+        $endDate = Carbon::createFromFormat('Y-m-d', $endDateInput)->endOfDay();
+
+        // Consulta para obtener los registros de MovementType con nombre "Movimiento Interno"
+        $movement_type = MovementType::where('name', 'Movimiento Interno')->firstOrFail();
+
+        // Consulta para obtener los registros de Movement entre las fechas seleccionadas
+        $movements = Movement::whereHas('warehouse_movements', function ($query) {
+            $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+                ->where('role', 'Recibe');
+        })
+            ->where('movement_type_id', $movement_type->id)
+            ->where('state', 'Aprobado')
+            ->whereBetween('registration_date', [$startDate, $endDate])
+            ->orderBy('registration_date', 'ASC')
+            ->get();
+
+        // Crear una nueva instancia de TCPDF
+        $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+
+        // Establecer el título del documento
+        $pdf->SetTitle('Reporte de Entradas de Inventario');
+
+        // Agregar una nueva página
+        $pdf->AddPage();
+
+        // Establecer el contenido del PDF
+        $html = '<h1 style="text-align: center;">Reporte de Entradas de Inventario</h1>';
+
+        // Crear el encabezado de la tabla
+        $html .= '<table style="border-collapse: collapse; width: 100%;">';
+        $html .= '<thead style="background-color: #f2f2f2;">';
+        $html .= '<tr>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;">#</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 52px;">Número de Voucher</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;">Responsable que entrega</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de ingreso</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 90px;">Producto</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Cantidad</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Precio</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Subtotal</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Total</th>';
+        $html .= '</tr>';
+        $html .= '</thead>';
+
+        // Crear el cuerpo de la tabla con los datos de los movimientos
+        $html .= '<tbody>';
+        foreach ($movements as $key => $movement) {
+            foreach ($movement->movement_details as $index => $movement_detail) {
+                $html .= '<tr>';
+                if ($index === 0) {
+                    // Solo mostrar información del movimiento en la primera fila
+                    $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 25px;" rowspan="' . count($movement->movement_details) . '">' . ($key + 1) . '</td>';
+                    $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 52px;" rowspan="' . count($movement->movement_details) . '">' . $movement->voucher_number . '</td>';
+                    $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;" rowspan="' . count($movement->movement_details) . '">' . $movement->movement_responsibilities->where('role', 'ENTREGA')->first()->person->full_name . '</td>';
+                    $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px;" rowspan="' . count($movement->movement_details) . '">' . $movement->registration_date . '</td>';
+                }
+                $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 90px;">' . $movement_detail->inventory->element->product_name . '</td>';
+                $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $movement_detail->amount . '</td>';
+                $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . priceFormat($movement_detail->price) . '</td>';
+                $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . priceFormat($movement_detail->amount * $movement_detail->price) . '</td>';
+                if ($index === 0) {
+                    // Solo mostrar el precio en la primera fila del movimiento
+                    $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;" rowspan="' . count($movement->movement_details) . '">' . priceFormat($movement->price) . '</td>';
+                }
+                $html .= '</tr>';
+            }
+        }
+        $html .= '</tbody>';
+        $html .= '</table>';
+
+        // Agregar el contenido HTML al PDF
+        $pdf->writeHTML($html, true, false, true, false, '');
+
+        // Generar el PDF y devolverlo para su descarga
+        $pdf->Output('reporte_entradas_inventario.pdf', 'D');
+    }
 }
