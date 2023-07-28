@@ -22,11 +22,9 @@ class PTVENTAController extends Controller
         return view('ptventa::information.index', compact('view'));
     }
 
-    /* Seccion de pruebas de factura */
-
-    public function indexTicket(){
-        $view = ['titlePage'=>trans('ptventa::ticket.Factura'), 'titleView'=>trans('ptventa::ticket.Factura')];
-        return view('ptventa::purchaseInvoice.index', compact('view'));
+    public function configuration(){
+        $view = ['titlePage'=>trans('ptventa::configuration.Configuration'), 'titleView'=>trans('ptventa::configuration.Configuration')];
+        return view('ptventa::configuration.index', compact('view'));
     }
 
 }
