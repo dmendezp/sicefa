@@ -1,10 +1,10 @@
 #main {
     min-height: 100vh;
-    position:relative;
+    position: relative;
 }
 
 video {
-    position:absolute;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -35,8 +35,8 @@ video {
 }
 
 .Contenido h1 {
-    color:#28B463;
-    font-family:bold;
+    color: #4055D8;
+    font-family: bold;
     font-size: 65px;
     text-shadow: 3px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
 }

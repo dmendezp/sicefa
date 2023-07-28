@@ -68,7 +68,7 @@
                                     <br>
                                 </div>
                                 <div class="mb-6">
-                                    <label for="document_number" class="form-label">Id bpa</label>
+                                    <label for="document_number" class="form-label">Id Epp</label>
                                     {!! Form::text('document_number', null, ['class' => 'form-control']) !!}
                                     <br>
                                 </div>

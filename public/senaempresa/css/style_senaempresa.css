@@ -1,19 +1,19 @@
 .thead {
-  background-color: #28B463 !important;
+  background-color: #202975 !important;
 }
 
 
 .sidebar-dark-primary {
-  background-color: #229954 !important;
+  background-color: #202975 !important;
 }
 
 .nav-item .active {
-  background-color: #28B463 !important;
+  background-color: #404FD8 !important;
   color: #ECF0F1 !important;
 }
 
 .nav-item:hover {
-  background-color: #28B463 !important;
+  background-color: #202975 !important;
   color: #fff !important;
   border-radius: 5px;
 }
@@ -29,7 +29,7 @@
 }
 
 .navbar {
-  background-color: #28B463;
+  background-color: #202975;
 }
 
 .navbar-nav .nav-item .nav-link {
@@ -42,12 +42,12 @@
 
 
 .navbar-nav .active {
-  background-color: #229954 !important;
+  background-color: #202975 !important;
   border-radius: 5px;
 }
 
 .navbar-nav .nav-item:hover {
-  background-color: #229954 !important;
+  background-color: #202975 !important;
   border-radius: 5px;
 }
 
@@ -56,11 +56,11 @@
 }
 
 .card-primary {
-  border-top: 3px solid #28B463 !important;
+  border-top: 3px solid #202975 !important;
 }
 
 #divbreadcrumb {
-  border: 2px solid #28B463 !important;
+  border: 2px solid #202975 !important;
   border-radius: 5px;
 }
 

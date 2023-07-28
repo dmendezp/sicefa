@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 @include('senaempresa::layouts.structure.head')
-@section('css')
-    <link href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-@endsection
-
 
 <body>
     @csrf

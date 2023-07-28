@@ -38,7 +38,6 @@
 
             <div id="contactos" class="team">
                 <h1><strong><em><span>Vacantes</span></strong></em></h1>
-
                 <div class="team_box">
                     <div class="profile">
                         <img src="{{ asset('senaempresa/images/contador.jpg') }}">
@@ -49,8 +48,8 @@
 
                             <div class="team_icon">
                                 <i class="fab fa-facebook-f"></i>
-                                <i class="fab fa-twitter"></i>
-                                <i class="fab fa-instagram"></i>
+                                <a id="openModalBtn"><i class="fas fa-eye"></i></a>
+                                <i class="fab fa-instagram"><a href="your_link_here"></i></a>
                             </div>
 
                         </div>
@@ -110,6 +109,29 @@
 
                 </div>
 
+            </div>
+            <div class="modal" id="myModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Contador</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+
+
+                        </div>
+                        <div class="modal-body">
+                            <p>Tu función principal será mantener registros precisos y actualizados de las transacciones
+                                financieras, asegurando el cumplimiento de las normas contables y fiscales vigentes.
+                                Trabajarás en estrecha colaboración con el departamento financiero y la gerencia para
+                                proporcionar información financiera crucial y asesoramiento estratégico.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             @section('content')
             @show

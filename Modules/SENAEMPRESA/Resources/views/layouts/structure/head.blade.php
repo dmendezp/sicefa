@@ -45,6 +45,9 @@
 
     <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+ld9m9/dDZDlMTgzyaWmPgQF3U7o6z5qI0nE5ss1f2Gh0b5" crossorigin="anonymous">
+
 
     <link href="{{ asset('senaempresa/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('senaempresa/css/we.css') }}" rel="stylesheet">
