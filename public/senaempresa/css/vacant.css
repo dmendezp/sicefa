@@ -1,0 +1,46 @@
+.card .card-body .card-header {
+    text-transform: capitalize;
+    line-height: 25px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.card .card-body p {
+    font-size: 15px;
+    text-align: justify;
+    width: 100%;
+}
+
+.card .card-body ul li {
+    font-size: 15px;
+    text-align: justify;
+}
+
+.modal .modal-header h5 {
+    text-transform: capitalize;
+    line-height: 30px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Estilo básico para el tooltip */
+a[title]:hover::after {
+    content: attr(title);
+    background-color: #000;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Mostrar el tooltip al posicionarse sobre el enlace */
+a[title]:hover::after {
+    opacity: 1;
+}

@@ -6,32 +6,31 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class InterviewController extends Controller
+class InscriptionController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function application()
+    public function inscription()
     {
-        $data = ['title' => 'Vacantes'];
-        return view('senaempresa::interview.vacant', $data);
+        $optionsArray = [
+            '1' => 'Contador',
+            '2' => 'Administrador Talento Humano',
+            '3' => 'Administrador Gestion de calidad',
+        ];
+
+        $data = ['title' => 'Inscripción', 'optionsArray' => $optionsArray];
+        return view('senaempresa::Company.Inscription.inscription', $data);
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function registration()
+    public function create()
     {
-        $data = ['title' => 'Registros'];
-        return view('senaempresa::interview.registration', $data);
-    }
-
-    public function vacant()
-    {
-        $data = ['title' => 'Postulaciones'];
-        return view('senaempresa::interview.postulate', $data);
+        return view('senaempresa::create');
     }
 
     /**

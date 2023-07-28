@@ -52,6 +52,7 @@
     <link href="{{ asset('senaempresa/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('senaempresa/css/we.css') }}" rel="stylesheet">
     <link href="{{ asset('senaempresa/css/registration.css') }}" rel="stylesheet">
+    <link href="{{ asset('senaempresa/css/vacant.css') }}" rel="stylesheet">
 
 
 

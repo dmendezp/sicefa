@@ -52,18 +52,22 @@ Route::prefix('senaempresa')->group(function () {
     Route::post('Work/delete', 'WorkController@workDestroy')->name('works.destroy');
 
 
+    //Rutas para quality
+    Route::get('Nosotros/', 'QualityController@we')->name('Nosotros');
 
-    Route::get('Nosotros/', 'COMPANYController@we')->name('Nosotros');
-    Route::get('Contactos/', 'COMPANYController@contact')->name('Contactos');
-
-    //Entrevistas
-    Route::get('Entrevistas/Vacantes/', 'InterviewController@application')->name('vacantes');
-    Route::get('Entrevistas/Registros/', 'InterviewController@registration')->name('Registros');
-    Route::get('Entrevistas/Postulados/', 'InterviewController@vacant')->name('Postulados');
+    //Rutas para company
+    Route::get('Contactos/', 'CompanyController@contact')->name('Contactos');
+    Route::get('Vacantes/', 'CompanyController@vacantes')->name('vacantes');
+    Route::get('Vacantes/Nueva_Vacante/', 'CompanyController@registration')->name('Registros');
+    Route::get('Postulados/', 'CompanyController@vacant')->name('Postulados');
+    Route::get('Postulados/Seleccionados/', 'CompanyController@seleccionados')->name('seleccionados');
 
     //Prestamos
     Route::get('Prestamos/Nuevo/', 'LoanController@new')->name('Nuevo');
     Route::get('Prestamos/Registrados/', 'LoanController@register')->name('Registrados');
+
+    //Inscripciones a vacantes
+    Route::get('Vacantes/Inscripción/', 'InscriptionController@inscription')->name('inscription');
 
 
 

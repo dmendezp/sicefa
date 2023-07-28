@@ -6,27 +6,25 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class LoanController extends Controller
+class QualityController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function new()
+    public function we()
     {
-        $data = ['title' => 'Nuevo'];
-        return view('senaempresa::Company.Loan.new', $data);
+        $data = ['title' => 'Nosotros'];
+        return view('senaempresa::quality.we', $data);
     }
-
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function register()
+    public function create()
     {
-        $data = ['title' => 'Prestamos Registrados'];
-        return view('senaempresa::Company.Loan.register', $data);
+        return view('senaempresa::create');
     }
 
     /**

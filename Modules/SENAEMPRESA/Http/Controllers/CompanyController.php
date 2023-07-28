@@ -12,20 +12,40 @@ class CompanyController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function we()
+    public function contact()
     {
-        $data = ['title' => 'Nosotros'];
-        return view('senaempresa::quality.we', $data);
+        $data = ['title' => 'Contactos'];
+        return view('senaempresa::Company.contact', $data);
+    }
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function vacantes()
+    {
+        $data = ['title' => 'Vacantes'];
+        return view('senaempresa::Company.Vacant.vacant', $data);
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function contact()
+    public function registration()
     {
-        $data = ['title' => 'Contactos'];
-        return view('senaempresa::quality.contact', $data);
+        $data = ['title' => 'Nueva Vacante'];
+        return view('senaempresa::Company.Vacant.registration', $data);
+    }
+
+    public function vacant()
+    {
+        $data = ['title' => 'Postulados'];
+        return view('senaempresa::Company.Postulate.postulate', $data);
+    }
+    public function seleccionados()
+    {
+        $data = ['title' => 'Seleccionados'];
+        return view('senaempresa::Company.Postulate.Application', $data);
     }
 
     /**

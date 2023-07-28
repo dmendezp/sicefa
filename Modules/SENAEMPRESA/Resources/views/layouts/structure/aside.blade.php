@@ -100,10 +100,10 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item {{ !Route::is('entrevistas.*') ?: 'menu-is-opening menu-open' }}">
-                    <a href="#" class="nav-link {{ !Route::is('entrevistas.*') ?: 'active' }}">
-                        <i class="fas fa-users"></i>
-                        <p>Entrevistas
+                <li class="nav-item {{ !Route::is('vacant.*') ?: 'menu-is-opening menu-open' }}">
+                    <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
+                        <i class="fas fa-vr-cardboard"></i>
+                        <p>Vacantes
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -112,21 +112,38 @@
                             <a href="{{ route('vacantes') }}"
                                 class="nav-link {{ !Route::is('vacantes') ?: 'active' }}">
                                 <i class="fas fa-user-secret"></i>
-                                <p>Vacantes</p>
+                                <p>Disponibles</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('Registros') }}"
                                 class="nav-link {{ !Route::is('Registros') ?: 'active' }}">
                                 <i class="fas fa-user-plus"></i>
-                                <p>Registros</p>
+                                <p>Nueva</p>
                             </a>
                         </li>
+                    </ul>
+                </li>
+                <li class="nav-item {{ !Route::is('entrevistas.*') ?: 'menu-is-opening menu-open' }}">
+                    <a href="#" class="nav-link {{ !Route::is('entrevistas.*') ?: 'active' }}">
+                        <i class="fas fa-vote-yea"></i>
+                        <p>Postulados
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('Postulados') }}"
                                 class="nav-link {{ !Route::is('Postulados') ?: 'active' }}">
                                 <i class="fas fa-address-card"></i>
                                 <p>Postulados</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('seleccionados') }}"
+                                class="nav-link {{ !Route::is('seleccionados') ?: 'active' }}">
+                                <i class="fas fa-check-double"></i>
+                                <p>Seleccionados</p>
                             </a>
                         </li>
                     </ul>
