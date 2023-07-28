@@ -8,7 +8,6 @@ return [
 	'Description'      => 'Punto de venta es una unidad productiva perteneciente al centro de Formación Agroindustrial "La Angostura", aqui se ofertan los diferentes productos que se fabrican en este centro, contamos con productos que provienen directamente del campo como tambien aquellos que con son procesados en el sector de agroindustria.',
 	//Card 1
 	'TitleCard'        => 'Productos más populares del centro de formación',
-	'DescriptionCard'  => 'Novedades del momento:',
 	'TitleItem1'       => 'Lácteos',
 	'NameItem1'        => 'Yogurt',
 	'TitleItem2'       => 'Vegetales',

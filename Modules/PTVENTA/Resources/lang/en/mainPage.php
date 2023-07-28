@@ -8,7 +8,6 @@ return [
 	'Description'      => 'Point of sale is a productive unit belonging to the Agroindustrial Training Center "La Angostura", here are offered the different products that are manufactured in this center, we have products that come directly from the field as well as those that are processed in the agribusiness sector.',
 	//Card 1
 	'TitleCard'        => 'Most popular products from the training center',
-	'DescriptionCard'  => 'News of the moment:',
 	'TitleItem1'       => 'Milk products',
 	'NameItem1'        => 'Yogurt',
 	'TitleItem2'       => 'Vegetables',

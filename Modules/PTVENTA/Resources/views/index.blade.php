@@ -9,18 +9,16 @@
 @endpush
 
 @section('content')
-    <h1 class="display-3">{{ trans('ptventa::mainPage.Title') }}</h1>
-    <h4 data-aos="fade-down">{{ trans('ptventa::mainPage.Description') }}</h4>
+    <h5 class="display-5">{{ trans('ptventa::mainPage.Title') }}</h5>
+    <h5 data-aos="fade-down">{{ trans('ptventa::mainPage.Description') }}</h5>
 
     <div class="row">
         <div class="col-md-6">
             <div class="card text-center mb-3 shadow-sm" data-aos="fade-right">
                 <div class="card-body">
-                    <hr>
                     <div class="d-flex align-items-center justify-content-center">
                         <div>
-                            <h4 class="text-center">{{ trans('ptventa::mainPage.TitleCard') }}</h4>
-                            <p>{{ trans('ptventa::mainPage.DescriptionCard') }}</p>
+                            <h5 class="text-center">{{ trans('ptventa::mainPage.TitleCard') }}</h5>
                         </div>
                     </div>
                     <div class="d-flex flex-wrap justify-content-center mt-3">
@@ -58,18 +56,16 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="card text-center mb-3 shadow-sm" data-aos="fade-left">
                 <div class="card-body">
-                    <hr class="featurette-divider">
-                    <div class="row featurette align-items-center">
+                    <div class="row align-items-center">
                         <div class="col-md-7 order-md-2">
-                            <h2 class="featurette-heading">{{ trans('ptventa::mainPage.TitleCard2') }} <span
-                                    class="text-muted">{{ trans('ptventa::mainPage.SubtitleCard2') }}</span></h2>
+                            <h3 class="featurette-heading">{{ trans('ptventa::mainPage.TitleCard2') }} <span
+                                    class="text-muted">{{ trans('ptventa::mainPage.SubtitleCard2') }}</span></h3>
                             <p class="lead">{{ trans('ptventa::mainPage.DescriptionCard2') }} </p>
                         </div>
                         <div class="col-md-5 order-md-1">
@@ -77,7 +73,6 @@
                                 class="img-fluid" width="290" height="290">
                         </div>
                     </div>
-                    <hr>
                 </div>
             </div>
         </div>
