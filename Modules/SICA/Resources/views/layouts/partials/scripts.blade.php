@@ -13,7 +13,7 @@
 <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.js') }}"></script>
 <script src="{{ asset('js/generalscripts.js') }}"></script>
-<script src="{{ asset('sica/js/scripts.js') }}"></script>
+<script src="{{ asset('modules/sica/js/scripts.js') }}"></script>
 
 <script src="{{ asset('AdminLTE/plugins/fullcalendar/lib/main.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/fullcalendar/lib/locales-all.js') }}"></script>
