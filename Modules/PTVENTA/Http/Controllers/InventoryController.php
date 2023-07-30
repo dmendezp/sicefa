@@ -101,7 +101,7 @@ class InventoryController extends Controller
     //Funciones para reporte de inventario
     public function reports()
     { //Vista principal del panel de reportes
-        $view = ['titlePage' => 'Reportes', 'titleView' => 'Panel de Reportes'];
+        $view = ['titlePage' => trans('ptventa::reports.Reports'), 'titleView' => trans('ptventa::reports.Reports Panel')];
         return view('ptventa::reports.index', compact('view'));
     }
 
