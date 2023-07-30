@@ -49,7 +49,7 @@ body.dark{
     top: 0;
     left: 0;
     height: 100%;
-    width: 250px;
+    width: 265px;
     padding: 10px 14px;
     background: var(--sidebar-color);
     transition: var(--tran-05);
@@ -310,8 +310,62 @@ body.dark .home .text{
 
 
 
+li a i {
+    margin-right: 0px; /* Ajusta este valor para cambiar el espacio entre el icono y el texto */
+  }
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+#flecha1{
+    margin-left: 20.5px;
+}
+
+#flecha2{
+    margin-left: 25px;
+}
 
 
+/* Rota el ícono hacia abajo cuando la lista esté desplegada */
+.nav-link.reports .sub-list {
+    display: none;
+}
+
+.nav-link.reports.active .sub-list {
+    display: block;
+}
+
+.nav-link.reports.active .arrow {
+    transform: rotate(180deg);
+}
+
+.sidebar .menu-links .nav-link.reports {
+    position: relative; /* Cambio a position: relative */
+  }
+  
+  .sub-list {
+    position: absolute; /* Utilizamos position: absolute */
+    top: 100%;
+    left: 22px;
+    background-color: var(--sidebar-color);
+    border-radius: 0.5rem;
+    padding: 8px;
+    display: none;
+    z-index: 2;
+    width: 210px; /* Ajusta el ancho según tus preferencias */
+    max-height: 200px; /* Ajusta la altura máxima deseada */
+    overflow-y: auto; /* Añade un scroll vertical en caso de ser necesario */
+  }
+  .sub-list .text {
+    margin-left: 0px; /* Ajusta el valor según tus preferencias */
+  }
+  
+  /* Estilos para mostrar el submenú al hacer hover en .nav-link.reports */
+  .nav-link.reports:hover .sub-list {
+    display: block;
+  }
+  
 /*estilos de la targeta de inventario-SECCION DEL UNVENTARIO*/
 .titulo{
     text-align: center;

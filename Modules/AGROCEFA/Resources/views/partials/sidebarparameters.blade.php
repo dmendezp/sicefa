@@ -23,8 +23,8 @@
               <ul class="menu-links">
                   <li class="nav-link">
                       <a href="#">
-                          <i class='fa-solid fa-seedling icon'></i>
-                          <span class="text nav-text">{{ trans('agrocefa::universal.Units')}}</span>
+                          <i class='bx bx-walk icon'></i>
+                          <span class="text nav-text">{{ trans('agrocefa::universal.Work')}}</span>
                       </a>
                   </li>
 

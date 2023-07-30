@@ -7,9 +7,11 @@ return [
     'Parameters' => 'Parametros',
 
     'Inventory' => 'Inventario',
-    'Management' => 'Gestion',
+    'Labormanagement' => 'Gestion Labores',
+    'Work' => 'Labor',
     'Consumption' => 'Consumos',
     'Balance' => 'Balance',
+    'Reports' => 'Reportes',
     'Movements' => 'Movimientos',
     'Units' => 'Unidades',
     'Records' => 'Registros',

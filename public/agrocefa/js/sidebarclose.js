@@ -25,3 +25,11 @@ modeSwitch.addEventListener("click" , () =>{
       
   }
 });
+
+// Añade un evento clic a los elementos que tienen la clase "has-dropdown"
+document.querySelectorAll('.has-dropdown').forEach(function(element) {
+  element.addEventListener('click', function() {
+      // Alternar la clase "active" para mostrar o ocultar el menú desplegable
+      this.classList.toggle('active');
+  });
+});
