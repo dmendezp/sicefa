@@ -21,14 +21,10 @@
                 </div>
                 @guest
                     <div class="col info info-user">
-                        <div>{{ trans('menu.Welcome') }}</div>
-                        <div>
-                            <a href="{{ route('login') }}" class="d-block">Iniciar sesión</a>
-                        </div>
+                        <a href="{{ route('login') }}" class="d-block" style="text-decoration: none">{{ trans('ptventa::general.Session') }}</a>
                     </div>
-                    <div class="col-auto info float-right mt-2" data-toggle="tooltip" data-placement="right"
-                        title="{{ trans('Auth.Login') }}">
-                        <a href="{{ route('login') }}" class="d-block">
+                    <div class="col-auto info float-right ">
+                        <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ trans('ptventa::general.InSession') }}">
                             <i class="fas fa-sign-in-alt"></i>
                         </a>
                     </div>
@@ -42,10 +38,8 @@
                             <em> {{ Auth::user()->roles[0]->name }}</em>
                         </div>
                     </div>
-                    <div class="col-auto info float-right mt-2" data-toggle="tooltip" data-placement="right"
-                        title="{{ trans('Auth.Logout') }}">
-                        <a href="{{ route('logout') }}" class="d-block"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <div class="col-auto info float-right mt-2">
+                        <a href="{{ route('logout') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ trans('ptventa::general.ExitSession') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
                     </div>
@@ -120,7 +114,7 @@
                                 <a href="{{ route('ptventa.reports.index') }}"
                                     class="nav-link {{ !Route::is('ptventa.reports.index*') ?: 'active' }}">
                                     <i class="nav-icon far fa-chart-bar"></i>
-                                    <p>Panel de Reportes</p>
+                                    <p>{{ trans('ptventa::general.Reports Panel') }}</p>
                                 </a>
                             </li>
                         @endif
@@ -129,7 +123,7 @@
                                 <a href="{{ route('cefa.ptventa.configuration') }}"
                                     class="nav-link {{ !Route::is('cefa.ptventa.configuration*') ?: 'active' }}">
                                     <i class="nav-icon fa-solid fa-gears"></i>
-                                    <p>Configuración</p>
+                                    <p>{{ trans('ptventa::general.Configuration') }}</p>
                                 </a>
                             </li>
                         @endif
