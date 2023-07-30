@@ -5,7 +5,7 @@
 @endpush
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('ptventa::mainPage.Main page') }}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::Configuration.Configuration') }}</li>
 @endpush
 
 @section('content')
@@ -13,14 +13,17 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h4>Generar factura de prueba</h4>
-                    <p>Aqui podras generar la factura de prueba para verificar su correcto funcionamiento, se usara en la generación de factura de venta y entrada de inventario.</p>
-                    <button class="btn btn-success" id="imprimirBtn">Generar Factura <i class="fa-solid fa-ticket"></i></button>
+                    <h4>{{ trans('ptventa::Configuration.TitleCard1') }}</h4>
+                    <p>{{ trans('ptventa::Configuration.TextCard1') }}</p>
+                    <button class="btn btn-success" id="imprimirBtn">{{ trans('ptventa::Configuration.Btn1') }} <i
+                            class="fa-solid fa-ticket"></i></button>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@include('ptventa::layouts.partials.plugins.sweetalert2')
 
 @push('scripts')
     <script src="{{ asset('modules/ptventa/js/sale/conector_javascript_POS80C.js') }}"></script>
@@ -47,10 +50,23 @@
             const imprimirBtn = document.getElementById('imprimirBtn');
             imprimirBtn.addEventListener('click', async (event) => {
                 event.preventDefault();
-                await conector.imprimirEn("POS-80C");
 
-                // Redireccionar al usuario a la vista del botón
-                window.location.href = "{{ route('cefa.ptventa.configuration') }}";
+                try {
+                    // Intenta imprimir usando la impresora con nombre "POS-80C"
+                    await conector.imprimirEn("POS-80C");
+
+                    // Si la impresora esta disponible el resultado es exitoso
+                    // Redireccionar al usuario a la vista del botón
+                    window.location.href = "{{ route('cefa.ptventa.configuration') }}";
+                } catch (error) {
+                    // A ocurrido un error en la impresion
+                    // Muestra el SweetAlert2 con la notificacion
+                    Swal.fire({
+                        icon: 'error',
+                        title: '{{trans("ptventa::Configuration.title")}}',
+                        text: '{{trans("ptventa::Configuration.text")}}',
+                    });
+                }
             });
         });
     </script>
