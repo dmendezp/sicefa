@@ -32,11 +32,31 @@ class InventoryController extends Controller
     public function index()
     { // Listado del inventario actual
         $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
-            ->where('state', 'Disponible')
-            ->orderBy('updated_at', 'DESC')
-            ->get();
+                                    ->where('amount', '<>', 0)
+                                    ->orderBy('updated_at', 'DESC')
+                                    ->get();
+                                    $groupedInventories = collect(); // Creamos una nueva colección para almacenar el resultado
+        $groups = []; // Creamos un array para mantener el seguimiento de los grupos
+
+        foreach ($inventories as $inventory) {
+            $elementId = $inventory->element_id;
+
+            // Verificamos si el grupo ya existe en el array de grupos
+            if (array_key_exists($elementId, $groups)) {
+                // Si el grupo ya existe, agregamos el registro al grupo existente
+                $groups[$elementId]->push($inventory);
+            } else {
+                // Si el grupo no existe, lo creamos y agregamos el registro al nuevo grupo
+                $groups[$elementId] = collect([$inventory]);
+            }
+        }
+
+        // Convertimos los grupos a la colección final
+        foreach ($groups as $group) {
+            $groupedInventories->push($group);
+        }
         $view = ['titlePage' => 'Inventario - Listado', 'titleView' => 'Administración general de inventario'];
-        return view('ptventa::inventory.index', compact('view', 'inventories'));
+        return view('ptventa::inventory.index', compact('view', 'groupedInventories'));
     }
 
     public function create()

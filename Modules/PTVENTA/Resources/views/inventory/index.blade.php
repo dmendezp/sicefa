@@ -33,42 +33,59 @@
 
             <hr>
 
-            <div class="table-responsive" data-aos="zoom-in">
-                <table class="table table-hover" id="inventories-table">
+            <div class="table-responsive px-1" data-aos="zoom-in">
+                <table class="table table-bordered border-secondary table-hover">
                     <thead class="table-dark">
-                        <tr>
-                            <th scope="col">N°</th>
+                        <tr class="border-dark">
+                            <th class="text-center">#</th>
                             <th>Producto</th>
-                            <th class="text-center">Categoría</th>
-                            <th class="text-center">Precio Unitario</th>
-                            <th class="text-center">Stock</th>
+                            <th class="text-center"># Lote</th>
+                            <th class="text-center">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                Producción
+                            </th>
+                            <th class="text-center">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                Vencimiento
+                            </th>
+                            <th class="text-center">$ Entrada</th>
                             <th class="text-center">Cantidad</th>
-                            <th class="text-center">Estado</th>
-                            <th class="text-center">Acción</th>
+                            <th class="text-center">$ Venta</th>
+                            <th class="text-center">Existencias</th>
                         </tr>
                     </thead>
-                    <tbody class="table-group-divider">
-                        @foreach ($inventories as $inventory)
+                    <tbody>
+                        @foreach ($groupedInventories as $group)
+                            @php
+                                $firstRecord = $group->first();
+                                $rowspan = $group->count();
+                            @endphp
                             <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
-                                <td><strong>{{ $inventory->element->name }}</strong></td>
-                                <td class="text-center">{{ $inventory->element->category->name }}</td>
-                                <td class="text-center">{{ priceFormat($inventory->price) }}</td>
-                                <td class="text-center">{{ $inventory->stock }}</td>
-                                <td class="text-center">{{ $inventory->amount }}</td>
-                                <td class="text-center">
-                                    @if ($inventory->state == 'Disponible')
-                                        <b class="bg-success rounded-5 ps-2 pe-2" style="font-size: 12px;">Disponible</b>
-                                    @else
-                                        <b class="bg-gradient-dark rounded-5 ps-2 pe-2" style="font-size: 12px;">No disponible</b>
-                                    @endif
+                                <td rowspan="{{ $rowspan }}" class="text-center border-secondary align-middle">{{ $loop->iteration }}</td>
+                                <td rowspan="{{ $rowspan }}" class="border-secondary align-middle">
+                                    <strong>{{ $firstRecord->element->name }}</strong>
                                 </td>
-                                <td class="text-center">
-                                    <button type="button" class="btn btn-outline-secondary btn-sm py-0" title="Ver detalles">
-                                        <i class="far fa-eye"></i>
-                                    </button>
+                                <td class="text-center border-secondary">{{ $firstRecord->lot_number }}</td>
+                                <td class="text-center border-secondary">{{ $firstRecord->production_date }}</td>
+                                <td class="text-center border-secondary">{{ $firstRecord->expiration_date }}</td>
+                                <td class="text-center border-secondary">{{ priceFormat($firstRecord->price) }}</td>
+                                <td class="text-center border-secondary">{{ $firstRecord->amount }}</td>
+                                <td rowspan="{{ $rowspan }}" class="text-center border-secondary align-middle">
+                                    <strong>{{ priceFormat($firstRecord->element->price) }}</strong>
+                                </td>
+                                <td rowspan="{{ $rowspan }}" class="text-center border-secondary align-middle">
+                                    <strong>{{ $group->sum('amount') }}</strong>
                                 </td>
                             </tr>
+                            @foreach ($group->slice(1) as $record)
+                                <tr>
+                                    <td class="text-center border-secondary">{{ $record->lot_number }}</td>
+                                    <td class="text-center border-secondary">{{ $record->production_date }}</td>
+                                    <td class="text-center border-secondary">{{ $record->expiration_date }}</td>
+                                    <td class="text-center border-secondary">{{ priceFormat($record->price) }}</td>
+                                    <td class="text-center border-secondary">{{ $record->amount }}</td>
+                                </tr>
+                            @endforeach
                         @endforeach
                     </tbody>
                 </table>
@@ -76,20 +93,3 @@
         </div>
     </div>
 @endsection
-
-@include('ptventa::layouts.partials.plugins.datatables')
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            // Configuración de Datatables para la tabla de registros de inventario
-            $('#inventories-table').DataTable({
-                language: language_datatables, // Agregar traducción a español
-                "order": [],
-                "columnDefs": [{
-                    "targets": [2, 3, 4, 5, 6],
-                    "orderable": false
-                }]
-            });
-        });
-    </script>
-@endpush
