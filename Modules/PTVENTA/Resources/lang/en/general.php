@@ -2,12 +2,12 @@
 
 return [
     //Navbar
-	'Home' => 'Home',
-    'Internacionalization' => 'Internacionalization',
-    'English' => 'English',
-    'Spanish' => 'Spanish',
+	'Home'             => 'Home',
+    'Language'         => 'Internacionalization',
+    'English'          => 'English',
+    'Spanish'          => 'Spanish',
     'Full Screen Mode' => 'Full Screen Mode',
-    'Log In' => 'Log In',
+    'Log In'           => 'Log In',
     
     //Sidebar
     'Sales Point'    => 'Sales Point',
