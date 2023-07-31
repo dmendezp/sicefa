@@ -91,11 +91,11 @@ class CashController extends Controller
 
             DB::commit(); // Confirmar cambios realizados durante la transacción
 
-            return redirect()->back()->with('success', trans('ptventa::cash.Successfully_closed_cash.'));
+            return redirect()->back()->with('success', trans('ptventa::cash.Text4'));
         } catch (Exception $e) { // Capturar error durante la transacción
             // Transacción rechazada
             DB::rollBack(); // Devolver cambios realizados durante la transacción
-            return redirect()->back()->with('error', trans('ptventa::cash.Failed_closed_cash.'));
+            return redirect()->back()->with('error', trans('ptventa::cash.Text5.'));
         }
     }
 }

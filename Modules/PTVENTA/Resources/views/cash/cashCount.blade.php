@@ -17,12 +17,12 @@
             <div class="card" data-aos="zoom-in-down">
                 <div class="card-body">
                     <div class="d-flex justify-content-center align-items-center flex-column">
-                        <h4 class="text-center">{{ trans('ptventa::cash.Cash Closing') }}</h4>
+                        <h4 class="text-center">{{ trans('ptventa::cash.TitleCard1') }}</h4>
                         <div class="mt-3">
                           @if(!Modules\PTVENTA\Entities\CashCount::where('state', 'Abierta')->exists())
                             {!! Form::open(['route' => 'ptventa.cashCount.store', 'class' => 'form-row']) !!}
                             <button type="submit" class="btn btn-success btn-block w-auto">
-                              <i class="fas fa-check"></i> {{ trans('ptventa::cash.Open cash') }}
+                              <i class="fas fa-check"></i> {{ trans('ptventa::cash.Btn1') }}
                             </button>
                             {!! Form::close() !!}
                           @endif
@@ -33,12 +33,12 @@
                         <table class="table table-striped table-hover">
                             <thead class="table-dark">
                                 <tr>
-                                    <th scope="col">N°</th>
-                                    <th scope="col"><i class="fa-solid fa-user-tie"></i> {{ trans('ptventa::cash.Opening manager') }} </th>
-                                    <th scope="col"><i class="fa-solid fa-calendar-days"></i> {{ trans('ptventa::cash.Opening date') }}</th>
-                                    <th scope="col">{{ trans('ptventa::cash.Initial balance') }}</th>
-                                    <th scope="col">{{ trans('ptventa::cash.State') }}</th>
-                                    <th scope="col">{{ trans('ptventa::cash.Action') }}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.1T1') }} </th>
+                                    <th scope="col"><i class="fa-solid fa-user-tie"></i> {{ trans('ptventa::cash.1T2') }} </th>
+                                    <th scope="col"><i class="fa-solid fa-calendar-days"></i> {{ trans('ptventa::cash.1T3') }}</th>
+                                    <th scope="col"><i class="fa-solid fa-circle-dollar-to-slot"></i> {{ trans('ptventa::cash.1T4') }}</th>
+                                    <th scope="col"><i class="fa-solid fa-check"></i> {{ trans('ptventa::cash.1T5') }}</th>
+                                    <th scope="col"><i class="fa-solid fa-sort"></i> {{ trans('ptventa::cash.1T6') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,7 +50,7 @@
                                         <td>{{ priceFormat($cashCount->initial_balance) }}</td>
                                         <td>{{ $cashCount->state }}</td>
                                         <td>
-                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Cerrar caja actual">
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ trans('ptventa::cash.TextTooltip1') }}">
                                                 <!-- Button trigger modal -->
                                                 <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal"
                                                     data-bs-target="#exampleModal" 
@@ -78,20 +78,20 @@
         <div class="col-md-12">
             <div class="card" data-aos="zoom-in-up">
                 <div class="card-body">
-                    <h4 class="text-center">{{ trans('ptventa::cash.Cash History') }}</h4>
+                    <h4 class="text-center">{{ trans('ptventa::cash.TitleCard2') }}</h4>
                     <hr>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover" id="tableCashCountAll">
                             <thead class="table-dark">
                                 <tr>
-                                    <th scope="col">N°</th>
-                                    <th scope="col">{{ trans('ptventa::cash.Opening manager') }}</th>
-                                    <th scope="col">{{ trans('ptventa::cash.Opening date') }}</th>
-                                    <th scope="col">{{ trans('ptventa::cash.Initial balance') }}</th>
-                                    <th scope="col">{{ trans('ptventa::cash.Final balance') }}</th>
-                                    <th scope="col">{{ trans('ptventa::cash.Closing date') }}</th>
-                                    <th scope="col">{{ trans('ptventa::cash.State') }}</th>
-                                    <th scope="col">{{ trans('ptventa::cash.Warehouse') }}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.1T1') }}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.1T2') }}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.1T3') }}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.1T4') }}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.1T7') }}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.1T8') }}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.1T5') }}</th>
+                                    <th scope="col">{{ trans('ptventa::cash.1T9') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -120,7 +120,7 @@
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{ trans('ptventa::cash.Perform cash closing') }}
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{ trans('ptventa::cash.TitleModal') }}
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -128,37 +128,37 @@
                     {!! Form::open(['route' => 'ptventa.cashCount.close1', 'id' => 'cierre-caja-form', 'class' => 'form-row']) !!}
                     <!-- Campos del formulario -->
                     <div class="form-group col-md-4">
-                        {{ Form::label('opening_manager', trans('ptventa::cash.Opening manager')) }}
+                        {{ Form::label('opening_manager', trans('ptventa::cash.1T2')) }}
                         {{ Form::text('opening_manager', null, ['class' => 'form-control', 'readonly', 'id' => 'opening_manager']) }}
                     </div>
 
                     <div class="form-group col-md-4">
-                        {{ Form::label('opening_date', trans('ptventa::cash.Opening date')) }}
+                        {{ Form::label('opening_date', trans('ptventa::cash.1T3')) }}
                         {{ Form::datetimeLocal('opening_date', null, ['class' => 'form-control', 'readonly']) }}
                     </div>
 
                     <div class="form-group col-md-4">
-                        {{ Form::label('initial_balance', trans('ptventa::cash.Initial balance')) }}
+                        {{ Form::label('initial_balance', trans('ptventa::cash.1T4')) }}
                         {{ Form::text('initial_balance', null, ['class' => 'form-control', 'readonly', 'id' => 'initial_balance']) }}
                     </div>
 
                     <div class="form-group col-md-4">
-                        {{ Form::label('final_balance', trans('ptventa::cash.Final balance')) }}
+                        {{ Form::label('final_balance', trans('ptventa::cash.1T7')) }}
                         {{ Form::number('final_balance', null, ['class' => 'form-control', 'step' => '0.01', 'required']) }}
                     </div>
 
                     <div class="form-group col-md-4">
-                        {{ Form::label('total_balance', 'Total de venta actual:') }}
+                        {{ Form::label('total_balance', trans('ptventa::cash.1T10')) }}
                         {{ Form::text('total_balance', null, ['class' => 'form-control', 'disabled', 'id' => 'total_balance']) }}
                     </div>
 
                     <div class="form-group col-md-4">
-                        {{ Form::label('date', trans('ptventa::cash.Closing date')) }}
+                        {{ Form::label('date', trans('ptventa::cash.1T8')) }}
                         {{ Form::datetimeLocal('date', null, ['class' => 'form-control', 'readonly']) }}
                     </div>
 
                     <div class="form-group col-md-4">
-                        {{ Form::label('warehouse_name', trans('ptventa::cash.Warehouse')) }}
+                        {{ Form::label('warehouse_name', trans('ptventa::cash.1T9')) }}
                         {{ Form::text('warehouse_name', null, ['class' => 'form-control', 'readonly', 'id' => 'warehouse']) }}
                     </div>
 
@@ -226,19 +226,19 @@
                 event.preventDefault();
 
                 Swal.fire({
-                    title: '{{ trans('ptventa::cash.Are_you_sure_you_want_to_close_the_cash?') }}',
-                    text: '{{ trans('ptventa::cash.When_closing_the_cash_a_new_one_will_be_started_with_the_next_days_date.') }}',
+                    title: '{{ trans('ptventa::cash.Title1') }}',
+                    text: '{{ trans('ptventa::cash.Text1') }}',
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: '{{ trans('ptventa::cash.Yes_close_cash') }}',
-                    cancelButtonText: '{{ trans('ptventa::cash.Cancel') }}'
+                    confirmButtonText: '{{ trans('ptventa::cash.Btn2') }}',
+                    cancelButtonText: '{{ trans('ptventa::cash.Btn3') }}'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
                     } else {
                         Swal.fire(
-                            '{{ trans('ptventa::cash.Operation_canceled') }}',
-                            '{{ trans('ptventa::cash.The_cash_will_stay_open!') }}',
+                            '{{ trans('ptventa::cash.Title2') }}',
+                            '{{ trans('ptventa::cash.Text2') }}',
                             'info'
                         );
                     }
@@ -250,11 +250,11 @@
             const errorMessage = "{{ session('error') }}";
 
             if (successMessage) {
-                Swal.fire('{{ trans('ptventa::cash.Successful_Operation') }}', successMessage, 'success');
+                Swal.fire('{{ trans('ptventa::cash.Title3') }}', successMessage, 'success');
             }
 
             if (errorMessage) {
-                Swal.fire('{{ trans('ptventa::cash.Operation_declined!') }}', errorMessage, 'error');
+                Swal.fire('{{ trans('ptventa::cash.Title4') }}', errorMessage, 'error');
             }
         });
     </script>
