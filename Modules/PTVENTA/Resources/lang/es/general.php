@@ -18,7 +18,7 @@ return [
     'Products'       => 'Productos',
     'Cash Control'   => 'Control de Caja',
     'Reports Panel'  => 'Panel de Reportes',
-    'Configuration'  => 'Configuration',
+    'Configuration'  => 'Configuración',
     'Developers'     => 'Desarrolladores',
     'About us'       => 'Acerca de',
     
