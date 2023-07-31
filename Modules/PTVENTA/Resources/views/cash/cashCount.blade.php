@@ -34,8 +34,8 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">N°</th>
-                                    <th scope="col">{{ trans('ptventa::cash.Opening manager') }}</th>
-                                    <th scope="col">{{ trans('ptventa::cash.Opening date') }}</th>
+                                    <th scope="col"><i class="fa-solid fa-user-tie"></i> {{ trans('ptventa::cash.Opening manager') }} </th>
+                                    <th scope="col"><i class="fa-solid fa-calendar-days"></i> {{ trans('ptventa::cash.Opening date') }}</th>
                                     <th scope="col">{{ trans('ptventa::cash.Initial balance') }}</th>
                                     <th scope="col">{{ trans('ptventa::cash.State') }}</th>
                                     <th scope="col">{{ trans('ptventa::cash.Action') }}</th>
@@ -50,17 +50,19 @@
                                         <td>{{ priceFormat($cashCount->initial_balance) }}</td>
                                         <td>{{ $cashCount->state }}</td>
                                         <td>
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" 
-                                                data-cash-count-id="{{ $cashCount->id }}"
-                                                data-opening-manager="{{ $cashCount->person->full_name }}"
-                                                data-date="{{ $cashCount->opening_date }}"
-                                                data-initial-balance="{{ $cashCount->initial_balance }}"
-                                                data-total-balance="{{ $cashCount->final_balance }}"
-                                                data-warehouse="{{ $cashCount->warehouse->name }}">
-                                                <i class="fas fa-store-slash"></i>
-                                            </button>
+                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Cerrar caja actual">
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal" 
+                                                    data-cash-count-id="{{ $cashCount->id }}"
+                                                    data-opening-manager="{{ $cashCount->person->full_name }}"
+                                                    data-date="{{ $cashCount->opening_date }}"
+                                                    data-initial-balance="{{ $cashCount->initial_balance }}"
+                                                    data-total-balance="{{ $cashCount->final_balance }}"
+                                                    data-warehouse="{{ $cashCount->warehouse->name }}">
+                                                    <i class="fa-solid fa-circle-xmark"></i>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
