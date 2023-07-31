@@ -237,14 +237,23 @@ class InventoryController extends Controller
         // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
 
-        // Establecer el título del documento
-        $pdf->SetTitle('Reporte de Entradas de Inventario');
+        // Establecer el título del documento con las fechas seleccionadas
+        $title = 'Reporte de Entradas de Inventario - ' . $startDateInput . ' al ' . $endDateInput;
+        $pdf->SetTitle($title);
+
+        // Definir la fuente y el tamaño para el contenido del PDF
+        $pdf->SetFont('helvetica', '', 10);
 
         // Agregar una nueva página
         $pdf->AddPage();
 
-        // Establecer el contenido del PDF
-        $html = '<h1 style="text-align: center;">Reporte de Entradas de Inventario</h1>';
+        // Método Header para establecer el contenido centrado del encabezado
+        $pdf->SetY(15); // Ajustar la posición vertical del texto del encabezado
+        $header = 'Centro de Formación Agroindustrial "La Angostura" | Campoalegre - Huila';
+        $pdf->Cell(0, 0, $header, 0, 1, 'C');
+
+        // Establecer el contenido del PDF con el título (incluyendo las fechas)
+        $html = '<h3 style="text-align: center;">' . $title . '</h3>';
 
         // Crear el encabezado de la tabla
         $html .= '<table style="border-collapse: collapse; width: 100%;">';
@@ -291,8 +300,9 @@ class InventoryController extends Controller
         // Agregar el contenido HTML al PDF
         $pdf->writeHTML($html, true, false, true, false, '');
 
-        // Generar el PDF y devolverlo para su descarga
-        $pdf->Output('reporte_entradas_inventario.pdf', 'D');
+        // Generar el PDF y devolverlo para su descarga con las fechas en el nombre del archivo
+        $filename = 'Reporte_entradas_inventario_' . $startDateInput . '_al_' . $endDateInput . '.pdf';
+        $pdf->Output($filename, 'I');
     }
 
     // Método para mostrar la vista del formulario de ventas
