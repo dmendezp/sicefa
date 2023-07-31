@@ -33,6 +33,15 @@
                                 <button type="submit" class="btn btn-primary">{{ trans('ptventa::reports.Btn1') }} <i class="fa-solid fa-magnifying-glass"></i></button>
                             </form>
                         </div>
+                        <div class="col-md-6">
+                            <form action="{{ route('ptventa.reports.generate.sales.pdf') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="start_date" value="{{ $start_date }}">
+                                <input type="hidden" name="end_date" value="{{ $end_date }}">
+                                <button type="submit" class="btn btn-danger">{{ trans('ptventa::reports.Btn2') }} <i
+                                        class="fa-solid fa-file-pdf"></i></button>
+                            </form>
+                        </div>
                     </div>
 
                     <hr>
