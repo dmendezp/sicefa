@@ -65,15 +65,6 @@ class InventoryController extends Controller
         return view('ptventa::inventory.create', compact('view'));
     }
 
-    public function pdf()
-    {
-        $inventories = Inventory::orderBy('updated_at', 'DESC')->get();
-        $pdf = new TCPDF();
-        $html = view('ptventa::inventory.pdf', compact('inventories'))->render();
-        $pdf->AddPage();
-        $pdf->writeHTML($html, true, false, true, false);
-        $pdf->Output('ReporteProductos');
-    }
 
     public function status(Request $request)
     { // Lista de productos vencidos y por vencer

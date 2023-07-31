@@ -27,24 +27,22 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
         Route::prefix('inventory')->controller(InventoryController::class)->group(function(){
             Route::get('index', 'index')->name('ptventa.inventory.index'); // Vista principal del inventario (listado de actual productos en inventario)
             Route::get('create', 'create')->name('ptventa.inventory.create'); // Formulario de registro de entrada de inventario (registro de productos)
-            Route::get('pdf', 'pdf')->name('ptventa.inventory.pdf'); // Descarga de formato de pdf
             Route::get('status', 'status')->name('ptventa.inventory.status');
-            Route::get('low', 'low')->name('ptventa.inventory.low');
         });
 
         //Rutas de reportes
         Route::prefix('reports')->controller(InventoryController::class)->group(function(){
-            Route::get('reports', 'reports')->name('ptventa.reports.index'); //Vista principal de la sección de reportes
+            Route::get('index', 'reports')->name('ptventa.reports.index'); //Vista principal de la sección de reportes
             //Reportes de inventario
             Route::post('inventoryReports/generatePDF', 'generateInventoryPDF')->name('ptventa.reports.inventory.generatePDF'); // Genera el PDF de inventario actual
             // Reportes de entrada de inventario - Ruta para mostrar el formulario
-            Route::get('reports/inventory', 'showInventoryEntriesForm')->name('ptventa.reports.inventoryEntries');
-            Route::post('reports/inventory', 'generateInventoryEntries')->name('ptventa.reports.generateInventoryEntries');
-            Route::post('inventoryEntries/generatePDF', 'generateInventoryEntriesPDF')->name('ptventa.reports.generate.entries.pdf');
+            Route::get('inventoryEntries', 'showInventoryEntriesForm')->name('ptventa.reports.inventoryEntries'); // Vista principal para consultar inventario de entrada
+            Route::post('inventoryEntries', 'generateInventoryEntries')->name('ptventa.reports.generateInventoryEntries'); // Vista principal con resultado de inventario de entrada
+            Route::post('inventoryEntries/generatePDF', 'generateInventoryEntriesPDF')->name('ptventa.reports.generate.entries.pdf'); // Genera el PDF de entradas de inventario
             //Reportes de ventas
-            Route::get('sales', 'showSalesForm')->name('ptventa.reports.sales');
-            Route::post('sales', 'generateSales')->name('ptventa.reports.generateSales');
-            Route::post('sales/generatePDF', 'generateSalesPDF')->name('ptventa.reports.generate.sales.pdf');
+            Route::get('sales', 'showSalesForm')->name('ptventa.reports.sales'); // Vista principal para consultar ventas
+            Route::post('sales', 'generateSales')->name('ptventa.reports.generateSales'); // Vista principal con resultado de ventas
+            Route::post('sales/generatePDF', 'generateSalesPDF')->name('ptventa.reports.generate.sales.pdf'); // Genera el PDF de ventas
         });
         
         //Rutas para Ventas
