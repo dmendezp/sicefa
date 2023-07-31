@@ -53,18 +53,12 @@
                                 <a class="btn btn-info" href="#"><i class="fab fa-twitter"></i></a>
                             </div>
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                                    preserveaspectratio="xMidYMid slice" focusable="false">
-                                    <title>Placeholder</title>
-                                    <rect width="100%" height="100%" fill="#777" />
-                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                                </svg>
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/ANYI-Profile.jpg') }}" alt="JDGM0331" width="140" height="140">
                                 <h4>{{ trans('ptventa::devs.Apprentice')}}</h4>
                                 <p>Anyi Katherine Rojas Arce</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/anyi-rojas-25a003268/"><i class="fab fa-linkedin-in"></i></a>
                                 <a class="btn btn-dark" href="https://github.com/anyi-rojas"><i class="fab fa-github"></i></a>
-                                <a class="btn btn-info" href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-info custom-twitter-btn" href="https://twitter.com/AnyiRojas0"><i class="fa-brands fa-twitter"></i></a>
                             </div>
                         </div>
                     </div>
