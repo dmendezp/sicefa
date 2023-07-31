@@ -5,6 +5,7 @@ return [
 	'Reports'           => 'Reports',
 	'Reports Panel'     => 'Reports Panel',
 	'Inventory Entries' => 'Inventory Entries',
+	'Sales'             => 'Sales',
 
     //--->Section Card Master<---
     'Title'  => 'Select here the type of report you wish to consult.',

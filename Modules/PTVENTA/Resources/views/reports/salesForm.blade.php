@@ -9,7 +9,7 @@
         <a href="{{ route('ptventa.reports.index') }}"
             class="text-decoration-none">{{ trans('ptventa::reports.Reports') }}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('ptventa::reports.Inventory Entries') }}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::reports.Sales') }}</li>
 @endpush
 
 @section('content')

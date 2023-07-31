@@ -5,6 +5,7 @@ return [
 	'Reports'           => 'Reportes',
 	'Reports Panel'     => 'Panel de Reportes',
 	'Inventory Entries' => 'Entradas de Inventario',
+	'Sales'             => 'Ventas',
 
     //--->Section Card Master<---
     'Title'  => 'Selecciona aquí el tipo de reporte que deseas consultar',
@@ -24,7 +25,7 @@ return [
     'TextForm2'   => 'Fecha Final:',
     //Table
     '1'       => 'N°',
-    '2'       => 'N° Voucher',
+    '2'       => 'N° Comprobante',
     '3'       => 'Responsable de Entrega',
     '4'       => 'Fecha de Ingreso',
     '5'       => 'Producto',
