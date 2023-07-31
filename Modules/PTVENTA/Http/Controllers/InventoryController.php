@@ -305,4 +305,36 @@ class InventoryController extends Controller
 
         return view('ptventa::reports.salesForm', compact('view', 'start_date', 'end_date'));
     }
+
+    // Método para realizar la consulta de ventas y redirigir a la vista
+    public function generateSales(Request $request)
+    {
+        // Captura las fechas ingresadas en el formulario.
+        $startDateInput = $request->input('start_date');
+        $endDateInput = $request->input('end_date');
+
+        // Convertir las fechas al formato "Y-m-d" (año-mes-día) si es necesario.
+        $startDateInput = Carbon::parse($startDateInput)->format('Y-m-d');
+        $endDateInput = Carbon::parse($endDateInput)->format('Y-m-d');
+
+        // Convertir las fechas a objetos Carbon y establecer las horas específicas.
+        $startDate = Carbon::createFromFormat('Y-m-d', $startDateInput)->startOfDay();
+        $endDate = Carbon::createFromFormat('Y-m-d', $endDateInput)->endOfDay();
+
+        // Consulta para obtener los registros de MovementType con nombre "Ventas"
+        $movement_type = MovementType::where('name', 'Venta')->firstOrFail();
+
+        // Consulta para obtener los registros de Movement entre las fechas seleccionadas
+        $movements = Movement::whereHas('warehouse_movements', function ($query) {
+            $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+                ->where('role', 'Entrega');
+        })
+            ->where('movement_type_id', $movement_type->id)
+            ->where('state', 'Aprobado')
+            ->whereBetween('registration_date', [$startDate, $endDate])
+            ->orderBy('registration_date', 'ASC')
+            ->get();
+
+        return $this->showSalesForm()->with('movements', $movements);
+    }
 }

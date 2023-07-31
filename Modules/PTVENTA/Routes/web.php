@@ -42,7 +42,8 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::post('reports/inventory', 'generateInventoryEntries')->name('ptventa.reports.generateInventoryEntries');
             Route::post('inventoryEntries/generatePDF', 'generateInventoryEntriesPDF')->name('ptventa.reports.generate.entries.pdf');
             //Reportes de ventas
-            Route::get('reports/sales', 'showSalesForm')->name('ptventa.reports.sales');
+            Route::get('sales', 'showSalesForm')->name('ptventa.reports.sales');
+            Route::post('sales', 'generateSales')->name('ptventa.reports.generateSales');
         });
         
         //Rutas para Ventas
