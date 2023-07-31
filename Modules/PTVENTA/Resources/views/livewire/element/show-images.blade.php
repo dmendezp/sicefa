@@ -4,9 +4,10 @@
         <div class="row">
 
             <!-- Boton Agregar Elemento -->
-            <div class="d-grid gap-2 d-md-block">
+            <div class="d-grid gap-2 d-md-block text-right">
                 <a href="{{ route('ptventa.element.image.create') }}" class="btn btn-success">
-                    <i class="fas fa-user-plus"></i> Agregar Elemento
+                    <i class="fa-solid fa-cart-flatbed fa-bounce mr-1"></i>
+                     Registrar Producto
                 </a>
             </div>
             <br><br>
@@ -37,6 +38,11 @@
                                     @foreach ($elements as $e)
                                         <div class="col-auto">
                                             <div class="card-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('@if($e->image && file_exists(public_path($e->image))) {{ asset($e->image) }} @else {{ asset('modules/sica/images/sinImagen.png') }} @endif');">
+                                                <div class="ribbon-wrapper">
+                                                    <div class="ribbon bg-success">
+                                                        <strong>{{ priceFormat($e->price) }}</strong>
+                                                    </div>
+                                                </div>
                                                 <div class="card-category text-center"><strong>{{ $e->name }}</strong></div>
                                                 <div class="card-description">
                                                     <p class="mt-1">
