@@ -42,15 +42,14 @@
                         </a>
                     </div>
                     <div class="col-md-4 col-sm-6">
-                        <div class="card-custom">
+                        <a class="card-custom a-custom" href="{{ route('ptventa.reports.sales') }}">
                             <div class="icon">
                                 <i class="fa-solid fa-file-pdf"></i>
                             </div>
                             <p class="title">{{ trans('ptventa::reports.TitleCard3') }}</p>
                             <p class="text">{{ trans('ptventa::reports.TextCard3') }}</p>
-                        </div>
+                        </a>
                     </div>
-
                 </div>
             </div>
         </div>

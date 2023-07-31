@@ -293,4 +293,16 @@ class InventoryController extends Controller
         // Generar el PDF y devolverlo para su descarga
         $pdf->Output('reporte_entradas_inventario.pdf', 'D');
     }
+
+    // Método para mostrar la vista del formulario de ventas
+    public function showSalesForm()
+    {
+        $view = ['titlePage' => trans('ptventa::reports.Reports'), 'titleView' => trans('ptventa::reports.Sales')];
+
+        // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
+        $start_date = request()->input('start_date', now()->format('Y-m-d'));
+        $end_date = request()->input('end_date', now()->format('Y-m-d'));
+
+        return view('ptventa::reports.salesForm', compact('view', 'start_date', 'end_date'));
+    }
 }
