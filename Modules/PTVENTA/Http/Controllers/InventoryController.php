@@ -104,14 +104,23 @@ class InventoryController extends Controller
         // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
 
-        // Establecer el título del documento
-        $pdf->SetTitle('Reporte de Inventario');
+        // Establecer el título del documento con la fecha actual
+        $title = 'Reporte de Inventario - ' . date('Y-m-d');
+        $pdf->SetTitle($title);
+
+        // Definir la fuente y el tamaño para el contenido del PDF
+        $pdf->SetFont('helvetica', '', 10);
 
         // Agregar una nueva página
         $pdf->AddPage();
 
+        // Método Header para establecer el contenido centrado del encabezado
+        $pdf->SetY(15); // Ajustar la posición vertical del texto del encabezado
+        $header = 'Centro de Formación Agroindustrial "La Angostura" | Campoalegre - Huila';
+        $pdf->Cell(0, 0, $header, 0, 1, 'C');
+
         // Establecer el contenido del PDF
-        $html = '<h1 style="text-align: center;">Reporte de Inventario</h1>';
+        $html = '<h3 style="text-align: center;">' . $title . '</h3>';
         $html .= '<table style="border-collapse: collapse; width: 100%;">';
         $html .= '<thead style="background-color: #f2f2f2;">';
         $html .= '<tr>';
@@ -124,7 +133,7 @@ class InventoryController extends Controller
         $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Stock</th>';
         $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de Producción</th>';
         $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de Vencimiento</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Número de Lote</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Número de Lote</th>';
         $html .= '</tr>';
         $html .= '</thead>';
         $html .= '<tbody>';
@@ -139,7 +148,7 @@ class InventoryController extends Controller
             $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $inventory->stock . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">' . $inventory->production_date . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">' . $inventory->expiration_date . '</td>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: right; padding: 8px;">' . $inventory->lot_number . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $inventory->lot_number . '</td>';
             $html .= '</tr>';
         }
 
@@ -148,8 +157,9 @@ class InventoryController extends Controller
 
         $pdf->writeHTML($html, true, false, true, false, '');
 
-        // Generar el PDF y devolverlo para su descarga
-        $pdf->Output('reporte_inventarios.pdf', 'D');
+        // Generar el PDF y devolverlo para su descarga con la fecha en el nombre del archivo
+        $filename = 'reporte_inventarios_' . date('Ymd') . '.pdf';
+        $pdf->Output($filename, 'I');
     }
 
     // Método para mostrar la vista del formulario de entradas de inventario
@@ -374,7 +384,7 @@ class InventoryController extends Controller
         $html .= '<thead style="background-color: #f2f2f2;">';
         $html .= '<tr>';
         $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;">#</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 52px;">N° Voucher</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 52px;">N° Comprobante</th>';
         $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;">Cliente</th>';
         $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de ingreso</th>';
         $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 90px;">Producto</th>';
