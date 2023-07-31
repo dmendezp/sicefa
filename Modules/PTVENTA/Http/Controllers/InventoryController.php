@@ -164,7 +164,7 @@ class InventoryController extends Controller
     // Método para mostrar la vista del formulario de entradas de inventario
     public function showInventoryEntriesForm()
     {
-        $view = ['titlePage' => 'Reportes', 'titleView' => 'Entradas de Inventario'];
+        $view = ['titlePage' => trans('ptventa::reports.Reports'), 'titleView' => trans('ptventa::reports.Inventory Entries')];
 
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
