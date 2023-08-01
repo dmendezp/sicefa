@@ -20,7 +20,7 @@ return [
     '1T7' => 'Final Balance',
     '1T8' => 'Closing Date',
     '1T9' => 'Warehouse',
-    '1T10' => 'Total Current Sales',
+    '1T10' => 'Total Sales',
 
     //Modal
     'TitleModal' => 'Perform cash closing',
@@ -46,5 +46,5 @@ return [
     'Text3'  => 'You have started a new cash!',
     'Title4' => 'Operation Declined!',
     'Text4'  => 'Successfully closed cash.',
-    'Text5'  => 'Failed closed cash.',
+    'Text5'  => 'Failed to close cash count (possibly a value for the final balance has not been sent).',
 ];

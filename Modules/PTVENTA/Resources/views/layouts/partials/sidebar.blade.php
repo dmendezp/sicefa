@@ -102,8 +102,8 @@
                         @endif
                         @if (Auth::user()->havePermission('ptventa.cash.index'))
                             <li class="nav-item">
-                                <a href="{{ route('ptventa.cashCount.index') }}"
-                                    class="nav-link {{ !Route::is('ptventa.cashCount.index*') ?: 'active' }}">
+                                <a href="{{ route('ptventa.cash.index') }}"
+                                    class="nav-link {{ !Route::is('ptventa.cash.index*') ?: 'active' }}">
                                     <i class="nav-icon fas fa-cash-register"></i>
                                     <p>{{ trans('ptventa::general.Cash Control') }}</p>
                                 </a>

@@ -44,7 +44,7 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::post('sales', 'generateSales')->name('ptventa.reports.generateSales'); // Vista principal con resultado de ventas
             Route::post('sales/generatePDF', 'generateSalesPDF')->name('ptventa.reports.generate.sales.pdf'); // Genera el PDF de ventas
         });
-        
+
         //Rutas para Ventas
         Route::prefix('sale')->controller(SaleController::class)->group(function(){
             Route::get('index', 'index')->name('ptventa.sale.index'); // Vista principal de ventas
@@ -63,9 +63,9 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
 
         // Rutas para Caja
         Route::prefix('cash')->controller(CashController::class)->group(function(){
-            Route::get('cashCount', 'index')->name('ptventa.cashCount.index'); // Vista principal de caja
-            Route::post('cashCount', 'store')->name('ptventa.cashCount.store'); // Permite inicializar la primera caja de la aplicacion cuando no exita ninguna abierta
-            Route::post('cashCountClosed1', 'close')->name('ptventa.cashCount.close1'); // Permite cerrar la caja y guardar los datos
+            Route::get('index', 'index')->name('ptventa.cash.index'); // Vista principal de caja
+            Route::post('store', 'store')->name('ptventa.cash.store'); // Permite inicializar la primera caja de la aplicacion cuando no exita ninguna abierta
+            Route::post('close', 'close')->name('ptventa.cash.close'); // Permite cerrar la caja y guardar los datos
         });
 
     });
