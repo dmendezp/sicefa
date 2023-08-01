@@ -185,8 +185,25 @@
         form.addEventListener('submit', () => {
             cerrarCajaBtn.disabled = true;
             cerrarCajaBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+
+            // Simulando un proceso que tarda unos segundos
+            setTimeout(() => {
+                // Aquí colocas el código del proceso que se ejecuta al enviar el formulario
+                // Por ejemplo, puedes enviar una petición al servidor o realizar alguna acción asincrónica.
+
+                // Una vez que el proceso ha terminado, restablecer el botón a su estado original
+                cerrarCajaBtn.disabled = false;
+                cerrarCajaBtn.innerHTML = 'Cerrar Caja'; // Cambia este texto al texto original del botón
+            }, 3000); // Ejemplo: Esperar 3 segundos antes de restaurar el botón
+        });
+
+        // Evento para restaurar el botón a su estado original cuando se carga la página
+        window.addEventListener('load', () => {
+            cerrarCajaBtn.disabled = false;
+            cerrarCajaBtn.innerHTML = 'Cerrar Caja'; // Cambia este texto al texto original del botón
         });
     </script>
+
     <script>
         // Permite la aplicacion de datatables y la vez la traduccion de las tablas
         $(document).ready(function() {
