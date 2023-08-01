@@ -26,7 +26,7 @@ class CashController extends Controller
                                         ->where('state', 'Abierta')
                                         ->first();
         $cash_counts = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
-                                ->orderBy('closing_date', 'DESC')
+                                ->orderBy('updated_at', 'DESC')
                                 ->get();
         return view('ptventa::cash.index', compact('view', 'active_cash', 'cash_counts'));
     }

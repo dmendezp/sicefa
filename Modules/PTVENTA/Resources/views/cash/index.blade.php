@@ -106,7 +106,7 @@
                                         <td class="text-center">{{ $cc->closing_date ?: 'N/A' }}</td>
                                         <td class="text-center">{{ priceFormat($cc->initial_balance) }}</td>
                                         <td class="text-center">{{ $cc->final_balance !== null ? priceFormat($cc->final_balance) : 'N/A' }}</td>
-                                        <td class="text-center">{{ priceFormat(12000) }}</td>
+                                        <td class="text-center">{{ priceFormat($cc->total_sales) }}</td>
                                         <td class="text-center">{{ $cc->state }}</td>
                                         <td>{{ $cc->productive_unit_warehouse->warehouse->name }}</td>
                                     </tr>
