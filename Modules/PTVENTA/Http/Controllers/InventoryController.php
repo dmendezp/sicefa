@@ -96,6 +96,7 @@ class InventoryController extends Controller
         return view('ptventa::reports.index', compact('view'));
     }
 
+    // Método para generar el reporte PDF de inventario actual
     public function generateInventoryPDF(Request $request)
     {
         $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
@@ -240,6 +241,7 @@ class InventoryController extends Controller
         return $this->showInventoryEntriesForm()->with('movements', $movements);
     }
 
+    // Método para generar el reporte PDF de entradas de inventario
     public function generateInventoryEntriesPDF(Request $request)
     {
         // Captura las fechas ingresadas en el formulario.
@@ -383,6 +385,7 @@ class InventoryController extends Controller
         return $this->showSalesForm()->with('movements', $movements);
     }
 
+    // Método para generar el reporte PDF de ventas
     public function generateSalesPDF(Request $request)
     {
         // Captura las fechas ingresadas en el formulario.
@@ -448,6 +451,12 @@ class InventoryController extends Controller
         $html .= '</tr>';
         $html .= '</thead>';
 
+        // Variables para almacenar los totales
+        $totalAmount= 0;
+        $totalPrecio = 0;
+        $totalSubtotal = 0;
+        $totalTotal = 0;
+
         // Crear el cuerpo de la tabla con los datos de los movimientos
         $html .= '<tbody>';
         foreach ($movements as $key => $movement) {
@@ -469,9 +478,25 @@ class InventoryController extends Controller
                     $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;" rowspan="' . count($movement->movement_details) . '">' . priceFormat($movement->price) . '</td>';
                 }
                 $html .= '</tr>';
+                $totalAmount += $movement_detail->amount;
+                $totalPrecio += $movement_detail->price;
+                $totalSubtotal += ($movement_detail->amount * $movement_detail->price);
             }
+            // Actualizar el totalTotal con el precio del movimiento
+            $totalTotal += $movement->price;
         }
         $html .= '</tbody>';
+
+        // Pie de pagina que muestra los totales de cantidad, precio, subtotal y total
+        $html .= '<tfoot>';
+        $html .= '<tr>';
+        $html .= '<td style="border: 1px solid #dddddd; text-aling: center; padding: 8px; width: 299px;"><strong> Total: </strong></td>'; // Celdas vacías para las columnas sin totales
+        $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . $totalAmount . '</strong></td>';
+        $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . priceFormat($totalPrecio) . '</strong></td>';
+        $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . priceFormat($totalSubtotal) . '</strong></td>';
+        $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . priceFormat($totalTotal) . '</strong></td>';
+        $html .= '</tr>';
+        $html .= '</tfoot>';
         $html .= '</table>';
 
         // Agregar el contenido HTML al PDF
@@ -481,3 +506,5 @@ class InventoryController extends Controller
         $pdf->Output('reporte_ventas.pdf', 'I');
     }
 }
+
+
