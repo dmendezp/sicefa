@@ -83,12 +83,6 @@ class InventoryController extends Controller
         return view('ptventa::inventory.status', compact('view', 'productosVencidos', 'productosPorVencer'));
     }
 
-    public function low()
-    { //registro de bajas
-        $view = ['titlePage' => 'Inventario - Registro', 'titleView' => 'Registro de Bajas'];
-        return view('ptventa::inventory.low', compact('view'));
-    }
-
     //Funciones para reporte de inventario
     public function reports()
     { //Vista principal del panel de reportes
