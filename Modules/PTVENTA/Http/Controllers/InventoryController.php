@@ -32,10 +32,10 @@ class InventoryController extends Controller
     public function index()
     { // Listado del inventario actual
         $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
-                                    ->where('amount', '<>', 0)
-                                    ->orderBy('updated_at', 'DESC')
-                                    ->get();
-                                    $groupedInventories = collect(); // Creamos una nueva colección para almacenar el resultado
+            ->where('amount', '<>', 0)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+        $groupedInventories = collect(); // Creamos una nueva colección para almacenar el resultado
         $groups = []; // Creamos un array para mantener el seguimiento de los grupos
 
         foreach ($inventories as $inventory) {
@@ -98,8 +98,30 @@ class InventoryController extends Controller
 
     public function generateInventoryPDF(Request $request)
     {
-        // Realiza la consulta y obtén los datos que cumplan con los criterios requeridos
-        $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)->where('state', 'Disponible')->get();
+        $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+            ->where('amount', '<>', 0)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+        $groupedInventories = collect(); // Creamos una nueva colección para almacenar el resultado
+        $groups = []; // Creamos un array para mantener el seguimiento de los grupos
+
+        foreach ($inventories as $inventory) {
+            $elementId = $inventory->element_id;
+
+            // Verificamos si el grupo ya existe en el array de grupos
+            if (array_key_exists($elementId, $groups)) {
+                // Si el grupo ya existe, agregamos el registro al grupo existente
+                $groups[$elementId]->push($inventory);
+            } else {
+                // Si el grupo no existe, lo creamos y agregamos el registro al nuevo grupo
+                $groups[$elementId] = collect([$inventory]);
+            }
+        }
+
+        // Convertimos los grupos a la colección final
+        foreach ($groups as $group) {
+            $groupedInventories->push($group);
+        }
 
         // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
@@ -127,29 +149,41 @@ class InventoryController extends Controller
         // Columna del #
         $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;">#</th>';
         // Resto de columnas
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 110px;">Elemento</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Precio</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Cantidad</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Stock</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de Producción</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de Vencimiento</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Número de Lote</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;">Producto</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">N° Lote</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">Fecha Producción</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">Fecha Vencimiento</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 46px;">Cantidad</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">Precio Entrada</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">Precio Venta</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;">Existencias</th>';
         $html .= '</tr>';
         $html .= '</thead>';
         $html .= '<tbody>';
 
-        foreach ($inventories as $key => $inventory) {
+        foreach ($groupedInventories as $key => $group) {
+            $firstRecord = $group->first();
+            $rowspan = $group->count();
             $html .= '<tr>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 25px;">' . $key + 1 . '</td>';
-            // Resto de columnas (sin cambios)
-            $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 110px;">' . $inventory->element->name . '</td>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $inventory->price . '</td>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $inventory->amount . '</td>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $inventory->stock . '</td>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">' . $inventory->production_date . '</td>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">' . $inventory->expiration_date . '</td>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $inventory->lot_number . '</td>';
+            $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 25px;">' . $key + 1 . '</td>';
+            $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;">' . $firstRecord->element->name . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">' . $firstRecord->lot_number . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">' . $firstRecord->production_date . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">' . $firstRecord->expiration_date . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 46px;">' . $firstRecord->amount . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">' . priceFormat($firstRecord->price) . '</td>';
+            $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">' . priceFormat($firstRecord->element->price) . '</td>';
+            $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;">' . $group->sum('amount') . '</td>';
             $html .= '</tr>';
+            foreach ($group->slice(1) as $record) {
+                $html .= '<tr>';
+                $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $record->lot_number . '</td>';
+                $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">' . $record->production_date . '</td>';
+                $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">' . $record->expiration_date . '</td>';
+                $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . $record->amount . '</td>';
+                $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;">' . priceFormat($record->price) . '</td>';
+                $html .= '</tr>';
+            }
         }
 
         $html .= '</tbody>';
