@@ -17,8 +17,6 @@ use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\PopulationGroup;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\WarehouseMovement;
-use Mike42\Escpos\Printer;
-use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Modules\PTVENTA\Entities\CashCount;
 use Modules\SICA\Entities\MovementResponsibility;
 use Modules\SICA\Entities\ProductiveUnit;
@@ -71,8 +69,8 @@ class GenerateSale extends Component
         $warehouse = Warehouse::where('name','Punto de venta')->firstOrFail(); // Consultar granja
         $productive_unit = ProductiveUnit::where('name','Punto de venta')->firstOrFail(); // Consultar unidad productiva
         $this->puw = ProductiveUnitWarehouse::where('warehouse_id',$warehouse->id)
-                                                            ->where('productive_unit_id',$productive_unit->id)
-                                                            ->firstOrFail(); // Obtener unidad productiva y bodega relacionada
+                                            ->where('productive_unit_id',$productive_unit->id)
+                                            ->firstOrFail(); // Obtener unidad productiva y bodega relacionada
         $inventories = Inventory::where('productive_unit_warehouse_id',$this->puw->id)
                                 ->where('destination','Producción')
                                 ->where('state','Disponible')
@@ -221,7 +219,6 @@ class GenerateSale extends Component
                 DB::beginTransaction(); // Iniciar transacción
 
                 $current_datetime = now()->milliseconds(0); // Generer fecha y hora actual
-                $warehouse = Warehouse::where('name', 'Punto de venta')->first();
 
                 // Consultar tipo de movimiento para una venta
                 $error = 'TIPO DE MOVIMIENTO';
@@ -299,11 +296,11 @@ class GenerateSale extends Component
 
                 // Actualizar caja
                 $error = 'CAJA';
-                $cashCount = CashCount::where('warehouse_id', $warehouse->id)
+                $cashCount = CashCount::where('productive_unit_warehouse_id', $this->puw->id)
                                         ->where('state', 'Abierta')
                                         ->first();
                 if ($cashCount) {
-                    $cashCount->final_balance += $movement->price;
+                    $cashCount->total_sales += $movement->price;
                     $cashCount->save();
                 }
 
