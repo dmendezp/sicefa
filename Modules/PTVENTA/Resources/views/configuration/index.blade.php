@@ -15,8 +15,9 @@
                 <div class="card-body">
                     <h4>{{ trans('ptventa::Configuration.TitleCard1') }}</h4>
                     <p>{{ trans('ptventa::Configuration.TextCard1') }}</p>
-                    <button class="btn btn-success" id="imprimirBtn">{{ trans('ptventa::Configuration.Btn1') }} <i
-                            class="fa-solid fa-ticket"></i></button>
+                    <button class="btn btn-success" id="imprimirBtn">{{ trans('ptventa::Configuration.Btn1') }} 
+                        <i class="fa-solid fa-ticket"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -26,6 +27,7 @@
 @include('ptventa::layouts.partials.plugins.sweetalert2')
 
 @push('scripts')
+    {{-- Ruta de la estructura fuente del plugin de Parzibyte - Impresoras termicas v3 --}}    
     <script src="{{ asset('modules/ptventa/js/sale/conector_javascript_POS80C.js') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
@@ -44,7 +46,6 @@
             conector.EscribirTexto("------------------------------------------------\n");
             conector.EstablecerAlineacion(ConectorPluginV3.ALINEACION_CENTRO);
             conector.TextoSegunPaginaDeCodigos(2, "cp850", "Factura impresa exitosamente\n");
-            conector.TextoSegunPaginaDeCodigos(2, "cp850", "¡Bienvenido!");
             conector.Feed(4);
             conector.Corte(1);
             const imprimirBtn = document.getElementById('imprimirBtn');

@@ -13,5 +13,5 @@ return [
 
     //Sweetalerts
     'title'  => 'Error de impresión!',
-    'text'  => 'A ocurrido un error en el proceso de impremsión. Asegurate de que la impresora "POS-80C" este conectada y configurada.',
+    'text'  => 'A ocurrido un error en el proceso de impremsión. Asegurate de que la impresora POS-80C este conectada y configurada.',
 ];
