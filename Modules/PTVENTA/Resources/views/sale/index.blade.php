@@ -25,7 +25,6 @@
                             <th class="text-center">Hora</th>
                             <th class="text-center">Estado</th>
                             <th class="text-center">Valor</th>
-                            <th class="text-center">Acción</th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
@@ -41,11 +40,6 @@
                                     </b>
                                 </td>
                                 <td class="text-center"><strong>{{ priceFormat($s->price) }}</strong></td>
-                                <td class="text-center">
-                                    <button type="button" class="btn btn-outline-secondary btn-sm py-0" title="Ver detalles">
-                                        <i class="far fa-eye"></i>
-                                    </button>
-                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -57,7 +51,6 @@
                             <td class="text-center text-success">
                                 <h3><strong>{{ priceFormat($sales->sum('price')) }}</strong></h3>
                             </td>
-                            <td></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -85,7 +78,7 @@
                 "order": [],
                 "paging": false,
                 "columnDefs": [{
-                    "targets": [0,1,6],
+                    "targets": [0,1],
                     "orderable": false
                 }],
                 drawCallback: function(settings) {
