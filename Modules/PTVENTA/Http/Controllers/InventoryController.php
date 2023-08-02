@@ -55,7 +55,7 @@ class InventoryController extends Controller
         foreach ($groups as $group) {
             $groupedInventories->push($group);
         }
-        $view = ['titlePage' => 'Inventario - Listado', 'titleView' => 'Administración general de inventario'];
+        $view = ['titlePage' => trans('ptventa::inventory.titlePage'), 'titleView' => trans('ptventa::inventory.titleView')];
         return view('ptventa::inventory.index', compact('view', 'groupedInventories'));
     }
 

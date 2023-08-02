@@ -2,9 +2,9 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('ptventa.inventory.index') }}" class="text-decoration-none">Inventario</a>
+        <a href="{{ route('ptventa.inventory.index') }}" class="text-decoration-none">{{ trans('ptventa::inventory.Inventory')}}</a>
     </li>
-    <li class="breadcrumb-item active">Productos</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::inventory.Products')}}</li>
 @endpush
 
 @section('content')
@@ -13,15 +13,15 @@
 
             <div class="row">
                 <div class="col">
-                    <h5 class="text-center"><em>Lista de productos disponibles actualmente</em></h5>
+                    <h5 class="text-center"><em>{{ trans('ptventa::inventory.TitleCard')}}</em></h5>
                 </div>
                 <div class="col-auto">
                     <div class="d-flex justify-content-end">
                         <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm me-1">
-                            <i class="fa-solid fa-thumbs-up mr-2"></i>Registrar entrada
+                            <i class="fa-solid fa-thumbs-up fa-bounce mr-2"></i>{{ trans('ptventa::inventory.Btn1')}}
                         </a>
                         <a href="{{ route('ptventa.inventory.status') }}" class="btn btn-secondary btn-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i>Vencidos / Por vencer
+                            <i class="fa-solid fa-triangle-exclamation fa-bounce mr-2"></i>{{ trans('ptventa::inventory.Btn2')}}
                         </a>
                     </div>
                 </div>
@@ -33,21 +33,21 @@
                 <table class="table table-bordered border-secondary table-hover">
                     <thead class="table-dark">
                         <tr class="border-dark">
-                            <th class="text-center">#</th>
-                            <th>Producto</th>
-                            <th class="text-center"># Lote</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.1T1')}}</th>
+                            <th>{{ trans('ptventa::inventory.1T2')}}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.1T3')}}</th>
                             <th class="text-center">
                                 <i class="fa-solid fa-calendar-days"></i>
-                                Producción
+                                {{ trans('ptventa::inventory.1T4')}}
                             </th>
                             <th class="text-center">
                                 <i class="fa-solid fa-calendar-days"></i>
-                                Vencimiento
+                                {{ trans('ptventa::inventory.1T5')}}
                             </th>
-                            <th class="text-center">$ Entrada</th>
-                            <th class="text-center">Cantidad</th>
-                            <th class="text-center">$ Venta</th>
-                            <th class="text-center">Existencias</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.1T6')}}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.1T7')}}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.1T8')}}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.1T9')}}</th>
                         </tr>
                     </thead>
                     <tbody>
