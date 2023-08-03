@@ -27,4 +27,14 @@ class PTVENTAController extends Controller
         return view('ptventa::configuration.index', compact('view'));
     }
 
+    public function admin(){
+        $view = ['titlePage'=>trans('ptventa::controllers.PTVENTA_admin_title_page'), 'titleView'=>trans('ptventa::controllers.PTVENTA_admin_title_view')];
+        return view('ptventa::admin-index.blade.php', compact('view'));
+    }
+
+    public function cashier(){
+        $view = ['titlePage'=>trans('ptventa::controllers.PTVENTA_cashier_title_page'), 'titleView'=>trans('ptventa::controllers.PTVENTA_cashier_title_view')];
+        return view('ptventa::cashier-index.blade.php', compact('view'));
+    }
+
 }

@@ -3,12 +3,14 @@
 return [
     //Navbar
 	'Home'             => 'Home',
+	'admin'            => 'Administrator',
+	'cashier'          => 'Cashier',
     'Language'         => 'Internacionalization',
     'English'          => 'English',
     'Spanish'          => 'Spanish',
     'Full Screen Mode' => 'Full Screen Mode',
     'Log In'           => 'Log In',
-    
+
     //Sidebar
     'Sales Point'    => 'Sales Point',
     'Session'        => 'Sign in',

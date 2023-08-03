@@ -3,6 +3,8 @@
 return [
     //Navbar
 	'Home'             => 'Inicio',
+	'admin'            => 'Administrador',
+	'cashier'          => 'Cajero',
     'Language'         => 'Internacionalización',
     'English'          => 'Inglés',
     'Spanish'          => 'Español',
@@ -21,10 +23,10 @@ return [
     'Configuration'  => 'Configuración',
     'Developers'     => 'Desarrolladores',
     'About us'       => 'Acerca de',
-    
+
     //Footer
     'All Rights Reserved.' => 'Todos los derechos reservados.',
-    
+
     //Tooltips
     'InSession'   => 'Acceder / Ingresar',
     'ExitSession' => 'Salir',

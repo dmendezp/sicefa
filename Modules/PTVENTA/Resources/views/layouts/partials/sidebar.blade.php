@@ -63,8 +63,7 @@
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                    data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item">
                         <a href="{{ route('cefa.ptventa.index') }}"
                             class="nav-link {{ !Route::is('cefa.ptventa.index*') ?: 'active' }}">
@@ -72,62 +71,48 @@
                             <p>{{ trans('ptventa::general.Home') }}</p>
                         </a>
                     </li>
-                    @auth {{-- Muestra lo siguiente para los USUARIOS AUTENTICADOS --}}
-                        @if (Auth::user()->havePermission('ptventa.inventory.index'))
-                            <li class="nav-item">
-                                <a href="{{ route('ptventa.inventory.index') }}"
-                                    class="nav-link {{ !Route::is('ptventa.inventory.index*') ?: 'active' }}">
-                                    <i class="nav-icon fas fa-boxes"></i>
-                                    <p>{{ trans('ptventa::general.Inventory') }}</p>
-                                </a>
-                            </li>
-                        @endif
-                        @if (Auth::user()->havePermission('ptventa.sale.index'))
-                            <li class="nav-item">
-                                <a href="{{ route('ptventa.sale.index') }}"
-                                    class="nav-link {{ !Route::is('ptventa.sale.index*') ?: 'active' }}">
-                                    <i class="nav-icon fas fa-shopping-cart"></i>
-                                    <p>{{ trans('ptventa::general.Sales') }}</p>
-                                </a>
-                            </li>
-                        @endif
-                        @if (Auth::user()->havePermission('ptventa.element.image.index'))
-                            <li class="nav-item">
-                                <a href="{{ route('ptventa.element.image.index') }}"
-                                    class="nav-link {{ !Route::is('ptventa.element.image.index*') ?: 'active' }}">
-                                    <i class="nav-icon fas fa-image"></i>
-                                    <p>{{ trans('ptventa::general.Products') }}</p>
-                                </a>
-                            </li>
-                        @endif
-                        @if (Auth::user()->havePermission('ptventa.cash.index'))
-                            <li class="nav-item">
-                                <a href="{{ route('ptventa.cash.index') }}"
-                                    class="nav-link {{ !Route::is('ptventa.cash.index*') ?: 'active' }}">
-                                    <i class="nav-icon fas fa-cash-register"></i>
-                                    <p>{{ trans('ptventa::general.Cash Control') }}</p>
-                                </a>
-                            </li>
-                        @endif
-                        @if (Auth::user()->havePermission('ptventa.reports.index'))
-                            <li class="nav-item">
-                                <a href="{{ route('ptventa.reports.index') }}"
-                                    class="nav-link {{ !Route::is('ptventa.reports.index*') ?: 'active' }}">
-                                    <i class="nav-icon far fa-chart-bar"></i>
-                                    <p>{{ trans('ptventa::general.Reports Panel') }}</p>
-                                </a>
-                            </li>
-                        @endif
-                        @if (Auth::user()->havePermission('ptventa.reports.index'))
-                            <li class="nav-item">
-                                <a href="{{ route('cefa.ptventa.configuration') }}"
-                                    class="nav-link {{ !Route::is('cefa.ptventa.configuration*') ?: 'active' }}">
-                                    <i class="nav-icon fa-solid fa-gears"></i>
-                                    <p>{{ trans('ptventa::general.Configuration') }}</p>
-                                </a>
-                            </li>
-                        @endif
-                    @endauth
+                    <li class="nav-item">
+                        <a href="{{ route('ptventa.inventory.index') }}"
+                            class="nav-link {{ !Route::is('ptventa.inventory.index*') ?: 'active' }}">
+                            <i class="nav-icon fas fa-boxes"></i>
+                            <p>{{ trans('ptventa::general.Inventory') }}</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('ptventa.sale.index') }}"
+                            class="nav-link {{ !Route::is('ptventa.sale.index*') ?: 'active' }}">
+                            <i class="nav-icon fas fa-shopping-cart"></i>
+                            <p>{{ trans('ptventa::general.Sales') }}</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('ptventa.element.image.index') }}"
+                            class="nav-link {{ !Route::is('ptventa.element.image.index*') ?: 'active' }}">
+                            <i class="nav-icon fas fa-image"></i>
+                            <p>{{ trans('ptventa::general.Products') }}</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('ptventa.cash.index') }}"
+                            class="nav-link {{ !Route::is('ptventa.cash.index*') ?: 'active' }}">
+                            <i class="nav-icon fas fa-cash-register"></i>
+                            <p>{{ trans('ptventa::general.Cash Control') }}</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('ptventa.reports.index') }}"
+                            class="nav-link {{ !Route::is('ptventa.reports.index*') ?: 'active' }}">
+                            <i class="nav-icon far fa-chart-bar"></i>
+                            <p>{{ trans('ptventa::general.Reports Panel') }}</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.ptventa.configuration') }}"
+                            class="nav-link {{ !Route::is('cefa.ptventa.configuration*') ?: 'active' }}">
+                            <i class="nav-icon fa-solid fa-gears"></i>
+                            <p>{{ trans('ptventa::general.Configuration') }}</p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ route('cefa.ptventa.devs') }}"
                             class="nav-link {{ !Route::is('cefa.ptventa.devs*') ?: 'active' }}">
@@ -142,7 +127,6 @@
                             <p>{{ trans('ptventa::general.About us') }}</p>
                         </a>
                     </li>
-
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

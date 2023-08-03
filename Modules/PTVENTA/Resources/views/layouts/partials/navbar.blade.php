@@ -8,6 +8,18 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('cefa.ptventa.index') }}" class="nav-link">{{ trans('ptventa::general.Home') }}</a>
         </li>
+        @auth
+            @if(checkRol('ptventa.admin'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('ptventa.admin.index') }}" class="nav-link">{{ trans('ptventa::general.admin') }}</a>
+                </li>
+            @endif
+            @if(checkRol('ptventa.cashier'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('ptventa.cashier.index') }}" class="nav-link">{{ trans('ptventa::general.cashier') }}</a>
+                </li>
+            @endif
+        @endauth
     </ul>
 
     <!-- Right navbar links -->
