@@ -20,7 +20,7 @@ class ElementController extends Controller
 
     public function create()
     {
-        $view = ['titlePage'=>'Productos - Crear Poducto', 'titleView'=>'Crear Nuevo Producto'];
+        $view = ['titlePage'=> trans('ptventa::element.titlePage2'), 'titleView'=> trans('ptventa::element.titleView2')];
         $measurement_units = MeasurementUnit::orderBy('name','ASC')->get();
         $categories = Category::orderBy('name','ASC')->get();
         $kind_of_purchases = KindOfPurchase::orderBy('name','ASC')->get();
