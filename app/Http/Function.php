@@ -33,6 +33,12 @@ function priceFormat($value){
     return '$' . clearZerosDecimal(number_format($value,2,',','.'));
 }
 
+/* Eliminar el formato de precio. ($1.500,23 => 1500.23) */
+function revertPriceFormat($value){
+    $temp = str_replace([' ','.','$'], '', $value);
+    return str_replace(',', '.', $temp);
+}
+
 function getAppsArray(){
 	$a = [
 		'0' => 'Portal SICEFA',

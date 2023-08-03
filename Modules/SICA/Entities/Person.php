@@ -69,6 +69,18 @@ class Person extends Model implements Auditable
     public function getFullNameAttribute(){ // Obtener el nombre completo de la persona first_name + first_last_name + second_last_name (ACCESOR)
         return $this->first_name.' '.$this->first_last_name.' '.$this->second_last_name;
     }
+    public function getIdentificationTypeNumberAttribute(){ // Obtener de manera abreviada del tipo y número de identificación
+        // Arreglo de mapeo entre tipos de documentos y sus abreviaturas
+        $documentTypeAbbreviations = [
+            'Cédula de ciudadanía' => 'CC',
+            'Tarjeta de identidad' => 'TI',
+            'Cédula de extranjería' => 'CE',
+            'Pasaporte' => 'PP',
+            'Documento nacional de identidad' => 'DNI',
+            'Registro civil' => 'RC'
+        ];
+        return $documentTypeAbbreviations[$this->attributes['document_type']].'-'.$this->attributes['document_number'];
+    }
     public function setAddressAttribute($value){ // Convierte el primer carácter en mayúscula del dato address (MUTADOR)
         $this->attributes['address'] = ucfirst($value);
     }

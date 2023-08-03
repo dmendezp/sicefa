@@ -1,7 +1,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('cefa.sica.home.index') }}" class="brand-link">
-      <img src="{{ asset('sica/images/logo.png') }}" alt="SICA Logo" class="brand-image " style="opacity: .8">
+      <img src="{{ asset('modules/sica/images/logo.png') }}" alt="SICA Logo" class="brand-image " style="opacity: .8">
       <span class="brand-text h3">SICA</span>
     </a>
     <!-- Sidebar -->
@@ -13,7 +13,7 @@
           @if(isset(Auth::user()->person->avatar))
           <img src="{{ asset('storage/'.Auth::user()->person->avatar) }}" class="img-circle elevation-2" alt="User Image">
           @else
-          <img src="{{ asset('sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
           @endif
         </div>
         @guest

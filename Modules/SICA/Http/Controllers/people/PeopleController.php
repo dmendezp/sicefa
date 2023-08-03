@@ -34,12 +34,12 @@ class PeopleController extends Controller
         else:
         $doc =$request->input('search');
         $people = Person::where('document_number',$doc)->with('users')->first();
-        
+
         switch ($people) {
             case '':
                 return redirect('sica/admin/people/data/add/'.$doc);
                 break;
-            
+
             default:
             return redirect('sica/admin/people/data/'.$people->id.'/edit');
                 break;
@@ -105,11 +105,11 @@ class PeopleController extends Controller
             if($p->save()){
                 return redirect(route('sica.admin.people.personal_data'))->with('message', 'Creado con éxito')->with('typealert', 'success');
             }
-        
+
         endif;
     }
 
-  
+
     public function getEditData($id)
     {
         $people = Person::findOrFail($id);
@@ -120,10 +120,10 @@ class PeopleController extends Controller
         return view('sica::admin.people.personal_data.edit', $data);
     }
 
-    
+
     public function postEditData(Request $request, $id)
     {
-       
+
         $rules = [
             'document_number' => 'required',
             'document_type' => 'required',
@@ -144,7 +144,7 @@ class PeopleController extends Controller
         if($validator->fails()):
             return redirect('sica/admin/people/data/'.$id.'/edit')->withErrors($validator)->with('message', 'Se ha producido un error.')->with('typealert', 'danger')->withInput();
         else:
-           
+
 
             $p = Person::findOrFail($id);
             $p->document_type = e($request->input('document_type'));
@@ -182,13 +182,13 @@ class PeopleController extends Controller
 
     public function officers(){
         $data = ['title'=>trans('sica::menu.Officers')];
-        return view('sica::admin.people.officers.home',$data);        
+        return view('sica::admin.people.officers.home',$data);
     }
 
     public function contractors(){
         $data = ['title'=>trans('sica::menu.Contractors')];
-        return view('sica::admin.people.contractors.home',$data);        
-    }    
+        return view('sica::admin.people.contractors.home',$data);
+    }
 
 
 }
