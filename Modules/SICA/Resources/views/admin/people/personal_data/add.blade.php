@@ -19,7 +19,7 @@
                             <div class="form-group">
                                 <div class="text-left">
                                     <img class="profile-user-img img-fluid img-circle"
-                                        src="{{ asset('sica/images/blanco.png') }}" alt="User profile picture">
+                                        src="{{ asset('modules/sica/images/blanco.png') }}" alt="User profile picture">
                                     <br />
                                     {!! Form::file('avatar', ['class' => 'form-control-file', ' aria-label' => 'file
                                     example']) !!}
@@ -56,7 +56,7 @@
                                 ['class' => 'form-control', 'placeholder' => 'Ingrese su segundo apellido','required']) !!}
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
@@ -91,7 +91,7 @@
                                 !!}
                             </div>
                         </div>
-                      
+
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
@@ -131,7 +131,7 @@
                                 </select>
                             </div>
                         </div>
-                      
+
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
