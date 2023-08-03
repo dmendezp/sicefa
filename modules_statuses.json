@@ -7,5 +7,6 @@
     "SENAEMPRESA": true,
     "CPD": true,
     "AGROINDUSTRIA": true,
-    "SIGAC": true
+    "SIGAC": true,
+    "Controller": true
 }

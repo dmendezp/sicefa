@@ -1,24 +1,25 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Modules\AGROINDUSTRIA\Http\Controllers\instructor\RequestController;
+
+use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
+
+use Modules\AGROINDUSTRIA\Http\Controllers\Intern\InventoryController;
 
 Route::prefix('agroindustria')->group(function() {
     Route::get('/index', 'AGROINDUSTRIAController@index')->name('agroindustria.index');
 
-    Route::get('/unidd', 'AGROINDUSTRIAController@unidd')->name('agroindustria.unidd');
+    //instructor
+    Route::prefix('instructor')->group(function (){
+        Route::get('/unidd', [UnitController::class, 'unidd'])->name('agroindustria.unidd');
+        Route::get('/solicitud', [RequestController::class, 'solicitud'])->name('agroindustria.solicitud');  
+        Route::post('/enviarsolicitud', [RequestController::class, 'enviarsolicitud'])->name('agroindustria.enviarsolicitud');
+    });
 
-    Route::get('/solicitud', 'AGROINDUSTRIAController@solicitud')->name('agroindustria.solicitud');
+    //intern
+    Route::prefix('intern')->group(function (){
+        Route::get('/index', [InventoryController::class ,'index'])->name('agroindustria.intern.index');
+        Route::get('/invb', [InventoryController::class ,'invb'])->name('agroindustria.intern.invb');
+    });
 
-    Route::get('/invb', 'AGROINDUSTRIAController@invb')->name('agroindustria.invb');
-
-    Route::post('/enviarsolicitud', 'AGROINDUSTRIAController@enviarsolicitud')->name('agroindustria.enviarsolicitud');
 });

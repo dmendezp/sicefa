@@ -1,9 +1,8 @@
-<link rel="stylesheet" href="css/navbar.css">
-<nav class="navbar navbar-expand-sm navbar-Dark" style="background-color:white;">
+<nav class="navbar navbar-expand-lg navbar-Dark" style="background-color:white;">
     <a class="navbar-brand" href="#">DATAGRO</a>
     <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
         aria-expanded="false" aria-label="Toggle navigation"></button>
-    <div class="collapse navbar-collapse" id="collapsibleNavId">
+    <div class="collapse navbar-collapse d-sm-flex" id="collapsibleNavId">
         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
             <li class="nav-item">
                 <a class="nav-link" href="{{route('agroindustria.index')}}">Inicio</a>
@@ -15,21 +14,18 @@
                 <a class="nav-link" href="{{route('agroindustria.solicitud')}}">Solicitud</a>
             </li>
         </ul>
+
+        <!-- Botón del menú desplegable con el ícono ☰ -->
+        <button class="navbar-toggler" id="menuButton">&#9776;</button>
+        <ul class="dropdown-menu" id="dropdownMenu">
+            <li class="dropdown-item">
+              <a href="#">Opción 1</a>
+            </li>
+            <li class="dropdown-item">
+              <a href="#">Opción 2</a>
+            </li>
+          </ul>
     </div>
-    <div class="user-panel mt-1 pb-1 mb-1 d-flex">
-        <nav class="salir">
-            <ul class="nav nav-pills nav-sidebar flex-column">
-                <li class="nav-item">
-                  <a href="{{ route('cefa.welcome') }}" class="nav-link">
-                    <i class="fas fa-puzzle-piece"></i>
-                    <p>
-                      Volver a SICEFA
-                    </p>
-                  </a>
-                </li>
-            </ul>
-        </nav>
-      </div>
 </nav>
 <script>
     // Obtener la URL actual
@@ -44,4 +40,20 @@
             link.classList.add('selected');
         }
     });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const menuButton = document.getElementById('menuButton');
+  const dropdownMenu = document.getElementById('dropdownMenu');
+
+  // Función para mostrar u ocultar el menú desplegable
+  function toggleDropdownMenu() {
+    dropdownMenu.classList.toggle('show');
+  }
+
+  // Agregar el evento click al botón del menú desplegable
+  menuButton.addEventListener('click', toggleDropdownMenu);
+});
+
 </script>

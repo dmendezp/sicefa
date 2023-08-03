@@ -13,7 +13,7 @@ class WarehouseMovement extends Model implements Auditable
         SoftDeletes; // Borrado suave
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
-        'productive_unit_warehouse_id',
+        'warehouse_id',
         'movement_id',
         'role'
     ];
@@ -29,8 +29,8 @@ class WarehouseMovement extends Model implements Auditable
     public function movement(){ // Accede a la información del movimiento al que pertenece
         return $this->belongsTo(Movement::class);
     }
-    public function productive_unit_warehouse(){ // Accede a la información de la unidad productiva y bodega al que pertenece
-        return $this->belongsTo(ProductiveUnitWarehouse::class);
+    public function warehouse(){ // Accede a la información de la bodega al que pertenece
+        return $this->belongsTo(Warehouse::class);
     }
 
 }

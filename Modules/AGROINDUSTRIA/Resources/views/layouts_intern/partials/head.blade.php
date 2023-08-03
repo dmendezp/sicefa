@@ -5,7 +5,7 @@
 
        {{-- Laravel Mix - CSS File --}}
        {{-- <link rel="stylesheet" href="{{ mix('css/agroindustria.css') }}"> --}}
-        <link rel="icon" href="{{asset('agroindustria/favicon.ico')}}">       
+       <link rel="icon" href="{{asset('agroindustria/favicon.ico')}}">      
        <link rel="stylesheet" href="{{asset('agroindustria/css/cssunidades.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleinvb.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleindex.css')}}">
