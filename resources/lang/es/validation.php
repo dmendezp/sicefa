@@ -146,6 +146,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'person_document_type' => 'tipo de documento', // PTVENTA
+        'person_document_number' => 'número de documento', // PTVENTA
+        'person_first_name' => 'nombres', // PTVENTA
+        'person_first_last_name' => 'primer apellido', // PTVENTA
+        'person_second_last_name' => 'segundo apellido', // PTVENTA
+    ],
 
 ];

@@ -23,6 +23,22 @@ function checkRol($slug){ // Verficar si tiene acceso a los distintos roles de l
     }
 }
 
+// Eliminar ceros y decimales innecesarios (1234.00 => 1234)
+function clearZerosDecimal($value) {
+    return strpos($value,',')!==false ? rtrim(rtrim($value,'0'),',') : $value;
+}
+
+// Agregar formato de precios a un número (1234.34 => $ 1.234,34)
+function priceFormat($value){
+    return '$' . clearZerosDecimal(number_format($value,2,',','.'));
+}
+
+/* Eliminar el formato de precio. ($1.500,23 => 1500.23) */
+function revertPriceFormat($value){
+    $temp = str_replace([' ','.','$'], '', $value);
+    return str_replace(',', '.', $temp);
+}
+
 function getAppsArray(){
 	$a = [
 		'0' => 'Portal SICEFA',

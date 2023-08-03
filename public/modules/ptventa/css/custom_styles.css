@@ -1,0 +1,52 @@
+/* -------------------ZONE CUSTOM GENERAL STYLES ---------------------- */
+
+/* Colores para el boton de instagram en developers */
+/* CSS */
+.custom-instagram-btn {
+  /* Estilo del botón */
+  background: linear-gradient(45deg, #833AB4, #E1306C);
+}
+
+/* Estilo del icono */
+.custom-instagram-btn i {
+  color: white;
+}
+
+/* Creacion de ajustes de tamaño para la card de inventario, aqui se configura para que esta tenga un tamaño definido y lo que tenga dentro tambien sea adaptable */
+.custom-height {
+    height: 70px; /* Ajusta la altura según tus necesidades */
+  }
+  
+.object-fit {
+  object-fit: cover;
+  height: 100%; /* Establece la altura de la imagen en 100% para que se ajuste a la altura de la tarjeta */
+}
+  
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Animacion del boton para ver los creditos */
+@keyframes bounce {
+  0% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-10px);
+  }
+  100% {
+      transform: translateY(0);
+  }
+}
+
+.animated-icon {
+  animation: bounce 1s infinite;
+  font-size: 24px;
+}
+
+/* Estilos para el texto centrado en la tabla de entrada de inventarios */
+.vertical-center {
+  vertical-align: middle;
+}
