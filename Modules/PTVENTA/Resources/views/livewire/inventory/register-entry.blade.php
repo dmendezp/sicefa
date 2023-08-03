@@ -230,11 +230,11 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip" data-placement="right" title="Actualizar producto"
+                                        <button type="button" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip" data-placement="right" title="{{ trans('ptventa::inventory.Tooltip1')}}"
                                             wire:click="editProduct({{ $index }})" wire:loading.attr="disabled" wire:target="editProduct">
                                             <i class="fas fa-pen"></i>
                                         </button>
-                                        <button type="button" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip" data-placement="right" title="Eliminar producto"
+                                        <button type="button" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip" data-placement="right" title="{{ trans('ptventa::inventory.Tooltip2')}}"
                                             wire:click="deleteProduct({{ $index }})" wire:loading.attr="disabled" wire:target="deleteProduct">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>

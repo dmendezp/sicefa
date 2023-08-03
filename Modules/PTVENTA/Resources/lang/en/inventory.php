@@ -66,4 +66,7 @@ return [
     '2T10' => 'Brand',
     '2T11' => 'Destination',
     '2T12' => 'Actions',
+    //Tooltips
+    'Tooltip1' => 'Update Product',
+    'Tooltip2' => 'Delete Product',
 ];
