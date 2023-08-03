@@ -1,8 +1,8 @@
 @extends('ptventa::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item"><a href="{{ route('ptventa.sale.index') }}" class="text-decoration-none">Ventas</a></li>
-    <li class="breadcrumb-item active">Hoy</li>
+    <li class="breadcrumb-item"><a href="{{ route('ptventa.sale.index') }}" class="text-decoration-none">{{ trans('ptventa::sales.Sales') }}</a></li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::sales.Today') }}</li>
 @endpush
 
 @section('content')
@@ -10,8 +10,8 @@
         <div class="card-body pt-0">
             <div class="text-end my-2">
                 <a href="{{ route('ptventa.sale.register') }}" class="btn btn-sm btn-success">
-                    <i class="far fa-plus"></i>
-                    Registrar Venta
+                    <i class="fa-solid fa-plus fa-bounce"></i>
+                    {{ trans('ptventa::sales.Btn1') }}
                 </a>
             </div>
             @if($cashCount)
@@ -19,12 +19,12 @@
                 <table class="table table-hover" id="sales-table">
                     <thead class="table-dark">
                         <tr>
-                            <th class="text-center">#</th>
-                            <th class="text-center">Comprobante</th>
-                            <th>Cliente</th>
-                            <th class="text-center">Hora</th>
-                            <th class="text-center">Estado</th>
-                            <th class="text-center">Valor</th>
+                            <th class="text-center">{{ trans('ptventa::sales.1T1') }}</th>
+                            <th class="text-center">{{ trans('ptventa::sales.1T2') }}</th>
+                            <th>{{ trans('ptventa::sales.1T3') }}</th>
+                            <th class="text-center">{{ trans('ptventa::sales.1T4') }}</th>
+                            <th class="text-center">{{ trans('ptventa::sales.1T5') }}</th>
+                            <th class="text-center">{{ trans('ptventa::sales.1T6') }}</th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
@@ -46,7 +46,7 @@
                     <tfoot>
                         <tr>
                             <td class="text-right" colspan="5">
-                                <h3><strong>Total de ventas:</strong></h3>
+                                <h3><strong>{{ trans('ptventa::sales.1T7') }}</strong></h3>
                             </td>
                             <td class="text-center text-success">
                                 <h3><strong>{{ priceFormat($sales->sum('price')) }}</strong></h3>
@@ -56,11 +56,11 @@
                 </table>
             </div>
             <div class="text-center text-danger" @if(count($sales)) hidden @endif>
-                <strong>No hay ventas registradas</strong>
+                <strong>{{ trans('ptventa::sales.TextOp1') }}</strong>
             </div>
             @else
             <div class="text-center text-danger">
-                <strong>No existe ninguna caja abierta.</strong>
+                <strong>{{ trans('ptventa::sales.TextOp2') }}</strong>
             </div>
             @endif
         </div>

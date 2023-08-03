@@ -12,7 +12,7 @@ class SaleController extends Controller
 {
 
     public function index(){
-        $view = ['titlePage'=>'Ventas', 'titleView'=>'Ventas realizadas hoy'];
+        $view = ['titlePage'=> trans('ptventa::sales.titlePage'), 'titleView'=>trans('ptventa::sales.titleView')];
         $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         $cashCount = CashCount::where('productive_unit_warehouse_id',$app_puw->id)
                                 ->where('state','Abierta')
