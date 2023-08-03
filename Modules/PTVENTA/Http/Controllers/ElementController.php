@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 class ElementController extends Controller
 {
     public function index(){ // Vista de galería de imágenes
-        $view = ['titlePage'=>'Productos - Galería de imágenes', 'titleView'=>'Administración de imágenes de productos'];
+        $view = ['titlePage'=> trans('ptventa::element.titlePage1'), 'titleView'=> trans('ptventa::element.titleView1')];
         return view('ptventa::element.index', compact('view'));
     }
 
