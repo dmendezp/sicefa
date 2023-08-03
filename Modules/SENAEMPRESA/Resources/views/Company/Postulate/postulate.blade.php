@@ -29,6 +29,7 @@
                                         <th>Telefono</th>
                                         <th>Fecha</th>
                                         <th>Hoja de vida</th>
+                                        <th>Puntaje</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,6 +40,7 @@
                                         <td>Row 1 Data 4</td>
                                         <td>Row 1 Data 5</td>
                                         <td>Row 1 Data 6</td>
+                                        <td> <a href="a" class="btn btn-primary">Asignar</a></td>
                                     </tr>
                                 </tbody>
                             </table>

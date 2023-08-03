@@ -18,39 +18,31 @@
             <div class="row justify-content-center">
                 <div class="col-md-9">
                     <div class="formulario">
-                        <div class="card-header">{{ $title }}</div>
+                        <div class="card-header">Puntaje</div>
 
                         <div class="card-body">
-                            {!! Form::open(['url' => route('Registros')]) !!}
+                            {!! Form::open(['url' => route('Nuevo')]) !!}
+                            <div class="mb-6">
+                                <label for="document_number" class="form-label">Documento</label>
+                                {!! Form::number('document_number', null, ['class' => 'form-control']) !!}
+                                <br>
+                            </div>
                             <div class="mb-6">
                                 <label for="document_number" class="form-label">Nombre</label>
                                 {!! Form::text('document_number', null, ['class' => 'form-control']) !!}
                                 <br>
                             </div>
                             <div class="mb-6">
-                                <label for="document_number" class="form-label">Descripción General</label>
+                                <label for="document_number" class="form-label">Correo</label>
                                 {!! Form::text('document_number', null, ['class' => 'form-control']) !!}
                                 <br>
                             </div>
                             <div class="mb-6">
-                                <label for="document_number" class="form-label">Requisitos</label>
-                                {!! Form::text('document_number', null, ['class' => 'form-control']) !!}
+                                <label for="document_number" class="form-label">Puntaje</label>
+                                {!! Form::number('document_number', null, ['class' => 'form-control']) !!}
                                 <br>
                             </div>
-                            <div class="mb-6">
-                                <label for="document_number" class="form-label">Cupos</label>
-                                {!! Form::text('document_number', null, ['class' => 'form-control']) !!}
-                                <br>
-                            </div>
-                            <div class="mb-6">
-                                <label for="document_number" class="form-label">Presentación</label><br>
-                                {!! Form::file('document_number', null, ['class' => 'form-control']) !!}
-                                <br><br>
-                            </div>
-                            {!! Form::submit('Agregar', ['class' => 'btn btn-success', 'name' => 'vacantes']) !!}
-                            <a href="{{ route('vacantes') }}">
-                                {!! Form::button('Cancelar', ['class' => 'btn btn-danger', 'name' => 'cancelar']) !!}
-                            </a>
+                            {!! Form::submit('Asinar', ['class' => 'btn btn-success', 'name' => 'guardar']) !!}
                             {!! Form::close() !!}
                         </div>
                     </div>
@@ -63,6 +55,7 @@
         <!-- Control Sidebar -->
 
         <!-- /.control-sidebar -->
+
 
 
     </div>
