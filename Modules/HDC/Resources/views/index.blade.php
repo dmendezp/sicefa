@@ -10,8 +10,27 @@
 principalmente el dioxido de carbono (CO2)que son liberadas a la atmósfera debido a las actividades humanas,
 como la quema de combustibles fósiles, la deforestación y la producción industrial.
 </h5>
-<div class="col-auto d-none d-lg-block">
-  <img src="{!! asset('HDC/img/huella-de-carbono.jpg') !!}" width="190px" height="270px" class="card-img-top" alt="......">
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{!! asset('modules/HDC/img/huella-de-carbono.jpg') !!}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{!! asset('modules/HDC/img/Auto.jpg') !!}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{!! asset('modules/HDC/img/Planeta-verde.jpg') !!}" class="d-block w-200" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 <center><h1>MISION</h1></center>
 <main class="container">  
     <div class="row mb-2">
