@@ -55,13 +55,13 @@ class InventoryController extends Controller
         foreach ($groups as $group) {
             $groupedInventories->push($group);
         }
-        $view = ['titlePage' => trans('ptventa::inventory.titlePage'), 'titleView' => trans('ptventa::inventory.titleView')];
+        $view = ['titlePage' => trans('ptventa::inventory.titlePage1'), 'titleView' => trans('ptventa::inventory.titleView1')];
         return view('ptventa::inventory.index', compact('view', 'groupedInventories'));
     }
 
     public function create()
     { // Formulario de registro (entrada) de inventario
-        $view = ['titlePage' => 'Inventario - Registro', 'titleView' => 'Registro de inventario'];
+        $view = ['titlePage' => trans('ptventa::inventory.titlePage2'), 'titleView' => trans('ptventa::inventory.titleView2')];
         return view('ptventa::inventory.create', compact('view'));
     }
 
