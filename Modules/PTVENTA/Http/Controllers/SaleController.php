@@ -12,7 +12,7 @@ class SaleController extends Controller
 {
 
     public function index(){
-        $view = ['titlePage'=> trans('ptventa::sales.titlePage'), 'titleView'=>trans('ptventa::sales.titleView')];
+        $view = ['titlePage'=> trans('ptventa::sales.titlePage'), 'titleView'=> trans('ptventa::sales.titleView')];
         $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         $cashCount = CashCount::where('productive_unit_warehouse_id',$app_puw->id)
                                 ->where('state','Abierta')
@@ -41,7 +41,7 @@ class SaleController extends Controller
             return redirect()->route('ptventa.sale.index')->with('error', 'Primero debes abrir una caja.');
         }
         // Continuar con la vista de registro de venta si hay una caja abierta
-        $view = ['titlePage' => 'Ventas', 'titleView' => 'Registro de venta'];
+        $view = ['titlePage' => trans('ptventa::sales.titlePage'), 'titleView' => trans('ptventa::sales.titleView2')];
         return view('ptventa::sale.register', compact('view'));
     }
 

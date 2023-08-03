@@ -6,9 +6,9 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('ptventa.sale.index') }}" class="text-decoration-none">Ventas</a>
+        <a href="{{ route('ptventa.sale.index') }}" class="text-decoration-none">{{ trans('ptventa::sales.Sales')}}</a>
     </li>
-    <li class="breadcrumb-item active">Registro</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::sales.Register')}}</li>
 @endpush
 
 @section('content')

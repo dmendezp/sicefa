@@ -6,8 +6,9 @@ return [
 	'titleView' => 'Ventas realizadas hoy',
 
     //Breadcrumbs
-	'Sales'  => 'Ventas',
-	'Today'  => 'Hoy',
+	'Sales'    => 'Ventas',
+	'Today'    => 'Hoy',
+	'Register' => 'Registro',
 
     //Section Card
     //Table Titles

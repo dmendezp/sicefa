@@ -4,10 +4,12 @@ return [
     //Origin Controller SaleController
 	'titlePage'    => 'Sales',
 	'titleView'    => 'Sales today',
+	'titleView2'    => 'Register sales',
 
     //Breadcrumbs
-	'Sales'  => 'Sales',
-	'Today'  => 'Today',
+	'Sales'    => 'Sales',
+	'Today'    => 'Today',
+	'Register' => 'Resgister',
 
     //Section Card
     //Table Titles
