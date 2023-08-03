@@ -85,13 +85,25 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('Nosotros') }}" class="nav-link {{ !Route::is('Nosotros') ?: 'active' }}">
-                        <i class="fas fa-users"></i>
-                        <p>
-                            Nosotros
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-vr-cardboard"></i>
+                        <p>WIX
+                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('Nosotros') }}"
+                                class="nav-link {{ !Route::is('Nosotros') ?: 'active' }}">
+                                <i class="fas fa-users"></i>
+                                <p>
+                                    Nosotros
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+
                 <li class="nav-item">
                     <a href="{{ route('Contactos') }}" class="nav-link {{ !Route::is('Contactos') ?: 'active' }}">
                         <i class="fas fa-address-book"></i>

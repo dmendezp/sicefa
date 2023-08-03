@@ -10,9 +10,3 @@ openModalBtn.addEventListener('click', () => {
         myInput.focus();
     }
 });
-
-
-
-
-
-
