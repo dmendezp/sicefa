@@ -15,10 +15,10 @@ class AppTableSeeder extends Seeder
      */
     public function run()
     {
-        App::updateOrCreate(['name' => 'DICESENA'], [
+        App::updateOrCreate(['name' => 'DICSENA'], [
             'url' => '/dicsena/index',
             'color' => '#ff5e1f',
-            'icon' => 'fas fa-puzzle-piece',
+            'icon' => 'fa-solid fa-globe',
             'description' => 'Diccionario epico del sena',
             'description_english' => 'Dicctionary epic of sena'
         ]);
