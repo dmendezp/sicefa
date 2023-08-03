@@ -28,24 +28,6 @@ class PermissionsTableSeeder extends Seeder
 
 
         // ===================== Registro de todos los permisos de la aplicación PTVENTA ==================
-        // Vista de configuración del administrador
-        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.configuration'], [ // Registro o actualización de permiso
-            'name' => 'Vista de configuración del administrador',
-            'description' => 'Configuración de parametros generales y testeo de impresión pos',
-            'description_english' => 'Configuration of general parameters and post printing test',
-            'app_id' => $app->id
-        ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
-
-        // Vista de configuración del cajero
-        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.configuration'], [ // Registro o actualización de permiso
-            'name' => 'Vista de configuración del cajero',
-            'description' => 'Configuración de parametros generales y testeo de impresión pos',
-            'description_english' => 'Configuration of general parameters and post printing test',
-            'app_id' => $app->id
-        ]);
-        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
-
         // Vista principal del administrador
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.index'], [ // Registro o actualización de permiso
             'name' => 'Vista principal del administrador',
@@ -64,42 +46,24 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
-        // Listar inventario
-        $permission = Permission::updateOrCreate(['slug' => 'ptventa.inventory.index'], [ // Registro o actualización de permiso
-            'name' => 'Listar inventario',
-            'description' => 'Puede ver el listado de inventario en bodega',
-            'description_english' => 'You can see the list of inventory in the warehouse',
+        // Vista de configuración del administrador
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.configuration.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista de configuración del administrador',
+            'description' => 'Configuración de parametros generales y testeo de impresión pos',
+            'description_english' => 'Configuration of general parameters and post printing test',
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Listar ventas del día
-        $permission = Permission::updateOrCreate(['slug' => 'ptventa.sale.index'], [ // Registro o actualización de permiso
-            'name' => 'Listar ventas del día',
-            'description' => 'Puede ver el listado de ventas del día',
-            'description_english' => 'You can see the list of sales of the day',
+        // Vista de configuración del cajero
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.configuration.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista de configuración del cajero',
+            'description' => 'Configuración de parametros generales y testeo de impresión pos',
+            'description_english' => 'Configuration of general parameters and post printing test',
             'app_id' => $app->id
         ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
-
-        // Listar imágenes de elementos
-        $permission = Permission::updateOrCreate(['slug' => 'ptventa.element.image.index'], [ // Registro o actualización de permiso
-            'name' => 'Listar imágenes de elementos',
-            'description' => 'Puede ver las imágenes de los elementos (productos)',
-            'description_english' => 'You can see the images of the elements (products)',
-            'app_id' => $app->id
-        ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
-
-        // Visualizar productos de invetario
-        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.inventory.index'], [ // Registro o actualización de permiso
-            'name' => 'Visualizar elementos de inventario',
-            'description' => 'Puede ver los elementos que se encuentran en inventario (productos)',
-            'description_english' => 'You can see the items that are in inventory (products)',
-            'app_id' => $app->id
-        ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
 
 
         // Consulta de ROLES

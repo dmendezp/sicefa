@@ -29,12 +29,12 @@ class PTVENTAController extends Controller
 
     public function admin(){
         $view = ['titlePage'=>trans('ptventa::controllers.PTVENTA_admin_title_page'), 'titleView'=>trans('ptventa::controllers.PTVENTA_admin_title_view')];
-        return view('ptventa::admin-index.blade.php', compact('view'));
+        return view('ptventa::admin-index', compact('view'));
     }
 
     public function cashier(){
         $view = ['titlePage'=>trans('ptventa::controllers.PTVENTA_cashier_title_page'), 'titleView'=>trans('ptventa::controllers.PTVENTA_cashier_title_view')];
-        return view('ptventa::cashier-index.blade.php', compact('view'));
+        return view('ptventa::cashier-index', compact('view'));
     }
 
 }
