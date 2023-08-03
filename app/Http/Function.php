@@ -39,6 +39,17 @@ function revertPriceFormat($value){
     return str_replace(',', '.', $temp);
 }
 
+/* Obtner el rol a partir del nombre de la ruta */
+function getRoleRouteName($route_name){
+    if (str_contains($route_name, '.admin.')) {
+        return 'admin';
+    }
+    if (str_contains($route_name, '.cashier.')) {
+        return 'cashier';
+    }
+    return null;
+}
+
 function getAppsArray(){
 	$a = [
 		'0' => 'Portal SICEFA',

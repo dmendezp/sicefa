@@ -1,7 +1,7 @@
 @extends('ptventa::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item"><a href="{{ route('ptventa.sale.index') }}" class="text-decoration-none">{{ trans('ptventa::sales.Sales') }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.sale.index') }}" class="text-decoration-none">{{ trans('ptventa::sales.Sales') }}</a></li>
     <li class="breadcrumb-item active">{{ trans('ptventa::sales.Today') }}</li>
 @endpush
 
@@ -9,7 +9,7 @@
     <div class="card card-success card-outline shadow-sm">
         <div class="card-body pt-0">
             <div class="text-end my-2">
-                <a href="{{ route('ptventa.sale.register') }}" class="btn btn-sm btn-success">
+                <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.sale.register') }}" class="btn btn-sm btn-success">
                     <i class="fa-solid fa-plus fa-bounce"></i>
                     {{ trans('ptventa::sales.Btn1') }}
                 </a>

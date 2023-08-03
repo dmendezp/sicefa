@@ -47,7 +47,7 @@
                                                 <div class="card-description">
                                                     <p class="mt-1">
                                                         {{ $e->category->name }}
-                                                        <a href="{{ route('ptventa.element.image.edit', $e) }}" class="text-light float-right">
+                                                        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.edit', $e) }}" class="text-light float-right">
                                                             <i class="fa-solid fa-pen-to-square fs-6"></i>
                                                         </a>
                                                     </p>

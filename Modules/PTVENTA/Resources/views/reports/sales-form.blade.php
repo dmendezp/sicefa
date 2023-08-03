@@ -6,7 +6,7 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('ptventa.reports.index') }}"
+        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.index') }}"
             class="text-decoration-none">{{ trans('ptventa::reports.Reports') }}</a>
     </li>
     <li class="breadcrumb-item active">{{ trans('ptventa::reports.Sales') }}</li>
@@ -18,8 +18,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row mb-3">
-                        <div class="col-md-6">
-                            <form class="form-inline" action="{{ route('ptventa.reports.generateSales') }}"
+                        <div class="col-md-auto">
+                            <form class="form-inline" action="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.sales') }}"
                                 method="POST">
                                 @csrf
                                 <div class="form-group mr-3">
@@ -33,8 +33,8 @@
                                 <button type="submit" class="btn btn-primary">{{ trans('ptventa::reports.Btn1') }} <i class="fa-solid fa-magnifying-glass"></i></button>
                             </form>
                         </div>
-                        <div class="col-md-6">
-                            <form action="{{ route('ptventa.reports.generate.sales.pdf') }}" method="post">
+                        <div class="col-md">
+                            <form action="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.sales.pdf') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="start_date" value="{{ $start_date }}">
                                 <input type="hidden" name="end_date" value="{{ $end_date }}">
@@ -111,7 +111,7 @@
                                         $totalSubtotal = 0;
                                         $totalTotal = 0;
                                     @endphp
-                            
+
                                     @foreach ($movements as $key => $movement)
                                         @foreach ($movement->movement_details as $index => $movement_detail)
                                             @php
@@ -126,7 +126,7 @@
                                             $totalTotal += $movement->price;
                                         @endphp
                                     @endforeach
-                            
+
                                     <tr>
                                         <td colspan="5" class="text-end fw-bold">Total:</td>
                                         <td class="text-center fw-bold">{{ $totalCantidad }}</td>

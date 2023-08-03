@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <h4>{{ trans('ptventa::Configuration.TitleCard1') }}</h4>
                     <p>{{ trans('ptventa::Configuration.TextCard1') }}</p>
-                    <button class="btn btn-success" id="imprimirBtn">{{ trans('ptventa::Configuration.Btn1') }} 
+                    <button class="btn btn-success" id="imprimirBtn">{{ trans('ptventa::Configuration.Btn1') }}
                         <i class="fa-solid fa-ticket"></i>
                     </button>
                 </div>
@@ -27,7 +27,7 @@
 @include('ptventa::layouts.partials.plugins.sweetalert2')
 
 @push('scripts')
-    {{-- Ruta de la estructura fuente del plugin de Parzibyte - Impresoras termicas v3 --}}    
+    {{-- Ruta de la estructura fuente del plugin de Parzibyte - Impresoras termicas v3 --}}
     <script src="{{ asset('modules/ptventa/js/sale/conector_javascript_POS80C.js') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
@@ -58,7 +58,7 @@
 
                     // Si la impresora esta disponible el resultado es exitoso
                     // Redireccionar al usuario a la vista del botón
-                    window.location.href = "{{ route('cefa.ptventa.configuration') }}";
+                    window.location.href = "{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.configuration.index') }}";
                 } catch (error) {
                     // A ocurrido un error en la impresion
                     // Muestra el SweetAlert2 con la notificacion

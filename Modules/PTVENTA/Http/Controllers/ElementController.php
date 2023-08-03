@@ -119,13 +119,13 @@ class ElementController extends Controller
         $UNSPSC_code = e($request->input('UNSPSC_code'));
         $element->UNSPSC_code = !empty($UNSPSC_code) ? $UNSPSC_code : null;
         if ($element->save()){// Actualizar el registro del elemento con la nueva imagen cargada
-        $message_ptventa = "Imagen actualizada exitosamente";
-        $message_ptventa_type = 'success';
+            $message_ptventa = "Imagen actualizada exitosamente";
+            $message_ptventa_type = 'success';
         }else{
-        $message_ptventa = "Se ha producido un error en el momento de actualizar la imagen";
-        $message_ptventa_type = 'error';
+            $message_ptventa = "Se ha producido un error en el momento de actualizar la imagen";
+            $message_ptventa_type = 'error';
         }
-        return redirect(route('ptventa.element.image.index'))->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
+        return $this->index()->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
     }
 
 }

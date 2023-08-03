@@ -2,7 +2,7 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('ptventa.inventory.index') }}" class="text-decoration-none">{{ trans('ptventa::inventory.Inventory')}}</a>
+        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.inventory.index') }}" class="text-decoration-none">{{ trans('ptventa::inventory.Inventory')}}</a>
     </li>
     <li class="breadcrumb-item active">{{ trans('ptventa::inventory.Products')}}</li>
 @endpush
@@ -17,10 +17,10 @@
                 </div>
                 <div class="col-auto">
                     <div class="d-flex justify-content-end">
-                        <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm me-1">
+                        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.inventory.create') }}" class="btn btn-success btn-sm me-1">
                             <i class="fa-solid fa-thumbs-up fa-bounce mr-2"></i>{{ trans('ptventa::inventory.Btn1')}}
                         </a>
-                        <a href="{{ route('ptventa.inventory.status') }}" class="btn btn-secondary btn-sm">
+                        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.inventory.status') }}" class="btn btn-secondary btn-sm">
                             <i class="fa-solid fa-triangle-exclamation fa-bounce mr-2"></i>{{ trans('ptventa::inventory.Btn2')}}
                         </a>
                     </div>

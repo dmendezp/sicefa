@@ -6,17 +6,17 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('cefa.ptventa.index') }}" class="nav-link">{{ trans('ptventa::general.Home') }}</a>
+            <a href="{{ route('cefa.ptventa.index') }}" class="nav-link @if(Route::is('cefa.ptventa.*')) active @endif">{{ trans('ptventa::general.Home') }}</a>
         </li>
         @auth
             @if(checkRol('ptventa.admin'))
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('ptventa.admin.index') }}" class="nav-link">{{ trans('ptventa::general.admin') }}</a>
+                    <a href="{{ route('ptventa.admin.index') }}" class="nav-link @if(Route::is('ptventa.admin.*')) active @endif">{{ trans('ptventa::general.admin') }}</a>
                 </li>
             @endif
             @if(checkRol('ptventa.cashier'))
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('ptventa.cashier.index') }}" class="nav-link">{{ trans('ptventa::general.cashier') }}</a>
+                    <a href="{{ route('ptventa.cashier.index') }}" class="nav-link @if(Route::is('ptventa.cashier.*')) active @endif">{{ trans('ptventa::general.cashier') }}</a>
                 </li>
             @endif
         @endauth

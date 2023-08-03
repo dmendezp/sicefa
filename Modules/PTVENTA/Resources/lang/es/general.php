@@ -15,6 +15,7 @@ return [
     'Sales Point'    => 'Punto de Venta',
     'Session'        => 'Iniciar Sesión',
     'Back to SICEFA' => 'Volver a SICEFA',
+    'dashboard'      => 'Panel de control',
     'Inventory'      => 'Inventario',
     'Sales'          => 'Ventas',
     'Products'       => 'Productos',
