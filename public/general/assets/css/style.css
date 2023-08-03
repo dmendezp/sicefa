@@ -869,13 +869,7 @@ section {
   transform: translateY(-10px);
 }
 
-.services .icon-box:hover h4 a {
-  color: rgba(252, 115, 35, 1);
-}
 
-.services .icon-box:hover i {
-  color: rgba(252, 115, 35, 1);
-}
 
 /*--------------------------------------------------------------
 # sefa

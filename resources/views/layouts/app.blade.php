@@ -17,11 +17,15 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}" rel="stylesheet">
+    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+    <link href="{{ asset('general/assets/css/style.css') }}" rel="stylesheet">
+
+
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        {{--<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -74,7 +78,7 @@
                 </div>
             </div>
         </nav>
-
+--}}
         <main class="py-4">
             @yield('content')
         </main>

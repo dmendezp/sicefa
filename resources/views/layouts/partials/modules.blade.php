@@ -16,16 +16,28 @@
                   @endforeach  --}}
 
         <div class="row">
-          @foreach(getAppsArray() as $cod => $app)
+
+          @foreach($apps as $app)
+          <style type="text/css">
+              .services .icon-box:hover .colorapp{{ $app->id }} {
+                color: {{ $app->color }} !important;
+              }
+
+          </style>
           <div class="col-xl-3 col-md-4 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100" style="padding: 1%;">
             <div class="icon-box">
-              <div class="icon"><i class="{{ getIconsArray($cod) }}"></i></div>
-              <h4><a href="{{ getURLAppsArray($cod) }}">{{ $app }}</a></h4>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+              <div class="icon">
+              <h4><a class="colorapp{{ $app->id }}" href="{{ url($app->url) }}"><i class="colorapp{{ $app->id }} {{ $app->icon }}"></i> {{ $app->name }}</a></h4></div>
+              <p>
+                @if(session('lang')=='en')
+                  {{ $app->description_english }}
+                @else
+                  {{ $app->description }}                
+                @endif
+              </p>
             </div>
           </div>
-          @endforeach
-          
+          @endforeach          
 
         </div>
 

@@ -15,15 +15,16 @@ class CreateEnvironmentsTable extends Migration
     {
         Schema::create('environments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('picture')->nullable();
             $table->string('description')->nullable();
             $table->string('length')->nullable();
             $table->string('latitude')->nullable();
-            $table->foreignId('productive_units_id')->constrained()->ondelete('cascade');
-            $table->string('status')->nullable();
+            $table->foreignId('farm_id')->constrained()->onDelete('cascade');
+            $table->foreignId('productive_unit_id')->constrained()->onDelete('cascade');
+            $table->enum('status',['Disponible','No Disponible']);
             $table->string('type_environment')->nullable();
-            $table->string('environment_classroom')->nullable();
+            $table->foreignId('class_environment_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -36,6 +37,7 @@ class CreateEnvironmentsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('environments');
     }
 }

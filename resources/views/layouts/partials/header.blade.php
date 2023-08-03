@@ -19,9 +19,9 @@
               @auth
                  <a href="{{ route('cefa.home') }}">{{ Auth::user()->nickname }}</a>
                 <ul>
-                  <li><a href="#">Cambiar contraseña</a></li>
+                  <li><a href="{{ route('password.update') }}">Cambiar contraseña</a></li>
                   <li>
-                    
+
                 <a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">Salir</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -29,14 +29,28 @@
                 </form>
 
                   </li>
-                </ul>              
+                </ul>
               @else
                   <a href="{{ route('login') }}">Log in</a>
-              @endauth            
+
+
 
           </li>
+            
+          @endauth
+                <!-- languaje Dropdown Menu-->
+          <li class="dropdown">
+            <a class="nav-link scrollto" data-toggle="dropdown" href="#">
+              {{ session('lang') }} <i class="fas fa-globe"></i>
+            </a>
+            <ul>
+              <li><a href="{{ url('lang',['es']) }}" class="dropdown-item scrollto">Español</a></li>
+              <li><a href="{{ url('lang',['en']) }}" class="dropdown-item scrollto">English</a></li>
+            </ul>
+          </li>
+
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
+
       </nav><!-- .navbar -->
 
     </div>

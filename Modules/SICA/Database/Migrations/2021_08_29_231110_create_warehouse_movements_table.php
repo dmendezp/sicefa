@@ -15,12 +15,11 @@ class CreateWarehouseMovementsTable extends Migration
     {
         Schema::create('warehouse_movements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('warehouses_id')->constrained()->onDelete('cascade');
-            $table->foreignId('movements_id')->constrained()->onDelete('cascade');
-            $table->string('name');
-            $table->text('description');
-            $table->timestamps();
+            $table->foreignId('productive_unit_warehouse_id')->constrained()->onDelete('cascade');
+            $table->foreignId('movement_id')->constrained()->onDelete('cascade');
+            $table->enum('role',['Entrega','Recibe']);
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -31,6 +30,7 @@ class CreateWarehouseMovementsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('warehouse_movements');
     }
 }

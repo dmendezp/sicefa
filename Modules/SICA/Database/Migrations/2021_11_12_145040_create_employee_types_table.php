@@ -15,7 +15,7 @@ class CreateEmployeeTypesTable extends Migration
     {
         Schema::create('employee_types', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
+            $table->string('name')->unique();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +28,7 @@ class CreateEmployeeTypesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('employee_types');
     }
 }

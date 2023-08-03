@@ -14,12 +14,13 @@ class CreateCoursesTable extends Migration
     public function up()
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->id(); 
-            $table->unsignedInteger('code')->unique();          
+            $table->id();
+            $table->unsignedInteger('code')->unique();
             $table->date('star_date');
             $table->date('end_date');
-            $table->foreignId('program_id')->constrained()->onDelete('cascade');  
-            $table->enum('deschooling', ['Lunes','Martes','Miercoles','Jueves','Viernes' ]);
+            $table->enum('status',['Activo','Inactivo'])->default('Activo');
+            $table->foreignId('program_id')->constrained()->onDelete('cascade');
+            $table->enum('deschooling', ['Lunes','Martes','Miércoles','Jueves','Viernes'])->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +33,7 @@ class CreateCoursesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('courses');
     }
 }

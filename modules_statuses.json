@@ -1,3 +1,11 @@
 {
-    "SICA": true
+    "SICA": true,
+    "EVS": true,
+    "BOLMETEOR": true,
+    "CEFAMAPS": true,
+    "TILABS": true,
+    "SENAEMPRESA": true,
+    "CPD": true,
+    "PTVENTA": true,
+    "SIGAC": true
 }

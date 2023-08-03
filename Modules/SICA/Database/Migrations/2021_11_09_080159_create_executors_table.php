@@ -15,9 +15,9 @@ class CreateExecutorsTable extends Migration
     {
         Schema::create('executors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained()->ondelete('cascade');
-            $table->foreignId('labor_id')->constrained()->ondelete('cascade');
-            $table->foreignId('Responsibilitie_id')->constrained()->ondelete('cascade');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->foreignId('labor_id')->constrained()->onDelete('cascade');
+            $table->foreignId('responsibility_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +30,7 @@ class CreateExecutorsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('executors');
     }
 }

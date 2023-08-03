@@ -34,7 +34,12 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-
+        $this->mapPeopleRoutes();
+        $this->mapAcademyRoutes();
+        $this->mapInventoryRoutes();
+        $this->mapLocationRoutes();
+        $this->mapSecurityRoutes();
+        $this->mapUnitRoutes();
         $this->mapWebRoutes();
     }
 
@@ -52,6 +57,47 @@ class RouteServiceProvider extends ServiceProvider
             ->group(module_path('SICA', '/Routes/web.php'));
     }
 
+    protected function mapPeopleRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->moduleNamespace)
+            ->group(module_path('SICA', '/Routes/people.php'));
+    }
+
+    protected function mapAcademyRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->moduleNamespace)
+            ->group(module_path('SICA', '/Routes/academy.php'));
+    }
+
+    protected function mapInventoryRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->moduleNamespace)
+            ->group(module_path('SICA', '/Routes/inventory.php'));
+    }
+
+    protected function mapLocationRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->moduleNamespace)
+            ->group(module_path('SICA', '/Routes/location.php'));
+    }
+
+    protected function mapSecurityRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->moduleNamespace)
+            ->group(module_path('SICA', '/Routes/security.php'));
+    } 
+
+    protected function mapUnitRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->moduleNamespace)
+            ->group(module_path('SICA', '/Routes/unit.php'));
+    } 
     /**
      * Define the "api" routes for the application.
      *

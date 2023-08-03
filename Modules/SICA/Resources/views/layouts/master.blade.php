@@ -1,19 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Module SICA</title>
+@include('sica::layouts.partials.head')
 
-       {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/sica.css') }}"> --}}
+@section('stylesheet')
+@show
 
-    </head>
-    <body>
-        @yield('content')
+<body class="hold-transition sidebar-mini">
 
-        {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/sica.js') }}"></script> --}}
-    </body>
+<div class="wrapper">
+  <!-- Navbar -->
+    @include('sica::layouts.partials.navbar')
+  <!-- /.navbar -->
+  <!-- Main Sidebar Container -->
+    @include('sica::layouts.partials.sidebar')
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    @include('sica::layouts.partials.breadcrumb')
+    <!-- /.content-header -->
+    <!-- Main content -->
+    @section('content')
+    @show
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <!-- Main Footer -->
+    @include('sica::layouts.partials.footer')
+</div>
+<!-- ./wrapper -->
+<!-- REQUIRED SCRIPTS -->
+@include('sica::layouts.partials.scripts')
+
+@section('script')
+@show
+
+</body>
 </html>

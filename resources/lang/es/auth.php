@@ -3,6 +3,7 @@
 return [
 
     'Login' => 'Acceso',
+    'Logout' => 'Salir',
     'E-Mail Address' => 'Correo electrónico',
     'Password' => 'Contraseña',
     'Remember Me' => 'Recordar datos',
