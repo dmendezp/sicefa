@@ -177,7 +177,6 @@ class EnvironmentController extends Controller
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
-        return $editcoor;
     }
 
     /**
