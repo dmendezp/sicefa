@@ -14,17 +14,17 @@
           @if(isset(Auth::user()->person->avatar))
           <img src="{{ asset('storage/'.Auth::user()->person->avatar) }}" class="img-circle elevation-2" alt="User Image">
           @else
-          <img src="{{ asset('sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
           @endif
         </div>
         @guest
           <div class="col info info-user">
-            <div>{{ trans('menu.Welcome') }}</div>             
+            <div>{{ trans('menu.Welcome') }}</div>
             <div><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
 
           </div>
           <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block" ><i class="fas fa-sign-in-alt"></i></a>
-          </div>  
+          </div>
         @else
           <div class="col info info-user">
             <div data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">{{ Auth::user()->nickname }}</div>
@@ -50,9 +50,9 @@
                       {{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}
                     </p>
                   </a>
-                </li>  
+                </li>
             </ul>
-        </nav>      
+        </nav>
       </div>
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -83,7 +83,7 @@
                 {{ __('Dashboard') }}
               </p>
             </a>
-          </li>  
+          </li>
           <li class="nav-item">
             <a href="{{ route('tilabs.admin.loan') }}" class="nav-link {{ ! Route::is('tilabs.admin.loan') ?: 'active' }}">
               <i class="fas fa-share"></i>
@@ -91,7 +91,7 @@
                 {{ __('Préstamo') }}
               </p>
             </a>
-          </li>      
+          </li>
           <li class="nav-item">
             <a href="{{ route('tilabs.admin.return') }}" class="nav-link {{ ! Route::is('tilabs.admin.return') ?: 'active' }}">
               <i class="fas fa-reply"></i>
@@ -116,7 +116,7 @@
                 {{ __('Inventario') }}
               </p>
             </a>
-          </li>       
+          </li>
           <li class="nav-item">
             <a href="{{ route('cefa.tilabs.developers') }}" class="nav-link {{ ! Route::is('cefa.tilabs.developers') ?: 'active' }}">
               <i class="fas fa-users"></i>

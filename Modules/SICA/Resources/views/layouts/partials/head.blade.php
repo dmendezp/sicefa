@@ -5,23 +5,23 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>SICA | {{ $title }}</title>
   <!-- Favicons -->
-  <link href="{{ asset('sica/favicon.ico') }}" rel="icon">
+  <link href="{{ asset('modules/sica/favicon.ico') }}" rel="icon">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
 <!-- Loading the v6 core styles and the Solid and Brands styles -->
-  <link href="{{ asset('fontawesome6/css/fontawesome.css') }}" rel="stylesheet">
-  <link href="{{ asset('fontawesome6/css/brands.css') }}" rel="stylesheet">
-  <link href="{{ asset('fontawesome6/css/solid.css') }}" rel="stylesheet">
+  <link href="{{ asset('libs/Fontawesome6/css/fontawesome.css') }}" rel="stylesheet">
+  <link href="{{ asset('libs/Fontawesome6/css/brands.css') }}" rel="stylesheet">
+  <link href="{{ asset('libs/Fontawesome6/css/solid.css') }}" rel="stylesheet">
 
   <!-- update existing v5 CSS to use v6 icons and assets -->
-  <link href="{{ asset('fontawesome6/css/v5-font-face.css') }}" rel="stylesheet">
+  <link href="{{ asset('libs/Fontawesome6/css/v5-font-face.css') }}" rel="stylesheet">
 
 
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/fullcalendar/lib/main.css') }}">
-  <link rel="stylesheet" href="{{ asset('sica/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('modules/sica/css/style.css') }}">
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">

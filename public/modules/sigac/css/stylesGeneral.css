@@ -94,7 +94,7 @@
 
 /* Tamaño del texto de la pantalla inicial */
 .hmax {
-  font-size: 60px;
+  font-size: 35px;
 }
 
 /* Clase que aplica la propiedad de tamaño de la imagen que este dentro de la card de la pagina principal */
@@ -416,4 +416,8 @@
   100% {
     transform: scale(1, 1);
   }
+}
+
+p {
+  font-size: 90%;
 }
