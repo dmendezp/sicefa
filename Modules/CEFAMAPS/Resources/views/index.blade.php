@@ -5,7 +5,6 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <!-- /.col-md-6 -->
         <div class="col-lg-12">
           <div class="card card-lightblue card-outline">
             <div class="card-header">
@@ -16,10 +15,8 @@
             </div>
           </div>
         </div>
-        <!-- /.col-md-6 -->
       </div>
-      <!-- /.row -->
-    </div><!-- /.container-fluid -->
+    </div>
   </div>
   
 @endsection
@@ -56,25 +53,18 @@
       mapTypeId: 'satellite' /* El tipo de mapa */
     });
 
-   
-
-
     /* Inicio del Poligono antes de la Carretera*/
     // The marker, positioned at Uluru
     const markerGeneral = new google.maps.Marker({
       position: { lat: 2.611609, lng: -75.367646 }, 
       map: map,
       tittle: "General CEFA",
-     
     });
 
    // Nombre del Sena, dentro del marcador. 
     const infoGeneral = new google.maps.InfoWindow();
-        infoGeneral.setContent(
-        '<div id="content">Centro de Formación Agroindustrial Sena "La Angostura" </div>'); // Aqui va el Nombre completo del Sena. 
-  
-
-    markerGeneral.addListener("click", () => {
+      infoGeneral.setContent('<div id="content">Centro de Formación Agroindustrial Sena "La Angostura" </div>'); // Aqui va el Nombre completo del Sena. 
+      markerGeneral.addListener("click", () => {
       infoGeneral.open(map, markerGeneral);
     });
 
@@ -404,8 +394,6 @@
       { lat: 2.622410, lng: -75.368208 },
       { lat: 2.622584, lng: -75.368351 },
       { lat: 2.622710, lng: -75.368564 }, 
-
-  
     ];
       
     // Construcción del poligono antes de la carretera.
@@ -420,36 +408,27 @@
       fillOpacity: 0.35,
     });
     PolygonGeneral.setMap(map);
+    // Aqui empieza el Poligono despues de la carretera (POTRERO)
+    // The location of Uluru
+    const potrero = { lat: 2.625673,  lng:-75.361339 };
 
-
-
- 
- // Aqui empieza el Poligono despues de la carretera (POTRERO)
-  // The location of Uluru
- const potrero = { lat: 2.625673,  lng:-75.361339 };
-
-
-   //Inicio del Poligono del potrero 
-  // The marker, positioned at Uluru
+    //Inicio del Poligono del potrero 
+    // The marker, positioned at Uluru
     const markerPotrero = new google.maps.Marker({
       position: { lat: 2.625673, lng:-75.361339  }, 
       map: map,
       tittle: "Potrero CEFA", 
-             
     });
 
     // Nombre del Sena dentro del marcador
     const infoGeneralP = new google.maps.InfoWindow();
-        infoGeneralP.setContent(
-        '<div id="content">Centro de Formación Agroindustrial Sena "La Angostura"</div>'); // Aqui va el Nombre completo del Sena. 
-        
+      infoGeneralP.setContent('<div id="content">Centro de Formación Agroindustrial Sena "La Angostura"</div>'); // Aqui va el Nombre completo del Sena.
+      markerPotrero.addListener("click", () => {
+      infoGeneralP.open(map, markerPotrero);
+    });
 
-    markerPotrero.addListener("click", () => {
-          infoGeneralP.open(map, markerPotrero);
-        });
-
-// Define the LatLng coordinates for the polygon's path.
-   const PoGeneral = [
+    // Define the LatLng coordinates for the polygon's path.
+    const PoGeneral = [
       { lat: 2.616481, lng: -75.359606 },
       { lat: 2.616753, lng: -75.359763 },
       { lat: 2.617707, lng: -75.360326 },
@@ -517,10 +496,9 @@
       { lat: 2.618068, lng: -75.359147 },
       { lat: 2.618016, lng: -75.359192 }, 
    ];
-  
 
-   // Construccion del poligono despues de la carretera.
-   const PolygonGeneralPotrero = new google.maps.Polygon({
+    // Construccion del poligono despues de la carretera.
+    const PolygonGeneralPotrero = new google.maps.Polygon({
       paths: PoGeneral,
       /* color de los bordes del area */
       strokeColor: "#E4FF01",
@@ -531,8 +509,7 @@
       fillOpacity: 0.35,
     });
     PolygonGeneralPotrero.setMap(map);
- 
-  
+
   }
 </script>
 
