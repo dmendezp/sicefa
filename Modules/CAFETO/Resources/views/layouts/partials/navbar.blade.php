@@ -13,23 +13,13 @@
     <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
         <li class="nav-item mx-1">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Volver a SICEFA">
-                <i class="fas fa-walking" style="color: #ffffff;"></i>
-            </a>
-        </li>
-        <li class="nav-item mx-1">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Iniciar Sesión">
-                <i class="fas fa-unlock-alt" style="color: #ffffff;"></i>
-            </a>
-        </li>
-        <li class="nav-item mx-1">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Pantalla Completa">
-                <i class="fas fa-expand-arrows-alt" style="color: #ffffff;"></i>
+                <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
         <li class="nav-item mx-1">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Aplicaciones">
-                <i class="fas fa-th-large" style="color: #fefefe"></i>
+                <i class="fa-solid fa-shapes"></i>
             </a>
         </li>
     </ul>

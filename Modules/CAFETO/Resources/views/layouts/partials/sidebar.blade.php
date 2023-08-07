@@ -21,11 +21,11 @@
             </div>
             @guest
                 <div class="col info info-user">
-                    <a href="{{ route('login') }}" class="d-block" style="text-decoration: none">Iniciar Sesion</a>
+                    <a href="{{ route('login') }}" class="d-block" style="text-decoration: none; color:white">Iniciar Sesion</a>
                 </div>
                 <div class="col-auto info float-right ">
                     <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Ingresar">
-                        <i class="fas fa-sign-in-alt"></i>
+                        <i class="fas fa-sign-in-alt"  style="color:white"></i>
                     </a>
                 </div>
             @else
