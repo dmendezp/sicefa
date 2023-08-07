@@ -18,44 +18,44 @@
             <div class="carousel-container">
                 <div class="card-carousel">
                     <div class="card" style="width: 18rem;">
-                        <div class="text-center"> <!-- Agrega una clase para centrar contenido horizontalmente -->
+                        <div class="text-center">
                             <img src="{{ asset('modules/cafeto/images/gifs/capuccino.gif') }}" class="card-img-top img-size"
                                 alt="...">
                         </div>
-                        <div class="card-body text-center"> <!-- También centrar el contenido del cuerpo de la tarjeta -->
+                        <div class="card-body text-center">
                             <h5>Capuccino</h5>
                             <p class="card-text">"Sumérgete en la suavidad del Capuchino: Una danza perfecta de espresso intenso y espuma sedosa, coronada con un toque de arte en cada taza."</p>
                         </div>
                     </div>
 
                     <div class="card" style="width: 18rem;">
-                        <div class="text-center"> <!-- Agrega una clase para centrar contenido horizontalmente -->
+                        <div class="text-center">
                             <img src="{{ asset('modules/cafeto/images/gifs/maquina-de-cafe.gif') }}"
                                 class="card-img-top img-size" alt="...">
                         </div>
-                        <div class="card-body text-center"> <!-- También centrar el contenido del cuerpo de la tarjeta -->
+                        <div class="card-body text-center">
                             <h5>Deliciosos y recien salidos</h5>
                             <p class="card-text">"Tu aliada en la búsqueda de la taza perfecta. Nuestra máquina cafetera combina elegancia y precisión para ofrecerte el mejor café en cada sorbo, convirtiendo cada momento en una experiencia sensorial única."</p>
                         </div>
                     </div>
 
                     <div class="card" style="width: 18rem;">
-                        <div class="text-center"> <!-- Agrega una clase para centrar contenido horizontalmente -->
+                        <div class="text-center">
                             <img src="{{ asset('modules/cafeto/images/gifs/cafefast.gif') }}" class="card-img-top img-size"
                                 alt="...">
                         </div>
-                        <div class="card-body text-center"> <!-- También centrar el contenido del cuerpo de la tarjeta -->
+                        <div class="card-body text-center">
                             <h5>Granizado</h5>
                             <p class="card-text">"Refrescante indulgencia con un giro. Nuestro Granizado de Café fusiona la energía del café con la frescura de un deleite helado, llevando tu paladar en un emocionante paseo de sabores y texturas."</p>
                         </div>
                     </div>
 
                     <div class="card" style="width: 18rem;">
-                        <div class="text-center"> <!-- Agrega una clase para centrar contenido horizontalmente -->
+                        <div class="text-center">
                             <img src="{{ asset('modules/cafeto/images/gifs/cafe.gif') }}" class="card-img-top img-size"
                                 alt="...">
                         </div>
-                        <div class="card-body text-center"> <!-- También centrar el contenido del cuerpo de la tarjeta -->
+                        <div class="card-body text-center">
                             <h5>Campesino</h5>
                             <p class="card-text">"El corazón aromático de cada taza. Nuestras pepas de café son cuidadosamente seleccionadas y tostadas para liberar un abanico de sabores cautivadores, llevándote en un viaje desde la plantación hasta tu taza con cada exquisito sorbo."</p>
                         </div>
@@ -110,13 +110,6 @@
         // Iniciar la inversión de la animación al final de cada iteración
         cardCarousel.on('animationiteration', function() {
             reverseAnimation();
-        });
-
-        // Pausar y reanudar la animación al pasar el cursor sobre el contenedor
-        $('.carousel-container').hover(function() {
-            cardCarousel.css('animation-play-state', 'paused');
-        }, function() {
-            cardCarousel.css('animation-play-state', 'running');
         });
     });
 </script>

@@ -5,6 +5,7 @@ namespace Modules\CAFETO\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\App;
 
 class SaleController extends Controller
 {
@@ -14,9 +15,9 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $page_title = 'Ventas - Registro';
-        $view_title = 'Registrar venta';
-        return view('cafeto::sale.index', compact('page_title', 'view_title'));
+        $view = ['titlePage'=>'Ventas - Registro', 'titleView'=>'Registrar venta'];
+        $apps = App::get();
+        return view('cafeto::sale.index',compact('apps', 'view'));
     }
 
     /**

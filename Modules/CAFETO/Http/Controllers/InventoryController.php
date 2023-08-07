@@ -5,6 +5,7 @@ namespace Modules\CAFETO\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\App;
 
 class InventoryController extends Controller
 {
@@ -14,9 +15,9 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $page_title = 'Inventario';
-        $view_title = 'Administración de inventario';
-        return view('cafeto::inventory.index', compact('page_title', 'view_title'));
+        $view = ['titlePage'=>'Inventario', 'titleView'=>'Administración de inventario'];
+        $apps = App::get();
+        return view('cafeto::inventory.index', compact('apps', 'view'));
     }
 
     /**

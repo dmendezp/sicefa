@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Element;
+use Modules\SICA\Entities\App;
 use Validator;
 
 class ElementController extends Controller
@@ -16,15 +17,15 @@ class ElementController extends Controller
      */
     public function index()
     {
-        $page_title = 'Productos';
-        $view_title = 'Administracion de imágenes de productos';
-        return view('cafeto::element.index', compact('page_title', 'view_title'));
+        $view = ['titlePage'=>'Productos', 'titleView'=>'Administracion de imágenes de productos'];
+        $apps = App::get();
+        return view('cafeto::element.index', compact('apps','view'));
     }
 
     public function edit(Element $element){ // Vista de formulario para actualizar imagen de elemento
-        $page_title = 'Actualizar Productos';
-        $view_title = 'Actualiación de producto';
-        return view('cafeto::element.edit', compact('element','page_title','view_title'));
+        $view = ['titlePage'=>'Actualizar Productos', 'titleView'=>'Actualización de productos'];
+        $apps = App::get();
+        return view('cafeto::element.edit', compact('apps', 'view'));
     }
 
     public function update(Request $request, Element $element){ // Actualización de imagen de element
