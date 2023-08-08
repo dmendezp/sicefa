@@ -92,6 +92,55 @@
                         <p>Productos</p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-light">
+                        <i class="nav-icon fa-solid fa-bars"></i>
+                        <p>Control de Menú</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-light">
+                        <i class="nav-icon fa-solid fa-cash-register"></i>
+                        <p>Control de Caja</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-light">
+                        <i class="nav-icon fa-solid fa-chart-simple"></i>
+                        <p>Panel de Reportes</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-light">
+                        <i class="nav-icon fa-solid fa-ruler"></i>
+                        <p>Unidades de Medida</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-light">
+                        <i class="nav-icon fa-solid fa-gears"></i>
+                        <p>Configuración</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-light">
+                        <i class="nav-icon fa-solid fa-info"></i>
+                        <p>Acerca de</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-light">
+                        <i class="nav-icon fa-solid fa-code"></i>
+                        <p>Desarrolladores</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
