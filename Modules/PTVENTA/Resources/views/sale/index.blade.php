@@ -9,10 +9,12 @@
     <div class="card card-success card-outline shadow-sm">
         <div class="card-body pt-0">
             <div class="text-end my-2">
-                <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.sale.register') }}" class="btn btn-sm btn-success">
-                    <i class="fa-solid fa-plus fa-bounce"></i>
-                    {{ trans('ptventa::sales.Btn1') }}
-                </a>
+                @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.sale.register'))
+                    <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.sale.register') }}" class="btn btn-sm btn-success">
+                        <i class="fa-solid fa-plus fa-bounce"></i>
+                        {{ trans('ptventa::sales.Btn1') }}
+                    </a>
+                @endif
             </div>
             @if($cashCount)
             <div class="table-responsive"  @if(!count($sales)) hidden @endif>

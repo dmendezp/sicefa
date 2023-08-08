@@ -3,7 +3,6 @@
 namespace Modules\PTVENTA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Permission;
 use Modules\SICA\Entities\Role;
@@ -46,54 +45,72 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista de configuración (administrador)
+        // Vista de configuración (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.configuration.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista de configuración (administrador)',
+            'name' => 'Vista de configuración (Administrador)',
             'description' => 'Configuración de parametros generales y testeo de impresión pos',
             'description_english' => 'Configuration of general parameters and post printing test',
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista de configuración (cajero)
+        // Vista de configuración (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.configuration.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista de configuración (cajero)',
+            'name' => 'Vista de configuración (Cajero)',
             'description' => 'Configuración de parametros generales y testeo de impresión pos',
             'description_english' => 'Configuration of general parameters and post printing test',
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista del inventario actual (administrador)
+        // Generar impresión pos de prueba (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.configuration.postprinting'], [ // Registro o actualización de permiso
+            'name' => 'Generar impresión pos de prueba (Administrador)',
+            'description' => 'Generar impresión pos de prueba',
+            'description_english' => 'Generate test post printing',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar impresión pos de prueba (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.configuration.postprinting'], [ // Registro o actualización de permiso
+            'name' => 'Generar impresión pos de prueba (Cajero)',
+            'description' => 'Generar impresión pos de prueba',
+            'description_english' => 'Generate test post printing',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista del inventario actual (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.inventory.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista del inventario actual (administrador) ',
+            'name' => 'Vista del inventario actual (Administrador) ',
             'description' => 'Puede ver el inventario actual de productos (elementos) en bodega',
             'description_english' => 'You can see the current inventory of products (elements) in warehouse',
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista del inventario actual (cajero)
+        // Vista del inventario actual (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.inventory.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista del inventario actual (cajero) ',
+            'name' => 'Vista del inventario actual (Cajero) ',
             'description' => 'Puede ver el inventario actual de productos (elementos) en bodega',
             'description_english' => 'You can see the current inventory of products (elements) in warehouse',
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
-        // Formulario de registro de entrada de inventario (administrador)
+        // Formulario de registro de entrada de inventario (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.inventory.create'], [ // Registro o actualización de permiso
-            'name' => 'Formulario de registro de entrada de inventario (administrador)',
+            'name' => 'Formulario de registro de entrada de inventario (Administrador)',
             'description' => 'Formulario de registro de entrada de inventario',
             'description_english' => 'Inventory entry registration form',
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Formulario de registro de entrada de inventario (cajero)
+        // Formulario de registro de entrada de inventario (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.inventory.create'], [ // Registro o actualización de permiso
-            'name' => 'Formulario de registro de entrada de inventario (cajero)',
+            'name' => 'Formulario de registro de entrada de inventario (Cajero)',
             'description' => 'Formulario de registro de entrada de inventario',
             'description_english' => 'Inventory entry registration form',
             'app_id' => $app->id
@@ -101,7 +118,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
         // Registro de entrada de inventario (Administrador y/o Cajero)
-        $permission = Permission::updateOrCreate(['slug' => 'ptventa.inventory.store'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin-cashier.inventory.store'], [ // Registro o actualización de permiso
             'name' => 'Registro de entrada de inventario (Administrador y/o Cajero)',
             'description' => 'Registro de entrada de inventario',
             'description_english' => 'Inventory entry record',
@@ -110,18 +127,18 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
-        // Ver productos vencidos y por vencer (administrador)
+        // Ver productos vencidos y por vencer (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.inventory.status'], [ // Registro o actualización de permiso
-            'name' => 'Ver productos vencidos y por vencer (administrador)',
+            'name' => 'Ver productos vencidos y por vencer (Administrador)',
             'description' => 'Ver productos vencidos y por vencer',
             'description_english' => 'View expired and expiring products',
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Ver productos vencidos y por vencer (cajero)
+        // Ver productos vencidos y por vencer (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.inventory.status'], [ // Registro o actualización de permiso
-            'name' => 'Ver productos vencidos y por vencer (cajero)',
+            'name' => 'Ver productos vencidos y por vencer (Cajero)',
             'description' => 'Ver productos vencidos y por vencer',
             'description_english' => 'View expired and expiring products',
             'app_id' => $app->id
@@ -137,9 +154,9 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista principal de la sección de reportes (cajero)
+        // Vista principal de la sección de reportes (Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.reports.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista principal de la sección de reportes (Administrador)',
+            'name' => 'Vista principal de la sección de reportes (Cajero)',
             'description' => 'Vista principal de la sección de reportes',
             'description_english' => 'Main view of the reports section',
             'app_id' => $app->id
@@ -147,7 +164,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
         // Generar PDF del inventario actual (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.reports.inventory.generatePDF'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.reports.inventory.generate.pdf'], [ // Registro o actualización de permiso
             'name' => 'Generar PDF del inventario actual (Administrador)',
             'description' => 'Generar PDF del inventario actual',
             'description_english' => 'Generate PDF of current inventory',
@@ -156,7 +173,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Generar PDF del inventario actual (Cajero)
-        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.reports.inventory.generatePDF'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.reports.inventory.generate.pdf'], [ // Registro o actualización de permiso
             'name' => 'Generar PDF del inventario actual (Cajero)',
             'description' => 'Generar PDF del inventario actual',
             'description_english' => 'Generate PDF of current inventory',
@@ -309,7 +326,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
         // Registro de venta (Administrador y/o Cajero)
-        $permission = Permission::updateOrCreate(['slug' => 'ptventa.generate.sale'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin-cashier.generate.sale'], [ // Registro o actualización de permiso
             'name' => 'Registro de venta (Administrador y/o Cajero)',
             'description' => 'Registro de venta',
             'description_english' => 'Sale record',
@@ -345,7 +362,77 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Formulario de registro de producto (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.element.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de producto (Administrador)',
+            'description' => 'Formulario de registro de producto',
+            'description_english' => 'Product registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Registrar producto (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.element.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar producto (Administrador)',
+            'description' => 'Registrar producto',
+            'description_english' => 'Register product',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.cash.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)',
+            'description' => 'Vista principal de sesión de caja activa e historico de sesiones de caja',
+            'description_english' => 'Main view of active cash session and cash session history',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de sesión de caja activa e historico de sesiones de caja (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.cash.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de sesión de caja activa e historico de sesiones de caja (Cajero)',
+            'description' => 'Vista principal de sesión de caja activa e historico de sesiones de caja',
+            'description_english' => 'Main view of active cash session and cash session history',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar caja cuando no hay ninguna activa (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.cash.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar caja cuando no hay ninguna activa (Administrador)',
+            'description' => 'Registrar caja cuando no hay ninguna activa',
+            'description_english' => 'Register box when there is none active',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar caja cuando no hay ninguna activa (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.cash.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar caja cuando no hay ninguna activa (Cajero)',
+            'description' => 'Registrar caja cuando no hay ninguna activa',
+            'description_english' => 'Register box when there is none active',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Cerrar sesión de caja (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.cash.close'], [ // Registro o actualización de permiso
+            'name' => 'Cerrar sesión de caja (Administrador)',
+            'description' => 'Cerrar sesión de caja',
+            'description_english' => 'Close cash session',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Cerrar sesión de caja (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.cash.close'], [ // Registro o actualización de permiso
+            'name' => 'Cerrar sesión de caja (Cajero)',
+            'description' => 'Cerrar sesión de caja',
+            'description_english' => 'Close cash session',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
 
 

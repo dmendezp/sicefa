@@ -136,7 +136,7 @@ class RegisterEntry extends Component
 
     // Registrar entrada de inventario
     public function registerEntry(){
-        Gate::authorize('haveaccess', 'ptventa.inventory.store'); // Verificar permiso por parte del usuario
+        Gate::authorize('haveaccess', 'ptventa.admin-cashier.inventory.store'); // Verificar permiso por parte del usuario
         if($this->selected_products->isNotEmpty()){
             if(!empty($this->dpu_id)){ // Validad que una unidad productiva de origen esté seleccionada
                 if(!empty($this->dpuw_id)){ // Validad que la bodega de origen esté seleccionada

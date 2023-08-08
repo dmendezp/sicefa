@@ -149,10 +149,12 @@
                     </ul>
 
                     <div class="text-center mt-2">
-                        <button class="btn btn-sm btn-success" id="sale_button" wire:click="registerSale($('#change_value').val())" wire:loading.attr="disabled" wire:target="registerSale" disabled>
-                            <i class="far fa-plus-square"></i>
-                            {{ trans('ptventa::sales.Btn1')}}
-                        </button>
+                        @if(Auth::user()->havePermission('ptventa.admin-cashier.generate.sale'))
+                            <button class="btn btn-sm btn-success" id="sale_button" wire:click="registerSale($('#change_value').val())" wire:loading.attr="disabled" wire:target="registerSale" disabled>
+                                <i class="far fa-plus-square"></i>
+                                {{ trans('ptventa::sales.Btn1')}}
+                            </button>
+                        @endif
                     </div>
 
                 </div>

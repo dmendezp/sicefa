@@ -3,6 +3,7 @@
 namespace Modules\PTVENTA\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Route;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
 use Modules\PTVENTA\Entities\CashCount;
@@ -38,7 +39,7 @@ class SaleController extends Controller
                                     ->where('state', 'Abierta')
                                     ->first();
         if (!$open_cash_count) {
-            return redirect()->route('ptventa.sale.index')->with('error', 'Primero debes abrir una caja.');
+            return redirect(route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.sale.index'))->with('error', 'Primero debes abrir una caja.');
         }
         // Continuar con la vista de registro de venta si hay una caja abierta
         $view = ['titlePage' => trans('ptventa::sales.titlePage'), 'titleView' => trans('ptventa::sales.titleView2')];

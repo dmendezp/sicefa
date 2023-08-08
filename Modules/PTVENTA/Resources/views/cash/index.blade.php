@@ -6,7 +6,7 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('ptventa.cash.index') }}" class="text-decoration-none">{{ trans('ptventa::cash.Cash') }}</a>
+        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.cash.index') }}" class="text-decoration-none">{{ trans('ptventa::cash.Cash') }}</a>
     <li class="breadcrumb-item active">{{ trans('ptventa::cash.Cash Control') }}</li>
     </li>
 @endpush
@@ -19,13 +19,15 @@
                     <div class="d-flex justify-content-center align-items-center flex-column">
                         <h4 class="text-center">{{ trans('ptventa::cash.TitleCard1') }}</h4>
                         <div class="mt-3">
-                          @if(!isset($active_cash))
-                            {!! Form::open(['route' => 'ptventa.cash.store', 'class' => 'form-row']) !!}
-                                <button type="submit" class="btn btn-success btn-block w-auto">
-                                    <i class="fas fa-check"></i> {{ trans('ptventa::cash.Btn1') }}
-                                </button>
-                            {!! Form::close() !!}
-                          @endif
+                            @if(!isset($active_cash))
+                                @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.cash.store'))
+                                    {!! Form::open(['route' => 'ptventa.'.getRoleRouteName(Route::currentRouteName()).'.cash.store', 'class' => 'form-row']) !!}
+                                        <button type="submit" class="btn btn-success btn-block w-auto">
+                                            <i class="fas fa-check"></i> {{ trans('ptventa::cash.Btn1') }}
+                                        </button>
+                                    {!! Form::close() !!}
+                                @endif
+                            @endif
                         </div>
                       </div>
                     <hr>
@@ -52,19 +54,21 @@
                                         <td>{{ priceFormat($active_cash->total_sales) }}</td>
                                         <td>{{ $active_cash->state }}</td>
                                         <td>
-                                            <div data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ trans('ptventa::cash.TextTooltip1') }}">
-                                                <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal"
-                                                    data-cash-count-id="{{ $active_cash->id }}"
-                                                    data-opening-manager="{{ $active_cash->person->full_name }}"
-                                                    data-date="{{ $active_cash->opening_date }}"
-                                                    data-initial-balance="{{ priceFormat($active_cash->initial_balance) }}"
-                                                    data-total-sales="{{ priceFormat($active_cash->total_sales) }}"
-                                                    data-warehouse="{{ $active_cash->productive_unit_warehouse->warehouse->name }}">
-                                                    <i class="fa-solid fa-circle-xmark"></i>
-                                                </button>
-                                            </div>
+                                            @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.cash.close'))
+                                                <div data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ trans('ptventa::cash.TextTooltip1') }}">
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-danger btn-block" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal"
+                                                        data-cash-count-id="{{ $active_cash->id }}"
+                                                        data-opening-manager="{{ $active_cash->person->full_name }}"
+                                                        data-date="{{ $active_cash->opening_date }}"
+                                                        data-initial-balance="{{ priceFormat($active_cash->initial_balance) }}"
+                                                        data-total-sales="{{ priceFormat($active_cash->total_sales) }}"
+                                                        data-warehouse="{{ $active_cash->productive_unit_warehouse->warehouse->name }}">
+                                                        <i class="fa-solid fa-circle-xmark"></i>
+                                                    </button>
+                                                </div>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endif
@@ -129,7 +133,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(['route' => 'ptventa.cash.close', 'id' => 'cierre-caja-form', 'class' => 'form-row']) !!}
+                    {!! Form::open(['route' => 'ptventa.'.getRoleRouteName(Route::currentRouteName()).'.cash.close', 'id' => 'cierre-caja-form', 'class' => 'form-row']) !!}
                         <!-- Campos del formulario -->
                         <div class="form-group col-md-4">
                             {{ Form::label('opening_manager', trans('ptventa::cash.1T2')) }}
@@ -168,7 +172,9 @@
 
                         <div class="form-group mt-4 col-md-4 d-flex justify-content-end">
                             {{ Form::hidden('cash_count_id', null, ['id' => 'cash-count-id']) }}
-                            <button type="submit" class="btn btn-danger btn-block" id="cerrar-caja-btn">{{ trans('ptventa::cash.Close cash') }}</button>
+                            @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.cash.close'))
+                                <button type="submit" class="btn btn-danger btn-block" id="cerrar-caja-btn">{{ trans('ptventa::cash.Close cash') }}</button>
+                            @endif
                         </div>
                     {!! Form::close() !!}
                 </div>

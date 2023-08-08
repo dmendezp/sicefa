@@ -40,12 +40,13 @@ function revertPriceFormat($value){
 }
 
 /* Obtner el rol a partir del nombre de la ruta */
-function getRoleRouteName($route_name){
-    if (str_contains($route_name, '.admin.')) {
-        return 'admin';
-    }
-    if (str_contains($route_name, '.cashier.')) {
-        return 'cashier';
+function getRoleRouteName($route_name) {
+    $firstDotPosition = strpos($route_name, '.');
+    if ($firstDotPosition !== false) {
+        $secondDotPosition = strpos($route_name, '.', $firstDotPosition + 1);
+        if ($secondDotPosition !== false) {
+            return substr($route_name, $firstDotPosition + 1, $secondDotPosition - $firstDotPosition - 1);
+        }
     }
     return null;
 }

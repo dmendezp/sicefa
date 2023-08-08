@@ -127,10 +127,10 @@
                                 </a>
                             </li>
                         @endif
-                        @if(Auth::user()->havePermission('ptventa.cash.index'))
+                        @if(Auth::user()->havePermission('ptventa.admin.cash.index'))
                             <li class="nav-item">
-                                <a href="{{ route('ptventa.cash.index') }}"
-                                    class="nav-link {{ !Route::is('ptventa.cash.*') ?: 'active' }}">
+                                <a href="{{ route('ptventa.admin.cash.index') }}"
+                                    class="nav-link {{ !Route::is('ptventa.admin.cash.*') ?: 'active' }}">
                                     <i class="nav-icon fas fa-cash-register"></i>
                                     <p>{{ trans('ptventa::general.Cash Control') }}</p>
                                 </a>
@@ -185,10 +185,10 @@
                                 </a>
                             </li>
                         @endif
-                        @if(Auth::user()->havePermission('ptventa.cash.index'))
+                        @if(Auth::user()->havePermission('ptventa.cashier.cash.index'))
                             <li class="nav-item">
-                                <a href="{{ route('ptventa.cash.index') }}"
-                                    class="nav-link {{ !Route::is('ptventa.cash.*') ?: 'active' }}">
+                                <a href="{{ route('ptventa.cashier.cash.index') }}"
+                                    class="nav-link {{ !Route::is('ptventa.cashier.cash.*') ?: 'active' }}">
                                     <i class="nav-icon fas fa-cash-register"></i>
                                     <p>{{ trans('ptventa::general.Cash Control') }}</p>
                                 </a>

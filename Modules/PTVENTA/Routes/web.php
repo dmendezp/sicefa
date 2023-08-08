@@ -71,20 +71,21 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
         // Rutas para Elementos
         Route::controller(ElementController::class)->group(function(){
             Route::get('admin/element/index', 'index')->name('ptventa.admin.element.index'); // Vista principal de productos (Administrador)
-            Route::get('element/edit/{element}', 'edit')->name('ptventa.admin.element.edit'); // Formulario para actualizar producto (Administrador)
-            /* =================================================================================================================================================================================================== */
-            Route::post('element/update/{element}', 'update')->name('ptventa.admin.element.update'); // Actualizar producto (Administrador)
-            /* =================================================================================================================================================================================================== */
-            Route::get('element/create', 'create')->name('ptventa.element.image.create');
-            Route::post('element/store', 'store')->name('ptventa.element.image.store');
+            Route::get('admin/element/edit/{element}', 'edit')->name('ptventa.admin.element.edit'); // Formulario para actualizar producto (Administrador)
+            Route::post('admin/element/update/{element}', 'update')->name('ptventa.admin.element.update'); // Actualizar producto (Administrador)
+            Route::get('admin/element/create', 'create')->name('ptventa.admin.element.create'); // Formulario de registro de producto (Administrador)
+            Route::post('admin/element/store', 'store')->name('ptventa.admin.element.store'); // Registrar producto (Administrador)
 
         });
 
         // Rutas para Caja
-        Route::prefix('cash')->controller(CashController::class)->group(function(){
-            Route::get('index', 'index')->name('ptventa.cash.index'); // Vista principal de caja
-            Route::post('store', 'store')->name('ptventa.cash.store'); // Permite inicializar la primera caja de la aplicacion cuando no exita ninguna abierta
-            Route::post('close', 'close')->name('ptventa.cash.close'); // Permite cerrar la caja y guardar los datos
+        Route::controller(CashController::class)->group(function(){
+            Route::get('admin/cash/index', 'index')->name('ptventa.admin.cash.index'); // Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)
+            Route::get('cashier/cash/index', 'index')->name('ptventa.cashier.cash.index'); // Vista principal de sesión de caja activa e historico de sesiones de caja (Cajero)
+            Route::post('admin/cash/store', 'store')->name('ptventa.admin.cash.store'); // Registrar caja cuando no hay ninguna activa (Administrador)
+            Route::post('cashier/cash/store', 'store')->name('ptventa.cashier.cash.store'); // Registrar caja cuando no hay ninguna activa (Cajero)
+            Route::post('admin/cash/close', 'close')->name('ptventa.admin.cash.close'); // Cerrar sesión de caja (Administrador)
+            Route::post('cashier/cash/close', 'close')->name('ptventa.cashier.cash.close'); // Cerrar sesión de caja (Cajero)
         });
 
     });

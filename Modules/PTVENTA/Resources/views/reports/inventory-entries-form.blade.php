@@ -32,18 +32,24 @@
                                     <input type="date" class="form-control" name="end_date" id="end_date"
                                         value="{{ $end_date }}" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary">{{ trans('ptventa::reports.Btn1') }} <i
-                                        class="fa-solid fa-magnifying-glass"></i></button>
+                                @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.inventory.entries'))
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ trans('ptventa::reports.Btn1') }}
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                @endif
                             </form>
                         </div>
                         <div class="col-md">
-                            <form action="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.entries.pdf') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="start_date" value="{{ $start_date }}">
-                                <input type="hidden" name="end_date" value="{{ $end_date }}">
-                                <button type="submit" class="btn btn-danger">{{ trans('ptventa::reports.Btn2') }} <i
-                                        class="fa-solid fa-file-pdf"></i></button>
-                            </form>
+                            @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.entries.pdf'))
+                                <form action="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.entries.pdf') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="start_date" value="{{ $start_date }}">
+                                    <input type="hidden" name="end_date" value="{{ $end_date }}">
+                                    <button type="submit" class="btn btn-danger">{{ trans('ptventa::reports.Btn2') }} <i
+                                            class="fa-solid fa-file-pdf"></i></button>
+                                </form>
+                            @endif
                         </div>
                     </div>
 

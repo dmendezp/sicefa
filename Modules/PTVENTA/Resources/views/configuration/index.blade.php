@@ -15,9 +15,11 @@
                 <div class="card-body">
                     <h4>{{ trans('ptventa::Configuration.TitleCard1') }}</h4>
                     <p>{{ trans('ptventa::Configuration.TextCard1') }}</p>
-                    <button class="btn btn-success" id="imprimirBtn">{{ trans('ptventa::Configuration.Btn1') }}
-                        <i class="fa-solid fa-ticket"></i>
-                    </button>
+                    @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.configuration.postprinting'))
+                        <button class="btn btn-success" id="imprimirBtn">{{ trans('ptventa::Configuration.Btn1') }}
+                            <i class="fa-solid fa-ticket"></i>
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>

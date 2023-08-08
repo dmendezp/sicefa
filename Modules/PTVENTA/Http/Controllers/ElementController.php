@@ -4,6 +4,7 @@ namespace Modules\PTVENTA\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Route;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\MeasurementUnit;
@@ -69,7 +70,7 @@ class ElementController extends Controller
             $message_ptventa = "Se ha producido un error en el momento de agregar el elemento";
             $message_ptventa_type = 'error';
         }
-        return redirect(route('ptventa.element.image.index'))->with('message_ptventa', $message_ptventa)->with('message_ptventa_type', $message_ptventa_type);
+        return redirect(route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.index'))->with('message_ptventa', $message_ptventa)->with('message_ptventa_type', $message_ptventa_type);
     }
 
     public function edit(Element $element){ // Vista de formulario para actualizar imagen de elemento
@@ -125,7 +126,7 @@ class ElementController extends Controller
             $message_ptventa = "Se ha producido un error en el momento de actualizar la imagen";
             $message_ptventa_type = 'error';
         }
-        return $this->index()->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
+        return redirect(route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.index'))->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
     }
 
 }

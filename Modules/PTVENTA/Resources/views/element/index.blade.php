@@ -10,7 +10,7 @@
     <li class="breadcrumb-item">
         <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.index') }}" class="text-decoration-none">{{ trans('ptventa::element.Products')}}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('ptventa::element.Images')}}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::element.Products')}}</li>
 @endpush
 
 @section('content')
