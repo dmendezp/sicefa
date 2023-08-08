@@ -13,3 +13,5 @@
 <link rel="stylesheet" href="{{asset('modules/cafeto/css/googlefonts.css')}}">
 <!-- Bootstrap-5.3.0-alpha -->
 <link rel="stylesheet" href=" {{ asset('libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css') }}">
+<!-- Implementacion de la libreria AOS -->
+<link href="{{ asset('libs/AOS-2.3.1/dist/aos.css') }}" rel="stylesheet">

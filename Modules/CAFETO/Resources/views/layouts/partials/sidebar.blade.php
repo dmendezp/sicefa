@@ -136,7 +136,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-light">
+                    <a href="{{ route('cefa.cafeto.devs') }}" class="nav-link {{ !Route::is('cefa.cafeto.devs*') ?: 'active' }} text-light">
                         <i class="nav-icon fa-solid fa-code"></i>
                         <p>Desarrolladores</p>
                     </a>
