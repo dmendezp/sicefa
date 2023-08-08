@@ -13,10 +13,10 @@
     <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
         <li>
-            <div class="nav-item dropdown mx-1">
+            <div class="nav-item dropdown">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
                     data-bs-toggle="tooltip" data-bs-placement="left"
-                    data-bs-title="{{ trans('ptventa::general.Language') }}">
+                    data-bs-title="{{ trans('cafeto::general.Language') }}">
                     <i class="fas fa-globe-americas"></i> {{ session('lang') }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -37,12 +37,14 @@
             </div>
         </li>
         <li class="nav-item mx-1">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Pantalla Completa">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip"
+                data-bs-placement="bottom" data-bs-title="Pantalla Completa">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
         <li class="nav-item mx-1">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Aplicaciones">
+            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Aplicaciones">
                 <i class="fa-solid fa-shapes"></i>
             </a>
         </li>

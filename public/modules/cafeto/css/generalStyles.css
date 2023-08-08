@@ -1,4 +1,4 @@
-/* Estilos personalizados de la aplicacion de CAFETo */
+/* =====Estilos personalizados de la aplicacion de CAFETO===== */
 
 body {
     background-image: url('../images/Coffe-background.jpg');
@@ -42,15 +42,6 @@ body {
 .sidebar-background-cafeto {
     background: #4B3621 !important;
     opacity: 0.7 !important;
-}
-
-#sidebar {
-    top: 0;
-    left: 0;
-    min-width: 200px;
-    max-width: 300px;
-    padding: 15px;
-    background-color: #cdeecd86;
 }
 
 .sidebar-mini.sidebar-collapse .info {
@@ -97,27 +88,134 @@ body {
 }
 
 /* Estilos varios personalizados: En caso de no quererlos solo borre la clase CSS */
-/* Color de la zona de trabajo */
 
 /* Al navegar por las vistas la primera en la guia del breadcrum tendra un tono mas claro */
 .breadcrumb-item a {
     color: #6c757d !important;
 }
 
-/* Tamaño del texto de la pantalla inicial */
-.hmax {
-    font-size: 80px;
-}
-
-.p-max{
-    font-size: 30px;
-}
-
-/* Clase que aplica la propiedad de tamaño de la imagen que este dentro de la card de la pagina principal */
-.custom-img {
-    width: 100% !important;
-    height: auto !important;
-}
+  /* CSS del boton de iniciar sesion (Estos estilos estan adaptados solo para el boton de iniciar sesion, con el fin de evitar cambios inesperados en otros botones implementados) */
+  .button-login{
+    position: relative;
+    padding: 6px 45px;
+    background: #ffffff;
+    font-size: 17px;
+    font-weight: 500;
+    color: #181818;
+    border-radius: 8px;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .2));
+  }
+  
+  .button-login:hover{
+    background: linear-gradient(85deg, #496F5D, #496f5dda, #496f5daf, #496f5dda, #496F5D);
+    animation: wind 2s ease-in-out infinite;
+  }
+  
+  @keyframes wind {
+    0% {
+      background-position: 0% 50%;
+    }
+  
+    0% {
+      background-position: 50% 100%;
+    }
+  
+    0% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .icon-1 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    transform-origin: 0 0;
+    transform: rotate(10deg);
+    transition: all .5s ease-in-out;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .3));
+  }
+  
+  .button-login:hover .icon-1{
+    animation: slay-1 3s cubic-bezier(0.52, 0, 0.58, 1) infinite;
+    transform: rotate(10deg);
+  }
+  
+  @keyframes slay-1 {
+    0% {
+      transform: rotate(10deg);
+    }
+  
+    50% {
+      transform: rotate(-5deg);
+    }
+  
+    100% {
+      transform: rotate(10deg);
+    }
+  }
+  
+  .icon-2 {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    width: 9px;
+    transform-origin: 50% 0;
+    transform: rotate(10deg);
+    transition: all 1s ease-in-out;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .5));
+  }
+  
+  .button-login:hover .icon-2 {
+    animation: slay-2 3s cubic-bezier(0.52, 0, 0.58, 1) 1s infinite;
+    transform: rotate(0);
+  }
+  
+  @keyframes slay-2 {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    50% {
+      transform: rotate(15deg);
+    }
+  
+    100% {
+      transform: rotate(0);
+    }
+  }
+  
+  .icon-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25px;
+    transform-origin: 50% 0;
+    transform: rotate(-5deg);
+    transition: all 1s ease-in-out;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .5));
+  }
+  
+  .button-login:hover .icon-3 {
+    animation: slay-3 2s cubic-bezier(0.52, 0, 0.58, 1) 1s infinite;
+    transform: rotate(0);
+  }
+  
+  @keyframes slay-3 {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    50% {
+      transform: rotate(-5deg);
+    }
+  
+    100% {
+      transform: rotate(0);
+    }
+  }
+  
+  /* Fin de estilos del boton de iniciar sesion */
 
 /* Estilos de color del footer */
 .footer-background-cafeto {
@@ -138,21 +236,22 @@ body {
     background: #fff;
     min-width: 80px;
     /* Ancho fijo deseado */
-  }
-  
-  /* Ajusta el tamaño y color que tiene en el primer momento de mostra la seccion de aplicaciones, aqui se puede ajustar el tamaño del icono y a la vez el color que tiene por defecto si pasar el mouse aun sobre el */
-  .services .icon-box .icon i {
+}
+
+/* Ajusta el tamaño y color que tiene en el primer momento de mostra la seccion de aplicaciones, aqui se puede ajustar el tamaño del icono y a la vez el color que tiene por defecto si pasar el mouse aun sobre el */
+.services .icon-box .icon i {
     color: rgba(0, 0, 0);
     font-size: 30px;
     transition: 0.3s;
-  }
-  
-  .services .icon-box h4 a {
+}
+
+.services .icon-box h4 a {
     color: #4B4B4B;
     transition: ease-in-out 0.3s;
-  }
-  
-  .services .icon-box:hover {
+}
+
+.services .icon-box:hover {
     transform: translateY(-5px);
-  }
-  
+}
+
+/* ----------------------ZONE TESTING CSS----------------- */
