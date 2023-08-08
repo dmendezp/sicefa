@@ -129,7 +129,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-light">
+                    <a href="{{ route('cefa.cafeto.info') }}" class="nav-link {{ !Route::is('cefa.cafeto.info*') ?: 'active' }} text-light">
                         <i class="nav-icon fa-solid fa-info"></i>
                         <p>Acerca de</p>
                     </a>

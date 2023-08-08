@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('cafeto')->group(function(){ //Agrega el prefijo en la url (sicefa.test/cafeto/...).
     Route::controller(CAFETOController::class)->group(function(){ //Agrega por única vez el controlador, para que seguidamente sea solo.
         Route::get('index', 'index')->name('cefa.cafeto.index');
-        Route::get('developers', 'devs')->name('cefa.cafeto.devs');
+        Route::get('developers', 'devs')->name('cefa.cafeto.devs'); // Vista de creditos y desarrolladores, pública de la aplicación (Pública)
+        Route::get('information', 'info')->name('cefa.cafeto.info'); // Vista mas info sobre PTVENTA y pública de la aplicación (Pública)
     });
 
     /* Rutas para administrar el inventario */
