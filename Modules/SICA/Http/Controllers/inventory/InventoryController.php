@@ -14,9 +14,9 @@ use Modules\SICA\Entities\KindOfPurchase;
 class InventoryController extends Controller
 {
     public function warehouses(){
-        $warehouses = Warehouse::get();
+        $warehouses = Warehouse::orderBy('updated_at','ASC')->get();
         $data = ['title'=>trans('sica::menu.Warehouses'),'warehouses'=>$warehouses];
-        return view('sica::admin.inventory.warehouses.home',$data);
+        return view('sica::admin.inventory.warehouses.index',$data);
     }
 
     /* Inicio de funciones de elementos */
@@ -32,7 +32,7 @@ class InventoryController extends Controller
     public function createElement()
     {
         $title = 'Agregar Elemento';
-        $measurement_units = MeasurementUnit::orderBy('name','ASC')->pluck('name','id'); 
+        $measurement_units = MeasurementUnit::orderBy('name','ASC')->pluck('name','id');
         $categories = Category::orderBy('name','ASC')->pluck('name','id');
         $kind_of_purchase = KindOfPurchase::orderBy('name','ASC')->pluck('name','id');
         return view('sica::admin.inventory.elements.create', compact('title', 'measurement_units', 'categories', 'kind_of_purchase'));
@@ -44,7 +44,7 @@ class InventoryController extends Controller
         if($imagen = $request->file('image')) {
             $extension =  pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION); // Capturar la extensión de la nueva imagen
             $name_image =  $element->slug . '.' . $extension; // Generar el nombre por defecto de la nueva imagen
-            $image->move(public_path('modules/sica/images/elements/'), $name_image); 
+            $image->move(public_path('modules/sica/images/elements/'), $name_image);
         }
         Element::create($element);
         return redirect()->route('sica.admin.inventory.elements');
@@ -52,14 +52,14 @@ class InventoryController extends Controller
 
     public function editElement(Element $element){
         $title = 'Agregar Elemento';
-        $measurement_units = MeasurementUnit::orderBy('name','ASC')->pluck('name','id'); 
+        $measurement_units = MeasurementUnit::orderBy('name','ASC')->pluck('name','id');
         $categories = Category::orderBy('name','ASC')->pluck('name','id');
         $kind_of_purchase = KindOfPurchase::orderBy('name','ASC')->pluck('name','id');
         return view('sica::admin.inventory.elements.edit', compact('element', 'measurement_units', 'categories', 'kind_of_purchase', 'title'));
     }
 
     public function showElement(Element $element){
-        $measurement_units = MeasurementUnit::orderBy('name','ASC')->pluck('name','id'); 
+        $measurement_units = MeasurementUnit::orderBy('name','ASC')->pluck('name','id');
         $categories = Category::orderBy('name','ASC')->pluck('name','id');
         $kind_of_purchase = KindOfPurchase::orderBy('name','ASC')->pluck('name','id');
         return view('sica::admin.inventory.elements.show', compact('element', 'measurement_units', 'categories', 'kind_of_purchase'));
