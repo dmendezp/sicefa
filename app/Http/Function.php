@@ -39,6 +39,18 @@ function revertPriceFormat($value){
     return str_replace(',', '.', $temp);
 }
 
+/* Obtner el rol a partir del nombre de la ruta */
+function getRoleRouteName($route_name) {
+    $firstDotPosition = strpos($route_name, '.');
+    if ($firstDotPosition !== false) {
+        $secondDotPosition = strpos($route_name, '.', $firstDotPosition + 1);
+        if ($secondDotPosition !== false) {
+            return substr($route_name, $firstDotPosition + 1, $secondDotPosition - $firstDotPosition - 1);
+        }
+    }
+    return null;
+}
+
 function getAppsArray(){
 	$a = [
 		'0' => 'Portal SICEFA',

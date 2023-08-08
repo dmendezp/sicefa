@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <div class="container text-center">
                         <div class="row">
-                            <div class="col-lg-6 mb-4" data-aos="zoom-in">
+                            <div class="col-lg-3 mb-4" data-aos="zoom-in">
                                 <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/JDGM0331-Profile.jpg') }}" alt="JDGM0331" width="140" height="140">
                                 <h4>{{ trans('ptventa::devs.Apprentice')}}</h4>
                                 <p>Jesús David Guevara Munar</p>
@@ -30,21 +30,15 @@
                                     <i class="fab fa-facebook"></i>
                                 </a>
                             </div>
-                            <div class="col-lg-6 mb-4" data-aos="zoom-in">
-                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                                    preserveaspectratio="xMidYMid slice" focusable="false">
-                                    <title>Placeholder</title>
-                                    <rect width="100%" height="100%" fill="#777" />
-                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                                </svg>
+                            <div class="col-lg-3 mb-4" data-aos="zoom-in">
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/SrManuel-1-Profile.jpg') }}" alt="JDGM0331" width="140" height="140">
                                 <h4>{{ trans('ptventa::devs.Apprentice')}}</h4>
                                 <p>Manuel Steven Ossa Lievano</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/manuel-steven-ossa-lievano-014b3b267/"><i class="fab fa-linkedin-in"></i></a>
                                 <a class="btn btn-dark" href="https://github.com/SrManuel-1"><i class="fab fa-github"></i></a>
-                                <a class="btn btn-info" href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-info custom-instagram-btn" href="https://www.instagram.com/st._.manuel07/"><i class="fa-brands fa-instagram"></i></a>
                             </div>
-                            <div class="col-lg-6 mb-4" data-aos="zoom-in">
+                            <div class="col-lg-3 mb-4" data-aos="zoom-in">
                                 <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
                                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
                                     preserveaspectratio="xMidYMid slice" focusable="false">
@@ -58,19 +52,13 @@
                                 <a class="btn btn-dark" href="https://github.com/nelsygomez11"><i class="fab fa-github"></i></a>
                                 <a class="btn btn-info" href="#"><i class="fab fa-twitter"></i></a>
                             </div>
-                            <div class="col-lg-6 mb-4" data-aos="zoom-in">
-                                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                                    preserveaspectratio="xMidYMid slice" focusable="false">
-                                    <title>Placeholder</title>
-                                    <rect width="100%" height="100%" fill="#777" />
-                                    <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                                </svg>
+                            <div class="col-lg-3 mb-4" data-aos="zoom-in">
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/ANYI-Profile.jpg') }}" alt="JDGM0331" width="140" height="140">
                                 <h4>{{ trans('ptventa::devs.Apprentice')}}</h4>
                                 <p>Anyi Katherine Rojas Arce</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/anyi-rojas-25a003268/"><i class="fab fa-linkedin-in"></i></a>
                                 <a class="btn btn-dark" href="https://github.com/anyi-rojas"><i class="fab fa-github"></i></a>
-                                <a class="btn btn-info" href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-info custom-twitter-btn" href="https://twitter.com/AnyiRojas0"><i class="fa-brands fa-twitter"></i></a>
                             </div>
                         </div>
                     </div>
