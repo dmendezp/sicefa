@@ -15,6 +15,7 @@ return [
     'Sales Point'    => 'Sales Point',
     'Session'        => 'Sign in',
     'Back to SICEFA' => 'Back to SICEFA',
+    'dashboard'      => 'Dashboard',
     'Inventory'      => 'Inventory',
     'Sales'          => 'Sales',
     'Products'       => 'Products',

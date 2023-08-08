@@ -200,7 +200,7 @@ class InventoryController extends Controller
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));
 
-        return view('ptventa::reports.inventoryEntriesForm', compact('view', 'start_date', 'end_date'));
+        return view('ptventa::reports.inventory-entries-form', compact('view', 'start_date', 'end_date'));
     }
 
     // Método para realizar la consulta de entradas de inventario y redirigir a la vista
@@ -344,7 +344,7 @@ class InventoryController extends Controller
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));
 
-        return view('ptventa::reports.salesForm', compact('view', 'start_date', 'end_date'));
+        return view('ptventa::reports.sales-form', compact('view', 'start_date', 'end_date'));
     }
 
     // Método para realizar la consulta de ventas y redirigir a la vista

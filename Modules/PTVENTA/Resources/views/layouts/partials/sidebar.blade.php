@@ -91,6 +91,15 @@
 
                     {{-- Menú de opciones para Administrador --}}
                     @if(Route::is('ptventa.admin.*'))
+                        @if(Auth::user()->havePermission('ptventa.admin.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('ptventa.admin.index') }}"
+                                    class="nav-link {{ !Route::is('ptventa.admin.index') ?: 'active' }}">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>{{ trans('ptventa::general.dashboard') }}</p>
+                                </a>
+                            </li>
+                        @endif
                         @if(Auth::user()->havePermission('ptventa.admin.inventory.index'))
                             <li class="nav-item">
                                 <a href="{{ route('ptventa.admin.inventory.index') }}"
@@ -109,19 +118,19 @@
                                 </a>
                             </li>
                         @endif
-                        @if(Auth::user()->havePermission('ptventa.admin.element.image.index'))
+                        @if(Auth::user()->havePermission('ptventa.admin.element.index'))
                             <li class="nav-item">
-                                <a href="{{ route('ptventa.element.image.index') }}"
-                                    class="nav-link {{ !Route::is('ptventa.admin.element.image.*') ?: 'active' }}">
+                                <a href="{{ route('ptventa.admin.element.index') }}"
+                                    class="nav-link {{ !Route::is('ptventa.admin.element.*') ?: 'active' }}">
                                     <i class="nav-icon fas fa-image"></i>
                                     <p>{{ trans('ptventa::general.Products') }}</p>
                                 </a>
                             </li>
                         @endif
-                        @if(Auth::user()->havePermission('ptventa.admin.cash.index'))
+                        @if(Auth::user()->havePermission('ptventa.cash.index'))
                             <li class="nav-item">
-                                <a href="{{ route('ptventa.admin.cash.index') }}"
-                                    class="nav-link {{ !Route::is('ptventa.admin.cash.*') ?: 'active' }}">
+                                <a href="{{ route('ptventa.cash.index') }}"
+                                    class="nav-link {{ !Route::is('ptventa.cash.*') ?: 'active' }}">
                                     <i class="nav-icon fas fa-cash-register"></i>
                                     <p>{{ trans('ptventa::general.Cash Control') }}</p>
                                 </a>
@@ -149,6 +158,15 @@
 
                     {{-- Menú de opciones para Cajero --}}
                     @if(Route::is('ptventa.cashier.*'))
+                        @if(Auth::user()->havePermission('ptventa.cashier.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('ptventa.cashier.index') }}"
+                                    class="nav-link {{ !Route::is('ptventa.cashier.index') ?: 'active' }}">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>{{ trans('ptventa::general.dashboard') }}</p>
+                                </a>
+                            </li>
+                        @endif
                         @if(Auth::user()->havePermission('ptventa.cashier.inventory.index'))
                             <li class="nav-item">
                                 <a href="{{ route('ptventa.cashier.inventory.index') }}"
@@ -167,10 +185,10 @@
                                 </a>
                             </li>
                         @endif
-                        @if(Auth::user()->havePermission('ptventa.cashier.cash.index'))
+                        @if(Auth::user()->havePermission('ptventa.cash.index'))
                             <li class="nav-item">
-                                <a href="{{ route('ptventa.cashier.cash.index') }}"
-                                    class="nav-link {{ !Route::is('ptventa.cashier.cash.*') ?: 'active' }}">
+                                <a href="{{ route('ptventa.cash.index') }}"
+                                    class="nav-link {{ !Route::is('ptventa.cash.*') ?: 'active' }}">
                                     <i class="nav-icon fas fa-cash-register"></i>
                                     <p>{{ trans('ptventa::general.Cash Control') }}</p>
                                 </a>

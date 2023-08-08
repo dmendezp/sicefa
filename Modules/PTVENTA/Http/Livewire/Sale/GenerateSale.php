@@ -21,6 +21,7 @@ use Modules\PTVENTA\Entities\CashCount;
 use Modules\SICA\Entities\MovementResponsibility;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
+use Illuminate\Support\Facades\Gate;
 
 class GenerateSale extends Component
 {
@@ -210,8 +211,8 @@ class GenerateSale extends Component
 
     // Ristrar venta
     public function registerSale($value){
+        Gate::authorize('haveaccess', 'ptventa.generate.sale'); // Verificar permiso por parte del usuario
         $this->verifySelectedProduct(); // Verficar seleccion de productos
-
         // Verificar si el cliente (persona) seleccionado se encuentra registrado en la base de datos
         if (Person::where('document_number', $this->customer_document_number)->exists()) {
             // Registrar venta como movimiento

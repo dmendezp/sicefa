@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['lang'])->group(function(){  // Middleware para la internzación (manejo de idiomas) y verficación de permisos y roles
     Route::prefix('ptventa')->group(function() {  // agrega el prefijo en la url (sicefa.test/ptventa/...)
+
         // Rutas generales para el modulo PTVENTA
         Route::controller(PTVENTAController::class)->group(function(){ // Agregar por única vez el controlodaar para posteriormente solo definir rutas con el formato (url, método_controlador)->name(nombre_de_ruta)
             Route::get('index', 'index')->name('cefa.ptventa.index'); // Vista principal y pública de la aplicación (Pública)
@@ -26,7 +27,7 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('cashier/configuration', 'configuration')->name('ptventa.cashier.configuration.index'); // Vista de configuracion, como generar un ticket o factura de prueba y verificar la conexion de la impresora, etc. (Cajero)
         });
 
-        //Rutas para Inventario
+        // Rutas para Inventario
         Route::controller(InventoryController::class)->group(function(){
             Route::get('admin/inventory/index', 'index')->name('ptventa.admin.inventory.index'); // Inventario actual (Administrador)
             Route::get('cashier/inventory/index', 'index')->name('ptventa.cashier.inventory.index'); // Inventario actual (Cajero)
@@ -36,34 +37,46 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('cashier/inventory/status', 'status')->name('ptventa.cashier.inventory.status'); // Producto vencidos y por vencer (Cajero)
         });
 
-        //Rutas de reportes
-        Route::prefix('reports')->controller(InventoryController::class)->group(function(){
-            Route::get('index', 'reports')->name('ptventa.reports.index'); //Vista principal de la sección de reportes
-            //Reportes de inventario
-            Route::post('inventoryReports/generatePDF', 'generateInventoryPDF')->name('ptventa.reports.inventory.generatePDF'); // Genera el PDF de inventario actual
+        // Rutas de reportes
+        Route::controller(InventoryController::class)->group(function(){
+            Route::get('admin/reports/index', 'reports')->name('ptventa.admin.reports.index'); // Vista principal de la sección de reportes (Administrador)
+            Route::get('cashier/reports/index', 'reports')->name('ptventa.cashier.reports.index'); // Vista principal de la sección de reportes (Cajero)
+            // Reportes de inventario
+            Route::post('admin/reports/inventory/generatepdf', 'generateInventoryPDF')->name('ptventa.admin.reports.inventory.generate.pdf'); // Generar PDF del inventario actual (Administrador)
+            Route::post('cashier/reports/inventory/generatepdf', 'generateInventoryPDF')->name('ptventa.cashier.reports.inventory.generate.pdf'); // Generar PDF del inventario actual (Cajero)
             // Reportes de entrada de inventario - Ruta para mostrar el formulario
-            Route::get('inventoryEntries', 'showInventoryEntriesForm')->name('ptventa.reports.inventoryEntries'); // Vista principal para consultar inventario de entrada
-            Route::post('inventoryEntries', 'generateInventoryEntries')->name('ptventa.reports.generateInventoryEntries'); // Vista principal con resultado de inventario de entrada
-            Route::post('inventoryEntries/generatePDF', 'generateInventoryEntriesPDF')->name('ptventa.reports.generate.entries.pdf'); // Genera el PDF de entradas de inventario
-            //Reportes de ventas
-            Route::get('sales', 'showSalesForm')->name('ptventa.reports.sales'); // Vista principal para consultar ventas
-            Route::post('sales', 'generateSales')->name('ptventa.reports.generateSales'); // Vista principal con resultado de ventas
-            Route::post('sales/generatePDF', 'generateSalesPDF')->name('ptventa.reports.generate.sales.pdf'); // Genera el PDF de ventas
+            Route::get('admin/reports/inventory/entries', 'showInventoryEntriesForm')->name('ptventa.admin.reports.inventory.entries'); // Vista de consulta de entradas de inventario por fecha (Administrador)
+            Route::get('cashier/reports/inventory/entries', 'showInventoryEntriesForm')->name('ptventa.cashier.reports.inventory.entries'); // Vista de consulta de entradas de inventario por fecha (Cajero)
+            Route::post('admin/reports/inventory/entries', 'generateInventoryEntries')->name('ptventa.admin.reports.generate.inventory.entries'); // Realizar consulta de entradas de inventario por fechas recibidas (Administrador)
+            Route::post('cashier/reports/inventory/entries', 'generateInventoryEntries')->name('ptventa.cashier.reports.generate.inventory.entries'); // Realizar consulta de entradas de inventario por fechas recibidas (Cajero)
+            Route::post('admin/reports/inventory/entries/generatepdf', 'generateInventoryEntriesPDF')->name('ptventa.admin.reports.generate.entries.pdf'); // Generar PDF de entradas de inventario (Administrador)
+            Route::post('cashier/reports/inventory/entries/generatepdf', 'generateInventoryEntriesPDF')->name('ptventa.cashier.reports.generate.entries.pdf'); // Generar PDF de entradas de inventario (Cajero)
+            // Reportes de ventas
+            Route::get('admin/reports/sales', 'showSalesForm')->name('ptventa.admin.reports.sales'); // Vista de consulta de ventas realizadas por fechas (Administrador)
+            Route::get('cashier/reports/sales', 'showSalesForm')->name('ptventa.cashier.reports.sales'); // Vista de consulta de ventas realizadas por fechas (Cajero)
+            Route::post('admin/reports/sales', 'generateSales')->name('ptventa.admin.reports.generate.sales'); // Realizar consulta de ventas realizadas por fechas recibidas (Administrador)
+            Route::post('cashier/reports/sales', 'generateSales')->name('ptventa.cashier.reports.generate.sales'); // Realizar consulta de ventas realizadas por fechas recibidas (Cajero)
+            Route::post('admin/reports/sales/generatepdf', 'generateSalesPDF')->name('ptventa.admin.reports.generate.sales.pdf'); // Generar PDF de ventas realizadas (Administrador)
+            Route::post('cashier/reports/sales/generatepdf', 'generateSalesPDF')->name('ptventa.cashier.reports.generate.sales.pdf'); // Generar PDF de ventas realizadas (Cajero)
         });
 
-        //Rutas para Ventas
-        Route::prefix('sale')->controller(SaleController::class)->group(function(){
-            Route::get('index', 'index')->name('ptventa.sale.index'); // Vista principal de ventas
-            Route::get('register', 'register')->name('ptventa.sale.register'); // Vista de registro de venta
+        // Rutas para Ventas
+        Route::controller(SaleController::class)->group(function(){
+            Route::get('admin/sale/index', 'index')->name('ptventa.admin.sale.index'); // Vista principal de ventas realizadas en sesión de caja (Administrador)
+            Route::get('cashier/sale/index', 'index')->name('ptventa.cashier.sale.index'); // Vista principal de ventas realizadas en sesión de caja (Cajero)
+            Route::get('admin/sale/register', 'register')->name('ptventa.admin.sale.register'); // Formulario de registro de venta (Administrador)
+            Route::get('cashier/sale/register', 'register')->name('ptventa.cashier.sale.register'); // Formulario de registro de venta (Cajero)
         });
 
         // Rutas para Elementos
-        Route::prefix('images')->controller(ElementController::class)->group(function(){
-            Route::get('index', 'index')->name('ptventa.element.image.index'); // Vista principal de elementos para administrar imagenes
-            Route::get('edit/{element}', 'edit')->name('ptventa.element.image.edit'); // Vista del formulario para acutalizar imagen de elemento
-            Route::post('update/{element}', 'update')->name('ptventa.element.image.update'); // Carga de nueva imagen para elemento
-            Route::get('create', 'create')->name('ptventa.element.image.create');
-            Route::post('store', 'store')->name('ptventa.element.image.store');
+        Route::controller(ElementController::class)->group(function(){
+            Route::get('admin/element/index', 'index')->name('ptventa.admin.element.index'); // Vista principal de productos (Administrador)
+            Route::get('element/edit/{element}', 'edit')->name('ptventa.admin.element.edit'); // Formulario para actualizar producto (Administrador)
+            /* =================================================================================================================================================================================================== */
+            Route::post('element/update/{element}', 'update')->name('ptventa.admin.element.update'); // Actualizar producto (Administrador)
+            /* =================================================================================================================================================================================================== */
+            Route::get('element/create', 'create')->name('ptventa.element.image.create');
+            Route::post('element/store', 'store')->name('ptventa.element.image.store');
 
         });
 

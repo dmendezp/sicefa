@@ -6,7 +6,7 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('ptventa.reports.index') }}"
+        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.index') }}"
             class="text-decoration-none">{{ trans('ptventa::reports.Reports') }}</a>
     </li>
     <li class="breadcrumb-item active">{{ trans('ptventa::reports.Inventory Entries') }}</li>
@@ -18,8 +18,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row mb-3">
-                        <div class="col-md-6">
-                            <form class="form-inline" action="{{ route('ptventa.reports.generateInventoryEntries') }}"
+                        <div class="col-md-auto">
+                            <form class="form-inline" action="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.inventory.entries') }}"
                                 method="POST">
                                 @csrf
                                 <div class="form-group mr-3">
@@ -36,8 +36,8 @@
                                         class="fa-solid fa-magnifying-glass"></i></button>
                             </form>
                         </div>
-                        <div class="col-md-6">
-                            <form action="{{ route('ptventa.reports.generate.entries.pdf') }}" method="post">
+                        <div class="col-md">
+                            <form action="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.entries.pdf') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="start_date" value="{{ $start_date }}">
                                 <input type="hidden" name="end_date" value="{{ $end_date }}">
