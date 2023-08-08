@@ -115,32 +115,18 @@
                                 </tbody>
                                 <tfoot>
                                     @php
-                                        $totalCantidad = 0;
-                                        $totalPrecio = 0;
-                                        $totalSubtotal = 0;
+
                                         $totalTotal = 0;
                                     @endphp
 
                                     @foreach ($movements as $key => $movement)
-                                        @foreach ($movement->movement_details as $index => $movement_detail)
-                                            @php
-                                                // Actualizar los totales con los valores de cada detalle del movimiento
-                                                $totalCantidad += $movement_detail->amount;
-                                                $totalPrecio += $movement_detail->price;
-                                                $totalSubtotal += ($movement_detail->amount * $movement_detail->price);
-                                            @endphp
-                                        @endforeach
                                         @php
-                                            // Actualizar el totalTotal con el precio del movimiento
                                             $totalTotal += $movement->price;
                                         @endphp
                                     @endforeach
 
                                     <tr>
-                                        <td colspan="5" class="text-end fw-bold">Total:</td>
-                                        <td class="text-center fw-bold">{{ $totalCantidad }}</td>
-                                        <td class="text-center fw-bold">{{ priceFormat($totalPrecio) }}</td>
-                                        <td class="text-center fw-bold">{{ priceFormat($totalSubtotal) }}</td>
+                                        <td colspan="8" class="text-end fw-bold">Total:</td>
                                         <td class="text-center fw-bold">{{ priceFormat($totalTotal) }}</td>
                                     </tr>
                                 </tfoot>
