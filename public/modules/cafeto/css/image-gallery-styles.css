@@ -4,7 +4,7 @@
     min-width: 200px;
     max-width: 300px;
     padding: 15px;
-    background-color: #95bcca86;
+    background-color: #6E7E52;
 }
 .card-image {
     height: 200px;
@@ -39,6 +39,6 @@
     height: 30px;
     position: absolute;
     padding-inline: 10px;
-    background-color: rgb(40, 150, 150);
+    background-color: #6E7E52;
     font-size: 14px;
 }

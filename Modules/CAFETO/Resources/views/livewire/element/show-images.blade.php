@@ -1,8 +1,6 @@
 <div>
-
     <div class="container-fluid">
         <div class="row">
-
             <!-- Búsqueda e imágenes -->
             <div class="col">
                 <div class="input-group input-group-sm">
@@ -20,7 +18,11 @@
                     <div wire:loading.remove>
                         @if ($elements->count())
                             <div class="text-center text-muted my-2">
-                                @if(count($elements) == 1) Mostrando <strong>1</strong> resultado @else Mostrando <strong>{{ count($elements) }}</strong> resultados @endif
+                                @if (count($elements) == 1)
+                                    Mostrando <strong>1</strong> resultado
+                                @else
+                                    Mostrando <strong>{{ count($elements) }}</strong> resultados
+                                @endif
                                 @if (!empty($category))
                                     para la categoría <strong>{{ $category }}</strong>
                                 @endif
@@ -29,8 +31,10 @@
                                 <div class="row  justify-content-center mx-auto">
                                     @foreach ($elements as $e)
                                         <div class="col-auto">
-                                            <div class="card-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('@if($e->image && file_exists(public_path($e->image))) {{ asset($e->image) }} @else {{ asset('modules/sica/images/sinImagen.png') }} @endif');">
-                                                <div class="card-category text-center"><strong>{{ $e->name }}</strong></div>
+                                            <div class="card-image"
+                                                style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('@if ($e->image && file_exists(public_path($e->image))) {{ asset($e->image) }} @else {{ asset('modules/sica/images/sinImagen.png') }} @endif');">
+                                                <div class="card-category text-center">
+                                                    <strong>{{ $e->name }}</strong></div>
                                                 <div class="card-description">
                                                     <p class="mt-1">
                                                         {{ $e->category->name }}
@@ -56,8 +60,9 @@
             <!-- Categorías -->
             <div class="col-auto" id="sidebar">
                 <h4>Categorías</h4>
-                @if($categories->count())
-                    <style> /* Stilos para el hover por categorías */
+                @if ($categories->count())
+                    <style>
+                        /* Stilos para el hover por categorías */
                         .list-group-item:hover {
                             background-color: #af9e83;
                             cursor: pointer;
@@ -68,9 +73,11 @@
                             Sin categoría
                         </li>
                         @foreach ($categories as $c)
-                            @if($c->elements->count()) {{-- Mostrar categorías que almenos tenga un elemento asociado --}}
+                            @if ($c->elements->count())
+                                {{-- Mostrar categorías que almenos tenga un elemento asociado --}}
                                 <li class="list-group-item py-1 list-group-item-action rounded-3" wire:click="searchByCategory({{ $c->id }})">
-                                    {{ $c->name }} <span class="badge mr-1 bg-primary float-right">{{ $c->elements->count() }}</span>
+                                    {{ $c->name }} 
+                                    <span class="badge mr-1 bg-primary float-right">{{ $c->elements->count() }}</span>
                                 </li>
                             @endif
                         @endforeach
@@ -79,8 +86,6 @@
                     No hay categorías.
                 @endif
             </div>
-
         </div>
     </div>
-
 </div>

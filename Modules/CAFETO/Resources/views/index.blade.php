@@ -65,21 +65,21 @@
         </div>
         <div class="col-6">
             <div class="info-box shadow-lg">
-                <span class="info-box-icon bg-danger"><i class="fa-solid fa-mug-saucer"></i></span>
+                <span class="info-box-icon bg-olive"><i class="fa-solid fa-mug-saucer"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Nuestros Cafés</span>
                     <span class="info-box-number">Explora un mundo de sabores: Capuccino, Latte Frío, Campesino, Granizado, Americano y Cerezada.</span>
                 </div>
             </div>
             <div class="info-box shadow-lg">
-                <span class="info-box-icon bg-danger"><i class="fa-solid fa-mug-hot"></i></span>
+                <span class="info-box-icon bg-olive"><i class="fa-solid fa-mug-hot"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Servicio Personalizado</span>
                     <span class="info-box-number">Disfruta en la estación o llévalo contigo, siempre con un toque de perfección en cada taza.</span>
                 </div>
             </div>
             <div class="info-box shadow-lg">
-                <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
+                <span class="info-box-icon bg-olive"><i class="far fa-star"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Calidad Destacada</span>
                     <span class="info-box-number">Sumérgete en la grandeza de nuestros cafés, donde cada sombra es una obra maestra.</span>
