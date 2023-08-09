@@ -5,6 +5,8 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
+
+                    <span id="real-time-date"></span>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
