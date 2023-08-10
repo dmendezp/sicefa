@@ -107,6 +107,9 @@ class Person extends Model implements Auditable
     public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
         return $this->hasMany(Contractor::class);
     }
+    public function supervisor_contractors(){ // Accede a todos los registros de supervisores de contratación que le pertenecen a esta persona
+        return $this->hasMany(Contractor::class, 'supervisor_id');
+    }
     public function employees(){ // Accede a todos los registros de empleados que pertenecen a esta persona
         return $this->hasMany(Employee::class);
     }

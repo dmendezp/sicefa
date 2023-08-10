@@ -16,6 +16,7 @@ class CreateContractorsTable extends Migration
         Schema::create('contractors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->foreignId('supervisor_id')->constrained('people')->onDelete('cascade');
             $table->integer('contract_number');
             $table->date('contract_start_date');
             $table->date('contract_end_date');
