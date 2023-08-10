@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExecutorsTable extends Migration
+class CreateActivityResponsibilitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateExecutorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('executors', function (Blueprint $table) {
+        Schema::create('activity_responsibilities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('labor_id')->constrained()->onDelete('cascade');
@@ -31,6 +31,6 @@ class CreateExecutorsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('executors');
+        Schema::dropIfExists('activity_responsibilities');
     }
 }

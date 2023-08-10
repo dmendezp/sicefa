@@ -30,8 +30,8 @@ class Labor extends Model implements Auditable
     public function activity(){ // Accede a la información de la actividad al que pertenece
         return $this->belongsTo(Activity::class);
     }
-    public function executors(){ // Accede a todos los registros de ejecutores que pertenecen a esta responsabilidad
-        return $this->hasMany(Executor::class);
+    public function activity_responsibilities(){ // Accede a todos los registros responsables de actividad que pertenecen a esta labor
+        return $this->hasMany(ActivityResponsibility::class);
     }
 
 }
