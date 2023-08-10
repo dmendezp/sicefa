@@ -14,9 +14,12 @@ class Labor extends Model implements Auditable
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'activity_id',
+        'planning_date',
+        'execution_date',
         'description',
         'status',
-        'observations'
+        'observations',
+        'destination'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
