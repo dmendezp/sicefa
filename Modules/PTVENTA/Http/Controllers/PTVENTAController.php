@@ -54,8 +54,7 @@ class PTVENTAController extends Controller
         $endDate = $currentDate->endOfMonth();
 
         $salesByMonth = Movement::whereHas('warehouse_movements', function ($query) use ($app_puw) {
-            $query->where('productive_unit_warehouse_id', $app_puw->id)
-                ->where('role', 'Entrega');
+            $query->where('productive_unit_warehouse_id', $app_puw->id)->where('role', 'Entrega');
         })
             ->where('movement_type_id', $movement_type->id)
             ->where('state', 'Aprobado')
@@ -64,7 +63,7 @@ class PTVENTAController extends Controller
             ->get()
             ->groupBy(function ($date) {
                 return Carbon::parse($date->registration_date)->format('m'); // Agrupar por mes
-            });
+        });
 
         $months = [];
         $salesTotals = [];
@@ -95,46 +94,18 @@ class PTVENTAController extends Controller
         //Permite hacer el conteo de todas las unidades productivas actuales
         $totalProductiveUnits = ProductiveUnit::count();
 
-        //Permite hacer el conteo de todas las unidades productivas actuales
+        //Permite hacer el conteo de todas las bodegas actuales
         $totalWarehouses = Warehouse::count();
 
-        // Obtener la unidad productiva con el nombre "Punto de venta"
-        $productiveUnitWarehouse = ProductiveUnitWarehouse::whereHas('productive_unit', function ($query) {
-            $query->where('name', 'Punto de venta');
-        })->first();
-        if ($productiveUnitWarehouse) {
-            // Contar el número de cajas cerradas para la unidad productiva
-            $closedCashCounts = CashCount::where('productive_unit_warehouse_id', $productiveUnitWarehouse->id)
-                ->where('state', 'Cerrada')
-                ->count();
-        } else {
-            $closedCashCounts = 0;
-        }
+        $closedCashCounts = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
+                                    ->where('state', 'Cerrada')
+                                    ->count();
 
-        // Obtener la unidad productiva con el nombre "Punto de venta"
-        $productiveUnit = ProductiveUnit::where('name', 'Punto de venta')->first();
-
-        if ($productiveUnit) {
-            // Obtener las unidades productivas y bodegas asociadas a la unidad productiva "Punto de venta"
-            $productiveUnitWarehouses = $productiveUnit->productive_unit_warehouses;
-
-            // Inicializar un arreglo para almacenar los element_id únicos
-            $uniqueElementIds = [];
-
-            // Recorrer las unidades productivas y bodegas para obtener los element_id únicos
-            foreach ($productiveUnitWarehouses as $puw) {
-                foreach ($puw->inventories as $inventory) {
-                    if (!in_array($inventory->element_id, $uniqueElementIds)) {
-                        $uniqueElementIds[] = $inventory->element_id;
-                    }
-                }
-            }
-
-            // Obtener la cantidad total de elementos únicos en el inventario
-            $totalInventory = count($uniqueElementIds);
-        } else {
-            $totalInventory = 0;
-        }
+        $totalInventory = Inventory::select('id', 'element_id')
+                                    ->where('productive_unit_warehouse_id', $app_puw->id)
+                                    ->where('amount', '<>', 0)
+                                    ->distinct('element_id')
+                                    ->count();
 
         // Obtener los últimos 5 elementos registrados en el inventario
         $recentlyAddedInventory = Inventory::orderBy('created_at', 'desc')->take(5)->get();
