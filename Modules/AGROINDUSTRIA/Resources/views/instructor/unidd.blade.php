@@ -1,4 +1,4 @@
-@extends('agroindustria::layouts.master')
+@extends('agroindustria::layouts_instructor.master_instructor')
 
 @section('content')
     

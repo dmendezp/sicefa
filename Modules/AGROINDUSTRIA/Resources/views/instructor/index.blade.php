@@ -1,72 +1,52 @@
 @extends('agroindustria::layouts_instructor.master_instructor')
 
 @section('content')
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link rel="stylesheet" href="{{asset('agroindustria/css/styleU.css')}}">
+    
 
 
     <section class="ganaderia" id="ganaderia">
         <div class="container">
             <h2 class="h2-sub1">
-                <span class="fil">B</span>ienvenido a 
+                <span class="fil">B</span>ienvenid@s a 
             </h2>
-            <h1 class="head">DATAGRO</h1>
-            <div class="he-des">
-                <h5>Cefa</h5>
-                <button class="learn-more"> Mas Informacion
-</button>
-            </div>
+            <h1 class="head">Datagro</h1>
         </div>
-
-
-
             </section>
 
-        <section class="taste bt">
-            <div class="container">
-                <div class="global">
-                    <h1 class="head111">SOLICITUDES</h1>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-6">
-                                <form action="formunidad" method="get">
-                                    <button type="submit" class="unidades1">UNIDADES</button>
-                                </form>
-                            </div>
-                            <div class="col-6">
-                            {!! Form::open(['url'=> route('agroindustria.instructor.enviarsolicitud')])!!}
-                                    <button class="unidades2">AGROINDUSTRIA</button>
-                            {!! Form::close() !!}
-                            </div>
+    <section>
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+            <center>
+            <div class="card mb-3" >
+                <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{asset('agroindustria/img/foto1.jpg')}}" class="img-fluid rounded-start" alt="...">
                         </div>
-                    </div>
+                     <div class="col-md-8">
+                <div class="card-body">
+                        <h1 class="card-title">Nosotros</h1>
+                        <p class="card-text">TLorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
+                        printer took a galley of type and scrambled it to make a type specimen book. It has survived 
+                        not only five centuries, but also the leap into electronic typesetting, remaining essentially
+                        unchanged.</p>
                 </div>
             </div>
-        </section>
-
-
-
-
-
-
-
-
-
-
-<!--//--------------------------------------------------------------------------------------------------------//-->
-
-
-
-
-
+        </div>
+</div>
+<br>
+            </center>
+    
+    </div>
+    </div>
+    </section>
+           
+           
     <footer>
         <div class="container">
             <div class="footer-content">
 
-
+                
                 <div class="footer-div">
                     <div class="social-media">
 
@@ -83,7 +63,7 @@
                             </li>
                         </ul>
                     </div>
-
+                    
                     </div>
                 </div>
 

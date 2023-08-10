@@ -4,7 +4,8 @@
         @include('agroindustria::layouts_intern.partials.head')
     </head>
     <body>
-        @include('agroindustria::layouts_intern.partials.body')
+        @include('agroindustria::layouts_intern.partials.navbar')
         @yield('content')
+        @include('agroindustria::layouts_intern.partials.scripts')
     </body>
 </html>
