@@ -61,7 +61,7 @@ class Element extends Model implements Auditable
     public function kind_of_purchase(){ // Accede al tipo de compra al que pertenece
         return $this->belongsTo(KindOfPurchase::class);
     }
-    public function measurement_unit(){ // Accede a la unidad de medida al que pertence
+    public function measurement_unit(){ // Accede a la unidad de medida al que pertenece
         return $this->belongsTo(MeasurementUnit::class);
     }
 
