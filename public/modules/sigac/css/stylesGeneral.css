@@ -93,13 +93,11 @@
 }
 
 /* Tamaño del texto de la pantalla inicial */
-.hmax {
-  font-size: 35px;
-}
+
 
 /* Clase que aplica la propiedad de tamaño de la imagen que este dentro de la card de la pagina principal */
 .custom-img {
-  width: 100px !important;
+  width: 80px !important;
   height: auto !important;
 }
 
@@ -416,8 +414,4 @@
   100% {
     transform: scale(1, 1);
   }
-}
-
-p {
-  font-size: 90%;
 }
