@@ -1,7 +1,6 @@
 @extends('ptventa::layouts.master')
 
 @push('head')
-
 @endpush
 
 @push('breadcrumbs')
@@ -9,72 +8,139 @@
 @endpush
 
 @section('content')
-    <h5 class="display-5">{{ trans('ptventa::mainPage.Title') }}</h5>
-    <h5 data-aos="fade-down">{{ trans('ptventa::mainPage.Description') }}</h5>
+    <h5 class="display-5">{{ trans('ptventa::general.TitlePageAdmin') }}</h5>
 
     <div class="row">
-        <div class="col-md-6">
-            <div class="card text-center mb-3 shadow-sm" data-aos="fade-right">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <div>
-                            <h5 class="text-center">{{ trans('ptventa::mainPage.TitleCard') }}</h5>
-                        </div>
+        <div class="col-md-5 col-lg-5">
+            <div class="card">
+                <div class="card-header border-0">
+                    <div class="d-flex justify-content-between">
+                        <h3 class="card-title">{{ trans('ptventa::general.TitleChart') }}</h3>
+                        <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.reports.sales') }}"
+                            class="btn btn-danger btn-sm">{{ trans('ptventa::general.Btn1Chart') }} <i class="fa-solid fa-file-pdf"></i></a>
                     </div>
-                    <div class="d-flex flex-wrap justify-content-center mt-3">
-
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <h5 class="text-center">{{ trans('ptventa::mainPage.TitleItem1') }}</h5>
-                            <div class="card-products mx-auto">
-                                <img src="{{ asset('modules/ptventa/images/cardsIndex/Yogurt.webp') }}" alt="YogurtImage"
-                                    class="card-img-top" width="180px" height="260px">
-                                <div class="card-body">
-                                    <p class="card-text head">{{ trans('ptventa::mainPage.NameItem1') }}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <h5 class="text-center">{{ trans('ptventa::mainPage.TitleItem2') }}</h5>
-                            <div class="card-products mx-auto">
-                                <img src="{{ asset('modules/ptventa/images/cardsIndex/Lettuce.webp') }}" alt="LettuceImage"
-                                    class="card-img-top" width="140px" height="260px">
-                                <div class="card-body">
-                                    <p class="card-text head">{{ trans('ptventa::mainPage.NameItem2') }}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <h5 class="text-center">{{ trans('ptventa::mainPage.TitleItem3') }}</h5>
-                            <div class="card-products mx-auto">
-                                <img src="{{ asset('modules/ptventa/images/cardsIndex/Pineapple.webp') }}" alt="PineappleImage"
-                                    class="card-img-top" width="140px" height="260px">
-                                <div class="card-body">
-                                    <p class="card-text head">{{ trans('ptventa::mainPage.NameItem3') }}</p>
-                                </div>
-                            </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex">
+                        <p class="d-flex flex-column">
+                            <span class="text-bold text-lg">{{ $maxSalesMonth }}</span>
+                            <span>{{ trans('ptventa::general.SubTitleChart1') }}</span>
+                        </p>
+                        <p class="ml-auto d-flex flex-column text-right">
+                            @if ($percentageChange > 0)
+                                <span class="text-success">
+                                    <i class="fas fa-arrow-up"></i> {{ number_format($percentageChange, 2) }}%
+                                </span>
+                                <span class="text-muted">{{ trans('ptventa::general.SubTitleChart2') }}</span>
+                            @elseif ($percentageChange < 0)
+                                <span class="text-danger">
+                                    <i class="fas fa-arrow-down"></i> {{ number_format(abs($percentageChange), 2) }}%
+                                </span>
+                                <span class="text-muted">{{ trans('ptventa::general.SubTitleChart3') }}</span>
+                            @else
+                                <span class="text-muted">{{ trans('ptventa::general.SubTitleChart4') }}</span>
+                            @endif
+                        </p>
+                    </div>
+                    <div class="position-relative mb-4">
+                        <div>
+                            <canvas id="myChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card text-center mb-3 shadow-sm" data-aos="fade-left">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-md-7 order-md-2">
-                            <h3 class="featurette-heading">{{ trans('ptventa::mainPage.TitleCard2') }} <span
-                                    class="text-muted">{{ trans('ptventa::mainPage.SubtitleCard2') }}</span></h3>
-                            <p class="lead">{{ trans('ptventa::mainPage.DescriptionCard2') }} </p>
-                        </div>
-                        <div class="col-md-5 order-md-1">
-                            <img src="{{ asset('modules/ptventa/images/cardsIndex/Croissant.webp') }}" alt="CroissantImage"
-                                class="img-fluid" width="290" height="290">
-                        </div>
-                    </div>
+
+        <div class="col-md-4 col-lg-3">
+            <div class="info-box mb-3 bg-warning">
+                <span class="info-box-icon"><i class="fas fa-tag"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{ trans('ptventa::general.TitleSumary1') }}</span>
+                    <span class="info-box-number">{{ $totalInventory }}</span>
+                </div>
+            </div>
+
+            <div class="info-box mb-3 bg-success">
+                <span class="info-box-icon"><i class="fa-solid fa-cash-register"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{ trans('ptventa::general.TitleSumary2') }}</span>
+                    <span class="info-box-number">{{ $closedCashCounts }}</span>
+                </div>
+            </div>
+
+            <div class="info-box mb-3 bg-danger">
+                <span class="info-box-icon"><i class="fa-solid fa-warehouse"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{ trans('ptventa::general.TitleSumary3') }}</span>
+                    <span class="info-box-number">{{ $totalWarehouses }}</span>
+                </div>
+            </div>
+
+            <div class="info-box mb-3 bg-info">
+                <span class="info-box-icon"><i class="fa-solid fa-industry"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{ trans('ptventa::general.TitleSumary4') }}</span>
+                    <span class="info-box-number">{{ $totalProductiveUnits }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">{{ trans('ptventa::general.TitleRecentlyAdded1') }}</h3>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="products-list product-list-in-card pl-2 pr-2">
+                        @foreach ($recentlyAddedInventory as $inventory)
+                            <li class="item">
+                                <div class="product-info">
+                                    <span class="product-title">{{ $inventory->element->name }}</span>
+                                    <span class="badge badge-warning float-right">${{ $inventory->price }}</span>
+                                    <span class="product-description">
+                                        {{ $inventory->description }}
+                                    </span>
+                                </div>                                
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{{ route('ptventa.admin.inventory.index') }}" class="btn btn-success uppercase">{{ trans('ptventa::general.BtnRecentlyAdded1') }}</a>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('AdminLTE/plugins/chart.js/Chart.min.js') }}"></script>
+
+    <script src="{{ asset('AdminLTE/plugins/chart.js/Chart.min.js') }}"></script>
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {!! json_encode($months) !!}, // Array de nombres de meses obtenidos del controlador
+                datasets: [{
+                    label: '# Total de Ventas',
+                    data: {!! json_encode($salesTotals) !!}, // Array de totales de ventas por mes obtenidos del controlador
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 100, 1)',
+                    borderWidth: 1,
+                    pointStyle: 'triangle',
+                    pointBackgroundColor: ' rgba(46, 204, 113, 0.1)',
+                    backgroundColor: 'rgba(54, 162, 100, 0.7)'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+@endpush
