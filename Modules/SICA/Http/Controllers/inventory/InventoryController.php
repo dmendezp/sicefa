@@ -12,7 +12,6 @@ use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\KindOfPurchase;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\CssSelector\Node\ElementNode;
 
 class InventoryController extends Controller
 {
@@ -42,7 +41,7 @@ class InventoryController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
         }
-        // Registro de bodega
+        // Realizar registro
         if (Warehouse::create($request->all())){
             $message = ['message'=>'Se registró exitosamente la bodega.', 'typealert'=>'success'];
         } else {
@@ -69,7 +68,7 @@ class InventoryController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
         }
-        // Actualizar bodega
+        // Actualizar registro
         if ($warehouse->update($request->all())){
             $message = ['message'=>'Se actualizó exitosamente la bodega.', 'typealert'=>'success'];
         } else {
@@ -80,7 +79,6 @@ class InventoryController extends Controller
 
     /* Eliminar bodega */
     public function warehouse_destroy(Warehouse $warehouse){
-        // Eliminar bodega
         if ($warehouse->delete()){
             $message = ['message'=>'Se eliminó exitosamente la bodega.', 'typealert'=>'success'];
         } else {

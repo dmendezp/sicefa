@@ -156,12 +156,15 @@ return [
     'attributes' => [
         'app_id' => 'app', // SICA
         'description' => 'description', // SICA
+        'farm_id' => 'farm', // SICA
+        'leader_id' => 'leader person', // SICA
         'name' => 'name', // SICA
         'person_document_type' => 'tipo de documento', // PTVENTA
         'person_document_number' => 'número de documento', // PTVENTA
         'person_first_name' => 'nombres', // PTVENTA
         'person_first_last_name' => 'primer apellido', // PTVENTA
         'person_second_last_name' => 'segundo apellido', // PTVENTA
+        'sector_id' => 'sector', // SICA
     ],
 
 ];
