@@ -5,18 +5,88 @@ namespace Modules\SICA\Http\Controllers\inventory;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\MeasurementUnit;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\KindOfPurchase;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\CssSelector\Node\ElementNode;
 
 class InventoryController extends Controller
 {
-    public function warehouses(){
-        $warehouses = Warehouse::orderBy('updated_at','ASC')->get();
+
+    /* Listado de bodegas disponible */
+    public function warehouse_index(){
+        $warehouses = Warehouse::orderBy('updated_at','DESC')->get();
         $data = ['title'=>trans('sica::menu.Warehouses'),'warehouses'=>$warehouses];
         return view('sica::admin.inventory.warehouses.index',$data);
+    }
+
+    /* Formulario de registro de bodega */
+    public function warehouse_create(){
+        $apps = App::orderBy('name','ASC')->get();
+        $data = ['title'=>'Bodegas - Registro','apps'=>$apps];
+        return view('sica::admin.inventory.warehouses.create',$data);
+    }
+
+    /* Registrar bodega */
+    public function warehouse_store(Request $request){
+        $rules = [
+            'name' => 'required|unique:warehouses',
+            'description' => 'required',
+            'app_id' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Registro de bodega
+        if (Warehouse::create($request->all())){
+            $message = ['message'=>'Se registró exitosamente la bodega.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo realizar el registro de la bodega.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.inventory.warehouse.index'))->with($message);
+    }
+
+    /* Ver bodega a actualizar */
+    public function warehouse_edit(Warehouse $warehouse){
+        $apps = App::orderBy('name','ASC')->get();
+        $data = ['title'=>'Bodegas - Actualizar', 'apps'=>$apps, 'warehouse'=>$warehouse];
+        return view('sica::admin.inventory.warehouses.edit',$data);
+    }
+
+    /* Actualizar bodega */
+    public function warehouse_update(Request $request, Warehouse $warehouse){
+        $rules = [
+            'name' => 'required|unique:warehouses,name,'.$warehouse->id,
+            'description' => 'required',
+            'app_id' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Actualizar bodega
+        if ($warehouse->update($request->all())){
+            $message = ['message'=>'Se actualizó exitosamente la bodega.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo realizar la actualización de la bodega.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.inventory.warehouse.index'))->with($message);
+    }
+
+    /* Eliminar bodega */
+    public function warehouse_destroy(Warehouse $warehouse){
+        // Eliminar bodega
+        if ($warehouse->delete()){
+            $message = ['message'=>'Se eliminó exitosamente la bodega.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo eliminar la bodega.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.inventory.warehouse.index'))->with($message);
     }
 
     /* Inicio de funciones de elementos */

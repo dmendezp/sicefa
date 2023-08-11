@@ -147,6 +147,9 @@ return [
     */
 
     'attributes' => [
+        'app_id' => 'aplicación', // SICA
+        'description' => 'descripción', // SICA
+        'name' => 'nombre', // SICA
         'person_document_type' => 'tipo de documento', // PTVENTA
         'person_document_number' => 'número de documento', // PTVENTA
         'person_first_name' => 'nombres', // PTVENTA

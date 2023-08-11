@@ -10,12 +10,12 @@
                     </div>
                     <div class="card-body">
                         <div class="btns">
-                            <a href="" class="btn btn-primary">
+                            <a href="{{ route('sica.admin.inventory.warehouse.create') }}" class="btn btn-primary">
                                 <i class="fas fa-plus"></i> Registrar bodega
                             </a>
                         </div>
                         <div class="mtop16">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="warehouses_table" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -33,19 +33,16 @@
                                             <td>{{ $w->description }}</td>
                                             <td>{{ $w->app->name }}</td>
                                             <td>
-                                                <div class="opts">
-                                                    <a href="" data-toggle='tooltip' data-placement="top" title="Editar">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" title="Eliminar">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </a>
-                                                </div>
+                                                <a href="{{ route('sica.admin.inventory.warehouse.edit', $w) }}" data-toggle='tooltip' data-placement="top" title="Editar">
+                                                    <i class="fas fa-edit text-success"></i>
+                                                </a>
+                                                <a href="{{ route('sica.admin.inventory.warehouse.destroy', $w) }}" data-toggle='tooltip' data-placement="top" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta bodega?')">
+                                                    <i class="fas fa-trash-alt text-danger"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
@@ -53,4 +50,14 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(function () {
+            $("#warehouses_table").DataTable({
+                "responsive": true
+            });
+        });
+    </script>
 @endsection

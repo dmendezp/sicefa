@@ -240,9 +240,9 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                @if(Auth::user()->havePermission('sica.admin.inventory.warehouses'))
+                @if(Auth::user()->havePermission('sica.admin.inventory.warehouse.index'))
                 <li class="nav-item">
-                  <a href="{{ route('sica.admin.inventory.warehouses') }}" class="nav-link {{ ! Route::is('sica.admin.inventory.warehouses*') ?: 'active' }}">
+                  <a href="{{ route('sica.admin.inventory.warehouse.index') }}" class="nav-link {{ ! Route::is('sica.admin.inventory.warehouse.*') ?: 'active' }}">
                     <i class="fas fa-warehouse"></i>
                     <p>{{ trans('sica::menu.Warehouses') }}</p>
                   </a>
