@@ -1,19 +1,19 @@
 <nav class="sidebar close">
-      <header>
-          <div class="image-text">
-              <span class="image">
-                  <!--<img src="logo.png" alt="">-->
-              </span>
+<header>
+        <div class="image-text">
+            <span class="image">
+                <!--<img src="logo.png" alt="">-->
+            </span>
 
-              <div class="text logo-text">
+            <div class="text logo-text">
                 <span class="profession text-center" ><center><i class="fas fa-tractor"></center></i></span>
                 <span class="name">AGROCEFA</span>
-                 
-              </div>
-          </div>
+                
+            </div>
+        </div>
 
-          <i class='bx bx-chevron-right toggle'></i>
-      </header>
+        <i class='bx bx-chevron-right toggle'></i>
+    </header>
 
       <div class="menu-bar">
         <div class="menu">
@@ -28,6 +28,18 @@
                     <ul class="sub-list">
                       <li><a href="#"><i class='bx bx-sort-alt-2 icon' ></i><span class="text nav-text">{{ trans('agrocefa::universal.Movements')}}</span></a></li>
                     </ul>  
+                </li>
+    <div class="menu-bar">
+        <div class="menu">
+
+            
+
+            <ul class="menu-links">
+                <li class="nav-link">
+                    <a href="#">
+                        <i class='bx bx-list-check icon'></i>
+                        <span class="text nav-text">{{ trans('agrocefa::universal.Inventory')}}</span>
+                    </a>
                 </li>
 
                 <li class="nav-link">
