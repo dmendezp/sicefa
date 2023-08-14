@@ -402,6 +402,15 @@
                                       </a>
                                   </li>
                               @endif
+                              @if (Auth::user()->havePermission('sica.admin.security.permissions.index'))
+                                  <li class="nav-item">
+                                      <a href="{{ route('sica.admin.security.permissions.index') }}"
+                                          class="nav-link {{ !Route::is('sica.admin.security.permissions.*') ?: 'active' }}">
+                                          <i class="fa-solid fa-list-check"></i>
+                                          <p>{{ trans('sica::menu.Permissions') }}</p>
+                                      </a>
+                                  </li>
+                              @endif
                               @if (Auth::user()->havePermission('sica.admin.security.users'))
                                   <li class="nav-item">
                                       <a href="{{ route('sica.admin.security.users') }}"

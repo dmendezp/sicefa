@@ -45,6 +45,7 @@ return [
 	'Security' => 'Seguridad',
 	'Apps' => 'Aplicaciones',
 	'Roles' => 'Roles',
+	'Permissions' => 'Permisos',
 	'Developers' => 'Desarrolladores',
 	'Contact' => 'Contactanos',
 	'Back to' => 'Volver a',

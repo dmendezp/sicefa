@@ -13,8 +13,10 @@ Route::middleware(['lang'])->group(function(){
 
         // --------------  Rutas de Roles ---------------------------------
         Route::get('/admin/security/roles', [RoleController::class, 'roles_index'])->name('sica.admin.security.roles.index'); /* Lista de roles disponibles (Administrador) */
-        
-        Route::get('/admin/security/permissions', [RoleController::class, 'permissions'])->name('sica.admin.security.permissions');
+
+        // --------------  Rutas de Permisos ---------------------------------
+        Route::get('/admin/security/permissions', [RoleController::class, 'permissions_index'])->name('sica.admin.security.permissions.index'); /* Lista de permisos disponibles (Administrador) */
+
         Route::get('/admin/security/responsibilities', [RoleController::class, 'responsibilities'])->name('sica.admin.security.responsibilities');
 
         Route::get('/admin/security/users', [UserController::class, 'users'])->name('sica.admin.security.users');

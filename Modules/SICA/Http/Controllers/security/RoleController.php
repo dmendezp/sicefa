@@ -22,11 +22,15 @@ class RoleController extends Controller
         return view('sica::admin.security.roles.index', $data);
     }
 
-    public function permissions()
-    {
-        $permissions = Permission::get();
-        $data = ['title'=>trans('sica::menu.Permissions'),'permissions'=>$permissions];
-        return view('sica::admin.security.permissions.home',$data);
+    /* Lista de permisos disponibles */
+    public function permissions_index(){
+        $permissions = Permission::join('apps', 'apps.id', '=', 'permissions.app_id') // Unir las tablas roles y apps
+                        ->select('permissions.*') // Seleccionar todos los campos de roles
+                        ->orderBy('apps.name', 'ASC') // Ordenar por el campo 'name' de la relación 'app'
+                        ->orderBy('permissions.slug', 'ASC') // Luego ordenar por el campo 'name' de roles
+                        ->get();
+        $data = ['title'=>trans('sica::menu.Permissions'), 'permissions'=>$permissions];
+        return view('sica::admin.security.permissions.index', $data);
     }
 
     public function responsibilities()
