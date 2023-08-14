@@ -114,6 +114,13 @@
                     </li>
 
                     <li class="nav-item">
+                        <a href="{{ route('cefa.sigac.attendanceReports.index')}}" class="nav-link">
+                            <i class="nav-icon fa-solid fa-chart-line"></i>
+                            <p>{{ trans('sigac::general.Attendance Reports') }}</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-info"></i>
                             <p>{{ trans('sigac::general.About us') }}</p>

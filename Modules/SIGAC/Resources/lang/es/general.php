@@ -26,6 +26,7 @@ return [
     'Instructor Management'   => 'Gestión de Instructores',
     'Schedule Programming'    => 'Program. de Horarios',
     'Environment Programming' => 'Program. de Ambientes',
+    'Attendance Reports'      => 'Reportes de Asitencia',
     'About us'                => 'Acerca de',
 
     //Control Sidebar

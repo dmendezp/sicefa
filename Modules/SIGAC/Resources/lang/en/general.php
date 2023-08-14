@@ -26,6 +26,7 @@ return [
     'Instructor Management'   => 'Instructor Management',
     'Schedule Programming'    => 'Schedule Programming',
     'Environment Programming' => 'Environment Programming',
+    'Attendance Reports'      => 'Attendance Reports',
     'About us'                => 'About us',
 
     //Control Sidebar

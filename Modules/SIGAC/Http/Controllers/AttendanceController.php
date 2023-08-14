@@ -27,6 +27,13 @@ class AttendanceController extends Controller
         return view('sigac::attendance.consult', compact('apps', 'view'));
     }
 
+    public function reportsAttendance()
+    {
+        $view = ['titlePage'=>trans('sigac::reports.TitlePage'), 'titleView'=>trans('sigac::reports.TitleView')];
+        $apps = App::get();
+        return view('sigac::reports.index', compact('apps', 'view'));
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable
