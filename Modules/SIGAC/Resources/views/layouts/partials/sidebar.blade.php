@@ -81,35 +81,42 @@
                     <li class="nav-item">
                         <a href="{{ route('cefa.sigac.schedule.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-user-clock"></i>
-                            <p>{{ trans('sigac::schedule.Schedule Instructor') }}</p>
+                            <p>{{ trans('sigac::general.Schedule Instructor') }}</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon far fa-folder"></i>
-                            <p>Consultar Excusas</p>
+                            <p>{{ trans('sigac::general.Consult Excuses') }}</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <p>Gestión y Programación de Instructores</p>
+                            <p>{{ trans('sigac::general.Instructor Management') }}</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
-                            <p>Programación de horarios</p>
+                            <p>{{ trans('sigac::general.Schedule Programming') }}</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-chalkboard"></i>
-                            <p>Programación de ambientes</p>
+                            <p>{{ trans('sigac::general.Environment Programming') }}</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-info"></i>
+                            <p>{{ trans('sigac::general.About us') }}</p>
                         </a>
                     </li>
                 </ul>
