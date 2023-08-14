@@ -1,6 +1,13 @@
 <?php
 
 return [
+    //Section Controller
+	'TitlePage'            => 'Página Principal',
+	'TitleView'            => 'Página Principal',
+
+    //Breadcrumbs
+	'BTitle'               => 'Principal',
+
     //Navbar
 	'Home'                 => 'Inicio',
     'Internacionalization' => 'Internacionalización',
@@ -10,9 +17,11 @@ return [
     'FullScreen'           => 'Modo Pantalla Completa',
     
     //Siderbar
-    'Back'                 => 'Volver a SICEFA',
+    'Session'              => 'Iniciar Sesión',
+    'Back to SICEFA'       => 'Volver a SICEFA',
     'Attendance Register'  => 'Registro Asistencia',
     'Consult Apprentice'   => 'Consultar Aprendiz',
+    'About us'             => 'Acerca de',
 
     //Control Sidebar
     'TitleControl'         => 'Navega!',
@@ -20,4 +29,8 @@ return [
 
     //Footer
     'All Rights Reserved.' => 'Todos los derechos reservados.',
+
+    //Tooltips
+    'InSession'   => 'Acceder / Ingresar',
+    'ExitSession' => 'Salir',
 ];

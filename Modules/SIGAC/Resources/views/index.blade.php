@@ -4,6 +4,10 @@
 
 @endpush
 
+@push('breadcrumbs')
+    <li class="breadcrumb-item active">{{ trans('sigac::general.BTitle') }}</li>
+@endpush
+
 @section('content')
     <div class="container">
         <div class="row">

@@ -1,6 +1,13 @@
 <?php
 
 return [
+    //Section Controller
+	'TitlePage'            => 'Main Page',
+	'TitleView'            => 'Main Page',
+    
+    //Breadcrumbs
+	'BTitle'               => 'Principal',
+    
     //Navbar
 	'Home'                 => 'Home',
     'Internacionalization' => 'Internacionalization',
@@ -10,9 +17,11 @@ return [
     'FullScreen'           => 'Full Screen Mode',
     
     //Sidebar
-    'Back'                 => 'Back to SICEFA',
+    'Session'              => 'Sign in',
+    'Back to SICEFA'       => 'Back to SICEFA',
     'Attendance Register'  => 'Attendance Register',
     'Consult Apprentice'   => 'Consult Apprentice',
+    'About us'             => 'About us',
 
     //Control Sidebar
     'TitleControl'         => 'Browse!',
@@ -20,4 +29,8 @@ return [
 
     //Footer
     'All Rights Reserved.' => 'All Rights Reserved.',
+
+    //Tooltips
+    'InSession'   => 'Sign in / Log in',
+    'ExitSession' => 'Exit',
 ];

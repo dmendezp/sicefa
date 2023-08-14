@@ -54,7 +54,7 @@
                     <li class="nav-item">
                         <a href="{{ route('cefa.welcome') }}" class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
                             <i class="nav-icon fas fa-puzzle-piece"></i>
-                            <p>{{ trans('sigac::general.Back') }}</p>
+                            <p>{{ trans('sigac::general.Back to SICEFA') }}</p>
                         </a>
                     </li>
                 </ul>
