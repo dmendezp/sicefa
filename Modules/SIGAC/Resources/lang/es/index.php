@@ -22,6 +22,6 @@ return [
     'TextCard' => 'Consulta la programación por:',
     'BtnCard1' => 'Ambiente',
     'BtnCard2' => 'Instructor',
-    'BtnCard2' => '>Tecnólogo',
+    'BtnCard3' => 'Tecnólogo',
 
 ];

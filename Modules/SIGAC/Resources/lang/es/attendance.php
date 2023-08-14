@@ -7,7 +7,6 @@ return [
     'Attendance Registration' => 'Registro de Asistencia',
 
     //Card
-    'CardTitle'               => 'Ambiente N° 1',
     'CardSubtitle'            => 'Selecciona el tecnológo',
     'Current date and time'   => 'Fecha y hora actual',
     'Start of training'       => 'Inicio de la Formación',

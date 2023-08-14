@@ -6,61 +6,66 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="#" class="text-decoration-none">{{ trans('sigac::attendance.Attendance') }}</a>
+        <a href="#">{{ trans('sigac::attendance.Attendance') }}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('sigac::attendance.Register') }}</li>
+    <li class="breadcrumb-item active breadcrumb-color">{{ trans('sigac::attendance.Register') }}</li>
 @endpush
 
 @section('content')
-<div class="card">
-    <div class="card-body">
-        <h3>{{ trans('sigac::attendance.CardTitle') }}</h3>
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="technologist" class="form-label">{{ trans('sigac::attendance.CardSubtitle') }}</label>
-                    <select id="technologist" class="form-select" aria-label="Default select example">
-                        <option selected disabled>{{ trans('sigac::attendance.Select...') }}</option>
-                        <option value="1">Prueba 1</option>
-                        <option value="2">Prueba 2</option>
-                        <option value="3">Prueba 3</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="producto">{{ trans('sigac::attendance.Current date and time') }}</label>
-                            <p class="card-text" id="fecha-hora"></p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="start-training"
-                                        class="form-label">{{ trans('sigac::attendance.Start of training') }}</label>
-                                    <p id="start-training">16/05/2023 12:50</p>
-                                </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="environment" class="form-label">{{ trans('sigac::attendance.CardSubtitle') }}</label>
+                                <select id="environment" class="form-select" aria-label="Default select example">
+                                    <option selected disabled>{{ trans('sigac::attendance.Select...') }}</option>
+                                    <option value="1">Prueba 1</option>
+                                    <option value="2">Prueba 2</option>
+                                    <option value="3">Prueba 3</option>
+                                </select>
                             </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="end-training"
-                                        class="form-label">{{ trans('sigac::attendance.End of training') }}</label>
-                                    <p id="end-training">16/05/2023 12:50</p>
-                                </div>
+                            <div class="mb-3">
+                                <label for="technologist" class="form-label">{{ trans('sigac::attendance.CardSubtitle') }}</label>
+                                <select id="technologist" class="form-select" aria-label="Default select example">
+                                    <option selected disabled>{{ trans('sigac::attendance.Select...') }}</option>
+                                    <option value="1">Prueba 1</option>
+                                    <option value="2">Prueba 2</option>
+                                    <option value="3">Prueba 3</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="mb-3">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                        <i class="fas fa-plus"></i> {{ trans('sigac::attendance.Register Previous') }}
-                                    </button>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="producto">{{ trans('sigac::attendance.Current date and time') }}</label>
+                                        <p class="card-text" id="fecha-hora"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="start-training"
+                                            class="form-label">{{ trans('sigac::attendance.Start of training') }}</label>
+                                        <p id="start-training">16/05/2023 12:50</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="end-training"
+                                            class="form-label">{{ trans('sigac::attendance.End of training') }}</label>
+                                        <p id="end-training">16/05/2023 12:50</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">
+                                            <i class="fas fa-plus"></i> {{ trans('sigac::attendance.Register Previous') }}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -68,8 +73,41 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        {{ trans('sigac::attendance.Summary of the session') }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <dl>
+                                <dt>P</dt>
+                                <dd>{{ trans('sigac::attendance.Total present:') }} 0</dd>
+                            </dl>
+                            <dl>
+                                <dt>FJ</dt>
+                                <dd>{{ trans('sigac::attendance.Total justified failures:') }} 0</dd>
+                            </dl>
+                        </div>
+                        <div class="col-6">
+                            <dl>
+                                <dt>FI</dt>
+                                <dd>{{ trans('sigac::attendance.Total unjustified failures:') }} 0</dd>
+                            </dl>
+                            <dl>
+                                <dt>MD</dt>
+                                <dd>{{ trans('sigac::attendance.Total missing stockings:') }} 0</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
 
     <!-- Modal -->
@@ -98,9 +136,8 @@
         </div>
     </div>
 
-
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -148,53 +185,19 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">3</th>
+                                    <th>2</th>
                                     <td>Usuario de Prueba 3</td>
-                                    <td>1000653278</td>
-                                    <td>6</td>
+                                    <td>12120003034</td>
+                                    <td>0</td>
                                     <td>
-                                        <div class="wrapper-custom">
-                                            <input type="checkbox" />
-                                            <div class="btn"></div>
-                                            <div class="tooltip">
-                                                <svg>
-                                                    <use xlink:href="#icon-01" class="icon" />
-                                                </svg>
-                                                <svg>
-                                                    <use xlink:href="#icon-02" class="icon" />
-                                                </svg>
-                                                <svg>
-                                                    <use xlink:href="#icon-03" class="icon" />
-                                                </svg>
-                                                <svg>
-                                                    <use xlink:href="#icon-04" class="icon" />
-                                                </svg>
-                                            </div>
-
-                                            <!-- SVG -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                                                <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 22" id="icon-01">
-                                                    <!-- Código SVG del nuevo icono -->
-                                                    <!-- Por ejemplo, un icono de la letra "p" -->
-                                                    <text x="10" y="20" style="font-size: 24px;">P</text>
-                                                </symbol>
-                                                <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 22" id="icon-02">
-                                                    <!-- Código SVG del nuevo icono -->
-                                                    <!-- Por ejemplo, un icono de la letra "p" -->
-                                                    <text x="10" y="20" style="font-size: 24px;">FJ</text>
-                                                </symbol>
-                                                <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 22" id="icon-03">
-                                                    <!-- Código SVG del nuevo icono -->
-                                                    <!-- Por ejemplo, un icono de la letra "p" -->
-                                                    <text x="10" y="20" style="font-size: 24px;">FI</text>
-                                                </symbol>
-                                                <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 22" id="icon-04">
-                                                    <!-- Código SVG del nuevo icono -->
-                                                    <!-- Por ejemplo, un icono de la letra "p" -->
-                                                    <text x="10" y="20" style="font-size: 24px;">MD</text>
-                                                </symbol>
-                                            </svg>
-                                        </div>
+                                        <select class="form-select form-select-sm my-select color-select"
+                                            aria-label=".form-select-sm example">
+                                            <option value="0">Seleccione</option>
+                                            <option value="1">P</option>
+                                            <option value="2">MF</option>
+                                            <option value="3">FJ</option>
+                                            <option value="4">FI</option>
+                                        </select>
                                     </td>
                                 </tr>
                             </tbody>
@@ -203,80 +206,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h4>{{ trans('sigac::attendance.Summary of the session') }}</h4>
-                    <hr>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-4">
-                                <h5 class="text-center">{{ trans('sigac::attendance.Legend') }}</h5>
-                            </div>
-                            <div class="col-4">
-                                <h5 class="text-center">{{ trans('sigac::attendance.Type') }}</h5>
-                            </div>
-                            <div class="col-4">
-                                <h5 class="text-center">{{ trans('sigac::attendance.Quantity') }}</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <h6 class="text-center">P</h6>
-                            </div>
-                            <div class="col-4">
-                                <p>{{ trans('sigac::attendance.Total present:') }}</p>
-                            </div>
-                            <div class="col-4">
-                                <div class="card text-center">
-                                    <h6>35</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <h6 class="text-center">FJ</h6>
-                            </div>
-                            <div class="col-4">
-                                <p>{{ trans('sigac::attendance.Total justified failures:') }}</p>
-                            </div>
-                            <div class="col-4">
-                                <div class="card text-center">
-                                    <h6>5</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <h6 class="text-center">FI</h6>
-                            </div>
-                            <div class="col-4">
-                                <p>{{ trans('sigac::attendance.Total unjustified failures:') }}</p>
-                            </div>
-                            <div class="col-4">
-                                <div class="card text-center">
-                                    <h6>13</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <h6 class="text-center">MF</h6>
-                            </div>
-                            <div class="col-4">
-                                <p>{{ trans('sigac::attendance.Total missing stockings:') }}</p>
-                            </div>
-                            <div class="col-4">
-                                <div class="card text-center">
-                                    <h6>14</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>        
     </div>
 @endsection
 

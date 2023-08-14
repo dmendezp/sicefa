@@ -7,7 +7,6 @@ return [
     'Attendance Registration' => 'Attendance Registration',
 
     //Card
-    'CardTitle'               => 'Environment N° 1',
     'CardSubtitle'            => 'Choose the technologist',
     'Current date and time'   => 'Current date and time',
     'Start of training'       => 'Start of training',
