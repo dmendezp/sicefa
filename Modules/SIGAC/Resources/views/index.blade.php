@@ -1,8 +1,8 @@
 @extends('sigac::layouts.master')
 
-@section('stylesheet')
-    <link rel="stylesheet" href="{{ asset('modules/sigac/css/indexStyles.css') }}">
-@endsection
+@push('head')
+
+@endpush
 
 @section('content')
     <div class="container">
@@ -157,7 +157,7 @@
     
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         document.getElementById("scrollButton").addEventListener("click", function() {
             var scrollHeight = 500; // Altura de desplazamiento deseada (ajusta este valor según tus necesidades)
@@ -167,4 +167,4 @@
             });
         });
     </script>
-@endsection
+@endpush

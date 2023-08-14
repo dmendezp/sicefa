@@ -12,35 +12,34 @@
             <div class="user-panel mt-3 pb-3 mb-1 d-flex">
                 <div class="image">
                     @if (isset(Auth::user()->person->avatar))
-                        <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"class="img-circle elevation-2"
+                            alt="User Image">
                     @else
-                        <img src="{{ asset('sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset('sica/images/blanco.png') }}" class="img-circle elevation-2"
+                            alt="User Image">
                     @endif
                 </div>
                 @guest
                     <div class="col info info-user">
-                        <div style="color: antiquewhite">{{ trans('menu.Welcome') }}</div>
-                        <div>
-                            <a href="{{ route('login') }}" class="d-block">Iniciar sesión</a>
-                        </div>
+                        <a href="{{ route('login') }}" class="d-block" style="text-decoration: none">{{ trans('sigac::general.Session') }}</a>
                     </div>
-                    <div class="col-auto info float-right mt-2" data-toggle="tooltip" data-placement="right"
-                        title="{{ trans('Auth.Login') }}">
-                        <a href="{{ route('login') }}" class="d-block">
+                    <div class="col-auto info float-right ">
+                        <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ trans('sigac::general.InSession') }}">
                             <i class="fas fa-sign-in-alt"></i>
                         </a>
                     </div>
                 @else
                     <div class="col info info-user">
-                        <div style="color: antiquewhite" data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
+                        <div data-toggle="tooltip" data-placement="top"
+                            title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
                             {{ Auth::user()->nickname }}
                         </div>
-                        <div class="small" style="color: antiquewhite">
+                        <div class="small">
                             <em> {{ Auth::user()->roles[0]->name }}</em>
                         </div>
                     </div>
-                    <div class="col-auto info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Logout') }}">
-                        <a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <div class="col-auto info float-right mt-2">
+                        <a href="{{ route('logout') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ trans('sigac::general.ExitSession') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
                     </div>
