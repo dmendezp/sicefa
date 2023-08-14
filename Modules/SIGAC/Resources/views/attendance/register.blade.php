@@ -1,7 +1,7 @@
 @extends('sigac::layouts.master')
 
-@push('title')
-    <h1 class="m-0">{{ $view['titleView'] }}</h1>
+@push('head')
+
 @endpush
 
 @push('breadcrumbs')
@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="environment" class="form-label">{{ trans('sigac::attendance.CardSubtitle') }}</label>
+                                <label for="environment" class="form-label">{{ trans('sigac::attendance.CardSubtitle1') }}</label>
                                 <select id="environment" class="form-select" aria-label="Default select example">
                                     <option selected disabled>{{ trans('sigac::attendance.Select...') }}</option>
                                     <option value="1">Prueba 1</option>
@@ -28,7 +28,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="technologist" class="form-label">{{ trans('sigac::attendance.CardSubtitle') }}</label>
+                                <label for="technologist" class="form-label">{{ trans('sigac::attendance.CardSubtitle2') }}</label>
                                 <select id="technologist" class="form-select" aria-label="Default select example">
                                     <option selected disabled>{{ trans('sigac::attendance.Select...') }}</option>
                                     <option value="1">Prueba 1</option>
@@ -116,7 +116,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">
-                        {{ trans('sigac::attendance.Choose the technologist') }}</h1>
+                        {{ trans('sigac::attendance.CardSubtitle2') }}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
