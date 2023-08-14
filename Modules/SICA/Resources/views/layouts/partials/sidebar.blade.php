@@ -384,10 +384,10 @@
                               </p>
                           </a>
                           <ul class="nav nav-treeview">
-                              @if (Auth::user()->havePermission('sica.admin.security.apps'))
+                              @if (Auth::user()->havePermission('sica.admin.security.apps.index'))
                                   <li class="nav-item">
-                                      <a href="{{ route('sica.admin.security.apps') }}"
-                                          class="nav-link {{ !Route::is('sica.admin.security.apps*') ?: 'active' }}">
+                                      <a href="{{ route('sica.admin.security.apps.index') }}"
+                                          class="nav-link {{ !Route::is('sica.admin.security.apps.*') ?: 'active' }}">
                                           <i class="fas fa-th"></i>
                                           <p>{{ trans('sica::menu.Apps') }}</p>
                                       </a>

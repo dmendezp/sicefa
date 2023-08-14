@@ -8,7 +8,8 @@ Route::middleware(['lang'])->group(function(){
 
     Route::prefix('sica')->group(function() {
 
-        Route::get('/admin/security/apps', [AppController::class, 'apps'])->name('sica.admin.security.apps');
+        // --------------  Rutas de Aplicaciones ---------------------------------
+        Route::get('/admin/security/apps', [AppController::class, 'apps_index'])->name('sica.admin.security.apps.index'); /* Lista de aplicaciones disponibles (Administrador) */
 
         Route::get('/admin/security/roles', [RoleController::class, 'roles'])->name('sica.admin.security.roles');
         Route::get('/admin/security/permissions', [RoleController::class, 'permissions'])->name('sica.admin.security.permissions');
@@ -18,6 +19,6 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/admin/security/user/add', [UserController::class, 'getUserAdd'])->name('sica.admin.security.users.add');
         Route::post('/admin/security/user/search', [UserController::class, 'postUserSearch'])->name('sica.admin.security.user.search');
         Route::post('/admin/security/user/add', [UserController::class, 'postUserAdd'])->name('sica.admin.security.user.add');
-    });  
+    });
 
-}); 
+});
