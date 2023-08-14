@@ -1,14 +1,14 @@
 @extends('sigac::layouts.master')
 
-@push('title')
-    <h1 class="m-0">{{ $view['titleView'] }}</h1>
+@push('head')
+
 @endpush
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
         <a href="#" class="text-decoration-none">{{ trans('sigac::attendance.Attendance') }}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('sigac::consult.Consultation') }}</li>
+    <li class="breadcrumb-item active breadcrumb-color">{{ trans('sigac::consult.Consultation') }}</li>
 @endpush
 
 @section('content')
@@ -35,15 +35,6 @@
                                 <option value="3">Three</option>
                             </select>
                         </div>
-                        <div class="col-12">
-                            <label class="form-label">{{ trans('sigac::consult.CardLabel3') }}</label>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>{{ trans('sigac::consult.CardSelect3') }}</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
                         <div class="col-md-6">
                             <label class="form-label">{{ trans('sigac::consult.CardLabel4') }}</label>
                             <select class="form-select" aria-label="Default select example">
@@ -61,8 +52,9 @@
                             <label class="form-label">{{ trans('sigac::consult.CardLabel6') }}</label>
                             <input type="date" class="form-control" id="end-date">
                         </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">{{ trans('sigac::consult.Consult') }}</button>
+                        <div class="col-md-6 d-flex align-items-end justify-content-md-start">
+                            <button type="submit"
+                                class="btn btn-primary btn-block">{{ trans('sigac::consult.Consult') }}</button>
                         </div>
                     </form>
                 </div>
@@ -72,7 +64,10 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h3>{{ trans('sigac::consult.AprenticeAttendance') }} Usuario de prueba</h3>
+                    <div class="text-center">
+                        <h5 class="font-weight-bold">{{ trans('sigac::consult.AprenticeAttendance') }} Usuario de prueba
+                        </h5>
+                    </div>
                     <hr>
                     <div id='calendar' class="calendar"></div>
                 </div>
