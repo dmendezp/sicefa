@@ -1,14 +1,13 @@
 @extends('sigac::layouts.master')
 
-@push('title')
-    <h1 class="m-0">{{ $view['titleView'] }}</h1>
+@push('head')
 @endpush
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
         <a href="#" class="text-decoration-none">{{ trans('sigac::schedule.Schedule') }}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('sigac::schedule.Schedule Instructor') }}</li>
+    <li class="breadcrumb-item active breadcrumb-color">{{ trans('sigac::schedule.Schedule Instructor') }}</li>
 @endpush
 
 @section('content')
@@ -16,9 +15,11 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h4>Tu Horario</h4>
-                    <hr>
-                    <div id='calendar'></div>
+                    <div class="row">
+                        <h4>Tu Horario</h4>
+                        <hr>
+                        <div id='calendar'></div>
+                    </div>
                 </div>
             </div>
         </div>

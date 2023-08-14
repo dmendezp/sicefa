@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\SIGAC\Http\Controllers\AttendanceController;
-use Modules\SIGAC\Http\Controllers\ScheduleInstructorController;
+use Modules\SIGAC\Http\Controllers\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +30,8 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
         });
 
         Route::prefix('schedule')->group(function(){
-            Route::get('/index', [ScheduleInstructorController::class, 'index'])->name('cefa.sigac.schedule.index'); // Vista principal.
+            Route::get('/instructor', [ScheduleController::class, 'scheduleInstructor'])->name('cefa.sigac.scheduleInstructor.index'); // Vista principal.
+            Route::get('/program', [ScheduleController::class, 'scheduleProgramInstructor'])->name('cefa.sigac.scheduleProgram.index'); // Vista principal.
         });
     
         // Rutas para ....

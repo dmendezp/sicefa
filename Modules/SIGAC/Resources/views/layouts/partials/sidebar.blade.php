@@ -79,13 +79,6 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('cefa.sigac.schedule.index') }}" class="nav-link">
-                            <i class="nav-icon fas fa-user-clock"></i>
-                            <p>{{ trans('sigac::general.Schedule Instructor') }}</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon far fa-folder"></i>
                             <p>{{ trans('sigac::general.Consult Excuses') }}</p>
@@ -100,9 +93,16 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('cefa.sigac.scheduleProgram.index')}}" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>{{ trans('sigac::general.Schedule Programming') }}</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.sigac.scheduleInstructor.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-user-clock"></i>
+                            <p>{{ trans('sigac::general.Schedule Instructor') }}</p>
                         </a>
                     </li>
 

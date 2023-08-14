@@ -7,17 +7,20 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\App;
 
-class ScheduleInstructorController extends Controller
+class ScheduleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
+    public function scheduleInstructor()
     {
         $view = ['titlePage'=>trans('sigac::schedule.Schedule'), 'titleView'=>trans('sigac::schedule.Schedule Instructor')];
         $apps = App::get();
-        return view('sigac::scheduleInstructor.index', compact('apps', 'view'));
+        return view('sigac::schedule.instructor', compact('apps', 'view'));
+    }
+
+    public function scheduleProgramInstructor()
+    {
+        $view = ['titlePage'=>trans('sigac::schedule.Schedule Program.'), 'titleView'=>trans('sigac::schedule.Schedule Program.')];
+        $apps = App::get();
+        return view('sigac::schedule.programs', compact('apps', 'view'));
     }
 
     /**
