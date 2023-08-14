@@ -164,7 +164,9 @@ return [
         'person_first_name' => 'nombres', // PTVENTA
         'person_first_last_name' => 'primer apellido', // PTVENTA
         'person_second_last_name' => 'segundo apellido', // PTVENTA
+        'productive_unit_id' => 'productive unit', // SICA
         'sector_id' => 'sector', // SICA
+        'warehouse_id' => 'warehouse', // SICA
     ],
 
 ];

@@ -335,6 +335,15 @@
                                       </a>
                                   </li>
                               @endif
+                              @if (Auth::user()->havePermission('sica.admin.units.pu_warehouses.index'))
+                                  <li class="nav-item">
+                                      <a href="{{ route('sica.admin.units.pu_warehouses.index') }}"
+                                          class="nav-link {{ !Route::is('sica.admin.units.pu_warehouses.*') ?: 'active' }}">
+                                          <i class="fa-solid fa-boxes-stacked"></i>
+                                          <p>Bodegas U.P.</p>
+                                      </a>
+                                  </li>
+                              @endif
                               @if (Auth::user()->havePermission('sica.admin.units.areas'))
                                   <li class="nav-item">
                                       <a href="{{ route('sica.admin.units.areas') }}"
