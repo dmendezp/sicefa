@@ -393,10 +393,10 @@
                                       </a>
                                   </li>
                               @endif
-                              @if (Auth::user()->havePermission('sica.admin.security.roles'))
+                              @if (Auth::user()->havePermission('sica.admin.security.roles.index'))
                                   <li class="nav-item">
-                                      <a href="{{ route('sica.admin.security.roles') }}"
-                                          class="nav-link {{ !Route::is('sica.admin.security.roles*') ?: 'active' }}">
+                                      <a href="{{ route('sica.admin.security.roles.index') }}"
+                                          class="nav-link {{ !Route::is('sica.admin.security.roles.*') ?: 'active' }}">
                                           <i class="fas fa-user-tag"></i>
                                           <p>{{ trans('sica::menu.Roles') }}</p>
                                       </a>

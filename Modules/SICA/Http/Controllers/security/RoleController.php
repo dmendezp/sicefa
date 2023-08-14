@@ -2,24 +2,24 @@
 
 namespace Modules\SICA\Http\Controllers\security;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Role;
-use Modules\SICA\Entities\Responsability;
 use Modules\SICA\Entities\Permission;
-use App\Models\User;
+use Modules\SICA\Entities\Responsibility;
 
 class RoleController extends Controller
 {
 
-    public function roles()
-    {
-        $roles = Role::with('app')->get();
-        $data = ['title'=>trans('sica::menu.Roles'),'roles'=>$roles];
-        return view('sica::admin.security.roles.home',$data);
+    /* Lista de roles disponibles */
+    public function roles_index(){
+        $roles = Role::join('apps', 'apps.id', '=', 'roles.app_id') // Unir las tablas roles y apps
+                        ->select('roles.*') // Seleccionar todos los campos de roles
+                        ->orderBy('apps.name', 'ASC') // Ordenar por el campo 'name' de la relación 'app'
+                        ->orderBy('roles.name', 'ASC') // Luego ordenar por el campo 'name' de roles
+                        ->get();
+        $data = ['title'=>trans('sica::menu.Roles'), 'roles'=>$roles];
+        return view('sica::admin.security.roles.index', $data);
     }
 
     public function permissions()

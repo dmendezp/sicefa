@@ -11,7 +11,9 @@ Route::middleware(['lang'])->group(function(){
         // --------------  Rutas de Aplicaciones ---------------------------------
         Route::get('/admin/security/apps', [AppController::class, 'apps_index'])->name('sica.admin.security.apps.index'); /* Lista de aplicaciones disponibles (Administrador) */
 
-        Route::get('/admin/security/roles', [RoleController::class, 'roles'])->name('sica.admin.security.roles');
+        // --------------  Rutas de Roles ---------------------------------
+        Route::get('/admin/security/roles', [RoleController::class, 'roles_index'])->name('sica.admin.security.roles.index'); /* Lista de roles disponibles (Administrador) */
+        
         Route::get('/admin/security/permissions', [RoleController::class, 'permissions'])->name('sica.admin.security.permissions');
         Route::get('/admin/security/responsibilities', [RoleController::class, 'responsibilities'])->name('sica.admin.security.responsibilities');
 
