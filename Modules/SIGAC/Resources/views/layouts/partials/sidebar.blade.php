@@ -93,7 +93,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('cefa.sigac.scheduleProgram.index')}}" class="nav-link">
+                        <a href="{{ route('cefa.sigac.scheduleProgramInstructor.index')}}" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>{{ trans('sigac::general.Schedule Programming') }}</p>
                         </a>
@@ -107,7 +107,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('cefa.sigac.scheduleProgramEnvironment.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-chalkboard"></i>
                             <p>{{ trans('sigac::general.Environment Programming') }}</p>
                         </a>

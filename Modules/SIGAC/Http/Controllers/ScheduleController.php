@@ -11,16 +11,23 @@ class ScheduleController extends Controller
 {
     public function scheduleInstructor()
     {
-        $view = ['titlePage'=>trans('sigac::schedule.Schedule'), 'titleView'=>trans('sigac::schedule.Schedule Instructor')];
+        $view = ['titlePage'=>trans('sigac::sInstructor.TitlePage'), 'titleView'=>trans('sigac::sInstructor.TitleView')];
         $apps = App::get();
         return view('sigac::schedule.instructor', compact('apps', 'view'));
     }
 
     public function scheduleProgramInstructor()
     {
-        $view = ['titlePage'=>trans('sigac::schedule.Schedule Program.'), 'titleView'=>trans('sigac::schedule.Schedule Program.')];
+        $view = ['titlePage'=>trans('sigac::sProgram.TitlePage'), 'titleView'=>trans('sigac::sProgram.TitleView')];
         $apps = App::get();
         return view('sigac::schedule.programs', compact('apps', 'view'));
+    }
+
+    public function scheduleProgramEnvironment()
+    {
+        $view = ['titlePage'=>trans('sigac::sEnvironment.TitlePage'), 'titleView'=>trans('sigac::sEnvironment.TitleView')];
+        $apps = App::get();
+        return view('sigac::schedule.environment', compact('apps', 'view'));
     }
 
     /**
