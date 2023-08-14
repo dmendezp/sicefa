@@ -13,4 +13,10 @@ class SIGACController extends Controller
         $apps = App::get();
         return view('sigac::index', compact('apps', 'view'));
     }
+
+    public function info(){
+        $view = ['titlePage'=>trans('sigac::about.About us'), 'titleView'=>trans('sigac::about.About us')];
+        $apps = App::get();
+        return view('sigac::information.index', compact('apps','view'));
+    }
 }

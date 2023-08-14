@@ -121,7 +121,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('cefa.sigac.info')}}" class="nav-link">
                             <i class="nav-icon fas fa-info"></i>
                             <p>{{ trans('sigac::general.About us') }}</p>
                         </a>
