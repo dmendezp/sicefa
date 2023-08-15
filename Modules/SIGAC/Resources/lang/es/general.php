@@ -16,17 +16,29 @@ return [
     'Go'                   => 'Ir a aplicaciones',
     'FullScreen'           => 'Modo Pantalla Completa',
     
-    //Siderbar
+    //Sidebar
+    //Sesion
     'Session'                 => 'Iniciar Sesión',
     'Back to SICEFA'          => 'Volver a SICEFA',
+    //Attendance
     'Attendance Register'     => 'Registro Asistencia',
-    'Consult Apprentice'      => 'Consultar Aprendiz',
-    'Schedule Instructor'     => 'Horario de Instructor',
-    'Consult Excuses'         => 'Consulta Excusas',
+    //Instructor
     'Instructor Management'   => 'Gestión de Instructores',
+    //Schedule
+    'Schedules'               => 'Horarios',
+    'Schedule Instructor'     => 'Horario de Instructor',
+    'Schedule Apprentice'     => 'Horario de Aprendiz',
+    //Program Schedule
+    'Programming'             => 'Programación',
     'Schedule Programming'    => 'Program. de Horarios',
     'Environment Programming' => 'Program. de Ambientes',
+    //Consult
+    'Consult'                 => 'Consultas',
+    'Consult Apprentice'      => 'Consultar Aprendiz',
+    'Consult Excuses'         => 'Consultar Excusas',
+    //Reports
     'Attendance Reports'      => 'Reportes de Asitencia',
+    //Info
     'About us'                => 'Acerca de',
 
     //Control Sidebar

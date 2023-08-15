@@ -17,16 +17,28 @@ return [
     'FullScreen'           => 'Full Screen Mode',
     
     //Sidebar
-    'Session'               => 'Sign in',
+    //Sesion
+    'Session'                 => 'Sign in',
     'Back to SICEFA'          => 'Back to SICEFA',
+    //Attendance
     'Attendance Register'     => 'Attendance Register',
-    'Consult Apprentice'      => 'Consult Apprentice',
-    'Schedule Instructor'     => 'Schedule Instructor',
-    'Consult Excuses'         => 'Consult Excuses',
+    //Instructor
     'Instructor Management'   => 'Instructor Management',
+    //Schedule
+    'Schedules'               => 'Schedules',
+    'Schedule Instructor'     => 'Schedule Instructor',
+    'Schedule Apprentice'     => 'Schedule Apprentice',
+    //Program Schedule
+    'Programming'             => 'Programming',
     'Schedule Programming'    => 'Schedule Programming',
     'Environment Programming' => 'Environment Programming',
+    //Consult
+    'Consult'                 => 'Consult',
+    'Consult Apprentice'      => 'Consult Apprentice',
+    'Consult Excuses'         => 'Consult Excuses',
+    //Reports
     'Attendance Reports'      => 'Attendance Reports',
+    //Info
     'About us'                => 'About us',
 
     //Control Sidebar
