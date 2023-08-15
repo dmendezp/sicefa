@@ -35,7 +35,10 @@
                                     @foreach ($roles as $r)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td class="text-center">{{ $r->app->name }}</td>
+                                            <td class="text-center">
+                                                <i class="fas {{ $r->app->icon }}" style="color: {{ $r->app->color }}"></i>
+                                                {{ $r->app->name }}
+                                            </td>
                                             <td>
                                                 <strong>{{ $r->name }}</strong>
                                             </td>

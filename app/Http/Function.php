@@ -15,10 +15,17 @@ function getEnumValues($table, $column){
 	return $enum;
 }
 
-function checkRol($slug){ // Verficar si tiene acceso a los distintos roles de la aplicación
-    if(Auth::user()->roles[0]->slug==$slug OR Auth::user()->roles[0]->slug=='superadmin'){
-        return true;
-    }else{
+// Verficar si tiene acceso a los distintos roles de la aplicación
+function checkRol($slug){
+    $user = Auth::user();
+    if (count($user->roles) > 0) {
+        foreach ($user->roles as $role){
+            if($role->slug==$slug OR $role->slug=='superadmin'){
+                return true;
+            }
+        }
+        return false;
+    } else {
         return false;
     }
 }

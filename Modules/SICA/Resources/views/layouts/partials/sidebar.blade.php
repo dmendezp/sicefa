@@ -11,8 +11,8 @@
               <div class="row col-md-12">
                   <div class="image mt-2 mb-2">
                       @if (isset(Auth::user()->person->avatar))
-                          <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}" class="img-circle elevation-2"
-                              alt="User Image">
+                          <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"
+                              class="img-circle elevation-2" alt="User Image">
                       @else
                           <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2"
                               alt="User Image">
@@ -32,13 +32,16 @@
                       <div class="col info info-user">
                           <div data-toggle="tooltip" data-placement="top"
                               title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
-                              {{ Auth::user()->nickname }}</div>
-                          <div class="small"><em> {{ Auth::user()->roles[0]->name }}</em></div>
+                              {{ Auth::user()->nickname }}
+                          </div>
+                          <div class="small">
+                              <em> {{ Auth::user()->roles->count() > 0 ? Auth::user()->roles[0]->name : 'Sin rol asignado' }} </em>
+                          </div>
                       </div>
-                      <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right"
-                          title="{{ trans('Auth.Logout') }}"><a href="{{ route('logout') }}" class="d-block"
-                              onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();"><i
+                      <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Logout') }}">
+                            <a href="{{ route('logout') }}" class="d-block"
+                              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                              <i
                                   class="fas fa-sign-out-alt"></i></a>
                       </div>
                       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -258,6 +261,64 @@
                           </ul>
                       </li>
                       <!-- CIERRA MENU PARA LOCATION -->
+                      <!-- MENU PARA UNITS -->
+                      <li class="nav-item {{ !Route::is('sica.admin.units.*') ?: 'menu-is-opening menu-open' }}">
+                        <a href="#" class="nav-link {{ !Route::is('sica.admin.units.*') ?: 'active' }}">
+                            <i class="fas fa-network-wired"></i>
+                            <p>
+                                {{ trans('sica::menu.Units') }}
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (Auth::user()->havePermission('sica.admin.units.areas'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.admin.units.areas') }}"
+                                        class="nav-link {{ !Route::is('sica.admin.units.areas*') ?: 'active' }}">
+                                        <i class="fas fa-sign"></i>
+                                        <p>{{ trans('sica::menu.Areas') }}</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.admin.units.productive_unit.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.admin.units.productive_unit.index') }}"
+                                        class="nav-link {{ !Route::is('sica.admin.units.productive_unit.*') ?: 'active' }}">
+                                        <i class="fas fa-layer-group"></i>
+                                        <p>U. Productivas</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.admin.units.pu_warehouses.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.admin.units.pu_warehouses.index') }}"
+                                        class="nav-link {{ !Route::is('sica.admin.units.pu_warehouses.*') ?: 'active' }}">
+                                        <i class="fa-solid fa-boxes-stacked"></i>
+                                        <p>Bodegas U.P.</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.admin.units.consumption'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.admin.units.consumption') }}"
+                                        class="nav-link {{ !Route::is('sica.admin.units.consumption*') ?: 'active' }}">
+                                        <i class="fas fa-folder-minus"></i>
+                                        <p>{{ trans('sica::menu.Consumption') }}</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.admin.units.production'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.admin.units.production') }}"
+                                        class="nav-link {{ !Route::is('sica.admin.units.production*') ?: 'active' }}">
+                                        <i class="fas fa-folder-plus"></i>
+                                        <p>{{ trans('sica::menu.Production') }}</p>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                    <!-- CIERRA MENU PARA UNITS -->
                       <!-- MENU PARA INVENTORY -->
                       <li class="nav-item {{ !Route::is('sica.admin.inventory.*') ?: 'menu-is-opening menu-open' }}">
                           <a href="#" class="nav-link {{ !Route::is('sica.admin.inventory.*') ?: 'active' }}">
@@ -268,21 +329,21 @@
                               </p>
                           </a>
                           <ul class="nav nav-treeview">
+                            @if (Auth::user()->havePermission('sica.admin.inventory.parameters.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.admin.inventory.parameters.index') }}"
+                                        class="nav-link {{ !Route::is('sica.admin.inventory.parameters.index*') ?: 'active' }}">
+                                        <i class="fas fa-stream"></i>
+                                        <p>{{ trans('sica::menu.Parameters') }}</p>
+                                    </a>
+                                </li>
+                            @endif
                               @if (Auth::user()->havePermission('sica.admin.inventory.warehouse.index'))
                                   <li class="nav-item">
                                       <a href="{{ route('sica.admin.inventory.warehouse.index') }}"
                                           class="nav-link {{ !Route::is('sica.admin.inventory.warehouse.*') ?: 'active' }}">
                                           <i class="fas fa-warehouse"></i>
                                           <p>{{ trans('sica::menu.Warehouses') }}</p>
-                                      </a>
-                                  </li>
-                              @endif
-                              @if (Auth::user()->havePermission('sica.admin.inventory.parameters.index'))
-                                  <li class="nav-item">
-                                      <a href="{{ route('sica.admin.inventory.parameters.index') }}"
-                                          class="nav-link {{ !Route::is('sica.admin.inventory.parameters.index*') ?: 'active' }}">
-                                          <i class="fas fa-stream"></i>
-                                          <p>{{ trans('sica::menu.Parameters') }}</p>
                                       </a>
                                   </li>
                               @endif
@@ -316,64 +377,6 @@
                           </ul>
                       </li>
                       <!-- CIERRA MENU PARA INVENTORY -->
-                      <!-- MENU PARA UNITS -->
-                      <li class="nav-item {{ !Route::is('sica.admin.units.*') ?: 'menu-is-opening menu-open' }}">
-                          <a href="#" class="nav-link {{ !Route::is('sica.admin.units.*') ?: 'active' }}">
-                              <i class="fas fa-network-wired"></i>
-                              <p>
-                                  {{ trans('sica::menu.Units') }}
-                                  <i class="right fas fa-angle-left"></i>
-                              </p>
-                          </a>
-                          <ul class="nav nav-treeview">
-                              @if (Auth::user()->havePermission('sica.admin.units.productive_unit.index'))
-                                  <li class="nav-item">
-                                      <a href="{{ route('sica.admin.units.productive_unit.index') }}"
-                                          class="nav-link {{ !Route::is('sica.admin.units.productive_unit.*') ?: 'active' }}">
-                                          <i class="fas fa-layer-group"></i>
-                                          <p>U. Productivas</p>
-                                      </a>
-                                  </li>
-                              @endif
-                              @if (Auth::user()->havePermission('sica.admin.units.pu_warehouses.index'))
-                                  <li class="nav-item">
-                                      <a href="{{ route('sica.admin.units.pu_warehouses.index') }}"
-                                          class="nav-link {{ !Route::is('sica.admin.units.pu_warehouses.*') ?: 'active' }}">
-                                          <i class="fa-solid fa-boxes-stacked"></i>
-                                          <p>Bodegas U.P.</p>
-                                      </a>
-                                  </li>
-                              @endif
-                              @if (Auth::user()->havePermission('sica.admin.units.areas'))
-                                  <li class="nav-item">
-                                      <a href="{{ route('sica.admin.units.areas') }}"
-                                          class="nav-link {{ !Route::is('sica.admin.units.areas*') ?: 'active' }}">
-                                          <i class="fas fa-sign"></i>
-                                          <p>{{ trans('sica::menu.Areas') }}</p>
-                                      </a>
-                                  </li>
-                              @endif
-                              @if (Auth::user()->havePermission('sica.admin.units.consumption'))
-                                  <li class="nav-item">
-                                      <a href="{{ route('sica.admin.units.consumption') }}"
-                                          class="nav-link {{ !Route::is('sica.admin.units.consumption*') ?: 'active' }}">
-                                          <i class="fas fa-folder-minus"></i>
-                                          <p>{{ trans('sica::menu.Consumption') }}</p>
-                                      </a>
-                                  </li>
-                              @endif
-                              @if (Auth::user()->havePermission('sica.admin.units.production'))
-                                  <li class="nav-item">
-                                      <a href="{{ route('sica.admin.units.production') }}"
-                                          class="nav-link {{ !Route::is('sica.admin.units.production*') ?: 'active' }}">
-                                          <i class="fas fa-folder-plus"></i>
-                                          <p>{{ trans('sica::menu.Production') }}</p>
-                                      </a>
-                                  </li>
-                              @endif
-                          </ul>
-                      </li>
-                      <!-- CIERRA MENU PARA UNITS -->
                       <!-- MENU PARA SECURITY -->
                       <li class="nav-item {{ !Route::is('sica.admin.security.*') ?: 'menu-is-opening menu-open' }}">
                           <a href="#" class="nav-link {{ !Route::is('sica.admin.security.*') ?: 'active' }}">
@@ -411,10 +414,10 @@
                                       </a>
                                   </li>
                               @endif
-                              @if (Auth::user()->havePermission('sica.admin.security.users'))
+                              @if (Auth::user()->havePermission('sica.admin.security.users.index'))
                                   <li class="nav-item">
-                                      <a href="{{ route('sica.admin.security.users') }}"
-                                          class="nav-link {{ !Route::is('sica.admin.security.users*') ?: 'active' }}">
+                                      <a href="{{ route('sica.admin.security.users.index') }}"
+                                          class="nav-link {{ !Route::is('sica.admin.security.users.*') ?: 'active' }}">
                                           <i class="fas fa-user-shield"></i>
                                           <p>{{ trans('sica::menu.Users') }}</p>
                                       </a>
