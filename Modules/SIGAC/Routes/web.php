@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\SIGAC\Http\Controllers\AttendanceController;
+use Modules\SIGAC\Http\Controllers\InstructorController;
 use Modules\SIGAC\Http\Controllers\ScheduleController;
 
 /*
@@ -25,6 +26,10 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
             Route::get('information', 'info')->name('cefa.sigac.info');
         });
         
+        Route::prefix('instructor')->group(function(){
+            Route::get('/index', [InstructorController::class, 'index'])->name('cefa.sigac.instructor.index'); // Vista principal.
+        });
+
         Route::prefix('attendance')->group(function(){
             Route::get('/register', [AttendanceController::class, 'index'])->name('cefa.sigac.attendance.register'); // Vista principal.
             Route::get('/consult', [AttendanceController::class, 'consultAttendance'])->name('cefa.sigac.attendance.consult'); // Vista de consulta de asistencia.

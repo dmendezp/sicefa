@@ -78,7 +78,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('cefa.sigac.instructor.index')}}" class="nav-link {{ !Route::is('cefa.sigac.instructor.index*') ?: 'active' }}">
                             <i class="nav-icon fas fa-chalkboard-teacher"></i>
                             <p>{{ trans('sigac::general.Instructor Management') }}</p>
                         </a>
