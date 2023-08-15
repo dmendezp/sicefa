@@ -37,6 +37,7 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
 
         Route::prefix('schedule')->group(function(){
             Route::get('/instructor', [ScheduleController::class, 'scheduleInstructor'])->name('cefa.sigac.scheduleInstructor.index'); // Vista principal.
+            Route::get('/apprentice', [ScheduleController::class, 'scheduleApprentice'])->name('cefa.sigac.scheduleApprentice.index'); // Vista principal.
             Route::get('/program', [ScheduleController::class, 'scheduleProgramInstructor'])->name('cefa.sigac.scheduleProgramInstructor.index'); // Vista principal.
             Route::get('/environment', [ScheduleController::class, 'scheduleProgramEnvironment'])->name('cefa.sigac.scheduleProgramEnvironment.index'); // Vista principal.
         });

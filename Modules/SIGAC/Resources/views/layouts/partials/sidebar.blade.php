@@ -100,7 +100,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('cefa.sigac.scheduleApprentice.index')}}" class="nav-link">
                                     <i class="nav-icon fa-solid fa-user-graduate"></i>
                                     <p>{{ trans('sigac::general.Schedule Apprentice') }}</p>
                                 </a>

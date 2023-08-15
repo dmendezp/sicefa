@@ -16,6 +16,13 @@ class ScheduleController extends Controller
         return view('sigac::schedule.instructor', compact('apps', 'view'));
     }
 
+    public function scheduleApprentice()
+    {
+        $view = ['titlePage'=>trans('sigac::sApprentice.TitlePage'), 'titleView'=>trans('sigac::sApprentice.TitleView')];
+        $apps = App::get();
+        return view('sigac::schedule.apprentice', compact('apps', 'view'));
+    }
+
     public function scheduleProgramInstructor()
     {
         $view = ['titlePage'=>trans('sigac::sProgram.TitlePage'), 'titleView'=>trans('sigac::sProgram.TitleView')];
