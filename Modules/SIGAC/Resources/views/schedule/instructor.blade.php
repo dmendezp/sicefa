@@ -16,8 +16,6 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <h4>Tu Horario</h4>
-                        <hr>
                         <div id='calendar'></div>
                     </div>
                 </div>
@@ -32,7 +30,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth'
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,listWeek'
+                },
+                height: 'auto', // Puedes ajustar la altura automáticamente según el contenido
+                aspectRatio: 1.0, // Cambia la relación de aspecto para ajustar el ancho
             });
             calendar.render();
         });
