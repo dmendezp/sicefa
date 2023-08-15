@@ -6,13 +6,22 @@
             <div class="d-flex justify-content-center">
                 <div class="card card-orange card-outline shadow col-md-12">
                     <div class="card-header">
-                        <h4>Roles</h4>
+                        <div class="row">
+                            <div class="col-md-auto">
+                                <h4>Roles</h4>
+                            </div>
+                            <div class="col-md">
+                                <a href="{{ route('sica.admin.security.roles.permision_role.index') }}" class="btn btn-info float-right ml-1">
+                                  <i class="fa-solid fa-angles-right fa-beat-fade mr-1"></i> Relación de roles y permisos
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="mtop16">
                             <table id="roles_table" class="table table-bordered table-striped table-hover">
-                                <thead>
+                                <thead class="table-dark">
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th class="text-center">Aplicación</th>
@@ -27,7 +36,9 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td class="text-center">{{ $r->app->name }}</td>
-                                            <td>{{ $r->name }}</td>
+                                            <td>
+                                                <strong>{{ $r->name }}</strong>
+                                            </td>
                                             <td>{{ $r->slug }}</td>
                                             <td class="text-center">
                                                 @if ($r->full_access == 'Si')

@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <div class="mtop16">
                             <table id="permissions_table" class="table table-bordered table-striped table-hover">
-                                <thead>
+                                <thead class="table-dark">
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th class="text-center">Aplicación</th>

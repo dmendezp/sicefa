@@ -15,7 +15,7 @@
                     <div class="card-body">
                         <div class="mtop16">
                             <table id="apps_table" class="table table-bordered table-striped">
-                                <thead>
+                                <thead class="table-dark">
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th>Nombre</th>
@@ -31,8 +31,7 @@
                                             <td>{{ $app->name }}</td>
                                             <td>{{ $app->url }}</td>
                                             <td class="text-center">
-                                                <h1 style="color: {{ $app->color }}"><i
-                                                        class="fas {{ $app->icon }}"></i></h1>
+                                                <h1 style="color: {{ $app->color }}"><i class="fas {{ $app->icon }}"></i></h1>
                                             </td>
                                             <td>{{ $app->description }}</td>
                                         </tr>

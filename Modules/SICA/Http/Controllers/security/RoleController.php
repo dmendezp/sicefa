@@ -3,7 +3,7 @@
 namespace Modules\SICA\Http\Controllers\security;
 
 use Illuminate\Routing\Controller;
-
+use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Permission;
 use Modules\SICA\Entities\Responsibility;
@@ -20,6 +20,13 @@ class RoleController extends Controller
                         ->get();
         $data = ['title'=>trans('sica::menu.Roles'), 'roles'=>$roles];
         return view('sica::admin.security.roles.index', $data);
+    }
+
+    /* Lista de la asociación de roles y permisos */
+    public function roles_permission_role(){
+        $apps = App::orderBy('name','ASC')->get();
+        $data = ['title'=>'Roles y permisos', 'apps'=>$apps];
+        return view('sica::admin.security.permission_role.index', $data);
     }
 
     /* Lista de permisos disponibles */
