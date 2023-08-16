@@ -133,20 +133,3 @@
 .services .icon-box:hover {
   transform: translateY(-5px);
 }
-
-/* Los siguientes estilos son lo que se aplican a los selects del llamado de asistencia, cada uno esta segun el valor del select que se tome */
-.green-background {
-  background-color: green !important;
-}
-
-.yellow-background {
-  background-color: yellow !important;
-}
-
-.orange-background {
-  background-color: orange !important;
-}
-
-.red-background {
-  background-color: red !important;
-}

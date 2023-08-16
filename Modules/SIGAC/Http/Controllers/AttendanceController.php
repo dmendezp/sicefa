@@ -6,6 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\App;
+use Modules\SICA\Entities\Environment;
+use Modules\SICA\Entities\Program;
 
 class AttendanceController extends Controller
 {
@@ -17,9 +19,16 @@ class AttendanceController extends Controller
     {
         $view = ['titlePage'=>trans('sigac::attendance.Attendance'), 'titleView'=>trans('sigac::attendance.Attendance Registration')];
         $apps = App::get();
-        return view('sigac::attendance.register', compact('apps', 'view'));
-    }
 
+        // Obtener la lista de ambientes disponibles
+        $environments = Environment::orderBy('name','ASC');
+
+        // Obtener la lista de cursos concatenados
+        $programs = Program::orderBy('name','ASC')->get();
+
+        return view('sigac::attendance.register', compact('apps', 'view', 'environments', 'programs'));
+    }
+    
     public function consultAttendance()
     {
         $view = ['titlePage'=>trans('sigac::consult.Consultation'), 'titleView'=>trans('sigac::consult.Attendance Consultation')];
