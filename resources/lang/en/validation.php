@@ -154,12 +154,14 @@ return [
     */
 
     'attributes' => [
+        'activity_type_id' => 'activity type', // SICA
         'app_id' => 'app', // SICA
         'description' => 'description', // SICA
         'farm_id' => 'farm', // SICA
         'leader_id' => 'leader person', // SICA
         'name' => 'name', // SICA
         'nickname' => 'nickname', // SICA
+        'period' => 'period', // SICA
         'person_document_type' => 'document type', // PTVENTA
         'person_document_number' => 'document number', // PTVENTA
         'person_first_name' => 'nombres', // PTVENTA
@@ -168,6 +170,7 @@ return [
         'person_second_last_name' => 'second last name', // PTVENTA
         'productive_unit_id' => 'productive unit', // SICA
         'sector_id' => 'sector', // SICA
+        'status' => 'status', // SICA
         'warehouse_id' => 'warehouse', // SICA
     ],
 

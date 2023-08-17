@@ -289,6 +289,15 @@
                                     </a>
                                 </li>
                             @endif
+                            @if (Auth::user()->havePermission('sica.admin.units.activities.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.admin.units.activities.index') }}"
+                                        class="nav-link {{ !Route::is('sica.admin.units.activities.*') ?: 'active' }}">
+                                        <i class="fa-solid fa-users-gear"></i>
+                                        <p>Actividades</p>
+                                    </a>
+                                </li>
+                            @endif
                             @if (Auth::user()->havePermission('sica.admin.units.pu_warehouses.index'))
                                 <li class="nav-item">
                                     <a href="{{ route('sica.admin.units.pu_warehouses.index') }}"

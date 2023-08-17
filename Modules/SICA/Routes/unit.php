@@ -19,6 +19,13 @@ Route::middleware(['lang'])->group(function(){
         Route::post('/admin/units/pu_warhouses/store', [UnitController::class, 'pu_warehouses_store'])->name('sica.admin.units.pu_warehouses.store'); // Registrar asociación de unidad productiva y bodega (Administrador)
         Route::get('/admin/units/pu_warehouses/destroy/{puw}', [UnitController::class, 'pu_warehouses_destroy'])->name('sica.admin.units.pu_warehouses.destroy'); // Eliminar asociación de unidad productiva y bodega (Administrador)
 
+        // --------------  Rutas de Actividades ---------------------------------
+        Route::get('/admin/units/activities', [UnitController::class, 'activities_index'])->name('sica.admin.units.activities.index'); // Listado de actividades disponibles (Administrador)
+        Route::get('/admin/units/activities/create', [UnitController::class, 'activities_create'])->name('sica.admin.units.activities.create'); // Formulario de registro de actividad (Administrador)
+        Route::post('/admin/units/activities/store', [UnitController::class, 'activities_store'])->name('sica.admin.units.activities.store'); // Registrar actividad (Administrador)
+        Route::get('/admin/units/activities/edit/{activity}', [UnitController::class, 'activities_edit'])->name('sica.admin.units.activities.edit'); // Consultar actividad para su actualización (Administrador)
+        Route::post('/admin/units/activities/update/{activity}', [UnitController::class, 'activities_update'])->name('sica.admin.units.activities.update'); // Actualizar actividad (Administrador)
+        Route::delete('/admin/units/activities/destroy/{activity}', [UnitController::class, 'activities_destroy'])->name('sica.admin.units.activities.destroy'); // Eliminar actividad (Administrador)
 
 
         Route::get('/admin/units/areas', [UnitController::class, 'areas'])->name('sica.admin.units.areas');

@@ -9,6 +9,8 @@ use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Sector;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Modules\SICA\Entities\Activity;
+use Modules\SICA\Entities\ActivityType;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Warehouse;
 
@@ -150,6 +152,85 @@ class UnitController extends Controller
             $message = ['message'=>'No se pudo eliminar la asociación de unidad productiva y bodega.', 'typealert'=>'danger'];
         }
         return redirect(route('sica.admin.units.pu_warehouses.index'))->with($message);
+    }
+
+    /* Listado de actividades disponibles */
+    public function activities_index(){
+        $activities = Activity::orderBy('updated_at','DESC')->get();
+        $data = ['title'=>'Actividades', 'activities'=>$activities];
+        return view('sica::admin.units.activities.index', $data);
+    }
+
+    /* Formulario de registro de actividad */
+    public function activities_create(){
+        $productive_units = ProductiveUnit::orderBy('name','ASC')->get();
+        $activity_types = ActivityType::orderBy('name','ASC')->get();
+        $data = ['title'=>'Actividades - Registro', 'productive_units'=>$productive_units, 'activity_types'=>$activity_types];
+        return view('sica::admin.units.activities.create', $data);
+    }
+
+    /* Registrar actividad */
+    public function activities_store(Request $request){
+        $rules = [
+            'name' => 'required',
+            'productive_unit_id' => 'required',
+            'activity_type_id' => 'required',
+            'description' => 'required',
+            'period' => 'required',
+            'status' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Realizar registro
+        if (Activity::create($request->all())){
+            $message = ['message'=>'Se registró exitosamente la actividad.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo realizar el registro de la actividad.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.units.activities.index'))->with($message);
+    }
+
+    /* Consultar actividad para su actualización */
+    public function activities_edit(Activity $activity){
+        $productive_units = ProductiveUnit::orderBy('name','ASC')->get();
+        $activity_types = ActivityType::orderBy('name','ASC')->get();
+        $data = ['title'=>'Actividades - Actualización', 'productive_units'=>$productive_units, 'activity_types'=>$activity_types, 'activity'=>$activity];
+        return view('sica::admin.units.activities.edit', $data);
+    }
+
+    /* Actualizar actividad */
+    public function activities_update(Request $request, Activity $activity){
+        $rules = [
+            'name' => 'required',
+            'productive_unit_id' => 'required',
+            'activity_type_id' => 'required',
+            'description' => 'required',
+            'period' => 'required',
+            'status' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Actualizar registro
+        if ($activity->update($request->all())){
+            $message = ['message'=>'Se actualizó exitosamente la actividad.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo realizar la actualización de la actividad.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.units.activities.index'))->with($message);
+    }
+
+    /* Eliminar actividad */
+    public function activities_destroy(Activity $activity){
+        if ($activity->delete()){
+            $message = ['message'=>'Se eliminó exitosamente la actividad.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo eliminar la actividad.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.units.activities.index'))->with($message);
     }
 
 	public function areas(){

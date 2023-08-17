@@ -147,12 +147,14 @@ return [
     */
 
     'attributes' => [
+        'activity_type_id' => 'tipo de actividad', // SICA
         'app_id' => 'aplicación', // SICA
         'description' => 'descripción', // SICA
         'farm_id' => 'granja', // SICA
         'leader_id' => 'persona líder', // SICA
         'name' => 'nombre', // SICA
         'nickname' => 'nombre de usuario', // SICA
+        'period' => 'periodo', // SICA
         'person_document_type' => 'tipo de documento', // PTVENTA
         'person_document_number' => 'número de documento', // PTVENTA
         'person_first_name' => 'nombres', // PTVENTA
@@ -161,6 +163,7 @@ return [
         'person_second_last_name' => 'segundo apellido', // PTVENTA
         'productive_unit_id' => 'unidad productiva', // SICA
         'sector_id' => 'sector', // SICA
+        'status' => 'estado', // SICA
         'warehouse_id' => 'bodega', // SICA
     ],
 
