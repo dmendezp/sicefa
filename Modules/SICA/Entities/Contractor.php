@@ -14,6 +14,7 @@ class Contractor extends Model implements Auditable
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'person_id',
+        'supervisor_id',
         'contract_number',
         'contract_start_date',
         'contract_end_date',
@@ -68,6 +69,9 @@ class Contractor extends Model implements Auditable
     }
     public function person(){ // Accede a la información de la persona al que pertenece
         return $this->belongsTo(Person::class);
+    }
+    public function supervisor(){ // Accede a la información del supervisor asignado
+        return $this->belongsTo(Person::class, 'supervisor_id');
     }
 
 }

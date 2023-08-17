@@ -2,31 +2,42 @@
 
 namespace Modules\SICA\Http\Controllers\security;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Role;
-use Modules\SICA\Entities\Responsability;
 use Modules\SICA\Entities\Permission;
-use App\Models\User;
+use Modules\SICA\Entities\Responsibility;
 
 class RoleController extends Controller
 {
 
-    public function roles()
-    {
-        $roles = Role::with('app')->get();
-        $data = ['title'=>trans('sica::menu.Roles'),'roles'=>$roles];
-        return view('sica::admin.security.roles.home',$data);
+    /* Lista de roles disponibles */
+    public function roles_index(){
+        $roles = Role::join('apps', 'apps.id', '=', 'roles.app_id') // Unir las tablas roles y apps
+                        ->select('roles.*') // Seleccionar todos los campos de roles
+                        ->orderBy('apps.name', 'ASC') // Ordenar por el campo 'name' de la relación 'app'
+                        ->orderBy('roles.name', 'ASC') // Luego ordenar por el campo 'name' de roles
+                        ->get();
+        $data = ['title'=>trans('sica::menu.Roles'), 'roles'=>$roles];
+        return view('sica::admin.security.roles.index', $data);
     }
 
-    public function permissions()
-    {
-        $permissions = Permission::get();
-        $data = ['title'=>trans('sica::menu.Permissions'),'permissions'=>$permissions];
-        return view('sica::admin.security.permissions.home',$data);
+    /* Lista de la asociación de roles y permisos */
+    public function roles_permission_role(){
+        $apps = App::orderBy('name','ASC')->get();
+        $data = ['title'=>'Roles y permisos', 'apps'=>$apps];
+        return view('sica::admin.security.permission_role.index', $data);
+    }
+
+    /* Lista de permisos disponibles */
+    public function permissions_index(){
+        $permissions = Permission::join('apps', 'apps.id', '=', 'permissions.app_id') // Unir las tablas roles y apps
+                        ->select('permissions.*') // Seleccionar todos los campos de roles
+                        ->orderBy('apps.name', 'ASC') // Ordenar por el campo 'name' de la relación 'app'
+                        ->orderBy('permissions.slug', 'ASC') // Luego ordenar por el campo 'name' de roles
+                        ->get();
+        $data = ['title'=>trans('sica::menu.Permissions'), 'permissions'=>$permissions];
+        return view('sica::admin.security.permissions.index', $data);
     }
 
     public function responsibilities()

@@ -137,8 +137,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'roles_id' => [
+            'required' => 'It is necessary to select at least one role.',
         ],
     ],
 
@@ -154,11 +154,21 @@ return [
     */
 
     'attributes' => [
-        'person_document_type' => 'tipo de documento', // PTVENTA
-        'person_document_number' => 'número de documento', // PTVENTA
+        'app_id' => 'app', // SICA
+        'description' => 'description', // SICA
+        'farm_id' => 'farm', // SICA
+        'leader_id' => 'leader person', // SICA
+        'name' => 'name', // SICA
+        'nickname' => 'nickname', // SICA
+        'person_document_type' => 'document type', // PTVENTA
+        'person_document_number' => 'document number', // PTVENTA
         'person_first_name' => 'nombres', // PTVENTA
-        'person_first_last_name' => 'primer apellido', // PTVENTA
-        'person_second_last_name' => 'segundo apellido', // PTVENTA
+        'person_first_last_name' => 'first last name', // PTVENTA
+        'person_id' => 'person', // SICA
+        'person_second_last_name' => 'second last name', // PTVENTA
+        'productive_unit_id' => 'productive unit', // SICA
+        'sector_id' => 'sector', // SICA
+        'warehouse_id' => 'warehouse', // SICA
     ],
 
 ];
