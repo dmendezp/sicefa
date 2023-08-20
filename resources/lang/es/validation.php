@@ -149,8 +149,10 @@ return [
     'attributes' => [
         'activity_type_id' => 'tipo de actividad', // SICA
         'app_id' => 'aplicación', // SICA
+        'date' => 'fecha', // SICA
         'description' => 'descripción', // SICA
         'farm_id' => 'granja', // SICA
+        'issue' => 'asunto', // SICA
         'leader_id' => 'persona líder', // SICA
         'name' => 'nombre', // SICA
         'nickname' => 'nombre de usuario', // SICA

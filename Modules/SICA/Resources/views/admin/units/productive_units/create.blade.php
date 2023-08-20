@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="card-footer py-2 text-right">
-                            <a href="{{ route('sica.admin.inventory.warehouse.index') }}" class="btn btn-secondary btn-sm">Cancelar</a>
+                            <a href="{{ route('sica.admin.units.productive_unit.index') }}" class="btn btn-secondary btn-sm">Cancelar</a>
                             <button type="submit" class="btn btn-primary btn-sm">Registrar</button>
                         </div>
                     </form>

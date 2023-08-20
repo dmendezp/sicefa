@@ -6,20 +6,83 @@ use Dotenv\Parser\Lines;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Validator;
 use Modules\SICA\Entities\Course;
+use Modules\SICA\Entities\Holiday;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Network;
 use Modules\SICA\Entities\Line;
 
 class AcademyController extends Controller
 {
- 
+
     public function quarters(){
         $data = ['title'=>trans('sica::menu.Quarters')];
         return view('sica::admin.academy.quarters.home',$data);
     }
 
-    //-------------------Seccion de Líneas------------------------
+    // Listado de días festivos disponibles
+    public function holidays_index(){
+        $holidays = Holiday::orderBy('updated_at','DESC')->get();
+        $data = ['title'=>'Festivos', 'holidays'=>$holidays];
+        return view('sica::admin.academy.holidays.index',$data);
+    }
+
+    // Registrar día festivo
+    public function holidays_store(Request $request){
+        $rules = [
+            'date' => 'required',
+            'issue' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Realizar registro
+        if (Holiday::create($request->all())){
+            $message = ['message'=>'Se registró exitosamente el día festivo.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo realizar el registro del día festivo.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.academy.holidays.index'))->with($message);
+    }
+
+    // Formulario para actualizar día festivo
+    public function holidays_edit(Holiday $holiday){
+        $holidays = Holiday::orderBy('updated_at','DESC')->get();
+        $data = ['title'=>'Festivos - Actualización', 'holidays'=>$holidays, 'holiday'=>$holiday];
+        return view('sica::admin.academy.holidays.index',$data);
+    }
+
+    // Actualizar día festivo
+    public function holidays_update(Request $request, Holiday $holiday){
+        $rules = [
+            'date' => 'required',
+            'issue' => 'required'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Realizar registro
+        if ($holiday->update($request->all())){
+            $message = ['message'=>'Se actualizó exitosamente el día festivo.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo actualizar el día festivo.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.academy.holidays.index'))->with($message);
+    }
+
+    // Eliminar día festivo
+    public function holidays_destroy(Holiday $holiday){
+        if ($holiday->delete()){
+            $message = ['message'=>'Se eliminó exitosamente el día festivo.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo eliminar el día festivo.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.academy.holidays.index'))->with($message);
+    }
+
     public function lines(){
         $line = Line::orderBy('updated_at','DESC')->get();
         $data = ['title'=>trans('sica::menu.Lines'),'lines'=>$line];
