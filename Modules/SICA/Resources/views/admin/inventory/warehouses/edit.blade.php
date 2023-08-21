@@ -6,7 +6,7 @@
             <div class="d-flex justify-content-center">
                 <div class="card card-orange card-outline shadow col-md-6">
                     <div class="card-header">
-                        <h4>Actualizar bodega bodega</h4>
+                        <h4>Actualizar bodega</h4>
                     </div>
                     <form action="{{ route('sica.admin.inventory.warehouse.update', $warehouse) }}" method="post">
                         @csrf

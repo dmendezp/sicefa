@@ -194,9 +194,9 @@
                                     </a>
                                 </li>
                             @endif
-                            @if (Auth::user()->havePermission('sica.admin.academy.quarters'))
+                            @if (Auth::user()->havePermission('sica.admin.academy.quarters.index'))
                                 <li class="nav-item">
-                                    <a href="{{ route('sica.admin.academy.quarters') }}" class="nav-link {{ !Route::is('sica.admin.academy.quarters*') ?: 'active' }}">
+                                    <a href="{{ route('sica.admin.academy.quarters.index') }}" class="nav-link {{ !Route::is('sica.admin.academy.quarters.*') ?: 'active' }}">
                                         <i class="fas fa-calendar-alt"></i>
                                         <p>{{ trans('sica::menu.Quarters') }}</p>
                                     </a>

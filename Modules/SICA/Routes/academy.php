@@ -7,10 +7,15 @@ Route::middleware(['lang'])->group(function(){
     Route::prefix('sica/')->group(function() {
 
         // --------------  Rutas de Trimestres ---------------------------------
-        Route::get('admin/academy/quarters', [AcademyController::class, 'quarters'])->name('sica.admin.academy.quarters');
+        Route::get('admin/academy/quarters', [AcademyController::class, 'quarters_index'])->name('sica.admin.academy.quarters.index'); // Listado de trimestres registrados (Administrador)
+        Route::get('admin/academy/quarters/create', [AcademyController::class, 'quarters_create'])->name('sica.admin.academy.quarters.create'); // Formulario de registro de trimestre (Administrador)
+        Route::post('admin/academy/quarters/store', [AcademyController::class, 'quarters_store'])->name('sica.admin.academy.quarters.store'); // Registrar trimestre (Administrador)
+        Route::get('admin/academy/quarters/edit/{quarter}', [AcademyController::class, 'quarters_edit'])->name('sica.admin.academy.quarters.edit'); // Formulario de actualización de trimestre (Administrador)
+        Route::post('admin/academy/quarters/update/{quarter}', [AcademyController::class, 'quarters_update'])->name('sica.admin.academy.quarters.update'); // Actualizar trimestre (Administrador)
+        Route::delete('admin/academy/quarters/destroy/{quarter}', [AcademyController::class, 'quarters_destroy'])->name('sica.admin.academy.quarters.destroy'); // Eliminar trimestre (Administrador)
 
         // --------------  Rutas de Días Festivos ---------------------------------
-        Route::get('admin/academy/holidays', [AcademyController::class, 'holidays_index'])->name('sica.admin.academy.holidays.index'); // Listados de días festivos disponibles (Administrador)
+        Route::get('admin/academy/holidays', [AcademyController::class, 'holidays_index'])->name('sica.admin.academy.holidays.index'); // Listado de días festivos disponibles (Administrador)
         Route::post('admin/academy/holidays/store', [AcademyController::class, 'holidays_store'])->name('sica.admin.academy.holidays.store'); // Registrar día festivo (Administrador)
         Route::get('admin/academy/holidays/edit/{holiday}', [AcademyController::class, 'holidays_edit'])->name('sica.admin.academy.holidays.edit'); // Formulario para actualizar día festivo (Administrador)
         Route::post('admin/academy/holidays/update/{holiday}', [AcademyController::class, 'holidays_update'])->name('sica.admin.academy.holidays.update'); // Actualizar día festivo (Administrador)

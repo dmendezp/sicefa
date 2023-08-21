@@ -12,23 +12,88 @@ use Modules\SICA\Entities\Holiday;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Network;
 use Modules\SICA\Entities\Line;
+use Modules\SICA\Entities\Quarter;
 
 class AcademyController extends Controller
 {
 
-    public function quarters(){
-        $data = ['title'=>trans('sica::menu.Quarters')];
-        return view('sica::admin.academy.quarters.home',$data);
+    /* Listado de trimestres registrados */
+    public function quarters_index(){
+        $quarters = Quarter::orderBy('updated_at','DESC')->get();
+        $data = ['title'=>'Trimestres','quarters'=>$quarters];
+        return view('sica::admin.academy.quarters.index', $data);
     }
 
-    // Listado de días festivos disponibles
+    /* Formulario de registro de trimestre */
+    public function quarters_create(){
+        $data = ['title'=>'Trimestres - Registro'];
+        return view('sica::admin.academy.quarters.create',$data);
+    }
+
+    /* Registrar trimestre */
+    public function quarters_store(Request $request){
+        $rules = [
+            'name'=> 'required',
+            'start_date'=> 'required|date',
+            'end_date'=> 'required|date|after:start_date'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Realizar registro
+        if (Quarter::create($request->all())){
+            $message = ['message'=>'Se registró exitosamente el trimestre.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo realizar el registro del trismestre.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.academy.quarters.index'))->with($message);
+    }
+
+    /* Formulario de actualización de trimestre (Administrador) */
+    public function quarters_edit(Quarter $quarter){
+        $data = ['title'=>'Trimestres - Actualización', 'quarter'=>$quarter];
+        return view('sica::admin.academy.quarters.edit',$data);
+    }
+
+    /* Actualizar trimestre */
+    public function quarters_update(Request $request, Quarter $quarter){
+        $rules = [
+            'name'=> 'required',
+            'start_date'=> 'required|date',
+            'end_date'=> 'required|date|after:start_date'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Actualizar registro
+        if ($quarter->update($request->all())){
+            $message = ['message'=>'Se actualizó exitosamente el trimestre.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo actualizar el trimestre.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.academy.quarters.index'))->with($message);
+    }
+
+    /* Eliminar trimestre */
+    public function quarters_destroy(Quarter $quarter){
+        if ($quarter->delete()){
+            $message = ['message'=>'Se eliminó exitosamente el trimestre.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo eliminar el trimestre.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.academy.quarters.index'))->with($message);
+    }
+
+    /* Listado de días festivos disponibles */
     public function holidays_index(){
         $holidays = Holiday::orderBy('updated_at','DESC')->get();
         $data = ['title'=>'Festivos', 'holidays'=>$holidays];
         return view('sica::admin.academy.holidays.index',$data);
     }
 
-    // Registrar día festivo
+    /* Registrar día festivo */
     public function holidays_store(Request $request){
         $rules = [
             'date' => 'required',
@@ -47,14 +112,14 @@ class AcademyController extends Controller
         return redirect(route('sica.admin.academy.holidays.index'))->with($message);
     }
 
-    // Formulario para actualizar día festivo
+    /* Formulario para actualizar día festivo */
     public function holidays_edit(Holiday $holiday){
         $holidays = Holiday::orderBy('updated_at','DESC')->get();
         $data = ['title'=>'Festivos - Actualización', 'holidays'=>$holidays, 'holiday'=>$holiday];
         return view('sica::admin.academy.holidays.index',$data);
     }
 
-    // Actualizar día festivo
+    /* Actualizar día festivo */
     public function holidays_update(Request $request, Holiday $holiday){
         $rules = [
             'date' => 'required',
@@ -73,7 +138,7 @@ class AcademyController extends Controller
         return redirect(route('sica.admin.academy.holidays.index'))->with($message);
     }
 
-    // Eliminar día festivo
+    /* Eliminar día festivo */
     public function holidays_destroy(Holiday $holiday){
         if ($holiday->delete()){
             $message = ['message'=>'Se eliminó exitosamente el día festivo.', 'typealert'=>'success'];

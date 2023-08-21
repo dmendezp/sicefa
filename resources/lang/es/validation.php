@@ -151,6 +151,7 @@ return [
         'app_id' => 'aplicación', // SICA
         'date' => 'fecha', // SICA
         'description' => 'descripción', // SICA
+        'end_date' => 'fecha de finalización', // SICA
         'farm_id' => 'granja', // SICA
         'issue' => 'asunto', // SICA
         'leader_id' => 'persona líder', // SICA
@@ -165,6 +166,7 @@ return [
         'person_second_last_name' => 'segundo apellido', // PTVENTA
         'productive_unit_id' => 'unidad productiva', // SICA
         'sector_id' => 'sector', // SICA
+        'start_date' => 'fecha de inicio', // SICA
         'status' => 'estado', // SICA
         'warehouse_id' => 'bodega', // SICA
     ],
