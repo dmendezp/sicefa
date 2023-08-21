@@ -16,10 +16,15 @@ class Contractor extends Model implements Auditable
         'person_id',
         'supervisor_id',
         'contract_number',
+        'contract_year',
         'contract_start_date',
         'contract_end_date',
         'total_contract_value',
         'contractor_type_id',
+        'contract_object',
+        'contract_obligations',
+        'amount_hours',
+        'assigment_value',
         'sesion',
         'sesion_date',
         'employee_type_id',
@@ -44,6 +49,12 @@ class Contractor extends Model implements Auditable
     ];
 
     // MUTADORES Y ACCESORES
+    public function setContractObjectAttribute($value){ // Convierte el primer carácter en mayúscula del dato contract_object (MUTADOR)
+        $this->attributes['contract_object'] = ucfirst($value);
+    }
+    public function setContractObligationsAttribute($value){ // Convierte el primer carácter en mayúscula del dato contract_obligations (MUTADOR)
+        $this->attributes['contract_obligations'] = ucfirst($value);
+    }
     public function setHealthEntityAttribute($value){ // Convierte el primer carácter en mayúscula del dato health_entity (MUTADOR)
         $this->attributes['health_entity'] = ucfirst($value);
     }
