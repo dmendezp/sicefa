@@ -25,7 +25,6 @@
                                             <th class="text-center">Icono</th>
                                             <th>Líder</th>
                                             <th class="text-center">Sector</th>
-                                            <th class="text-center">Granja</th>
                                             <th class="text-center">Acciones</th>
                                         </tr>
                                     </thead>
@@ -40,7 +39,6 @@
                                                 </td>
                                                 <td>{{ $pw->person->full_name }}</td>
                                                 <td class="text-center">{{ $pw->sector->name }}</td>
-                                                <td class="text-center">{{ $pw->farm->name }}</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('sica.admin.units.productive_unit.edit', $pw) }}" data-toggle='tooltip' data-placement="top" title="Editar">
                                                         <i class="fas fa-edit text-success"></i>

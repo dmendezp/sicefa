@@ -47,15 +47,6 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>Granja:</label>
-                                <select name="farm_id" class="form-control" required>
-                                    <option value="">-- Seleccione --</option>
-                                    @foreach ($farms as $f)
-                                        <option value="{{ $f->id }}" {{ $productive_unit->farm_id == $f->id ? 'selected' : '' }}>{{ $f->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                         </div>
                         <div class="card-footer py-2 text-right">
                             <a href="{{ route('sica.admin.units.productive_unit.index') }}" class="btn btn-secondary btn-sm">Cancelar</a>
