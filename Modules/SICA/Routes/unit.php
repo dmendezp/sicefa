@@ -13,6 +13,10 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/admin/units/productive_units/edit/{productive_unit}', [UnitController::class, 'productive_unit_edit'])->name('sica.admin.units.productive_unit.edit'); // Consultar unidad productiva para su actualización (Administrador)
         Route::post('/admin/units/productive_units/update/{productive_unit}', [UnitController::class, 'productive_unit_update'])->name('sica.admin.units.productive_unit.update'); // Actualizar unidad productiva (Administrador)
         Route::get('/admin/units/productive_units/destroy/{productive_unit}', [UnitController::class, 'productive_unit_destroy'])->name('sica.admin.units.productive_unit.destroy'); // Eliminar unidad productiva (Administrador)
+        /* Rutas de asociación de ambientes y unidad productivas */
+        Route::get('/admin/units/productive_units/environment_pus', [UnitController::class, 'environment_pus_index'])->name('sica.admin.units.productive_units.environment_pus.index'); /* Listado de ambientes y unidades productivas asociadas (Administrador) */
+        Route::post('/admin/units/productive_units/environment_pus/store', [UnitController::class, 'environment_pus_store'])->name('sica.admin.units.productive_units.environment_pus.store'); /* Registrar asociación de ambiente y unidad productiva (Administrador) */
+        Route::delete('/admin/units/productive_units/environment_pus/destroy/{epu}', [UnitController::class, 'environment_pus_destroy'])->name('sica.admin.units.productive_units.environment_pus.destroy'); /* Eliminar asociación de ambiente y unidad productiva (Administrador) */
 
         // --------------  Rutas de asociación de Unidades Productivas y Bodegas ---------------------------------
         Route::get('/admin/units/pu_warehouses', [UnitController::class, 'pu_warehouses_index'])->name('sica.admin.units.pu_warehouses.index'); // Listado de unidades productivas y bodegas asociadas (Administrador)

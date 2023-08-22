@@ -156,6 +156,7 @@ return [
     'attributes' => [
         'activity_type_id' => 'activity type', // SICA
         'app_id' => 'app', // SICA
+        'environment_id' => 'environment', // SICA
         'farm_id' => 'farm', // SICA
         'leader_id' => 'leader person', // SICA
         'person_document_type' => 'document type', // PTVENTA

@@ -42,6 +42,9 @@ class ProductiveUnit extends Model implements Auditable
     public function app_productive_units(){ // Accede a todos los registros de las asociaciones entre aplicación y unidad productiva que pertenecen a esta unidad productiva (PIVOTE)
         return $this->hasMany(AppProductiveUnit::class);
     }
+    public function environment_productive_units(){ // Accede a todos los registros de las asociaciones de ambientes y unidades productivas que pertenecen a esta unidad productiva
+        return $this->hasMany(EnvironmentProductiveUnit::class);
+    }
     public function environments(){ // Accede a todos los ambientes de formación que pertenecen a esta unidad productiva
         return $this->hasMany(Environment::class);
     }

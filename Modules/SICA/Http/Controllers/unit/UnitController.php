@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\ActivityType;
+use Modules\SICA\Entities\Environment;
+use Modules\SICA\Entities\EnvironmentProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Warehouse;
 
@@ -98,6 +100,58 @@ class UnitController extends Controller
             $message = ['message'=>'No se pudo eliminar la unidad productiva.', 'typealert'=>'danger'];
         }
         return redirect(route('sica.admin.units.productive_unit.index'))->with($message);
+    }
+
+    /* Listado de ambientes y unidades productivas asociadas */
+    public function environment_pus_index(){
+        $environment_pus = EnvironmentProductiveUnit::join('productive_units', 'environment_productive_units.productive_unit_id', '=', 'productive_units.id')
+                                    ->join('environments', 'environment_productive_units.environment_id', '=', 'environments.id')
+                                    ->select('environment_productive_units.*')
+                                    ->orderBy('productive_units.name', 'asc')
+                                    ->orderBy('environments.name', 'asc')
+                                    ->get();
+        $environments = Environment::orderBy('name','ASC')->get();
+        $productive_units = ProductiveUnit::orderBy('name','ASC')->get();
+        $data = ['title'=>'Ambientes U.P.', 'environment_pus'=>$environment_pus, 'environments'=>$environments, 'productive_units'=>$productive_units];
+        return view('sica::admin.units.environment_pus.index', $data);
+    }
+
+    /* Registrar asociación de ambiente y unidad productiva */
+    public function environment_pus_store(Request $request){
+        $rules = [
+            'environment_id' => 'required',
+            'productive_unit_id' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput()->with(['message'=>'Ocurrió un error con el formulario.', 'typealert'=>'danger']);
+        }
+        // Verificar que no exista un registro con los datos recibidos en la base de datos
+        $existingRecord = EnvironmentProductiveUnit::where([
+            'environment_id' => e($request->input('environment_id')),
+            'productive_unit_id' => e($request->input('productive_unit_id'))
+        ])->exists();
+        if (!$existingRecord) {
+            /* Realizar el registro */
+            if (EnvironmentProductiveUnit::create($request->all())) {
+                $message = ['message' => 'Se sincronizó exitosamente el ambiente y unidad productiva.', 'typealert' => 'success'];
+            } else {
+                $message = ['message' => 'No se pudo sincronizar el ambiente y unidad productiva.', 'typealert' => 'danger'];
+            }
+        } else {
+            $message = ['message' => 'Ya existe un registro con los datos enviados.', 'typealert' => 'warning'];
+        }
+        return redirect(route('sica.admin.units.productive_units.environment_pus.index'))->with($message);
+    }
+
+    /* Eliminar asociación de ambiente y unidad productiva */
+    public function environment_pus_destroy(EnvironmentProductiveUnit $epu){
+        if ($epu->delete()){
+            $message = ['message'=>'Se eliminó exitosamente la asociación de ambiente y unidad productiva.', 'typealert'=>'success'];
+        } else {
+            $message = ['message'=>'No se pudo eliminar la asociación de ambiente y unidad productiva.', 'typealert'=>'danger'];
+        }
+        return redirect(route('sica.admin.units.productive_units.environment_pus.index'))->with($message);
     }
 
     /* Listado de unidades productivas y bodegas asociadas */
