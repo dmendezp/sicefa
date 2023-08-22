@@ -490,6 +490,11 @@ class InventoryController extends Controller
         // Generar el PDF y devolverlo para su descarga
         $pdf->Output('reporte_ventas.pdf', 'I');
     }
+
+    /* Ver detalle de movimiento interno */
+    public function show(Movement $movement){
+        $view = ['titlePage' => trans('ptventa::inventory.titlePageM'), 'titleView' => trans('ptventa::inventory.titleViewM')];
+        return view('ptventa::inventory.show', compact('view', 'movement'));
+    }
+    
 }
-
-

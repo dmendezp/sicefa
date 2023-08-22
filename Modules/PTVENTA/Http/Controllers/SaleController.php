@@ -46,4 +46,10 @@ class SaleController extends Controller
         return view('ptventa::sale.register', compact('view'));
     }
 
+    /* Ver detalle de venta */
+    public function show(Movement $movement){
+        $view = ['titlePage' => trans('ptventa::sales.titlePageM'), 'titleView' => trans('ptventa::sales.titleViewM')];
+        return view('ptventa::sale.show', compact('view', 'movement'));
+    }
+
 }

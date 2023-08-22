@@ -58,6 +58,8 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::post('cashier/reports/sales', 'generateSales')->name('ptventa.cashier.reports.generate.sales'); // Realizar consulta de ventas realizadas por fechas recibidas (Cajero)
             Route::post('admin/reports/sales/generatepdf', 'generateSalesPDF')->name('ptventa.admin.reports.generate.sales.pdf'); // Generar PDF de ventas realizadas (Administrador)
             Route::post('cashier/reports/sales/generatepdf', 'generateSalesPDF')->name('ptventa.cashier.reports.generate.sales.pdf'); // Generar PDF de ventas realizadas (Cajero)
+            Route::get('admin/entries/show/{movement}', 'show')->name('ptventa.admin.movements.entries.show'); // Ver detalle de movimiento interno (Administrador)
+            Route::get('cashier/entries/show/{movement}', 'show')->name('ptventa.cashier.movements.entries.show'); // Ver detalle de movimiento interno (Cajero)
         });
 
         // Rutas para Ventas
@@ -66,6 +68,8 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('cashier/sale/index', 'index')->name('ptventa.cashier.sale.index'); // Vista principal de ventas realizadas en sesión de caja (Cajero)
             Route::get('admin/sale/register', 'register')->name('ptventa.admin.sale.register'); // Formulario de registro de venta (Administrador)
             Route::get('cashier/sale/register', 'register')->name('ptventa.cashier.sale.register'); // Formulario de registro de venta (Cajero)
+            Route::get('admin/sale/show/{movement}', 'show')->name('ptventa.admin.movements.sale.show'); // Ver detalle de venta (Administrador)
+            Route::get('cashier/sale/show/{movement}', 'show')->name('ptventa.cashier.movements.sale.show'); // Ver detalle de venta (Cajero)
         });
 
         // Rutas para Elementos
@@ -87,6 +91,14 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::post('admin/cash/close', 'close')->name('ptventa.admin.cash.close'); // Cerrar sesión de caja (Administrador)
             Route::post('cashier/cash/close', 'close')->name('ptventa.cashier.cash.close'); // Cerrar sesión de caja (Cajero)
         });
-
+        
+        // Rutas para movements ó historico de cajas
+        Route::controller(MovementController::class)->group(function(){
+            Route::get('admin/movement/index', 'index')->name('ptventa.admin.movements.index'); // Vista principal de historico de movimientos (Administrador)
+            Route::get('cashier/movement/index', 'index')->name('ptventa.cashier.movements.index'); // Vista principal de historico de movimientos (Cajero)
+            Route::post('admin/movement/consult', 'consult')->name('ptventa.admin.movements.consult'); // Consultar movimientos por fecha y actor (Administrador)
+            Route::post('cashier/movement/consult', 'consult')->name('ptventa.cashier.movements.consult'); // Consultar movimientos por fecha y actor (Cajero)
+        });
+        
     });
 });

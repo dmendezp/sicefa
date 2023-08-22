@@ -6,11 +6,15 @@ return [
 	'titleView1' => 'Administración general de inventario',
 	'titlePage2' => 'Inventario - Registro',
 	'titleView2' => 'Registro de Inventario',
+	'titlePageM' => 'Movimiento - Detalles',
+	'titleViewM' => 'Detalles de Movimiento',
 
     //Breadcrumbs
 	'Inventory' => 'Inventario',
 	'Register'  => 'Registro',
 	'Products'  => 'Productos',
+	'B4'  => 'Movimientos',
+	'B5'  => 'Detalles de Movimiento',
 
     //Section Card
     //General
@@ -31,6 +35,7 @@ return [
     'Btn2' => 'Vencidos / Por vencer',
     'Btn3' => 'Agregar Producto',
     'Btn4' => 'Registrar Entrada',
+    'Btn5' => 'Generar PDF',
     
     //Section register invetory
     //Card Responsibles and Warehouses
@@ -69,4 +74,18 @@ return [
     //Tooltips
     'Tooltip1' => 'Actualizar Producto',
     'Tooltip2' => 'Eliminar Producto',
+    
+    //--Section Movement Details - Entries
+	'FormText1' => 'N° Comprobante',
+	'FormText2' => 'Fecha:',
+	'FormText3' => 'Entrega:',
+	'FormText4' => 'Recibe:',
+	'FormText5' => 'Tipo de Movimiento:',
+
+    //Table Movement Entries
+	'3T1' => 'N°',
+	'3T2' => 'Producto',
+	'3T3' => 'Cantidad',
+	'3T4' => 'Subtotal',
+	'3T5' => 'Total',
 ];

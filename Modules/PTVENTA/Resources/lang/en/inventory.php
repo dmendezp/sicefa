@@ -6,11 +6,15 @@ return [
 	'titleView1'    => 'Inventory management',
 	'titlePage2'    => 'Inventory - Register',
 	'titleView2'    => 'Inventory register',
+	'titlePageM'    => 'Movement - Details',
+	'titleViewM'    => 'Movement Details',
 
     //Breadcrumbs
 	'Inventory'    => 'Inventory',
 	'Register'     => 'Register',
 	'Products'     => 'Products',
+	'B4'     => 'Movements',
+	'B5'     => 'Movement Details',
 
     //Section Card
     //General
@@ -31,6 +35,7 @@ return [
     'Btn2'   => 'Expired / To be expired',
     'Btn3'   => 'Add Product',
     'Btn4'   => 'Register Entry',
+    'Btn5'   => 'Generate PDF',
     
     //Section register inventroy
     //Card Responsibles and Warehouses
@@ -69,4 +74,18 @@ return [
     //Tooltips
     'Tooltip1' => 'Update Product',
     'Tooltip2' => 'Delete Product',
+    
+    //--Section Movement Details - Entries
+    'FormText1' => 'N° Voucher',
+	'FormText2' => 'Date:',
+	'FormText3' => 'Delivery:',
+	'FormText4' => 'Receive:',
+	'FormText5' => 'Movement Type:',
+
+    //Table Movement Entries
+    '3T1' => '#',
+    '3T2' => 'Product',
+    '3T3' => 'Amount',
+    '3T4' => 'Subtotal',
+    '3T5' => 'Total',
 ];

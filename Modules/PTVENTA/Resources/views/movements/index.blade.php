@@ -1,0 +1,123 @@
+@extends('ptventa::layouts.master')
+
+@push('head')
+@endpush
+
+@push('breadcrumbs')
+    <li class="breadcrumb-item active">{{ trans('ptventa::movement.B1') }}</li>
+@endpush
+
+@section('content')
+    <div class="card">
+        <div class="card-body">
+            <form action="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.consult') }}" method="POST" class="row g-3">
+                @csrf
+                <div class="col-md-3">
+                    <label class="form-label">{{ trans('ptventa::movement.TextForm1') }}</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">{{ trans('ptventa::movement.TextForm2') }}</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">{{ trans('ptventa::movement.TextForm3') }}</label>
+                    <input type="number" name="document_number" class="form-control">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary btn-block">{{ trans('ptventa::movement.Btn1') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if (isset($movements) && count($movements) > 0)
+        <div class="card">
+            <div class="card-body">
+                <div class="mt-4">
+                    <table class="table table-hover" id="tableMovementsDetails">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="text-center">{{ trans('ptventa::movement.T1') }}</th>
+                                <th class="text-center">{{ trans('ptventa::movement.T2') }}</th>
+                                <th>{{ trans('ptventa::movement.T3') }}</th>
+                                <th>{{ trans('ptventa::movement.T4') }}</th>
+                                <th>{{ trans('ptventa::movement.T5') }}</th>
+                                <th class="text-center">{{ trans('ptventa::movement.T6') }}</th>
+                                <th class="text-center">{{ trans('ptventa::movement.T7') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($movements as $movement)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $movement->registration_date }}</td>
+                                    @php
+                                        $mr = $movement->movement_responsibilities->first(function ($value, $key) {
+                                            return in_array($value->role, ['CLIENTE', 'REGISTRO', 'ENTREGA']);
+                                        });
+                                    @endphp
+                                    <td>{{ $mr->role }}</td>
+                                    <td>{{ $mr->person->full_name }}</td>
+                                    <td>{{ $movement->movement_type->name }}</td>
+                                    <td class="text-center fw-bold">{{ priceFormat($movement->price) }}</td>
+                                    <td class="text-center">
+                                        @if($movement->movement_type->name == 'Venta')
+                                            <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.movements.sale.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('ptventa::movement.Tooltip1') }}> 
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                        @elseif ($movement->movement_type->name == 'Movimiento Interno')
+                                            <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.movements.entries.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('ptventa::movement.Tooltip1') }}>
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                        @elseif ($movement->movement_type->name == 'Baja')
+                                            <a href="#" class="btn btn-info">Baja
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @else
+        <div class="card">
+            <div class="card-body">
+                <div class="mt-4">
+                    <p>{{ trans('ptventa::movement.TextOp') }}</p>
+                </div>
+            </div>
+        </div>
+    @endif
+@endsection
+
+@include('ptventa::layouts.partials.plugins.datatables')
+
+@push('scripts')
+    <script>
+        // Función para actualizar los atributos min y max de los campos de fecha
+        function updateDateAttributes() {
+            const startDateInput = document.getElementById('start_date');
+            const endDateInput = document.getElementById('end_date');
+
+            endDateInput.min = startDateInput.value;
+            startDateInput.max = endDateInput.value;
+        }
+
+        // Eventos para actualizar los atributos al cambiar las fechas
+        document.getElementById('start_date').addEventListener('change', updateDateAttributes);
+        document.getElementById('end_date').addEventListener('change', updateDateAttributes);
+    </script>
+    <script>
+        // Permite la aplicación de datatables y la vez la traducción de las tablas
+        $(document).ready(function() {
+            /* Inicialización of Datatables para movement_details */
+            $('#tableMovementsDetails').DataTable({
+                language: language_datatables, // Agregar traducción a español
+            });
+        });
+    </script>
+@endpush
