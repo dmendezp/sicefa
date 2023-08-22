@@ -11,6 +11,7 @@
     /* ===== Colors ===== */
     --body-color: #E4E9F7;
     --sidebar-color: #FFF;
+    --sublist-color: #ddddddf6;
     --primary-color: #695CFE;
     --primary-color-light: #F6F5FF;
     --toggle-color: #DDD;
@@ -154,6 +155,64 @@ header .image-text .profession{
     cursor: pointer;
     transition: var(--tran-05);
 }
+
+/* Rota el ícono hacia abajo cuando la lista esté desplegada */
+.nav-link.reports .sub-list {
+    display: none;
+}
+
+.nav-link.reports.active .sub-list {
+    display: block;
+}
+
+.nav-link.reports.active .arrow {
+    transform: rotate(180deg);
+}
+
+.sidebar .menu-links .nav-link.reports {
+    position: relative; /* Cambio a position: relative */
+  }
+
+/* Agrega margen superior solo al siguiente elemento después de la etiqueta madre activa */
+.nav-link.reports.active + .nav-link {
+    margin-top: 200px; /* Puedes ajustar el valor según necesites */
+}
+  
+.sub-list {
+    position: absolute;
+    top: 110%; /* Cambiar de 0 a 100% para que se ubique debajo */
+    left: 0;
+    background-color: var(--sublist-color);
+    border-radius: 0.5rem;
+    padding: 8px;
+    display: none;
+    z-index: 2;
+    width: 100%; /* Ocupar todo el ancho disponible */
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#sublist-li{
+    margin-top: 0px;
+}
+
+/* Estilos para mostrar el submenú al hacer clic en el enlace activo */
+.nav-link.reports.active .sub-list {
+    display: block;
+}
+
+/* Estilos para rotar la flecha hacia abajo cuando el submenú está expandido */
+.nav-link.reports.active .arrow {
+    transform: rotate(180deg);
+}
+
+/* Establecer posición y estilos para el submenú */
+.sub-list {
+    /* ... otros estilos ... */
+    display: none; /* Por defecto, ocultar el submenú */
+    /* ... otros estilos ... */
+}
+
 
 body.dark .sidebar header .toggle{
     color: var(--text-color);
@@ -326,46 +385,6 @@ li a i {
     margin-left: 25px;
 }
 
-
-/* Rota el ícono hacia abajo cuando la lista esté desplegada */
-.nav-link.reports .sub-list {
-    display: none;
-}
-
-.nav-link.reports.active .sub-list {
-    display: block;
-}
-
-.nav-link.reports.active .arrow {
-    transform: rotate(180deg);
-}
-
-.sidebar .menu-links .nav-link.reports {
-    position: relative; /* Cambio a position: relative */
-  }
-  
-  .sub-list {
-    position: absolute; /* Utilizamos position: absolute */
-    top: 100%;
-    left: 22px;
-    background-color: var(--sidebar-color);
-    border-radius: 0.5rem;
-    padding: 8px;
-    display: none;
-    z-index: 2;
-    width: 210px; /* Ajusta el ancho según tus preferencias */
-    max-height: 200px; /* Ajusta la altura máxima deseada */
-    overflow-y: auto; /* Añade un scroll vertical en caso de ser necesario */
-  }
-  .sub-list .text {
-    margin-left: 0px; /* Ajusta el valor según tus preferencias */
-  }
-  
-  /* Estilos para mostrar el submenú al hacer hover en .nav-link.reports */
-  .nav-link.reports:hover .sub-list {
-    display: block;
-  }
-  
 /*estilos de la targeta de inventario-SECCION DEL UNVENTARIO*/
 .titulo{
     text-align: center;

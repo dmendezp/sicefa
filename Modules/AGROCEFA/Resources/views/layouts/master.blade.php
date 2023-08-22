@@ -9,6 +9,7 @@
 </head>
 <body style="display: flex;">
   
+
   @if(request()->is('agrocefa/parameters'))
     <!-- Sidebar Parametros -->
     @include('agrocefa::partials.sidebarparameters')
