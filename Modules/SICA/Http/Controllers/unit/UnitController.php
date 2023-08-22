@@ -132,7 +132,7 @@ class UnitController extends Controller
             if (ProductiveUnitWarehouse::create($request->all())) {
                 $message = ['message' => 'Se sincronizó exitosamente la unidad productiva y bodega.', 'typealert' => 'success'];
             } else {
-                $message = ['message' => 'No se pudo sincronizar la unidad productiva y bodegas.', 'typealert' => 'danger'];
+                $message = ['message' => 'No se pudo sincronizar la unidad productiva y bodega.', 'typealert' => 'danger'];
             }
         } else {
             $message = ['message' => 'Ya existe un registro con los datos enviados.', 'typealert' => 'warning'];

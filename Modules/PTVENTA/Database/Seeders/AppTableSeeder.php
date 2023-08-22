@@ -4,9 +4,9 @@ namespace Modules\PTVENTA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\SICA\Entities\App;
+use Modules\SICA\Entities\AppProductiveUnit;
 use Modules\SICA\Entities\Country;
 use Modules\SICA\Entities\Department;
-use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\Municipality;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\ProductiveUnit;
@@ -60,7 +60,11 @@ class AppTableSeeder extends Seeder
             'sector_id' => $sector->id
         ]);
 
-        $app->productive_units()->syncWithoutDetaching([$productive_unit->id]); // Asociar a aplicación con unidad productiva
+        // Asociar a aplicación con unidad productiva
+        AppProductiveUnit::firstOrCreate([
+            'app_id' => $app->id,
+            'productive_unit_id' => $productive_unit->id
+        ]);
 
         /* Registro o actualización de bodega Punto de venta */
         $warehouse = Warehouse::updateOrCreate(['name' => 'Punto de venta'], [
