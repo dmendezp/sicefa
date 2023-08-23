@@ -2,7 +2,7 @@
       <aside class="main-sidebar sidebar-dark-blue elevation-4">
           <!-- Bran Logo: Aqui se realiza el ajuste del logo y titulo que esta en el sidebar-->
           <a href="{{ route('cefa.hdc.index') }}" class="brand-link text-decoration-none">
-              <img src="#" class="brand-image" alt="HDC-Logo">{{-- Icono de huella de carbono --}}
+              <img src="{{ asset('modules/HDC/img/logo.png')}}" class="brand-image" alt="HDC-Logo">{{-- Icono de huella de carbono --}}
               <span class="brand-text font-weight-bold">Huella de Carbono</span>
           </a>
 

@@ -55,7 +55,12 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    <h3>Mision</h3>
+                    <h3>¿Cual Es Su Objetivo?</h3>
+                    <p>El objetivo de medir la huella de carbono es evaluar y cuantificar la cantidad total de gases de efecto invernadero
+                        emitidos directa o indirectamente por una actividad, producto o individuo.
+                        Ayuda a comprender y reducir la contribución al cambio climático, identitficando áreas donde se pueden tomar medidas para
+                        disminuir las emisiones y promover practicas mas sostenibles.
+                    </p>
                 </div>
             </div>
         </div>
