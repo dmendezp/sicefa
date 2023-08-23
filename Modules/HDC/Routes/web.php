@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +14,6 @@
 */
 
 Route::prefix('hdc')->group(function() {
-    Route::get('index', 'HDCController@index');
+    Route::get('index', 'HDCController@index')->name('cefa.hdc.index');
 });
+

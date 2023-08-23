@@ -1,6 +1,7 @@
-<footer class="main-footer">
-    <!-- To the right -->
-   
-    <!-- Default to the left -->
-    <strong>Copyright &copy; <a href="https://sicefa.work">Sicefa</a>.</strong> All rights reserved.
-  </footer>
+<footer class="main-footer bg-ligth">
+    <strong>Copyright &copy; 2023 <a href="#" style="text-decoration: none"></a>.</strong>
+    All Rights Reserved
+    <div class="float-right d-none d-sm-inline-block">
+        <b>Version Alpha</b> 1.0
+    </div>
+</footer>
