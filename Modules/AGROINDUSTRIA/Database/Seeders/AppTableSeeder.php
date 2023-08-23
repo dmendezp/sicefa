@@ -16,7 +16,7 @@ class AppTableSeeder extends Seeder
      */
     public function run()
     {
-       App::updateOrCreate(['name' => 'DATAGRO'], [
+       App::updateOrCreate(['name' => 'AGROINDUSTRIA'], [
         'url' => '/agroindustria/index',
         'color' => '#ffd1dc',
         'icon' => 'fas fa-egg',

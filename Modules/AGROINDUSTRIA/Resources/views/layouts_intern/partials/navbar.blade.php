@@ -5,10 +5,10 @@
     <div class="collapse navbar-collapse d-sm-flex" id="collapsibleNavId">
         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="{{route('agroindustria.intern.index')}}">Inicio</a>
+                <a class="nav-link" href="{{route('agroindustria.storer.index')}}">Inicio</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('agroindustria.intern.invb')}}">Unidades</a>
+                <a class="nav-link" href="{{route('agroindustria.storer.invb')}}">Unidades</a>
             </li>
         </ul>
     </div>
