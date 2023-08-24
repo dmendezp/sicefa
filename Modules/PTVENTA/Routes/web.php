@@ -27,23 +27,23 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('cashier/configuration', 'configuration')->name('ptventa.cashier.configuration.index'); // Vista de configuracion, como generar un ticket o factura de prueba y verificar la conexion de la impresora, etc. (Cajero)
         });
 
-        // Rutas para Inventario
         Route::controller(InventoryController::class)->group(function(){
+            // Rutas para Inventario
             Route::get('admin/inventory/index', 'index')->name('ptventa.admin.inventory.index'); // Inventario actual (Administrador)
             Route::get('cashier/inventory/index', 'index')->name('ptventa.cashier.inventory.index'); // Inventario actual (Cajero)
             Route::get('admin/inventory/create', 'create')->name('ptventa.admin.inventory.create'); // Formulario de registro de entrada de inventario (Administrador)
             Route::get('cashier/inventory/create', 'create')->name('ptventa.cashier.inventory.create'); // Formulario de registro de entrada de inventario (Cajero)
             Route::get('admin/inventory/status', 'status')->name('ptventa.admin.inventory.status'); // Producto vencidos y por vencer (Administrador)
             Route::get('cashier/inventory/status', 'status')->name('ptventa.cashier.inventory.status'); // Producto vencidos y por vencer (Cajero)
-        });
 
-        // Rutas de reportes
-        Route::controller(InventoryController::class)->group(function(){
+            //Rutas para reportes
             Route::get('admin/reports/index', 'reports')->name('ptventa.admin.reports.index'); // Vista principal de la sección de reportes (Administrador)
             Route::get('cashier/reports/index', 'reports')->name('ptventa.cashier.reports.index'); // Vista principal de la sección de reportes (Cajero)
+
             // Reportes de inventario
             Route::post('admin/reports/inventory/generatepdf', 'generateInventoryPDF')->name('ptventa.admin.reports.inventory.generate.pdf'); // Generar PDF del inventario actual (Administrador)
             Route::post('cashier/reports/inventory/generatepdf', 'generateInventoryPDF')->name('ptventa.cashier.reports.inventory.generate.pdf'); // Generar PDF del inventario actual (Cajero)
+
             // Reportes de entrada de inventario - Ruta para mostrar el formulario
             Route::get('admin/reports/inventory/entries', 'showInventoryEntriesForm')->name('ptventa.admin.reports.inventory.entries'); // Vista de consulta de entradas de inventario por fecha (Administrador)
             Route::get('cashier/reports/inventory/entries', 'showInventoryEntriesForm')->name('ptventa.cashier.reports.inventory.entries'); // Vista de consulta de entradas de inventario por fecha (Cajero)
@@ -51,6 +51,7 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::post('cashier/reports/inventory/entries', 'generateInventoryEntries')->name('ptventa.cashier.reports.generate.inventory.entries'); // Realizar consulta de entradas de inventario por fechas recibidas (Cajero)
             Route::post('admin/reports/inventory/entries/generatepdf', 'generateInventoryEntriesPDF')->name('ptventa.admin.reports.generate.entries.pdf'); // Generar PDF de entradas de inventario (Administrador)
             Route::post('cashier/reports/inventory/entries/generatepdf', 'generateInventoryEntriesPDF')->name('ptventa.cashier.reports.generate.entries.pdf'); // Generar PDF de entradas de inventario (Cajero)
+            
             // Reportes de ventas
             Route::get('admin/reports/sales', 'showSalesForm')->name('ptventa.admin.reports.sales'); // Vista de consulta de ventas realizadas por fechas (Administrador)
             Route::get('cashier/reports/sales', 'showSalesForm')->name('ptventa.cashier.reports.sales'); // Vista de consulta de ventas realizadas por fechas (Cajero)
