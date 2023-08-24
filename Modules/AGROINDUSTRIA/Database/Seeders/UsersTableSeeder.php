@@ -43,4 +43,5 @@ class UsersTableSeeder extends Seeder
            'email' => 'jennifer@gmail.com',
        ]);
     }
+    
 }

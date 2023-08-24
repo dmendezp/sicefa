@@ -26,6 +26,7 @@
       <div class="row col-md-12">
           <div class="image mt-2 mb-2">
               <div class="dropdown">
+            
                   <a href="#" class="dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       @if(isset(Auth::user()->person->avatar))
                       <img src="{{ asset(Auth::user()->person->avatar) }}" id="img" class="img-circle elevation-2" alt="User Image">
