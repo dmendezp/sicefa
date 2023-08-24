@@ -71,8 +71,8 @@
                   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                       data-accordion="false">
                       <li class="nav-item">
-                          <a href="#" class="nav-link ">
-                            <i class="nav-icon fa-solid fa-fish fa-spin"></i>
+                          <a href="#" class="nav-link active ">
+                              <i class="nav-icon fa-solid fa-fish-fins"></i>
                               <p>
                                   Pecuaria
                                   <i class="right fas fa-angle-left"></i>
@@ -80,39 +80,39 @@
                           </a>
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="./index.html" class="nav-link active">
-                                      <i class="far fa-circle nav-icon"></i>
+                                  <a href="{{ Route('cefa.hdc.bovinos') }}" class="nav-link">
+                                      <i class="nav-icon fa-solid fa-cow"></i>
                                       <p>Bovinos</p>
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="./index2.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                  <a href="{{ Route('cefa.hdc.ovinos') }}" class="nav-link">
+                                      <i class="nav-icon fa-solid fa-cow"></i>
                                       <p>Ovinos</p>
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                  <a href="{{ Route('cefa.hdc.porcinos') }}" class="nav-link">
+                                      <i class="nav-icon fa-solid fa-hippo"></i>
                                       <p>Porcinos</p>
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                  <a href="{{ Route('cefa.hdc.equinos') }}" class="nav-link">
+                                      <i class="nav-icon fa-solid fa-horse-head"></i>
                                       <p>Equinos</p>
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                  <a href="{{ Route('cefa.hdc.piscicola') }}" class="nav-link">
+                                      <i class="nav-icon fa-solid fa-fish fa-spin"></i>
                                       <p>Piscicola</p>
                                   </a>
                               </li>
                           </ul>
                       </li>
                       <li class="nav-item">
-                          <a href="#" class="nav-link">
+                          <a href="#" class="nav-link active">
                               <i class="nav-icon fa fa-leaf"></i>
                               <p>
                                   Ambiental
@@ -121,38 +121,38 @@
                           </a>
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="./index.html" class="nav-link active">
-                                      <i class="far fa-circle nav-icon"></i>
+                                  <a href="./index.html" class="nav-link ">
+                                      <i class="nav-icon fa-solid fa-dumpster"></i>
                                       <p>Residuos Sólidos</p>
                                   </a>
                               </li>
                               <li class="nav-item">
                                   <a href="./index2.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                      <i class="nav-icon fa-solid fa-recycle"></i>
                                       <p>Residuos Orgánicos</p>
                                   </a>
                               </li>
                               <li class="nav-item">
                                   <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                      <i class="nav-icon fa-solid fa-tree"></i>
                                       <p>Vivero ornamental y forestal</p>
                                   </a>
                               </li>
                               <li class="nav-item">
                                   <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                      <i class="nav-icon fa-solid fa-mountain-sun"></i>
                                       <p>Zonas Verdes</p>
                                   </a>
                               </li>
                               <li class="nav-item">
                                   <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                      <i class="nav-icon fa-solid fa-worm"></i>
                                       <p>Lombricultivo</p>
                                   </a>
                               </li>
                               <li class="nav-item">
                                   <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                      <i class="nav-icon fa-solid fa-fingerprint"></i>
                                       <p>Huella de Carbono</p>
                                   </a>
                               </li>
@@ -160,7 +160,7 @@
                       </li>
 
                       <li class="nav-item">
-                          <a href="#" class="nav-link">
+                          <a href="#" class="nav-link active">
                               <i class="nav-icon fa fa-seedling"></i>
                               <p>
                                   Agricola
@@ -170,31 +170,31 @@
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
                                   <a href="./index.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                      <i class="nav-icon far fa-circle nav-icon"></i>
                                       <p>Guayaba</p>
                                   </a>
                               </li>
                               <li class="nav-item">
                                   <a href="./index2.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                      <i class="nav-icon fa-brands fa-pagelines"></i>
                                       <p>Aguacate</p>
                                   </a>
                               </li>
                               <li class="nav-item">
                                   <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                      <i class="nav-icon fa-brands fa-pagelines"></i>
                                       <p>Guanabana</p>
                                   </a>
                               </li>
                               <li class="nav-item">
                                   <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                      <i class="nav-icon fa-brands fa-pagelines"></i>
                                       <p>Mango</p>
                                   </a>
                               </li>
                               <li class="nav-item">
                                   <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
+                                      <i class="nav-icon fa-brands fa-pagelines"></i>
                                       <p>Cacao</p>
                                   </a>
                               </li>
@@ -244,7 +244,7 @@
                       </li>
 
                       <li class="nav-item">
-                          <a href="#" class="nav-link ">
+                          <a href="#" class="nav-link active">
                               <i class="nav-icon fa fa-cheese"></i>
                               <p>
                                   Agroindustriales
@@ -279,7 +279,7 @@
                           </ul>
                       </li>
                       <li class="nav-item">
-                          <a href="#" class="nav-link ">
+                          <a href="#" class="nav-link active">
                               <i class="nav-icon fa fa-handshake"></i>
                               <p>
                                   Servicio
