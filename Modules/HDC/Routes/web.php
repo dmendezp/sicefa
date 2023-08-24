@@ -25,11 +25,12 @@ Route::prefix('hdc')->group(function() {
     Route::get('porcinos', 'PecuariaController@porcinos')->name('cefa.hdc.porcinos');
 
     /* Rutas de Ambiental */
-    Route::get('ResiduosOrganicos', 'PecuariaController@rorganicos')->name('cefa.hdc.rorganicos');
-    Route::get('ViveroOrnamental', 'PecuariaController@vivero')->name('cefa.hdc.vivero');
-    Route::get('ResiduosSolidos', 'PecuariaController@rsolidos')->name('cefa.hdc.rsolidos');
-    Route::get('lombricultivo', 'PecuariaController@lombricultivo')->name('cefa.hdc.lombricultivo');
-    Route::get('HuelladeCarbono', 'PecuariaController@huella')->name('cefa.hdc.huella');
+  Route::get('viveroornamental', 'AmbientalController@vivero')->name('cefa.hdc.vivero');
+  Route::get('lombricultivo', 'AmbientalController@lombricultivo')->name('cefa.hdc.lombricultivo');
+  Route::get('HuellaCarbono', 'AmbientalController@huellacarbono')->name('cefa.hdc.huellacarbono');
+  Route::get('ResiduosOrganicos', 'AmbientalController@rorganico')->name('cefa.hdc.rorganico');
+  Route::get('ResiduosSolidos', 'AmbientalController@rsolidos')->name('cefa.hdc.rsolidos');
+  Route::get('ZonasVerdes', 'AmbientalController@zonasverdes')->name('cefa.hdc.zonasverdes');
 
 
 });

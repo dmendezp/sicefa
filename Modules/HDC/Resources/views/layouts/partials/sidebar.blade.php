@@ -121,37 +121,37 @@
                           </a>
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="./index.html" class="nav-link ">
+                                  <a href="{{ Route('cefa.hdc.rsolidos') }}" class="nav-link ">
                                       <i class="nav-icon fa-solid fa-dumpster"></i>
                                       <p>Residuos Sólidos</p>
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="./index2.html" class="nav-link">
+                                  <a href="{{ Route('cefa.hdc.rorganico') }}" class="nav-link">
                                       <i class="nav-icon fa-solid fa-recycle"></i>
                                       <p>Residuos Orgánicos</p>
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
+                                  <a href="{{Route('cefa.hdc.vivero') }}" class="nav-link">
                                       <i class="nav-icon fa-solid fa-tree"></i>
                                       <p>Vivero ornamental y forestal</p>
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
+                                  <a href="{{ Route('cefa.hdc.zonasverdes') }}" class="nav-link">
                                       <i class="nav-icon fa-solid fa-mountain-sun"></i>
                                       <p>Zonas Verdes</p>
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
+                                  <a href="{{ Route('cefa.hdc.lombricultivo') }}" class="nav-link">
                                       <i class="nav-icon fa-solid fa-worm"></i>
                                       <p>Lombricultivo</p>
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
+                                  <a href="{{ Route('cefa.hdc.huellacarbono') }}" class="nav-link">
                                       <i class="nav-icon fa-solid fa-fingerprint"></i>
                                       <p>Huella de Carbono</p>
                                   </a>
