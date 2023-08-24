@@ -20,9 +20,9 @@ Route::prefix('agroindustria')->group(function() {
     });
 
     //intern
-    Route::prefix('intern')->group(function (){
-        Route::get('/index', [InventoryController::class ,'index'])->name('agroindustria.intern.index');
-        Route::get('/invb', [InventoryController::class ,'invb'])->name('agroindustria.intern.invb');
+    Route::prefix('storer')->group(function (){
+        Route::get('/index', [InventoryController::class ,'index'])->name('agroindustria.storer.index');
+        Route::get('/invb', [InventoryController::class ,'invb'])->name('agroindustria.storer.invb');
     });
 
     Route::get('/formulations', [FormulationController::class, 'index']);
