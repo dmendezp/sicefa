@@ -1,14 +1,6 @@
-@extends('agroindustria::layouts_instructor.master_instructor')
+@extends('agroindustria::layouts.master')
 @section('content')
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link rel="stylesheet" href="{{asset('agroindustria/css/styleinvb.css')}}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- CSS only -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <section class="ganaderia" id="ganaderia">
         <div class="container">
             <h1>SERVICIO NACIONAL DE APRENDIZAJE SENA
@@ -29,44 +21,44 @@
                 <div class="card-header">SOLICITUD DE BIENES</div>
 
                 <div class="card-body">
-                    {!! Form::open(['url' => route('agroindustria.instructor.enviarsolicitud')]) !!}
+                    {!! Form::open(['url' => route('agroindustria.admin.solicitud_centro')]) !!}
                     <div class="mb-6">
-                        <label for="document_number" class="form-label">Fecha de Solicitud</label>
-                        {!! Form::date('document_number',null, ['class'=>'form-control']) !!}
+                        <label for="request_date" class="form-label">Fecha de Solicitud</label>
+                        {!! Form::date('request_date', now(), ['class'=>'form-control', 'readonly' => 'readonly']) !!}
                         <br>
                     </div>
                     <div class="mb-6">
-                        <label for="document_number" class="form-label">Area</label>
-                        {!! Form::text('document_number',null, ['class'=>'form-control']) !!}
+                        <label for="area" class="form-label">Area</label>
+                        {!! Form::text('area', 'Agroindustria', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
                         <br>
                     </div>
                     <div class="mb-6">
-                        <label for="document_number" class="form-label">Codigo Regional</label>
-                        {!! Form::number('document_number',null, ['class'=>'form-control']) !!}
+                        <label for="region_code" class="form-label">Codigo Regional</label>
+                        {!! Form::number('region_code', '41', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
                         <br>
                     </div>
                     <div class="mb-6">
-                        <label for="document_number" class="form-label">Nombre Regional</label>
-                        {!! Form::text('document_number',null, ['class'=>'form-control']) !!}
+                        <label for="region_name" class="form-label">Nombre Regional</label>
+                        {!! Form::text('region_name', 'Huila', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
                         <br>
                     </div>
                     <div class="mb-6">
-                        <label for="document_number" class="form-label">Codigo de Costos</label>
-                        {!! Form::number('document_number',null, ['class'=>'form-control']) !!}
+                        <label for="cost_code" class="form-label">Codigo de Costos</label>
+                        {!! Form::number('cost_code', '911610', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
                         <br>
                     </div>
                     <div class="mb-6">
-                        <label for="document_number" class="form-label">Nombre Centro de costo</label>
-                        {!! Form::text('document_number',null, ['class'=>'form-control']) !!}
+                        <label for="cost_center_name" class="form-label">Nombre Centro de costo</label>
+                        {!! Form::text('cost_center_name', 'Centro de Formación Agroindustrial', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
                         <br>
                     </div>
                     <div class="mb-6">
-                        <label for="document_number" class="form-label">Nombre de jefe de oficina o coordinador de area</label>
-                        {!! Form::text('document_number',null, ['class'=>'form-control']) !!}
+                        <label for="coordinator_name" class="form-label">Nombre de jefe de oficina o coordinador de area</label>
+                        {!! Form::text('coordinator_name',null, ['class'=>'form-control']) !!}
                         <br>
                     </div>
                     <div class="mb-6">
-                        <label for="document_number" class="form-label">Cedula</label>
+                        <label for="document_number_coordinator" class="form-label">Cedula</label>
                         {!! Form::number('document_number',null, ['class'=>'form-control']) !!}
                         <br>
                     </div>
@@ -172,21 +164,7 @@
         </div>
     </footer>
     @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
     @endsection
 
-    <script>
-
-        const selectElement = function(element) {
-            return document.querySelector(element);
-        }
-
-        let menuToggle = selectElement('.inicio-to');
-        let body = selectElement('body');
-
-        menuToggle.addEventListener('click', function(){
-            body.classList.toggle('open');
-        })
-
-    </script>
+    
 @endsection
