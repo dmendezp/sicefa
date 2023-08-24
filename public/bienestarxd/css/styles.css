@@ -412,3 +412,17 @@ button:hover span {
   opacity: 1;
   transform: translate(-50%, -130%);
 }
+
+/* Estilos para los iconos en color blanco */
+.nav-item a.nav-link i {
+  color: white;
+}
+
+/* Estilos para el texto en color blanco */
+.nav-item a.nav-link p {
+  color: white;
+}
+.navbar .nav-item:first-child a.nav-link i {
+  /* Estilos específicos para el ícono en el primer elemento de la barra de navegación */
+  color: gray;
+}
