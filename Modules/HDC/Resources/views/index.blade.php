@@ -64,10 +64,22 @@
                 </div>
             </div>
         </div>
+
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    <h3>Grafica Mensual</h3>
+                    <h3>¿Como Se Calcula La Huella?</h3>
+                    <p>Para calcular dicha huella se multiplica el dato de consumo (Actividad) por su correspondiente coeficiente o factor de emision
+                        en función del tipo de recurso utilizado(Energía, combustible, Agua o Residuos) en dicha actividad. 
+                        
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Grafica Del Año</h3>
                 </div>
             </div>
         </div>
