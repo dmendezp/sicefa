@@ -46,8 +46,12 @@ class AGROCEFAController extends Controller
     {
         return view('agrocefa::index');
     }
- 
- 
+
+    public function crop()
+    {
+        return view('agrocefa::crop');
+    }
+
 
 
 
