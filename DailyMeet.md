@@ -42,6 +42,39 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ---
 
 
+## HDC 📌
+
+### Sprint 1 🔄
+#### Sprint Planning 22-AGO-2023
+* **Andres David Cumaco Rojas** - *Elaboracion y agregacion del contenido vista Home HDC*
+* **Mary Luz Aldana Vidarte** - *Estructuracion del slider menu*
+* **Leidy Sofia Osorio Vera** - *Crear vista para consulta de información*
+...
+#### Meet 24-AGO-2023
+* **Andres David Cumaco Rojas** - *Elaboracion y agregacion del contenido vista Home HDC* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Estructuracion del slider menu* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Crear vista para consulta de información* - *10%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+
+---
+#### Meet 31-Oct-2022
+* **Andres David Cumaco Rojas** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mary Luz Aldana Vidarte** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Leidy Sofia Osorio Vera** - *Elaboracion de la grafica con los datos registrados* - *0%* - *Dificultades* - *Acciones*
+---
+#### Meet 02-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 04-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 07-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+
+
 ## PUNTO DE VENTA 🛒
 
 ### Sprint 1 🔄

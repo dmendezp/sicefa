@@ -55,14 +55,31 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    <h3>Mision</h3>
+                    <h3>¿Cual Es Su Objetivo?</h3>
+                    <p>El objetivo de medir la huella de carbono es evaluar y cuantificar la cantidad total de gases de efecto invernadero
+                        emitidos directa o indirectamente por una actividad, producto o individuo.
+                        Ayuda a comprender y reducir la contribución al cambio climático, identitficando áreas donde se pueden tomar medidas para
+                        disminuir las emisiones y promover practicas mas sostenibles.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3>¿Como Se Calcula La Huella?</h3>
+                    <p>Para calcular dicha huella se multiplica el dato de consumo (Actividad) por su correspondiente coeficiente o factor de emision
+                        en función del tipo de recurso utilizado(Energía, combustible, Agua o Residuos) en dicha actividad. 
+                        
+                    </p>
                 </div>
             </div>
         </div>
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    <h3>Grafica Mensual</h3>
+                    <h3>Grafica Del Año</h3>
                 </div>
             </div>
         </div>
