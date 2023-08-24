@@ -333,3 +333,35 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ADSI 2397491
 Centro de Formacion Agroindustrial la Angostura SENA.
+
+
+## BIENESTAR 📌
+
+### Sprint 1 🔄
+#### Sprint Planning 24-Ago-2023
+* **Brayan David Lizcano 1** - *creacion de la vista CRUD de Beneficios, creacion de la vista Pivote de Beneficios y Tipos de Beneficios, crear migraciones,modelos y controladores*
+* **Juan David Rico** - *creacion de la vista CRUD Tipos De Beneficiario, creacion de la vista Pivote de Beneficios y Tipos de Beneficios, crear migraciones,modelos y controladores *
+* **Kevin Santiago Valdes** - *creacion de la vista CRUD de Rutas de Transporte*
+* **Carlor Maurico Polanco** - *creacion de la vista CRUD para los conductores*
+* **Saira Xiomara Guevara** - *creacion de la vista CRUD para los buses de transporte *
+...
+#### Meet 28-Oct-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 31-Oct-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 02-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 04-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 07-Nov-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
