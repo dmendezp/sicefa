@@ -10,6 +10,53 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('agroindustria.intern.invb')}}">Unidades</a>
             </li>
+            <li class="nav-item">
+                <style>
+                    /* Estilos para el menú desplegable */
+                    .dropdown {
+                      position: relative;
+                      display: inline-block;
+                    }
+                
+                    .dropdown-content {
+                      display: none;
+                      position: absolute;
+                      background-color: #f9f9f9;
+                      min-width: 160px;
+                      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                      z-index: 1;
+                    }
+                
+                    .dropdown:hover .dropdown-content {
+                      display: block;
+                    }
+                
+                    /* Estilos opcionales para los elementos del menú */
+                    .dropdown-content a {
+                      color: black;
+                      padding: 12px 16px;
+                      text-decoration: none;
+                      display: block;
+                    }
+                
+                    .dropdown-content a:hover {
+                      background-color: #f1f1f1;
+                    }
+                  </style>
+                </head>
+                <body>
+                
+                <div class="dropdown">
+                  <button class="dropbtn">Menú</button>
+                  <div class="dropdown-content">
+                    <a href="{{route('agroindustria.intern.binsu')}}">Insumos</a>
+                    <a href="{{route('agroindustria.intern.baseo')}}">Aseo</a>
+                    <a href="{{route('agroindustria.intern.benvas')}}">Envases</a>
+                    <a href="{{route('agroindustria.intern.bepp')}}">Epp</a>
+
+                </div>
+                </div>
+            </li>
         </ul>
     </div>
     <div class="user-panel mt-1 pb-1 mb-1 d-flex">

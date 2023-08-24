@@ -7,6 +7,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('agroindustria.index')}}">Inicio</a>
             </li>
+           
         </ul>
     </div>
     <div class="user-panel mt-1 pb-1 mb-1 d-flex">

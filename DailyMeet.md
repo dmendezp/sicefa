@@ -13,12 +13,15 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 <!-- Mira **Deployment** para conocer como desplegar el proyecto. -->
 
 
-## CEFAMAPS 📌
+## AGROINDUSTRIA 🧁
 
 ### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar*
-* **Integrante 2** - *Actividades a realizar*
+#### Sprint Planning 22-Agt-2023
+* **Jennifer Marin Montealegre** - *CRUD de formulacion o recetas*
+* **David Juliam Cadena Barrera** - *Monitoreo de las bodegas con sus insumos.*
+* **Juan Diego Bonilla Aroca** - *CRUD de actividad*
+* **Julian Javier Ramirez Diaz** - *Solicitud de insumos a Centro*
+
 ...
 #### Meet 28-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
