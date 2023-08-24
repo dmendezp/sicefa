@@ -50,5 +50,17 @@ class RolesTableSeeder extends Seeder
             'description_english' => 'Role visitor of AGROINDUSTRIA',
             'app_id' => $app->id
         ]);
+        
+        // Consulta de usuarios
+        $user_admin = User::where('nickname','Julian')->first(); // Usuario Administrador (Julian Javier Ramirez Diaz)
+        $user_instructor = User::where('nickname','Bonilla')->first(); // Usuario Instructor (Juan Diego Bonilla Aroca)
+        $user_storer = User::where('nickname','Cadena')->first(); // Usuario Almacenista (David Juliam Cadena Barrera)
+        $user_visitor = User::where('nickname','Jennifer')->first(); // Usuario Visitante (Jennifer Marin Montealegre)
+
+        // Asignación de ROLES para los USUARIOS de la aplicación AGROINDUSTRIA (Sincronización de las relaciones sin eliminar las relaciones existentes)
+        $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]);
+        $user_instructor->roles()->syncWithoutDetaching([$rol_instructor->id]);
+        $user_storer->roles()->syncWithoutDetaching([$rol_storer->id]);
+        $user_visitor->roles()->syncWithoutDetaching([$rol_visitor->id]); 
     }
 }
