@@ -35,7 +35,7 @@ return [
     'Btn2'   => 'Expired / To be expired',
     'Btn3'   => 'Add Product',
     'Btn4'   => 'Register Entry',
-    'Btn5'   => 'Generate PDF',
+    'Btn5'   => 'Generate Ticket',
     
     //Section register inventroy
     //Card Responsibles and Warehouses
@@ -77,10 +77,13 @@ return [
     
     //--Section Movement Details - Entries
     'FormText1' => 'N° Voucher',
-	'FormText2' => 'Date:',
-	'FormText3' => 'Delivery:',
-	'FormText4' => 'Receive:',
-	'FormText5' => 'Movement Type:',
+	'FormText2' => 'Warehouse of Origin:',
+	'FormText3' => 'Responsible for Delivery:',
+	'FormText4' => 'Date:',
+	'FormText5' => 'Receiving Warehouse:',
+	'FormText6' => 'Responsible for Receiving:',
+	'FormText7' => 'Movement Type:',
+
 
     //Table Movement Entries
     '3T1' => '#',

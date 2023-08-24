@@ -21,26 +21,38 @@
                     </div>
                 </div>
 
-                <div class="row mt-5">
-                    <div class="col-md-2">
+                <div class="row mt-2">
+                    <div class="col-md-4">
                         <label class="form-label">{{ trans('ptventa::inventory.FormText2') }}</label>
-                        <input type="text" class="form-control" value="{{ $movement->registration_date }}" readonly>
+                        <input type="text" class="form-control" value="{{ $movement->warehouse_movements->where('role', 'Entrega')->first()->productive_unit_warehouse->warehouse->name }}" readonly>
                     </div>
-
                     <div class="col-md-4">
                         <label class="form-label">{{ trans('ptventa::inventory.FormText3') }}</label>
                         <input type="text" class="form-control"
                             value="{{ $movement->movement_responsibilities->where('role', 'ENTREGA')->first()->person->full_name }}"
                             readonly>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label class="form-label">{{ trans('ptventa::inventory.FormText4') }}</label>
+                        <input type="text" class="form-control" value="{{ $movement->registration_date }}" readonly>
+                    </div>
+                </div>
+
+                <div class="row mt-1">
+                    <div class="col-md-4">
+                        <label class="form-label">{{ trans('ptventa::inventory.FormText5') }}</label>
+                        <input type="text" class="form-control"
+                            value="{{ $movement->warehouse_movements->where('role', 'Recibe')->first()->productive_unit_warehouse->warehouse->name }}" readonly>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">{{ trans('ptventa::inventory.FormText6') }}</label>
                         <input type="text" class="form-control"
                             value="{{ $movement->movement_responsibilities->where('role', 'RECIBE')->first()->person->full_name }}"
                             readonly>
                     </div>
-                    <div class="col-md-2">
-                        <label class="form-label">{{ trans('ptventa::inventory.FormText5') }}</label>
+                    <div class="col-md-3">
+                        <label class="form-label">{{ trans('ptventa::inventory.FormText7') }}</label>
                         <input type="text" class="form-control" value="{{ $movement->movement_type->name }}" readonly>
                     </div>
                 </div>

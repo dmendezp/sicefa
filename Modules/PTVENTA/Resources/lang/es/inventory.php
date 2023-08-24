@@ -35,7 +35,7 @@ return [
     'Btn2' => 'Vencidos / Por vencer',
     'Btn3' => 'Agregar Producto',
     'Btn4' => 'Registrar Entrada',
-    'Btn5' => 'Generar PDF',
+    'Btn5' => 'Generar Factura',
     
     //Section register invetory
     //Card Responsibles and Warehouses
@@ -77,10 +77,13 @@ return [
     
     //--Section Movement Details - Entries
 	'FormText1' => 'N° Comprobante',
-	'FormText2' => 'Fecha:',
-	'FormText3' => 'Entrega:',
-	'FormText4' => 'Recibe:',
-	'FormText5' => 'Tipo de Movimiento:',
+	'FormText2' => 'Bodega de Origen:',
+	'FormText3' => 'Responsable de Entrega:',
+	'FormText4' => 'Fecha:',
+	'FormText5' => 'Bodega que Recibe:',
+	'FormText6' => 'Responsable que Recibe:',
+	'FormText7' => 'Tipo de Movimiento:',
+
 
     //Table Movement Entries
 	'3T1' => 'N°',
