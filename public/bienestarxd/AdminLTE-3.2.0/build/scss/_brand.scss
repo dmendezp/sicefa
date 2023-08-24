@@ -21,7 +21,7 @@
   }
 
   [class*="sidebar-dark"] & {
-    border-bottom: 1px solid lighten($dark, 10%);
+    border-bottom: none;
 
     &,
     .pushmenu {
