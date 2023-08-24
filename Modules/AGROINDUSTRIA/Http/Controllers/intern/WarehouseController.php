@@ -5,18 +5,9 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class InventoryController extends Controller
+class WarehouseController extends Controller
 {
-    public function index(){
-        $title = 'Inicio';
-        return view('agroindustria::intern.index', compact('title'));
-    }
     
-    public function invb()
-    {
-        $title = 'Inventario';
-        return view('agroindustria::intern.invb', compact('title'));
-    }
 
     public function bodegaepp()
     {
@@ -35,5 +26,12 @@ class InventoryController extends Controller
         $title = 'Ibdoegainsumos';
         return view('agroindustria::intern.binsu', compact('title'));
     }
+
+    public function bodegaenvases()
+    {
+        $title = 'Ibdoegaenvases';
+        return view('agroindustria::intern.benvas', compact('title'));
+    }
+
     
 }

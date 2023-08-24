@@ -6,6 +6,9 @@ use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
 
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\InventoryController;
 
+use Modules\AGROINDUSTRIA\Http\Controllers\Intern\WarehouseController;
+
+
 Route::prefix('agroindustria')->group(function() {
     Route::get('/index', 'AGROINDUSTRIAController@index')->name('agroindustria.index');
 
@@ -21,6 +24,12 @@ Route::prefix('agroindustria')->group(function() {
     Route::prefix('intern')->group(function (){
         Route::get('/index', [InventoryController::class ,'index'])->name('agroindustria.intern.index');
         Route::get('/invb', [InventoryController::class ,'invb'])->name('agroindustria.intern.invb');
+        Route::get('/epp', [WarehouseController::class ,'bodegaepp'])->name('agroindustria.intern.bepp');
+        Route::get('/insumos', [WarehouseController::class ,'bodegainsumos'])->name('agroindustria.intern.baseo');
+        Route::get('/aseo', [WarehouseController::class ,'bodegaaseo'])->name('agroindustria.intern.binsu');
+        Route::get('/envases', [WarehouseController::class ,'bodegaenvases'])->name('agroindustria.intern.benvas');
+
     });
+    
 
 });
