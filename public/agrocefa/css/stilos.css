@@ -345,7 +345,7 @@ body.dark .switch::before{
     position: absolute;
     top: 0;
     top: 0;
-    left: 250px;
+    left: 290px;
     height: 100vh;
     width: calc(100% - 250px);
     background-color: var(--body-color);
@@ -359,7 +359,7 @@ body.dark .switch::before{
 }
 
 .sidebar.close ~ .home{
-    left: 78px;
+    left: 120px;
     height: 100vh;
     width: calc(100% - 78px);
 }
@@ -454,4 +454,32 @@ li a i {
     gap: 2.5em;
     justify-content: space-evenly;
     align-items: center;
+}
+
+
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Agrega más estilos según sea necesario */
+}
+
+.avatar {
+    width: 10px;
+    height: 10px;
+    /* Agrega estilos de imagen, como bordes, sombras, etc. */
+}
+
+.user-details {
+    /* Agrega estilos para la sección de detalles del usuario */
+}
+
+.user-name {
+    font-weight: bold;
+    /* Otros estilos de texto */
+}
+
+.user-role {
+    /* Estilos adicionales para el rol */
 }

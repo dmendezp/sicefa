@@ -18,55 +18,107 @@
     <div class="menu-bar">
         <div class="menu">
             <ul class="menu-links">
+                @auth
+                    @if (Auth::user()->havePermission('agrocefa.parameters.index'))
+                    <li class="nav-link">
+                        <a href="{{route('agrocefa.parameters')}}">
+                            <i class='bx bx-hive icon'></i>
+                            <span class="text nav-text">{{ trans('agrocefa::universal.Parameters')}}</span>
+                        </a>
+                    </li>
+                    @endif
+                    @if (Auth::user()->havePermission('agrocefa.inventory.index'))
+                    <li class="nav-link">
+                        <a href="{{ route('agrocefa.inventory')}}">
+                            <i class='bx bx-list-plus icon'></i>
+                            <span class="text nav-text">{{ trans('agrocefa::universal.Inventory')}}</span>
+                        </a>
+                    </li>
+                    @endif
+                    @if (Auth::user()->havePermission('agrocefa.labormanagement.index'))
+                    <li class="nav-link">
+                        <a href="{{route('agrocefa.inventory')}}">
+                            <i class='bx bx-wrench icon'></i>
+                            <span class="text nav-text">{{ trans('agrocefa::universal.Labormanagement')}}</span>
+                        </a>
+                    </li>
+                    @endif
+                    @if (Auth::user()->havePermission('agrocefa.passant.reports'))
+                    <li class="nav-link reports">
+                        <a href="#">
+                        <i class='bx bx-file icon'></i>
+                        <span class="text nav-text">{{ trans('agrocefa::universal.Reports')}}</span>
+                        <i class='bx bx-chevron-down arrow icon' id="flecha2"></i>
+                        </a>
+                        <!-- Agregamos el ul.sub-list dentro del li.nav-link.reports -->
+                        <ul class="sub-list">
+                            <li id="sublist-li"><a href="#"><i class='bx bxl-apple icon' ></i><span class="text nav-text">{{ trans('agrocefa::universal.Consumption')}}</span></a></li>
+                            <li id="sublist-li"><a href="#"><i class='bx bx-objects-vertical-bottom icon'></i><span class="text nav-text">{{ trans('agrocefa::universal.Balance')}}</span></a></li>
+                            <li id="sublist-li"><a href="#"><i class='bx bx-lemon icon' ></i><span class="text nav-text">{{ trans('agrocefa::universal.Production')}}</span></a></li>
+                        </ul>  
+                    </li>
+                    
+                    @endif
+                    
+                @endauth
+                @guest
                 <li class="nav-link">
-                    <a href="{{ route('agrocefa.inventory')}}">
-                        <i class='bx bx-list-plus icon'></i>
-                        <span class="text nav-text">{{ trans('agrocefa::universal.Inventory')}}</span>
+                    <a href="#">
+                        <i class='bx bx-home icon'></i>
+                        <span class="text nav-text">{{ trans('agrocefa::universal.Home')}}</span>
+                    </a>
+                </li>
+                <li class="nav-link">
+                    <a href="{{route('agrocefa.bodegas')}}">
+                        <i class='bx bx-code icon'></i>
+                        <span class="text nav-text">{{ trans('agrocefa::universal.Developers')}}</span>
                     </a>
                 </li>
 
                 <li class="nav-link">
-                    <a href="{{route('agrocefa.inventory')}}">
-                        <i class='bx bx-wrench icon'></i>
-                        <span class="text nav-text">{{ trans('agrocefa::universal.Labormanagement')}}</span>
+                    <a href="{{route('agrocefa.insumos')}}">
+                        <i class='bx bx-search-alt-2 icon' ></i>
+                        <span class="text nav-text">{{ trans('agrocefa::universal.AGROCEFA?')}}</span>
                     </a>
                 </li>
-
                 <li class="nav-link reports">
                     <a href="#">
-                      <i class='bx bx-file icon'></i>
-                      <span class="text nav-text">{{ trans('agrocefa::universal.Reports')}}</span>
-                      <i class='bx bx-chevron-down arrow icon' id="flecha2"></i>
+                    <i class='bx bx-file icon'></i>
+                    <span class="text nav-text">{{ trans('agrocefa::universal.Reports')}}</span>
+                    <i class='bx bx-chevron-down arrow icon' id="flecha2"></i>
                     </a>
                     <!-- Agregamos el ul.sub-list dentro del li.nav-link.reports -->
                     <ul class="sub-list">
-                      <li id="sublist-li"><a href="#"><i class='bx bxl-apple icon' ></i><span class="text nav-text">{{ trans('agrocefa::universal.Consumption')}}</span></a></li>
-                      <li id="sublist-li"><a href="#"><i class='bx bx-lemon icon' ></i><span class="text nav-text">{{ trans('agrocefa::universal.Production')}}</span></a></li>
-                      <li id="sublist-li"><a href="#"><i class='bx bx-objects-vertical-bottom icon'></i><span class="text nav-text">{{ trans('agrocefa::universal.Balance')}}</span></a></li>
+                        <li id="sublist-li"><a href="#"><i class='bx bxl-apple icon' ></i><span class="text nav-text">{{ trans('agrocefa::universal.Consumption')}}</span></a></li>
+                        <li id="sublist-li"><a href="#"><i class='bx bx-objects-vertical-bottom icon'></i><span class="text nav-text">{{ trans('agrocefa::universal.Balance')}}</span></a></li>
                     </ul>  
-                </li>
-                <li class="nav-link">
-                    <a href="{{route('agrocefa.parameters')}}">
-                        <i class='bx bx-hive icon'></i>
-                        <span class="text nav-text">{{ trans('agrocefa::universal.Parameters')}}</span>
-                    </a>
                 </li>
             </ul>
         </div>
 
         <div class="bottom-content">
-        <li class="">
+        <li style="margin-top: 70px" class="">
             <a href="{{ route('login')}}">
                 <i class='bx bx-lock-open icon'></i>
-                <span class="text nav-text">login</span>
+                <span class="text nav-text">Iniciar Sesion</span>
             </a>
         </li>
-        <li class="">
+        @endguest
+        @if (Auth::check() && (Auth::user()->roles[0]->name === 'Administrador' || Auth::user()->roles[0]->name === 'Pasante'))
+            <li class="" style="margin-top: 500px">
                 <a href="{{ route('cefa.welcome')}}">
                     <i class='bx bx-log-out icon' ></i>
                     <span class="text nav-text">SICEFA</span>
                 </a>
-            </li> 
+            </li>
+        @else
+            <li class="">
+                <a href="{{ route('cefa.welcome')}}">
+                    <i class='bx bx-log-out icon' ></i>
+                    <span class="text nav-text">SICEFA</span>
+                </a>
+            </li>
+        @endif
         </div>
     </div>
 </nav>
