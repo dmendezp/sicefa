@@ -35,6 +35,8 @@ Route::prefix('cafeto')->group(function(){ //Agrega el prefijo en la url (sicefa
         Route::get('/element', 'index')->name('cafeto.element.index'); // Ver imagenes de productos
         Route::get('edit/{element}', 'edit')->name('cafeto.element.edit'); // Vista del formulario para acutalizar imagen de elemento
         Route::post('update/{element}', 'update')->name('cafeto.element.update'); // Carga de nueva imagen para elemento
+        Route::get('create', 'create')->name('cafeto.element.create');
+        Route::post('store', 'store')->name('cafeto.element.store');
     });
 
 
