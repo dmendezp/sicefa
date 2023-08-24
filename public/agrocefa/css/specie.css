@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+}
+h2 {
+    margin-top: 5%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    float: right;
+    margin-right: 100px;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background-color: #f3efef;
+}
+th {
+    background-color: #c9dadf;
+}
+td a {
+    text-decoration: none;
+    color: #333;
+}
+td a:hover {
+    color: #ff6347;
+}
+.edit-icon, .delete-icon {
+    font-size: 18px;
+    margin: 0 5px;
+}
+
+.edit {
+    background-color: #f0b207;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add {
+    background-color: #108dc7;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-right: 85%;
+}
+
+.delete {
+    background-color: #d80909;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.custom-icon {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+/* Aplicar diferentes colores a los íconos */
+.edit .custom-icon {
+    color: #030303; /* Color para el ícono de edición */
+}
+
+.delete .custom-icon {
+    color: #28a745; /* Color para el ícono de eliminación */
+}
+
+.edit:hover {
+    background-color: #b36b00;
+}
+
+.delete:hover {
+    background-color: #c82333;
+}
