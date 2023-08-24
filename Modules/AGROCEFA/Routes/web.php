@@ -1,5 +1,5 @@
 <?php
-
+use Modules\AGROCEFA\Http\Controllers\AGROCEFAController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +11,7 @@
 |
 */
 
-use Modules\AGROCEFA\Http\Controllers\AGROCEFAController;
+
 
 Route::middleware(['lang'])->group(function(){
     Route::prefix('/agrocefa')->group(function() {
@@ -21,6 +21,13 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
         Route::get('/parameters', 'ParameterController@index')->name('agrocefa.parameters');
         Route::get('/user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
+
+        //RUTAS PARAMETRO DE ESPECIES
+        Route::get('/species', 'SpecieController@index')->name('agrocefa.species.index');
+        Route::get('/species/{id}/edit', 'SpecieController@editView')->name('agrocefa.species.edit');
+        Route::get('/species/{id}/delete', 'SpecieController@deleteView')->name('agrocefa.species.delete');
+        Route::get('/species/create', 'SpecieController@create')->name('agrocefa.species.create');
+
 
         //ruta de varieties//
         Route::get('/varieties','VarietyController@index')->name('agrocefa.varieties.crear');

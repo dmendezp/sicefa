@@ -105,7 +105,7 @@
         </li>
         @endguest
         @if (Auth::check() && (Auth::user()->roles[0]->name === 'Administrador' || Auth::user()->roles[0]->name === 'Pasante'))
-            <li class="" style="margin-top: 500px">
+            <li class="" style="margin-top: 350px">
                 <a href="{{ route('cefa.welcome')}}">
                     <i class='bx bx-log-out icon' ></i>
                     <span class="text nav-text">SICEFA</span>

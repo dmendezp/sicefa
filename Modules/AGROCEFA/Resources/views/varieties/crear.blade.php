@@ -17,7 +17,7 @@
             margin: 0;
         }
 
-        form {
+        .formulario {
             margin: 0 auto;
             display: block;
             width: 950px;
@@ -25,6 +25,9 @@
             background-color: #f5f5f5;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            padding: 4%;
+            text-align: let;
         }
 
         label {
@@ -63,11 +66,6 @@
             font-size: 24px;
         }
 
-        form {
-            margin-bottom: 20px;
-            padding: 4%;
-            text-align: let;
-        }
 
         table {
             width: 100%;
@@ -137,7 +135,7 @@
         }
     </style>
     <h2>Crear Variedad de especie</h2>
-    <form method="post">
+    <form method="post" class="formulario">
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" required>
         <br>
@@ -153,8 +151,8 @@
             <th>Acciones</th>
         </tr>
         <tr>
-            <td>arroz </td>
-            <td>cualquier tipo dearroz que sea cultivado en el sena</td>
+            <td>Arroz </td>
+            <td>Cualquier tipo de arroz que sea cultivado en el sena</td>
 
             <td>
                 <div class="button-container">
@@ -162,61 +160,12 @@
                     <a href="{{route ('agrocefa.varieties.editar')}}" id="editar-button" class="icon-button">
                         <i class="fa fa-pencil"></i> Editar
                     </a>
-                    <a href="{{route('agrocefa.varieties.eliminar')}}" id="eliminar-button" class="icon-button">
-                        <i class="fa fa-trash"></i> Eliminar
+                    <a href="{{route('agrocefa.varieties.editar')}}" id="eliminar-button" class="icon-button">                    
+                       <i class="fa fa-trash"></i> Eliminar
                     </a>
                 </div>
-            </td>
+            </td> 
         </tr>
     </form>
     </table>
-
-    <table border="1">
-        <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Acciones</th>
-        </tr>
-        <tr>
-            <td>arroz </td>
-            <td>cualquier tipo dearroz que sea cultivado en el sena</td>
-
-            <td>
-                <div class="button-container">
-                    <button id="editar-button" class="icon-button">
-                        <i class="fa fa-pencil"></i> Editar
-                    </button>
-                    <button id="eliminar-button" class="icon-button">
-                        <i class="fa fa-trash"></i> Eliminar
-                    </button>
-                </div>
-            </td>
-        </tr>
-    </form>
-    </table>
-
-</body>
-<table border="1">
-    <tr>
-        <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Acciones</th>
-    </tr>
-    <tr>
-        <td>arroz </td>
-        <td>cualquier tipo dearroz que sea cultivado en el sena</td>
-
-        <td>
-            <div class="button-container">
-                <button id="editar-button" class="icon-button">
-                    <i class="fa fa-pencil"></i> Editar
-                </button>
-                <button id="eliminar-button" class="icon-button">
-                    <i class="fa fa-trash"></i> Eliminar
-                </button>
-            </div>
-        </td>
-    </tr>
-</form>
-</table>
 @endsection

@@ -1,8 +1,8 @@
 
 <div class="navbar">
   <ul>
-      <li style="margin-left: 40px;margin-right: 300px"><a href="#" id="an">AGROCEFA</a></li>
-      <li style="margin-right: 650px"><a href="{{ route('agrocefa.index') }}" id="an">{{ trans('agrocefa::universal.Home')}}</a></li>
+      <li style="margin-left: 40px;margin-right: 200px"><a href="#" id="an">AGROCEFA</a></li>
+      <li style="margin-right: 300px"><a href="{{ route('agrocefa.index') }}" id="an">{{ trans('agrocefa::universal.Home')}}</a></li>
       <li style="margin-right: 40px"><a href="{{ url('lang',['en']) }}" id="an" class="dropdown-item"><img src="{{asset('agrocefa/images/general/en.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English')}}</a></li>
       <li style="margin-right: 40px"><a href="{{ url('lang',['es']) }}" id="an" class="dropdown-item"><img src="{{asset('agrocefa/images/general/es.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish')}}</a></li>
   </ul>

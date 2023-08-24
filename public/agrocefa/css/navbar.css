@@ -71,6 +71,7 @@
 }
 
 .profile {
+  margin-right: 23px;
   display: flex;
   align-items: center;
 }
