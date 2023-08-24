@@ -1,4 +1,4 @@
-@extends('agroindustria::layouts.master')
+@extends('agroindustria::layouts_instructor.master_instructor')
 @section('content')
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
@@ -29,7 +29,7 @@
                 <div class="card-header">SOLICITUD DE BIENES</div>
 
                 <div class="card-body">
-                    {!! Form::open(['url' => route('agroindustria.enviarsolicitud')]) !!}
+                    {!! Form::open(['url' => route('agroindustria.instructor.enviarsolicitud')]) !!}
                     <div class="mb-6">
                         <label for="document_number" class="form-label">Fecha de Solicitud</label>
                         {!! Form::date('document_number',null, ['class'=>'form-control']) !!}
