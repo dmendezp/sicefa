@@ -20,5 +20,18 @@ Route::middleware(['lang'])->group(function(){
 
         Route::get('/aprendiz', 'AGROCEFAController@vistaaprendiz')->name('agrocefa.aprendiz');
         Route::get('/user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
+
+        //RUTAS PARAMETRO DE ESPECIES
+        Route::get('/species', 'SpecieController@index')->name('agrocefa.species.index');
+        Route::get('/species/{id}/edit', 'SpecieController@editView')->name('agrocefa.species.edit');
+        Route::get('/species/{id}/delete', 'SpecieController@deleteView')->name('agrocefa.species.delete');
+        Route::get('/species/create', 'SpecieController@create')->name('agrocefa.species.create');
+
+
+/*      Route::get('/species', 'SpecieController@create')->name('agrocefa.species.create');
+        Route::get('/species', 'SpecieController@edit')->name('agrocefa.species.edit');
+        Route::get('/species', 'SpecieController@delete')->name('agrocefa.species.delete'); */
+
+
     });
 });
