@@ -50,7 +50,6 @@ class RolesTableSeeder extends Seeder
             'description_english' => 'Role visitor of AGROINDUSTRIA',
             'app_id' => $app->id
         ]);
-
         // Consulta de usuarios
         $user_admin = User::where('nickname','Julian')->first(); // Usuario Administrador (Julian Javier Ramirez Diaz)
         $user_instructor = User::where('nickname','Bonilla')->first(); // Usuario Instructor (Juan Diego Bonilla Aroca)
