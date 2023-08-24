@@ -1,4 +1,4 @@
-@extends('agrocefa::layouts.master')
+    @extends('agrocefa::layouts.master')
 
 @section('content')
 

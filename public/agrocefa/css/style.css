@@ -12,17 +12,7 @@
     font-weight: normal;
     font-style: normal;
 }
-@font-face {
-    font-family: 'RobotoCondensedLight';
-    src: url('/fonts/robotocondensed-light.eot');
-    src: url('/fonts/robotocondensed-light.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/robotocondensed-light.woff2') format('woff2'),
-         url('/fonts/robotocondensed-light.woff') format('woff'),
-         url('/fonts/robotocondensed-light.ttf') format('truetype'),
-         url('/fonts/robotocondensed-light.svg#roboto_condensedlight') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
+
 @font-face {
     font-family: 'RobotoCondensedRegular';
     src: url('/fonts/robotocondensed-regular.eot');

@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use Modules\AGROCEFA\Http\Controllers\AGROCEFAController;
+
 Route::middleware(['lang'])->group(function(){
     Route::prefix('/agrocefa')->group(function() {
         Route::get('/index', 'AGROCEFAController@index')->name('agrocefa.index');
@@ -20,5 +23,12 @@ Route::middleware(['lang'])->group(function(){
 
         Route::get('/aprendiz', 'AGROCEFAController@vistaaprendiz')->name('agrocefa.aprendiz');
         Route::get('/user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
+
+        //ruta de varieties//
+        Route::get('/varieties','VarietyController@index')->name('agrocefa.varieties.crear');
+        Route::get('/varieties/editar','VarietyController@edit')->name('agrocefa.varieties.editar');
+        Route::get('/varieties/eliminar','VarietyController@delete')->name('agrocefa.varieties.eliminar');
+
+       
     });
 });
