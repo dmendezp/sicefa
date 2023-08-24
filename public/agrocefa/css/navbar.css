@@ -1,27 +1,29 @@
+/* styles.css */
+.navbar {
+  background: #E4E9F7;
+  border-radius: 9px;
+  display: flex;  
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
-
-.container{
-  width: 100%;
+.navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
-nav{
-  width: 100%;
-  background: #000000;
-  border-radius: 9px;
-}
-nav ul li{
-  display: inline-block;
-  list-style: none;
+
+.navbar li {
   font-size: 1rem;
-  padding: 0 10px;
-  margin: 0 20px;
-  cursor: pointer;
+  margin: 0 10px;
   position: relative;
+  cursor: pointer;
 }
-nav ul li:after{
+
+.navbar li:after {
   content: '';
   width: 0;
   height: 3px;
@@ -30,6 +32,52 @@ nav ul li:after{
   bottom: -10px;
   transition: 0.5s;
 }
-nav ul li:hover::after{
-  width:100%;
+
+.navbar li:hover::after {
+  width: 100%;
+}
+
+.profile-img-container {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.profile-img {
+  width: 26px;
+  height: 26px;
+  margin-left: 36px;
+  border-radius: 50%; /* Hace que la imagen sea circular */
+  margin-right: 10px;
+}
+
+.profile-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-link {
+  font-size: 11px;
+  margin-bottom: 0px;
+  text-decoration: none;
+  color: rgb(85, 85, 85);
+  font-weight: bold;
+  
+}
+
+.profile-role {
+  font-size: 11px;
+  margin-left: 10px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.logout-icon {
+  font-size: 20px;
+  margin-left: 25px;
+  margin-top: 10px;
+  color: rgb(109, 109, 109);
 }

@@ -16,9 +16,7 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/inventory', 'AGROCEFAController@inventory')->name('agrocefa.inventory');
         Route::get('/insumos', 'AGROCEFAController@insumos')->name('agrocefa.insumos');
         Route::get('/bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
-        Route::get('/parameters', 'AGROCEFAController@parameters')->name('agrocefa.parameters');
-
-        Route::get('/aprendiz', 'AGROCEFAController@vistaaprendiz')->name('agrocefa.aprendiz');
+        Route::get('/parameters', 'ParameterController@index')->name('agrocefa.parameters');
         Route::get('/user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
 
         //RUTAS PARAMETRO DE ESPECIES
