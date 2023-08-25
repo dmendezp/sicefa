@@ -8,7 +8,7 @@
 @endpush
 
 @section('content')
-    {!! Form::open(['route'=>'cafeto.element.store', 'method'=>'POST', 'id'=>'form-config']) !!} 
+        {!! Form::open(['route'=>'cafeto.element.store', 'method'=>'POST', 'id'=>'form-config']) !!} 
             @csrf
                 <div class="card card-success card-outline col-10 mx-auto">
 
