@@ -14,9 +14,16 @@ class CreateAssistancesFoodsTable extends Migration
     public function up()
     {
         Schema::create('assistances_foods', function (Blueprint $table) {
-            $table->id();
-
+            $table->id();   
+            $table->unsignedBigInteger('apprentice_id');
+            $table->unsignedBigInteger('postulation_benefit_id');
+            $table->string('porcentage');
+            $table->string('type_food');
+            $table->datetime('date_time');
             $table->timestamps();
+            $table->foreign('apprentice_id')->references('id')->on('apprentices');
+            $table->foreign('postulation_benefit_id')->references('id')->on('postulations_benefits');
+           
         });
     }
 

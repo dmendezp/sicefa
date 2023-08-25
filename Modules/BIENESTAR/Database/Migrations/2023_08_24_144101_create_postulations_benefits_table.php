@@ -15,8 +15,14 @@ class CreatePostulationsBenefitsTable extends Migration
     {
         Schema::create('postulations_benefits', function (Blueprint $table) {
             $table->id();
-
+            $table->unsignedBigInteger('benefit_id');
+            $table->unsignedBigInteger('postulation_id');
+            $table->string('state');
+            $table->string('message');
             $table->timestamps();
+            $table->foreign('benefit_id')->references('id')->on('benefits');
+            $table->foreign('postulation_id')->references('id')->on('postulations');
+           
         });
     }
 

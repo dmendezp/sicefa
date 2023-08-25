@@ -15,7 +15,7 @@ class CreateTypesOfBenefitsTable extends Migration
     {
         Schema::create('types_of_benefits', function (Blueprint $table) {
             $table->id();
-
+            $table->string('name');
             $table->timestamps();
         });
     }

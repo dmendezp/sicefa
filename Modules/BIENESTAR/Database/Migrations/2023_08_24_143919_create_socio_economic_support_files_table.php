@@ -15,8 +15,11 @@ class CreateSocioEconomicSupportFilesTable extends Migration
     {
         Schema::create('socio_economic_support_files', function (Blueprint $table) {
             $table->id();
-
+            $table->string('file');
+            $table->unsignedBigInteger('postulation_id');
             $table->timestamps();
+            $table->foreign('postulation_id')->references('id')->on('postulations');
+           
         });
     }
 

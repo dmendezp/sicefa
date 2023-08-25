@@ -15,8 +15,11 @@ class CreateRoutesTransportationsTable extends Migration
     {
         Schema::create('routes_transportations', function (Blueprint $table) {
             $table->id();
-
+            $table->string('name_route');
+            $table->string('stop_bus');
+            $table->unsignedBigInteger('bus_id');
             $table->timestamps();
+            $table->foreign('bus_id')->references('id')->on('buses');
         });
     }
 

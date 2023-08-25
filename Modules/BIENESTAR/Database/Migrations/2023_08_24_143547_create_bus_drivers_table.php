@@ -15,8 +15,12 @@ class CreateBusDriversTable extends Migration
     {
         Schema::create('bus_drivers', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone');
 
             $table->timestamps();
+
         });
     }
 

@@ -15,8 +15,11 @@ class CreateBusesTable extends Migration
     {
         Schema::create('buses', function (Blueprint $table) {
             $table->id();
-
+            $table->string('plate');
+            $table->string('quota');
+            $table->unsignedBigInteger('driver_id');
             $table->timestamps();
+            $table->foreign('driver_id')->references('id')->on('bus_drivers');
         });
     }
 
