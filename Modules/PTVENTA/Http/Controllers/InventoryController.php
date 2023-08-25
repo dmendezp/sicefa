@@ -496,5 +496,10 @@ class InventoryController extends Controller
         $view = ['titlePage' => trans('ptventa::inventory.titlePageM'), 'titleView' => trans('ptventa::inventory.titleViewM')];
         return view('ptventa::inventory.show', compact('view', 'movement'));
     }
-    
+
+    /* Ingresar a registro de bajas de inventario */
+    public function low_create(){
+        $view = ['titlePage' => trans('ptventa::inventory.titlePageL'), 'titleView' => trans('ptventa::inventory.titleViewL')];
+        return view('ptventa::inventory.low', compact('view'));
+    }
 }

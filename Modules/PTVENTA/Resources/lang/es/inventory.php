@@ -8,6 +8,8 @@ return [
 	'titleView2' => 'Registro de Inventario',
 	'titlePageM' => 'Movimiento - Detalles',
 	'titleViewM' => 'Detalles de Movimiento',
+	'titlePageL' => 'Bajas de Inventario',
+	'titleViewL' => 'Bajas de Inventario',
 
     //Breadcrumbs
 	'Inventory' => 'Inventario',
@@ -15,6 +17,7 @@ return [
 	'Products'  => 'Productos',
 	'B4'  => 'Movimientos',
 	'B5'  => 'Detalles de Movimiento',
+	'B6'  => 'Bajas de Inventario',
 
     //Section Card
     //General
@@ -36,6 +39,9 @@ return [
     'Btn3' => 'Agregar Producto',
     'Btn4' => 'Registrar Entrada',
     'Btn5' => 'Generar Factura',
+    'Btn6' => 'Registrar Baja',
+    'Btn7' => 'Agregar a la lista',
+    'Btn8' => 'Dar de baja',
     
     //Section register invetory
     //Card Responsibles and Warehouses
@@ -44,8 +50,10 @@ return [
     'SubTextCard2'  => '-- Selecciona Unidad Productiva --',
     'SubTextCard3'  => '-- Selecciona Bodega --',
     'SubTitleCard3' => 'Entrega:',
-    'SubTitleCard4' => 'Bodega de destino:',
+    'SubTitleCard4' => 'Bodega de estino:',
     'SubTitleCard5' => 'Recibe:',
+    'SubTitleCard6' => 'Bodega de Origen:',
+    'SubTitleCard7' => 'Encargado:',
     //Form
     'TitleForm0' => 'N°',
     'TitleForm1' => 'Producto:',
@@ -58,6 +66,8 @@ return [
     'TitleForm8' => 'Descripción:',
     'TitleForm9' => 'Marca:',
     'TitleForm10' => 'Destino:',
+    'TitleForm11' => 'Cantidad Existente:',
+
     //Table 2
     '2T1' => 'N°',
     '2T2' => 'Marca (Producto)',

@@ -35,6 +35,8 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::get('cashier/inventory/create', 'create')->name('ptventa.cashier.inventory.create'); // Formulario de registro de entrada de inventario (Cajero)
             Route::get('admin/inventory/status', 'status')->name('ptventa.admin.inventory.status'); // Producto vencidos y por vencer (Administrador)
             Route::get('cashier/inventory/status', 'status')->name('ptventa.cashier.inventory.status'); // Producto vencidos y por vencer (Cajero)
+            Route::get('admin/inventory/low', 'low_create')->name('ptventa.admin.inventory.low'); // Formulario de registro de bajas de inventario (Administrador)
+            Route::get('cashier/inventory/low', 'low_create')->name('ptventa.cashier.inventory.low'); // Formulario de registro de bajas de inventario (Cajero)
 
             //Rutas para reportes
             Route::get('admin/reports/index', 'reports')->name('ptventa.admin.reports.index'); // Vista principal de la sección de reportes (Administrador)

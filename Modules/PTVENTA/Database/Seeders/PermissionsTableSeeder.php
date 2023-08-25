@@ -145,6 +145,24 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
+        // Formulario de registro de bajas de inventario (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.inventory.low'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de bajas de inventario (Administrador)',
+            'description' => 'Formulario de registro de bajas de inventario',
+            'description_english' => 'Inventory removal registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de bajas de inventario (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.inventory.low'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de bajas de inventario (Cajero)',
+            'description' => 'Formulario de registro de bajas de inventario',
+            'description_english' => 'Inventory removal registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
         // Vista principal de la sección de reportes (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.reports.index'], [ // Registro o actualización de permiso
             'name' => 'Vista principal de la sección de reportes (Administrador)',
