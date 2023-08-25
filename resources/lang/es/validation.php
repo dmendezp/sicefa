@@ -131,7 +131,7 @@ return [
 
     'custom' => [
         'roles_id' => [
-            'required' => 'Es necesario seleccionar al menos un rol.',
+            'required' => 'Es necesario seleccionar al menos un rol.', // SICA
         ],
     ],
 
@@ -147,6 +147,7 @@ return [
     */
 
     'attributes' => [
+        'activity_id' => 'actividad', // SICA
         'activity_type_id' => 'tipo de actividad', // SICA
         'app_id' => 'aplicación', // SICA
         'date' => 'fecha', // SICA
@@ -166,6 +167,7 @@ return [
         'person_id' => 'persona', // SICA
         'person_second_last_name' => 'segundo apellido', // PTVENTA
         'productive_unit_id' => 'unidad productiva', // SICA
+        'role_id' => 'rol', // SICA
         'sector_id' => 'área productiva', // SICA
         'start_date' => 'fecha de inicio', // SICA
         'status' => 'estado', // SICA

@@ -138,7 +138,7 @@ return [
 
     'custom' => [
         'roles_id' => [
-            'required' => 'It is necessary to select at least one role.',
+            'required' => 'It is necessary to select at least one role.', // SICA
         ],
     ],
 
@@ -154,6 +154,7 @@ return [
     */
 
     'attributes' => [
+        'activity_id' => 'activity', // SICA
         'activity_type_id' => 'activity type', // SICA
         'app_id' => 'app', // SICA
         'environment_id' => 'environment', // SICA
@@ -166,6 +167,7 @@ return [
         'person_id' => 'person', // SICA
         'person_second_last_name' => 'second last name', // PTVENTA
         'productive_unit_id' => 'productive unit', // SICA
+        'role_id' => 'rol', // SICA
         'sector_id' => 'sector', // SICA
         'warehouse_id' => 'warehouse', // SICA
     ],

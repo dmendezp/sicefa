@@ -53,7 +53,7 @@
                                         @foreach ($productive_unit_warehouses as $puw)
                                             @if ($previous_pu_id !== $puw->productive_unit_id)
                                                 <tr>
-                                                    <td rowspan="{{ $productive_unit_warehouses->where('productive_unit_id', $puw->productive_unit_id)->count() }}">
+                                                    <td  style="vertical-align: middle"  rowspan="{{ $productive_unit_warehouses->where('productive_unit_id', $puw->productive_unit_id)->count() }}">
                                                         {{ $puw->productive_unit->name }}
                                                     </td>
                                                 @php

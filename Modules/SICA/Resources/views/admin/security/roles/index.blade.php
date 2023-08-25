@@ -7,12 +7,17 @@
                 <div class="card card-orange card-outline shadow col-md-12">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-auto">
+                            <div class="col-md">
                                 <h4>Roles</h4>
                             </div>
-                            <div class="col-md">
+                            <div class="col-md-auto px-0">
                                 <a href="{{ route('sica.admin.security.roles.permision_role.index') }}" class="btn btn-info float-right ml-1">
-                                  <i class="fa-solid fa-angles-right fa-beat-fade mr-1"></i> Relación de roles y permisos
+                                    <i class="fa-solid fa-angles-right fa-beat-fade mr-1"></i> Relación de roles y permisos
+                                </a>
+                            </div>
+                            <div class="col-md-auto px-0">
+                                <a href="{{ route('sica.admin.security.roles.responsibilities.index') }}" class="btn btn-info float-right ml-1">
+                                  <i class="fa-solid fa-angles-right fa-beat-fade mr-1"></i> Responsabilidades
                                 </a>
                             </div>
                         </div>
