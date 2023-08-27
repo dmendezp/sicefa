@@ -37,4 +37,5 @@ class ApprenticeAsistencia extends Model
     public function work(){
         return $this->belongsTo(Work::class);
     }
+    
 }
