@@ -5,6 +5,10 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\Course;
+use Modules\SENAEMPRESA\Entities\vacancy;
+use Modules\SENAEMPRESA\Entities\PositionCompany;
+
 
 class VacantController extends Controller
 {
@@ -14,7 +18,9 @@ class VacantController extends Controller
      */
     public function vacantes()
     {
-        $data = ['title' => 'Vacantes'];
+        $vacancies = Vacancy::get();
+        $courses = Course::with('program')->get();
+        $data = ['title' => 'Vacantes', 'courses' => $courses, 'vacancies' => $vacancies];
         return view('senaempresa::Company.Vacant.vacant', $data);
     }
 
@@ -24,31 +30,36 @@ class VacantController extends Controller
      */
     public function registration()
     {
-        $EmpresaArray = [
-            '' => 'Seleccionar Sena Empresa Id',
-            '1' => 'Senampresa 1',
-            '2' => 'Senampresa 2',
-            '3' => 'Senampresa 3',
-        ];
-        $CargoArray = [
-            '' => 'Seleccionar Id Cargo',
-            '1' => 'Contador',
-            '2' => 'Administrador Talento Humano',
-            '3' => 'Administrador Gestion de calidad',
-        ];
-
-        $data = ['title' => 'Nueva Vacante', 'SenaEmpresaArray' => $EmpresaArray, 'CargoArray' => $CargoArray];
+        $vacancies = Vacancy::get();
+        $PositionCompany = PositionCompany::all();
+        $data = ['title' => 'Nueva Vacante', 'vacancies' => $vacancies, 'PositionCompany' => $PositionCompany];
         return view('senaempresa::Company.Vacant.registration', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
-        //
+        $imagePath = $request->file('image')->store('images', 'public');
+
+        $vacancy = new Vacancy(); // Asegúrate de usar el nombre correcto de la clase
+        $vacancy->name = $request->input('name');
+        $vacancy->image = $imagePath; // Asignar la ruta de la imagen correctamente
+        $vacancy->description_general = $request->input('description_general');
+        $vacancy->requirement = $request->input('requirement');
+        $vacancy->position_company_id = $request->input('position_company_id');
+        $vacancy->start_date = $request->input('start_date');
+        $vacancy->end_date = $request->input('end_date');
+
+        if ($vacancy->save()) {
+            $vacancy = Vacancy::all();
+
+            $data = ['title' => 'Nueva Vacante', 'vacancy' => $vacancy];
+            return redirect()->route('vacantes', $data)->with('success', 'Registro agregado exitosamente.');
+        }
+    }
+    public function getVacancyDetails($id)
+    {
+        $vacancy = Vacancy::find($id);
+        return response()->json($vacancy);
     }
 
     /**

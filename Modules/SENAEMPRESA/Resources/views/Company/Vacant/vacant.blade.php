@@ -15,6 +15,12 @@
         @include('senaempresa::layouts.structure.breadcrumb')
 
         <div class="container">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <h1 class="text-center"><strong><em><span>Vacantes</span></em></strong></h1>
             <div class="col-md-3">
 
@@ -22,8 +28,9 @@
                 <label for="cursoFilter">Filtrar por Curso:</label>
                 <select class="form-control" id="cursoFilter">
                     <option value="">Todos los cursos</option>
-                    <option value="curso1">Curso 1</option>
-                    <option value="curso2">Curso 2</option>
+                    @foreach ($courses as $course)
+                        <option value="{{ $course->id }}">{{ $course->code }} {{ $course->program->name }}</option>
+                    @endforeach
                 </select>
             </div><br>
             <div class="col-md-12">
@@ -35,27 +42,33 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Nombre</th>
-                                    <th>Sena Empresa Id</th>
+                                    <th>Presentación</th>
                                     <th>Id Cargo</th>
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Fin</th>
-                                    <th class="text-center">Presentación</th>
+                                    <th class="text-center">Inscripción</th>
                                     <th>Agregar</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Contador</td>
-                                    <td>1 Estrategia 34</td>
-                                    <td>1 Contador</td>
-                                    <td>24-08-2023</td>
-                                    <td>24-08-2023</td>
-                                    <td class="text-center">
-                                        <a id="openModalBtn" title="Inscripción"><i class="fas fa-eye"></i></a>
-                                    </td>
-                                    <td>Editar|Eliminar</td>
-                                </tr>
+                                @foreach ($vacancies as $vacancy)
+                                    <tr>
+                                        <td>{{ $vacancy->id }}</td>
+                                        <td>{{ $vacancy->name }}</td>
+                                        <td>
+                                            <img src="{{ asset('storage/' . $vacancy->image) }}"
+                                                alt="{{ $vacancy->name }}" width="100">
+                                        </td>
+
+                                        <td>{{ $vacancy->position_company_id }}</td>
+                                        <td>{{ $vacancy->start_date }}</td>
+                                        <td>{{ $vacancy->end_date }}</td>
+                                        <td class="text-center">
+                                            <a id="openModalBtn" title="Inscripción"><i class="fas fa-eye"></i></a>
+                                        </td>
+                                        <td>Editar|Eliminar</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -75,25 +88,16 @@
                     <div class="modal-body">
                         <div class="card">
                             <div class="card-body">
-                                <div class="card-header">
-                                    Descripción General:
-                                </div>
-                                <p>Tu función principal será mantener registros precisos y
-                                    actualizados de las
-                                    transacciones
-                                    financieras, asegurando el cumplimiento de las normas contables y fiscales
-                                    vigentes.
-                                    Trabajarás en estrecha colaboración con el departamento financiero y la gerencia
-                                    para
-                                    proporcionar información financiera crucial y asesoramiento estratégico.</p>
-                                <div class="card-header">
-                                    Requisitos:
-                                </div>
-                                <ul>
-                                    <li>Ser mayor de 13 años.</li>
-                                    <li>Contar con el conocimiento para el uso administrativo de redes sociales
-                                        (Twitter, Instagram, Facebook, Whatsapp).</li>
-                                </ul>
+                                @foreach ($vacancies as $vacancy)
+                                    <div class="card-header">
+                                        Descripción General:
+                                    </div>
+                                    <p>{{ $vacancy->description_general }}</p>
+                                    <div class="card-header">
+                                        Requisitos:
+                                    </div>
+                                    <ul>{{ $vacancy->requirement }}</ul>
+                                @endforeach
                             </div>
                         </div>
 

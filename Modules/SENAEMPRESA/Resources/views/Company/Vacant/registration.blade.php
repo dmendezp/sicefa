@@ -21,53 +21,54 @@
                         <div class="card-header">{{ $title }}</div>
 
                         <div class="card-body">
-                            {!! Form::open(['url' => route('Registros')]) !!}
-                            <div class="mb-6">
-                                <label for="document_number" class="form-label">Nombre</label>
-                                {!! Form::text('document_number', null, ['class' => 'form-control']) !!}
-                                <br>
-                            </div>
-                            <div class="mb-6">
-                                <label for="document_number" class="form-label">Descripción General</label>
-                                {!! Form::text('document_number', null, ['class' => 'form-control']) !!}
-                                <br>
-                            </div>
-                            <div class="mb-6">
-                                <label for="document_number" class="form-label">Requisitos</label>
-                                {!! Form::text('document_number', null, ['class' => 'form-control']) !!}
-                                <br>
-                            </div>
-                            <div class="mb-6">
-                                <label for="document_number" class="form-label">Sena Empresa Id</label>
-                                {!! Form::select('document_number', $SenaEmpresaArray, null, ['class' => 'form-control']) !!}
-                                <br>
-                            </div>
-                            <div class="mb-6">
-                                <label for="document_number" class="form-label">Id Cargo</label>
-                                {!! Form::select('document_number', $CargoArray, null, ['class' => 'form-control']) !!}
-                                <br>
-                            </div>
-                            <div class="mb-6">
-                                <label for="document_number" class="form-label">Fecha Inicio</label>
-                                {!! Form::date('document_number', null, ['class' => 'form-control']) !!}
-                                <br>
-                            </div>
-                            <div class="mb-6">
-                                <label for="document_number" class="form-label">Fecha Fin</label>
-                                {!! Form::date('document_number', null, ['class' => 'form-control']) !!}
-                                <br>
-                            </div>
-                            <div class="mb-6">
-                                <label for="document_number" class="form-label">Presentación</label><br>
-                                {!! Form::file('document_number', null, ['class' => 'form-control']) !!}
-                                <br><br>
-                            </div>
-                            {!! Form::submit('Agregar', ['class' => 'btn btn-success', 'name' => 'vacantes']) !!}
-                            <a href="{{ route('vacantes') }}">
-                                {!! Form::button('Cancelar', ['class' => 'btn btn-danger', 'name' => 'cancelar']) !!}
-                            </a>
-                            {!! Form::close() !!}
+                            <form action="{{ route('nueva_vacante') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Nombre">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Presentación</label><br>
+                                    <input type="file" id="image" name="image">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description_general" class="form-label">Descripción General</label>
+                                    <textarea class="form-control" id="description_general" name="description_general" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="requirement" class="form-label">Requisitos</label><br>
+                                    <input type="text" class="form-control" id="requirement" name="requirement"
+                                        placeholder="Requisitos">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="position_company_id" class="form-label">Id Cargo</label>
+                                    <select class="form-control" name="position_company_id"
+                                        aria-label="Selecciona un Cargo">
+                                        <option value="" selected>Selecciona un Cargo</option>
+                                        @foreach ($PositionCompany as $positionCompany)
+                                            <option value="{{ $positionCompany->id }}">
+                                                {{ $positionCompany->description }} (ID: {{ $positionCompany->id }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="start_date" class="form-label">Fecha Inicio</label>
+                                    <input type="date" class="form-control" id="start_date" name="start_date"
+                                        placeholder="Fecha Inicio">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="end_date" class="form-label">Fecha Fin</label>
+                                    <input type="date" class="form-control" id="end_date" name="end_date"
+                                        placeholder="Fecha Inicio">
+                                </div>
+                                <button type="submit" class="btn btn-success">Agregar</button>
+                                <a href="{{ route('vacantes') }}" class="btn btn-danger btn-xl">Cancelar</a>
+                            </form>
                         </div>
+
                     </div>
                 </div>
             </div>

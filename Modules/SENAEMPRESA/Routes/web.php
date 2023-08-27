@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,17 +70,6 @@ Route::prefix('senaempresa')->group(function () {
 
     //Rutas de vacantes
     Route::get('Vacantes/', 'VacantController@vacantes')->name('vacantes');
-    Route::get('Vacantes/Nueva_Vacante/', 'VacantController@registration')->name('Registros');
-
-
-
-
-
-
-
-
-
-
+    Route::get('Vacantes/Agregar_Vacante/', 'VacantController@registration')->name('agregar_vacante');
+    Route::post('Vacantes/Nueva_Vacante/', 'VacantController@store')->name('nueva_vacante');
 });
-
-//});

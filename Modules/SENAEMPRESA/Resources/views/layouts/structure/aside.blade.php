@@ -128,8 +128,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('Registros') }}"
-                                class="nav-link {{ !Route::is('Registros') ?: 'active' }}">
+                            <a href="{{ route('agregar_vacante') }}"
+                                class="nav-link {{ !Route::is('agregar_vacante') ?: 'active' }}">
                                 <i class="fas fa-user-plus"></i>
                                 <p>Nueva</p>
                             </a>
