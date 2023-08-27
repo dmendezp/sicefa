@@ -38,8 +38,23 @@
                                 <br>
                             </div>
                             <div class="mb-6">
-                                <label for="document_number" class="form-label">Cupos</label>
-                                {!! Form::text('document_number', null, ['class' => 'form-control']) !!}
+                                <label for="document_number" class="form-label">Sena Empresa Id</label>
+                                {!! Form::select('document_number', $SenaEmpresaArray, null, ['class' => 'form-control']) !!}
+                                <br>
+                            </div>
+                            <div class="mb-6">
+                                <label for="document_number" class="form-label">Id Cargo</label>
+                                {!! Form::select('document_number', $CargoArray, null, ['class' => 'form-control']) !!}
+                                <br>
+                            </div>
+                            <div class="mb-6">
+                                <label for="document_number" class="form-label">Fecha Inicio</label>
+                                {!! Form::date('document_number', null, ['class' => 'form-control']) !!}
+                                <br>
+                            </div>
+                            <div class="mb-6">
+                                <label for="document_number" class="form-label">Fecha Fin</label>
+                                {!! Form::date('document_number', null, ['class' => 'form-control']) !!}
                                 <br>
                             </div>
                             <div class="mb-6">

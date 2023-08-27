@@ -114,7 +114,7 @@
                 </li>
                 <li class="nav-item {{ !Route::is('vacant.*') ?: 'menu-is-opening menu-open' }}">
                     <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
-                        <i class="fas fa-vr-cardboard"></i>
+                        <i class="fas fa-id-card"></i>
                         <p>Vacantes
                             <i class="right fas fa-angle-left"></i>
                         </p>
@@ -123,7 +123,7 @@
                         <li class="nav-item">
                             <a href="{{ route('vacantes') }}"
                                 class="nav-link {{ !Route::is('vacantes') ?: 'active' }}">
-                                <i class="fas fa-user-secret"></i>
+                                <i class="fas fa-user-tag"></i>
                                 <p>Disponibles</p>
                             </a>
                         </li>

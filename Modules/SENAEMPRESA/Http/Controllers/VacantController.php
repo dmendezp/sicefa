@@ -6,30 +6,39 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class CompanyController extends Controller
+class VacantController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function contact()
+    public function vacantes()
     {
-        $data = ['title' => 'Contactos'];
-        return view('senaempresa::Company.contact', $data);
+        $data = ['title' => 'Vacantes'];
+        return view('senaempresa::Company.Vacant.vacant', $data);
     }
+
     /**
-     * Display a listing of the resource.
+     * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function vacant()
+    public function registration()
     {
-        $data = ['title' => 'Postulados'];
-        return view('senaempresa::Company.Postulate.postulate', $data);
-    }
-    public function seleccionados()
-    {
-        $data = ['title' => 'Seleccionados'];
-        return view('senaempresa::Company.Postulate.Application', $data);
+        $EmpresaArray = [
+            '' => 'Seleccionar Sena Empresa Id',
+            '1' => 'Senampresa 1',
+            '2' => 'Senampresa 2',
+            '3' => 'Senampresa 3',
+        ];
+        $CargoArray = [
+            '' => 'Seleccionar Id Cargo',
+            '1' => 'Contador',
+            '2' => 'Administrador Talento Humano',
+            '3' => 'Administrador Gestion de calidad',
+        ];
+
+        $data = ['title' => 'Nueva Vacante', 'SenaEmpresaArray' => $EmpresaArray, 'CargoArray' => $CargoArray];
+        return view('senaempresa::Company.Vacant.registration', $data);
     }
 
     /**

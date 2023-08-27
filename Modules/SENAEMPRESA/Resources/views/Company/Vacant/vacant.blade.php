@@ -13,84 +13,56 @@
         <!-- Main Sidebar Container -->
         @include('senaempresa::layouts.structure.aside')
         @include('senaempresa::layouts.structure.breadcrumb')
-        <div id="contactos" class="team">
-            <h1><strong><em><span>Vacantes</span></strong></em></h1>
-            <div class="team_box">
-                <div class="profile">
-                    <img src="{{ asset('senaempresa/images/contador.jpg') }}">
 
-                    <div class="info">
-                        <h2 class="name">Contador</h2>
-                        <p class="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <div class="container">
+            <h1 class="text-center"><strong><em><span>Vacantes</span></em></strong></h1>
+            <div class="col-md-3">
 
-                        <div class="team_icon">
-                            <a href="ruta_de_la_otra_vista.html" title="Presentación">
-                                <i class="fas fa-file-powerpoint" style="color: #000000;"></i>
-                            </a>
-                            <a id="openModalBtn" title="Inscripción"><i class="fas fa-eye"></i></a>
-                        </div>
 
+                <label for="cursoFilter">Filtrar por Curso:</label>
+                <select class="form-control" id="cursoFilter">
+                    <option value="">Todos los cursos</option>
+                    <option value="curso1">Curso 1</option>
+                    <option value="curso2">Curso 2</option>
+                </select>
+            </div><br>
+            <div class="col-md-12">
+                <div class="vacantes">
+                    <div class="card-header">{{ $title }}</div>
+                    <div class="card-body">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead class="vacant bg-danger text-white">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Sena Empresa Id</th>
+                                    <th>Id Cargo</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin</th>
+                                    <th class="text-center">Presentación</th>
+                                    <th>Agregar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Contador</td>
+                                    <td>1 Estrategia 34</td>
+                                    <td>1 Contador</td>
+                                    <td>24-08-2023</td>
+                                    <td>24-08-2023</td>
+                                    <td class="text-center">
+                                        <a id="openModalBtn" title="Inscripción"><i class="fas fa-eye"></i></a>
+                                    </td>
+                                    <td>Editar|Eliminar</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-
                 </div>
-
-                <div class="profile">
-                    <img src="{{ asset('senaempresa/images/talento_humano.jpg') }}">
-
-                    <div class="info">
-                        <h2 class="name">Administrador Talento Humano</h2>
-                        <p class="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-
-                        <div class="team_icon">
-                            <a href="ruta_de_la_otra_vista.html" title="Presentación">
-                                <i class="fas fa-file-powerpoint" style="color: #000000;"></i>
-                            </a>
-                            <a id="openModalBtn" title="Inscripción"><i class="fas fa-eye"></i></a>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="profile">
-                    <img src="{{ asset('senaempresa/images/gestion_calidad.jpg') }}">
-
-                    <div class="info">
-                        <h2 class="name">Administrador Gestion de calidad</h2>
-                        <p class="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-
-                        <div class="team_icon">
-                            <a href="ruta_de_la_otra_vista.html" title="Presentación">
-                                <i class="fas fa-file-powerpoint" style="color: #000000;"></i>
-                            </a>
-                            <a id="openModalBtn" title="Inscripción"><i class="fas fa-eye"></i></a>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="profile">
-                    <img src="{{ asset('senaempresa/images/secretario.jpg') }}">
-
-                    <div class="info">
-                        <h2 class="name">Secretario</h2>
-                        <p class="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-
-                        <div class="team_icon">
-                            <a href="ruta_de_la_otra_vista.html" title="Presentación">
-                                <i class="fas fa-file-powerpoint" style="color: #000000;"></i>
-                            </a>
-                            <a id="openModalBtn" title="Inscripción"><i class="fas fa-eye"></i></a>
-                        </div>
-
-                    </div>
-
-                </div>
-
             </div>
-
         </div>
+
         <div class="modal" id="myModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">

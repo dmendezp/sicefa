@@ -57,8 +57,6 @@ Route::prefix('senaempresa')->group(function () {
 
     //Rutas para company
     Route::get('Contactos/', 'CompanyController@contact')->name('Contactos');
-    Route::get('Vacantes/', 'CompanyController@vacantes')->name('vacantes');
-    Route::get('Vacantes/Nueva_Vacante/', 'CompanyController@registration')->name('Registros');
     Route::get('Postulados/', 'CompanyController@vacant')->name('Postulados');
     Route::get('Postulados/Seleccionados/', 'CompanyController@seleccionados')->name('seleccionados');
 
@@ -68,6 +66,12 @@ Route::prefix('senaempresa')->group(function () {
 
     //Inscripciones a vacantes
     Route::get('Vacantes/Inscripción/', 'InscriptionController@inscription')->name('inscription');
+
+    //Rutas de vacantes
+    Route::get('Vacantes/', 'VacantController@vacantes')->name('vacantes');
+    Route::get('Vacantes/Nueva_Vacante/', 'VacantController@registration')->name('Registros');
+
+
 
 
 
