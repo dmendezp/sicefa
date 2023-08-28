@@ -49,6 +49,7 @@
                         </thead>
                         <tbody>
                             @foreach ($movements as $movement)
+                                @php $movement_type = $movement->movement_type->name @endphp
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">{{ $movement->registration_date }}</td>
@@ -59,22 +60,26 @@
                                     @endphp
                                     <td>{{ $mr->role }}</td>
                                     <td>{{ $mr->person->full_name }}</td>
-                                    <td>{{ $movement->movement_type->name }}</td>
+                                    <td>
+                                        @if ($movement_type == 'Movimiento Interno')
+                                            Entrada de inventario
+                                        @else
+                                            {{ $movement_type }}
+                                        @endif
+                                    </td>
                                     <td class="text-center fw-bold">{{ priceFormat($movement->price) }}</td>
                                     <td class="text-center">
-                                        @if($movement->movement_type->name == 'Venta')
+                                        @if($movement_type == 'Venta')
                                             <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.movements.sale.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('ptventa::movement.Tooltip1') }}> 
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a>
-                                        @elseif ($movement->movement_type->name == 'Movimiento Interno')
+                                        @elseif ($movement_type == 'Movimiento Interno')
                                             <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.movements.entries.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('ptventa::movement.Tooltip1') }}>
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a>
-                                        @elseif ($movement->movement_type->name == 'Baja')
+                                        @elseif ($movement_type == 'Baja')
                                             <a href="#" class="btn btn-info">Baja
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a>
+                                        @else 
+                                            <a href="#">{{ $movement_type }}
                                         @endif
+                                            <i class="fa-solid fa-eye"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
