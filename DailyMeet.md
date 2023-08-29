@@ -23,9 +23,15 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Julian Javier Ramirez Diaz** - *Solicitud de insumos a Centro*
 
 ...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 29-Ago-2023
+* **Jennifer Marin Montealegre** - *Rutas controladores vistas para formulacion* - *44%* - *Conflictos entre archivos* - *Solucionar conflictos y hacer diseño de las vistas*
+
+* **David Juliam Cadena Barrera** - *Rutas controladores vistas para formulacion* - *21 %* - *No contaba con mi equipo de computo* - *Continuar con el desarrollo de la tarea.*
+
+**Juan Diego Bonilla Aroca** - *Tarea Completada* - *98%* - *Ninguna* - *Ninguna*
+
+**Julian Javier Ramirez Diaz** - *Rutas controladores vistas para solicitud* - *44%* - *Ninguna* - *Ninguna*
+
 ---
 #### Meet 31-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*

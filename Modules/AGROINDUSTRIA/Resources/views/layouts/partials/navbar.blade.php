@@ -17,8 +17,18 @@
             @if(Auth::user()->havePermission('agroindustria.instructor.labor'))
             <li class="nav-item">
                 <a class="nav-link" href="{{route('agroindustria.instructor.labor')}}">Labor</a>
-            </li>
+          </li>
             @endif
+             <!--instructor-->
+             @if(Auth::user()->havePermission('agroindustria.storer.crud'))
+             <li class="nav-item">
+                 <a class="nav-link" href="{{route('agroindustria.intern.bepp')}}">epp</a>
+           </li>
+             @endif
+
+
+            
+            
         </ul>
     </div>
     <!-- Perfil, login, volver a sicefa -->

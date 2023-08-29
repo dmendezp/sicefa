@@ -30,8 +30,8 @@ Route::prefix('agroindustria')->group(function() {
         Route::get('/index', [InventoryController::class ,'index'])->name('agroindustria.intern.index');
         Route::get('/invb', [InventoryController::class ,'invb'])->name('agroindustria.intern.invb');
         Route::get('/epp', [WarehouseController::class ,'bodegaepp'])->name('agroindustria.intern.bepp');
-        Route::get('/insumos', [WarehouseController::class ,'bodegainsumos'])->name('agroindustria.intern.baseo');
-        Route::get('/aseo', [WarehouseController::class ,'bodegaaseo'])->name('agroindustria.intern.binsu');
+        Route::get('/insumos', [WarehouseController::class ,'bodegainsumos'])->name('agroindustria.intern.binsu');
+        Route::get('/aseo', [WarehouseController::class ,'bodegaaseo'])->name('agroindustria.intern.baseo');
         Route::get('/envases', [WarehouseController::class ,'bodegaenvases'])->name('agroindustria.intern.benvas');
 
     });
