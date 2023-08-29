@@ -1,10 +1,12 @@
 <?php
 
+//admin
 use Modules\AGROINDUSTRIA\Http\Controllers\admin\RequestController;
 
+//instructor
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\LaborController;
-use Modules\AGROINDUSTRIA\Http\Controllers\instructor\FormulationController;
+use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ActivityController;
 
 
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\InventoryController;
@@ -12,7 +14,8 @@ use Modules\AGROINDUSTRIA\Http\Controllers\Intern\InventoryController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\WarehouseController;
 
 
- Route::prefix('agroindustria')->group(function() {
+
+Route::prefix('agroindustria')->group(function() {
     Route::get('/index', 'AGROINDUSTRIAController@index')->name('agroindustria.home.index');
 
     //admin
@@ -27,9 +30,7 @@ use Modules\AGROINDUSTRIA\Http\Controllers\Intern\WarehouseController;
         Route::get('/solicitud', [RequestController::class, 'solicitud'])->name('agroindustria.instructor.solicitud');
         Route::post('/enviarsolicitud', [RequestController::class, 'enviarsolicitud'])->name('agroindustria.instructor.enviarsolicitud');
         Route::get('/labor', [LaborController::class, 'labor'])->name('agroindustria.instructor.labor');
-        Route::get('/formulations', [FormulationController::class, 'index'])->name('agroindustria.formulation.index');
-        Route::get('/formulations/create', [FormulationController::class, 'create'])->name('agroindustria.formulation.create');
-
+        Route::get('/activity', [ActivityController::class, 'activity'])->name('agroindustria.instructor.activity');
     });
 
     //intern

@@ -26,6 +26,11 @@
                 <a class="nav-link" href="{{route('agroindustria.instructor.labor')}}">Labor</a>
           </li>
             @endif
+            @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('agroindustria.instructor.activity')}}">Actividades</a>
+            </li>
+            @endif
              <!--instructor-->
              @if(Auth::user()->havePermission('agroindustria.storer.crud'))
              <li class="nav-item" >
