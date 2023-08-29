@@ -24,14 +24,14 @@
                     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active" data-bs-interval="3000">
-                                <img src="{{ asset('modules/HDC/img/huella-de-carbono.jpg') }}" class="d-block w-100"
+                                <img src="{{ asset('modules/HDC/img/fish.jpg') }}" class="d-block w-100"
                                     alt="...">
                             </div>
                             <div class="carousel-item" data-bs-interval="3000">
-                                <img src="{{ asset('modules/HDC/img/Auto.jpg') }}" class="d-block w-100" alt="...">
+                                <img src="{{ asset('modules/HDC/img/plants.jpg') }}" class="d-block w-100" alt="...">
                             </div>
                             <div class="carousel-item" data-bs-interval="3000">
-                                <img src="{{ asset('modules/HDC/img/Planeta-verde.jpg') }}" class="d-block w-100"
+                                <img src="{{ asset('modules/HDC/img/ganado.jpg') }}" class="d-block w-100"
                                     alt="...">
                             </div>
                         </div>
