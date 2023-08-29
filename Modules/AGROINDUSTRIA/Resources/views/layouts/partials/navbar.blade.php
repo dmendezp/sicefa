@@ -1,12 +1,19 @@
+<head>
+    @include('agroindustria::layouts.partials.head')
+</head>
+
 <nav class="navbar navbar-expand-lg navbar-Dark" style="background-color:rgb(247, 244, 244); margin-bottom:20px">
     <a class="navbar-brand" id="title" href="#">AGROINDUSTRIA</a>
+
     <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
         aria-expanded="false" aria-label="Toggle navigation"></button>
+
     <div class="collapse navbar-collapse d-sm-flex" id="collapsibleNavId">
         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
             <li class="nav-item">
                 <a class="nav-link" href="{{route('agroindustria.home.index')}}">Inicio</a>
             </li>
+
             <!--admin-->
             @if(Auth::user()->havePermission('agroindustria.admin.request'))
             <li class="nav-item">
@@ -21,10 +28,19 @@
             @endif
              <!--instructor-->
              @if(Auth::user()->havePermission('agroindustria.storer.crud'))
-             <li class="nav-item">
-                 <a class="nav-link" href="{{route('agroindustria.intern.bepp')}}">epp</a>
-           </li>
+             <li class="nav-item" >
+                <div class="dropdown nav-item">
+                    <button class="dropbtn">Bodegas</button>
+                    <div class="dropdown-content">
+                        <a class="nav-link" href="{{route('agroindustria.intern.bepp')}}">Epp</a>
+                        <a class="nav-link" href="{{route('agroindustria.intern.binsu')}}">Insumos</a>
+                        <a class="nav-link" href="{{route('agroindustria.intern.benvas')}}">Envases</a>
+                        <a class="nav-link" href="{{route('agroindustria.intern.baseo')}}">Aseo</a>
+                    </div>
+                  </div>
+             </li>
              @endif
+
 
 
             
