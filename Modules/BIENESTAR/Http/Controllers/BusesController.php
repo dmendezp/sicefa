@@ -5,6 +5,8 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\BIENESTAR\Entities\BusDrivers;
+use Modules\BIENESTAR\Entities\Buses;
 
 class BusesController extends Controller
 {
@@ -14,16 +16,11 @@ class BusesController extends Controller
      */
     public function index()
     {
-        return view('bienestar::index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('bienestar::create');
+        //obtenemos el listado de buses
+        $buses = Buses::get();
+        $busDrivers = BusDrivers::pluck('name','id');
+        $data = ['buses'=>$buses,'busDrivers'=>$busDrivers];
+        return view('bienestar::buses.home',$data);
     }
 
     /**
@@ -33,27 +30,15 @@ class BusesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $buses = new Buses;
+        $buses->plate = $request->input('plate');
+        $buses->quota = $request->input('quota');
+        $buses->bus_driver_id = $request->input('bus_driver');
+        if($buses->save()){
+            return redirect()->route('bienestar.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
+        }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('bienestar::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('bienestar::edit');
+        return redirect()->route('bienestar.buses')->with('message', 'Se ha producido un error')->with('typealert', 'danger');
     }
 
     /**
@@ -64,7 +49,15 @@ class BusesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $buses = Buses::findOrFail($id);
+        $buses->plate = $request->input('plate');
+        $buses->quota = $request->input('quota');
+        $buses->bus_driver_id = $request->input('bus_driver');
+        if($buses->save()){
+            return redirect()->route('bienestar.buses')->with('message', 'Bus actualizado correctamente.')->with('typealert', 'success');
+        }
+
+        return redirect()->route('bienestar.buses')->with('message', 'Se ha producido un error')->with('typealert', 'danger');
     }
 
     /**
@@ -74,6 +67,9 @@ class BusesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bus = Buses::findOrFail($id);
+        if($bus->delete()):
+            return back()->with('message', 'Bus eliminado')->with('typealert', 'danger');
+        endif;
     }
 }

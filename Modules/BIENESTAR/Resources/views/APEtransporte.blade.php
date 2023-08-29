@@ -1,5 +1,8 @@
 @extends('bienestar::layouts.adminlte')
-
+@section('personalizationStyle')
+ <!--css general-->
+ <link rel="stylesheet" href="{{ asset('../bienestarxd/css/personalized-styles.css') }}">
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

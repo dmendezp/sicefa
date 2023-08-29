@@ -6,4 +6,5 @@
     <p>
         This view is loaded from module: {!! config('bienestar.name') !!}
     </p>
+    
 @endsection
