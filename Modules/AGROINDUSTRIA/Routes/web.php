@@ -1,13 +1,18 @@
 <?php
 
+//admin
 use Modules\AGROINDUSTRIA\Http\Controllers\admin\RequestController;
 
+//instructor
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\LaborController;
+use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ActivityController;
+
 
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\InventoryController;
 
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\WarehouseController;
+
 
 
 Route::prefix('agroindustria')->group(function() {
@@ -23,6 +28,7 @@ Route::prefix('agroindustria')->group(function() {
         Route::get('/index', [UnitController::class ,'index'])->name('agroindustria.instructor.index');
         Route::get('/unidd', [UnitController::class, 'unidd'])->name('agroindustria.instructor.unidd');
         Route::get('/labor', [LaborController::class, 'labor'])->name('agroindustria.instructor.labor');
+        Route::get('/activity', [ActivityController::class, 'activity'])->name('agroindustria.instructor.activity');
     });
 
     //intern

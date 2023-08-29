@@ -7,6 +7,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('agroindustria.home.index')}}">Inicio</a>
             </li>
+
             <!--admin-->
             @if(Auth::user()->havePermission('agroindustria.admin.request'))
             <li class="nav-item">
@@ -17,6 +18,11 @@
             @if(Auth::user()->havePermission('agroindustria.instructor.labor'))
             <li class="nav-item">
                 <a class="nav-link" href="{{route('agroindustria.instructor.labor')}}">Labor</a>
+            </li>
+            @endif
+            @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('agroindustria.instructor.activity')}}">Actividades</a>
             </li>
             @endif
         </ul>

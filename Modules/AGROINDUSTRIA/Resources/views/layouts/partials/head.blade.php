@@ -9,6 +9,7 @@
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleinvb.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleindex.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/navbar.css')}}">
+       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/activity.css')}}">
 
        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">

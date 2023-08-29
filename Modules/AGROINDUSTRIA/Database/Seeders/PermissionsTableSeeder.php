@@ -154,6 +154,16 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_instructor[] = $permission->id;
 
+        //Visualizar actividades.
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.activity'], [
+            'name' => 'Visualizar la vista de Actividades.',
+            'description' => 'Puede visualizar las actividades registradas',
+            'description_english' => 'You can view the recorded activities',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id;
+
 
 
         $rol_admin = Role::where('slug', 'agroindustria.admin')->first(); // Rol Administrador

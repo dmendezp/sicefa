@@ -1,0 +1,31 @@
+.activities-card {
+    background-color: #ffffff; /* Color gris claro */
+    padding: 20px; /* Ajusta el valor del relleno para reducir el tamaño de la tarjeta */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgb(0, 0, 0);
+}
+
+.activitiescard-header{
+    background-color: #e4dfdf;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.activities-footer{
+    background-color: #e4dfdf;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.actividades-container{
+    width: 95%;
+    margin-left: 50px;
+}
+
+.card{
+    margin-top:2rem !important;
+}
+
