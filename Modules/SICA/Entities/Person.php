@@ -45,6 +45,7 @@ class Person extends Model implements Auditable
         'misena_email',
         'sena_email',
         'avatar',
+        'biometric_code',
         'population_group_id'
     ];
 
