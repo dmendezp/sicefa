@@ -1,4 +1,4 @@
-@extends('bienestar::layouts.master')
+@extends('bienestar::layouts.adminlte')
 
 @section('content')
     <h1>Hello World</h1>

@@ -52,3 +52,10 @@ Route::prefix('/bienestar')->group(function() {
 Route::prefix('/bienestar')->group(function() {
     Route::get('/APEformulario', 'BIENESTARController@APEformulario')->name('bienestar.APEformulario');
 });
+Route::prefix('/bienestar')->group(function() {
+    Route::get('/transportroutes','TransportroutesController@transportroutes')->name('bienestar.transportroutes');
+});
+Route::prefix('/bienestar')->group(function() {
+    Route::get('/LisRutas', 'TransportroutesController@LisRutas')->name('bienestar.LisRutas');
+});
+
