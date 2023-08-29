@@ -5,6 +5,7 @@ namespace Modules\HDC\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\ProductiveUnit;
 
 class HDCController extends Controller
 {
@@ -16,6 +17,7 @@ class HDCController extends Controller
     {
         return view('hdc::index');
     }
+
 
     /**
      * Show the form for creating a new resource.

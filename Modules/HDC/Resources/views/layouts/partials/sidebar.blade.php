@@ -2,7 +2,7 @@
       <aside class="main-sidebar sidebar-dark-blue elevation-4">
           <!-- Bran Logo: Aqui se realiza el ajuste del logo y titulo que esta en el sidebar-->
           <a href="{{ route('cefa.hdc.index') }}" class="brand-link text-decoration-none">
-              <img src="{{ asset('modules/HDC/img/logo.png')}}" class="brand-image" alt="HDC-Logo">{{-- Icono de huella de carbono --}}
+              <img src="{{ asset('modules/HDC/img/logo.png') }}" class="brand-image" alt="HDC-Logo">{{-- Icono de huella de carbono --}}
               <span class="brand-text font-weight-bold">Huella de Carbono</span>
           </a>
 
@@ -68,270 +68,33 @@
 
               <!-- Sidebar Menu -->
               <nav class="mt-2">
-                  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                      data-accordion="false">
-                      <li class="nav-item">
-                          <a href="#" class="nav-link active ">
-                              <i class="nav-icon fa-solid fa-fish-fins"></i>
-                              <p>
-                                  Pecuaria
-                                  <i class="right fas fa-angle-left"></i>
-                              </p>
-                          </a>
-                          <ul class="nav nav-treeview">
-                              <li class="nav-item">
-                                  <a href="{{ Route('cefa.hdc.bovinos') }}" class="nav-link">
-                                      <i class="nav-icon fa-solid fa-cow"></i>
-                                      <p>Bovinos</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="{{ Route('cefa.hdc.ovinos') }}" class="nav-link">
-                                      <i class="nav-icon fa-solid fa-cow"></i>
-                                      <p>Ovinos</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="{{ Route('cefa.hdc.porcinos') }}" class="nav-link">
-                                      <i class="nav-icon fa-solid fa-hippo"></i>
-                                      <p>Porcinos</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="{{ Route('cefa.hdc.equinos') }}" class="nav-link">
-                                      <i class="nav-icon fa-solid fa-horse-head"></i>
-                                      <p>Equinos</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="{{ Route('cefa.hdc.piscicola') }}" class="nav-link">
-                                      <i class="nav-icon fa-solid fa-fish fa-spin"></i>
-                                      <p>Piscicola</p>
-                                  </a>
-                              </li>
-                          </ul>
-                      </li>
-                      <li class="nav-item">
-                          <a href="#" class="nav-link active">
-                              <i class="nav-icon fa fa-leaf"></i>
-                              <p>
-                                  Ambiental
-                                  <i class="right fas fa-angle-left"></i>
-                              </p>
-                          </a>
-                          <ul class="nav nav-treeview">
-                              <li class="nav-item">
-                                  <a href="{{ Route('cefa.hdc.rsolidos') }}" class="nav-link ">
-                                      <i class="nav-icon fa-solid fa-dumpster"></i>
-                                      <p>Residuos Sólidos</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="{{ Route('cefa.hdc.rorganico') }}" class="nav-link">
-                                      <i class="nav-icon fa-solid fa-recycle"></i>
-                                      <p>Residuos Orgánicos</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="{{Route('cefa.hdc.vivero') }}" class="nav-link">
-                                      <i class="nav-icon fa-solid fa-tree"></i>
-                                      <p>Vivero ornamental y forestal</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="{{ Route('cefa.hdc.zonasverdes') }}" class="nav-link">
-                                      <i class="nav-icon fa-solid fa-mountain-sun"></i>
-                                      <p>Zonas Verdes</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="{{ Route('cefa.hdc.lombricultivo') }}" class="nav-link">
-                                      <i class="nav-icon fa-solid fa-worm"></i>
-                                      <p>Lombricultivo</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="{{ Route('cefa.hdc.huellacarbono') }}" class="nav-link">
-                                      <i class="nav-icon fa-solid fa-fingerprint"></i>
-                                      <p>Huella de Carbono</p>
-                                  </a>
-                              </li>
-                          </ul>
-                      </li>
-
-                      <li class="nav-item">
-                          <a href="#" class="nav-link active">
-                              <i class="nav-icon fa fa-seedling"></i>
-                              <p>
-                                  Agricola
-                                  <i class="right fas fa-angle-left"></i>
-                              </p>
-                          </a>
-                          <ul class="nav nav-treeview">
-                              <li class="nav-item">
-                                  <a href="./index.html" class="nav-link">
-                                      <i class="nav-icon far fa-circle nav-icon"></i>
-                                      <p>Guayaba</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index2.html" class="nav-link">
-                                      <i class="nav-icon fa-brands fa-pagelines"></i>
-                                      <p>Aguacate</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="nav-icon fa-brands fa-pagelines"></i>
-                                      <p>Guanabana</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="nav-icon fa-brands fa-pagelines"></i>
-                                      <p>Mango</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="nav-icon fa-brands fa-pagelines"></i>
-                                      <p>Cacao</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Cítricos</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Vívero Cacao</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Piña</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Vívero Cítricos</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Pasiflora</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Invernadero</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Huerta</p>
-                                  </a>
-                              </li>
-                          </ul>
-                      </li>
-
-                      <li class="nav-item">
-                          <a href="#" class="nav-link active">
-                              <i class="nav-icon fa fa-cheese"></i>
-                              <p>
-                                  Agroindustriales
-                                  <i class="right fas fa-angle-left"></i>
-                              </p>
-                          </a>
-                          <ul class="nav nav-treeview">
-                              <li class="nav-item">
-                                  <a href="./index.html" class="nav-link active">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Procesamiento de lacteos</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index2.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Procesamiento de FRUHOR</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Procesamiento de chocolateria y confiteria</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Procesamiento de Cárnicos</p>
-                                  </a>
-                              </li>
-                          </ul>
-                      </li>
-                      <li class="nav-item">
-                          <a href="#" class="nav-link active">
-                              <i class="nav-icon fa fa-handshake"></i>
-                              <p>
-                                  Servicio
-                                  <i class="right fas fa-angle-left"></i>
-                              </p>
-                          </a>
-                          <ul class="nav nav-treeview">
-                              <li class="nav-item">
-                                  <a href="./index.html" class="nav-link active">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Estación de Café</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index2.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Punto de venta</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Pico-Hidraulica</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Estación Metereológica</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Centro de Convivencia</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Restaurante</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./index3.html" class="nav-link">
-                                      <i class="far fa-circle nav-icon"></i>
-                                      <p>Unidad mecanización</p>
-                                  </a>
-                              </li>
-                          </ul>
-                      </li>
-                  </ul>
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        @foreach (getSectorsOrderedByName() as $sector){{--  Arreglo de Objetos  --}}
+                            @if ($sector->productive_units->count() > 0)
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-th"></i>
+                                        <p>
+                                            {{ $sector->name }}
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview" style="display: none;">
+                                        @foreach ($sector->productive_units->sortBy('name') as $productive_unit)
+                                            <li class="nav-item">
+                                                <a href="#" class="nav-link">
+                                                    <i class="nav-icon {{ $productive_unit->icon }}"></i>
+                                                    <p>
+                                                        {{ $productive_unit->name }}
+                                                    </p>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
               </nav>
               <!-- /.sidebar-menu -->
           </div>

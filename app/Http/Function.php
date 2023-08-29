@@ -3,6 +3,7 @@
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Modules\SICA\Entities\Sector;
 
 function getEnumValues($table, $column){
 	$type = DB::select(DB::raw("SHOW COLUMNS FROM $table WHERE Field = '$column'"))[0]->Type;
@@ -37,6 +38,11 @@ function priceFormat($value){
 function revertPriceFormat($value){
     $temp = str_replace([' ','.','$'], '', $value);
     return str_replace(',', '.', $temp);
+}
+
+// Consultar sectores ordenadas alfabeticamente ascendente por el nombre
+function getSectorsOrderedByName(){
+    return Sector::orderBy('name','ASC')->get();
 }
 
 function getAppsArray(){

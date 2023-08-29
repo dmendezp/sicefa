@@ -6,36 +6,26 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class PecuariaController extends Controller
+class FormularioController extends Controller
 {
-
-    public function index()
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+   /*  public function index()
     {
         return view('hdc::index');
-    }
-    public function bovinos(){
+    } */
+    public function formulario(){
+        
+        return view('hdc::formulario');
 
-        return view('hdc::pecuaria.bovinos');
-    }
-    public function equinos(){
-
-        return view('hdc::pecuaria.equinos');
-    }
-    public function ovinos(){
-
-        return view('hdc::pecuaria.ovinos');
-    }
-    public function piscicola(){
-
-        return view('hdc::pecuaria.piscicola');
-    }
-    public function porcinos(){
-
-        return view('hdc::pecuaria.porcinos');
     }
 
-
-
+    /**
+     * Show the form for creating a new resource.
+     * @return Renderable
+     */
     public function create()
     {
         return view('hdc::create');

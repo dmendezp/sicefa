@@ -1,1 +1,0 @@
-@extends('hdc::layouts.master')
