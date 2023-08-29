@@ -2,9 +2,16 @@
 
 namespace Modules\CAFETO\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Modules\SICA\Entities\Warehouse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Carbon;
+use Modules\SICA\Entities\Inventory;
+use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementType;
+use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\ProductiveUnitWarehouse;
+use TCPDF;
 use Modules\SICA\Entities\App;
 
 class InventoryController extends Controller
@@ -20,63 +27,11 @@ class InventoryController extends Controller
         return view('cafeto::inventory.index', compact('apps', 'view'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('cafeto::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('cafeto::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('cafeto::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+    //Funciones Para Reporte de inventario
+    public function reports()
+    { //Vista principal del panel de reportes
+        $view = ['titlePage' => trans('cafeto::reports.Reports'), 'titleView' => trans('ptventa::reports.Reports Panel')];
+        $apps = App::get();
+        return view('cafeto::reports.index', compact('view', 'apps'));
     }
 }

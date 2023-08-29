@@ -108,8 +108,9 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-light">
-                        <i class="nav-icon fa-solid fa-chart-simple"></i>
+                    <a href="{{ route('cafeto.reports.index') }}"
+                        class="nav-link {{ !Route::is('cafeto.reports.index.*') ?: 'active' }}">
+                        <i class="nav-icon far fa-chart-bar"></i>
                         <p>Panel de Reportes</p>
                     </a>
                 </li>

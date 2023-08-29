@@ -27,6 +27,9 @@ Route::prefix('cafeto')->group(function(){ //Agrega el prefijo en la url (sicefa
             //Route::get('pdf', 'pdf')->name('cafeto.inventory.pdf'); // Descarga de formato de pdf
 //Route::get('status', 'status')->name('cafeto.inventory.status');// ver estado de productos
             //Route::get('low', 'low')->name('cafeto.inventory.low'); // ver registro de baja 
+
+        //Rutas para reportes de inventario
+        Route::get('reports/index', 'reports')->name('cafeto.reports.index'); // Vista principal de la sección de reportes
     });
 
     /* Rutas para administrar las ventas */
