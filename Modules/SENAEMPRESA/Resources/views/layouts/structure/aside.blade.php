@@ -134,6 +134,13 @@
                                 <p>Nueva</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('carga') }}"
+                                class="nav-link {{ !Route::is('carga') ?: 'active' }}">
+                                <i class="fas fa-user-plus"></i>
+                                <p>cargo</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item {{ !Route::is('entrevistas.*') ?: 'menu-is-opening menu-open' }}">

@@ -72,4 +72,23 @@ Route::prefix('senaempresa')->group(function () {
     Route::get('Vacantes/', 'VacantController@vacantes')->name('vacantes');
     Route::get('Vacantes/Agregar_Vacante/', 'VacantController@registration')->name('agregar_vacante');
     Route::post('Vacantes/Nueva_Vacante/', 'VacantController@store')->name('nueva_vacante');
+
+
+    //rutas para cargo;
+    Route::get('Cargos/', 'PositionCompanyController@cargar')->name('carga');
+    Route::get('Cargos/Nueva', 'PositionCompanyController@registro')->name('registro');
+    Route::post('Cargos/Nueva', 'PositionCompanyController@store')->name('Nueva');
+    Route::get('Cargos/{id}/editar', 'PositionCompanyController@edit')->name('editar_cargo');
+    Route::post('Cargos/{id}/actualizar', 'PositionCompanyController@update')->name('guardar_actualizacion');
+    Route::delete('cargos/delete/{id}', 'PositionCompanyController@destroy')->name('eliminar_cargo');
+
+
+
+
+
+
+
+
+    
+   
 });
