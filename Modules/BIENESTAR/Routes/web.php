@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,22 +56,25 @@ Route::prefix('/bienestar')->group(function() {
 });
 Route::prefix('/bienestar')->group(function() {
     Route::get('/benefits', 'BenefitsController@BenefitsView')->name('bienestar.benefits');
-});
-Route::prefix('/bienestar')->group(function() {
+    Route::delete('/benefits/delete/{id}', 'BenefitsController@delete')->name('bienestar.benefits.delete');
     Route::post('/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('bienestar.benefits.add');
-});
-Route::prefix('/bienestar')->group(function() {
-    Route::put('/bienestar/benefits/update/{id}','BenefitsController@update')->name('bienestar.benefits.update');
-
-});
-Route::prefix('/bienestar')->group(function() {
+    Route::put('/benefits/update/{id}','BenefitsController@update')->name('bienestar.benefits.update');
     Route::post('/benefits/update/{id}', 'BenefitsController@update')->name('benefits.update');
 });
-Route::prefix('/bienestar')->group(function() {
-    Route::delete('/bienestar/benefits/delete/{id}', 'BenefitsController@delete')->name('bienestar.benefits.delete');
+
+Route::prefix('/bienestar')->group(function() {  
+    Route::get('/buses', 'BusesController@index')->name('bienestar.buses');
+    Route::post('/buses/store', 'BusesController@store')->name('bienestar.buses.store');
+    Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('bienestar.buses.destroy');
+    Route::put('/buses/update/{id}', 'BusesController@update')->name('bienestar.buses.update');
 });
 
+// typesofbenefits view routes
+Route::prefix('/bienestar')->group(function() {
+    Route::get('/typeofbenefits', 'TypesOfBenefitsController@typeofbenefits')->name('bienestar.typeofbenefits');
+    Route::post('/typeofbenefits/create', 'TypesOfBenefitsController@store')->name('typeofbenefits.store');
+    Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('typeofbenefits.destroy');
+    Route::put('/bienestar/typeofbenefits/{id}', 'TypesOfBenefitsController@update')->name('typeofbenefits.update');
 
 
-
-
+});

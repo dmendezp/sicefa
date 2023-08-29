@@ -11,29 +11,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>Bienestar</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- DataTables CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   <!-- DataTables JS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js">
   <!-- Theme style -->
   <!-- fullCalendar -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/fullcalendar/main.css') }}">
   <link rel="stylesheet" href="{{ asset('../bienestarxd/AdminLTE-3.2.0/dist/css/adminlte.min.css') }}">
   <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymoues"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!--styles-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+  </script>
+    <!--styles-->
   <!-- fullCalendar -->
   <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/fullcalendar/main.css') }}">
 
-  <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-
+  <link rel="stylesheet"
+    href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet"
+    href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet"
+    href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('../bienestarxd/css/dropdown.css') }}">
   <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/dist/css/adminlte.min.css') }}">
+  
+
   <style>
     .sidebar-primary {
       background: #28b463 !important;
@@ -42,7 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!--css general-->
   <link rel="stylesheet" href="{{ asset('../bienestarxd/css/styles.css') }}">
-
+  @yield('personalizationStyle')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -92,14 +99,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="{{ route('bienestar.APEalimentacion') }}" class="nav-link">
-                <i class="fas fa-pizza-slice"></i>
-                <p>
-                  Alimentacion
-                </p>
+            <li class="nav-item custom-dropdown">
+              <a href="#" class="nav-link">
+                  <i class="fas fa-pizza-slice"></i>
+                  <p>
+                      Alimentacion
+                      <i class="right fas fa-angle-left"></i>
+                  </p>
               </a>
-            </li>
+              <ul class="nav custom-dropdown-menu">
+                  <li class="nav-item">
+                      <a href="#" class="nav-link">
+                          Opción 1
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="#" class="nav-link">
+                          Opción 2
+                      </a>
+                  </li>
+                  <!-- Agrega más opciones aquí -->
+              </ul>
+          </li>
             <li class="nav-item">
               <a href="{{ route('bienestar.APEinterno') }}" class="nav-link">
                 <i class="fas fa-house-user"></i>
@@ -113,8 +134,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="fas fa-bus"></i>
                 <p>
                   Transporte
+                  <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('bienestar.APEtransporte') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>APEtransporte</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('bienestar.buses') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Buses</p>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
               <a href="{{ route('bienestar.APEformulario') }}" class="nav-link">
@@ -137,6 +173,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
+            @if(Session::has('message'))
+            <div class="container-fluid">
+              <div class="mtop16 alert alert-{{ Session::get('typealert') }}"
+                style="display: block; margin-bottom: 16px;">
+                {{ Session::get('message') }}
+                @if ($errors->any())
+                <ul>
+                  @foreach($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
+                @endif
+                <script>
+                  $('.alert').slideDown();
+                setTimeout(function(){$('.alert').slideUp();}, 10000);
+                </script>
+              </div>
+            </div>
+            @endif
             @yield('content')
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -192,7 +247,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script>
       $(document).ready(function() {
         // Configura el DataTable en el elemento con el id 'miDataTable'
-        $('#miDataTable').DataTable();
+        $('#benefitsTable').DataTable();
       });
     </script>
     <script type="text/javascript">
@@ -210,6 +265,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         calendar.render();
       });
     </script>
+    
+  
     @show
 
 </body>

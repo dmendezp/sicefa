@@ -120,6 +120,10 @@ class BIENESTARController extends Controller
     {
         return view('bienestar::LIDrutas');
     }
+    public function buses()
+    {
+        return view('bienestar::buses');
+    }
     
     
 
