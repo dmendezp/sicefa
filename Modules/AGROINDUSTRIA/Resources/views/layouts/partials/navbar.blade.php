@@ -18,13 +18,23 @@
             @if(Auth::user()->havePermission('agroindustria.instructor.labor'))
             <li class="nav-item">
                 <a class="nav-link" href="{{route('agroindustria.instructor.labor')}}">Labor</a>
-            </li>
+          </li>
             @endif
             @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
             <li class="nav-item">
                 <a class="nav-link" href="{{route('agroindustria.instructor.activity')}}">Actividades</a>
             </li>
             @endif
+             <!--instructor-->
+             @if(Auth::user()->havePermission('agroindustria.storer.crud'))
+             <li class="nav-item">
+                 <a class="nav-link" href="{{route('agroindustria.intern.bepp')}}">epp</a>
+           </li>
+             @endif
+
+
+            
+            
         </ul>
     </div>
     <!-- Perfil, login, volver a sicefa -->
@@ -32,7 +42,7 @@
       <div class="row col-md-12">
           <div class="image mt-2 mb-2">
               <div class="dropdown">
-            
+
                   <a href="#" class="dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       @if(isset(Auth::user()->person->avatar))
                       <img src="{{ asset(Auth::user()->person->avatar) }}" id="img" class="img-circle elevation-2" alt="User Image">
@@ -80,7 +90,7 @@
                             <span id="volver-sicefa">Volver a Sicefa</span>
                         </a>
                     </div>
-                      
+
                       @endguest
                   </div>
               </div>
@@ -90,5 +100,5 @@
   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
       @csrf
   </form>
-  
+
 </nav>
