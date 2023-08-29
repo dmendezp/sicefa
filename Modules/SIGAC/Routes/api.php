@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\SIGAC\Http\Controllers\AuthController;
 use Modules\SIGAC\Http\Controllers\ApprenticesController;
+use Modules\SIGAC\Http\Controllers\AssistancesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,3 +29,4 @@ Route::post('/SIGAC/logout',[AuthController::class,'logout'] );
 
 Route::get('/SIGAC/apprentice', [ApprenticesController::class, 'searchApprentices']);
 Route::post('/SIGAC/apprentice', [ApprenticesController::class, 'searchApprentices']);
+Route::post('/SIGAC/assistence', [AssistancesController::class, 'store']);
