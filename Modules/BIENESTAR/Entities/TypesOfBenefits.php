@@ -5,11 +5,16 @@ namespace Modules\BIENESTAR\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class types_of_benefits extends Model
+
+class TypesOfBenefits extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+   
+    protected $fillable = ['name'];
+
+    // Define el nombre de la tabla en la base de datos
+    protected $table = 'types_of_benefits';
     
     protected static function newFactory()
     {
