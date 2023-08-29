@@ -1,6 +1,7 @@
 <?php
 
 use Modules\AGROCEFA\Http\Controllers\AGROCEFAController;
+
 use Modules\AGROCEFA\Http\Controllers\SpecieController;
 use Modules\AGROCEFA\Http\Controllers\VarietyController; // Asegúrate de importar el controlador VarietyController si no está importado.
 use Modules\AGROCEFA\Http\Controllers\CropController;
@@ -13,7 +14,7 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/inventory', 'AGROCEFAController@inventory')->name('agrocefa.inventory');
         Route::get('/insumos', 'AGROCEFAController@insumos')->name('agrocefa.insumos');
         Route::get('/bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
-        Route::get('/parameters', 'AGROCEFAController@parameters')->name('agrocefa.parameters');
+        Route::get('/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.parameters');
         Route::get('/user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
 
         // RUTAS PARA VARIEDADES
@@ -28,10 +29,16 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/varieties/eliminar', 'VarietyController@delete')->name('agrocefa.varieties.eliminar');
 
         // RUTAS PARA ESPECIES
-        Route::get('/species', 'SpecieController@index')->name('agrocefa.species.index');
+        Route::get('/species', 'Parameters\ParameterAgroController@listspecie')->name('agrocefa.species.index');
+
         Route::get('/species/{id}/edit', 'SpecieController@editView')->name('agrocefa.species.edit');
-        Route::get('/species/{id}/delete', 'SpecieController@deleteView')->name('agrocefa.species.delete');
+        Route::put('/species/{id}', 'SpecieController@update')->name('agrocefa.species.update');
+        
+        Route::delete('/species/delete/{id}', 'SpecieController@destroy')->name('agrocefa.species.destroy');
+
         Route::get('/species/create', 'SpecieController@create')->name('agrocefa.species.create');
+        Route::post('/species', 'Parameters\ParameterAgroController@store')->name('agrocefa.species.store');
+
 
         // RUTAS PARA CULTIVOS-CROP
         Route::get('/crop', 'CropController@index')->name('agrocefa.crop.index');
