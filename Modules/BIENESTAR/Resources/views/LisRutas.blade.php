@@ -5,45 +5,41 @@
 <!-- Contenido de la página -->
 <div class="content-wrapper">
     <div class="content">
-        <!-- Botón para abrir el modal -->
-        <button id="abrirModal" class="btn btn-primary">Agregar Ruta</button>
-    </div>
-</div>
+    <h2 style="margin-bottom: 45px;">Listado De Rutas</h2> <!-- Título con espacio --> <!-- Título fuera del card -->
 
-<!-- Modal para agregar ruta -->
-<div class="modal fade" id="modalAgregarRuta">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Agregar Ruta</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <!-- Aquí puedes colocar el formulario para agregar la ruta -->
-                <form method="POST" action="procesar.php">
-                    <label for="nombreRuta">Nombre de la Ruta:</label>
-                    <input type="text" id="nombreRuta" name="nombreRuta" class="form-control">
-                    <!-- Agrega más campos del formulario según tus necesidades -->
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" onclick="document.getElementById('rutaForm').submit();">Guardar Ruta</button>
+        <div class="card">
+            <div class="card-body">
+                <!-- Tabla para mostrar los datos -->
+                <div class="table-responsive">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                            <th style="text-align: center; padding: 25px; font-family: Calibri, sans-serif; font-size: 30px; font-weight: normal;">Conductor</th>
+                                <th style="text-align: center; padding: 25px; font-family: Calibri, sans-serif; font-size: 30px; font-weight: normal;">Ruta</th>
+                                <th style="text-align: center; padding: 25px; font-family: Calibri, sans-serif; font-size: 30px; font-weight: normal;">Placa</th>
+                                <th style="text-align: center; padding: 25px; font-family: Calibri, sans-serif; font-size: 30px; font-weight: normal;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Aquí irían las filas de datos, puedes usar un bucle para llenar los datos -->
+                            <tr>
+                                <td style="text-align: center;"></td>
+                                <td style="text-align: center;"></td>
+                                <td style="text-align: center;"></td>
+                                <td style="text-align: center;">
+                                <a href="#" class="btn btn-info btn-sm" style="background-color: #00DCFF;"><i class="fas fa-cog" style="color: #000000;"></i></a>
+                                    &nbsp;
+                                    <a href="#" class="btn btn-danger btn-sm" style="background-color: #FF001A;"><i class="fas fa-trash" style="color: #000000;"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Incluye los scripts de AdminLTE, jQuery y Popper.js -->
-<script src="ruta_al_archivo_jquery.js"></script>
-<script src="ruta_al_archivo_popper.js"></script>
-<script src="ruta_al_archivo_adminlte.js"></script>
-
-<script>
-    // Script para abrir el modal al hacer clic en el botón
-    document.getElementById("abrirModal").addEventListener("click", function() {
-        $("#modalAgregarRuta").modal("show");
-    });
-</script>
+<!-- Resto de tu código y modal... -->
 
 @endsection
