@@ -107,7 +107,6 @@ class ElementController extends Controller
     }
 
     public function store(Request $request){
-        $request->merge(['price' => revertPriceFormat(e($request->input('price')))]); // Limpiar el valor de price
         $rules = [
             'name' => 'required|unique:elements',
             'measurement_unit_id' => 'required',
@@ -148,6 +147,6 @@ class ElementController extends Controller
             $message_cafeto = "Se ha producido un error en el momento de agregar el elemento";
             $message_cafeto_type = 'error';
         }
-        return redirect(route('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.element.index'))->with('message_cafeto', $message_cafeto)->with('message_cafeto_type', $message_cafeto_type);
+        return redirect(route('cafeto.element.index'))->with('message_cafeto', $message_cafeto)->with('message_cafeto_type', $message_cafeto_type);
     }
 }

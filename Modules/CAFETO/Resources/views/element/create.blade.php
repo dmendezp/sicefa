@@ -52,12 +52,16 @@
                                     <i class="fas fa-list"></i>
                                 </span>
                             </div>
-                            <select name="measurement_unit_id" class="form-select" required>
-                                <option value="">Seleccione...</option>
-                                @foreach ($measurement_units as $mu)
-                                    <option value="{{ $mu->id }}" {{ old('measurement_unit_id') == $mu->id ? 'selected' : '' }}>{{ $mu->name }}</option>
-                                @endforeach
-                            </select>
+                            {!! Form::select(
+                                'measurement_unit_id',
+                                $measurement_units,
+                                isset($element) ? $element->measurement_unit_id : null,
+                                [
+                                    'placeholder' => '-- Seleccione --',
+                                    'class' => 'form-control',
+                                    'required',
+                                ],
+                            ) !!}
                         </div>
                         @error('measurement_unit_id')
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
@@ -101,12 +105,11 @@
                                     <i class="fas fa-list"></i>
                                 </span>
                             </div>
-                            <select name="category_id" class="form-select" required>
-                                <option value="">Seleccione...</option>
-                                @foreach ($categories as $c)
-                                    <option value="{{ $c->id }}" {{ old('measurement_unit_id') == $c->id ? 'selected' : '' }}>{{ $c->name }}</option>
-                                @endforeach
-                            </select>
+                            {!! Form::select('category_id', $categories, isset($element) ? $element->category_id : null, [
+                                    'class' => 'form-control',
+                                    'required',
+                                    'placeholder' => '--Seleccione--',
+                                ]) !!}
                         </div>
                         @error('category_id')
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
@@ -132,12 +135,13 @@
                                     <i class="fas fa-list"></i>
                                 </span>
                             </div>
-                            <select name="kind_of_purchase_id" class="form-select" required>
-                                <option value="">Seleccione..</option>
-                                @foreach ($kind_of_purchase as $kp)
-                                    <option value="{{ $kp->id }}" {{ old('measurement_unit_id') == $kp->id ? 'selected' : '' }}>{{ $kp->name }}</option>
-                                @endforeach
-                            </select>
+                            {!! Form::select( 'kind_of_purchase_id', $kind_of_purchase, isset($element) ? $element->kind_of_purchase_id : null,
+                                [
+                                    'class' => 'form-control',
+                                    'required',
+                                    'placeholder' => '--Seleccione--',
+                                ],
+                            ) !!}
                         </div>
                         @error('kind_of_purchase_id')
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
