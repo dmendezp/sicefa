@@ -174,4 +174,7 @@ return [
         'warehouse_id' => 'bodega', // SICA
     ],
 
+    'distinct_app_roles' => 'Lo roles seleccionados deben pertenecer a distintas aplicaciones.',
+    'at_least_one_role' => 'Al menos un rol debe ser seleccionado.',
+
 ];

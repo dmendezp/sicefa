@@ -172,4 +172,7 @@ return [
         'warehouse_id' => 'warehouse', // SICA
     ],
 
+    'distinct_app_roles' => 'Selected roles must belong to distinct applications.',
+    'at_least_one_role' => 'The selection of at least one role is required.',
+
 ];
