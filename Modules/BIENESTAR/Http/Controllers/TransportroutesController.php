@@ -6,30 +6,26 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class RoutesTransportationsController extends Controller
+class TransportroutesController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function LisRutas()
-    {
-        return view('bienestar::LisRutas'); 
-    }
 
-     
-    public function index()
+
+    public function transportroutes()
     {
-        return view('bienestar::index');
+        return view('bienestar::transportroutes');
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function LisRutas()
     {
-        return view('bienestar::create');
+        return view('bienestar::LisRutas');
     }
 
     /**
