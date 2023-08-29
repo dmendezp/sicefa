@@ -7,5 +7,7 @@
     "SENAEMPRESA": true,
     "CPD": true,
     "CAFETO": true,
-    "SIGAC": true
+    "SIGAC": true,
+    "Seed": true,
+    "InventorieSeeder\u00a0CAFETO": true
 }

@@ -23,6 +23,10 @@ Route::prefix('cafeto')->group(function(){ //Agrega el prefijo en la url (sicefa
     /* Rutas para administrar el inventario */
     Route::controller(InventoryController::class)->group(function(){
         Route::get('/inventory', 'index')->name('cafeto.inventory.index'); // Ver inventario de la boadega de la aplicación
+        //::get('create', 'create')->name('cafeto.inventory.create'); // Formulario de registro de entrada de inventario (registro de productos)
+            //Route::get('pdf', 'pdf')->name('cafeto.inventory.pdf'); // Descarga de formato de pdf
+//Route::get('status', 'status')->name('cafeto.inventory.status');// ver estado de productos
+            //Route::get('low', 'low')->name('cafeto.inventory.low'); // ver registro de baja 
     });
 
     /* Rutas para administrar las ventas */
