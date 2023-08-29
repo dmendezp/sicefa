@@ -52,3 +52,24 @@ Route::prefix('/bienestar')->group(function() {
 Route::prefix('/bienestar')->group(function() {
     Route::get('/APEformulario', 'BIENESTARController@APEformulario')->name('bienestar.APEformulario');
 });
+Route::prefix('/bienestar')->group(function() {
+    Route::get('/benefits', 'BenefitsController@BenefitsView')->name('bienestar.benefits');
+});
+Route::prefix('/bienestar')->group(function() {
+    Route::post('/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('bienestar.benefits.add');
+});
+Route::prefix('/bienestar')->group(function() {
+    Route::put('/bienestar/benefits/update/{id}','BenefitsController@update')->name('bienestar.benefits.update');
+
+});
+Route::prefix('/bienestar')->group(function() {
+    Route::post('/benefits/update/{id}', 'BenefitsController@update')->name('benefits.update');
+});
+Route::prefix('/bienestar')->group(function() {
+    Route::delete('/bienestar/benefits/delete/{id}', 'BenefitsController@delete')->name('bienestar.benefits.delete');
+});
+
+
+
+
+
