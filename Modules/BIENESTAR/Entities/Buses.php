@@ -3,13 +3,13 @@
 namespace Modules\BIENESTAR\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-//use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Buses extends Model
 {
-    use SoftDeletes;
-    protected $dates = ['deleted_at'];
+    use HasFactory;
+    
     protected $hidden = ['created_at','update_at'];
 
     protected $fillable = [
