@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Buses extends Model
 {
     use HasFactory;
-    
+    protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];
 
     protected $fillable = [
