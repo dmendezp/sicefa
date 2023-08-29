@@ -7,9 +7,9 @@
     <section class="ganaderia" id="ganaderia">
         <div class="container">
             <h2 class="h2-sub1">
-                <span class="fil">B</span>ienvenid@s a 
+                <span class="fil">B</span>ienvenido  
             </h2>
-            <h1 class="head">Datagro</h1>
+            <h1 class="head">AGROINDUSTRIA</h1>
         </div>
             </section>
 

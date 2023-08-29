@@ -5,14 +5,28 @@
     <div class="collapse navbar-collapse d-sm-flex" id="collapsibleNavId">
         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="{{route('agroindustria.index')}}">Inicio</a>
+                <a class="nav-link" href="{{route('agroindustria.home.index')}}">Inicio</a>
             </li>
+            <!--admin-->
+            @if(Auth::user()->havePermission('agroindustria.admin.request'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('agroindustria.admin.solicitud_centro')}}">Solicitud Centro</a>
+            </li>
+            @endif
+            <!--instructor-->
+            @if(Auth::user()->havePermission('agroindustria.instructor.labor'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('agroindustria.instructor.labor')}}">Labor</a>
+            </li>
+            @endif
         </ul>
     </div>
+    <!-- Perfil, login, volver a sicefa -->
     <div class="user-panel mt-1 pb-1 mb-1 d-flex">
       <div class="row col-md-12">
           <div class="image mt-2 mb-2">
               <div class="dropdown">
+            
                   <a href="#" class="dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       @if(isset(Auth::user()->person->avatar))
                       <img src="{{ asset(Auth::user()->person->avatar) }}" id="img" class="img-circle elevation-2" alt="User Image">
@@ -38,6 +52,7 @@
                         <i class="fas fa-puzzle-piece" id="sicefa"></i>
                         <span id="volver-sicefa">Volver a Sicefa</span>
                       </a>
+                      <!-- Perfil, logout, volver a sicefa -->
                       @else
                       <div class="col info info-user">
                         <div class="image_logout">

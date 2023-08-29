@@ -63,6 +63,16 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_instructor[] = $permission->id;
 
+        //Solicitud de insumos al centro
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.request'], [
+            'name' => 'Solicitar insumos al centro de formacion',
+            'description' => 'Puede solicitar insumos al centro de formacion',
+            'description_english' => 'You can request supplies from the storekeeper',
+            'app_id' => $app->id
+        ]);
+
+        $permission_admin[] = $permission->id;
+
         //Registro de ejecutores, equipos, herramientas, recursos involucrados en la labor
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.labor'], [
             'name' => 'Registrar todo lo relacionado con la labor',
@@ -133,6 +143,16 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $permission_visitor[] = $permission->id;
+
+        //Registrar actividades
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.activity'], [
+            'name' => 'Registrar actividades',
+            'description' => 'Puede registrar las actividades de cada unidad productiva de agroindustria',
+            'description_english' => 'You can register the activities of each productive unit of agroindustrys',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id;
 
 
 
