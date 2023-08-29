@@ -18,4 +18,5 @@
 
 @push('scripts')
     @livewireScripts()
+    @section('sripts-register-low') @show <!-- Scripts necesarios para registrar una baja de inventario -->
 @endpush
