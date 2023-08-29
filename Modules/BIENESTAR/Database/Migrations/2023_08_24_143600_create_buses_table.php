@@ -19,7 +19,7 @@ class CreateBusesTable extends Migration
             $table->string('quota');
             $table->foreignId('bus_driver_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-            $table->softDeletes();
+            
         });
     }
 
