@@ -18,6 +18,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('agroindustria.instructor.labor')}}">Labor</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('agroindustria.formulation.create')}}">Formulacion</a>
+            </li>
             @endif
         </ul>
     </div>
@@ -26,7 +29,7 @@
       <div class="row col-md-12">
           <div class="image mt-2 mb-2">
               <div class="dropdown">
-            
+
                   <a href="#" class="dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       @if(isset(Auth::user()->person->avatar))
                       <img src="{{ asset(Auth::user()->person->avatar) }}" id="img" class="img-circle elevation-2" alt="User Image">
@@ -74,7 +77,7 @@
                             <span id="volver-sicefa">Volver a Sicefa</span>
                         </a>
                     </div>
-                      
+
                       @endguest
                   </div>
               </div>
@@ -84,5 +87,5 @@
   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
       @csrf
   </form>
-  
+
 </nav>

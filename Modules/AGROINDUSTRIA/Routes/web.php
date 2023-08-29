@@ -4,6 +4,8 @@ use Modules\AGROINDUSTRIA\Http\Controllers\admin\RequestController;
 
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\LaborController;
+use Modules\AGROINDUSTRIA\Http\Controllers\instructor\FormulationController;
+
 
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\InventoryController;
 
@@ -25,6 +27,9 @@ use Modules\AGROINDUSTRIA\Http\Controllers\Intern\WarehouseController;
         Route::get('/solicitud', [RequestController::class, 'solicitud'])->name('agroindustria.instructor.solicitud');
         Route::post('/enviarsolicitud', [RequestController::class, 'enviarsolicitud'])->name('agroindustria.instructor.enviarsolicitud');
         Route::get('/labor', [LaborController::class, 'labor'])->name('agroindustria.instructor.labor');
+        Route::get('/formulations', [FormulationController::class, 'index'])->name('agroindustria.formulation.index');
+        Route::get('/formulations/create', [FormulationController::class, 'create'])->name('agroindustria.formulation.create');
+
     });
 
     //intern
@@ -39,7 +44,5 @@ use Modules\AGROINDUSTRIA\Http\Controllers\Intern\WarehouseController;
     });
 
 
-    Route::get('/formulations', [FormulationController::class, 'index']);
-    Route::get('/formulations/create', [FormulationController::class, 'create']);
 });
 

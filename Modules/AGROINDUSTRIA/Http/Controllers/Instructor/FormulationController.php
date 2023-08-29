@@ -14,7 +14,8 @@ class FormulationController extends Controller
      */
     public function index()
     {
-        return view('agroindustria::instructor.formulations.index');
+        $title = 'Formulacion';
+        return view('agroindustria::instructor.formulations.index', compact('title'));
     }
 
     /**
@@ -23,7 +24,8 @@ class FormulationController extends Controller
      */
     public function create()
     {
-        return view('agroindustria::instructor.formulations.create');
+        $title = 'Crear Formulacion';
+        return view('agroindustria::instructor.formulations.create', compact('title'));
     }
 
     /**

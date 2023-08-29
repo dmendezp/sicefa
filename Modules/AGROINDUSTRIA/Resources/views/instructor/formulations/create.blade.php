@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('agroindustria::layouts.master')
 
 @section('content')
     <h1>Registrar Nueva Formulación</h1>
