@@ -25,49 +25,52 @@
             <div class="col-md-3">
 
 
-            </div>     <div class="card-body">
-                            <table id="datatable" class="table table-sm table-striped">
-                                <thead>
-                                    <tr>
-                                    <th>Id</th>
-                                        <th>Requerimientos</th>
-                                        <th>Descripcion</th>
-                                        <th>Estado</th>
-                                        <th><a href="{{ route('Nueva') }}" class="btn btn-success btn-sm"><i
-                                                    class="fas fa-plus"></i>  Agregar</a></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($position_companies as $PositionCompany)
-                                    <tr>
-                                        <td>{{ $PositionCompany->id }}</td>
-                                        <td>{{ $PositionCompany->requirement }}</td>
-                                        <td>{{ $PositionCompany->description }}</td>
-                                        <td>{{ $PositionCompany->state }}</td>
-                                        <td colspan="2">
-                                            <a href="{{ route('editar_cargo', ['id' => $PositionCompany->id]) }}" class="btn btn-info btn-sm">Editar</a>
-                                            <span>|</span>
-                                            <form action="{{ route('eliminar_cargo', $PositionCompany->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este cargo?')">Eliminar</button>
-                                            </form>
-                                        </td>
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="table table-sm table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Requerimientos</th>
+                            <th>Descripcion</th>
+                            <th>Estado</th>
+                            <th style="width: 200px;">
+                                <a href="{{ route('Nueva') }}" class="btn btn-success btn-sm">
+                                    <i class="fas fa-plus"></i> Agregar
+                                </a>
+                            </th>
 
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                    </table>
-                </div>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($position_companies as $PositionCompany)
+                            <tr>
+                                <td>{{ $PositionCompany->id }}</td>
+                                <td>{{ $PositionCompany->requirement }}</td>
+                                <td>{{ $PositionCompany->description }}</td>
+                                <td>{{ $PositionCompany->state }}</td>
+                                <form action="{{ route('eliminar_cargo', $PositionCompany->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <td>
+                                        <a href="{{ route('editar_cargo', ['id' => $PositionCompany->id]) }}"
+                                            class="btn btn-info btn-sm">Editar</a>
+
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('¿Estás seguro de que deseas eliminar este cargo?')">Eliminar</button>
+                                </form>
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <
-        @section('content')
-        @show
+        < @section('content') @show <!-- Control Sidebar -->
 
-        <!-- Control Sidebar -->
-
-        <!-- /.control-sidebar -->
+            <!-- /.control-sidebar -->
 
 
     </div>

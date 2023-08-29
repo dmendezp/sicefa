@@ -1,12 +1,17 @@
-const myModal = document.getElementById('myModal');
-const openModalBtn = document.getElementById('openModalBtn');
+document.addEventListener('DOMContentLoaded', function () {
+    const openModalButtons = document.querySelectorAll('.openModalBtn');
+    const vacancyTitle = document.getElementById('vacancyTitle');
+    const vacancyDescription = document.getElementById('vacancyDescription');
+    const vacancyRequirements = document.getElementById('vacancyRequirements');
 
-openModalBtn.addEventListener('click', () => {
-    const bootstrapModal = new bootstrap.Modal(myModal);
-    bootstrapModal.show();
+    openModalButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const vacancyData = JSON.parse(this.getAttribute('data-vacancy'));
 
-    const myInput = document.getElementById('myInput');
-    if (myInput) {
-        myInput.focus();
-    }
+            vacancyTitle.textContent = vacancyData.name;
+            vacancyDescription.textContent = vacancyData.description_general;
+            vacancyRequirements.textContent = vacancyData.requirement;
+           
+        });
+    });
 });
