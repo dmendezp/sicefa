@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ asset('agrocefa/css/bodega.css') }}">
 </head>
 <body>
-    
 
 <div class="container">
     <div class="column">

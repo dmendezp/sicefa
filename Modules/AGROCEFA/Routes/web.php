@@ -9,11 +9,18 @@ use Modules\AGROCEFA\Http\Controllers\CropController;
 Route::middleware(['lang'])->group(function() {
     Route::prefix('/agrocefa')->group(function() {
         Route::get('/index', 'AGROCEFAController@index')->name('agrocefa.index');
+        Route::get('/home/{id}', 'AGROCEFAController@home')->name('agrocefa.home');
         Route::get('/inventory', 'AGROCEFAController@inventory')->name('agrocefa.inventory');
         Route::get('/insumos', 'AGROCEFAController@insumos')->name('agrocefa.insumos');
         Route::get('/bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
-        Route::get('/parameters', 'ParameterController@index')->name('agrocefa.parameters');
+        Route::get('/parameters', 'AGROCEFAController@parameters')->name('agrocefa.parameters');
         Route::get('/user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
+
+        // RUTAS PARA VARIEDADES
+        Route::get('/activty/list', 'ParameterController@list')->name('agrocefa.activity.list');
+        Route::get('/activty/crear', 'ParameterController@crear')->name('agrocefa.activity.crear');
+        Route::get('/activty/editar', 'ParameterController@edit')->name('agrocefa.activity.editar');
+        Route::get('/activty/eliminar', 'ParameterController@delete')->name('agrocefa.activity.eliminar');
 
         // RUTAS PARA VARIEDADES
         Route::get('/varieties', 'VarietyController@index')->name('agrocefa.varieties.crear');
