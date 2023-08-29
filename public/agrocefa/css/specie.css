@@ -1,26 +1,39 @@
 body {
     font-family: Arial, sans-serif;
 }
-h2 {
-    margin-top: 5%;
+#titulo {
+    background-color: #695CFE;    
+    color: white;
+    padding: 20px;
+    margin: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
     text-align: center;
-    margin-bottom: 20px;
 }
+
+.edit_title{
+    background-color: #695CFE;    
+    color: white;
+    padding: 20px;
+    margin: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 table {
-    width: 80%;
+    top: auto;
+    width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-    float: right;
-    margin-right: 100px;
 }
 th, td {
-    padding: 10px;
+    border: 1px solid #ddd;
+    padding: 8px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
-    background-color: #f3efef;
 }
 th {
-    background-color: #c9dadf;
+    background-color: #f2f2f2;
 }
 td a {
     text-decoration: none;
@@ -35,7 +48,7 @@ td a:hover {
 }
 
 .edit {
-    background-color: #f0b207;
+    background-color: #0A91CC;
     border: none;
     color: white;
     padding: 5px 10px;
@@ -44,23 +57,42 @@ td a:hover {
 }
 
 .add {
-    background-color: #108dc7;
+    background-color: #20D414;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    margin: 25px 0 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    float: left;
+    margin-left: 85%;
+}
+
+.add i {
+    margin-right: 5px; /* Ajusta el espacio entre el ícono y el texto */
+}
+
+.back {
+    background-color: #695CFE;
     border: none;
     color: white;
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
     float: right;
-    margin-right: 85%;
+    margin-right: 93%;
 }
 
 .delete {
-    background-color: #d80909;
+    background-color: #EC0101;
     border: none;
     color: white;
-    padding: 5px 10px;
+    padding: 7px 12px;
     border-radius: 4px;
     cursor: pointer;
+    margin-left: 5px;
 }
 
 .custom-icon {
@@ -77,10 +109,81 @@ td a:hover {
     color: #28a745; /* Color para el ícono de eliminación */
 }
 
+.add:hover {
+    background-color: #207c0e;
+}
+
+.back:hover {
+    background-color: #4e41e0;
+}
+
 .edit:hover {
-    background-color: #b36b00;
+    background-color: #0e74a3;
 }
 
 .delete:hover {
-    background-color: #c82333;
+    background-color: #c01010;
+    color: white;
 }
+
+/*ESTILOS FORMULARIO DE EDICION*/
+
+.form-container {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button.act {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.act{
+    background-color: #20D414;
+}
+
+button.act:hover {
+    background-color: #207c0e;
+}
+
+.button-group {
+    display: flex;
+    align-items: center;
+    
+}
+
+/* Estilos generales para el contenedor */
+.content_species {
+    background-color: #ffff;
+    padding: 5%;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display:inline-block;
+}
+

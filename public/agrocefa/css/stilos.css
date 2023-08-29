@@ -62,6 +62,7 @@ body.dark{
 
 /* ===== Reusable code - Here ===== */
 .sidebar li{
+    padding: 0rem, 0rem;
     height: 50px;
     list-style: none;
     display: flex;
@@ -102,7 +103,9 @@ body.dark{
     opacity: 0;
 }
 /* =========================== */
-
+.menu-links{
+    padding-left: 0rem;
+}
 .sidebar header{
     position: relative;
 }
@@ -200,6 +203,18 @@ header .image-text .profession{
 .nav-link.reports.active .sub-list {
     display: block;
 }
+
+.sidebar .nav-link {
+    padding: 0; /* Anula el padding agregado por Bootstrap */
+    /* Agrega otros estilos según sea necesario */
+}
+
+/* Estilo para ajustar el padding solo para las sub-listas */
+.sub-list li a {
+    padding: 0.5rem 1rem; /* Agrega el padding específico */
+    /* Agrega otros estilos según sea necesario */
+}
+
 
 /* Estilos para rotar la flecha hacia abajo cuando el submenú está expandido */
 .nav-link.reports.active .arrow {
@@ -446,15 +461,6 @@ li a i {
   .titlei {
     color: aliceblue;
   }
-
-  .table{
-    padding-top: 60px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2.5em;
-    justify-content: space-evenly;
-    align-items: center;
-}
 
 
 

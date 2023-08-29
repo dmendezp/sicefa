@@ -13,29 +13,36 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 <!-- Mira **Deployment** para conocer como desplegar el proyecto. -->
 
 
-## CEFAMAPS 📌
+## Agrocefa 📌
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar*
-* **Integrante 2** - *Actividades a realizar*
+* **Dayana Marcela** - *Parametro de Especies*
+* **Yuderly Sapuy** - *Parametro de Cultivos*
+* **Laura Rodriguez** - *Parametro de Variedades*
+* **Andres Almario** - *Parametro Actividad*
+* 
 ...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 22-Ago-2022
+*  -  **Dayana Marcela** - *Creacion de migaricion,controlador y rutas* - *Avance 100%* - *N/A* - **
+*  -  **Yuderly Sapuy** - *Creacion de migaricion,controlador y rutas* - *Avance 100%* - *N/A* - **
+*  -  **Laura Rodriguez** - *Creacion de migaricion,controlador y rutas* - *Avance 100%* - *N/A* - **
+*  -  **Andres Almario** - *Vista parametro general, roles y permisos* - *Avance 100* - *N/A* - **
+
 ---
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 23-Ago-2022
+*  -  **Dayana Marcela** - *Implementacion del diseño (vista) segun el estandar, funcionalidad del CRUD* - *Avance 100%* - *N/A* - **
+*  -  **Yuderly Sapuy** - *Creacion de las vistas del formulario e implementacion de diseño* - *Avance 100%* - *N/A* - **
+*  -  **Laura Rodriguez** - *Implementacion de diseño segun el estandar* - *Avance 100%* - *N/A* - **
+*  -  **Andres Almario** - *validacion de autenticacion responsable para vista de unidades productivas* - *Avance 100* - *N/A* - **
 ---
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 28-Ago-2022
+*  -  **Dayana Marcela** - *Implementar lo realizado en la vista de parametros* - *Avance 100%* - *N/A* - **
+*  -  **Yuderly Sapuy** - *Implementar lo realizado en la vista de parametros* - *Avance 100%* - *N/A* - **
+*  -  **Laura Rodriguez** - *Implementar lo realizado en la vista de parametros* - *Avance 100%* - *N/A* - **
+*  -  **Andres Almario** - *Implementar parametro actividad* - *Avance 100* - *N/A* - **
 ---
-#### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
+
 #### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
