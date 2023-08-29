@@ -9,10 +9,13 @@
             <a href="{{ route('cefa.hdc.index') }}"class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link ">Registro de Consumo</a>
+            <a href="{{Route('formulario') }}" class="nav-link ">Registro de Consumo</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link ">Consulta</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link ">Administrar Recursos</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link ">Instrucciones</a>

@@ -11,26 +11,24 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 *  2- En cada Meet, las actividades realizadas, el porcentaje de avance de sus responsabilidades, que dificultades presenta y que acciones se van a tomar para continuar.
 
 <!-- Mira **Deployment** para conocer como desplegar el proyecto. -->
-
-
 ## HDC 📌
 
 ### Sprint 1 🔄
 #### Sprint Planning 22-AGO-2023
-* **Andres David Cumaco Rojas** - *Elaboracion y agregacion del contenido vista Home HDC*
-* **Mary Luz Aldana Vidarte** - *Estructuracion del slider menu*
-* **Leidy Sofia Osorio Vera** - *Crear vista para consulta de información*
+* **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos/ Pagina principal e informativa sobre Huella de Carbono CEFA*
+* **Mary Luz Aldana Vidarte** - *Registro de Consumo/Pagina principal e informativa sobre Huella de Carbono CEFA*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva*
 ...
 #### Meet 24-AGO-2023
-* **Andres David Cumaco Rojas** - *Elaboracion y agregacion del contenido vista Home HDC* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
-* **Mary Luz Aldana Vidarte** - *Estructuracion del slider menu* - *100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
-* **Leidy Sofia Osorio Vera** - *Crear vista para consulta de información* - *10%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Andres David Cumaco Rojas** - *Pagina principal e informativa sobre Huella de Carbono CEFA* - *80%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Pagina principal e informativa sobre Huella de Carbono CEFA* - *80%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva* - *10%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 
 ---
-#### Meet 31-Oct-2022
-* **Andres David Cumaco Rojas** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Mary Luz Aldana Vidarte** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Leidy Sofia Osorio Vera** - *Elaboracion de la grafica con los datos registrados* - *0%* - *Dificultades* - *Acciones*
+#### Meet 27-AGO-2023
+* **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos* - *Avance3 30 %* - *Dificultades* - *Acciones*
+* **Mary Luz Aldana Vidarte** - *Registro de Consumo* - *Avance 20%* - *Dificultades* - *Acciones*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva NO SE PRESENTO* - *0%* - *Dificultades* - *Acciones*
 ---
 #### Meet 02-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
