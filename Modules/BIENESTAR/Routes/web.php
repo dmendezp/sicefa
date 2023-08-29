@@ -55,3 +55,13 @@ Route::prefix('/bienestar')->group(function() {
 Route::prefix('/bienestar')->group(function() {  
     Route::get('/buses', 'BIENESTARController@buses')->name('bienestar.buses');
 });
+
+// typesofbenefits view routes
+Route::prefix('/bienestar')->group(function() {
+    Route::get('/typeofbenefits', 'TypesOfBenefitsController@typeofbenefits')->name('bienestar.typeofbenefits');
+    Route::post('/typeofbenefits/create', 'TypesOfBenefitsController@store')->name('typeofbenefits.store');
+    Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('typeofbenefits.destroy');
+    Route::put('/bienestar/typeofbenefits/{id}', 'TypesOfBenefitsController@update')->name('typeofbenefits.update');
+
+
+});
