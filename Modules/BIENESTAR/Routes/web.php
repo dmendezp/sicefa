@@ -53,7 +53,10 @@ Route::prefix('/bienestar')->group(function() {
     Route::get('/APEformulario', 'BIENESTARController@APEformulario')->name('bienestar.APEformulario');
 });
 Route::prefix('/bienestar')->group(function() {  
-    Route::get('/buses', 'BIENESTARController@buses')->name('bienestar.buses');
+    Route::get('/buses', 'BusesController@index')->name('bienestar.buses');
+    Route::post('/buses/store', 'BusesController@store')->name('bienestar.buses.store');
+    Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('bienestar.buses.destroy');
+    Route::put('/buses/update/{id}', 'BusesController@update')->name('bienestar.buses.update');
 });
 
 // typesofbenefits view routes

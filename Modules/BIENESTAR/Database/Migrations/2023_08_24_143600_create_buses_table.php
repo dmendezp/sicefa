@@ -17,9 +17,9 @@ class CreateBusesTable extends Migration
             $table->id();
             $table->string('plate');
             $table->string('quota');
-            $table->unsignedBigInteger('driver_id');
+            $table->foreignId('bus_driver_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-            $table->foreign('driver_id')->references('id')->on('bus_drivers');
+            $table->softDeletes();
         });
     }
 

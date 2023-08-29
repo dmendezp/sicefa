@@ -3,16 +3,22 @@
 namespace Modules\BIENESTAR\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+//use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class buses extends Model
+class Buses extends Model
 {
-    use HasFactory;
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+    protected $hidden = ['created_at','update_at'];
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
-    {
-        return \Modules\BIENESTAR\Database\factories\BusesFactory::new();
+    protected $fillable = [
+        'plate',
+        'quota',
+        'bus_driver_id',
+    ];
+
+    public function bus_driver(){
+    	return $this->belongsTo(BusDrivers::class);
     }
 }
