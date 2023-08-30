@@ -1,7 +1,13 @@
+<head>
+    @include('agroindustria::layouts.partials.head')
+</head>
+
 <nav class="navbar navbar-expand-lg navbar-Dark" style="background-color:rgb(247, 244, 244); margin-bottom:20px">
     <a class="navbar-brand" id="title" href="#">AGROINDUSTRIA</a>
+
     <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
         aria-expanded="false" aria-label="Toggle navigation"></button>
+
     <div class="collapse navbar-collapse d-sm-flex" id="collapsibleNavId">
         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
             <!-- Acceso general -->
@@ -23,6 +29,11 @@
             @if(Auth::user()->havePermission('agroindustria.instructor.labor'))
             <li class="nav-item">
                 <a class="nav-link" href="{{route('agroindustria.instructor.labor')}}">Labor</a>
+          </li>
+            @endif
+            @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('agroindustria.instructor.activity')}}">Actividades</a>
             </li>
             @endif
             @endauth

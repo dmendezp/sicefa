@@ -1,0 +1,104 @@
+.dropbtn {
+    background-color: #98a4b4;
+    color: #ffdcdc;
+    padding: 9px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    margin-left: 15px;
+    border-radius: 5%;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #f1f1f1}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {
+    background-color: #98a4b4;
+  }
+
+  /* ASEO */
+  .card{
+    margin-left: 150px;
+      width: 1200px; /* Ancho */
+      height: 200px; /* Alto */
+  }
+
+#create{
+  background-color: #187444;
+  width: 150px;
+  height: 40px;
+border-radius: 6px;
+  margin-left: 1000px;
+}
+#edit{
+  width: 150px;
+  height: 40px;
+}
+#delete{
+  width: 150px;
+  height: 40px;
+}
+#close
+{width: 150px;
+  height: 40px;
+background-color: brown;}
+#keep
+{width: 150px;
+  height: 40px;}
+
+/* modal styles */
+/* Estilos para el modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+  text-align: center;
+}
+.modal-content {
+  background-color: white; /* Cambiar el color de fondo del modal */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Agregar una sombra al modal */
+}
