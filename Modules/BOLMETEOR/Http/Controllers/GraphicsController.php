@@ -56,7 +56,7 @@ class GraphicsController extends Controller
 
     public function __construct()
     {
-        //$this->variables = Variable::where('status', 'Activo')->pluck('variable as name', 'id');
+        $this->variables = Variable::where('status', 'Activo')->pluck('variable as name', 'id');
     }
    
     public function getGraficas(){

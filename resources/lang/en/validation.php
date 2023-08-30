@@ -137,8 +137,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'roles_id' => [
+            'required' => 'It is necessary to select at least one role.', // SICA
         ],
     ],
 
@@ -153,6 +153,26 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'activity_id' => 'activity', // SICA
+        'activity_type_id' => 'activity type', // SICA
+        'app_id' => 'app', // SICA
+        'environment_id' => 'environment', // SICA
+        'farm_id' => 'farm', // SICA
+        'leader_id' => 'leader person', // SICA
+        'person_document_type' => 'document type', // PTVENTA
+        'person_document_number' => 'document number', // PTVENTA
+        'person_first_name' => 'first name', // PTVENTA
+        'person_first_last_name' => 'first last name', // PTVENTA
+        'person_id' => 'person', // SICA
+        'person_second_last_name' => 'second last name', // PTVENTA
+        'productive_unit_id' => 'productive unit', // SICA
+        'role_id' => 'rol', // SICA
+        'sector_id' => 'sector', // SICA
+        'warehouse_id' => 'warehouse', // SICA
+    ],
+
+    'distinct_app_roles' => 'Selected roles must belong to distinct applications.',
+    'at_least_one_role' => 'The selection of at least one role is required.',
 
 ];

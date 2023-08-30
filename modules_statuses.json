@@ -6,8 +6,7 @@
     "TILABS": true,
     "SENAEMPRESA": true,
     "CPD": true,
-    "CAFETO": true,
+    "PTVENTA": true,
     "SIGAC": true,
-    "Seed": true,
-    "InventorieSeeder\u00a0CAFETO": true
+    "CAFETO": true
 }

@@ -21,7 +21,7 @@
                                 <div class="text-left">
                                     @if($people->avatar=='')
                                     <div id="holder" style="max-height:100px;">
-                                        <img  class="profile-user-img img-fluid img-circle" src="{{ asset('sica/images/blanco.png') }}">
+                                        <img  class="profile-user-img img-fluid img-circle" src="{{ asset('modules/sica/images/blanco.png') }}">
                                     </div>
                                     @else
                                     <div id="holder" style="max-height:100px;">
@@ -70,7 +70,7 @@
                                 ['class' => 'form-control', 'placeholder' => 'Ingrese su segundo apellido','required']) !!}
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
@@ -80,7 +80,7 @@
                                 $people->document_type,['class' => 'form-control'
                                 ,'placeholder' => 'Seleccione...']) !!}
                             </div>
-                            
+
                         </div>
                         <div class="col-sm-3">
 
@@ -108,7 +108,7 @@
                                 {{ $people->age }}
                             </div>
                         </div>
-                      
+
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
@@ -147,7 +147,7 @@
 
                             </div>
                         </div>
-                      
+
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
@@ -239,7 +239,7 @@
   </script>
 
   <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-    
+
  <script>
     //var route_prefix = base+"/filemanager";
         $('#lfm').filemanager('image', {prefix: route_prefix});

@@ -45,6 +45,7 @@ class Person extends Model implements Auditable
         'misena_email',
         'sena_email',
         'avatar',
+        'biometric_code',
         'population_group_id'
     ];
 
@@ -69,6 +70,18 @@ class Person extends Model implements Auditable
     public function getFullNameAttribute(){ // Obtener el nombre completo de la persona first_name + first_last_name + second_last_name (ACCESOR)
         return $this->first_name.' '.$this->first_last_name.' '.$this->second_last_name;
     }
+    public function getIdentificationTypeNumberAttribute(){ // Obtener de manera abreviada del tipo y número de identificación
+        // Arreglo de mapeo entre tipos de documentos y sus abreviaturas
+        $documentTypeAbbreviations = [
+            'Cédula de ciudadanía' => 'CC',
+            'Tarjeta de identidad' => 'TI',
+            'Cédula de extranjería' => 'CE',
+            'Pasaporte' => 'PP',
+            'Documento nacional de identidad' => 'DNI',
+            'Registro civil' => 'RC'
+        ];
+        return $documentTypeAbbreviations[$this->attributes['document_type']].'-'.$this->attributes['document_number'];
+    }
     public function setAddressAttribute($value){ // Convierte el primer carácter en mayúscula del dato address (MUTADOR)
         $this->attributes['address'] = ucfirst($value);
     }
@@ -83,6 +96,9 @@ class Person extends Model implements Auditable
     }
 
     // RELACIONES
+    public function activity_responsibilities(){ // Accede a todos los registros de responsables de actividad que pertenecen a esta persona
+        return $this->hasMany(ActivityResponsibility::class);
+    }
     public function apprentices(){ // Accede a todos aprendices que han sido asociados con esta persona
         return $this->hasMany(Apprentice::class);
     }
@@ -92,6 +108,9 @@ class Person extends Model implements Auditable
     public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
         return $this->hasMany(Contractor::class);
     }
+    public function supervisor_contractors(){ // Accede a todos los registros de supervisores de contratación que le pertenecen a esta persona
+        return $this->hasMany(Contractor::class, 'supervisor_id');
+    }
     public function employees(){ // Accede a todos los registros de empleados que pertenecen a esta persona
         return $this->hasMany(Employee::class);
     }
@@ -100,9 +119,6 @@ class Person extends Model implements Auditable
     }
     public function events(){ // Accede a todos los eventos que ha asistido esta persona (PIVOTE)
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
-    }
-    public function executors(){ // Accede a todos los registros de ejecutores que pertenecen a esta persona
-        return $this->hasMany(Executor::class);
     }
     public function farms(){ // Accede a todas las granjas que lidera esta persona
         return $this->hasMany(Farm::class);
