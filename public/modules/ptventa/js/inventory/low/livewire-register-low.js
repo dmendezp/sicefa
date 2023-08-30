@@ -21,3 +21,41 @@ Livewire.on('input-product-amount', function(product_total_amount) {
         });
     }
 });
+
+// lanzar mensajes
+Livewire.on('message', function(type, action, message) {
+    const color = {
+        success: 'green',
+        error: 'red'
+    };
+    if(type=='alert-success'){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: message,
+            showConfirmButton: false,
+            timer: 2000
+        })
+    }else if(type=='alert-warning'){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: message,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }else{
+        Swal.fire({
+            title: action,
+            text: message,
+            icon: type,
+            iconColor: color[type],
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: 'green'
+        });
+    }
+});
+
+Livewire.on('printTicket', async function(voucher_number, date, customer, dt_customer, seller, details, total) {
+    print_sale(voucher_number, date, customer, dt_customer, seller, details, total);
+});

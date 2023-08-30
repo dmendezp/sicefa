@@ -16,6 +16,7 @@
     @livewire('ptventa::inventory.register-low')
 @endsection
 
+@include('ptventa::layouts.partials.plugins.sweetalert2') {{-- Implementación de Sweetalert2 --}} 
 @push('scripts')
     @livewireScripts()
     @section('sripts-register-low') @show <!-- Scripts necesarios para registrar una baja de inventario -->

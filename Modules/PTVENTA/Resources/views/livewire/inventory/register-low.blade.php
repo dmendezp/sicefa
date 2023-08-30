@@ -227,7 +227,7 @@
     <div class="d-flex justify-content-evenly">
         <div class="row">
             <div class="col-12 mb-3">
-                <button type="button" class="btn btn-danger form-control text-truncate" wire:click="registerLow" wire:loading.attr="disabled" wire:targer="registerLow">
+                <button type="button" class="btn btn-danger form-control text-truncate" wire:click="registerLow" wire:loading.attr="disabled">
                     {{ trans('ptventa::inventory.Btn8') }} <i class="fa-solid fa-arrows-down-to-line"></i>
                 </button>
             </div>
