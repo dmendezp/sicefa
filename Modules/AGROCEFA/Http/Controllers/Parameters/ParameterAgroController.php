@@ -2,18 +2,81 @@
 
 namespace Modules\AGROCEFA\Http\Controllers\Parameters;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\AGROCEFA\Entities\Specie; 
+use Modules\SICA\Entities\Activity;
+use Modules\SICA\Entities\ActivityType;
 
 class ParameterAgroController extends Controller
 {   
     public function parametersview()
-    {
+    {   
+        $selectedUnitId = Session::get('selectedUnitId'); // Obtén el ID de la unidad seleccionada
+        $activityTypes= ActivityType::all(); //Listar Tipos de Actividad
         $species= Specie::all();// listar especies
-        return view('agrocefa::parameters', compact('species'));
+        $activities = $this->getActivitiesForSelectedUnit(); // Llama a la función y obtiene las actividades
+
+        return view('agrocefa::parameters', [
+            'activities' => $activities, // Pasa las actividades a la vista
+            'species' => $species,
+            'activityTypes' => $activityTypes,
+            'selectedUnitId' => $selectedUnitId,
+        ]);
     }
+    //Funcion listar Actividad por Unidad
+    public function getActivitiesForSelectedUnit()
+    {
+        // Obtén el ID de la unidad productiva seleccionada de la sesión
+        $selectedUnitId = Session::get('selectedUnitId');
+
+        // Verifica si hay un ID de unidad seleccionada en la sesión
+        if ($selectedUnitId) {
+            // Obtiene todas las actividades asociadas a la unidad productiva seleccionada
+            $activities = Activity::with('activity_type') // Cargar la relación activityType
+                                  ->where('productive_unit_id', $selectedUnitId)
+                                  ->get();
+
+            return $activities; // Retorna el arreglo de actividades
+        } else {
+            // Si no hay ID de unidad seleccionada en la sesión, retorna un arreglo vacío o realiza alguna acción
+            return [];
+        }
+    }
+    public function createActivity(Request $request)
+    {
+    // Obtén el ID de la unidad productiva seleccionada de la sesión
+    $selectedUnitId = Session::get('selectedUnitId');
+
+    // Validar los datos del formulario aquí si es necesario
+    $activity = new Activity();
+    $activity->productive_unit_id = $selectedUnitId; // Usar el ID de la unidad de la sesión
+    $activity->activity_type_id = $request->input('activity_type_id');
+    $activity->name = $request->input('name'); // Nombre de la actividad
+    $activity->description = $request->input('description');
+    $activity->period = $request->input('period');
+
+    $activity->save();
+
+    return redirect()->route('agrocefa.parameters')->with('success', 'Actividad registrada exitosamente.');
+    }
+    // Funcion Editar Actividad
+    public function editActivity(Request $request, Activity $activity)
+    {
+    // Validar los datos del formulario aquí si es necesario
+    
+    $activity->activity_type_id = $request->input('activity_type_id');
+    $activity->name = $request->input('name'); // Nombre de la actividad
+    // Otros campos que quieras actualizar
+    $activity->save();
+
+    return redirect()->route('agrocefa.parameters')->with('success', 'Actividad actualizada exitosamente.');
+    }
+
+
+
     
     public function create(Request $request, $unitId)
     {

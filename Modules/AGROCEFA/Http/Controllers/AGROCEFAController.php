@@ -2,6 +2,7 @@
 
 namespace Modules\AGROCEFA\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -19,35 +20,68 @@ class AGROCEFAController extends Controller
      */
 
      public function index()
-     {
-         if (Auth::check()) {
-             $user = Auth::user();
- 
-             if ($user->roles->contains('name', 'Administrador') || $user->roles->contains('name', 'Pasante')) {
-                 $responsibilities = $user->roles->flatMap(function ($role) {
-                     return $role->responsibilities->pluck('activity_id');
-                 });
- 
-                 $units = Activity::whereIn('id', $responsibilities)
-                                  ->pluck('productive_unit_id');
- 
-                 // Obtener las unidades productivas a partir de los IDs de las actividades
-                 $productiveUnits = ProductiveUnit::whereIn('id', $units)
-                                                  ->get();
- 
-                 return view('agrocefa::homeproductive_units', ['units' => $productiveUnits]);
-             }
-         } else {
-            return view('agrocefa::homeproductive_units');
-         }
-    }
-
-     public function home($id)
     {
-        $unit = ProductiveUnit::find($id);
+        // Verifica si el usuario está autenticado
+    if (Auth::check()) {
+        // Obtiene el usuario autenticado
+        $user = Auth::user();
 
-        return view('agrocefa::index', ['unitId' => $id, 'unit' => $unit]);
+        // Verifica si el usuario tiene roles de "Administrador" o "Pasante"
+        if ($user->roles->contains('name', 'Administrador') || $user->roles->contains('name', 'Pasante')) {
+            // Obtiene las responsabilidades relacionadas con los roles del usuario
+            $responsibilities = $user->roles->flatMap(function ($role) {
+                return $role->responsibilities->pluck('activity_id');
+            });
+
+            // Obtiene los IDs de las unidades productivas basadas en las actividades
+            $units = Activity::whereIn('id', $responsibilities)
+                             ->pluck('productive_unit_id');
+
+            // Obtiene las unidades productivas a partir de los IDs obtenidos
+            $productiveUnits = ProductiveUnit::whereIn('id', $units)
+                                             ->get();
+
+            // Obtiene el ID de la unidad seleccionada desde la sesión
+            $selectedUnitId = Session::get('selectedUnitId');
+
+            // Retorna la vista 'homeproductive_units' con datos de unidades y la unidad seleccionada
+            return view('agrocefa::homeproductive_units', [
+                'units' => $productiveUnits,
+                'selectedUnitId' => $selectedUnitId, // Pasar el ID de unidad seleccionado a la vista
+            ]);
+        }
+    } else {
+        // Si el usuario no está autenticado, muestra la vista 'homeproductive_units' sin datos especiales
+        return view('agrocefa::home');
     }
+    }
+    public function selectUnit($id)
+    {
+        // Realiza las validaciones y lógica necesarias
+
+        // Actualiza la variable de sesión con el nuevo ID de unidad seleccionado
+        Session::put('selectedUnitId', $id);
+
+        // Redirige a la vista de inicio con el ID de unidad seleccionado
+        return redirect()->route('agrocefa.home');
+    }
+
+    public function home()
+    {
+    // Puedes acceder al ID de unidad seleccionado desde la sesión si lo necesitas
+    $selectedUnitId = Session::get('selectedUnitId');
+
+    // Obtener el nombre de la unidad a través del modelo ProductiveUnit
+    $selectedUnitName = ProductiveUnit::where('id', $selectedUnitId)->value('name');
+
+    // Realiza cualquier lógica adicional que necesites para esta vista
+
+    // Retornar la vista deseada
+    return view('agrocefa::home', [
+        'selectedUnitName' => $selectedUnitName,
+    ]);
+    }
+
     public function insumos()
     {
         return view('agrocefa::insumos');
