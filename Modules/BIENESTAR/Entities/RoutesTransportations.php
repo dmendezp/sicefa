@@ -11,8 +11,5 @@ class routes_transportations extends Model
 
     protected $fillable = [];
     
-    protected static function newFactory()
-    {
-        return \Modules\BIENESTAR\Database\factories\RoutesTransportationsFactory::new();
-    }
+
 }

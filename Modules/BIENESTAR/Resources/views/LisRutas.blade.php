@@ -39,7 +39,10 @@
         </div>
     </div>
 </div>
-
-<!-- Resto de tu código y modal... -->
+</div>
+<!-- Incluye los scripts de AdminLTE, jQuery y Popper.js -->
+<script src="ruta_al_archivo_jquery.js"></script>
+<script src="ruta_al_archivo_popper.js"></script>
+<script src="ruta_al_archivo_adminlte.js"></script>
 
 @endsection

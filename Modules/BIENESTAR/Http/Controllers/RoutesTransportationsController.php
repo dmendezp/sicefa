@@ -5,6 +5,9 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\BIENESTAR\Entities\RoutesTransportations;
+use Modules\BIENESTAR\Entities\BusDrivers;
+use Modules\BIENESTAR\Entities\Buses;
 
 class RoutesTransportationsController extends Controller
 {
@@ -18,11 +21,38 @@ class RoutesTransportationsController extends Controller
     }
 
      
-    public function index()
+    public function transportroutes()
     {
-        return view('bienestar::index');
+        $busDrivers = BusDrivers::all();
+        $buses = Buses::all();
+        return view('bienestar::transportroutes',['busDrivers'=> $busDrivers, 'buses'=> $buses]);
     }
+    
+    public function transportroutesAdd(Request $request)
+    {
+        $numberRoute = $request->input('name');
+        $nameRoute = $request->input('porcentege');
+        $bus = $request->input('bus');
+        $timeArrival = $request->input('timeArrival');
+        $hourExit = $request->input('hourExit');
+        $stopBus = $request->input('stopBus');
+        $timeArrival = $request->input('timeArrival');
+        $hourExit = $request->input('hourExit');
 
+        RoutesTransportations::create([
+            'route_number'=>$numberRoute,
+            'name_route'=>$nameRoute,
+            'bus'=> $bus,
+            'stop_bus'=> $stopBus,
+            'arrival_time'=> $timeArrival,
+            'departure_time'=> $hourExit,
+            'bus_id'=> $bus,
+
+        ]);
+
+        return redirect()->route('bienestar.transportroutes')->with('success', 'Beneficio agregado correctamente');
+
+    }
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -37,10 +67,6 @@ class RoutesTransportationsController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Show the specified resource.

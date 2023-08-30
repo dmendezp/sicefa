@@ -84,8 +84,12 @@ Route::prefix('/bienestar')->group(function() {
     Route::put('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@update')->name('bienestar.benefitstypeofbenefits.update');
     Route::delete('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@destroy')->name('benefitstypeofbenefits.destroy');
 
+
+        //Vistas Rutas de transporte
+    Route::get('/transportroutes','RoutesTransportationsController@transportroutes')->name('bienestar.transportroutes');
+    Route::post('/transportroutes/add','RoutesTransportationsController@transportroutesAdd')->name('bienestar.transportroutes.add');
 });
 Route::prefix('/bienestar')->group(function() {
-    Route::get('/LisRutas', 'TransportroutesController@LisRutas')->name('bienestar.LisRutas');
+    Route::get('/LisRutas', 'RoutesTransportationsController@LisRutas')->name('bienestar.LisRutas');
 });
 
