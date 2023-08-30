@@ -27,9 +27,9 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 * **Carlor Maurico Polanco** - *creacion de la vista CRUD para los conductores*
 * **Saira Xiomara Guevara** - *creacion de la vista CRUD para los buses de transporte *
 ...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 29-Ago-2023
+* **Brayan David Lizcano** - *Modificacion e implementacion de funciones en BenefitsTypesOfBenefitsController.php * - *Avance %100* - *Dificultades-Ninguna* - *Acciones*
+* **Juan David Rico** - *Creacion e implementacion de funcionalidad a la vista benefitstypeofbenefits.blade.php e integracion de rutas a web.php* - *Avance %100* - *Dificultades-Ninguna* - *Acciones*
 ---
 #### Meet 31-Oct-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
