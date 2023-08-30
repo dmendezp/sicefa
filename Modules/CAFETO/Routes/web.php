@@ -25,11 +25,20 @@ Route::prefix('cafeto')->group(function(){ //Agrega el prefijo en la url (sicefa
         Route::get('/inventory', 'index')->name('cafeto.inventory.index'); // Ver inventario de la boadega de la aplicación
         //::get('create', 'create')->name('cafeto.inventory.create'); // Formulario de registro de entrada de inventario (registro de productos)
             //Route::get('pdf', 'pdf')->name('cafeto.inventory.pdf'); // Descarga de formato de pdf
-//Route::get('status', 'status')->name('cafeto.inventory.status');// ver estado de productos
+       //Route::get('status', 'status')->name('cafeto.inventory.status');// ver estado de productos
             //Route::get('low', 'low')->name('cafeto.inventory.low'); // ver registro de baja 
+        Route::get('inventory/create', 'create')->name('cafeto.inventory.create'); // Formulario de registro de entrada de inventario
+
 
         //Rutas para reportes de inventario
         Route::get('reports/index', 'reports')->name('cafeto.reports.index'); // Vista principal de la sección de reportes
+
+        // Reportes de entrada de inventario - Ruta para mostrar el formulario
+        Route::get('reports/inventory/entries', 'showInventoryEntriesForm')->name('cafeto.reports.inventory.entries'); // Vista de consulta de entradas de inventario por fecha
+        Route::post('reports/inventory/entries', 'generateInventoryEntries')->name('cafeto.reports.generate.inventory.entries'); // Realizar consulta de entradas de inventario por fechas recibidas
+        Route::post('reports/inventory/entries/generatepdf', 'generateInventoryEntriesPDF')->name('cafeto.reports.generate.entries.pdf'); // Generar PDF de entradas de inventario
+
+
     });
 
     /* Rutas para administrar las ventas */

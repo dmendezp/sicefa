@@ -33,7 +33,7 @@
                             {{-- </form> --}}
                         </div>
                         <div class="col-md-4 col-sm-6">
-                            <a class="card-custom a-custom" href="{{-- {{ route('cafeto.reports.inventory.entries') }} --}}">
+                            <a class="card-custom a-custom" href="{{ route('cafeto.reports.inventory.entries') }}">
                                 <div class="icon">
                                     <i class="fa-solid fa-file-pdf"></i>
                                 </div>

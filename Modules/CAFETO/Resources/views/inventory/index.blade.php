@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-auto">
                     <div class="d-flex justify-content-end">
-                        <a href="" class="btn btn-success btn-sm me-1">
+                        <a href="{{ route('cafeto.inventory.create') }}" class="btn btn-success btn-sm me-1">
                             <i class="fa-solid fa-thumbs-up mr-2"></i>Registrar entrada
                         </a>
                         {{-- <a href="" class="btn btn-danger btn-sm me-1">
