@@ -18,10 +18,15 @@ class CreateContractorsTable extends Migration
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('supervisor_id')->constrained('people')->onDelete('cascade');
             $table->integer('contract_number');
+            $table->year('contract_year');
             $table->date('contract_start_date');
             $table->date('contract_end_date');
             $table->integer('total_contract_value');
             $table->foreignId('contractor_type_id')->constrained()->onDelete('cascade');
+            $table->longText('contract_object');
+            $table->longText('contract_obligations');
+            $table->integer('amount_hours');
+            $table->integer('assigment_value');
             $table->string('sesion')->nullable();
             $table->date('sesion_date')->nullable();
             $table->foreignId('employee_type_id')->constrained()->onDelete('cascade');

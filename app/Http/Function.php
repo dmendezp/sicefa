@@ -4,6 +4,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+// Obtener las opciones en un arreglo de una columna enum de una tabla
 function getEnumValues($table, $column){
 	$type = DB::select(DB::raw("SHOW COLUMNS FROM $table WHERE Field = '$column'"))[0]->Type;
 	preg_match('/^enum\((.*)\)$/', $type, $matches);

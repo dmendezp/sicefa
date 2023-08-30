@@ -4,9 +4,9 @@ namespace Modules\PTVENTA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\SICA\Entities\App;
+use Modules\SICA\Entities\AppProductiveUnit;
 use Modules\SICA\Entities\Country;
 use Modules\SICA\Entities\Department;
-use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\Municipality;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\ProductiveUnit;
@@ -51,26 +51,20 @@ class AppTableSeeder extends Seeder
             'name' => 'Huila'
         ]);
 
-        /* Registro o actualización de granja para la unidad productiva Punto de venta */
-        $responsible = Person::where('document_number', 52829681)->first(); // Consulta de datos personales de Lola Fernanda Herrera Hernandez
-        $farm = Farm::updateOrCreate(['name' => 'CEFA'], [
-            'description' => 'Centro de Formación Agroindustrial La Angostura',
-            'area' => 25000,
-            'person_id' => $responsible->id,
-            'municipality_id' => $municipality->id
-        ]);
-
         /* Registro o actualización de la unidad productiva para PTVENTA */
         $leader = Person::where('document_number', 52829681)->first(); // Consulta de datos personales de Lola Fernanda Herrera Hernandez
         $productive_unit = ProductiveUnit::updateOrCreate(['name' => 'Punto de venta'], [
             'description' => 'Unidad del centro de formación dedicada a la comercialización de las producción del centro',
             'icon' => 'fas fa-dolly',
             'person_id' => $leader->id,
-            'sector_id' => $sector->id,
-            'farm_id' => $farm->id
+            'sector_id' => $sector->id
         ]);
 
-        $app->productive_units()->syncWithoutDetaching([$productive_unit->id]); // Asociar a aplicación con unidad productiva
+        // Asociar a aplicación con unidad productiva
+        AppProductiveUnit::firstOrCreate([
+            'app_id' => $app->id,
+            'productive_unit_id' => $productive_unit->id
+        ]);
 
         /* Registro o actualización de bodega Punto de venta */
         $warehouse = Warehouse::updateOrCreate(['name' => 'Punto de venta'], [

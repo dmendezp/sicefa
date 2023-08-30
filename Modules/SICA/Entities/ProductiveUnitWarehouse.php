@@ -4,7 +4,6 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\PTVENTA\Entities\CashCount;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class ProductiveUnitWarehouse extends Model implements Auditable

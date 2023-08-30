@@ -32,8 +32,7 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td class="text-center">{{ $u->nickname }}</td>
-                                            <td>{{ $u->person->first_name }} {{ $u->person->first_last_name }}
-                                                {{ $u->person->second_last_name }}</td>
+                                            <td>{{ $u->person->full_name }}</td>
                                             <td>{{ $u->email }}</td>
                                             <td>
                                                 @foreach ($u->roles as $rol)

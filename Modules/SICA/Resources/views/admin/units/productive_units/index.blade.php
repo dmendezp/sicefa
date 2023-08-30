@@ -6,7 +6,16 @@
             <div class="d-flex justify-content-center">
                 <div class="card card-orange card-outline shadow col-md-12">
                     <div class="card-header">
-                        <h3 class="card-title">Unidades productivas</h3>
+                        <div class="row">
+                            <div class="col-md-auto">
+                                <h4>Unidades productivas</h4>
+                            </div>
+                            <div class="col-md">
+                                <a href="{{ route('sica.admin.units.productive_units.environment_pus.index') }}" class="btn btn-info float-right ml-1">
+                                  <i class="fa-solid fa-angles-right fa-beat-fade mr-1"></i> Relación de ambientes y unidades productivas
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="btns">
@@ -25,7 +34,6 @@
                                             <th class="text-center">Icono</th>
                                             <th>Líder</th>
                                             <th class="text-center">Sector</th>
-                                            <th class="text-center">Granja</th>
                                             <th class="text-center">Acciones</th>
                                         </tr>
                                     </thead>
@@ -40,7 +48,6 @@
                                                 </td>
                                                 <td>{{ $pw->person->full_name }}</td>
                                                 <td class="text-center">{{ $pw->sector->name }}</td>
-                                                <td class="text-center">{{ $pw->farm->name }}</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('sica.admin.units.productive_unit.edit', $pw) }}" data-toggle='tooltip' data-placement="top" title="Editar">
                                                         <i class="fas fa-edit text-success"></i>

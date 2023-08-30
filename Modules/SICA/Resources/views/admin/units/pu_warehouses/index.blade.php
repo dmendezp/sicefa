@@ -10,7 +10,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4 pr-3">
+                            <div class="col-md-4 pr-3 pb-3">
                                 <form action="{{ route('sica.admin.units.pu_warehouses.store') }}" method="post">
                                     @csrf
                                     <div class="form-group">
@@ -53,7 +53,7 @@
                                         @foreach ($productive_unit_warehouses as $puw)
                                             @if ($previous_pu_id !== $puw->productive_unit_id)
                                                 <tr>
-                                                    <td rowspan="{{ $productive_unit_warehouses->where('productive_unit_id', $puw->productive_unit_id)->count() }}">
+                                                    <td  style="vertical-align: middle"  rowspan="{{ $productive_unit_warehouses->where('productive_unit_id', $puw->productive_unit_id)->count() }}">
                                                         {{ $puw->productive_unit->name }}
                                                     </td>
                                                 @php
