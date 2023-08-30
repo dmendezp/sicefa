@@ -5,11 +5,16 @@ return [
 	'titlePage'    => 'Sales',
 	'titleView'    => 'Sales today',
 	'titleView2'    => 'Register sales',
+    
+	'titlePageM'    => 'Movement - Details',
+	'titleViewM'    => 'Movement Details',
 
     //Breadcrumbs
 	'Sales'    => 'Sales',
 	'Today'    => 'Today',
 	'Register' => 'Resgister',
+	'B4' => 'Movements',
+	'B5' => 'Details',
   
 	//Section Card
     //Table Titles
@@ -26,6 +31,7 @@ return [
     'Btn1'   => 'Register Sale',
     'Btn2'   => 'Register',
     'Btn3'   => 'Cancel',
+    'Btn4'   => 'Generate Ticket',
     
     //Section optional
     'TextOp1'   => 'No Sales Registered.',
@@ -70,4 +76,18 @@ return [
 	'TextModal3' => 'Last names',
 	'PlaceholderModal4' => 'First last name',
 	'PlaceholderModal5' => 'Second last name',
+
+    //---Section Movement Sales---
+    'FormText1' => 'N° Voucher',
+	'FormText2' => 'Date:',
+	'FormText3' => 'Customer:',
+	'FormText4' => 'Client:',
+	'FormText5' => 'Movement Type:',
+
+    //Table Movement Sales
+    '3T1' => '#',
+    '3T2' => 'Product',
+    '3T3' => 'Amount',
+    '3T4' => 'Subtotal',
+    '3T5' => 'Total',
 ];

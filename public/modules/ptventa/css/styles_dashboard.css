@@ -8,7 +8,7 @@
 
 /* Color de los iconos, botones o links que se agreguen a la barra de navegacion superior */
 .navbar-nav .nav-item .nav-link {
-  color:  #496F5D !important;
+  color:  #000000 !important;
 }
 
 /* Color del texto o icono al pasar el mouse sobre el, va ajuntado con el  */
@@ -24,7 +24,7 @@
 
 /* Color para el boton o icono del navbar al pasar el mouse */
 .navbar-nav .nav-item:hover {
-  background-color: #496F5D !important;
+  background-color: #198754 !important;
   border-radius: 5px;
 }
 

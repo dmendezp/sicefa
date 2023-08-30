@@ -145,6 +145,15 @@
                                 </a>
                             </li>
                         @endif
+                        @if(Auth::user()->havePermission('ptventa.admin.movements.index'))
+                            <li class="nav-item">
+                                <a href="{{ route('ptventa.admin.movements.index') }}"
+                                    class="nav-link {{ !Route::is('ptventa.admin.movements.*') ?: 'active' }}">
+                                    <i class="nav-icon fa-solid fa-file-invoice-dollar"></i>
+                                    <p>{{ trans('ptventa::general.Movement History') }}</p>
+                                </a>
+                            </li>
+                        @endif
                         @if(Auth::user()->havePermission('ptventa.admin.configuration.index'))
                             <li class="nav-item">
                                 <a href="{{ route('ptventa.admin.configuration.index') }}"
@@ -202,6 +211,15 @@
                                     <p>{{ trans('ptventa::general.Reports Panel') }}</p>
                                 </a>
                             </li>
+                        @endif
+                        @if(Auth::user()->havePermission('ptventa.cashier.movements.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('ptventa.cashier.movements.index') }}"
+                                class="nav-link {{ !Route::is('ptventa.cashier.movements.*') ?: 'active' }}">
+                                <i class="nav-icon fa-solid fa-file-invoice-dollar"></i>
+                                <p>{{ trans('ptventa::general.Movement History') }}</p>
+                            </a>
+                        </li>
                         @endif
                         @if(Auth::user()->havePermission('ptventa.cashier.configuration.index'))
                             <li class="nav-item">

@@ -6,11 +6,18 @@ return [
 	'titleView1'    => 'Inventory management',
 	'titlePage2'    => 'Inventory - Register',
 	'titleView2'    => 'Inventory register',
+	'titlePageM'    => 'Movement - Details',
+	'titleViewM'    => 'Movement Details',
+	'titlePageL'    => 'Inventory Removals',
+	'titleViewL'    => 'Inventory Removals',
 
     //Breadcrumbs
 	'Inventory'    => 'Inventory',
 	'Register'     => 'Register',
 	'Products'     => 'Products',
+	'B4'     => 'Movements',
+	'B5'     => 'Movement Details',
+	'B6'     => 'Inventory Removals',
 
     //Section Card
     //General
@@ -31,6 +38,10 @@ return [
     'Btn2'   => 'Expired / To be expired',
     'Btn3'   => 'Add Product',
     'Btn4'   => 'Register Entry',
+    'Btn5'   => 'Generate Ticket',
+    'Btn6'   => 'Register Low',
+    'Btn7'   => 'Add to list',
+    'Btn8'   => 'Low',
     
     //Section register inventroy
     //Card Responsibles and Warehouses
@@ -41,6 +52,8 @@ return [
     'SubTitleCard3' => 'Delivery:',
     'SubTitleCard4' => 'Destination warehouse:',
     'SubTitleCard5' => 'Receive:',
+    'SubTitleCard6' => 'Origin Warehouse:',
+    'SubTitleCard7' => 'Manager:',
     //Form
     'TitleForm0' => '#',
     'TitleForm1' => 'Product:',
@@ -53,6 +66,8 @@ return [
     'TitleForm8' => 'Description:',
     'TitleForm9' => 'Brand:',
     'TitleForm10' => 'Destination:',
+    'TitleForm11' => 'Existing Amount:',
+
     //Table 2
     '2T1' => '#',
     '2T2' => 'Brand (Product)',
@@ -69,4 +84,21 @@ return [
     //Tooltips
     'Tooltip1' => 'Update Product',
     'Tooltip2' => 'Delete Product',
+    
+    //--Section Movement Details - Entries
+    'FormText1' => 'N° Voucher',
+	'FormText2' => 'Warehouse of Origin:',
+	'FormText3' => 'Responsible for Delivery:',
+	'FormText4' => 'Date:',
+	'FormText5' => 'Receiving Warehouse:',
+	'FormText6' => 'Responsible for Receiving:',
+	'FormText7' => 'Movement Type:',
+
+
+    //Table Movement Entries
+    '3T1' => '#',
+    '3T2' => 'Product',
+    '3T3' => 'Amount',
+    '3T4' => 'Subtotal',
+    '3T5' => 'Total',
 ];

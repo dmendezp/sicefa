@@ -2,14 +2,19 @@
 
 return [
     //Origin Controller SaleController
-	'titlePage' => 'Ventas',
-	'titleView' => 'Ventas realizadas hoy',
-	'titleView2'    => 'Registro de Ventas',
+	'titlePage'  => 'Ventas',
+	'titleView'  => 'Ventas realizadas hoy',
+	'titleView2' => 'Registro de Ventas',
+	
+	'titlePageM' => 'Movimiento - Detalles',
+	'titleViewM' => 'Detalles de Movimiento',
 
     //Breadcrumbs
 	'Sales'    => 'Ventas',
 	'Today'    => 'Hoy',
 	'Register' => 'Registro',
+	'B4' => 'Movimientos',
+	'B5' => 'Detalles',
 
 	//Section Card
     //Table Titles
@@ -26,6 +31,7 @@ return [
     'Btn1' => 'Registrar Venta',
     'Btn2' => 'Registrar',
     'Btn3' => 'Cancelar',
+    'Btn4' => 'Generar Factura',
     
 	//Section option
 	'TextOp1' => 'No hay ventas registradas.',
@@ -70,4 +76,18 @@ return [
 	'TextModal3' => 'Apellidos',
 	'PlaceholderModal4' => 'Primer apellido',
 	'PlaceholderModal5' => 'Segundo apellido',
+
+	//---Section Movement Sales---
+	'FormText1' => 'N° Comprobante',
+	'FormText2' => 'Fecha:',
+	'FormText3' => 'Vendedor:',
+	'FormText4' => 'Cliente:',
+	'FormText5' => 'Tipo de Movimiento:',
+
+	//Table Movement Sales
+	'3T1' => 'N°',
+	'3T2' => 'Producto',
+	'3T3' => 'Cantidad',
+	'3T4' => 'Subtotal',
+	'3T5' => 'Total',
 ];

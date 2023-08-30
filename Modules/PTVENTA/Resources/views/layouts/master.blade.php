@@ -55,7 +55,7 @@
                     @section('content') @show
                     @if(!Route::is('cefa.ptventa.*') && Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.sale.register'))
                         <a href="{{ Route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.sale.register') }}" class="whatsapp bg-success pt-2 pe-1" >
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fa-solid fa-cart-shopping fa-bounce"></i>
                         </a>
                     @endif
                 </div>

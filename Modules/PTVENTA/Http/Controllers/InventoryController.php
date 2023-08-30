@@ -446,9 +446,6 @@ class InventoryController extends Controller
         $html .= '</thead>';
 
         // Variables para almacenar los totales
-        $totalAmount= 0;
-        $totalPrecio = 0;
-        $totalSubtotal = 0;
         $totalTotal = 0;
 
         // Crear el cuerpo de la tabla con los datos de los movimientos
@@ -472,9 +469,6 @@ class InventoryController extends Controller
                     $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;" rowspan="' . count($movement->movement_details) . '">' . priceFormat($movement->price) . '</td>';
                 }
                 $html .= '</tr>';
-                $totalAmount += $movement_detail->amount;
-                $totalPrecio += $movement_detail->price;
-                $totalSubtotal += ($movement_detail->amount * $movement_detail->price);
             }
             // Actualizar el totalTotal con el precio del movimiento
             $totalTotal += $movement->price;
@@ -484,10 +478,7 @@ class InventoryController extends Controller
         // Pie de pagina que muestra los totales de cantidad, precio, subtotal y total
         $html .= '<tfoot>';
         $html .= '<tr>';
-        $html .= '<td style="border: 1px solid #dddddd; text-aling: center; padding: 8px; width: 299px;"><strong> Total: </strong></td>'; // Celdas vacías para las columnas sin totales
-        $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . $totalAmount . '</strong></td>';
-        $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . priceFormat($totalPrecio) . '</strong></td>';
-        $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . priceFormat($totalSubtotal) . '</strong></td>';
+        $html .= '<td style="border: 1px solid #dddddd; text-align: right; padding: 8px; width: 478px;"><strong> Total: </strong></td>'; // Celdas vacías para las columnas sin totales
         $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . priceFormat($totalTotal) . '</strong></td>';
         $html .= '</tr>';
         $html .= '</tfoot>';
@@ -499,6 +490,16 @@ class InventoryController extends Controller
         // Generar el PDF y devolverlo para su descarga
         $pdf->Output('reporte_ventas.pdf', 'I');
     }
+
+    /* Ver detalle de movimiento interno */
+    public function show(Movement $movement){
+        $view = ['titlePage' => trans('ptventa::inventory.titlePageM'), 'titleView' => trans('ptventa::inventory.titleViewM')];
+        return view('ptventa::inventory.show', compact('view', 'movement'));
+    }
+
+    /* Ingresar a registro de bajas de inventario */
+    public function low_create(){
+        $view = ['titlePage' => trans('ptventa::inventory.titlePageL'), 'titleView' => trans('ptventa::inventory.titleViewL')];
+        return view('ptventa::inventory.low', compact('view'));
+    }
 }
-
-
