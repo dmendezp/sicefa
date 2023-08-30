@@ -45,6 +45,11 @@
                   </div>
              </li>
              @endif
+             @if(Auth::user()->havePermission('agroindustria.instructor.movements'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('agroindustria.instructor.movements')}}">Movimientos</a>
+            </li>
+            @endif
 
 
 
