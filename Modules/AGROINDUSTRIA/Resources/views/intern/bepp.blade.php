@@ -57,9 +57,29 @@
 
                 <td>
                   <!-- Botones de acciones -->
-                  
-                      <button class="btn btn-primary btn-sm" id="edit" data-toggle="modal">
-                        <i class="fa-regular fa-pen-to-square fa-2xl"></i>                      </button>
+                  <button type="button" class="btn btn-primary" id="edit" data-bs-toggle="modal" data-bs-target="#editModal">
+                    <i class="fa-regular fa-pen-to-square fa-2xl"></i> 
+                  </button>
+                                    <!-- Modal -->
+                <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editModalLabel">EDITAR INSUMO </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" id="keep"class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                            </div>
                    <br>
                    <br>
                       <button class="btn btn-danger btn-sm" id="delete" data-toggle="modal">
