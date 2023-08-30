@@ -6,36 +6,36 @@
         <div class="col-md-3">
             <div class="card card-success">
                 <div class="card-header text-center py-1">
-                    <strong>{{ trans('cafeto::inventory.TitleCard2')}}</strong>
+                    <strong>Responsables de Bodegas</strong>
                 </div>
                 <div class="card-body tex-center pt-0">
-                    <label class="form-label my-0 mt-1">{{ trans('cafeto::inventory.SubTitleCard2')}}</label>
+                    <label class="form-label my-0 mt-1">U. Productiva y boga de origen:</label>
                     <select class="form-select form-select-sm mb-2" id="dpu_id" wire:model="dpu_id">
-                        <option value="">{{ trans('cafeto::inventory.SubTextCard2')}}</option>
+                        <option value="">--Seleccione Unidad Productiva--</option>
                         @foreach ($productive_units as $pw)
                             <option value="{{ $pw->id }}">{{ $pw->name }}</option>
                         @endforeach
                     </select>
                     <select class="form-select form-select-sm" wire:model="dpuw_id" @if(empty($puwarehouses)) disabled @endif>
-                        <option value="" data-name="">{{ trans('cafeto::inventory.SubTextCard3')}}</option>
+                        <option value="" data-name="">--Seleccione Bodega--</option>
                         @if (!empty($puwarehouses))
                             @foreach ($puwarehouses as $puwarehouse)
                                 <option value="{{ $puwarehouse->id }}">{{ $puwarehouse->warehouse->name }}</option>
                             @endforeach
                         @endif
                     </select>
-                    <label class="form-label my-0">{{ trans('cafeto::inventory.SubTitleCard3')}}</label>
+                    <label class="form-label my-0">Entrega:</label>
                     {!! Form::text(null, $delivery_person ? $delivery_person->full_name : null, [
                         'class'=>'form-control form-control-sm',
                         'readonly'
                     ])!!}
                     <hr class="mb-1">
-                    <label class="form-label my-0">{{ trans('cafeto::inventory.SubTitleCard4')}}</label>
+                    <label class="form-label my-0">Bodega de destino:</label>
                     {!! Form::text(null, $puw->warehouse->name, [
                         'class'=>'form-control form-control-sm',
                         'disabled'
                     ])!!}
-                    <label class="form-label my-0">{{ trans('cafeto::inventory.SubTitleCard5')}}</label>
+                    <label class="form-label my-0">Recibe:</label>
                     {!! Form::text(null, Auth::user()->person->full_name, [
                         'class'=>'form-control form-control-sm',
                         'disabled'
@@ -50,7 +50,7 @@
                 <div class="row mx-3 align-items-end">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label><strong class="text-danger">* </strong>{{ trans('cafeto::inventory.TitleForm1')}}</label>
+                            <label><strong class="text-danger">* </strong>Producto:</label>
                             <select class="form-select" name="product_element_id" id="product_element_id" wire:model.defer="product_element_id" required>
                                 <option value="" data-price="">-- Selecciona --</option>
                                 @foreach ($products as $product)
@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label>{{ trans('cafeto::inventory.TitleForm2')}}</label>
+                            <label>Precio:</label>
                             {!! Form::text('product_price', $product_price, [
                                 'class'=>'form-control text-center',
                                 'wire:model'=>'product_price',
@@ -73,7 +73,7 @@
                     </div>
                     <div class="col-2">
                         <div class="form-group">
-                            <label><strong class="text-danger">* </strong>{{ trans('cafeto::inventory.TitleForm3')}}</label>
+                            <label><strong class="text-danger">* </strong>Cantidad:</label>
                             {!! Form::number('product_amount', $product_amount, [
                                 'class'=>'form-control text-center',
                                 'wire:model.defer'=>'product_amount',
@@ -84,7 +84,7 @@
                     </div>
                     <div class="col-3">
                         <div class="form-group">
-                            <label>{{ trans('cafeto::inventory.TitleForm4')}}</label>
+                            <label>Fecha de Producciòn:</label>
                             {!! Form::date(null, null, [
                                 'class'=>'form-control',
                                 'wire:model.defer'=>'product_production_date'
@@ -93,7 +93,7 @@
                     </div>
                     <div class="col-3">
                         <div class="form-group">
-                            <label>{{ trans('cafeto::inventory.TitleForm5')}}</label>
+                            <label>Fecha de Vencimiento:</label>
                             {!! Form::date(null, null, [
                                 'class'=>'form-control',
                                 'wire:model.defer'=>'product_expiration_date'
@@ -102,7 +102,7 @@
                     </div>
                     <div class="col-3">
                         <div class="form-group">
-                            <label>{{ trans('cafeto::inventory.TitleForm6')}}</label>
+                            <label>Nùmero de Lote:</label>
                             {!! Form::number(null, null, [
                                 'class'=>'form-control',
                                 'wire:model.defer'=>'product_lot_number'
@@ -111,7 +111,7 @@
                     </div>
                     <div class="col-3">
                         <div class="form-group">
-                            <label>{{ trans('cafeto::inventory.TitleForm7')}}</label>
+                            <label>Còdigo de Inventario:</label>
                             {!! Form::number(null, null, [
                                 'class'=>'form-control',
                                 'wire:model.defer'=>'product_inventory_code'
@@ -127,7 +127,7 @@
                                     'placeholder'=>'Registre alguna observación',
                                     'wire:model.defer'=>'product_description'
                                 ]) !!}
-                                <label>{{ trans('cafeto::inventory.TitleForm8')}}</label>
+                                <label>Descripciòn</label>
                             </div>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label>{{ trans('cafeto::inventory.TitleForm9')}}</label>
+                                    <label>Marca:</label>
                                     {!! Form::text(null, null, [
                                         'class'=>'form-control',
                                         'wire:model.defer'=>'product_mark'
@@ -144,7 +144,7 @@
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label><strong class="text-danger">* </strong>{{ trans('cafeto::inventory.TitleForm10')}}</label>
+                                    <label><strong class="text-danger">* </strong>Destino:</label>
                                     {!! Form::select(null, $destinations, 'null', [
                                         'class'=>'form-select',
                                         'placeholder'=>'-- Selecciona --',
@@ -155,7 +155,7 @@
                             </div>
                         </div>
                         <div class="col-auto mx-auto">
-                            <button type="submit" class="btn btn-success form-control text-truncate">{{ trans('cafeto::inventory.Btn3')}} <i class="fas fa-plus"></i></button>
+                            <button type="submit" class="btn btn-success form-control text-truncate">Agregar Producto <i class="fas fa-plus"></i></button>
                         </div>
                     </div>
                 </div>
@@ -171,20 +171,20 @@
                     <table class="table">
                         <thead class="table-dark">
                             <tr>
-                                <th class="text-center">{{ trans('cafeto::inventory.2T1')}}</th>
-                                <th>{{ trans('cafeto::inventory.2T2')}}</th>
-                                <th class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ trans('cafeto::inventory.2T8')}}">
+                                <th class="text-center">N°</th>
+                                <th>Marca (Producto)</th>
+                                <th class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Código de Inventario">
                                     <i class="fas fa-barcode"></i>
                                 </th>
-                                <th class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ trans('cafeto::inventory.2T9')}}">
+                                <th class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descripción">
                                     <i class="far fa-file-alt"></i>
                                 </th>
-                                <th class="text-center">{{ trans('cafeto::inventory.2T3')}}</th>
-                                <th class="text-center">{{ trans('cafeto::inventory.2T4')}}</th>
-                                <th class="text-center">{{ trans('cafeto::inventory.2T5')}}</th>
-                                <th class="text-center">{{ trans('cafeto::inventory.2T6')}}</th>
-                                <th class="text-center">{{ trans('cafeto::inventory.2T7')}}</th>
-                                <th class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ trans('cafeto::inventory.2T12')}}"><i class="fas fa-arrow-circle-down"></i></th>
+                                <th class="text-center">Precio</th>
+                                <th class="text-center">Cantidad</th>
+                                <th class="text-center">Fecha de Producción</th>
+                                <th class="text-center">Fecha de Vencimiento</th>
+                                <th class="text-center">Número de Lote</th>
+                                <th class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Acciones"><i class="fas fa-arrow-circle-down"></i></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -230,11 +230,11 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip" data-placement="right" title="{{ trans('cafeto::inventory.Tooltip1')}}"
+                                        <button type="button" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip" data-placement="right" title="Editar"
                                             wire:click="editProduct({{ $index }})" wire:loading.attr="disabled" wire:target="editProduct">
                                             <i class="fas fa-pen"></i>
                                         </button>
-                                        <button type="button" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip" data-placement="right" title="{{ trans('cafeto::inventory.Tooltip2')}}"
+                                        <button type="button" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip" data-placement="right" title="Eliminar"
                                             wire:click="deleteProduct({{ $index }})" wire:loading.attr="disabled" wire:target="deleteProduct">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
@@ -252,11 +252,9 @@
     <div class="d-flex justify-content-evenly">
         <div class="row">
             <div class="col-12 mb-3">
-                @if(Auth::user()->havePermission('cafeto.admin-cashier.inventory.store'))
                     <button type="button" class="btn btn-success form-control text-truncate" wire:click="registerEntry" wire:loading.attr="disabled" wire:targer="registerEntry">
-                        {{ trans('cafeto::inventory.Btn4')}} <i class="fas fa-save"></i>
+                        Registrar Entrada <i class="fas fa-save"></i>
                     </button>
-                @endif
             </div>
         </div>
     </div>
