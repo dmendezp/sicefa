@@ -76,6 +76,14 @@ Route::prefix('/bienestar')->group(function() {
     Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('typeofbenefits.destroy');
     Route::put('/bienestar/typeofbenefits/{id}', 'TypesOfBenefitsController@update')->name('typeofbenefits.update');
     Route::get('/transportroutes','TransportroutesController@transportroutes')->name('bienestar.transportroutes');
+
+
+    // Vista CRUD Pivota
+    Route::get('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@benefitstypeofbenefits')->name('bienestar.benefitstypeofbenefits');
+    Route::post('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@store')->name('bienestar.benefitstypeofbenefits.store');
+    Route::put('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@update')->name('bienestar.benefitstypeofbenefits.update');
+    Route::delete('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@destroy')->name('benefitstypeofbenefits.destroy');
+
 });
 Route::prefix('/bienestar')->group(function() {
     Route::get('/LisRutas', 'TransportroutesController@LisRutas')->name('bienestar.LisRutas');

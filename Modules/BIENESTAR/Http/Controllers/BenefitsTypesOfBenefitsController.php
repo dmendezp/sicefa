@@ -5,6 +5,10 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\BIENESTAR\Entities\BenefitsTypesOfBenefits;
+use Modules\BIENESTAR\Entities\TypesOfBenefits;
+use Modules\BIENESTAR\Entities\Benefits;
+
 
 class BenefitsTypesOfBenefitsController extends Controller
 {
@@ -12,68 +16,60 @@ class BenefitsTypesOfBenefitsController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function benefitstypeofbenefits()
     {
-        return view('bienestar::index');
+        $benefitstypeofbenefits = BenefitsTypesOfBenefits::all();
+        $benefits = Benefits::all();
+        $typeofbenefits = TypesOfBenefits::all();
+
+        return view('bienestar::benefitstypeofbenefits', compact('benefitstypeofbenefits', 'benefits', 'typeofbenefits'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('bienestar::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
-        //
+        // Validar los datos del formulario
+        $request->validate([
+            'benefit_id' => 'required|exists:benefits,id',
+            'type_of_benefit_id' => 'required|exists:types_of_benefits,id',
+        ]);
+
+        // Crear un nuevo registro en la tabla pivot
+        BenefitsTypesOfBenefits::create([
+            'benefit_id' => $request->benefit_id,
+            'type_of_benefit_id' => $request->type_of_benefit_id,
+        ]);
+
+        return redirect()->route('bienestar.benefitstypeofbenefits')->with('success', 'Registro creado correctamente.');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('bienestar::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('bienestar::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
     public function update(Request $request, $id)
     {
-        //
+        // Validar los datos del formulario
+        $request->validate([
+            'benefit_id' => 'required|exists:benefits,id',
+            'type_of_benefit_id' => 'required|exists:types_of_benefits,id',
+        ]);
+
+        // Buscar el registro por su ID
+        $type = BenefitsTypesOfBenefits::find($id);
+
+        if (!$type) {
+            return redirect()->route('bienestar.benefitstypeofbenefits')->with('error', 'Registro no encontrado.');
+        }
+
+        // Actualizar los valores
+        $type->benefit_id = $request->benefit_id;
+        $type->type_of_benefit_id = $request->type_of_benefit_id;
+        $type->save();
+
+        return redirect()->route('bienestar.benefitstypeofbenefits')->with('success', 'Registro actualizado correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     public function destroy($id)
     {
-        //
+        // Encuentra y elimina el registro por su ID
+        BenefitsTypesOfBenefits::destroy($id);
+
+        return redirect()->route('bienestar.benefitstypeofbenefits')->with('success', 'Registro eliminado correctamente.');
     }
 }
