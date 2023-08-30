@@ -1,29 +1,22 @@
 <?php
 
-namespace Modules\AGROINDUSTRIA\Http\Controllers\admin;
+namespace Modules\AGROINDUSTRIA\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\Role;
 
-class RequestController extends Controller
+class SupplyController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function solicitudcentro()
+    public function index()
     {
-        $title = 'Solicitud a Centro';
-        $coordinator = Role::with('users.person')->where('id', 2)->first()->users->pluck('person');
-        $coordinator->transform(function ($person) {
-            return $person->first_name . ' ' . $person->first_last_name. ' ' . $person->second_last_name;
-        });
-        $data = ['title'=>$title, 'coordinator'=>$coordinator];
-
-        return view('agroindustria::admin.solicitudcentro', $data);
+        return view('agroindustria::index');
     }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable

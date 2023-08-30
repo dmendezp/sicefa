@@ -4,9 +4,22 @@
 
     // Obtener todos los enlaces en la barra de navegación
     const navLinks = document.querySelectorAll('.navbar-nav li a');
+    const navLinksDashboard = document.querySelectorAll('.dashboard li a');
+    const navLinksHome = document.querySelectorAll('.home li a');
+
 
     // Iterar a través de los enlaces y verificar si su href coincide con la URL actual
     navLinks.forEach(link => {
+        if (link.href === currentURL) {
+            link.classList.add('selected');
+        }
+    });
+    navLinksDashboard.forEach(link => {
+        if (link.href === currentURL) {
+            link.classList.add('selected');
+        }
+    });
+    navLinksHome.forEach(link => {
         if (link.href === currentURL) {
             link.classList.add('selected');
         }

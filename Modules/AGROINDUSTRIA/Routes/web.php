@@ -12,6 +12,7 @@ use Modules\AGROINDUSTRIA\Http\Controllers\Intern\WarehouseController;
 
 Route::prefix('agroindustria')->group(function() {
     Route::get('/index', 'AGROINDUSTRIAController@index')->name('agroindustria.home.index');
+    Route::get('/admin', 'AGROINDUSTRIAController@dashboard')->name('agroindustria.admin.dashboard');
 
     //admin
     Route::prefix('admin')->group(function (){
