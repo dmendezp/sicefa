@@ -5,6 +5,7 @@ namespace Modules\AGROINDUSTRIA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\Movement;
 
 class NewDeliverController extends Controller
 {
@@ -14,8 +15,8 @@ class NewDeliverController extends Controller
      */
     public function index()
     {
-        $data = ['title' =>trans('agroindustria::menu.Movements'), 'movements' =>$movements];
-        return view('agroindustria::instructor.movements',$data);
+        $title = 'Movimientos';
+        return view('agroindustria::instructor.movements.index', compact('title'));
     }
 
     /**
