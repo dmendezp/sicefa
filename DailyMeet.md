@@ -13,31 +13,38 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 <!-- Mira **Deployment** para conocer como desplegar el proyecto. -->
 
 
-## CEFAMAPS 📌
+## SENAEMPRESA 📌
 
 ### Sprint 1 🔄
 #### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar*
-* **Integrante 2** - *Actividades a realizar*
+*Integrante 1**Junior Medina** - *CRUD de vacantes*
+*Integrante 2**Diego Penagos** - *CRUD de cargo*
+*Integrante 3**Jary Garay** - *CRUD de senaempresa*
+
 ...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 28-agosto-2023
+* **Integrante 1** - *creacion de vista de vacantes y editar* - *55 %* - *Ninguna* - *Acciones*
+* **Integrante 2** - *creacionde vista de cargo y editar,eliminar* - *70 %* - *Ninguno* - *Acciones*
+* **Integrante 2** - *NO se reporto* - *0 %* - *Dificultades* - *Acciones*
 ---
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 29-agosto-2023
+* **Integrante 1** - *pivote de * - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 02-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 

@@ -112,6 +112,10 @@
                         </p>
                     </a>
                 </li>
+                    </a>
+                </li>
+
+
                 <li class="nav-item {{ !Route::is('vacant.*') ?: 'menu-is-opening menu-open' }}">
                     <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
                         <i class="fas fa-id-card"></i>

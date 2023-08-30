@@ -24,7 +24,7 @@
                             {!! Form::open(['url' => route('Registros')]) !!}
                             <div class="mb-6">
                                 <label for="document_number" class="form-label">Documento</label>
-                                {!! Form::number('document_number', null, ['class' => 'form-control']) !!}
+                                {!! Form::text('', null, ['class' => 'form-control']) !!}
                                 <br>
                             </div>
                             <div class="mb-6">
