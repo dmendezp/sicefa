@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Gestión de Tipos de Beneficios</h1>
+    <h1>Gestión de Tipos de Beneficiarios</h1>
 </div>
 
 <div class="container">
@@ -10,12 +10,12 @@
         <!-- Primera Grilla: Tabla con Datos Existentes -->
         <div class="row">
             <div class="col-md-6">
-                <h2>Listado de Tipos de Beneficios</h2>
+                <h2>Listado de Tipos de Beneficiarios</h2>
                 <table id="typesOfBenefitsTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tipo de Beneficio</th>
+                            <th>Tipo de Beneficiarios</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -43,11 +43,11 @@
                 <br>
                 <br>
                 <div style="border: 1px solid #707070; padding: 20px; background-color: white; border-radius: 10px;">
-                    <h2>Ingresar Nuevo Tipo de Beneficio</h2>
+                    <h2>Ingresar Nuevo Tipo de Beneficiarios</h2>
                     <form id="guardarTipoBeneficio" action="{{ route('typeofbenefits.store') }}" method="post">
                         @csrf
                         <div class="mb-3">
-                            <label for="name">Nombre del Tipo de Beneficio:</label>
+                            <label for="name">Nombre del Tipo de Beneficiarios:</label>
                             <input type="text" id="name" placeholder="Ingrese Tipo de Beneficiario" name="name" style="border-radius: 10px; padding: 5px; width: 100%;">
                         </div>
                         <button type="submit" class="botton_guardar" style="background-color: #00FF22; color: white;">Guardar</button>
@@ -74,7 +74,7 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
-                            <label for="edit_name">Editar Nombre del Tipo de Beneficio:</label>
+                            <label for="edit_name">Editar Nombre del Tipo de Beneficiarios:</label>
                             <input type="text" id="edit_name" name="name" value="{{ $type->name }}" style="border-radius: 10px; padding: 5px; width: 100%;">
                         </div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
