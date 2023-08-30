@@ -26,7 +26,7 @@
   position: relative;
   left: 10px;
   font-weight: bold;
-  color: rgb(248, 182, 193);
+  color: #f8b6c1;
 }
 
 #userDropdown{
@@ -40,7 +40,7 @@
   right: 0;
   left: auto;
   width: 200px;
-  background-color: rgb(247, 244, 244);
+  background-color: #f7f4f4;
 }
 
 .image_login img{

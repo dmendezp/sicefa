@@ -16,11 +16,12 @@
             </div>
         
             <div class="activities-card">
-                <p>{{ $activity->productive_unit_id }}</p>
-                <p>{{ $activity->activity_type_id }}</p>
-                <p>{{ $activity->description }}</p>
-                <p>{{ $activity->period }}</p>
+                <p><strong>Unidad Productiva:</strong> {{ $activity->productive_unit->name }}</p>
+                <p><strong>Tipo de Actividad:</strong> {{ $activity->activity_type->name }}</p>
+                <p><strong>Descripcion:</strong> {{ $activity->description }}</p>
+                <p><strong>Recurrencia de Actividad:</strong> {{ $activity->period }}</p>
             </div>
+            
             
             <div class="activities-footer text-body-secondary">
                 <p>{{ $activity->status }}</p>

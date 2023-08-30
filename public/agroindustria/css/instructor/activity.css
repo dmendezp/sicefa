@@ -1,23 +1,35 @@
 .activities-card {
-    background-color: #ffffff; /* Color gris claro */
-    padding: 20px; /* Ajusta el valor del relleno para reducir el tamaño de la tarjeta */
+    background-color: #ffffff; 
+    padding: 20px; 
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border: 2px solid rgb(0, 0, 0);
 }
 
 .activitiescard-header{
-    background-color: #e4dfdf;
+    background-color: #f7f4f4;
     padding: 5px;
     box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
     text-align: center;
+    color: #f8b6c1;;
+    font-weight: bold;
+}
+
+.activitiescard-header h2{
+    font-weight: bold;
 }
 
 .activities-footer{
-    background-color: #e4dfdf;
+    background-color: #f7f4f4;
     padding: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
+    color: #f8b6c1;
+}
+
+.activities-footer p{
+    color: #f8b6c1;
+    font-weight: bold;
 }
 
 .actividades-container{
@@ -27,5 +39,9 @@
 
 .card{
     margin-top:2rem !important;
+}
+
+.p{
+    text-align: justify;
 }
 
