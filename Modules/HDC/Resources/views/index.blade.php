@@ -24,8 +24,7 @@
                     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active" data-bs-interval="3000">
-                                <img src="{{ asset('modules/HDC/img/fish.jpg') }}" class="d-block w-100"
-                                    alt="...">
+                                <img src="{{ asset('modules/HDC/img/fish.jpg') }}" class="d-block w-100" alt="...">
                             </div>
                             <div class="carousel-item" data-bs-interval="3000">
                                 <img src="{{ asset('modules/HDC/img/plants.jpg') }}" class="d-block w-100" alt="...">
@@ -70,8 +69,8 @@
                 <div class="card-body">
                     <h3>¿Como Se Calcula La Huella?</h3>
                     <p>Para calcular dicha huella se multiplica el dato de consumo (Actividad) por su correspondiente coeficiente o factor de emision
-                        en función del tipo de recurso utilizado(Energía, combustible, Agua o Residuos) en dicha actividad. 
-                        
+                        en función del tipo de recurso utilizado(Energía, combustible, Agua o Residuos) en dicha actividad.
+
                     </p>
                 </div>
             </div>

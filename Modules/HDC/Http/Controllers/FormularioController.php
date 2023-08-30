@@ -5,6 +5,7 @@ namespace Modules\HDC\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\ProductiveUnit;
 
 class FormularioController extends Controller
 {
@@ -17,8 +18,8 @@ class FormularioController extends Controller
         return view('hdc::index');
     } */
     public function formulario(){
-        
-        return view('hdc::formulario');
+        $productive_unit = ProductiveUnit::orderBy('name', 'ASC')->get();
+        return view('hdc::formulario', compact('productive_unit'));
 
     }
 
