@@ -30,7 +30,7 @@ class InventoryController extends Controller
     //Funciones Para Reporte de inventario
     public function reports()
     { //Vista principal del panel de reportes
-        $view = ['titlePage' => trans('cafeto::reports.Reports'), 'titleView' => trans('ptventa::reports.Reports Panel')];
+        $view = ['titlePage' => 'Reportes', 'titleView' => 'Panel de Reportes'];
         $apps = App::get();
         return view('cafeto::reports.index', compact('view', 'apps'));
     }

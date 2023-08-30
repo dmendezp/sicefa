@@ -16,7 +16,7 @@
     <div class="container">
         <div class="card d-flex justify-content-evenly align-items-center">
             <div class="card-body">
-                <h3 class="text-center">{{ trans('cafeto::reports.Title') }}</h3>
+                <h3 class="text-center">Selecciona aquí el tipo de reporte que deseas consultar</h3>
                 <hr>
                 <div class="row">
                         <div class="col-md-4 col-sm-6">
@@ -27,8 +27,8 @@
                                     <div class="icon">
                                         <i class="fa-solid fa-file-pdf"></i>
                                     </div>
-                                    <p class="title">{{ trans('cafeto::reports.TitleCard1') }}</p>
-                                    <p class="text">{{ trans('cafeto::reports.TextCard1') }}</p>
+                                    <p class="title">Inventario</p>
+                                    <p class="text">Generar el reporte de inventario actual</p>
                                 </button>
                             {{-- </form> --}}
                         </div>
@@ -37,8 +37,8 @@
                                 <div class="icon">
                                     <i class="fa-solid fa-file-pdf"></i>
                                 </div>
-                                <p class="title">{{ trans('cafeto::reports.TitleCard2') }}</p>
-                                <p class="text">{{ trans('cafeto::reports.TextCard2') }}</p>
+                                <p class="title">Entradas de inventario</p>
+                                <p class="text">Generar el reporte de entradas de inventario por fechas</p>
                             </a>
                         </div>
                         <div class="col-md-4 col-sm-6">
@@ -46,8 +46,8 @@
                                 <div class="icon">
                                     <i class="fa-solid fa-file-pdf"></i>
                                 </div>
-                                <p class="title">{{ trans('cafeto::reports.TitleCard3') }}</p>
-                                <p class="text">{{ trans('cafeto::reports.TextCard3') }}</p>
+                                <p class="title">Ventas</p>
+                                <p class="text">Generar repote de ventas por fechas</p>
                             </a>
                         </div>
                 </div>
