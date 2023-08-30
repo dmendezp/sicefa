@@ -2,6 +2,7 @@
 
 namespace Modules\SENAEMPRESA\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -40,20 +41,20 @@ class VacantController extends Controller
     {
         $imagePath = $request->file('image')->store('images', 'public');
 
-        $vacancy = new Vacancy(); // Asegúrate de usar el nombre correcto de la clase
+        $vacancy = new Vacancy();
         $vacancy->name = $request->input('name');
-        $vacancy->image = $imagePath; // Asignar la ruta de la imagen correctamente
+        $vacancy->image = $imagePath;
         $vacancy->description_general = $request->input('description_general');
         $vacancy->requirement = $request->input('requirement');
         $vacancy->position_company_id = $request->input('position_company_id');
-        $vacancy->start_date = $request->input('start_date');
-        $vacancy->end_date = $request->input('end_date');
+        $vacancy->start_datetime = $request->input('start_datetime');
+        $vacancy->end_datetime = $request->input('end_datetime');
 
         if ($vacancy->save()) {
             $vacancy = Vacancy::all();
 
             $data = ['title' => 'Nueva Vacante', 'vacancy' => $vacancy];
-            return redirect()->route('vacantes', $data)->with('success', 'Registro agregado exitosamente.');
+            return redirect()->route('vacantes', $data)->with('success', 'Vacante agregado exitosamente.');
         }
     }
     public function getVacancyDetails($id)
@@ -62,44 +63,46 @@ class VacantController extends Controller
         return response()->json($vacancy);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('senaempresa::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function edit($id)
     {
-        return view('senaempresa::edit');
+        $vacancy = Vacancy::findOrFail($id);
+        $positionCompany = PositionCompany::all();
+        $data = ['title' => 'Editar Vacante', 'vacancy' => $vacancy, 'positionCompany' => $positionCompany];
+        return view('senaempresa::Company.Vacant.vacant_edit', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
     public function update(Request $request, $id)
     {
-        //
+        $vacancy = Vacancy::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $vacancy->image = $imagePath;
+        }
+
+        $vacancy->name = $request->input('name');
+        $vacancy->description_general = $request->input('description_general');
+        $vacancy->requirement = $request->input('requirement');
+        $vacancy->position_company_id = $request->input('position_company_id');
+        $vacancy->start_datetime = $request->input('start_datetime');
+        $vacancy->end_datetime = $request->input('end_datetime');
+
+        if ($vacancy->save()) {
+            return redirect()->route('vacantes')->with('warning', 'Vacante actualizado exitosamente.');
+        } else {
+            return redirect()->back()->with('error', 'Error al actualizar el Vacante.');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
+
     public function destroy($id)
     {
-        //
+        $vacancy = Vacancy::find($id);
+
+        if ($vacancy->delete()) {
+            return redirect()->route('vacantes')->with('danger', 'Vacante eliminado exitosamente.');
+        } else {
+            return redirect()->route('vacantes')->with('error', 'Error al eliminar el Vacante.');
+        }
     }
 }

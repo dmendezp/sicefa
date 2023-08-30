@@ -65,4 +65,4 @@
     });
 </script>
 <script src="{{ asset('senaempresa/js/modal.js') }}"></script>
-<script src="{{ asset('senaempresa/js/fecha.js') }}"></script>
+<script src="{{ asset('senaempresa/js/fecha_alerta.js') }}"></script>

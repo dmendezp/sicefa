@@ -21,7 +21,7 @@
                         <div class="card-header">{{ $title }}</div>
 
                         <div class="card-body">
-                            {!! Form::open(['url' => route('Registros')]) !!}
+                            {!! Form::open(['url' => route('inscription')]) !!}
                             <div class="mb-6">
                                 <label for="document_number" class="form-label">Documento</label>
                                 {!! Form::text('', null, ['class' => 'form-control']) !!}
