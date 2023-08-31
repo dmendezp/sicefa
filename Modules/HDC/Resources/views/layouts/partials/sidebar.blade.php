@@ -3,7 +3,7 @@
           <!-- Bran Logo: Aqui se realiza el ajuste del logo y titulo que esta en el sidebar-->
           <a href="{{ route('cefa.hdc.index') }}" class="brand-link text-decoration-none">
               <img src="{{ asset('modules/HDC/img/logo.png') }}" class="brand-image" alt="HDC-Logo">{{-- Icono de huella de carbono --}}
-              <span class="brand-text font-weight-bold">Huella de Carbono</span>
+              <span class="brand-text font-weight-bold">{{ trans('hdc::hdcgeneral.carbonfootprint')}}</span>
           </a>
 
           <!-- Sidebar -->
@@ -22,7 +22,7 @@
                       <div class="col info info-user">
                           <div>{{ trans('menu.Welcome') }}</div>
                           <div>
-                              <a href="{{ route('login') }}" class="d-block">Iniciar sesión</a>
+                              <a href="{{ route('login') }}" class="d-block">{{ trans('hdc::hdcgeneral.login')}}</a>
                           </div>
                       </div>
                       <div class="col-auto info float-right mt-2" data-toggle="tooltip" data-placement="right"
@@ -60,7 +60,7 @@
                           <a href="{{ route('cefa.welcome') }}"
                               class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
                               <i class="nav-icon fas fa-puzzle-piece"></i>
-                              <p>Volver a SICEFA</p>
+                              <p>{{trans('hdc::hdcgeneral.BacktoSICEFA')}}</p>
                           </a>
                       </li>
                   </ul>
@@ -97,10 +97,10 @@
                           @endif
                       @endforeach
                         <li class="nav-item">
-                            <a href="{{ Route('formulario') }}" class="nav-link">
+                            <a href="{{ Route('cefa.hdc.formulario') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-pen-to-square"></i>
                                 <p>
-                                    Registro de Consumo
+                                {{ trans('hdc::hdcgeneral.RegisterConsumption') }}
                                 </p>
                             </a>
                         </li>
@@ -108,7 +108,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa-solid fa-magnifying-glass"></i>
                                 <p>
-                                    Consulta de Consumo
+                                {{ trans('hdc::hdcgeneral.consumptionconsultation')}}
                                 </p>
                             </a>
                         </li>
@@ -116,7 +116,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa-solid fa-book"></i>
                                 <p>
-                                    Instrucciones
+                                  {{ trans('hdc::hdcgeneral.instructions')}}
                                 </p>
                             </a>
                         </li>

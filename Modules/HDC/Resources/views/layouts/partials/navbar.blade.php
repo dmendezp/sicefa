@@ -6,20 +6,28 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('cefa.hdc.index') }}"class="nav-link">Home</a>
+            <a href="{{ route('cefa.hdc.index') }}"class="nav-link">{{ trans('hdc::hdcgeneral.Home')}}</a>
         </li>
 
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link ">Administrador</a>
+            <a href="#" class="nav-link ">{{ trans('hdc::hdcgeneral.administrator')}}</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link ">Consulta</a>
+            <a href="#" class="nav-link ">{{ trans('hdc::hdcgeneral.consultation')}}</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link ">Administrar Recursos</a>
+            <a href="{{route('cefa.hdc.adminresources')}}" class="nav-link ">{{ trans('hdc::hdcgeneral.manageresources')}}</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link ">Instrucciones</a>
+            <a href="#" class="nav-link ">{{ trans('hdc::hdcgeneral.instructions')}}</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block" style="margin-left: 500px">
+            <a href="{{url('lang',['en'])}}" class="nav-link">{{ trans('hdc::hdcgeneral.English')}}</a>
+            <img src="{{ asset('modules/HDC/img/usa.png')}}" style="margin-left: 10px" width="30px">
+        </li>
+        <li class="nav-item d-none d-sm-inline-block"  style="margin-left: 40px">
+            <a href="{{url('lang',['es'])}}" class="nav-link ">{{ trans('hdc::hdcgeneral.Spanish')}}</a>
+            <img src="{{ asset('modules/HDC/img/colombia.png')}}" style="margin-left: 10px" width="30px">
         </li>
     </ul>
 
