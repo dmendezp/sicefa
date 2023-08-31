@@ -105,13 +105,20 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('Contactos') }}" class="nav-link {{ !Route::is('Contactos') ?: 'active' }}">
-                        <i class="fas fa-address-book"></i>
+                    <a href="{{ route('Contactos') }}" class="nav-link {{ !Route::is('contactos') ?: 'active' }}">
+                        <i class="fas fa-home"></i>
                         <p>
-                            Contactos
+                            contactos
                         </p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('personal') }}" class="nav-link {{ !Route::is('personal') ?: 'active' }}">
+                        <i class="fas fa-home"></i>
+                        <p>
+                            Personal
+                        </p>
                 </a>
                 </li>
 
@@ -128,20 +135,21 @@
                             <a href="{{ route('vacantes') }}"
                                 class="nav-link {{ !Route::is('vacantes') ?: 'active' }}">
                                 <i class="fas fa-user-tag"></i>
-                                <p>Vacantes</p>
+                                <p>Disponibles</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('asociar_curso') }}"
-                                class="nav-link {{ !Route::is('asociar_curso') ?: 'active' }}">
-                                <i class="fab fa-discourse"></i>
-                                <p>Asociar Cursos</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('carga') }}" class="nav-link {{ !Route::is('carga') ?: 'active' }}">
+                            <a href="{{ route('agregar_vacante') }}"
+                                class="nav-link {{ !Route::is('agregar_vacante') ?: 'active' }}">
                                 <i class="fas fa-user-plus"></i>
-                                <p>Cargo</p>
+                                <p>Nueva</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('carga') }}"
+                                class="nav-link {{ !Route::is('carga') ?: 'active' }}">
+                                <i class="fas fa-user-plus"></i>
+                                <p>cargo</p>
                             </a>
                         </li>
                     </ul>
