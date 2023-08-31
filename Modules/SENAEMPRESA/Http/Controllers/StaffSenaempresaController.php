@@ -8,6 +8,9 @@ use Illuminate\Routing\Controller;
 use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SICA\Entities\Apprentice;
+use Modules\SICA\Entities\Person;
+
+
 
 class StaffSenaempresaController extends Controller
 {
@@ -17,6 +20,7 @@ class StaffSenaempresaController extends Controller
      */
     public function Per()
     {
+        $
         $staff_senaempresas = StaffSenaempresa::get();
         $data = ['title' => 'Personal', 'staff_senaempresas' => $staff_senaempresas];
          return view('senaempresa::staff_senaempresa.staff', $data);
@@ -41,8 +45,17 @@ class StaffSenaempresaController extends Controller
      */
     public function store(Request $request)
     {
+        $docente_id = $request->input('docente_id');
+        $docente = Apprentice::with('Person')->find($docente_id);
+        $nombre_docente = $docente->persona->primer_nombre;
+
+
+
+
+
         $staffsenaempresa = new StaffSenaempresa();
         $staffsenaempresa->position_company_id = $request->input('position_company_id');
+        $calificacion->docente_id = $request->input('docente_id');
         $staffsenaempresa->apprentice_id = $request->input('apprentice_id');
     
     }

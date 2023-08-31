@@ -35,6 +35,21 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="mb-3">
+                                    <label for="apprentice_id" class="form-label">Id Aprendiz</label>
+                                    <select class="form-control" name="apprentice_id"
+                                        aria-label="Selecciona un Aprendiz">
+                                        <option value="" selected>Selecciona un Aprendiz</option>
+                                        @foreach ($Apprentice as $Apprentice)
+                                            <option value="{{ $Apprentice->id }}">
+                                                {{ $Apprentice->description }} (ID: {{ $Apprentice->id }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
+aprendiz
 
                           
                                
