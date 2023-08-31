@@ -5,6 +5,8 @@ namespace Modules\HDC\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\Activity;
+use Modules\SICA\Entities\Labor;
 use Modules\SICA\Entities\ProductiveUnit;
 
 class FormularioController extends Controller
