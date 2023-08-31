@@ -5,6 +5,8 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SENAEMPRESA\Entities\senaempresa;
+use Modules\SICA\Entities\Course;
 
 class SENAEMPRESAController extends Controller
 {
@@ -80,5 +82,36 @@ class SENAEMPRESAController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    //Asociar cursos a vacantes
+    public function cursos_senamepresa()
+    {
+        $senaempresas = senaempresa::get();
+        $courses = Course::with('program')->get();
+        $data = ['title' => 'Asignar Cursos a SenaEmpresa', 'courses' => $courses, 'senaempresas' => $senaempresas];
+        return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
+    }
+
+    public function curso_asociado_senaempresa(Request $request)
+    {
+        // Valida los datos del formulario
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'senaempresa_id' => 'required|exists:senaempresas,id',
+        ]);
+
+        // Obtén los IDs de los cursos y las vacantes
+        $courseId = $request->input('course_id');
+        $senaempresaId = $request->input('senaempresa_id');
+
+        // Encuentra los modelos correspondientes
+        $course = Course::findOrFail($courseId);
+        $senaempresa = senaempresa::findOrFail($senaempresaId);
+
+        // Asigna el curso a la senaempresa
+        $course->senaempresas()->attach($senaempresa);
+
+        return redirect()->back()->with('success', 'Curso asignado a la vacante exitosamente.');
     }
 }

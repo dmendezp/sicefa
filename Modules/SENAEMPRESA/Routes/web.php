@@ -83,6 +83,10 @@ Route::prefix('senaempresa')->group(function () {
     //Rutas para senaempresa estrategias
     Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('senaempresa');
 
+    //Rutas para asociar cursos a senaempresa estrategias
+    Route::get('Estrategias/Asociar_Curso/', 'SENAEMPRESAController@cursos_senamepresa')->name('cursos_senaempresa');
+    Route::post('Estrategias/Curso_Asociado/', 'SENAEMPRESAController@curso_asociado_senaempresa')->name('curso_asociado_senaempresa');
+
     //rutas para cargo;
     Route::get('Cargos/', 'PositionCompanyController@cargar')->name('carga');
     Route::get('Cargos/Nueva', 'PositionCompanyController@registro')->name('registro');
@@ -96,5 +100,4 @@ Route::prefix('senaempresa')->group(function () {
     Route::get('Personal/', 'StaffSenaempresaController@Per')->name('personal');
     Route::get('Personal/Nueva', 'StaffSenaempresaController@registro')->name('registro');
     Route::post('Personal/Nueva', 'StaffSenaempresaController@store')->name('Nuevo');
-
 });

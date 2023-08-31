@@ -112,15 +112,43 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item {{ !Route::is('vacant.*') ?: 'menu-is-opening menu-open' }}">
+                    <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
+                        <i class="fas fa-chess-rook"></i>
+                        <p>SenaEmpresa
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('senaempresa') }}"
+                                class="nav-link {{ !Route::is('senaempresa') ?: 'active' }}">
+                                <i class="fas fa-chess-rook"></i>
+                                <p>
+                                    Estrategias
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('cursos_senaempresa') }}"
+                                class="nav-link {{ !Route::is('cursos_senaempresa') ?: 'active' }}">
+                                <i class="fas fa-file-invoice"></i>
+                                <p>Asociar Curso</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('personal') }}"
+                                class="nav-link {{ !Route::is('personal') ?: 'active' }}">
+                                <i class="fas fa-users-cog"></i>
+                                <p>
+                                    Personal
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
-                <li class="nav-item">
-                <a href="{{ route('senaempresa') }}" class="nav-link {{ !Route::is('senaempresa') ?: 'active' }}">
-                    <i class="fas fa-chess-rook"></i>
-                    <p>
-                        Estrategias
-                    </p>
-                </a>
-            </li>
+
                 <li class="nav-item {{ !Route::is('vacant.*') ?: 'menu-is-opening menu-open' }}">
                     <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
                         <i class="fas fa-id-card"></i>
@@ -137,20 +165,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('carga') }}"
-                                class="nav-link {{ !Route::is('carga') ?: 'active' }}">
+                            <a href="{{ route('carga') }}" class="nav-link {{ !Route::is('carga') ?: 'active' }}">
                                 <i class="fas fa-user-plus"></i>
                                 <p>cargo</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('personal') }}" class="nav-link {{ !Route::is('personal') ?: 'active' }}">
-                                <i class="fas fa-users-cog"></i>
-                                <p>
-                                    Personal
-                                </p>
+                            <a href="{{ route('asociar_curso') }}"
+                                class="nav-link {{ !Route::is('asociar_curso') ?: 'active' }}">
+                                <i class="fas fa-file-invoice"></i>
+                                <p>Asociar Curso</p>
                             </a>
                         </li>
+
                     </ul>
                 </li>
                 <li class="nav-item {{ !Route::is('entrevistas.*') ?: 'menu-is-opening menu-open' }}">
