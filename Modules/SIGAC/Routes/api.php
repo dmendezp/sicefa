@@ -1,7 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\SIGAC\Http\Controllers\AuthController;
+use Modules\SIGAC\Http\Controllers\ApprenticesController;
+use Modules\SIGAC\Http\Controllers\AssistancesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,3 +20,13 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/sigac', function (Request $request) {
     return $request->user();
 });
+
+
+Route::post('/SIGAC/register',[AuthController::class,'register'] );
+Route::post('/SIGAC/login',[AuthController::class,'login'] );
+Route::post('/SIGAC/user',[AuthController::class,'user'] );
+Route::post('/SIGAC/logout',[AuthController::class,'logout'] );
+
+Route::get('/SIGAC/apprentice', [ApprenticesController::class, 'searchApprentices']);
+Route::post('/SIGAC/apprentice', [ApprenticesController::class, 'searchApprentices']);
+Route::post('/SIGAC/assistence', [AssistancesController::class, 'store']);
