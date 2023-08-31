@@ -40,13 +40,23 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 *  -  **Dayana Marcela** - *Implementar lo realizado en la vista de parametros* - *Avance 100%* - *N/A* - **
 *  -  **Yuderly Sapuy** - *Implementar lo realizado en la vista de parametros* - *Avance 100%* - *N/A* - **
 *  -  **Laura Rodriguez** - *Implementar lo realizado en la vista de parametros* - *Avance 100%* - *N/A* - **
-*  -  **Andres Almario** - *Implementar parametro actividad* - *Avance 100* - *N/A* - **
+*  -  **Andres Almario** - *Implementar parametro actividad* - *Avance 70%* - *Perdida de tiempo por diseño y filtro de unidades* - *Terminar en el otro sprint*
 ---
 
+### Sprint 1 🔄
+#### Sprint Planning 26-Oct-2022
+* **Dayana Marcela** - *Inventario general*
+* **Yuderly Sapuy** - *Vista AGROCEFA*
+* **Laura Rodriguez** - *Vista desarrolladores*
+* **Andres Almario** - *Gestion de movimientos y movimientos de produccion*
+* 
+
 #### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Andres Almario** - *Modificacion Actividad y contextaulizacion de movimientos (BD y acciones) * - *100%* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
+
+
 
 ## PUNTO DE VENTA 🛒
 
