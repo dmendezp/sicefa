@@ -27,9 +27,57 @@
                                 <td style="text-align: center;"></td>
                                 <td style="text-align: center;"></td>
                                 <td style="text-align: center;">
-                                <a href="#" class="btn btn-info btn-sm" style="background-color: #00DCFF;"><i class="fas fa-cog" style="color: #000000;"></i></a>
-                                    &nbsp;
-                                    <a href="#" class="btn btn-danger btn-sm" style="background-color: #FF001A;"><i class="fas fa-trash" style="color: #000000;"></i></a>
+                                <a href="#" class="btn btn-info btn-sm custom-icon-btn" data-toggle="modal" data-target="#settingsModal">
+  <i class="fas fa-cog" style="color: #000000;"></i>
+</a>
+&nbsp;
+<a href="#" class="btn btn-danger btn-sm custom-icon-btn" data-toggle="modal" data-target="#deleteModal">
+  <i class="fas fa-trash" style="color: #000000;"></i>
+</a>
+
+<!-- Modal for Settings -->
+<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="settingsModalLabel">Configuración</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Contenido de la configuración -->
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Eliminar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro de que deseas eliminar este elemento?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
                                 </td>
                             </tr>
                         </tbody>
