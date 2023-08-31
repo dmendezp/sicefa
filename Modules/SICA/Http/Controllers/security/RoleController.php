@@ -6,7 +6,6 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Permission;
-use Modules\SICA\Entities\Responsibility;
 
 class RoleController extends Controller
 {
@@ -40,10 +39,10 @@ class RoleController extends Controller
         return view('sica::admin.security.permissions.index', $data);
     }
 
-    public function responsibilities()
-    {
-        $responsibilities = Responsibility::get();
-        $data = ['title'=>trans('sica::menu.Roles'),'responsibilities'=>$responsibilities];
-        return view('sica::admin.security.responsibilities.home',$data);
+    /* Listado de responsabilidades disponibles */
+    public function responsibilities_index(){
+        $data = ['title'=>'Responsabilidades'];
+        return view('sica::admin.security.responsibilities.index', $data);
     }
+
 }

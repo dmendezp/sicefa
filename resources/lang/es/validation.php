@@ -131,7 +131,7 @@ return [
 
     'custom' => [
         'roles_id' => [
-            'required' => 'Es necesario seleccionar al menos un rol.',
+            'required' => 'Es necesario seleccionar al menos un rol.', // SICA
         ],
     ],
 
@@ -147,12 +147,19 @@ return [
     */
 
     'attributes' => [
+        'activity_id' => 'actividad', // SICA
+        'activity_type_id' => 'tipo de actividad', // SICA
         'app_id' => 'aplicación', // SICA
+        'date' => 'fecha', // SICA
         'description' => 'descripción', // SICA
+        'end_date' => 'fecha de finalización', // SICA
+        'environment_id' => 'ambiente', // SICA
         'farm_id' => 'granja', // SICA
+        'issue' => 'asunto', // SICA
         'leader_id' => 'persona líder', // SICA
         'name' => 'nombre', // SICA
         'nickname' => 'nombre de usuario', // SICA
+        'period' => 'periodo', // SICA
         'person_document_type' => 'tipo de documento', // PTVENTA
         'person_document_number' => 'número de documento', // PTVENTA
         'person_first_name' => 'nombres', // PTVENTA
@@ -160,8 +167,14 @@ return [
         'person_id' => 'persona', // SICA
         'person_second_last_name' => 'segundo apellido', // PTVENTA
         'productive_unit_id' => 'unidad productiva', // SICA
-        'sector_id' => 'sector', // SICA
+        'role_id' => 'rol', // SICA
+        'sector_id' => 'área productiva', // SICA
+        'start_date' => 'fecha de inicio', // SICA
+        'status' => 'estado', // SICA
         'warehouse_id' => 'bodega', // SICA
     ],
+
+    'distinct_app_roles' => 'Lo roles seleccionados deben pertenecer a distintas aplicaciones.',
+    'at_least_one_role' => 'Al menos un rol debe ser seleccionado.',
 
 ];

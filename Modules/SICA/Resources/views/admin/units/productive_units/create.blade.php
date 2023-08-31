@@ -16,6 +16,15 @@
                         @csrf
                         <div class="card-body pb-1">
                             <div class="form-group">
+                                <label>Área productiva:</label>
+                                <select name="sector_id" class="form-control" required>
+                                    <option value="">-- Seleccione --</option>
+                                    @foreach ($sectors as $s)
+                                        <option value="{{ $s->id }}" {{ old('sector_id') == $s->id ? 'selected' : '' }}>{{ $s->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label>Nombre:</label>
                                 {!! Form::text('name', null, [
                                     'class'=>'form-control',
@@ -38,27 +47,9 @@
                             {{-- Se incluye el componente para consultar una persona y asignarla como líder --}}
                             @livewire('sica::admin.units.productive-units.consult-leader', ['productive_unit'=>null])
 
-                            <div class="form-group">
-                                <label>Sector:</label>
-                                <select name="sector_id" class="form-control" required>
-                                    <option value="">-- Seleccione --</option>
-                                    @foreach ($sectors as $s)
-                                        <option value="{{ $s->id }}" {{ old('sector_id') == $s->id ? 'selected' : '' }}>{{ $s->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Granja:</label>
-                                <select name="farm_id" class="form-control" required>
-                                    <option value="">-- Seleccione --</option>
-                                    @foreach ($farms as $f)
-                                        <option value="{{ $f->id }}" {{ old('farm_id') == $f->id ? 'selected' : '' }}>{{ $f->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                         </div>
                         <div class="card-footer py-2 text-right">
-                            <a href="{{ route('sica.admin.inventory.warehouse.index') }}" class="btn btn-secondary btn-sm">Cancelar</a>
+                            <a href="{{ route('sica.admin.units.productive_unit.index') }}" class="btn btn-secondary btn-sm">Cancelar</a>
                             <button type="submit" class="btn btn-primary btn-sm">Registrar</button>
                         </div>
                     </form>
