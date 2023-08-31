@@ -33,13 +33,9 @@ class StaffSenaempresaController extends Controller
     {
         $staff_senaempresas = StaffSenaempresa::get();
         $PositionCompany = PositionCompany::all();
-<<<<<<< HEAD
-        $data = ['title' => 'Vacante', 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany];
-=======
         $Apprentices = Apprentice::all();
         $People = Person::all();
         $data = ['title' => 'Nueva Vacante', 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices, 'People' => $People];
->>>>>>> 65233116c8cc16cf7a509005cd8b31f12c42de35
         return view('senaempresa::staff_senaempresa.staff_registration', $data);
     }
 
@@ -50,16 +46,12 @@ class StaffSenaempresaController extends Controller
      */
     public function store(Request $request)
     {
-        $apprentice_id = $request->input('apprentice_id');
-        $apprentice = Apprentice::with('Person')->find($apprentice_id);
-        $nombre_apprentice = $apprentice->Person->primer_nombre;
+        $docente_id = $request->input('docente_id');
+        $docente = Apprentice::with('Person')->find($docente_id);
+        $nombre_docente = $docente->persona->primer_nombre;
 
         $staffsenaempresa = new StaffSenaempresa();
         $staffsenaempresa->position_company_id = $request->input('position_company_id');
-<<<<<<< HEAD
-        $calificacion->apprentice_id = $request->input('apprentice_id');
-=======
->>>>>>> 65233116c8cc16cf7a509005cd8b31f12c42de35
         $staffsenaempresa->apprentice_id = $request->input('apprentice_id');
     }
 

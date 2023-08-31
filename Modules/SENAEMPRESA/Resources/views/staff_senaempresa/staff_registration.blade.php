@@ -41,9 +41,11 @@
                                     <select class="form-control" name="apprentice_id"
                                         aria-label="Selecciona un Aprendiz">
                                         <option value="" selected>Selecciona un Aprendiz</option>
-                                        @foreach ($Apprentice as $Apprentice)
+                                        @foreach ($Apprentices as $Apprentice)
                                             <option value="{{ $Apprentice->id }}">
-                                                {{ $Apprentice->description }} (ID: {{ $Apprentice->id }})
+                                                {{ $Apprentice->Person->document_number }}
+                                                {{ $Apprentice->Person->first_name }}
+                                                {{ $Apprentice->Person->first_last_name }}
                                             </option>
                                         @endforeach
                                     </select>
