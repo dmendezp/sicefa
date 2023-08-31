@@ -3,7 +3,7 @@
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-Dark" style="background-color:rgb(247, 244, 244); margin-bottom:20px">
-    <a class="navbar-brand" id="title" href="#">AGROINDUSTRIA</a>
+    <a class="navbar-brand" id="title" href="{{route('agroindustria.home.index')}}">AGROINDUSTRIA</a>
 
     <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
         aria-expanded="false" aria-label="Toggle navigation"></button>
@@ -36,6 +36,29 @@
                 <a class="nav-link" href="{{route('agroindustria.instructor.activity')}}">Actividades</a>
             </li>
             @endif
+            @if(Auth::user()->havePermission('agroindustria.storer.crud'))
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Bodegas
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('agroindustria.intern.benvas')}}">Envases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('agroindustria.intern.bepp')}}">Epp</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('agroindustria.intern.binsu')}}">Insumos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('agroindustria.intern.baseo')}}">Aseo</a>
+                    </li>
+                </ul>
+              </div>
+            
+            @endif
+
             @endauth
         </ul>
     </div>

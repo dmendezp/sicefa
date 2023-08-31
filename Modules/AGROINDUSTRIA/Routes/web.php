@@ -37,7 +37,7 @@ Route::prefix('agroindustria')->group(function() {
     });
 
     //intern
-    Route::prefix('intern')->group(function (){
+    Route::prefix('storer')->group(function (){
         Route::get('/index', [InventoryController::class ,'index'])->name('agroindustria.intern.index');
         Route::get('/invb', [InventoryController::class ,'invb'])->name('agroindustria.intern.invb');
         Route::get('/epp', [WarehouseController::class ,'bodegaepp'])->name('agroindustria.intern.bepp');

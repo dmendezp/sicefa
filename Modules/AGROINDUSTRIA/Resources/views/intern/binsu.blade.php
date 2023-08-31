@@ -15,7 +15,7 @@
 
             <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" id="create" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    AGREGAR
+  <i class="fa-solid fa-plus fa-2xl"></i>
   </button>
   
   <!-- Modal -->
@@ -27,7 +27,29 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ...
+
+          {{-- formulario de agrefar insumo --}}
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre</label>
+              <input type="tetx" class="form-control" id="name">
+            </div>
+            <div class="mb-3">
+              <label for="account" class="form-label">Cantidad</label>
+              <input type="tetx" class="form-control" id="account">
+            </div>
+            <div class="mb-3">
+              <label for="lot" class="form-label">Lote</label>
+              <input type="tetx" class="form-control" id="lot">
+            </div>
+            <div class="mb-3">
+              <label for="category" class="form-label">Categoria</label>
+              <input type="tetx" class="form-control" id="category">
+            </div>
+          </form>
+
+
+
         </div>
         <div class="modal-footer">
           <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -45,7 +67,7 @@
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Precio</th>
-               
+              
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -70,7 +92,25 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                        ...
+                         {{-- formulario de agrefar insumo --}}
+                                  <form>
+                                    <div class="mb-3">
+                                      <label for="name" class="form-label">Nombre</label>
+                                      <input type="tetx" class="form-control" id="name">
+                                    </div>
+                                    <div class="mb-3">
+                                      <label for="account" class="form-label">Cantidad</label>
+                                      <input type="tetx" class="form-control" id="account">
+                                    </div>
+                                    <div class="mb-3">
+                                      <label for="lot" class="form-label">Lote</label>
+                                      <input type="tetx" class="form-control" id="lot">
+                                    </div>
+                                    <div class="mb-3">
+                                      <label for="category" class="form-label">Categoria</label>
+                                      <input type="tetx" class="form-control" id="category">
+                                    </div>
+                                  </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

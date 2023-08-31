@@ -1,5 +1,5 @@
 @extends('agroindustria::layouts.master')
-
+@include('agroindustria::layouts.partials.head')
 @section('content')
     
 
