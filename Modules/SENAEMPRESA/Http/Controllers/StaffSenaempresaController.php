@@ -34,7 +34,7 @@ class StaffSenaempresaController extends Controller
     {
         $staff_senaempresas = StaffSenaempresa::get();
         $PositionCompany = PositionCompany::all();
-        $data = ['title' => 'Nueva Vacante', 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany];
+        $data = ['title' => 'Vacante', 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany];
         return view('senaempresa::staff_senaempresa.staff_registration', $data);
     }
 
@@ -45,9 +45,9 @@ class StaffSenaempresaController extends Controller
      */
     public function store(Request $request)
     {
-        $docente_id = $request->input('docente_id');
-        $docente = Apprentice::with('Person')->find($docente_id);
-        $nombre_docente = $docente->persona->primer_nombre;
+        $apprentice_id = $request->input('apprentice_id');
+        $apprentice = Apprentice::with('Person')->find($apprentice_id);
+        $nombre_apprentice = $apprentice->Person->primer_nombre;
 
 
 
@@ -55,7 +55,7 @@ class StaffSenaempresaController extends Controller
 
         $staffsenaempresa = new StaffSenaempresa();
         $staffsenaempresa->position_company_id = $request->input('position_company_id');
-        $calificacion->docente_id = $request->input('docente_id');
+        $calificacion->apprentice_id = $request->input('apprentice_id');
         $staffsenaempresa->apprentice_id = $request->input('apprentice_id');
     
     }
