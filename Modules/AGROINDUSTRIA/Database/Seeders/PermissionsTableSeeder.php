@@ -165,8 +165,8 @@ class PermissionsTableSeeder extends Seeder
         $permission_instructor[] = $permission->id;
 
         //Visualizar Movimientos de produccion y/o movimientos de bodegas.
-        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.movements'], [
-            'name' => 'Visualizar la vista de Movimientos.',
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.deliveries'], [
+            'name' => 'Visualizar la vista de Entregas.',
             'description' => 'Puede visualizar y/o registrar movimientos de produccion y/o de bodega.',
             'description_english' => 'You can visualize and/or register production and/or warehouse movements.',
             'app_id' => $app->id
