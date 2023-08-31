@@ -30,7 +30,8 @@
                                         <option value="" selected>Selecciona un Cargo</option>
                                         @foreach ($PositionCompany as $positionCompany)
                                             <option value="{{ $positionCompany->id }}">
-                                                {{ $positionCompany->description }} (ID: {{ $positionCompany->id }})
+                                                {{ $positionCompany->id }}
+                                                {{ $positionCompany->description }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -40,20 +41,15 @@
                                     <select class="form-control" name="apprentice_id"
                                         aria-label="Selecciona un Aprendiz">
                                         <option value="" selected>Selecciona un Aprendiz</option>
-                                        @foreach ($Apprentice as $Apprentice)
+                                        @foreach ($Apprentices as $Apprentice)
                                             <option value="{{ $Apprentice->id }}">
-                                                {{ $Apprentice->description }} (ID: {{ $Apprentice->id }})
+                                                {{ $Apprentice->Person->document_number }}
+                                                {{ $Apprentice->Person->first_name }}
+                                                {{ $Apprentice->Person->first_last_name }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
-
-
-aprendiz
-
-                          
-                               
-
                                 <button type="submit" class="btn btn-success">Agregar</button>
                                 <a href="{{ route('carga') }}" class="btn btn-danger btn-xl">Cancelar</a>
                             </form>
