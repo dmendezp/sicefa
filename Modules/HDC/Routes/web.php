@@ -19,6 +19,8 @@ Route::prefix('hdc')->group(function() {
 
     /* Ruta del Formulario */
    Route::get('Formulario', 'FormularioController@formulario')->name('formulario');
+   /* Ruta Para Administrar Recursos */
+   Route::get('Administrar Recursos', 'AdminresourcesController@adminresources')->name('AdministrarRecursos');
 
 
 

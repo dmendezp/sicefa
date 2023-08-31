@@ -15,7 +15,7 @@
             <a href="#" class="nav-link ">Consulta</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link ">Administrar Recursos</a>
+            <a href="{{Route('AdministrarRecursos') }}" class="nav-link ">Administrar Recursos</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link ">Instrucciones</a>
