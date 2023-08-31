@@ -114,15 +114,13 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('personal') }}" class="nav-link {{ !Route::is('personal') ?: 'active' }}">
-                        <i class="fas fa-home"></i>
-                        <p>
-                            Personal
-                        </p>
+                <a href="{{ route('senaempresa') }}" class="nav-link {{ !Route::is('senaempresa') ?: 'active' }}">
+                    <i class="fas fa-chess-rook"></i>
+                    <p>
+                        Estrategias
+                    </p>
                 </a>
-                </li>
-
-
+            </li>
                 <li class="nav-item {{ !Route::is('vacant.*') ?: 'menu-is-opening menu-open' }}">
                     <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
                         <i class="fas fa-id-card"></i>
@@ -139,17 +137,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('agregar_vacante') }}"
-                                class="nav-link {{ !Route::is('agregar_vacante') ?: 'active' }}">
-                                <i class="fas fa-user-plus"></i>
-                                <p>Nueva</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="{{ route('carga') }}"
                                 class="nav-link {{ !Route::is('carga') ?: 'active' }}">
                                 <i class="fas fa-user-plus"></i>
                                 <p>cargo</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('personal') }}" class="nav-link {{ !Route::is('personal') ?: 'active' }}">
+                                <i class="fas fa-users-cog"></i>
+                                <p>
+                                    Personal
+                                </p>
                             </a>
                         </li>
                     </ul>
