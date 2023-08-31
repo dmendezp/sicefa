@@ -33,9 +33,31 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 **Julian Javier Ramirez Diaz** - *Rutas controladores vistas para solicitud* - *44%* - *Ninguna* - *Ninguna*
 
 ---
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 31-Agosto-20223
+* **Jennifer Marin Montealegre** - *Formulario para registro de formulacion* - *78%* - *Nunguna* - *Ninguna*
+
+* **David Juliam Cadena Barrera** - *Formulario de registro de nuevo insumo y de edicion* - *50%* - *Ninguna* - *Ninguna.*
+
+**Juan Diego Bonilla Aroca** - *vista de entregas* - *98%* - *Ninguna* - *Ninguna*
+
+**Julian Javier Ramirez Diaz** - *Rutas controladores vistas para solicitud* - *44%* - *Ninguna* - *Ninguna*
+
+### Sprint 2 🔄
+#### Sprint Planning 29-Agt-2023
+* **Jennifer Marin Montealegre** - *Visualización de Insumos utilizados en el desarrollo de productos.*
+* **David Juliam Cadena Barrera** - *Dar de baja a insumos de Bodega.*
+* **Juan Diego Bonilla Aroca** - *Registro de entrega de productos a punto de venta.*
+* **Julian Javier Ramirez Diaz** - *Registro de entrega de productos a punto de venta.*
+#### Meet 31-Agosto-20223
+* **Jennifer Marin Montealegre** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+
+* **David Juliam Cadena Barrera** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+
+**Juan Diego Bonilla Aroca** - *vista de entregas* - *44%* - *Ninguna* - *Ninguna*
+
+**Julian Javier Ramirez Diaz** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+
+
 ---
 #### Meet 02-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
