@@ -84,6 +84,10 @@ Route::prefix('/bienestar')->group(function() {
     Route::put('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@update')->name('bienestar.benefitstypeofbenefits.update');
     Route::delete('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@destroy')->name('benefitstypeofbenefits.destroy');
 
+    //vista postulation
+    Route::get('/postulations', 'PostulationsController@index')->name('bienestar.postulations.index');
+    Route::get('/postulations/{id}', 'PostulationsController@show')->name('bienestar.postulations.show');
+
 
         //Vistas Rutas de transporte
     Route::get('/transportroutes','RoutesTransportationsController@transportroutes')->name('bienestar.transportroutes');
