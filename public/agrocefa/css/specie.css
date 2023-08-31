@@ -47,8 +47,7 @@ td a:hover {
     margin: 0 5px;
 }
 
-.edit {
-    background-color: #0A91CC;
+#edit {
     border: none;
     color: white;
     padding: 5px 10px;
@@ -85,8 +84,7 @@ td a:hover {
     margin-right: 93%;
 }
 
-.delete {
-    background-color: #EC0101;
+#delete {
     border: none;
     color: white;
     padding: 7px 12px;

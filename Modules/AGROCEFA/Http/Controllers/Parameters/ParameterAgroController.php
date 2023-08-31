@@ -72,4 +72,41 @@ class ParameterAgroController extends Controller
             return redirect()->back()->with('error', 'Error al crear la especie. Por favor, inténtalo de nuevo.');
         }
     }
+
+    /* Funcion editar especie */
+
+    public function update(Request $request, $id)
+    {
+        // Validar los datos del formulario si es necesario
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'lifecycle' => 'required|in:Transitorio,Permanente',
+        ]);
+    
+        // Encontrar la especie a actualizar
+        $specie = Specie::findOrFail($id);
+    
+        // Actualizar los datos de la especie
+        $specie->name = $request->input('name');
+        $specie->lifecycle = $request->input('lifecycle');
+        $specie->save();
+    
+        // Redireccionar a la vista de lista de especies o a otra página según sea necesario
+        return redirect()->route('agrocefa.parameters')/* ->with('success', 'Especie actualizada correctamente.') */;
+    }
+
+    /* Funcion eliminar especie*/
+
+    public function destroy($id)
+    {
+        try {
+            $species = Specie::findOrFail($id);
+            $species->delete();
+
+            return redirect()->route('agrocefa.parameters')->with('success', 'Especie eliminada exitosamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('agrocefa.parameters')->with('error', 'Error al eliminar la especie.');
+        }
+    }
+    
 }
