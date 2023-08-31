@@ -16,6 +16,11 @@ class SENAEMPRESAController extends Controller
     {
         return view('senaempresa::index');
     }
+    public function senaempresa()
+    {
+        $data = ['title' => 'SenaEmpresa - Estrategias'];
+        return view('senaempresa::Company.SENAEMPRESA.senaempresa', $data);
+    }
 
     /**
      * Show the form for creating a new resource.
