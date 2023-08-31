@@ -5,6 +5,11 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\BIENESTAR\Entities\Postulations;
+use Modules\BIENESTAR\Entities\Convocations;
+use Modules\SICA\Entities\Apprentice;
+use Modules\BIENESTAR\Entities\TypesOfBenefits;
+
 
 class PostulationsController extends Controller
 {
@@ -14,7 +19,14 @@ class PostulationsController extends Controller
      */
     public function index()
     {
-        return view('bienestar::index');
+        $postulations = Postulations::with(['apprentice', 'convocation', 'typesOfBenefits'])->get();
+        return view('bienestar::postulations', compact('postulations'));
+    }
+
+
+    public function show($id) {
+        $postulation = Postulations::with('convocation', 'apprentice', 'typesOfBenefits', 'answers', 'postulationBenefits', 'socioEconomicSupportFiles')->findOrFail($id);
+        return view('bienestar::postulations.show', compact('postulation'));
     }
 
     /**
@@ -41,10 +53,7 @@ class PostulationsController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
-    {
-        return view('bienestar::show');
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
