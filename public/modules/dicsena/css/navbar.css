@@ -1,0 +1,39 @@
+
+.navbar {
+  background-color:#BF0D3E; 
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white; 
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: yellow; 
+}
+
+.navbar-nav .nav-item {
+  margin: 0 10px; 
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand i {
+  margin-right: 8px; 
+}
+
+@media (max-width: 768px) {
+  .navbar-nav {
+      flex-direction: column;
+      text-align: center;
+  }
+}

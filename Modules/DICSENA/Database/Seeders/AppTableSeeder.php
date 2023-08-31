@@ -17,8 +17,8 @@ class AppTableSeeder extends Seeder
     {
         App::updateOrCreate(['name' => 'DICSENA'], [
             'url' => '/dicsena/index',
-            'color' => '#ff5e1f',
-            'icon' => 'fa-solid fa-globe',
+            'color' => '#BF0D3E',
+            'icon' => 'fas fa-globe',
             'description' => 'Diccionario epico del sena',
             'description_english' => 'Dicctionary epic of sena'
         ]);

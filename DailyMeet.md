@@ -13,15 +13,15 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 <!-- Mira **Deployment** para conocer como desplegar el proyecto. -->
 
 
-## CEFAMAPS 📌
+## DICSENA 📌
 
 ### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar*
-* **Integrante 2** - *Actividades a realizar*
+#### Sprint Planning 24-Ago-2023
+* **Integrante 1** - *Barra de inicio*
+* **Integrante 1** - *Publicar glosario como instructor*
 ...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 28-Ago-2023
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades(se crearon los controller fuera del modulo)* - *Hcer las vistas de los indices*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 31-Oct-2022

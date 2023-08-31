@@ -10,7 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use Modules\DICSENA\Http\Controllers\HomeController;
+/*use*/
+use Modules\DICSENA\Http\Controllers\GuidePostsController;
+use Modules\DICSENA\Http\Controllers\GlossariesController;
+use Modules\DICSENA\Http\Controllers\TranslatesController; 
 Route::prefix('dicsena')->group(function() {
     Route::get('/', 'DICSENAController@index');
+    Route::get('/index', [HomeController::class, 'index'])->name('dicsena');
+    /*rutas de carpetas*/
+    // routes/web.php
+    Route::get('/guideposts', 'GuidepostsController@index')->name('guideposts');
+    Route::get('/glossaries', 'GlossariesController@index')->name('glossaries');
+
+
 });

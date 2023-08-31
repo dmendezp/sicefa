@@ -1,6 +1,6 @@
 @extends('dicsena::layouts.master')
 
-@section('content')
+@section('contenido')
 <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="#">
         <i class="fas fa-globe"></i> Dicsena
@@ -11,7 +11,7 @@
                 <a class="nav-link" href="{{ route('index') }}">Traductor</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('guideposts') }}">Guía</a>
+                <a class="nav-link" href="{{ route('guidepost') }}">Guía</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('glossaries') }}">Glosario</a>
@@ -19,7 +19,8 @@
         </ul>
     </div>
 </nav>
+hola guia
 
-traductor
-
+    hola glosario
+    <footer>2023</footer>
 @endsection
