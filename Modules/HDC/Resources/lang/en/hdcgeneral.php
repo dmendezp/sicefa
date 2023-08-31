@@ -9,10 +9,10 @@ return [
     'consumptionconsultation' => 'Consumption Consultation',
     'instructions' => 'instructions',
     'administrator' => 'Administrator',
-    'consultation' => 'Consultation',
+    'user' => 'User',
     'carbonfootprint' => 'Carbon Footprint',
     'login' => 'Login',
     'BacktoSICEFA' => 'Back To SICEFA'
-    
+
 
 ];

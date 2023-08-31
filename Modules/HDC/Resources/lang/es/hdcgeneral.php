@@ -9,11 +9,11 @@ return [
     'consumptionconsultation' => 'Consulta de Consumo',
     'instructions' => 'Instrucciones',
     'administrator' => 'Administrador',
-    'consultation' => 'Consulta',
+    'user' => 'Usuario',
     'carbonfootprint' => 'Huella De Carbono',
     'login' => 'Iniciar Sesion',
     'BacktoSICEFA' => 'Volver A SICEFA',
 
-    
+
 
 ];

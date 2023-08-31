@@ -120,6 +120,15 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('cefa.hdc.adminresources')}}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-folder-open"></i>
+                                <p>
+                                    {{ trans('hdc::hdcgeneral.manageresources')}}
+                                </li>
+                                </p>
+                            </a>
+                        </li>
                   </ul>
               </nav>
               <!-- /.sidebar-menu -->
