@@ -18,6 +18,7 @@ use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\WarehouseMovement;
+use Illuminate\Support\Facades\Gate;
 
 class RegisterEntry extends Component
 {
@@ -135,6 +136,7 @@ class RegisterEntry extends Component
 
     // Registrar entrada de inventario
     public function registerEntry(){
+        Gate::authorize('haveaccess', 'ptventa.admin-cashier.inventory.store'); // Verificar permiso por parte del usuario
         if($this->selected_products->isNotEmpty()){
             if(!empty($this->dpu_id)){ // Validad que una unidad productiva de origen esté seleccionada
                 if(!empty($this->dpuw_id)){ // Validad que la bodega de origen esté seleccionada
@@ -239,7 +241,7 @@ class RegisterEntry extends Component
                     // Emitir mensaje de advertencia cuando la bodega de origen no está seleccionada
                     $this->emit('message', 'alert-warning', null, 'Es necesario seleccionar una bodega de origen.');
                 }
-            }else{
+            } else {
                 // Emitir mensaje de advertencia cuando la unidad productiva de origen no esté seleccionada
                 $this->emit('message', 'alert-warning', null, 'Es necesario seleccionar una unidad productiva de origen.');
             }

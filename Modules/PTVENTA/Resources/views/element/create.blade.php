@@ -2,13 +2,13 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item active">
-        <a href="{{ route('ptventa.element.image.index') }}" class="text-decoration-none">{{ trans('ptventa::element.Products') }}</a>
+        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.index') }}" class="text-decoration-none">{{ trans('ptventa::element.Products') }}</a>
     </li>
     <li class="breadcrumb-item active">{{ trans('ptventa::element.Register Product') }}</li>
 @endpush
 
 @section('content')
-    {!! Form::open(['route'=>'ptventa.element.image.store', 'method'=>'POST', 'id'=>'form-element' , 'enctype'=>'multipart/form-data']) !!}
+    {!! Form::open(['route'=>'ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.store', 'method'=>'POST', 'id'=>'form-element' , 'enctype'=>'multipart/form-data']) !!}
         @csrf
         <div class="card card-success card-outline mx-auto mb-3">
             <div class="card-body">
@@ -146,12 +146,14 @@
                 </div>
             </div>
             <div class="card-footer bg-white text-right">
-                <a href="{{ route('ptventa.element.image.index') }}" class="btn btn-sm btn-light mr-2">
+                <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.index') }}" class="btn btn-sm btn-light mr-2">
                     <strong>{{ trans('ptventa::element.Btn3')}}</strong>
                 </a>
-                <button type="submit" class="btn btn-sm btn-success" id="btn-register-element">
-                    <b>{{ trans('ptventa::element.Btn2')}}</b>
-                </button>
+                @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.store'))
+                    <button type="submit" class="btn btn-sm btn-success" id="btn-register-element">
+                        <b>{{ trans('ptventa::element.Btn2')}}</b>
+                    </button>
+                @endif
             </div>
         </div>
     {!! Form::close() !!}

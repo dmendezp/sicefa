@@ -6,7 +6,7 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('ptventa.reports.index') }}"
+        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.index') }}"
             class="text-decoration-none">{{ trans('ptventa::reports.Reports') }}</a>
     </li>
     <li class="breadcrumb-item active">{{ trans('ptventa::reports.Reports Panel') }}</li>
@@ -19,37 +19,43 @@
                 <h3 class="text-center">{{ trans('ptventa::reports.Title') }}</h3>
                 <hr>
                 <div class="row">
-                    <div class="col-md-4 col-sm-6">
-                        <!-- Botón para generar el PDF -->
-                        <form method="post" action="{{ route('ptventa.reports.inventory.generatePDF') }}">
-                            @csrf
-                            <button type="submit" class="card-custom card-custom">
+                    @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.inventory.generate.pdf'))
+                        <div class="col-md-4 col-sm-6">
+                            <!-- Botón para generar el PDF -->
+                            <form method="post" action="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.inventory.generate.pdf') }}">
+                                @csrf
+                                <button type="submit" class="card-custom card-custom">
+                                    <div class="icon">
+                                        <i class="fa-solid fa-file-pdf"></i>
+                                    </div>
+                                    <p class="title">{{ trans('ptventa::reports.TitleCard1') }}</p>
+                                    <p class="text">{{ trans('ptventa::reports.TextCard1') }}</p>
+                                </button>
+                            </form>
+                        </div>
+                    @endif
+                    @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.inventory.entries'))
+                        <div class="col-md-4 col-sm-6">
+                            <a class="card-custom a-custom" href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.inventory.entries') }}">
                                 <div class="icon">
                                     <i class="fa-solid fa-file-pdf"></i>
                                 </div>
-                                <p class="title">{{ trans('ptventa::reports.TitleCard1') }}</p>
-                                <p class="text">{{ trans('ptventa::reports.TextCard1') }}</p>
-                            </button>
-                        </form>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <a class="card-custom a-custom" href="{{ route('ptventa.reports.inventoryEntries') }}">
-                            <div class="icon">
-                                <i class="fa-solid fa-file-pdf"></i>
-                            </div>
-                            <p class="title">{{ trans('ptventa::reports.TitleCard2') }}</p>
-                            <p class="text">{{ trans('ptventa::reports.TextCard2') }}</p>
-                        </a>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <a class="card-custom a-custom" href="{{ route('ptventa.reports.sales') }}">
-                            <div class="icon">
-                                <i class="fa-solid fa-file-pdf"></i>
-                            </div>
-                            <p class="title">{{ trans('ptventa::reports.TitleCard3') }}</p>
-                            <p class="text">{{ trans('ptventa::reports.TextCard3') }}</p>
-                        </a>
-                    </div>
+                                <p class="title">{{ trans('ptventa::reports.TitleCard2') }}</p>
+                                <p class="text">{{ trans('ptventa::reports.TextCard2') }}</p>
+                            </a>
+                        </div>
+                    @endif
+                    @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.sales'))
+                        <div class="col-md-4 col-sm-6">
+                            <a class="card-custom a-custom" href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.sales') }}">
+                                <div class="icon">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </div>
+                                <p class="title">{{ trans('ptventa::reports.TitleCard3') }}</p>
+                                <p class="text">{{ trans('ptventa::reports.TextCard3') }}</p>
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

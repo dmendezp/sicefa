@@ -2,13 +2,13 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item active">
-        <a href="{{ route('ptventa.element.image.index') }}" class="text-decoration-none">Productos</a>
+        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.index') }}" class="text-decoration-none">Productos</a>
     </li>
-    <li class="breadcrumb-item active">Actualizar imagen</li>
+    <li class="breadcrumb-item active">Actualizar producto</li>
 @endpush
 
 @section('content')
-    <form action="{{ route('ptventa.element.image.update', $element) }}" id="form-element" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.update', $element) }}" id="form-element" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card card-success card-outline mx-auto">
             <div class="card-body">
@@ -151,12 +151,14 @@
                 </div>
             </div>
             <div class="card-footer bg-white text-right">
-                <a href="{{ route('ptventa.element.image.index') }}" class="btn btn-sm btn-light mr-2">
+                <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.index') }}" class="btn btn-sm btn-light mr-2">
                     <b>Cancelar</b>
                 </a>
-                <button type="submit" class="btn btn-sm btn-success" id="btn-update-element">
-                    <b>Actualizar</b>
-                </button>
+                @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.update'))
+                    <button type="submit" class="btn btn-sm btn-success" id="btn-update-element">
+                        <b>Actualizar</b>
+                    </button>
+                @endif
             </div>
         </div>
     </form>

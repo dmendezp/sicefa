@@ -5,12 +5,16 @@
 
             <!-- Boton Agregar Elemento -->
             <div class="d-grid gap-2 d-md-block text-right">
-                <a href="{{ route('ptventa.element.image.create') }}" class="btn btn-success">
-                    <i class="fa-solid fa-cart-flatbed fa-bounce mr-1"></i>
-                    {{ trans('ptventa::element.Btn1')}}
-                </a>
+                @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName($current_route_name).'.element.create'))
+                    <a href="{{ route('ptventa.'.getRoleRouteName($current_route_name).'.element.create') }}" class="btn btn-success">
+                        <i class="fa-solid fa-cart-flatbed fa-bounce mr-1"></i>
+                        {{ trans('ptventa::element.Btn1')}}
+                    </a>
+                @endif
             </div>
+
             <br><br>
+
             <!-- Búsqueda e imágenes -->
             <div class="col">
                 <div class="input-group input-group-sm">
@@ -47,9 +51,11 @@
                                                 <div class="card-description">
                                                     <p class="mt-1">
                                                         {{ $e->category->name }}
-                                                        <a href="{{ route('ptventa.element.image.edit', $e) }}" class="text-light float-right">
-                                                            <i class="fa-solid fa-pen-to-square fs-6"></i>
-                                                        </a>
+                                                        @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName($current_route_name).'.element.edit'))
+                                                            <a href="{{ route('ptventa.'.getRoleRouteName($current_route_name).'.element.edit', $e) }}" class="text-light float-right">
+                                                                <i class="fa-solid fa-pen-to-square fs-6"></i>
+                                                            </a>
+                                                        @endif
                                                     </p>
                                                 </div>
                                             </div>

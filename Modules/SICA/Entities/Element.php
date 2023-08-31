@@ -35,14 +35,14 @@ class Element extends Model implements Auditable
     ];
 
     // FUNCIONES INTERNAS
-    public function getProductNameAttribute(){ // Retorna el nombre del elemento junto con la unidad de medida
-        return $this->name.' ('.$this->measurement_unit->name.')';
-    }
     public function getRouteKeyName(){ // Establece el dato que se muestra cuando este elemento pretende ser llamado desde una ruta
         return 'slug';
     }
 
     // MUTADORES Y ACCESORES
+    public function getProductNameAttribute(){ // Retorna el nombre del elemento junto con la unidad de medida
+        return $this->name.' ('.$this->measurement_unit->name.')';
+    }
     public function setDescriptionAttribute($value){ // Convierte el primer carácter en mayúscula del dato description (MUTADOR)
         $this->attributes['description'] = ucfirst($value);
     }
@@ -61,7 +61,7 @@ class Element extends Model implements Auditable
     public function kind_of_purchase(){ // Accede al tipo de compra al que pertenece
         return $this->belongsTo(KindOfPurchase::class);
     }
-    public function measurement_unit(){ // Accede a la unidad de medida al que pertence
+    public function measurement_unit(){ // Accede a la unidad de medida al que pertenece
         return $this->belongsTo(MeasurementUnit::class);
     }
 

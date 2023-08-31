@@ -252,9 +252,11 @@
     <div class="d-flex justify-content-evenly">
         <div class="row">
             <div class="col-12 mb-3">
-                <button type="button" class="btn btn-success form-control text-truncate" wire:click="registerEntry" wire:loading.attr="disabled" wire:targer="registerEntry">
-                    {{ trans('ptventa::inventory.Btn4')}} <i class="fas fa-save"></i>
-                </button>
+                @if(Auth::user()->havePermission('ptventa.admin-cashier.inventory.store'))
+                    <button type="button" class="btn btn-success form-control text-truncate" wire:click="registerEntry" wire:loading.attr="disabled" wire:targer="registerEntry">
+                        {{ trans('ptventa::inventory.Btn4')}} <i class="fas fa-save"></i>
+                    </button>
+                @endif
             </div>
         </div>
     </div>

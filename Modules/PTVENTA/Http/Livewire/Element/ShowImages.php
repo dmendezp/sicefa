@@ -2,6 +2,7 @@
 
 namespace Modules\PTVENTA\Http\Livewire\Element;
 
+use Illuminate\Support\Facades\Route;
 use Livewire\Component;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\Element;
@@ -16,8 +17,10 @@ class ShowImages extends Component
     public $category;
     public $loading = false;
     public $kp; // Almacena el tipo de compra de los elementos
+    public $current_route_name; // Almacena el nombre de la ruta actual
 
     public function mount(){ // Todo lo que se encuentre dentro de esta función se ejecuturá únicamente cuando el componente sea llamado por primera vez
+        $this->current_route_name = Route::currentRouteName();
         $this->defaultSearch();
     }
 

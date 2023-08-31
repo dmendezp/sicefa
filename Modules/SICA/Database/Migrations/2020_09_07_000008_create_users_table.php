@@ -24,6 +24,11 @@ class CreateUsersTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        // Agregar restricción única a la columna 'person_id'
+        Schema::table('users', function (Blueprint $table) {
+            $table->unique('person_id');
+        });
     }
 
     /**

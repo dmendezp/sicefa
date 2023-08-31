@@ -24,16 +24,14 @@ class WarehousesTableSeeder extends Seeder
         /* Obtener aplicación del Sistema Integrado de control administrativo */
         $app = App::where('name','SICA')->firstOrFail();
 
-        /* Registro o actualización de la unidad productiva para PTVENTA */
+        /* Registro o actualización de la unidad productiva Complejo agroindustrial */
         $leader = Person::where('document_number', 7723876)->firstOrFail(); // Consulta de datos personales de Vilmer Andres Mendez Murcia
         $sector = Sector::where('name','Comercial')->firstOrFail(); // Consulta del sector
-        $farm = Farm::where('name','CEFA')->firstOrFail(); // Consulta de la granja
         $productive_unit = ProductiveUnit::updateOrCreate(['name' => 'Complejo agroindustrial'], [
             'description' => 'Unidad del centro de formación dedicada a la fabricación de productos tipo industrial',
             'icon' => 'fas fa-dolly',
             'person_id' => $leader->id,
-            'sector_id' => $sector->id,
-            'farm_id' => $farm->id  
+            'sector_id' => $sector->id
         ]);
 
         /* Registro o actualización de bodega para Agroindustria */

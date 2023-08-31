@@ -3,7 +3,7 @@
 namespace Modules\CEFAMAPS\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\CEFAMAPS\Entities\App;
+use Modules\SICA\Entities\App;
 
 class AppTableSeeder extends seeder
 {

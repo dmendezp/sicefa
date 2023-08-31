@@ -4,6 +4,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+// Obtener las opciones en un arreglo de una columna enum de una tabla
 function getEnumValues($table, $column){
 	$type = DB::select(DB::raw("SHOW COLUMNS FROM $table WHERE Field = '$column'"))[0]->Type;
 	preg_match('/^enum\((.*)\)$/', $type, $matches);
@@ -15,10 +16,17 @@ function getEnumValues($table, $column){
 	return $enum;
 }
 
-function checkRol($slug){ // Verficar si tiene acceso a los distintos roles de la aplicación
-    if(Auth::user()->roles[0]->slug==$slug OR Auth::user()->roles[0]->slug=='superadmin'){
-        return true;
-    }else{
+// Verficar si tiene acceso a los distintos roles de la aplicación
+function checkRol($slug){
+    $user = Auth::user();
+    if (count($user->roles) > 0) {
+        foreach ($user->roles as $role){
+            if($role->slug==$slug OR $role->slug=='superadmin'){
+                return true;
+            }
+        }
+        return false;
+    } else {
         return false;
     }
 }
@@ -37,6 +45,18 @@ function priceFormat($value){
 function revertPriceFormat($value){
     $temp = str_replace([' ','.','$'], '', $value);
     return str_replace(',', '.', $temp);
+}
+
+/* Obtner el rol a partir del nombre de la ruta */
+function getRoleRouteName($route_name) {
+    $firstDotPosition = strpos($route_name, '.');
+    if ($firstDotPosition !== false) {
+        $secondDotPosition = strpos($route_name, '.', $firstDotPosition + 1);
+        if ($secondDotPosition !== false) {
+            return substr($route_name, $firstDotPosition + 1, $secondDotPosition - $firstDotPosition - 1);
+        }
+    }
+    return null;
 }
 
 function getAppsArray(){

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Modules\PTVENTA\Entities\CashCount;
 use Modules\PTVENTA\Http\Controllers\InventoryController;
 
@@ -44,7 +45,7 @@ class CashController extends Controller
                                     ->where('state', 'Abierta')
                                     ->first();
         if ($open_cash_count) {
-            return redirect()->route('ptventa.cash.index')->with('error', ' ');
+            return redirect()->route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.cash.index')->with('error', ' ');
         }
         $cashCount = new CashCount();
         $cashCount->person_id = Auth::user()->person_id;
@@ -56,7 +57,7 @@ class CashController extends Controller
         $cashCount->total_sales = null;
         $cashCount->state = 'Abierta';
         $cashCount->save();
-        return redirect()->route('ptventa.cash.index')->with('success', ' ');
+        return redirect()->route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.cash.index')->with('success', ' ');
     }
 
     public function close(Request $request)
