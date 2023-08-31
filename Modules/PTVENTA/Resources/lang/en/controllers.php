@@ -11,6 +11,9 @@ return [
 	// Info
 	'PTVENTA_info_title_page' => 'About us',
 	'PTVENTA_info_title_view' => 'About us',
+	// Configuration
+	'PTVENTA_configuration_title_page' => 'Configuration',
+	'PTVENTA_configuration_title_view' => 'Configuration',
 
 	// -----PTVENTAController - Adminstrador-----
 	'PTVENTA_admin_title_page' => 'Administrator',

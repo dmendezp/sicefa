@@ -36,7 +36,7 @@ class PTVENTAController extends Controller
 
     public function configuration()
     {
-        $view = ['titlePage' => trans('ptventa::configuration.Configuration'), 'titleView' => trans('ptventa::configuration.Configuration')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_configuration_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_configuration_title_view')];
         return view('ptventa::configuration.index', compact('view'));
     }
 
