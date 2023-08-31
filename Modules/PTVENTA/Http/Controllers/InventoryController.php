@@ -502,4 +502,10 @@ class InventoryController extends Controller
         $view = ['titlePage' => trans('ptventa::inventory.titlePageL'), 'titleView' => trans('ptventa::inventory.titleViewL')];
         return view('ptventa::inventory.low', compact('view'));
     }
+
+    /* Ver detalle de baja de inventario */
+    public function showLow(Movement $movement){
+        $view = ['titlePage' => trans('ptventa::inventory.titlePageShowLow'), 'titleView' => trans('ptventa::inventory.titleViewShowLow')];
+        return view('ptventa::inventory.show-low', compact('view', 'movement'));
+    }
 }

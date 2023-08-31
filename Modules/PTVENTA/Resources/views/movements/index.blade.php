@@ -74,7 +74,7 @@
                                         @elseif ($movement_type == 'Movimiento Interno')
                                             <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.movements.entries.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('ptventa::movement.Tooltip1') }}>
                                         @elseif ($movement_type == 'Baja')
-                                            <a href="#" class="btn btn-info">Baja
+                                        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.movements.low.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('ptventa::movement.Tooltip1') }}>
                                         @else 
                                             <a href="#">{{ $movement_type }}
                                         @endif
