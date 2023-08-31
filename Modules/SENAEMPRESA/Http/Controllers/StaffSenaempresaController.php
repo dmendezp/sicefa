@@ -46,9 +46,9 @@ class StaffSenaempresaController extends Controller
      */
     public function store(Request $request)
     {
-        $apprentice_id = $request->input('apprentice_id');
-        $apprentice = Apprentice::with('Person')->find($apprentice_id);
-        $nombre_apprentice = $apprentice->Person->primer_nombre;
+        $docente_id = $request->input('docente_id');
+        $docente = Apprentice::with('Person')->find($docente_id);
+        $nombre_docente = $docente->persona->primer_nombre;
 
         $staffsenaempresa = new StaffSenaempresa();
         $staffsenaempresa->position_company_id = $request->input('position_company_id');
