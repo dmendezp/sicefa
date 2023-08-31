@@ -20,4 +20,9 @@ class TypesOfBenefits extends Model
     {
         return \Modules\BIENESTAR\Database\factories\TypesOfBenefitsFactory::new();
     }
+
+    public function postulation()
+    {
+        return $this->belongsTo(Postulations::class, 'postulation_id');
+    }
 }
