@@ -68,33 +68,59 @@
 
               <!-- Sidebar Menu -->
               <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        @foreach (getSectorsOrderedByName() as $sector){{--  Arreglo de Objetos  --}}
-                            @if ($sector->productive_units->count() > 0)
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-th"></i>
-                                        <p>
-                                            {{ $sector->name }}
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview" style="display: none;">
-                                        @foreach ($sector->productive_units->sortBy('name') as $productive_unit)
-                                            <li class="nav-item">
-                                                <a href="#" class="nav-link">
-                                                    <i class="nav-icon {{ $productive_unit->icon }}"></i>
-                                                    <p>
-                                                        {{ $productive_unit->name }}
-                                                    </p>
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
+                  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                      data-accordion="false">
+                      @foreach (getSectorsOrderedByName() as $sector)
+                          {{--  Arreglo de Objetos  --}}
+                          @if ($sector->productive_units->count() > 0)
+                              <li class="nav-item">
+                                  <a href="#" class="nav-link">
+                                      <i class="nav-icon fas fa-th"></i>
+                                      <p>
+                                          {{ $sector->name }}
+                                          <i class="right fas fa-angle-left"></i>
+                                      </p>
+                                  </a>
+                                  <ul class="nav nav-treeview" style="display: none;">
+                                      @foreach ($sector->productive_units->sortBy('name') as $productive_unit)
+                                          <li class="nav-item">
+                                              <a href="#" class="nav-link">
+                                                  <i class="nav-icon {{ $productive_unit->icon }}"></i>
+                                                  <p>
+                                                      {{ $productive_unit->name }}
+                                                  </p>
+                                              </a>
+                                          </li>
+                                      @endforeach
+                                  </ul>
+                              </li>
+                          @endif
+                      @endforeach
+                        <li class="nav-item">
+                            <a href="{{ Route('formulario') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-pen-to-square"></i>
+                                <p>
+                                    Registro de Consumo
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-magnifying-glass"></i>
+                                <p>
+                                    Consulta de Consumo
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-book"></i>
+                                <p>
+                                    Instrucciones
+                                </p>
+                            </a>
+                        </li>
+                  </ul>
               </nav>
               <!-- /.sidebar-menu -->
           </div>
