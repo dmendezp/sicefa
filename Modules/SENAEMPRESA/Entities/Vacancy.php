@@ -4,6 +4,7 @@ namespace Modules\SENAEMPRESA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\SICA\Entities\Course;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -19,5 +20,10 @@ class Vacancy extends Model implements Auditable
     protected static function newFactory()
     {
         return \Modules\SENAEMPRESA\Database\factories\VacancyFactory::new();
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_vacancy');
     }
 }

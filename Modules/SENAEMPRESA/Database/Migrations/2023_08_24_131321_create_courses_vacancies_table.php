@@ -15,9 +15,8 @@ class CreateCoursesVacanciesTable extends Migration
     {
         Schema::create('courses_vacancies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('course_id');
-            $table->unsignedBigInteger('vacancy_id');
-
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->foreignId('vacancy_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

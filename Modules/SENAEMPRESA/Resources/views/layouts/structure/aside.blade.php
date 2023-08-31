@@ -112,7 +112,7 @@
                         </p>
                     </a>
                 </li>
-                    </a>
+                </a>
                 </li>
 
 
@@ -129,6 +129,13 @@
                                 class="nav-link {{ !Route::is('vacantes') ?: 'active' }}">
                                 <i class="fas fa-user-tag"></i>
                                 <p>Vacantes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('asociar_curso') }}"
+                                class="nav-link {{ !Route::is('asociar_curso') ?: 'active' }}">
+                                <i class="fab fa-discourse"></i>
+                                <p>Asociar Cursos</p>
                             </a>
                         </li>
                         <li class="nav-item">
