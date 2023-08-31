@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\CEFAMAPS\Entities\Coordinate;
 use Modules\CEFAMAPS\Entities\Page;
+use Modules\AGROCEFA\Entities\Crop;
 
 class Environment extends Model implements Auditable
 {
@@ -57,6 +58,9 @@ class Environment extends Model implements Auditable
     }
     public function productive_unit(){ // Accede a la información de la unidad productiva al que pertenece
         return $this->belongsTo(ProductiveUnit::class);
+    }
+    public function crops(){
+        return $this->belongsToMany(Crop::class);
     }
 
 }

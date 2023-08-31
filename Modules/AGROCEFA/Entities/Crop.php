@@ -4,6 +4,8 @@ namespace Modules\AGROCEFA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\AGROCEFA\Entities\Variety;
+use Modules\SICA\Entities\Environment;
 
 class Crop extends Model
 {
@@ -11,8 +13,9 @@ class Crop extends Model
 
     protected $fillable = [];
     
-    protected static function newFactory()
-    {
-        return \Modules\AGROCEFA\Database\factories\CropFactory::new();
+    public function variety(){
+        return $this->belongsTo(Variety::class, 'variety_id');
     }
+    public function environments(){
+        return $this->belongsToMany(Environment::class);}
 }

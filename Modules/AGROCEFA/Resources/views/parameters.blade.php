@@ -235,84 +235,46 @@
 
 		{{-- Columna 2 --}}
 		<div class="col-md-6">
-			{{-- CRUD Parametro Cultivo --}}
+			{{-- CRUD Parametro Variedad --}}
 			<div class="card">
 				<div class="card-header">
-					Cultivo
-					<button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearspecie">Agregar Especie</button>
-				</div>
+					Variedad
+					<button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad">Agregar Asistencia</button>
 				<div class="card-body">
 					<table class="table table-sm table-bordered table-striped">
 						<thead>
 							<tr>
 								<th>ID</th>
 								<th>Nombre</th>
-								<th>Ciclo de vida</th>
+								<th>Fecha</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($species as $a)
 							<tr>
-								<td>{{$a->id}}</td>
-								<td>{{$a->name}}</td>
-								<td>{{$a->lifecycle}}</td>
+								<td>1</td>
+								<td>Juan Pérez</td>
+								<td>2023-08-12</td>
 								<td>
-									<a href="{{ route('agrocefa.species.edit', ['id' => $a->id]) }}" class="btn btn-primary btn-sm">Editar</a>
+									<a href="#" class="btn btn-primary btn-sm">Editar</a>
+									<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarAsistenciaModal">Eliminar</button>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>María López</td>
+								<td>2023-08-12</td>
+								<td>
+									<a href="#" class="btn btn-primary btn-sm">Editar</a>
 									<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarAsistenciaModal">Eliminar</button>
 								</td>
 							</tr>
 						</tbody>
-						@endforeach
 					</table>
 				</div>
 			</div>
-			<br>
-
-
-		{{-- CRUD Parametro Variedad --}}
-		<div class="card">
-			<div class="card-header">
-				Variedad
-				<button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad">Agregar Asistencia</button>
-			<div class="card-body">
-				<table class="table table-sm table-bordered table-striped">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Nombre</th>
-							<th>Fecha</th>
-							<th>Acciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>Juan Pérez</td>
-							<td>2023-08-12</td>
-							<td>
-								<a href="#" class="btn btn-primary btn-sm">Editar</a>
-								<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarAsistenciaModal">Eliminar</button>
-							</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>María López</td>
-							<td>2023-08-12</td>
-							<td>
-								<a href="#" class="btn btn-primary btn-sm">Editar</a>
-								<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarAsistenciaModal">Eliminar</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
 		</div>
-	</div>
-
-
 		
-	</div>
 
 		{{-- Modal agregar Especie --}}
 		<div class="modal fade" id="crearspecie" tabindex="-1" aria-labelledby="crearspecie" aria-hidden="true">
@@ -342,7 +304,6 @@
 						</form>
 					</div>
 				</div>
-
 			</div>
 		</div>
 
@@ -378,6 +339,49 @@
 			</div>
 		</div>
 
+		</div>
+	</div>
+	<br>
+	{{-- CRUD parametro Cultivo --}}
+	<div class="card">
+		<div class="card-header">
+			Cultivo
+			<button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop">Agregar Cultivo</button>
+		</div>
+		<div class="card-body">
+			<table class="table table-sm table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nombre</th>
+						<th>Área Sembrada</th>
+						<th>Fecha de Siembra</th>
+						<th>Densidad</th>
+						<th>Ambiente</th>
+						<th>Variedad</th>
+						<th>Fecha Fin</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($crop as $a)
+					<tr>
+						<td>{{$a->id}}</td>
+						<td>{{$a->name}}</td>
+						<td>{{$a->sown_area}}</td>
+						<td>{{$a->seed_time}}</td>
+						<td>{{$a->density}}</td>
+						<td>{{$a->environment_id}}</td>
+						<td>{{$a->variety_id}}</td>
+						<td>{{$a->finish_date}}</td>
+						<td>
+							<button class="btn btn-primary btn-sm btn-edit-crop" data-bs-id="{{$a->id}}">Editar</button>
+							<button class="btn btn-danger btn-sm btn-delete-crop" data-bs-toggle="modal" data-bs-target="#eliminarCropModal{{$a->id}}">Eliminar</button>
+						</td>
+					</tr>
+					@endforeach
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>

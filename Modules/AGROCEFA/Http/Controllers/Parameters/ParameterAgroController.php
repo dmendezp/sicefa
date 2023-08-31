@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\AGROCEFA\Entities\Specie; 
 use Modules\SICA\Entities\Activity;
+use Modules\AGROCEFA\Entities\Crop;
 use Modules\SICA\Entities\ActivityType;
 use Modules\AGROCEFA\Http\Controllers\Parameters\ActivityController;
 
@@ -16,7 +17,7 @@ class ParameterAgroController extends Controller
     public function parametersview()
     {       
         $activityController = new ActivityController();
-
+        $crop = Crop::all();
         $selectedUnitId = Session::get('selectedUnitId'); // Obtén el ID de la unidad seleccionada
         $activityTypes= ActivityType::all(); //Listar Tipos de Actividad
         $species= Specie::all();// listar especies
@@ -25,6 +26,7 @@ class ParameterAgroController extends Controller
         return view('agrocefa::parameters', [
             'activities' => $activities, // Pasa las actividades a la vista
             'species' => $species,
+            'crop' => $crop,
             'activityTypes' => $activityTypes,
             'selectedUnitId' => $selectedUnitId,
         ]);
