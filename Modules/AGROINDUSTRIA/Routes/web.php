@@ -8,7 +8,7 @@ use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\FormulationController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\LaborController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ActivityController;
-use Modules\AGROINDUSTRIA\Http\Controllers\instructor\NewDeliverController;
+use Modules\AGROINDUSTRIA\Http\Controllers\instructor\DeliverController;
 
 
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\InventoryController;

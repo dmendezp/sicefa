@@ -1,22 +1,22 @@
 <?php
 
-namespace Modules\AGROINDUSTRIA\Http\Controllers;
+namespace Modules\AGROINDUSTRIA\Http\Controllers\instructor;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Movement;
 
-class NewDeliverController extends Controller
+class DeliverController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function deliveries()
     {
-        $title = 'Movimientos';
-        return view('agroindustria::instructor.movements.index', compact('title'));
+        $title = 'Entregas';
+        return view('agroindustria::instructor.deliveries', compact('title'));
     }
 
     /**

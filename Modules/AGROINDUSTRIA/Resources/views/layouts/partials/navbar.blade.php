@@ -53,10 +53,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('agroindustria.intern.baseo')}}">Aseo</a>
-                    </li>
-                </ul>
-              </div>
-            
+                    </div>
+                  </div>
+             </li>
+             @endif
+             @if(Auth::user()->havePermission('agroindustria.instructor.deliveries'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('agroindustria.instructor.deliveries')}}">Entregas</a>
+            </li>
             @endif
 
             @endauth
