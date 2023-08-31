@@ -51,4 +51,7 @@ Route::prefix('/bienestar')->group(function() {
 });
 Route::prefix('/bienestar')->group(function() {
     Route::get('/APEformulario', 'BIENESTARController@APEformulario')->name('bienestar.APEformulario');
+    Route::get('/Drivers_view', 'BIENESTARController@Drivers_view')->name('bienestar.Drivers_view');
 });
+
+
