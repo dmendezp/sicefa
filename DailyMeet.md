@@ -38,7 +38,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 #### Meet 30-AGO-2022
 * **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos* - *Avance 50%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
 * **Mary Luz Aldana Vidarte** - *Registro de Consumo* - *Avance 30%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
-* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva"* - *Avance %* - *Dificultades* - *Acciones*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva"* - *Avance 50%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 ---
 #### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
