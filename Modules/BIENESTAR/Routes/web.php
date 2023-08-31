@@ -17,47 +17,22 @@ Route::prefix('bienestar')->group(function() {
     Route::get('/', 'BIENESTARController@index');
 });
 
-
-
 Route::prefix('/bienestar')->group(function() {
-    Route::get('/APEalimentacion', 'BIENESTARController@APEalimentacion')->name('bienestar.APEalimentacion');
-});
-
-Route::prefix('/bienestar')->group(function() {
-    Route::get('/APEinterno', 'BIENESTARController@APEinterno')->name('bienestar.APEinterno');
-});
-
-Route::prefix('/bienestar')->group(function() {
-    Route::get('/APEsena', 'BIENESTARController@APEsena')->name('bienestar.APEsena');
-});
-Route::prefix('/bienestar')->group(function() {
-    Route::get('/APEtransporte', 'BIENESTARController@APEtransporte')->name('bienestar.APEtransporte');
-});
-Route::prefix('/bienestar')->group(function() {
-    Route::get('/HISeventos', 'BIENESTARController@HISeventos')->name('bienestar.HISeventos');
-});
-Route::prefix('/bienestar')->group(function() {
+    //vista home
     Route::get('/home', 'BIENESTARController@home')->name('bienestar.home');
-});
-Route::prefix('/bienestar')->group(function() {
-    Route::get('/LIDretorant', 'BIENESTARController@LIDretorant')->name('bienestar.LIDretorant');
-});
-Route::prefix('/bienestar')->group(function() {
-    Route::get('/LIDrutas', 'BIENESTARController@LIDrutas')->name('bienestar.LIDrutas');
-});
-Route::prefix('/bienestar')->group(function() {
-    Route::get('/SCANrestorant', 'BIENESTARController@SCANrestorant')->name('bienestar.SCANrestorant');
-});
-Route::prefix('/bienestar')->group(function() {
-    Route::get('/SCANrutas', 'BIENESTARController@SCANrutas')->name('bienestar.SCANrutas');
-});
-Route::prefix('/bienestar')->group(function() {
+
+    //vistas de prueba
     Route::get('/APEformulario', 'BIENESTARController@APEformulario')->name('bienestar.APEformulario');
-    Route::get('/Drivers_view', 'BIENESTARController@Drivers_view')->name('bienestar.Drivers_view');
-});
-
-Route::prefix('/bienestar')->group(function() {
+    Route::get('/SCANrutas', 'BIENESTARController@SCANrutas')->name('bienestar.SCANrutas');
+    Route::get('/SCANrestorant', 'BIENESTARController@SCANrestorant')->name('bienestar.SCANrestorant');
+    Route::get('/LIDrutas', 'BIENESTARController@LIDrutas')->name('bienestar.LIDrutas');
     Route::get('/home', 'BIENESTARController@home')->name('bienestar.home');
+    Route::get('/HISeventos', 'BIENESTARController@HISeventos')->name('bienestar.HISeventos');
+    Route::get('/APEtransporte', 'BIENESTARController@APEtransporte')->name('bienestar.APEtransporte');
+    Route::get('/APEsena', 'BIENESTARController@APEsena')->name('bienestar.APEsena');
+    Route::get('/APEinterno', 'BIENESTARController@APEinterno')->name('bienestar.APEinterno');
+    Route::get('/LIDretorant', 'BIENESTARController@LIDretorant')->name('bienestar.LIDretorant');
+    Route::get('/APEalimentacion', 'BIENESTARController@APEalimentacion')->name('bienestar.APEalimentacion');
    
    //Vista Crud Beneficio
     Route::get('/benefits', 'BenefitsController@BenefitsView')->name('bienestar.benefits');
@@ -94,8 +69,9 @@ Route::prefix('/bienestar')->group(function() {
         //Vistas Rutas de transporte
     Route::get('/transportroutes','RoutesTransportationsController@transportroutes')->name('bienestar.transportroutes');
     Route::post('/transportroutes/add','RoutesTransportationsController@transportroutesAdd')->name('bienestar.transportroutes.add');
-});
-Route::prefix('/bienestar')->group(function() {
     Route::get('/LisRutas', 'RoutesTransportationsController@LisRutas')->name('bienestar.LisRutas');
+
+    // vista de conductores
+    Route::get('/Drivers_view', 'BIENESTARController@Drivers_view')->name('bienestar.Drivers_view');
 });
 
