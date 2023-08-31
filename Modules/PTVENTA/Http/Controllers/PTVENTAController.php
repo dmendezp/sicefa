@@ -18,7 +18,7 @@ class PTVENTAController extends Controller
 
     public function index()
     {
-        $view = ['titlePage' => trans('ptventa::mainPage.Main page'), 'titleView' => trans('ptventa::mainPage.Main page')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_index_title_view')];
         return view('ptventa::index', compact('view'));
     }
 
@@ -46,7 +46,7 @@ class PTVENTAController extends Controller
 
         $movement_type = MovementType::where('name', 'Venta')->firstOrFail();
 
-        $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
+        $app_puw = (new InventoryController())->getAppPuw(); // Obtener la unidad productiva y bodega de la aplicación
 
         // Obtén la fecha actual y retrocede dos meses
         $currentDate = Carbon::now();
@@ -91,24 +91,26 @@ class PTVENTAController extends Controller
             $previousSalesAmount = $salesTotal;
         }
 
-        //Permite hacer el conteo de todas las unidades productivas actuales
+        // Permite hacer el conteo de todas las unidades productivas actuales
         $totalProductiveUnits = ProductiveUnit::count();
 
-        //Permite hacer el conteo de todas las bodegas actuales
+        // Permite hacer el conteo de todas las bodegas actuales
         $totalWarehouses = Warehouse::count();
 
+        // Permite obtener el conteo de todas las cajas actuales con estado cerrado
         $closedCashCounts = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
                                     ->where('state', 'Cerrada')
                                     ->count();
 
+        // Permite obtener el conteo de todo el inventario actual
         $totalInventory = Inventory::select('id', 'element_id')
                                     ->where('productive_unit_warehouse_id', $app_puw->id)
                                     ->where('amount', '<>', 0)
                                     ->distinct('element_id')
                                     ->count();
 
-        // Obtener los últimos 5 elementos registrados en el inventario
-        $recentlyAddedInventory = Inventory::orderBy('created_at', 'desc')->take(5)->get();
+        // Obtener los últimos 6 elementos registrados en el inventario
+        $recentlyAddedInventory = Inventory::orderBy('created_at', 'desc')->take(6)->get(); 
 
         return view('ptventa::admin-index', compact('view', 'months', 'salesTotals', 'maxSalesMonth', 'percentageChange', 'totalProductiveUnits', 'totalWarehouses', 'closedCashCounts', 'totalInventory', 'recentlyAddedInventory'));
     }
