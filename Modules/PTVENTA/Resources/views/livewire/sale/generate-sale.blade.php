@@ -4,9 +4,9 @@
     <div class="row mx-3">
         <div class="col-4">
             <div class="form-group">
-                <label>Producto:</label>
+                <label>{{ trans('ptventa::sales.TextForm1')}}</label>
                 <select id='product_id' class="form-select" wire:model="product_id">
-                    <option value="">-- Seleccionar producto --</option>
+                    <option value="">{{ trans('ptventa::sales.SelectForm1')}}</option>
                     @foreach ($products as $product)
                         <option value="{{ $product->id }}"> {{ $product->name }} </option>
                     @endforeach
@@ -15,26 +15,26 @@
         </div>
         <div class="col-2">
             <div class="form-group">
-                <label>Existencias:</label>
+                <label>{{ trans('ptventa::sales.TextForm2')}}</label>
                 {!! Form::text('product_total_amount', $product_total_amount, ['class'=>'form-control text-center', 'disabled']) !!}
             </div>
         </div>
         <div class="col-2">
             <div class="form-group">
-                <label>Precio:</label>
+                <label>{{ trans('ptventa::sales.TextForm3')}}</label>
                 {!! Form::text('product_price', $product_price, ['class'=>'form-control text-center', 'disabled']) !!}
             </div>
         </div>
         <div class="col-2">
             <div class="form-group">
-                <label>Cantidad:</label>
+                <label>{{ trans('ptventa::sales.TextForm4')}}</label>
                 {!! Form::number('product_amount', null, ['class'=>'form-control text-center', 'id'=>'product_amount', 'disabled',
                     'wire:model.defer'=>'product_amount', 'wire:keydown.enter'=>'addProduct']) !!}
             </div>
         </div>
         <div class="col-2">
             <div class="form-group">
-                <label>Subtotal:</label>
+                <label>{{ trans('ptventa::sales.TextForm5')}}</label>
                 {!! Form::text('product_subtotal', null, ['class'=>'form-control text-center', 'id'=>'product_subtotal', 'disabled',
                     'wire:model'=>'product_subtotal']) !!}
             </div>
@@ -50,12 +50,12 @@
                         <table class="table">
                             <thead class="table-dark">
                                 <tr>
-                                    <th class="text-center">#</th>
-                                    <th>Producto</th>
-                                    <th class="text-center">Cantidad</th>
-                                    <th class="text-center">Valor</th>
-                                    <th class="text-center">Total</th>
-                                    <th class="text-center">Acciones</th>
+                                    <th class="text-center">{{ trans('ptventa::sales.2T1')}}</th>
+                                    <th>{{ trans('ptventa::sales.2T2')}}</th>
+                                    <th class="text-center">{{ trans('ptventa::sales.2T3')}}</th>
+                                    <th class="text-center">{{ trans('ptventa::sales.2T4')}}</th>
+                                    <th class="text-center">{{ trans('ptventa::sales.2T5')}}</th>
+                                    <th class="text-center">{{ trans('ptventa::sales.2T6')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,11 +71,11 @@
                                             <strong>{{ priceFormat($sp['product_subtotal']) }}</strong>
                                         </td>
                                         <td class="text-center">
-                                            <a href="#" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip" data-placement="top" title="Actualizar producto"
+                                            <a href="#" class="btn btn-outline-warning btn-sm py-0" data-toggle="tooltip" data-placement="top" title="{{ trans('ptventa::sales.Tooltip1')}}"
                                                     wire:click="editProduct({{ $sp['product_element_id'] }})">
                                                 <i class="fas fa-pen-alt"></i>
                                             </a>
-                                            <a href="#" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip" data-placement="top" title="Eliminar producto"
+                                            <a href="#" class="btn btn-outline-danger btn-sm py-0" data-toggle="tooltip" data-placement="top" title="{{ trans('ptventa::sales.Tooltip2')}}"
                                                     wire:click="deleteProduct({{ $sp['product_element_id'] }})">
                                                 <i class="far fa-trash-alt"></i>
                                             </a>
@@ -93,11 +93,11 @@
         <div class="col-md-3">
             <div class="card card-success">
                 <div class="card-header text-center">
-                    <strong>Venta</strong>
+                    <strong>{{ trans('ptventa::sales.TitleCard')}}</strong>
                 </div>
                 <div class="card-body tex-center py-1 pb-2">
 
-                    <label class="form-label my-0 mt-1">Identificación:</label>
+                    <label class="form-label my-0 mt-1">{{ trans('ptventa::sales.TextCard')}}</label>
                     <div class="row">
                         <div class="col-5 pe-1">
                             {!! Form::number('document_number', $customer_document_number, [
@@ -115,7 +115,7 @@
                             !!}
                         </div>
                     </div>
-                    <label class="form-label my-0">Nombre:</label>
+                    <label class="form-label my-0">{{ trans('ptventa::sales.TextCard1')}}</label>
                     {!! Form::text('person_id', $customer_full_name, [
                         'class'=>'form-control form-control-sm',
                         'disabled'])
@@ -149,10 +149,12 @@
                     </ul>
 
                     <div class="text-center mt-2">
-                        <button class="btn btn-sm btn-success" id="sale_button" wire:click="registerSale($('#change_value').val())" wire:loading.attr="disabled" wire:target="registerSale" disabled>
-                            <i class="far fa-plus-square"></i>
-                            Registrar Venta
-                        </button>
+                        @if(Auth::user()->havePermission('ptventa.admin-cashier.generate.sale'))
+                            <button class="btn btn-sm btn-success" id="sale_button" wire:click="registerSale($('#change_value').val())" wire:loading.attr="disabled" wire:target="registerSale" disabled>
+                                <i class="far fa-plus-square"></i>
+                                {{ trans('ptventa::sales.Btn1')}}
+                            </button>
+                        @endif
                     </div>
 
                 </div>
@@ -165,20 +167,20 @@
         <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header py-2">
-                    <h1 class="modal-title fs-5" id="registerCustomerLabel">Registro de cliente</h1>
+                    <h1 class="modal-title fs-5" id="registerCustomerLabel">{{ trans('ptventa::sales.TitleModal')}}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="resetFormRegisterCustomer"></button>
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="registerCustomer">
                         <div class="alert alert-danger py-1" role="alert">
-                            <strong style="font-size: 12px">La persona consultada no se encuentra registrado.</strong>
+                            <strong style="font-size: 12px">{{ trans('ptventa::sales.AlertModal')}}</strong>
                         </div>
                         <div class="form-group">
-                            <label>Identificación</label>
+                            <label>{{ trans('ptventa::sales.TextModal1')}}</label>
                             <div class="row">
                                 <div class="col-6 pe-1">
                                     {{ Form::select('person_document_type', $document_types, $person_document_type, [
-                                        'placeholder' => '-- Seleccionar --',
+                                        'placeholder' => trans('ptventa::sales.PlaceholderModal1'),
                                         'class' => 'form-select form-select-sm',
                                         'wire:model.defer' => 'person_document_type'])
                                     }}
@@ -187,7 +189,7 @@
                                 <div class="col-6 ps-1">
                                     {{ Form::number('person_document_number', $person_document_number, [
                                         'class' => 'form-control form-control-sm',
-                                        'placeholder' => 'Número',
+                                        'placeholder' => trans('ptventa::sales.PlaceholderModal2'),
                                         'wire:model.defer' => 'person_document_number'])
                                     }}
                                     @error('person_document_number') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
@@ -195,21 +197,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Nombres</label>
+                            <label>{{ trans('ptventa::sales.TextModal2')}}</label>
                             {{ Form::text('person_first_name', $person_first_name, [
                                 'class' => 'form-control form-control-sm',
-                                'placeholder' => 'Primer y segundo nombre',
+                                'placeholder' => trans('ptventa::sales.PlaceholderModal3'),
                                 'wire:model.defer' => 'person_first_name'])
                             }}
                             @error('person_first_name') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group">
-                            <label>Apellidos</label>
+                            <label>{{ trans('ptventa::sales.TextModal3')}}</label>
                             <div class="row">
                                 <div class="col-6">
                                     {{ Form::text('person_first_last_name', $person_first_last_name, [
                                         'class' => 'form-control form-control-sm',
-                                        'placeholder' => 'Primer apellido',
+                                        'placeholder' => trans('ptventa::sales.PlaceholderModal4'),
                                         'wire:model.defer' => 'person_first_last_name'])
                                     }}
                                     @error('person_first_last_name') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
@@ -217,15 +219,15 @@
                                 <div class="col-6">
                                     {{ Form::text('person_second_last_name', $person_second_last_name, [
                                         'class' => 'form-control form-control-sm',
-                                        'placeholder' => 'Segundo apellido',
+                                        'placeholder' => trans('ptventa::sales.PlaceholderModal5'),
                                         'wire:model.defer' => 'person_second_last_name'])
                                     }}
                                     @error('person_second_last_name') <span class="error text-danger" style="font-size: 10px">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-sm btn-success py-0 float-end">Registrar</button>
-                        <button type="button" class="btn btn-sm btn-secondary py-0 me-1 float-end" data-bs-dismiss="modal" wire:click="resetFormRegisterCustomer">Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-success py-0 float-end">{{ trans('ptventa::sales.Btn2')}}</button>
+                        <button type="button" class="btn btn-sm btn-secondary py-0 me-1 float-end" data-bs-dismiss="modal" wire:click="resetFormRegisterCustomer">{{ trans('ptventa::sales.Btn3')}}</button>
                     </form>
                 </div>
             </div>

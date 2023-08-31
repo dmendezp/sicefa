@@ -19,7 +19,6 @@
             <div class="card-body">
               <form method="post" action="{{ route('cefamaps.admin.config.environment.add')}}" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id">
                 <!-- inicio del nombre -->
                 <div class="form-group">
                   <label for="name">{{ trans('cefamaps::menu.Name') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::environment.Environment') }}</label>

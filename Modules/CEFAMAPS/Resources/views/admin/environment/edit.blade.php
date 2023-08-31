@@ -23,7 +23,7 @@
                             <div class="content">
                                 <form method="post" action="{{ route('cefamaps.admin.environment.edit')}}" enctype="multipart/form-data">
                                     @csrf
-                                    <input type="hidden" name="id" value="{{$editenviron->id}}">
+                                    <input type="hidden" name="id" id="idEnvironment" value="{{$editenviron->id}}">
                                     <!-- inicio del name -->
                                     <div class="form-group">
                                         <label for="name">{{ trans('cefamaps::menu.Name') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::environment.Environment') }}</label>
@@ -138,29 +138,28 @@
                                             <!-- inicio de las longitudes y latitudes -->
                                             <div class="form-group">
                                                 @foreach($editenviron->coordinates as $c)
-                                                    <div id="inputFormRow{{$c->id}}">
-                                                        <input type="hidden" name="idcoord[]" id="idcoordenada" value="{{$c->id}}">
-                                                        <div class="row align-items-center">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label for="length">{{ trans('cefamaps::environment.Length') }}</label>
-                                                                    <input type="text" class="form-control m-input" id="length[]" name="length[]" value="{{$c->length}}">
-                                                                </div>
+                                                    <input type="hidden" name="idcoord[]" id="idcoordenada" value="{{$c->id}}">
+                                                    <div class="row align-items-center">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="length">{{ trans('cefamaps::environment.Length') }}</label>
+                                                                <input type="text" class="form-control m-input" id="length[]" name="length[]" value="{{$c->length}}">
                                                             </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label for="latitude">{{ trans('cefamaps::environment.Latitude') }}</label>
-                                                                    <input type="text" class="form-control m-input" id="latitude[]" name="latitude[]" value="{{$c->latitude}}">
-                                                                </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="latitude">{{ trans('cefamaps::environment.Latitude') }}</label>
+                                                                <input type="text" class="form-control m-input" id="latitude[]" name="latitude[]" value="{{$c->latitude}}">
                                                             </div>
-                                                            <div class="col-1">
-                                                                <div class="form-group">
-                                                                    <br>
-                                                                    <button id="btnEliminar" onclick="eliminarInput({{$c->id}})" type="button" class="btn btn-danger">{{ trans('cefamaps::menu.Delete') }}</button>
-                                                                </div>
+                                                        </div>
+                                                        <div class="col-1">
+                                                            <div class="form-group">
+                                                                <br>
+                                                                <button id="btnEliminar" onclick="eliminarInput({{$c->id}})" type="button" class="btn btn-danger">{{ trans('cefamaps::menu.Delete') }}</button>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    
                                                 @endforeach
                                                 <div id="Agregar"></div>
                                                 <div class="d-grid gap-2">
@@ -212,7 +211,7 @@
     html += '<div class="col-1">';
     html += '<div class="form-group">';
     html += '<br>';
-    html += '<button id="btnEliminar" onclick="eliminarInput({{$coor->id}})" type="button" class="btn btn-danger">{{ trans("cefamaps::menu.Delete") }}</button>';
+    html += '<button id="btnEliminar" onclick="eliminarInput({{$coor}})" type="button" class="btn btn-danger">{{ trans("cefamaps::menu.Delete") }}</button>';
     html += '<button id="btnCrear" onclick="addInput()" type="button" class="btn btn-info">{{ trans("cefamaps::menu.Save") }}</button>';
     html += '</div>';
     html += '</div>';
@@ -242,7 +241,7 @@
     }
 
     function addInput(){
-        var id = $("#idEnv").val();
+        var id = $("#idEnvironment").val();
         var longitud = $("#idLongitud").val();
         var latitud = $("#idLatitud").val();
         $.ajax({
