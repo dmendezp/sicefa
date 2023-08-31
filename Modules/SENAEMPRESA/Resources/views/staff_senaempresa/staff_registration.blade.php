@@ -30,20 +30,24 @@
                                         <option value="" selected>Selecciona un Cargo</option>
                                         @foreach ($PositionCompany as $positionCompany)
                                             <option value="{{ $positionCompany->id }}">
-                                                {{ $positionCompany->description }} (ID: {{ $positionCompany->id }})
+                                                {{ $positionCompany->id }}
+                                                {{ $positionCompany->description }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
-                               
+                                <div class="mb-3">
+                                    <label for="apprentice_id" class="form-label">Id Aprendiz</label>
+                                    <select class="form-control" name="apprentice_id"
+                                        aria-label="Selecciona un Aprendiz">
+                                        <option value="" selected>Selecciona un Aprendiz</option>
+                                        @foreach ($Apprentice as $Apprentice)
+                                            <option value="{{ $Apprentice->id }}">
+                                                {{ $Apprentice->description }} (ID: {{ $Apprentice->id }})
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
-
-
-aprendiz
-
-                          
-                               
-
                                 <button type="submit" class="btn btn-success">Agregar</button>
                                 <a href="{{ route('carga') }}" class="btn btn-danger btn-xl">Cancelar</a>
                             </form>
