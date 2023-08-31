@@ -2,13 +2,14 @@
 
 return [
     //Breadcrumbs
-	'Developers and credits' => 'Desarrolladores y créditos',
+	'Breadcrumb_Active_Main' => 'Desarrolladores y créditos',
 
-    //Page
-    'Developers' => 'Desarrolladores',
-    'Apprentice' => 'Aprendiz',
-    'View credits' => 'Ver los créditos',
-    'Credits' => 'Créditos',
+    // Card Developers
+    'Title_Developers'       => 'Desarrolladores',
+    'Description_Apprentice' => 'Aprendiz',
+    'View credits'           => 'Ver los créditos',
+
+    // Card Credits
+    'Credits'   => 'Créditos',
     'More Info' => 'Más Info',
-
 ];

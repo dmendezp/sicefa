@@ -24,7 +24,7 @@ class PTVENTAController extends Controller
 
     public function devs()
     {
-        $view = ['titlePage' => trans('ptventa::devs.Developers'), 'titleView' => trans('ptventa::devs.Developers and credits')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_devs_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_devs_title_page')];
         return view('ptventa::developers.index', compact('view'));
     }
 
