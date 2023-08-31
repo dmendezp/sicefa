@@ -43,6 +43,13 @@
 
                         </tr>
                     </thead>
+                    <tbody>
+                        <td>1</td>
+                        <td>Cargo 1</td>
+                        <td>Aprendiz 2</td>
+                        <td>Imgen Personal</td>
+                        <td>Editar|Eliminar</td>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -61,22 +68,22 @@
 
         < @section('content') @show <!-- Control Sidebar -->
 
-<!-- /.control-sidebar -->
+            <!-- /.control-sidebar -->
 
 
-</div>
+    </div>
 
-<!-- Main Footer -->
-@include('senaempresa::layouts.structure.footer')
+    <!-- Main Footer -->
+    @include('senaempresa::layouts.structure.footer')
 
-@include('senaempresa::layouts.structure.scripts')
+    @include('senaempresa::layouts.structure.scripts')
 
-<!--scripts utilizados para procesos-->
-@section('scripts')
-@show
+    <!--scripts utilizados para procesos-->
+    @section('scripts')
+    @show
 
-@section('dataTables')
-@show
+    @section('dataTables')
+    @show
 </body>
 
 </html>

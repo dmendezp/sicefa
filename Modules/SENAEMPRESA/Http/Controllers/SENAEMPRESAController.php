@@ -110,8 +110,15 @@ class SENAEMPRESAController extends Controller
         $senaempresa = senaempresa::findOrFail($senaempresaId);
 
         // Asigna el curso a la senaempresa
-        $course->senaempresas()->attach($senaempresa);
+        $course->senaempresa()->attach($senaempresa);
 
         return redirect()->back()->with('success', 'Curso asignado a la vacante exitosamente.');
+    }
+    public function mostrar_registros()
+    {
+        $senaempresas = senaempresa::get();
+        $courses = Course::with('program')->get();
+        $data = ['title' => 'Asignar Cursos a SenaEmpresa', 'courses' => $courses, 'senaempresas' => $senaempresas];
+        return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
     }
 }

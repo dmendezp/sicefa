@@ -35,7 +35,7 @@ class StaffSenaempresaController extends Controller
         $PositionCompany = PositionCompany::all();
         $Apprentices = Apprentice::all();
         $People = Person::all();
-        $data = ['title' => 'Nueva Vacante', 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices, 'People' => $People];
+        $data = ['title' => 'Personal SenaEmpresa', 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices, 'People' => $People];
         return view('senaempresa::staff_senaempresa.staff_registration', $data);
     }
 

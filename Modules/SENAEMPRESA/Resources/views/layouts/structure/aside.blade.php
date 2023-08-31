@@ -167,7 +167,7 @@
                         <li class="nav-item">
                             <a href="{{ route('carga') }}" class="nav-link {{ !Route::is('carga') ?: 'active' }}">
                                 <i class="fas fa-user-plus"></i>
-                                <p>cargo</p>
+                                <p>Cargo</p>
                             </a>
                         </li>
                         <li class="nav-item">

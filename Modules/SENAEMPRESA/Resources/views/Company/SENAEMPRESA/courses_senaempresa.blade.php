@@ -22,7 +22,7 @@
             @endif
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <div class="vacantes">
+                    <div class="card">
                         <div class="card-header">{{ $title }}</div>
                         <div class="card-body">
                             <form action="{{ route('curso_asociado_senaempresa') }}" method="POST">
@@ -33,8 +33,7 @@
                                     <select class="form-control" name="course_id" id="course_id">
                                         @foreach ($courses as $course)
                                             <option value="{{ $course->id }}">{{ $course->code }}
-                                                {{ $course->program->name }}
-                                            </option>
+                                                {{ $course->program->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -43,14 +42,36 @@
                                     <label for="senaempresa_id">Seleccione SenaEmpresa:</label>
                                     <select class="form-control" name="senaempresa_id" id="senaempresa_id">
                                         @foreach ($senaempresas as $senaempresa)
-                                            <option value="{{ $senaempresa->id }}">{{ $senaempresa->name }}
-                                            </option>
+                                            <option value="{{ $senaempresa->id }}">{{ $senaempresa->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Asignar Curso a SenaEmpresa</button>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Asociadas</div>
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Course ID</th>
+                                        <th>SenaEmpresa ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

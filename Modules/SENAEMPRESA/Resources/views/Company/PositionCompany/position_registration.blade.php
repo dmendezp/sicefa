@@ -21,53 +21,36 @@
                         <div class="card-header">{{ $title }}</div>
 
                         <div class="card-body">
-                            <form action="{{ route('guardar_actualizacion', $position->id) }}" method="POST">
+                            <form action="{{ route('Nueva') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="requirement" class="form-label">Requisitos</label>
-                                    <input type="text" name="requirement" value="{{ $position->requirement ?? old('requirement') }}" class="form-control" id="requirement" name="requirement" rows="3" required></textarea>
+                                    <textarea class="form-control" id="requirement" name="requirement" rows="3" required></textarea>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Descripción General</label>
-                                    <input type="text" name="description" value="{{ $position->description ?? old('description') }}"</textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="state">Estado</label>
                                     <select class="form-control" id="state" name="state">
-                                        <option value="activo" {{ $position->state === 'activo' ? 'selected' : '' }}>Activo</option>
-                                        <option value="inactivo" {{ $position->state === 'inactivo' ? 'selected' : '' }}>Inactivo</option>
+                                        <option value="">Seleccione estado</option>
+                                        <option value="activo">Activo</option>
+                                        <option value="inactivo">Inactivo</option>
                                     </select>
                                 </div>
 
-                                <button type="submit">Guardar cambios</button>
+
+                                <button type="submit" class="btn btn-success">Agregar</button>
+                                <a href="{{ route('carga') }}" class="btn btn-danger btn-xl">Cancelar</a>
                             </form>
-                        </div>
                         </div>
 
                     </div>
                 </div>
             </div>
         </div><br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         @section('content')
         @show
 
@@ -75,8 +58,9 @@
 
         <!-- /.control-sidebar -->
 
-        </div>
-   
+
+    </div>
+
     <!-- Main Footer -->
     @include('senaempresa::layouts.structure.footer')
 
@@ -88,3 +72,7 @@
 
     @section('dataTables')
     @show
+
+</body>
+
+</html>

@@ -133,7 +133,7 @@ class VacantController extends Controller
         $vacancy = Vacancy::findOrFail($vacancyId);
 
         // Asigna el curso a la vacante
-        $course->vacancies()->attach($vacancy);
+        $course->vacancy()->attach($vacancy);
 
         return redirect()->back()->with('success', 'Curso asignado a la vacante exitosamente.');
     }
