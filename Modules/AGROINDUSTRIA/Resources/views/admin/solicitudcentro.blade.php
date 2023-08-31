@@ -1,87 +1,58 @@
 @extends('agroindustria::layouts.master')
 @section('content')
-
-    <section class="ganaderia" id="ganaderia">
         <div class="container">
-            <h1>SERVICIO NACIONAL DE APRENDIZAJE SENA
-                GESTIÓN DE INFRAESTRUCTURA Y LOGÍSTICA
-                FORMATO SOLICITUD DE BIENES</h1>
-            <div class="he-des">
-                <h5>Cefa</h5>
-
-            </div>
-        </div>
-        </section>
-        <br>
-
-        <div class="container">
-         <div class="row justify-content-center">
-        <div class="col-md-9">
-            <div class="card">
+            <div class="form">
                 <div class="card-header">SOLICITUD DE BIENES</div>
-
-                <div class="card-body">
+                <div class="form-body">
                     {!! Form::open(['url' => route('agroindustria.admin.solicitud_centro')]) !!}
-                    <div class="mb-6">
-                        <label for="request_date" class="form-label">Fecha de Solicitud</label>
-                        {!! Form::date('request_date', now(), ['class'=>'form-control', 'readonly' => 'readonly']) !!}
-                        <br>
-                    </div>
-                    <div class="mb-6">
-                        <label for="area" class="form-label">Area</label>
-                        {!! Form::text('area', 'Agroindustria', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
-                        <br>
-                    </div>
-                    <div class="mb-6">
-                        <label for="region_code" class="form-label">Codigo Regional</label>
-                        {!! Form::number('region_code', '41', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
-                        <br>
-                    </div>
-                    <div class="mb-6">
-                        <label for="region_name" class="form-label">Nombre Regional</label>
-                        {!! Form::text('region_name', 'Huila', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
-                        <br>
-                    </div>
-                    <div class="mb-6">
-                        <label for="cost_code" class="form-label">Codigo de Costos</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="request_date" class="form-label">Fecha de Solicitud</label>
+                            {!! Form::date('request_date', now(), ['class'=>'form-control', 'readonly' => 'readonly']) !!}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="area" class="form-label">Area</label>
+                            {!! Form::text('area', 'Agroindustria', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="region_code" class="form-label">Codigo Regional</label>
+                            {!! Form::number('region_code', '41', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="region_name" class="form-label">Nombre Regional</label>
+                            {!! Form::text('region_name', 'Huila', ['class'=>'form-control', 'readonly' => 'readonly']) !!}    
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cost_code" class="form-label">Codigo de Costos</label>
                         {!! Form::number('cost_code', '911610', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
-                        <br>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cost_center_name" class="form-label">Nombre Centro de costo</label>
+                            {!! Form::text('cost_center_name', 'Centro de Formación Agroindustrial', ['class'=>'form-control', 'readonly' => 'readonly']) !!}    
+                        </div>
+                        <div class="col-md-6">
+                            <label for="coordinator_name" class="form-label">Nombre de jefe de oficina o coordinador de area</label>
+                            {!! Form::select('coordinator_name', $coordinator->prepend('Seleccione un coordinador', ''), null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="document_number_coordinator" class="form-label">Cedula</label>
+                            {!! Form::number('document_number',null, ['class'=>'form-control']) !!}    
+                        </div>
+                        <div class="col-md-6">
+                            <label for="person_id" class="form-label">Nombre de a quien se le asignara el bien</label>
+                            {!! Form::text('person_id', null, ['class' => 'form-control']) !!}                        
+                        </div>
+                        <div class="col-md-6">
+                            <label for="document_number" class="form-label">Cedula</label>
+                            {!! Form::number('document_number',null, ['class'=>'form-control']) !!}    
+                        </div>
+                        <div class="col-md-12">
+                            <label for="document_number" class="form-label">Código de grupo o ficha de caracterización</label>
+                            {!! Form::number('document_number',null, ['class'=>'form-control']) !!}    
+                        </div>
                     </div>
-                    <div class="mb-6">
-                        <label for="cost_center_name" class="form-label">Nombre Centro de costo</label>
-                        {!! Form::text('cost_center_name', 'Centro de Formación Agroindustrial', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
-                        <br>
-                    </div>
-                    <div class="mb-6">
-                        <label for="coordinator_name" class="form-label">Nombre de jefe de oficina o coordinador de area</label>
-                        {!! Form::text('coordinator_name',null, ['class'=>'form-control']) !!}
-                        <br>
-                    </div>
-                    <div class="mb-6">
-                        <label for="document_number_coordinator" class="form-label">Cedula</label>
-                        {!! Form::number('document_number',null, ['class'=>'form-control']) !!}
-                        <br>
-                    </div>
-                    <div class="mb-6">
-                        <label for="document_number" class="form-label">Nombre de servidor público a quien se le asignara el bien</label>
-                        {!! Form::text('document_number',null, ['class'=>'form-control']) !!}
-                        <br>
-                    </div>
-                    <div class="mb-6">
-                        <label for="document_number" class="form-label">Cedula</label>
-                        {!! Form::number('document_number',null, ['class'=>'form-control']) !!}
-                        <br>
-                    </div>
-                    <div class="mb-6">
-                        <label for="document_number" class="form-label">Código de grupo o ficha de caracterización</label>
-                        {!! Form::number('document_number',null, ['class'=>'form-control']) !!}
-                        <br>
-                    </div>
-
                 </div>
             </div>
-        </div>
-    </div>
 </div>
 <br>
 <div class="container">

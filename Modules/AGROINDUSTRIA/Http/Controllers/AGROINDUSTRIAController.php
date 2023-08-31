@@ -39,4 +39,10 @@ class AGROINDUSTRIAController extends Controller
         return view('agroindustria::intern.invb', compact('title'));
     }
 
+    public function dashboard()
+    {
+        $title = 'Dasboard';
+        return view('agroindustria::admin.dashboard', compact('title'));
+    }
+
 }

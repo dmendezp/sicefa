@@ -9,6 +9,58 @@
     border-radius: 4px;
 }
 
+.navbar-nav li a:hover {
+  background-color: #97a6b4; /* Color de fondo cuando se pasa el cursor por encima */
+  border-radius: 4px;
+  color: black; /* Cambia el color del texto también para que siga siendo legible */
+}
+
+.dashboard{
+  list-style: none;
+}
+.dashboard li a {
+  color: black; 
+  text-decoration: none; 
+  position: relative;
+  top: 8px;
+  right: 50px;
+}
+
+.dashboard li a:hover {
+  background-color: #97a6b4; /* Color de fondo cuando se pasa el cursor por encima */
+  border-radius: 4px;
+  color: black; /* Cambia el color del texto también para que siga siendo legible */
+}
+
+.dashboard li a.selected {
+  background-color: #97a6b4; 
+  color: #ffd1dc;
+  border-radius: 4px;
+}
+
+.home{
+  list-style: none;
+}
+.home li a {
+  color: black; 
+  text-decoration: none; 
+  position: relative;
+  top: 8px;
+  right: 50px;
+}
+
+.home li a:hover {
+  background-color: #97a6b4; /* Color de fondo cuando se pasa el cursor por encima */
+  border-radius: 4px;
+  color: black; /* Cambia el color del texto también para que siga siendo legible */
+}
+
+.home li a.selected {
+  background-color: #97a6b4; 
+  color: #ffd1dc;
+  border-radius: 4px;
+}
+
 .navbar-brand{
     padding: 4px;
 }

@@ -9,6 +9,8 @@
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleinvb.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleindex.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/navbar.css')}}">
+       <link rel="stylesheet" href="{{asset('agroindustria/css/styleRequest.css')}}">
+
        <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/activity.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/storer/bodegastyle.css')}}">
 
