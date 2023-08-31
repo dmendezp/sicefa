@@ -30,7 +30,7 @@ class PTVENTAController extends Controller
 
     public function info()
     {
-        $view = ['titlePage' => trans('ptventa::about.About us'), 'titleView' => trans('ptventa::about.About us')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_info_title_page'), 'titleView' => trans('ptventa::Controllers.PTVENTA_info_title_view')];
         return view('ptventa::information.index', compact('view'));
     }
 

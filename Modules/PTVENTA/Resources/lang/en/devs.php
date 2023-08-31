@@ -2,7 +2,7 @@
 
 return [
     // Breadcrumbs
-	'Breadcrumb_Active_Main' => 'Developers and credits',
+	'Breadcrumb_Active_Devs' => 'Developers and credits',
 
     // Card Developers
     'Title_Developers'       => 'Developers',
