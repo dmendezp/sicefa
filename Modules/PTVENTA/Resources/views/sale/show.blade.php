@@ -6,9 +6,9 @@
 @push('breadcrumbs')
     <li class="breadcrumb-item active">
         <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.index') }}"
-            class="text-decoration-none">{{ trans('ptventa::sales.B4') }}</a>
+            class="text-decoration-none">{{ trans('ptventa::sales.Breadcrumb_Show_1') }}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('ptventa::sales.B5') }}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::sales.Breadcrumb_Active_Show_1') }}</li>
 @endpush
 
 @section('content')
@@ -17,30 +17,26 @@
             <div class="card-body">
                 <div class="ribbon-wrapper ribbon-xl">
                     <div class="ribbon bg-olive">
-                        {{ trans('ptventa::sales.FormText1') }} {{ $movement->voucher_number }}
+                        {{ trans('ptventa::sales.Form_Title_Voucher') }} {{ $movement->voucher_number }}
                     </div>
                 </div>
 
                 <div class="row mt-5">
-                    <div class="col-md-3">
-                        <label class="form-label">{{ trans('ptventa::sales.FormText2') }}</label>
+                    <div class="col-md-2">
+                        <label class="form-label">{{ trans('ptventa::sales.Form_Title_Date') }}</label>
                         <input type="text" class="form-control" value="{{ $movement->registration_date }}" readonly>
                     </div>
 
-                    <div class="col-md-3">
-                        <label class="form-label">{{ trans('ptventa::sales.FormText3') }}</label>
-                        <input type="text" class="form-control"
-                            value="{{ $movement->movement_responsibilities->where('role', 'VENDEDOR')->first()->person->full_name }}"
-                            readonly>
+                    <div class="col-md-4">
+                        <label class="form-label">{{ trans('ptventa::sales.Form_Title_Customer') }}</label>
+                        <input type="text" class="form-control" value="{{ $movement->movement_responsibilities->where('role', 'VENDEDOR')->first()->person->full_name }}" readonly>
                     </div>
                     <div class="col-md-3">
-                        <label class="form-label">{{ trans('ptventa::sales.FormText4') }}</label>
-                        <input type="text" class="form-control"
-                            value="{{ $movement->movement_responsibilities->where('role', 'CLIENTE')->first()->person->full_name }}"
-                            readonly>
+                        <label class="form-label">{{ trans('ptventa::sales.Form_Title_Client') }}</label>
+                        <input type="text" class="form-control" value="{{ $movement->movement_responsibilities->where('role', 'CLIENTE')->first()->person->full_name }}" readonly>
                     </div>
                     <div class="col-md-3">
-                        <label class="form-label">{{ trans('ptventa::sales.FormText5') }}</label>
+                        <label class="form-label">{{ trans('ptventa::sales.Form_Title_Movement_Type') }}</label>
                         <input type="text" class="form-control" value="{{ $movement->movement_type->name }}" readonly>
                     </div>
                 </div>
@@ -49,11 +45,11 @@
                     <table class="table">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col" class="text-center">{{ trans('ptventa::sales.3T1') }}</th>
-                                <th scope="col">{{ trans('ptventa::sales.3T2') }}</th>
-                                <th scope="col" class="text-center">{{ trans('ptventa::sales.3T3') }}</th>
-                                <th scope="col" class="text-center">{{ trans('ptventa::sales.3T4') }}</th>
-                                <th scope="col" class="text-center">{{ trans('ptventa::sales.3T5') }}</th>
+                                <th scope="col" class="text-center">{{ trans('ptventa::sales.3T_Number') }}</th>
+                                <th scope="col">{{ trans('ptventa::sales.3T_Product') }}</th>
+                                <th scope="col" class="text-center">{{ trans('ptventa::sales.3T_Amount') }}</th>
+                                <th scope="col" class="text-center">{{ trans('ptventa::sales.3T_Subtotal') }}</th>
+                                <th scope="col" class="text-center">{{ trans('ptventa::sales.3T_Total') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,7 +73,7 @@
                     </table>
                 </div>
                 <div class="text-center mt-4">
-                    <button class="btn btn-success">{{ trans('ptventa::sales.Btn4') }}</button>
+                    <button class="btn btn-success">{{ trans('ptventa::sales.Btn_Generate_Ticket') }}</button>
                 </div>
             </div>
         </div>
