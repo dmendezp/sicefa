@@ -76,6 +76,9 @@ Route::prefix('senaempresa')->group(function () {
     Route::post('Vacantes/Vacante_Editado/{id}/', 'VacantController@update')->name('vacante_editado');
     Route::delete('Vacantes/delete/{id}', 'VacantController@destroy')->name('eliminar_vacante');
 
+    //Asociar curso a vacante
+    Route::get('Vacantes/Asociar_Curso/', 'VacantController@asociar_curso')->name('asociar_curso');
+    Route::post('Vacantes/Curso_Asociado/', 'VacantController@curso_asociado')->name('curso_asociado');
 
     //rutas para cargo;
     Route::get('Cargos/', 'PositionCompanyController@cargar')->name('carga');

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Course;
-use Modules\SENAEMPRESA\Entities\vacancy;
+use Modules\SENAEMPRESA\Entities\Vacancy;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
 
 
@@ -104,5 +104,37 @@ class VacantController extends Controller
         } else {
             return redirect()->route('vacantes')->with('error', 'Error al eliminar el Vacante.');
         }
+    }
+
+
+    //Asociar cursos a vacantes
+    public function asociar_curso()
+    {
+        $vacancies = Vacancy::get();
+        $courses = Course::with('program')->get();
+        $data = ['title' => 'Asignar Cursos a Vacantes', 'courses' => $courses, 'vacancies' => $vacancies];
+        return view('senaempresa::Company.Vacant.courses_vacancies', $data);
+    }
+
+    public function curso_asociado(Request $request)
+    {
+        // Valida los datos del formulario
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'vacancy_id' => 'required|exists:vacancies,id',
+        ]);
+
+        // Obtén los IDs de los cursos y las vacantes
+        $courseId = $request->input('course_id');
+        $vacancyId = $request->input('vacancy_id');
+
+        // Encuentra los modelos correspondientes
+        $course = Course::findOrFail($courseId);
+        $vacancy = Vacancy::findOrFail($vacancyId);
+
+        // Asigna el curso a la vacante
+        $course->vacancies()->attach($vacancy);
+
+        return redirect()->back()->with('success', 'Curso asignado a la vacante exitosamente.');
     }
 }
