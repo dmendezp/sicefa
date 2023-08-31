@@ -72,6 +72,8 @@ Route::prefix('senaempresa')->group(function () {
     Route::get('Vacantes/', 'VacantController@vacantes')->name('vacantes');
     Route::get('Vacantes/Agregar_Vacante/', 'VacantController@registration')->name('agregar_vacante');
     Route::post('Vacantes/Nueva_Vacante/', 'VacantController@store')->name('nueva_vacante');
+
+    
     Route::get('Vacantes/{id}/Editar_Vacante/', 'VacantController@edit')->name('editar_vacante');
     Route::post('Vacantes/Vacante_Editado/{id}/', 'VacantController@update')->name('vacante_editado');
     Route::delete('Vacantes/delete/{id}', 'VacantController@destroy')->name('eliminar_vacante');
