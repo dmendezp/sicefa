@@ -84,4 +84,11 @@ Route::prefix('senaempresa')->group(function () {
     Route::get('Cargos/{id}/editar', 'PositionCompanyController@edit')->name('editar_cargo');
     Route::post('Cargos/{id}/actualizar', 'PositionCompanyController@update')->name('guardar_actualizacion');
     Route::delete('cargos/delete/{id}', 'PositionCompanyController@destroy')->name('eliminar_cargo');
+
+
+    //rutas de personal de senaempresa
+    Route::get('Personal/', 'StaffSenaempresaController@Per')->name('personal');
+    Route::get('Personal/Nueva', 'StaffSenaempresaController@registro')->name('registro');
+    Route::post('Personal/Nueva', 'StaffSenaempresaController@store')->name('Nuevo');
+
 });

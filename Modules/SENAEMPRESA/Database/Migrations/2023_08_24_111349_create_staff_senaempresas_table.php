@@ -15,7 +15,7 @@ class CreateStaffSenaempresasTable extends Migration
     {
         Schema::create('staff_senaempresas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('position_company')->constrained()->onDelete('cascade');
+            $table->foreignId('position_company_id')->constrained()->onDelete('cascade');
             $table->foreignId('apprentice_id')->constrained()->onDelete('cascade');
             $table->string('image');
             
