@@ -110,7 +110,8 @@ class PTVENTAController extends Controller
                                     ->count();
 
         // Obtener los últimos 6 elementos registrados en el inventario
-        $recentlyAddedInventory = Inventory::orderBy('created_at', 'desc')->take(6)->get(); 
+        $recentlyAddedInventory = Inventory::where('productive_unit_warehouse_id', $app_puw->id)
+                                            ->orderBy('created_at', 'desc')->take(6)->get(); 
 
         return view('ptventa::admin-index', compact('view', 'months', 'salesTotals', 'maxSalesMonth', 'percentageChange', 'totalProductiveUnits', 'totalWarehouses', 'closedCashCounts', 'totalInventory', 'recentlyAddedInventory'));
     }
