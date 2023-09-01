@@ -6,9 +6,9 @@
 @push('breadcrumbs')
     <li class="breadcrumb-item active">
         <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.index') }}"
-            class="text-decoration-none">{{ trans('ptventa::inventory.B4') }}</a>
+            class="text-decoration-none">{{ trans('ptventa::inventory.Breadcrumb_Movement_Inventory_1') }}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('ptventa::inventory.B5') }}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::inventory.Breadcrumb_Active_Movement_Inventory_1') }}</li>
 @endpush
 
 @section('content')
@@ -17,27 +17,27 @@
             <div class="card-body">
                 <div class="ribbon-wrapper ribbon-xl">
                     <div class="ribbon bg-olive">
-                        {{ trans('ptventa::inventory.FormText1') }} {{ $movement->voucher_number }}
+                        {{ trans('ptventa::inventory.Form_Title_Number_Voucher') }} {{ $movement->voucher_number }}
                     </div>
                 </div>
 
                 <div class="row mt-2">
                     <div class="col-md-3">
-                        <label class="form-label">{{ trans('ptventa::inventory.FormText2') }}</label>
+                        <label class="form-label">{{ trans('ptventa::inventory.Form_Title_Warehouse_Origin') }}</label>
                         <input type="text" class="form-control" value="{{ $movement->warehouse_movements->where('role', 'Entrega')->first()->productive_unit_warehouse->warehouse->name }}" readonly>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Responsable de Baja</label>
+                        <label class="form-label">{{ trans('ptventa::inventory.Form_Title_Responsible_Low') }}</label>
                         <input type="text" class="form-control"
                             value="{{ $movement->movement_responsibilities->where('role', 'ENTREGA')->first()->person->full_name }}"
                             readonly>
                     </div>
                     <div class="col-md-2">
-                        <label class="form-label">{{ trans('ptventa::inventory.FormText4') }}</label>
+                        <label class="form-label">{{ trans('ptventa::inventory.Form_Title_Date_Execution') }}</label>
                         <input type="text" class="form-control" value="{{ $movement->registration_date }}" readonly>
                     </div>
                     <div class="col-md-3">
-                        <label class="form-label">{{ trans('ptventa::inventory.FormText7') }}</label>
+                        <label class="form-label">{{ trans('ptventa::inventory.Form_Title_Movement_Type') }}</label>
                         <input type="text" class="form-control" value="{{ $movement->movement_type->name }}" readonly>
                     </div>
                 </div>
@@ -46,11 +46,11 @@
                     <table class="table">
                         <thead class="table-dark">
                             <tr>
-                                <th scope="col" class="text-center">{{ trans('ptventa::inventory.3T1') }}</th>
-                                <th scope="col">{{ trans('ptventa::inventory.3T2') }}</th>
-                                <th scope="col" class="text-center">{{ trans('ptventa::inventory.3T3') }}</th>
-                                <th scope="col" class="text-center">{{ trans('ptventa::inventory.3T4') }}</th>
-                                <th scope="col" class="text-center">{{ trans('ptventa::inventory.3T5') }}</th>
+                                <th scope="col" class="text-center">{{ trans('ptventa::inventory.6T_Number') }}</th>
+                                <th scope="col">{{ trans('ptventa::inventory.6T_Product') }}</th>
+                                <th scope="col" class="text-center">{{ trans('ptventa::inventory.6T_Amount') }}</th>
+                                <th scope="col" class="text-center">{{ trans('ptventa::inventory.6T_Price') }}</th>
+                                <th scope="col" class="text-center">{{ trans('ptventa::inventory.6T_Total') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,14 +67,14 @@
                         <tfoot>
                             <tr>
                                 <td colspan="3"></td>
-                                <td class="text-center fw-bold">Total:</td>
+                                <td class="text-center fw-bold">{{ trans('ptventa::inventory.6T_Total:') }}</td>
                                 <td class="text-center fw-bold">{{ priceFormat($movement->price) }}</td>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
                 <div class="text-center mt-4">
-                    <button class="btn btn-danger">Generar PDF</button>
+                    <button class="btn btn-danger">{{ trans('ptventa::inventory.Btn_Generate_PDF') }}</button>
                 </div>
             </div>
         </div>

@@ -2,34 +2,34 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.inventory.index') }}" class="text-decoration-none">{{ trans('ptventa::inventory.Inventory')}}</a>
+        <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.index') }}"
+            class="text-decoration-none">{{ trans('ptventa::inventory.Breadcrumb_Inventory_1') }}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('ptventa::inventory.Products')}}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::inventory.Breadcrumb_Active_Inventory_1') }}</li>
 @endpush
 
 @section('content')
     <div class="card card-success card-outline shadow-sm">
         <div class="card-body">
-
             <div class="row">
                 <div class="col">
-                    <h5 class="text-center"><em>{{ trans('ptventa::inventory.TitleCard')}}</em></h5>
+                    <h5 class="text-center"><em>{{ trans('ptventa::inventory.Title_Inventory') }}</em></h5>
                 </div>
                 <div class="col-auto">
                     <div class="d-flex justify-content-end">
-                        @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.inventory.create'))
-                            <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.inventory.create') }}" class="btn btn-success btn-sm me-1">
-                                <i class="fa-solid fa-thumbs-up fa-fade mr-2"></i>{{ trans('ptventa::inventory.Btn1')}}
+                        @if (Auth::user()->havePermission('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.create'))
+                            <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.create') }}" class="btn btn-success btn-sm me-1">
+                                <i class="fa-solid fa-thumbs-up fa-fade mr-2"></i>{{ trans('ptventa::inventory.Btn_Register_Entry') }}
                             </a>
                         @endif
-                        @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.inventory.status'))
-                            <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.inventory.status') }}" class="btn btn-secondary btn-sm me-1">
-                                <i class="fa-solid fa-triangle-exclamation fa-fade mr-2"></i>{{ trans('ptventa::inventory.Btn2')}}
+                        @if (Auth::user()->havePermission('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.status'))
+                            <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.status') }}" class="btn btn-secondary btn-sm me-1">
+                                <i class="fa-solid fa-triangle-exclamation fa-fade mr-2"></i>{{ trans('ptventa::inventory.Btn_Expired') }}
                             </a>
                         @endif
-                        @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.inventory.low'))
-                            <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.inventory.low') }}" class="btn btn-danger btn-sm me-1">
-                                <i class="fa-solid fa-arrow-down-wide-short fa-fade mr-2"></i>{{ trans('ptventa::inventory.Btn6')}}
+                        @if (Auth::user()->havePermission('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.low'))
+                            <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.low') }}" class="btn btn-danger btn-sm me-1">
+                                <i class="fa-solid fa-arrow-down-wide-short fa-fade mr-2"></i>{{ trans('ptventa::inventory.Btn_Register_Low') }}
                             </a>
                         @endif
                     </div>
@@ -42,21 +42,21 @@
                 <table class="table table-bordered border-secondary table-hover">
                     <thead class="table-dark">
                         <tr class="border-dark">
-                            <th class="text-center">{{ trans('ptventa::inventory.1T1')}}</th>
-                            <th>{{ trans('ptventa::inventory.1T2')}}</th>
-                            <th class="text-center">{{ trans('ptventa::inventory.1T3')}}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.1T_Number') }}</th>
+                            <th>{{ trans('ptventa::inventory.2T_Product') }}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.3T_Lot') }}</th>
                             <th class="text-center">
                                 <i class="fa-solid fa-calendar-days"></i>
-                                {{ trans('ptventa::inventory.1T4')}}
+                                {{ trans('ptventa::inventory.4T_Production') }}
                             </th>
                             <th class="text-center">
                                 <i class="fa-solid fa-calendar-days"></i>
-                                {{ trans('ptventa::inventory.1T5')}}
+                                {{ trans('ptventa::inventory.5T_Expiration') }}
                             </th>
-                            <th class="text-center">{{ trans('ptventa::inventory.1T6')}}</th>
-                            <th class="text-center">{{ trans('ptventa::inventory.1T7')}}</th>
-                            <th class="text-center">{{ trans('ptventa::inventory.1T8')}}</th>
-                            <th class="text-center">{{ trans('ptventa::inventory.1T9')}}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.6T_Entry') }}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.7T_Amount') }}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.8T_Sale') }}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.9T_Stocks') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,7 +66,8 @@
                                 $rowspan = $group->count();
                             @endphp
                             <tr>
-                                <td rowspan="{{ $rowspan }}" class="text-center border-secondary align-middle">{{ $loop->iteration }}</td>
+                                <td rowspan="{{ $rowspan }}" class="text-center border-secondary align-middle">
+                                    {{ $loop->iteration }}</td>
                                 <td rowspan="{{ $rowspan }}" class="border-secondary align-middle">
                                     <strong>{{ $firstRecord->element->name }}</strong>
                                 </td>

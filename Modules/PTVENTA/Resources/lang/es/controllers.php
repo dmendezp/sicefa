@@ -35,6 +35,27 @@ return [
 	'PTVENTA_sale_show_title_view' => 'Detalles de Movimiento',
 	
 	// -----MovementController-----
+	// Index
 	'PTVENTA_movement_index_title_page' => 'Movimiento',
 	'PTVENTA_movement_index_title_view' => 'Histórico de Movimientos',
+	
+	// -----InventoryController-----
+	// Index
+	'PTVENTA_inventory_index_title_page' => 'Inventario - Listado',
+	'PTVENTA_inventory_index_title_view' => 'Administración general de inventario',
+	// Create
+	'PTVENTA_inventory_create_title_page' => 'Inventario - Registro',
+	'PTVENTA_inventory_create_title_view' => 'Registro de Inventario',
+	// Status
+	'PTVENTA_inventory_status_title_page' => 'Inventario - Estado',
+	'PTVENTA_inventory_status_title_view' => 'Productos en riesgo por expiración y vencidos',
+	// Low Create
+	'PTVENTA_inventory_low_create_title_page' => 'Bajas de Inventario',
+	'PTVENTA_inventory_low_create_title_view' => 'Bajas de Inventario',
+	// Show
+	'PTVENTA_inventory_show_title_page' => 'Movimiento - Detalles',
+	'PTVENTA_inventory_show_title_view' => 'Detalles de Movimiento',
+	// Show Low
+	'PTVENTA_inventory_show_low_title_page' => 'Movimiento - Detalles',
+	'PTVENTA_inventory_show_low_title_view' => 'Detalles de Movimiento',
 ];

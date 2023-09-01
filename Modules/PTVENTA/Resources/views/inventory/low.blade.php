@@ -7,9 +7,9 @@
 @push('breadcrumbs')
     <li class="breadcrumb-item active">
         <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.index') }}"
-            class="text-decoration-none">{{ trans('ptventa::inventory.Inventory') }}</a>
+            class="text-decoration-none">{{ trans('ptventa::inventory.Breadcrumb_Inventory_1') }}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('ptventa::inventory.B6') }}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::inventory.Breadcrumb_Active_Low_Inventory_1') }}</li>
 @endpush
 
 @section('content')

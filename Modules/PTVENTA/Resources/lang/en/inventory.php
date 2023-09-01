@@ -1,104 +1,142 @@
 <?php
 
 return [
-    //Origin Controller InvetoryController
-	'titlePage1'    => 'Inventory - List',
-	'titleView1'    => 'Inventory management',
-	'titlePage2'    => 'Inventory - Register',
-	'titleView2'    => 'Inventory register',
-	'titlePageM'    => 'Movement - Details',
-	'titleViewM'    => 'Movement Details',
-	'titlePageL'    => 'Inventory Removals',
-	'titleViewL'    => 'Inventory Removals',
+    // Breadcrumbs
+	'Breadcrumb_Inventory_1'                 => 'Inventory',
+	'Breadcrumb_Active_Inventory_1'          => 'Products',
+	'Breadcrumb_Active_Register_Inventory_1' => 'Register',
+	'Breadcrumb_Active_Status_Inventory_1'   => 'Status',
+	'Breadcrumb_Active_Low_Inventory_1'      => 'Inventory Removals',
+	'Breadcrumb_Movement_Inventory_1'        => 'Movements',
+	'Breadcrumb_Active_Movement_Inventory_1' => 'Movement Details',
 
-    //Breadcrumbs
-	'Inventory'    => 'Inventory',
-	'Register'     => 'Register',
-	'Products'     => 'Products',
-	'B4'     => 'Movements',
-	'B5'     => 'Movement Details',
-	'B6'     => 'Inventory Removals',
-
-    //Section Card
-    //General
-    'TitleCard'   => 'List of products currently available',
-    //Table Titles
-    '1T1' => '#',
-    '1T2' => 'Product',
-    '1T3' => '# Lot',
-    '1T4' => 'Production',
-    '1T5' => 'Expiration',
-    '1T6' => '$ Entry',
-    '1T7' => 'Amount',
-    '1T8' => '$ Sale',
-    '1T9' => 'Stocks',
-
-    //Section BTNS
-    'Btn1'   => 'Register Entry',
-    'Btn2'   => 'Expired / To be expired',
-    'Btn3'   => 'Add Product',
-    'Btn4'   => 'Register Entry',
-    'Btn5'   => 'Generate Ticket',
-    'Btn6'   => 'Register Low',
-    'Btn7'   => 'Add to list',
-    'Btn8'   => 'Low',
+    // ---Section Show Inventory---
+    // Section Card Show Inventory
+    'Title_Inventory' => 'List of products currently available',
+    // Table Show Inventory
+    '1T_Number'     => '#',
+    '2T_Product'    => 'Product',
+    '3T_Lot'        => '# Lot',
+    '4T_Production' => 'Production',
+    '5T_Expiration' => 'Expiration',
+    '6T_Entry'      => '$ Entry',
+    '7T_Amount'     => 'Amount',
+    '8T_Sale'       => '$ Sale',
+    '9T_Stocks'     => 'Stocks',
     
-    //Section register inventroy
-    //Card Responsibles and Warehouses
-    'TitleCard2'    => 'Responsibles and Warehouses',
-    'SubTitleCard2' => 'U. Productive and warehouse of origin:',
-    'SubTextCard2'  => '-- Select Productive Unit --',
-    'SubTextCard3'  => '-- Select Warehouse --',
-    'SubTitleCard3' => 'Delivery:',
-    'SubTitleCard4' => 'Destination warehouse:',
-    'SubTitleCard5' => 'Receive:',
-    'SubTitleCard6' => 'Origin Warehouse:',
-    'SubTitleCard7' => 'Manager:',
-    //Form
-    'TitleForm0' => '#',
-    'TitleForm1' => 'Product:',
-    'TitleForm2' => 'Price:',
-    'TitleForm3' => 'Amount',
-    'TitleForm4' => 'Production Date:',
-    'TitleForm5' => 'Expiration Date:',
-    'TitleForm6' => 'Lot Number:',
-    'TitleForm7' => 'Inventory Code:',
-    'TitleForm8' => 'Description:',
-    'TitleForm9' => 'Brand:',
-    'TitleForm10' => 'Destination:',
-    'TitleForm11' => 'Existing Amount:',
+    // ---Section Register Inventory---
+    // Card Responsibles and Warehouses
+    'Title_Responsible'              => 'Responsibles and Warehouses',
+    'SubTitle_Productive_Warehouse'  => 'U. Productive and warehouse of origin:',
+    'Text_Productive_Unit'           => '-- Select Productive Unit --',
+    'Text_Warehouse'                 => '-- Select Warehouse --',
+    'SubTitle_Delivery'              => 'Delivery:',
+    'SubTitle_Destination_Warehouse' => 'Destination warehouse:',
+    'SubTitle_Recieve'               => 'Receive:',
+    // Form Register Inventory
+    'Title_Form_Product'         => 'Product:',
+    'Select_Form_Product'        => '-- Select --',
+    'Title_Form_Price'           => 'Price:',
+    'Title_Form_Amount'          => 'Amount',
+    'Title_Form_Production_Date' => 'Production Date:',
+    'Title_Form_Expiration_Date' => 'Expiration Date:',
+    'Title_Form_Lot_Number'      => 'Lot Number:',
+    'Title_Form_Inventory_Code'  => 'Inventory Code:',
+    'Title_Form_Description'     => 'Description:',
+    'Title_Form_Mark'            => 'Mark:',
+    'Title_Form_Destination'     => 'Destination:',
+    'Select_Form_Destination'    => '-- Select --',
+    // Table List Products
+    '2T_Number'          => '#',
+    '2T_Mark_Product'    => 'Mark (Product)',
+    '2T_Price'           => 'Price',
+    '2T_Amount'          => 'Amount',
+    '2T_Production_Date' => 'Production Date',
+    '2T_Expiration_Date' => 'Expiration Date',
+    '2T_Lot_Number'      => 'Lot Number',
+    '2T_Inventory_Code'  => 'Inventory Code',
+    '2T_Description'     => 'Description',
+    '2T_Actions'         => 'Actions',
 
-    //Table 2
-    '2T1' => '#',
-    '2T2' => 'Brand (Product)',
-    '2T3' => 'Price',
-    '2T4' => 'Amount',
-    '2T5' => 'Production Date',
-    '2T6' => 'Expiration Date',
-    '2T7' => 'Lot Number',
-    '2T8' => 'Inventory Code',
-    '2T9' => 'Description',
-    '2T10' => 'Brand',
-    '2T11' => 'Destination',
-    '2T12' => 'Actions',
-    //Tooltips
+    // ---Section Status Inventory---
+    // Inventory Expired
+    'Title_Table_Expired'    => 'Expired Products',
+    'Title_Table_To_Expired' => 'To Expired Products',
+    // Table
+    '3T_Amount'          => 'Amount',
+    '3T_Product'         => 'Product',
+    '3T_Expiration_Date' => 'Expiration Date',
+    
+    // ---Section Low Inventory---
+    // Card Form Register Low
+    'Title_Form_Origin_Warehouse'  => 'Warehouse of origin',
+    'Title_Form_Reponsibility_Low' => 'Responsible for low',
+    'Title_Form_Product'           => 'Product',
+    'Select_Form_Product'          => '--- Select ---',
+    'Title_Form_Lot_Number'        => 'Lot number',
+    'Title_Form_Inventory_Code'    => 'Inventory code',
+    'Title_Form_Production_Date'   => 'Production date',
+    'Title_Form_Expiration_Date'   => 'Expiration date',
+    'Title_Form_Mark'              => 'Mark',
+    'Title_Form_Destination'       => 'Destination',
+    'Title_Form_Price'             => 'Price',
+    'Title_Form_Existing_Amount'   => 'Existing amount',
+    'Title_Form_Amount'            => 'Amount',
+    // Table Register Low
+    '4T_Number'          => 'N°',
+    '4T_Product'         => 'Product',
+    '4T_Lot_Number'      => 'N° Lot',
+    '4T_Inventory_Code'  => 'Inventory code',
+    '4T_Production_Date' => 'Production',
+    '4T_Expiration_Date' => 'Expiration',
+    '4T_Mark'            => 'Mark',
+    '4T_Price'           => 'Price',
+    '4T_Amount'          => 'Amount',
+    '4T_Actions'         => 'Actions',
+
+    // ---Section Movement Details - Entries---
+    // Form Show Details of Entry
+    'Form_Title_Number_Voucher'        => 'N° Voucher',
+	'Form_Title_Warehouse_Origin'      => 'Warehouse of origin:',
+	'Form_Title_Responsible_Delivery'  => 'Responsible for delivery:',
+	'Form_Title_Date_Execution'        => 'Date of execution:',
+	'Form_Title_Receiving_Warehouse'   => 'Receiving warehouse:',
+	'Form_Title_Responsible_Receiving' => 'Responsible for receiving:',
+	'Form_Title_Movement_Type'         => 'Movement type:',
+    // Table Show Products Entries
+    '5T_Number'   => '#',
+    '5T_Product'  => 'Product',
+    '5T_Amount'   => 'Amount',
+    '5T_Subtotal' => 'Subtotal',
+    '5T_Total'    => 'Total',
+    '5T_Total:'   => 'Total:',
+    // ---Section Movement Details - Low---
+    // Form Show Details of Entry
+    'Form_Title_Number_Voucher'   => 'N° Voucher',
+    'Form_Title_Warehouse_Origin' => 'Warehouse of origin:',
+    'Form_Title_Responsible_Low'  => 'Responsible for low:',
+    'Form_Title_Date_Execution'   => 'Date of execution:',
+    'Form_Title_Movement_Type'    => 'Movement type:',
+    // Table Show Products Entries
+    '6T_Number'  => '#',
+    '6T_Product' => 'Product',
+    '6T_Amount'  => 'Amount',
+    '6T_Price'   => 'Price',
+    '6T_Total'   => 'Total',
+    '6T_Total:'  => 'Total:',
+
+    // Btns
+    'Btn_Register_Entry'  => 'Register Entry',
+    'Btn_Expired'         => 'Expired / To be expired',
+    'Btn_Register_Low'    => 'Register Low',
+    'Btn_Add_Product'     => 'Add Product',
+    'Btn_Register_Entry'  => 'Register Entry',
+    'Btn_Add_List'        => 'Add to list',
+    'Btn_Low'             => 'Low',
+    'Btn_Generate_Ticket' => 'Generate Ticket',
+    'Btn_Generate_PDF'    => 'Generate PDF',
+
+    // Tooltips
     'Tooltip1' => 'Update Product',
     'Tooltip2' => 'Delete Product',
-    
-    //--Section Movement Details - Entries
-    'FormText1' => 'N° Voucher',
-	'FormText2' => 'Warehouse of Origin:',
-	'FormText3' => 'Responsible for Delivery:',
-	'FormText4' => 'Date:',
-	'FormText5' => 'Receiving Warehouse:',
-	'FormText6' => 'Responsible for Receiving:',
-	'FormText7' => 'Movement Type:',
-
-
-    //Table Movement Entries
-    '3T1' => '#',
-    '3T2' => 'Product',
-    '3T3' => 'Amount',
-    '3T4' => 'Subtotal',
-    '3T5' => 'Total',
 ];

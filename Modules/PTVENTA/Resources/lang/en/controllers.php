@@ -35,6 +35,27 @@ return [
 	'PTVENTA_sale_show_title_view' => 'Movement Details',
 
 	// -----MovementController-----
+	// Index
 	'PTVENTA_movement_index_title_page' => 'Movement',
 	'PTVENTA_movement_index_title_view' => 'Movement History',
+
+	// -----InventoryController-----
+	// Index
+	'PTVENTA_inventory_index_title_page' => 'Inventory - List',
+	'PTVENTA_inventory_index_title_view' => 'Inventory management',
+	// Create
+	'PTVENTA_inventory_create_title_page' => 'Inventory - Register',
+	'PTVENTA_inventory_create_title_view' => 'Inventory register',
+	// Status
+	'PTVENTA_inventory_status_title_page' => 'Inventory - Status',
+	'PTVENTA_inventory_status_title_view' => 'Products at risk due to expiration and expired products',
+	// Low Create
+	'PTVENTA_inventory_low_create_title_page' => 'Inventory Removals',
+	'PTVENTA_inventory_low_create_title_view' => 'Inventory Removals',
+	// Show
+	'PTVENTA_inventory_show_title_page' => 'Movement - Details',
+	'PTVENTA_inventory_show_title_view' => 'Movement Details',
+	// Show Low
+	'PTVENTA_inventory_show_low_title_page' => 'Movement - Details',
+	'PTVENTA_inventory_show_low_title_view' => 'Movement Details',
 ];

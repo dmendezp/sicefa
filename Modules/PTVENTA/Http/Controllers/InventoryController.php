@@ -55,20 +55,20 @@ class InventoryController extends Controller
         foreach ($groups as $group) {
             $groupedInventories->push($group);
         }
-        $view = ['titlePage' => trans('ptventa::inventory.titlePage1'), 'titleView' => trans('ptventa::inventory.titleView1')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_index_title_view')];
         return view('ptventa::inventory.index', compact('view', 'groupedInventories'));
     }
 
     public function create()
     { // Formulario de registro (entrada) de inventario
-        $view = ['titlePage' => trans('ptventa::inventory.titlePage2'), 'titleView' => trans('ptventa::inventory.titleView2')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_create_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_create_title_view')];
         return view('ptventa::inventory.create', compact('view'));
     }
 
 
     public function status(Request $request)
     { // Lista de productos vencidos y por vencer
-        $view = ['titlePage' => 'Inventario - Estado', 'titleView' => 'Productos en riesgo por caducidad'];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_status_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_status_title_view')];
         $productosVencidos = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
             ->where('state', 'Disponible')
             ->where('expiration_date', '<', now())
@@ -81,6 +81,24 @@ class InventoryController extends Controller
             ->orderBy('expiration_date')
             ->get();
         return view('ptventa::inventory.status', compact('view', 'productosVencidos', 'productosPorVencer'));
+    }
+
+    /* Ingresar a registro de bajas de inventario */
+    public function low_create(){
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_low_create_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_low_create_title_view')];
+        return view('ptventa::inventory.low', compact('view'));
+    }
+
+    /* Ver detalle de movimiento interno */
+    public function show(Movement $movement){
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_show_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_show_title_view')];
+        return view('ptventa::inventory.show', compact('view', 'movement'));
+    }
+
+    /* Ver detalle de baja de inventario */
+    public function showLow(Movement $movement){
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_show_low_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_show_low_title_view')];
+        return view('ptventa::inventory.show-low', compact('view', 'movement'));
     }
 
     //Funciones para reporte de inventario
@@ -491,21 +509,5 @@ class InventoryController extends Controller
         $pdf->Output('reporte_ventas.pdf', 'I');
     }
 
-    /* Ver detalle de movimiento interno */
-    public function show(Movement $movement){
-        $view = ['titlePage' => trans('ptventa::inventory.titlePageM'), 'titleView' => trans('ptventa::inventory.titleViewM')];
-        return view('ptventa::inventory.show', compact('view', 'movement'));
-    }
 
-    /* Ingresar a registro de bajas de inventario */
-    public function low_create(){
-        $view = ['titlePage' => trans('ptventa::inventory.titlePageL'), 'titleView' => trans('ptventa::inventory.titleViewL')];
-        return view('ptventa::inventory.low', compact('view'));
-    }
-
-    /* Ver detalle de baja de inventario */
-    public function showLow(Movement $movement){
-        $view = ['titlePage' => trans('ptventa::inventory.titlePageShowLow'), 'titleView' => trans('ptventa::inventory.titleViewShowLow')];
-        return view('ptventa::inventory.show-low', compact('view', 'movement'));
-    }
 }
