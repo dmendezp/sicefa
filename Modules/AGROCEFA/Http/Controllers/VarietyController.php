@@ -10,70 +10,22 @@ use Modules\AGROCEFA\Entities\Variety;
 
 class VarietyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
+/*     public function getVarietyForSelectedUnit()
     {
-        return view('agrocefa::varieties.crear');
-    }
+        // Obtén el ID de la unidad productiva seleccionada de la sesión
+        $selectedUnitId = Session::get('selectedUnitId');
 
-    public function edit()
-    {
-        return view('agrocefa::varieties.editar');
-    }
+        // Verifica si hay un ID de unidad seleccionada en la sesión
+        if ($selectedUnitId) {
+            // Obtiene todas las actividades asociadas a la unidad productiva seleccionada
+            $activities = Activity::with('activity_type') // Cargar la relación activityType
+                                ->where('productive_unit_id', $selectedUnitId)
+                                ->get();
 
-    public function delete()
-    {
-        return view('agrocefa::varieties.eliminar');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('agrocefa::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
+            return $activities; // Retorna el arreglo de actividades
+        } else {
+            // Si no hay ID de unidad seleccionada en la sesión, retorna un arreglo vacío o realiza alguna acción
+            return [];
+        }
+    } */
 }

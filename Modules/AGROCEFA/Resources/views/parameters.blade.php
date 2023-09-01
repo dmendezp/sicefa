@@ -190,7 +190,9 @@
 				</div>
 			</div>
 			@endforeach
-			{{-- CRUD Parametro Especie --}}
+		
+			
+			{{-- CRUD parametro especie --}}
 			<div class="card">
 				<div class="card-header">
 					Especies
@@ -232,14 +234,19 @@
 			</div>
 		</div>
 		
-
 		{{-- Columna 2 --}}
 		<div class="col-md-6">
 			{{-- CRUD Parametro Variedad --}}
 			<div class="card">
 				<div class="card-header">
+<<<<<<< Updated upstream
 					Variedad
 					<button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad">Agregar Asistencia</button>
+=======
+					Cultivo
+					<button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearvariedad">Agregar Especie</button>
+				</div>
+>>>>>>> Stashed changes
 				<div class="card-body">
 					<table class="table table-sm table-bordered table-striped">
 						<thead>
@@ -303,42 +310,145 @@
 							<button type="submit" class="btn btn-primary">Registrar Especie</button>
 						</form>
 					</div>
+			<br>
+
+			{{-- CRUD Parametro Variedad --}}
+			<div class="card">
+				<div class="card-header">
+					Variedad
+					<button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearvariedad">Agregar variedad</button>
+				</div>
+				<div class="card-body">
+					<table class="table table-sm table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>especie</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($varieties as $variety)
+							<tr>
+								<td>{{$variety->id}}</td>
+								<td>{{$variety->name}}</td>
+								<td>{{$variety->specie_id}}</td>
+								<td>
+									<div class="button-group">
+									<button id="edit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarvarietyModal" data-variety-id="{{$variety->id}}">Editar</button>
+									<form action="{{ route('agrocefa.varieties.elim', ['id' => $variety->id]) }}" method="POST">
+										@csrf
+										@method('DELETE')
+										<button type="submit" class="btn btn-danger btn-sm" id="delete">
+											Eliminar
+										</button>
+									</form>
+									</div>
+								</td>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
 				</div>
 			</div>
-		</div>
 
-		{{-- Modal editar especie --}}
-		<div class="modal fade" id="editarEspecieModal" tabindex="-1" aria-labelledby="editarEspecieModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="editarEspecieModalLabel">Editar Especie</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+			{{-- Modal agregar Especie --}}
+			<div class="modal fade" id="crearspecie" tabindex="-1" aria-labelledby="crearspecie" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar variedad</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form action="{{ route('agrocefa.species.store') }}" method="POST">
+								@csrf
+								<div class="form-group">
+									<label for="name">Nombre:</label>
+									<input type="text" name="name" id="name" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label for="lifecycle">Ciclo de vida:</label>
+									<select name="lifecycle" id="lifecycle" class="form-control" required>
+										<option value="Transitorio">Transitorio</option>
+										<option value="Permanente">Permanente</option>
+										<!-- Agrega más opciones según tus valores enum -->
+									</select>
+								</div>
+								<br>
+								<button type="submit" class="btn btn-primary">Registrar Especie</button>
+							</form>
+						</div>
 					</div>
-					<div class="modal-body">
-						<form id="editSpeciesForm" action="{{ route('agrocefa.species.update', ['id' => $a->id]) }}" method="POST">
-							@csrf
-							@method('PUT')
-							<div class="form-group">
-								<label for="name">Nombre:</label>
-								<input type="text" name="name" id="name" class="form-control" required>
-							</div>
-							<div class="form-group">
-								<label for="lifecycle">Ciclo de vida:</label>
-								<select name="lifecycle" id="lifecycle" class="form-control" required>
-									<option value="Transitorio">Transitorio</option>
-									<option value="Permanente">Permanente</option>
-									<!-- Agrega más opciones según tus valores enum -->
-								</select>
-							</div>
-							<br>
-							<button type="submit" class="btn btn-primary">Actualizar Especie</button>
-						</form>
+
+				</div>
+			</div>
+
+			{{-- Modal agregar variedad --}}
+			<div class="modal fade" id="crearvariedad" tabindex="-1" aria-labelledby="crearvariedad" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar variedad</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form action="{{ route('agrocefa.varieties.crear') }}" method="POST">
+								@csrf
+								<div class="form-group">
+									<label for="name">Nombre:</label>
+									<input type="text" name="name" id="name" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label for="name">Specie ID:</label>
+									<input type="text" name="name" id="name" class="form-control" required>
+								</div>
+								<br>
+								<button type="submit" class="btn btn-primary">Registrar variedad</button>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			@foreach($species as $a)
+			{{-- Modal editar especie --}}
+			<div class="modal fade" id="editarEspecieModal" tabindex="-1" aria-labelledby="editarEspecieModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="editarEspecieModalLabel">Editar Especie</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form id="editSpeciesForm" action="{{ route('agrocefa.species.update', ['id' => $a->id]) }}" method="POST">
+								@csrf
+								@method('PUT')
+								<div class="form-group">
+									<label for="name">Nombre:</label>
+									<input type="text" name="name" id="name" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label for="lifecycle">Ciclo de vida:</label>
+									<select name="lifecycle" id="lifecycle" class="form-control" required>
+										<option value="Transitorio">Transitorio</option>
+										<option value="Permanente">Permanente</option>
+										<!-- Agrega más opciones según tus valores enum -->
+									</select>
+								</div>
+								<br>
+								<button type="submit" class="btn btn-primary">Actualizar Especie</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+			@endforeach
 
+			
 		</div>
 	</div>
 	<br>
@@ -385,6 +495,7 @@
 		</div>
 	</div>
 </div>
+
 
 <script>
     $('.btn-edit-activity').on('click', function(event) {
@@ -436,6 +547,35 @@
 			// ... Llenar los campos del formulario si es necesario ...
 		});
 		
-		</script>
+</script>
+ 
+</script>
 
+<<<<<<< Updated upstream
 	@endsection
+=======
+{{-- SCRIPT EDITAR VARIETIES --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+	$('#editarEspecieModal').on('show.bs.modal', function(event) {
+		var button = $(event.relatedTarget); // Botón que activó el modal
+		var specieId = button.data('variety-id'); // Obtener el ID de la especie desde el botón
+	
+		// Imprime el ID en la consola para verificar
+		console.log('Especie ID:', specieId);
+	
+		// Construir la URL del formulario con el ID de la especie
+		var formAction = '{{ route('agrocefa.species.update', ['id' => 'SPECIE_ID']) }}';
+		formAction = formAction.replace('SPECIE_ID', specieId);
+		
+		// Actualizar la URL del formulario con el ID de la especie
+		$('#editarvarietiesModal form').attr('action', formAction);
+	
+		// ... Llenar los campos del formulario si es necesario ...
+	});
+	
+</script>
+
+@endsection
+>>>>>>> Stashed changes

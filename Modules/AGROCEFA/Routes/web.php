@@ -27,9 +27,17 @@ Route::middleware(['lang'])->group(function() {
 
 
         // RUTAS PARA VARIEDADES
-        Route::get('/varieties', 'VarietyController@index')->name('agrocefa.varieties.crear');
-        Route::get('/varieties/editar', 'VarietyController@edit')->name('agrocefa.varieties.editar');
-        Route::get('/varieties/eliminar', 'VarietyController@delete')->name('agrocefa.varieties.eliminar');
+        Route::post('/varieties', 'Parameters\ParameterAgroController@crear')->name('agrocefa.varieties.crear');
+
+        Route::get('/varieties/{id}/editar', 'VarietyController@edit')->name('agrocefa.varieties.editar');
+
+        Route::get('/varieties/{id}', 'VarietyController@delete')->name('agrocefa.varieties.eliminar');
+
+        Route::delete('/varieties/delete/{id}', 'Parameters\ParameterAgroController@elim')->name('agrocefa.varieties.elim');
+        
+        Route::get('/varieties/{id}/edit', 'varietyController@edit')->name('agrocefa.varieties.edit');
+        
+        Route::get('/varieties', 'Parameters\ParameterAgroController@listsvarieties')->name('agrocefa.varieties.index');
 
         // RUTAS PARA ESPECIES
         Route::get('/species', 'Parameters\ParameterAgroController@listspecie')->name('agrocefa.species.index');
