@@ -9,7 +9,7 @@ use Modules\BIENESTAR\Entities\Postulations;
 use Modules\BIENESTAR\Entities\Convocations;
 use Modules\SICA\Entities\Apprentice;
 use Modules\BIENESTAR\Entities\TypesOfBenefits;
-
+use Modules\BIENESTAR\Entities\Questions;
 
 class PostulationsController extends Controller
 {
@@ -28,6 +28,18 @@ class PostulationsController extends Controller
         $postulation = Postulations::with('convocation', 'apprentice', 'typesOfBenefits', 'answers', 'postulationBenefits', 'socioEconomicSupportFiles')->findOrFail($id);
         return view('bienestar::postulations.show', compact('postulation'));
     }
+
+    public function showModal($id)
+    {
+        $postulation = Postulations::with(['convocation', 'apprentice', 'typesOfBenefits', 'answers' => function ($query) use ($id) {
+            $query->where('postulation_id', $id);
+        }])->findOrFail($id);
+        
+        $questions = Questions::whereIn('id', $postulation->convocation->questions->pluck('id'))->get();
+        
+        return view('bienestar::postulations.modal', compact('postulation', 'questions'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
