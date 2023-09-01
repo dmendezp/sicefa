@@ -16,6 +16,7 @@ class CreateSuppliesTable extends Migration
         Schema::create('supplies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('element_id')->constraineD()->onDelete('cascade');
+            $table->foreignId('request_external_id')->constraineD()->onDelete('cascade');
             $table->string('sena_code');
             $table->integer('amount');
             $table->string('observation');

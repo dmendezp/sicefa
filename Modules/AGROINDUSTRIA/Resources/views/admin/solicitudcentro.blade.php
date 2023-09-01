@@ -2,9 +2,9 @@
 @section('content')
         <div class="container">
             <div class="form">
-                <div class="card-header">SOLICITUD DE BIENES</div>
+                <div class="form-header">SOLICITUD DE BIENES</div>
                 <div class="form-body">
-                    {!! Form::open(['url' => route('agroindustria.admin.solicitud_centro')]) !!}
+                    {!! Form::open(['url' => route('agroindustria.home.index')]) !!}
                     <div class="row">
                         <div class="col-md-6">
                             <label for="request_date" class="form-label">Fecha de Solicitud</label>
@@ -31,12 +31,12 @@
                             {!! Form::text('cost_center_name', 'Centro de Formación Agroindustrial', ['class'=>'form-control', 'readonly' => 'readonly']) !!}    
                         </div>
                         <div class="col-md-6">
-                            <label for="coordinator_name" class="form-label">Nombre de jefe de oficina o coordinador de area</label>
-                            {!! Form::select('coordinator_name', $coordinator->prepend('Seleccione un coordinador', ''), null, ['class' => 'form-control']) !!}
+                            <label for="coordinator_name" class="form-label">Nombre de jefe de oficina o coordinador de área</label>
+                            {!! Form::select('coordinator_name', $coordinator->prepend('Seleccione un coordinador', ''), null, ['class' => 'form-control', 'id' => 'coordinator-select']) !!}
                         </div>
                         <div class="col-md-6">
-                            <label for="document_number_coordinator" class="form-label">Cedula</label>
-                            {!! Form::number('document_number',null, ['class'=>'form-control']) !!}    
+                            <label for="document_number_coordinator" class="form-label">Cédula</label>
+                            {!! Form::number('document_number',null, ['class'=>'form-control', 'readonly' => 'readonly', 'id' => 'document-number']) !!}
                         </div>
                         <div class="col-md-6">
                             <label for="person_id" class="form-label">Nombre de a quien se le asignara el bien</label>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="document_number" class="form-label">Cedula</label>
-                            {!! Form::number('document_number',null, ['class'=>'form-control']) !!}    
+                            {!! Form::number('document_number',null, ['class'=>'form-control', 'readonly' => 'readonly']) !!}    
                         </div>
                         <div class="col-md-12">
                             <label for="document_number" class="form-label">Código de grupo o ficha de caracterización</label>
@@ -136,6 +136,26 @@
     </footer>
     @section('js')
     @endsection
-
+    <script>
+        $(document).ready(function() {
+            // Escucha el evento de cambio en el select
+            $('#coordinator-select').change(function() {
+                // Obtén el valor seleccionado
+                var selectedValue = $(this).val();
+                
+                // Si el valor no está vacío, busca la persona correspondiente en el arreglo
+                if (selectedValue) {
+                    var selectedPerson = @json($coordinator->toArray());
+                    var personData = selectedPerson[selectedValue];
+                    
+                    // Actualiza el campo de número de documento con el número correspondiente
+                    $('#document-number').val(personData.document_number);
+                } else {
+                    // Si se selecciona la opción predeterminada, deja el campo de número de documento en blanco
+                    $('#document-number').val('');
+                }
+            });
+        });
+    </script>
     
 @endsection

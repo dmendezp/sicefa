@@ -16,3 +16,14 @@
 .form-body{
     padding: 10px;
 }
+
+.form-header{
+    background-color: rgb(247, 244, 244);
+    border-bottom: 1px solid rgb(0, 0, 0);
+    font-weight: bold;
+    padding-left: 4px;
+}
+
+label{
+    font-weight: bold;
+}

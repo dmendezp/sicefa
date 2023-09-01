@@ -5,6 +5,9 @@ namespace Modules\AGROINDUSTRIA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Modules\SICA\Entities\Activity;
+use Modules\SICA\Entities\ProductiveUnit;
 use DB;
 
 class AGROINDUSTRIAController extends Controller
@@ -17,8 +20,28 @@ class AGROINDUSTRIAController extends Controller
 
     public function unidd()
     {
-        $title = 'Unidades';
-        return view('agroindustria::instructor.unidd', compact('title'));
+       if(Auth::check()){
+            $user = Auth::user();
+            if ($user->roles->contains('slug', 'agroindustria.admin') || $user->roles->contains('slug', 'agroindustria.instructor.vilmer') || $user->roles->contains('slug', 'agroindustria.instructor.chocolate')) {
+                $responsibilities = $user->roles->flatMap(function ($role) {
+                    return $role->responsibilities->pluck('activity_id');
+                });
+
+                 // Obtiene los IDs de las unidades productivas basadas en las actividades
+                $units = Activity::whereIn('id', $responsibilities)
+                ->pluck('productive_unit_id');
+
+                // Obtiene las unidades productivas a partir de los IDs obtenidos
+                $productiveUnits = ProductiveUnit::whereIn('id', $units)
+                ->get();
+
+                 // Retorna la vista 'homeproductive_units' con datos de unidades y la unidad seleccionada
+                return view('agroindustria::units', [
+                    'units' => $productiveUnits,
+                    'title' => 'Unidad'
+                ])->with('noRecords', $productiveUnits->isEmpty());
+            }
+        }
     }
 
     public function solicitud()

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Role;
+use Modules\AGROINDUSTRIA\Entities\RequestExternal;
 
 class RequestController extends Controller
 {
@@ -13,7 +14,7 @@ class RequestController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function solicitudcentro()
+    public function solicitud()
     {
         $title = 'Solicitud a Centro';
         $coordinator = Role::with('users.person')->where('id', 2)->first()->users->pluck('person');
@@ -28,20 +29,30 @@ class RequestController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
+    public function create(Request $request)
     {
+        $validatedData = $request->validate([
+            'coordinator' => 'required',
+            'receiver' => 'required',
+            'ficha' => 'required',
+        ]);
+    
+        $r = new RequestExternal;
+    $r->date = $validatedData['date'];
+    $r->area = $validatedData['area'];
+    $r->coordinator = $validatedData['coordinator'];
+    $r->receiver = $validatedData['receiver'];
+    $r->region_code = $validatedData['region_code'];
+    $r->region_name = $validatedData['region_name'];
+    $r->cost_code = $validatedData['cost_code'];
+    $r->cost_center_name = $validatedData['cost_center_name'];
+    $r->ficha = $validatedData['ficha'];
+
         return view('agroindustria::create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
+    public function store(){
     }
+
 
     /**
      * Show the specified resource.

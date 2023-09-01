@@ -16,6 +16,8 @@ use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Event;
 use Modules\SIGAC\Entities\InstructorProgram;
 use Modules\SIGAC\Entities\Attendance;
+use Modules\AGROINDUSTRIA\Entities\RequestExternal;
+
 
 class Person extends Model implements Auditable
 {
@@ -126,6 +128,9 @@ class Person extends Model implements Auditable
     }
     public function productive_units(){ // Accede a todas las unidades productivas que lidera esta persona
         return $this->hasMany(ProductiveUnit::class);
+    }
+    public function request_externals(){ // Accede a todas las unidades productivas que lidera esta persona
+        return $this->hasMany(RequestExternal::class);
     }
     public function users(){ // Accede a todos los usuarios registrados con esta persona
         return $this->hasMany(User::class);

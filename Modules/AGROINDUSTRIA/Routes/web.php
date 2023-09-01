@@ -10,25 +10,32 @@ use Modules\AGROINDUSTRIA\Http\Controllers\instructor\LaborController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ActivityController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\DeliverController;
 
+//unidades
+use Modules\AGROINDUSTRIA\Http\Controllers\unit\PasteleriaController;
+use Modules\AGROINDUSTRIA\Http\Controllers\unit\BakeryController;
 
+//almacenista
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\InventoryController;
-
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\WarehouseController;
 
 
 
 Route::prefix('agroindustria')->group(function() {
     Route::get('/index', 'AGROINDUSTRIAController@index')->name('agroindustria.home.index');
-    Route::get('/admin', 'AGROINDUSTRIAController@dashboard')->name('agroindustria.admin.dashboard');
 
     //admin
     Route::prefix('admin')->group(function (){
-        Route::get('/solicitud/centro', [RequestController::class, 'solicitudcentro'])->name('agroindustria.admin.solicitud_centro');
+        Route::get('/dashboard', 'AGROINDUSTRIAController@dashboard')->name('agroindustria.admin.dashboard');
+    });
+    
+    //unidades productivas
+    Route::prefix('units')->group(function (){
+        Route::get('/pasteleria/{unit}', [PasteleriaController::class, 'index_pasteleria'])->name('agroindustria.units.pasteleria');
+        Route::get('/bakery/{unit}', [BakeryController::class, 'bakery'])->name('agroindustria.units.bakery');
     });
 
     //instructor
     Route::prefix('instructor')->group(function (){
-        Route::get('/index', [UnitController::class ,'index'])->name('agroindustria.instructor.index');
         Route::get('/unidd', [UnitController::class, 'unidd'])->name('agroindustria.instructor.unidd');
         Route::get('/solicitud', [RequestController::class, 'solicitud'])->name('agroindustria.instructor.solicitud');
         Route::post('/enviarsolicitud', [RequestController::class, 'enviarsolicitud'])->name('agroindustria.instructor.enviarsolicitud');
@@ -36,6 +43,7 @@ Route::prefix('agroindustria')->group(function() {
         Route::get('/activity', [ActivityController::class, 'activity'])->name('agroindustria.instructor.activity');
         Route::get('/movements', [NewDeliverController::class, 'movements'])->name('agroindustria.instructor.movements');
         Route::get('/formulation', [FormulationController::class, 'create'])->name('agroindustria.instructor.formulations.create');
+        Route::get('/units', 'AGROINDUSTRIAController@unidd')->name('agroindustria.instructor.units');
     });
 
     //intern

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\ProductiveUnit;
-
+use Modules\SICA\Entities\Person;
 
 class RequestExternal extends Model implements Auditable
 {
@@ -33,6 +33,9 @@ class RequestExternal extends Model implements Auditable
     ];
 
     //RELACIONES
+    public function person(){ // Accede a la información de la unidad productiva al que pertenece
+        return $this->belongsTo(Person::class);
+    }
     public function productive_unit(){ // Accede a la información de la unidad productiva al que pertenece
         return $this->belongsTo(ProductiveUnit::class);
     }

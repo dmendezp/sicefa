@@ -1,7 +1,3 @@
-<head>
-    @include('agroindustria::layouts.partials.head')
-</head>
-
 <nav class="navbar navbar-expand-lg navbar-Dark" style="background-color:rgb(247, 244, 244); margin-bottom:20px">
     <a class="navbar-brand" id="title" href="{{route('agroindustria.home.index')}}">AGROINDUSTRIA</a>
 
@@ -16,20 +12,18 @@
                     <a class="nav-link" href="{{route('agroindustria.home.index')}}">Inicio</a>
                 </li>
             @endif
-            @auth
-            <!--Menú admin-->
-            @if (Route::is('*admin.*'))
-                @if(Auth::user()->havePermission('agroindustria.admin.request'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.admin.solicitud_centro')}}">Solicitud Externa</a>
-                    </li>
-                @endif
+            @if(isset($viewing_unit) && $viewing_unit)
+            <!-- Menú instructor -->
+            @if (Auth::user()->havePermission('agroindustria.instructor.labor'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('agroindustria.instructor.labor') }}">Labor</a>
+                </li>
             @endif
-            <!--Menú instructor-->
-            @if(Auth::user()->havePermission('agroindustria.instructor.labor'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('agroindustria.instructor.labor')}}">Labor</a>
-          </li>
+            <!-- Agrega la opción para solicitar a centro -->
+            @if (Auth::user()->havePermission('agroindustria.instructor.request'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('agroindustria.instructor.solicitud') }}">Solicitar a Centro</a>
+                </li>
             @endif
             @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
             <li class="nav-item">
@@ -68,7 +62,6 @@
     </div>
     
     <!-- Dashboard inicio -->
-    @auth    
     <div class="dashboard_home">
         <ul class="home">
             <li class="nav-item">
@@ -76,11 +69,20 @@
             </li>
         </ul>
     </div>
+     <!-- Dashboard unidades -->
+     @if(auth()->check() && checkRol('agroindustria.instructor.vilmer') || auth()->check() && checkRol('agroindustria.instructor.chocolate'))  
+     <div class="dashboard_units">  
+         <ul class="dashboard">
+             <li class="nav-item">
+                 <a class="nav-link" href="{{ route('agroindustria.instructor.units') }}">Unidades</a>
+             </li>
+         </ul>
+         @endif
+     </div>
 
     <!-- Dashboard admin -->
-    
-    <div class="dashboard_admin">
-        @if(checkRol('agroindustria.admin'))
+    @if(auth()->check() && checkRol('agroindustria.admin'))  
+    <div class="dashboard_admin">  
         <ul class="dashboard">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('agroindustria.admin.dashboard') }}">Dashboard</a>
@@ -88,7 +90,6 @@
         </ul>
         @endif
     </div>
-    @endauth
     <!-- Perfil, login, volver a sicefa -->
     <div class="user-panel mt-1 pb-1 mb-1 d-flex">
       <div class="row col-md-12">
