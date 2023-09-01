@@ -23,10 +23,9 @@
                                 <td>{{ $postulation->convocation->name }}</td>
                                 <td>{{ $postulation->typesOfBenefits->name }}</td>
                                 <td>
-                                    <!-- Aquí van las acciones de la fila -->
-                                </td>
-                                <td>
-                                    <input type="checkbox" data-post-id="{{ $postulation->id }}" class="selected-postulation">
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal_{{ $postulation->id }}">
+                                        Ver Detalles
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -36,32 +35,56 @@
                 
                 <!-- Modal -->
                 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="confirmationModalLabel">Confirmar Acción</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ¿Estás seguro de que deseas marcar a los seleccionados como Beneficiarios?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button id="confirmBeneficiariesBtn" type="button" class="btn btn-primary">Confirmar</button>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Modal content here -->
                 </div>
             </div>
         </div>
     </div>
     
+    @foreach($postulations as $postulation)
+        <div class="modal fade" id="modal_{{ $postulation->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel_{{ $postulation->id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel_{{ $postulation->id }}">Detalles de Postulación</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Apprentice Name:</strong> {{ $postulation->apprentice->person->full_name }}</p>
+                        <p><strong>Convocation:</strong> {{ $postulation->convocation->name }}</p>
+                        <p><strong>Type of Benefit:</strong> {{ $postulation->typesOfBenefits->name }}</p>
+                        <p><strong>Questions and Answers:</strong></p>
+                        <ul>
+                            @foreach($postulation->convocation->convocationsQuestions as $convocationsQuestion)
+                            <li>
+                                <strong>Question:</strong> {{ $convocationsQuestion->question->name }}<br>
+                                <strong>Answer:</strong> 
+                                @php
+                                $answer = $postulation->answers->where('questions_id', $convocationsQuestion->question->id)->first();
+                                @endphp
+                                @if ($answer)
+                                {{ $answer->answer }}
+                                @else
+                                No answer provided
+                                @endif
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const confirmBeneficiariesBtn = document.getElementById('confirmBeneficiariesBtn');
-            
+            const confirmBeneficiariesBtn = document.getElementById('mark-beneficiaries-btn');
+
             confirmBeneficiariesBtn.addEventListener('click', function() {
                 // Lógica para marcar a los seleccionados como Beneficiarios
                 const selectedRows = document.querySelectorAll('.selected-postulation:checked');
@@ -88,7 +111,7 @@
                         console.error('Error:', error);
                     });
                 });
-                
+
                 // Cerrar el modal después de confirmar
                 const confirmationModal = document.getElementById('confirmationModal');
                 $(confirmationModal).modal('hide');
