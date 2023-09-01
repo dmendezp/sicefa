@@ -248,25 +248,18 @@ Swal.fire({
 							</tr>
 						</thead>
 						<tbody>
+							@foreach($species as $a)
 							<tr>
-								<td>1</td>
-								<td>Juan Pérez</td>
-								<td>2023-08-12</td>
+								<td>{{$a->id}}</td>
+								<td>{{$a->name}}</td>
+								<td>{{$a->lifecycle}}</td>
 								<td>
-									<a href="#" class="btn btn-primary btn-sm">Editar</a>
-									<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarAsistenciaModal">Eliminar</button>
-								</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>María López</td>
-								<td>2023-08-12</td>
-								<td>
-									<a href="#" class="btn btn-primary btn-sm">Editar</a>
+									<a href="{{ route('agrocefa.species.edit', ['id' => $a->id]) }}" class="btn btn-primary btn-sm">Editar</a>
 									<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarAsistenciaModal">Eliminar</button>
 								</td>
 							</tr>
 						</tbody>
+						@endforeach
 					</table>
 				</div>
 			</div>
@@ -276,7 +269,7 @@ Swal.fire({
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Asistencia</h5>
+						<h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Especie</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -336,6 +329,8 @@ Swal.fire({
 		</div>
 		@endforeach
 		<br>
+
+		</div>
 	</div>
 	<br>
 </div>
@@ -420,6 +415,7 @@ Swal.fire({
 	{{-- SCRIPT EDITAR ESPECIE --}}
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 	<script>
 		$('#editarEspecieModal').on('show.bs.modal', function(event) {
 			var button = $(event.relatedTarget); // Botón que activó el modal

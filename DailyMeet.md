@@ -49,23 +49,22 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Yuderly Sapuy** - *Vista AGROCEFA*
 * **Laura Rodriguez** - *Vista desarrolladores*
 * **Andres Almario** - *Gestion de movimientos y Reporte consumo*
-* 
 
 #### Meet 30-Ago-2023
 * **Andres Almario** - *Modificacion Actividad y contextaulizacion de movimientos (BD y acciones) * - *100%* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-*
 ---
 
 #### Meet 31-Ago-2023
-* **Andres Almario** - *Modificacion Actividad y contextaulizacion de movimientos (BD y acciones) * - *100%* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-*
+* **Andres Almario** - *Solucion de conflictos, ruta y controlador de movimientos* - *100%* - *Dificultades* - *Acciones*
+
+---
+#### Meet 01-Sep-2023
+* **Andres Almario** - *Diseñar la vista de movimientos* - *Avance %* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Crear controlador para inventario, ruta y funciones de prueba* - *Avance %* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - *Ruta y diseño de vista de desarrolladores* - *Avance %* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Pendiente* - *Avance %* - *Dificultades* - *Acciones*
 ---
 
-
-des realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
 
 ## GANADERIA 🐮
 
