@@ -1,5 +1,12 @@
-
-.navbar {
+/*navbar de glosario*/
+.navbar-blue {
+  background-color: 0A3161;
+}
+/*navbar de guias*/
+.navbar-gris {
+  background-color:silver !important;
+}
+.navbar-rojo {
   background-color:#BF0D3E; 
 }
 

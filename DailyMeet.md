@@ -21,11 +21,11 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 1** - *Publicar glosario como instructor*
 ...
 #### Meet 28-Ago-2023
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades(se crearon los controller fuera del modulo)* - *Hcer las vistas de los indices*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 31-Oct-2022
+* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades(se crearon los controller fuera del modulo)* - *Hacer las vistas de los indices*
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 30-Ago-2023
+* **Integrante 1** - *Actividades realizadas*las rutas no mostraban la vista que se establecio se borraron la vistas de las carpetas en donde se deitaria las vista al exterior de views y tampoco mostro cmbio - *Avance %inciertos* - *Dificultades* No se podia ver los cambios efectuados  - *Acciones* Se cambio de ubicacion las vistas por el tema de pasar de carpeta a carpeta
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 02-Nov-2022

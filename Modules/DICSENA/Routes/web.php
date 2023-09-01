@@ -17,11 +17,11 @@ use Modules\DICSENA\Http\Controllers\GlossariesController;
 use Modules\DICSENA\Http\Controllers\TranslatesController; 
 Route::prefix('dicsena')->group(function() {
     Route::get('/', 'DICSENAController@index');
-    Route::get('/index', [HomeController::class, 'index'])->name('dicsena');
+    Route::get('/index', [HomeController::class, 'index'])->name('cefa.dicsena.home.index');
     /*rutas de carpetas*/
     // routes/web.php
-    Route::get('/guideposts', 'GuidepostsController@index')->name('guideposts');
-    Route::get('/glossaries', 'GlossariesController@index')->name('glossaries');
+    Route::get('/guideposts', 'GuidepostsController@index')->name('cefa.dicsena.guideposts');
+    Route::get('/glossaries', 'GlossariesController@index')->name('cefa.dicsena.glossaries');
 
 
 });

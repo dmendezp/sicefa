@@ -14,7 +14,7 @@ class GlossariesController extends Controller
      */
     public function index()
     {
-        return view('dicsena::index');
+        return view('dicsena::glossaries');
     }
 
     /**
