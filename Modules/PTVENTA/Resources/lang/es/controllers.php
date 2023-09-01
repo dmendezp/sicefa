@@ -58,4 +58,13 @@ return [
 	// Show Low
 	'PTVENTA_inventory_show_low_title_page' => 'Movimiento - Detalles',
 	'PTVENTA_inventory_show_low_title_view' => 'Detalles de Movimiento',
+	// Reports
+	'PTVENTA_inventory_reports_title_page' => 'Reportes',
+	'PTVENTA_inventory_reports_title_view' => 'Panel de Reportes',
+	// Show Inventory Entries Form
+	'PTVENTA_inventory_show_entries_title_page' => 'Reportes - Entradas de inventario',
+	'PTVENTA_inventory_show_entries_title_view' => 'Reportes de Entradas de Inventario',
+	// Show Sales Form
+	'PTVENTA_sales_title_page' => 'Reportes - Ventas',
+	'PTVENTA_sales_title_view' => 'Reportes de Ventas',
 ];
