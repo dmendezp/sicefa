@@ -6,6 +6,11 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementDetail;
+use Modules\SICA\Entities\MovementResponsability;
+use Modules\SICA\Entities\MovementType;
+use Modules\SICA\Entities\Warehouse;
+use Modules\SICA\Entities\WarehouseMovement;
 
 class DeliverController extends Controller
 {

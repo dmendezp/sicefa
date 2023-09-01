@@ -12,6 +12,7 @@
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleRequest.css')}}">
 
        <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/activity.css')}}">
+       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/deliveries.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/storer/bodegastyle.css')}}">
 
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
