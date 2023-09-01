@@ -64,6 +64,7 @@ Route::prefix('/bienestar')->group(function() {
     //vista postulation
     Route::get('/postulations', 'PostulationsController@index')->name('bienestar.postulations.index');
     Route::get('/postulations/{id}', 'PostulationsController@show')->name('bienestar.postulations.show');
+    Route::get('/postulations/modal/{id}', 'PostulationsController@showModal')->name('bienestar.postulations.modal');
 
 
         //Vistas Rutas de transporte
