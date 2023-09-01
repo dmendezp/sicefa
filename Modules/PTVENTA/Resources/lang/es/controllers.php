@@ -33,4 +33,8 @@ return [
 	// Show
 	'PTVENTA_sale_show_title_page' => 'Movimiento - Detalles',
 	'PTVENTA_sale_show_title_view' => 'Detalles de Movimiento',
+	
+	// -----MovementController-----
+	'PTVENTA_movement_index_title_page' => 'Movimiento',
+	'PTVENTA_movement_index_title_view' => 'Histórico de Movimientos',
 ];
