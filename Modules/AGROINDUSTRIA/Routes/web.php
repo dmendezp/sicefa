@@ -4,6 +4,7 @@
 use Modules\AGROINDUSTRIA\Http\Controllers\admin\RequestController;
 
 //instructor
+use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\FormulationController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\LaborController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ActivityController;
@@ -33,7 +34,8 @@ Route::prefix('agroindustria')->group(function() {
         Route::post('/enviarsolicitud', [RequestController::class, 'enviarsolicitud'])->name('agroindustria.instructor.enviarsolicitud');
         Route::get('/labor', [LaborController::class, 'labor'])->name('agroindustria.instructor.labor');
         Route::get('/activity', [ActivityController::class, 'activity'])->name('agroindustria.instructor.activity');
-        Route::get('/deliveries', [DeliverController::class, 'deliveries'])->name('agroindustria.instructor.deliveries');
+        Route::get('/movements', [NewDeliverController::class, 'movements'])->name('agroindustria.instructor.movements');
+        Route::get('/formulation', [FormulationController::class, 'create'])->name('agroindustria.instructor.formulations.create');
     });
 
     //intern
