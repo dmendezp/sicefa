@@ -204,7 +204,7 @@ class RegisterLow extends Component
             } catch (Exception $e) { // Capturar error durante la transacción
                 // Transacción rechazada
                 DB::rollBack(); // Devolver cambios realizados durante la transacción
-                $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta en '.$error.'. Por favor intente nuevamente.', null);
+                $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la baja en '.$error.'. Por favor intente nuevamente.', null);
             }
         } else {
             // Emitir mensaje de advertencia cuando el producto no esta seleccionado 
