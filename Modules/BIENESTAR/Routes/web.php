@@ -42,10 +42,10 @@ Route::prefix('/bienestar')->group(function() {
     Route::post('/benefits/update/{id}', 'BenefitsController@update')->name('benefits.update');
 
      //Vista CRUD Buses
-     Route::get('/buses', 'BusesController@index')->name('bienestar.buses');
-     Route::post('/buses/store', 'BusesController@store')->name('bienestar.buses.store');
-     Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('bienestar.buses.destroy');
-     Route::put('/buses/update/{id}', 'BusesController@update')->name('bienestar.buses.update');
+    Route::get('/buses', 'BusesController@index')->name('bienestar.buses');
+    Route::post('/buses/store', 'BusesController@store')->name('bienestar.buses.store');
+    Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('bienestar.buses.destroy');
+    Route::put('/buses/update/{id}', 'BusesController@update')->name('bienestar.buses.update');
 
       // Vista CRUD tipo de beneficios
     Route::get('/typeofbenefits', 'TypesOfBenefitsController@typeofbenefits')->name('bienestar.typeofbenefits');
@@ -73,5 +73,11 @@ Route::prefix('/bienestar')->group(function() {
 
     // vista de conductores
     Route::get('/Drivers_view', 'BIENESTARController@Drivers_view')->name('bienestar.Drivers_view');
+
+     // vista de gestiones de convocatorias
+    Route::get('/Convocations', 'ConvocationsController@index')->name('bienestar.Convocations');
+    Route::post('/Convocations/store', 'ConvocationsController@store')->name('bienestar.Convocations.store');
+    Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('bienestar.Convocations.update');
 });
 
+  

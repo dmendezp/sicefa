@@ -30,8 +30,8 @@ class RoutesTransportationsController extends Controller
     
     public function transportroutesAdd(Request $request)
     {
-        $numberRoute = $request->input('name');
-        $nameRoute = $request->input('porcentege');
+        $numberRoute = $request->input('numberRoute');
+        $nameRoute = $request->input('nameRoute');
         $bus = $request->input('bus');
         $timeArrival = $request->input('timeArrival');
         $hourExit = $request->input('hourExit');
