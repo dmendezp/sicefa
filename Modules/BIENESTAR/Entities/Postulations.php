@@ -18,25 +18,7 @@ class Postulations extends Model
         'total_score',
     ];
 
-    public function apprentice()
-    {
-        return $this->belongsTo(\Modules\SICA\Entities\Apprentice::class, 'apprentice_id');
-    }
-
-    public function convocation()
-    {
-        return $this->belongsTo(Convocations::class, 'convocation_id');
-    }
-
-    public function typesOfBenefits()
-    {
-        return $this->belongsTo(TypesOfBenefits::class, 'type_of_benefit_id');
-    }
-
-    public function answers()
-    {
-        return $this->hasMany(Answers::class, 'postulation_id');
-    }
+    
 
     
     protected static function newFactory()
@@ -44,5 +26,23 @@ class Postulations extends Model
         return \Modules\BIENESTAR\Database\factories\PostulationsFactory::new();
     }
 
-     
+     //RELACIONES
+
+     public function answers(){// Accede a los datos de la respuesta al que pertenece
+        return $this->hasMany(Answers::class, 'postulation_id');
+    }
+
+     public function apprentice(){// Accede a los datos del aprendiz al que pertenece
+        return $this->belongsTo(\Modules\SICA\Entities\Apprentice::class, 'apprentice_id');
+    }
+
+    public function convocation(){// Accede a los datos de la Convocatoria al que pertenece
+        return $this->belongsTo(Convocations::class, 'convocation_id');
+    }
+
+    public function typesOfBenefits(){// Accede a los datos del tipo de beneficiario al que pertenece
+        return $this->belongsTo(TypesOfBenefits::class, 'type_of_benefit_id');
+    }
+
+    
 }
