@@ -2,39 +2,36 @@
 
 @section('content')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">	
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">	
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="{{asset ('agrocefa/css/specie.css')}}">
 
-	<link rel="stylesheet" href="{{asset ('agrocefa/css/specie.css')}}">
+@if(session('success'))
+<script>
+Swal.fire({
+	position: 'top-end',
+	icon: 'success',
+	title: 'Registro Exitoso',
+	showConfirmButton: false,
+	timer: 1500
+})
+</script>
+@endif
 
-	@if(session('success'))
-    <script>
-    Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Registro eliminado correctamente',
-        showConfirmButton: false,
-        timer: 1500
-    })
-    </script>
-    @endif
+@if(session('error'))
+	<script>
+	Swal.fire({
+		position: 'top-end',
+		icon: 'success',
+		title: 'Registro Eliminado',
+		showConfirmButton: false,
+		timer: 1500
+	})
+	</script>
+@endif
 
-    @if(session('error'))
-        <script>
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Error en el proceso, intenta de nuevo',
-            showConfirmButton: false,
-            timer: 1500
-        })
-        </script>
-    @endif
-
-<div class="container">
+<div class="container" style="margin-left: 20px">
 	<div class="row">
 		<div class="col-md-12">
 			<h1 class="mb-4">Parametrizacion</h1>
@@ -47,7 +44,7 @@
 			<div class="card">
 				<div class="card-header">
 					Actividad
-					<button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad">Agregar Actividad</button>
+					<button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad"><i class='bx bx-plus icon'></i></button>
 				</div>
 				<div class="card-body">	
 					<table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
@@ -70,8 +67,8 @@
                                 <td>{{ $activity->description }}</td>
                                 <td>{{ $activity->period }}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm btn-edit-activity" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;" data-bs-toggle="modal" data-bs-target="#editaractividad_{{ $activity->id }}" data-activity-id="{{ $activity->id }}">Editar</button>
-                                    <button class="btn btn-danger btn-sm btn-delete-activity" style="padding: 0.20rem 0.3rem; font-size: 0.8rem;" data-bs-toggle="modal" data-bs-target="#eliminaractividad_{{ $activity->id }}">Eliminar</button>
+                                    <button class="btn btn-primary btn-sm btn-edit-activity"  data-bs-toggle="modal" data-bs-target="#editaractividad_{{ $activity->id }}" data-activity-id="{{ $activity->id }}"><i class='bx bx-edit icon'></i></button>
+                                    <button class="btn btn-danger btn-sm btn-delete-activity"  data-bs-toggle="modal" data-bs-target="#eliminaractividad_{{ $activity->id }}"><i class='bx bx-trash icon'></i></button>
                                 </td>
                             </tr>
                             @endforeach
@@ -239,7 +236,7 @@
 			<div class="card">
 				<div class="card-header">
 					Variedad
-					<button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad">Agregar Asistencia</button>
+					<button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#">Agregar Asistencia</button>
 				<div class="card-body">
 					<table class="table table-sm table-bordered table-striped">
 						<thead>
@@ -274,8 +271,6 @@
 				</div>
 			</div>
 		</div>
-		
-
 		{{-- Modal agregar Especie --}}
 		<div class="modal fade" id="crearspecie" tabindex="-1" aria-labelledby="crearspecie" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
@@ -308,6 +303,7 @@
 		</div>
 
 		{{-- Modal editar especie --}}
+		@foreach($species as $a)
 		<div class="modal fade" id="editarEspecieModal" tabindex="-1" aria-labelledby="editarEspecieModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -338,10 +334,15 @@
 				</div>
 			</div>
 		</div>
-
-		</div>
+		@endforeach
+		<br>
 	</div>
 	<br>
+</div>
+<br>
+<br>
+
+<div class="row">
 	{{-- CRUD parametro Cultivo --}}
 	<div class="card">
 		<div class="card-header">
@@ -385,6 +386,7 @@
 		</div>
 	</div>
 </div>
+<br>
 
 <script>
     $('.btn-edit-activity').on('click', function(event) {
@@ -438,4 +440,4 @@
 		
 		</script>
 
-	@endsection
+@endsection

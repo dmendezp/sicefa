@@ -81,10 +81,14 @@ class AGROCEFAController extends Controller
         'selectedUnitName' => $selectedUnitName,
     ]);
     }
+    public function movements()
+    {
+        return view('agrocefa::insumos');
+    }
 
     public function insumos()
     {
-        return view('agrocefa::insumos');
+        return view('agrocefa::movements');
     }
 
     public function bodega()

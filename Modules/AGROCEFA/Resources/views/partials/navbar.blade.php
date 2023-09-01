@@ -51,3 +51,5 @@
       @endauth
   </div>
 </div>
+
+@yield('selectproductive')

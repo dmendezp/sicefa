@@ -79,6 +79,6 @@ class ActivityController extends Controller
     // Realizar la eliminación
     $activity->delete();
 
-    return redirect()->route('agrocefa.parameters')->with('success', 'La actividad ha sido eliminada exitosamente.');
+    return redirect()->route('agrocefa.parameters')->with('error', 'La actividad ha sido eliminada exitosamente.');
     }
 }

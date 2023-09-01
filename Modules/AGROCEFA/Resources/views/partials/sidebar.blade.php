@@ -34,6 +34,12 @@
                             <span class="text nav-text">{{ trans('agrocefa::universal.Inventory')}}</span>
                         </a>
                     </li>
+                    <li class="nav-link">
+                        <a href="{{ route('agrocefa.movements')}}">
+                            <i class='bx bx-list-plus icon'></i>
+                            <span class="text nav-text">{{ trans('agrocefa::universal.Movements')}}</span>
+                        </a>
+                    </li>
                     @endif
                     @if (Auth::user()->havePermission('agrocefa.labormanagement.index'))
                     <li class="nav-link">
@@ -105,7 +111,7 @@
         </li>
         @endguest
         @if (Auth::check() && (Auth::user()->roles[0]->name === 'Administrador' || Auth::user()->roles[0]->name === 'Pasante'))
-            <li class="" style="margin-top: 350px">
+            <li class="" style="margin-top: 180px">
                 <a href="{{ route('cefa.welcome')}}">
                     <i class='bx bx-log-out icon' ></i>
                     <span class="text nav-text">SICEFA</span>

@@ -13,6 +13,7 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/home', 'AGROCEFAController@home')->name('agrocefa.home');
         Route::get('/select-unit/{id}', 'AGROCEFAController@selectUnit')->name('agrocefa.select-unit');
         Route::get('/inventory', 'AGROCEFAController@inventory')->name('agrocefa.inventory');
+        Route::get('/movements', 'AGROCEFAController@movements')->name('agrocefa.movements');
         Route::get('/insumos', 'AGROCEFAController@insumos')->name('agrocefa.insumos');
         Route::get('/bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
         Route::get('/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.parameters');

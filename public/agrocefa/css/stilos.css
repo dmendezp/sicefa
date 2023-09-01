@@ -238,7 +238,7 @@ body.dark .sidebar header .toggle{
 }
 
 .sidebar .menu{
-    margin-top: 40px;
+    margin-top: 10%;
 }
 
 .sidebar li.search-box{
@@ -361,8 +361,9 @@ body.dark .switch::before{
     top: 0;
     top: 0;
     left: 290px;
-    height: 100vh;
-    width: calc(100% - 250px);
+    max-height: 100%;
+    width: calc(110% - 250px);
+
     background-color: var(--body-color);
     transition: var(--tran-05);
 }
@@ -375,7 +376,7 @@ body.dark .switch::before{
 
 .sidebar.close ~ .home{
     left: 120px;
-    height: 100vh;
+    max-height: 500%;
     width: calc(100% - 78px);
 }
 body.dark .home .text{

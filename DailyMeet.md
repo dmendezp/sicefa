@@ -43,47 +43,28 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 *  -  **Andres Almario** - *Implementar parametro actividad* - *Avance 70%* - *Perdida de tiempo por diseño y filtro de unidades* - *Terminar en el otro sprint*
 ---
 
-### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
+### Sprint 2 🔄
+#### Sprint Planning 29-Ago-2023
 * **Dayana Marcela** - *Inventario general*
 * **Yuderly Sapuy** - *Vista AGROCEFA*
 * **Laura Rodriguez** - *Vista desarrolladores*
-* **Andres Almario** - *Gestion de movimientos y movimientos de produccion*
+* **Andres Almario** - *Gestion de movimientos y Reporte consumo*
 * 
 
-#### Meet 07-Nov-2022
+#### Meet 30-Ago-2023
 * **Andres Almario** - *Modificacion Actividad y contextaulizacion de movimientos (BD y acciones) * - *100%* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+*
+---
+
+#### Meet 31-Ago-2023
+* **Andres Almario** - *Modificacion Actividad y contextaulizacion de movimientos (BD y acciones) * - *100%* - *Dificultades* - *Acciones*
+* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+*
 ---
 
 
-
-## PUNTO DE VENTA 🛒
-
-### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
-* **Integrante 2** - *Actividades a realizar*
-...
-#### Meet 28-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+des realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 
 ## GANADERIA 🐮
