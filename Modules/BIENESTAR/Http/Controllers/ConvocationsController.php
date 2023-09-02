@@ -6,8 +6,16 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
+
 class ConvocationsController extends Controller
 {
+    public function convocatoria()
+    {
+        // Mostrar el formulario para crear una nueva convocatoria
+        return view('bienestar::convocatoria');
+    }
+    
+    
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -25,6 +33,8 @@ class ConvocationsController extends Controller
     {
         return view('bienestar::create');
     }
+
+    
 
     /**
      * Store a newly created resource in storage.

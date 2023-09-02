@@ -66,7 +66,15 @@ Route::prefix('/bienestar')->group(function() {
     Route::get('/postulations/{id}', 'PostulationsController@show')->name('bienestar.postulations.show');
     Route::get('/postulations/modal/{id}', 'PostulationsController@showModal')->name('bienestar.postulations.modal');
     Route::post('/update-postulation-score/{id}', 'PostulationsController@updateScore')->name('bienestar.postulations.update-score');
+<<<<<<< HEAD
+    Route::post('/mark-beneficiaries', 'TuController@markBeneficiaries')->name('bienestar.mark-beneficiaries');
+    Route::post('/assign-benefits', 'PostulationsController@assignBenefits')->name('bienestar.postulations.assign-benefits');
+    Route::get('/convocatoria', 'ConvocationsController@convocatoria')->name('convocatoria');
+    
+
+=======
     Route::post('/bienestar/assign-benefits', 'PostulationsController@assignBenefits')->name('bienestar.postulations.assign-benefits');
+>>>>>>> 7293541cb0e0beeac89439d3c50e13006ac049e3
 
         //Vistas Rutas de transporte
     Route::get('/transportroutes','RoutesTransportationsController@transportroutes')->name('bienestar.transportroutes');
