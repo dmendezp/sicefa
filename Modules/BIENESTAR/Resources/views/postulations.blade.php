@@ -12,7 +12,6 @@
                         <th>Apprentice Name</th>
                         <th>Convocation</th>
                         <th>Type of Benefit</th>
-                        <th>Seleccionar</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -23,10 +22,6 @@
                         <td>{{ $postulation->apprentice->person->full_name }}</td>
                         <td>{{ $postulation->convocation->name }}</td>
                         <td>{{ $postulation->typesOfBenefits->name }}</td>
-                        <td>
-                            <input type="checkbox" class="postulation-checkbox"
-                                data-postulation-id="{{ $postulation->id }}">
-                        </td>
                         <td>
                             <button type="button" class="btn btn-info" data-toggle="modal"
                                 data-target="#modal_{{ $postulation->id }}">
@@ -51,29 +46,42 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="benefit-assignment-form">
-                                <input type="hidden" name="selected-postulations" id="selected-postulations">
-                                <!-- Campo para seleccionar benefit_id -->
+                            <form id="benefit-assignment-form" action="{{ route('bienestar.postulations.assign-benefits') }}" method="POST">
+                                @csrf
+                                <!-- Campo para seleccionar múltiples postulaciones -->
+                                <div class="form-group">
+                                    <label for="selected-postulations">Seleccionar Postulaciones:</label>
+                                    <div class="postulations-container">
+                                        @foreach($postulations as $postulation)
+                                            <div class="postulation-item">
+                                                <input type="checkbox" name="selected-postulations[]"
+                                                    value="{{ $postulation->id }}">
+                                                {{ $postulation->apprentice->person->full_name }}
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                <!-- Campo para seleccionar beneficio -->
                                 <div class="form-group">
                                     <label for="benefit_id">Beneficio:</label>
                                     <select class="form-control" name="benefit_id" id="benefit_id">
-                                        @foreach($benefits as $benefitId)
-                                            <option value="{{ $benefitId }}">{{ $benefitId }}</option>
+                                        @foreach($benefits as $benefit)
+                                        <option value="{{ $benefit->id }}">{{ $benefit->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-
-                                <!-- Campos para state y message -->
+                            
                                 <div class="form-group">
                                     <label for="state">Estado:</label>
                                     <input type="text" class="form-control" name="state" id="state">
                                 </div>
+                            
                                 <div class="form-group">
                                     <label for="message">Mensaje:</label>
                                     <textarea class="form-control" name="message" id="message"></textarea>
                                 </div>
-
-                                <!-- Botón para enviar el formulario y registrar en postulations_benefits -->
+                            
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </form>
                         </div>
@@ -85,6 +93,7 @@
 </div>
 
 @foreach($postulations as $postulation)
+<!-- Modal de detalles de postulación -->
 <div class="modal fade" id="modal_{{ $postulation->id }}" tabindex="-1" role="dialog"
     aria-labelledby="modalLabel_{{ $postulation->id }}" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -121,15 +130,15 @@
                         id="total-score_{{ $postulation->id }}">{{ $postulation->total_score }}</span></p>
 
                 <div class="form-group">
-                    <label for="new-score_{{ $postulation->id }}">Nueva Puntuación:</label>
-                    <input type="number" class="form-control new-score" id="new-score_{{ $postulation->id }}"
-                        name="new-score">
+                    <form action="{{ route('bienestar.postulations.update-score', ['id' => $postulation->id]) }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="new-score">Nueva Puntuación:</label>
+                            <input type="number" class="form-control" name="new-score" id="new-score" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Puntuación</button>
+                    </form>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary update-score-btn"
-                    data-post-id="{{ $postulation->id }}">Guardar Puntuación</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -137,32 +146,24 @@
 @endforeach
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    const assignBenefitsRoute = '{{ route('bienestar.postulations.assign-benefits') }}';
+
+    document.addEventListener("DOMContentLoaded", function () {
         const confirmBeneficiariesBtn = document.getElementById('mark-beneficiaries-btn');
         const modalForm = document.getElementById('benefit-assignment-form');
 
-        confirmBeneficiariesBtn.addEventListener('click', function() {
-            // Recopila las ID de postulaciones seleccionadas
-            const selectedPostulations = [];
-            const checkboxes = document.querySelectorAll('.postulation-checkbox:checked');
-            checkboxes.forEach(checkbox => {
-                selectedPostulations.push(checkbox.getAttribute('data-postulation-id'));
-            });
-
-            // Llena el formulario en el modal con las ID de postulaciones seleccionadas
-            document.getElementById('selected-postulations').value = selectedPostulations.join(',');
-
+        confirmBeneficiariesBtn.addEventListener('click', function () {
             // Abre el modal de asignación de beneficios
             $('#confirmationModal').modal('show');
         });
 
         // Agrega aquí la lógica para enviar el formulario y registrar en la tabla postulations_benefits
-        modalForm.addEventListener('submit', function(event) {
+        modalForm.addEventListener('submit', function (event) {
             event.preventDefault();
             const formData = new FormData(modalForm);
             const csrfToken = '{{ csrf_token() }}';
 
-            fetch('/assign-benefits', {
+            fetch(assignBenefitsRoute, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken,
@@ -171,10 +172,12 @@
             })
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
+                if (data.message) {
                     // Actualiza la vista con la información actualizada
                     // Cierra el modal
                     $('#confirmationModal').modal('hide');
+                    // Recarga la página o actualiza la vista de manera adecuada
+                    window.location.reload(); // Esto recargará la página
                 } else {
                     // Muestra un mensaje de error si es necesario
                 }
@@ -185,5 +188,8 @@
         });
     });
 </script>
+
+
+
 
 @endsection
