@@ -58,8 +58,9 @@
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Fin</th>
                                     <th class="text-center">Inscripción</th>
-                                    <th><a href="{{ route('agregar_vacante') }}" class="btn btn-success btn-sm"><i
-                                                class="fas fa-user-plus"></i></a></th>
+                                    <th><a href="#" class="btn btn-success btn-sm" data-toggle="modal"
+                                            data-target="#nueva_vacante"><i class="fas fa-user-plus"></i></a>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,15 +79,20 @@
                                                 <i class="fas fa-eye" style="color: #000000;"></i>
                                             </a>
                                         </td>
-                                        <form action="{{ route('eliminar_vacante', $vacancy->id) }}" method="POST">
+                                        <form action="{{ route('eliminar_vacante', $vacancy->id) }}" method="POST"
+                                            class="formEliminar">
                                             @csrf
                                             @method('DELETE')
                                             <td>
                                                 <a href="{{ route('editar_vacante', ['id' => $vacancy->id]) }}"
                                                     class="btn btn-primary btn-sm">Editar</a>
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este Vacante?')">Eliminar</button>
+                                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                            </td>
                                         </form>
+
+
+
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -95,37 +101,8 @@
                 </div>
             </div>
         </div>
-
-        <div class="modal" id="myModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="vacancyTitle"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-header">
-                                    Descripción General:
-                                </div>
-                                <p id="vacancyDescription"></p>
-                                <div class="card-header">
-                                    Requisitos:
-                                </div>
-                                <ul id="vacancyRequirements" class="list-unstyled">
-                                    <!-- Requisitos se mostrarán aquí como list items -->
-                                </ul>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <a href="{{ route('inscription') }}" class="btn btn-primary">Inscripción</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+        @include('senaempresa::Company.Vacant.registration')
+        @include('senaempresa::Company.Vacant.inscription')
         @section('content')
         @show
 
@@ -135,6 +112,54 @@
 
 
     </div>
+    <script>
+        'use strict';
+        // Selecciona todos los formularios con la clase "formEliminar"
+        var forms = document.querySelectorAll('.formEliminar');
+
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Evita que el formulario se envíe de inmediato
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: 'Es un proceso irreversible.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sí, eliminarlo'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Enviar el formulario usando AJAX
+                            axios.post(form.action, new FormData(form))
+                                .then(function(response) {
+                                    // Manejar la respuesta JSON del servidor
+                                    if (response.data && response.data.mensaje) {
+                                        Swal.fire({
+                                            title: '¡Vacante eliminada!',
+                                            text: response.data.mensaje,
+                                            icon: 'success'
+                                        }).then(() => {
+                                            // Recargar la página u otra acción según sea necesario
+                                            location
+                                                .reload(); // Recargar la página después de eliminar
+                                        });
+                                    }
+                                })
+                                .catch(function(error) {
+                                    // Manejar errores si es necesario
+                                    console.error(error);
+                                });
+                        }
+                    });
+                });
+            });
+    </script>
+
+
+
 
     <!-- Main Footer -->
     @include('senaempresa::layouts.structure.footer')

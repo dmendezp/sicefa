@@ -64,14 +64,26 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Course ID</th>
-                                        <th>Vacantes ID</th>
+                                        <th>Curso ID</th>
+                                        <th>Vacante ID</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
+                                    @if ($courses)
+                                        @foreach ($courses as $course)
+                                            @foreach ($course->vacancy as $vacant)
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td>{{ $course->code }} {{ $course->program->name }}</td>
+                                                    <td>{{ $vacant->name }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
+                                    @else
+                                        <p>No se encontraron cursos asociados.</p>
+                                    @endif
+
+
                                 </tbody>
                             </table>
                         </div>

@@ -22,8 +22,9 @@ class Vacancy extends Model implements Auditable
         return \Modules\SENAEMPRESA\Database\factories\VacancyFactory::new();
     }
 
-    public function courses()
+
+    public function Course()
     {
-        return $this->belongsToMany(Course::class, 'course_vacancy');
+        return $this->hasMany(Course::class);
     }
 }

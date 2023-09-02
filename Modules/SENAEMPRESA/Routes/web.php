@@ -74,11 +74,12 @@ Route::prefix('senaempresa')->group(function () {
     Route::post('Vacantes/Nueva_Vacante/', 'VacantController@store')->name('nueva_vacante');
     Route::get('Vacantes/{id}/Editar_Vacante/', 'VacantController@edit')->name('editar_vacante');
     Route::post('Vacantes/Vacante_Editado/{id}/', 'VacantController@update')->name('vacante_editado');
-    Route::delete('Vacantes/delete/{id}', 'VacantController@destroy')->name('eliminar_vacante');
+    Route::delete('Vacantes/eliminar_vacante/{id}', 'VacantController@destroy')->name('eliminar_vacante');
 
     //Asociar curso a vacante
     Route::get('Vacantes/Asociar_Curso/', 'VacantController@asociar_curso')->name('asociar_curso');
     Route::post('Vacantes/Curso_Asociado/', 'VacantController@curso_asociado')->name('curso_asociado');
+    Route::get('Vacantes/Mostrar_Cuso/', 'VacantController@mostrar_asociados')->name('mostrar_asociados');
 
     //Rutas para senaempresa estrategias
     Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('senaempresa');

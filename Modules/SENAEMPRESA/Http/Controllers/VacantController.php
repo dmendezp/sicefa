@@ -20,23 +20,11 @@ class VacantController extends Controller
     public function vacantes()
     {
         $vacancies = Vacancy::get();
+        $PositionCompany = PositionCompany::all();
         $courses = Course::with('program')->get();
-        $data = ['title' => 'Vacantes', 'courses' => $courses, 'vacancies' => $vacancies];
+        $data = ['title' => 'Vacantes', 'courses' => $courses, 'vacancies' => $vacancies, 'PositionCompany' => $PositionCompany];
         return view('senaempresa::Company.Vacant.vacant', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function registration()
-    {
-        $vacancies = Vacancy::get();
-        $PositionCompany = PositionCompany::all();
-        $data = ['title' => 'Nueva Vacante', 'vacancies' => $vacancies, 'PositionCompany' => $PositionCompany];
-        return view('senaempresa::Company.Vacant.registration', $data);
-    }
-
     public function store(Request $request)
     {
         $imagePath = $request->file('image')->store('images', 'public');
@@ -93,18 +81,21 @@ class VacantController extends Controller
             return redirect()->back()->with('error', 'Error al actualizar el Vacante.');
         }
     }
-
-
     public function destroy($id)
     {
-        $vacancy = Vacancy::find($id);
+        try {
+            $vacante = Vacancy::findOrFail($id);
+            $vacante->delete();
 
-        if ($vacancy->delete()) {
-            return redirect()->route('vacantes')->with('danger', 'Vacante eliminado exitosamente.');
-        } else {
-            return redirect()->route('vacantes')->with('error', 'Error al eliminar el Vacante.');
+            return response()->json(['mensaje' => 'Vacante eliminada con éxito']);
+        } catch (\Exception $e) {
+            return response()->json(['mensaje' => 'Error al eliminar la vacante'], 500);
         }
     }
+
+
+
+
 
 
     //Asociar cursos a vacantes
@@ -136,5 +127,12 @@ class VacantController extends Controller
         $course->vacancy()->attach($vacancy);
 
         return redirect()->back()->with('success', 'Curso asignado a la vacante exitosamente.');
+    }
+
+    public function mostrar_asociados()
+    {
+        $courses = Course::with('vacancy')->get();
+
+        return view('senaempresa::Company.Vacant.courses_vacancies', compact('courses'));
     }
 }

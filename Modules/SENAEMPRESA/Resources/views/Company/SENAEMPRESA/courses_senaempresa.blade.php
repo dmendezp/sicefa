@@ -56,20 +56,32 @@
             <div class="row justify-content-center mt-5">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">Asociadas</div>
+                        <div class="card-header">Asociados</div>
                         <div class="card-body">
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Course ID</th>
+                                        <th>Curso ID</th>
                                         <th>SenaEmpresa ID</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
+                                    @if ($courses)
+                                        @foreach ($courses as $course)
+                                            @foreach ($course->senaempresa as $vacant)
+                                                <tr>
+                                                    <td>#</td>
+                                                    <td>{{ $course->code }} {{ $course->program->name }}</td>
+                                                    <td>{{ $senaempresa->name }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
+                                    @else
+                                        <p>No se encontraron cursos asociados.</p>
+                                    @endif
+
+
                                 </tbody>
                             </table>
                         </div>
