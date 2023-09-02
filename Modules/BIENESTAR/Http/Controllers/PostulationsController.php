@@ -10,8 +10,8 @@ use Modules\BIENESTAR\Entities\Convocations;
 use Modules\SICA\Entities\Apprentice;
 use Modules\BIENESTAR\Entities\TypesOfBenefits;
 use Modules\BIENESTAR\Entities\Questions;
-use Modules\BIENESTAR\Entities\benefits;
-
+use Modules\BIENESTAR\Entities\Benefits;
+use Modules\BIENESTAR\Entities\PostulationsBenefits;
 
 
 class PostulationsController extends Controller
@@ -21,11 +21,12 @@ class PostulationsController extends Controller
      * @return Renderable
      */
     public function index()
-    {
-        $benefits = Benefit::all();
-        $postulations = Postulations::with(['apprentice', 'convocation', 'typesOfBenefits'])->get();
-        return view('bienestar::postulations', compact('postulations'));
-    }
+{
+    $benefits = Benefits::all();
+    $postulations = Postulations::with(['apprentice', 'convocation', 'typesOfBenefits'])->get();
+    return view('bienestar::postulations', compact('postulations', 'benefits'));
+}
+
 
 
     public function show($id) {
@@ -70,64 +71,39 @@ class PostulationsController extends Controller
     }
 }
 
-public function markBeneficiaries(Request $request)
+public function assignBenefits(Request $request)
 {
     try {
         // Obtener los IDs de las postulaciones seleccionadas desde el formulario
-        $selectedPostulations = $request->input('selectedPostulations');
-        
+        $selectedPostulations = $request->input('selected-postulations');
+
         // Validar que al menos una postulación haya sido seleccionada
         if (empty($selectedPostulations)) {
             return response()->json(['error' => 'No se han seleccionado postulaciones'], 400);
         }
 
-        // Obtener los datos comunes para todos los registros
+        // Obtener los datos del formulario
         $benefitId = $request->input('benefit_id');
         $state = $request->input('state');
+        
+        // Obtener el valor de message del formulario o establecer una cadena vacía si no se proporciona
         $message = $request->input('message');
-
         // Recorrer las postulaciones seleccionadas y crear registros en postulations_benefits
         foreach ($selectedPostulations as $postulationId) {
             PostulationsBenefits::create([
                 'postulation_id' => $postulationId,
                 'benefit_id' => $benefitId,
                 'state' => $state,
-                'message' => $message,
+                'message' => $message, // Asegúrate de que $message tenga el valor correcto
             ]);
-        }
-
-        return response()->json(['message' => 'Postulaciones marcadas como beneficiarias con éxito']);
-    } catch (\Exception $e) {
-        return response()->json(['error' => 'Error al marcar las postulaciones como beneficiarias', 'message' => $e->getMessage()], 500);
-    }
-}
-    public function assignBenefits(Request $request)
-{
-    try {
-        // Obtener las ID de postulaciones seleccionadas desde el formulario
-        $selectedPostulations = explode(',', $request->input('selected-postulations'));
-
-        // Obtener los valores de benefit_id, state y message desde el formulario
-        $benefitId = $request->input('benefit_id');
-        $state = $request->input('state');
-        $message = $request->input('message');
-
-        // Aquí puedes iterar sobre las postulaciones seleccionadas y registrar los valores en postulations_benefits
-        foreach ($selectedPostulations as $postId) {
-            $postulationBenefit = new PostulationBenefit([
-                'postulation_id' => $postId,
-                'benefit_id' => $benefitId,
-                'state' => $state,
-                'message' => $message,
-            ]);
-            $postulationBenefit->save();
         }
 
         return response()->json(['message' => 'Beneficios asignados con éxito']);
     } catch (\Exception $e) {
-        return response()->json(['error' => 'Error al asignar beneficios', 'message' => $e->getMessage()], 500);
+        return response()->json(['error' => 'Error al asignar beneficios: ' . $e->getMessage()], 500);
     }
 }
+
 
 
 
