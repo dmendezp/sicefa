@@ -454,3 +454,8 @@ filter: contrast(120%);
   background-position: 50% 0%;
   animation: greenbottomBubbles 0.6s ease;
 }
+
+td{
+  text-align: center;
+}
+

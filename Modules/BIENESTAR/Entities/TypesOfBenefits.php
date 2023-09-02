@@ -21,8 +21,7 @@ class TypesOfBenefits extends Model
         return \Modules\BIENESTAR\Database\factories\TypesOfBenefitsFactory::new();
     }
 
-    public function postulation()
-    {
+    public function postulation(){// Accede a los datos de la postulacion al que pertenece
         return $this->belongsTo(Postulations::class, 'postulation_id');
     }
 }

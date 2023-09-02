@@ -61,10 +61,12 @@ Route::prefix('/bienestar')->group(function() {
     Route::put('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@update')->name('bienestar.benefitstypeofbenefits.update');
     Route::delete('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@destroy')->name('benefitstypeofbenefits.destroy');
 
-    //vista postulation
+    // Rutas para la vista postulation
     Route::get('/postulations', 'PostulationsController@index')->name('bienestar.postulations.index');
     Route::get('/postulations/{id}', 'PostulationsController@show')->name('bienestar.postulations.show');
-
+    Route::get('/postulations/modal/{id}', 'PostulationsController@showModal')->name('bienestar.postulations.modal');
+    Route::post('/update-postulation-score/{id}', 'PostulationsController@updateScore')->name('bienestar.postulations.update-score');
+    Route::post('/bienestar/assign-benefits', 'PostulationsController@assignBenefits')->name('bienestar.postulations.assign-benefits');
 
         //Vistas Rutas de transporte
     Route::get('/transportroutes','RoutesTransportationsController@transportroutes')->name('bienestar.transportroutes');
@@ -72,7 +74,12 @@ Route::prefix('/bienestar')->group(function() {
     Route::get('/LisRutas', 'RoutesTransportationsController@LisRutas')->name('bienestar.LisRutas');
 
     // vista de conductores
-    Route::get('/Drivers_view', 'BIENESTARController@Drivers_view')->name('bienestar.Drivers_view');
+    Route::get('/Drivers_view', 'BusDriversController@Drivers_view')->name('bienestar.Drivers_view');
+    Route::post('/Drivers_view/add', 'BusDriversController@Drivers_viewAdd')->name('bienestar.Driversw.add');
+    Route::put('/Drivers_view/update/{id}', 'BusDriversController@Drivers_viewUp')->name('bienestar.Drivers.update');
+    Route::delete('/Drivers_view/delete/{id}', 'BusDriversController@delete')->name('bienestar.Drivers.delete');
+
+
 });
     
 

@@ -9,6 +9,9 @@ use Modules\BIENESTAR\Entities\Postulations;
 use Modules\BIENESTAR\Entities\Convocations;
 use Modules\SICA\Entities\Apprentice;
 use Modules\BIENESTAR\Entities\TypesOfBenefits;
+use Modules\BIENESTAR\Entities\Questions;
+use Modules\BIENESTAR\Entities\Benefits;
+use Modules\BIENESTAR\Entities\PostulationsBenefits;
 
 
 class PostulationsController extends Controller
@@ -18,16 +21,98 @@ class PostulationsController extends Controller
      * @return Renderable
      */
     public function index()
-    {
-        $postulations = Postulations::with(['apprentice', 'convocation', 'typesOfBenefits'])->get();
-        return view('bienestar::postulations', compact('postulations'));
-    }
+{
+    $benefits = Benefits::all();
+    $postulations = Postulations::with(['apprentice', 'convocation', 'typesOfBenefits'])->get();
+    return view('bienestar::postulations', compact('postulations', 'benefits'));
+}
+
 
 
     public function show($id) {
         $postulation = Postulations::with('convocation', 'apprentice', 'typesOfBenefits', 'answers', 'postulationBenefits', 'socioEconomicSupportFiles')->findOrFail($id);
         return view('bienestar::postulations.show', compact('postulation'));
     }
+
+    public function showModal($id)
+    {
+        $postulation = Postulations::with(['convocation', 'apprentice', 'typesOfBenefits', 'answers' => function ($query) use ($id) {
+            $query->where('postulation_id', $id);
+        }])->findOrFail($id);
+        
+        $questions = Questions::whereIn('id', $postulation->convocation->questions->pluck('id'))->get();
+        
+        return view('bienestar::postulations.modal', compact('postulation', 'questions'));
+    }
+
+    public function updateScore(Request $request, $id)
+{
+    try {
+        // Buscar la postulación por ID
+        $postulation = Postulations::findOrFail($id);
+        
+        // Validar el valor del nuevo puntaje (puede agregar más validaciones según sus necesidades)
+        $request->validate([
+            'new-score' => 'required|integer', // Validar que sea un número entero
+        ]);
+
+        // Obtener el nuevo puntaje del formulario
+        $newScore = $request->input('new-score');
+
+        // Actualizar el puntaje de la postulación
+        $postulation->total_score = $newScore;
+        $postulation->save();
+
+        // Redirigir de vuelta a la página anterior con un mensaje de éxito (puede personalizar esto)
+        return redirect()->back()->with('success', 'Puntuación actualizada con éxito');
+    } catch (\Exception $e) {
+        // Capturar y manejar errores, puedes personalizar esto según tus necesidades
+        return redirect()->back()->with('error', 'Error al actualizar la puntuación: ' . $e->getMessage());
+    }
+}
+
+public function assignBenefits(Request $request)
+{
+    try {
+        // Obtener los IDs de las postulaciones seleccionadas desde el formulario
+        $selectedPostulations = $request->input('selected-postulations');
+
+        // Validar que al menos una postulación haya sido seleccionada
+        if (empty($selectedPostulations)) {
+            return response()->json(['error' => 'No se han seleccionado postulaciones'], 400);
+        }
+
+        // Obtener los datos del formulario
+        $benefitId = $request->input('benefit_id');
+        $state = $request->input('state');
+        
+        // Obtener el valor de message del formulario o establecer una cadena vacía si no se proporciona
+        $message = $request->input('message');
+        // Recorrer las postulaciones seleccionadas y crear registros en postulations_benefits
+        foreach ($selectedPostulations as $postulationId) {
+            PostulationsBenefits::create([
+                'postulation_id' => $postulationId,
+                'benefit_id' => $benefitId,
+                'state' => $state,
+                'message' => $message, // Asegúrate de que $message tenga el valor correcto
+            ]);
+        }
+
+        return response()->json(['message' => 'Beneficios asignados con éxito']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Error al asignar beneficios: ' . $e->getMessage()], 500);
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
