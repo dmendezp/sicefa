@@ -59,6 +59,8 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/crop/{id}/delete', 'CropController@deleteView')->name('agrocefa.crop.delete');
         Route::get('/crop/create', 'CropController@create')->name('agrocefa.crop.create');
 
+        //ruta de vista de desarrolladores
+        Route::get('/desarrolladores', 'desarrolladoresController@index')->name('agrocefa.desarrolladores.index');
 
 
     });
