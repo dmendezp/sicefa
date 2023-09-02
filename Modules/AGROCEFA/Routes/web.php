@@ -1,7 +1,6 @@
 <?php
 
 use Modules\AGROCEFA\Http\Controllers\AGROCEFAController;
-
 use Modules\AGROCEFA\Http\Controllers\SpecieController;
 use Modules\AGROCEFA\Http\Controllers\VarietyController; // Asegúrate de importar el controlador VarietyController si no está importado.
 use Modules\AGROCEFA\Http\Controllers\CropController;
@@ -12,13 +11,17 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/index', 'AGROCEFAController@index')->name('agrocefa.index');
         Route::get('/home', 'AGROCEFAController@home')->name('agrocefa.home');
         Route::get('/select-unit/{id}', 'AGROCEFAController@selectUnit')->name('agrocefa.select-unit');
-        Route::get('/inventory', 'AGROCEFAController@inventory')->name('agrocefa.inventory');
-        Route::get('/movements', 'AGROCEFAController@movements')->name('agrocefa.movements');
         Route::get('/inventory', 'InventoryController@inventory')->name('agrocefa.inventory');
         Route::get('/insumos', 'AGROCEFAController@insumos')->name('agrocefa.insumos');
         Route::get('/bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
         Route::get('/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.parameters');
         Route::get('/user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
+
+        // RUTAS PARA MOVIMIENTOS
+        Route::get('/movements', 'MovementController@viewmovements')->name('agrocefa.movements');
+        Route::get('/movements/formentrance', 'MovementController@formentrance')->name('agrocefa.formentrance');
+        Route::get('/movements/formexit', 'MovementController@formexit')->name('agrocefa.formexit');
+        
 
         // RUTAS PARA ACTIVIDADES
         Route::get('/activities', 'Parameters\ActivityController@getActivitiesForSelectedUnit')

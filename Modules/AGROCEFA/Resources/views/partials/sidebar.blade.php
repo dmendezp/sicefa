@@ -36,7 +36,7 @@
                     </li>
                     <li class="nav-link">
                         <a href="{{ route('agrocefa.movements')}}">
-                            <i class='bx bx-list-plus icon'></i>
+                            <i class='bx bx-transfer-alt icon'></i>
                             <span class="text nav-text">{{ trans('agrocefa::universal.Movements')}}</span>
                         </a>
                     </li>

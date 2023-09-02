@@ -22,7 +22,7 @@
 
 <style>
     .unit-card {
-        width: 450px;
+        width: 300px;
         border: 1px solid #ccc;
         padding: 20px;
         margin-bottom: 20px;

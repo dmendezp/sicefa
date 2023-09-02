@@ -7,14 +7,15 @@
     @include('agrocefa::partials.head')
     @stack('head')
 </head>
-<body style="display: flex;">
+<body style="display: flex;background-color: #e4e9f7">
   
   <!--Sidebar-->
     @include('agrocefa::partials.sidebar')
   <!--Sidebar-->
 
-  <!--Navbar-->
+  
   <section class="home">
+    <!--Navbar-->
       @include('agrocefa::partials.navbar')
   <!--Contenido-->
   @yield('content')

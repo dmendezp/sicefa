@@ -1,11 +1,14 @@
 /* styles.css */
 .navbar {
-  background: #E4E9F7;
-  border-radius: 9px;
-  display: flex;  
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
+    background: #E4E9F7;
+    border-radius: 9px;
+    display: flex;
+    align-items: baseline;
+    padding: 10px 20px;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 .navbar ul {

@@ -2,6 +2,7 @@
 
 namespace Modules\AGROCEFA\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class AGROCEFAController extends Controller
      * @return Renderable
      */
 
-     public function index()
+    // Verifica si el usuario está autenticado
+    public function index()
     {
         // Verifica si el usuario está autenticado
     if (Auth::check()) {
@@ -57,14 +59,27 @@ class AGROCEFAController extends Controller
     }
     public function selectUnit($id)
     {
-        // Realiza las validaciones y lógica necesarias
+
 
         // Actualiza la variable de sesión con el nuevo ID de unidad seleccionado
         Session::put('selectedUnitId', $id);
+        $unit = ProductiveUnit::find($id);
+
+        // Verifica si se encontró la unidad
+        if (!$unit) {
+            // Maneja la situación en la que no se encuentra la unidad
+            return redirect()->route('agrocefa.home')->with('error', 'La unidad productiva no se encontró');
+        }
+    
+        // Obtén el nombre de la unidad
+        $unitName = $unit->name;
+    
+        Session::put('selectedUnitName', $unitName);
 
         // Redirige a la vista de inicio con el ID de unidad seleccionado
         return redirect()->route('agrocefa.home');
     }
+
 
     public function home()
     {
@@ -82,13 +97,13 @@ class AGROCEFAController extends Controller
     ]);
     }
     public function movements()
-    {
-        return view('agrocefa::insumos');
+    {   
+        return view('agrocefa::movements');
     }
 
     public function insumos()
     {
-        return view('agrocefa::movements');
+        return view('agrocefa::insumos');
     }
 
     public function bodega()

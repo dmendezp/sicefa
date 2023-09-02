@@ -1,9 +1,7 @@
 @extends('agrocefa::layouts.master')
 
 @section('content')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <link rel="stylesheet" href="{{asset ('agrocefa/css/specie.css')}}">
 
@@ -341,13 +339,13 @@ Swal.fire({
 
 <div class="row">
 	{{-- CRUD parametro Cultivo --}}
-	<div class="card">
+	<div class="card" style="width: 90%; margin-left: 40px">
 		<div class="card-header">
 			Cultivo
 			<button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop">Agregar Cultivo</button>
 		</div>
 		<div class="card-body">
-			<table class="table table-sm table-bordered table-striped">
+			<table class="table table-sm table-bordered table-striped"  style="width: 90%">
 				<thead>
 					<tr>
 						<th>ID</th>
