@@ -78,5 +78,8 @@ Route::prefix('/bienestar')->group(function() {
     Route::get('/Drivers_view', 'BusDriversController@Drivers_view')->name('bienestar.Drivers_view');
     Route::post('/Drivers_view/add', 'BusDriversController@Drivers_viewAdd')->name('bienestar.Driversw.add');
     Route::put('/Drivers_view/update/{id}', 'BusDriversController@Drivers_viewUp')->name('bienestar.Drivers.update');
-    Route::delete('/Drivers_view/delete/{id}', 'BusDriversController@delete')->name('bienestar.Drivers.delete');});
+    Route::delete('/Drivers_view/delete/{id}', 'BusDriversController@delete')->name('bienestar.Drivers.delete');
+
+
+});
 

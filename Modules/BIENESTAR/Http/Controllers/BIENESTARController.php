@@ -16,10 +16,6 @@ class BIENESTARController extends Controller
     {
         return view('bienestar::index');
     }
-    public function Drivers_view()
-    {
-        return view('bienestar::Drivers_view');
-    }
 
 
     /**
