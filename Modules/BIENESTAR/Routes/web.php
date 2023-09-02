@@ -74,4 +74,6 @@ Route::prefix('/bienestar')->group(function() {
     // vista de conductores
     Route::get('/Drivers_view', 'BIENESTARController@Drivers_view')->name('bienestar.Drivers_view');
 });
+    
+
 

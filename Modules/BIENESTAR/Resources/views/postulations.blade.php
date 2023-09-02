@@ -33,7 +33,33 @@
                     </tbody>
                 </table>
                 <button id="mark-beneficiaries-btn" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#confirmationModal">Marcar Seleccionados como Beneficiarios</button>
-                
+
+                <button id="rejectApplicantsBtn" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#rejectionModal">Rechazar Aprendices</button>
+
+                <!-- Modal -->
+
+                <div class="modal fade" id="rejectionModal" tabindex="-1" role="dialog" aria-labelledby="rejectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rejectionModalLabel">Rechazar Aprendices</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas rechazar a los aprendices no seleccionados?</p>
+                <textarea id="rejectionMessage" class="form-control" placeholder="Escribe el mensaje de rechazo"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button id="confirmRejectionBtn" type="button" class="btn btn-danger">Confirmar Rechazo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
                 <!-- Modal -->
                 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -59,6 +85,43 @@
     </div>
     
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    const confirmRejectionBtn = document.getElementById('confirmRejectionBtn');
+
+    confirmRejectionBtn.addEventListener('click', function() {
+        const rejectionMessage = document.getElementById('rejectionMessage').value;
+        const selectedRows = document.querySelectorAll('.selected-postulation:checked');
+        const csrfToken = '{{ csrf_token() }}';
+
+        selectedRows.forEach(row => {
+            const postId = row.getAttribute('data-post-id');
+
+            fetch(`/update-postulation-status/${postId}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    newStatus: 'No Beneficiario',
+                    rejectionMessage: rejectionMessage // Agrega el mensaje de rechazo
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Actualizar la interfaz o mostrar algún mensaje de confirmación
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        // Cerrar el modal después de confirmar
+        const rejectionModal = document.getElementById('rejectionModal');
+        $(rejectionModal).modal('hide');
+    });
+});
+
         document.addEventListener("DOMContentLoaded", function() {
             const confirmBeneficiariesBtn = document.getElementById('confirmBeneficiariesBtn');
             
