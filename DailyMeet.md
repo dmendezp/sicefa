@@ -28,12 +28,12 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 1** - *Actividades realizadas*las rutas no mostraban la vista que se establecio se borraron la vistas de las carpetas en donde se deitaria las vista al exterior de views y tampoco mostro cmbio - *Avance %inciertos* - *Dificultades* No se podia ver los cambios efectuados  - *Acciones* Se cambio de ubicacion las vistas por el tema de pasar de carpeta a carpeta
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 31-Ago-2023
+* **Integrante 1** - *Actividades realizadas*se hizo correcta en rutacion para el indice y sus vistas - *Avance 10%* - *Dificultades* - *Acciones*establecer colores y hacer uso de los controller
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
-#### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 01-Sep-2023
+* **Integrante 1** - *Actividades realizadas*se creo la vista home para el rol de instructor - *Avance 20%* - *Dificultades* - *Acciones*crear las relaciones de la tabla user con guideposts
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 07-Nov-2022

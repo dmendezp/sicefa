@@ -39,7 +39,6 @@
             <textarea id="input-box" placeholder="Escribe un texto"></textarea>
             <button id="translate-button">Traducir</button>
             <textarea id="output-box" placeholder="Traducción"></textarea>
-            {{ route('index') }}
         </div>
     </div>
 

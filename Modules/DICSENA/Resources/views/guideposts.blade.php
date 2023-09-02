@@ -21,6 +21,5 @@
 </nav>
 hola guia
 
-    hola glosario
     <footer>2023</footer>
 @endsection

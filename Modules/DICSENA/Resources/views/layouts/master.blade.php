@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ asset('modules/dicsena/css/navbar.css') }}">
         <link rel="stylesheet" href="{{ asset('modules/dicsena/css/content.css') }}">
+        <link rel="stylesheet" href="{{ asset('modules/dicsena/css/pro.css') }}">
         <title>Module DICSENA</title>
 
        {{-- Laravel Mix - CSS File --}}
