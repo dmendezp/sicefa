@@ -73,7 +73,7 @@ class ParameterAgroController extends Controller
         // Intenta guardar el nuevo registro en la base de datos
         try {
             $specie->save();
-            return redirect()->route('agrocefa.parameters');
+            return redirect()->route('agrocefa.parameters')->with('success', 'Registro exitoso.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al crear la especie. Por favor, inténtalo de nuevo.');
         }
@@ -109,7 +109,7 @@ class ParameterAgroController extends Controller
             $species = Specie::findOrFail($id);
             $species->delete();
 
-            return redirect()->route('agrocefa.parameters')->with('success', 'Especie eliminada exitosamente.');
+            return redirect()->route('agrocefa.parameters')->with('error', 'Registro eliminado.');
         } catch (\Exception $e) {
             return redirect()->route('agrocefa.parameters')->with('error', 'Error al eliminar la especie.');
         }

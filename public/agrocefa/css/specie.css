@@ -85,11 +85,6 @@ td a:hover {
 }
 
 #delete {
-    border: none;
-    color: white;
-    padding: 7px 12px;
-    border-radius: 4px;
-    cursor: pointer;
     margin-left: 5px;
 }
 
