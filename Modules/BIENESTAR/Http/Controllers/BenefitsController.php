@@ -53,23 +53,9 @@ class BenefitsController extends Controller
         return view('bienestar::edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-
      public function update(Request $request, $id)
      {
-         // Validar los datos del formulario si es necesario
-     
-         // Obtener el beneficio que deseas actualizar
+         
          $benefit = Benefits::find($id);
      
          // Actualizar los datos
