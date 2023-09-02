@@ -12,7 +12,7 @@ class SocioEconomicSupportFiles extends Model
     protected $table = 'socio_economic_support_files';
 
     protected $fillable = [
-        'file',
+        'file_path',
         'postulation_id',
     ];
 
