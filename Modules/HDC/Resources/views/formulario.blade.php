@@ -17,12 +17,12 @@
                             <input type="date" class="form-control">
                         </div>
                     </div>
-                    <div class="col-4"> {{-- Primera columna del formulario --}}
-                        <div class="mb-3"> {{-- Campo de dato para nombre --}}
+                    <div class="col-4"> {{-- Segunda columna del formulario --}}
+                        <div class="mb-3">
                             <label for="name" class="form-label">Unidades Productivas</label>
                             <select class="form-select" aria-label="Default select example">
                                 <option selected>Open this select menu</option>
-                                @foreach ($productive_unit as $productive_unit)
+                                @foreach ($productive_unit as $productive_unit){{-- Consulta de las unidades productivas de sicefa --}}
                                     <option value="1">{{ $productive_unit->name }}</option>
                                 @endforeach
                             </select>

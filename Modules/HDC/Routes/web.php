@@ -20,6 +20,10 @@ Route::middleware(['lang'])->group(function() {
         /* Ruta Para Administrar Recursos */
         Route::get('/AdminstrarRecursos', 'AdminresourcesController@adminresources')->name('cefa.hdc.adminresources');
 
+        /* Rutas de Calcula tu Huella */
+        Route::get('persona', 'CarbonfootprintController@persona')-> name('carbonfootprint.persona');
+        Route::get('/persona/verificar/{documento}', 'CarbonfootprintController@verficarPersona')-> name('carbonfootprint.persona.verificar');
+
 
     });
 });

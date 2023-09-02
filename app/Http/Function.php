@@ -51,7 +51,7 @@ function revertPriceFormat($value){
 // Consultar sectores ordenadas alfabeticamente ascendente por el nombre
 function getSectorsOrderedByName(){
     return Sector::orderBy('name','ASC')->get();
-    
+}
 /* Obtner el rol a partir del nombre de la ruta */
 function getRoleRouteName($route_name) {
     $firstDotPosition = strpos($route_name, '.');
