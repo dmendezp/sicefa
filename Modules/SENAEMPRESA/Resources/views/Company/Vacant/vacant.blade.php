@@ -69,7 +69,13 @@
                                         <td>{{ $vacancy->id }}</td>
                                         <td>{{ $vacancy->name }}</td>
                                         <td><img src="{{ asset($vacancy->image) }}" alt="{{ $vacancy->name }}"></td>
-                                        <td>{{ $vacancy->position_company_id }}</td>
+                                        <td>
+                                            @foreach ($PositionCompany as $position)
+                                                @if ($position->id == $vacancy->position_company_id)
+                                                    {{ $position->description }}
+                                                @endif
+                                            @endforeach
+                                        </td>
                                         <td>{{ $vacancy->start_datetime }}</td>
                                         <td>{{ $vacancy->end_datetime }}</td>
                                         <td class="text-center">

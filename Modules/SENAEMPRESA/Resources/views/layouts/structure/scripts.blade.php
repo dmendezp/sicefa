@@ -58,11 +58,25 @@
         $('#datatable').DataTable({
             "responsive": true,
             "lengthChange": false,
-            "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            "autoWidth": true,
+            "buttons": [{
+                    extend: 'pdfHtml5',
+                    text: 'PDF',
+                    customize: function(doc) {
+                        doc.styles.tableHeader = {
+                            fillColor: '#000000',
+                            color: '#FAFAFA',
+                            fontSize: 12
+                        };
+                        doc.content[1].alignment = 'center';
+                    }
+                },
+                "copy", "csv", "excel", "print", "colvis"
+            ]
         }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
-
     });
 </script>
+
+
 <script src="{{ asset('senaempresa/js/modal.js') }}"></script>
 <script src="{{ asset('senaempresa/js/fecha_alerta.js') }}"></script>

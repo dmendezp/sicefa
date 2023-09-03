@@ -4,7 +4,10 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Modules\SENAEMPRESA\Entities\Loan;
 use Illuminate\Routing\Controller;
+use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
+use Modules\SICA\Entities\Inventory;
 
 class LoanController extends Controller
 {
@@ -25,8 +28,11 @@ class LoanController extends Controller
      */
     public function register()
     {
-        $data = ['title' => 'Prestamos Registrados'];
-        return view('senaempresa::Company.Loan.register', $data);
+        $loans = Loan::get();
+        $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
+        $inventories = Inventory::with('Element')->get();
+        $data = ['title' => 'Prestamos Registrados', 'loans' => $loans, 'staff_senaempresas' => $staff_senaempresas, 'inventories' => $inventories];
+        return view('senaempresa::Company.Loan.loan', $data);
     }
 
     /**
