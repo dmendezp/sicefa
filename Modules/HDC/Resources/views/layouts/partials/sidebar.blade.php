@@ -129,6 +129,15 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('carbonfootprint.persona')}}" class="nav-link">
+                                <i class="nav-icon fas fa-shoe-prints"></i>
+                                    <p>
+                                        Calcula Tu Huella
+                                    </p>
+                                </li>
+                            </a>
+                        </li>
                   </ul>
               </nav>
               <!-- /.sidebar-menu -->
