@@ -1,161 +1,195 @@
 @extends('bienestar::layouts.adminlte')
 
 @section('content')
+<div class="container">
+    <h1>Postulaciones con Información de Aprendices</h1>
     <div class="container">
-        <h1>Postulaciones con Información de Aprendices</h1>
-        <div class="container">
-            <div style="border: 1px solid #707070; padding: 20px; background-color: white; border-radius: 10px;">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Apprentice Name</th>
-                            <th>Convocation</th>
-                            <th>Type of Benefit</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($postulations as $postulation)
-                            <tr>
-                                <td>{{ $postulation->id }}</td>
-                                <td>{{ $postulation->apprentice->person->full_name }}</td>
-                                <td>{{ $postulation->convocation->name }}</td>
-                                <td>{{ $postulation->typesOfBenefits->name }}</td>
-                                <td>
-                                    <!-- Aquí van las acciones de la fila -->
-                                </td>
-                                <td>
-                                    <input type="checkbox" data-post-id="{{ $postulation->id }}" class="selected-postulation">
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <button id="mark-beneficiaries-btn" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#confirmationModal">Marcar Seleccionados como Beneficiarios</button>
+        <div style="border: 1px solid #707070; padding: 20px; background-color: white; border-radius: 10px;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Apprentice Name</th>
+                        <th>Convocation</th>
+                        <th>Type of Benefit</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($postulations as $postulation)
+                    <tr>
+                        <td>{{ $postulation->id }}</td>
+                        <td>{{ $postulation->apprentice->person->full_name }}</td>
+                        <td>{{ $postulation->convocation->name }}</td>
+                        <td>{{ $postulation->typesOfBenefits->name }}</td>
+                        <td>
+                            <button type="button" class="btn btn-info" data-toggle="modal"
+                                data-target="#modal_{{ $postulation->id }}">
+                                Ver Detalles
+                            </button>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <button id="mark-beneficiaries-btn" class="btn btn-sm btn-primary">Marcar Seleccionados como Beneficiarios</button>
 
-                <button id="rejectApplicantsBtn" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#rejectionModal">Rechazar Aprendices</button>
+            <!-- Modal de asignación de beneficios -->
+            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog"
+                aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmationModalLabel">Asignar Beneficios</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="benefit-assignment-form" action="{{ route('bienestar.postulations.assign-benefits') }}" method="POST">
+                                @csrf
+                                <!-- Campo para seleccionar múltiples postulaciones -->
+                                <div class="form-group">
+                                    <label for="selected-postulations">Seleccionar Postulaciones:</label>
+                                    <div class="postulations-container">
+                                        @foreach($postulations as $postulation)
+                                            <div class="postulation-item">
+                                                <input type="checkbox" name="selected-postulations[]"
+                                                    value="{{ $postulation->id }}">
+                                                {{ $postulation->apprentice->person->full_name }}
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
 
-                <!-- Modal -->
-
-                <div class="modal fade" id="rejectionModal" tabindex="-1" role="dialog" aria-labelledby="rejectionModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="rejectionModalLabel">Rechazar Aprendices</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>¿Estás seguro de que deseas rechazar a los aprendices no seleccionados?</p>
-                <textarea id="rejectionMessage" class="form-control" placeholder="Escribe el mensaje de rechazo"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button id="confirmRejectionBtn" type="button" class="btn btn-danger">Confirmar Rechazo</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-                <!-- Modal -->
-                <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="confirmationModalLabel">Confirmar Acción</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ¿Estás seguro de que deseas marcar a los seleccionados como Beneficiarios?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button id="confirmBeneficiariesBtn" type="button" class="btn btn-primary">Confirmar</button>
-                            </div>
+                                <!-- Campo para seleccionar beneficio -->
+                                <div class="form-group">
+                                    <label for="benefit_id">Beneficio:</label>
+                                    <select class="form-control" name="benefit_id" id="benefit_id">
+                                        @foreach($benefits as $benefit)
+                                        <option value="{{ $benefit->id }}">{{ $benefit->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="state">Estado:</label>
+                                    <input type="text" class="form-control" name="state" id="state">
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="message">Mensaje:</label>
+                                    <textarea class="form-control" name="message" id="message"></textarea>
+                                </div>
+                            
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-    const confirmRejectionBtn = document.getElementById('confirmRejectionBtn');
+</div>
 
-    confirmRejectionBtn.addEventListener('click', function() {
-        const rejectionMessage = document.getElementById('rejectionMessage').value;
-        const selectedRows = document.querySelectorAll('.selected-postulation:checked');
-        const csrfToken = '{{ csrf_token() }}';
+@foreach($postulations as $postulation)
+<!-- Modal de detalles de postulación -->
+<div class="modal fade" id="modal_{{ $postulation->id }}" tabindex="-1" role="dialog"
+    aria-labelledby="modalLabel_{{ $postulation->id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel_{{ $postulation->id }}">Detalles de Postulación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Apprentice Name:</strong> {{ $postulation->apprentice->person->full_name }}</p>
+                <p><strong>Convocation:</strong> {{ $postulation->convocation->name }}</p>
+                <p><strong>Type of Benefit:</strong> {{ $postulation->typesOfBenefits->name }}</p>
 
-        selectedRows.forEach(row => {
-            const postId = row.getAttribute('data-post-id');
+                <p><strong>Questions and Answers:</strong></p>
+                <ul>
+                    @foreach($postulation->convocation->convocationsQuestions as $convocationsQuestion)
+                    <li>
+                        <strong>Question:</strong> {{ $convocationsQuestion->question->name }}<br>
+                        <strong>Answer:</strong>
+                        @php
+                        $answer = $postulation->answers->where('questions_id', $convocationsQuestion->question->id)->first();
+                        @endphp
+                        @if ($answer)
+                        {{ $answer->answer }}
+                        @else
+                        No answer provided
+                        @endif
+                    </li>
+                    @endforeach
+                </ul>
+                <p><strong>Total Score:</strong> <span
+                        id="total-score_{{ $postulation->id }}">{{ $postulation->total_score }}</span></p>
 
-            fetch(`/update-postulation-status/${postId}`, {
+                <div class="form-group">
+                    <form action="{{ route('bienestar.postulations.update-score', ['id' => $postulation->id]) }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="new-score">Nueva Puntuación:</label>
+                            <input type="number" class="form-control" name="new-score" id="new-score" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Puntuación</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
+<script>
+    const assignBenefitsRoute = '{{ route('bienestar.postulations.assign-benefits') }}';
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const confirmBeneficiariesBtn = document.getElementById('mark-beneficiaries-btn');
+        const modalForm = document.getElementById('benefit-assignment-form');
+
+        confirmBeneficiariesBtn.addEventListener('click', function () {
+            // Abre el modal de asignación de beneficios
+            $('#confirmationModal').modal('show');
+        });
+
+        // Agrega aquí la lógica para enviar el formulario y registrar en la tabla postulations_benefits
+        modalForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(modalForm);
+            const csrfToken = '{{ csrf_token() }}';
+
+            fetch(assignBenefitsRoute, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken,
-                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    newStatus: 'No Beneficiario',
-                    rejectionMessage: rejectionMessage // Agrega el mensaje de rechazo
-                })
+                body: formData
             })
             .then(response => response.json())
             .then(data => {
-                // Actualizar la interfaz o mostrar algún mensaje de confirmación
+                if (data.message) {
+                    // Actualiza la vista con la información actualizada
+                    // Cierra el modal
+                    $('#confirmationModal').modal('hide');
+                    // Recarga la página o actualiza la vista de manera adecuada
+                    window.location.reload(); // Esto recargará la página
+                } else {
+                    // Muestra un mensaje de error si es necesario
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
             });
         });
-
-        // Cerrar el modal después de confirmar
-        const rejectionModal = document.getElementById('rejectionModal');
-        $(rejectionModal).modal('hide');
     });
-});
+</script>
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const confirmBeneficiariesBtn = document.getElementById('confirmBeneficiariesBtn');
-            
-            confirmBeneficiariesBtn.addEventListener('click', function() {
-                // Lógica para marcar a los seleccionados como Beneficiarios
-                const selectedRows = document.querySelectorAll('.selected-postulation:checked');
-                const csrfToken = '{{ csrf_token() }}';
 
-                selectedRows.forEach(row => {
-                    const postId = row.getAttribute('data-post-id');
 
-                    fetch(`/update-postulation-status/${postId}`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            newStatus: 'Beneficiario'
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Actualizar la interfaz o mostrar algún mensaje de confirmación
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-                });
-                
-                // Cerrar el modal después de confirmar
-                const confirmationModal = document.getElementById('confirmationModal');
-                $(confirmationModal).modal('hide');
-            });
-        });
-    </script>
+
 @endsection
