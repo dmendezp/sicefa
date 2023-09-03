@@ -130,8 +130,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('cursos_senaempresa') }}"
-                                class="nav-link {{ !Route::is('cursos_senaempresa') ?: 'active' }}">
+                            <a href="{{ route('mostrar_asociados_senaempresa') }}"
+                                class="nav-link {{ !Route::is('mostrar_asociados_senaempresa') ?: 'active' }}">
                                 <i class="fas fa-file-invoice"></i>
                                 <p>Asociar Curso</p>
                             </a>

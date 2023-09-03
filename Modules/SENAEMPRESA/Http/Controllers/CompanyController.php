@@ -5,6 +5,7 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SENAEMPRESA\Entities\senaempresa;
 use Modules\SICA\Entities\Course;
 
 class CompanyController extends Controller
@@ -32,10 +33,11 @@ class CompanyController extends Controller
         $data = ['title' => 'Seleccionados'];
         return view('senaempresa::Company.Postulate.Application', $data);
     }
-    public function mostrar_asociados()
+    public function mostrar_asociados_senaempresa()
     {
         $courses = Course::with('vacancy')->get();
+        $senaempresas = senaempresa::get();
 
-        return view('senaempresa::Company.Vacant.courses_senaempresa', compact('courses'));
+        return view('senaempresa::Company.Vacant.courses_senaempresa', compact('courses, senaempresa'));
     }
 }

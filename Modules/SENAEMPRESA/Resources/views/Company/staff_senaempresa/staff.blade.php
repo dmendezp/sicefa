@@ -17,8 +17,18 @@
 
         <div class="container">
             @if (session('success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
+                </div>
+            @endif
+            @if (session('warning'))
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ session('warning') }}
+                </div>
+            @endif
+            @if (session('danger'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('danger') }}
                 </div>
             @endif
 
@@ -34,24 +44,31 @@
                             <th>Id</th>
                             <th>Cargo</th>
                             <th>Aprendiz</th>
+                            <th>Imagen Personal</th>
                             <th style="width: 200px;">
-                                <a href="{{ route('registro') }}" class="btn btn-danger btn-sm">
+                                <a href="{{ route('registro') }}" class="btn btn-success btn-sm">
                                     <i class="fas fa-plus"></i> Agregar
                                 </a>
                             </th>
 
                         </tr>
                     </thead>
-                         <tbody>
+                    <tbody>
                         @foreach ($staff_senaempresas as $StaffSenaempresa)
                             <tr>
                                 <td>{{ $StaffSenaempresa->id }}</td>
-                                <td>@foreach ($PositionCompany as $position)
-                                    @if ($position->id == $StaffSenaempresa->position_company_id)
-                                    {{ $StaffSenaempresa->position_company_id }} {{ $position->description }}
-                                    @endif
-                                    @endforeach</td>
-                                    <td>{{ $StaffSenaempresa->Apprentice->Person->first_name }} {{ $StaffSenaempresa->Apprentice->Person->first_last_name }}</td>                                <form action="{{ route('eliminar_personal', $StaffSenaempresa->id) }}" method="POST">
+                                <td>
+                                    @foreach ($PositionCompany as $position)
+                                        @if ($position->id == $StaffSenaempresa->position_company_id)
+                                            {{ $StaffSenaempresa->position_company_id }} {{ $position->description }}
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td>{{ $StaffSenaempresa->Apprentice->Person->first_name }}
+                                    {{ $StaffSenaempresa->Apprentice->Person->first_last_name }}</td>
+                                <td><img src="{{ asset($StaffSenaempresa->image) }}"
+                                        alt="{{ $StaffSenaempresa->image }}"></td>
+                                <form action="{{ route('eliminar_personal', $StaffSenaempresa->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <td>
@@ -62,7 +79,7 @@
                                             onclick="return confirm('¿Estás seguro de que deseas eliminar este ?')">Eliminar</button>
                                 </form>
                                 </td>
-                                
+
 
 
                             </tr>

@@ -37,11 +37,6 @@ class PositionCompanyController extends Controller
         return view('senaempresa::create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
         $positionCompany = new PositionCompany();
@@ -88,7 +83,7 @@ class PositionCompanyController extends Controller
         // Actualiza otros campos según necesites
         $position->save();
 
-        return redirect()->route('carga')->with('success', 'Registro actualizado exitosamente.');
+        return redirect()->route('carga')->with('warning', 'Registro actualizado exitosamente.');
     }
     public function destroy($id)
     {
@@ -99,7 +94,7 @@ class PositionCompanyController extends Controller
         }
 
         if ($company->delete()) {
-            return redirect()->route('carga')->with('success', 'Cargo eliminado exitosamente.');
+            return redirect()->route('carga')->with('danger', 'Cargo eliminado exitosamente.');
         } else {
             return redirect()->route('carga')->with('error', 'Error al eliminar el cargo.');
         }

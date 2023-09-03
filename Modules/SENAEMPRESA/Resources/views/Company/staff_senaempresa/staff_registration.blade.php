@@ -50,6 +50,10 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Imgen Personal</label><br>
+                                    <input type="file" id="image" name="image">
+                                </div>
                                 <button type="submit" class="btn btn-success">Agregar</button>
                                 <a href="{{ route('personal') }}" class="btn btn-danger btn-xl">Cancelar</a>
                             </form>

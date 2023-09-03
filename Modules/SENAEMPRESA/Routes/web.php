@@ -79,7 +79,7 @@ Route::prefix('senaempresa')->group(function () {
     //Asociar curso a vacante
     Route::get('Vacantes/Asociar_Curso/', 'VacantController@asociar_curso')->name('asociar_curso');
     Route::post('Vacantes/Curso_Asociado/', 'VacantController@curso_asociado')->name('curso_asociado');
-    Route::get('Vacantes/Mostrar_Cuso/', 'VacantController@mostrar_asociados')->name('mostrar_asociados');
+    Route::get('Vacantes/Mostrar_Curso/', 'VacantController@mostrar_asociados')->name('mostrar_asociados');
 
     //Rutas para senaempresa estrategias
     Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('senaempresa');
@@ -87,6 +87,7 @@ Route::prefix('senaempresa')->group(function () {
     //Rutas para asociar cursos a senaempresa estrategias
     Route::get('Estrategias/Asociar_Curso/', 'SENAEMPRESAController@cursos_senamepresa')->name('cursos_senaempresa');
     Route::post('Estrategias/Curso_Asociado/', 'SENAEMPRESAController@curso_asociado_senaempresa')->name('curso_asociado_senaempresa');
+    Route::get('Estrategias/Mostrar_Curso/', 'CompanyController@mostrar_asociados_senaempresa')->name('mostrar_asociados_senaempresa');
 
     //rutas para cargo;
     Route::get('Cargos/', 'PositionCompanyController@cargar')->name('carga');
@@ -98,10 +99,10 @@ Route::prefix('senaempresa')->group(function () {
 
 
     //rutas de personal de senaempresa
-    Route::get('Personal/', 'StaffSenaempresaController@Per')->name('personal');
-    Route::get('Personal/Nueva', 'StaffSenaempresaController@registro')->name('registro');
-    Route::post('Personal/Nueva', 'StaffSenaempresaController@store')->name('Nuevas');
-    Route::get('Personal/{id}/editar', 'StaffSenaempresaController@editar')->name('editar_personal');
-    Route::post('Personal/{id}/actualizar', 'StaffSenaempresaController@update')->name('actualizacion');
+    Route::get('Personal/', 'StaffSenaempresaController@mostrar_personal')->name('personal');
+    Route::get('Personal/Nueva', 'StaffSenaempresaController@nuevo_personal')->name('registro');
+    Route::post('Personal/Nueva', 'StaffSenaempresaController@personal_nuevo')->name('Nuevas');
+    Route::get('Personal/{id}/editar', 'StaffSenaempresaController@editar_personal')->name('editar_personal');
+    Route::post('Personal/{id}/actualizar', 'StaffSenaempresaController@personal_editado')->name('actualizacion');
     Route::delete('Personal/delete/{id}', 'StaffSenaempresaController@destroy')->name('eliminar_personal');
 });
