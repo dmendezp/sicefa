@@ -24,7 +24,8 @@ class PostulationsController extends Controller
 {
     $benefits = Benefits::all();
     $postulations = Postulations::with(['apprentice', 'convocation', 'typesOfBenefits'])->get();
-    return view('bienestar::postulations', compact('postulations', 'benefits'));
+    $questions = Questions::all(); // Obtener todas las preguntas disponibles
+    return view('bienestar::postulations', compact('postulations', 'benefits', 'questions'));
 }
 
 
@@ -35,15 +36,16 @@ class PostulationsController extends Controller
     }
 
     public function showModal($id)
-    {
-        $postulation = Postulations::with(['convocation', 'apprentice', 'typesOfBenefits', 'answers' => function ($query) use ($id) {
-            $query->where('postulation_id', $id);
-        }])->findOrFail($id);
-        
-        $questions = Questions::whereIn('id', $postulation->convocation->questions->pluck('id'))->get();
-        
-        return view('bienestar::postulations.modal', compact('postulation', 'questions'));
-    }
+{
+    $postulation = Postulations::with(['convocation', 'apprentice', 'typesOfBenefits', 'answers' => function ($query) use ($id) {
+        $query->where('postulation_id', $id);
+    }])->findOrFail($id);
+    
+    // Obtener todas las preguntas disponibles
+    $questions = Questions::all();
+    
+    return view('bienestar::postulations.modal', compact('postulation', 'questions'));
+}
 
     public function updateScore(Request $request, $id)
 {
@@ -104,14 +106,26 @@ public function assignBenefits(Request $request)
     }
 }
 
+public function calculateScore($id)
+{
+    try {
+        // Buscar la postulación por ID
+        $postulation = Postulations::findOrFail($id);
 
+        // Realizar la lógica para calcular el nuevo puntaje (suma del puntaje de respuestas)
+        $totalScore = $postulation->answers->sum('score');
 
+        // Actualizar el campo total_score de la postulación
+        $postulation->total_score = $totalScore;
+        $postulation->save();
 
-
-
-
-
-
+        // Devolver el nuevo puntaje actualizado como respuesta
+        return response()->json(['total_score' => $totalScore]);
+    } catch (\Exception $e) {
+        // Capturar y manejar errores, puedes personalizar esto según tus necesidades
+        return response()->json(['error' => 'Error al calcular el puntaje: ' . $e->getMessage()], 500);
+    }
+}
 
 
     /**
