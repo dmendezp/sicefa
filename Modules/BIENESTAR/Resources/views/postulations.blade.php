@@ -110,24 +110,29 @@
                 <p><strong>Type of Benefit:</strong> {{ $postulation->typesOfBenefits->name }}</p>
 
                 <p><strong>Questions and Answers:</strong></p>
-                <ul>
-                    @foreach($postulation->convocation->convocationsQuestions as $convocationsQuestion)
-                    <li>
-                        <strong>Question:</strong> {{ $convocationsQuestion->question->name }}<br>
-                        <strong>Answer:</strong>
-                        @php
-                        $answer = $postulation->answers->where('questions_id', $convocationsQuestion->question->id)->first();
-                        @endphp
-                        @if ($answer)
-                        {{ $answer->answer }}
-                        @else
-                        No answer provided
-                        @endif
-                    </li>
-                    @endforeach
-                </ul>
-                <p><strong>Total Score:</strong> <span
-                        id="total-score_{{ $postulation->id }}">{{ $postulation->total_score }}</span></p>
+<ul>
+    @foreach($questions as $question)
+    <li>
+        <strong>Question:</strong> {{ $question->name }}<br>
+        <strong>Answer:</strong>
+        @php
+        $answer = $postulation->answers->where('questions_id', $question->id)->first();
+        @endphp
+        @if ($answer)
+        {{ $answer->answer }}
+        @else
+        No answer provided
+        @endif
+    </li>
+    @endforeach
+</ul>
+
+                <button type="button" class="btn btn-primary" id="calculate-score-btn_{{ $postulation->id }}">Calcular</button>
+
+                <p><strong>Total Score:</strong> <span id="total-score_{{ $postulation->id }}">{{ $postulation->total_score }}</span></p>
+                        
+    
+                        
 
                 <div class="form-group">
                     <form action="{{ route('bienestar.postulations.update-score', ['id' => $postulation->id]) }}" method="POST">
@@ -186,6 +191,29 @@
                 console.error('Error:', error);
             });
         });
+
+        @foreach($postulations as $postulation)
+        const calculateScoreBtn_{{ $postulation->id }} = document.getElementById('calculate-score-btn_{{ $postulation->id }}');
+        const totalScoreSpan_{{ $postulation->id }} = document.getElementById('total-score_{{ $postulation->id }}');
+
+        calculateScoreBtn_{{ $postulation->id }}.addEventListener('click', function () {
+            // Realizar una solicitud AJAX para calcular el puntaje
+            fetch('{{ route('bienestar.postulations.calculate-score', ['id' => $postulation->id]) }}', {
+                method: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Actualizar el puntaje mostrado en la vista modal
+                totalScoreSpan_{{ $postulation->id }}.textContent = data.total_score;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+        @endforeach
     });
 </script>
 
