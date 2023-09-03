@@ -20,8 +20,8 @@
                                     <label>Unidad Productiva:</label>
                                     <select name="productive_unit_id" class="form-control" required>
                                         <option value="">-- Seleccione --</option>
-                                        @foreach ($productive_units as $pu)
-                                            <option value="{{ $pu->id }}">{{ $pu->name }}</option>
+                                        @foreach ($productive_unit as $pro) {{-- Consulta las unidades productivas de SICEFA --}}
+                                            <option value="{{ $pro->id }}">{{ $pro->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -29,7 +29,7 @@
                                     <label>Recurso:</label>
                                     <select name="Resource_id" class="form-control" required>
                                         <option value="">-- Seleccione --</option>
-                                        @foreach($Resource as $re)
+                                        @foreach($resource as $re)
                                             <option value="{{ $re->id }}">{{ $re->name }}</option>
                                         @endforeach
                                     </select>
@@ -39,7 +39,48 @@
                                 </div>
                             </form>
                         </div>
-
+                        <div class="col-md-8">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-stripped table-hover">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Unidad Productiva</th>
+                                            <th>Recurso Utilizado</th>
+                                            <th class="text-center">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                        $previos_pro_id = null;
+                                        @endphp
+                                        @foreach ($resource as $re)
+                                            @if ($previos_pro_id !== $pror->productive_unit_id)
+                                                <tr>
+                                                    <td style="vertical-align: middle" rowspan="{{ $productive_unit_resource->where('productive_unit_id', $pror->productive_unit_id)->count() }}">
+                                                    {{ $pror->productive_unit->name }}
+                                                    </td>
+                                                @php
+                                                    $rowspanCount = $productive_unit_resource->where('productive_unit_id', $pror->productive_unit_id)->count();
+                                                @endphp
+                                            @else
+                                                <tr>
+                                            @endif
+                                            <td>{{ $re->resource->name }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('hdc.Adminresources.destroy', $re) }}" data-toogle='tooltip' data-placement="top" title="Eliminar"
+                                                    onclick="return confirm('¿Estas Seguro Que Deseas Eliminar La Asociación De La Unidad Productiva {{ $pror->productive_unit->name }} Y El Recurso {{ $pror->resource->name }}?')">
+                                                    <i class="fas fa-trash-alt text-danger"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @php
+                                            $previos_pro_id = $pror->productive_unit_id;
+                                        @endphp
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

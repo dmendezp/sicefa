@@ -63,7 +63,7 @@ function getRoleRouteName($route_name) {
     }
     return null;
 }
-}
+
 
 function getAppsArray(){
 	$a = [

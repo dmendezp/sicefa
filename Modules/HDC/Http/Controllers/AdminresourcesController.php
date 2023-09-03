@@ -6,6 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\Resource;
 
 class AdminresourcesController extends Controller
 {
@@ -13,9 +15,10 @@ class AdminresourcesController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function adminresources()
-    {
-        return view('hdc::Adminresources');
+    public function adminresources() {
+        $productive_unit = ProductiveUnit::orderBy('name', 'ASC')->get();
+        $resource = Resource::orderBy('name', 'ASC')->get();
+        return view('hdc::Adminresources', compact('productive_unit', 'resource'));
     }
 
     /**
