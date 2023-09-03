@@ -100,5 +100,8 @@ Route::prefix('senaempresa')->group(function () {
     //rutas de personal de senaempresa
     Route::get('Personal/', 'StaffSenaempresaController@Per')->name('personal');
     Route::get('Personal/Nueva', 'StaffSenaempresaController@registro')->name('registro');
-    Route::post('Personal/Nueva', 'StaffSenaempresaController@store')->name('Nuevo');
+    Route::post('Personal/Nueva', 'StaffSenaempresaController@store')->name('Nuevas');
+    Route::get('Personal/{id}/editar', 'StaffSenaempresaController@editar')->name('editar_personal');
+    Route::post('Personal/{id}/actualizar', 'StaffSenaempresaController@update')->name('actualizacion');
+    Route::delete('Personal/delete/{id}', 'StaffSenaempresaController@destroy')->name('eliminar_personal');
 });

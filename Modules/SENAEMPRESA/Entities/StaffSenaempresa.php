@@ -14,10 +14,19 @@ class StaffSenaempresa extends Model implements Auditable
     SoftDeletes, // Borrado suave
     HasFactory; 
 
-    protected $fillable = ['position_company_id', 'apprentice_id', 'image'];
+    protected $fillable = ['position_company_id', 'apprentice_id'];
     
     protected static function newFactory()
     {
         return \Modules\SENAEMPRESA\Database\factories\StaffSenaempresaFactory::new();
     }
+    public function PositionCompany()
+    {
+        return $this->hasOne('Modules\SENAEMPRESA\Entities\PositionCompany', 'id', 'position_company_id');
+    }
+    public function Apprentice()
+    {
+        return $this->hasOne('Modules\SICA\Entities\Apprentice', 'id', 'apprentice_id');
+    }
+    
 }

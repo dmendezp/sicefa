@@ -2,9 +2,7 @@
 <html lang="en">
 @include('senaempresa::layouts.structure.head')
 
-
 <body>
-    @csrf
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -21,15 +19,16 @@
                         <div class="card-header">{{ $title }}</div>
 
                         <div class="card-body">
-                            <form action="{{ route('Nuevas') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('actualizacion', $staffSenaempresa->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                @method('POST') 
+
                                 <div class="mb-3">
                                     <label for="position_company_id" class="form-label">Id Cargo</label>
-                                    <select class="form-control" name="position_company_id"
-                                        aria-label="Selecciona un Cargo">
+                                    <select class="form-control" name="position_company_id" aria-label="Selecciona un Cargo">
                                         <option value="" selected>Selecciona un Cargo</option>
                                         @foreach ($PositionCompany as $positionCompany)
-                                            <option value="{{ $positionCompany->id }}">
+                                            <option value="{{ $positionCompany->id }}" {{ $positionCompany->id == $staffSenaempresa->position_company_id ? 'selected' : '' }}>
                                                 {{ $positionCompany->id }}
                                                 {{ $positionCompany->description }}
                                             </option>
@@ -38,43 +37,32 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="apprentice_id" class="form-label">Id Aprendiz</label>
-                                    <select class="form-control" name="apprentice_id"
-                                        aria-label="Selecciona un Aprendiz">
+                                    <select class="form-control" name="apprentice_id" aria-label="Selecciona un Aprendiz">
                                         <option value="" selected>Selecciona un Aprendiz</option>
-                                        @foreach ($Apprentices as $Apprentice)
-                                            <option value="{{ $Apprentice->id }}">
-                                                {{ $Apprentice->Person->document_number }}
-                                                {{ $Apprentice->Person->first_name }}
-                                                {{ $Apprentice->Person->first_last_name }}
+                                        @foreach ($apprentices as $apprentice)
+                                            <option value="{{ $apprentice->id }}" {{ $apprentice->id == $staffSenaempresa->apprentice_id ? 'selected' : '' }}>
+                                                {{ $apprentice->Person->document_number }}
+                                                {{ $apprentice->Person->first_name }}
+                                                {{ $apprentice->Person->first_last_name }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-success">Agregar</button>
+                                <button type="submit" class="btn btn-success">Actualizar</button>
                                 <a href="{{ route('personal') }}" class="btn btn-danger btn-xl">Cancelar</a>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div><br>
-        @section('content')
-        @show
-
-        <!-- Control Sidebar -->
-
-        <!-- /.control-sidebar -->
-
-
     </div>
 
     <!-- Main Footer -->
     @include('senaempresa::layouts.structure.footer')
-
     @include('senaempresa::layouts.structure.scripts')
 
-    <!--scripts utilizados para procesos-->
+    <!-- Scripts utilizados para procesos -->
     @section('scripts')
     @show
 
