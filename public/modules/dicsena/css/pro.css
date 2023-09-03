@@ -34,3 +34,26 @@ ul, li {
     background-color: #555; /* Cambio de color al pasar el mouse */
     color: #fff; /* Cambio de color de texto al pasar el mouse */
 }
+/*div de tarajetas*/
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.tarjeta {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 10px;
+    width: 300px;
+}
+
+.icono img {
+    max-width: 50px;
+    max-height: 50px;
+    margin-bottom: 10px;
+}

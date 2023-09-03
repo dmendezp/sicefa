@@ -22,6 +22,7 @@ Route::prefix('dicsena')->group(function() {
     // routes/web.php
     Route::get('/guideposts', 'GuidepostsController@index')->name('cefa.dicsena.guideposts');
     Route::get('/glossaries', 'GlossariesController@index')->name('cefa.dicsena.glossaries');
+    Route::get('/homeins', 'HomeinsController@index')->name('cefa.dicsena.homeins');
 
 
 });
