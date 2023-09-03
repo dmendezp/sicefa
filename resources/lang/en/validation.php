@@ -158,7 +158,9 @@ return [
         'activity_type_id' => 'activity type', // SICA
         'app_id' => 'app', // SICA
         'environment_id' => 'environment', // SICA
+        'eps_id' => 'eps', // SICA
         'farm_id' => 'farm', // SICA
+        'first_name' => 'name', // SICA
         'leader_id' => 'leader person', // SICA
         'person_document_type' => 'document type', // PTVENTA
         'person_document_number' => 'document number', // PTVENTA
@@ -166,6 +168,7 @@ return [
         'person_first_last_name' => 'first last name', // PTVENTA
         'person_id' => 'person', // SICA
         'person_second_last_name' => 'second last name', // PTVENTA
+        'population_group_id' => 'population group', // SICA
         'productive_unit_id' => 'productive unit', // SICA
         'role_id' => 'rol', // SICA
         'sector_id' => 'sector', // SICA
