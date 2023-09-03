@@ -14,15 +14,15 @@ class ActivityController extends Controller
     //Funcion listar Actividad por Unidad
     public function getActivitiesForSelectedUnit()
     {
-        // Obtén el ID de la unidad productiva seleccionada de la sesión
-        $selectedUnitId = Session::get('selectedUnitId');
+            // Obtén el ID de la unidad productiva seleccionada de la sesión
+            $selectedUnitId = Session::get('selectedUnitId');
 
-        // Verifica si hay un ID de unidad seleccionada en la sesión
-        if ($selectedUnitId) {
-            // Obtiene todas las actividades asociadas a la unidad productiva seleccionada
-            $activities = Activity::with('activity_type') // Cargar la relación activityType
-                                ->where('productive_unit_id', $selectedUnitId)
-                                ->get();
+            // Verifica si hay un ID de unidad seleccionada en la sesión
+            if ($selectedUnitId) {
+                // Obtiene todas las actividades asociadas a la unidad productiva seleccionada
+                $activities = Activity::with('activity_type') // Cargar la relación activityType
+                                    ->where('productive_unit_id', $selectedUnitId)
+                                    ->get();
 
             return $activities; // Retorna el arreglo de actividades
         } else {

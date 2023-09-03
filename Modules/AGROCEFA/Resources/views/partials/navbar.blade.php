@@ -1,4 +1,4 @@
-
+<body style="background-color: #e4e9f7 ">
 <div class="navbar">
   @if (Auth::check() && (Auth::user()->roles[0]->name === 'Administrador' || Auth::user()->roles[0]->name === 'Pasante'))
   <ul>
@@ -53,4 +53,6 @@
   </div>
 </div>
 
+
 @yield('selectproductive')
+</body>
