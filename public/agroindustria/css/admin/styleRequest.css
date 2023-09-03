@@ -2,13 +2,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 20px;
 }
 
 .form{
-    width: 800px;
+    width: 1000px;
     border: 1px solid rgb(0, 0, 0);
     border-radius: 4px;
 }
@@ -26,4 +26,23 @@
 
 label{
     font-weight: bold;
+}
+
+#products{
+    margin-top: 10px;
+}
+
+#add-product{
+    background-color: green;
+    border-radius: 4px;
+}
+
+#products .product{
+    margin-top: 10px;
+}
+
+.remove-product{
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
 }

@@ -15,9 +15,9 @@
                 'Pasteleria' => 'fas fa-birthday-cake fa-lg',
             ];
         $unitRoutes = [
-            'Panaderia' => route('agroindustria.units.bakery', ['unit'=> $unit->id]), // Reemplazar con la ruta real
-            'Chocolateria' => route('agroindustria.units.pasteleria',['unit' => $unit->id]), 
-            'Pasteleria' => route('agroindustria.units.pasteleria',['unit' => $unit->id]), 
+            'Panaderia' => route('cefa.agroindustria.units.bakery', ['unit'=> $unit->id]), // Reemplazar con la ruta real
+            'Chocolateria' => route('cefa.agroindustria.units.pasteleria',['unit' => $unit->id]), 
+            'Pasteleria' => route('cefa.agroindustria.units.pasteleria',['unit' => $unit->id]), 
         ];
 
         // Determinar el ícono correspondiente al nombre de la unidad actual

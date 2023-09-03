@@ -23,7 +23,7 @@ class CreateRequestExternalsTable extends Migration
             $table->string('region_name');
             $table->integer('cost_code');
             $table->string('cost_center_name');
-            $table->string('ficha');
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

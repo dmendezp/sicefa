@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-Dark" style="background-color:rgb(247, 244, 244); margin-bottom:20px">
-    <a class="navbar-brand" id="title" href="{{route('agroindustria.home.index')}}">AGROINDUSTRIA</a>
+    <a class="navbar-brand" id="title" href="{{route('cefa.agroindustria.home.index')}}">AGROINDUSTRIA</a>
 
     <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
         aria-expanded="false" aria-label="Toggle navigation"></button>
@@ -9,25 +9,25 @@
             <!-- Acceso general -->
             @if(Route::is('*home.*'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('agroindustria.home.index')}}">Inicio</a>
+                    <a class="nav-link" href="{{route('cefa.agroindustria.home.index')}}">Inicio</a>
                 </li>
             @endif
             @if(isset($viewing_unit) && $viewing_unit)
             <!-- Menú instructor -->
             @if (Auth::user()->havePermission('agroindustria.instructor.labor'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('agroindustria.instructor.labor') }}">Labor</a>
+                    <a class="nav-link" href="{{ route('cefa.agroindustria.instructor.labor') }}">Labor</a>
                 </li>
             @endif
             <!-- Agrega la opción para solicitar a centro -->
             @if (Auth::user()->havePermission('agroindustria.instructor.request'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('agroindustria.instructor.solicitud') }}">Solicitar a Centro</a>
+                    <a class="nav-link" href="{{ route('cefa.agroindustria.instructor.solicitud') }}">Solicitar a Centro</a>
                 </li>
             @endif
             @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
             <li class="nav-item">
-                <a class="nav-link" href="{{route('agroindustria.instructor.activity')}}">Actividades</a>
+                <a class="nav-link" href="{{route('cefa.agroindustria.instructor.activity')}}">Actividades</a>
             </li>
             @endif
             @if(Auth::user()->havePermission('agroindustria.storer.crud'))
@@ -37,23 +37,23 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.intern.benvas')}}">Envases</a>
+                        <a class="nav-link" href="{{route('cefa.agroindustria.intern.benvas')}}">Envases</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.intern.bepp')}}">Epp</a>
+                        <a class="nav-link" href="{{route('cefa.agroindustria.intern.bepp')}}">Epp</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.intern.binsu')}}">Insumos</a>
+                        <a class="nav-link" href="{{route('cefa.agroindustria.intern.binsu')}}">Insumos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.intern.baseo')}}">Aseo</a>
+                        <a class="nav-link" href="{{route('cefa.agroindustria.intern.baseo')}}">Aseo</a>
                     </div>
                   </div>
              </li>
              @endif
              @if(Auth::user()->havePermission('agroindustria.instructor.deliveries'))
             <li class="nav-item">
-                <a class="nav-link" href="{{route('agroindustria.instructor.deliveries')}}">Entregas</a>
+                <a class="nav-link" href="{{route('cefa.agroindustria.instructor.deliveries')}}">Entregas</a>
             </li>
             @endif
 
@@ -65,16 +65,29 @@
     <div class="dashboard_home">
         <ul class="home">
             <li class="nav-item">
-                <a href="{{ route('agroindustria.home.index') }}" class="nav-link">Inicio</a>
+                <a href="{{ route('cefa.agroindustria.home.index') }}" class="nav-link">Inicio</a>
             </li>
         </ul>
     </div>
+
+
+    <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          {{ session('lang') }} <i class="fas fa-globe"></i>
+        </a>
+        <div class="dropdown-menu p-0">
+          <a href="{{ url('lang',['es']) }}" class="dropdown-item">Español</a>
+          <a href="{{ url('lang',['en']) }}" class="dropdown-item">English</a>
+        </div>
+
+    </li>
+
      <!-- Dashboard unidades -->
      @if(auth()->check() && checkRol('agroindustria.instructor.vilmer') || auth()->check() && checkRol('agroindustria.instructor.chocolate'))  
      <div class="dashboard_units">  
          <ul class="dashboard">
              <li class="nav-item">
-                 <a class="nav-link" href="{{ route('agroindustria.instructor.units') }}">Unidades</a>
+                 <a class="nav-link" href="{{ route('cefa.agroindustria.instructor.units') }}">Unidades</a>
              </li>
          </ul>
          @endif
@@ -85,7 +98,7 @@
     <div class="dashboard_admin">  
         <ul class="dashboard">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('agroindustria.admin.dashboard') }}">Dashboard</a>
+                <a class="nav-link" href="{{ route('cefa.agroindustria.admin.dashboard') }}">Dashboard</a>
             </li>
         </ul>
         @endif
