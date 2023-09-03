@@ -30,19 +30,28 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Mary Luz Aldana Vidarte** - *Registro de Consumo* - *Avance 20%* - *Dificultades* - *Acciones*
 * **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva NO SE PRESENTO* - *0%* - *Dificultades* - *Acciones*
 ---
+
+### Sprint 2 🔄
 #### Meet 29-AGO-2023
 * **Andres David Cumaco Rojas** - *Analisis e integración de "Calcula tu huella"* - *Avance %* - *Dificultades* - *Acciones*
 * **Mary Luz Aldana Vidarte** - *Analisis e integración de "Calcula tu huella"* - *Avance %* - *Dificultades* - *Acciones*
 * **Leidy Sofia Osorio Vera** - *Analisis e integración de "Calcula tu huella"* - *Avance %* - *Dificultades* - *Acciones*
 ---
-#### Meet 30-AGO-2022
+#### Meet 30-AGO-2023
 * **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos* - *Avance 50%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
 * **Mary Luz Aldana Vidarte** - *Registro de Consumo* - *Avance 30%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 * **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva"* - *Avance 50%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 ---
-#### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+#### Meet 31-AGO-2023
+* **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos* - *Avance 50%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Registro de Consumo* - *Avance 30%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva"* - *Avance 50%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+---
+#### Meet 01-Sep-2023
+* **Andres David Cumaco Rojas** - *Integración del proyecto Calcula tu huella* - *Avance 20%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Integración del proyecto Calcula tu huella* - *Avance 20%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Integración del proyecto Calcula tu huella* - *Avance 20%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 ---
 
 

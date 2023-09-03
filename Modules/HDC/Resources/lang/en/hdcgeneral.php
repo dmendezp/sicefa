@@ -12,7 +12,7 @@ return [
     'user' => 'User',
     'carbonfootprint' => 'Carbon Footprint',
     'login' => 'Login',
-    'BacktoSICEFA' => 'Back To SICEFA'
+    'BacktoSICEFA' => 'Back To SICEFA',
 
 
 ];
