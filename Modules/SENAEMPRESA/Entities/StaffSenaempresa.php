@@ -22,12 +22,4 @@ class StaffSenaempresa extends Model implements Auditable
     {
         return \Modules\SENAEMPRESA\Database\factories\StaffSenaempresaFactory::new();
     }
-    public function Apprentice()
-    { // Accede a la información del aprendiz 
-        return $this->belongsTo(Apprentice::class);
-    }
-    public function Invetory()
-    { // Accede a la información del aprendiz 
-        return $this->belongsTo(Inventory::class);
-    }
 }

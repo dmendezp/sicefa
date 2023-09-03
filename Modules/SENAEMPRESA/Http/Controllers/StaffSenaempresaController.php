@@ -8,7 +8,6 @@ use Illuminate\Routing\Controller;
 use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SICA\Entities\Apprentice;
-use Modules\SICA\Entities\Person;
 
 
 
@@ -20,8 +19,9 @@ class StaffSenaempresaController extends Controller
      */
     public function Per()
     {
-        $staff_senaempresas = StaffSenaempresa::get();
-        $data = ['title' => 'Personal', 'staff_senaempresas' => $staff_senaempresas];
+        $PositionCompany = PositionCompany::all();
+        $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
+        $data = ['title' => 'Personal', 'staff_senaempresas' => $staff_senaempresas, 'PositionCompany' => $PositionCompany];
         return view('senaempresa::staff_senaempresa.staff', $data);
     }
 
@@ -31,11 +31,9 @@ class StaffSenaempresaController extends Controller
      */
     public function registro()
     {
-        $staff_senaempresas = StaffSenaempresa::get();
+        $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
         $PositionCompany = PositionCompany::all();
-        $Apprentices = Apprentice::all();
-        $People = Person::all();
-        $data = ['title' => 'Personal SenaEmpresa', 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices, 'People' => $People];
+        $data = ['title' => 'Personal SenaEmpresa', 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany];
         return view('senaempresa::staff_senaempresa.staff_registration', $data);
     }
 
@@ -44,25 +42,37 @@ class StaffSenaempresaController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
-    {
-        $docente_id = $request->input('docente_id');
-        $docente = Apprentice::with('Person')->find($docente_id);
-        $nombre_docente = $docente->persona->primer_nombre;
-
-        $staffsenaempresa = new StaffSenaempresa();
-        $staffsenaempresa->position_company_id = $request->input('position_company_id');
-        $staffsenaempresa->apprentice_id = $request->input('apprentice_id');
-    }
-
+ 
     /**
      * Show the specified resource.
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function store(Request $request)
     {
-        return view('senaempresa::show');
+        // Valida los datos del formulario
+        $validatedData = $request->validate([
+            'position_company_id' => 'required',
+            'apprentice_id' => 'required',
+            // Agrega aquí las reglas de validación para los otros campos
+        ]);
+
+        // Crea una nueva instancia del modelo StaffSenaempresa
+        $staffSenaempresa = new StaffSenaempresa();
+
+        // Asigna los valores de los campos del formulario a la instancia
+        $staffSenaempresa->position_company_id = $request->input('position_company_id');
+        $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
+        // Asigna aquí los valores de los otros campos
+
+        // Guarda la instancia en la base de datos
+        if ($staffSenaempresa->save()) {
+            // Redirige a la vista adecuada con un mensaje de éxito
+            return redirect()->route('personal')->with('success', 'Cargo creado exitosamente.');
+        } else {
+            // Maneja el caso de error si la inserción falla
+            return redirect()->back()->with('error', 'Error al crear el cargo.');
+        }
     }
 
     /**
@@ -70,9 +80,15 @@ class StaffSenaempresaController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function editar($id)
     {
-        return view('senaempresa::edit');
+
+        $staffSenaempresa = StaffSenaempresa::findOrFail($id);
+        $PositionCompany = PositionCompany::all();
+        $apprentices = Apprentice::all();
+
+        $data = ['title' => 'Editar Personal', 'staffSenaempresa' => $staffSenaempresa, 'PositionCompany' => $PositionCompany, 'apprentices' => $apprentices  ];
+        return view('senaempresa::staff_senaempresa.staff_edit', $data);
     }
 
     /**
@@ -83,9 +99,15 @@ class StaffSenaempresaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $staffSenaempresa = StaffSenaempresa::find($id);
+        $staffSenaempresa->position_company_id = $request->input('position_company_id');
+        $staffSenaempresa->apprentice_id = $request->input('apprentice_id'); // Obtener el valor seleccionado del select
 
+        // Actualiza otros campos según necesites
+        $staffSenaempresa->save();
+
+        return redirect()->route('personal')->with('success', 'Registro actualizado exitosamente.');
+    }
     /**
      * Remove the specified resource from storage.
      * @param int $id
@@ -93,6 +115,16 @@ class StaffSenaempresaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $company = StaffSenaempresa::find($id);
+
+        if (!$company) {
+            return redirect()->route('personal')->with('error', 'El cargo no existe.');
+        }
+
+        if ($company->delete()) {
+            return redirect()->route('personal')->with('success', 'Cargo eliminado exitosamente.');
+        } else {
+            return redirect()->route('personal')->with('error', 'Error al eliminar el cargo.');
+        }
     }
 }

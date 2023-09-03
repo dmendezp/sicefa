@@ -34,21 +34,39 @@
                             <th>Id</th>
                             <th>Cargo</th>
                             <th>Aprendiz</th>
-                            <th>Imagen</th>
                             <th style="width: 200px;">
-                                <a href="{{ route('Nuevo') }}" class="btn btn-danger btn-sm">
+                                <a href="{{ route('registro') }}" class="btn btn-danger btn-sm">
                                     <i class="fas fa-plus"></i> Agregar
                                 </a>
                             </th>
 
                         </tr>
                     </thead>
-                    <tbody>
-                        <td>1</td>
-                        <td>Cargo 1</td>
-                        <td>Aprendiz 2</td>
-                        <td>Imgen Personal</td>
-                        <td>Editar|Eliminar</td>
+                         <tbody>
+                        @foreach ($staff_senaempresas as $StaffSenaempresa)
+                            <tr>
+                                <td>{{ $StaffSenaempresa->id }}</td>
+                                <td>@foreach ($PositionCompany as $position)
+                                    @if ($position->id == $StaffSenaempresa->position_company_id)
+                                    {{ $StaffSenaempresa->position_company_id }} {{ $position->description }}
+                                    @endif
+                                    @endforeach</td>
+                                    <td>{{ $StaffSenaempresa->Apprentice->Person->first_name }} {{ $StaffSenaempresa->Apprentice->Person->first_last_name }}</td>                                <form action="{{ route('eliminar_personal', $StaffSenaempresa->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <td>
+                                        <a href="{{ route('editar_personal', ['id' => $StaffSenaempresa->id]) }}"
+                                            class="btn btn-info btn-sm">Editar</a>
+
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('¿Estás seguro de que deseas eliminar este ?')">Eliminar</button>
+                                </form>
+                                </td>
+                                
+
+
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

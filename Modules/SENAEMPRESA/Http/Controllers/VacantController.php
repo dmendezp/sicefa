@@ -59,28 +59,7 @@ class VacantController extends Controller
         return view('senaempresa::Company.Vacant.vacant_edit', $data);
     }
 
-    public function update(Request $request, $id)
-    {
-        $vacancy = Vacancy::findOrFail($id);
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            $vacancy->image = $imagePath;
-        }
-
-        $vacancy->name = $request->input('name');
-        $vacancy->description_general = $request->input('description_general');
-        $vacancy->requirement = $request->input('requirement');
-        $vacancy->position_company_id = $request->input('position_company_id');
-        $vacancy->start_datetime = $request->input('start_datetime');
-        $vacancy->end_datetime = $request->input('end_datetime');
-
-        if ($vacancy->save()) {
-            return redirect()->route('vacantes')->with('warning', 'Vacante actualizado exitosamente.');
-        } else {
-            return redirect()->back()->with('error', 'Error al actualizar el Vacante.');
-        }
-    }
     public function destroy($id)
     {
         try {
