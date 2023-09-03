@@ -17,12 +17,14 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/index', 'HDCController@index')->name('cefa.hdc.index');
         /* Ruta del Formulario */
         Route::get('/Formulario', 'FormularioController@formulario')->name('cefa.hdc.formulario');
+        Route::get('/Formulariolabor', 'FormularioController@formulariolabor')->name('hdc.formulariolabor');
         /* Ruta Para Administrar Recursos */
         Route::get('/AdminstrarRecursos', 'AdminresourcesController@adminresources')->name('cefa.hdc.adminresources');
 
         /* Rutas de Calcula tu Huella */
         Route::get('persona', 'CarbonfootprintController@persona')-> name('carbonfootprint.persona');
         Route::get('/persona/verificar/{documento}', 'CarbonfootprintController@verficarPersona')-> name('carbonfootprint.persona.verificar');
+        Route::post('/verificar-persona', 'CarbonfootprintController@verficarPersona')->name('carbonfootpr.verificarint.persona');
 
 
     });

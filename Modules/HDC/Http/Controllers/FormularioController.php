@@ -24,6 +24,10 @@ class FormularioController extends Controller
         return view('hdc::formulario', compact('productive_unit'));
 
     }
+    public function formulariolabor(){
+        return view('hdc::formulariolabor');
+
+    }
 
     /**
      * Show the form for creating a new resource.
