@@ -6,13 +6,16 @@ Route::middleware(['lang'])->group(function(){
 
     Route::prefix('sica')->group(function() {
 
-        Route::get('/admin/location/countries', [LocationController::class, 'countries'])->name('sica.admin.location.countries');
-        Route::get('/admin/location/countries/list', [LocationController::class, 'getCountries'])->name('sica.admin.location.countries.getcountries');
+        // --------------  Rutas de Paises ---------------------------------
+        Route::get('/admin/location/countries', [LocationController::class, 'countries_index'])->name('sica.admin.location.countries.index'); // Vista principal de paises (Administrador)
+        Route::get('/admin/location/countries/municipalities/consult', [LocationController::class, 'countries_municipalities_consult'])->name('sica.admin.location.countries.municipalities.consult'); // Consultar municipios de manera asincrónica para departamentos y paises (Administrador)
 
-        Route::get('/admin/location/farms', [LocationController::class, 'farms'])->name('sica.admin.location.farms');
+        // --------------  Rutas de Granjas ---------------------------------
+        Route::get('/admin/location/farms', [LocationController::class, 'farms_index'])->name('sica.admin.location.farms.index'); // Vista principal de granjas (Administrdor)
 
-        Route::get('/admin/location/environments', [LocationController::class, 'environments'])->name('sica.admin.location.environments');
-              
-    });  
+        // --------------  Rutas de Ambientes ---------------------------------
+        Route::get('/admin/location/environments', [LocationController::class, 'environments_index'])->name('sica.admin.location.environments.index'); // Vista principal de ambientes de formación (Administrador)
 
-}); 
+    });
+
+});

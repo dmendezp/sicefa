@@ -231,25 +231,25 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            @if (Auth::user()->havePermission('sica.admin.location.countries'))
+                            @if (Auth::user()->havePermission('sica.admin.location.countries.index'))
                                 <li class="nav-item">
-                                    <a href="{{ route('sica.admin.location.countries') }}" class="nav-link {{ !Route::is('sica.admin.location.countries*') ?: 'active' }}">
+                                    <a href="{{ route('sica.admin.location.countries.index') }}" class="nav-link {{ !Route::is('sica.admin.location.countries.*') ?: 'active' }}">
                                         <i class="fas fa-globe-americas"></i></i>
                                         <p>{{ trans('sica::menu.Countries') }}</p>
                                     </a>
                                 </li>
                             @endif
-                            @if (Auth::user()->havePermission('sica.admin.location.farms'))
+                            @if (Auth::user()->havePermission('sica.admin.location.farms.index'))
                                 <li class="nav-item">
-                                    <a href="{{ route('sica.admin.location.farms') }}" class="nav-link {{ !Route::is('sica.admin.location.farms*') ?: 'active' }}">
+                                    <a href="{{ route('sica.admin.location.farms.index') }}" class="nav-link {{ !Route::is('sica.admin.location.farms*') ?: 'active' }}">
                                         <i class="fas fa-map-marked-alt"></i>
                                         <p>{{ trans('sica::menu.Farms') }}</p>
                                     </a>
                                 </li>
                             @endif
-                            @if (Auth::user()->havePermission('sica.admin.location.environments'))
+                            @if (Auth::user()->havePermission('sica.admin.location.environments.index'))
                                 <li class="nav-item">
-                                    <a href="{{ route('sica.admin.location.environments') }}" class="nav-link {{ !Route::is('sica.admin.location.environments*') ?: 'active' }}">
+                                    <a href="{{ route('sica.admin.location.environments.index') }}" class="nav-link {{ !Route::is('sica.admin.location.environments.*') ?: 'active' }}">
                                         <i class="fa-solid fa-people-roof"></i>
                                         <p>{{ trans('sica::menu.Environments') }}</p>
                                     </a>
