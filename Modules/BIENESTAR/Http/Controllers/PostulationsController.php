@@ -23,21 +23,19 @@ class PostulationsController extends Controller
     public function index()
 {
     $benefits = Benefits::all();
-    $postulations = Postulations::with(['apprentice', 'convocation', 'typesOfBenefits'])->get();
+    $postulations = Postulations::with(['apprentice', 'convocation', 'typeOfBenefit'])->get();
     $questions = Questions::all(); // Obtener todas las preguntas disponibles
     return view('bienestar::postulations', compact('postulations', 'benefits', 'questions'));
 }
 
-
-
-    public function show($id) {
-        $postulation = Postulations::with('convocation', 'apprentice', 'typesOfBenefits', 'answers', 'postulationBenefits', 'socioEconomicSupportFiles')->findOrFail($id);
-        return view('bienestar::postulations.show', compact('postulation'));
-    }
+public function show($id) {
+    $postulation = Postulations::with('convocation', 'apprentice', 'typeOfBenefit', 'answers', 'postulationBenefits', 'socioEconomicSupportFiles', 'typeOfBenefit')->findOrFail($id);
+    return view('bienestar::postulations.show', compact('postulation'));
+}
 
     public function showModal($id)
 {
-    $postulation = Postulations::with(['convocation', 'apprentice', 'typesOfBenefits', 'answers' => function ($query) use ($id) {
+    $postulation = Postulations::with(['convocation', 'apprentice', 'typeOfBenefit', 'answers' => function ($query) use ($id) {
         $query->where('postulation_id', $id);
     }])->findOrFail($id);
     
@@ -106,36 +104,151 @@ public function assignBenefits(Request $request)
     }
 }
 
-public function calculateScore($id)
+public function updateState(Request $request)
 {
     try {
+        $postulationId = $request->input('postulation_id');
+
         // Buscar la postulación por ID
-        $postulation = Postulations::findOrFail($id);
+        $postulation = Postulations::findOrFail($postulationId);
 
-        // Realizar la lógica para calcular el nuevo puntaje (suma del puntaje de respuestas)
-        $totalScore = $postulation->answers->sum('score');
+        // Validar y actualizar el estado
+        $request->validate([
+            'state' => 'required|in:Beneficiado,No Beneficiado,Postulado',
+        ]);
 
-        // Actualizar el campo total_score de la postulación
-        $postulation->total_score = $totalScore;
-        $postulation->save();
+        // Actualizar el estado de la postulación
+        $postulation->postulationBenefits->first()->state = $request->input('state');
+        $postulation->postulationBenefits->first()->save();
 
-        // Devolver el nuevo puntaje actualizado como respuesta
-        return response()->json(['total_score' => $totalScore]);
+        // Redirigir de vuelta a la página anterior con un mensaje de éxito
+        return redirect()->back()->with('success', 'Estado actualizado con éxito');
     } catch (\Exception $e) {
         // Capturar y manejar errores, puedes personalizar esto según tus necesidades
-        return response()->json(['error' => 'Error al calcular el puntaje: ' . $e->getMessage()], 500);
+        return redirect()->back()->with('error', 'Error al actualizar el estado: ' . $e->getMessage());
     }
 }
+
+
 
 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function create()
-    {
-        return view('bienestar::create');
+    public function create(Request $request)
+{
+    try {
+        // Validar los datos del formulario aquí...
+
+        // Verificar la respuesta a la pregunta "A cual beneficio se postula?"
+        $selectedBenefits = $request->input('selected_benefits', []);
+        $benefitId = null;
+
+        if (in_array('Alimentacion', $selectedBenefits)) {
+            $benefitId = 1; // Debes ajustar el ID correspondiente a "Alimentacion" en tu base de datos
+        } elseif (in_array('Transporte', $selectedBenefits)) {
+            $benefitId = 2; // Debes ajustar el ID correspondiente a "Transporte" en tu base de datos
+        } elseif (in_array('Internado', $selectedBenefits)) {
+            $benefitId = 3; // Debes ajustar el ID correspondiente a "Internado" en tu base de datos
+        }
+
+        // Validar si ya se ha seleccionado "Internado"
+        $existingPostulation = PostulationsBenefits::where('postulation_id', auth()->user()->id)
+            ->where('benefit_id', 3) // Debes ajustar el ID correspondiente a "Internado" en tu base de datos
+            ->first();
+
+        if ($existingPostulation && $benefitId !== 3) {
+            return redirect()->back()->with('error', 'Ya has seleccionado "Internado". No puedes seleccionar otro beneficio.');
+        }
+
+        // Crear la nueva postulación
+        $postulation = new Postulations([
+            'apprentice_id' => auth()->user()->id, // O ajusta el ID del aprendiz según tu lógica
+            'convocation_id' => $request->input('convocation_id'),
+            'total_score' => 0, // Ajusta según tus necesidades
+        ]);
+
+        $postulation->save();
+
+        // Registrar los beneficios seleccionados en postulations_benefits
+        foreach ($selectedBenefits as $benefit) {
+            PostulationsBenefits::create([
+                'postulation_id' => $postulation->id,
+                'benefit_id' => $benefitId,
+                'state' => 'Postulado',
+                'message' => 'Aprendiz postulado',
+            ]);
+        }
+
+        return redirect()->route('bienestar.postulations.index')->with('success', 'Postulación creada con éxito.');
+    } catch (\Exception $e) {
+        // Capturar y manejar errores, puedes personalizar esto según tus necesidades
+        return redirect()->back()->with('error', 'Error al crear la postulación: ' . $e->getMessage());
     }
+}
+
+public function markAsBeneficiaries(Request $request)
+    {
+        try {
+            // Obtener los IDs de las postulaciones seleccionadas desde el formulario
+            $selectedPostulations = $request->input('selected-postulations');
+
+            // Validar que al menos una postulación haya sido seleccionada
+            if (empty($selectedPostulations)) {
+                return response()->json(['error' => 'No se han seleccionado postulaciones'], 400);
+            }
+
+            // Obtener el beneficio correspondiente según la lógica de tu aplicación
+            $benefitId = $this->determineBenefitId($request);
+
+            if ($benefitId === null) {
+                return response()->json(['error' => 'No se pudo determinar el beneficio'], 400);
+            }
+
+            // Actualizar el estado y el beneficio de las postulaciones seleccionadas
+            foreach ($selectedPostulations as $postulationId) {
+                // Obtener la postulación por ID
+                $postulation = Postulations::findOrFail($postulationId);
+
+                // Actualizar el estado y el beneficio de la postulación
+                PostulationsBenefits::create([
+                    'postulation_id' => $postulation->id,
+                    'benefit_id' => $benefitId,
+                    'state' => 'Beneficiado',
+                    'message' => 'Felicitaciones, Has sido aceptado al Beneficio solicitado',
+                ]);
+            }
+
+            return response()->json(['message' => 'Postulaciones marcadas como beneficiarias con éxito']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al marcar como beneficiarias: ' . $e->getMessage()], 500);
+        }
+    }
+
+    // Agrega tu lógica para determinar el beneficio aquí
+    private function determineBenefitId(Request $request)
+    {
+        // Aquí debes determinar el ID del beneficio según la lógica de tu aplicación.
+        // Puedes hacerlo según la respuesta del formulario, como mencionaste anteriormente.
+        // Por ejemplo, si la respuesta es "Alimentación", el ID del beneficio será 1.
+        // Ajusta esto según tu lógica.
+        $benefitId = null;
+
+        // Ejemplo de lógica:
+        $response = $request->input('response');
+
+        if ($response === 'Alimentación') {
+            $benefitId = 1; // Cambia esto según tu lógica.
+        } elseif ($response === 'Transporte') {
+            $benefitId = 2; // Cambia esto según tu lógica.
+        } elseif ($response === 'Internado') {
+            $benefitId = 3; // Cambia esto según tu lógica.
+        }
+
+        return $benefitId;
+    }
+
 
     /**
      * Store a newly created resource in storage.
