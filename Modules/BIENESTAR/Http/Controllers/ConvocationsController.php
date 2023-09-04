@@ -16,9 +16,8 @@ class ConvocationsController extends Controller
     public function index()
     {
         // Obtenemos Listado Convocatoria
-        $convocatoria = Convocations::get();
-        $data = ['convocatoria'=>$convocatoria];
-        return view('bienestar::Convocations',$data);   
+       $convocations=Convocations::all();
+       return view('bienestar::Convocations',['Convocations'=>$convocations]);   
     }
 
     /**

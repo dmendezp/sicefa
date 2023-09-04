@@ -33,9 +33,6 @@ class Convocations extends Model
     public function questions(){// Accede a los datos de la Pregunta al que pertenece
         return $this->belongsToMany(Questions::class, 'convocations_questions');
     }
-    public function ConvocationsQuestions()
-{
-    return $this->hasMany(ConvocationsQuestions::class, 'convocation_id');
-}
+ 
 
 }
