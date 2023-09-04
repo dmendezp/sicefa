@@ -34,55 +34,56 @@ class LoanController extends Controller
         $data = ['title' => 'Prestamos Registrados', 'loans' => $loans, 'staff_senaempresas' => $staff_senaempresas, 'inventories' => $inventories];
         return view('senaempresa::Company.Loan.loan', $data);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function prestamo_nuevo(Request $request)
     {
-        //
+
+        $inventory = Inventory::find($request->input('inventory_id'));
+
+        // Verificar si el inventario existe y la cantidad es suficiente
+        if ($inventory && $inventory->amount >= 1) {
+
+            $loan = new Loan();
+            $loan->staff_senaempresa_id = $request->input('staff_senaempresa_id');
+            $loan->inventory_id = $request->input('inventory_id');
+            $loan->start_datetime = $request->input('start_datetime');
+            $loan->end_datetime = $request->input('end_datetime');
+
+            $loan->state = 'Prestado';
+
+            if ($loan->save()) {
+                // Actualizar la cantidad en el inventario
+                $inventory->amount -= 1;
+                $inventory->save();
+
+
+                return redirect()->route('prestamos')->with('success', 'Prestamo agregado exitosamente.');
+            }
+        } else {
+            // La cantidad en el inventario no es suficiente
+            return redirect()->route('prestamos')->with('error', 'No hay suficiente cantidad en el inventario para realizar el préstamo.');
+        }
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public function devolver_prestamo($id)
     {
-        return view('senaempresa::show');
-    }
+        // Busca el préstamo por su ID
+        $loan = Loan::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('senaempresa::edit');
-    }
+        if ($loan) {
+            // Actualiza el estado a "Devuelto"
+            $loan->state = 'Devuelto';
+            $loan->save();
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+            // Aumenta la cantidad en el inventario
+            $inventory = Inventory::find($loan->inventory_id);
+            if ($inventory) {
+                $inventory->amount += 1;
+                $inventory->save();
+            }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+            return redirect()->route('prestamos')->with('success', 'Préstamo devuelto exitosamente.');
+        } else {
+            return redirect()->route('prestamos')->with('error', 'No se encontró el préstamo.');
+        }
     }
 }

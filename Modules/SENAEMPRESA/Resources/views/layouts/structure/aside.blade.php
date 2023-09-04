@@ -220,8 +220,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('Registrados') }}"
-                                class="nav-link {{ !Route::is('Registrados') ?: 'active' }}">
+                            <a href="{{ route('prestamos') }}"
+                                class="nav-link {{ !Route::is('prestamos') ?: 'active' }}">
                                 <i class="fas fa-poll"></i>
                                 <p>Registrados</p>
                             </a>

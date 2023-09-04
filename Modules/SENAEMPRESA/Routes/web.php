@@ -62,8 +62,11 @@ Route::prefix('senaempresa')->group(function () {
     Route::get('Postulados/Seleccionados/', 'CompanyController@seleccionados')->name('seleccionados');
 
     //Prestamos
+    Route::get('Prestamos/', 'LoanController@register')->name('prestamos');
     Route::get('Prestamos/Nuevo/', 'LoanController@new')->name('Nuevo');
-    Route::get('Prestamos/Registrados/', 'LoanController@register')->name('Registrados');
+    Route::post('Prestamos/Prestamo_Nuevo/', 'LoanController@prestamo_nuevo')->name('prestamo_nuevo');
+    Route::get('Prestamos/devolver_prestamo/{id}', 'LoanController@devolver_prestamo')->name('devolver_prestamo');
+
 
     //Inscripciones a vacantes
     Route::get('Vacantes/Inscripción/', 'InscriptionController@inscription')->name('inscription');

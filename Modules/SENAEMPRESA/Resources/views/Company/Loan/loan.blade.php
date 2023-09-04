@@ -14,12 +14,22 @@
         @include('senaempresa::layouts.structure.aside')
         @include('senaempresa::layouts.structure.breadcrumb')
         <div class="container">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
             <div class="row justify-content-center mt-5">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">Asociados</div>
+                        <div class="card-header">Prestamos</div>
                         <div class="card-body">
-                            <form action="{{ route('nueva_vacante') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('prestamo_nuevo') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="staff_senaempresa_id" class="form-label">Personal ID</label>
@@ -35,9 +45,8 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="position_company_id" class="form-label">Id Cargo</label>
-                                    <select class="form-control" name="position_company_id"
-                                        aria-label="Selecciona un Cargo">
+                                    <label for="inventory_id" class="form-label">Id Inventario</label>
+                                    <select class="form-control" name="inventory_id" aria-label="Selecciona un Cargo">
                                         <option value="" selected>Selecciona un Cargo</option>
                                         @foreach ($inventories as $inventory)
                                             <option value="{{ $inventory->id }}">
@@ -56,16 +65,8 @@
                                     <label for="end_datetime" class="form-label">Fecha y Hora de Fin</label>
                                     <input type="datetime-local" class="form-control" id="end_datetime"
                                         name="end_datetime" placeholder="Fecha Inicio">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="state">Estado</label>
-                                    <select class="form-control" id="state" name="state">
-                                        <option value="">Seleccione estado</option>
-                                        <option value="activo">Activo</option>
-                                        <option value="inactivo">Inactivo</option>
-                                    </select>
                                 </div><br>
-                                <button type="submit" class="btn btn-success">Agregar</button>
+                                <button type="submit" class="btn btn-success">Prestar</button>
                             </form>
                         </div>
                     </div>
@@ -112,7 +113,12 @@
                                             <td>{{ $loan->start_datetime }}</td>
                                             <td>{{ $loan->end_datetime }}</td>
                                             <td>{{ $loan->state }}</td>
-                                            <td></td>
+                                            <td>
+                                                @if ($loan->state === 'Prestado')
+                                                    <a href="{{ route('devolver_prestamo', ['id' => $loan->id]) }}"
+                                                        class="btn btn-primary">Devolver</a>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
