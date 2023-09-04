@@ -15,22 +15,24 @@ class PostulationsBenefits extends Model
         'benefit_id',
         'postulation_id',
         'state',
+        'message',
     ];
 
-    public function benefit()
-    {
-        return $this->belongsTo(benefits::class, 'benefit_id');
-    }
-
-    public function postulation()
-    {
-        return $this->belongsTo(Postulations::class, 'postulation_id');
-    }
     
     protected static function newFactory()
     {
         return \Modules\BIENESTAR\Database\factories\PostulationsBenefitsFactory::new();
     }
+
+    public function benefit(){// Accede a los datos del beneficio al que pertenece
+        return $this->belongsTo(Benefits::class, 'benefit_id');
+    }
+    
+    public function postulation(){// Accede a los datos de la postulacion al que pertenece
+        return $this->belongsTo(Postulations::class, 'postulation_id');
+    }
+
+    
 
     
 }

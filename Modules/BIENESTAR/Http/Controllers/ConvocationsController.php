@@ -7,8 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\Convocations;
 
+
 class ConvocationsController extends Controller
 {
+    public function convocatoria()
+    {
+        // Mostrar el formulario para crear una nueva convocatoria
+        return view('bienestar::convocatoria');
+    }
+    
+    
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -19,6 +27,8 @@ class ConvocationsController extends Controller
        $convocations=Convocations::all();
        return view('bienestar::Convocations',['Convocations'=>$convocations]);   
     }
+
+    
 
     /**
      * Store a newly created resource in storage.

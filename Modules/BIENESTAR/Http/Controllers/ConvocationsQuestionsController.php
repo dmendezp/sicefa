@@ -5,6 +5,7 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\BIENESTAR\Entities\Questions;
 
 class ConvocationsQuestionsController extends Controller
 {
@@ -12,11 +13,18 @@ class ConvocationsQuestionsController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function add_question()
     {
-        return view('bienestar::index');
+        return view('bienestar::add_question');
     }
 
+
+    public function editform(){
+
+        $questions = Questions::all();
+
+        return view('bienestar::editform',['questions'=> $questions,]);
+    }
     /**
      * Show the form for creating a new resource.
      * @return Renderable
