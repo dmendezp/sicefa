@@ -21,6 +21,10 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/movements', 'MovementController@viewmovements')->name('agrocefa.movements');
         Route::get('/movements/formentrance', 'MovementController@formentrance')->name('agrocefa.formentrance');
         Route::get('/movements/formexit', 'MovementController@formexit')->name('agrocefa.formexit');
+        Route::post('/movements/registerentrance', 'MovementController@registerentrance')->name('agrocefa.registerentrance');
+        Route::post('/movements/registerexit', 'MovementController@registerexit')->name('agrocefa.registerexit');
+        Route::get('/obtener_unidad_de_medida', 'MovementController@obtenerUnidadDeMedida')->name('agrocefa.obtenerunidadmedida');
+        Route::get('/obtener_categoria', 'MovementController@obtenercategotria')->name('agrocefa.obtenercategoria');
         
 
         // RUTAS PARA ACTIVIDADES
