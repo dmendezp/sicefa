@@ -7,50 +7,50 @@
                     {!! Form::open(['url' => route('cefa.agroindustria.instructor.enviarsolicitud'),'method' => 'post']) !!}
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="date" class="form-label">Fecha de Solicitud</label>
+                            {!! Form::label('date', 'Fecha de Solicitud') !!}
                             {!! Form::date('date', now(), ['class'=>'form-control', 'readonly' => 'readonly']) !!}
                         </div>
                         <div class="col-md-6">
-                            <label for="area" class="form-label">Area</label>
+                            {!! Form::label('area', 'Area') !!}
                             {!! Form::text('area', 'Agroindustria', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
                         </div>
                         <div class="col-md-6">
-                            <label for="region_code" class="form-label">Codigo Regional</label>
+                            {!! Form::label('region_code', 'Codigo Regional') !!}
                             {!! Form::number('region_code', '41', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
                         </div>
                         <div class="col-md-6">
-                            <label for="region_name" class="form-label">Nombre Regional</label>
+                            {!! Form::label('region_name', 'Nombre Regional') !!}
                             {!! Form::text('region_name', 'Huila', ['class'=>'form-control', 'readonly' => 'readonly']) !!}    
                         </div>
                         <div class="col-md-6">
-                            <label for="cost_code" class="form-label">Codigo de Costos</label>
-                        {!! Form::number('cost_code', '911610', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
+                            {!! Form::label('cost_code', 'Codigo de Costos') !!}
+                            {!! Form::number('cost_code', '911610', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
                         </div>
                         <div class="col-md-6">
-                            <label for="cost_center_name" class="form-label">Nombre Centro de costo</label>
+                            {!! Form::label('cost_center_name', 'Nombre Centro de costo') !!}
                             {!! Form::text('cost_center_name', 'Centro de Formación Agroindustrial', ['class'=>'form-control', 'readonly' => 'readonly']) !!}    
                         </div>
                         <div class="col-md-6">
-                            <label for="coordinator" class="form-label">Nombre de jefe de oficina o coordinador de área</label>
+                            {!! Form::label('coordinator', 'Nombre de jefe de oficina o coordinador de área') !!}
                             {!! Form::select('coordinator', $coordinatorOptions, null, ['class' => 'form-control', 'id' => 'coordinator_select']) !!}
                             @error('coordinator')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label for="document_number_coordinator" class="form-label">Cédula</label>
+                            {!! Form::label('document_numver_coordinator', 'Cédula') !!}
                             {!! Form::number('document_number_coordinator',null, ['class'=>'form-control', 'readonly' => 'readonly', 'id' => 'document_number_coordinator']) !!}
                         </div>
                         <div class="col-md-6">
-                            <label for="receiver" class="form-label">Nombre de a quien se le asignara el bien</label>
+                            {!! Form::label('receiver', 'Nombre de a quien se le asignara el bien') !!}
                             {!! Form::text('receiver', $name, ['class' => 'form-control', 'readonly' => 'readonly',]) !!}                        
                         </div>
                         <div class="col-md-6">
-                            <label for="document_number_person" class="form-label">Cedula</label>
+                            {!! Form::label('document_number_person', 'Cédula') !!}
                             {!! Form::number('document_number_person', $cedula, ['class'=>'form-control', 'readonly' => 'readonly']) !!}    
                         </div>
                         <div class="col-md-12">
-                            <label for="course_id" class="form-label">Código de grupo o ficha de caracterización</label>
+                            {!! Form::label('course_id', 'Código de grupo o ficha de caracterización') !!}
                             {!! Form::select('course_id', $courses->pluck('text', 'value')->prepend('Seleccione la ficha del programa', ''), null, ['class'=>'form-control', 'id' => 'course']) !!}
                             @error('course_id')
                             <span class="text-danger">{{ $message }}</span>
@@ -62,24 +62,11 @@
                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
                                 <button type="button" id="add-product">Agregar Producto</button>
                                 <div class="product">
-                                    {!! Form::number('code_sena[]', null, [
-                                        'placeholder' => $errors->has('code_sena') ? $errors->first('code_sena') : 'Código SENA',
-                                    ]) !!}
-                                    {!! Form::select('product_name[]', $element->pluck('text', 'value')->prepend('Nombre del producto', ''), null, [
-                                        'readonly' => 'readonly',
-                                        'id' => 'element',
-                                        'placeholder' => $errors->has('product_name') ? $errors->first('product_name') : 'Nombre del producto',
-                                    ]) !!}
-                                    {!! Form::select('measurement_unit[]', $measurementUnit->pluck('text', 'value')->prepend('Unidad de Medida', ''), null, [
-                                        'id' => 'measurement_unit',
-                                        'placeholder' => $errors->has('measurement_unit') ? $errors->first('measurement_unit') : 'Unidad de Medida',
-                                    ]) !!}
-                                    {!! Form::number('amount[]', null, [
-                                        'placeholder' => $errors->has('amount') ? $errors->first('amount') : 'Cantidad',
-                                    ]) !!}
-                                    {!! Form::text('observations[]', null, [
-                                        'placeholder' => $errors->has('observations') ? $errors->first('observations') : 'Observaciones',
-                                    ]) !!}
+                                    {!! Form::number('code_sena[]', null, ['placeholder' => 'Código SENA']) !!}
+                                    {!! Form::select('product_name[]', $element->pluck('text', 'value')->prepend('Nombre del producto', ''), null, ['readonly' => 'readonly', 'id' => 'element']) !!}
+                                    {!! Form::select('measurement_unit[]', $measurementUnit->pluck('text', 'value')->prepend('Unidad de Medida', ''), null, ['id' => 'measurement_unit']) !!}
+                                    {!! Form::number('amount[]', null, ['placeholder' => 'Cantidad']) !!}
+                                    {!! Form::text('observations[]', null, ['placeholder' => 'Observaciones']) !!}
                                     <button class="remove-product">Eliminar</button>
                                 </div>
                                 
@@ -94,7 +81,7 @@
         
         
         <div class="button">
-            {!! Form::submit('Enviar',['class' => 'btn btn-warning','name' => 'enviar']) !!}
+            {!! Form::submit('Enviar',['class' => 'enviar','name' => 'enviar']) !!}
         </div>
     {!! Form:: close() !!}
     

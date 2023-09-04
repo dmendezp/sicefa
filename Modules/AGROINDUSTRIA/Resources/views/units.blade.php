@@ -14,15 +14,15 @@
                 'Chocolateria' => 'fas fa-mug-hot fa-lg',
                 'Pasteleria' => 'fas fa-birthday-cake fa-lg',
             ];
-        $unitRoutes = [
-            'Panaderia' => route('cefa.agroindustria.units.bakery', ['unit'=> $unit->id]), // Reemplazar con la ruta real
-            'Chocolateria' => route('cefa.agroindustria.units.pasteleria',['unit' => $unit->id]), 
-            'Pasteleria' => route('cefa.agroindustria.units.pasteleria',['unit' => $unit->id]), 
-        ];
+            $unitRoutes = [
+                'Panaderia' => route('cefa.agroindustria.units.bakery', ['unit'=> $unit->id]), // Reemplazar con la ruta real
+                'Chocolateria' => route('cefa.agroindustria.units.pasteleria',['unit' => $unit->id]), 
+                'Pasteleria' => route('cefa.agroindustria.units.pasteleria',['unit' => $unit->id]), 
+            ];
 
-        // Determinar el ícono correspondiente al nombre de la unidad actual
-        $currentUnitIcon = $unitIcons[$unit->name] ?? 'fas fa-question-circle fa-lg';
-        $currentUnitRoute = $unitRoutes[$unit->name] ?? '#';
+            // Determinar el ícono correspondiente al nombre de la unidad actual
+            $currentUnitIcon = $unitIcons[$unit->name] ?? 'fas fa-question-circle fa-lg';
+            $currentUnitRoute = $unitRoutes[$unit->name] ?? '#';
         @endphp
             <div class="col">
                 <button onclick="window.location.href = '{{ $currentUnitRoute }}'" class="card-client-button" id="boton_unit">
@@ -34,8 +34,7 @@
                     </div>
                 </button>                
             </div>
-        @endforeach
-            
+        @endforeach            
         </div>
     </div>
     @endif

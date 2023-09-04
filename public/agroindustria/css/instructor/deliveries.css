@@ -1,16 +1,7 @@
-.titulo{
-    text-align: center;
-}
-
-.bodega-form{
-    width: 95%;
-    margin-left: 50px;
-}
-
-.button_salida{
-    font-size: 20px;
-    text-align: center;
-    width: 200px;
-    height: 50px;
-
+.movements{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;  
 }

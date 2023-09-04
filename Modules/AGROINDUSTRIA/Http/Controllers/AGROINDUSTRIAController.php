@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\ProductiveUnitWarehouse;
+use Modules\SICA\Entities\Warehouse;
 use DB;
 
 class AGROINDUSTRIAController extends Controller
@@ -35,8 +37,14 @@ class AGROINDUSTRIAController extends Controller
                 $productiveUnits = ProductiveUnit::whereIn('id', $units)
                 ->get();
 
+                $warehouses = ProductiveUnitWarehouse::whereIn('productive_unit_id', $units)
+                ->pluck('warehouse_id');
+
+                $warehouseName = Warehouse::whereIn('id', $warehouses)->get();
+
                  // Retorna la vista 'homeproductive_units' con datos de unidades y la unidad seleccionada
                 return view('agroindustria::units', [
+                    'warehouses' => $warehouseName,
                     'units' => $productiveUnits,
                     'title' => 'Unidad'
                 ])->with('noRecords', $productiveUnits->isEmpty());

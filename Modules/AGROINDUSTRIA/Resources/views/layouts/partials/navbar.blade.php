@@ -12,7 +12,6 @@
                     <a class="nav-link" href="{{route('cefa.agroindustria.home.index')}}">Inicio</a>
                 </li>
             @endif
-            @if(isset($viewing_unit) && $viewing_unit)
             <!-- Menú instructor -->
             @if (Auth::user()->havePermission('agroindustria.instructor.labor'))
                 <li class="nav-item">
@@ -51,9 +50,10 @@
                   </div>
              </li>
              @endif
+            @if(isset($viewing_unit) && $viewing_unit)
              @if(Auth::user()->havePermission('agroindustria.instructor.deliveries'))
             <li class="nav-item">
-                <a class="nav-link" href="{{route('cefa.agroindustria.instructor.deliveries')}}">Entregas</a>
+                <a class="nav-link" href="{{route('cefa.agroindustria.instructor.movements')}}">Entregas</a>
             </li>
             @endif
 

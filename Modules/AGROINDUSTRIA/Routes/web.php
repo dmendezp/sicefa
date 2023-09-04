@@ -1,14 +1,12 @@
 <?php
 
-//admin
-use Modules\AGROINDUSTRIA\Http\Controllers\admin\RequestController;
-
 //instructor
 use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\FormulationController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\LaborController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ActivityController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\DeliverController;
+use Modules\AGROINDUSTRIA\Http\Controllers\instructor\RequestController;
 
 //unidades
 use Modules\AGROINDUSTRIA\Http\Controllers\unit\PasteleriaController;
@@ -43,14 +41,13 @@ Route::middleware(['lang'])->group(function(){
             Route::post('/enviarsolicitud', [RequestController::class, 'create'])->name('cefa.agroindustria.instructor.enviarsolicitud');
             Route::get('/labor', [LaborController::class, 'labor'])->name('cefa.agroindustria.instructor.labor');
             Route::get('/activity', [ActivityController::class, 'activity'])->name('cefa.agroindustria.instructor.activity');
-            Route::get('/movements', [NewDeliverController::class, 'movements'])->name('cefa.agroindustria.instructor.movements');
+            Route::get('/movements', [DeliverController::class, 'deliveries'])->name('cefa.agroindustria.instructor.movements');
             Route::get('/formulation', [FormulationController::class, 'create'])->name('cefa.agroindustria.instructor.formulations.create');
             Route::get('/units', 'AGROINDUSTRIAController@unidd')->name('cefa.agroindustria.instructor.units');
         });
 
         //intern
         Route::prefix('storer')->group(function (){
-            Route::get('/index', [InventoryController::class ,'index'])->name('cefa.agroindustria.intern.index');
             Route::get('/invb', [InventoryController::class ,'invb'])->name('cefa.agroindustria.intern.invb');
             Route::get('/epp', [WarehouseController::class ,'bodegaepp'])->name('cefa.agroindustria.intern.bepp');
             Route::get('/insumos', [WarehouseController::class ,'bodegainsumos'])->name('cefa.agroindustria.intern.binsu');

@@ -10,7 +10,8 @@
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleinvb.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleindex.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/navbar.css')}}">
-       <link rel="stylesheet" href="{{asset('agroindustria/css/admin/styleRequest.css')}}">
+       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/styleRequest.css')}}">
+       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/deliveries.css')}}">
 
        {{-- Scripts que deben ser iniciados en el head para que sirvan sus funcionalidades--}}
        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
