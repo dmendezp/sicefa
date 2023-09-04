@@ -86,6 +86,7 @@ Route::prefix('senaempresa')->group(function () {
 
     //Rutas para senaempresa estrategias
     Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('senaempresa');
+    Route::get('Agregar_nueva_estrategias/', 'SENAEMPRESAController@agregar_estrategia')->name('agregar_estrategia');
 
     //Rutas para asociar cursos a senaempresa estrategias
     Route::get('Estrategias/Asociar_Curso/', 'SENAEMPRESAController@cursos_senamepresa')->name('cursos_senaempresa');
