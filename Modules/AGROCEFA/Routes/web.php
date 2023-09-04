@@ -8,14 +8,19 @@ use Modules\AGROCEFA\Http\Controllers\CropController;
 
 Route::middleware(['lang'])->group(function() {
     Route::prefix('/agrocefa')->group(function() {
+        
         Route::get('/index', 'AGROCEFAController@index')->name('agrocefa.index');
         Route::get('/home', 'AGROCEFAController@home')->name('agrocefa.home');
         Route::get('/select-unit/{id}', 'AGROCEFAController@selectUnit')->name('agrocefa.select-unit');
-        Route::get('/inventory', 'InventoryController@inventory')->name('agrocefa.inventory');
         Route::get('/insumos', 'AGROCEFAController@insumos')->name('agrocefa.insumos');
         Route::get('/bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
         Route::get('/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.parameters');
         Route::get('/user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
+
+        //RUTAS DE INVENTARIO
+        Route::get('/inventory', 'InventoryController@inventory')->name('agrocefa.inventory');
+        Route::post('/inventory/showWarehouseFilter', 'InventoryController@showWarehouseFilter')->name('agrocefa.inventory.showWarehouseFilter');
+
 
         // RUTAS PARA MOVIMIENTOS
         Route::get('/movements', 'MovementController@viewmovements')->name('agrocefa.movements');
