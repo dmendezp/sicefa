@@ -65,6 +65,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Yuderly Sapuy** - *Pendiente* - *Avance %* - *Dificultades* - *Acciones*
 ---
 
+#### Meet 03-Sep-2023
+* **Andres Almario** - *Formulario de entrada y salida con tabla dinamica de productos, filtro para respondable y bodegas* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Implementacion para filtrar los elementos por categoria teniendo en cuenta la bodega* - *Avance 70%* - *Complicaciones con las consultas* - *Buscar soluciones al problema*
+* **Laura Vanessa** - *Creacion de tarjetas para los desarrolladores* - *Avance %* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Pendiente* - *Avance %* - *Dificultades* - *Acciones*
+---
+
 
 ## GANADERIA 🐮
 
