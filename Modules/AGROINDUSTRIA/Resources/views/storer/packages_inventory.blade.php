@@ -61,24 +61,37 @@
     <table class="table">
         <thead>
              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-               
-                <th>Acciones</th>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>Imagen</th>
+              <th>Acciones</th>
             </tr>
         </thead>
             <tbody>
                 <td></td>
                 <td></td>
                 <td></td>
-              
+                <td></td>
 
                 <td>
-                  <!-- Botones de acciones -->
-                  <button type="button" class="btn btn-primary" id="edit" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <th>
+                    <!-- Botones de acciones -->
+                  
+                    {{-- boton de edicion de elementos de inventario --}}
+                  
+                    <button type="button" class="btn btn-primary" id="edit" data-bs-toggle="modal" data-bs-target="#editModal">
                     <i class="fa-regular fa-pen-to-square fa-2xl"></i> 
                   </button>
+
+                    {{-- boton de eliminacion de elementos de inventario --}}
+
+                  <button class="btn btn-danger btn-sm" id="delete" data-toggle="modal">
+                    <i class="fa-sharp fa-solid fa-trash fa-2xl"></i>
+                  </button>
+              </th>
+                  
                                     <!-- Modal -->
                 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -88,7 +101,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                         {{-- formulario de agrefar insumo --}}
+                         {{-- formulario de edicion de En --}}
           <form>
             <div class="mb-3">
               <label for="name" class="form-label">Nombre</label>
@@ -122,9 +135,7 @@
                      
                    <br>
                    <br>
-                      <button class="btn btn-danger btn-sm" id="delete" data-toggle="modal">
-                        <i class="fa-solid fa-trash fa-2xl"></i>
-                      </button>
+                      
                   
                 </td>
             </tbody>

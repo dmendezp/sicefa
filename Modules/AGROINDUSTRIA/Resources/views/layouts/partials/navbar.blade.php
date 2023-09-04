@@ -43,16 +43,16 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.intern.benvas')}}">Envases</a>
+                        <a class="nav-link" href="{{route('agroindustria.storer.packages_inventory')}}">Inventario Envases</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.intern.bepp')}}">Epp</a>
+                        <a class="nav-link" href="{{route('agroindustria.storer.epp_inventory')}}">Inventario Epp</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.intern.binsu')}}">Insumos</a>
+                        <a class="nav-link" href="{{route('agroindustria.storer.input_inventory')}}">Inventario Insumos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.intern.baseo')}}">Aseo</a>
+                        <a class="nav-link" href="{{route('agroindustria.storer.cleaning_inventory')}}">Inventario Aseo</a>
                     </li>
                 </ul>
               </div>

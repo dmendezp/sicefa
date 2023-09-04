@@ -58,7 +58,17 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 **Julian Javier Ramirez Diaz** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
 
 
----
+#### Meet 31-Agosto-20223
+* **Jennifer Marin Montealegre** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+
+* **David Juliam Cadena Barrera** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+
+**Juan Diego Bonilla Aroca** - *vista de entregas* - *44%* - *Ninguna* - *Ninguna*
+
+**Julian Javier Ramirez Diaz** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+
+
+
 #### Meet 02-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
