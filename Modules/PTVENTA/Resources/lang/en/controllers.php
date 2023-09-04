@@ -78,4 +78,9 @@ return [
 	// Create
 	'PTVENTA_element_edit_title_page' => 'Products - Edit Product',
 	'PTVENTA_element_edit_title_view' => 'Update product information',
+
+	// -----CashController-----
+	// Index
+	'PTVENTA_cash_index_title_page' => 'Cash Control',
+	'PTVENTA_cash_index_title_view' => 'Opening and closing of cash register',
 ];

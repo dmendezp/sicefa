@@ -78,4 +78,9 @@ return [
 	// Edit
 	'PTVENTA_element_edit_title_page' => 'Productos - Editar Producto',
 	'PTVENTA_element_edit_title_view' => 'Actualizar información del producto',
+	
+	// -----CashController-----
+	// Index
+	'PTVENTA_cash_index_title_page' => 'Control de Caja',
+	'PTVENTA_cash_index_title_view' => 'Apertura y cierre de caja',
 ];
