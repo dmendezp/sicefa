@@ -67,4 +67,15 @@ return [
 	// Show Sales Form
 	'PTVENTA_sales_title_page' => 'Reports - Sales',
 	'PTVENTA_sales_title_view' => 'Report Sales',
+
+	// -----ElementController-----
+	// Index
+	'PTVENTA_element_index_title_page' => 'Products - Image Gallery',
+	'PTVENTA_element_index_title_view' => 'Product image administration',
+	// Create
+	'PTVENTA_element_create_title_page' => 'Products - Create Product',
+	'PTVENTA_element_create_title_view' => 'Create New Product',
+	// Create
+	'PTVENTA_element_edit_title_page' => 'Products - Edit Product',
+	'PTVENTA_element_edit_title_view' => 'Update product information',
 ];

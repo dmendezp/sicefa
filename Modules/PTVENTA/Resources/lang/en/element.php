@@ -1,53 +1,65 @@
 <?php
 
 return [
-    //Origin Controller SaleController
-	'titlePage1'    => 'Products - Image Gallery',
-	'titleView1'    => 'Product image administration',
-	'titlePage2'    => 'Products - Create Product',
-	'titleView2'    => 'Create New Product',
+    // Breadcrumbs
+	'Breadcrumb_Element'               => 'Products',
+	'Breadcrumb_Active_Element'        => 'Principal',
+	'Breadcrumb_Active_Create_Element' => 'Register Product',
+	'Breadcrumb_Active_Edit_Element'   => 'Edit Product',
 
-    //Breadcrumbs
-	'Products'         => 'Products',
-	'Images'           => 'Images',
-	'Register Product' => 'Register Product',
+	// Btns
+	'Btn_Register_Product' => 'Register Product',
+	'Btn_Register'         => 'Register',
+	'Btn_Cancel'           => 'Cancel',
+	'Btn_Update'           => 'Update',
     
-	//Buttons
-	'Btn1'   => 'Register Product',
-	'Btn2'   => 'Register',
-	'Btn3'   => 'Cancel',
+	// Principal Search
+	'Placeholder_Search'   => 'Search products by name',
     
-	//Placeholder Search
-	'Placeholder1'   => 'Search products by name',
+    // Loaders
+	'Loader_Loading' => 'Loading...',
     
-    //Loaders
-	'Loader1'   => 'Loading...',
+    // Label Results and Info
+	'Title_Form_Showing'    => 'Showing',
+	'Title_Form_Result'     => 'result',
+	'Title_Form_Results'    => 'results',
+	'Title_Form_Category'   => 'for the category',
+	'Title_Form_No_Results' => 'No results found',    
     
-    //LabelInfo
-	'LabelPart1'   => 'Showing',
-	'LabelPart2'   => 'result',
-	'LabelPart3'   => 'results',
-	'LabelPart4'   => 'for the category',
-    
-    //Exeptions
-	'TextExept'   => 'No results found',
-    
-    //Panel Category
-	'TitleTextPanel' => 'Categories',
-	'TextPanel'      => 'No category',
-	'TextPanel1'     => 'There are no categories.',
+    // Panel Category
+	'Title_Panel_Category'      => 'Categories',
+	'Title_Panel_Uncategorized' => 'Uncategorized',
+	'Title_Panel_No_Categories' => 'There are no categories.',
 	
-	//---Section Register Product
-	'TitleCard1' => 'Image',
+	//-----Section Register Product-----
+	// Card Image
+	'Title_Card_Image'         => 'Image',
+	// Form
+	'Title_Form_Image'          => 'Image:',
+	'Title_Form_Element_Name'   => 'Element name:',
+	'Title_Form_Unit'           => 'Unit of measurement:',
+	'Select_Form_MU'            => '-- Select --',
+	'Title_Form_Description'    => 'Description:',
+	'Title_Form_Price'          => 'Price:',
+	'Title_Form_Category'       => 'Category:',
+	'Select_Form_Category'      => '-- Select --',
+	'Title_Form_COD_UNSPSC'     => 'Code UNSPSC:',
+	'Title_Form_Type_Purchase'  => 'Type of purchase:',
+	'Select_Form_Type_Purchase' => '-- Select --',
 
-	//Form
-	'TextForm1'   => 'Image:',
-	'TextForm2'   => 'Element name:',
-	'TextForm3'   => 'Unit of measurement:',
-	'SelectForm1' => '-- Select --',
-	'TextForm4'   => 'Description:',
-	'TextForm5'   => 'Price:',
-	'TextForm6'   => 'Category:',
-	'TextForm7'   => 'Code UNSPSC:',
-	'TextForm8'   => 'Type of purchase:',
+	//-----Section Edit Product-----
+	// Card Image
+	'Title_Card_Image'         => 'Image',
+	// Form
+	'Title_Form_Image'          => 'Image:',
+	'Title_Form_Element_Name'   => 'Element name:',
+	'Title_Form_Unit'           => 'Unit of measurement:',
+	'Select_Form_MU'            => '-- Select --',
+	'Title_Form_Description'    => 'Description:',
+	'Title_Form_Price'          => 'Price:',
+	'Title_Form_Category'       => 'Category:',
+	'Select_Form_Category'      => '-- Select --',
+	'Title_Form_COD_UNSPSC'     => 'Code UNSPSC:',
+	'Title_Form_Type_Purchase'  => 'Type of purchase:',
+	'Select_Form_Type_Purchase' => '-- Select --',
 ];
