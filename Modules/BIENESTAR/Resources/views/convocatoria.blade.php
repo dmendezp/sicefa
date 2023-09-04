@@ -1,16 +1,27 @@
 @extends('bienestar::layouts.adminlte')
 
 @section('content')
-    <div class="container">
+
+                        <h1 class="card-title">Convocatoria</h1>
+                        <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Convocatoria</h3>
                     </div>
                     <div class="card-body">
                         <!-- Aquí puedes agregar el contenido de tu vista -->
-                        <p>Vista de convocatoria</p>
+                        
+                        <body>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Buscar...">
+        <button id="searchButton"><i class="fas fa-search"></i></button>
+    </div>
+    <ul id="searchResults"></ul>
+
+    <script src="script.js"></script>
+    <button type="submit" class="btn btn-success btn-block">Agregar pregunta</button>
+</body>
                     </div>
                 </div>
             </div>
