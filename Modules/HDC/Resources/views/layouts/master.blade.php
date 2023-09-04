@@ -8,6 +8,7 @@
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
 
+
     <div class="wrapper">
         <!-- Navbar -->
         @include('hdc::layouts.partials.navbar')
@@ -17,7 +18,7 @@
         @include('hdc::layouts.partials.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="background-color:#a9c3ba;">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
