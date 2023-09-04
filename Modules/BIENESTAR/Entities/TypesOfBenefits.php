@@ -11,7 +11,9 @@ class TypesOfBenefits extends Model
     use HasFactory;
 
    
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+    ];
 
     // Define el nombre de la tabla en la base de datos
     protected $table = 'types_of_benefits';

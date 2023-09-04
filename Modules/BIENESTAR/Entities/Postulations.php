@@ -44,9 +44,10 @@ class Postulations extends Model
         return $this->hasMany(PostulationsBenefits::class, 'postulation_id');
     }
 
-    public function typesOfBenefits(){// Accede a los datos del tipo de beneficiario al que pertenece
+    public function typeOfBenefit(){// Accede a los datos del tipo de beneficiario al que pertenece
         return $this->belongsTo(TypesOfBenefits::class, 'type_of_benefit_id');
     }
+    
 
     
 }
