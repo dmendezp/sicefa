@@ -15,7 +15,7 @@
                 <div class="row p-3">
                     <div class="col-md-4">
                         {!! Form::label('title_convocation', 'Titulo Convocatoria:') !!}
-                        {!! Form::text('title_convocation', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Convocatoria',
+                        {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Convocatoria',
                             'required']) !!}
                     </div>
 
@@ -64,6 +64,7 @@
                                     <th>Cupos Transporte</th>
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Final</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,19 +73,21 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $convocation->title }}</td>
                                     <td>{{ $convocation->description }}</td>
+                                    <td>{{ $convocation->food_quotas }}</td>
+                                    <td>{{ $convocation->transport_quotas }}</td>
                                     <td>{{ $convocation->start_date }}</td>
                                     <td>{{ $convocation->end_date }}</td>
-                                    <td>{{ $convocation->start_date }}</td>
-                                    <td>{{ $convocation->transport_quotas }}</td>
-                                    <td>{{ $convocation->food_quotas }}</td>
                                     <td>
-                                        <div class="opts">
-                                            <button class="btn btn-sm btn-info" data-toggle="modal"
-                                            data-target="#mdal-default" data-title="{{ $c->title }}"
-                                            data-description="{{ $c->description }}" data-start-date="{{ $c->start_date }}"
-                                            data-end-date="{{ $c->start_date }}" data-transport-quotas="{{ $c->transport_quotas }}"
-                                            data-food-quotas="{{ $c->food_quotas }}">Editar
-                                            </button>
+                                    <button class="btn btn-sm btn-info edit-button" data-toggle="modal"
+                                        data-target="#modal-default" data-id="{{ $convocation->id }}"
+                                        data-title="{{ $convocation->title }}"
+                                        data-description="{{ $convocation->description }}"
+                                        data-start-date="{{ $convocation->start_date }}"
+                                        data-end-date="{{ $convocation->end_date }}"
+                                        data-transport-quotas="{{ $convocation->transport_quotas }}"
+                                        data-food-quotas="{{ $convocation->food_quotas }}">Editar
+                                    </button>
+
                                         </div>
                                     </td>
                                 </tr>
@@ -148,17 +151,17 @@
 
 <script>
     $(document).ready(function() {
-        $('#modal-default').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
+        $('.edit-button').click(function() {
+            var button = $(this);
             var title = button.data('title');
             var description = button.data('description');
-            var startDate = button.data('star-date');
+            var startDate = button.data('start-date');
             var endDate = button.data('end-date');
             var transportQuotas = button.data('transport-quotas');
             var foodQuotas = button.data('food-quotas');
-            var ConvocationsId = button.data('Convocations-id');
+            var convocationId = button.data('id');
             
-            var modal = $(this);
+            var modal = $('#modal-default');
             modal.find('[name="title"]').val(title);
             modal.find('[name="description"]').val(description);
             modal.find('[name="start_date"]').val(startDate);
@@ -166,13 +169,12 @@
             modal.find('[name="transport_quotas"]').val(transportQuotas);
             modal.find('[name="food_quotas"]').val(foodQuotas);
 
-
-            //Pone El Id De La Convocatoria En La Url Del Formulario
+            // Actualiza la acción del formulario en el modal
             var form = modal.find('form');
-            var updateUrl = form.attr('action').replace(/id/g, ConvocationsId);
+            var updateUrl = form.attr('action').replace('id', convocationId);
             form.attr('action', updateUrl);
         });
     });
-    
 </script>
+
 @endsection
