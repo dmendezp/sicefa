@@ -41,6 +41,10 @@
                 {!! Form::text('date', $date, ['class' => 'form-control', 'required']) !!}
             </div>
             <div class="form-group">
+                {!! Form::label('observation', 'Observacion') !!}
+                {!! Form::text('observation', null,  ['class' => 'form-control', 'required']) !!}
+            </div>
+            <div class="form-group">
                 {!! Form::label('user_id', 'Responsable') !!}
                 {!! Form::select('user_id', $people->pluck('first_name', 'id'), null, ['class' => 'form-control']) !!}
             </div>

@@ -16,7 +16,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ## Agrocefa 📌
 
 ### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
+#### Sprint Planning 22-Ago-2022
 * **Dayana Marcela** - *Parametro de Especies*
 * **Yuderly Sapuy** - *Parametro de Cultivos*
 * **Laura Rodriguez** - *Parametro de Variedades*

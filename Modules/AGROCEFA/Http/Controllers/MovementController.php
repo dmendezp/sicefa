@@ -13,6 +13,8 @@ use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\Responsibility;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Inventory;
+use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\Role;
 use App\Models\User;
 
@@ -33,9 +35,10 @@ class MovementController extends Controller
 
         // Obtén el ID de la unidad productiva seleccionada de la sesión
          $this->selectedUnitId= Session::get('selectedUnitId');
+        
 
         // ---------------- Filtro para responsable -----------------------
-
+        
         // Verifica si hay un ID de unidad seleccionada en la sesión
         if ($this->selectedUnitId) {
             // Obtiene todas las actividades asociadas a la unidad productiva seleccionada
@@ -109,6 +112,7 @@ class MovementController extends Controller
             }
 
             
+            
             // ---------------- Filtro para Elementos -----------------------
             // Obtén los elementos con sus IDs
             $elements = Element::select('id', 'name')->get();
@@ -131,8 +135,13 @@ class MovementController extends Controller
 
     public function registerentrance(Request $request)
 {
+
+    // Obtener para Tipo de Movimiento
+    $movementype = MovementType::select('id','consecutive')->where('name','=', 'Movimiento Interno')->first();
+
     // Obtener los datos del formulario
     $date = $request->input('date');
+    $observation = $request->input('observation');
     $user_id = $request->input('user_id');
     $deliverywarehouse = $request->input('deliverywarehouse');
     $receivewarehouse = $request->input('receivewarehouse');
@@ -140,6 +149,7 @@ class MovementController extends Controller
 
     // Verificar si $products no es null y es un array
     if (!is_null($products) && is_array($products)) {
+        $totalPrice = 0;
         // Inicializa un arreglo para almacenar los datos de los productos
         $productsData = [];
 
@@ -154,6 +164,9 @@ class MovementController extends Controller
                 $quantity = $product['product-quantity'];
                 $price = $product['product-price'];
                 $destination = $product['product-destination'];
+
+                // Suma el precio del producto al total
+                $totalPrice += $price * $quantity;
 
                 // Buscar si el elemento ya existe en 'inventories' para la ubicación y elemento específicos
                 $existingInventory = Inventory::where([
@@ -179,20 +192,25 @@ class MovementController extends Controller
                         'price' => $price,
                         'amount' => $quantity,
                         'stock' => $stock,
-                        // ... otros campos ...
+
                     ]);
 
                     $inventory->save();
+                    $inventoryIds[] = $inventory->id;
                 }
+                
+                $movements = new Movement([
+                    'registration_date' => $date,
+                    'movement_type_id' => $movementType->id,
+                    'voucher_number' => $movementType->consecutive,
+                    'price' => $totalPrice,
+                    'observation' => $observation,
+                    'state' => 'Solicitado',
+                ]);
 
-                // Agregar los datos del producto al arreglo (opcional)
-                $productsData[] = [
-                    'id' => $productElementId,
-                    'quantity' => $quantity,
-                    'price' => $price,
-                    'destination' => $destination,
-                    // ... otros campos ...
-                ];
+                // Guardar el nuevo registro en la base de datos
+                $movements->save();
+
             }
 
             // Registra datos en otras tablas utilizando $inventoryIds y otros valores (si es necesario)

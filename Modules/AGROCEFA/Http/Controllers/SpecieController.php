@@ -13,7 +13,7 @@ class SpecieController extends Controller
     public function index()
     {
         $species= Specie::all();
-        return view('agrocefa::parameters', compact('species'));
+        return view('agrocefa::parameters.parameter', compact('species'));
     }
 
     public function editView($id)
