@@ -1,151 +1,293 @@
 @extends('agrocefa::layouts.master')
 
 @section('content')
-    <h2>Formulario Entrada</h2>
 
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h3></h3>
+@if (session('success'))
+    <script>
+        Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Registro Exitoso',
+        showConfirmButton: false,
+        timer: 1500,
+        customClass: {
+            popup: 'my-custom-popup-class', // Clase CSS personalizada para el cuadro de diálogo
+        },
+        onOpen: () => {
+            // Cuando se abre el cuadro de diálogo, centrarlo verticalmente
+            const popup = document.querySelector('.my-custom-popup-class');
+            if (popup) {
+            popup.style.display = 'flex';
+            popup.style.alignItems = 'center';
+            popup.style.justifyContent = 'center';
+            }
+        },
+        });
+    </script>
+@endif
+<h2>Formulario Entrada</h2>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3></h3>
+        </div>
+        <div class="card-body">
+            {!! Form::open(['route' => 'agrocefa.registerentrance', 'method' => 'POST']) !!}
+            @csrf
+
+            <div class="form-group">
+                {!! Form::label('date', 'Fecha') !!}
+                {!! Form::text('date', $date, ['class' => 'form-control', 'required']) !!}
             </div>
-            <div class="card-body">
-                
-                {!! Form::open(['route' => 'agrocefa.registerentrance', 'method' => 'POST']) !!}
-                @csrf
-                <div class="form-group">
-                    {!! Form::label('date', 'Fecha') !!}
-                    {!! Form::text('date', $date, ['class' => 'form-control', 'required']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('user_id', 'Responsable') !!}
-                    {!! Form::select('user_id', $people->pluck('first_name', 'id'), null, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('deliverywarehouse', 'Bodega Entrega') !!}
-                    {!! Form::select('deliverywarehouse', $werhousentrance->pluck('name', 'id'), null, ['class' => 'form-control', 'required']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('receivewarehouse', 'Bodega Recibe') !!}
-                    {!! Form::select('receivewarehouse', $warehouseData->pluck('name', 'id'), null, ['class' => 'form-control', 'required']) !!}
-                </div>
-                <!-- Agregar la tabla dinámica -->
-                <div class="form-group">
-                    <h3>Productos</h3>
-                    <table id="productTable" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Nombre del Producto</th>
-                                <th>Unidad de Medida</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th>Categoria</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Filas de la tabla se agregarán dinámicamente aquí -->
-                        </tbody>
-                    </table>
-                    <button type="button" class="btn btn-primary" id="addProduct">Agregar Producto</button>
-                </div>
-                <!-- Otros campos del formulario según tus necesidades -->
-                <br>
-                {!! Form::submit('Registrar Entrada', ['class' => 'btn btn-primary',]) !!}
-                {!! Form::close() !!}
+            <div class="form-group">
+                {!! Form::label('user_id', 'Responsable') !!}
+                {!! Form::select('user_id', $people->pluck('first_name', 'id'), null, ['class' => 'form-control']) !!}
             </div>
+            <div class="form-group">
+                {!! Form::label('deliverywarehouse', 'Bodega Entrega') !!}
+                {!! Form::select('deliverywarehouse', $werhousentrance->pluck('name', 'id'), null, ['class' => 'form-control', 'required']) !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('receivewarehouse', 'Bodega Recibe') !!}
+                {!! Form::select('receivewarehouse', $warehouseData->pluck('name', 'id'), null, ['class' => 'form-control', 'required']) !!}
+            </div>
+            <!-- Agregar la tabla dinámica -->
+            <div class="form-group">
+                <h3>Productos</h3>
+                <table id="productTable" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nombre del Producto</th>
+                            <th>Unidad de Medida</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Categoria</th>
+                            <th>Destino</th> <!-- Agregar la columna de Destino -->
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Filas de la tabla se agregarán dinámicamente aquí -->
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary" id="addProduct">Agregar Producto</button>
+            </div>
+            <!-- Otros campos del formulario según tus necesidades -->
+            <input type="hidden" name="products" id="productsInput" value="">
+            <input type="hidden" class="product-selected-id" name="product_selected_id">
+            <br>
+            {!! Form::submit('Registrar Entrada', ['class' => 'btn btn-primary']) !!}
+            {!! Form::close() !!}
         </div>
     </div>
-@endsection
+</div>
+<script>
+    console.log("Contenido de  elements:", {!! json_encode($elements) !!});
+</script>
+<style>
+    /* Agrega esta regla CSS para ocultar la columna */
+    #productTable th:nth-child(1),
+    #productTable td:nth-child(1) {
+        display: none;
+    }
+</style>
 
-<!-- Agrega esto en la sección de scripts en tu vista -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        // Variables para la tabla y el botón de agregar producto
+    $(document).ready(function () {
         var productTable = $('#productTable tbody');
-        var addProductButton = $('#addProduct');
         var elements = {!! json_encode($elements) !!};
+        var productsData = [];
 
-        // Activa manualmente el manejador de eventos 'change' en el elemento select de la primera fila
-        var firstRowProductNameSelect = productTable.find('.product-name').first();
-        firstRowProductNameSelect.change(); // Simula el evento 'change'
+        // Función para actualizar los datos de los productos
+        function updateProductsData() {
+            productsData = [];
 
-        // Manejador de eventos para el botón Agregar Producto
-        addProductButton.click(function() {
-            // Crear una nueva fila para agregar un producto
-            var newRow = $('<tr>');
-            newRow.html('<td><select class="form-control product-name" required></select></td>' +
-                        '<td><input type="text" class="form-control product-measurement-unit" readonly></td>' +
-                        '<td><input type="number" class="form-control product-quantity" placeholder="Cantidad"></td>' +
-                        '<td><input type="number" class="form-control product-price" placeholder="Precio"></td>' +
-                        '<td><input type="text" class="form-control product-category" readonly></td>' +
-                        '<td><button type="button" class="btn btn-danger removeProduct">Eliminar</button></td>');
+            // Recorrer todas las filas de la tabla de productos
+            productTable.find('tr.product-row').each(function () {
+                var currentRow = $(this);
+                var productNameSelect = currentRow.find('.product-name');
+                var productName = productNameSelect.val();
+                var selectedElementId = productNameSelect.find('option:selected').val();
+                var measurementUnit = currentRow.find('.product-measurement-unit').val();
+                var quantity = currentRow.find('.product-quantity').val();
+                var price = currentRow.find('.product-price').val();
+                var category = currentRow.find('.product-category').val();
+                var destination = currentRow.find('.product-destination').val();
 
-            // Agregar la fila a la tabla
-            productTable.append(newRow);
+                // Verificar que todos los campos tengan valores
+                if (productName && measurementUnit && quantity && price && category && destination) {
+                    // Agregar el producto a la lista de productos
+                    productsData.push({
+                        'product-name': selectedElementId,
+                        'product-measurement-unit': measurementUnit,
+                        'product-quantity': quantity,
+                        'product-price': price,
+                        'product-category': category,
+                        'product-destination': destination,
+                        'id': selectedElementId,
+                        'name': productName
+                    });
+                }
+            });
+
+            // Actualizar el campo oculto con los datos de los productos
+            $('#productsInput').val(JSON.stringify(productsData));
+        }
+
+        // Función para agregar una nueva fila de producto
+        function addProductRow() {
+            var newRow = $('<tr class="product-row">');
+            newRow.html('<td><input type="hidden" class="product-element-id"></td>' +
+                '<td><select class="form-control product-name" required></select></td>' +
+                '<td><input type="text" class="form-control product-measurement-unit" readonly></td>' +
+                '<td><input type="number" class="form-control product-quantity" placeholder="Cantidad"></td>' +
+                '<td><input type="number" class="form-control product-price" placeholder="Precio"></td>' +
+                '<td><input type="text" class="form-control product-category" readonly></td>' +
+                '<td><select class="form-control product-destination" required>' +
+                '<option value="Producción">Producción</option>' +
+                '<option value="Formación">Formación</option>' +
+                '</select></td>' +
+                '<td><button type="button" class="btn btn-danger removeProduct">Eliminar</button></td>' +
+                '<td><button type="button" class="btn btn-success saveProduct">Guardar</button></td>');
 
             // Llenar el select de nombre de producto en la nueva fila
             var productNameSelect = newRow.find('.product-name');
             productNameSelect.append('<option value="">Seleccione un elemento</option>');
 
-            $.each(elements, function(name, measurementUnit) {
-                productNameSelect.append('<option value="' + name + '">' + name + '</option>');
+            // Iterar sobre los elementos y agregar las opciones al menú desplegable
+            $.each(elements, function(index, element) {
+                productNameSelect.append('<option value="' + element.id + '">' + element.name + '</option>');
             });
+
+            // Agregar la fila a la tabla
+            productTable.append(newRow);
+
+            // Manejador de eventos para el botón Guardar
+            newRow.find('.saveProduct').click(function () {
+                var currentRow = $(this).closest('tr');
+
+                // Verificar si todos los campos en la fila actual están completos
+                if (currentRow.find('.product-name').val() && currentRow.find('.product-measurement-unit').val() && currentRow.find('.product-quantity').val() && currentRow.find('.product-price').val() && currentRow.find('.product-category').val() && currentRow.find('.product-destination').val()) {
+                    updateProductsData();
+
+                    var productNameSelect = currentRow.find('.product-name');
+                    var productName = productNameSelect.val();
+                    var selectedElementId = productNameSelect.find('option:selected').val();
+                    var measurementUnit = currentRow.find('.product-measurement-unit').val();
+                    var quantity = currentRow.find('.product-quantity').val();
+                    var price = currentRow.find('.product-price').val();
+                    var category = currentRow.find('.product-category').val();
+                    var destination = currentRow.find('.product-destination').val();
+
+                    // Actualizar el producto en productsData
+                    var updatedProduct = {
+                        'product-name': selectedElementId,
+                        'product-measurement-unit': measurementUnit,
+                        'product-quantity': quantity,
+                        'product-price': price,
+                        'product-category': category,
+                        'product-destination': destination,
+                        'id': selectedElementId,
+                        'name': productName
+                    };
+
+                    // Buscar y reemplazar el producto en productsData
+                    for (var i = 0; i < productsData.length; i++) {
+                        if (productsData[i]['id'] === selectedElementId) {
+                            productsData[i] = updatedProduct;
+                            break;
+                        }
+                    }
+
+                    $('#productsInput').val(JSON.stringify(productsData));
+
+                    alert('Elemento guardado:\n' +
+                        'ID: ' + selectedElementId + '\n' +
+                        'Nombre: ' + productName + '\n' +
+                        'Unidad de Medida: ' + measurementUnit + '\n' +
+                        'Cantidad: ' + quantity + '\n' +
+                        'Precio: ' + price + '\n' +
+                        'Categoría: ' + category + '\n' +
+                        'Destino: ' + destination);
+                } else {
+                    alert('Por favor, complete todos los campos de la fila actual antes de guardar.');
+                }
+            });
+
+            // Llamar a updateProductsData después de agregar un producto
+            updateProductsData();
+        }
+
+        // Llamar a addProductRow al cargar la página para generar la primera fila
+        addProductRow();
+
+        // Manejador de eventos para el botón Agregar Producto
+        $('#addProduct').click(function () {
+            var lastRow = productTable.find('tr.product-row:last');
+
+            if (lastRow.find('.product-name').val() && lastRow.find('.product-measurement-unit').val() && lastRow.find('.product-quantity').val() && lastRow.find('.product-price').val() && lastRow.find('.product-category').val() && lastRow.find('.product-destination').val()) {
+                addProductRow();
+            } else {
+                alert('Por favor, complete todos los campos de la fila actual antes de agregar otra.');
+            }
+        });
+
+        // Manejador de eventos para eliminar productos
+        productTable.on('click', '.removeProduct', function () {
+            $(this).closest('tr').remove();
+            updateProductsData();
         });
 
         // Manejador de eventos para cambiar la unidad de medida y obtener la categoría al seleccionar un elemento
-        productTable.on('change', '.product-name', function() {
-            var selectedElement = $(this).val(); // Elemento seleccionado
-            var measurementUnitField = $(this).closest('tr').find('.product-measurement-unit');
-            var categoryField = $(this).closest('tr').find('.product-category');
+        productTable.on('change', '.product-name', function () {
+            var currentRow = $(this).closest('tr');
+            var selectedElementId = $(this).find('option:selected').val();
 
             // Realizar una solicitud AJAX para obtener la unidad de medida y la categoría del elemento
             $.ajax({
                 url: '{{ route('agrocefa.obtenerunidadmedida') }}',
                 method: 'GET',
-                data: { element: selectedElement },
-                success: function(response) {
-                    if (response.unidad_medida !== undefined && response.unidad_medida !== '') {
-                        // Si la unidad de medida se encuentra en la respuesta, mostrarla
-                        measurementUnitField.val(response.unidad_medida);
-                    } else {
-                        // Si la unidad de medida no se encuentra, mostrar un mensaje de error
-                        measurementUnitField.val('Unidad de medida no encontrada');
-                    }
+                data: { element: selectedElementId },
+                success: function (response) {
+                    var measurementUnitField = currentRow.find('.product-measurement-unit');
+                    measurementUnitField.val(response.unidad_medida || 'Unidad de medida no encontrada');
 
                     // Realizar una solicitud AJAX adicional para obtener la categoría
                     $.ajax({
                         url: '{{ route('agrocefa.obtenercategoria') }}',
                         method: 'GET',
-                        data: { element: selectedElement },
-                        success: function(response) {
-                            if (response.categoria !== undefined && response.categoria !== '') {
-                                // Si la categoría se encuentra en la respuesta, mostrarla
-                                categoryField.val(response.categoria);
-                            } else {
-                                // Si la categoría no se encuentra, mostrar un mensaje de error
-                                categoryField.val('Categoría no encontrada');
-                            }
+                        data: { element: selectedElementId },
+                        success: function (response) {
+                            var categoryField = currentRow.find('.product-category');
+                            categoryField.val(response.categoria || 'Categoría no encontrada');
+
+                            // Llamar a updateProductsData después de cambiar la selección
+                            updateProductsData();
                         },
-                        error: function() {
-                            // Manejo de errores si la solicitud falla
+                        error: function () {
+                            var categoryField = currentRow.find('.product-category');
                             categoryField.val('Error al obtener la categoría');
+
+                            // Llamar a updateProductsData después de cambiar la selección
+                            updateProductsData();
                         }
                     });
                 },
-                error: function() {
-                    // Manejo de errores si la solicitud para la unidad de medida falla
+                error: function () {
+                    var measurementUnitField = currentRow.find('.product-measurement-unit');
                     measurementUnitField.val('Error al obtener la unidad de medida');
+
+                    // Llamar a updateProductsData después de cambiar la selección
+                    updateProductsData();
                 }
             });
         });
-
-
-        // Manejador de eventos para eliminar productos
-        productTable.on('click', '.removeProduct', function() {
-            $(this).closest('tr').remove();
-        });
     });
-
 </script>
 
+
+
+@endsection

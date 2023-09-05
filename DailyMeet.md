@@ -72,6 +72,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Yuderly Sapuy** - *Pendiente* - *Avance %* - *Dificultades* - *Acciones*
 ---
 
+#### Meet 04-Sep-2023
+* **Andres Almario** - *Registro de productos movimiento de entrada* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Ajustes de filtro de elementos por categoría* - *Avance 100%* - *Complicaciones con las consultas* - *Buscar soluciones al problema*
+* **Laura Vanessa** - *modificacion de la vista desarrolladores creaccion le las targetas de donde van las herramientas que utilizamos para el desarrollo de  el software* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Vista AGROCEFA* - *Avance 100%* - *Dificultades* - *Acciones*
+---
+
 
 ## GANADERIA 🐮
 

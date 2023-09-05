@@ -2,6 +2,7 @@
 
 namespace Modules\AGROCEFA\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
@@ -11,6 +12,7 @@ use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\Responsibility;
 use Modules\SICA\Entities\Element;
+use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Role;
 use App\Models\User;
 
@@ -108,16 +110,9 @@ class MovementController extends Controller
 
             
             // ---------------- Filtro para Elementos -----------------------
-            $elements = Element::with('measurement_unit')
-            ->get()
-            ->map(function ($element) {
-                return [
-                    'name' => $element->name,
-                    'measurement_unit' => $element->measurement_unit->name
-                ];
-            })
-            ->unique('name') // Asegura que los nombres de los elementos sean únicos
-            ->pluck('measurement_unit', 'name');
+            // Obtén los elementos con sus IDs
+            $elements = Element::select('id', 'name')->get();
+
 
 
         }   
@@ -134,54 +129,95 @@ class MovementController extends Controller
         ]);
     }
 
-    public function registerentrance (Request $request)
-    {
-        // Obtener los datos del formulario
-        $date = $request->input('date');
-        $user_id = $request->input('user_id');
-        $deliverywarehouse = $request->input('deliverywarehouse');
-        $receivewarehouse = $request->input('receivewarehouse');
+    public function registerentrance(Request $request)
+{
+    // Obtener los datos del formulario
+    $date = $request->input('date');
+    $user_id = $request->input('user_id');
+    $deliverywarehouse = $request->input('deliverywarehouse');
+    $receivewarehouse = $request->input('receivewarehouse');
+    $products = json_decode($request->input('products'), true);
 
-        // Obtener los datos de la tabla dinámica
-        $products = $request->input('products'); // Cambia 'products' al nombre correcto
+    // Verificar si $products no es null y es un array
+    if (!is_null($products) && is_array($products)) {
+        // Inicializa un arreglo para almacenar los datos de los productos
+        $productsData = [];
 
-        // Verificar si $products no es null y es un array
-        if (!is_null($products) && is_array($products)) {
-            // Ahora puedes recorrer los productos y procesar cada uno
+        // Inicia una transacción de base de datos
+        DB::beginTransaction();
+
+        try {
+            // Procesar cada producto
             foreach ($products as $product) {
-                $productName = $product['product-name'];
-                $measurementUnit = $product['product-measurement-unit'];
+                // Obtén los datos necesarios para cada producto
+                $productElementId = $product['id'];
                 $quantity = $product['product-quantity'];
                 $price = $product['product-price'];
-                $category = $product['product-category'];
+                $destination = $product['product-destination'];
 
+                // Buscar si el elemento ya existe en 'inventories' para la ubicación y elemento específicos
+                $existingInventory = Inventory::where([
+                    'productive_unit_warehouse_id' => $deliverywarehouse,
+                    'element_id' => $productElementId,
+                    'destination' => $destination,
+                ])->first();
 
-                // Construye un arreglo asociativo con los datos que deseas mostrar
-                $responseData = [
-                    'date' => $date,
-                    'user_id' => $user_id,
-                    'deliverywarehouse' => $deliverywarehouse,
-                    'receivewarehouse' => $receivewarehouse,
-                    'products' => $products, // Esto incluye todos los productos
+                if ($existingInventory) {
+                    // Si el elemento existe, actualiza el precio y la cantidad
+                    $existingInventory->price = $price;
+                    $existingInventory->amount += $quantity;
+                    $existingInventory->save();
+                } else {
+                    // Si el elemento no existe, crea un nuevo registro en 'inventories'
+                    $stock = 3; // Este valor puede cambiar según tus requisitos
+
+                    $inventory = new Inventory([
+                        'person_id' => $user_id,
+                        'productive_unit_warehouse_id' => $deliverywarehouse,
+                        'element_id' => $productElementId,
+                        'destination' => $destination,
+                        'price' => $price,
+                        'amount' => $quantity,
+                        'stock' => $stock,
+                        // ... otros campos ...
+                    ]);
+
+                    $inventory->save();
+                }
+
+                // Agregar los datos del producto al arreglo (opcional)
+                $productsData[] = [
+                    'id' => $productElementId,
+                    'quantity' => $quantity,
+                    'price' => $price,
+                    'destination' => $destination,
+                    // ... otros campos ...
                 ];
-
-        // Devuelve los datos en formato JSON
-        return view('agrocefa::movements.prueba', ['responseData' => $datosJSON]);
-                // Realiza aquí la lógica para guardar estos datos en la base de datos
-                // Por ejemplo, puedes crear un nuevo registro en una tabla de productos
-                // con los datos obtenidos.
             }
 
-            // Si llegas a este punto, significa que se procesaron todos los productos correctamente.
-            // Puedes realizar cualquier otra acción necesaria aquí.
-        } else {
-            // Manejo de caso en el que $products es null o no es un array
-            
-            // Puedes agregar un mensaje de error o realizar las acciones apropiadas.
-        }
+            // Registra datos en otras tablas utilizando $inventoryIds y otros valores (si es necesario)
 
-        
+            // Si todo está correcto, realiza un commit de la transacción
+            DB::commit();
+
+            
+
+            // Después de realizar la operación de registro con éxito
+            return redirect()->route('agrocefa.formentrance')->with('success', 'El registro se ha completado con éxito.');
+
+        } catch (\Exception $e) {
+            // En caso de error, realiza un rollback de la transacción y maneja el error
+            DB::rollBack();
+
+
+        }
+    } else {
+        // Manejo de caso en el que $products es null o no es un array
     }
+}
+
+
+
     public function obtenerUnidadDeMedida(Request $request) 
     {
         try {
@@ -189,7 +225,7 @@ class MovementController extends Controller
             
             // Realiza la lógica para obtener la unidad de medida del elemento
             $unidadMedida = Element::with('measurement_unit')
-                ->where('name', $element) // Filtra por el nombre del elemento específico
+                ->where('id', $element) // Filtra por el nombre del elemento específico
                 ->first(); // Obtén el primer resultado
             
             if ($unidadMedida) {
@@ -211,7 +247,7 @@ class MovementController extends Controller
             
             // Realiza la lógica para obtener la unidad de medida del elemento
             $category = Element::with('category')
-                ->where('name', $element) // Filtra por el nombre del elemento específico
+                ->where('id', $element) // Filtra por el nombre del elemento específico
                 ->first(); // Obtén el primer resultado
             
             if ($category) {
@@ -310,18 +346,19 @@ class MovementController extends Controller
 
             
             // ---------------- Filtro para Elementos -----------------------
+            // Obtén los elementos con sus IDs
             $elements = Element::with('measurement_unit')
             ->get()
             ->map(function ($element) {
                 return [
-                    'name' => $element->name,
+                    'id' => $element->id,
                     'measurement_unit' => $element->measurement_unit->name
                 ];
             })
-            ->unique('name') // Asegura que los nombres de los elementos sean únicos
-            ->pluck('measurement_unit', 'name');
+            ->groupBy('measurement_unit')
+            ->toArray();
 
-
+            var_dump($elements);
         }   
 
 
