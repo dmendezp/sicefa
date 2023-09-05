@@ -67,29 +67,40 @@ class PTVENTAController extends Controller
 
         $months = [];
         $salesTotals = [];
-
+        
         $maxSalesMonth = null;
         $maxSalesAmount = 0;
         $previousSalesAmount = 0;
-
+        $currentYear = null;
+        
         foreach ($salesByMonth as $month => $sales) {
-            $months[] = Carbon::createFromFormat('!m', $month)->format('F');
             $salesTotal = $sales->sum('price');
-            $salesTotals[] = $salesTotal;
-
-            if ($salesTotal > $maxSalesAmount) {
+        
+            // Obtén el año actual
+            $year = Carbon::createFromFormat('!m', $month)->format('Y');
+        
+            // Si el año cambió, verifica si el mes actual tuvo más ventas que el máximo anterior y reinicia
+            if ($year !== $currentYear) {
+                $currentYear = $year;
+                $maxSalesAmount = $salesTotal;
+                $maxSalesMonth = Carbon::createFromFormat('!m', $month)->format('F');
+            } elseif ($salesTotal > $maxSalesAmount) {
                 $maxSalesAmount = $salesTotal;
                 $maxSalesMonth = Carbon::createFromFormat('!m', $month)->format('F');
             }
-
+        
+            // Resto del código para calcular el porcentaje de cambio, etc.
+            $months[] = Carbon::createFromFormat('!m', $month)->format('F');
+            $salesTotals[] = $salesTotal;
+        
             if ($previousSalesAmount !== 0) {
                 $percentageChange = (($salesTotal - $previousSalesAmount) / $previousSalesAmount) * 100;
             } else {
                 $percentageChange = 0;
             }
-
+        
             $previousSalesAmount = $salesTotal;
-        }
+        }      
 
         // Permite hacer el conteo de todas las unidades productivas actuales
         $totalProductiveUnits = ProductiveUnit::count();
