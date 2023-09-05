@@ -65,14 +65,14 @@ class CreatePeopleTable extends Migration
             ])->nullable();
             $table->enum('sisben_level', ['A','B','C','D'])->nullable();
             $table->string('address')->nullable();
-            $table->unsignedInteger('telephone1')->nullable();
-            $table->unsignedInteger('telephone2')->nullable();
-            $table->unsignedInteger('telephone3')->nullable();
+            $table->unsignedBigInteger('telephone1')->nullable();
+            $table->unsignedBigInteger('telephone2')->nullable();
+            $table->unsignedBigInteger('telephone3')->nullable();
             $table->string('personal_email')->nullable();
             $table->string('misena_email')->nullable();
             $table->string('sena_email')->nullable();
             $table->string('avatar')->nullable();
-            $table->text('biometric_code')->nullable()->unique();
+            $table->text('biometric_code')->nullable();
             $table->foreignId('population_group_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();

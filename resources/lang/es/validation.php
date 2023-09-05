@@ -152,9 +152,15 @@ return [
         'app_id' => 'aplicación', // SICA
         'date' => 'fecha', // SICA
         'description' => 'descripción', // SICA
+        'document_number' => 'número de documento', // SICA
+        'document_type' => 'tipo de documento', // SICA
         'end_date' => 'fecha de finalización', // SICA
         'environment_id' => 'ambiente', // SICA
+        'eps_id' => 'eps', // SICA
         'farm_id' => 'granja', // SICA
+        'first_name' => 'nombre', // SICA
+        'first_last_name' => 'primer apellido', // SICA
+        'second_last_name' => 'segundo apellido', // SICA
         'issue' => 'asunto', // SICA
         'leader_id' => 'persona líder', // SICA
         'name' => 'nombre', // SICA
@@ -166,6 +172,7 @@ return [
         'person_first_last_name' => 'primer apellido', // PTVENTA
         'person_id' => 'persona', // SICA
         'person_second_last_name' => 'segundo apellido', // PTVENTA
+        'population_group_id' => 'grupo poblacional', // SICA
         'productive_unit_id' => 'unidad productiva', // SICA
         'role_id' => 'rol', // SICA
         'sector_id' => 'área productiva', // SICA

@@ -2,54 +2,51 @@
 
 namespace Modules\SICA\Http\Controllers\location;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Municipality;
-use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\Environment;
 use DataTables;
+use Illuminate\Http\Request;
+use Modules\SICA\Entities\Farm;
 
 class LocationController extends Controller
 {
-    public function countries(){
-        //$countries = Municipality::with('department.country')->get();
-        //$data = ['title'=>trans('sica::menu.Countries'),'countries'=>$countries];
-        //return view('sica::admin.location.countries.home',$data);   
+
+    /* Vista principal de paises */
+    public function countries_index(){
         $data = ['title'=>trans('sica::menu.Countries')];
-        return view('sica::admin.location.countries.list',$data);
+        return view('sica::admin.location.countries.index',$data);
     }
 
-    public function getCountries(Request $request){
-
-        //if ($request->ajax()) {
-
-            $data = Municipality::with('department.country')->orderby('id','asc')->latest()->get();
-            return Datatables::of($data)
-                ->addIndexColumn()
+    /* Consultar municipios de manera asincrónica para departamentos y paises */
+    public function countries_municipalities_consult(Request $request){
+        $data = Municipality::with('department.country')
+                ->latest()  
+                ->get();
+        return Datatables::of($data)->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn = '
-                        <a href="javascript:void(0)" class="edit btn-editar text-info" data-toggle="tooltip" data-placement="top" data-id="'.$row->id.'" data-token="'.csrf_token().' title="Editar"><i class="fas fa-edit"></i></a>
-                        <a href="javascript:void(0)" class="delete btn-eliminar text-danger" data-toggle="tooltip" data-placement="top" data-id="'.$row->id.'" data-token="'.csrf_token().' title="Eliminar"><i class="fas fa-trash-alt"></i></a>
+                        <a href="javascript:void(0)" class="edit btn-editar text-success" data-toggle="tooltip" data-placement="top" title="Actualizar registro"><i class="fas fa-edit"></i></a>
+                        <a href="javascript:void(0)" class="delete btn-eliminar text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar registro"><i class="fas fa-trash-alt"></i></a>
                     ';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
-        //}  
-
     }
 
-    public function farms(){
-        //$farms = Farm::get();
-        $coudepmun = Municipality::where('department_id','421')->get();
-        $data = ['title'=>trans('sica::menu.Farms'),'coudepmun'=>$coudepmun];
-        return view('sica::admin.location.farms.home',$data);
+    /* Vista principal de granjas */
+    public function farms_index(){
+        $farms = Farm::orderByDesc('updated_at')->get();
+        $data = ['title'=>trans('sica::menu.Farms'),'farms'=>$farms];
+        return view('sica::admin.location.farms.index',$data);
     }
 
-    public function environments(){
-        $environments = Environment::get();
+    /* Vista principal de ambientes de formación */
+    public function environments_index(){
+        $environments = Environment::orderByDesc('updated_at')->get();
         $data = ['title'=>trans('sica::menu.Environments'),'environments'=>$environments];
-        return view('sica::admin.location.environments.home',$data);
-    }    
+        return view('sica::admin.location.environments.index',$data);
+    }
+
 }
