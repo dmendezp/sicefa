@@ -18,7 +18,7 @@ class AdminresourcesController extends Controller
     public function adminresources() {
         $productive_unit = ProductiveUnit::orderBy('name', 'ASC')->get();
         $resource = Resource::orderBy('name', 'ASC')->get();
-        return view('hdc::Adminresources', compact('productive_unit', 'resource'));
+        return view('hdc::Adminresources',['productive_unit' => $productive_unit, 'resource' => $resource]);
     }
 
     /**

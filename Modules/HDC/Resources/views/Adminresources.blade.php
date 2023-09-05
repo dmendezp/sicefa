@@ -1,6 +1,6 @@
 @extends('hdc::layouts.master')
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">Administrar Recursos</li>
+    <li class="breadcrumb-item active">{{ trans('hdc::hdcgeneral.li2')}}</li>
 @endpush
 
 @section('content')
@@ -9,7 +9,7 @@
         <div class="d-flex justify-content-center">
             <div class="card card-green card-outline shadow col-md-12">
                 <div class="card-header">
-                    <h3 class="card-title">ADMINISTRAR RECURSOS</h3>
+                    <h3 class="card-title">{{ trans('hdc::hdcgeneral.ct1') }}</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -17,25 +17,25 @@
                             <form action="{{ route('sica.admin.units.pu_warehouses.store') }}" method="post">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Unidad Productiva:</label>
+                                    <label>{{ trans('hdc::hdcgeneral.label1') }}</label>
                                     <select name="productive_unit_id" class="form-control" required>
-                                        <option value="">-- Seleccione --</option>
+                                        <option value="">{{ trans('hdc::hdcgeneral.option1') }}</option>
                                         @foreach ($productive_unit as $pro) {{-- Consulta las unidades productivas de SICEFA --}}
                                             <option value="{{ $pro->id }}">{{ $pro->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Recurso:</label>
+                                    <label>{{ trans('hdc::hdcgeneral.label2') }}</label>
                                     <select name="Resource_id" class="form-control" required>
-                                        <option value="">-- Seleccione --</option>
+                                        <option value="">{{ trans('hdc::hdcgeneral.option2') }}</option>
                                         @foreach($resource as $re)
                                             <option value="{{ $re->id }}">{{ $re->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">Sincronizar</button>
+                                    <button type="submit" class="btn btn-primary">{{ trans('hdc::hdcgeneral.btn1') }}</button>
                                 </div>
                             </form>
                         </div>
@@ -44,38 +44,27 @@
                                 <table class="table table-bordered table-stripped table-hover">
                                     <thead class="table-dark">
                                         <tr>
-                                            <th>Unidad Productiva</th>
-                                            <th>Recurso Utilizado</th>
-                                            <th class="text-center">Acciones</th>
+                                            <th>{{ trans('hdc::hdcgeneral.th1') }}</th>
+                                            <th>{{ trans('hdc::hdcgeneral.th2') }}</th>
+                                            <th class="text-center">{{ trans('hdc::hdcgeneral.th3') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                        $previos_pro_id = null;
-                                        @endphp
+                                        @foreach ($productive_unit as $pro)
                                         @foreach ($resource as $re)
-                                            @if ($previos_pro_id !== $pror->productive_unit_id)
-                                                <tr>
-                                                    <td style="vertical-align: middle" rowspan="{{ $productive_unit_resource->where('productive_unit_id', $pror->productive_unit_id)->count() }}">
-                                                    {{ $pror->productive_unit->name }}
-                                                    </td>
-                                                @php
-                                                    $rowspanCount = $productive_unit_resource->where('productive_unit_id', $pror->productive_unit_id)->count();
-                                                @endphp
-                                            @else
-                                                <tr>
-                                            @endif
-                                            <td>{{ $re->resource->name }}</td>
-                                            <td class="text-center">
-                                                <a href="{{ route('hdc.Adminresources.destroy', $re) }}" data-toogle='tooltip' data-placement="top" title="Eliminar"
-                                                    onclick="return confirm('¿Estas Seguro Que Deseas Eliminar La Asociación De La Unidad Productiva {{ $pror->productive_unit->name }} Y El Recurso {{ $pror->resource->name }}?')">
-                                                    <i class="fas fa-trash-alt text-danger"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        @php
-                                            $previos_pro_id = $pror->productive_unit_id;
-                                        @endphp
+                                            <tr>
+                                                <td >
+                                                {{ $pro->name }}
+                                                </td>
+                                                <td>{{ $re->name }}</td>
+                                                <td class="text-center">
+                                                    <a href="" data-toogle='tooltip' data-placement="top" title="Eliminar"
+                                                        onclick="return confirm('¿Estas Seguro Que Deseas Eliminar La Asociación De La Unidad Productiva {{ $pro->name }} Y El Recurso {{ $re->name }}?')">
+                                                        <i class="fas fa-trash-alt text-danger"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>
