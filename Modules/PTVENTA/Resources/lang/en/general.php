@@ -12,7 +12,7 @@ return [
     'Log In'           => 'Log In',
 
     //Sidebar
-    'Sales Point'      => 'Sales Point',
+    'Sales Point'      => 'Point of Sale',
     'Session'          => 'Sign in',
     'Back to SICEFA'   => 'Back to SICEFA',
     'dashboard'        => 'Dashboard',

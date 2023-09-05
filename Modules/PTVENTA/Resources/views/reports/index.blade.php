@@ -20,7 +20,7 @@
                 <hr>
                 <div class="row">
                     @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.inventory.generate.pdf'))
-                        <div class="col-md-4 col-sm-6">
+                        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1000">
                             <!-- Botón para generar el PDF -->
                             <form method="post" action="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.inventory.generate.pdf') }}">
                                 @csrf
@@ -35,7 +35,7 @@
                         </div>
                     @endif
                     @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.inventory.entries'))
-                        <div class="col-md-4 col-sm-6">
+                        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="2000">
                             <a class="card-custom a-custom" href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.inventory.entries') }}">
                                 <div class="icon">
                                     <i class="fa-solid fa-file-pdf"></i>
@@ -46,7 +46,7 @@
                         </div>
                     @endif
                     @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.sales'))
-                        <div class="col-md-4 col-sm-6">
+                        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="3000">
                             <a class="card-custom a-custom" href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.sales') }}">
                                 <div class="icon">
                                     <i class="fa-solid fa-file-pdf"></i>

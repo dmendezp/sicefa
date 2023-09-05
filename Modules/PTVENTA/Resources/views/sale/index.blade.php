@@ -6,7 +6,7 @@
 @endpush
 
 @section('content')
-    <div class="card card-success card-outline shadow-sm">
+    <div class="card card-success card-outline shadow-sm" data-aos="zoom-in">
         <div class="card-body pt-0">
             <div class="text-end my-2">
                 @if (Auth::user()->havePermission('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.sale.register'))

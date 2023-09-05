@@ -8,10 +8,10 @@
 @endpush
 
 @section('content')
-    <h5 class="display-5">{{ trans('ptventa::mainPage.Title_Page_Admin') }}</h5>
+    <h5 class="display-5" data-aos="fade-right">{{ trans('ptventa::mainPage.Title_Page_Admin') }}</h5>
 
     <div class="row">
-        <div class="col-md-5 col-lg-5">
+        <div class="col-md-5 col-lg-5" data-aos="fade-up" data-aos-duration="1000">
             <div class="card">
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" data-aos="fade-up" data-aos-duration="1500">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">{{ trans('ptventa::mainPage.Title_Recently_Added') }}</h3>
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-lg-3">
+        <div class="col-md-4 col-lg-3" data-aos="fade-up" data-aos-duration="2000">
             <div class="info-box mb-3 bg-success">
                 <span class="info-box-icon"><i class="fas fa-tag"></i></span>
                 <div class="info-box-content">
