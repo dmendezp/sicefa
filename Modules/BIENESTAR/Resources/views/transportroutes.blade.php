@@ -51,8 +51,7 @@
                             <input type="time" id="hourExit" name="hourExit" class="form-control" style="height: 50px; background-color: #FFFFFF; color: #000000; font-family: Calibri, sans-serif; font-size: 16px; font-weight: 400;">
                         </div>
                         <div class="input-group mb-3">
-                            <button class="btn" style="background-color: #FF001A; color: #FFFFFF;" id="showModalBtn">Cancelar</button>                    
-                            <span class="ml-4"></span> <!-- Espacio entre los botones -->
+                            
                             <button type="submit" class="btn btn-success" style="background-color: #00FF22;">Guardar</button>
                         </div>
                     </div>

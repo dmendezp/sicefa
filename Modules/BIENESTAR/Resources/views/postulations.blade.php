@@ -47,7 +47,7 @@
                 <button type="submit" class="btn btn-sm btn-primary">Marcar Seleccionados como Beneficiarios</button>
 
                 <!-- Botón que abrirá el modal -->
-<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal">Marcar Seleccionados como No Beneficiado</button>
+<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal">Marcar Seleccionados como No Beneficiarios</button>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal">
@@ -62,7 +62,12 @@
       
       <!-- Contenido del modal -->
       <div class="modal-body">
-        ¿Estás seguro de que deseas marcar a los seleccionados como "No Beneficiado"?
+        ¿Estás seguro de que deseas marcar a los seleccionados como "No Beneficiarios"?
+        <div class="form-group">
+        <p></p>
+          <label for="mensaje">Mensaje Al Aprendiz No Beneficiario:</label>
+          <input type="text" class="form-control" id="mensaje" placeholder="Escribe tu mensaje aquí">
+        </div>
       </div>
       
       <!-- Pie del modal -->
