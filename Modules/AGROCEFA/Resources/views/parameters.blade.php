@@ -27,609 +27,647 @@
         </script>
     @endif
 
-    <div class="container" style="margin-left: 20px">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="mb-4">Parametrizacion</h1>
-            </div>
-        </div>
-        <div class="row">
-            {{-- Columna 1 --}}
-            <div class="col-md-6">
-                {{-- CRUD Parametro Actividad --}}
-                <div class="card">
-                    <div class="card-header">
-                        Actividad
-                        <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad"><i
-                                class='bx bx-plus icon'></i></button>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
-                            <thead>
-                                <tr>
-                                    <th class="col-1">ID</th>
-                                    <th class="col-1">Nombre</th>
-                                    <th class="col-1">Tipo</th>
-                                    <th class="col-2">Descripción</th>
-                                    <th class="col-1">Periodo</th>
-                                    <th class="col-3">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($activities as $activity)
-                                    <tr>
-                                        <td>{{ $activity->id }}</td>
-                                        <td>{{ $activity->name }}</td>
-                                        <td>{{ $activity->activity_type->name }}</td>
-                                        <td>{{ $activity->description }}</td>
-                                        <td>{{ $activity->period }}</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm btn-edit-activity" data-bs-toggle="modal"
-                                                data-bs-target="#editaractividad_{{ $activity->id }}"
-                                                data-activity-id="{{ $activity->id }}"><i
-                                                    class='bx bx-edit icon'></i></button>
-                                            <button class="btn btn-danger btn-sm btn-delete-activity" data-bs-toggle="modal"
-                                                data-bs-target="#eliminaractividad_{{ $activity->id }}"><i
-                                                    class='bx bx-trash icon'></i></button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <br>
-                {{-- Modal Actividad --}}
-                <div class="modal fade" id="crearactividad" tabindex="-1" aria-labelledby="crearactividad"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Asistencia</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                {!! Form::open(['route' => 'agrocefa.activity.create', 'method' => 'POST']) !!}
-                                @csrf
-                                <div class="form-group">
-                                    {!! Form::label('activity_type_id', 'Tipo de Actividad') !!}
-                                    {!! Form::select('activity_type_id', $activityTypes->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
-                                </div>
-                                <div class="form-group">
-                                    {!! Form::label('name', 'Nombre de la actividad') !!}
-                                    {!! Form::text('name', null, ['class' => 'form-control', 'required']) !!}
-                                </div>
-                                <div class="form-group">
-                                    {!! Form::label('description', 'Descripción') !!}
-                                    {!! Form::text('description', null, ['class' => 'form-control', 'required']) !!}
-                                </div>
-                                <div class="form-group">
-                                    {!! Form::label('period', 'Periodo') !!}
-                                    {!! Form::select(
-                                        'period',
-                                        ['Diario' => 'Diario', 'Quincenal' => 'Quincenal', 'Mensual' => 'Mensual', 'Anual' => 'Anual'],
-                                        null,
-                                        ['class' => 'form-control'],
-                                    ) !!}
-                                </div>
-                                <!-- Otros campos del formulario según tus necesidades -->
-                                <br>
-                                {!! Form::submit('Registrar Actividad', ['class' => 'btn btn-primary']) !!}
-                                {!! Form::close() !!}
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Modal de Edición Actividad --}}
-                @foreach ($activities as $activity)
-                    <div class="modal fade" id="editaractividad_{{ $activity->id }}" tabindex="-1"
-                        aria-labelledby="editaractividadLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="agregarAsistenciaModalLabel">Editar Actividad</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    {!! Form::open(['route' => ['agrocefa.activity.edit', 'id' => $activity->id], 'method' => 'POST']) !!}
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="form-group">
-                                        {!! Form::label('activity_type_id', 'Tipo de Actividad') !!}
-                                        {!! Form::select('activity_type_id', $activityTypes->pluck('name', 'id'), $activity->activity_type_id, [
-                                            'class' => 'form-control',
-                                        ]) !!}
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label('name', 'Nombre de la Actividad') !!}
-                                        {!! Form::text('name', $activity->name, ['class' => 'form-control', 'required']) !!}
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label('description', 'Descripción') !!}
-                                        {!! Form::text('description', $activity->description, ['class' => 'form-control', 'required']) !!}
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label('period', 'Periodo') !!}
-                                        {!! Form::text('period', $activity->period, ['class' => 'form-control', 'required']) !!}
-                                    </div>
-                                    <!-- Otros campos del formulario según tus necesidades -->
-                                    <br>
-                                    {!! Form::submit('Actualizar Actividad', ['class' => 'btn btn-primary']) !!}
-                                    {!! Form::close() !!}
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-
-                @foreach ($activities as $activity)
-                    <div class="modal fade" id="eliminaractividad_{{ $activity->id }}" tabindex="-1"
-                        aria-labelledby="eliminaractividadLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="eliminaractividadLabel">Eliminar Actividad</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ¿Estás seguro de que deseas eliminar esta actividad?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    {!! Form::open(['route' => ['agrocefa.activity.delete', 'id' => $activity->id], 'method' => 'POST']) !!}
-                                    @csrf
-                                    @method('DELETE')
-                                    {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
-                                    {!! Form::close() !!}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-                {{-- CRUD Parametro Especie --}}
-                <div class="card">
-                    <div class="card-header">
-                        Especies
-                        <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearspecie"><i
-                                class='bx bx-plus icon'></i></button>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-sm table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Ciclo de vida</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($species as $a)
-                                    <tr>
-                                        <td>{{ $a->id }}</td>
-                                        <td>{{ $a->name }}</td>
-                                        <td>{{ $a->lifecycle }}</td>
-                                        <td>
-                                            <div class="button-group">
-                                                <button class="btn btn-primary btn-sm btn-edit-specie"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#editarEspecieModal_{{ $a->id }}"
-                                                    data-specie-id="{{ $a->id }}"><i
-                                                        class='bx bx-edit icon'></i></button>
-                                                <form action="{{ route('agrocefa.species.destroy', ['id' => $a->id]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" id="delete">
-                                                        <i class='bx bx-trash icon'></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-
-            {{-- Columna 2 --}}
-            <div class="col-md-6">
-                {{-- CRUD Parametro Variedad --}}
-                <div class="card">
-                    <div class="card-header">
-                        Variedad
-                        <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#"><i
-							class='bx bx-plus icon'></i></button>
-					</div>
-                        <div class="card-body">
-                            <table class="table table-sm table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Fecha</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($species as $a)
-                                        <tr>
-                                            <td>{{ $a->id }}</td>
-                                            <td>{{ $a->name }}</td>
-                                            <td>{{ $a->lifecycle }}</td>
-                                            <td>
-                                                <a href="{{ route('agrocefa.species.edit', ['id' => $a->id]) }}"
-                                                    class="btn btn-primary btn-sm"><i
-													class='bx bx-edit icon'></i></a>
-                                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#eliminarAsistenciaModal"><i
-													class='bx bx-trash icon'></i></button>
-                                            </td>
-                                        </tr>
-                                </tbody>
-                                @endforeach
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                {{-- Modal agregar Especie --}}
-                <div class="modal fade" id="crearspecie" tabindex="-1" aria-labelledby="crearspecie"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Especie</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                {!! Form::open(['route' => 'agrocefa.species.store', 'method' => 'POST']) !!}
-                                @csrf
-                                <div class="form-group">
-                                    {!! Form::label('name', 'Nombre:') !!}
-                                    {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required']) !!}
-                                </div>
-                                <div class="form-group">
-                                    {!! Form::label('lifecycle', 'Ciclo de vida:') !!}
-                                    {!! Form::select('lifecycle', ['Transitorio' => 'Transitorio', 'Permanente' => 'Permanente'], null, [
-                                        'id' => 'lifecycle',
-                                        'class' => 'form-control',
-                                        'required',
-                                    ]) !!}
-                                </div>
-                                <!-- Agrega más campos según tus necesidades -->
-                                <br>
-                                {!! Form::submit('Registrar Especie', ['class' => 'btn btn-primary']) !!}
-                                {!! Form::close() !!}
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Modal editar especie --}}
-                @foreach ($species as $a)
-                    <div class="modal fade" id="editarEspecieModal_{{ $a->id }}" tabindex="-1"
-                        aria-labelledby="editarEspecieModalLabel_{{ $a->id }}" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editarEspecieModalLabel_{{ $a->id }}">Editar
-                                        Especie</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    {!! Form::open([
-                                        'route' => ['agrocefa.species.update', 'id' => $a->id],
-                                        'method' => 'POST',
-                                        'id' => "editSpeciesForm_{$a->id}",
-                                    ]) !!}
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="form-group">
-                                        {!! Form::label("name_{$a->id}", 'Nombre:') !!}
-                                        {!! Form::text('name', $a->name, ['id' => "name_{$a->id}", 'class' => 'form-control', 'required']) !!}
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label("lifecycle_{$a->id}", 'Ciclo de vida:') !!}
-                                        {!! Form::select('lifecycle', ['Transitorio' => 'Transitorio', 'Permanente' => 'Permanente'], $a->lifecycle, [
-                                            'id' => "lifecycle_{$a->id}",
-                                            'class' => 'form-control',
-                                            'required',
-                                        ]) !!}
-                                    </div>
-                                    <!-- Agrega más campos según tus necesidades -->
-                                    <br>
-                                    {!! Form::submit('Actualizar Especie', ['class' => 'btn btn-primary']) !!}
-                                    {!! Form::close() !!}
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-                <br>
-            </div>
-        </div>
-        <br>
-    </div>
-    <br>
-    <br>
-
+<div class="container" style="margin-left: 20px">
     <div class="row">
-        {{-- CRUD parametro Cultivo --}}
-        <div class="card" style="width: 90%; margin-left: 40px">
-            <div class="card-header">
-                Cultivo
-                <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop"><i
-					class='bx bx-plus icon'></i></button>
-            </div>
-            <div class="card-body">
-                <table class="table table-sm table-bordered table-striped" style="width: 90%">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Área Sembrada</th>
-                            <th>Fecha de Siembra</th>
-                            <th>Densidad</th>
-                            <th>Ambiente</th>
-                            <th>Variedad</th>
-                            <th>Fecha Fin</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($crop as $a)
-                            <tr>
-                                <td>{{ $a->id }}</td>
-                                <td>{{ $a->name }}</td>
-                                <td>{{ $a->sown_area }}</td>
-                                <td>{{ $a->seed_time }}</td>
-                                <td>{{ $a->density }}</td>
-                                <td>{{ $a->environment_id }}</td>
-                                <td>{{ $a->variety_id }}</td>
-                                <td>{{ $a->finish_date }}</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm btn-edit-crop"
-                                        data-bs-id="{{ $a->id }}"><i
-										class='bx bx-edit icon'></i></button>
-                                    <button class="btn btn-danger btn-sm btn-delete-crop" data-bs-toggle="modal"
-                                        data-bs-target="#eliminarCropModal{{ $a->id }}"><i
-										class='bx bx-trash icon'></i></button>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+        <div class="col-md-12">
+            <h1 class="mb-4">Parametrizacion</h1>
         </div>
     </div>
-    <br>
+    <div class="row">
+        {{-- Columna 1 --}}
+        <div class="col-md-6">
+            {{-- CRUD Parametro Actividad --}}
+            <div class="card">
+                <div class="card-header">
+                    Actividad
+                    <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad"><i
+                            class='bx bx-plus icon'></i></button>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
+                        <thead>
+                            <tr>
+                                <th class="col-1">ID</th>
+                                <th class="col-1">Nombre</th>
+                                <th class="col-1">Tipo</th>
+                                <th class="col-2">Descripción</th>
+                                <th class="col-1">Periodo</th>
+                                <th class="col-3">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($activities as $activity)
+                                <tr>
+                                    <td>{{ $activity->id }}</td>
+                                    <td>{{ $activity->name }}</td>
+                                    <td>{{ $activity->activity_type->name }}</td>
+                                    <td>{{ $activity->description }}</td>
+                                    <td>{{ $activity->period }}</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-edit-activity" data-bs-toggle="modal"
+                                            data-bs-target="#editaractividad_{{ $activity->id }}"
+                                            data-activity-id="{{ $activity->id }}"><i
+                                                class='bx bx-edit icon'></i></button>
+                                        <button class="btn btn-danger btn-sm btn-delete-activity" data-bs-toggle="modal"
+                                            data-bs-target="#eliminaractividad_{{ $activity->id }}"><i
+                                                class='bx bx-trash icon'></i></button>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
-			    </div>
-			</div>
-			<br>
-			{{-- Modal Actividad --}}
-			<div class="modal fade" id="crearactividad" tabindex="-1" aria-labelledby="crearactividad" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Asistencia</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<form action="{{ route('agrocefa.activity.create')}}" method="POST">
-								@csrf
-								<div class="form-group">
-									<label for="activity_type_id">Tipo de Actividad</label>
-									<select name="activity_type_id" id="activity_type_id" class="form-control">
-										@foreach ($activityTypes as $activityType)
-											<option value="{{ $activityType->id }}">{{ $activityType->name }}</option>
-										@endforeach
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="name">Nombre de la actividad</label>
-									<input type="text" name="name" id="name" class="form-control" required>
-								</div>
-								<div class="form-group">
-									<label for="description">Descripcion</label>
-									<input type="text" name="description" id="description" class="form-control" required>
-								</div>
-								<div class="form-group">
-									<label for="period">Periodo</label>
-									<select name="period" id="period" class="form-control">
-										<option value="Diario">Diario</option>
-										<option value="Quincenal">Quincenal</option>
-										<option value="Mensual">Mensual</option>
-										<option value="Anual">Anual</option> 
-									</select>
-								</div>
-								<!-- Otros campos del formulario según tus necesidades -->
-								<br>
-								<button type="submit" class="btn btn-primary">Registrar Actividad</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		
-			{{-- Modal de Edición Actividad--}}
-			@foreach ($activities as $activity)
-			<div class="modal fade" id="editaractividad_{{ $activity->id }}" tabindex="-1" aria-labelledby="editaractividadLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="agregarAsistenciaModalLabel">Editar Actividad</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<form id="" action="{{ route('agrocefa.activity.edit', ['id' => $activity->id]) }}" method="POST">
-								@csrf
-								@method('PUT')
-								<div class="form-group">
-									<label for="activity_type_id">Tipo de Actividad</label>
-									<select name="activity_type_id" id="activity_type_id" class="form-control">
-										@foreach ($activityTypes as $activityType)
-											<option value="{{ $activityType->id }}" @if ($activityType->id === $activity->activity_type_id) selected @endif>{{ $activityType->name }}</option>
-										@endforeach
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="name">Nombre de la Actividad</label>
-									<input type="text" name="name" id="name" class="form-control" value="{{ $activity->name }}" required>
-								</div>
-								<div class="form-group">
-									<label for="description">Descripcion</label>
-									<input type="text" name="description" id="description" class="form-control" value="{{ $activity->description }}" required>
-								</div>
-								<div class="form-group">
-									<label for="period">Periodo</label>
-									<input type="text" name="period" id="period" class="form-control" value="{{ $activity->period }}" required>
-								</div>
-								<br>
-								<button type="submit" class="btn btn-primary">Actualizar Actividad</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			@endforeach
+                </div>
+            </div>
+            <br>
+            {{-- Modal Actividad --}}
+            <div class="modal fade" id="crearactividad" tabindex="-1" aria-labelledby="crearactividad"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Actividad</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {!! Form::open(['route' => 'agrocefa.activity.create', 'method' => 'POST']) !!}
+                            @csrf
+                            <div class="form-group">
+                                {!! Form::label('activity_type_id', 'Tipo de Actividad') !!}
+                                {!! Form::select('activity_type_id', $activityTypes->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::label('name', 'Nombre de la actividad') !!}
+                                {!! Form::text('name', null, ['class' => 'form-control', 'required']) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::label('description', 'Descripción') !!}
+                                {!! Form::text('description', null, ['class' => 'form-control', 'required']) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::label('period', 'Periodo') !!}
+                                {!! Form::select(
+                                    'period',
+                                    ['Diario' => 'Diario', 'Quincenal' => 'Quincenal', 'Mensual' => 'Mensual', 'Anual' => 'Anual'],
+                                    null,
+                                    ['class' => 'form-control'],
+                                ) !!}
+                            </div>
+                            <!-- Otros campos del formulario según tus necesidades -->
+                            <br>
+                            {!! Form::submit('Registrar Actividad', ['class' => 'btn btn-primary']) !!}
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <script>
-        $('.btn-edit-activity').on('click', function(event) {
-            var activityId = $(this).data('activity-id');
+            {{-- Modal de Edición Actividad --}}
+            @foreach ($activities as $activity)
+                <div class="modal fade" id="editaractividad_{{ $activity->id }}" tabindex="-1"
+                    aria-labelledby="editaractividadLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="agregarAsistenciaModalLabel">Editar Actividad</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {!! Form::open(['route' => ['agrocefa.activity.edit', 'id' => $activity->id], 'method' => 'POST']) !!}
+                                @csrf
+                                @method('PUT')
+                                <div class="form-group">
+                                    {!! Form::label('activity_type_id', 'Tipo de Actividad') !!}
+                                    {!! Form::select('activity_type_id', $activityTypes->pluck('name', 'id'), $activity->activity_type_id, [
+                                        'class' => 'form-control',
+                                    ]) !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('name', 'Nombre de la Actividad') !!}
+                                    {!! Form::text('name', $activity->name, ['class' => 'form-control', 'required']) !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('description', 'Descripción') !!}
+                                    {!! Form::text('description', $activity->description, ['class' => 'form-control', 'required']) !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('period', 'Periodo') !!}
+                                    {!! Form::text('period', $activity->period, ['class' => 'form-control', 'required']) !!}
+                                </div>
+                                <!-- Otros campos del formulario según tus necesidades -->
+                                <br>
+                                {!! Form::submit('Actualizar Actividad', ['class' => 'btn btn-primary']) !!}
+                                {!! Form::close() !!}
 
-            // Obtener los datos de la actividad desde algún lugar (puede ser una API, base de datos, etc.)
-            var activityData = activitiesData.find(function(activity) {
-                return activity.id === activityId;
-            });
-
-            // Llenar los campos del formulario con los datos de la actividad
-            $('#activity_type_id').val(activityData.activity_type_id);
-            $('#name').val(activityData.name);
-            $('#description').val(activityData.description);
-            $('#period').val(activityData.period);
-
-            // Construir la URL del formulario con el ID de la actividad
-            var formAction = '{{ route('agrocefa.activity.edit', ['id' => 'ACTIVITY_ID']) }}';
-            formAction = formAction.replace('ACTIVITY_ID', activityId);
-
-            // Actualizar la URL del formulario con el ID de la actividad
-            $('#edit-activity-form').attr('action', formAction);
-		</div>
-	</div>
-	<br>
-	{{-- CRUD parametro Cultivo --}}
-<div class="card">
-    <div class="card-header">
-        Cultivo
-        <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop">Agregar Cultivo</button>
-    </div>
-    <div class="card-body">
-        <table class="table table-sm table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Área Sembrada</th>
-                    <th>Fecha de Siembra</th>
-                    <th>Densidad</th>
-                    <th>Ambiente</th>
-                    <th>Variedad</th>
-                    <th>Fecha Fin</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($crops as $crop)
-                <tr>
-                    <td>{{ $crop->id }}</td>
-                    <td>{{ $crop->name }}</td>
-                    <td>{{ $crop->sown_area }}</td>
-                    <td>{{ $crop->seed_time }}</td>
-                    <td>{{ $crop->density }}</td>
-                    <td>{{ $crop->environment->name ?? 'N/A' }}</td>
-                    <td>{{ $crop->variety->name ?? 'N/A' }}</td>
-                    <td>{{ $crop->finish_date }}</td>
-                    <td>
-                        <button class="btn btn-primary btn-sm btn-edit-crop" data-bs-id="{{ $crop->id }}">Editar</button>
-                        <button class="btn btn-danger btn-sm btn-delete-crop" data-bs-toggle="modal" data-bs-target="#eliminarCropModal{{ $crop->id }}">Eliminar</button>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
-</div>
-
-{{-- Modal Crear Cultivo --}}
-<div class="modal fade" id="crearcrop" tabindex="-1" aria-labelledby="crearcrop" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="agregarCropModalLabel">Agregar Cultivo</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            {{-- Modal de Eliminar Actividad --}}
+            @foreach ($activities as $activity)
+                <div class="modal fade" id="eliminaractividad_{{ $activity->id }}" tabindex="-1"
+                    aria-labelledby="eliminaractividadLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="eliminaractividadLabel">Eliminar Actividad</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Estás seguro de que deseas eliminar esta actividad?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                {!! Form::open(['route' => ['agrocefa.activity.delete', 'id' => $activity->id], 'method' => 'POST']) !!}
+                                @csrf
+                                @method('DELETE')
+                                {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            {{-- CRUD Parametro Especie --}}
+            <div class="card">
+                <div class="card-header">
+                    Especies
+                    <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearspecie"><i
+                            class='bx bx-plus icon'></i></button>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Ciclo de vida</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($species as $a)
+                                <tr>
+                                    <td>{{ $a->id }}</td>
+                                    <td>{{ $a->name }}</td>
+                                    <td>{{ $a->lifecycle }}</td>
+                                    <td>
+                                        <div class="button-group">
+                                            <button class="btn btn-primary btn-sm btn-edit-specie"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editarEspecieModal_{{ $a->id }}"
+                                                data-specie-id="{{ $a->id }}"><i
+                                                    class='bx bx-edit icon'></i></button>
+                                            <form action="{{ route('agrocefa.species.destroy', ['id' => $a->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" id="delete">
+                                                    <i class='bx bx-trash icon'></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <form action="{{ route('agrocefa.crop.create')}}" method="POST">
-                @csrf
-                <div class="form-group">
-                    <label for="crop_name">Nombre del Cultivo</label>
-                    <input type="text" name="crop_name" id="crop_name" class="form-control" required>
+
+
+        {{-- Columna 2 --}}
+        <div class="col-md-6">
+            {{-- CRUD Parametro Variedad --}}
+            <div class="card">
+                <div class="card-header">
+                    Variedad
+                    <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#"><i
+                        class='bx bx-plus icon'></i></button>
                 </div>
-                <div class="form-group">
-                    <label for="seed_time">Fecha de Siembra</label>
-                    <input type="date" name="seed_time" id="seed_time" class="form-control" required>
+                <div class="card-body">
+                    <table class="table table-sm table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($species as $a)
+                                <tr>
+                                    <td>{{ $a->id }}</td>
+                                    <td>{{ $a->name }}</td>
+                                    <td>{{ $a->lifecycle }}</td>
+                                    <td>
+                                        <a href="{{ route('agrocefa.species.edit', ['id' => $a->id]) }}"
+                                            class="btn btn-primary btn-sm"><i
+                                            class='bx bx-edit icon'></i></a>
+                                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#eliminarAsistenciaModal"><i
+                                            class='bx bx-trash icon'></i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                <div class="form-group">
-                    <label for="density">Densidad</label>
-                    <input type="number" name="density" id="density" class="form-control" required>
+            </div>
+            <br>
+            {{-- CRUD Parametro Metodo de Aplicacion --}}
+            <div class="card">
+                <div class="card-header">
+                    Metodo de Aplicacion
+                    <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearaplicacion"><i
+                            class='bx bx-plus icon'></i></button>
                 </div>
-                <div class="form-group">
-                    <label for="environment_id">Ambiente</label>
-                    <select name="environment_id" id="environment_id" class="form-control">
-                        @foreach ($environments as $environment)
-                            <option value="{{ $environment->id }}">{{ $environment->name }}</option>
-                        @endforeach
-                    </select>
+                <div class="card-body">
+                    <table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th class="col-3">Descripción Labor</th>
+                                <th class="col-1">Método de Aplicación</th>
+                                <th>Objetivo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($laborsData as $data)
+                                @foreach ($data['labors'] as $labor)
+                                    @foreach ($labor['agriculturals'] as $agricultural)
+                                        <tr>
+                                            <td>{{ $agricultural['agricultural_id'] }}</td>
+                                            <td>{{ $labor['description'] }}</td>
+                                            <td>{{ $agricultural['agricultural_method'] }}</td>
+                                            <td>{{ $agricultural['objective'] }}</td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm btn-edit-aplication"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editarMetodoAplicacion_{{ $agricultural['agricultural_id'] }}"
+                                                    data-aplication-id="{{ $agricultural['agricultural_id'] }}">
+                                                    <i class="bx bx-edit icon"></i>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm btn-delete-aplication" data-bs-toggle="modal"
+                                                    data-bs-target="#eliminaraplicacion_{{ $agricultural['agricultural_id'] }}">
+                                                    <i class="bx bx-trash icon"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                <div class="form-group">
-                    <label for="variety_id">Variedad</label>
-                    <select name="variety_id" id="varietyt_id" class="form-control">
-                        @foreach ($varieties as $variety)
-                            <option value="{{ $variety->id }}">{{ $variety->name }}</option>
-                        @endforeach
-                    </select>
+            </div>
+        </div>
+        {{-- Modal Metodo de Aplicacion --}}
+        @foreach ($laborsData as $data)
+            @foreach ($data['labors'] as $labor)
+        <div class="modal fade" id="crearaplicacion" tabindex="-1" aria-labelledby="crearaplicacion"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="agregaraplicaiconModalLabel">Agregar Metodo de Aplicacion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {!! Form::open(['route' => 'agrocefa.aplication.create', 'method' => 'POST']) !!}
+                        @csrf
+                        <div class="form-group">
+                            {!! Form::label('labor_id', 'Labor') !!}
+                            {!! Form::select('labor_id', [$labor['labor_id'] => $labor['description']], null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('application_method', 'Nombre del Metodo de Aplicacion') !!}
+                            {!! Form::text('application_method', null, ['class' => 'form-control', 'required']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('objective', 'Objetivo') !!}
+                            {!! Form::text('objective', null, ['class' => 'form-control', 'required']) !!}
+                        </div>
+                        <br>
+                        {!! Form::submit('Registrar Metodo de Aplicacion', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::close() !!}
+
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="finish_date">Fecha Fin</label>
-                    <input type="date" name="finish_date" id="finish_date" class="form-control" required>
+            </div>
+        </div>
+        @endforeach
+        @endforeach
+        {{-- Modal de Edición Metodo de Aplicación --}}
+        @foreach ($laborsData as $data)
+        @foreach ($data['labors'] as $labor)
+            @foreach ($labor['agriculturals'] as $agricultural)
+                <div class="modal fade"
+                    id="editarMetodoAplicacion_{{ $agricultural['agricultural_id'] }}" tabindex="-1"
+                    aria-labelledby="editarMetodoAplicacionLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editarMetodoAplicacionLabel">Editar Método de Aplicación</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('agrocefa.aplication.edit', ['id' => $agricultural['agricultural_id']]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group">
+                                        <label for="labor_id">Labor</label>
+                                        <select name="labor_id" id="labor_id" class="form-control">
+                                            <option value="{{ $labor['labor_id'] }}">{{ $labor['description'] }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="application_method">Nombre del Método de Aplicación</label>
+                                        <input type="text" name="application_method" id="application_method"
+                                            class="form-control" value="{{ $agricultural['agricultural_method'] }}"
+                                            required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="objective">Objetivo</label>
+                                        <input type="text" name="objective" id="objective" class="form-control"
+                                            value="{{ $agricultural['objective'] }}" required>
+                                    </div>
+                                    <!-- Otros campos del formulario según tus necesidades -->
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Actualizar Método de Aplicación</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <br>
-                <button type="submit" class="btn btn-primary">Registrar Cultivo</button>
-            </form>
+            @endforeach
+        @endforeach
+        @endforeach
+        {{-- Modal de Eliminar Actividad --}}
+        @foreach ($laborsData as $data)
+        @foreach ($data['labors'] as $labor)
+            @foreach ($labor['agriculturals'] as $agricultural)
+                <!-- Modal de Eliminación -->
+                <div class="modal fade" id="eliminaraplicacion_{{ $agricultural['agricultural_id'] }}" tabindex="-1"
+                    aria-labelledby="eliminaraplicacionLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="eliminaraplicacionLabel">Eliminar Método de Aplicación</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Estás seguro de que deseas eliminar este Método de Aplicación?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                {!! Form::open(['route' => ['agrocefa.aplication.delete', 'id' => $agricultural['agricultural_id']], 'method' => 'DELETE']) !!}
+                                @csrf
+                                @method('DELETE')
+                                {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endforeach
+        @endforeach
+        {{-- Modal agregar Especie --}}
+        <div class="modal fade" id="crearspecie" tabindex="-1" aria-labelledby="crearspecie"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Especie</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {!! Form::open(['route' => 'agrocefa.species.store', 'method' => 'POST']) !!}
+                        @csrf
+                        <div class="form-group">
+                            {!! Form::label('name', 'Nombre:') !!}
+                            {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('lifecycle', 'Ciclo de vida:') !!}
+                            {!! Form::select('lifecycle', ['Transitorio' => 'Transitorio', 'Permanente' => 'Permanente'], null, [
+                                'id' => 'lifecycle',
+                                'class' => 'form-control',
+                                'required',
+                            ]) !!}
+                        </div>
+                        <!-- Agrega más campos según tus necesidades -->
+                        <br>
+                        {!! Form::submit('Registrar Especie', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::close() !!}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Modal editar especie --}}
+        @foreach ($species as $a)
+        <div class="modal fade" id="editarEspecieModal_{{ $a->id }}" tabindex="-1"
+            aria-labelledby="editarEspecieModalLabel_{{ $a->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editarEspecieModalLabel_{{ $a->id }}">Editar
+                            Especie</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {!! Form::open([
+                            'route' => ['agrocefa.species.update', 'id' => $a->id],
+                            'method' => 'POST',
+                            'id' => "editSpeciesForm_{$a->id}",
+                        ]) !!}
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group">
+                            {!! Form::label("name_{$a->id}", 'Nombre:') !!}
+                            {!! Form::text('name', $a->name, ['id' => "name_{$a->id}", 'class' => 'form-control', 'required']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label("lifecycle_{$a->id}", 'Ciclo de vida:') !!}
+                            {!! Form::select('lifecycle', ['Transitorio' => 'Transitorio', 'Permanente' => 'Permanente'], $a->lifecycle, [
+                                'id' => "lifecycle_{$a->id}",
+                                'class' => 'form-control',
+                                'required',
+                            ]) !!}
+                        </div>
+                        <!-- Agrega más campos según tus necesidades -->
+                        <br>
+                        {!! Form::submit('Actualizar Especie', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::close() !!}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        <br>
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+<div class="row">
+    {{-- CRUD parametro Cultivo --}}
+    <div class="card" style="width: 90%; margin-left: 40px">
+        <div class="card-header">
+            Cultivo
+            <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop"><i
+                class='bx bx-plus icon'></i></button>
+        </div>
+        <div class="card-body">
+            <table class="table table-sm table-bordered table-striped" style="width: 90%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Área Sembrada</th>
+                        <th>Fecha de Siembra</th>
+                        <th>Densidad</th>
+                        <th>Ambiente</th>
+                        <th>Variedad</th>
+                        <th>Fecha Fin</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($crops as $a)
+                        <tr>
+                            <td>{{ $a->id }}</td>
+                            <td>{{ $a->name }}</td>
+                            <td>{{ $a->sown_area }}</td>
+                            <td>{{ $a->seed_time }}</td>
+                            <td>{{ $a->density }}</td>
+                            <td>{{ $a->environment_id }}</td>
+                            <td>{{ $a->variety_id }}</td>
+                            <td>{{ $a->finish_date }}</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm btn-edit-crop"
+                                    data-bs-id="{{ $a->id }}"><i
+                                    class='bx bx-edit icon'></i></button>
+                                <button class="btn btn-danger btn-sm btn-delete-crop" data-bs-toggle="modal"
+                                    data-bs-target="#eliminarCropModal{{ $a->id }}"><i
+                                    class='bx bx-trash icon'></i></button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+<br>
+
+{{-- Modal Actividad --}}
+<div class="modal fade" id="crearactividad" tabindex="-1" aria-labelledby="crearactividad" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Asistencia</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('agrocefa.activity.create')}}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="activity_type_id">Tipo de Actividad</label>
+                        <select name="activity_type_id" id="activity_type_id" class="form-control">
+                            @foreach ($activityTypes as $activityType)
+                                <option value="{{ $activityType->id }}">{{ $activityType->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nombre de la actividad</label>
+                        <input type="text" name="name" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descripcion</label>
+                        <input type="text" name="description" id="description" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="period">Periodo</label>
+                        <select name="period" id="period" class="form-control">
+                            <option value="Diario">Diario</option>
+                            <option value="Quincenal">Quincenal</option>
+                            <option value="Mensual">Mensual</option>
+                            <option value="Anual">Anual</option> 
+                        </select>
+                    </div>
+                    <!-- Otros campos del formulario según tus necesidades -->
+                    <br>
+                    <button type="submit" class="btn btn-primary">Registrar Actividad</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+{{-- Modal de Edición Actividad--}}
+@foreach ($activities as $activity)
+<div class="modal fade" id="editaractividad_{{ $activity->id }}" tabindex="-1" aria-labelledby="editaractividadLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agregarAsistenciaModalLabel">Editar Actividad</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="" action="{{ route('agrocefa.activity.edit', ['id' => $activity->id]) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <label for="activity_type_id">Tipo de Actividad</label>
+                        <select name="activity_type_id" id="activity_type_id" class="form-control">
+                            @foreach ($activityTypes as $activityType)
+                                <option value="{{ $activityType->id }}" @if ($activityType->id === $activity->activity_type_id) selected @endif>{{ $activityType->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nombre de la Actividad</label>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ $activity->name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descripcion</label>
+                        <input type="text" name="description" id="description" class="form-control" value="{{ $activity->description }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="period">Periodo</label>
+                        <input type="text" name="period" id="period" class="form-control" value="{{ $activity->period }}" required>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Actualizar Actividad</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 
+{{-- SCRIPT EDITAR ESPECIE --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     $('.btn-edit-activity').on('click', function(event) {
@@ -659,32 +697,48 @@
         // ... Lista de objetos de actividad con sus propiedades ...
     ];
 </script>
+<script>
+    $('.btn-edit-aplication').on('click', function(event) {
+        // Obtener el ID del Método de Aplicación desde el botón que se hizo clic
+        var aplicationId = $(this).data('aplication-id');
 
-    {{-- SCRIPT EDITAR ESPECIE --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        // Llenar los campos del formulario de edición con los datos del Método de Aplicación
+        $('#labor_id').val('{{ $labor['labor_id'] }}');
+        $('#application_method').val('{{ $agricultural['agricultural_method'] }}');
+        $('#objective').val('{{ $agricultural['objective'] }}');
+        // Agrega más campos según sea necesario
 
-    <script>
-        $('.btn-edit-specie').on('click', function(event) {
-            var specieId = $(this).data('specie-id'); // Obtener el ID de la especie desde el botón
+        // Actualizar la URL del formulario de edición con el ID del Método de Aplicación
+        var formAction = '{{ route('agrocefa.aplication.edit', ['id' => 'APLICATION_ID']) }}';
+        formAction = formAction.replace('APLICATION_ID', aplicationId);
 
-            // Imprime el ID en la consola para verificar
-            console.log('Especie ID:', specieId);
+        // Actualizar el atributo action del formulario con la nueva URL
+        $('#editarMetodoAplicacionLabel form').attr('action', formAction);
+    });
 
-            // Obtener los valores de los campos de edición
-            var name = $('#name_' + specieId).val();
-            var lifecycle = $('#lifecycle_' + specieId).val();
+</script>
 
-            // Llenar los campos del formulario con los datos de la especie
-            $('#editSpeciesForm_' + specieId + ' #name').val(name);
-            $('#editSpeciesForm_' + specieId + ' #lifecycle').val(lifecycle);
+<script>
+    $('.btn-edit-specie').on('click', function(event) {
+        var specieId = $(this).data('specie-id'); // Obtener el ID de la especie desde el botón
 
-            // Construir la URL del formulario con el ID de la especie
-            var formAction = '{{ route('agrocefa.species.update', ['id' => 'SPECIE_ID']) }}';
-            formAction = formAction.replace('SPECIE_ID', specieId);
+        // Imprime el ID en la consola para verificar
+        console.log('Especie ID:', specieId);
 
-            // Actualizar la URL del formulario con el ID de la especie
-            $('#editSpeciesForm_' + specieId).attr('action', formAction);
-        });
-    </script>
+        // Obtener los valores de los campos de edición
+        var name = $('#name_' + specieId).val();
+        var lifecycle = $('#lifecycle_' + specieId).val();
+
+        // Llenar los campos del formulario con los datos de la especie
+        $('#editSpeciesForm_' + specieId + ' #name').val(name);
+        $('#editSpeciesForm_' + specieId + ' #lifecycle').val(lifecycle);
+
+        // Construir la URL del formulario con el ID de la especie
+        var formAction = '{{ route('agrocefa.species.update', ['id' => 'SPECIE_ID']) }}';
+        formAction = formAction.replace('SPECIE_ID', specieId);
+
+        // Actualizar la URL del formulario con el ID de la especie
+        $('#editSpeciesForm_' + specieId).attr('action', formAction);
+    });
+</script>
 @endsection

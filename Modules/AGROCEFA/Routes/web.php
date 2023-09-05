@@ -40,6 +40,10 @@ Route::middleware(['lang'])->group(function() {
         Route::put('/activity/edit/{id}', 'Parameters\ActivityController@editActivity')->name('agrocefa.activity.edit');
         Route::delete('/activity/delete/{id}', 'Parameters\ActivityController@deleteActivity')->name('agrocefa.activity.delete');
 
+        // RUTAS PARA METODO DE APLICACION
+        Route::post('/aplication/create/', 'Parameters\AplicationMethodController@createAgriculturalMethod')->name('agrocefa.aplication.create');
+        Route::post('/aplication/edit/{id}', 'Parameters\AplicationMethodController@editAgriculturalMethod')->name('agrocefa.aplication.edit');
+        Route::delete('/aplication/delete/{id}', 'Parameters\AplicationMethodController@deleteAplication')->name('agrocefa.aplication.delete');
 
         // RUTAS PARA VARIEDADES
         Route::post('/varieties', 'Parameters\ParameterAgroController@crear')->name('agrocefa.varieties.crear');

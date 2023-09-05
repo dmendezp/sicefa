@@ -13,7 +13,7 @@ use Modules\SICA\Entities\ActivityType;
 use Modules\SICA\Entities\Environment;
 use Modules\AGROCEFA\Entities\Variety;
 use Modules\AGROCEFA\Http\Controllers\Parameters\ActivityController;
-use Modules\AGROCEFA\Entities\Variety;
+use Modules\AGROCEFA\Http\Controllers\Parameters\AplicationMethodController;
 use Modules\AGROCEFA\Http\Controllers\VarietyController;
 
 class ParameterAgroController extends Controller
@@ -21,12 +21,14 @@ class ParameterAgroController extends Controller
     public function parametersview()
     {       
         $activityController = new ActivityController();
+        $aplicationController = new AplicationMethodController();
         $crops = Crop::all();
         $selectedUnitId = Session::get('selectedUnitId'); // Obtén el ID de la unidad seleccionada
         $activityTypes= ActivityType::all(); //Listar Tipos de Actividad
         $species= Specie::all();// listar especies
         $varieties= Variety::all();//
         $activities = $activityController->getActivitiesForSelectedUnit(); // Llama a la función y obtiene las actividades
+        $laborsData = $aplicationController->getAplicationForLabor(); // Llama a la función y obtiene las actividades
         $environments = Environment::all(); // Agrega esta línea para obtener los ambientes
         $varieties = Variety::all();//obtener variedad
 
@@ -37,12 +39,9 @@ class ParameterAgroController extends Controller
             'crops' => $crops,
             'activityTypes' => $activityTypes,
             'selectedUnitId' => $selectedUnitId,
-<<<<<<< Updated upstream
             'varieties' => $varieties,
-=======
             'environments' => $environments, // Pasa la lista de ambientes a la vista
-            'varieties' => $varieties, //Atrae la lista de variedades en el formulario de agregar cultivo
->>>>>>> Stashed changes
+            'laborsData' => $laborsData,
         ]);
     }
 

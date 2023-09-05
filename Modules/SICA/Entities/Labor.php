@@ -5,6 +5,7 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\AGROCEFA\Entities\AgriculturalLabor;
 
 class Labor extends Model implements Auditable
 {
@@ -32,6 +33,9 @@ class Labor extends Model implements Auditable
     }
     public function executors(){ // Accede a todos los registros de ejecutores que pertenecen a esta responsabilidad
         return $this->hasMany(Executor::class);
+    }
+    public function agriculturals(){ // Accede a todos los metodos de aplicacion que pertenecen a esta labor
+        return $this->hasMany(AgriculturalLabor::class);
     }
 
 }
