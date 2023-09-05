@@ -18,12 +18,11 @@ class SENAEMPRESAController extends Controller
     {
         return view('senaempresa::index');
     }
-    use Modules\SENAEMPRESA\Entities\senaempresa;
     public function senaempresa()
 
     {
         $senaempresas = senaempresa::get();
-        $data = ['title' => 'SenaEmpresa - Estrategias','senaempresas'=> $senaempresas];
+        $data = ['title' => 'SenaEmpresa - Estrategias', 'senaempresas' => $senaempresas];
         return view('senaempresa::Company.SENAEMPRESA.senaempresa', $data);
     }
 
