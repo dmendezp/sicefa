@@ -15,11 +15,11 @@ class CreateProductiveUnitResoursesTable extends Migration
     {
         Schema::create('productive_unit_resourses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('resourse_id')->constrained()->onDelete('cascade');
+            $table->foreignId('resource_id')->constrained()->onDelete('cascade');
             $table->foreignId('productive_unit_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
-            $table->unique(['resourse_id','productive_unit_id'], 'unique_resourse_productive_unit'); // Generar llave única entre las columnas environment_id y productive_unit_id
+            $table->unique(['resource_id','productive_unit_id'], 'unique_resource_productive_unit'); // Generar llave única entre las columnas environment_id y productive_unit_id
         });
     }
 

@@ -15,12 +15,12 @@ class CreatePersonResoursesTable extends Migration
     {
         Schema::create('person_resourses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('resourse_id')->constrained()->onDelete('cascade');
+            $table->foreignId('resource_id')->constrained()->onDelete('cascade');
             $table->foreignId('family_person_footprint_id')->constrained()->onDelete('cascade');
             $table->string('consumption_value');
             $table->softDeletes();
             $table->timestamps();
-            $table->unique(['resourse_id','family_person_footprint_id'], 'unique_resourse_family_person_footprints'); // Generar llave única entre las columnas resourse_id y family_person_footprints_id
+            $table->unique(['resource_id','family_person_footprint_id'], 'unique_resource_family_person_footprints'); // Generar llave única entre las columnas resourse_id y family_person_footprints_id
         });
     }
 
