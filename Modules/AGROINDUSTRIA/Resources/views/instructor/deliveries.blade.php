@@ -25,10 +25,8 @@
               <!-- Aquí se agregarán los campos de producto dinámicamente -->
               <button type="button" id="add-product">Agregar Producto</button>
               <div class="product">
-                  {!! Form::number('code_sena[]', null, ['placeholder' => 'Código SENA']) !!}
-                  {!! Form::select('product_name[]', ['m' => 'Microscopio'], null, ['readonly' => 'readonly', 'id' => 'element']) !!}
+                  {!! Form::select('element[]', $elements, null, [ 'id' => 'element']) !!}
                   {!! Form::number('amount[]', null, ['placeholder' => 'Cantidad']) !!}
-                  {!! Form::text('observations[]', null, ['placeholder' => 'Observaciones']) !!}
                   <button class="remove-product">Eliminar</button>
               </div>
               
@@ -40,6 +38,41 @@
   </div>
 </div>
 
-
+@section('script')
 @endsection
+
+<script>
+  $(document).ready(function() {
+      // Aplicar Select2 al campo de selección con el id 'course'
+      $('#receive_warehouse').select2();
+  });
+
+  $(document).ready(function() {
+      // Aplicar Select2 al campo de selección con el id 'course'
+      $('#element').select2();
+  });
+
+  $(document).ready(function() {
+      // Agregar un nuevo campo de producto
+      $("#add-product").click(function() {
+              var newProduct = '<div class="product">{!! Form::select("element[]", $elements, null, ["readonly" => "readonly", "class" => "element-select"]) !!} {!! Form::number("amount[]", NULL, ["placeholder" => "Cantidad"]) !!}<button class="remove-product">Eliminar</button></div>';
+
+          // Agregar el nuevo campo al DOM
+          $("#products").append(newProduct);
+
+          // Inicializar Select2 en los campos 'element' en el nuevo campo
+          $('.element-select:last').select2();
+
+          // Inicializar Select2 en los campos 'measurement_unit' en el nuevo campo
+          $('.measurement-unit-select:last').select2();
+      });
+
+      // Eliminar un campo de producto
+      $("#products").on("click", ".remove-product", function() {
+          $(this).parent(".product").remove();
+      });
+  });
+</script>
+@endsection
+
     
