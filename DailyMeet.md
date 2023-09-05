@@ -27,6 +27,8 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 * **Carlor Maurico Polanco** - *creacion de la vista CRUD para los conductores*
 * **Saira Xiomara Guevara** - *creacion de la vista CRUD para los buses de transporte *
 ...
+
+### Sprint 2 🔄
 #### Meet 29-Ago-2023
 * **Brayan David Lizcano** - *Creacion y estructuracion de la vista de editar formulario * - *Avance 15%* - *Dificultades* - *Acciones*
 * **Juan David Rico** - *Creacion e implementacion de visualizacion de datos a la vista postulations.blade.php e integracion de rutas a web.php* - *Avance %27* - *Dificultades-Ninguna* - *Acciones*
