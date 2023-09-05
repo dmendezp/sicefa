@@ -4,6 +4,7 @@ use Modules\AGROCEFA\Http\Controllers\AGROCEFAController;
 use Modules\AGROCEFA\Http\Controllers\SpecieController;
 use Modules\AGROCEFA\Http\Controllers\VarietyController; // Asegúrate de importar el controlador VarietyController si no está importado.
 use Modules\AGROCEFA\Http\Controllers\CropController;
+use Modules\AGROCEFA\Http\Controllers\UsuarioController;
 
 
 Route::middleware(['lang'])->group(function() {
@@ -74,6 +75,10 @@ Route::middleware(['lang'])->group(function() {
         //ruta de vista de desarrolladores
         Route::get('/desarrolladores', 'desarrolladoresController@index')->name('agrocefa.desarrolladores.index');
 
+        //ruta para vista de bienvenida al usario
+        Route::get('/usuario', 'usuarioController@index')->name('agrocefa.usuario.index');
+});
+
 
     });
-});
+

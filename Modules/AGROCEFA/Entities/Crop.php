@@ -14,8 +14,8 @@ class Crop extends Model
     protected $fillable = [];
     
     public function variety(){
-        return $this->belongsTo(Variety::class, 'variety_id');
-    }
+        return $this->belongsTo(Variety::class);}
+        
     public function environments(){
         return $this->belongsToMany(Environment::class);}
 }

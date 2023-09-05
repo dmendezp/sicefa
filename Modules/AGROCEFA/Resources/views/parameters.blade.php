@@ -417,6 +417,98 @@
         </div>
     </div>
     <br>
+                            @endforeach
+                        </tbody>
+                    </table>
+			    </div>
+			</div>
+			<br>
+			{{-- Modal Actividad --}}
+			<div class="modal fade" id="crearactividad" tabindex="-1" aria-labelledby="crearactividad" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Asistencia</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form action="{{ route('agrocefa.activity.create')}}" method="POST">
+								@csrf
+								<div class="form-group">
+									<label for="activity_type_id">Tipo de Actividad</label>
+									<select name="activity_type_id" id="activity_type_id" class="form-control">
+										@foreach ($activityTypes as $activityType)
+											<option value="{{ $activityType->id }}">{{ $activityType->name }}</option>
+										@endforeach
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="name">Nombre de la actividad</label>
+									<input type="text" name="name" id="name" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label for="description">Descripcion</label>
+									<input type="text" name="description" id="description" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label for="period">Periodo</label>
+									<select name="period" id="period" class="form-control">
+										<option value="Diario">Diario</option>
+										<option value="Quincenal">Quincenal</option>
+										<option value="Mensual">Mensual</option>
+										<option value="Anual">Anual</option> 
+									</select>
+								</div>
+								<!-- Otros campos del formulario según tus necesidades -->
+								<br>
+								<button type="submit" class="btn btn-primary">Registrar Actividad</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			{{-- Modal de Edición Actividad--}}
+			@foreach ($activities as $activity)
+			<div class="modal fade" id="editaractividad_{{ $activity->id }}" tabindex="-1" aria-labelledby="editaractividadLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="agregarAsistenciaModalLabel">Editar Actividad</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form id="" action="{{ route('agrocefa.activity.edit', ['id' => $activity->id]) }}" method="POST">
+								@csrf
+								@method('PUT')
+								<div class="form-group">
+									<label for="activity_type_id">Tipo de Actividad</label>
+									<select name="activity_type_id" id="activity_type_id" class="form-control">
+										@foreach ($activityTypes as $activityType)
+											<option value="{{ $activityType->id }}" @if ($activityType->id === $activity->activity_type_id) selected @endif>{{ $activityType->name }}</option>
+										@endforeach
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="name">Nombre de la Actividad</label>
+									<input type="text" name="name" id="name" class="form-control" value="{{ $activity->name }}" required>
+								</div>
+								<div class="form-group">
+									<label for="description">Descripcion</label>
+									<input type="text" name="description" id="description" class="form-control" value="{{ $activity->description }}" required>
+								</div>
+								<div class="form-group">
+									<label for="period">Periodo</label>
+									<input type="text" name="period" id="period" class="form-control" value="{{ $activity->period }}" required>
+								</div>
+								<br>
+								<button type="submit" class="btn btn-primary">Actualizar Actividad</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			@endforeach
 
     <script>
         $('.btn-edit-activity').on('click', function(event) {
@@ -439,13 +531,134 @@
 
             // Actualizar la URL del formulario con el ID de la actividad
             $('#edit-activity-form').attr('action', formAction);
+		</div>
+	</div>
+	<br>
+	{{-- CRUD parametro Cultivo --}}
+<div class="card">
+    <div class="card-header">
+        Cultivo
+        <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop">Agregar Cultivo</button>
+    </div>
+    <div class="card-body">
+        <table class="table table-sm table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Área Sembrada</th>
+                    <th>Fecha de Siembra</th>
+                    <th>Densidad</th>
+                    <th>Ambiente</th>
+                    <th>Variedad</th>
+                    <th>Fecha Fin</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($crops as $crop)
+                <tr>
+                    <td>{{ $crop->id }}</td>
+                    <td>{{ $crop->name }}</td>
+                    <td>{{ $crop->sown_area }}</td>
+                    <td>{{ $crop->seed_time }}</td>
+                    <td>{{ $crop->density }}</td>
+                    <td>{{ $crop->environment->name ?? 'N/A' }}</td>
+                    <td>{{ $crop->variety->name ?? 'N/A' }}</td>
+                    <td>{{ $crop->finish_date }}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm btn-edit-crop" data-bs-id="{{ $crop->id }}">Editar</button>
+                        <button class="btn btn-danger btn-sm btn-delete-crop" data-bs-toggle="modal" data-bs-target="#eliminarCropModal{{ $crop->id }}">Eliminar</button>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+{{-- Modal Crear Cultivo --}}
+<div class="modal fade" id="crearcrop" tabindex="-1" aria-labelledby="crearcrop" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="agregarCropModalLabel">Agregar Cultivo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{{ route('agrocefa.crop.create')}}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="crop_name">Nombre del Cultivo</label>
+                    <input type="text" name="crop_name" id="crop_name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="seed_time">Fecha de Siembra</label>
+                    <input type="date" name="seed_time" id="seed_time" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="density">Densidad</label>
+                    <input type="number" name="density" id="density" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="environment_id">Ambiente</label>
+                    <select name="environment_id" id="environment_id" class="form-control">
+                        @foreach ($environments as $environment)
+                            <option value="{{ $environment->id }}">{{ $environment->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="variety_id">Variedad</label>
+                    <select name="variety_id" id="varietyt_id" class="form-control">
+                        @foreach ($varieties as $variety)
+                            <option value="{{ $variety->id }}">{{ $variety->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="finish_date">Fecha Fin</label>
+                    <input type="date" name="finish_date" id="finish_date" class="form-control" required>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Registrar Cultivo</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+<script>
+    $('.btn-edit-activity').on('click', function(event) {
+        var activityId = $(this).data('activity-id');
+
+        // Obtener los datos de la actividad desde algún lugar (puede ser una API, base de datos, etc.)
+        var activityData = activitiesData.find(function(activity) {
+            return activity.id === activityId;
         });
 
-        // Asegúrate de que los datos de las actividades estén disponibles aquí
-        var activitiesData = [
-            // ... Lista de objetos de actividad con sus propiedades ...
-        ];
-    </script>
+        // Llenar los campos del formulario con los datos de la actividad
+        $('#activity_type_id').val(activityData.activity_type_id);
+        $('#name').val(activityData.name);
+        $('#description').val(activityData.description);
+        $('#period').val(activityData.period);
+
+        // Construir la URL del formulario con el ID de la actividad
+        var formAction = '{{ route('agrocefa.activity.edit', ['id' => 'ACTIVITY_ID']) }}';
+        formAction = formAction.replace('ACTIVITY_ID', activityId);
+        
+        // Actualizar la URL del formulario con el ID de la actividad
+        $('#edit-activity-form').attr('action', formAction);
+    });
+    
+    // Asegúrate de que los datos de las actividades estén disponibles aquí
+    var activitiesData = [
+        // ... Lista de objetos de actividad con sus propiedades ...
+    ];
+</script>
 
     {{-- SCRIPT EDITAR ESPECIE --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

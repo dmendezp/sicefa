@@ -19,7 +19,6 @@ class CreateCropsTable extends Migration
             $table->float('sown_area');
             $table->date('seed_time');
             $table->float('density');
-            $table->foreignId('environment_id')->constrained()->onDelete('cascade');
             $table->foreignId('variety_id')->constrained()->onDelete('cascade');
             $table->date('finish_date');
             $table->softDeletes();
