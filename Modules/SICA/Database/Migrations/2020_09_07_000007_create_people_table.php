@@ -72,7 +72,7 @@ class CreatePeopleTable extends Migration
             $table->string('misena_email')->nullable();
             $table->string('sena_email')->nullable();
             $table->string('avatar')->nullable();
-            $table->text('biometric_code')->nullable()->unique();
+            $table->text('biometric_code')->nullable();
             $table->foreignId('population_group_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
