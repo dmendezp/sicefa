@@ -53,4 +53,25 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 
 
 #### Meet 3-Sep-2023
+* **Brayan David Lizcano** - *Vista de editar formulario y agregar pregunta * - *Avance 63%* - *Dificultades* - *Acciones*
+
 * **Juan David Rico** - *Implementacion de Funcionalidad para estados de postulacion* - *Avance %80* - *Dificultades-Ninguna* - *Acciones*
+* **Kevin Santiago Valdes** - *pivote de postulaciones y beneficios* - *Avance 50%* - * funcionalidad y conexion con la BD* - *Acciones*
+* **Carlor Maurico Polanco** - *Formulario postulacion a los apoyos* - *Avance 20%* - *Funcionalidades en los botones* - *Acciones*
+* **Saira Xiomara Guevara** - *Gestion de convocatorias en el boton de guardar* - *Avance 80%* - *funcionalidad en el boton de guardar* - *Acciones*
+
+
+#### Meet 4-Sep-2023
+* **Brayan David Lizcano** - *Vista de editar formulario y agregar pregunta * - *Avance 63%* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *pivote de postulaciones y beneficios boton de asignar beneficio* - *Avance %80* - *Conexion y actualizacion de datos en la BD* - *Acciones*
+* **Kevin Santiago Valdes** - *pivote de postulaciones y beneficios* - *Avance 50%* - * funcionalidad y conexion con la BD* - *Acciones*
+* **Carlor Maurico Polanco** - *Formulario postulacion a los apoyos* - *Avance 20%* - *Funcionalidades en los botones* - *Acciones*
+* **Saira Xiomara Guevara** - *Gestion de convocatorias en el boton de guardar* - *Avance 80%* - *funcionalidad en el boton de guardar* - *Acciones*
+
+
+#### Meet 5-Sep-2023
+* **Brayan David Lizcano** - *Vista de editar formulario y agregar pregunta * - *Avance 63%* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *pivote de postulaciones y beneficios boton de asignar beneficio* - *Avance %80* - *Conexion y actualizacion de datos en la BD* - *Acciones*
+* **Kevin Santiago Valdes** - *pivote de postulaciones y beneficios* - *Avance 50%* - * funcionalidad y conexion con la BD* - *Acciones*
+* **Carlor Maurico Polanco** - *Formulario postulacion a los apoyos* - *Avance 20%* - *Funcionalidades en los botones* - *Acciones*
+* **Saira Xiomara Guevara** - *Gestion de convocatorias en el boton de guardar* - *Avance 80%* - *funcionalidad en el boton de guardar* - *Acciones*
