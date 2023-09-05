@@ -15,8 +15,13 @@
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     </head>
     <body>
+    @include('dicsena::layouts.partials.navbar')
         @yield('content')
-
+        </div>
+  <!-- /.content-wrapper -->
+  <!-- Main Footer -->
+    @include('sica::layouts.partials.footer')
+</div>
         {{-- Laravel Mix - JS File --}}
         {{-- <script src="{{ mix('js/dicsena.js') }}"></script> --}}
     </body>

@@ -36,16 +36,16 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Integrante 1** - *Actividades realizadas*se creo la vista home para el rol de instructor - *Avance 20%* - *Dificultades* - *Acciones*crear las relaciones de la tabla user con guideposts
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
-#### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 02-Sep-2023
+* **Integrante 1** - *Actividades realizadas*crear vistas generales para el rol de instructor - *Avance 10%* - *Dificultades* las vistas se desorganizaron- *Acciones*se creo el controller de homeins 
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 
-## PUNTO DE VENTA 🛒
+## DICSENA 🛒
 
-### Sprint 1 🔄
-#### Sprint Planning 26-Oct-2022
-* **Integrante 1** - *Actividades a realizar* 
+### Sprint 2 🔄
+#### Sprint Planning 04-Oct-2023
+* **Integrante 1** - *Actividades a realizar* Se hizo muchas cosas entre ellas los controller de formularios
 * **Integrante 2** - *Actividades a realizar*
 ...
 #### Meet 28-Oct-2022

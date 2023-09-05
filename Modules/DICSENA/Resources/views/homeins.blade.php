@@ -2,28 +2,26 @@
 
 @section('content')
 <nav class="metal-navbar">
-        <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Acerca de</a></li>
-            <li><a href="#">Servicios</a></li>
-            <li><a href="#">Contacto</a></li>
-        </ul>
+<a class="navbar-brand" href="#">
+        <i class="fas fa-globe"></i> Dicsena
+    </a>
     </nav>
+
     <div class="tarjeta">
         <div class="icono">
-            <i class="fas fa-file-upload"></i> <!-- Icono "Subir Guías" -->
+            <i class="fas fa-file-upload"></i> 
         </div>
-        <h2>Título 1</h2>
-        <a href="enlace1.html">Enlace 1</a>
-        <a href="enlace2.html">Enlace 2</a>
+        <h2>GUIAS</h2>
+        <a href="{{ route('dicsena.guide.formgui') }}">Subir Guia</a>
+        <a href="{{ route('dicsena.guide.vistagui') }}">Ver guia</a>
     </div>
 
     <div class="tarjeta">
         <div class="icono">
-            <i class="fas fa-plus"></i> <!-- Icono "Añadir Palabras" -->
+            <i class="fas fa-plus"></i> 
         </div>
-        <h2>Título 2</h2>
-        <a href="">Enlace 3</a>
-        <a href="">Enlace 4</a>
+        <h2>GLOSARIO</h2>
+        <a href="{{ route('dicsena.glosary.formglo') }}">Subir Glosario</a>
+        <a href="{{ route('dicsena.glosary.vistaglo') }}">Ver gloario</a>
     </div>
 @endsection

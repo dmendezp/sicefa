@@ -1,38 +1,30 @@
-/* Resetear estilos de lista y eliminar márgenes y rellenos */
+
 ul, li {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-/* Estilos del navbar */
 .metal-navbar {
-    background-color: #777; /* Color de fondo gris */
-    padding: 10px 0; /* Espaciado interno superior e inferior */
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para efecto de metal */
+    background-color: #777; 
+    padding: 10px 0; 
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
 }
-
-.metal-navbar ul {
-    text-align: center; /* Centrar elementos de la lista */
-}
-
-.metal-navbar li {
-    display: inline-block; /* Mostrar elementos de lista en línea */
-    margin: 0 10px; /* Espaciado entre elementos de la lista */
-}
-
+.navbar-nav .nav-item {
+    margin: 0 10px; 
+  }
 .metal-navbar a {
-    text-decoration: none; /* Eliminar subrayado de enlaces */
-    color: #eee; /* Color de texto blanco */
-    padding: 5px 10px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde ligero para el efecto de metal */
-    transition: background-color 0.3s, color 0.3s; /* Transiciones suaves */
+    text-decoration: none;
+    color: #eee; 
+    padding: 5px 10px;
+    border-radius: 5px; 
+    border: 1px solid #ccc; 
+    transition: background-color 0.3s, color 0.3s; 
 }
 
 .metal-navbar a:hover {
-    background-color: #555; /* Cambio de color al pasar el mouse */
-    color: #fff; /* Cambio de color de texto al pasar el mouse */
+    background-color: #555; 
+    color: #fff; 
 }
 /*div de tarajetas*/
 body {
