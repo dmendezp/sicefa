@@ -314,7 +314,7 @@ class GenerateSale extends Component
                 DB::commit(); // Confirmar cambios realizados durante la transacción
 
                 // Transacción completada exitosamente
-                $this->emit('message', 'success', 'Operación realizada', 'Venta registrada exitosamente.', $value);
+                $this->emit('message', 'success', trans('ptventa::sales.Alert_Successful_Sale'), 'Operación realizada',  $value);
                 $this->emit('printTicket', // Generar impresión de la factura de venta
                     $movement->voucher_number,
                     ($movement->registration_date)->format('Y-m-d H:i:s'),
@@ -333,7 +333,7 @@ class GenerateSale extends Component
                 $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la venta en '.$error.'. Por favor intente nuevamente.', null);
             }
         }else{
-            $this->emit('message', 'alert-warning', null, 'Es necesario seleccionar un cliente.', null); // Emitir mensaje de advertencia para seleccionar un cliente válido
+            $this->emit('message', 'alert-warning', null, trans('ptventa::sales.Alert_Select_Client'), null); // Emitir mensaje de advertencia para seleccionar un cliente válido
             $this->customer_document_number = null;
             $this->customer_document_type = '----------------';
             $this->customer_full_name = '----------------';
@@ -383,7 +383,7 @@ class GenerateSale extends Component
         if ($person) {
             $this->resetFormRegisterCustomer();
             $this->emit('close-modal-register-customer'); // Cerrar el modal con el formulario de registro
-            $this->emit('message', 'alert-success', null, 'Cliente registrado.', null); // Emitir mensaje de registro exitoso
+            $this->emit('message', 'alert-success', null, trans('ptventa::sales.Alert_Registered_Client'), null); // Emitir mensaje de registro exitoso
             $this->customer_document_number = $person->document_number; // Asignar número de documento de la persona registrado al campo de consulta de cliente
             $this->consultCustomer(); // Consultar cliente
         }

@@ -23,6 +23,7 @@ return [
     'Btn_Register_Client' => 'Registrar Cliente',
     'Btn_Cancel_Register' => 'Cancelar',
     'Btn_Generate_Ticket' => 'Generar Factura',
+    'Btn_Accept'          => 'Aceptar',
     
 	// Section optional text
 	'Text_Optional_1' => 'No hay ventas registradas.',
@@ -64,6 +65,12 @@ return [
 	'Title_Modal_Last_Name'             => 'Apellidos',
 	'Placeholder_First_Last_Name'       => 'Primer apellido',
 	'Placeholder_Second_Last_Name'      => 'Segundo apellido',
+
+	// Section Alerts
+	'Alert_Successful_Sale'             => 'Venta registrada exitosamente.',
+	'Alert_Change_Of'             => 'Tiene un cambio de:',
+	'Alert_Select_Client'               => 'Es necesario seleccionar un cliente.',
+	'Alert_Registered_Client'           => 'Cliente Registrado.',
 
 	// ----Section Show Movement Sales----
 	'Form_Title_Voucher'       => 'N° Comprobante',

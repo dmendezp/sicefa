@@ -22,7 +22,8 @@ return [
     'Btn_Register_Sale'   => 'Register Sale',
     'Btn_Register_Client' => 'Register Client',
     'Btn_Cancel_Register' => 'Cancel',
-    'Btn_Generate_Ticket'   => 'Generate Ticket',
+    'Btn_Generate_Ticket' => 'Generate Ticket',
+    'Btn_Accept'          => 'Accept',
     
     //Section optional text
     'Text_Optional_1'   => 'No Sales Registered.',
@@ -65,6 +66,12 @@ return [
 	'Placeholder_First_Last_Name'       => 'First last name',
 	'Placeholder_Second_Last_Name'      => 'Second last name',
 
+    // Section Alerts
+	'Alert_Successful_Sale'             => 'Sale successfully registered.',
+	'Alert_Change_Of'                   => 'It has a change of:',
+	'Alert_Select_Client'               => 'It is necessary to select a customer.',
+	'Alert_Registered_Client'           => 'Registered Client.',
+    
     // ----Section Show Movement Sales----
     'Form_Title_Voucher'       => 'N° Voucher',
 	'Form_Title_Date'          => 'Date:',

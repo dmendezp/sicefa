@@ -273,5 +273,12 @@
         <script src="{{ asset('modules/ptventa/js/data-formats.js') }}"></script>
         <!-- Scripts del componente register-sale -->
         <script src="{{ asset('modules/ptventa/js/sale/register/livewire-register-sale.js') }}"></script>
+        <!-- Scripts del de la internacionalizacion del alert que confirma la venta -->
+        <script>
+            window.translations = @json([
+                'alertChangeOf' => __('ptventa::sales.Alert_Change_Of'),
+                'btnAccept' => __('ptventa::sales.Btn_Accept'),
+            ]);
+        </script>
     @endsection
 </div>

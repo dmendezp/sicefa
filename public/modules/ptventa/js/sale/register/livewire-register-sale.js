@@ -83,13 +83,13 @@ Livewire.on('message', function(type, action, message, change_value) {
             text: message,
             html: (type == 'success') ?
                 '<div class="bg-light py-2">' +
-                    '<p class="text-secondary">Tiene un cambio de:</p>' +
+                    '<p class="text-secondary">' + window.translations.alertChangeOf + '</p>' +
                     '<h1>'+ change_value +'</h1>' +
                 '</div>'
                 : null,
             icon: type,
             iconColor: color[type],
-            confirmButtonText: 'Aceptar',
+            confirmButtonText: window.translations.btnAccept,
             confirmButtonColor: 'green'
         });
     }
