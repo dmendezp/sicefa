@@ -45,12 +45,45 @@
                 @csrf
                 <input type="hidden" id="selected-postulations" name="selected-postulations" value="">
                 <button type="submit" class="btn btn-sm btn-primary">Marcar Seleccionados como Beneficiarios</button>
+
+                <!-- Botón que abrirá el modal -->
+<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal">Marcar Seleccionados como No Beneficiado</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Encabezado del modal -->
+      <div class="modal-header">
+        <h4 class="modal-title">Confirmar acción</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Contenido del modal -->
+      <div class="modal-body">
+        ¿Estás seguro de que deseas marcar a los seleccionados como "No Beneficiado"?
+      </div>
+      
+      <!-- Pie del modal -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-danger">Confirmar</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
             </form>
         </div>
     </div>
 </div>
 
+
+
 @foreach($postulations as $postulation)
+
 <!-- Modal de detalles de postulación -->
 <div class="modal fade" id="modal_{{ $postulation->id }}" tabindex="-1" role="dialog"
     aria-labelledby="modalLabel_{{ $postulation->id }}" aria-hidden="true">
