@@ -29,7 +29,7 @@
                                 <option value="">{{ trans('ptventa::inventory.Select_Form_Product') }}</option>
                                 @foreach ($products as $product)
                                     <option value="{{ $product->id }}" data-price="{{ priceFormat($product->price) }}">
-                                        {{ $product->element->product_name }}
+                                        {{ $product->element->product_name }} - {{ $product->expiration_date }}
                                     </option>
                                 @endforeach
                             </select>

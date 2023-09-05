@@ -50,7 +50,7 @@ class GenerateSale extends Component
     public $person_second_last_name; // Segundo apellido para registro de persona
 
     public function __construct(){
-        $this->selected_products = collect(); // Inicializar la varible que cotiene la información de los productos seleccionados
+        $this->selected_products = collect(); // Inicializar la varible que contiene la información de los productos seleccionados
     }
 
     // La siquiente función es ejecutada cuando el componente es llamado por primera vez
@@ -75,6 +75,7 @@ class GenerateSale extends Component
         $inventories = Inventory::where('productive_unit_warehouse_id',$this->puw->id)
                                 ->where('destination','Producción')
                                 ->where('state','Disponible')
+                                ->whereDate('expiration_date', '>=', now())
                                 ->pluck('id','element_id');  // Obtener elemen_id unicos para conocer los elementos activos del inventario
         $elementIds = $inventories->keys()->toArray(); // Obtenemos solo el id de los elementos
         $this->products = Element::whereIn('id', $elementIds)->whereNotNull('price')->orderBy('name')->get(); // Consultar elementos que tenga precio para acceder a su nombre
@@ -87,6 +88,7 @@ class GenerateSale extends Component
                                 ->where('element_id',$element_id)
                                 ->where('destination','Producción')
                                 ->where('state','Disponible')
+                                ->whereDate('expiration_date', '>=', now())
                                 ->select('element_id', DB::raw('SUM(amount) as product_total_amount'))
                                 ->groupBy('element_id')
                                 ->first();
@@ -245,6 +247,7 @@ class GenerateSale extends Component
                         ->where('element_id', $product['product_element_id'])
                         ->where('state', 'Disponible')
                         ->where('destination', 'Producción')
+                        ->whereDate('expiration_date', '>=', now())
                         ->orderBy('expiration_date', 'asc')
                         ->get();
 

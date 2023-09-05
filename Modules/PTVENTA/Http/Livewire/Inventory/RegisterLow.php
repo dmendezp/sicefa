@@ -53,11 +53,11 @@ class RegisterLow extends Component
             ->where('warehouse_id', $warehouse->id)
             ->firstOrFail();
         $this->products = Inventory::where('productive_unit_warehouse_id', $this->puw->id)
-            ->join('elements', 'inventories.element_id', '=', 'elements.id')
-            ->orderBy('elements.name', 'ASC')
-            ->select('inventories.*')
-            ->where('inventories.amount', '<>', 0)
-            ->get();
+                                    ->join('elements', 'inventories.element_id', '=', 'elements.id')
+                                    ->orderBy('elements.name', 'ASC')
+                                    ->select('inventories.*')
+                                    ->where('inventories.amount', '>', 0)
+                                    ->get();
     }
 
     // Detectar cambio del select de unidad productiva de origen
@@ -159,6 +159,7 @@ class RegisterLow extends Component
                 foreach ($this->selected_products as $product) {
                     $inventory = Inventory::find($product['inventory_id']);
                     $inventory->amount -= $product['product_amount'];
+                    $inventory->state = ($inventory->amount > 0) ? 'Disponible' : 'No disponible';
                     $inventory->save();
 
                     MovementDetail::create([

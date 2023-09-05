@@ -70,16 +70,16 @@ class InventoryController extends Controller
     { // Lista de productos vencidos y por vencer
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_status_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_status_title_view')];
         $productosVencidos = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
-            ->where('state', 'Disponible')
-            ->where('expiration_date', '<', now())
-            ->orderBy('expiration_date')
-            ->get();
+                                        ->where('state', 'Disponible')
+                                        ->where('expiration_date', '<', now())
+                                        ->orderBy('expiration_date')
+                                        ->get();
         $productosPorVencer = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
-            ->where('state', 'Disponible')
-            ->where('expiration_date', '>', now())
-            ->where('expiration_date', '<=', now()->addDays(3))
-            ->orderBy('expiration_date')
-            ->get();
+                                        ->where('state', 'Disponible')
+                                        ->where('expiration_date', '>', now())
+                                        ->where('expiration_date', '<=', now()->addDays(3))
+                                        ->orderBy('expiration_date')
+                                        ->get();
         return view('ptventa::inventory.status', compact('view', 'productosVencidos', 'productosPorVencer'));
     }
 
