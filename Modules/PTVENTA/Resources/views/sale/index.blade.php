@@ -74,11 +74,12 @@
 @include('ptventa::layouts.partials.plugins.datatables')
 @include('ptventa::layouts.partials.plugins.sweetalert2')
 @push('scripts')
+
     <script>
         $(document).ready(function() {
-            // Configuración de Datatables para la tabla de registros de inventario
-            $('#sales-table').DataTable({
-                language: language_datatables, // Agregar traducción a español
+            
+            // Opciones comunes para todas las tablas DataTable
+            var dataTableOptions = {
                 "order": [],
                 "paging": false,
                 "columnDefs": [{
@@ -95,9 +96,18 @@
                         cell.innerHTML = i + 1;
                     });
                 }
-            });
+            };
+
+            // Verificar el idioma actual y decidir si agregar la opción de idioma
+            if ('{{ session('lang') }}' === 'es') {
+                dataTableOptions.language = language_datatables;
+            }
+
+            // Inicializar DataTables con las opciones configuradas
+            $('#sales-table').DataTable(dataTableOptions);
         });
     </script>
+
     @if (session('error'))
         <script type="text/javascript">
             Swal.fire({

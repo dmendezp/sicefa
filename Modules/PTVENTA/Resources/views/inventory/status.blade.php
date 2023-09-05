@@ -6,9 +6,10 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item active">
-        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.inventory.index') }}" class="text-decoration-none">{{ trans('ptventa::inventory.Breadcrumb_Inventory_1')}}</a>
+        <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.index') }}"
+            class="text-decoration-none">{{ trans('ptventa::inventory.Breadcrumb_Inventory_1') }}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('ptventa::inventory.Breadcrumb_Active_Status_Inventory_1')}}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::inventory.Breadcrumb_Active_Status_Inventory_1') }}</li>
 @endpush
 
 @section('content')
@@ -16,14 +17,16 @@
         <div class="col-6">
             <div class="card border-success">
                 <div class="card-body">
-                    <h6 class="text-center bg-danger py-1 rounded-2"><strong>{{ trans('ptventa::inventory.Title_Table_Expired')}}</strong></h6>
+                    <h6 class="text-center bg-danger py-1 rounded-2">
+                        <strong>{{ trans('ptventa::inventory.Title_Table_Expired') }}</strong>
+                    </h6>
                     <div class="table table-sm table-responsive">
                         <table class="table table-hover table-bordered" id="tableExpiredProducts">
                             <thead class="table-secondary">
                                 <tr>
-                                    <th class="text-center">{{ trans('ptventa::inventory.3T_Amount')}}</th>
-                                    <th>{{ trans('ptventa::inventory.3T_Product')}}</th>
-                                    <th class="text-center">{{ trans('ptventa::inventory.3T_Expiration_Date')}}</th>
+                                    <th class="text-center">{{ trans('ptventa::inventory.3T_Amount') }}</th>
+                                    <th>{{ trans('ptventa::inventory.3T_Product') }}</th>
+                                    <th class="text-center">{{ trans('ptventa::inventory.3T_Expiration_Date') }}</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
@@ -43,14 +46,16 @@
         <div class="col-6">
             <div class="card border-success">
                 <div class="card-body">
-                    <h6 class="text-center bg-warning py-1 rounded-2"><strong>{{ trans('ptventa::inventory.Title_Table_To_Expired')}}</strong></h6>
+                    <h6 class="text-center bg-warning py-1 rounded-2">
+                        <strong>{{ trans('ptventa::inventory.Title_Table_To_Expired') }}</strong>
+                    </h6>
                     <div class="table table-sm table-responsive">
                         <table class="table table-hover table-bordered" id="tableProductsToExpire">
                             <thead class="table-secondary">
                                 <tr>
-                                    <th class="text-center">{{ trans('ptventa::inventory.3T_Amount')}}</th>
-                                    <th>{{ trans('ptventa::inventory.3T_Product')}}</th>
-                                    <th class="text-center">{{ trans('ptventa::inventory.3T_Expiration_Date')}}</th>
+                                    <th class="text-center">{{ trans('ptventa::inventory.3T_Amount') }}</th>
+                                    <th>{{ trans('ptventa::inventory.3T_Product') }}</th>
+                                    <th class="text-center">{{ trans('ptventa::inventory.3T_Expiration_Date') }}</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
@@ -74,16 +79,21 @@
 
 @push('scripts')
     <script>
-        // Permite la aplicacion de datatables y la vez la traduccion de las tablas
         $(document).ready(function() {
+            // Opciones comunes para todas las tablas DataTable
+            var dataTableOptions = {
+
+            };
+
+            // Verifica el idioma actual y decide si agregar la opción de idioma
+            if ('{{ session('lang') }}' === 'es') {
+                dataTableOptions.language = language_datatables;
+            }
+
             /* Initialización of Datatables ExpiredProducts */
-            $('#tableExpiredProducts').DataTable({
-                language: language_datatables, // Agregar traducción a español
-            });
+            $('#tableExpiredProducts').DataTable(dataTableOptions);
             /* Initialización of Datatables ProductsToExpired */
-            $('#tableProductsToExpire').DataTable({
-                language: language_datatables, // Agregar traducción a español
-            });
+            $('#tableProductsToExpire').DataTable(dataTableOptions);
         });
     </script>
 @endpush

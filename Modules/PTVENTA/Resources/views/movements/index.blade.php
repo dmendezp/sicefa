@@ -117,12 +117,18 @@
         document.getElementById('end_date').addEventListener('change', updateDateAttributes);
     </script>
     <script>
-        // Permite la aplicación de datatables y la vez la traducción de las tablas
         $(document).ready(function() {
+            // Opciones comunes para todas las tablas DataTable
+            var dataTableOptions = {
+
+            };
+
+            // Verifica el idioma actual y decide si agregar la opción de idioma
+            if ('{{ session('lang') }}' === 'es') {
+                dataTableOptions.language = language_datatables;
+            }
             /* Inicialización of Datatables para movement_details */
-            $('#tableMovementsDetails').DataTable({
-                language: language_datatables, // Agregar traducción a español
-            });
+            $('#tableMovementsDetails').DataTable(dataTableOptions);
         });
     </script>
 @endpush

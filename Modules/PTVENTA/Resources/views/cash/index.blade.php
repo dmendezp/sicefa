@@ -230,12 +230,19 @@
         });
     </script>
     <script>
-        // Permite la aplicacion de datatables y la vez la traduccion de las tablas
         $(document).ready(function() {
+            // Opciones comunes para todas las tablas DataTable
+            var dataTableOptions = {
+
+            };
+
+            // Verifica el idioma actual y decide si agregar la opción de idioma
+            if ('{{ session('lang') }}' === 'es') {
+                dataTableOptions.language = language_datatables;
+            }
+
             /* Initialización of Datatables CashCountAll */
-            $('#tableCashCountAll').DataTable({
-                language: language_datatables, // Agregar traducción a español
-            });
+            $('#tableCashCountAll').DataTable(dataTableOptions);
         });
     </script>
     <script>
