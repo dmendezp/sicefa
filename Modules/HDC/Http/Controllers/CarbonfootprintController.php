@@ -18,10 +18,9 @@ class CarbonfootprintController extends Controller
     public function verficarPersona($documento){
         $usuario = Person::where('document_number',$documento)->first();
         if(is_null($usuario)){
-            $epss = EPS::pluck('name','id');
-            return view('carbonfootprint::persona.registro', ['documento'=>$documento, 'epss' => $epss,]);
+            return view('hdc::Calc_Huella.sinregistro');
         }else{
-            return view('carbonfootprint::persona.verficado', ['usuario'=>$usuario]);
+            return view('hdc::Calc_Huella.verficado', ['usuario'=>$usuario]);
         }
     }
    /*  public function calculos(){

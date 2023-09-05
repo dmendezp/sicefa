@@ -24,7 +24,7 @@ Route::middleware(['lang'])->group(function() {
         /* Rutas de Calcula tu Huella */
         Route::get('persona', 'CarbonfootprintController@persona')-> name('carbonfootprint.persona');
         Route::get('/persona/verificar/{documento}', 'CarbonfootprintController@verficarPersona')-> name('carbonfootprint.persona.verificar');
-        Route::post('/verificar-persona', 'CarbonfootprintController@verficarPersona')->name('carbonfootpr.verificarint.persona');
+        Route::post('/verificar-persona', 'CarbonfootprintController@verficarPersona')->name('hdc.verificarint.persona');
 
 
     });

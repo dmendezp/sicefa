@@ -10,7 +10,7 @@
             <div class="row justify-content-center">
                 <div class="card card-success card-outline shadow col-md-5 mt-3">
                     <div class="card-header">
-                        <h3 class="card-title">Seleccionar usuario</h3>
+                        <h3 class="card-title">Ingrese su usuario</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -50,8 +50,9 @@
         function verficarUsuario(){
             documento = $('#documento').val();
             if(documento == ''){
-                alert('Ingrese el número de identifación para realizar la verificación.');
+                alert('Ingrese el número de identifación para realizar la verifcación.');
             }else{
+                ruta = 'http://sicefa.test:8081/hdc//verificar-persona'+documento;
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKE': $('meta[name="csrf-token"]').attr('content')
@@ -59,7 +60,7 @@
                 });
                 $.ajax({
                     method: "get",
-                    url: '/persona/verificar/{documento}'+documento;
+                    url: ruta,
                     data: {}
                 })
                 .done(function(html){

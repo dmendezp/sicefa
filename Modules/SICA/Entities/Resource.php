@@ -4,6 +4,7 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\HDC\Entities\ProductiveUnitResourse;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Resource extends Model implements Auditable
@@ -32,6 +33,9 @@ class Resource extends Model implements Auditable
     }
     public function measurement_unit(){ // Accede a la unidad de medida al que pertenece
         return $this->belongsTo(MeasurementUnit::class);
+    }
+    public function productive_unit_resourse(){ // Accede a todos los registros de unidad productiva y recursos  que pertenecen a esta unidad productiva
+        return $this->hasMany(ProductiveUnitResourse::class);
     }
 
 }
