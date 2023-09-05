@@ -12,51 +12,53 @@
                     <a class="nav-link" href="{{route('cefa.agroindustria.home.index')}}">Inicio</a>
                 </li>
             @endif
-            <!-- Menú instructor -->
-            @if (Auth::user()->havePermission('agroindustria.instructor.labor'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cefa.agroindustria.instructor.labor') }}">Labor</a>
-                </li>
-            @endif
-            <!-- Agrega la opción para solicitar a centro -->
-            @if (Auth::user()->havePermission('agroindustria.instructor.request'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cefa.agroindustria.instructor.solicitud') }}">Solicitar a Centro</a>
-                </li>
-            @endif
-            @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('cefa.agroindustria.instructor.activity')}}">Actividades</a>
-            </li>
-            @endif
-            @if(Auth::user()->havePermission('agroindustria.storer.crud'))
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Bodegas
-                </button>
-                <ul class="dropdown-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.intern.benvas')}}">Envases</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.intern.bepp')}}">Epp</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.intern.binsu')}}">Insumos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.intern.baseo')}}">Aseo</a>
-                    </div>
-                  </div>
-             </li>
-             @endif
+            
             @if(isset($viewing_unit) && $viewing_unit)
              @if(Auth::user()->havePermission('agroindustria.instructor.deliveries'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('cefa.agroindustria.instructor.movements')}}">Entregas</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.instructor.movements')}}">Entregas</a>
+                </li>
+                @endif
             @endif
-
+            @auth
+                <!-- Menú instructor -->
+                @if (Auth::user()->havePermission('agroindustria.instructor.labor'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('cefa.agroindustria.instructor.labor') }}">Labor</a>
+                    </li>
+                @endif
+                <!-- Agrega la opción para solicitar a centro -->
+                @if (Auth::user()->havePermission('agroindustria.instructor.request'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('cefa.agroindustria.instructor.solicitud') }}">Solicitar a Centro</a>
+                    </li>
+                @endif
+                @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.instructor.activity')}}">Actividades</a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('agroindustria.storer.crud'))
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Bodegas
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('cefa.agroindustria.intern.benvas')}}">Envases</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('cefa.agroindustria.intern.bepp')}}">Epp</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('cefa.agroindustria.intern.binsu')}}">Insumos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('cefa.agroindustria.intern.baseo')}}">Aseo</a>
+                        </div>
+                    </div>
+                </li>
+                @endif
             @endauth
         </ul>
     </div>

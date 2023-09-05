@@ -33,7 +33,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 **Julian Javier Ramirez Diaz** - *Rutas controladores vistas para solicitud* - *44%* - *Ninguna* - *Ninguna*
 
 ---
-#### Meet 31-Agosto-20223
+#### Meet 31-Agosto-2023
 * **Jennifer Marin Montealegre** - *Formulario para registro de formulacion* - *78%* - *Nunguna* - *Ninguna*
 
 * **David Juliam Cadena Barrera** - *Formulario de registro de nuevo insumo y de edicion* - *50%* - *Ninguna* - *Ninguna.*
@@ -49,19 +49,22 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Juan Diego Bonilla Aroca** - *Registro de entrega de productos a punto de venta.*
 * **Julian Javier Ramirez Diaz** - *Registro de entrega de productos a punto de venta.*
 #### Meet 31-Agosto-20223
-* **Jennifer Marin Montealegre** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+* **Jennifer Marin Montealegre** - *No inciado* - *0%* - *Ninguna* - *Ninguna*
 
-* **David Juliam Cadena Barrera** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+* **David Juliam Cadena Barrera** - *No inciado* - *0%* - *Ninguna* - *Ninguna*
 
 **Juan Diego Bonilla Aroca** - *vista de entregas* - *44%* - *Ninguna* - *Ninguna*
 
-**Julian Javier Ramirez Diaz** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+**Julian Javier Ramirez Diaz** - *No inciado* - *0%* - *Ninguna* - *Ninguna*
 
 
 ---
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 05-Sep-2023
+* **Jennifer Marin Montealegre** - *No iniciado* - *0%* - *Ninguna* - *Ninguna*
+* **David Juliam Cadena Barrera** - *Rutas y vistas* - *40 %* - *Conexion a internet* - *Ninguna*
+* **Julian Javier Ramirez Diaz** - *Formulario, filtrar productos y bodegas* - *67 %* - *Ninguna* - *Ninguna*
+* **Juan Diego Bonilla Aroca** - *No asistio*
+
 ---
 #### Meet 04-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
