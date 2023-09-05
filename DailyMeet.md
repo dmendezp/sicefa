@@ -28,22 +28,29 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 * **Saira Xiomara Guevara** - *creacion de la vista CRUD para los buses de transporte *
 ...
 #### Meet 29-Ago-2023
-* **Brayan David Lizcano** - *Modificacion e implementacion de funciones en BenefitsTypesOfBenefitsController.php * - *Avance %100* - *Dificultades-Ninguna* - *Acciones*
-* **Juan David Rico** - *Creacion e implementacion de funcionalidad a la vista benefitstypeofbenefits.blade.php e integracion de rutas a web.php* - *Avance %100* - *Dificultades-Ninguna* - *Acciones*
----
-#### Meet 31-Oct-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
-#### Meet 07-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
----
+* **Brayan David Lizcano** - *Creacion y estructuracion de la vista de editar formulario * - *Avance 15%* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Creacion e implementacion de visualizacion de datos a la vista postulations.blade.php e integracion de rutas a web.php* - *Avance %27* - *Dificultades-Ninguna* - *Acciones*
+
+
+#### Meet 30-Ago-2023
+* **Brayan David Lizcano** - *Vista de insertar rutas y modificacion de la tabla routes transport* - *Avance 25%* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Creacion e implementacion de visualizacion de datos a la vista postulations.blade.php e integracion de rutas a web.php* - *Avance %27* - *Dificultades-Ninguna* - *Acciones*
+
+
+#### Meet 31-Ago-2023
+* **Brayan David Lizcano** - *Correccion de errores y buena impelemtacion de funcionalidad* - *Avance 30%* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Implementacion de visualizacion de informacion de aprendices postulados* - *Avance %45* - *Dificultades-Ninguna* - *Acciones*
+
+
+#### Meet 1-Sep-2023
+* **Brayan David Lizcano** - *Implementacion de funcionalidad para la edicion del formulario * - *Avance 45%* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Implementacion de funcionalidad para la puntuacion y chechbox de la vista postulations* - *Avance %64* - *Dificultades-Ninguna* - *Acciones*
+
+
+#### Meet 2-Sep-2023
+* **Brayan David Lizcano** - *Vista de editar formulario y agregar pregunta * - *Avance 63%* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Implementacion de funcionalidad de Asignacion de beneficios a los aprendices seleccionados* - *Avance %73* - *Dificultades-Ninguna* - *Acciones*
+
+
+#### Meet 3-Sep-2023
+* **Juan David Rico** - *Implementacion de Funcionalidad para estados de postulacion* - *Avance %80* - *Dificultades-Ninguna* - *Acciones*
