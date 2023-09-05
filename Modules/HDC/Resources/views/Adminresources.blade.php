@@ -28,7 +28,7 @@
                                 <div class="form-group">
                                     <label>{{ trans('hdc::hdcgeneral.label2') }}</label>
                                     <select name="Resource_id" class="form-control" required>
-                                        <option value="">{{ trans('hdc::hdcgeneral.option2') }}</option>
+                                        <option value="">{{ trans('hdc::hdcgeneral.option1') }}</option>
                                         @foreach($resource as $re)
                                             <option value="{{ $re->id }}">{{ $re->name }}</option>
                                         @endforeach

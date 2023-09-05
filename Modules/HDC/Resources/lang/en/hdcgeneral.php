@@ -35,10 +35,9 @@ return [
 
     // Select Options
     'option1' => '-- Select --',
-    'option2' => '-- Select --',
 
     // Buttons
-    'btn1' => 'Sync Up',
+    'btn1' => 'Save',
 
     // thead
     'th1' => 'Productive Unit',

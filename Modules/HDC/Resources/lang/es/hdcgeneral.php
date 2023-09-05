@@ -35,10 +35,9 @@ return [
 
     // Select Options
     'option1' => '-- Seleccione --',
-    'option2' => '-- Seleccione --',
 
     // Buttons
-    'btn1' => 'Sincronizar',
+    'btn1' => 'Guardar',
 
     // thead
     'th1' => 'Unidad Productiva',
