@@ -31,7 +31,7 @@
                     <div class="col-md-2 align-self-end">
                         <div class="btns mt-3">
                             {!! Form::submit('Guardar',['class'=>'btn btn-success', 'style'=>'background-color: #179722;
-                            color: white;']) !!}
+                            color: with;']) !!}
                         </div>
                     </div>
                 </div>
@@ -168,6 +168,52 @@
       // Muestra El Mensaje De Error
     }
   });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#modal-default').on('show.bs.modal', function (event) {
+            // ... (código existente)
+
+            var modal = $(this);
+
+            // Limita el campo de Placa a 6 caracteres
+            modal.find('[name="plate"]').on('input', function() {
+                var plateInput = this.value;
+                var plateError = modal.find('#plate-error');
+
+                if (plateInput.length > 6) {
+                    this.value = plateInput.slice(0, 6);
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#modal-default').on('show.bs.modal', function (event) {
+            // ... (código existente)
+
+            var modal = $(this);
+
+            // Limita el campo de Cupos a 2 dígitos
+            modal.find('[name="quota"]').on('input', function() {
+                var quotaInput = this.value;
+                var quotaError = modal.find('#quota-error');
+
+                // Removemos cualquier caracter no numérico y limitamos la longitud a 2
+                var cleanedInput = quotaInput.replace(/\D/g, '').substring(0, 2);
+
+                // Verificamos si la entrada contiene exactamente dos números
+                if (/^\d{2}$/.test(cleanedInput)) {
+                    quotaError.text(''); // Campo válido, borra el mensaje de error
+                    this.value = cleanedInput; // Actualizamos el valor del campo
+                } else {
+                    // Muestra El Mensaje De Error
+                    quotaError.text('Ingrese 2 dígitos válidos.');
+                }
+            });
+        });
+    });
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
