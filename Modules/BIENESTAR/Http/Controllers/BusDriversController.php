@@ -13,12 +13,12 @@ class BusDriversController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function Drivers_view()
+    public function drivers()
     {   
         $busdrivers = BusDrivers::all();
-        return view('bienestar::Drivers_view',['busdrivers'=>$busdrivers]);
+        return view('bienestar::drivers',['busdrivers'=>$busdrivers]);
     }
-    public function Drivers_viewAdd(Request $request)
+    public function driversAdd(Request $request)
     {
 
         $name = $request->input('namedriver');
@@ -28,9 +28,9 @@ class BusDriversController extends Controller
         BusDrivers::create([
             'name'=>$name,
             'email'=>$email,
-            'phone'=>$phone,
+            'phone' => $phone,
         ]);
-        return redirect()->route('bienestar.Drivers_view')->with('succes','Se ha agregado con exito!!');
+        return redirect()->route('bienestar.drivers')->with('succes','Se ha agregado con exito!!');
     }
 
 
@@ -39,7 +39,7 @@ class BusDriversController extends Controller
      * Show the form for creating a new resource.
      * @return Renderable
      */
-    public function Drivers_viewUp(Request $request, $id)
+    public function driversUp(Request $request, $id)
     {
             // Validar los datos del formulario si es necesario
         
@@ -53,7 +53,7 @@ class BusDriversController extends Controller
             $benefit->save();
         
             // Redirigir o devolver una respuesta según tus necesidades
-            return redirect()->route('bienestar.Drivers_view')->with('success', 'Beneficio actualizado con éxito');
+            return redirect()->route('bienestar.drivers')->with('success', 'Beneficio actualizado con éxito');
      
     }
     public function delete(Request $request, $id)
@@ -64,14 +64,14 @@ class BusDriversController extends Controller
     
         // Verificar si el conductor existe
         if (!$busdriver) {
-            return redirect()->route('bienestar.Drivers_view')->with('error', 'El conductor no existe.');
+            return redirect()->route('bienestar.drivers')->with('error', 'El conductor no existe.');
         }
     
         // Eliminar el conductor
         $busdriver->delete();
     
         // Redirigir con un mensaje de éxito
-        return redirect()->route('bienestar.Drivers_view')->with('success', 'Conductor eliminado con éxito');
+        return redirect()->route('bienestar.drivers')->with('success', 'Conductor eliminado con éxito');
     }
     
 
