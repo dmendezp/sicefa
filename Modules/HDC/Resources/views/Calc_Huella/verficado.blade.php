@@ -18,7 +18,7 @@
                 <div class="col-auto">
                     <div class="form-group">
                         <br>
-                        <a href="{{ route('carbonfootprint.datos', $usuario->id) }}" class="btn btn-secondary">Calcular</a>
+                        <a href="{{--  {{ route('carbonfootprint.datos', $usuario->id) }}  --}}" class="btn btn-secondary">Calcular</a>
                     </div>
                 </div>
             </div>

@@ -125,7 +125,6 @@
                                 <i class="nav-icon fa-solid fa-folder-open"></i>
                                 <p>
                                     {{ trans('hdc::hdcgeneral.manageresources')}}
-                                </li>
                                 </p>
                             </a>
                         </li>

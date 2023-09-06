@@ -12,24 +12,28 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <label for="user_id">Unidades Productivas</label>
+                            <label for="product_unit">Unidades Productivas</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">
                                         <i class="fas fa-user-alt fs-10"></i> <!-- Ajusta el tamaño aquí -->
                                     </span>
                                 </div>
-                                @csrf {{-- Este token es necesario para enviar información de manera segura --}}
-                                <select class="form-select w-200" id="unit-select" aria-label="Default select example">
-                                    <option selected>Seleccione la unidad productiva</option>
-                                    @foreach ($productive_unit as $unit){{-- Consulta de las unidades productivas de sicefa --}}
-                                        <option value="{{ $unit->id }}">{{ $unit->name }}</option>
-                                    @endforeach
-                                </select>
+                                <form method="post" action="{{ route('hdc.activities') }}">
+                                    @csrf <!-- Esto es para protección CSRF en Laravel -->
+                                    <select name="product_unit" id="product_unit">
+                                        @foreach($productive_unit as $unit)
+                                            <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                                        @endforeach
+                                    </select>
 
-                                <div class="d-flex justify-content-center mt-6">
-                                    <button class="btn btn-success" id="labor-btn">Aceptar</button>
-                                </div>
+                                    <label for="activity">Selecciona una actividad:</label>
+                                    <select name="activity" id="activity">
+                                        <!-- Aquí se cargarán las actividades dinámicamente -->
+                                    </select>
+
+                                    <button type="submit">Consultar Actividades</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -38,32 +42,46 @@
             </div>
             <!-- /.card -->
         </div>
-        <div id="labor"></div>
+        <div id="actividades"></div>
     </div>
 </div>
 
+@push('scripts')
 <script>
-    function formulariolabor(){
-        $(document).ready(function () {
-            // Agregar un evento que se dispare cuando se haga clic en el botón "Aceptar".
-            $('#labor-btn').click(function () {
-                // Obtener el valor seleccionado en el select
-                var selectedUnit = $('#unit-select').val();
-                // ruta = 'http://sicefa.test:8081/hdc/Formulariolabor';  --}}
-                $.ajax({
-                    url:'/Formulariolabor', //ruta + '/' + selectedUnit, // Corregir la construcción de la URL
-                    method: 'GET',
-                    success: function (data) {
-                        // Insertar la vista cargada en el contenedor
-                        $('#labor').html(data);
-                    },
+    // Cuando se cambia la unidad productiva seleccionada
+    $(document).on("change", "#product_unit", function() {
+        var unitId = $(this).val(); // Obtener el ID de la unidad productiva seleccionada
+        var requestData = { unit_id: unitId };
+
+        // Realizar una petición AJAX para obtener las actividades relacionadas
+        $.ajax({
+            type: "POST",
+            url: '/hdc/get-activities/', // Usar la ruta nombrada en Laravel
+            data: requestData,
+            dataType: "json",
+            success: function(response) {
+                var activitySelect = $("#activity");
+                activitySelect.empty(); // Limpiar el select de actividades
+
+                // Llenar el select de actividades con las actividades recibidas
+                $.each(response.activities, function(key, activity) {
+                    activitySelect.append(
+                        $("<option>", {
+                            value: activity.id,
+                            text: activity.name
+                        })
+                    );
                 });
-            });
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.error("Error en la solicitud AJAX: " + errorThrown);
+            }
         });
-
-
-
-    }
+    });
 </script>
+@endpush
 
 @endsection
+
+
+

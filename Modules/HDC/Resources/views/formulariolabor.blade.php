@@ -1,10 +1,3 @@
-@extends('hdc::layouts.master')
-
-@push('breadcrumbs')
-    <li class="breadcrumb-item active">Formulario Labor</li>
-@endpush
-
-@section('content')
 <div class="content">
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -36,7 +29,6 @@
             </div>
             <!-- /.card -->
         </div>
-        <div id="respuesta"></div>
     </div>
 </div>
-@endsection
+

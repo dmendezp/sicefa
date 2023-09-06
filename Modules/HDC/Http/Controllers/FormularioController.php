@@ -5,8 +5,6 @@ namespace Modules\HDC\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\Activity;
-use Modules\SICA\Entities\Labor;
 use Modules\SICA\Entities\ProductiveUnit;
 
 class FormularioController extends Controller
@@ -27,6 +25,16 @@ class FormularioController extends Controller
     public function formulariolabor(){
         return view('hdc::formulariolabor');
 
+    }
+
+    public function getActivities(Request $request)
+    {
+    $unitId = $request->input('product_unit'); // Obtener el ID de la unidad productiva seleccionada
+
+    // Obtener las actividades relacionadas con la unidad productiva
+    $activities = ProductiveUnit::findOrFail($unitId)->activities;
+
+    return response()->json(['activities' => $activities]);
     }
 
     /**
