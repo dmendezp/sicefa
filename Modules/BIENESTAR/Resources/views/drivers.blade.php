@@ -11,76 +11,33 @@
             <!-- /.card-header -->
             <div class="card-body">
                 <div class="row mb-3">
-                    <div class="col-md-12">                
-                            <form action="{{ route('bienestar.drivers.add') }}" method="POST" onsubmit="return validarFormulario()">
-    @csrf
-    <div class="form-row"><div class="col-md-3 mb-2">
-    <input type="text" placeholder="Conductor" class="form-control" name="namedriver" id="namedriver" required oninput="validarNombre()">
+                    <div class="col-md-12">
+                        <form action="{{ route('bienestar.drivers.add') }}" method="POST" onsubmit="return validarFormulario()">
+                            @csrf
+                            <div class="form-row">
+                                <div class="col-md-3 mb-2">
+                                    <input type="text" placeholder="Conductor" class="form-control" name="namedriver" id="namedriver" required oninput="validarNombre()">
 
-    <span id="nombreError" style="color: red;"></span>
-</div>
-<div class="col-md-3 mb-2">
-<input type="text" placeholder="Email" class="form-control" name="email" id="email" onblur="validarEmail()" required>
+                                    <span id="nombreError" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <input type="text" placeholder="Email" class="form-control" name="email" id="email" onblur="validarEmail()" required>
 
-    <span id="emailError" style="color: red;"></span>
-</div>
-<div class="col-md-3 mb-2">
-<input type="number" placeholder="Telefono" class="form-control" name="phone" id="phone" onblur="validarTelefono()" required>
+                                    <span id="emailError" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <input type="number" placeholder="Telefono" class="form-control" name="phone" id="phone" onblur="validarTelefono()" required>
 
-    <span id="telefonoError" style="color: red;"></span>
-</div>
-        <div class="col-md-3 mb-2">
-            <button type="submit" class="btn btn-success btn-block">Guardar</button>
-        </div>
-    </div>
-</form>
-
-<script>
-    function validarNombre() {
-        var nombre = document.getElementById("namedriver").value;
-        var regex = /^[A-Za-z]+$/; // Expresión regular para permitir solo letras
-
-        if (!regex.test(nombre)) {
-            alert("El campo 'Conductor' debe contener solo letras.");
-            document.getElementById("namedriver").value = ""; // Limpiar el campo
-        }
-    }
-
-    function validarFormulario() {
-        // Agregar aquí más validaciones si es necesario
-        return validarTelefono(); // Devuelve true o false para permitir o prevenir el envío del formulario
-    }
-</script>
-<script>
-    function validarEmail() {
-        var email = document.getElementById("email").value;
-        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; // Expresión regular para verificar una dirección de correo válida
-
-        if (!emailPattern.test(email)) {
-            alert("Ingrese una dirección de correo electrónico válida.");
-            document.getElementById("email").value = ""; // Limpiar el campo
-        }
-    }
-</script>
-
-<script>
-    function validarTelefono() {
-        var telefono = document.getElementById("phone").value;
-
-        // Eliminar cualquier espacio en blanco del número
-        telefono = telefono.replace(/\s/g, '');
-
-        // Verificar si el número tiene exactamente 10 caracteres numéricos
-        if (telefono.length !== 10 || isNaN(telefono)) {
-            alert("El número de teléfono debe tener exactamente 10 caracteres numéricos.");
-            document.getElementById("phone").value = ""; // Limpiar el campo
-        }
-    }
-</script>
+                                    <span id="telefonoError" style="color: red;"></span>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <button type="submit" class="btn btn-success btn-block">Guardar</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
-            
+
                 <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
@@ -99,9 +56,10 @@
                                     <td>{{ $busdriver->email }}</td>
                                     <td>{{ $busdriver->phone }}</td>
                                     <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-info" data-toggle="modal" data-target="#modal-edit-{{ $busdriver->id }}">Editar</button>
-                                            <button class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $busdriver->id }}">Eliminar</button>
+                                        
+                                    <div class="btn-group">
+                                            <button class="btn btn-info" data-toggle="modal" data-target="#modal-edit-{{ $busdriver->id }}"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $busdriver->id }}"><i class="fas fa-trash-alt"></i></button>
                                         </div>
                                     </td>
                                 </tr>
