@@ -48,13 +48,15 @@ class Postulations extends Model implements Auditable
         return $this->hasMany(PostulationsBenefits::class);
     }
 
+    public function socioeconomicsupportfiles(){// Accede a los datos del archivo de soporte al que pertenece
+        return $this->hasMany(SocioEconomicSupportFiles::class);
+    }
+
     public function typeOfBenefit(){// Accede a los datos del tipo de beneficiario al que pertenece
         return $this->belongsTo(TypesOfBenefits::class);
     }
 
-    public function socioeconomicsupportfiles(){// Accede a los datos del beneficio que tiene la postulacion al que pertenece
-        return $this->hasMany(SocioEconomicSupportFiles::class);
-    }
+    
 
     
 }

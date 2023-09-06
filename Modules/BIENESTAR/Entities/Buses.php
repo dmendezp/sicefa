@@ -24,6 +24,8 @@ class Buses extends Model implements Auditable
         
     ];
 
+    //RELACIONES
+
     public function bus_driver(){// Accede a todos los conductores que pertenecen a este bus
     	return $this->belongsTo(BusDrivers::class);
     }

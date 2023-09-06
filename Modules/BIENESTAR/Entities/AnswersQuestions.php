@@ -30,7 +30,7 @@ class AnswersQuestions extends Model implements Auditable
 
     //RELACIONES
 
-    public function question(){// Accede a todas las labores que pertenecen a esta actividad
+    public function question(){// Accede a todas las preguntas que pertenecen a esta respuesta de la pregunta
         return $this->belongsTo(Questions::class);
     }
 }

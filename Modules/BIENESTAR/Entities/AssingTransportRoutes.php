@@ -33,13 +33,15 @@ class AssingTransportRoutes extends Model implements Auditable
         return $this->belongsTo(\Modules\SICA\Entities\Apprentice::class, 'apprentice_id');
     }
 
+    public function convocations(){// Accede a todas las convocatorias que pertenecen a esta asignacion            
+    	return $this->belongsTo(Convocations::class);
+    }
+
     public function routes_trasportantion(){// Accede a todas las rutas que pertenecen a esta asignacion            
     	return $this->belongsTo(RoutesTransportations::class);
     }
 
-    public function convocations(){// Accede a todas las convocatorias que pertenecen a esta asignacion            
-    	return $this->belongsTo(Convocations::class);
-    }
+    
 
     
 }

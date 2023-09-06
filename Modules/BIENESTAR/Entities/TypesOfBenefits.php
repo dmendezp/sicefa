@@ -28,11 +28,15 @@ class TypesOfBenefits extends Model implements Auditable
         return \Modules\BIENESTAR\Database\factories\TypesOfBenefitsFactory::new();
     }
 
-    public function postulation(){// Accede a los datos de la postulacion al que pertenece
-        return $this->hasMany(Postulations::class, );
-    }
+
+    //RELACIONES
 
     public function benefitstypesofbenefits(){// Accede a los datos del beneficiario y el beneficio al que pertenece
         return $this->hasMany(BenefitsTypesOfBenefits::class);
     }
+    public function postulation(){// Accede a los datos de la postulacion al que pertenece
+        return $this->hasMany(Postulations::class, );
+    }
+
+    
 }

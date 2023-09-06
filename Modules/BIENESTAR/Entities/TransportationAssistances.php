@@ -37,10 +37,6 @@ class TransportationAssistances extends Model implements Auditable
 
     //RELACIONES
 
-    public function routes_trasportantion(){// Accede a todas las rutas que pertenecen a esta asistencia
-    	return $this->belongsTo(RoutesTransportations::class);
-    }
-
     public function apprentice(){// Accede a los datos del aprendiz al que pertenece
         return $this->belongsTo(\Modules\SICA\Entities\Apprentice::class, 'apprentice_id');
     }
@@ -58,4 +54,9 @@ class TransportationAssistances extends Model implements Auditable
     }
 
 
+    public function routes_trasportantion(){// Accede a todas las rutas que pertenecen a esta asistencia
+    	return $this->belongsTo(RoutesTransportations::class);
+    }
+
+    
 }

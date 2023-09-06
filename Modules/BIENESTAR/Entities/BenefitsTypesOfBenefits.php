@@ -29,6 +29,10 @@ class BenefitsTypesOfBenefits extends Model implements Auditable
     {
         return \Modules\BIENESTAR\Database\factories\BenefitsTypesOfBenefitsFactory::new();
     }
+
+    //RELACIONES
+
+    
     public function benefit(){// Accede a los datos del beneficio al que pertenece
         return $this->belongsToMany(Benefits::class);
     }

@@ -29,6 +29,12 @@ class PostulationsBenefits extends Model implements Auditable
         return \Modules\BIENESTAR\Database\factories\PostulationsBenefitsFactory::new();
     }
 
+    //RELACIONES
+    
+     public function assistancesfoods(){// Accede a todas las asistencias de alimentacion que pertenecen 
+    	return $this->hasMany(AssistancesFoods::class);
+    }
+
     public function benefit(){// Accede a los datos del beneficio al que pertenece
         return $this->belongsToMany(Benefits::class);
     }
@@ -37,14 +43,11 @@ class PostulationsBenefits extends Model implements Auditable
         return $this->belongsToMany(Postulations::class);
     }
 
-    public function transportationassistances(){// Accede a todas las asistencias que pertenecen a este Bus
+    public function transportationassistances(){// Accede a todas las asistencias que pertenecen 
     	return $this->hasMany(TransportationAssistances::class);
     }
 
-    public function assistancesfoods(){// Accede a todas las asistencias que pertenecen a este Bus
-    	return $this->hasMany(AssistancesFoods::class);
-    }
-
+   
 
     
 

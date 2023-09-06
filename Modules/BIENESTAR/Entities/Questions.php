@@ -31,19 +31,19 @@ class Questions extends Model implements Auditable
 
     //RELACIONES
 
-    public function answers(){
+    public function answers(){// Accede a los datos de la respuesta al que pertenece
         return $this->hasMany(Answers::class);
     }
 
-    
+    public function answersquestions(){// Accede a los datos de la respuesta a la pregunta al que pertenece
+        return $this->hasMany(AnswersQuestions::class);
+    }
 
-    public function convocationsquestions(){
+    public function convocationsquestions(){// Accede a los datos de la pregunta a la convocatoria al que pertenece
         return $this->hasMany(ConvocationQuestion::class);
     }
 
-    public function answersquestions(){
-        return $this->hasMany(AnswersQuestions::class);
-    }
+    
 
     
 }
