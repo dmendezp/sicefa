@@ -62,14 +62,14 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Andres Almario** - *Diseñar la vista de movimientos* - *Avance %* - *Dificultades* - *Acciones*
 * **Dayana Valenzuela** - *Crear controlador para inventario, ruta y funciones de prueba* - *Avance %* - *Dificultades* - *Acciones*
 * **Laura Vanessa** - *Ruta y diseño de vista de desarrolladores* - *Avance %* - *Dificultades* - *Acciones*
-* **Yuderly Sapuy** - *Pendiente* - *Avance %* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Creacion de archivo de vista para el usuario acerca de AGROCEFA Y ruta  para retornar a la vista* - *30 %* - *N/A* - *N/A*
 ---
 
 #### Meet 03-Sep-2023
 * **Andres Almario** - *Formulario de entrada y salida con tabla dinamica de productos, filtro para respondable y bodegas* - *Avance 100%* - *Dificultades* - *Acciones*
 * **Dayana Valenzuela** - *Implementacion para filtrar los elementos por categoria teniendo en cuenta la bodega* - *Avance 70%* - *Complicaciones con las consultas* - *Buscar soluciones al problema*
 * **Laura Vanessa** - *Creacion de tarjetas para los desarrolladores* - *Avance %* - *Dificultades* - *Acciones*
-* **Yuderly Sapuy** - *Pendiente* - *Avance %* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - ** - *Avance en el crud Cultivo %* - *Dificultades* - *Acciones*
 ---
 
 #### Meet 04-Sep-2023
