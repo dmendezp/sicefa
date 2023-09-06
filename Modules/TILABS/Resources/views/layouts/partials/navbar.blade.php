@@ -5,12 +5,12 @@
               <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
           </li>
           <li class="nav-item mx-2 d-none d-sm-inline-block {{ !Route::is('*cefa.tilabs.*') ?: 'active' }}">
-              <a href="{{ route('cefa.tilabs.index') }}" class="nav-link">Inicio</a>
+              <a href="{{ route('cefa.tilabs.index') }}" class="nav-link">{{ trans('tilabs::general.Home') }}</a>
           </li>
           @guest
           @else
               <li class="nav-item d-none d-sm-inline-block {{ !Route::is('*admin.*') ?: 'active' }}">
-                  <a href="{{ route('tilabs.admin.dashboard') }}" class="nav-link">Administrador</a>
+                  <a href="{{ route('tilabs.admin.dashboard') }}" class="nav-link">{{ trans('tilabs::general.admin') }}</a>
               </li>
           @endguest
       </ul>
@@ -53,7 +53,7 @@
           </li>
           <li class="nav-item mx-1">
               <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip"
-                  data-bs-placement="bottom" data-bs-title="{{ trans('ptventa::general.Full Screen Mode') }}">
+                  data-bs-placement="bottom" data-bs-title="{{ trans('tilabs::general.Full Screen Mode') }}">
                   <i class="fas fa-expand-arrows-alt"></i>
               </a>
           </li>
@@ -62,7 +62,7 @@
               <div class="nav-item dropdown mx-1">
                   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
                       data-bs-toggle="tooltip" data-bs-placement="left"
-                      data-bs-title="Internacionalización">
+                      data-bs-title="{{ trans('tilabs::general.Language') }}">
                       <i class="fas fa-globe-americas"></i> {{ session('lang') }}
                   </button>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -70,13 +70,13 @@
                       <li>
                           <a href="{{ url('lang', ['en']) }}" class="dropdown-item">
                               <img src="{{ asset('modules/tilabs/images/flags/estados-unidos.webp') }}" alt="">
-                              Inglés
+                              {{ trans('tilabs::general.English') }}
                           </a>
                       </li>
                       <li>
                           <a href="{{ url('lang', ['es']) }}" class="dropdown-item">
                               <img src="{{ asset('modules/tilabs/images/flags/colombia.webp') }}" alt="">
-                              Español
+                              {{ trans('tilabs::general.Spanish') }}
                           </a>
                       </li>
                   </ul>

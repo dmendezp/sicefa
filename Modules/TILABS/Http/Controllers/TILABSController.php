@@ -11,7 +11,7 @@ class TILABSController extends Controller
 
     public function index()
     {        
-        $view = ['titlePage' => 'Inicio', 'titleView' => 'Principal'];
+        $view = ['titlePage' => trans('tilabs::controllers.TILABS_index_title_page'), 'titleView' => trans('tilabs::controllers.TILABS_index_title_view')];
         return view('tilabs::index',compact('view'));
     }
 

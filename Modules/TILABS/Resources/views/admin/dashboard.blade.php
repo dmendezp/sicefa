@@ -11,20 +11,21 @@
                     <div class="jumbotron">
                         <h1 class="display-4">TI-LABS</h1>
                         <p class="lead">
-                            Sistema de prestamo de equipos y herramientas para ambientes TIC y Laboratorios.
+                            {{ trans('tilabs::mainPage.Text_Welcome') }}
                         </p>
                         <hr class="my-4">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5><i class="fas fa-dolly-flatbed"></i> Solicitudes traspaso:</h4>
+                                        <h5><i class="fas fa-dolly-flatbed"></i>
+                                            {{ trans('tilabs::mainPage.Title_Transfer_Requests') }}</h4>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h4>0</h4>
-                                                            <p>Entrada</p>
+                                                            <p>{{ trans('tilabs::mainPage.Text_Entry') }}</p>
                                                         </div>
                                                         <div class="icon">
                                                             <i class="fas fa-sign-in-alt"></i>
@@ -35,7 +36,7 @@
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h4>0</h4>
-                                                            <p>Salida</p>
+                                                            <p>{{ trans('tilabs::mainPage.Text_Exit') }}</p>
                                                         </div>
                                                         <div class="icon">
                                                             <i class="fas fa-sign-out-alt"></i>
@@ -49,13 +50,13 @@
                             <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5><i class="fas fa-clipboard-list"></i> Registros:</h5>
+                                        <h5><i class="fas fa-clipboard-list"></i> {{ trans('tilabs::mainPage.Title_Registers') }}</h5>
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="small-box bg-info">
                                                     <div class="inner">
                                                         <h4>6</h4>
-                                                        <p>Laboratorios</p>
+                                                        <p>{{ trans('tilabs::mainPage.Laboratories') }}</p>
                                                     </div>
                                                     <div class="icon">
                                                         <i class="fas fa-school"></i>
@@ -66,7 +67,7 @@
                                                 <div class="small-box bg-info">
                                                     <div class="inner">
                                                         <h4>89</h4>
-                                                        <p>Equipos</p>
+                                                        <p>{{ trans('tilabs::mainPage.Computers') }}</p>
                                                     </div>
                                                     <div class="icon">
                                                         <i class="fas fa-laptop"></i>
@@ -79,7 +80,7 @@
                                                 <div class="small-box bg-info">
                                                     <div class="inner">
                                                         <h4>30</h4>
-                                                        <p>Préstamos</p>
+                                                        <p>{{ trans('tilabs::mainPage.Loans') }}</p>
                                                     </div>
                                                     <div class="icon">
                                                         <i class="fas fa-share"></i>
@@ -90,7 +91,7 @@
                                                 <div class="small-box bg-info">
                                                     <div class="inner">
                                                         <h4>2</h4>
-                                                        <p>Vencidos</p>
+                                                        <p>{{ trans('tilabs::mainPage.Overdue') }}</p>
                                                     </div>
                                                     <div class="icon">
                                                         <i class="fas fa-hourglass-end"></i>

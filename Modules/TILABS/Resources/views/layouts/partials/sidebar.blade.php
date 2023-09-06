@@ -18,10 +18,10 @@
             </div>
             @guest
                 <div class="col info info-user">
-                    <a href="{{ route('login') }}" class="d-block custom-color" style="text-decoration: none">Iniciar Sesión</a>
+                    <a href="{{ route('login') }}" class="d-block custom-color" style="text-decoration: none">{{ trans('tilabs::general.Log In') }}</a>
                 </div>
                 <div class="col-auto info float-right ">
-                    <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Ingresar">
+                    <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={{ trans('tilabs::general.InSession') }}>
                         <i class="fas fa-sign-in-alt"></i>
                     </a>
                 </div>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="col-auto info float-right mt-2">
-                    <a href="{{ route('logout') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Cerrar Sesion" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="{{ route('logout') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={{ trans('tilabs::general.ExitSession') }} onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 </div>
@@ -52,7 +52,7 @@
                         <a href="{{ route('cefa.welcome') }}" class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
                             <i class="nav-icon fas fa-puzzle-piece"></i>
                             <p>
-                                Volver a SICEFA
+                                {{ trans('tilabs::general.Back to SICEFA') }}
                             </p>
                         </a>
                     </li>
@@ -67,7 +67,7 @@
                     <a href="{{ route('cefa.tilabs.index') }}" class="nav-link {{ !Route::is('cefa.tilabs.index') ?: 'active' }}">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
-                            Home
+                            {{ trans('tilabs::general.Home') }}
                         </p>
                     </a>
                 </li>
@@ -77,7 +77,7 @@
                         <a href="{{ route('tilabs.admin.dashboard') }}" class="nav-link {{ !Route::is('tilabs.admin.dashboard') ?: 'active' }}">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                Panel Principal
+                                {{ trans('tilabs::general.dashboard') }}
                             </p>
                         </a>
                     </li>
@@ -85,7 +85,7 @@
                         <a href="{{ route('tilabs.admin.labs') }}" class="nav-link {{ !Route::is('tilabs.admin.labs') ?: 'active' }}">
                             <i class="nav-icon fas fa-school"></i>
                             <p>
-                                Laboratorios
+                                {{ trans('tilabs::general.Labs') }}
                             </p>
                         </a>
                     </li>
@@ -93,7 +93,7 @@
                         <a href="{{ route('tilabs.admin.inventory') }}" class="nav-link {{ !Route::is('tilabs.admin.inventory') ?: 'active' }}">
                             <i class="nav-icon fas fa-clipboard-list"></i>
                             <p>
-                                Inventario
+                                {{ trans('tilabs::general.Inventory') }}
                             </p>
                         </a>
                     </li>
@@ -101,7 +101,7 @@
                         <a href="{{ route('tilabs.admin.loan') }}" class="nav-link {{ !Route::is('tilabs.admin.loan') ?: 'active' }}">
                             <i class="nav-icon fas fa-share"></i>
                             <p>
-                                Préstamo
+                                {{ trans('tilabs::general.Loan') }}
                             </p>
                         </a>
                     </li>
@@ -109,7 +109,7 @@
                         <a href="{{ route('tilabs.admin.return') }}" class="nav-link {{ !Route::is('tilabs.admin.return') ?: 'active' }}">
                             <i class="nav-icon fas fa-reply"></i>
                             <p>
-                                Devolución
+                                {{ trans('tilabs::general.Return') }}
                             </p>
                         </a>
                     </li>
@@ -117,7 +117,7 @@
                         <a href="{{ route('tilabs.admin.transactions') }}" class="nav-link {{ !Route::is('tilabs.admin.transactions') ?: 'active' }}">
                             <i class="nav-icon fas fa-dolly-flatbed"></i>
                             <p>
-                                Movimientos
+                                {{ trans('tilabs::general.Movement') }}
                             </p>
                         </a>
                     </li>
@@ -126,7 +126,7 @@
                     <a href="{{ route('cefa.tilabs.developers') }}" class="nav-link {{ !Route::is('cefa.tilabs.developers') ?: 'active' }}">
                         <i class="nav-icon fa-solid fa-code"></i>
                         <p>
-                            Desarrolladores
+                            {{ trans('tilabs::general.Developers') }}
                         </p>
                     </a>
                 </li>
@@ -134,7 +134,7 @@
                     <a href="{{ route('cefa.tilabs.about') }}" class="nav-link {{ !Route::is('cefa.tilabs.about') ?: 'active' }}">
                         <i class="nav-icon fa-solid fa-info"></i>
                         <p>
-                            Acerca de
+                            {{ trans('tilabs::general.About us') }}
                         </p>
                     </a>
                 </li>
