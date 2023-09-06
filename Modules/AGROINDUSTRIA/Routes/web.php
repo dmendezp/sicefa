@@ -37,14 +37,8 @@ Route::prefix('agroindustria')->group(function() {
     //intern
     Route::prefix('storer')->group(function (){
         Route::get('/index', [WarehouseController::class ,'index'])->name('agroindustria.storer.index');
-        Route::get('/epp_inventory', [WarehouseController::class ,'epp_inventory'])->name('agroindustria.storer.epp_inventory');
-        Route::get('/input_inventory', [WarehouseController::class ,'input_inventory'])->name('agroindustria.storer.input_inventory');
-        Route::get('/cleaning_inventory', [WarehouseController::class ,'cleaning_inventory'])->name('agroindustria.storer.cleaning_inventory');
-        Route::get('/packages_inventory', [WarehouseController::class ,'packages_inventory'])->name('agroindustria.storer.packages_inventory');
-        Route::delete('/input_inventory/delete', [WarehouseController::class ,'input_inventoryDelete'])->name('agroindustria.storer.delete');
-        Route::get('/create', [WarehouseController::class ,'create']);
-
-
+        Route::get('/inventory', [WarehouseController::class ,'Inventory'])->name('agroindustria.storer.inventory');
+       
     });
 
 

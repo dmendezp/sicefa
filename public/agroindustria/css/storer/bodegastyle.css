@@ -1,57 +1,14 @@
-
-  /* ASEO */
-  .card{
-    margin-left: 150px;
-      width: 1200px; /* Ancho */
-      height: 200px; /* Alto */
-  }
-
-#create{
-  background-color: #187444;
-  width: 150px;
-  height: 40px;
-border-radius: 6px;
-  margin-left: 1000px;
-}
 #edit{
-  width: 150px;
-  height: 40px;
+    width: 125px;/* ancho */
+    height: 30px;/* altura */
 }
+
 #delete{
-  width: 150px;
-  height: 40px;
-}
-#close
-{width: 150px;
-  height: 40px;
-background-color: brown;}
-#keep
-{width: 150px;
-  height: 40px;}
-
-/* modal styles */
-/* Estilos para el modal */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
+    width: 125px;/* ancho */
+    height: 30px;/* altura */
 }
 
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  max-width: 100%;
-  text-align: center;
-}
-.modal-content {
-  background-color: white; /* Cambiar el color de fondo del modal */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Agregar una sombra al modal */
+.card{
+    width: 1200px;/* ancho */
+    height: 800px;/* altura */
 }

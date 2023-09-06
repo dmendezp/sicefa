@@ -37,26 +37,9 @@
             </li>
             @endif
             @if(Auth::user()->havePermission('agroindustria.storer.crud'))
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Bodegas
-                </button>
-                <ul class="dropdown-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.storer.packages_inventory')}}">Inventario Envases</a>
+                        <a class="nav-link" href="{{route('agroindustria.storer.inventory')}}">Inventario</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.storer.epp_inventory')}}">Inventario Epp</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.storer.input_inventory')}}">Inventario Insumos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.storer.cleaning_inventory')}}">Inventario Aseo</a>
-                    </li>
-                </ul>
-              </div>
-            
             @endif
 
             @endauth
