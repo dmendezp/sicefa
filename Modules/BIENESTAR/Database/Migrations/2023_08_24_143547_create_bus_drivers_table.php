@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class CreateBusDriversTable extends Migration
 {
@@ -18,7 +20,7 @@ class CreateBusDriversTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-
+            $table->SoftDeletes();
             $table->timestamps();
 
         });

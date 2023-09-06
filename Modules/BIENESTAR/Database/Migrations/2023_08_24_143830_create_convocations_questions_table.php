@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateConvocationsQuestionsTable extends Migration
@@ -20,6 +21,7 @@ class CreateConvocationsQuestionsTable extends Migration
             $table->timestamps();
             $table->foreign('convocation_id')->references('id')->on('convocations');
             $table->foreign('questions_id')->references('id')->on('questions');
+            $table->SoftDeletes();
         });
     }
 

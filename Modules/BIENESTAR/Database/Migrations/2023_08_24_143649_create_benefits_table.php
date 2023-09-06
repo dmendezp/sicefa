@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class CreateBenefitsTable extends Migration
 {
@@ -17,6 +19,7 @@ class CreateBenefitsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('porcentege');
+            $table->SoftDeletes();
             $table->timestamps();
         });
     }

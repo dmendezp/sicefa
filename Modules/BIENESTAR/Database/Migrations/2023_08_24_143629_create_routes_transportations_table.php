@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class CreateRoutesTransportationsTable extends Migration
 {
@@ -23,6 +25,7 @@ class CreateRoutesTransportationsTable extends Migration
             $table->unsignedBigInteger('bus_id');
             $table->timestamps();
             $table->foreign('bus_id')->references('id')->on('buses');
+            $table->SoftDeletes();
         });
     }
 

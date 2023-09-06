@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CreateAssistancesFoodsTable extends Migration
 {
@@ -23,7 +24,7 @@ class CreateAssistancesFoodsTable extends Migration
             $table->timestamps();
             $table->foreign('apprentice_id')->references('id')->on('apprentices');
             $table->foreign('postulation_benefit_id')->references('id')->on('postulations_benefits');
-           
+            $table->SoftDeletes();
         });
     }
 
