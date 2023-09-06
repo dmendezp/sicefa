@@ -10,7 +10,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Buses extends Model implements Auditable
 {
-    use SoftDeletes;
+    use \OwenIt\Auditing\Auditable,
+    SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];
 
