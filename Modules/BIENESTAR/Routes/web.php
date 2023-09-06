@@ -83,10 +83,11 @@ Route::prefix('/bienestar')->group(function() {
     Route::get('/LisRutas', 'RoutesTransportationsController@LisRutas')->name('bienestar.LisRutas');
 
     // vista de conductores
-    Route::get('/Drivers_view', 'BusDriversController@Drivers_view')->name('bienestar.Drivers_view');
-    Route::post('/Drivers_view/add', 'BusDriversController@Drivers_viewAdd')->name('bienestar.Driversw.add');
-    Route::put('/Drivers_view/update/{id}', 'BusDriversController@Drivers_viewUp')->name('bienestar.Drivers.update');
-    Route::delete('/Drivers_view/delete/{id}', 'BusDriversController@delete')->name('bienestar.Drivers.delete');
+    Route::get('/drivers', 'BusDriversController@drivers')->name('bienestar.drivers');
+    Route::post('/drivers/add', 'BusDriversController@driversAdd')->name('bienestar.drivers.add');
+    Route::put('/drivers/update/{id}', 'BusDriversController@driversUp')->name('bienestar.drivers.update');
+    Route::delete('/drivers/delete/{id}', 'BusDriversController@delete')->name('bienestar.drivers.delete');
+    
 
     // vista de gestiones de convocatorias
     Route::get('/Convocations', 'ConvocationsController@index')->name('bienestar.Convocations');
