@@ -96,18 +96,26 @@
                 {!! Form::open(['url' => 'bienestar/buses/update/id', 'method' => 'PUT', 'role' =>
                 'form']) !!}
                 <div class="row p-4">
-                    <div class="col-md-3">
+                    <div class="col-md-12">
+                        <label for="plate">placa:</label>
+                        <div class="form-group">
                         {!! Form::text('plate', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la placa',
                         'required']) !!}
+                </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-12">
+                    <label for="bus_driver">conductor:</label>
+                        <div class="form-group">
                         {!! Form::select('bus_driver', $busDrivers, null, ['class' => 'form-control','required', 'id' =>
                         'bus_driver_select']) !!}
+                </div>
                     </div>
-                    <div class="col-md-3">
-                        {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos',
-                        'required']) !!}
-                    </div>
+                   <div class="col-md-12">
+    <label for="quota">cupos:</label>
+    <div class="form-group">
+        {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required', 'oninput' => "this.value = this.value.slice(0, 2).replace(/[^0-9]/g, '')"]) !!}
+    </div>
+</div>
                     <div class="col-md-2">
                         <div class="btns">
                             {!! Form::submit('Actualizar',['class'=>'btn btn-success']) !!}

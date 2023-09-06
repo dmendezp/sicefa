@@ -30,6 +30,12 @@ class BusesController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'plate' => 'required|regex:^[A-Za-z]{0,4}{0,9}{0,2}',
+            'quota' => 'required|numeric',
+            'bus_driver' => 'required|exists:bus_drivers,id', // Asegura que bus_driver exista en la tabla bus_drivers
+        ]);
+
         $buses = new Buses;
         $buses->plate = $request->input('plate');
         $buses->quota = $request->input('quota');
@@ -49,6 +55,12 @@ class BusesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'plate' => 'required|regex:^[A-Za-z]{0,4}{0,9}{0,2}',
+            'quota' => 'required|numeric',
+            'bus_driver' => 'required|exists:bus_drivers,id', // Asegura que bus_driver exista en la tabla bus_drivers
+        ]);
+        
         $buses = Buses::findOrFail($id);
         $buses->plate = $request->input('plate');
         $buses->quota = $request->input('quota');
