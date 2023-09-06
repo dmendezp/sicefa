@@ -79,7 +79,7 @@
                     <a href="{{ route('cefa.index') }}" class="nav-link {{ !Route::is('cefa.index') ?: 'active' }}">
                         <i class="fas fa-home"></i>
                         <p>
-                            Inicio
+                            {{ trans('senaempresa::menu.Home') }}
                         </p>
                     </a>
                 </li>
@@ -125,7 +125,7 @@
                                 class="nav-link {{ !Route::is('senaempresa') ?: 'active' }}">
                                 <i class="fas fa-chess-rook"></i>
                                 <p>
-                                    Estrategias
+                                    {{ trans('senaempresa::menu.Strategies') }}
                                 </p>
                             </a>
                         </li>
@@ -133,7 +133,7 @@
                             <a href="{{ route('cefa.mostrar_asociados_senaempresa') }}"
                                 class="nav-link {{ !Route::is('cefa.mostrar_asociados_senaempresa') ?: 'active' }}">
                                 <i class="fas fa-file-invoice"></i>
-                                <p>Curso-SenaEmpresa</p>
+                                <p>{{ trans('senaempresa::menu.Courses SenaEmpresa') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -141,7 +141,7 @@
                                 class="nav-link {{ !Route::is('cefa.personal') ?: 'active' }}">
                                 <i class="fas fa-users-cog"></i>
                                 <p>
-                                    Personal
+                                    {{ trans('senaempresa::menu.Staff') }}
                                 </p>
                             </a>
                         </li>
@@ -152,7 +152,7 @@
                 <li class="nav-item {{ !Route::is('vacant.*') ?: 'menu-is-opening menu-open' }}">
                     <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
                         <i class="fas fa-id-card"></i>
-                        <p>Vacantes
+                        <p>{{ trans('senaempresa::menu.Vacancies') }}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -161,21 +161,21 @@
                             <a href="{{ route('cefa.vacantes') }}"
                                 class="nav-link {{ !Route::is('cefa.vacantes') ?: 'active' }}">
                                 <i class="fas fa-user-tag"></i>
-                                <p>Disponibles</p>
+                                <p>{{ trans('senaempresa::menu.Availables') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('cefa.cargos') }}"
                                 class="nav-link {{ !Route::is('cefa.cargos') ?: 'active' }}">
                                 <i class="fas fa-user-plus"></i>
-                                <p>Cargos</p>
+                                <p>{{ trans('senaempresa::menu.Positions') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('cefa.mostrar_asociados') }}"
                                 class="nav-link {{ !Route::is('cefa.mostrar_asociados') ?: 'active' }}">
                                 <i class="fas fa-file-invoice"></i>
-                                <p>Curso-Vacantes</p>
+                                <p>{{ trans('senaempresa::menu.Courses Vacancies') }}</p>
                             </a>
                         </li>
 
@@ -184,7 +184,7 @@
                 <li class="nav-item {{ !Route::is('entrevistas.*') ?: 'menu-is-opening menu-open' }}">
                     <a href="#" class="nav-link {{ !Route::is('entrevistas.*') ?: 'active' }}">
                         <i class="fas fa-vote-yea"></i>
-                        <p>Postulados
+                        <p>{{ trans('senaempresa::menu.Postulates') }}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -193,14 +193,14 @@
                             <a href="{{ route('cefa.Postulados') }}"
                                 class="nav-link {{ !Route::is('cefa.Postulados') ?: 'active' }}">
                                 <i class="fas fa-address-card"></i>
-                                <p>Postulados</p>
+                                <p>{{ trans('senaempresa::menu.Postulates') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('cefa.seleccionados') }}"
                                 class="nav-link {{ !Route::is('cefa.seleccionados') ?: 'active' }}">
                                 <i class="fas fa-check-double"></i>
-                                <p>Seleccionados</p>
+                                <p>{{ trans('senaempresa::menu.Selected') }}</p>
                             </a>
                         </li>
                     </ul>
@@ -208,7 +208,7 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-tags"></i>
-                        <p>Prestamos
+                        <p>{{ trans('senaempresa::menu.Loans') }}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -217,7 +217,7 @@
                             <a href="{{ route('cefa.Nuevo') }}"
                                 class="nav-link {{ !Route::is('cefa.Nuevo') ?: 'active' }}">
                                 <i class="fas fa-external-link-alt"></i>
-                                <p>Nuevo</p>
+                                <p>{{ trans('senaempresa::menu.New') }}</p>
                             </a>
                         </li>
 
@@ -225,7 +225,7 @@
                             <a href="{{ route('cefa.prestamos') }}"
                                 class="nav-link {{ !Route::is('cefa.prestamos') ?: 'active' }}">
                                 <i class="fas fa-poll"></i>
-                                <p>Registrados</p>
+                                <p>{{ trans('senaempresa::menu.Registrants') }}</p>
                             </a>
                         </li>
                     </ul>

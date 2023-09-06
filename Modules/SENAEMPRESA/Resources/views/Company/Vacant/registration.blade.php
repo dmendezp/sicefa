@@ -42,14 +42,13 @@
                                         placeholder="Requisitos">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="position_company_id" class="form-label">Id Cargo</label>
+                                    <label for="position_company_id" class="form-label">Cargo</label>
                                     <select class="form-control" name="position_company_id"
                                         aria-label="Selecciona un Cargo">
                                         <option value="" selected>Selecciona un Cargo</option>
                                         @foreach ($PositionCompany as $positionCompany)
                                             <option value="{{ $positionCompany->id }}">
-                                                {{ $positionCompany->id }}
-                                                {{ $positionCompany->description }}
+                                                {{ $positionCompany->id }} {{ $positionCompany->description }}
                                             </option>
                                         @endforeach
                                     </select>

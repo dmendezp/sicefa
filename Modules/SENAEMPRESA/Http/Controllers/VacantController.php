@@ -51,11 +51,15 @@ class VacantController extends Controller
 
     public function agregar_vacante()
     {
+        // Obtén solo los cargos activos
+        $activePositions = PositionCompany::where('state', 'activo')->get();
+
         $vacancies = Vacancy::get();
-        $PositionCompany = PositionCompany::all();
-        $data = ['title' => 'Nueva Vacante', 'vacancies' => $vacancies, 'PositionCompany' => $PositionCompany];
+        $data = ['title' => 'Nueva Vacante', 'vacancies' => $vacancies, 'PositionCompany' => $activePositions];
+
         return view('senaempresa::Company.Vacant.registration', $data);
     }
+
 
     public function store(Request $request)
     {
