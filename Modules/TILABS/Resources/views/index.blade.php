@@ -9,22 +9,37 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-md-6">
                     <div class="jumbotron">
-                        <h1 class="display-4">TI-LABS</h1>
+                        <h1 class="display-4">Bienvenido a TI-LABS</h1>
                         <p class="lead">Sistema de prestamo de equipos y herramientas para ambientes TIC y Laboratorios.</p>
                         <hr class="my-4">
                         <p>Aqui, te presentamos algunos registros destacados en TI-LABS:</p>
-                        <a class="btn btn-app">
-                            <span class="badge bg-info">6</span>
-                            <i class="fas fa-school"></i> Laboratorios
-                        </a>
-                        <a class="btn btn-app">
-                            <span class="badge bg-info">89</span>
-                            <i class="fas fa-laptop"></i> Equipos
-                        </a>
-                        <a class="btn btn-app">
-                            <span class="badge bg-info">30</span>
-                            <i class="fas fa-share"></i> Prom. Prestamos
-                        </a>
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h4>6</h4>
+                                <p>Laboratorios</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-school"></i>
+                            </div>
+                        </div>
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h4>89</h4>
+                                <p>Equipos</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-laptop"></i>
+                            </div>
+                        </div>
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h4>30</h4>
+                                <p>Prom. Préstamos</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-share"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">

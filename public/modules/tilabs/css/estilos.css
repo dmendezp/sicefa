@@ -1,5 +1,5 @@
-.sidebar-dark-primary{
-    background-color: #0E3E6C;
+.sidebar-dark-blue{
+  background: #0E3E6C !important;
 }
 
 .nav-item .active{
@@ -201,3 +201,12 @@
     transform: translateY(-10px);
   }
 }
+
+.custom-icon {
+  filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(150deg);
+}
+
+i.fas.fa-bell {
+  margin-right: 5px; /* Ajusta el valor según tu preferencia */
+}
+

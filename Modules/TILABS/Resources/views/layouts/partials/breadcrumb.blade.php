@@ -4,7 +4,7 @@
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item active">TI-LABS</li>
-                        <li class="breadcrumb-item active">{{ $title }}</li>
+                        <li class="breadcrumb-item active">{{ $view['titleView'] }}</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
