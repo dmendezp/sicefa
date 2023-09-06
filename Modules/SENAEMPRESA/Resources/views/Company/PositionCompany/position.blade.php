@@ -25,64 +25,60 @@
                     {{ session('warning') }}
                 </div>
             @endif
-            @if (session('danger'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('danger') }}
-                </div>
-            @endif
 
             <h1 class="text-center"><strong><em><span>Cargos</span></em></strong></h1>
-            <div class="col-md-3">
+            <br>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Requerimientos</th>
+                                    <th>Descripcion</th>
+                                    <th>Estado</th>
+                                    <th style="width: 200px;">
+                                        <a href="{{ route('Nueva') }}" class="btn btn-success btn-sm"><i
+                                                class="fas fa-user-plus"></i></a>
+                                    </th>
 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($position_companies as $PositionCompany)
+                                    <tr>
+                                        <td>{{ $PositionCompany->id }}</td>
+                                        <td>{{ $PositionCompany->requirement }}</td>
+                                        <td>{{ $PositionCompany->description }}</td>
+                                        <td>{{ $PositionCompany->state }}</td>
+                                        <form action="{{ route('eliminar_cargo', $PositionCompany->id) }}"
+                                            method="POST" class="formCargo">
+                                            @csrf
+                                            @method('DELETE')
+                                            <td>
+                                                <a href="{{ route('editar_cargo', ['id' => $PositionCompany->id]) }}"
+                                                    class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
 
-            </div>
-            <div class="card-body">
-                <table id="datatable" class="table table-sm table-striped">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Requerimientos</th>
-                            <th>Descripcion</th>
-                            <th>Estado</th>
-                            <th style="width: 200px;">
-                                <a href="{{ route('Nueva') }}" class="btn btn-success btn-sm">
-                                    <i class="fas fa-plus"></i> Agregar
-                                </a>
-                            </th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($position_companies as $PositionCompany)
-                            <tr>
-                                <td>{{ $PositionCompany->id }}</td>
-                                <td>{{ $PositionCompany->requirement }}</td>
-                                <td>{{ $PositionCompany->description }}</td>
-                                <td>{{ $PositionCompany->state }}</td>
-                                <form action="{{ route('eliminar_cargo', $PositionCompany->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <td>
-                                        <a href="{{ route('editar_cargo', ['id' => $PositionCompany->id]) }}"
-                                            class="btn btn-info btn-sm">Editar</a>
-
-                                        <button type="submit" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('¿Estás seguro de que deseas eliminar este cargo?')">Eliminar</button>
-                                </form>
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                                <button type="submit" class="btn btn-danger btn-sm"><i
+                                                        class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
-        < @section('content') @show <!-- Control Sidebar -->
+        @section('content')
+        @show
 
-            <!-- /.control-sidebar -->
+        <!-- Control Sidebar -->
 
-
+        <!-- /.control-sidebar -->
     </div>
 
     <!-- Main Footer -->
@@ -92,6 +88,52 @@
 
     <!--scripts utilizados para procesos-->
     @section('scripts')
+        <script>
+            'use strict';
+            // Selecciona todos los formularios con la clase "formEliminar"
+            var forms = document.querySelectorAll('.formCargo');
+
+            Array.prototype.slice.call(forms)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        event.preventDefault(); // Evita que el formulario se envíe de inmediato
+
+                        Swal.fire({
+                            title: '¿Estás seguro?',
+                            text: 'Es un proceso irreversible.',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Sí, eliminarlo',
+                            cancelButtonText: 'Cancelar' // Cambiar el texto del botón "Cancelar"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Enviar el formulario usando AJAX
+                                axios.post(form.action, new FormData(form))
+                                    .then(function(response) {
+                                        // Manejar la respuesta JSON del servidor
+                                        if (response.data && response.data.mensaje) {
+                                            Swal.fire({
+                                                title: 'Cargo eliminado!',
+                                                text: response.data.mensaje,
+                                                icon: 'success'
+                                            }).then(() => {
+                                                // Recargar la página u otra acción según sea necesario
+                                                location
+                                                    .reload(); // Recargar la página después de eliminar
+                                            });
+                                        }
+                                    })
+                                    .catch(function(error) {
+                                        // Manejar errores si es necesario
+                                        console.error(error);
+                                    });
+                            }
+                        });
+                    });
+                });
+        </script>
     @show
 
     @section('dataTables')

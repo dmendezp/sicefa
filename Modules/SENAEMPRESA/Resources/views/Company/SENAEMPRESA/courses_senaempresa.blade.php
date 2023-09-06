@@ -20,6 +20,11 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if (session('danger'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('danger') }}
+                </div>
+            @endif
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
@@ -54,11 +59,11 @@
                 </div>
             </div>
             <div class="row justify-content-center mt-5">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">Asociados</div>
+                        <div class="card-header">{{ $title }}</div>
                         <div class="card-body">
-                            <table class="table table-striped table-bordered">
+                            <table id="datatable" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -74,6 +79,19 @@
                                                     <td>#</td>
                                                     <td>{{ $course->code }} {{ $course->program->name }}</td>
                                                     <td>{{ $senaempresa->name }}</td>
+                                                    <td>
+                                                        <form action="{{ route('eliminar_asociacion_empresa') }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <input type="hidden" name="course_id"
+                                                                value="{{ $course->id }}">
+                                                            <input type="hidden" name="senaempresa_id"
+                                                                value="{{ $senaempresa->id }}">
+                                                            <button type="submit" class="btn btn-danger"><i
+                                                                    class="fas fa-trash-alt"></i></button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @endforeach

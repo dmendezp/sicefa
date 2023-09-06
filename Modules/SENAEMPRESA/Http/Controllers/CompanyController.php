@@ -33,11 +33,4 @@ class CompanyController extends Controller
         $data = ['title' => 'Seleccionados'];
         return view('senaempresa::Company.Postulate.Application', $data);
     }
-    public function mostrar_asociados_senaempresa()
-    {
-        $courses = Course::with('vacancy')->get();
-        $senaempresas = senaempresa::get();
-
-        return view('senaempresa::Company.Vacant.courses_senaempresa', compact('courses, senaempresa'));
-    }
 }

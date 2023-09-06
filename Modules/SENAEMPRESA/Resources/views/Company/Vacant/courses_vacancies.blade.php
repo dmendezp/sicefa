@@ -20,9 +20,14 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if (session('danger'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('danger') }}
+                </div>
+            @endif
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <div class="vacantes">
+                    <div class="formulario">
                         <div class="card-header">{{ $title }}</div>
                         <div class="card-body">
                             <form action="{{ route('curso_asociado') }}" method="POST">
@@ -56,16 +61,17 @@
                 </div>
             </div>
             <div class="row justify-content-center mt-5">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">Asociados</div>
+                        <div class="card-header">{{ $title }}</div>
                         <div class="card-body">
-                            <table class="table table-striped table-bordered">
+                            <table id="datatable" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Curso ID</th>
                                         <th>Vacante ID</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,6 +82,19 @@
                                                     <td>#</td>
                                                     <td>{{ $course->code }} {{ $course->program->name }}</td>
                                                     <td>{{ $vacant->name }}</td>
+                                                    <td>
+                                                        <form action="{{ route('eliminar_asociacion') }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <input type="hidden" name="course_id"
+                                                                value="{{ $course->id }}">
+                                                            <input type="hidden" name="vacancy_id"
+                                                                value="{{ $vacant->id }}">
+                                                            <button type="submit" class="btn btn-danger"><i
+                                                                    class="fas fa-trash-alt"></i></button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @endforeach

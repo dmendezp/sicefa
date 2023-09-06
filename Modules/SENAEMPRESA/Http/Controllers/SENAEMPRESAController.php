@@ -114,7 +114,7 @@ class SENAEMPRESAController extends Controller
         // Asigna el curso a la senaempresa
         $course->senaempresa()->attach($senaempresa);
 
-        return redirect()->back()->with('success', 'Curso asignado a la vacante exitosamente.');
+        return redirect()->back()->with('success', 'Curso asignado a la senaempresa exitosamente.');
     }
     public function mostrar_registros()
     {
@@ -122,5 +122,30 @@ class SENAEMPRESAController extends Controller
         $courses = Course::with('program')->get();
         $data = ['title' => 'Asignar Cursos a SenaEmpresa', 'courses' => $courses, 'senaempresas' => $senaempresas];
         return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
+    }
+    public function mostrar_asociado()
+    {
+        $senaempresas = senaempresa::get();
+        $courses = Course::with('vacancy')->get();
+        $data = ['title' => 'Asociados Cursos-Senaempresa', 'courses' => $courses, 'senaempresas' => $senaempresas];
+        return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
+    }
+    public function eliminar_asociacion_empresa(Request $request)
+    {
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'senaempresa_id' => 'required|exists:senaempresas,id',
+        ]);
+
+        $courseId = $request->input('course_id');
+        $senaempresaId = $request->input('senaempresa_id');
+
+        $course = Course::findOrFail($courseId);
+        $senaempresa = senaempresa::findOrFail($senaempresaId);
+
+        // Desasigna el curso de la senaempresa
+        $course->senaempresa()->detach($senaempresa);
+
+        return redirect()->back()->with('danger', 'Asociación eliminada con exito.');
     }
 }

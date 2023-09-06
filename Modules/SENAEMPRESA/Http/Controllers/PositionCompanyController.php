@@ -70,7 +70,7 @@ class PositionCompanyController extends Controller
 
 
         $position = PositionCompany::find($id);
-        $data = ['title' => 'Editar', 'position' => $position];
+        $data = ['title' => 'Editar Cargo', 'position' => $position];
         return view('senaempresa::Company.PositionCompany.position_edit', $data);
     }
     public function update(Request $request, $id)
@@ -87,16 +87,13 @@ class PositionCompanyController extends Controller
     }
     public function destroy($id)
     {
-        $company = PositionCompany::find($id);
+        try {
+            $company = PositionCompany::findOrFail($id);
+            $company->delete();
 
-        if (!$company) {
-            return redirect()->route('carga')->with('error', 'El cargo no existe.');
-        }
-
-        if ($company->delete()) {
-            return redirect()->route('carga')->with('danger', 'Cargo eliminado exitosamente.');
-        } else {
-            return redirect()->route('carga')->with('error', 'Error al eliminar el cargo.');
+            return response()->json(['mensaje' => 'Vacante eliminada con éxito']);
+        } catch (\Exception $e) {
+            return response()->json(['mensaje' => 'Error al eliminar la vacante'], 500);
         }
     }
 }

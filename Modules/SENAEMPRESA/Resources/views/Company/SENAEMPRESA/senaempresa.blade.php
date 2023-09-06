@@ -15,12 +15,13 @@
         @include('senaempresa::layouts.structure.breadcrumb')
 
         <div class="container">
+            <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
+            <br>
             <div class="col-md-12">
-                <div class="vacantes">
-                    <div class="card-header">{{ $title }}</div>
+                <div class="card">
                     <div class="card-body">
-                        <table id="datatable" class="table table-sm table-striped">
-                            <thead class="vacant bg-primary text-white">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Nombre</th>
@@ -30,16 +31,16 @@
                             </thead>
                             <tbody>
                                 @foreach ($senaempresas as $senaempresa)
-                                <tr>
-                                    <td>{{ $senaempresa->id }}</td>
-                                    <td>{{ $senaempresa->name }}</td>
-                                    <td>{{ $senaempresa->description}}</td>
-                                    <td>
+                                    <tr>
+                                        <td>{{ $senaempresa->id }}</td>
+                                        <td>{{ $senaempresa->name }}</td>
+                                        <td>{{ $senaempresa->description }}</td>
+                                        <td>
 
-                                        <a href="" class="btn btn-success">Editar</a>
-                                        <a href="" class="btn btn-success">Eliminar</a>
-                                    </td>
-                                </tr>
+                                            <a href="" class="btn btn-success">Editar</a>
+                                            <a href="" class="btn btn-success">Eliminar</a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -75,4 +76,3 @@
 </body>
 
 </html>
-

@@ -108,7 +108,7 @@
                     <a href="{{ route('Contactos') }}" class="nav-link {{ !Route::is('contactos') ?: 'active' }}">
                         <i class="fas fa-home"></i>
                         <p>
-                            contactos
+                            Contactos
                         </p>
                     </a>
                 </li>
@@ -133,7 +133,7 @@
                             <a href="{{ route('mostrar_asociados_senaempresa') }}"
                                 class="nav-link {{ !Route::is('mostrar_asociados_senaempresa') ?: 'active' }}">
                                 <i class="fas fa-file-invoice"></i>
-                                <p>Asociar Curso</p>
+                                <p>Curso-SenaEmpresa</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -167,14 +167,14 @@
                         <li class="nav-item">
                             <a href="{{ route('carga') }}" class="nav-link {{ !Route::is('carga') ?: 'active' }}">
                                 <i class="fas fa-user-plus"></i>
-                                <p>Cargo</p>
+                                <p>Cargos</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('mostrar_asociados') }}"
                                 class="nav-link {{ !Route::is('mostrar_asociados') ?: 'active' }}">
                                 <i class="fas fa-file-invoice"></i>
-                                <p>Asociar Curso</p>
+                                <p>Curso-Vacantes</p>
                             </a>
                         </li>
 

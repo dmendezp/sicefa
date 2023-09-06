@@ -2,10 +2,10 @@
 
 namespace Modules\SENAEMPRESA\Http\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Vacancy;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
@@ -17,14 +17,46 @@ class VacantController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function vacantes()
+    public function vacantes(Request $request)
+    {
+        // Obtén la lista de todos los cursos
+        $courses = Course::with('program')->get();
+
+        // Inicializa la variable $selectedCourseId a null
+        $selectedCourseId = null;
+
+        // Obtén el ID del curso seleccionado del formulario si está presente
+        if ($request->has('cursoFilter')) {
+            $selectedCourseId = $request->input('cursoFilter');
+        }
+
+        // Obtén las vacantes relacionadas con el curso seleccionado (si se ha seleccionado uno)
+        $vacancies = Vacancy::query();
+
+        if (!is_null($selectedCourseId)) {
+            $vacancies->whereExists(function ($query) use ($selectedCourseId) {
+                $query->select(DB::raw(1))
+                    ->from('course_vacancy')
+                    ->whereRaw('course_vacancy.vacancy_id = vacancies.id')
+                    ->where('course_vacancy.course_id', $selectedCourseId);
+            });
+        }
+
+        $vacancies = $vacancies->get();
+
+        $PositionCompany = PositionCompany::all();
+        $data = ['title' => 'Vacantes', 'courses' => $courses, 'vacancies' => $vacancies, 'PositionCompany' => $PositionCompany, 'selectedCourseId' => $selectedCourseId];
+        return view('senaempresa::Company.Vacant.vacant', $data);
+    }
+
+    public function agregar_vacante()
     {
         $vacancies = Vacancy::get();
         $PositionCompany = PositionCompany::all();
-        $courses = Course::with('program')->get();
-        $data = ['title' => 'Vacantes', 'courses' => $courses, 'vacancies' => $vacancies, 'PositionCompany' => $PositionCompany];
-        return view('senaempresa::Company.Vacant.vacant', $data);
+        $data = ['title' => 'Nueva Vacante', 'vacancies' => $vacancies, 'PositionCompany' => $PositionCompany];
+        return view('senaempresa::Company.Vacant.registration', $data);
     }
+
     public function store(Request $request)
     {
         $imagePath = $request->file('image')->store('images', 'public');
@@ -94,11 +126,6 @@ class VacantController extends Controller
         }
     }
 
-
-
-
-
-
     //Asociar cursos a vacantes
     public function asociar_curso()
     {
@@ -132,8 +159,27 @@ class VacantController extends Controller
 
     public function mostrar_asociados()
     {
+        $vacancies = Vacancy::get();
         $courses = Course::with('vacancy')->get();
+        $data = ['title' => 'Nueva Vacante', 'courses' => $courses, 'vacancies' => $vacancies];
+        return view('senaempresa::Company.Vacant.courses_vacancies', $data);
+    }
+    public function eliminarAsociacion(Request $request)
+    {
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'vacancy_id' => 'required|exists:vacancies,id',
+        ]);
 
-        return view('senaempresa::Company.Vacant.courses_vacancies', compact('courses'));
+        $courseId = $request->input('course_id');
+        $vacancyId = $request->input('vacancy_id');
+
+        $course = Course::findOrFail($courseId);
+        $vacancy = Vacancy::findOrFail($vacancyId);
+
+        // Desasigna el curso de la vacante
+        $course->vacancy()->detach($vacancy);
+
+        return redirect()->back()->with('danger', 'Asociación eliminada con exito.');
     }
 }

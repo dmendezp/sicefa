@@ -47,7 +47,8 @@
                                     </select>
                                 </div>
 
-                                <button class="form-control bg-primary" type="submit">Guardar cambios</button>
+                                <button type="submit" class="btn btn-success">Guardar cambios</button>
+                                <a href="{{ route('carga') }}" class="btn btn-danger btn-xl">Cancelar</a>
                             </form>
                         </div>
                     </div>
@@ -56,25 +57,6 @@
             </div>
         </div>
     </div><br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @section('content')
     @show
 

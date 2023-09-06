@@ -88,16 +88,13 @@ class StaffSenaempresaController extends Controller
     }
     public function destroy($id)
     {
-        $company = StaffSenaempresa::find($id);
+        try {
+            $company = StaffSenaempresa::findOrFail($id);
+            $company->delete();
 
-        if (!$company) {
-            return redirect()->route('personal')->with('error', 'El personal no existe.');
-        }
-
-        if ($company->delete()) {
-            return redirect()->route('personal')->with('danger', 'Personal eliminado exitosamente.');
-        } else {
-            return redirect()->route('personal')->with('error', 'Error al eliminar el personal.');
+            return response()->json(['mensaje' => 'Personal eliminada con éxito']);
+        } catch (\Exception $e) {
+            return response()->json(['mensaje' => 'Error al eliminar la Personal'], 500);
         }
     }
 }

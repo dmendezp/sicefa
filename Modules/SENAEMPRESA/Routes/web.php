@@ -73,7 +73,7 @@ Route::prefix('senaempresa')->group(function () {
 
     //Rutas de vacantes
     Route::get('Vacantes/', 'VacantController@vacantes')->name('vacantes');
-    Route::get('Vacantes/Agregar_Vacante/', 'VacantController@registration')->name('agregar_vacante');
+    Route::get('Vacantes/Agregar_Vacante/', 'VacantController@agregar_vacante')->name('agregar_vacante');
     Route::post('Vacantes/Nueva_Vacante/', 'VacantController@store')->name('nueva_vacante');
     Route::get('Vacantes/{id}/Editar_Vacante/', 'VacantController@edit')->name('editar_vacante');
     Route::post('Vacantes/Vacante_Editado/{id}/', 'VacantController@update')->name('vacante_editado');
@@ -83,6 +83,8 @@ Route::prefix('senaempresa')->group(function () {
     Route::get('Vacantes/Asociar_Curso/', 'VacantController@asociar_curso')->name('asociar_curso');
     Route::post('Vacantes/Curso_Asociado/', 'VacantController@curso_asociado')->name('curso_asociado');
     Route::get('Vacantes/Mostrar_Curso/', 'VacantController@mostrar_asociados')->name('mostrar_asociados');
+    Route::delete('/eliminar_asociacion', 'VacantController@eliminarAsociacion')->name('eliminar_asociacion');
+
 
     //Rutas para senaempresa estrategias
     Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('senaempresa');
@@ -91,7 +93,10 @@ Route::prefix('senaempresa')->group(function () {
     //Rutas para asociar cursos a senaempresa estrategias
     Route::get('Estrategias/Asociar_Curso/', 'SENAEMPRESAController@cursos_senamepresa')->name('cursos_senaempresa');
     Route::post('Estrategias/Curso_Asociado/', 'SENAEMPRESAController@curso_asociado_senaempresa')->name('curso_asociado_senaempresa');
-    Route::get('Estrategias/Mostrar_Curso/', 'CompanyController@mostrar_asociados_senaempresa')->name('mostrar_asociados_senaempresa');
+    Route::get('Estrategias/Mostrar_Curso/', 'SENAEMPRESAController@mostrar_asociado')->name('mostrar_asociados_senaempresa');
+    Route::delete('Estrategias/eliminar_asociacion', 'SENAEMPRESAController@eliminar_asociacion_empresa')->name('eliminar_asociacion_empresa');
+
+
 
     //rutas para cargo;
     Route::get('Cargos/', 'PositionCompanyController@cargar')->name('carga');
