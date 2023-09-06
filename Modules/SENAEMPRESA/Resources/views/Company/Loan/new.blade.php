@@ -21,7 +21,7 @@
                         <div class="card-header">{{ $title }}</div>
 
                         <div class="card-body">
-                            {!! Form::open(['url' => route('Nuevo')]) !!}
+                            {!! Form::open(['url' => route('cefa.Nuevo')]) !!}
                             <div class="mb-6">
                                 <label for="document_number" class="form-label">Documento</label>
                                 {!! Form::number('document_number', null, ['class' => 'form-control']) !!}

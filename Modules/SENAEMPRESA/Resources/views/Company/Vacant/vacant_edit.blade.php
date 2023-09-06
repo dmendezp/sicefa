@@ -21,7 +21,7 @@
                         <div class="card-header">{{ $title }}</div>
 
                         <div class="card-body">
-                            <form action="{{ route('vacante_editado', ['id' => $vacancy->id]) }}" method="POST"
+                            <form action="{{ route('cefa.vacante_editado', ['id' => $vacancy->id]) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                                    <a href="{{ route('vacantes') }}" class="btn btn-danger btn-xl"
+                                    <a href="{{ route('cefa.vacantes') }}" class="btn btn-danger btn-xl"
                                         id="cancelButton">Cancelar</a>
                                 </div>
                             </form>

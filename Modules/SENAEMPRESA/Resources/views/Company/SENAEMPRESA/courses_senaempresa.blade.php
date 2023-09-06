@@ -80,7 +80,7 @@
                                                     <td>{{ $course->code }} {{ $course->program->name }}</td>
                                                     <td>{{ $senaempresa->name }}</td>
                                                     <td>
-                                                        <form action="{{ route('eliminar_asociacion_empresa') }}"
+                                                        <form action="{{ route('cefa.eliminar_asociacion_empresa') }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')

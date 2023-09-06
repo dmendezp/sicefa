@@ -28,15 +28,6 @@ class PositionCompanyController extends Controller
         return view('senaempresa::Company.PositionCompany.position_registration', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('senaempresa::create');
-    }
-
     public function store(Request $request)
     {
         $positionCompany = new PositionCompany();
@@ -56,7 +47,7 @@ class PositionCompanyController extends Controller
 
             if ($positionCompany->save()) {
                 // Redirigir a la vista adecuada con un mensaje de éxito
-                return redirect()->route('carga')->with('success', 'Cargo creado exitosamente.');
+                return redirect()->route('cefa.cargos')->with('success', 'Cargo creado exitosamente.');
             } else {
                 // Manejar el caso de error si la inserción falla
                 return redirect()->back()->with('error', 'Error al crear el cargo.');
@@ -83,7 +74,7 @@ class PositionCompanyController extends Controller
         // Actualiza otros campos según necesites
         $position->save();
 
-        return redirect()->route('carga')->with('warning', 'Registro actualizado exitosamente.');
+        return redirect()->route('cefa.cargos')->with('warning', 'Registro actualizado exitosamente.');
     }
     public function destroy($id)
     {

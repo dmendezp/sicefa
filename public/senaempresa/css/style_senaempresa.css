@@ -1,19 +1,19 @@
 .thead {
-  background-color: #202975 !important;
+  background-color: #2EA29C !important;
 }
 
 
 .sidebar-dark-primary {
-  background-color: #202975 !important;
+  background-color: #2EA29C !important;
 }
 
 .nav-item .active {
-  background-color: #404FD8 !important;
+  background-color: #216B68 !important;
   color: #ECF0F1 !important;
 }
 
 .nav-item:hover {
-  background-color: #202975 !important;
+  background-color: #2EA29C !important;
   color: #fff !important;
   border-radius: 5px;
 }
@@ -29,7 +29,7 @@
 }
 
 .navbar {
-  background-color: #202975;
+  background-color: #2EA29C;
 }
 
 .navbar-nav .nav-item .nav-link {
@@ -42,12 +42,12 @@
 
 
 .navbar-nav .active {
-  background-color: #202975 !important;
+  background-color: #2EA29C !important;
   border-radius: 5px;
 }
 
 .navbar-nav .nav-item:hover {
-  background-color: #202975 !important;
+  background-color: #2EA29C !important;
   border-radius: 5px;
 }
 
@@ -56,11 +56,11 @@
 }
 
 .card-primary {
-  border-top: 3px solid #202975 !important;
+  border-top: 3px solid #2EA29C !important;
 }
 
 #divbreadcrumb {
-  border: 2px solid #202975 !important;
+  border: 2px solid #2EA29C !important;
   border-radius: 5px;
 }
 

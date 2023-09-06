@@ -21,7 +21,7 @@
                         <div class="card-header">{{ $title }}</div>
 
                         <div class="card-body">
-                            <form action="{{ route('Nueva') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('cefa.cargo_nuevo') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="requirement" class="form-label">Requisitos</label>
@@ -43,7 +43,7 @@
 
 
                                 <button type="submit" class="btn btn-success">Agregar</button>
-                                <a href="{{ route('carga') }}" class="btn btn-danger btn-xl">Cancelar</a>
+                                <a href="{{ route('cefa.cargos') }}" class="btn btn-danger btn-xl">Cancelar</a>
                             </form>
                         </div>
 

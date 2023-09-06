@@ -19,7 +19,7 @@
                         <div class="card-header">{{ $title }}</div>
 
                         <div class="card-body">
-                            <form action="{{ route('actualizacion', $staffSenaempresa->id) }}" method="POST"
+                            <form action="{{ route('cefa.personal_editado', $staffSenaempresa->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
@@ -68,7 +68,7 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-success">Actualizar</button>
-                                <a href="{{ route('personal') }}" class="btn btn-danger btn-xl">Cancelar</a>
+                                <a href="{{ route('cefa.personal') }}" class="btn btn-danger btn-xl">Cancelar</a>
                             </form>
                         </div>
                     </div>

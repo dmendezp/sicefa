@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
 
     <!-- Brand Logo -->
-    <a href="{{ route('index') }}" class="brand-link">
+    <a href="{{ route('cefa.index') }}" class="brand-link">
         <img src="{{ asset('AdminLTE/dist/img/logo P SENA.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
 
@@ -26,9 +26,8 @@
                 </div>
                 @guest
                     <div class="col info info-user">
-                        <div>{{ trans('menu.Welcome') }}</div>
+                        <div>{{ trans('senaempresa::menu.Welcome') }}</div>
                         <div><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
-
                     </div>
                     <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right"
                         title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block"><i
@@ -77,7 +76,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ route('index') }}" class="nav-link {{ !Route::is('index') ?: 'active' }}">
+                    <a href="{{ route('cefa.index') }}" class="nav-link {{ !Route::is('cefa.index') ?: 'active' }}">
                         <i class="fas fa-home"></i>
                         <p>
                             Inicio
@@ -93,11 +92,11 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('Nosotros') }}"
-                                class="nav-link {{ !Route::is('Nosotros') ?: 'active' }}">
+                            <a href="{{ route('cefa.Nosotros') }}"
+                                class="nav-link {{ !Route::is('cefa.Nosotros') ?: 'active' }}">
                                 <i class="fas fa-users"></i>
                                 <p>
-                                    Nosotros
+                                    {{ trans('senaempresa::menu.We') }}
                                 </p>
                             </a>
                         </li>
@@ -105,10 +104,11 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('Contactos') }}" class="nav-link {{ !Route::is('contactos') ?: 'active' }}">
+                    <a href="{{ route('cefa.Contactos') }}"
+                        class="nav-link {{ !Route::is('cefa.Contactos') ?: 'active' }}">
                         <i class="fas fa-home"></i>
                         <p>
-                            Contactos
+                            {{ trans('senaempresa::menu.Contact') }}
                         </p>
                     </a>
                 </li>
@@ -130,15 +130,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('mostrar_asociados_senaempresa') }}"
-                                class="nav-link {{ !Route::is('mostrar_asociados_senaempresa') ?: 'active' }}">
+                            <a href="{{ route('cefa.mostrar_asociados_senaempresa') }}"
+                                class="nav-link {{ !Route::is('cefa.mostrar_asociados_senaempresa') ?: 'active' }}">
                                 <i class="fas fa-file-invoice"></i>
                                 <p>Curso-SenaEmpresa</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('personal') }}"
-                                class="nav-link {{ !Route::is('personal') ?: 'active' }}">
+                            <a href="{{ route('cefa.personal') }}"
+                                class="nav-link {{ !Route::is('cefa.personal') ?: 'active' }}">
                                 <i class="fas fa-users-cog"></i>
                                 <p>
                                     Personal
@@ -158,21 +158,22 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('vacantes') }}"
-                                class="nav-link {{ !Route::is('vacantes') ?: 'active' }}">
+                            <a href="{{ route('cefa.vacantes') }}"
+                                class="nav-link {{ !Route::is('cefa.vacantes') ?: 'active' }}">
                                 <i class="fas fa-user-tag"></i>
                                 <p>Disponibles</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('carga') }}" class="nav-link {{ !Route::is('carga') ?: 'active' }}">
+                            <a href="{{ route('cefa.cargos') }}"
+                                class="nav-link {{ !Route::is('cefa.cargos') ?: 'active' }}">
                                 <i class="fas fa-user-plus"></i>
                                 <p>Cargos</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('mostrar_asociados') }}"
-                                class="nav-link {{ !Route::is('mostrar_asociados') ?: 'active' }}">
+                            <a href="{{ route('cefa.mostrar_asociados') }}"
+                                class="nav-link {{ !Route::is('cefa.mostrar_asociados') ?: 'active' }}">
                                 <i class="fas fa-file-invoice"></i>
                                 <p>Curso-Vacantes</p>
                             </a>
@@ -189,15 +190,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('Postulados') }}"
-                                class="nav-link {{ !Route::is('Postulados') ?: 'active' }}">
+                            <a href="{{ route('cefa.Postulados') }}"
+                                class="nav-link {{ !Route::is('cefa.Postulados') ?: 'active' }}">
                                 <i class="fas fa-address-card"></i>
                                 <p>Postulados</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('seleccionados') }}"
-                                class="nav-link {{ !Route::is('seleccionados') ?: 'active' }}">
+                            <a href="{{ route('cefa.seleccionados') }}"
+                                class="nav-link {{ !Route::is('cefa.seleccionados') ?: 'active' }}">
                                 <i class="fas fa-check-double"></i>
                                 <p>Seleccionados</p>
                             </a>
@@ -213,15 +214,16 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('Nuevo') }}" class="nav-link {{ !Route::is('Nuevo') ?: 'active' }}">
+                            <a href="{{ route('cefa.Nuevo') }}"
+                                class="nav-link {{ !Route::is('cefa.Nuevo') ?: 'active' }}">
                                 <i class="fas fa-external-link-alt"></i>
                                 <p>Nuevo</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('prestamos') }}"
-                                class="nav-link {{ !Route::is('prestamos') ?: 'active' }}">
+                            <a href="{{ route('cefa.prestamos') }}"
+                                class="nav-link {{ !Route::is('cefa.prestamos') ?: 'active' }}">
                                 <i class="fas fa-poll"></i>
                                 <p>Registrados</p>
                             </a>

@@ -40,7 +40,7 @@
                                     <th>Aprendiz</th>
                                     <th>Imagen Personal</th>
                                     <th>
-                                        <a href="{{ route('registro') }}" class="btn btn-success btn-sm"><i
+                                        <a href="{{ route('cefa.nuevo_personal') }}" class="btn btn-success btn-sm"><i
                                                 class="fas fa-user-plus"></i></a>
                                         </a>
                                     </th>
@@ -63,12 +63,12 @@
                                             {{ $StaffSenaempresa->Apprentice->Person->first_last_name }}</td>
                                         <td><img src="{{ asset($StaffSenaempresa->image) }}"
                                                 alt="{{ $StaffSenaempresa->image }}"></td>
-                                        <form action="{{ route('eliminar_personal', $StaffSenaempresa->id) }}"
+                                        <form action="{{ route('cefa.eliminar_personal', $StaffSenaempresa->id) }}"
                                             method="POST" class="formPersonal">
                                             @csrf
                                             @method('DELETE')
                                             <td>
-                                                <a href="{{ route('editar_personal', ['id' => $StaffSenaempresa->id]) }}"
+                                                <a href="{{ route('cefa.editar_personal', ['id' => $StaffSenaempresa->id]) }}"
                                                     class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
                                                 <button type="submit" class="btn btn-danger btn-sm"><i
                                                         class="fas fa-trash-alt"></i></button>
