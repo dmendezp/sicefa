@@ -10,10 +10,6 @@ use Modules\BIENESTAR\Entities\Benefits;
 
 class BenefitsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function BenefitsView()
     {
         $benefits = Benefits::all();
@@ -27,19 +23,8 @@ class BenefitsController extends Controller
             'name' => 'required|string', // Asegura que el campo sea una cadena de texto
             'porcentege' => 'required|numeric|min:0|max:100', // Asegura que el campo sea un número entre 0 y 100
         ];
-    
-        // Define mensajes personalizados para las reglas de validación
-        $messages = [
-            'name.required' => 'El campo nombre es obligatorio.',
-            'name.string' => 'El campo nombre debe ser una cadena de texto.',
-            'porcentege.required' => 'El campo porcentaje es obligatorio.',
-            'porcentege.numeric' => 'El campo porcentaje debe ser un número.',
-            'porcentege.min' => 'El campo porcentaje debe ser como mínimo 0.',
-            'porcentege.max' => 'El campo porcentaje debe ser como máximo 100.',
-        ];
-    
-        // Valida los datos del formulario con las reglas definidas
-        $request->validate($rules, $messages);
+
+        $request->validate($rules);
     
         // Si la validación pasa, crea el registro en la base de datos
         $name = $request->input('name');
