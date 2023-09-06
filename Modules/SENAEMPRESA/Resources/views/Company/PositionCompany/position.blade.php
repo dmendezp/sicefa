@@ -26,7 +26,7 @@
                 </div>
             @endif
 
-            <h1 class="text-center"><strong><em><span>Cargos</span></em></strong></h1>
+            <h1 class="text-center"><strong><em><span>{{ trans('senaempresa::menu.Positions') }}</span></em></strong></h1>
             <br>
             <div class="col-md-12">
                 <div class="card">
@@ -34,10 +34,10 @@
                         <table id="datatable" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Requerimientos</th>
-                                    <th>Descripcion</th>
-                                    <th>Estado</th>
+                                    <th>{{ trans('senaempresa::menu.Id') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Requirements') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Description') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Status') }}</th>
                                     <th style="width: 200px;">
                                         <a href="{{ route('cefa.nuevo_cargo') }}" class="btn btn-success btn-sm"><i
                                                 class="fas fa-user-plus"></i></a>
@@ -88,52 +88,52 @@
 
     <!--scripts utilizados para procesos-->
     @section('scripts')
-        <script>
-            'use strict';
-            // Selecciona todos los formularios con la clase "formEliminar"
-            var forms = document.querySelectorAll('.formCargo');
+    <script>
+        'use strict';
+        // Selecciona todos los formularios con la clase "formEliminar"
+        var forms = document.querySelectorAll('.formCargo');
 
-            Array.prototype.slice.call(forms)
-                .forEach(function(form) {
-                    form.addEventListener('submit', function(event) {
-                        event.preventDefault(); // Evita que el formulario se envíe de inmediato
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Evita que el formulario se envíe de inmediato
 
-                        Swal.fire({
-                            title: '¿Estás seguro?',
-                            text: 'Es un proceso irreversible.',
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Sí, eliminarlo',
-                            cancelButtonText: 'Cancelar' // Cambiar el texto del botón "Cancelar"
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // Enviar el formulario usando AJAX
-                                axios.post(form.action, new FormData(form))
-                                    .then(function(response) {
-                                        // Manejar la respuesta JSON del servidor
-                                        if (response.data && response.data.mensaje) {
-                                            Swal.fire({
-                                                title: 'Cargo eliminado!',
-                                                text: response.data.mensaje,
-                                                icon: 'success'
-                                            }).then(() => {
-                                                // Recargar la página u otra acción según sea necesario
-                                                location
-                                                    .reload(); // Recargar la página después de eliminar
-                                            });
-                                        }
-                                    })
-                                    .catch(function(error) {
-                                        // Manejar errores si es necesario
-                                        console.error(error);
-                                    });
-                            }
-                        });
+                    Swal.fire({
+                        title: "{{ trans('senaempresa::menu.Are you sure?') }}",
+                        text: "{{ trans('senaempresa::menu.It is an irreversible process.') }}",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: "{{ trans('senaempresa::menu.Yes, delete it') }}",
+                        cancelButtonText: "{{ trans('senaempresa::menu.Cancel') }}" // Cambiar el texto del botón "Cancelar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Enviar el formulario usando AJAX
+                            axios.post(form.action, new FormData(form))
+                                .then(function(response) {
+                                    // Manejar la respuesta JSON del servidor
+                                    if (response.data && response.data.mensaje) {
+                                        Swal.fire({
+                                            title: '{{ trans('senaempresa::menu.Positions deleted!') }}',
+                                            text: response.data.mensaje,
+                                            icon: 'success'
+                                        }).then(() => {
+                                            // Recargar la página u otra acción según sea necesario
+                                            location.reload(); // Recargar la página después de eliminar
+                                        });
+                                    }
+                                })
+                                .catch(function(error) {
+                                    // Manejar errores si es necesario
+                                    console.error(error);
+                                });
+                        }
                     });
                 });
-        </script>
+            });
+    </script>
+
     @show
 
     @section('dataTables')
