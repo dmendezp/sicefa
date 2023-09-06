@@ -71,7 +71,9 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 #### Meet 06-Sep-2023
 * **IDavid Juliam Cadena Barrera** - *Mejoras en la vista de monitoreo* - *60 %* - *conflictos* - *solucionar conflictos*
+
 **Juan Diego Bonilla Aroca** - *Terminar la vista inicial de visitantes* - *100%* - *Ninguna* - *Ninguna*
+
 **Julian Javier Ramirez Diaz** - *Terminar la funcion de movimiento interno* - *60%* - *Ninguna* - *Ninguna*
 
 ---

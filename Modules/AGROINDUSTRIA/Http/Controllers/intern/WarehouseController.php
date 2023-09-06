@@ -10,7 +10,7 @@ use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\MeasurementUnit;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Category;
-
+use Modules\SICA\Entities\KindOfPurchase;
 class WarehouseController extends Controller
 {
     public function index()
@@ -23,30 +23,19 @@ class WarehouseController extends Controller
     public function inventory()
     {
         $title = 'Inventario';
-        $elements = Element::all();//Trae todos los datos del modelo Element y los almacena en elements.
-        return view('agroindustria::storer.inventory', compact('title', 'elements'));
+    
+           $elements  = Element::all();//Trae todos los datos del modelo Element y los almacena en la variable $elements.
+            $categories = Category::all();//Trae todos los datos del modelo category y los almacena en la variable $category.
+            $kpfs = KindOfPurchase::all();//Tipo de compra
+
+        return view('agroindustria::storer.inventory', compact('title','elements','categories','kpfs'));
     }
-    public function agg(Request $request)
-    {
-        // Validar los datos del formulario si es necesario
-        $request->validate([
-            'campo1' => 'required',
-            'campo2' => 'required',
-            // Agrega más reglas de validación según tus necesidades
-        ]);
 
-        // Crear una nueva instancia del modelo y guardar los datos
-        $nuevoDato = new TuModelo();
-        $nuevoDato->campo1 = $request->input('campo1');
-        $nuevoDato->campo2 = $request->input('campo2');
-        // Asigna valores a otros campos según tus necesidades
-        $nuevoDato->save();
-
-        // Redireccionar a una página de éxito o a donde desees
-        return redirect('/ruta-de-exito');
+    public function kindofpurchae(){
+            $mut = MeasurementUnit::all();//Unidad de medida
+            return view('agroindustria::storer.inventory', compact('title' , 'mut'));
     }
 }
-
        
                   
 

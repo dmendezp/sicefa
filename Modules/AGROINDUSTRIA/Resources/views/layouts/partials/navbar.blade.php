@@ -23,21 +23,23 @@
             <!--Menú instructor-->
             @if(Auth::user()->havePermission('agroindustria.instructor.labor'))
             <li class="nav-item">
-                <a class="nav-link" href="{{route('agroindustria.instructor.labor')}}">Labor</a>
+                <a class="nav-link" href="{{route('cefa.agroindustria.instructor.labor')}}">Labor</a>
           </li>
             @endif
+
             @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
             <li class="nav-item">
                 <a class="nav-link" href="{{route('agroindustria.instructor.activity')}}">Actividades</a>
             </li>
             @endif
+            
             @if(Auth::user()->havePermission('agroindustria.storer.crud'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.storer.inventory')}}">Inventario</a>
+                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">Inventario</a>
                     </li>
             @endif
 
-            @endauth
+           
         </ul>
     </div>
     

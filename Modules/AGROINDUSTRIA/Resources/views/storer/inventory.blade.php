@@ -39,6 +39,9 @@
                 </thead>
                 <tbody>
                     @foreach ($elements as $element)
+                
+                        
+                
                         <tr>
                           <td></td>
                           <td></td>
@@ -91,27 +94,60 @@
   
   <div class="tab-pane fade" id="agregar" role="tabpanel" aria-labelledby="agregar-tab">
     <form action="" method="POST">
-      <div class="card" style=" height: 600px; " id="cardformagg">
         <div class="mb-3"><br>
           <center><h1>AGREGAR INSUMO</h1>
             <br>
-          <label for="disabledTextInput"  class="form-label">Nombre</label>
-          <input type="text" style="width: 600px; height: 50px;" id="disabledTextInput" class="form-control" placeholder="Ingrese Nombre">
-          <br>
-          <label for="disabledTextInput" class="form-label">Categoria</label>
-          <input type="text" style="width: 600px; height: 50px;" id="disabledTextInput" class="form-control" placeholder="Ingrese Categoria">
-          <br>
-          <label for="disabledTextInput" class="form-label">Cantidad</label>
-          <input type="text" style="width: 600px; height: 50px;" id="disabledTextInput" class="form-control" placeholder="Ingrese Cantidad">
-          <br>
-          <label for="disabledTextInput" class="form-label">Precio</label>
-          <input type="text" style="width: 600px; height: 50px;" id="disabledTextInput" class="form-control" placeholder="Ingrese Precio">  
+            <div class="container text-center">
+              <div class="row">
+                <div class="col">
+                  <label for="disabledTextInput"  class="form-label">Nombre de insumo.</label>
+                  <input type="text" style="width: 400px; height: 50px;" id="disabledTextInput" class="form-control" placeholder="Ingrese nombre de insumos.">
+                  <br>
+                  <label for="disabledTextInput" class="form-label">Descripcion.</label>
+                  <input type="text" style="width: 400px; height: 50px;" id="disabledTextInput" class="form-control" placeholder="Ingrese descripcion de insumo.">
+                  <br>
+                  <label for="disabledTextInput" placeholder="Selecciona tipo de compra." class="form-label">Tipo de compra.</label>
+                  <select class="form-select" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    @foreach ( $kpfs as $kpf )
+                    <option value="">{{ $kpf ->name}}</option>
+                    @endforeach
+
+                  </select>
+                  <br>
+                </div>
+                <div class="col">
+                  <label for="disabledTextInput" class="form-label">Categoria.</label>
+                  <select class="form-select" aria-label="Default select example">
+                    <option selected>Seleccione Categoria.</option>
+                    @foreach ( $categories as $category )
+                    <option value="">{{ $category ->name}}</option>
+                    @endforeach
+                  </select> 
+                  
+                                   <br>
+                  <label for="disabledTextInput" class="form-label">precio.</label>
+                  <input type="text" style="width: 400px; height: 50px;" id="disabledTextInput" class="form-control" placeholder="Ingrese Precio de insumo.">    
+                  <br>
+                  <label for="disabledTextInput" class="form-label">imagen.</label>
+                  <input type="text" style="width: 400px; height: 50px;" id="disabledTextInput" class="form-control" placeholder="Ingrese Imagen de insumo.">  
+                </div>
+              </div>
+            </div>
+            <label for="disabledTextInput" class="form-label">slug.</label>
+            <input type="text" style="width: 400px; height: 50px;" id="disabledTextInput" class="form-control" placeholder="Ingrese slug.">  
+          
+
+
+          
+       
         </center>
         <br>
-        <button type="button" id="saveformadd" class="btn btn-primary btn-ms">Guardar</button>
+       
+        <button type="button" id="saveformadd"  class="btn btn-success">Guardar</button>
 
         </div>  
-      </div>
+      
       
     </form>
     <br><br>
