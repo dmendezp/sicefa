@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CreateAnswersTable extends Migration
 {
@@ -22,7 +23,7 @@ class CreateAnswersTable extends Migration
             $table->timestamps();
             $table->foreign('questions_id')->references('id')->on('questions');
             $table->foreign('postulation_id')->references('id')->on('postulations');
-           
+            $table->SoftDeletes();
         });
     }
 

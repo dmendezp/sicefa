@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CreateAssingTransportRoutesTable extends Migration
 {
@@ -22,7 +23,7 @@ class CreateAssingTransportRoutesTable extends Migration
             $table->foreign('apprentice_id')->references('id')->on('apprentices');
             $table->foreign('route_transportation_id')->references('id')->on('routes_transportations');
             $table->foreign('convocation_id')->references('id')->on('convocations');
-           
+            $table->SoftDeletes();
         });
     }
 

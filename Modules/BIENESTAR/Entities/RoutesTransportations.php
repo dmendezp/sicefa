@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RoutesTransportations extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+    protected $hidden = ['created_at','update_at'];
 
     protected $fillable = [
         'route_number',

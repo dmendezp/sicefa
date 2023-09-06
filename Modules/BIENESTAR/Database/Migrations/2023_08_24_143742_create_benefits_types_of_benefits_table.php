@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class CreateBenefitsTypesOfBenefitsTable extends Migration
 {
@@ -20,7 +22,7 @@ class CreateBenefitsTypesOfBenefitsTable extends Migration
             $table->timestamps();
             $table->foreign('benefit_id')->references('id')->on('benefits');
             $table->foreign('type_of_benefit_id')->references('id')->on('types_of_benefits');
-
+            $table->SoftDeletes();
         });
     }
 
