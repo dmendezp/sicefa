@@ -241,8 +241,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- fullCalendar 2.2.5 -->
     <script src="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/fullcalendar/main.js') }}"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('../bienestarxd/AdminLTE-3.2.0/dist/js/demo.js') }}"></script>
     <!-- Page specific script -->
 
     @section('script')

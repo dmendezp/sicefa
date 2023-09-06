@@ -14,8 +14,17 @@
                     @csrf
                     <div class="form-group">
                         <label for="texto_pregunta">Pregunta:</label>
-                        <input type="text" name="texto_pregunta" class="form-control">
+                        <input type="text" name="text_question" class="form-control">
                     </div>
+                    <div class="form-group">
+                    <label for="type_benefit">Tipo de pregunta:</label>
+                    <select class="form-control" id="type_benefit" name="type_benefit" required>
+                        <option value="General">General</option>
+                        <option value="Alimentacion">Alimentación</option>
+                        <option value="Transporte">Transporte</option>
+                    </select>
+
+                </div>
                     <div class="form-group" id="respuestas">
                         <label for="respuestas">Respuestas:</label>
                         <div class="input-group">
@@ -24,7 +33,6 @@
                                 <button type="button" class="btn btn-success" id="agregarRespuesta">+</button>
                             </div>
                         </div><br>
-                        <!-- Agrega más campos de respuesta según sea necesario -->
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>
