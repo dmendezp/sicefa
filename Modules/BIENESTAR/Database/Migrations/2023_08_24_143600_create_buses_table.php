@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -19,7 +20,7 @@ class CreateBusesTable extends Migration
             $table->string('quota');
             $table->foreignId('bus_driver_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-            
+            $table->SoftDeletes();
         });
     }
 

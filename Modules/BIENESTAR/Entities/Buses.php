@@ -4,11 +4,12 @@ namespace Modules\BIENESTAR\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Buses extends Model
 {
-    use HasFactory;
+    use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];
 
@@ -16,6 +17,7 @@ class Buses extends Model
         'plate',
         'quota',
         'bus_driver_id',
+        
     ];
 
     public function bus_driver(){
