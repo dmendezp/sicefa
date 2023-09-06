@@ -87,9 +87,12 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('/eliminar_asociacion', 'VacantController@eliminarAsociacion')->name('cefa.eliminar_asociacion');
 
 
-        //Rutas para senaempresa estrategias
-        Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('senaempresa');
-        Route::get('Agregar_nueva_estrategias/', 'SENAEMPRESAController@agregar_estrategia')->name('agregar_estrategia');
+    //Rutas para senaempresa estrategias
+    Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('senaempresa');
+    Route::get('Estrategias/Nueva', 'SENAEMPRESAController@agregar')->name('agrega');
+    Route::post('Estrategias/Nueva', 'SENAEMPRESAController@store')->name('nuevos');
+
+
 
         //Rutas para asociar cursos a senaempresa estrategias
         Route::get('Estrategias/Asociar_Curso/', 'SENAEMPRESAController@cursos_senamepresa')->name('cefa.cursos_senaempresa');

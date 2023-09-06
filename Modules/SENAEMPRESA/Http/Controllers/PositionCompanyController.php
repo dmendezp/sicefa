@@ -14,17 +14,20 @@ class PositionCompanyController extends Controller
      * @return Renderable
      */
     public function cargar()
-    {
+{
+    $position_companies = PositionCompany::get();
+    $data = [
+        'title' => trans('senaempresa::menu.Positions'),
+        'position_companies' => $position_companies
+    ];
+    return view('senaempresa::Company.PositionCompany.position', $data);
+}
 
-        $position_companies = PositionCompany::get();
-        $data = ['title' => 'Cargos', 'position_companies' => $position_companies];
-        return view('senaempresa::Company.PositionCompany.position', $data);
-    }
 
     public function registro()
     {
         $position_companies = PositionCompany::all();
-        $data = ['title' => 'Nuevo Cargo', 'position_companies' => $position_companies];
+        $data = ['title' => trans('senaempresa::menu.New Position'), 'position_companies' => $position_companies];
         return view('senaempresa::Company.PositionCompany.position_registration', $data);
     }
 
@@ -47,13 +50,13 @@ class PositionCompanyController extends Controller
 
             if ($positionCompany->save()) {
                 // Redirigir a la vista adecuada con un mensaje de éxito
-                return redirect()->route('cefa.cargos')->with('success', 'Cargo creado exitosamente.');
+                return redirect()->route('cefa.cargos')->with('success', trans('senaempresa::menu.Position successfully created.'));
             } else {
                 // Manejar el caso de error si la inserción falla
-                return redirect()->back()->with('error', 'Error al crear el cargo.');
+                return redirect()->back()->with('error', trans('senaempresa::menu.Error in creating the position.'));
             }
         } else {
-            return redirect()->back()->with('error', 'Error al crear el objeto PositionCompany.');
+            return redirect()->back()->with('error', trans('senaempresa::menu.Failed to create PositionCompany object.'));
         }
     }
     public function edit($id)
@@ -61,7 +64,7 @@ class PositionCompanyController extends Controller
 
 
         $position = PositionCompany::find($id);
-        $data = ['title' => 'Editar Cargo', 'position' => $position];
+        $data = ['title' => trans('senaempresa::menu.Edit the position.'), 'position' => $position];
         return view('senaempresa::Company.PositionCompany.position_edit', $data);
     }
     public function update(Request $request, $id)
@@ -82,9 +85,9 @@ class PositionCompanyController extends Controller
             $company = PositionCompany::findOrFail($id);
             $company->delete();
 
-            return response()->json(['mensaje' => 'Vacante eliminada con éxito']);
+            return response()->json(['mensaje' => trans('senaempresa::menu.Vacancy eliminated with success.')]);
         } catch (\Exception $e) {
-            return response()->json(['mensaje' => 'Error al eliminar la vacante'], 500);
+            return response()->json(['mensaje' => trans('senaempresa::menu.Error when deleting the vacancy.')], 500);
         }
     }
 }

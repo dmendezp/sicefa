@@ -25,67 +25,52 @@ class SENAEMPRESAController extends Controller
         $data = ['title' => 'SenaEmpresa - Estrategias', 'senaempresas' => $senaempresas];
         return view('senaempresa::Company.SENAEMPRESA.senaempresa', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function agregar()
     {
-        return view('senaempresa::create');
+        $senaempresas = Senaempresa::all();
+        $data = ['title' => 'Nuevo senaempresa', 'senaempresas' => $senaempresas];
+        return view('senaempresa::Company.SENAEMPRESA.senaempresa_registration', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
-        //
+        $sena = new Senaempresa();
+
+        // Verifica si el objeto se creó correctamente antes de asignar propiedades
+        if ($sena) {
+            $sena->name = $request->input('name');
+            $sena->description = $request->input('description');
+
+            if ($sena->save()) {
+                // Redirigir a la vista adecuada con un mensaje de éxito
+                return redirect()->route('senaempresa')->with('success', 'Cargo creado exitosamente.');
+            } else {
+                // Manejar el caso de error si la inserción falla
+                return redirect()->back()->with('error', 'Error al crear el cargo.');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Error al crear el objeto PositionCompany.');
+        }
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('senaempresa::show');
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('senaempresa::edit');
-    }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
+
+
+
+
+
+
+
+
+
+  
+
+    
+
+   
     //Asociar cursos a vacantes
     public function cursos_senamepresa()
     {

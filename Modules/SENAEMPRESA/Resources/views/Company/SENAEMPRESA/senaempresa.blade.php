@@ -26,7 +26,10 @@
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Descripción</th>
-                                    <th>Agregar</th>
+                                    <th style="width: 200px;">
+                                        <a href="{{ route('agrega') }}" class="btn btn-success btn-sm"><i
+                                                class="fas fa-user-plus"></i></a>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,11 +38,6 @@
                                         <td>{{ $senaempresa->id }}</td>
                                         <td>{{ $senaempresa->name }}</td>
                                         <td>{{ $senaempresa->description }}</td>
-                                        <td>
-
-                                            <a href="" class="btn btn-success">Editar</a>
-                                            <a href="" class="btn btn-success">Eliminar</a>
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -67,6 +65,7 @@
 
     <!--scripts utilizados para procesos-->
     @section('scripts')
+
     @show
 
     @section('dataTables')
