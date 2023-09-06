@@ -1,11 +1,11 @@
 <?php
 
 namespace Modules\BIENESTAR\Entities;
-
+use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class AnswersQuestions extends Model
+class AnswersQuestions extends Model implements Auditable
 {
     use HasFactory;
 
