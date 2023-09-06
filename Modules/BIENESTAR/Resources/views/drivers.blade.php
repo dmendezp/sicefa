@@ -14,16 +14,21 @@
                     <div class="col-md-12">                
                             <form action="{{ route('bienestar.drivers.add') }}" method="POST" onsubmit="return validarFormulario()">
     @csrf
-    <div class="form-row">
-        <div class="col-md-3 mb-2">
-            <input type="text" placeholder="Conductor" class="form-control" name="namedriver" id="namedriver" oninput="validarNombre()">
-        </div>
-        <div class="col-md-3 mb-2">
-            <input type="text" placeholder="Email" class="form-control" name="email" id="email" onblur="validarEmail()">
-        </div><div class="col-md-3 mb-2">
-            <input type="number" placeholder="Telefono" class="form-control" name="phone" id="phone" onblur="validarTelefono()">
-        </div>
+    <div class="form-row"><div class="col-md-3 mb-2">
+    <input type="text" placeholder="Conductor" class="form-control" name="namedriver" id="namedriver" required oninput="validarNombre()">
 
+    <span id="nombreError" style="color: red;"></span>
+</div>
+<div class="col-md-3 mb-2">
+<input type="text" placeholder="Email" class="form-control" name="email" id="email" onblur="validarEmail()" required>
+
+    <span id="emailError" style="color: red;"></span>
+</div>
+<div class="col-md-3 mb-2">
+<input type="number" placeholder="Telefono" class="form-control" name="phone" id="phone" onblur="validarTelefono()" required>
+
+    <span id="telefonoError" style="color: red;"></span>
+</div>
         <div class="col-md-3 mb-2">
             <button type="submit" class="btn btn-success btn-block">Guardar</button>
         </div>
@@ -49,14 +54,15 @@
 <script>
     function validarEmail() {
         var email = document.getElementById("email").value;
-        var gmailPattern = /@gmail\.com$/; // Expresión regular para verificar si termina con @gmail.com
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; // Expresión regular para verificar una dirección de correo válida
 
-        if (!gmailPattern.test(email)) {
-            alert("El correo electrónico debe tener '@gmail.com' al final.");
+        if (!emailPattern.test(email)) {
+            alert("Ingrese una dirección de correo electrónico válida.");
             document.getElementById("email").value = ""; // Limpiar el campo
         }
     }
 </script>
+
 <script>
     function validarTelefono() {
         var telefono = document.getElementById("phone").value;
@@ -71,9 +77,6 @@
         }
     }
 </script>
-
-
-
                         </form>
                     </div>
                 </div>
