@@ -17,79 +17,53 @@ use Modules\SICA\Entities\Category;
 class InventoryController extends Controller
 
 {
-
-    public function inventory()
+    public function inventory(Request $request)
     {
-        // Paso 1: Consultar todas las bodegas disponibles
-        $warehouses = Warehouse::all();
+        // Obtener el ID de la unidad productiva seleccionada (asumiendo que lo tienes en sesión)
+        $selectedUnitId = Session::get('selectedUnitId');
 
-        // Puedes cargar las categorías aquí o desde donde las obtengas
-        $categories = Category::all(); // Aquí debes cargar las categorías
+        // Obtener todas las categorías
+        $categories = Category::all();
 
-        $categoryName = 'Nombre de la Categoría'; // Nombre de la categoría deseada
+        // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
+        $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
+        // Obtener los IDs de las bodegas relacionadas con la unidad productiva
+        // Obtener los registros de inventario que coinciden con las bodegas relacionadas
+        $inventory = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)->get();
 
-        // Paso 2: Obtener la bodega deseada (puedes cambiar 'agrocefa' por lo que necesites)
-        $warehouseName = 'agrocefa'; // Nombre de la bodega deseada
 
-        $elementsInCategory = Inventory::whereHas('element.category', function ($query) use ($categoryName) {
-            $query->where('name', $categoryName);
-        })->get();
-
-        // Paso 3: Consultar los elementos en esa bodega
-        $elementsInWarehouse = Inventory::whereHas('productive_unit_warehouse.warehouse', function ($query) use ($warehouseName) {
-            $query->where('name', $warehouseName);
-        })->get();
-
-        // Paso 4: Puedes pasar las variables a la vista
         return view('agrocefa::inventory', [
-            'elementsInWarehouse' => $elementsInWarehouse,
-            'elementsInCategory' => $elementsInCategory,
-            'warehouses' => $warehouses,
-            'categories' => $categories, // Asegúrate de cargar las categorías aquí
+            'inventory' => $inventory,
+            'categories' => $categories,
         ]);
     }
 
-    public function showWarehouseFilter(Request $request)
+        public function showWarehouseFilter(Request $request)
     {
-        // Obtener todas las bodegas
-        $warehouses = Warehouse::all();
+        // Obtener todas las categorías
+        $categories = Category::all();
 
-        // Obtener el ID de la bodega seleccionada desde el formulario
-        $warehouseId = $request->input('warehouse');
+        // Obtener el ID de la categoría seleccionada desde el formulario
         $categoryId = $request->input('category');
 
-        // Obtener la bodega deseada
-        $warehouse = Warehouse::find($warehouseId);
-
-        // Inicializar el query builder para la tabla 'elements'
-        $query = Element::query();
+        // Inicializar el query builder para la tabla 'inventory'
+        $query = Inventory::query();
 
         // Filtrar por categoría si se selecciona una
         if ($categoryId) {
-            $query->where('category_id', $categoryId);
-        }
-
-        // Filtrar por bodega si se selecciona una
-        if ($warehouse) {
-            $query->whereHas('inventories.productive_unit_warehouse', function ($query) use ($warehouseId) {
-                $query->where('warehouse_id', $warehouseId);
+            $query->whereHas('element', function ($subquery) use ($categoryId) {
+                $subquery->where('category_id', $categoryId);
             });
         }
 
         // Obtener los elementos filtrados
-        $filteredElements = $query->get();
+        $filteredInventory = $query->get();
 
-        // Pasar los elementos filtrados a la vista
         return view('agrocefa::inventory', [
-            'filteredElements' => $filteredElements,
-            'warehouses' => $warehouses,
-            'categories' => Category::all(),
+            'filteredInventory' => $filteredInventory,
+            'categories' => $categories,
         ]);
     }
-
-
-
-
 
 
 
