@@ -41,7 +41,7 @@ class CropController extends Controller
 
     $crop->save();
 
-    return redirect()->route('agrocefa::parameters.parameter')->with('success', 'Cultivo registrado exitosamente.');
+    return redirect()->route('agrocefa.parameters')->with('success', 'Cultivo registrado exitosamente.');
     }
 
 
