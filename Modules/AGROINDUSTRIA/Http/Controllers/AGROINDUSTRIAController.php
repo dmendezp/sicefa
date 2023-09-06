@@ -37,10 +37,10 @@ class AGROINDUSTRIAController extends Controller
                 $productiveUnits = ProductiveUnit::whereIn('id', $units)
                 ->get();
 
-                $warehouses = ProductiveUnitWarehouse::whereIn('productive_unit_id', $units)
+                $warehouses = ProductiveUnitWarehouse::where('productive_unit_id', $units)
                 ->pluck('warehouse_id');
 
-                $warehouseName = Warehouse::whereIn('id', $warehouses)->get();
+                $warehouseName = Warehouse::where('id', $warehouses)->get();
 
                  // Retorna la vista 'homeproductive_units' con datos de unidades y la unidad seleccionada
                 return view('agroindustria::units', [

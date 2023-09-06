@@ -66,6 +66,47 @@
     });
 </script>
 
+{{-- Obtiene el precio del inventario --}}
+<script>
+    $(document).ready(function () {
+        $('#elementInventory').change(function () {
+            var elementoSeleccionado = $(this).val();
+
+            // Realiza una petición AJAX para obtener la cantidad
+            if (elementoSeleccionado) {
+                console.log('ID de la persona seleccionada:', elementoSeleccionado);
+                $.ajax({
+                    url: {!! json_encode(route('cefa.agroindustria.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
+                    method: 'GET',
+                    success: function (response) {
+                    if (Array.isArray(response.id)) {
+                        // Si recibes un arreglo de IDs, puedes recorrerlos aquí
+                        response.id.forEach(function (value) {
+                            var amount = parseFloat(value.amount); // Acceder al amount
+                            var price = parseFloat(value.price);   // Acceder al price
+                            
+                            // Establecer los valores en los campos correspondientes
+                            $('#available').val(amount);
+                            $('#price').val(price);
+                        });
+                    } else {
+                        // Manejar el caso en que el valor no sea un número válido
+                        console.error('No se encontró el precio válido.');
+                    }
+                },
+                    error: function (error) {
+                        console.error('Error al obtener la cantidad:', error);
+                    }
+                });
+            } else {
+                // Si se selecciona la opción predeterminada, deja el campo de "Cédula" en blanco
+                $('#available').val('');
+            }
+        });
+    });
+</script>
+
+
 {{--Script para traer el id del curso seleccionado--}}
 <script>
     $(document).ready(function() {

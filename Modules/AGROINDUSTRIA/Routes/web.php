@@ -42,6 +42,7 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/labor', [LaborController::class, 'labor'])->name('cefa.agroindustria.instructor.labor');
             Route::get('/activity', [ActivityController::class, 'activity'])->name('cefa.agroindustria.instructor.activity');
             Route::get('/movements', [DeliverController::class, 'deliveries'])->name('cefa.agroindustria.instructor.movements');
+            Route::get('/movements/{id}', [DeliverController::class, 'priceInventory'])->name('cefa.agroindustria.instructor.movements.id');
             Route::get('/formulation', [FormulationController::class, 'create'])->name('cefa.agroindustria.instructor.formulations.create');
             Route::get('/units', 'AGROINDUSTRIAController@unidd')->name('cefa.agroindustria.instructor.units');
         });
