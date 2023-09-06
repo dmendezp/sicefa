@@ -1,4 +1,3 @@
-
 @extends('tilabs::layouts.master')
 
 @section('stylesheet')
@@ -6,11 +5,10 @@
 
 @section('content')
     <div class="content">
-      <div class="container-fluid">
-        <div class="row d-flex justify-content-center">
-prestamo
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center">
+                Prestamo
+            </div>
         </div>
     </div>
-</div>
 @endsection
-    
