@@ -14,9 +14,9 @@
                 !!}
                 <div class="row p-4">
                     <div class="col-md-3">
-                        {!! Form::label('plate', 'Placa:') !!}
-                        {!! Form::text('plate', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la placa',
-                        'required']) !!}
+                        <label for="plate">Placa:</label>
+                        <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6">
+                        <span id="plate-error" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
                         {!! Form::label('bus_driver', 'Conductor:') !!}
@@ -24,14 +24,14 @@
                         'Seleccione...','required']) !!}
                     </div>
                     <div class="col-md-3">
-                        {!! Form::label('quota', 'Cupos:') !!}
-                        {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos',
-                        'required']) !!}
-                    </div>
+                                <label for="quota">Cupos:</label>
+                                <input type="number" name="quota" id="quota" class="form-control" placeholder="Ingrese los cupos" required maxlength="2">
+                                <span id="quota-error" class="text-danger"></span>
+                            </div>
                     <div class="col-md-2 align-self-end">
                         <div class="btns mt-3">
-                            {!! Form::submit('Guardar',['class'=>'btn btn-success', 'style'=>'background-color: #00FF22;
-                            color: black;']) !!}
+                            {!! Form::submit('Guardar',['class'=>'btn btn-success', 'style'=>'background-color: #179722;
+                            color: white;']) !!}
                         </div>
                     </div>
                 </div>
@@ -59,13 +59,13 @@
                                         <button class="btn btn-sm btn-info" data-toggle="modal"
                                             data-target="#modal-default" data-plate="{{ $b->plate }}"
                                             data-bus-driver="{{ $b->bus_driver }}" data-bus-id="{{ $b->id }}"
-                                            data-quota="{{ $b->quota }}">Editar
+                                            data-quota="{{ $b->quota }}"><i class="fa fa-edit"></i>
                                         </button>
 
                                         {!! Form::open(['route' => ['bienestar.buses.destroy', $b->id],
                                         'method' => 'DELETE', 'style' => 'display: inline;']) !!}
                                         <button class="btn btn-sm btn-danger"
-                                            onclick="if(confirm('¿Estás seguro de que deseas eliminar este elemento?')) { $(this).closest('form').submit(); return false; }">Eliminar</button>
+                                            onclick="if(confirm('¿Estás seguro de que deseas eliminar este elemento?')) { $(this).closest('form').submit(); return false; }"><i class="fa fa-trash-alt"></i></button>
                                         {!! Form::close() !!}
                                     </div>
                                 </td>
@@ -102,6 +102,7 @@
                         {!! Form::text('plate', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la placa',
                         'required']) !!}
                 </div>
+
                     </div>
                     <div class="col-md-12">
                     <label for="bus_driver">conductor:</label>
@@ -111,11 +112,11 @@
                 </div>
                     </div>
                    <div class="col-md-12">
-    <label for="quota">cupos:</label>
-    <div class="form-group">
-        {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required', 'oninput' => "this.value = this.value.slice(0, 2).replace(/[^0-9]/g, '')"]) !!}
-    </div>
-</div>
+                        <label for="quota">cupos:</label>
+                        <div class="form-group">
+                            {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required',]) !!}
+                        </div>
+                    </div>
                     <div class="col-md-2">
                         <div class="btns">
                             {!! Form::submit('Actualizar',['class'=>'btn btn-success']) !!}
@@ -151,4 +152,23 @@
         });
     });
 </script>
+<script>
+  document.getElementById('quota').addEventListener('input', function() {
+    const quotaInput = this.value;
+    const quotaError = document.getElementById('quota-error');
+
+    // Removemos cualquier caracter no numérico y limitamos la longitud a 2
+    const cleanedInput = quotaInput.replace(/\D/g, '').substring(0, 2);
+
+    // Verificamos si la entrada contiene exactamente dos números
+    if (/^\d{2}$/.test(cleanedInput)) {
+      quotaError.textContent = ''; // Campo válido, borra el mensaje de error
+      this.value = cleanedInput; // Actualizamos el valor del campo
+    } else {
+      // Muestra El Mensaje De Error
+    }
+  });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @endsection
