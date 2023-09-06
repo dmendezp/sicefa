@@ -14,31 +14,7 @@
             </section>
 
     <section>
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-            <center>
-            <div class="card mb-3" >
-                <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="{{asset('agroindustria/img/foto1.jpg')}}" class="img-fluid rounded-start" alt="...">
-                        </div>
-                     <div class="col-md-8">
-                <div class="card-body">
-                        <h1 class="card-title">Nosotros</h1>
-                        <p class="card-text">TLorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
-                        printer took a galley of type and scrambled it to make a type specimen book. It has survived 
-                        not only five centuries, but also the leap into electronic typesetting, remaining essentially
-                        unchanged.</p>
-                </div>
-            </div>
-        </div>
-</div>
-<br>
-            </center>
-    
-    </div>
-    </div>
+   
     </section>
            
            
