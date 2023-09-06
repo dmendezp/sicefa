@@ -22,10 +22,7 @@ class Questions extends Model implements Auditable
         'score',
     ];
 
-    public function answers()
-    {
-        return $this->hasMany(Answers::class, 'questions_id');
-    }
+   
     
     protected static function newFactory()
     {
@@ -34,14 +31,19 @@ class Questions extends Model implements Auditable
 
     //RELACIONES
 
-    public function convocations(){ // Accede a los datos de la Convocatoria al que pertenece
-        return $this->belongsToMany(Convocations::class, 'convocations_questions');
+    public function answers(){
+        return $this->hasMany(Answers::class);
     }
 
-    public function ConvocationsQuestions()
-{
-    return $this->hasMany(ConvocationsQuestions::class, 'convocation_id');
-}
+    
+
+    public function convocationsquestions(){
+        return $this->hasMany(ConvocationQuestion::class);
+    }
+
+    public function answersquestions(){
+        return $this->hasMany(AnswersQuestions::class);
+    }
 
     
 }

@@ -15,6 +15,7 @@ class BusDrivers extends Model implements Auditable
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];
 
+    
     protected $fillable = [
         'name',
         'email',
@@ -27,7 +28,13 @@ class BusDrivers extends Model implements Auditable
     /**
      * NOTE: se implementa relacion con conductores 
      * */
-    public function buses(){
+    public function buses(){// Accede a todos los buses que pertenecen a este conductor
     	return $this->hasMany(Buses::class);
     }
+
+    public function transportationassistance(){// Accede a todas las asistencias de trasporte que pertenecen a este conductor
+    	return $this->hasMany(TransportationAssistances::class);
+    }
+
+
 }

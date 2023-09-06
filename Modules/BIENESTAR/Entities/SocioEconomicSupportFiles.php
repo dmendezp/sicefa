@@ -21,14 +21,17 @@ class SocioEconomicSupportFiles extends Model implements Auditable
         'postulation_id',
     ];
 
-    public function postulation()
-    {
-        return $this->belongsTo(Postulations::class, 'postulation_id');
-    }
+    
     
     protected static function newFactory()
     {
         return \Modules\BIENESTAR\Database\factories\SocioEconomicSupportFilesFactory::new();
+    }
+
+    //RELACIONES
+
+    public function postulation(){// Accede a todas las labores que pertenecen a esta actividad
+        return $this->belongsTo(Postulations::class);
     }
 
     

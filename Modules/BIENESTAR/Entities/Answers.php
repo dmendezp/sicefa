@@ -26,21 +26,22 @@ class Answers extends Model implements Auditable
         'score',
     ];
 
-    public function question()
-    {
-        return $this->belongsTo(Questions::class, 'questions_id');
-    }
-
-    public function postulation()
-    {
-        return $this->belongsTo(Postulations::class, 'postulation_id');
-    }
-
     
     protected static function newFactory()
     {
         return \Modules\BIENESTAR\Database\factories\AnswersFactory::new();
     }
+
+    // RELACIONES
+    public function question(){// Accede a todas las preguntas que pertenecen a esta respuesta
+        return $this->belongsTo(Questions::class);
+    }
+
+    public function postulation(){// Accede a todas las postulaciones que pertenecen a esta respuesta
+        return $this->belongsTo(Postulations::class);
+    }
+
+
 
     
 }

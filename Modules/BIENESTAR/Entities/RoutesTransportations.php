@@ -14,6 +14,8 @@ class RoutesTransportations extends Model implements Auditable
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];
 
+    protected $table = 'routes_transportations';
+
     protected $fillable = [
         'route_number',
         'name_route',
@@ -22,6 +24,17 @@ class RoutesTransportations extends Model implements Auditable
         'departure_time',
         'bus_id',
     ];
+
+    public function buses(){// Accede a todos los buses que pertenecen a esta ruta de transporte
+    	return $this->belongsTo(Buses::class);
+    }
     
+    public function transportationassistance(){// Accede a todas las asistencias de trasporte que pertenecen a esta ruta de trasporte
+    	return $this->hasMany(TransportationAssistances::class);
+    }
+
+    public function assingtransportroutes(){// Accede a todas las asignaciones de trasporte que pertenecen a esta ruta de trasporte
+    	return $this->hasMany(AssingTransportRoutes::class);
+    }
 
 }

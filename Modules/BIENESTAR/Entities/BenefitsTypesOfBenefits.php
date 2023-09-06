@@ -29,13 +29,11 @@ class BenefitsTypesOfBenefits extends Model implements Auditable
     {
         return \Modules\BIENESTAR\Database\factories\BenefitsTypesOfBenefitsFactory::new();
     }
-    public function benefit()
-    {
-        return $this->belongsTo(Benefits::class, 'benefit_id');
+    public function benefit(){// Accede a los datos del beneficio al que pertenece
+        return $this->belongsToMany(Benefits::class);
     }
 
-    public function typeOfBenefit()
-    {
-        return $this->belongsTo(TypesOfBenefits::class, 'type_of_benefit_id');
+    public function typeOfBenefit(){// Accede a los datos del beneficiario al que pertenece
+        return $this->belongsToMany(TypesOfBenefits::class);
     }
 }

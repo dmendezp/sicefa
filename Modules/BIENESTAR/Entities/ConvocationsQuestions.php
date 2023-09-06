@@ -28,11 +28,11 @@ class ConvocationsQuestions extends Model implements Auditable
 
     //RELACIONES
     public function convocation(){// Accede a los datos de la convocatoria al que pertenece
-        return $this->belongsTo(Convocations::class, 'convocation_id');
+        return $this->belongsToMany(Convocations::class);
     }
 
     public function question(){// Accede a los datos de la pregunta al que pertenece
-        return $this->belongsTo(Questions::class, 'questions_id');
+        return $this->belongsToMany(Questions::class);
     }
 
     

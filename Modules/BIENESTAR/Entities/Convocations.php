@@ -14,29 +14,35 @@ class Convocations extends Model implements Auditable
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];
 
+    protected $table = 'convocations';
+
 
     protected $fillable = [
-        'id', 
-        'title', 	
-        'description',
-        'start_date',
+        'name', 
+        'start_date', 	
         'end_date',
-        'transport_quotas',
-        'food_quotas',
+        'time_interval',
     ];
     
-    public function ConvocationsQuestions(){
-        return $this->hasMany(ConvocationQuestion::class);
-    }
+    
     protected static function newFactory()
     {
         return \Modules\BIENESTAR\Database\factories\ConvocationsFactory::new();
     }
     //RELACIONES
 
-    public function questions(){// Accede a los datos de la Pregunta al que pertenece
-        return $this->belongsToMany(Questions::class, 'convocations_questions');
+    public function convocationsquestions(){
+        return $this->hasMany(ConvocationQuestion::class);
     }
- 
+
+    public function postulation(){// Accede a los datos de la postulacion al que pertenece
+        return $this->hasMany(Postulations::class, );
+    }
+
+    public function assingtransportroutes(){// Accede a todas las asignaciones de trasporte que pertenecen a esta ruta de trasporte
+    	return $this->hasMany(AssingTransportRoutes::class);
+    }
+
+    
 
 }
