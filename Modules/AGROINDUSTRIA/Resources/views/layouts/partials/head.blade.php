@@ -6,10 +6,11 @@
        {{-- Laravel Mix - CSS File --}}
        {{-- <link rel="stylesheet" href="{{ mix('css/agroindustria.css') }}"> --}}
         <link rel="icon" href="{{asset('agroindustria/favicon.ico')}}">       
-       <link rel="stylesheet" href="{{asset('agroindustria/css/cssunidades.css')}}">
+       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/cssunidades.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleinvb.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleindex.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/navbar.css')}}">
+       <link rel="stylesheet" href="{{asset('agroindustria/css/styleU.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/styleRequest.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/deliveries.css')}}">
 
