@@ -1,0 +1,26 @@
+.movements{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 700px;
+    margin: 0 auto;  
+}
+
+.elements {
+    display: flex;
+    flex-direction: row; /* Alinea los campos uno al lado del otro */
+    align-items: flex-start;
+}
+
+.form-group {
+    display: inline-block;
+    width: 200px; /* Ancho deseado para cada campo y etiqueta */
+    margin-right: 20px; /* Espacio entre campos */
+    margin-bottom: 10px; /* Espacio entre grupos de campos */
+}
+
+label {
+    font-weight: bold; /* Opcional: para hacer que las etiquetas sean más visibles */
+}
+
+

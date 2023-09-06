@@ -50,7 +50,7 @@
 
 
 /* tarjets */
-.card-client {
+.card-client-content {
     background: #fabbb6;
     width: 13rem;
     padding-top: 25px;
@@ -66,14 +66,17 @@
     transition: all 0.3s ease;
   }
   
-  .card-client:hover {
+  .card-client-content:hover {
     transform: translateY(-10px);
   }
 
+#boton_unit{
+    background-color: white;
+}
 
 /* tittle Unidad */
 .tittleU{
-    margin-top: 30%;
+    margin: 48px 0px 8px 0px;
     color: #fff;
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;

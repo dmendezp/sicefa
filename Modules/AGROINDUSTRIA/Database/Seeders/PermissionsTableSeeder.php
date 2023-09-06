@@ -165,8 +165,8 @@ class PermissionsTableSeeder extends Seeder
         $permission_instructor[] = $permission->id;
 
         //Visualizar Movimientos de produccion y/o movimientos de bodegas.
-        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.movements'], [
-            'name' => 'Visualizar la vista de Movimientos.',
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.deliveries'], [
+            'name' => 'Visualizar la vista de Entregas.',
             'description' => 'Puede visualizar y/o registrar movimientos de produccion y/o de bodega.',
             'description_english' => 'You can visualize and/or register production and/or warehouse movements.',
             'app_id' => $app->id
@@ -177,13 +177,15 @@ class PermissionsTableSeeder extends Seeder
 
 
         $rol_admin = Role::where('slug', 'agroindustria.admin')->first(); // Rol Administrador
-        $rol_instructor = Role::where('slug', 'agroindustria.instructor')->first(); // Rol Coordinado Académico
+        $rol_instructor_vilmer = Role::where('slug', 'agroindustria.instructor.vilmer')->first(); // Rol Coordinado Académico
+        $rol_instructor_chocolate = Role::where('slug', 'agroindustria.instructor.chocolate')->first(); // Rol Coordinado Académico
         $rol_storer = Role::where('slug', 'agroindustria.almacenista')->first(); // Rol Registro Asistencia
         $rol_visitor = Role::where('slug', 'agroindustria.visitante')->first(); // Rol Registro Asistencia
 
         // Asignación de PERMISOS para los ROLES de la aplicación SICA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()-> syncWithoutDetaching($permission_admin);
-        $rol_instructor->permissions()->syncWithoutDetaching($permission_instructor);
+        $rol_instructor_vilmer->permissions()->syncWithoutDetaching($permission_instructor);
+        $rol_instructor_chocolate->permissions()->syncWithoutDetaching($permission_instructor);
         $rol_storer->permissions()->syncWithoutDetaching($permission_storer);
         $rol_visitor->permissions()->syncWithoutDetaching($permission_visitor);
     }

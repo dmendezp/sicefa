@@ -5,8 +5,9 @@ namespace Modules\AGROINDUSTRIA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\ProductiveUnit;
-
+use Modules\SICA\Entities\Person;
 
 class RequestExternal extends Model implements Auditable
 {
@@ -16,13 +17,14 @@ class RequestExternal extends Model implements Auditable
 
     protected $fillable = [ // Atributos modificables (asginación masivaa)
         'date',
-        'productive_unit_id',
+        'area',
         'coordinator',
         'receiver',
         'region_code',
         'region_name',
         'cost_code',
-        'cost_center_name'
+        'cost_center_name',
+        'course_id'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
@@ -33,6 +35,9 @@ class RequestExternal extends Model implements Auditable
     ];
 
     //RELACIONES
+    public function person(){ // Accede a la información de la unidad productiva al que pertenece
+        return $this->belongsTo(Person::class);
+    }
     public function productive_unit(){ // Accede a la información de la unidad productiva al que pertenece
         return $this->belongsTo(ProductiveUnit::class);
     }

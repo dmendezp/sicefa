@@ -1,23 +1,28 @@
 <?php
 
-namespace Modules\AGROINDUSTRIA\Http\Controllers;
+namespace Modules\AGROINDUSTRIA\Http\Controllers\unit;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\Movement;
+use Modules\AGROINDUSTRIA\Http\Controllers\AGROINDUSTRIAController;
+use Modules\SICA\Entities\ProductiveUnit;
 
-class NewDeliverController extends Controller
+class BakeryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
+    public function bakery($unit)
     {
-        $title = 'Movimientos';
-        return view('agroindustria::instructor.movements.index', compact('title'));
+        session(['viewing_unit' => true]);
+        $title = 'Panaderia';
+        $result = app(AGROINDUSTRIAController::class)->unidd();
+        $units = $result['units'];        
+        $selectedUnit = ProductiveUnit::findOrFail($unit);
+        
+        // Eliminar la variable de sesión después de usarla y antes de cargar la vista
+    
+        return view('agroindustria::units.bakery.index', compact('title', 'selectedUnit'))->with('viewing_unit', true);
     }
+    
 
     /**
      * Show the form for creating a new resource.

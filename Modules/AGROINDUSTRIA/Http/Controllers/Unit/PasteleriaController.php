@@ -1,29 +1,30 @@
 <?php
 
-namespace Modules\AGROINDUSTRIA\Http\Controllers\admin;
+namespace Modules\AGROINDUSTRIA\Http\Controllers\Unit;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\Role;
+use Modules\AGROINDUSTRIA\Http\Controllers\AGROINDUSTRIAController;
+use Modules\SICA\Entities\ProductiveUnit;
 
-class RequestController extends Controller
+
+class PasteleriaController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function solicitudcentro()
+    public function index_pasteleria($unit)
     {
-        $title = 'Solicitud a Centro';
-        $coordinator = Role::with('users.person')->where('id', 2)->first()->users->pluck('person');
-        $coordinator->transform(function ($person) {
-            return $person->first_name . ' ' . $person->first_last_name. ' ' . $person->second_last_name;
-        });
-        $data = ['title'=>$title, 'coordinator'=>$coordinator];
-
-        return view('agroindustria::admin.solicitudcentro', $data);
+        session(['viewing_unit' => true]);
+        $title = 'Pasteleria';
+        $result = app(AGROINDUSTRIAController::class)->unidd();
+        $units = $result['units'];        
+        $selectedUnit = ProductiveUnit::findOrFail($unit);
+        return view('agroindustria::units.pasteleria.index',compact('title', 'selectedUnit'));
     }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable

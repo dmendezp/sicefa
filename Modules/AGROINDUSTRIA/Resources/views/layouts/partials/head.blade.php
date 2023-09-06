@@ -1,4 +1,5 @@
-<meta charset="utf-8">
+<head>
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>AGROINDUSTRIA | {{$title}}</title>
@@ -9,9 +10,16 @@
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleinvb.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/styleindex.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/navbar.css')}}">
-       <link rel="stylesheet" href="{{asset('agroindustria/css/styleRequest.css')}}">
+       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/styleRequest.css')}}">
+       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/deliveries.css')}}">
+
+       {{-- Scripts que deben ser iniciados en el head para que sirvan sus funcionalidades--}}
+       <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
        <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/activity.css')}}">
+       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/deliveries.css')}}">
        <link rel="stylesheet" href="{{asset('agroindustria/css/storer/bodegastyle.css')}}">
 
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">

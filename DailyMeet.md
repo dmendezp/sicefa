@@ -33,7 +33,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 **Julian Javier Ramirez Diaz** - *Rutas controladores vistas para solicitud* - *44%* - *Ninguna* - *Ninguna*
 
 ---
-#### Meet 31-Agosto-20223
+#### Meet 31-Agosto-2023
 * **Jennifer Marin Montealegre** - *Formulario para registro de formulacion* - *78%* - *Nunguna* - *Ninguna*
 
 * **David Juliam Cadena Barrera** - *Formulario de registro de nuevo insumo y de edicion* - *50%* - *Ninguna* - *Ninguna.*
@@ -49,13 +49,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Juan Diego Bonilla Aroca** - *Registro de entrega de productos a punto de venta.*
 * **Julian Javier Ramirez Diaz** - *Registro de entrega de productos a punto de venta.*
 #### Meet 31-Agosto-20223
-* **Jennifer Marin Montealegre** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+* **Jennifer Marin Montealegre** - *No inciado* - *0%* - *Ninguna* - *Ninguna*
 
-* **David Juliam Cadena Barrera** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+* **David Juliam Cadena Barrera** - *No inciado* - *0%* - *Ninguna* - *Ninguna*
 
 **Juan Diego Bonilla Aroca** - *vista de entregas* - *44%* - *Ninguna* - *Ninguna*
 
-**Julian Javier Ramirez Diaz** - *No inciado* - *0%* - *Nunguna* - *Ninguna*
+**Julian Javier Ramirez Diaz** - *No inciado* - *0%* - *Ninguna* - *Ninguna*
 
 
 #### Meet 31-Agosto-20223
@@ -69,9 +69,11 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 
 
-#### Meet 02-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 06-Sep-2023
+* **IDavid Juliam Cadena Barrera** - *Mejoras en la vista de monitoreo* - *60 %* - *conflictos* - *solucionar conflictos*
+**Juan Diego Bonilla Aroca** - *Terminar la vista inicial de visitantes* - *100%* - *Ninguna* - *Ninguna*
+**Julian Javier Ramirez Diaz** - *Terminar la funcion de movimiento interno* - *60%* - *Ninguna* - *Ninguna*
+
 ---
 #### Meet 04-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*

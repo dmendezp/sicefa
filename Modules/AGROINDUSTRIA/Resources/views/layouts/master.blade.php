@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
         @include('agroindustria::layouts.partials.head')
-    </head>
     <body>
+        <!-- navbar -->
         @include('agroindustria::layouts.partials.navbar')
-        @yield('content')
+
+        <!-- contenido -->
+        @section('content')
+        @show
+
+        <!-- scripts -->
         @include('agroindustria::layouts.partials.scripts')
     </body>
 </html>
