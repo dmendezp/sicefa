@@ -2,11 +2,11 @@
 
 namespace Modules\BIENESTAR\Entities;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Answers extends Model
+class Answers extends Model implements Auditable
 {
     use HasFactory, SoftDeletes;
 
