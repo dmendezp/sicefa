@@ -208,14 +208,7 @@
 
                     $('#productsInput').val(JSON.stringify(productsData));
 
-                    alert('Elemento guardado:\n' +
-                        'ID: ' + selectedElementId + '\n' +
-                        'Nombre: ' + productName + '\n' +
-                        'Unidad de Medida: ' + measurementUnit + '\n' +
-                        'Cantidad: ' + quantity + '\n' +
-                        'Precio: ' + price + '\n' +
-                        'Categoría: ' + category + '\n' +
-                        'Destino: ' + destination);
+                    alert('Elemento Agregado');
                 } else {
                     alert('Por favor, complete todos los campos de la fila actual antes de guardar.');
                 }

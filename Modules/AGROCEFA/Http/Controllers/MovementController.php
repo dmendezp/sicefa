@@ -2,6 +2,7 @@
 
 namespace Modules\AGROCEFA\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
@@ -15,13 +16,19 @@ use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
+use Modules\SICA\Entities\WarehouseMovement;
+use Modules\SICA\Entities\MovementResponsibility;
+use Modules\SICA\Entities\MovementDetail;
 use Modules\SICA\Entities\Role;
 use App\Models\User;
 
 
 class MovementController extends Controller
 {
-    private $selectedUnitId ;
+    private $selectedUnitId;
+    private $pivotId;
+    private $pivotReceiveId;
+
     public function viewmovements()
     {
         return view('agrocefa::movements.index');
@@ -64,18 +71,21 @@ class MovementController extends Controller
                     return [
                         'id' => $user->id,
                         'first_name' => $user->person->first_name,
+                        'person_id' => $user->person->id,
                         'first_last_name' => $user->person->first_last_name,
                     ];
                 });
 
-
+            Session::put('person_id', $people->first()['person_id']);
             // ---------------- Filtro para Bodega de Entrega -----------------------
 
             $wer = 'Almacen';
-            // Realiza una consulta para obtener las unidades productivas relacionadas con 'Almacen'
+
+            // Realiza una consulta para obtener las unidades productivas relacionadas con 'Almacen' y sus IDs en la tabla pivote
             $units = ProductiveUnit::whereHas('productive_unit_warehouses', function ($query) use ($wer) {
                 $query->where('name', $wer);
-            })->get();
+            })->with(['productive_unit_warehouses:id,productive_unit_id,warehouse_id'])->get();
+
             
             // Ahora, puedes obtener los IDs y nombres de las bodegas relacionadas con las unidades productivas
             $werhousentrance = $units->flatMap(function ($unit) {
@@ -86,6 +96,12 @@ class MovementController extends Controller
                     ];
                 });
             });
+
+            // Obtén el primer ID de la tabla pivote, o cualquier otro que desees enviar
+            $this->pivotId = $werhousentrance->first()['id'];
+
+            Session::put('pivotId', $this->pivotId);
+            
 
             // ---------------- Filtro para Bodega de Recibe -----------------------
 
@@ -111,7 +127,10 @@ class MovementController extends Controller
                 }); 
             }
 
-            
+            $this->pivotReceiveId = $warehouseData->first()['id'];
+            Session::put('pivotReceiveId', $this->pivotReceiveId);
+
+
             
             // ---------------- Filtro para Elementos -----------------------
             // Obtén los elementos con sus IDs
@@ -133,11 +152,12 @@ class MovementController extends Controller
         ]);
     }
 
-    public function registerentrance(Request $request)
-{
 
+
+    public function registerentrance(Request $request)
+    {
     // Obtener para Tipo de Movimiento
-    $movementype = MovementType::select('id','consecutive')->where('name','=', 'Movimiento Interno')->first();
+    $movementType = MovementType::select('id', 'consecutive')->where('name', '=', 'Movimiento Interno')->first();
 
     // Obtener los datos del formulario
     $date = $request->input('date');
@@ -146,12 +166,19 @@ class MovementController extends Controller
     $deliverywarehouse = $request->input('deliverywarehouse');
     $receivewarehouse = $request->input('receivewarehouse');
     $products = json_decode($request->input('products'), true);
+    $identrance = Session::get('pivotId');
+    $idreceive = Session::get('pivotReceiveId');
+    $person_id = Session::get('person_id');
+    
+
 
     // Verificar si $products no es null y es un array
     if (!is_null($products) && is_array($products)) {
-        $totalPrice = 0;
         // Inicializa un arreglo para almacenar los datos de los productos
         $productsData = [];
+
+        // Inicializa el precio total en 0
+        $totalPrice = 0;
 
         // Inicia una transacción de base de datos
         DB::beginTransaction();
@@ -165,15 +192,16 @@ class MovementController extends Controller
                 $price = $product['product-price'];
                 $destination = $product['product-destination'];
 
-                // Suma el precio del producto al total
+                // Suma el precio del producto al precio total
                 $totalPrice += $price * $quantity;
 
                 // Buscar si el elemento ya existe en 'inventories' para la ubicación y elemento específicos
                 $existingInventory = Inventory::where([
-                    'productive_unit_warehouse_id' => $deliverywarehouse,
+                    'productive_unit_warehouse_id' => $idreceive,
                     'element_id' => $productElementId,
-                    'destination' => $destination,
                 ])->first();
+
+                dd($existingInventory);
 
                 if ($existingInventory) {
                     // Si el elemento existe, actualiza el precio y la cantidad
@@ -185,40 +213,87 @@ class MovementController extends Controller
                     $stock = 3; // Este valor puede cambiar según tus requisitos
 
                     $inventory = new Inventory([
-                        'person_id' => $user_id,
-                        'productive_unit_warehouse_id' => $deliverywarehouse,
+                        'person_id' => $person_id,
+                        'productive_unit_warehouse_id' => $idreceive,
                         'element_id' => $productElementId,
                         'destination' => $destination,
                         'price' => $price,
                         'amount' => $quantity,
                         'stock' => $stock,
-
                     ]);
 
                     $inventory->save();
                     $inventoryIds[] = $inventory->id;
                 }
-                
-                $movements = new Movement([
+
+                // Agrega los datos del producto al arreglo
+                $productsData[] = [
+                    'element_id' => $productElementId,
+                    'quantity' => $quantity,
+                    'price' => $price,
+                    'destination' => $destination,
+                ];
+
+                // Generar el voucher como consecutivo simple sin ceros adicionales
+                $voucher = $this->getNextVoucherNumber();
+
+                // Registra un solo movimiento con el precio total calculado
+                $movement = new Movement([
                     'registration_date' => $date,
                     'movement_type_id' => $movementType->id,
-                    'voucher_number' => $movementType->consecutive,
+                    'voucher_number' => $voucher,
                     'price' => $totalPrice,
                     'observation' => $observation,
                     'state' => 'Solicitado',
                 ]);
 
-                // Guardar el nuevo registro en la base de datos
-                $movements->save();
+                // Guarda el nuevo registro en la base de datos
+                $movement->save();
+                $movementIds[] = $movement->id;
 
+                // Registrar detalle del movimiento para cada producto
+                $movement_details = new MovementDetail([
+                    'movement_id' => end($movementIds), // Asociar al movimiento actual
+                    'inventory_id' => end($inventoryIds), // Asociar al inventario actual
+                    'amount' => $quantity, // Cantidad del producto actual
+                    'price' => $price, // Precio del producto actual
+                ]);
+
+                $movement_details->save();
             }
+
+            
+
+            // Registrar las bodegas y rol del movimiento
+            $warehouse_movement_entrega = new WarehouseMovement([
+                'productive_unit_warehouse_id' => $identrance,
+                'movement_id' => end($movementIds),
+                'role' => 'Entrega', 
+            ]);
+
+            $warehouse_movement_recibe = new WarehouseMovement([
+                'productive_unit_warehouse_id' => $idreceive,
+                'movement_id' => end($movementIds),
+                'role' => 'Recibe', 
+            ]);
+
+            $warehouse_movement_entrega->save();
+            $warehouse_movement_recibe->save();
+
+            // Registrar el responsable del movimiento
+            $movement_responsabilities = new MovementResponsibility([
+                'person_id' => $person_id, // Usar la variable $person_id
+                'movement_id' => end($movementIds),
+                'role' => 'REGISTRO',
+                'date' => $date,
+            ]);
+
+            $movement_responsabilities->save();
 
             // Registra datos en otras tablas utilizando $inventoryIds y otros valores (si es necesario)
 
             // Si todo está correcto, realiza un commit de la transacción
             DB::commit();
-
-            
 
             // Después de realizar la operación de registro con éxito
             return redirect()->route('agrocefa.formentrance')->with('success', 'El registro se ha completado con éxito.');
@@ -227,12 +302,39 @@ class MovementController extends Controller
             // En caso de error, realiza un rollback de la transacción y maneja el error
             DB::rollBack();
 
-
+            \Log::error('Error en el registro: ' . $e->getMessage());
         }
     } else {
         // Manejo de caso en el que $products es null o no es un array
     }
-}
+    }
+
+
+    private function getNextVoucherNumber()
+    {
+        // Obtén el número de consecutive de tu tipo de movimiento
+        $consecutive = MovementType::where('name', 'Movimiento Interno')->value('consecutive');
+
+        // Obtén el último número de voucher registrado en la tabla 'movements'
+        $lastVoucherNumber = Movement::max('voucher_number');
+
+        // Si no hay registros previos, comienza desde el 'consecutive' y 1
+        if (is_null($lastVoucherNumber)) {
+            $nextVoucherNumber = $consecutive . '1';
+        } else {
+            // Extrae el número de voucher sin el 'consecutive'
+            $lastVoucherNumberWithoutConsecutive = substr($lastVoucherNumber, strlen($consecutive));
+
+            // Incrementa el número sin el 'consecutive' en uno
+            $nextVoucherNumberWithoutConsecutive = intval($lastVoucherNumberWithoutConsecutive) + 1;
+
+            // Combina el 'consecutive' con el nuevo número de voucher
+            $nextVoucherNumber = $consecutive . $nextVoucherNumberWithoutConsecutive;
+        }
+        return $nextVoucherNumber;
+    }
+
+
 
 
 
