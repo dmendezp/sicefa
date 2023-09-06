@@ -29,7 +29,8 @@
                     <div class="card">
                         <div class="card-header">Prestamos</div>
                         <div class="card-body">
-                            <form action="{{ route('prestamo_nuevo') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('cefa.prestamo_nuevo') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="staff_senaempresa_id" class="form-label">Personal ID</label>
@@ -115,7 +116,7 @@
                                             <td>{{ $loan->state }}</td>
                                             <td>
                                                 @if ($loan->state === 'Prestado')
-                                                    <a href="{{ route('devolver_prestamo', ['id' => $loan->id]) }}"
+                                                    <a href="{{ route('cefa.devolver_prestamo', ['id' => $loan->id]) }}"
                                                         class="btn btn-primary">Devolver</a>
                                                 @endif
                                             </td>

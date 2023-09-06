@@ -39,7 +39,7 @@
                 </div>
             @else
                 <!-- Formulario para filtrar por curso -->
-                <form method="GET" action="{{ route('vacantes') }}">
+                <form method="GET" action="{{ route('cefa.vacantes') }}">
                     <label for="cursoFilter">Filtrar por Curso:</label>
                     <select class="form-control" id="cursoFilter" name="cursoFilter" onchange="this.form.submit()">
                         <option value="">Todos los cursos</option>
@@ -71,7 +71,7 @@
                                             <th>Fecha Inicio</th>
                                             <th>Fecha Fin</th>
                                             <th class="text-center">Inscripción</th>
-                                            <th><a href="{{ route('agregar_vacante') }}"
+                                            <th><a href="{{ route('cefa.agregar_vacante') }}"
                                                     class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
                                             </th>
                                         </tr>
@@ -99,12 +99,12 @@
                                                         <i class="fas fa-eye" style="color: #000000;"></i>
                                                     </a>
                                                 </td>
-                                                <form action="{{ route('eliminar_vacante', $vacancy->id) }}"
+                                                <form action="{{ route('cefa.eliminar_vacante', $vacancy->id) }}"
                                                     method="POST" class="formEliminar">
                                                     @csrf
                                                     @method('DELETE')
                                                     <td>
-                                                        <a href="{{ route('editar_vacante', ['id' => $vacancy->id]) }}"
+                                                        <a href="{{ route('cefa.editar_vacante', ['id' => $vacancy->id]) }}"
                                                             class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
                                                         <button type="submit" class="btn btn-danger btn-sm"><i
                                                                 class="fas fa-trash-alt"></i></button>

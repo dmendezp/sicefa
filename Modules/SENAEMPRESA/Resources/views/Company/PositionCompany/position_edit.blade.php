@@ -21,7 +21,7 @@
                         <div class="card-header">{{ $title }}</div>
 
                         <div class="card-body">
-                            <form action="{{ route('guardar_actualizacion', $position->id) }}" method="POST">
+                            <form action="{{ route('cefa.cargo_editado', $position->id) }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="requirement" class="form-label">Requisitos</label>
@@ -48,7 +48,7 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-success">Guardar cambios</button>
-                                <a href="{{ route('carga') }}" class="btn btn-danger btn-xl">Cancelar</a>
+                                <a href="{{ route('cefa.cargos') }}" class="btn btn-danger btn-xl">Cancelar</a>
                             </form>
                         </div>
                     </div>

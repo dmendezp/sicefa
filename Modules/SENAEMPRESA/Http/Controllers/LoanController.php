@@ -56,11 +56,11 @@ class LoanController extends Controller
                 $inventory->save();
 
 
-                return redirect()->route('prestamos')->with('success', 'Prestamo agregado exitosamente.');
+                return redirect()->route('cefa.prestamos')->with('success', 'Prestamo agregado exitosamente.');
             }
         } else {
             // La cantidad en el inventario no es suficiente
-            return redirect()->route('prestamos')->with('error', 'No hay suficiente cantidad en el inventario para realizar el préstamo.');
+            return redirect()->route('cefa.prestamos')->with('error', 'No hay suficiente cantidad en el inventario para realizar el préstamo.');
         }
     }
 
@@ -81,9 +81,9 @@ class LoanController extends Controller
                 $inventory->save();
             }
 
-            return redirect()->route('prestamos')->with('success', 'Préstamo devuelto exitosamente.');
+            return redirect()->route('cefa.prestamos')->with('success', 'Préstamo devuelto exitosamente.');
         } else {
-            return redirect()->route('prestamos')->with('error', 'No se encontró el préstamo.');
+            return redirect()->route('cefa.prestamos')->with('error', 'No se encontró el préstamo.');
         }
     }
 }

@@ -74,7 +74,7 @@ class VacantController extends Controller
             $vacancy = Vacancy::all();
 
             $data = ['title' => 'Nueva Vacante', 'vacancy' => $vacancy];
-            return redirect()->route('vacantes', $data)->with('success', 'Vacante agregado exitosamente.');
+            return redirect()->route('cefa.vacantes', $data)->with('success', 'Vacante agregado exitosamente.');
         }
     }
     public function getVacancyDetails($id)
@@ -107,7 +107,7 @@ class VacantController extends Controller
         $vacancy->end_datetime = $request->input('end_datetime');
 
         if ($vacancy->save()) {
-            return redirect()->route('vacantes')->with('warning', 'Vacante actualizado exitosamente.');
+            return redirect()->route('cefa.vacantes')->with('warning', 'Vacante actualizado exitosamente.');
         } else {
             return redirect()->back()->with('error', 'Error al actualizar el Vacante.');
         }
