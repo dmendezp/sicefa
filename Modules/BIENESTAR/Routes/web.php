@@ -91,4 +91,14 @@ Route::prefix('/bienestar')->group(function() {
     Route::get('/Convocations', 'ConvocationsController@index')->name('bienestar.Convocations');
     Route::post('/Convocations/store', 'ConvocationsController@store')->name('bienestar.Convocations.store');
     Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('bienestar.Convocations.update');
+
+
+    //Vista crud formularios
+    Route::get('/editforms', 'ConvocationsQuestionsController@editform')->name('bienestar.editform');
+    Route::post('/saveform', 'ConvocationsQuestionsController@saveform')->name('bienestar.saveform');
+    Route::post('/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('bienestar.editform.update');
+    Route::delete('/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('bienestar.delete_question');
+    Route::get('/addquestions', 'ConvocationsQuestionsController@add_question')->name('bienestar.add_question');
+    Route::post('/addquestions/add', 'ConvocationsQuestionsController@addQuestion')->name('bienestar.add_question.add');
+
 });

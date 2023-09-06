@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\Questions;
+use Modules\BIENESTAR\Entities\AnswersQuestions;
 
 class ConvocationsQuestionsController extends Controller
 {
@@ -15,73 +16,84 @@ class ConvocationsQuestionsController extends Controller
      */
     public function add_question()
     {
-        return view('bienestar::add_question');
+        $questions = Questions::all();
+        return view('bienestar::add_question', ['questions' => $questions]);
     }
 
 
-    public function editform(){
+    public function editform()
+    {
 
         $questions = Questions::all();
+        $answers = AnswersQuestions::all();
 
-        return view('bienestar::editform',['questions'=> $questions,]);
-    }
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('bienestar::create');
+        return view('bienestar::editform', ['questions' => $questions, 'answers' => $answers]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function deleteQuestion($id)
     {
-        //
+        // Primero, obtenemos la pregunta por su ID
+        $question = Questions::find($id);
+
+        // Si la pregunta no existe, redirigimos o mostramos un mensaje de error
+        if (!$question) {
+            return redirect()->route('bienestar.editform')->with('error', 'La pregunta no existe.');
+        }
+
+        // Eliminamos las respuestas asociadas a esta pregunta
+        AnswersQuestions::where('question_id', $id)->delete();
+
+        // Eliminamos la pregunta
+        $question->delete();
+
+        // Redirigimos o mostramos un mensaje de éxito después de la eliminación
+        return redirect()->route('bienestar.editform')->with('success', 'La pregunta y sus respuestas han sido eliminadas con éxito.');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public function addQuestion(Request $request)
     {
-        return view('bienestar::show');
+        // Crear una nueva pregunta
+        $pregunta = new Questions();
+        $pregunta->question = $request->input('text_question');
+        $pregunta->save();
+
+        // Guardar las respuestas relacionadas con la pregunta
+        foreach ($request->input('respuestas') as $respuestaText) {
+            if (!empty($respuestaText)) {
+                $respuesta = new AnswersQuestions();
+                $respuesta->answer = $respuestaText;
+                $respuesta->question_id = $pregunta->id; // Asignar la pregunta_id
+                $respuesta->save();
+            }
+        }
+
+        // Redireccionar a la vista de edición o a donde desees después de guardar
+        return redirect()->route('bienestar.editform')->with('success', 'Pregunta y respuestas guardadas exitosamente.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+    public function updateQuestion(Request $request, $id)
     {
-        return view('bienestar::edit');
-    }
+        // Encuentra la pregunta por su ID
+        $pregunta = Questions::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        // Actualiza la pregunta con los nuevos valores
+        $pregunta->update([
+            'question' => $request->input('name'), // Cambiar a 'name' para la pregunta
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $respuestas = $request->input('respuestas', []);
+
+        if (!empty($respuestas)) {
+            foreach ($respuestas as $respuestaId => $respuestaText) {
+                $respuesta = AnswersQuestions::findOrFail($respuestaId); // Encuentra la respuesta por su ID
+                $respuesta->update([
+                    'answer' => $respuestaText,
+                ]);
+            }
+        }
+
+
+        // Redirige de nuevo con un mensaje de éxito
+        return redirect()->back()->with('success', 'Pregunta y respuestas actualizadas con éxito.');
     }
 }
