@@ -45,17 +45,44 @@ class CropController extends Controller
     }
 
 
-    
-    public function delete($id)
+    public function editCrop(Request $request, $id)
     {
+        // Validar los datos del formulario si es necesario
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'sown_area' => 'required|numeric',
+            'seed_time' => 'required|date',
+            'density' => 'required|numeric',
+            'finish_date' => 'required|date',
+        ]);
+    
+        // Encontrar la actividad a actualizar
         $crop = Crop::findOrFail($id);
-        return view('crop.delete', compact('crop'));
+    
+        // Actualizar los datos de la actividad
+        $crop->name = $request->input('name');
+        $crop->sown_area = $request->input('sown_area');
+        $crop->seed_time = $request->input('seed_time');
+        $crop->density = $request->input('density');
+        $crop->variety_id = $request->input('variety_id');
+        $crop->finish_date = $request->input('finish_date');
+        $crop->save();
+
+        return redirect()->route('agrocefa.parameters');
     }
 
-    public function edit($id)
+    
+    public function deleteCrop($id)
     {
-        $crop = Crop::findOrFail($id);
-        return view('crop.edit', compact('crop'));
+    // Obtener la actividad por su ID
+    $crop = Crop::findOrFail($id);
+
+    // Realizar la eliminación
+    $crop->delete();
+
+    return redirect()->route('agrocefa.parameters')->with('error', 'La actividad ha sido eliminada exitosamente.');
     }
+
+    
 
 }
