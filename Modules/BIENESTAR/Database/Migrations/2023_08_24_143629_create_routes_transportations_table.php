@@ -23,6 +23,7 @@ class CreateRoutesTransportationsTable extends Migration
             $table->unsignedBigInteger('bus_id');
             $table->timestamps();
             $table->foreign('bus_id')->references('id')->on('buses');
+            $table->SoftDeletes();
         });
     }
 

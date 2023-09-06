@@ -1,86 +1,120 @@
 @extends('bienestar::layouts.adminlte')
 
-@section('content_header')
-    <h1>Configuración de Rutas</h1>
-@stop
-
 @section('content')
-<div class="container">
-    <div class="card">
-        <div class="card-body">
-            <h2 style="font-family: Calibri, sans-serif; font-size: 40px; font-weight: 400; color: #000000;">Insertar de Rutas</h2>
-            <form action="{{ route('bienestar.transportroutes.add') }}" method="POST">
-                @csrf <!-- Agregar el token CSRF -->
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="input-group mb-3">
-                            <input type="number" class="form-control" placeholder="Numero de Ruta" name="numberRoute" style="height: 50px; background-color: #FFFFFF; color: #000000; font-family: Calibri, sans-serif; font-size: 16px; font-weight: 400;">
-                        </div>
-                        <div class="input-group mb-3">
-                            <input type="text" id="nameRoute" name="nameRoute" class="form-control" placeholder="Nombre de Ruta" style="height: 50px; background-color: #FFFFFF; color: #000000; font-family: Calibri, sans-serif; font-size: 16px; font-weight: 400;">
-                        </div>
-                        <div class="input-group mb-3">
-                            <select id="bus" name="bus" class="form-control" style="width: 100%; height: 50px; background-color: #FFFFFF; color: #000000; font-family: Calibri, sans-serif; font-size: 16px; font-weight: 400;">
-                                <option value="">Bus</option>
-                                @foreach ($buses as $bus)
-                                    <option value="{{ $bus->id }}" data-driver-name="{{ $bus->bus_driver->name }}">{{ $bus->plate }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input type="text" id="stopBus" name="stopBus" class="form-control" placeholder="Parada del Bus" style="height: 50px; background-color: #FFFFFF; color: #000000; font-family: Calibri, sans-serif; font-size: 16px; font-weight: 400;">
-                        </div>
-                    </div>
-                    <span class="col-md-2"> <!-- Espacio entre los botones -->
-                    </span>
-                    <div class="col-md-4">
-                        <div class="input-group mb-3">
-                            <input id="nameDriver" name="nameDriver" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly" style="height: 50px; background-color: #FFFFFF; color: #000000; font-family: Calibri, sans-serif; font-size: 16px; font-weight: 400;">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Hora Llegada</span>
-                            </div>
-                            <input type="time" id="timeArrival" name="timeArrival" class="form-control" style="height: 50px; background-color: #FFFFFF; color: #000000; font-family: Calibri, sans-serif; font-size: 16px; font-weight: 400;">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Hora  Salida </span>
-                            </div>
-                            <input type="time" id="hourExit" name="hourExit" class="form-control" style="height: 50px; background-color: #FFFFFF; color: #000000; font-family: Calibri, sans-serif; font-size: 16px; font-weight: 400;">
-                        </div>
-                        <div class="input-group mb-3">
-                            
-                            <button type="submit" class="btn btn-success" style="background-color: #00FF22;">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+<!-- Main content -->
+<div class="container-fluid" style="max-width:1200px">
+    <div class="row justify-content-md-center pt-4">
+        <div class="card card-green card-outline shadow col-md-12">
+            <div class="card-header">
+                <h3 class="card-title">{{ __('Insertar De Rutas') }}</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+    <form action="{{ route('bienestar.buses.store') }}" method="POST" role="form">
+        @csrf
+        <div class="row p-4">
+            <div class="col-md-3">
+                <label for="plate">Numero De Ruta:</label>
+                <select name="plate" class="form-control" required>
+                    <option value="">Selecciona un número de ruta</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="bus_driver">Nombre De Ruta:</label>
+                <input type="text" name="route_name" class="form-control" placeholder="Nombre Ruta" required>           
+            </div>
+            <div class="col-md-3">
+                <label for="bus">Bus:</label>
+                <select name="bus" class="form-control" required>
+                    <option value="">Seleccione...</option>
+                    <!-- Aquí puedes insertar dinámicamente las opciones desde tu controlador -->
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="bus_stop">Parada Bus:</label>
+                <input type="text" name="bus_stop" class="form-control" placeholder="Parada De Bus" required>
+            </div>
+            <div class="col-md-3">
+                <label for="driver">Conductor:</label>
+                <input type="text" name="driver" class="form-control" placeholder="Nombre Conductor" required>
+            </div>
+            <div class="col-md-3">
+                <label for="arrival_time">Hora Llegada:</label>
+                <input type="time" name="arrival_time" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+                <label for="departure_time">Hora Salida:</label>
+                <input type="time" name="departure_time" class="form-control" required>
+            </div>
+            <div class="col-md-3" style="position:relative; top:30px">
+                <button type="submit" class="btn btn-success" style="background-color: #00FF22; color: black;">Guardar</button>
+            </div>
         </div>
+    </form>
+</div>
+
+<div class="mtop16">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Numero De Ruta</th>
+                                <th>Nombre De Ruta</th>
+                                <th>Parada Del Bus</th>
+                                <th>Nombre Conductor</th>
+                                <th>Hora De Lllegada</th>
+                                <th>Hora De Salida</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($routestransportation as $b)
+                    <tr>
+                        <td>{{ $b->route_number }}</td>
+                        <td>{{ $b->name_route }}</td>
+                        <td>{{ $b->stop_bus }}</td>
+                        <td>{{ $b->bus_id }}</td>
+                        <td>{{ $b->arrival_time }}</td>
+                        <td>{{ $b->departure_time }}</td>
+                                <td></td>
+                                <td>
+                                <div class="opts">
+    <div class="btn-group" role="group">
+        <button class="btn btn-sm btn-info mr-2" data-toggle="modal"
+            data-target="#modal-default" data-plate="{{ $b->plate }}"
+            data-bus-driver="{{ $b->bus_driver }}" data-bus-id="{{ $b->id }}"
+            data-quota="{{ $b->quota }}">Editar
+        </button>
+
+        {!! Form::open(['route' => ['bienestar.buses.destroy', $b->id],
+        'method' => 'DELETE', 'style' => 'display: inline;']) !!}
+        <button class="btn btn-sm btn-danger"
+            onclick="if(confirm('¿Estás seguro de que deseas eliminar este elemento?')) { $(this).closest('form').submit(); return false; }">Eliminar</button>
+        {!! Form::close() !!}
     </div>
 </div>
-<script>
-    // Obtén una referencia al elemento select y al input
-    var selectBus = document.getElementById('bus');
-    var conductorInput = document.getElementById('nameDriver');
 
-    // Agrega un evento de cambio al select
-    selectBus.addEventListener('change', function() {
-        // Obtén el valor seleccionado
-        var selectedBusId = selectBus.value;
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
 
-        // Busca la opción seleccionada y obtén el nombre del conductor desde el atributo de datos
-        var selectedOption = selectBus.options[selectBus.selectedIndex];
-        var conductorName = selectedOption.getAttribute('data-driver-name');
-
-        // Actualiza el valor del input con el nombre del conductor
-        conductorInput.value = conductorName;
-    });
-</script>
-
-@stop
-
-@section('js')
-    <script> console.log('Hi!'); </script>
-@stop
+                    </table>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+ </div>
+    </div>
+     </div>
+      </div>
+       </div>
+        </div>
+@endsection

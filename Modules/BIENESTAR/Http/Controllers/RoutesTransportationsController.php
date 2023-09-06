@@ -15,20 +15,15 @@ class RoutesTransportationsController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function LisRutas()
-    {
-        $routestransportation = RoutesTransportations::all();
-        $busDrivers = BusDrivers::all();
-        $buses = Buses::all();
-        return view('bienestar::LisRutas',['busDrivers'=> $busDrivers, 'buses'=> $buses, 'routestransportation'=>$routestransportation]);
-    }
 
      
     public function transportroutes()
     {
+        $routestransportation = RoutesTransportations::all();
         $busDrivers = BusDrivers::all();
         $buses = Buses::all();
-        return view('bienestar::transportroutes',['busDrivers'=> $busDrivers, 'buses'=> $buses]);
+        return view('bienestar::transportroutes',['busDrivers'=> $busDrivers, 'buses'=> $buses, 'routestransportation'=>$routestransportation]);
+
     }
     
     public function transportroutesAdd(Request $request)
