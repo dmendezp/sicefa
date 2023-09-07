@@ -4,3 +4,5 @@
 <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
 <!-- Boostrap-5.3.0 -->
 <script src="{{ asset('libs/Bootstrap-5.3.0-alpha/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Scripts general -->
+<script src="{{ asset('js/generalscripts.js') }}"></script>

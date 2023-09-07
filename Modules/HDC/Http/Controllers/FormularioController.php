@@ -27,14 +27,11 @@ class FormularioController extends Controller
 
     }
 
-    public function getActivities(Request $request)
+    public function getActivities($unit_id)
     {
-    $unitId = $request->input('product_unit'); // Obtener el ID de la unidad productiva seleccionada
-
-    // Obtener las actividades relacionadas con la unidad productiva
-    $activities = ProductiveUnit::findOrFail($unitId)->activities;
-
-    return response()->json(['activities' => $activities]);
+        // Obtener las actividades relacionadas con la unidad productiva
+        $activities = ProductiveUnit::findOrFail($unit_id)->activities;
+        return view('hdc::activity', compact('activities'));
     }
 
     /**

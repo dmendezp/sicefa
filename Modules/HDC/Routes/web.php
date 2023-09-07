@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware(['lang'])->group(function() {
-    Route::prefix('/hdc')->group(function() {
+    Route::prefix('hdc')->group(function() {
         Route::get('/index', 'HDCController@index')->name('cefa.hdc.index');
         /* Ruta del Formulario */
         Route::get('/Formulario', 'FormularioController@formulario')->name('cefa.hdc.formulario');
-        Route::post('/get-activities', 'FormularioController@getActivities')->name('hdc.activities');
+        Route::get('/get_activities/{unit_id}', 'FormularioController@getActivities')->name('hdc.activities');
 
         Route::get('/Formulariolabor', 'FormularioController@formulariolabor')->name('hdc.formulariolabor');
         /* Ruta Para Administrar Recursos */
