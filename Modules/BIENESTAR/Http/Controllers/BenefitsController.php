@@ -13,7 +13,7 @@ class BenefitsController extends Controller
     public function BenefitsView()
     {
         $benefits = Benefits::all();
-        return view('bienestar::BenefitsView',['benefits'=>$benefits]);
+        return view('bienestar::benefitsView',['benefits'=>$benefits]);
     } 
 
     public function BenefitsViewAdd(Request $request)

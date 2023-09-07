@@ -1,4 +1,4 @@
-@extends('bienestar::layouts.adminlte')
+@extends('bienestar::layouts.master')
 
 @section('content')
 <div class="container-fluid">

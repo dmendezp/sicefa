@@ -24,7 +24,7 @@ class Buses extends Model implements Auditable
         
     ];
 
-    public function bus_driver(){
+    public function busDriver(){
     	return $this->belongsTo(BusDrivers::class);
     }
 

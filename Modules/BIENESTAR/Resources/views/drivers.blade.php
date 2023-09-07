@@ -1,4 +1,4 @@
-@extends('bienestar::layouts.adminlte')
+@extends('bienestar::layouts.master')
 
 @section('content')
 <div class="container-fluid">
@@ -92,24 +92,24 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <!-- Aquí puedes agregar los campos de edición para el conductor -->
-                                            <form action="{{ route('bienestar.drivers.update', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar()">
+                                            <!-- Formulario de edición para el conductor -->
+                                            <form action="{{ route('bienestar.drivers.update', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar({{ $busdriver->id }})">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-group">
-                                                    <label for="driver_name">Nombre del Conductor</label>
-                                                    <input type="text" class="form-control" id="nameEditar" name="name" value="{{ $busdriver->name }}" required oninput="validarNombreEditar()">
-                                                    <span id="nombreErrorEditar" style="color: red;"></span>
+                                                    <label for="nameEditar_{{ $busdriver->id }}">Nombre del Conductor</label>
+                                                    <input type="text" class="form-control" id="nameEditar_{{ $busdriver->id }}" name="name" value="{{ $busdriver->name }}" required oninput="validarNombreEditar({{ $busdriver->id }})">
+                                                    <span id="nombreErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="driver_email">Email Conductor</label>
-                                                    <input type="text" class="form-control" id="emailEditar" name="email" value="{{ $busdriver->email }}" required oninput="validarEmailEditar()">
-                                                    <span id="emailErrorEditar" style="color: red;"></span>
+                                                    <label for="emailEditar_{{ $busdriver->id }}">Email Conductor</label>
+                                                    <input type="text" class="form-control" id="emailEditar_{{ $busdriver->id }}" name="email" value="{{ $busdriver->email }}" required oninput="validarEmailEditar({{ $busdriver->id }})">
+                                                    <span id="emailErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="driver_phone">Teléfono</label>
-                                                    <input type="text" class="form-control" id="phoneEditar" name="phone" value="{{ $busdriver->phone }}" required oninput="validarTelefonoEditar()">
-                                                    <span id="telefonoErrorEditar" style="color: red;"></span>
+                                                    <label for="phoneEditar_{{ $busdriver->id }}">Teléfono</label>
+                                                    <input type="text" class="form-control" id="phoneEditar_{{ $busdriver->id }}" name="phone" value="{{ $busdriver->phone }}" required oninput="validarTelefonoEditar({{ $busdriver->id }})">
+                                                    <span id="telefonoErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                 </div>
                                                 <!-- Agrega más campos de edición según tus necesidades -->
                                                 <div class="modal-footer">
@@ -230,54 +230,54 @@
             !document.getElementById("telefonoError").textContent;
     }
 
-    // Función para validar el formulario de edición
-    function validarNombreEditar() {
-        var nombre = document.getElementById("nameEditar").value;
+    // Función para validar el formulario de edición específico
+    function validarNombreEditar(id) {
+        var nombre = document.getElementById("nameEditar_" + id).value;
         // Expresión regular para permitir letras y espacios (para nombres y apellidos)
         var regex = /^[A-Za-z\s]+$/;
 
         if (!regex.test(nombre)) {
-            document.getElementById("nombreErrorEditar").textContent = "El campo 'Conductor' debe contener solo letras y espacios.";
+            document.getElementById("nombreErrorEditar_" + id).textContent = "El campo 'Conductor' debe contener solo letras y espacios.";
         } else {
-            document.getElementById("nombreErrorEditar").textContent = ""; // Limpiar el mensaje de error
+            document.getElementById("nombreErrorEditar_" + id).textContent = ""; // Limpiar el mensaje de error
         }
     }
 
-    function validarEmailEditar() {
-        var email = document.getElementById("emailEditar").value;
+    function validarEmailEditar(id) {
+        var email = document.getElementById("emailEditar_" + id).value;
         var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Expresión regular para verificar una dirección de correo válida
 
         if (!emailPattern.test(email)) {
-            document.getElementById("emailErrorEditar").textContent = "Ingrese una dirección de correo electrónico válida.";
+            document.getElementById("emailErrorEditar_" + id).textContent = "Ingrese una dirección de correo electrónico válida.";
         } else {
-            document.getElementById("emailErrorEditar").textContent = ""; // Limpiar el mensaje de error
+            document.getElementById("emailErrorEditar_" + id).textContent = ""; // Limpiar el mensaje de error
         }
     }
 
-    function validarTelefonoEditar() {
-        var telefono = document.getElementById("phoneEditar").value;
+    function validarTelefonoEditar(id) {
+        var telefono = document.getElementById("phoneEditar_" + id).value;
 
         // Eliminar cualquier espacio en blanco del número
         telefono = telefono.replace(/\s/g, '');
 
         // Verificar si el número tiene exactamente 10 caracteres numéricos
         if (telefono.length !== 10 || isNaN(telefono)) {
-            document.getElementById("telefonoErrorEditar").textContent = "El número de teléfono debe tener exactamente 10 caracteres numéricos.";
+            document.getElementById("telefonoErrorEditar_" + id).textContent = "El número de teléfono debe tener exactamente 10 caracteres numéricos.";
         } else {
-            document.getElementById("telefonoErrorEditar").textContent = ""; // Limpiar el mensaje de error
+            document.getElementById("telefonoErrorEditar_" + id).textContent = ""; // Limpiar el mensaje de error
         }
     }
 
-    // Función para validar el formulario de edición
-    function validarFormularioEditar() {
-        validarNombreEditar();
-        validarEmailEditar();
-        validarTelefonoEditar();
+    // Función para validar el formulario de edición específico
+    function validarFormularioEditar(id) {
+        validarNombreEditar(id);
+        validarEmailEditar(id);
+        validarTelefonoEditar(id);
 
         // Devuelve true o false para permitir o prevenir el envío del formulario de edición
-        return !document.getElementById("nombreErrorEditar").textContent &&
-            !document.getElementById("emailErrorEditar").textContent &&
-            !document.getElementById("telefonoErrorEditar").textContent;
+        return !document.getElementById("nombreErrorEditar_" + id).textContent &&
+            !document.getElementById("emailErrorEditar_" + id).textContent &&
+            !document.getElementById("telefonoErrorEditar_" + id).textContent;
     }
 </script>
 @endsection
