@@ -14,7 +14,7 @@ use Modules\SICA\Entities\Environment;
 use Modules\AGROCEFA\Entities\Variety;
 use Modules\AGROCEFA\Http\Controllers\Parameters\ActivityController;
 use Modules\AGROCEFA\Http\Controllers\Parameters\AplicationMethodController;
-use Modules\AGROCEFA\Http\Controllers\VarietyController;
+
 
 class ParameterAgroController extends Controller
 {   
@@ -30,7 +30,6 @@ class ParameterAgroController extends Controller
         $activities = $activityController->getActivitiesForSelectedUnit(); // Llama a la función y obtiene las actividades
         $laborsData = $aplicationController->getAplicationForLabor(); // Llama a la función y obtiene las actividades
         $environments = Environment::all(); // Agrega esta línea para obtener los ambientes
-        $varieties = Variety::all();//obtener variedad
 
 
         return view('agrocefa::parameters.parameter', [

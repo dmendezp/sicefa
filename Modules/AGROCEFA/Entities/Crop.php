@@ -15,8 +15,7 @@ class Crop extends Model
         'name',
         'sown_area',
         'seed_time',
-        'density_value', // Agregar el campo density_value
-        'density_unit',  // Agregar el campo density_unit
+        'density',
         'variety_id',
         'finish_date',
     ];
@@ -28,8 +27,9 @@ class Crop extends Model
 
     public function environments()
     {
-        return $this->belongsToMany(Environment::class, 'crop_environment');
+        return $this->belongsToMany(Environment::class);
     }
 }
+
 
 

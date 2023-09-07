@@ -11,10 +11,9 @@ class CreateCropsTable extends Migration
         Schema::create('crops', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->float('sown_area');
+            $table->string('sown_area');
             $table->date('seed_time');
-            $table->float('density_value'); // Agregar el campo density_value
-            $table->string('density_unit');  // Agregar el campo density_unit
+            $table->string('density');
             $table->foreignId('variety_id')->constrained()->onDelete('cascade');
             $table->date('finish_date');
             $table->softDeletes();

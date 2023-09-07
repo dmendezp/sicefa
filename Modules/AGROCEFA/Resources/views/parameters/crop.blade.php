@@ -28,8 +28,14 @@
                         <td>{{ $crop->sown_area }}</td>
                         <td>{{ $crop->seed_time }}</td>
                         <td>{{ $crop->density }}</td>
-                        <td>{{ $crop->environment_id }}</td>
-                        <td>{{ $crop->variety_id }}</td>
+                        <td>
+                            @if ($crop->environments->isNotEmpty())
+                                {{ $crop->environments->first()->name }}
+                            @else
+                                Sin ambiente asociado
+                            @endif
+                        </td>
+                        <td>{{ $crop->variety->name }}</td>
                         <td>{{ $crop->finish_date }}</td>
                         <td>
                             <button class="btn btn-primary btn-sm btn-edit-crop"
@@ -66,32 +72,15 @@
                     </div>
                     <div class="form-group">
                         <label for="sown_area">Área Sembrada</label>
-                        <div class="input-group">
-                            <input type="number" name="sown_area_value" id="sown_area_value" class="form-control" required>
-                            <select name="sown_area_unit" id="sown_area_unit" class="form-control">
-                                <option value="m2">Metros Cuadrados (m²)</option>
-                                <option value="m2">Hectáreas (ha)</option>
-                                <!-- Agrega más opciones de unidades de medida si es necesario -->
-                            </select>
-                        </div>
-                    </div>
-                    
+                        <input type="text" name="sown_area" id="sown_area" class="form-control" placeholder="Ejemplo: 3,5 m²" required>
+                    </div> 
                     <div class="form-group">
                         <label for="seed_time">Fecha de Siembra</label>
                         <input type="date" name="seed_time" id="seed_time" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="density">Densidad de Plantas</label>
-                        <div class="input-group">
-                            <input type="number" name="density_value" id="density_value" class="form-control" required>
-                            <select name="density_unit" id="density_unit" class="form-control">
-                                <option value="plantas">Plantas</option>
-                                <option value="cm2">por cm²</option> <!-- Cambiado a "cm²" para representar centímetros cuadrados -->
-                                <option value="m2">por m²</option>
-                                <option value="km2">por km²</option>
-                                <!-- Agrega más opciones de unidades de medida si es necesario -->
-                            </select>
-                        </div>
+                        <input type="text" name="density" id="density" class="form-control" placeholder="Ejemplo: 5 plantas/m²" required>
                     </div>
                     <div class="form-group">
                         <label for="environment_id">Ambiente</label>
@@ -101,7 +90,7 @@
                                 <option value="{{ $environment->id }}">{{ $environment->name }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div>                    
                     <div class="form-group">
                         <label for="variety_id">Variedad</label>
                         <select name="variety_id" id="varietyt_id" class="form-control">
@@ -122,8 +111,9 @@
         </div>
     </div>
 </div>
+</div>
 
-{{-- Modal de Edición Actividad --}}
+{{-- Modal de Edición Cultivo --}}
 @foreach ($crops as $crop)
 <div class="modal fade" id="editCultivo_{{ $crop->id }}" tabindex="-1"
     aria-labelledby="editCultivoLabel" aria-hidden="true">
@@ -139,26 +129,32 @@
                 {!! Form::open(['route' => ['agrocefa.crop.edit', $crop->id], 'method' => 'PUT', 'id' => 'edit-crop-form']) !!}
                 @csrf
                 <div class="form-group">
-                    {!! Form::label('name', 'Nombre del Cultivo') !!}
-                    {!! Form::text('name', $crop->name, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::label('crop_name', 'Nombre del Cultivo') !!}
+                    {!! Form::text('crop_name', $crop->name, ['class' => 'form-control', 'required']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('sown_area', 'Área de Siembra') !!}
-                    {!! Form::text('sown_area', $crop->sown_area, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::label('sown_area', 'Área Sembrada') !!}
+                    <div class="input-group">
+                        {!! Form::text('sown_area', $crop->sown_area, ['class' => 'form-control', 'placeholder' => 'Ejemplo: 3,5 m²', 'required']) !!}
+                    </div>
                 </div>
                 <div class="form-group">
                     {!! Form::label('seed_time', 'Fecha de Siembra') !!}
                     {!! Form::text('seed_time', $crop->seed_time, ['class' => 'form-control', 'required']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('density', 'Densidad del Cultivo') !!}
-                    {!! Form::text('density', $crop->density, ['class' => 'form-control', 'required']) !!}
+                    {!! Form::label('density', 'Densidad de Plantas') !!}
+                    <div class="input-group">
+                        {!! Form::text('density', $crop->density, ['class' => 'form-control', 'placeholder' => 'Ejemplo: 5 plantas/m²', 'required']) !!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('environment_id', 'Ambiente') !!}
+                    {!! Form::select('environment_id', $environments->pluck('name', 'id'), $crop->environment_id, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('variety_id', 'Variedad') !!}
-                    {!! Form::select('variety_id', $varieties->pluck('name', 'id'), $crop->variety_id, [
-                        'class' => 'form-control',
-                    ]) !!}
+                    {!! Form::select('variety_id', $varieties->pluck('name', 'id'), $crop->variety_id, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('finish_date', 'Fecha Fin') !!}
@@ -173,6 +169,7 @@
     </div>
 </div>
 @endforeach
+
 
 {{-- Modal de Eliminar cultivo --}}
 @foreach ($crops as $crop)
