@@ -25,7 +25,7 @@ class PermissionsTableSeeder extends Seeder
         $app = App::where('name', 'SENAEMPRESA')->first();
 
         // Home de todos los roles
-        $permission = Permission::updateOrCreate(['slug' => 'senamepresa.index'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.index'], [ // Registro o actualización de permiso
             'name' => 'Vista Inicio',
             'description' => 'Puede ver el inicio',
             'description_english' => 'You can see the start',
