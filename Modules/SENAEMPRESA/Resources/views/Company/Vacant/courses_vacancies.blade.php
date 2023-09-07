@@ -30,11 +30,11 @@
                     <div class="formulario">
                         <div class="card-header">{{ $title }}</div>
                         <div class="card-body">
-                            <form action="{{ route('curso_asociado') }}" method="POST">
+                            <form action="{{ route('cefa.curso_asociado') }}" method="POST">
                                 @csrf
 
                                 <div class="form-group">
-                                    <label for="course_id">Seleccione un curso:</label>
+                                    <label for="course_id">{{ trans('senaempresa::menu.Select a course:') }}</label>
                                     <select class="form-control" name="course_id" id="course_id">
                                         @foreach ($courses as $course)
                                             <option value="{{ $course->id }}">{{ $course->code }}
@@ -45,7 +45,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="vacancy_id">Seleccione una vacante:</label>
+                                    <label for="vacancy_id">{{ trans('senaempresa::menu.Select a vacancy:') }}</label>
                                     <select class="form-control" name="vacancy_id" id="vacancy_id">
                                         @foreach ($vacancies as $vacancy)
                                             <option value="{{ $vacancy->id }}">{{ $vacancy->name }}
@@ -54,7 +54,7 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Asignar Curso a Vacante</button>
+                                <button type="submit" class="btn btn-primary">{{ trans('senaempresa::menu.Assign Course to Vacant') }}</button>
                             </form>
                         </div>
                     </div>
@@ -69,8 +69,8 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Curso ID</th>
-                                        <th>Vacante ID</th>
+                                        <th>{{ trans('senaempresa::menu.Course ID') }}</th>
+                                        <th>{{ trans('senaempresa::menu.Vacant ID') }}</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -83,7 +83,7 @@
                                                     <td>{{ $course->code }} {{ $course->program->name }}</td>
                                                     <td>{{ $vacant->name }}</td>
                                                     <td>
-                                                        <form action="{{ route('eliminar_asociacion') }}"
+                                                        <form action="{{ route('cefa.eliminar_asociacion') }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
@@ -99,7 +99,7 @@
                                             @endforeach
                                         @endforeach
                                     @else
-                                        <p>No se encontraron cursos asociados.</p>
+                                        <p>{{ trans('senaempresa::menu.No associated courses were found.') }}</p>
                                     @endif
 
 

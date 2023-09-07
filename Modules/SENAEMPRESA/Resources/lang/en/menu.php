@@ -70,6 +70,24 @@ return [
     'Error updating the Vacancy.'=>'Error updating the Vacancy.',
     'Course assigned to the vacancy successfully.'=>'Course assigned to the vacancy successfully.',
     'Association eliminated with success.'=>'Association eliminated with success.',
+    'Select a course:'=>'Select a course:',
+    'Select a vacancy:'=>'Select a vacancy:',
+    'Assign Course to Vacant'=>'Assign Course to Vacant',
+    'Course ID'=>'Course ID',
+    'Vacant ID'=>'Vacant ID',
+    'No associated courses were found.'=>'No associated courses were found.',
+    'Select a SenaEmpresa:'=>'Select a SenaEmpresa:',
+    'Assign Course to SenaEmpresa'=>'Assign Course to SenaEmpresa',
+    'SenaEmpresa ID'=>'SenaEmpresa ID',
+    'New SenaEmpresa'=>'New SenaEmpresa',
+    'SenaEmpresa - Strategies'=>'SenaEmpresa - Strategies',
+    'Edit SenaEmpresa'=>'Edit SenaEmpresa',
+    'Registration successfully updated.'=>'Registration successfully updated.',
+    'Vacancy successfully eliminated'=>'Vacancy successfully eliminated',
+    'Assign Courses to SenaEmpresa'=>'Assign Courses to SenaEmpresa',
+    'Course assigned to senaempresa successfully.'=>'Course assigned to senaempresa successfully.',
+    'Associates Courses-Senaempresa'=>'Associates Courses-Senaempresa',
+
 
 
 ];

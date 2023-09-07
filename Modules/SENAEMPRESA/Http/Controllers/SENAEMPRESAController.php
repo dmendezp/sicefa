@@ -22,13 +22,13 @@ class SENAEMPRESAController extends Controller
 
     {
         $senaempresas = senaempresa::get();
-        $data = ['title' => 'SenaEmpresa - Estrategias', 'senaempresas' => $senaempresas];
+        $data = ['title' => trans('senaempresa::menu.SenaEmpresa - Strategies'), 'senaempresas' => $senaempresas];
         return view('senaempresa::Company.SENAEMPRESA.senaempresa', $data);
     }
     public function agregar()
     {
         $senaempresas = Senaempresa::all();
-        $data = ['title' => 'Nuevo senaempresa', 'senaempresas' => $senaempresas];
+        $data = ['title' => trans('senaempresa::menu.New SenaEmpresa'), 'senaempresas' => $senaempresas];
         return view('senaempresa::Company.SENAEMPRESA.senaempresa_registration', $data);
     }
 
@@ -43,13 +43,13 @@ class SENAEMPRESAController extends Controller
 
             if ($sena->save()) {
                 // Redirigir a la vista adecuada con un mensaje de éxito
-                return redirect()->route('cefa.senaempresa')->with('success', 'Cargo creado exitosamente.');
+                return redirect()->route('cefa.senaempresa')->with('success', trans('senaempresa::menu.Position successfully created.'));
             } else {
                 // Manejar el caso de error si la inserción falla
-                return redirect()->back()->with('error', 'Error al crear el cargo.');
+                return redirect()->back()->with('error', trans('senaempresa::menu.Error in creating the position.'));
             }
         } else {
-            return redirect()->back()->with('error', 'Error al crear el objeto PositionCompany.');
+            return redirect()->back()->with('error', trans('senaempresa::menu.Failed to create PositionCompany object.'));
         }
     }
 
@@ -58,7 +58,7 @@ class SENAEMPRESAController extends Controller
 
 
         $company = Senaempresa::find($id);
-        $data = ['title' => 'Editar senaempresa', 'company' => $company];
+        $data = ['title' => trans('senaempresa::menu.Edit SenaEmpresa'), 'company' => $company];
         return view('senaempresa::Company.SENAEMPRESA.senaempresa_edit', $data);
     }
     public function update(Request $request, $id)
@@ -70,7 +70,7 @@ class SENAEMPRESAController extends Controller
         // Actualiza otros campos según necesites
         $company->save();
 
-        return redirect()->route('cefa.senaempresa')->with('warning', 'Registro actualizado exitosamente.');
+        return redirect()->route('cefa.senaempresa')->with('warning', trans('senaempresa::menu.Registration successfully updated.'));
     }
 
 
@@ -80,37 +80,20 @@ class SENAEMPRESAController extends Controller
             $compan = Senaempresa::findOrFail($id);
             $compan->delete();
 
-            return response()->json(['mensaje' => 'Vacante eliminada con éxito']);
+            return response()->json(['mensaje' => trans('senaempresa::menu.Vacancy successfully eliminated')]);
         } catch (\Exception $e) {
-            return response()->json(['mensaje' => 'Error al eliminar la vacante'], 500);
+            return response()->json(['mensaje' => trans('senaempresa::menu.Error when deleting the vacancy')], 500);
         }
     }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-    
-
-   
     //Asociar cursos a vacantes
     public function cursos_senamepresa()
     {
         $senaempresas = senaempresa::get();
         $courses = Course::with('program')->get();
-        $data = ['title' => 'Asignar Cursos a SenaEmpresa', 'courses' => $courses, 'senaempresas' => $senaempresas];
+        $data = ['title' => trans('senaempresa::menu.Assign Courses to SenaEmpresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
         return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
     }
 
@@ -133,20 +116,20 @@ class SENAEMPRESAController extends Controller
         // Asigna el curso a la senaempresa
         $course->senaempresa()->attach($senaempresa);
 
-        return redirect()->back()->with('success', 'Curso asignado a la senaempresa exitosamente.');
+        return redirect()->back()->with('success', trans('senaempresa::menu.Course assigned to senaempresa successfully.'));
     }
     public function mostrar_registros()
     {
         $senaempresas = senaempresa::get();
         $courses = Course::with('program')->get();
-        $data = ['title' => 'Asignar Cursos a SenaEmpresa', 'courses' => $courses, 'senaempresas' => $senaempresas];
+        $data = ['title' => trans('senaempresa::menu.Assign Courses to SenaEmpresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
         return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
     }
     public function mostrar_asociado()
     {
         $senaempresas = senaempresa::get();
         $courses = Course::with('vacancy')->get();
-        $data = ['title' => 'Asociados Cursos-Senaempresa', 'courses' => $courses, 'senaempresas' => $senaempresas];
+        $data = ['title' => trans('senaempresa::menu.Associates Courses-Senaempresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
         return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
     }
     public function eliminar_asociacion_empresa(Request $request)
@@ -165,6 +148,6 @@ class SENAEMPRESAController extends Controller
         // Desasigna el curso de la senaempresa
         $course->senaempresa()->detach($senaempresa);
 
-        return redirect()->back()->with('danger', 'Asociación eliminada con exito.');
+        return redirect()->back()->with('danger', trans('senaempresa::menu.Association eliminated with success.'));
     }
 }

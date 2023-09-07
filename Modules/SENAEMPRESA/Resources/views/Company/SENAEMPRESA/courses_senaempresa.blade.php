@@ -30,11 +30,11 @@
                     <div class="card">
                         <div class="card-header">{{ $title }}</div>
                         <div class="card-body">
-                            <form action="{{ route('curso_asociado_senaempresa') }}" method="POST">
+                            <form action="{{ route('cefa.curso_asociado_senaempresa') }}" method="POST">
                                 @csrf
 
                                 <div class="form-group">
-                                    <label for="course_id">Seleccione un curso:</label>
+                                    <label for="course_id">{{ trans('senaempresa::menu.Select a course:') }}</label>
                                     <select class="form-control" name="course_id" id="course_id">
                                         @foreach ($courses as $course)
                                             <option value="{{ $course->id }}">{{ $course->code }}
@@ -44,7 +44,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="senaempresa_id">Seleccione SenaEmpresa:</label>
+                                    <label for="senaempresa_id">{{ trans('senaempresa::menu.Select a SenaEmpresa:') }}</label>
                                     <select class="form-control" name="senaempresa_id" id="senaempresa_id">
                                         @foreach ($senaempresas as $senaempresa)
                                             <option value="{{ $senaempresa->id }}">{{ $senaempresa->name }}</option>
@@ -52,7 +52,7 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Asignar Curso a SenaEmpresa</button>
+                                <button type="submit" class="btn btn-primary">{{ trans('senaempresa::menu.Assign Course to SenaEmpresa') }}</button>
                             </form>
                         </div>
                     </div>
@@ -67,8 +67,8 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Curso ID</th>
-                                        <th>SenaEmpresa ID</th>
+                                        <th>{{ trans('senaempresa::menu.Course ID') }}</th>
+                                        <th>{{ trans('senaempresa::menu.SenaEmpresa ID') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -96,7 +96,7 @@
                                             @endforeach
                                         @endforeach
                                     @else
-                                        <p>No se encontraron cursos asociados.</p>
+                                        <p>{{ trans('senaempresa::menu.No associated courses were found.') }}</p>
                                     @endif
 
 
