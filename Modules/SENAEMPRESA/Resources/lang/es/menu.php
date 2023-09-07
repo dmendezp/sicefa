@@ -70,4 +70,6 @@ return [
     'Error updating the Vacancy.'=>'Error al actualizar el Vacante.',
     'Course assigned to the vacancy successfully.'=>'Curso asignado a la vacante exitosamente.',
     'Association eliminated with success.'=>'Asociación eliminada con exito.',
+
+	'SenaEmpresa deleted!'=>'SenaEmpresa eliminada!',
 ];

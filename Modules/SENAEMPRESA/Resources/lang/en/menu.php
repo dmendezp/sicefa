@@ -71,5 +71,7 @@ return [
     'Course assigned to the vacancy successfully.'=>'Course assigned to the vacancy successfully.',
     'Association eliminated with success.'=>'Association eliminated with success.',
 
+	'SenaEmpresa deleted!'=>'SenaEmpresa deleted!',
+
 
 ];
