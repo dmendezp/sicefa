@@ -129,7 +129,7 @@ class SENAEMPRESAController extends Controller
     {
         $senaempresas = senaempresa::get();
         $courses = Course::with('vacancy')->get();
-        $data = ['title' => trans('senaempresa::menu.Associates Courses-Senaempresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
+        $data = ['title' => trans('senaempresa::menu.Assign Courses to SenaEmpresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
         return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
     }
     public function eliminar_asociacion_empresa(Request $request)
