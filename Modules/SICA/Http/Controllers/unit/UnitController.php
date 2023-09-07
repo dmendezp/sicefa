@@ -4,7 +4,6 @@ namespace Modules\SICA\Http\Controllers\unit;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Sector;
 use Illuminate\Support\Facades\Validator;

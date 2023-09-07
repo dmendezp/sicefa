@@ -163,6 +163,7 @@ return [
         'second_last_name' => 'segundo apellido', // SICA
         'issue' => 'asunto', // SICA
         'leader_id' => 'persona líder', // SICA
+        'municipality_id' => 'municipio', // SICA
         'name' => 'nombre', // SICA
         'nickname' => 'nombre de usuario', // SICA
         'period' => 'periodo', // SICA
@@ -174,6 +175,7 @@ return [
         'person_second_last_name' => 'segundo apellido', // PTVENTA
         'population_group_id' => 'grupo poblacional', // SICA
         'productive_unit_id' => 'unidad productiva', // SICA
+        'responsible_id' => 'persona responsable', // SICA
         'role_id' => 'rol', // SICA
         'sector_id' => 'área productiva', // SICA
         'start_date' => 'fecha de inicio', // SICA
