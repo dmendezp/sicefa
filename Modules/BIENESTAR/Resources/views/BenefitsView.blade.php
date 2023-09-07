@@ -10,19 +10,23 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{ route('bienestar.benefits.add')}}" method="post">
+                <form action="{{ route('bienestar.benefits.add')}}" method="post" onsubmit="return validarFormulario()">
                     @csrf
-                    <div class="row p-4">
+                    <div class="row align-items-center p-4">
                         <div class="col-md-3">
                             <label for="text1">Nombre</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <div class="col-md-3">
                             <label for="number1">Porcentaje</label>
-                            <input type="number" class="form-control" id="porcentege" min="0" max="100" placeholder="Ej: 75" name="porcentege">
+                            <input type="number" class="form-control" id="porcentaje" min="0" max="100" placeholder="Ej: 75" name="porcentege" required>
+                            <div id="quota-error" style="color: red;"></div>
                         </div>
-                        <!-- Botón verde -->
-                        <button class="btn btn-success" type="submit">Guardar</button>
+                        <div class="col-md-2 align-self-end">
+                            <div class="btns mt-3">
+                                <button class="btn btn-success btn-block" type="submit">Guardar</button>
+                            </div>
+                        </div>
                     </div>
                 </form>
                 <div class="mtop16">
@@ -73,7 +77,7 @@
                                     </div>
                                 </div>
                             </div>
-                                                        <!-- Modal para la edición -->
+                            <!-- Modal para la edición -->
                             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -97,13 +101,15 @@
                                                     <label for="editPorcentaje">Porcentaje</label>
                                                     <input type="number" class="form-control" id="editPorcentaje" min="0" max="100" name="porcentege">
                                                 </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" form="editForm" class="btn btn-primary">Guardar Cambios</button>
+                                                </div>
                                                 <!-- Botón para guardar cambios -->
-                                                <button type="submit" form="editForm" class="btn btn-primary">Guardar Cambios</button>
+
                                             </form>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -132,5 +138,24 @@
             $('#editPorcentaje').val(porcentege);
         });
     });
+
+    function validarFormulario() {
+        var name = document.getElementById('name').value;
+        var porcentaje = document.getElementById('porcentaje').value;
+
+        if (name.trim() === '') {
+            alert('El campo Nombre no puede estar vacío');
+            return false; // Evita que se envíe el formulario
+        }
+
+        if (porcentaje < 0 || porcentaje > 100) {
+            alert('El campo Porcentaje debe ser un número entre 0 y 100');
+            return false; // Evita que se envíe el formulario
+        }
+
+        return true; // Envía el formulario si todo está correcto
+    }
+</script>
+
 </script>
 @endsection
