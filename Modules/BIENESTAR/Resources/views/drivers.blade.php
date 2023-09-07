@@ -268,6 +268,7 @@
         }
     }
 
+    // Función para validar el formulario de edición
     function validarFormularioEditar() {
         validarNombreEditar();
         validarEmailEditar();
