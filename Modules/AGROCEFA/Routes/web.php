@@ -45,20 +45,29 @@ Route::middleware(['lang'])->group(function() {
         Route::delete('/aplication/delete/{id}', 'Parameters\AplicationMethodController@deleteAplication')->name('agrocefa.aplication.delete');
 
         // RUTAS PARA VARIEDADES
-        Route::post('/varieties', 'Parameters\ParameterAgroController@crear')->name('agrocefa.varieties.crear');
-        Route::get('/varieties/{id}/editar', 'VarietyController@edit')->name('agrocefa.varieties.editar');
-        Route::get('/varieties/{id}', 'VarietyController@delete')->name('agrocefa.varieties.eliminar');
-        Route::delete('/varieties/delete/{id}', 'Parameters\ParameterAgroController@elim')->name('agrocefa.varieties.elim');       
-        Route::get('/varieties/{id}/edit', 'varietyController@edit')->name('agrocefa.varieties.edit');       
-        Route::get('/varieties', 'Parameters\ParameterAgroController@listsvarieties')->name('agrocefa.varieties.index');
+
+        Route::get('/varieties', 'VarietyController@index')->name('agrocefa.varieties.index');
+        Route::get('/varieties/{id}/edit', 'VarietyController@index')->name('agrocefa.varieties.edit');
+        Route::put('/varieties/{id}/update', 'VarietyController@index')->name('agrocefa.varieties.update');
+        Route::delete('/varieties/delete/{id}', 'VarietyController@index')->name('agrocefa.varieties.elim');
+
+
+        // Ruta que acepta tanto GET como POST para la creación de variedades
+        Route::match(['get', 'post'], '/varieties/create', 'VarietyController@create')->name('agrocefa.varieties.create');
+
+        // Ruta POST para el almacenamiento de variedades
+        Route::post('/varieties', 'VarietyController@store')->name('agrocefa.varieties.store');
+
+
 
         // RUTAS PARA ESPECIES
         Route::get('/species', 'Parameters\ParameterAgroController@listspecie')->name('agrocefa.species.index');
         Route::get('/species/{id}/edit', 'SpecieController@editView')->name('agrocefa.species.edit');
         Route::put('/species/{id}', 'Parameters\ParameterAgroController@update')->name('agrocefa.species.update');
-        Route::delete('/species/delete/{id}', 'Parameters\ParameterAgroController@destroy')->name('agrocefa.species.destroy');
+        Route::delete('/species/delete/{id}', 'Param eters\ParameterAgroController@destroy')->name('agrocefa.species.destroy');
         Route::get('/species/create', 'SpecieController@create')->name('agrocefa.species.create');
         Route::post('/species', 'Parameters\ParameterAgroController@store')->name('agrocefa.species.store');
+        
 
 
         // RUTAS PARA CULTIVOS-CROP
@@ -67,11 +76,7 @@ Route::middleware(['lang'])->group(function() {
         Route::put('/crop/{id}/update', 'CropController@update')->name('agrocefa.crop.update');
         Route::delete('/crop/delete/{id}', 'CropController@deleteCrop')->name('agrocefa.crop.delete');
         Route::post('/crop/create', 'CropController@createCrop')->name('agrocefa.crop.create');
-
-
-
-
-
+        
         //ruta de vista de desarrolladores
         Route::get('/desarrolladores', 'desarrolladoresController@index')->name('agrocefa.desarrolladores.index');
 

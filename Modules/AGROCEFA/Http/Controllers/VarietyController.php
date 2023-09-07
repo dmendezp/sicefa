@@ -4,28 +4,64 @@ namespace Modules\AGROCEFA\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller; 
+use Illuminate\Routing\Controller;
 use Modules\AGROCEFA\Entities\Variety;
-
 
 class VarietyController extends Controller
 {
-/*     public function getVarietyForSelectedUnit()
+    public function index()
     {
-        // Obtén el ID de la unidad productiva seleccionada de la sesión
-        $selectedUnitId = Session::get('selectedUnitId');
+        $varieties = Variety::all();
+        return view('agrocefa::varieties.index', compact('varieties'));
+    }
 
-        // Verifica si hay un ID de unidad seleccionada en la sesión
-        if ($selectedUnitId) {
-            // Obtiene todas las actividades asociadas a la unidad productiva seleccionada
-            $activities = Activity::with('activity_type') // Cargar la relación activityType
-                                ->where('productive_unit_id', $selectedUnitId)
-                                ->get();
+    public function create()
+    {
+        return view('agrocefa::varieties.create');
+    }
 
-            return $activities; // Retorna el arreglo de actividades
-        } else {
-            // Si no hay ID de unidad seleccionada en la sesión, retorna un arreglo vacío o realiza alguna acción
-            return [];
-        }
-    } */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'lifecycle' => 'required',
+        ]);
+
+        Variety::create([
+            'name' => $request->input('name'),
+            'lifecycle' => $request->input('lifecycle'),
+        ]);
+
+        return redirect()->route('agrocefa.varieties.index')->with('success', 'Variedad creada exitosamente.');
+    }
+
+    public function edit($id)
+    {
+        $variety = Variety::findOrFail($id);
+        return view('agrocefa::varieties.edit', compact('variety'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'lifecycle' => 'required',
+        ]);
+
+        $variety = Variety::findOrFail($id);
+        $variety->update([
+            'name' => $request->input('name'),
+            'lifecycle' => $request->input('lifecycle'),
+        ]);
+
+        return redirect()->route('agrocefa.varieties.index')->with('success', 'Variedad actualizada exitosamente.');
+    }
+
+    public function destroy($id)
+    {
+        $variety = Variety::findOrFail($id);
+        $variety->delete();
+
+        return redirect()->route('agrocefa.varieties.index')->with('success', 'Variedad eliminada exitosamente.');
+    }
 }

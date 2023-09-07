@@ -1,75 +1,77 @@
 @extends('agrocefa::layouts.master')
 
 @section('content')
-<link rel="stylesheet" href="{{asset ('agrocefa/css/variety.css')}}">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de variedad</title>
+    <style>
+        /* Estilo para la tabla */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
 
+        table, th, td {
+            border: 1px solid #ccc;
+        }
 
-<div class="content_species">
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
 
-<h2 id="titulo">Lista de especies de cultivo</h2>
+        th {
+            background-color: #f2f2f2;
+        }
 
+        /* Estilo para los botones */
+        .add-button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
 
-    <a href="{{ route('agrocefa.species.create') }}" class="add">
-        <i class="fa-solid fa-plus"></i>Agregar variedad
-    </a>
+        .add-button:hover {
+            background-color: #45a049;
+        }
 
-    @if(session('success'))
-    <script>
-    Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Registro eliminado correctamente',
-        showConfirmButton: false,
-        timer: 1500
-    })
-    </script>
-    @endif
+    </style>
+</head>
+<body>
+    <h1>Lista de variedades</h1>
+    <br>
+    <br>
+    <br>
 
-    @if(session('error'))
-        <script>
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Error en el proceso, intenta de nuevo',
-            showConfirmButton: false,
-            timer: 1500
-        })
-        </script>
-    @endif
-
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Ciclo de vida</th>
-        <th>Acciones</th>
-    </tr>
-    @foreach($species as $a)
-    <tr>
-        <td>{{$variety->id}}</td>
-        <td>{{$variety->name}}</td>
-        <td>{{$variety->lifecycle}}</td>
-
-        <td class="bottons">
-            <div class="button-group">
-                <a href="{{ route('agrocefa.variety.edit', ['id' => $a->id]) }}" class="edit">
-                    <i class="fa-solid fa-pen-to-square custom-icon"></i>
-                </a>
-
-                <form action="{{ route('agrocefa.variety.destroy', ['id' => $a->id]) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="delete">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </form>
-            </div>
-        </td>
-    </tr>
-    @endforeach
-</table>
-</div>
-
-@endsection
-
+    <div class="table-container">
+        <table>
+            <tr> <!-- Abre la fila de encabezados -->
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Ciclo de Vida</th>
+                <th>Acciones</th>
+            </tr> <!-- Cierra la fila de encabezados -->
+            @foreach($varieties as $variety)
+            <tr>
+                <td>{{ $variety->id }}</td>
+                <td>{{ $variety->name }}</td>
+                <td>{{ $variety->lifecycle }}</td>
+                <td>
+                    <a href="{{ route('agrocefa.varieties.create', $variety->id) }}">Ver</a>
+                    <a href="{{ route('agrocefa.varieties.edit', $variety->id) }}">Editar</a>
+                    <a href="{{ route('agrocefa.varieties.elim', $variety->id) }}">Eliminar</a>
+                </td>
+            </tr>
+            @endforeach
+        </table>
+        <br>
+        <a href="{{ route('agrocefa.varieties.create') }}" class="add-button"><i class="fas fa-plus"></i></a>
+    </div>
+</body>
