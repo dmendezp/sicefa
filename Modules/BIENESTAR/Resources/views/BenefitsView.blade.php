@@ -10,19 +10,23 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{ route('bienestar.benefits.add')}}" method="post">
+                <form action="{{ route('bienestar.benefits.add')}}" method="post" onsubmit="return validarFormulario()">
                     @csrf
-                    <div class="row p-4">
+                    <div class="row align-items-center p-4">
                         <div class="col-md-3">
                             <label for="text1">Nombre</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <div class="col-md-3">
                             <label for="number1">Porcentaje</label>
-                            <input type="number" class="form-control" id="porcentege" min="0" max="100" placeholder="Ej: 75" name="porcentege">
+                            <input type="number" class="form-control" id="porcentaje" min="0" max="100" placeholder="Ej: 75" name="porcentege" required>
+                            <div id="quota-error" style="color: red;"></div>
                         </div>
-                        <!-- Botón verde -->
-                        <button class="btn btn-success" type="submit">Guardar</button>
+                        <div class="col-md-2 align-self-end">
+                            <div class="btns mt-3">
+                                <button class="btn btn-success btn-block" type="submit">Guardar</button>
+                            </div>
+                        </div>
                     </div>
                 </form>
                 <div class="mtop16">
@@ -73,6 +77,42 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Modal para la edición -->
+                            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Contenido del modal de edición aquí -->
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editModalLabel">Editar Beneficio</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="editForm" action="{{ route('bienestar.benefits.update', ['id' => $benefit->id]) }}" method="post">
+                                                @csrf
+                                                @method('PUT')
+                                                <!-- Campos de edición aquí -->
+                                                <div class="form-group">
+                                                    <label for="editName">Nombre</label>
+                                                    <input type="text" class="form-control" id="editName" name="name" required pattern="[A-Za-z ]+">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="editPorcentaje">Porcentaje</label>
+                                                    <input type="number" class="form-control" id="editPorcentaje" min="0" max="100" name="porcentege">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                    <button type="submit" form="editForm" class="btn btn-primary">Guardar Cambios</button>
+                                                </div>
+                                                <!-- Botón para guardar cambios -->
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -84,40 +124,7 @@
     </div>
 </div>
 
-<!-- Modal para la edición -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Contenido del modal de edición aquí -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Editar Beneficio</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <form id="editForm" action="{{ route('bienestar.benefits.update', ['id' => $benefit->id]) }}" method="post">
-                    @csrf
-                    @method('PUT')
-                    <!-- Campos de edición aquí -->
-                    <div class="form-group">
-                        <label for="editName">Nombre</label>
-                        <input type="text" class="form-control" id="editName" name="name" required pattern="[A-Za-z ]+">
-                    </div>
-                    <div class="form-group">
-                        <label for="editPorcentaje">Porcentaje</label>
-                        <input type="number" class="form-control" id="editPorcentaje" min="0" max="100" name="porcentege">
-                    </div>
-                    <!-- Botón para guardar cambios -->
-                    <button type="submit" form="editForm" class="btn btn-primary">Guardar Cambios</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <script>
     $(document).ready(function() {
@@ -131,5 +138,24 @@
             $('#editPorcentaje').val(porcentege);
         });
     });
+
+    function validarFormulario() {
+        var name = document.getElementById('name').value;
+        var porcentaje = document.getElementById('porcentaje').value;
+
+        if (name.trim() === '') {
+            alert('El campo Nombre no puede estar vacío');
+            return false; // Evita que se envíe el formulario
+        }
+
+        if (porcentaje < 0 || porcentaje > 100) {
+            alert('El campo Porcentaje debe ser un número entre 0 y 100');
+            return false; // Evita que se envíe el formulario
+        }
+
+        return true; // Envía el formulario si todo está correcto
+    }
+</script>
+
 </script>
 @endsection

@@ -52,7 +52,7 @@ Route::prefix('/bienestar')->group(function() {
     Route::post('/typeofbenefits/create', 'TypesOfBenefitsController@store')->name('typeofbenefits.store');
     Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('typeofbenefits.destroy');
     Route::put('/bienestar/typeofbenefits/{id}', 'TypesOfBenefitsController@update')->name('typeofbenefits.update');
-    Route::get('/transportroutes','TransportroutesController@transportroutes')->name('bienestar.transportroutes');
+    Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('typeofbenefits.destroy');
 
 
     // Vista CRUD Pivota
@@ -60,18 +60,20 @@ Route::prefix('/bienestar')->group(function() {
     Route::post('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@store')->name('bienestar.benefitstypeofbenefits.store');
     Route::put('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@update')->name('bienestar.benefitstypeofbenefits.update');
     Route::delete('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@destroy')->name('benefitstypeofbenefits.destroy');
+    Route::put('/benefitstypeofbenefits/updateInline', 'BenefitsTypesOfBenefitsController@updateInline')->name('benefitstypeofbenefits.updateInline');
 
     // Rutas para la vista postulation
     Route::get('/postulations', 'PostulationsController@index')->name('bienestar.postulations.index');
     Route::get('/postulations/{id}', 'PostulationsController@show')->name('bienestar.postulations.show');
     Route::get('/postulations/modal/{id}', 'PostulationsController@showModal')->name('bienestar.postulations.modal');
     Route::post('/update-postulation-score/{id}', 'PostulationsController@updateScore')->name('bienestar.postulations.update-score');
-    Route::post('/mark-beneficiaries', 'TuController@markBeneficiaries')->name('bienestar.mark-beneficiaries');
     Route::post('/assign-benefits', 'PostulationsController@assignBenefits')->name('bienestar.postulations.assign-benefits');
     Route::get('/convocatoria', 'ConvocationsController@convocatoria')->name('convocatoria');
     Route::post('/bienestar/assign-benefits', 'PostulationsController@assignBenefits')->name('bienestar.postulations.assign-benefits');
     Route::put('bienestar/postulations/update-state/{id}', 'PostulationsController@updateState')->name('bienestar.postulations.update-state');
     Route::post('/bienestar/postulations/create', 'PostulationsController@create')->name('bienestar.postulations.create');
+    Route::post('bienestar/postulations/mark-as-beneficiaries', 'PostulationsController@markAsBeneficiaries')->name('bienestar.postulations.mark-as-beneficiaries');
+    Route::post('/marcar-beneficiarios', 'PostulationsController@markAsBeneficiaries')->name('bienestar.postulations.mark-as-beneficiaries');
     Route::post('bienestar/postulations/mark-as-beneficiaries', 'PostulationsController@markAsBeneficiaries')->name('bienestar.postulations.mark-as-beneficiaries');
 
     
@@ -80,6 +82,7 @@ Route::prefix('/bienestar')->group(function() {
     Route::get('/transportroutes','RoutesTransportationsController@transportroutes')->name('bienestar.transportroutes');
     Route::post('/transportroutes/add','RoutesTransportationsController@transportroutesAdd')->name('bienestar.transportroutes.add');
     Route::get('/LisRutas', 'RoutesTransportationsController@LisRutas')->name('bienestar.LisRutas');
+    Route::get('/transportroutes','TransportroutesController@transportroutes')->name('bienestar.transportroutes');
 
     // vista de conductores
     Route::get('/drivers', 'BusDriversController@drivers')->name('bienestar.drivers');

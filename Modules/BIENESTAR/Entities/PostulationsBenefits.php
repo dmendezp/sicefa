@@ -3,12 +3,13 @@
 namespace Modules\BIENESTAR\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class PostulationsBenefits extends Model
+class PostulationsBenefits extends Model implements Auditable
 {
-    use HasFactory, SoftDeletes;
+    use \OwenIt\Auditing\Auditable,
+    SoftDeletes;
 
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];
@@ -28,13 +29,25 @@ class PostulationsBenefits extends Model
         return \Modules\BIENESTAR\Database\factories\PostulationsBenefitsFactory::new();
     }
 
+    //RELACIONES
+    
+     public function assistancesfoods(){// Accede a todas las asistencias de alimentacion que pertenecen 
+    	return $this->hasMany(AssistancesFoods::class);
+    }
+
     public function benefit(){// Accede a los datos del beneficio al que pertenece
-        return $this->belongsTo(Benefits::class, 'benefit_id');
+        return $this->belongsToMany(Benefits::class);
     }
     
     public function postulation(){// Accede a los datos de la postulacion al que pertenece
-        return $this->belongsTo(Postulations::class, 'postulation_id');
+        return $this->belongsToMany(Postulations::class);
     }
+
+    public function transportationassistances(){// Accede a todas las asistencias que pertenecen 
+    	return $this->hasMany(TransportationAssistances::class);
+    }
+
+   
 
     
 

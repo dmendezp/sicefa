@@ -10,10 +10,6 @@ use Modules\BIENESTAR\Entities\Benefits;
 
 class BenefitsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function BenefitsView()
     {
         $benefits = Benefits::all();
@@ -22,35 +18,24 @@ class BenefitsController extends Controller
 
     public function BenefitsViewAdd(Request $request)
     {
+        // Define las reglas de validación para los campos name y porcentaje
+        $rules = [
+            'name' => 'required|string', // Asegura que el campo sea una cadena de texto
+            'porcentege' => 'required|numeric|min:0|max:100', // Asegura que el campo sea un número entre 0 y 100
+        ];
+
+        $request->validate($rules);
+    
+        // Si la validación pasa, crea el registro en la base de datos
         $name = $request->input('name');
         $porcentege = $request->input('porcentege');
-
+    
         Benefits::create([
-            'name'=>$name,
-            'porcentege'=>$porcentege,
+            'name' => $name,
+            'porcentege' => $porcentege,
         ]);
-
+    
         return redirect()->route('bienestar.benefits')->with('success', 'Beneficio agregado correctamente');
-
-    }
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('bienestar::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('bienestar::edit');
     }
 
      public function update(Request $request, $id)

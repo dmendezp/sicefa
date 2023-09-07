@@ -3,12 +3,13 @@
 namespace Modules\BIENESTAR\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Questions extends Model
+class Questions extends Model implements Auditable
 {
-    use HasFactory, SoftDeletes;
+    use \OwenIt\Auditing\Auditable,
+    SoftDeletes;
 
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];
@@ -21,10 +22,7 @@ class Questions extends Model
         'score',
     ];
 
-    public function answers()
-    {
-        return $this->hasMany(Answers::class, 'questions_id');
-    }
+   
     
     protected static function newFactory()
     {
@@ -33,14 +31,19 @@ class Questions extends Model
 
     //RELACIONES
 
-    public function convocations(){ // Accede a los datos de la Convocatoria al que pertenece
-        return $this->belongsToMany(Convocations::class, 'convocations_questions');
+    public function answers(){// Accede a los datos de la respuesta al que pertenece
+        return $this->hasMany(Answers::class);
     }
 
-    public function ConvocationsQuestions()
-{
-    return $this->hasMany(ConvocationsQuestions::class, 'convocation_id');
-}
+    public function answersquestions(){// Accede a los datos de la respuesta a la pregunta al que pertenece
+        return $this->hasMany(AnswersQuestions::class);
+    }
+
+    public function convocationsquestions(){// Accede a los datos de la pregunta a la convocatoria al que pertenece
+        return $this->hasMany(ConvocationQuestion::class);
+    }
+
+    
 
     
 }

@@ -5,13 +5,17 @@ namespace Modules\BIENESTAR\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
 
-class Buses extends Model
+class Buses extends Model implements Auditable
 {
-    use SoftDeletes;
+    use \OwenIt\Auditing\Auditable,
+    SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];
+
+    protected $table = 'buses';
 
     protected $fillable = [
         'plate',
@@ -20,7 +24,19 @@ class Buses extends Model
         
     ];
 
-    public function bus_driver(){
+    //RELACIONES
+
+    public function bus_driver(){// Accede a todos los conductores que pertenecen a este bus
     	return $this->belongsTo(BusDrivers::class);
     }
+
+    public function routes_trasportantion(){// Accede a todas las rutas que pertenecen a este Bus
+    	return $this->hasMany(RoutesTransportations::class);
+    }
+
+    public function transportationassistances(){// Accede a todas las asistencias que pertenecen a este Bus
+    	return $this->hasMany(TransportationAssistances::class);
+    }
+
+   
 }

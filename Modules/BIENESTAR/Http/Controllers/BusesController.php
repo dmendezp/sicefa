@@ -31,7 +31,7 @@ class BusesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'plate' => 'required|regex:^[A-Za-z]{0,4}{0,9}{0,2}',
+            'plate' => 'required|string|max:255',
             'quota' => 'required|numeric',
             'bus_driver' => 'required|exists:bus_drivers,id', // Asegura que bus_driver exista en la tabla bus_drivers
         ]);
@@ -56,7 +56,7 @@ class BusesController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'plate' => 'required|regex:^[A-Za-z]{0,4}{0,9}{0,2}',
+            'plate' => 'required|string|max:255',
             'quota' => 'required|numeric',
             'bus_driver' => 'required|exists:bus_drivers,id', // Asegura que bus_driver exista en la tabla bus_drivers
         ]);

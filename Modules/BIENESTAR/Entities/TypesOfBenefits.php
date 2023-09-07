@@ -3,13 +3,14 @@
 namespace Modules\BIENESTAR\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
 
-class TypesOfBenefits extends Model
+class TypesOfBenefits extends Model implements Auditable
 {
-    use HasFactory, SoftDeletes;
+    use \OwenIt\Auditing\Auditable,
+    SoftDeletes;
 
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];
@@ -27,7 +28,15 @@ class TypesOfBenefits extends Model
         return \Modules\BIENESTAR\Database\factories\TypesOfBenefitsFactory::new();
     }
 
-    public function postulation(){// Accede a los datos de la postulacion al que pertenece
-        return $this->belongsTo(Postulations::class, 'postulation_id');
+
+    //RELACIONES
+
+    public function benefitstypesofbenefits(){// Accede a los datos del beneficiario y el beneficio al que pertenece
+        return $this->hasMany(BenefitsTypesOfBenefits::class, 'type_of_benefit_id');
     }
+    public function postulation(){// Accede a los datos de la postulacion al que pertenece
+        return $this->hasMany(Postulations::class, );
+    }
+
+    
 }
