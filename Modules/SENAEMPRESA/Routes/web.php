@@ -58,9 +58,23 @@ Route::middleware(['lang'])->group(function () {
         Route::get('Nosotros/', 'QualityController@we')->name('cefa.Nosotros');
 
         //Rutas para company
-        Route::get('Contactos/', 'CompanyController@contact')->name('cefa.Contactos');
-        Route::get('Postulados/', 'CompanyController@vacant')->name('cefa.Postulados');
+        Route::get('Contactos/', 'CompanyController@contact')->name('company.contact');
+        Route::get('Postulados/', 'CompanyController@vacant')->name('senaempresa.Postulados');
         Route::get('Postulados/Seleccionados/', 'CompanyController@seleccionados')->name('cefa.seleccionados');
+
+        //Rutas para senaempresa 
+        Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('company.senaempresa');
+        Route::get('Estrategias/Nueva', 'SENAEMPRESAController@agregar')->name('company.senaempresa.agrega');
+        Route::post('Estrategias/Nueva', 'SENAEMPRESAController@store')->name('company.senaempresa.guardado');
+        Route::get('Estrategias/{id}/editar', 'SENAEMPRESAController@edit')->name('company.senaempresa.editarlo');
+        Route::post('Estrategias{id}/actualizar', 'SENAEMPRESAController@update')->name('company.senaempresa.guardar_senaempresa');
+        Route::delete('Estrategias/delete/{id}', 'SENAEMPRESAController@destroy')->name('company.senaempresa.eliminar_senaempresa');
+
+        //Rutas para asociar cursos a senaempresa estrategias
+        Route::get('Estrategias/Asociar_Curso/', 'SENAEMPRESAController@cursos_senamepresa')->name('cefa.cursos_senaempresa');
+        Route::post('Estrategias/Curso_Asociado/', 'SENAEMPRESAController@curso_asociado_senaempresa')->name('cefa.curso_asociado_senaempresa');
+        Route::get('Estrategias/Mostrar_Curso/', 'SENAEMPRESAController@mostrar_asociado')->name('cefa.mostrar_asociados_senaempresa');
+        Route::delete('Estrategias/eliminar_asociacion', 'SENAEMPRESAController@eliminar_asociacion_empresa')->name('cefa.eliminar_asociacion_empresa');
 
         //Prestamos
         Route::get('Prestamos/', 'LoanController@register')->name('cefa.prestamos');
@@ -86,25 +100,6 @@ Route::middleware(['lang'])->group(function () {
         Route::get('Vacantes/Mostrar_Curso/', 'VacantController@mostrar_asociados')->name('cefa.mostrar_asociados');
         Route::delete('/eliminar_asociacion', 'VacantController@eliminarAsociacion')->name('cefa.eliminar_asociacion');
 
-
-    //Rutas para senaempresa 
-    Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('cefa.senaempresa');
-    Route::get('Estrategias/Nueva', 'SENAEMPRESAController@agregar')->name('cefa.agrega');
-    Route::post('Estrategias/Nueva', 'SENAEMPRESAController@store')->name('cefa.nuevos');
-    Route::get('Estrategias/{id}/editar', 'SENAEMPRESAController@edit')->name('cefa.editarlo');
-    Route::post('Estrategias{id}/actualizar', 'SENAEMPRESAController@update')->name('cefa.guardar_senaempresa');
-    Route::delete('Estrategias/delete/{id}', 'SENAEMPRESAController@destroy')->name('cefa.eliminar_senaempresa');
-
-
-
-        //Rutas para asociar cursos a senaempresa estrategias
-        Route::get('Estrategias/Asociar_Curso/', 'SENAEMPRESAController@cursos_senamepresa')->name('cefa.cursos_senaempresa');
-        Route::post('Estrategias/Curso_Asociado/', 'SENAEMPRESAController@curso_asociado_senaempresa')->name('cefa.curso_asociado_senaempresa');
-        Route::get('Estrategias/Mostrar_Curso/', 'SENAEMPRESAController@mostrar_asociado')->name('cefa.mostrar_asociados_senaempresa');
-        Route::delete('Estrategias/eliminar_asociacion', 'SENAEMPRESAController@eliminar_asociacion_empresa')->name('cefa.eliminar_asociacion_empresa');
-
-
-
         //rutas para cargo;
         Route::get('Cargos/', 'PositionCompanyController@cargar')->name('cefa.cargos');
         Route::get('Cargos/Nueva', 'PositionCompanyController@registro')->name('cefa.nuevo_cargo');
@@ -112,7 +107,6 @@ Route::middleware(['lang'])->group(function () {
         Route::get('Cargos/{id}/editar', 'PositionCompanyController@edit')->name('cefa.editar_cargo');
         Route::post('Cargos/{id}/actualizar', 'PositionCompanyController@update')->name('cefa.cargo_editado');
         Route::delete('cargos/delete/{id}', 'PositionCompanyController@destroy')->name('cefa.eliminar_cargo');
-
 
         //rutas de personal de senaempresa
         Route::get('Personal/', 'StaffSenaempresaController@mostrar_personal')->name('cefa.personal');
