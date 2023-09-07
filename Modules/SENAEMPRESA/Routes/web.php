@@ -87,7 +87,7 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('/eliminar_asociacion', 'VacantController@eliminarAsociacion')->name('cefa.eliminar_asociacion');
 
 
-    //Rutas para senaempresa estrategias
+    //Rutas para senaempresa 
     Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('cefa.senaempresa');
     Route::get('Estrategias/Nueva', 'SENAEMPRESAController@agregar')->name('cefa.agrega');
     Route::post('Estrategias/Nueva', 'SENAEMPRESAController@store')->name('cefa.nuevos');
