@@ -24,8 +24,8 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Nombre</th>
-                                    <th>Descripción</th>
+                                    <th>{{ trans('senaempresa::menu.Name') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Description') }}</th>
                                     @php
                                         $userRoles = auth()
                                             ->user()
@@ -39,9 +39,6 @@
                                                 class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
                                         </th>
                                     @endif
-
-
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,14 +99,14 @@
                         event.preventDefault(); // Evita que el formulario se envíe de inmediato
 
                         Swal.fire({
-                            title: '¿Estás seguro?',
-                            text: 'Es un proceso irreversible.',
+                            title: '{{ trans('senaempresa::menu.Are you sure?') }}',
+                            text: '{{ trans('senaempresa::menu.It is an irreversible process.') }}',
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Sí, eliminarlo',
-                            cancelButtonText: 'Cancelar' // Cambiar el texto del botón "Cancelar"
+                            confirmButtonText: '{{ trans('senaempresa::menu.Yes, delete it') }}',
+                            cancelButtonText: '{{ trans('senaempresa::menu.Cancel') }}' // Cambiar el texto del botón "Cancelar"
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 // Enviar el formulario usando AJAX
@@ -118,7 +115,7 @@
                                         // Manejar la respuesta JSON del servidor
                                         if (response.data && response.data.mensaje) {
                                             Swal.fire({
-                                                title: '¡Vacante eliminada!',
+                                                title: '{{ trans('senaempresa::menu.SenaEmpresa deleted!') }}',
                                                 text: response.data.mensaje,
                                                 icon: 'success'
                                             }).then(() => {

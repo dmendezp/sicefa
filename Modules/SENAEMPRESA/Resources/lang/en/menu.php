@@ -89,5 +89,7 @@ return [
     'Associates Courses-Senaempresa'=>'Associates Courses-Senaempresa',
 
 
+	'SenaEmpresa deleted!'=>'SenaEmpresa deleted!',
+
 
 ];
