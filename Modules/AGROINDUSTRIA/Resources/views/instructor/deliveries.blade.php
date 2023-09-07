@@ -5,19 +5,30 @@
   <div class="form">
     <div class="form-header">Salida de Bodega</div>
     <div class="form-body">
-      {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.instructor.movements')]) !!}
+      {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.instructor.movements.out')]) !!}
       <div class="row">
         <div class="col-md-12">
+          {!! Form::hidden('productiveUnitWarehouse', $productiveUnitWarehouse, ['id' => 'productiveUnitWarehouse']) !!}
           {!! Form::label('fecha', 'Fecha') !!}
           {!! Form::date('date', now(), ['class' => 'form-control', 'readonly' => 'readonly']) !!}
         </div>
         <div class="col-md-12">
           {!! Form::label('deliver_warehouse', 'Bodega Entrega') !!}
           {!! Form::select('deliver_warehouse', $warehouseDeliver, null, ['class' => 'form-control', 'id' => 'deliver_warehouse']) !!}
+          @error('deliver_warehouse')
+            <span class="text-danger">{{ $message }}</span>
+          @enderror
         </div>
         <div class="col-md-12">
           {!! Form::label('receive_warehouse', 'Bodega Recibe') !!}
           {!! Form::select('receive_warehouse', $warehouseReceive, null, ['placeholder' => 'Seleccione una bodega', 'class' => 'form-control', 'id' => 'receive_warehouse']) !!}
+        </div>
+          @error('receive_warehouse')
+            <span class="text-danger">{{ $message }}</span>
+          @enderror
+        <div class="col-md-12">
+          {!! Form::label('observation', 'Observaciones') !!}
+          {!! Form::textarea('observation', null, ['class' => 'form-control'] ) !!}
         </div>
         <div class="col-md-12">
           <div id="products">
@@ -28,10 +39,16 @@
                 <div class="form-group">
                   {!! Form::label('elementInventory' , 'Elemento:') !!}
                   {!! Form::select('element[]', $elements, null, [ 'id' => 'elementInventory']) !!}
+                  @error('element')
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
                 </div>
                 <div class="form-group">
                   {!! Form::label('amount' , 'Cantidad:') !!}
                   {!! Form::number('amount[]', null, ['id' => 'amount', 'placeholder' => 'Cantidad']) !!}
+                  @error('amount')
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
                 </div>    
                 <div class="form-group">  
                   {!! Form::label('amountAvailable' , 'Cantidad Disponible:') !!}
