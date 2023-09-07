@@ -72,4 +72,22 @@ return [
     'Association eliminated with success.'=>'Asociación eliminada con exito.',
 
 	'SenaEmpresa deleted!'=>'SenaEmpresa eliminada!',
+    'Select a course:'=>'Seleccione un curso:',
+    'Select a vacancy:'=>'Seleccione una vacante:',
+    'Assign Course to Vacant'=>'Asignar Curso a Vacante',
+    'Course ID'=>'Curso ID',
+    'Vacant ID'=>'Vacante ID',
+    'No associated courses were found.'=>'No se encontraron cursos asociados.',
+    'Select a SenaEmpresa:'=>'Seleccione SenaEmpresa:',
+    'Assign Course to SenaEmpresa'=>'Asignar Curso a SenaEmpresa',
+    'SenaEmpresa ID'=>'SenaEmpresa ID',
+    'New SenaEmpresa'=>'Nuevo SenaEmpresa',
+    'SenaEmpresa - Strategies'=>'SenaEmpresa - Estrategias',
+    'Edit SenaEmpresa'=>'Editar SenaEmpresa',
+    'Registration successfully updated.'=>'Registro actualizado exitosamente.',
+    'Vacancy successfully eliminated'=>'Vacante eliminada con éxito',
+    'Assign Courses to SenaEmpresa'=>'Asignar Cursos a SenaEmpresa',
+    'Course assigned to senaempresa successfully.'=>'Curso asignado a la senaempresa exitosamente.',
+    'Associates Courses-Senaempresa'=>'Asociados Cursos-Senaempresa',
+
 ];
