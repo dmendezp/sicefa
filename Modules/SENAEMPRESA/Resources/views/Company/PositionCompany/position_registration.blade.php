@@ -24,26 +24,26 @@
                             <form action="{{ route('cefa.cargo_nuevo') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="requirement" class="form-label">Requisitos</label>
+                                    <label for="requirement" class="form-label">{{ trans('senaempresa::menu.Name') }}</label>
                                     <textarea class="form-control" id="requirement" name="requirement" rows="3" required></textarea>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="description" class="form-label">Descripción General</label>
+                                    <label for="description" class="form-label">{{ trans('senaempresa::menu.Requirements') }}</label>
                                     <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="state">Estado</label>
+                                    <label for="state">{{ trans('senaempresa::menu.Status') }}</label>
                                     <select class="form-control" id="state" name="state">
-                                        <option value="">Seleccione estado</option>
-                                        <option value="activo">Activo</option>
-                                        <option value="inactivo">Inactivo</option>
+                                        <option value="">{{ trans('senaempresa::menu.Select Status') }}</option>
+                                        <option value="activo">{{ trans('senaempresa::menu.Active') }}</option>
+                                        <option value="inactivo">{{ trans('senaempresa::menu.Inactive') }}</option>
                                     </select>
                                 </div>
 
 
-                                <button type="submit" class="btn btn-success">Agregar</button>
-                                <a href="{{ route('cefa.cargos') }}" class="btn btn-danger btn-xl">Cancelar</a>
+                                <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.Add') }}</button>
+                                <a href="{{ route('cefa.cargos') }}" class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>
                             </form>
                         </div>
 

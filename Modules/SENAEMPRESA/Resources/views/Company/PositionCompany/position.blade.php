@@ -115,7 +115,7 @@
                                     // Manejar la respuesta JSON del servidor
                                     if (response.data && response.data.mensaje) {
                                         Swal.fire({
-                                            title: '{{ trans('senaempresa::menu.Positions deleted!') }}',
+                                            title: '{{ trans('senaempresa::menu.Position deleted!') }}',
                                             text: response.data.mensaje,
                                             icon: 'success'
                                         }).then(() => {

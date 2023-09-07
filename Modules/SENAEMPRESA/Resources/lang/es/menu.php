@@ -55,5 +55,13 @@ return [
 	'Assign Courses to Vacancies' => 'Asignar cursos a vacantes',
 	'Show Associates' => 'Mostrar Asociados',
 	'There are no courses related to vacancies' => 'No hay cursos relacionados con las vacantes',
-	'There are no vacancies available for the selected course' => 'No hay vacantes disponibles para el curso seleccionado'
+	'There are no vacancies available for the selected course' => 'No hay vacantes disponibles para el curso seleccionado',
+	'Position eliminated with success.' => 'Cargo eliminado con éxito ',
+	'Error in eliminating the position.' => 'Error al eliminar el cargo',
+	'Select Status' => 'Seleccione estado',
+	'Active' => 'Activo',
+	'Inactive' => 'Inactivo',
+	'General description' => 'Descripción General',
+	'Save changes' => 'Guardar cambios',
+	'Registry successfully updated' => 'Registro actualizado exitosamente',
 ];

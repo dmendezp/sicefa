@@ -54,5 +54,16 @@ return [
 	'Assign Courses to Vacancies' => 'Assign Courses to Vacancies',
 	'Show Associates' => 'Show Associates',
 	'There are no courses related to vacancies' => 'There are no courses related to vacancies',
-	'There are no vacancies available for the selected course' => 'There are no vacancies available for the selected course'
+	'There are no vacancies available for the selected course' => 'There are no vacancies available for the selected course',
+	'Notifications' => 'Notifications',
+	'Position eliminated with success.' => 'Position eliminated with success.',
+	'Error in eliminating the position.' => 'Error in eliminating the position.',
+	'Select Status' => ' Select Status',
+	'Active' => 'Active',
+	'Inactive' => 'Inactive',
+	'General description' => 'General description',
+	'Save changes' => 'Save changes',
+	'Registry successfully updated' => 'Registry successfully updated',
+
+
 ];

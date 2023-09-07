@@ -77,7 +77,7 @@ class PositionCompanyController extends Controller
         // Actualiza otros campos según necesites
         $position->save();
 
-        return redirect()->route('cefa.cargos')->with('warning', 'Registro actualizado exitosamente.');
+        return redirect()->route('cefa.cargos')->with('warning', trans('senaempresa::menu.Registry successfully updated'));
     }
     public function destroy($id)
     {
@@ -85,9 +85,9 @@ class PositionCompanyController extends Controller
             $company = PositionCompany::findOrFail($id);
             $company->delete();
 
-            return response()->json(['mensaje' => trans('senaempresa::menu.Vacancy eliminated with success.')]);
+            return response()->json(['mensaje' => trans('senaempresa::menu.Position eliminated with success.')]);
         } catch (\Exception $e) {
-            return response()->json(['mensaje' => trans('senaempresa::menu.Error when deleting the vacancy.')], 500);
+            return response()->json(['mensaje' => trans('senaempresa::menu.Error in eliminating the position.')], 500);
         }
     }
 }
