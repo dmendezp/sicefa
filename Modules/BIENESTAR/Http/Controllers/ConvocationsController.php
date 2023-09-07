@@ -37,40 +37,21 @@ class ConvocationsController extends Controller
      */
     public function store(Request $request)
     {
-           // Define las reglas de validación
-    $rules = [
-        'title' => 'required', // Asegura que el campo 'title' esté presente y no sea nulo.
-        'description' => 'required',
-        'start_date' => 'required',
-        'end_date' => 'required',
-        'transport_quotas' => 'required',
-        'food_quotas' => 'required',
-    ];
-         // Define los mensajes de error personalizados (opcional)
-    $messages = [
-        'title.required' => 'El campo Título es obligatorio.',
-        'description.required' => 'El campo Descripción es obligatorio.',
-        'start_date.required' => 'El campo Fecha de Inicio es obligatorio.',
-        'end_date.required' => 'El campo Fecha de Finalización es obligatorio.',
-        'transport_quotas.required' => 'El campo Cupos de Transporte es obligatorio.',
-        'food_quotas.required' => 'El campo Cupos de Alimentación es obligatorio.',
-    ];
+        // Define las reglas de validación
 
-    // Realiza la validación
-    $validatedData = $request->validate($rules, $messages);
 
         $convocations = new Convocations;
-        $convocations->title = $request->input('title');
-        $convocations->description=  $request->input('description');
+        $convocations->name = $request->input('title');
         $convocations->start_date= $request->input('start_date');
         $convocations->end_date= $request->input('end_date');
-        $convocations->transport_quotas= $request->input('transport_quotas');
-        $convocations->food_quotas= $request->input('food_quotas');
+        $convocations->time_interval= $request->input('time_interval');
+        $convocations->save();
         
         if($convocations->save()){
             return redirect()->route('bienestar.Convocations')->with('message', 'Convocatoria registrada Correctamente')->with('typealert', 'success');
+        }else{
+            return redirect()->route('bienestar.Convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
         }
-        return redirect()->route('bienestar.Convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
     }
 
     /**
@@ -91,6 +72,7 @@ class ConvocationsController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
         $convocations = Convocations::findOrFail($id);
         $convocations->title = $request->input('title');
         $convocations->description = $request->input('description');

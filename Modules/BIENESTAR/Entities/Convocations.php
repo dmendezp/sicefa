@@ -18,10 +18,9 @@ class Convocations extends Model implements Auditable
 
 
     protected $fillable = [
-        'name', 
-        'start_date', 	
+        'title',
+        'start_date',
         'end_date',
-        'time_interval',
     ];
     
     

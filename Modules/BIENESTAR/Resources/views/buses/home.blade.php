@@ -48,7 +48,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{ $buses }}
+                            
                             @foreach ($buses as $b)
                             <tr>
                             <td>{{ $loop->iteration }}</td>
