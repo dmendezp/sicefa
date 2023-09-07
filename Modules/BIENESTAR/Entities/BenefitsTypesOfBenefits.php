@@ -33,11 +33,11 @@ class BenefitsTypesOfBenefits extends Model implements Auditable
     //RELACIONES
 
     
-    public function benefit(){// Accede a los datos del beneficio al que pertenece
-        return $this->belongsToMany(Benefits::class);
+    public function benefits(){// Accede a los datos del beneficio al que pertenece
+        return $this->belongsTo(Benefits::class,'benefit_id');
     }
 
-    public function typeOfBenefit(){// Accede a los datos del beneficiario al que pertenece
-        return $this->belongsToMany(TypesOfBenefits::class);
+    public function typeOfBenefits(){// Accede a los datos del beneficiario al que pertenece
+        return $this->belongsTo(TypesOfBenefits::class,'type_of_benefit_id');
     }
 }
