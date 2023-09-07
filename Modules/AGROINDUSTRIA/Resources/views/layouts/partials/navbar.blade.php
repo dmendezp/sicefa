@@ -29,7 +29,7 @@
 
             @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
             <li class="nav-item">
-                <a class="nav-link" href="{{route('agroindustria.instructor.activity')}}">Actividades</a>
+                <a class="nav-link" href="{{route('cefa.agroindustria.instructor.activity')}}">Actividades</a>
             </li>
             @endif
             

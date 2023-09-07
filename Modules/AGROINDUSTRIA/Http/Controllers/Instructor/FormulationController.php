@@ -5,6 +5,7 @@ namespace Modules\AGROINDUSTRIA\Http\Controllers\Instructor;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\AGROINDUSTRIA\Entities\Formulation;
 
 class FormulationController extends Controller
 {
