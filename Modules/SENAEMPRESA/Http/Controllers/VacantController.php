@@ -78,7 +78,7 @@ class VacantController extends Controller
             $vacancy = Vacancy::all();
 
             $data = ['title' => 'Nueva Vacante', 'vacancy' => $vacancy];
-            return redirect()->route('cefa.vacantes', $data)->with('success', trans('senaempresa::menu.Vacante agregado con exito'));
+            return redirect()->route('cefa.vacantes', $data)->with('success', trans('senaempresa::menu.Vacant added with success'));
         }
     }
     public function getVacancyDetails($id)
@@ -116,9 +116,9 @@ class VacantController extends Controller
         $vacancy->end_datetime = $request->input('end_datetime');
 
         if ($vacancy->save()) {
-            return redirect()->route('cefa.vacantes')->with('warning', 'Vacante actualizado exitosamente.');
+            return redirect()->route('cefa.vacantes')->with('warning', trans('senaempresa::menu.Vacancy successfully updated.'));
         } else {
-            return redirect()->back()->with('error', 'Error al actualizar el Vacante.');
+            return redirect()->back()->with('error', trans('senaempresa::menu.Error updating the Vacancy.'));
         }
     }
 
@@ -163,7 +163,7 @@ class VacantController extends Controller
         // Asigna el curso a la vacante
         $course->vacancy()->attach($vacancy);
 
-        return redirect()->back()->with('success', 'Curso asignado a la vacante exitosamente.');
+        return redirect()->back()->with('success', trans('senaempresa::menu.Course assigned to the vacancy successfully.'));
     }
 
     public function mostrar_asociados()
@@ -189,6 +189,6 @@ class VacantController extends Controller
         // Desasigna el curso de la vacante
         $course->vacancy()->detach($vacancy);
 
-        return redirect()->back()->with('danger', 'Asociación eliminada con exito.');
+        return redirect()->back()->with('danger', trans('senaempresa::menu.Association eliminated with success.'));
     }
 }

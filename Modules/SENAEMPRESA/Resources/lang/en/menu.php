@@ -65,5 +65,11 @@ return [
 	'Save changes' => 'Save changes',
 	'Registry successfully updated' => 'Registry successfully updated',
 
+    'Vacant added with success'=>'Vacant added with success',
+    'Vacancy successfully updated.'=>'Vacancy successfully updated.',
+    'Error updating the Vacancy.'=>'Error updating the Vacancy.',
+    'Course assigned to the vacancy successfully.'=>'Course assigned to the vacancy successfully.',
+    'Association eliminated with success.'=>'Association eliminated with success.',
+
 
 ];

@@ -29,7 +29,7 @@ return [
 	'New Position' => 'Nuevo Cargo',
 	'Failed to create PositionCompany object.' => 'No se pudo crear el objeto PositionCompany.',
 	'Error in creating the position.' => 'Error al crear cargo.',
-	'Position successfully created.' => 'Posición creada con éxito.',
+	'Position successfully created.' => 'Cargo creado con éxito.',
 	'Edit the position.' => 'Editar cargo',
 	'Vacancies' => 'Vacantes',
 	'Name' => 'Nombre',
@@ -64,4 +64,10 @@ return [
 	'General description' => 'Descripción General',
 	'Save changes' => 'Guardar cambios',
 	'Registry successfully updated' => 'Registro actualizado exitosamente',
+
+    'Vacant added with success'=>'Vacante agregado con exito',
+    'Vacancy successfully updated.'=>'Vacante actualizado exitosamente.',
+    'Error updating the Vacancy.'=>'Error al actualizar el Vacante.',
+    'Course assigned to the vacancy successfully.'=>'Curso asignado a la vacante exitosamente.',
+    'Association eliminated with success.'=>'Asociación eliminada con exito.',
 ];
