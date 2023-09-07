@@ -11,47 +11,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>Bienestar</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- jQuery -->
-<script src="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/jquery/jquery.min.js') }}"></script>
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<!-- Otros scripts -->
+  <script src="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/jquery/jquery.min.js') }}"></script>
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <!-- Otros scripts -->
   <!-- Theme style -->
   <!-- fullCalendar -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/fullcalendar/main.css') }}">
   <link rel="stylesheet" href="{{ asset('../bienestarxd/AdminLTE-3.2.0/dist/css/adminlte.min.css') }}">
   <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymoues"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
   </script>
-    <!--styles-->
+  <!--styles-->
   <!-- fullCalendar -->
   <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/fullcalendar/main.css') }}">
 
-  <link rel="stylesheet"
-    href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-  <link rel="stylesheet"
-    href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-  <link rel="stylesheet"
-    href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('../bienestarxd/css/dropdown.css') }}">
+  <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/dist/css/adminlte.min.css') }}">
-  
-
-  <style>
-    .sidebar-primary {
-      background: #28b463 !important;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ asset('../bienestarxd/css/styles.css') }}">
 
   <!--css general-->
-  <link rel="stylesheet" href="{{ asset('../bienestarxd/css/styles.css') }}">
+
   @yield('personalizationStyle')
 </head>
 
@@ -60,19 +48,45 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-      <!-- Left navbar links -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="{{ route('bienestar.home') }}" class="nav-link">Home</a>
-        </li>
-      </ul>
+  <!-- Left navbar links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+      <a href="{{ route('bienestar.home') }}" class="nav-link">Inicio</a>
+    </li>
+  </ul>
 
-      <!-- Right navbar links -->
-
-    </nav>
+  <!-- Right navbar links -->
+  <ul class="navbar-nav ml-auto group">
+    <!-- Botón de cambio de idioma -->
+    <li class="nav-item group-append">
+      <a class="nav-link" href="#">
+        <img src="{{ asset('ruta-al-icono-espanol.png') }}" alt="Español">
+      </a>
+    </li>
+    <li class="nav-item group-append">
+      <a class="nav-link" href="#">
+        <img src="{{ asset('ruta-al-icono-ingles.png') }}" alt="Inglés">
+      </a>
+    </li>
+    
+    <!-- Icono de usuario -->
+    <li class="nav-item dropdown">
+      <a class="nav-link" data-toggle="dropdown" href="#">
+        <i class="fas fa-user"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <!-- Contenido del menú desplegable de usuario -->
+        <a href="#" class="dropdown-item">Perfil</a>
+        <a href="#" class="dropdown-item">Configuración</a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item">Cerrar sesión</a>
+      </div>
+    </li>
+  </ul>
+</nav>
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
@@ -85,90 +99,114 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <span class="brand-text font-weight-dark" style="color: white; font-size: 25px">Aprendiz</span>
         </div>
       </a><br>
-
-
+    
       <!-- Sidebar -->
-      <div class="sidebar">
+      <div class="sidebar" style="background: #28b463;">
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-
             <li class="nav-item">
-              <a href="{{ route('bienestar.APEsena') }}" class="nav-link">
-                <i class="fas fa-user"></i>
-                <p>
-                  Aprendices
-                </p>
-              </a>
-            </li>
-            <li class="nav-item custom-dropdown">
               <a href="#" class="nav-link">
-                  <i class="fas fa-pizza-slice"></i>
-                  <p>
-                      Alimentacion
-                      <i class="right fas fa-angle-left"></i>
-                  </p>
-              </a>
-              <ul class="nav custom-dropdown-menu">
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          Opción 1
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          Opción 2
-                      </a>
-                  </li>
-                  <!-- Agrega más opciones aquí -->
-              </ul>
-          </li>
-            <li class="nav-item">
-              <a href="{{ route('bienestar.APEinterno') }}" class="nav-link">
-                <i class="fas fa-house-user"></i>
-                <p>
-                  Internado
-                </p>
+                <i class="fas fa-user"></i>
+                <p>Aprendices</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="{{ route('bienestar.APEtransporte') }}" class="nav-link">
-                <i class="fas fa-bus"></i>
-                <p>
-                  Transporte
-                  <i class="fas fa-angle-left right"></i>
-                </p>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="fas fa-pizza-slice"></i>
+                <p>Alimentación <i class="fas fa-angle-left right"></i></p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('bienestar.APEtransporte') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>APEtransporte</p>
-                  </a>
+                  <a href="#" class="nav-link">Opción 1</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('bienestar.buses') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Buses</p>
-                  </a>
+                  <a href="#" class="nav-link">Opción 2</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Opción 3</a>
                 </li>
               </ul>
             </li>
-            <li class="nav-item">
-              <a href="{{ route('bienestar.APEformulario') }}" class="nav-link">
-                <i class="fas fa-clipboard-list"></i>
-                <p>
-                  Convocatorias
-                </p>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="fas fa-house-user"></i>
+                <p>Internado <i class="fas fa-angle-left right"></i></p>
               </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Opción 1</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Opción 2</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Opción 3</a>
+                </li>
+              </ul>
             </li>
-          </ul>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="fas fa-bus"></i>
+                <p>Transporte <i class="fas fa-angle-left right"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('bienestar.buses') }}" class="nav-link">Buses</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('bienestar.drivers') }}" class="nav-link">Conductores</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('bienestar.transportroutes') }}" class="nav-link">Rutas</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Asignar Rutas</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="fas fa-clipboard-list"></i>
+                <p>Convocatorias <i class="fas fa-angle-left right"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Opción 1</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Opción 2</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Opción 3</a>
+                </li>
+              </ul>
+            </li>
+          </ul><br>
+          <!-- Línea separadora -->
+          <hr class="sidebar-divider">
+
+          <!-- Enlace "Volver a Sicefa" -->
+          <div class="user-panel mt-1 pb-1 mb-1 d-flex">
+            <nav class="">
+              <ul class="nav nav-pills nav-sidebar flex-column">
+                <li class="nav-item">
+                  <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <p>
+                      Volver a Sicefa
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </nav>
         <!-- /.sidebar-menu -->
       </div>
       <!-- /.sidebar -->
     </aside>
+
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -178,8 +216,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="row mb-2">
             @if(Session::has('message'))
             <div class="container-fluid">
-              <div class="mtop16 alert alert-{{ Session::get('typealert') }}"
-                style="display: block; margin-bottom: 16px;">
+              <div class="mtop16 alert alert-{{ Session::get('typealert') }}" style="display: block; margin-bottom: 16px;">
                 {{ Session::get('message') }}
                 @if ($errors->any())
                 <ul>
@@ -190,7 +227,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 @endif
                 <script>
                   $('.alert').slideDown();
-                setTimeout(function(){$('.alert').slideUp();}, 10000);
+                  setTimeout(function() {
+                    $('.alert').slideUp();
+                  }, 10000);
                 </script>
               </div>
             </div>
@@ -266,8 +305,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         calendar.render();
       });
     </script>
-    
-  
+
+
     @show
 
 </body>
