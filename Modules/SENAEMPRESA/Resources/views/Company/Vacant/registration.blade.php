@@ -24,28 +24,34 @@
                             <form action="{{ route('cefa.nueva_vacante') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Nombre</label>
+                                    <label for="name"
+                                        class="form-label">{{ trans('senaempresa::menu.Name') }}</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Nombre" required>
+                                        placeholder="{{ trans('senaempresa::menu.Name') }}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="image" class="form-label">Presentación</label><br>
+                                    <label for="image"
+                                        class="form-label">{{ trans('senaempresa::menu.Presentation') }}</label><br>
                                     <input type="file" id="image" name="image">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="description_general" class="form-label">Descripción General</label>
+                                    <label for="description_general"
+                                        class="form-label">{{ trans('senaempresa::menu.General Description') }}</label>
                                     <textarea class="form-control" id="description_general" name="description_general" rows="3"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="requirement" class="form-label">Requisitos</label><br>
+                                    <label for="requirement"
+                                        class="form-label">{{ trans('senaempresa::menu.Requirements') }}</label><br>
                                     <input type="text" class="form-control" id="requirement" name="requirement"
-                                        placeholder="Requisitos">
+                                        placeholder="{{ trans('senaempresa::menu.Requirements') }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="position_company_id" class="form-label">Cargo</label>
+                                    <label for="position_company_id"
+                                        class="form-label">{{ trans('senaempresa::menu.Id Position') }}</label>
                                     <select class="form-control" name="position_company_id"
-                                        aria-label="Selecciona un Cargo">
-                                        <option value="" selected>Selecciona un Cargo</option>
+                                        aria-label="{{ trans('senaempresa::menu.Select a position') }}">
+                                        <option value="" selected>
+                                            {{ trans('senaempresa::menu.Select a position') }}</option>
                                         @foreach ($PositionCompany as $positionCompany)
                                             <option value="{{ $positionCompany->id }}">
                                                 {{ $positionCompany->id }} {{ $positionCompany->description }}
@@ -55,17 +61,23 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="start_datetime" class="form-label">Fecha y Hora de Inicio</label>
+                                    <label for="start_datetime"
+                                        class="form-label">{{ trans('senaempresa::menu.Start Date and Time') }}</label>
                                     <input type="datetime-local" class="form-control" id="start_datetime"
-                                        name="start_datetime" placeholder="Fecha Inicio">
+                                        name="start_datetime"
+                                        placeholder="{{ trans('senaempresa::menu.Start Date and Time') }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="end_datetime" class="form-label">Fecha y Hora de Fin</label>
+                                    <label for="end_datetime"
+                                        class="form-label">{{ trans('senaempresa::menu.Date and Time End') }}</label>
                                     <input type="datetime-local" class="form-control" id="end_datetime"
-                                        name="end_datetime" placeholder="Fecha Inicio">
+                                        name="end_datetime"
+                                        placeholder="{{ trans('senaempresa::menu.Date and Time End') }}">
                                 </div><br>
-                                <button type="submit" class="btn btn-success">Agregar</button>
-                                <a href="{{ route('cefa.vacantes') }}" class="btn btn-danger btn-xl">Cancelar</a>
+                                <button type="submit"
+                                    class="btn btn-success">{{ trans('senaempresa::menu.Add') }}</button>
+                                <a href="{{ route('cefa.vacantes') }}"
+                                    class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>
                             </form>
                         </div>
                     </div>

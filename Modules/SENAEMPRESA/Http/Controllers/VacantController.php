@@ -45,7 +45,7 @@ class VacantController extends Controller
         $vacancies = $vacancies->get();
 
         $PositionCompany = PositionCompany::all();
-        $data = ['title' => 'Vacantes', 'courses' => $courses, 'vacancies' => $vacancies, 'PositionCompany' => $PositionCompany, 'selectedCourseId' => $selectedCourseId];
+        $data = ['title' => trans('senaempresa::menu.Vacancies'), 'courses' => $courses, 'vacancies' => $vacancies, 'PositionCompany' => $PositionCompany, 'selectedCourseId' => $selectedCourseId];
         return view('senaempresa::Company.Vacant.vacant', $data);
     }
 
@@ -55,7 +55,7 @@ class VacantController extends Controller
         $activePositions = PositionCompany::where('state', 'activo')->get();
 
         $vacancies = Vacancy::get();
-        $data = ['title' => 'Nueva Vacante', 'vacancies' => $vacancies, 'PositionCompany' => $activePositions];
+        $data = ['title' => trans('senaempresa::menu.New vacancy'), 'vacancies' => $vacancies, 'PositionCompany' => $activePositions];
 
         return view('senaempresa::Company.Vacant.registration', $data);
     }
@@ -78,7 +78,7 @@ class VacantController extends Controller
             $vacancy = Vacancy::all();
 
             $data = ['title' => 'Nueva Vacante', 'vacancy' => $vacancy];
-            return redirect()->route('cefa.vacantes', $data)->with('success', 'Vacante agregado exitosamente.');
+            return redirect()->route('cefa.vacantes', $data)->with('success', trans('senaempresa::menu.Vacante agregado con exito'));
         }
     }
     public function getVacancyDetails($id)
@@ -90,10 +90,15 @@ class VacantController extends Controller
     public function edit($id)
     {
         $vacancy = Vacancy::findOrFail($id);
-        $positionCompany = PositionCompany::all();
-        $data = ['title' => 'Editar Vacante', 'vacancy' => $vacancy, 'positionCompany' => $positionCompany];
+
+        $activePositions = PositionCompany::where('state', 'activo')->get();
+
+        $data = ['title' => trans('senaempresa::menu.Edit vacancy'), 'vacancy' => $vacancy, 'positionCompany' => $activePositions];
+
         return view('senaempresa::Company.Vacant.vacant_edit', $data);
     }
+
+
     public function update(Request $request, $id)
     {
         $vacancy = Vacancy::findOrFail($id);
@@ -124,9 +129,9 @@ class VacantController extends Controller
             $vacante = Vacancy::findOrFail($id);
             $vacante->delete();
 
-            return response()->json(['mensaje' => 'Vacante eliminada con éxito']);
+            return response()->json(['mensaje' => trans('senaempresa::menu.Vacancy eliminated with success')]);
         } catch (\Exception $e) {
-            return response()->json(['mensaje' => 'Error al eliminar la vacante'], 500);
+            return response()->json(['mensaje' => trans('senaempresa::menu.Error when deleting the vacancy')], 500);
         }
     }
 
@@ -135,7 +140,7 @@ class VacantController extends Controller
     {
         $vacancies = Vacancy::get();
         $courses = Course::with('program')->get();
-        $data = ['title' => 'Asignar Cursos a Vacantes', 'courses' => $courses, 'vacancies' => $vacancies];
+        $data = ['title' => trans('senaempresa::menu.Assign Courses to Vacancies'), 'courses' => $courses, 'vacancies' => $vacancies];
         return view('senaempresa::Company.Vacant.courses_vacancies', $data);
     }
 
@@ -165,7 +170,7 @@ class VacantController extends Controller
     {
         $vacancies = Vacancy::get();
         $courses = Course::with('vacancy')->get();
-        $data = ['title' => 'Nueva Vacante', 'courses' => $courses, 'vacancies' => $vacancies];
+        $data = ['title' => trans('senaempresa::menu.Show Associates'), 'courses' => $courses, 'vacancies' => $vacancies];
         return view('senaempresa::Company.Vacant.courses_vacancies', $data);
     }
     public function eliminarAsociacion(Request $request)

@@ -27,7 +27,8 @@
                             <span id="real-time-date"></span>
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a
-                                        href="{{ route('cefa.index') }}">{{ trans('senaempresa::menu.Home') }}</a></li>
+                                        href="{{ route('senamepresa.index') }}">{{ trans('senaempresa::menu.Home') }}</a>
+                                </li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->

@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
 
     <!-- Brand Logo -->
-    <a href="{{ route('cefa.index') }}" class="brand-link">
+    <a href="{{ route('senamepresa.index') }}" class="brand-link">
         <img src="{{ asset('AdminLTE/dist/img/logo P SENA.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
 
@@ -76,7 +76,8 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ route('cefa.index') }}" class="nav-link {{ !Route::is('cefa.index') ?: 'active' }}">
+                    <a href="{{ route('senamepresa.index') }}"
+                        class="nav-link {{ !Route::is('senamepresa.index') ?: 'active' }}">
                         <i class="fas fa-home"></i>
                         <p>
                             {{ trans('senaempresa::menu.Home') }}

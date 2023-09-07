@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['lang'])->group(function () {
     //Route::middleware(['lang'])->group(function(){
     Route::prefix('senaempresa')->group(function () {
-        Route::get('index/', 'SENAEMPRESAController@index')->name('cefa.index');
+        Route::get('index/', 'SENAEMPRESAController@index')->name('senamepresa.index');
         Route::get('TurnoRutinario/', 'AsistenciaTurnosController@index')->name('turnosRutinarios');
         Route::get('TurnoRutinario/buscarLista/{id}', 'AsistenciaTurnosController@buscarLista')->name('buscarLista');
         Route::get('TurnoRutinario/Guardar/{id}', 'AsistenciaTurnosController@getAsignarTurno')->name('adicionarTurno');
@@ -87,10 +87,10 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('/eliminar_asociacion', 'VacantController@eliminarAsociacion')->name('cefa.eliminar_asociacion');
 
 
-    //Rutas para senaempresa estrategias
-    Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('senaempresa');
-    Route::get('Estrategias/Nueva', 'SENAEMPRESAController@agregar')->name('agrega');
-    Route::post('Estrategias/Nueva', 'SENAEMPRESAController@store')->name('nuevos');
+        //Rutas para senaempresa estrategias
+        Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('senaempresa');
+        Route::get('Estrategias/Nueva', 'SENAEMPRESAController@agregar')->name('agrega');
+        Route::post('Estrategias/Nueva', 'SENAEMPRESAController@store')->name('nuevos');
 
 
 

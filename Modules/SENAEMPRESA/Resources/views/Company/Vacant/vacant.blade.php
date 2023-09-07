@@ -35,14 +35,14 @@
             <!-- Verificar si no hay cursos relacionados con vacantes -->
             @if ($courses->isEmpty())
                 <div class="alert alert-warning" role="alert">
-                    No hay cursos relacionados con vacantes.
+                    {{ trans('senaempresa::menu.There are no courses related to vacancies') }}
                 </div>
             @else
                 <!-- Formulario para filtrar por curso -->
                 <form method="GET" action="{{ route('cefa.vacantes') }}">
-                    <label for="cursoFilter">Filtrar por Curso:</label>
+                    <label for="cursoFilter">{{ trans('senaempresa::menu.Filter by course') }}:</label>
                     <select class="form-control" id="cursoFilter" name="cursoFilter" onchange="this.form.submit()">
-                        <option value="">Todos los cursos</option>
+                        <option value="">{{ trans('senaempresa::menu.All courses') }}</option>
                         @foreach ($courses as $course)
                             <option value="{{ $course->id }}"
                                 {{ $selectedCourseId == $course->id ? 'selected' : '' }}>
@@ -52,37 +52,38 @@
                     </select>
                 </form><br>
 
-                <!-- Verificar si no hay vacantes disponibles para el curso seleccionado -->
-                @if ($vacancies->isEmpty())
-                    <div class="alert alert-info" role="alert">
-                        No hay vacantes disponibles para el curso seleccionado.
-                    </div><br>
-                @else
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <table id="datatable" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Nombre</th>
-                                            <th>Presentación</th>
-                                            <th>Id Cargo</th>
-                                            <th>Fecha Inicio</th>
-                                            <th>Fecha Fin</th>
-                                            <th class="text-center">Inscripción</th>
-                                            <th><a href="{{ route('cefa.agregar_vacante') }}"
-                                                    class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="datatable" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>{{ trans('senaempresa::menu.Id') }}</th>
+                                        <th>{{ trans('senaempresa::menu.Name') }}</th>
+                                        <th>{{ trans('senaempresa::menu.Presentation') }}</th>
+                                        <th>{{ trans('senaempresa::menu.Id Position') }}</th>
+                                        <th>{{ trans('senaempresa::menu.Start Date and Time') }}</th>
+                                        <th>{{ trans('senaempresa::menu.Date and Time End') }}</th>
+                                        <th class="text-center">{{ trans('senaempresa::menu.Registration') }}</th>
+                                        <th><a href="{{ route('cefa.agregar_vacante') }}"
+                                                class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Verificar si no hay vacantes disponibles para el curso seleccionado -->
+                                    @if ($vacancies->isEmpty())
+                                        <div class="alert alert-info" role="alert">
+                                            {{ trans('senaempresa::menu.There are no vacancies available for the selected course') }}
+                                        </div><br>
+                                    @else
                                         @foreach ($vacancies as $vacancy)
                                             <tr>
                                                 <td>{{ $vacancy->id }}</td>
                                                 <td>{{ $vacancy->name }}</td>
                                                 <td><img src="{{ asset($vacancy->image) }}"
-                                                        alt="{{ $vacancy->name }}"></td>
+                                                        alt="{{ $vacancy->name }}">
+                                                </td>
                                                 <td>
                                                     @foreach ($PositionCompany as $position)
                                                         @if ($position->id == $vacancy->position_company_id)
@@ -112,12 +113,12 @@
                                                 </form>
                                             </tr>
                                         @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                    @endif
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                @endif
+                </div>
             @endif
         </div>
         @include('senaempresa::Company.Vacant.inscription')
@@ -147,14 +148,14 @@
                         event.preventDefault(); // Evita que el formulario se envíe de inmediato
 
                         Swal.fire({
-                            title: '¿Estás seguro?',
-                            text: 'Es un proceso irreversible.',
+                            title: "{{ trans('senaempresa::menu.Are you sure?') }}",
+                            text: "{{ trans('senaempresa::menu.It is an irreversible process.') }}",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Sí, eliminarlo',
-                            cancelButtonText: 'Cancelar' // Cambiar el texto del botón "Cancelar"
+                            confirmButtonText: "{{ trans('senaempresa::menu.Yes, delete it') }}",
+                            cancelButtonText: "{{ trans('senaempresa::menu.Cancel') }}" // Cambiar el texto del botón "Cancelar"
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 // Enviar el formulario usando AJAX
@@ -163,7 +164,7 @@
                                         // Manejar la respuesta JSON del servidor
                                         if (response.data && response.data.mensaje) {
                                             Swal.fire({
-                                                title: '¡Vacante eliminada!',
+                                                title: '{{ trans('senaempresa::menu.Vacancy deleted!') }}',
                                                 text: response.data.mensaje,
                                                 icon: 'success'
                                             }).then(() => {
