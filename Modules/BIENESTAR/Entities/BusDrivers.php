@@ -22,7 +22,6 @@ class BusDrivers extends Model implements Auditable
         'phone',
     ];
     
-    protected $table = 'bus_drivers';
 
 
     /**
@@ -35,7 +34,7 @@ class BusDrivers extends Model implements Auditable
     	return $this->hasMany(Buses::class);
     }
 
-    public function transportationassistance(){// Accede a todas las asistencias de trasporte que pertenecen a este conductor
+    public function transportation_assistance(){// Accede a todas las asistencias de trasporte que pertenecen a este conductor
     	return $this->hasMany(TransportationAssistances::class);
     }
 

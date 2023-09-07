@@ -14,13 +14,13 @@ class BusesController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
+    
     public function index()
     {
         //obtenemos el listado de buses
-        $buses = Buses::get();
+        $buses = Buses::with('bus_driver')->get();
         $busDrivers = BusDrivers::pluck('name','id');
-        $data = ['buses'=>$buses,'busDrivers'=>$busDrivers];
-        return view('bienestar::buses.home',$data);
+        return view('bienestar::buses.home',['buses'=>$buses,'busDrivers'=>$busDrivers]);
     }
 
     /**
@@ -31,7 +31,7 @@ class BusesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'plate' => 'required|string|max:255',
+            'plate' => 'required|regex:/^[A-Za-z]{1,5}\d{1,3}$/',
             'quota' => 'required|numeric',
             'bus_driver' => 'required|exists:bus_drivers,id', // Asegura que bus_driver exista en la tabla bus_drivers
         ]);

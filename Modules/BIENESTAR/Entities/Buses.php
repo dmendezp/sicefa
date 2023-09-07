@@ -24,9 +24,7 @@ class Buses extends Model implements Auditable
         
     ];
 
-    //RELACIONES
-
-    public function bus_driver(){// Accede a todos los conductores que pertenecen a este bus
+    public function bus_driver(){
     	return $this->belongsTo(BusDrivers::class);
     }
 
@@ -34,7 +32,7 @@ class Buses extends Model implements Auditable
     	return $this->hasMany(RoutesTransportations::class);
     }
 
-    public function transportationassistances(){// Accede a todas las asistencias que pertenecen a este Bus
+    public function transportation_assistances(){// Accede a todas las asistencias que pertenecen a este Bus
     	return $this->hasMany(TransportationAssistances::class);
     }
 
