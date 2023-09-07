@@ -27,7 +27,7 @@
                                     <th>Nombre</th>
                                     <th>Descripción</th>
                                     <th style="width: 200px;">
-                                        <a href="{{ route('agrega') }}" class="btn btn-success btn-sm"><i
+                                        <a href="{{ route('cefa.agrega') }}" class="btn btn-success btn-sm"><i
                                                 class="fas fa-user-plus"></i></a>
                                     </th>
                                 </tr>
@@ -35,9 +35,20 @@
                             <tbody>
                                 @foreach ($senaempresas as $senaempresa)
                                     <tr>
-                                        <td>{{ $senaempresa->id }}</td>
+                                    <td>{{ $senaempresa->id }}</td>
                                         <td>{{ $senaempresa->name }}</td>
                                         <td>{{ $senaempresa->description }}</td>
+                                        <form action="{{ route('cefa.eliminar_senaempresa', $senaempresa->id) }}"
+                                            method="POST" class="formsena">
+                                            @csrf
+                                            @method('DELETE')
+                                            <td>
+                                                <a href="{{ route('cefa.editarlo', ['id' => $senaempresa->id]) }}"
+                                                class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                                <button type="submit" class="btn btn-danger btn-sm"><i
+                                                class="fas fa-trash-alt"></i></button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -65,7 +76,52 @@
 
     <!--scripts utilizados para procesos-->
     @section('scripts')
+    <script>
+            'use strict';
+            // Selecciona todos los formularios con la clase "formEliminar"
+            var forms = document.querySelectorAll('.formsena');
 
+            Array.prototype.slice.call(forms)
+                .forEach(function(form) {
+                    form.addEventListener('submit', function(event) {
+                        event.preventDefault(); // Evita que el formulario se envíe de inmediato
+
+                        Swal.fire({
+                            title: '¿Estás seguro?',
+                            text: 'Es un proceso irreversible.',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Sí, eliminarlo',
+                            cancelButtonText: 'Cancelar' // Cambiar el texto del botón "Cancelar"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Enviar el formulario usando AJAX
+                                axios.post(form.action, new FormData(form))
+                                    .then(function(response) {
+                                        // Manejar la respuesta JSON del servidor
+                                        if (response.data && response.data.mensaje) {
+                                            Swal.fire({
+                                                title: '¡Vacante eliminada!',
+                                                text: response.data.mensaje,
+                                                icon: 'success'
+                                            }).then(() => {
+                                                // Recargar la página u otra acción según sea necesario
+                                                location
+                                                    .reload(); // Recargar la página después de eliminar
+                                            });
+                                        }
+                                    })
+                                    .catch(function(error) {
+                                        // Manejar errores si es necesario
+                                        console.error(error);
+                                    });
+                            }
+                        });
+                    });
+                });
+        </script>
     @show
 
     @section('dataTables')

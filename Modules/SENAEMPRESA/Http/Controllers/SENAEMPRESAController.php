@@ -43,7 +43,7 @@ class SENAEMPRESAController extends Controller
 
             if ($sena->save()) {
                 // Redirigir a la vista adecuada con un mensaje de éxito
-                return redirect()->route('senaempresa')->with('success', 'Cargo creado exitosamente.');
+                return redirect()->route('cefa.senaempresa')->with('success', 'Cargo creado exitosamente.');
             } else {
                 // Manejar el caso de error si la inserción falla
                 return redirect()->back()->with('error', 'Error al crear el cargo.');
@@ -52,6 +52,40 @@ class SENAEMPRESAController extends Controller
             return redirect()->back()->with('error', 'Error al crear el objeto PositionCompany.');
         }
     }
+
+    public function edit($id)
+    {
+
+
+        $company = Senaempresa::find($id);
+        $data = ['title' => 'Editar senaempresa', 'company' => $company];
+        return view('senaempresa::Company.SENAEMPRESA.senaempresa_edit', $data);
+    }
+    public function update(Request $request, $id)
+    {
+        $company = Senaempresa::find($id);
+        $company->name = $request->input('name');
+        $company->description = $request->input('description');
+
+        // Actualiza otros campos según necesites
+        $company->save();
+
+        return redirect()->route('cefa.senaempresa')->with('warning', 'Registro actualizado exitosamente.');
+    }
+
+
+    public function destroy($id)
+    {
+        try {
+            $compan = Senaempresa::findOrFail($id);
+            $compan->delete();
+
+            return response()->json(['mensaje' => 'Vacante eliminada con éxito']);
+        } catch (\Exception $e) {
+            return response()->json(['mensaje' => 'Error al eliminar la vacante'], 500);
+        }
+    }
+
 
 
 

@@ -121,8 +121,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('senaempresa') }}"
-                                class="nav-link {{ !Route::is('senaempresa') ?: 'active' }}">
+                            <a href="{{ route('cefa.senaempresa') }}"
+                                class="nav-link {{ !Route::is('cefa.senaempresa') ?: 'active' }}">
                                 <i class="fas fa-chess-rook"></i>
                                 <p>
                                     {{ trans('senaempresa::menu.Strategies') }}

@@ -21,35 +21,39 @@
                         <div class="card-header">{{ $title }}</div>
 
                         <div class="card-body">
-                            <form action="{{ route('cefa.nuevos') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('cefa.guardar_senaempresa', $company->id) }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Nombre</label>
-                                    <textarea class="form-control" id="name" name="name" rows="3" required></textarea>
+                                    <input type="text" name="name"
+                                        value="{{ $company->name ?? old('name') }}" class="form-control"
+                                        id="name" name="name" rows="3" required></textarea>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Descripción</label>
-                                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-                                </div>
+                                    <input type="text" name="description"
+                                        value="{{ $company->description ?? old('description') }}"</textarea
+                                        class="form-control" id="description" name="description" rows="3"
+                                        required></textarea>
+                                    </div>
 
-
-                                <button type="submit" class="btn btn-success">Agregar</button>
+                                <button type="submit" class="btn btn-success">Guardar cambios</button>
                                 <a href="{{ route('cefa.senaempresa') }}" class="btn btn-danger btn-xl">Cancelar</a>
                             </form>
                         </div>
-
                     </div>
+
                 </div>
             </div>
-        </div><br>
-        @section('content')
-        @show
+        </div>
+    </div><br>
+    @section('content')
+    @show
 
-        <!-- Control Sidebar -->
+    <!-- Control Sidebar -->
 
-        <!-- /.control-sidebar -->
-
+    <!-- /.control-sidebar -->
 
     </div>
 
@@ -64,7 +68,3 @@
 
     @section('dataTables')
     @show
-
-</body>
-
-</html>

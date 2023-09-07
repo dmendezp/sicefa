@@ -88,9 +88,12 @@ Route::middleware(['lang'])->group(function () {
 
 
     //Rutas para senaempresa estrategias
-    Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('senaempresa');
-    Route::get('Estrategias/Nueva', 'SENAEMPRESAController@agregar')->name('agrega');
-    Route::post('Estrategias/Nueva', 'SENAEMPRESAController@store')->name('nuevos');
+    Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('cefa.senaempresa');
+    Route::get('Estrategias/Nueva', 'SENAEMPRESAController@agregar')->name('cefa.agrega');
+    Route::post('Estrategias/Nueva', 'SENAEMPRESAController@store')->name('cefa.nuevos');
+    Route::get('Estrategias/{id}/editar', 'SENAEMPRESAController@edit')->name('cefa.editarlo');
+    Route::post('Estrategias{id}/actualizar', 'SENAEMPRESAController@update')->name('cefa.guardar_senaempresa');
+    Route::delete('Estrategias/delete/{id}', 'SENAEMPRESAController@destroy')->name('cefa.eliminar_senaempresa');
 
 
 
