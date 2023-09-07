@@ -49,7 +49,7 @@
         </table>
     </div>
 </div>
-{{-- Modal Crear Cultivo --}}
+{{-- Modal Agregar Cultivo --}}
 <div class="modal fade" id="crearcrop" tabindex="-1" aria-labelledby="crearcrop" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -65,16 +65,38 @@
                         <input type="text" name="crop_name" id="crop_name" class="form-control" required>
                     </div>
                     <div class="form-group">
+                        <label for="sown_area">Área Sembrada</label>
+                        <div class="input-group">
+                            <input type="number" name="sown_area_value" id="sown_area_value" class="form-control" required>
+                            <select name="sown_area_unit" id="sown_area_unit" class="form-control">
+                                <option value="m2">Metros Cuadrados (m²)</option>
+                                <option value="m2">Hectáreas (ha)</option>
+                                <!-- Agrega más opciones de unidades de medida si es necesario -->
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
                         <label for="seed_time">Fecha de Siembra</label>
                         <input type="date" name="seed_time" id="seed_time" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="density">Densidad</label>
-                        <input type="number" name="density" id="density" class="form-control" required>
+                        <label for="density">Densidad de Plantas</label>
+                        <div class="input-group">
+                            <input type="number" name="density_value" id="density_value" class="form-control" required>
+                            <select name="density_unit" id="density_unit" class="form-control">
+                                <option value="plantas">Plantas</option>
+                                <option value="cm2">por cm²</option> <!-- Cambiado a "cm²" para representar centímetros cuadrados -->
+                                <option value="m2">por m²</option>
+                                <option value="km2">por km²</option>
+                                <!-- Agrega más opciones de unidades de medida si es necesario -->
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="environment_id">Ambiente</label>
                         <select name="environment_id" id="environment_id" class="form-control">
+                            <option value="">Seleccionar Ambiente</option>
                             @foreach ($environments as $environment)
                                 <option value="{{ $environment->id }}">{{ $environment->name }}</option>
                             @endforeach
@@ -83,11 +105,12 @@
                     <div class="form-group">
                         <label for="variety_id">Variedad</label>
                         <select name="variety_id" id="varietyt_id" class="form-control">
+                            <option value="">Seleccionar Variedad</option>
                             @foreach ($varieties as $variety)
                                 <option value="{{ $variety->id }}">{{ $variety->name }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div>                    
                     <div class="form-group">
                         <label for="finish_date">Fecha Fin</label>
                         <input type="date" name="finish_date" id="finish_date" class="form-control" required>
@@ -98,7 +121,8 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
+
 {{-- Modal de Edición Actividad --}}
 @foreach ($crops as $crop)
 <div class="modal fade" id="editCultivo_{{ $crop->id }}" tabindex="-1"
@@ -177,6 +201,22 @@
         </div>
     </div>
 @endforeach
+{{-- script de limpiar los campos cuando se va a agregar un nuevo cultivo --}}
+<script>
+    $(document).ready(function() {
+        $('#crearcrop').on('show.bs.modal', function () {
+            // Limpiar los campos del formulario
+            $('#crop_name').val('');
+            $('#seed_time').val('');
+            $('#density').val('');
+            $('#environment_id').val('');
+            $('#varietyt_id').val('');
+            $('#finish_date').val('');
+        });
+    });
+</script>
+
+
 
 <script>
 $('.btn-edit-crop').on('click', function (event) {
@@ -209,4 +249,4 @@ var cropsData = [
 ];
 </script>
 
-</script>
+

@@ -11,11 +11,25 @@ class Crop extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-    
-    public function variety(){
-        return $this->belongsTo(Variety::class);}
-        
-    public function environments(){
-        return $this->belongsToMany(Environment::class);}
+    protected $fillable = [
+        'name',
+        'sown_area',
+        'seed_time',
+        'density_value', // Agregar el campo density_value
+        'density_unit',  // Agregar el campo density_unit
+        'variety_id',
+        'finish_date',
+    ];
+
+    public function variety()
+    {
+        return $this->belongsTo(Variety::class);
+    }
+
+    public function environments()
+    {
+        return $this->belongsToMany(Environment::class, 'crop_environment');
+    }
 }
+
+

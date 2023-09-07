@@ -69,14 +69,20 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Andres Almario** - *Formulario de entrada y salida con tabla dinamica de productos, filtro para respondable y bodegas* - *Avance 100%* - *Dificultades* - *Acciones*
 * **Dayana Valenzuela** - *Implementacion para filtrar los elementos por categoria teniendo en cuenta la bodega* - *Avance 70%* - *Complicaciones con las consultas* - *Buscar soluciones al problema*
 * **Laura Vanessa** - *Creacion de tarjetas para los desarrolladores* - *Avance %* - *Dificultades* - *Acciones*
-* **Yuderly Sapuy** - ** - *Avance en el crud Cultivo %* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - ** - *Avance en el crud Cultivo, elimina registros * - *Dificultades para agregar un atributo de la tabla crops_environment* *Avance 80%* - *Acciones*
 ---
 
 #### Meet 04-Sep-2023
 * **Andres Almario** - *Registro de productos movimiento de entrada* - *Avance 100%* - *Dificultades* - *Acciones*
 * **Dayana Valenzuela** - *Ajustes de filtro de elementos por categoría* - *Avance 100%* - *Complicaciones con las consultas* - *Buscar soluciones al problema*
 * **Laura Vanessa** - *modificacion de la vista desarrolladores creaccion le las targetas de donde van las herramientas que utilizamos para el desarrollo de  el software* - *Avance 100%* - *Dificultades* - *Acciones*
-* **Yuderly Sapuy** - *Vista AGROCEFA* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Vista AGROCEFA* - *Avance 40%* - * Dificultades N/A* - *Acciones*
+
+#### Meet 05-Sep-2023
+* **Andres Almario** - *Estandarizacion y Organizacion de archivos; y avance de movimiento* - *Avance 100%* - *Dificultades N/A* - *Acciones*
+* **Dayana Valenzuela** - *Ajuste en la funcionalidad de la vista de inventario* - *Avance 40%* - *Complicaciones con la relacion de las tablas* - *Buscar soluciones al problema*
+* **Laura Vanessa** - *Avance en la vista de Desarrolladores y Avance eL CRUD de variedad * - *Avance 60%* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Avance en la vista Acerca de AGROCEFA para el rol de usuario* - *Avance 60%* - * Dificultades N/A* - *Acciones*
 ---
 
 

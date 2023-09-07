@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCropsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('crops', function (Blueprint $table) {
@@ -18,7 +13,8 @@ class CreateCropsTable extends Migration
             $table->string('name');
             $table->float('sown_area');
             $table->date('seed_time');
-            $table->float('density');
+            $table->float('density_value'); // Agregar el campo density_value
+            $table->string('density_unit');  // Agregar el campo density_unit
             $table->foreignId('variety_id')->constrained()->onDelete('cascade');
             $table->date('finish_date');
             $table->softDeletes();
@@ -26,11 +22,6 @@ class CreateCropsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('crops');
