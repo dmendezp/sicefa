@@ -27,7 +27,7 @@ class InventoryController extends Controller
 
         // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
         $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
-        // Obtener los IDs de las bodegas relacionadas con la unidad productiva
+
         // Obtener los registros de inventario que coinciden con las bodegas relacionadas
         $inventory = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)->get();
 
@@ -38,33 +38,41 @@ class InventoryController extends Controller
         ]);
     }
 
-        public function showWarehouseFilter(Request $request)
+
+    public function showWarehouseFilter(Request $request)
     {
-        // Obtener todas las categorías
-        $categories = Category::all();
+        // Obtener los datos del formulario de solicitud AJAX
+        $selectedCategoryId = $request->input('category');
 
-        // Obtener el ID de la categoría seleccionada desde el formulario
-        $categoryId = $request->input('category');
+        // Obtener el ID de la unidad productiva seleccionada (asumiendo que lo tienes en sesión)
+        $selectedUnitId = Session::get('selectedUnitId');
 
-        // Inicializar el query builder para la tabla 'inventory'
+        // Inicializar la consulta de inventario
         $query = Inventory::query();
 
-        // Filtrar por categoría si se selecciona una
-        if ($categoryId) {
-            $query->whereHas('element', function ($subquery) use ($categoryId) {
-                $subquery->where('category_id', $categoryId);
+        $categories=Category::all();
+
+        // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
+        $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
+
+        // Aplicar filtro por unidad productiva
+        $query->whereIn('productive_unit_warehouse_id', $unitWarehouses);
+
+        // Si se seleccionó una categoría, aplicar el filtro por categoría
+        if ($selectedCategoryId) {
+            $query->whereHas('element', function ($subquery) use ($selectedCategoryId) {
+                $subquery->where('category_id', $selectedCategoryId);
             });
         }
 
-        // Obtener los elementos filtrados
-        $filteredInventory = $query->get();
+        // Obtener los registros de inventario aplicando todos los filtros
+        $inventory = $query->get();
 
-        return view('agrocefa::inventory', [
-            'filteredInventory' => $filteredInventory,
-            'categories' => $categories,
+        // Devolver los resultados como JSON
+        return view('agrocefa::inventory',[
+            'inventory'=>$inventory,
+            'categories'=>$categories,
         ]);
     }
-
-
 
 }

@@ -60,8 +60,8 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ---
 #### Meet 01-Sep-2023
 * **Andres Almario** - *Diseñar la vista de movimientos* - *Avance %* - *Dificultades* - *Acciones*
-* **Dayana Valenzuela** - *Crear controlador para inventario, ruta y funciones de prueba* - *Avance %* - *Dificultades* - *Acciones*
-* **Laura Vanessa** - *Ruta y diseño de vista de desarrolladores* - *Avance %* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Crear controlador para inventario, ruta y funciones de prueba* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - *Ruta y diseño de vista de desarrolladores* - *Avance 100%* - *Dificultades* - *Acciones*
 * **Yuderly Sapuy** - *Creacion de archivo de vista para el usuario acerca de AGROCEFA Y ruta  para retornar a la vista* - *30 %* - *N/A* - *N/A*
 ---
 
@@ -76,13 +76,20 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Andres Almario** - *Registro de productos movimiento de entrada* - *Avance 100%* - *Dificultades* - *Acciones*
 * **Dayana Valenzuela** - *Ajustes de filtro de elementos por categoría* - *Avance 100%* - *Complicaciones con las consultas* - *Buscar soluciones al problema*
 * **Laura Vanessa** - *modificacion de la vista desarrolladores creaccion le las targetas de donde van las herramientas que utilizamos para el desarrollo de  el software* - *Avance 100%* - *Dificultades* - *Acciones*
-* **Yuderly Sapuy** - *Vista AGROCEFA* - *Avance 40%* - * Dificultades N/A* - *Acciones*
+* **Yuderly Sapuy** - *Vista AGROCEFA* - *Avance 40%* - *Dificultades N/A* - *Acciones*
 
 #### Meet 05-Sep-2023
 * **Andres Almario** - *Estandarizacion y Organizacion de archivos; y avance de movimiento* - *Avance 100%* - *Dificultades N/A* - *Acciones*
 * **Dayana Valenzuela** - *Ajuste en la funcionalidad de la vista de inventario* - *Avance 40%* - *Complicaciones con la relacion de las tablas* - *Buscar soluciones al problema*
 * **Laura Vanessa** - *Avance en la vista de Desarrolladores y Avance eL CRUD de variedad * - *Avance 60%* - *Dificultades* - *Acciones*
-* **Yuderly Sapuy** - *Avance en la vista Acerca de AGROCEFA para el rol de usuario* - *Avance 60%* - * Dificultades N/A* - *Acciones*
+* **Yuderly Sapuy** - *Avance en la vista Acerca de AGROCEFA para el rol de usuario* - *Avance 60%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 06-Sep-2023
+* **Andres Almario** - *Registro movimientos de entrada* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Listar elementos de inventario segun unidad productiva e implementacion del filtro por categoria* - *Avance 70%* - *Dificultad para implementar el AJAX* - *Buscar soluciones al problema*
+* **Laura Vanessa** - *Funciones de CRUD variedad* - *Avance 60%* - *Errores en el foreach* - *Solicitar ayuda de otro integrante*
+* **Yuderly Sapuy** - *Cambios en los campos para unidades de medida, ajustes de tabla crops y algunas funcionalidades del CRUD* - *Avance 80%* - *Dificultades* - *Acciones*
 ---
 
 
