@@ -18,7 +18,7 @@ class BusesController extends Controller
     public function index()
     {
         //obtenemos el listado de buses
-        $buses = Buses::with('busDriver')->get();
+        $buses = Buses::with('bus_driver')->get();
         $busDrivers = BusDrivers::pluck('name','id');
         return view('bienestar::buses.home',['buses'=>$buses,'busDrivers'=>$busDrivers]);
     }
