@@ -22,8 +22,6 @@ class CreateEmployeesTable extends Migration
             $table->date('professional_card_issue_date');
             $table->foreignId('employee_type_id')->constrained()->onDelete('cascade');
             $table->foreignId('position_id')->constrained()->onDelete('cascade');
-            $table->string('health_entity');
-            $table->string('pension_entity');
             $table->string('risk_type', 5);
             $table->enum('state', ['Activo','Inactivo']);
             $table->softDeletes();
