@@ -24,11 +24,12 @@ class WarehouseController extends Controller
     {
         $title = 'Inventario';
     
+        $inventories= Inventory::all();//trae todos los datos del inventario.
            $elements  = Element::all();//Trae todos los datos del modelo Element y los almacena en la variable $elements.
             $categories = Category::all();//Trae todos los datos del modelo category y los almacena en la variable $category.
             $kpfs = KindOfPurchase::all();//Tipo de compra
 
-        return view('agroindustria::storer.inventory', compact('title','elements','categories','kpfs'));
+        return view('agroindustria::storer.inventory', compact('title','elements','categories','kpfs','inventories'));
     }
 
     public function kindofpurchae(){

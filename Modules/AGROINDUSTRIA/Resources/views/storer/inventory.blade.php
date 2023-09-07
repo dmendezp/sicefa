@@ -27,7 +27,7 @@
                         <th>|</th>
                         <th>Nombre</th>
                          <th>|</th>
-                        <th>Descripción</th>
+                        <th>Disponible</th>
                          <th>|</th>
                         <th>Precio</th>
                          <th>|</th>
@@ -50,7 +50,9 @@
                             <td>|</td>
                             <td>{{ $element->name }}</td>
                             <td>|</td>   
-                            <td>{{ $element->description }}</td>
+                            @foreach ( $inventories as $inventory )
+                            <td>{{ $inventory->stock }}</td>                                
+                            @endforeach
                             <td>|</td>
                             <td>{{ $element->price }}</td>
                             <td>|</td>

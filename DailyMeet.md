@@ -70,15 +70,16 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 
 #### Meet 06-Sep-2023
-* **IDavid Juliam Cadena Barrera** - *Mejoras en la vista de monitoreo* - *60 %* - *conflictos* - *solucionar conflictos*
+* **IDavid Juliam Cadena Barrera** - *Funcion de mostrar elementos de inventario en datatable, se agrega formulario de agregar alemento a inventario.* - *64 %* - *Consultas entre tablas relacionadas* - *documentacion larabel.*
 
-**Juan Diego Bonilla Aroca** - *Terminar la vista inicial de visitantes* - *100%* - *Ninguna* - *Ninguna*
+**Juan Diego Bonilla Aroca** - *Avance en crud de dormulaciones y recetas* - *54%* - *Ninguna* - *Ninguna*
 
-**Julian Javier Ramirez Diaz** - *Terminar la funcion de movimiento interno* - *60%* - *Ninguna* - *Ninguna*
+**Julian Javier Ramirez Diaz** - *Implementacion de movimientos internos.* - *90%* - *Ninguna* - *Ninguna*
 
 ---
 #### Meet 04-Nov-2022
-* **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+***IDavid Juliam Cadena Barrera** - *Mejoras en la vista de monitoreo* - *60 %* - *conflictos* - *solucionar conflictos*
+
 * **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
 #### Meet 07-Nov-2022
