@@ -15,7 +15,7 @@
                 <div class="row p-4">
                     <div class="col-md-3">
                         <label for="plate">Placa:</label>
-                        <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6">
+                        <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
                         <span id="plate-error" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
@@ -100,7 +100,7 @@
                         <label for="plate">placa:</label>
                         <div class="form-group">
                         {!! Form::text('plate', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la placa',
-                        'required']) !!}
+                        'required','oninput' => 'this.value = this.value.toUpperCase()']) !!}
                 </div>
 
                     </div>
