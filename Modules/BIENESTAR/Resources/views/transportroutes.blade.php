@@ -32,7 +32,7 @@
                             <select name="bus" id="bus" class="form-control" required>
                                 <option value="">Selecciona un bus</option>
                                 @foreach ( $buses as $bus )
-                                <option value="{{ $bus->id }}" data-bus-driver="{{ $bus->bus_driver_id}}">{{ $bus->plate }}</option>                            
+                                <option value="{{ $bus->id }}" data-bus-driver="{{ $bus->busDriver->name }}">{{ $bus->plate }}</option>                            
                                 @endforeach
 
                             </select>
