@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['lang'])->group(function () {
     //Route::middleware(['lang'])->group(function(){
     Route::prefix('senaempresa')->group(function () {
-        Route::get('index/', 'SENAEMPRESAController@index')->name('cefa.index');
+        Route::get('index/', 'SENAEMPRESAController@index')->name('senamepresa.index');
         Route::get('TurnoRutinario/', 'AsistenciaTurnosController@index')->name('turnosRutinarios');
         Route::get('TurnoRutinario/buscarLista/{id}', 'AsistenciaTurnosController@buscarLista')->name('buscarLista');
         Route::get('TurnoRutinario/Guardar/{id}', 'AsistenciaTurnosController@getAsignarTurno')->name('adicionarTurno');
