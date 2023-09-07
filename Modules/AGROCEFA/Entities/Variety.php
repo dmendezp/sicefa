@@ -12,6 +12,11 @@ class Variety extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'specie_id'
+    ];
+
     public function crops(){
         return $this->hasMany(Crop::class);
     }

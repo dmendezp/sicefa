@@ -46,10 +46,9 @@ Route::middleware(['lang'])->group(function() {
 
         // RUTAS PARA VARIEDADES
 
-        Route::get('/varieties', 'VarietyController@index')->name('agrocefa.varieties.index');
-        Route::get('/varieties/{id}/edit', 'VarietyController@index')->name('agrocefa.varieties.edit');
-        Route::put('/varieties/{id}/update', 'VarietyController@index')->name('agrocefa.varieties.update');
-        Route::delete('/varieties/delete/{id}', 'VarietyController@index')->name('agrocefa.varieties.elim');
+        Route::get('/varieties', 'VarietyController@create')->name('agrocefa.varieties.store');
+        Route::put('/varieties/{id}/update', 'VarietyController@update')->name('agrocefa.varieties.update');
+        Route::delete('/varieties/delete/{id}', 'VarietyController@delete')->name('agrocefa.varieties.delete');
 
 
         // Ruta que acepta tanto GET como POST para la creación de variedades
