@@ -24,31 +24,30 @@
                             <form action="{{ route('cefa.cargo_editado', $position->id) }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="requirement" class="form-label">Requisitos</label>
+                                    <label for="requirement" class="form-label">{{ trans('senaempresa::menu.Requirements') }}</label>
                                     <input type="text" name="requirement"
                                         value="{{ $position->requirement ?? old('requirement') }}" class="form-control"
                                         id="requirement" name="requirement" rows="3" required></textarea>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="description" class="form-label">Descripción General</label>
+                                    <label for="description" class="form-label">{{ trans('senaempresa::menu.General description') }}</label>
                                     <input type="text" name="description"
                                         value="{{ $position->description ?? old('description') }}"</textarea
                                         class="form-control" id="description" name="description" rows="3"
                                         required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="state">Estado</label>
+                                    <label for="state">{{ trans('senaempresa::menu.Status') }}</label>
                                     <select class="form-control" id="state" name="state">
-                                        <option value="activo" {{ $position->state === 'activo' ? 'selected' : '' }}>
-                                            Activo</option>
+                                        <option value="activo" {{ $position->state === 'activo' ? 'selected' : '' }}>{{ trans('senaempresa::menu.Active') }}</option>
                                         <option value="inactivo"
                                             {{ $position->state === 'inactivo' ? 'selected' : '' }}>Inactivo</option>
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-success">Guardar cambios</button>
-                                <a href="{{ route('cefa.cargos') }}" class="btn btn-danger btn-xl">Cancelar</a>
+                                <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.Save changes') }}</button>
+                                <a href="{{ route('cefa.cargos') }}" class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>
                             </form>
                         </div>
                     </div>
