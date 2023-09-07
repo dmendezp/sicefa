@@ -31,6 +31,7 @@ class CreateContractorsTable extends Migration
             $table->date('sesion_date')->nullable();
             $table->foreignId('employee_type_id')->constrained()->onDelete('cascade');
             $table->string('SIIF_code');
+            $table->foreignId('insurer_entity_id')->constrained()->onDelete('cascade');
             $table->string('policy_number');
             $table->date('policy_issue_date');
             $table->date('policy_approval_date');
