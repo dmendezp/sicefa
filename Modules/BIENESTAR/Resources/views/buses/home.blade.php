@@ -169,6 +169,7 @@
     }
   });
 </script>
+
 <script>
     $(document).ready(function() {
         $('#modal-default').on('show.bs.modal', function (event) {
@@ -203,8 +204,8 @@
                 // Removemos cualquier caracter no numérico y limitamos la longitud a 2
                 var cleanedInput = quotaInput.replace(/\D/g, '').substring(0, 2);
 
-                // Verificamos si la entrada contiene exactamente dos números
-                if (/^\d{2}$/.test(cleanedInput)) {
+                // Verificamos si la entrada contiene exactamente dos números y no es igual a "00"
+                if (/^\d{2}$/.test(cleanedInput))  {
                     quotaError.text(''); // Campo válido, borra el mensaje de error
                     this.value = cleanedInput; // Actualizamos el valor del campo
                 } else {
