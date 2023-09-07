@@ -1,4 +1,4 @@
-@extends('bienestar::layouts.adminlte')
+@extends('bienestar::layouts.master')
 
 @section('content')
 <!-- Main content -->
@@ -48,7 +48,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{ $buses }}
                             @foreach ($buses as $b)
                             <tr>
                             <td>{{ $loop->iteration }}</td>

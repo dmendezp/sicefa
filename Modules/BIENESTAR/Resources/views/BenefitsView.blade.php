@@ -1,4 +1,4 @@
-@extends('bienestar::layouts.adminlte')
+@extends('bienestar::layouts.master')
 
 @section('content')
 <!-- Main content -->
@@ -15,11 +15,11 @@
                     <div class="row align-items-center p-4">
                         <div class="col-md-3">
                             <label for="text1">Nombre</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <input type="text" class="form-control" id="name" name="name" >
                         </div>
                         <div class="col-md-3">
                             <label for="number1">Porcentaje</label>
-                            <input type="number" class="form-control" id="porcentaje" min="0" max="100" placeholder="Ej: 75" name="porcentege" required>
+                            <input type="number" class="form-control" id="porcentaje" min="0" max="100" placeholder="Ej: 75" name="porcentege" >
                             <div id="quota-error" style="color: red;"></div>
                         </div>
                         <div class="col-md-2 align-self-end">

@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Module BIENESTAR</title>
+@include('bienestar::layouts.partials.head')
 
-       {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/bienestar.css') }}"> --}}
-       {{-- <link rel="stylesheet" href="{{ asset('bienestarxd/css/styles.css') }}"> --}}
+@section('stylesheet')
+@show
 
-    </head>
-    <body>
-        @yield('content')
+<body class="hold-transition sidebar-mini">
 
-        {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/bienestar.js') }}"></script> --}}
-    </body>
+<div class="wrapper">
+  <!-- Navbar -->
+    @include('bienestar::layouts.partials.navbar')
+  <!-- /.navbar -->
+  <!-- Main Sidebar Container -->
+    @include('bienestar::layouts.partials.sidebar')
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    @include('bienestar::layouts.partials.breadcrumb')
+    <!-- /.content-header -->
+    <!-- Main content -->
+    @show
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <!-- Main Footer -->
+    @include('bienestar::layouts.partials.footer')
+</div>
+<!-- ./wrapper -->
+<!-- REQUIRED SCRIPTS -->
+@include('bienestar::layouts.partials.scripts')
+
+@section('script')
+@show
+
+</body>
 </html>
