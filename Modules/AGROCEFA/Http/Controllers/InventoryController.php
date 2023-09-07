@@ -68,11 +68,11 @@ class InventoryController extends Controller
         // Obtener los registros de inventario aplicando todos los filtros
         $inventory = $query->get();
 
-        // Devolver los resultados como JSON
-        return view('agrocefa::inventory',[
-            'inventory'=>$inventory,
-            'categories'=>$categories,
+        // Devolver solo la vista parcial en lugar de la vista completa
+        return view('agrocefa::inventoryPartial', [
+            'inventory' => $inventory,
         ]);
-    }
+
+}
 
 }

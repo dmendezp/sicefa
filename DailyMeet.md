@@ -92,6 +92,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Yuderly Sapuy** - *Cambios en los campos para unidades de medida, ajustes de tabla crops y algunas funcionalidades del CRUD* - *Avance 80%* - *Dificultades* - *Acciones*
 ---
 
+#### Meet 07-Sep-2023
+* **Andres Almario** - *Registro solicitud de salida de elementos* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Filtro por categoria con AJAX finalizado, inicializacion del CRUD y modificaciones del CRUD especies* - *Avance 75%* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - *CRUD de variedad finalizado, avance en la vista desarrolladores* - *Avance 80%* - *Problemas en el editar del CRUD* - *Solicitar ayuda de otro integrante*
+* **Yuderly Sapuy** - *CRUD cultivos finalizado* - *Avance 100%* - *Dificultades* - *Acciones*
+---
+
 
 ## GANADERIA 🐮
 

@@ -28,14 +28,10 @@
                                     data-bs-target="#editarEspecieModal_{{ $a->id }}"
                                     data-specie-id="{{ $a->id }}"><i
                                         class='bx bx-edit icon'></i></button>
-                                <form action="{{ route('agrocefa.species.destroy', ['id' => $a->id]) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" id="delete">
-                                        <i class='bx bx-trash icon'></i>
-                                    </button>
-                                </form>
+                                <button id="delete" class="btn btn-danger btn-sm btn-delete-activity" data-bs-toggle="modal"
+                                    data-bs-target="#eliminarspecie_{{ $a->id }}"><i
+                                        class='bx bx-trash icon'></i></button>       
+                                
                             </div>
                         </td>
                     </tr>
@@ -120,6 +116,34 @@ aria-labelledby="editarEspecieModalLabel_{{ $a->id }}" aria-hidden="true">
     </div>
 </div>
 </div>
+@endforeach
+
+{{-- Modal de Eliminar Actividad --}}
+@foreach ($species as $a)
+    <div class="modal fade" id="eliminarspecie_{{ $a->id }}" tabindex="-1"
+        aria-labelledby="eliminaractividadLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eliminaractividadLabel">Eliminar Actividad</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas eliminar esta especie?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Cancelar</button>
+                    {!! Form::open(['route' => ['agrocefa.species.destroy', 'id' => $a->id], 'method' => 'POST']) !!}
+                    @csrf
+                    @method('DELETE')
+                    {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
 @endforeach
 
 <script>
