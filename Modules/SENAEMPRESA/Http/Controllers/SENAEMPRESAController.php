@@ -43,7 +43,7 @@ class SENAEMPRESAController extends Controller
 
             if ($sena->save()) {
                 // Redirigir a la vista adecuada con un mensaje de éxito
-                return redirect()->route('cefa.senaempresa')->with('success', trans('senaempresa::menu.Position successfully created.'));
+                return redirect()->route('company.senaempresa')->with('success', trans('senaempresa::menu.Position successfully created.'));
             } else {
                 // Manejar el caso de error si la inserción falla
                 return redirect()->back()->with('error', trans('senaempresa::menu.Error in creating the position.'));
@@ -70,7 +70,7 @@ class SENAEMPRESAController extends Controller
         // Actualiza otros campos según necesites
         $company->save();
 
-        return redirect()->route('cefa.senaempresa')->with('warning', trans('senaempresa::menu.Registration successfully updated.'));
+        return redirect()->route('company.senaempresa')->with('warning', trans('senaempresa::menu.Registration successfully updated.'));
     }
 
 
