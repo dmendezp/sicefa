@@ -37,7 +37,7 @@ class CreateContractorsTable extends Migration
             $table->date('policy_approval_date');
             $table->date('policy_effective_date');
             $table->date('policy_expiration_date');
-            $table->string('risk_type',5);
+            $table->enum('risk_type', ['I','II','III','IV','V']);
             $table->enum('state', ['Activo','Inactivo']);
             $table->softDeletes();
             $table->timestamps();
