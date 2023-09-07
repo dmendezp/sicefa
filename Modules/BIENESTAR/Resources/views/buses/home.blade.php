@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-md-3">
                                 <label for="quota">Cupos:</label>
-                                <input type="number" name="quota" id="quota" class="form-control" placeholder="Ingrese los cupos" required maxlength="2">
+                                <input type="number" name="quota" id="quota" class="form-control" placeholder="Ingrese los cupos" required maxlength="2"oninput="validateQuota(this)"min="1" max="99">
                                 <span id="quota-error" class="text-danger"></span>
                             </div>
                     <div class="col-md-2 align-self-end">
@@ -114,7 +114,7 @@
                    <div class="col-md-12">
                         <label for="quota">cupos:</label>
                         <div class="form-group">
-                            {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required',]) !!}
+                            {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required','oninput' => 'this.value = this.value.replace(/^0+/g, \'\')', 'onblur' => 'validateQuota(this)']) !!}
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -153,6 +153,7 @@
     });
 </script>
 <script>
+    //cupos
   document.getElementById('quota').addEventListener('input', function() {
     const quotaInput = this.value;
     const quotaError = document.getElementById('quota-error');
@@ -171,6 +172,7 @@
 </script>
 
 <script>
+    //modal de placas
     $(document).ready(function() {
         $('#modal-default').on('show.bs.modal', function (event) {
             // ... (código existente)
@@ -190,6 +192,7 @@
     });
 </script>
 <script>
+    //modal del cupos
     $(document).ready(function() {
         $('#modal-default').on('show.bs.modal', function (event) {
             // ... (código existente)
@@ -216,6 +219,37 @@
         });
     });
 </script>
+<script>
+    //cupos  de cero
+    function validateQuota(input) {
+        var quotaValue = input.value;
+        var errorElement = document.getElementById('quota-error');
+
+        if (quotaValue === '0') {
+            errorElement.textContent = 'Los cupos no pueden ser "0".';
+            input.value = ''; // Vaciar el campo
+            input.focus(); // Devolver el foco al campo
+        } else {
+            errorElement.textContent = ''; // Borrar el mensaje de error si no es "0"
+        }
+    }
+</script>
+<script>
+    //cupos de  modal editar cero
+    function validateQuota(input) {
+        var quotaValue = input.value;
+        var errorElement = document.getElementById('quota-error');
+
+        if (quotaValue === '0') {
+            errorElement.textContent = 'Los cupos no pueden ser "00".';
+            input.setCustomValidity('Los cupos no pueden ser "00"'); // Evitar que el formulario se envíe
+        } else {
+            errorElement.textContent = ''; // Borrar el mensaje de error si no es "0"
+            input.setCustomValidity(''); // Restablecer la validación personalizada
+        }
+    }
+</script>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @endsection
