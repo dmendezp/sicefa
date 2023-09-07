@@ -74,6 +74,7 @@ class CreatePeopleTable extends Migration
             $table->string('avatar')->nullable();
             $table->text('biometric_code')->nullable();
             $table->foreignId('population_group_id')->constrained()->onDelete('cascade');
+            $table->foreignId('pension_entity_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

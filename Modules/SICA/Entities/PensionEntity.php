@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class PopulationGroup extends Model implements Auditable
+class PensionEntity extends Model implements Auditable
 {
 
     use \OwenIt\Auditing\Auditable; // Seguimientos de cambios realizados en BD
@@ -34,7 +34,7 @@ class PopulationGroup extends Model implements Auditable
     }
 
     // RELACIONES
-    public function people(){ // Accede a todas las personas asociadas a este grupo poblacional
+    public function people(){ // Accede a todas las personas asociadas a esta entidad de pensiones
         return $this->hasMany(Person::class);
     }
 

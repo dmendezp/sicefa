@@ -163,6 +163,7 @@ return [
         'first_name' => 'name', // SICA
         'leader_id' => 'leader person', // SICA
         'municipality_id' => 'municipality', // SICA
+        'pension_entity_id' => 'pension entity', // SICA
         'person_document_type' => 'document type', // PTVENTA
         'person_document_number' => 'document number', // PTVENTA
         'person_first_name' => 'first name', // PTVENTA

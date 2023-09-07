@@ -44,8 +44,8 @@ Route::middleware(['lang'])->group(function(){
         Route::post('/admin/people/personal_data/search', [PeopleController::class, 'personal_data_search'])->name('sica.admin.people.personal_data.search'); // Buscar datos personales por número de documento (Administrador)
         Route::get('/admin/people/personal_data/create/{doc}', [PeopleController::class, 'personal_data_create'])->name('sica.admin.people.personal_data.create'); // Formulario de registro de datos personales (Administrador)
         Route::post('/admin/people/personal_data/store', [PeopleController::class, 'personal_data_store'])->name('sica.admin.people.personal_data.store'); // Registrar datos personales (Administrador)
-        Route::get('/admin/people/personal_data/{id}/edit', [PeopleController::class, 'personal_data_edit'])->name('sica.admin.people.personal_data.edit'); // Formulario de actualización de datos personales (Administrador)
-        Route::put('/admin/people/personal_data/{id}/update', [PeopleController::class, 'personal_data_update'])->name('sica.admin.people.personal_data.update'); // Actualizar datos personales (Administrador)
+        Route::get('/admin/people/personal_data/{person}/edit', [PeopleController::class, 'personal_data_edit'])->name('sica.admin.people.personal_data.edit'); // Formulario de actualización de datos personales (Administrador)
+        Route::put('/admin/people/personal_data/{person}/update', [PeopleController::class, 'personal_data_update'])->name('sica.admin.people.personal_data.update'); // Actualizar datos personales (Administrador)
         Route::get('/admin/people/personal_data/load_create',[TempTablesController::class, 'personal_data_load_create'])->name('sica.admin.people.personal_data.load.create'); // Formulario para carga de archivo con datos personales de personas (Administrador)
         Route::post('/admin/people/personal_data/load_store',[TempTablesController::class, 'personal_data_load_store'])->name('sica.admin.people.personal_data.load.store'); // Registro de datos personales a partir de un archivo (Administrador)
 

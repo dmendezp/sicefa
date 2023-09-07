@@ -4,6 +4,7 @@ namespace Modules\SICA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\SICA\Entities\EPS;
+use Modules\SICA\Entities\PensionEntity;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\PopulationGroup;
 
@@ -19,6 +20,7 @@ class PeopleTableSeeder extends Seeder
 
         $population_group = PopulationGroup::firstOrCreate(['name' => 'NINGUNA']); // Consultar o registrar Grupo Poblacional
         $eps = EPS::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar EPS
+        $pension_entity = PensionEntity::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar Entidad de pensiones
 
         // Consulta o registro de datos para Diego Andrés Méndez Pastrana
         Person::firstOrCreate(['document_number' => 7713344],[ // Consultar o registrar Persona
@@ -27,7 +29,8 @@ class PeopleTableSeeder extends Seeder
             'first_last_name' => 'MÉNDEZ',
             'second_last_name' => 'PASTRANA',
             'eps_id' => $eps->id,
-            'population_group_id' => $population_group->id
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id
         ]);
 
         // Consulta o registro de datos para Gloria Maritza Sanchez Alarcón
@@ -37,7 +40,8 @@ class PeopleTableSeeder extends Seeder
             'first_last_name' => 'SANCHEZ',
             'second_last_name' => 'ALARCON',
             'eps_id' => $eps->id,
-            'population_group_id' => $population_group->id
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id
         ]);
 
         // Consulta o registro de datos para Diego Andrés Tovar Rodriguez
@@ -47,7 +51,8 @@ class PeopleTableSeeder extends Seeder
             'first_last_name' => 'TOVAR',
             'second_last_name' => 'RODRIGUEZ',
             'eps_id' => $eps->id,
-            'population_group_id' => $population_group->id
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id
         ]);
 
         // Consulta o registro de datos para Jesús David Guevara Munar
@@ -57,7 +62,8 @@ class PeopleTableSeeder extends Seeder
             'first_last_name' => 'GUEVARA',
             'second_last_name' => 'MUNAR',
             'eps_id' => $eps->id,
-            'population_group_id' => $population_group->id
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id
         ]);
 
     }

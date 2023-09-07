@@ -166,6 +166,7 @@ return [
         'municipality_id' => 'municipio', // SICA
         'name' => 'nombre', // SICA
         'nickname' => 'nombre de usuario', // SICA
+        'pension_entity_id' => 'entidad de pensiones', // SICA
         'period' => 'periodo', // SICA
         'person_document_type' => 'tipo de documento', // PTVENTA
         'person_document_number' => 'número de documento', // PTVENTA
