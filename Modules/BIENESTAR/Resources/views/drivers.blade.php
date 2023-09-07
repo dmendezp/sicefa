@@ -93,22 +93,22 @@
                                         </div>
                                         <div class="modal-body">
                                             <!-- Formulario de edición para el conductor -->
-                                            <form action="{{ route('bienestar.drivers.update', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar_{{ $busdriver->id }}()">
+                                            <form action="{{ route('bienestar.drivers.update', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar({{ $busdriver->id }})">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-group">
                                                     <label for="nameEditar_{{ $busdriver->id }}">Nombre del Conductor</label>
-                                                    <input type="text" class="form-control" id="nameEditar_{{ $busdriver->id }}" name="name" value="{{ $busdriver->name }}" required oninput="validarNombreEditar_{{ $busdriver->id }}()">
+                                                    <input type="text" class="form-control" id="nameEditar_{{ $busdriver->id }}" name="name" value="{{ $busdriver->name }}" required oninput="validarNombreEditar({{ $busdriver->id }})">
                                                     <span id="nombreErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="emailEditar_{{ $busdriver->id }}">Email Conductor</label>
-                                                    <input type="text" class="form-control" id="emailEditar_{{ $busdriver->id }}" name="email" value="{{ $busdriver->email }}" required oninput="validarEmailEditar_{{ $busdriver->id }}()">
+                                                    <input type="text" class="form-control" id="emailEditar_{{ $busdriver->id }}" name="email" value="{{ $busdriver->email }}" required oninput="validarEmailEditar({{ $busdriver->id }})">
                                                     <span id="emailErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="phoneEditar_{{ $busdriver->id }}">Teléfono</label>
-                                                    <input type="text" class="form-control" id="phoneEditar_{{ $busdriver->id }}" name="phone" value="{{ $busdriver->phone }}" required oninput="validarTelefonoEditar_{{ $busdriver->id }}()">
+                                                    <input type="text" class="form-control" id="phoneEditar_{{ $busdriver->id }}" name="phone" value="{{ $busdriver->phone }}" required oninput="validarTelefonoEditar({{ $busdriver->id }})">
                                                     <span id="telefonoErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                 </div>
                                                 <!-- Agrega más campos de edición según tus necesidades -->
@@ -231,53 +231,53 @@
     }
 
     // Función para validar el formulario de edición específico
-    function validarNombreEditar_{{ $busdriver->id }}() {
-        var nombre = document.getElementById("nameEditar_{{ $busdriver->id }}").value;
+    function validarNombreEditar(id) {
+        var nombre = document.getElementById("nameEditar_" + id).value;
         // Expresión regular para permitir letras y espacios (para nombres y apellidos)
         var regex = /^[A-Za-z\s]+$/;
 
         if (!regex.test(nombre)) {
-            document.getElementById("nombreErrorEditar_{{ $busdriver->id }}").textContent = "El campo 'Conductor' debe contener solo letras y espacios.";
+            document.getElementById("nombreErrorEditar_" + id).textContent = "El campo 'Conductor' debe contener solo letras y espacios.";
         } else {
-            document.getElementById("nombreErrorEditar_{{ $busdriver->id }}").textContent = ""; // Limpiar el mensaje de error
+            document.getElementById("nombreErrorEditar_" + id).textContent = ""; // Limpiar el mensaje de error
         }
     }
 
-    function validarEmailEditar_{{ $busdriver->id }}() {
-        var email = document.getElementById("emailEditar_{{ $busdriver->id }}").value;
+    function validarEmailEditar(id) {
+        var email = document.getElementById("emailEditar_" + id).value;
         var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Expresión regular para verificar una dirección de correo válida
 
         if (!emailPattern.test(email)) {
-            document.getElementById("emailErrorEditar_{{ $busdriver->id }}").textContent = "Ingrese una dirección de correo electrónico válida.";
+            document.getElementById("emailErrorEditar_" + id).textContent = "Ingrese una dirección de correo electrónico válida.";
         } else {
-            document.getElementById("emailErrorEditar_{{ $busdriver->id }}").textContent = ""; // Limpiar el mensaje de error
+            document.getElementById("emailErrorEditar_" + id).textContent = ""; // Limpiar el mensaje de error
         }
     }
 
-    function validarTelefonoEditar_{{ $busdriver->id }}() {
-        var telefono = document.getElementById("phoneEditar_{{ $busdriver->id }}").value;
+    function validarTelefonoEditar(id) {
+        var telefono = document.getElementById("phoneEditar_" + id).value;
 
         // Eliminar cualquier espacio en blanco del número
         telefono = telefono.replace(/\s/g, '');
 
         // Verificar si el número tiene exactamente 10 caracteres numéricos
         if (telefono.length !== 10 || isNaN(telefono)) {
-            document.getElementById("telefonoErrorEditar_{{ $busdriver->id }}").textContent = "El número de teléfono debe tener exactamente 10 caracteres numéricos.";
+            document.getElementById("telefonoErrorEditar_" + id).textContent = "El número de teléfono debe tener exactamente 10 caracteres numéricos.";
         } else {
-            document.getElementById("telefonoErrorEditar_{{ $busdriver->id }}").textContent = ""; // Limpiar el mensaje de error
+            document.getElementById("telefonoErrorEditar_" + id).textContent = ""; // Limpiar el mensaje de error
         }
     }
 
     // Función para validar el formulario de edición específico
-    function validarFormularioEditar_{{ $busdriver->id }}() {
-        validarNombreEditar_{{ $busdriver->id }}();
-        validarEmailEditar_{{ $busdriver->id }}();
-        validarTelefonoEditar_{{ $busdriver->id }}();
+    function validarFormularioEditar(id) {
+        validarNombreEditar(id);
+        validarEmailEditar(id);
+        validarTelefonoEditar(id);
 
         // Devuelve true o false para permitir o prevenir el envío del formulario de edición
-        return !document.getElementById("nombreErrorEditar_{{ $busdriver->id }}").textContent &&
-            !document.getElementById("emailErrorEditar_{{ $busdriver->id }}").textContent &&
-            !document.getElementById("telefonoErrorEditar_{{ $busdriver->id }}").textContent;
+        return !document.getElementById("nombreErrorEditar_" + id).textContent &&
+            !document.getElementById("emailErrorEditar_" + id).textContent &&
+            !document.getElementById("telefonoErrorEditar_" + id).textContent;
     }
 </script>
 @endsection
