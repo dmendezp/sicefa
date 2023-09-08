@@ -27,16 +27,16 @@
             <div class="row justify-content-center mt-5">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">Prestamos</div>
+                        <div class="card-header">{{ trans('senaempresa::menu.We provide') }}</div>
                         <div class="card-body">
                             <form action="{{ route('cefa.prestamo_nuevo') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="staff_senaempresa_id" class="form-label">Personal ID</label>
+                                    <label for="staff_senaempresa_id" class="form-label">{{ trans('senaempresa::menu.People ID') }}</label>
                                     <select class="form-control" name="staff_senaempresa_id"
                                         aria-label="Selecciona Personal ID">
-                                        <option value="" selected>Selecciona Personal ID</option>
+                                        <option value="" selected>{{ trans('senaempresa::menu.Select Personal ID') }}</option>
                                         @foreach ($staff_senaempresas as $staff_senaempresa)
                                             <option value="{{ $staff_senaempresa->id }}">
                                                 {{ $staff_senaempresa->id }}
@@ -46,9 +46,9 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="inventory_id" class="form-label">Id Inventario</label>
+                                    <label for="inventory_id" class="form-label">{{ trans('senaempresa::menu.Inventory ID') }}</label>
                                     <select class="form-control" name="inventory_id" aria-label="Selecciona un Cargo">
-                                        <option value="" selected>Selecciona un Cargo</option>
+                                        <option value="" selected>{{ trans('senaempresa::menu.Select a Position') }}</option>
                                         @foreach ($inventories as $inventory)
                                             <option value="{{ $inventory->id }}">
                                                 {{ $inventory->id }} {{ $inventory->Element->name }}
@@ -58,16 +58,16 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="start_datetime" class="form-label">Fecha y Hora de Inicio</label>
+                                    <label for="start_datetime" class="form-label">{{ trans('senaempresa::menu.Start date and time') }}</label>
                                     <input type="datetime-local" class="form-control" id="start_datetime"
                                         name="start_datetime" placeholder="Fecha Inicio">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="end_datetime" class="form-label">Fecha y Hora de Fin</label>
+                                    <label for="end_datetime" class="form-label">{{ trans('senaempresa::menu.End date and time') }}</label>
                                     <input type="datetime-local" class="form-control" id="end_datetime"
                                         name="end_datetime" placeholder="Fecha Inicio">
                                 </div><br>
-                                <button type="submit" class="btn btn-success">Prestar</button>
+                                <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.Provide') }}</button>
                             </form>
                         </div>
                     </div>
@@ -82,12 +82,12 @@
                             <table id="datatable" class="table table-sm table-striped">
                                 <thead class="bg-primary text-white">
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Personal ID</th>
-                                        <th>Inventario ID</th>
-                                        <th>Fecha | Hora Inicio</th>
-                                        <th>Fecha | Hora Devolución</th>
-                                        <th>Estado</th>
+                                        <th>{{ trans('senaempresa::menu.Id') }}</th>
+                                        <th>{{ trans('senaempresa::menu.People ID') }}</th>
+                                        <th>{{ trans('senaempresa::menu.Inventory ID') }}</th>
+                                        <th>{{ trans('senaempresa::menu.Start date and time') }}</th>
+                                        <th>{{ trans('senaempresa::menu.End date and time') }}</th>
+                                        <th>{{ trans('senaempresa::menu.Status') }}</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -117,7 +117,7 @@
                                             <td>
                                                 @if ($loan->state === 'Prestado')
                                                     <a href="{{ route('cefa.devolver_prestamo', ['id' => $loan->id]) }}"
-                                                        class="btn btn-primary">Devolver</a>
+                                                        class="btn btn-primary">{{ trans('senaempresa::menu.Return') }}</a>
                                                 @endif
                                             </td>
                                         </tr>
