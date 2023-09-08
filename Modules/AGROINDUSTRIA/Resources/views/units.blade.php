@@ -1,7 +1,6 @@
 @extends('agroindustria::layouts.master')
 @section('content')
 
-<div class="container">
     @if($noRecords)
     <p>No se encontraron unidades productivas.</p>
     @else
@@ -38,6 +37,5 @@
         </div>
     </div>
     @endif
-</div>
 
 @endsection

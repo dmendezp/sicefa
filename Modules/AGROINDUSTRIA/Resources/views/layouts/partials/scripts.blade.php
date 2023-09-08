@@ -1,3 +1,29 @@
+{{-- Dropdown traduccion --}}
+<script>
+    function toggleDropdown() {
+    var dropdown = document.getElementById("myDropdown");
+    if (dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+    } else {
+        dropdown.style.display = "block";
+    }
+}
+
+// Cerrar el menú desplegable si se hace clic fuera de él
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.style.display === "block") {
+                openDropdown.style.display = "none";
+            }
+        }
+    }
+}
+</script>  
+
+{{-- Pone background a la opcion seleccionada del navbar --}}
 <script>
     // Obtener la URL actual
     const currentURL = window.location.href;
@@ -65,6 +91,7 @@
         });
     });
 </script>
+
 
 {{-- Obtiene el precio del inventario --}}
 <script>
@@ -135,7 +162,7 @@
         @endif
     @endif
 </script>
-
+  
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/6364639265.js" crossorigin="anonymous"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>

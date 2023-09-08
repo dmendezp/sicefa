@@ -6,6 +6,10 @@ return [
     "List of Activities" => "List of Activities",
     "Movements" => "Movements",
 
+    //Botones
+    'Add Product' => 'Add product',
+    'Delete' => 'Delete',
+    'Check Out' => 'Check Out',
 
     //Solicitudes
     'Request Registered Successfully' => 'Request Registered Successfully',
@@ -16,10 +20,27 @@ return [
     'You must select a product' => 'You must select a product',
     'You must select a unit of measure' => 'You must select a unit of measure',
     'Debe ingresar una cantidad' => 'Debe ingresar una cantidad',
+
+    //Movimiento interno
+    'Exit from Cellar' => 'Exit from Cellar',
+    'Date' => 'Date',
+    'Warehouse that Delivers' => 'Warehouse that Delivers',
+    'Warehouse that Receives' => 'Warehouse that Receives',
+    'Observations' => 'Observations',
+    'Products' => 'Products',
+    'Element' => 'Element:',
+    'Amount' => 'Amount:',
+    'Quantity Available' => 'Quantity Available:',
+    'Price' => 'Price:',
+    'Select a product' => 'Select a product',
+    'Select a winery' => 'Select a Winery',
     'You must select a delivery warehouse' => 'You must select a delivery warehouse',
     'You must select the winery that receives' => 'You must select the winery that receives',
     'You must select an item' => 'You must select an item',
     'You must enter an amount' => 'You must enter an amount',
+    'Successful check out' => 'Successful check out',
+    'Check out error' => 'Check out error',
+    'Quantity entered is greater than inventory quantity' => 'Quantity entered is greater than inventory quantity',
 ]
 
 ?>

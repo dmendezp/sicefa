@@ -58,7 +58,7 @@
                         </div>     
                         <div class="col-md-12">
                             <div id="products">
-                                <label for="products" class="form-label">Productos</label>
+                                <h3>Productos</h3>
                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
                                 <button type="button" id="add-product">Agregar Producto</button>
                                 <div class="product">
@@ -106,7 +106,7 @@
         $(document).ready(function() {
             // Agregar un nuevo campo de producto
             $("#add-product").click(function() {
-                    var newProduct = '<div class="product">{!! Form::number("code_sena[]", null, ["placeholder"=>"Código SENA"]) !!} {!! Form::select("product_name[]", $element->pluck("text", "value")->prepend("Nombre del producto", ''), null, ["readonly" => "readonly", "class" => "element-select"]) !!} {!! Form::select("measurement_unit[]", $measurementUnit->pluck("text", "value")->prepend("Unidad de Medida", ""), null, ["class" => "measurement-unit-select"]) !!} {!! Form::number("amount[]", NULL, ["placeholder" => "Cantidad"]) !!} {!! Form::text("observations[]", NULL, ["placeholder" => "Observaciones"]) !!}<button class="remove-product">Eliminar</button></div>';
+                    var newProduct = '<div class="product">{!! Form::number("code_sena[]", null, ["placeholder"=>"Código SENA"]) !!} {!! Form::select("product_name[]", $element->pluck("text", "value")->prepend("Nombre del producto", ''), null, ["readonly" => "readonly", "class" => "element-select"]) !!} {!! Form::select("measurement_unit[]", $measurementUnit->pluck("text", "value")->prepend("Unidad de Medida", ""), null, ["class" => "measurement-unit-select"]) !!} {!! Form::number("amount[]", NULL, ["placeholder" => "Cantidad"]) !!} {!! Form::text("observations[]", NULL, ["placeholder" => "Observaciones"]) !!} <button class="remove-product">Eliminar</button></div>';
     
                 // Agregar el nuevo campo al DOM
                 $("#products").append(newProduct);

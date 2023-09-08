@@ -138,13 +138,8 @@ class RequestController extends Controller
  
              $r = new RequestExternal;
              $r->date = $request->input('date');
-             $r->area = $request->input('area');
              $r->coordinator = $validatedData['coordinator'];
              $r->receiver = $idPersona;
-             $r->region_code = $request->input('region_code');
-             $r->region_name = $request->input('region_name');
-             $r->cost_code = $request->input('cost_code');
-             $r->cost_center_name = $request->input('cost_center_name');
              $r->course_id = e($validatedData['course_id']);
              $r->save();
  
@@ -168,11 +163,11 @@ class RequestController extends Controller
              }
  
              if($supply->save()){
-                     $icon = 'success';
-                     $message_line = trans('agroindustria::menu.Request Registered Successfully');
+                $icon = 'success';
+                    $message_line = trans('agroindustria::menu.Request Registered Successfully');
              }else{
-                 $icon = 'error';
-                 $message_line = trans('agroindustria::menu.Error registering the request');
+                $icon = 'error';
+                $message_line = trans('agroindustria::menu.Error registering the request');
              }
              return redirect()->route('cefa.agroindustria.instructor.solicitud')->with([
                  'icon' => $icon,

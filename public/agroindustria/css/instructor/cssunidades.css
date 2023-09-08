@@ -71,8 +71,10 @@
   }
 
 #boton_unit{
+    border: none;
     background-color: white;
 }
+
 
 /* tittle Unidad */
 .tittleU{
