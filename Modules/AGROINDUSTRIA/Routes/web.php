@@ -5,7 +5,9 @@ use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\FormulationController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\LaborController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ActivityController;
+use Modules\AGROINDUSTRIA\Http\Controllers\instructor\RequestController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\DeliverController;
+use Modules\AGROINDUSTRIA\Http\Controllers\Unit\BakeryController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\WarehouseController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\InventoryController;
 

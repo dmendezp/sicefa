@@ -12,8 +12,7 @@
                         @csrf
                         <label for="producto">Producto</label>
                         <select class="form-control" name="producto" id="producto">
-                            <option value="producto1">Leche</option>
-                            <option value="producto2">Harina</option>
+                            
                         </select>
                         <br>
 
@@ -28,8 +27,7 @@
 
                         <label for="unidad_productiva">Unidad Productiva:</label>
                         <select class="form-control" name="unidad_productiva" id="unidad_productiva">
-                            <option value="unidad1">Ganaderia</option>
-                            <option value="unidad2">Agricola</option>
+                            
                         </select>
                         <br>
 
@@ -48,8 +46,7 @@
                 <div class="card-body">
                     <label for="producto">Formulación</label>
                     <select class="form-control select2" name="producto" id="producto">
-                        <option value="formulacion1">Formulacion1</option>
-                        <option value="formulacion1">Formulacion2</option>
+                        
                     </select>
                     <br>
 

@@ -19,23 +19,19 @@ use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\WarehouseMovement;
 use Illuminate\Support\Facades\Auth;
 
+use Validator, Str;
+
 
 class DeliverController extends Controller
 {
-    private $title;
-    private $idProductiveUnitWarehouse;
-    private $warehouseDeliver;
-    private $warehouseReceive;
-    private $elements;
-
     public function deliveries()
     {
-        $this->title = 'Entregas';
+        $title = 'Entregas';
 
         //Bodega que entrega
         $result = app(AGROINDUSTRIAController::class)->unidd();
         $warehouses = $result['warehouses'];        
-        $this->warehouseDeliver = $warehouses->map(function ($w) use (&$warehouseId) {
+        $warehouseDeliver = $warehouses->map(function ($w) use (&$warehouseId) {
             $warehouseId = $w->id;
             $warehouseName = $w->name;
 
@@ -43,21 +39,21 @@ class DeliverController extends Controller
                 'id' => $warehouseId,
                 'name' => $warehouseName,
             ];
-        })->prepend(['id' => null, 'name' => 'Seleccione una Bodega'])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a winery')])->pluck('name', 'id');
 
         //Bodega que recibe
-        $this->warehouseReceive = Warehouse::pluck('name','id');
+        $warehouseReceive = Warehouse::pluck('name','id');
 
         $ProductiveUnitWarehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehouseId)
         ->get();
     
-        $this->idProductiveUnitWarehouse = $ProductiveUnitWarehouse->pluck('id');
+        $idProductiveUnitWarehouse = $ProductiveUnitWarehouse->pluck('id');
 
 
         $inventories = Inventory::with('element')
-        ->whereIn('productive_unit_warehouse_id', $this->idProductiveUnitWarehouse)->get();
+        ->whereIn('productive_unit_warehouse_id', $idProductiveUnitWarehouse)->get();
 
-        $this->elements = $inventories->map(function ($inventory) {
+        $elements = $inventories->map(function ($inventory) {
             $elementId = $inventory->element->id;
             $elementName = $inventory->element->name;
 
@@ -65,17 +61,17 @@ class DeliverController extends Controller
                 'id' => $elementId,
                 'name' => $elementName
             ];
-        })->prepend(['id' => null, 'name' => 'Seleccione un producto'])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a product')])->pluck('name', 'id');
 
         $data = [
-            'title' => $this->title,
-            'productiveUnitWarehouse' => $this->idProductiveUnitWarehouse,
-            'warehouseDeliver' => $this->warehouseDeliver,
-            'warehouseReceive' => $this->warehouseReceive,
-            'elements' => $this->elements,
+            'title' => $title,
+            'productiveUnitWarehouse' => $idProductiveUnitWarehouse,
+            'warehouseDeliver' => $warehouseDeliver,
+            'warehouseReceive' => $warehouseReceive,
+            'elements' => $elements,
         ];
 
-        return view('agroindustria::instructor.deliveries', $data);
+        return view('agroindustria::instructor.movements.deliveries', $data);
     }
 
     public function priceInventory($id){    
@@ -91,10 +87,15 @@ class DeliverController extends Controller
     
     public function createMoveOut(Request $request){
 
+        Validator::extend('at_least_one_element', function ($attribute, $value, $parameters, $validator) use ($request) {
+            $elements = $request->input('element');
+            return !empty($elements);
+        });
+
         $rules=[
             'deliver_warehouse' => 'required',
             'receive_warehouse' => 'required',
-            'element' => 'required',
+            'element' => 'required|at_least_one_element',
             'amount' => 'required'
         ];
 
@@ -120,16 +121,21 @@ class DeliverController extends Controller
         //Trae la cantidad ingresada y el precio del inventario
         $amounts = $validatedData['amount'];
         $prices = $request->input('price');
+        $available = $request->input('available');
         $totalPrice = 0;
 
         //Multiplicacion entre la cantidad ingresada y el precio
-        foreach ($amounts as $key => $amount){
-            
-            $a = $amount;
-            $p = $prices[$key];
+        foreach ($amounts as $key => $amount){   
+            if($amount > $available[$key]){
+                return back()->with('icon', 'error')
+                ->with('message_line', trans('agroindustria::menu.Quantity entered is greater than inventory quantity'));
+            }else{   
+                $a = $amount;
+                $p = $prices[$key];
 
-            $priceMovement = $a*$p;
-            $totalPrice += $priceMovement;
+                $priceMovement = $a*$p;
+                $totalPrice += $priceMovement;   
+            }   
         }
 
         //Registra el movimiento
@@ -155,16 +161,41 @@ class DeliverController extends Controller
         ->pluck('id');
     
         //Registra Detalles del Movimiento
-        foreach ($amounts as $key => $amount){
-            $detail = new MovementDetail;
-            $detail->movement_id = $mo->id;
-            $detail->inventory_id = $inventories[$key];
-            $detail->amount = $amount;
-            $detail->price = $prices[$key];
-
-
-            $mo->movement_details()->save($detail);
+        foreach ($amounts as $key => $amount) {
+            if (empty($amount) || $amount <= 0) {
+                return back()
+                    ->withInput()
+                    ->with('icon', 'error')
+                    ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
+            } elseif ($amount > $available[$key]) {
+                return back()
+                    ->withInput()
+                    ->with('icon', 'error')
+                    ->with('message_line', trans('agroindustria::menu.Quantity entered is greater than inventory quantity'));
+            } else {
+                $detail = new MovementDetail;
+                $detail->movement_id = $mo->id;
+        
+                // Verificar si $inventories[$key] existe antes de asignarlo
+                if (isset($inventories[$key])) {
+                    $detail->inventory_id = $inventories[$key];
+                } else {
+                    // Manejar el caso en el que $inventories[$key] no existe
+                    // Puedes agregar una acción aquí, como mostrar un mensaje de error o realizar alguna otra lógica personalizada.
+                    // Por ejemplo:
+                    return back()
+                        ->withInput()
+                        ->with('icon', 'error')
+                        ->with('message_line', trans('agroindustria::menu.You must select an item'));
+                }
+        
+                $detail->amount = $amount;
+                $detail->price = $prices[$key];
+                $mo->movement_details()->save($detail);
+            }
         }
+        
+        
 
         //Registra Responsable del Movimiento
         $mr = new MovementResponsibility;
@@ -188,15 +219,18 @@ class DeliverController extends Controller
 
         $wm->save();
 
-        $data = [
-            'title' => $this->title,
-            'productiveUnitWarehouse' => $this->idProductiveUnitWarehouse,
-            'warehouseDeliver' => $this->warehouseDeliver,
-            'warehouseReceive' => $this->warehouseReceive,
-            'elements' => $this->elements,
-        ];
+        if($wm->save()){
+            $icon = 'success';
+            $message_line = trans('agroindustria::menu.Successful check out');
+        }else{
+            $icon = 'error';
+            $message_line = trans('agroindustria::menu.Check out error');
+        }
 
-        return redirect()->route('cefa.agroindustria.instructor.movements');
+        return redirect()->route('cefa.agroindustria.instructor.movements')->with([
+            'icon' => $icon,
+            'message_line' => $message_line,
+        ]);
 
     }
 

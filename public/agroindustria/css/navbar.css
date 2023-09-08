@@ -95,10 +95,11 @@
   background-color: #f7f4f4;
 }
 
-.image_login img{
+.img_login img{
   position: relative;
   left: 10px;
-  width: 80px;
+  width: 40px;
+  border-radius: 10px;
 }
 
 .welcome{
@@ -122,20 +123,27 @@
   color: rgb(248, 182, 193);
 }
 
-#logout{
+#logout a{
+  width: 20px;
+}
+
+#logout i{
   position: relative;
   left: 10px;
   color: rgb(248, 182, 193);
+  width: 20px;
 }
 
 #sicefa{
   position: relative;
-  right: 5px;
+  left: 10px;
   color: #ff5e1f;
   font-size: 20px;
 }
 
 #volver-sicefa{
+  position: relative;
+  left: 15px;
   text-decoration: none;
   font-weight: bold;
   color: black;
@@ -172,6 +180,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     list-style: none;
+    min-width: auto;
   }
   
   .dropdown-item {
@@ -182,4 +191,63 @@
   .show {
     display: block;
   }
-  
+.dropdown-menu {
+  position: relative;
+  right: 30px;
+}
+
+#menu_lang{
+  position: relative;
+  top: 150px;
+  right: 30px;
+}
+
+#item_lang{
+  position: relative;
+  right: 20px;
+}
+
+/* Estilo para el contenedor del menú desplegable */
+.dropdown_lang {
+  position: relative;
+  right: 40px;
+  display: inline-block;
+}
+
+/* Estilo para el botón que activa el menú */
+.dropbtn {
+  background-color: transparent;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+/* Estilo para el icono */
+.dropbtn i {
+  margin-left: 5px;
+}
+
+/* Estilo para el menú desplegable oculto por defecto */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Estilo para los elementos del menú */
+.dropdown-content a {
+  color: #333;
+  text-decoration: none;
+  padding: 12px 16px;
+  display: block;
+}
+
+/* Estilo cuando se pasa el ratón por encima de un elemento */
+.dropdown-content a:hover {
+  background-color: #f2f2f2;
+}

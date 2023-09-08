@@ -16,14 +16,10 @@ class CreateRequestExternalsTable extends Migration
         Schema::create('request_externals', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->string('area');
             $table->foreignId('coordinator')->constrained('people')->onDelete('cascade');
             $table->foreignId('receiver')->constrained('people')->onDelete('cascade');
-            $table->integer('region_code');
-            $table->string('region_name');
-            $table->integer('cost_code');
-            $table->string('cost_center_name');
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
