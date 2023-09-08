@@ -15,7 +15,7 @@ class RoutesTransportationsController extends Controller
     public function index()
 {
     // Obtén los datos de buses con sus conductores relacionados
-    $buses = Buses::with('busDriver')->whereHas('busDriver')->get();
+    $buses = Buses::with('bus_driver')->whereHas('bus_driver')->get();
     $busDrivers = BusDrivers::all();
     $routestransportations = RoutesTransportations::all();
  
@@ -24,6 +24,7 @@ class RoutesTransportationsController extends Controller
 
     public function store(Request $request) 
     {
+        return $request;
         $request->validate([
             'route_number' => 'required',
             'route_name' =>'required',
