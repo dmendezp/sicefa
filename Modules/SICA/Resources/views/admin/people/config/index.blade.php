@@ -62,17 +62,19 @@
                                 <table id="pensions_table" class="display table table-bordered table-striped table-sm">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Nombre</th>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Nombre</th>
                                             <th>Descripción</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($pension_entities as $pe)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $pe->name }}</td>
+                                                <td>{{ $pe->description }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -89,17 +91,19 @@
                                 <table id="insurancers_table" class="display table table-bordered table-striped table-sm">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Nombre</th>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Nombre</th>
                                             <th>Descripción</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        @foreach ($insurer_entities as $ie)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $ie->name }}</td>
+                                                <td>{{ $ie->description }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
