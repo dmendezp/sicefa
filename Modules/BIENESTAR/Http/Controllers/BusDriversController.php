@@ -2,127 +2,67 @@
 
 namespace Modules\BIENESTAR\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\BusDrivers;
 
 class BusDriversController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function drivers()
     {   
         $busdrivers = BusDrivers::all();
-        return view('bienestar::drivers',['busdrivers'=>$busdrivers]);
+        return view('bienestar::drivers', ['busdrivers' => $busdrivers]);
     }
+
     public function driversAdd(Request $request)
     {
-
-        $name = $request->input('namedriver');
-        $email= $request->input('email');
-        $phone= $request->input('phone');
+        $request->validate([
+            'namedriver' => 'required|unique:bus_drivers,name',
+            'email' => 'required|email',
+            'phone' => 'required|numeric|digits:10',
+        ]);
 
         BusDrivers::create([
-            'name'=>$name,
-            'email'=>$email,
-            'phone' => $phone,
+            'name' => $request->input('namedriver'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
         ]);
-        return redirect()->route('bienestar.drivers')->with('succes','Se ha agregado con exito!!');
+
+        return redirect()->route('bienestar.drivers')->with('success', 'Conductor agregado exitosamente.');
     }
 
-
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
     public function driversUp(Request $request, $id)
     {
-            // Validar los datos del formulario si es necesario
-        
-            // Obtener el beneficio que deseas actualizar
-            $benefit = BusDrivers::find($id);
-        
-            // Actualizar los datos
-            $benefit->name = $request->input('name');
-            $benefit->email = $request->input('email');
-            $benefit->phone = $request->input('phone');
-            $benefit->save();
-        
-            // Redirigir o devolver una respuesta según tus necesidades
-            return redirect()->route('bienestar.drivers')->with('success', 'Beneficio actualizado con éxito');
-     
-    }
-    public function delete(Request $request, $id)
-    {
-        // Obtener el conductor que deseas eliminar
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|numeric|digits:10',
+        ]);
+
         $busdriver = BusDrivers::find($id);
-        
-    
-        // Verificar si el conductor existe
+
         if (!$busdriver) {
             return redirect()->route('bienestar.drivers')->with('error', 'El conductor no existe.');
         }
-    
-        // Eliminar el conductor
+
+        $busdriver->name = $request->input('name');
+        $busdriver->email = $request->input('email');
+        $busdriver->phone = $request->input('phone');
+        $busdriver->save();
+
+        return redirect()->route('bienestar.drivers')->with('success', 'Conductor actualizado con éxito');
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $busdriver = BusDrivers::find($id);
+
+        if (!$busdriver) {
+            return redirect()->route('bienestar.drivers')->with('error', 'El conductor no existe.');
+        }
+
         $busdriver->delete();
-    
-        // Redirigir con un mensaje de éxito
+
         return redirect()->route('bienestar.drivers')->with('success', 'Conductor eliminado con éxito');
-    }
-    
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('bienestar::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('bienestar::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
