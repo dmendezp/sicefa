@@ -8,24 +8,23 @@
                 <h3 class="card-title">Gestión de Tipos de Beneficiarios</h3>
             </div>
             <div class="card-body">
-                <div style="border: 1px solid #707070; padding: 20px; background-color: white; border-radius: 10px;">
-                    <h2>Ingresar Nuevo Tipo de Beneficiarios</h2>
-                    <form id="guardarTipoBeneficio" action="{{ route('typeofbenefits.store') }}" method="post">
-                        @csrf
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Nombre del Tipo de Beneficiarios:</label>
-                            <div class="col-md-6">
-                                <input type="text" id="name" placeholder="Ingrese Tipo de Beneficiario" name="name" class="form-control" pattern="[A-Za-z\s]+" title="Solo se permiten letras y espacios" required>
-                                <span id="name-error" class="text-danger" style="display: none;">Por favor, ingrese un beneficiario.</span>
-                            </div>
+                <h2>Ingresar Nuevo Tipo de Beneficiarios</h2>
+                <form id="guardarTipoBeneficio" action="{{ route('typeofbenefits.store') }}" method="post">
+                    @csrf
+                    <div class="form-group row">
+                        <label for="name" class="col-md-4 col-form-label text-md-right">Nombre del Tipo de Beneficiarios:</label>
+                        <div class="col-md-6">
+                            <input type="text" id="name" placeholder="Ingrese Tipo de Beneficiario" name="name" class="form-control" pattern="[A-Za-z\s]+" title="Solo se permiten letras y espacios" required>
+                            <span id="name-error" class="text-danger" style="display: none;">Por favor, ingrese un beneficiario.</span>
+                            <span id="duplicate-error" class="text-danger" style="display: none;">Este tipo de beneficiario ya está registrado.</span>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-success" style="background-color: #00FF22;">Guardar</button>
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-success" style="background-color: #00FF22;">Guardar</button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
                 <div class="mtop16">
                     <h2>Listado de Tipos de Beneficiarios</h2>
                     <table id="typesOfBenefitsTable" class="table table-bordered table-striped">
@@ -72,7 +71,7 @@
                     <div class="modal-body">
                         <form action="{{ route('typeofbenefits.update', $type->id) }}" method="POST">
                             @csrf
-                            @method('PUT')
+                            @method('PUT') <!-- Usar el método PUT para la actualización -->
                             <div class="form-group row">
                                 <label for="edit_name" class="col-md-4 col-form-label text-md-right">Editar Nombre del Tipo de Beneficiarios:</label>
                                 <div class="col-md-6">
@@ -117,6 +116,26 @@
         </div>
     @endforeach
 
+    <!-- Modal de error -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Error al Registrar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>{{ session('error') }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>  
+
     <script>
         $(document).ready(function() {
             $('#typesOfBenefitsTable').DataTable();
@@ -147,12 +166,21 @@
 
                         // Limpiar el campo del formulario
                         $('#name').val('');
+
+                        // Cerrar el modal de error si está abierto
+                        $('#errorModal').modal('hide');
                     },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
+                    error: function(xhr, status, error) {
+    if (xhr.status === 422) {
+        // Mostrar errores de validación en el formulario
+        var errors = JSON.parse(xhr.responseText.errors);
+        // Manejar los errores como desees
+        console.log(errors);
+    } else if (xhr.status === 409) {
+        // Mostrar el mensaje de error de duplicación
+        $('#duplicate-error').show();
+    }
+}
 
             // Evento de clic para el botón de editar
             $('.edit-button').click(function() {

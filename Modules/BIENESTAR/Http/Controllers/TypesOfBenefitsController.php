@@ -6,6 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\TypesOfBenefits;
+use Illuminate\Validation\Rule;
+use Illuminate\Http\Response;
 
 class TypesOfBenefitsController extends Controller
 {
@@ -21,18 +23,37 @@ class TypesOfBenefitsController extends Controller
      }
  
      public function store(Request $request)
-     {
-        // Validar los datos del formulario
-        $request->validate([
-            'name' => 'required|max:255', // Define las reglas de validación aquí
-        ]);
-        // Crear un nuevo tipo de beneficio con los datos del formulario
+{
+    // Validar los datos del formulario
+    $request->validate([
+        'name' => [
+            'required',
+            'max:255',
+            Rule::unique('types_of_benefits'), // Verifica si el valor es único en la tabla
+        ],
+    ]);
+
+    // Verificar si el registro ya existe en la base de datos
+    $existingRecord = TypesOfBenefits::where('name', $request->name)->first();
+
+    if ($existingRecord) {
+        return response()->json(['message' => 'El tipo de beneficiario ya existe en la base de datos.'], 409);
+
+    }
+
+    // Si no existe, crea el nuevo registro
+    try {
         TypesOfBenefits::create([
             'name' => $request->name,
         ]);
-        // Redirigir a la misma página después de guardar
-        return redirect()->route('bienestar.typeofbenefits');
+
+        return response()->json(['message' => 'Tipo de beneficiario creado correctamente.'], 200);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Ha ocurrido un error al intentar crear el tipo de beneficiario.'], 500);
     }
+}
+
+
     
 
     /**
