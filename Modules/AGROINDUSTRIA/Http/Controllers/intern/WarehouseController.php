@@ -6,40 +6,62 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use DataTables;
 use Illuminate\Support\Facades\DB; // Corregido el uso de 'Supoport' a 'Support'
+use Modules\SICA\Entities\ProductiveUnitWarehouse;
+use Modules\SICA\Entities\Warehouse;
+use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Inventory;
-use Modules\SICA\Entities\MeasurementUnit;
 use Modules\SICA\Entities\Element;
-use Modules\SICA\Entities\Category;
-use Modules\SICA\Entities\KindOfPurchase;
+
 class WarehouseController extends Controller
 {
-    public function index()
-    {
-        $title = 'index';
-        return view('agroindustria::storer.index', compact('title'));
-    }
+
+    public $app_puw;
+
+    public function getAppPuw()
+
+            { 
+                  if (!$this->app_puw){
+                  $title='consulta';
+                      $productiveUnit = ProductiveUnit::where('name','Agroindustria')->firstOrFail();
+                      $Warehouses = Warehouse::where('name','agroindustria')->firstOrFail();
+                      $this->app_puw= ProductiveUnitWarehouse::where('productive_unit_id', $productiveUnit->id)->where('warehouse_id' , $Warehouses->id)->firstOrFail();
+                  } 
+                  return $this->app_puw;
+            }
+            
 
 
     public function inventory()
-    {
-        $title = 'Inventario';
-    
-        $inventories= Inventory::all();//trae todos los datos del inventario.
-           $elements  = Element::all();//Trae todos los datos del modelo Element y los almacena en la variable $elements.
-            $categories = Category::all();//Trae todos los datos del modelo category y los almacena en la variable $category.
-            $kpfs = KindOfPurchase::all();//Tipo de compra
 
-        return view('agroindustria::storer.inventory', compact('title','elements','categories','kpfs','inventories'));
-    }
+            { //listado de inventario 
+                    $title = 'inventory';
+                    $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+                    ->orderBy('updated_at','DESC')
+                    ->get();
 
-    public function kindofpurchae(){
-            $mut = MeasurementUnit::all();//Unidad de medida
-            return view('agroindustria::storer.inventory', compact('title' , 'mut'));
-    }
+                    return view('agroindustria::storer.inventory', compact('title', 'inventories'));
+            }
+
+
+
+
+
+
+
 }
        
                   
+/* $title = 'BodeagUnidad';
 
+    // Obtener el ID del almacén llamado "agroindustria"
+    $warehouseId = Warehouse::where('name' ,'=', 'agroindustria')->pluck('id')->first();
+
+    // Obtener una lista de IDs de unidades productivas asociadas a ese almacén
+    $productiveUnitWarehouses = ProductiveUnitWarehouse::where('warehouse_id', $warehouseId)->pluck('id');
+
+
+    return view('agroindustria::storer.inventory', compact('title', 'productiveUnitWarehouses'));
+  */
 
                     
         

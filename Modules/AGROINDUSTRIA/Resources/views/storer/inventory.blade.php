@@ -4,7 +4,7 @@
 @section('content')
 <center>
   
-  <div class="card">
+  <div class="card-datatable">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="insumos-tab" data-bs-toggle="tab" data-bs-target="#insumos" type="button" role="tab" aria-controls="insumos" aria-selected="true">Insumos</button>
@@ -27,67 +27,72 @@
                         <th>|</th>
                         <th>Nombre</th>
                          <th>|</th>
+                        <th>Descripcion</th>
+                         <th>|</th>
+                        <th>Categoria</th>
+                         <th>|</th>
                         <th>Disponible</th>
-                         <th>|</th>
-                        <th>Precio</th>
-                         <th>|</th>
-                        <th>Slug</th>
                         <th>|</th>
-
+                        <th>Precio</th>
+                        <th>|</th>
                         <th>Acciones</th>
                         
                 </thead>
                 <tbody>
-                    @foreach ($elements as $element)
-                
-                        
-                
-                        <tr>
-                          <td></td>
-                          <td></td>
+                  @foreach ($inventories as $inventorie)
+                  <tr>
+                    <td></td>
+                    <td></td>
 
-                            <td>{{ $element->id }}</td>
-                            <td>|</td>
-                            <td>{{ $element->name }}</td>
-                            <td>|</td>   
-                            @foreach ( $inventories as $inventory )
-                            <td>{{ $inventory->stock }}</td>                                
-                            @endforeach
-                            <td>|</td>
-                            <td>{{ $element->price }}</td>
-                            <td>|</td>
-                            <td>{{ $element->slug }}</td>
-                            <td>|</td>
-
-                                         <td>
-                          <!-- Button edit -->
-                          <button type="button" class="btn btn-primary" id="edit" data-bs-toggle="modal" data-bs-target="#editmodal">Editar</button>
-                          |
-                          {{-- Moldal editar inventario. --}}
-                          <!-- Modal -->
-                              <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Editar inventario</h1>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                      ...
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-danger btn-ms" id="close" data-bs-dismiss="modal">Cerrar</button>
-                                      <button type="button" id="savechanges" class="btn btn-primary btn-ms">Guardar</button>
-                                    </div>
+                      <td>{{ $inventorie->element->name }}</td>
+                      <td>|</td>
+                      <td>{{ $inventorie->element->category_id }}</td>
+                      <td>|</td>
+                      <td>--</td>
+                      <td>|</td>
+                      <td>--</td>
+                      <td>|</td>
+                      --
+                      <td>|</td>
+                      <td>--</td>
+                      <td>|</td>
+                      <td>
+                         <!-- Button edit -->
+                         <button type="button" class="btn btn-primary" id="edit" data-bs-toggle="modal" data-bs-target="#editmodal">
+                          <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                        </button>
+                        |
+                        {{-- Moldal editar inventario. --}}
+                        <!-- Modal -->
+                            <div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar inventario</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    ...
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger btn-ms" id="close" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="button" id="savechanges" class="btn btn-primary btn-ms">Guardar</button>
                                   </div>
                                 </div>
                               </div>
-                          <!-- Button delete -->
-                          <button class="btn btn-danger btn-sm" id="delete">Eliminar</button>
+                            </div>
+                        <!-- Button delete -->
+                        <button class="btn btn-danger btn-sm" id="delete">
+                          <i class="fa-solid fa-trash fa-lg"></i>
+                        </button>
 
-                        </td>
-                          </tr>
-                    @endforeach
+                      </td>
+                        </tr> <!-- ... Código de los botones de editar y eliminar ... -->
+                      </td>
+                  </tr>
+              @endforeach
+                          
+                    
                 </tbody>
             </table>
         </div>
@@ -111,20 +116,14 @@
                   <label for="disabledTextInput" placeholder="Selecciona tipo de compra." class="form-label">Tipo de compra.</label>
                   <select class="form-select" aria-label="Default select example">
                     <option selected>Open this select menu</option>
-                    @foreach ( $kpfs as $kpf )
-                    <option value="">{{ $kpf ->name}}</option>
-                    @endforeach
-
+                   
                   </select>
                   <br>
                 </div>
                 <div class="col">
                   <label for="disabledTextInput" class="form-label">Categoria.</label>
                   <select class="form-select" aria-label="Default select example">
-                    <option selected>Seleccione Categoria.</option>
-                    @foreach ( $categories as $category )
-                    <option value="">{{ $category ->name}}</option>
-                    @endforeach
+                    
                   </select> 
                   
                                    <br>
