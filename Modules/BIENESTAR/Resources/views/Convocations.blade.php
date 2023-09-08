@@ -33,9 +33,9 @@
                                 <span id="food_quotas-error" class="text-danger"></span>
                     </div>
                     <div class="col-md-4">
-                    <label for="food_quotas">Cupos alimentacion:</label>
-                                <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
-                                <span id="food_quotas-error" class="text-danger"></span>
+                    <label for="transport_quotas">Cupos transporte:</label>
+                                <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
+                                <span id="transport_quotas-error" class="text-danger"></span>
 
                     <div class="col-md-4">
                         {!! Form::label('time_interval', 'Fecha interval') !!}
@@ -214,6 +214,25 @@
     // Verificamos si la entrada contiene exactamente dos números
     if (/^\d{2}$/.test(cleanedInput)) {
         food_quotasError.textContent = ''; // Campo válido, borra el mensaje de error
+      this.value = cleanedInput; // Actualizamos el valor del campo
+    } else {
+      // Muestra El Mensaje De Error
+      
+    }
+  });
+  </script>
+  <script>
+    //cupos de transporte
+  document.getElementById('transport_quotas').addEventListener('input', function() {
+    const transport_quotasInput = this.value;
+    const transport_quotasError = document.getElementById('transport_quotas-error');
+
+    // Removemos cualquier caracter no numérico y limitamos la longitud a 2
+    const cleanedInput = transport_quotasInput.replace(/\D/g, '').substring(0, 2);
+
+    // Verificamos si la entrada contiene exactamente dos números
+    if (/^\d{2}$/.test(cleanedInput)) {
+        transport_quotasError.textContent = ''; // Campo válido, borra el mensaje de error
       this.value = cleanedInput; // Actualizamos el valor del campo
     } else {
       // Muestra El Mensaje De Error

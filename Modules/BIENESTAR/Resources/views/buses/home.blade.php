@@ -53,7 +53,6 @@
                             <tr>
                             <td>{{ $b->id }}</td>
                             <td>{{ isset($b->bus_driver) ? $b->bus_driver->name : ''}}</td>
-                            <td>{{ isset($b->bus_driver) ? $b->bus_driver->name : '' }}</td>
                             <td>{{ $b->plate }}</td>
                            <td>{{ $b->quota }}</td>
                            <td>
