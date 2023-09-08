@@ -1,4 +1,4 @@
-@extends('bienestar::layouts.adminlte')
+@extends('bienestar::layouts.master')
 
 @section('content')
 <!-- Main content -->
@@ -48,10 +48,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             @foreach ($buses as $b)
                             <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ isset($b->bus_driver) ? $b->bus_driver->name : '' }}</td>
+                            <td>{{ $b->id }}</td>
+                            <td>{{ isset($b->bus_driver) ? $b->bus_driver->name : ''}}</td>
                             <td>{{ $b->plate }}</td>
                            <td>{{ $b->quota }}</td>
                            <td>

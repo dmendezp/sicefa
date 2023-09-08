@@ -1,4 +1,4 @@
-@extends('bienestar::layouts.adminlte')
+@extends('bienestar::layouts.master')
 
 @section('content')
 <!-- Main Content -->
@@ -10,13 +10,15 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                {!! Form::open(['route' => 'bienestar.Convocations.store', 'method' => 'POST', 'role' => 'form']) 
-                !!}
+                {!! Form::open(['url' => route('bienestar.Convocations.store'), 'method' => 'POST']) !!}
+                @csrf
                 <div class="row p-3">
                     <div class="col-md-4">
                         {!! Form::label('title_convocation', 'Titulo Convocatoria:') !!}
-                        {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Convocatoria',
-                            'required']) !!}
+                        {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Convocatoria']) !!}
+                            @error('title')
+                            <span class="text-danger" >{{ $message }}</span>
+                            @enderror
                     </div>
 
                     <div class="col-md-4">
@@ -26,15 +28,19 @@
                     </div>
                 
                     <div class="col-md-4">
-                        {!! Form::label('food_quotas', 'Cupos alimentacion:') !!}
-                        {!! Form::number('food_quotas', null, ['class' => 'form-number', 'placeholder' => 'Digite Cantidad',
-                            'required']) !!}
+                    <label for="food_quotas">Cupos alimentacion:</label>
+                                <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
+                                <span id="food_quotas-error" class="text-danger"></span>
                     </div>
-                    <div class="row p-3">
                     <div class="col-md-4">
-                        {!! Form::label('transport_quotas','Cupos Transporte:') !!}
-                        {!! Form::number('transport_quotas', null, ['class' => 'form-number', 'placeholder' => 'Digite Cantidad',
-                            'required']) !!}
+                    <label for="transport_quotas">Cupos transporte:</label>
+                                <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
+                                <span id="transport_quotas-error" class="text-danger"></span>
+
+                    <div class="col-md-4">
+                        {!! Form::label('time_interval', 'Fecha interval') !!}
+                        {!! Form::date('time_interval', null, ['class' => 'form-control',  'required']) !!}
+                    </div>
                     </div>
                     <hr>
                     <div class="col-md-4">
@@ -47,8 +53,8 @@
                     </div>
                     <div class="col-md-2 align-self-end">
                             <div class="btns mt-3">
-                                {!! Form::submit('Guardar',['class'=>'btn btn-success', 'style'=>'background-color: #00FF22;
-                                color: black;']) !!}
+                                {!! Form::submit('Guardar',['class'=>'btn btn-success', 'style'=>'background-color: #179722;;
+                                color: with;']) !!}
                             </div>
                         </div>
                     </div>
@@ -64,6 +70,7 @@
                                     <th>Cupos Transporte</th>
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Final</th>
+                                    <th>Intervalo tiempo</th> 
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -77,15 +84,17 @@
                                     <td>{{ $convocation->transport_quotas }}</td>
                                     <td>{{ $convocation->start_date }}</td>
                                     <td>{{ $convocation->end_date }}</td>
+                                    <td>{{ $convocation->time_interval }}</</td>
                                     <td>
                                     <button class="btn btn-sm btn-info edit-button" data-toggle="modal"
                                         data-target="#modal-default" data-id="{{ $convocation->id }}"
                                         data-title="{{ $convocation->title }}"
                                         data-description="{{ $convocation->description }}"
+                                        data-food_quotas="{{ $convocation->food_quotas }}"
+                                        data-transport_quotas="{{ $convocation->transport_quotas}}"
                                         data-start-date="{{ $convocation->start_date }}"
                                         data-end-date="{{ $convocation->end_date }}"
-                                        data-transport-quotas="{{ $convocation->transport_quotas }}"
-                                        data-food-quotas="{{ $convocation->food_quotas }}">Editar
+                                        data-food-quotas="{{ $convocation->time_interval }}">Editar
                                     </button>
 
                                         </div>
@@ -114,28 +123,43 @@
                 <div class="modal-body">
                     {!! Form::open(['url' => 'bienestar/Convocations/update/id', 'method' => 'PUT']) !!}
                     <div class="row p-4">
-                        <div class="col-md-3">
+                        <div class="col-md-12">
+                        <label for="quota">titulo:</label>
+                        <div class="form-group">
                             {!! Form::text('title', null, ['class'=> 'form-control', 'placeholder' => 'Ingrese Titulo',
                                 'required']) !!}
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-12">
+                        <label for="quota">descripcion:</label>
+                        <div class="form-group">
                             {!! Form::text('description', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion',
                                 'required']) !!}
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-12">
+                        <label for="food_quotas">Cupos alimentacion:</label>
+                                <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2"min="1" max="99">
+                                <span id="food_quotas-error" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12">
+                        <label for="transport_quotas">Cupos Transporte:</label>
+                                <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
+                                <span id="transport_quotas-error" class="text-danger"></span>
+                            </div>
+                        <div class="col-md-12">
+                        <label for="quota">fecha inicio:</label>
+                        <div class="form-group">
                             {!! Form::date('start_date', null, ['class' => 'form-control', 'required']) !!}
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-12">
+                        <label for="quota">fecha final:</label>
+                        <div class="form-group">
                             {!! Form::date('end_date', null, ['class' => 'form-control', 'required']) !!}
                         </div>
-                        <div class="col-md-3">
-                            {!! Form::number('transport_quotas', null, ['class' => 'form-number', 'placeholder' => 'Digite Cantidad',
-                                'required']) !!}
-                        </div>
-                        <div class="col-md-3">
-                        {!! Form::number('food_quotas', null, ['class' => 'form-number', 'placeholder' => 'Digite Cantidad',
-                                'required']) !!}
-                        </div>
+                        <div class="col-md-12">
+                        <label for="quota">intervalo tiempo:</label>
+                        <div class="form-group">
+                        {!! Form::date('time_interval', null, ['class' => 'form-control',  'required']) !!}
+                    </div>
                         <div class="col-md-2">
                             <div class="btns">
                                 {!! Form::submit('Actualizar',['class' =>'btn btn-success']) !!}
@@ -176,5 +200,48 @@
         });
     });
 </script>
+
+
+<script>
+    //cupos de alimentacion
+  document.getElementById('food_quotas').addEventListener('input', function() {
+    const food_quotasInput = this.value;
+    const food_quotasError = document.getElementById('food_quotas-error');
+
+    // Removemos cualquier caracter no numérico y limitamos la longitud a 2
+    const cleanedInput = food_quotasInput.replace(/\D/g, '').substring(0, 2);
+
+    // Verificamos si la entrada contiene exactamente dos números
+    if (/^\d{2}$/.test(cleanedInput)) {
+        food_quotasError.textContent = ''; // Campo válido, borra el mensaje de error
+      this.value = cleanedInput; // Actualizamos el valor del campo
+    } else {
+      // Muestra El Mensaje De Error
+      
+    }
+  });
+  </script>
+  <script>
+    //cupos de transporte
+  document.getElementById('transport_quotas').addEventListener('input', function() {
+    const transport_quotasInput = this.value;
+    const transport_quotasError = document.getElementById('transport_quotas-error');
+
+    // Removemos cualquier caracter no numérico y limitamos la longitud a 2
+    const cleanedInput = transport_quotasInput.replace(/\D/g, '').substring(0, 2);
+
+    // Verificamos si la entrada contiene exactamente dos números
+    if (/^\d{2}$/.test(cleanedInput)) {
+        transport_quotasError.textContent = ''; // Campo válido, borra el mensaje de error
+      this.value = cleanedInput; // Actualizamos el valor del campo
+    } else {
+      // Muestra El Mensaje De Error
+      
+    }
+  });
+  </script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @endsection

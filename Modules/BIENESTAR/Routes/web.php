@@ -47,12 +47,15 @@ Route::prefix('/bienestar')->group(function() {
      Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('bienestar.buses.destroy');
      Route::put('/buses/update/{id}', 'BusesController@update')->name('bienestar.buses.update');
 
-     // Vista CRUD tipo de beneficios
-     Route::get('/typeofbenefits', 'TypesOfBenefitsController@typeofbenefits')->name('bienestar.typeofbenefits');
-     Route::post('/typeofbenefits/create', 'TypesOfBenefitsController@store')->name('typeofbenefits.store');
-     Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('typeofbenefits.destroy');
-     Route::put('/typeofbenefits/{id}', 'TypesOfBenefitsController@update')->name('typeofbenefits.update');
-     Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('typeofbenefits.destroy');
+      // Vista CRUD tipo de beneficios
+    Route::get('/typeofbenefits', 'TypesOfBenefitsController@typeofbenefits')->name('bienestar.typeofbenefits');
+    Route::post('/typeofbenefits/create', 'TypesOfBenefitsController@store')->name('typeofbenefits.store');
+    Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('typeofbenefits.destroy');
+    Route::put('/bienestar/typeofbenefits/{id}', 'TypesOfBenefitsController@update')->name('typeofbenefits.update');
+    Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('typeofbenefits.destroy');
+
+ 
+
     // Vista CRUD Pivota
     Route::get('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@benefitstypeofbenefits')->name('bienestar.benefitstypeofbenefits');
     Route::post('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@store')->name('bienestar.benefitstypeofbenefits.store');
@@ -77,10 +80,10 @@ Route::prefix('/bienestar')->group(function() {
     
     
     //Vistas Rutas de transporte
-    Route::get('/transportroutes','RoutesTransportationsController@transportroutes')->name('bienestar.transportroutes');
+    Route::get('/transportroutes','RoutesTransportationsController@index')->name('bienestar.transportroutes');
     Route::post('/transportroutes/add','RoutesTransportationsController@transportroutesAdd')->name('bienestar.transportroutes.add');
-    Route::get('/LisRutas', 'RoutesTransportationsController@LisRutas')->name('bienestar.LisRutas');
-    Route::get('/transportroutes','TransportroutesController@transportroutes')->name('bienestar.transportroutes');
+    Route::post('/transportroutes/store', 'RoutesTransportationsController@store')->name('bienestar.transportroutes.store');
+    
 
     // vista de conductores
     Route::get('/drivers', 'BusDriversController@drivers')->name('bienestar.drivers');

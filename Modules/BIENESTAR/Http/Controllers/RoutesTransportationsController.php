@@ -11,99 +11,45 @@ use Modules\BIENESTAR\Entities\Buses;
 
 class RoutesTransportationsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-
      
-    public function transportroutes()
-    {
-        $routestransportation = RoutesTransportations::all();
-        $busDrivers = BusDrivers::all();
-        $buses = Buses::all();
-        return view('bienestar::transportroutes',['busDrivers'=> $busDrivers, 'buses'=> $buses, 'routestransportation'=>$routestransportation]);
+    public function index()
+{
+    // Obtén los datos de buses con sus conductores relacionados
+    $buses = Buses::with('bus_driver')->whereHas('bus_driver')->get();
+    $busDrivers = BusDrivers::all();
+    $routestransportations = RoutesTransportations::with('bus')->get();
+ 
+    return view('bienestar::transportroutes', ['buses'=>$buses, 'busDrivers'=>$busDrivers,'routestransportations'=>$routestransportations]);
+}
 
-    }
+public function store(Request $request)
+{
+    // Valida los datos enviados por el formulario
+    $validatedData = $request->validate([
+        'route_number' => 'required',
+        'name_route' => 'required|string',
+        'bus' => 'required',
+        'stop_bus'=>'required|string',
+        'arrival_time' => 'required',
+        'departure_time' => 'required',
+    ]);
+
+    // Crea una nueva instancia del modelo TransportRoute y asigna los valores
+    $transportRoute = new RoutesTransportations();
+    $transportRoute->route_number = $request->input('route_number');
+    $transportRoute->stop_bus = $request->input('stop_bus');
+    $transportRoute->name_route = $request->input('name_route');
+    $transportRoute->bus_id = $request->input('bus');
+    $transportRoute->arrival_time = $request->input('arrival_time');
+    $transportRoute->departure_time = $request->input('departure_time');
+
+    // Guarda el registro en la base de datos
+    $transportRoute->save();
+
+    // Puedes agregar un mensaje de éxito
+    return redirect()->route('bienestar.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
+}
+
     
-    public function transportroutesAdd(Request $request)
-    {
-        $numberRoute = $request->input('numberRoute');
-        $nameRoute = $request->input('nameRoute');
-        $bus = $request->input('bus');
-        $timeArrival = $request->input('timeArrival');
-        $hourExit = $request->input('hourExit');
-        $stopBus = $request->input('stopBus');
-        $timeArrival = $request->input('timeArrival');
-        $hourExit = $request->input('hourExit');
 
-        RoutesTransportations::create([
-            'route_number'=>$numberRoute,
-            'name_route'=>$nameRoute,
-            'bus'=> $bus,
-            'stop_bus'=> $stopBus,
-            'arrival_time'=> $timeArrival,
-            'departure_time'=> $hourExit,
-            'bus_id'=> $bus,
-
-        ]);
-
-        return redirect()->route('bienestar.transportroutes')->with('success', 'Beneficio agregado correctamente');
-
-    }
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('bienestar::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('bienestar::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('bienestar::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
