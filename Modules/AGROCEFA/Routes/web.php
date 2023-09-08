@@ -29,8 +29,11 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/movements/formexit', 'MovementController@formexit')->name('agrocefa.formexit');
         Route::post('/movements/registerentrance', 'MovementController@registerentrance')->name('agrocefa.registerentrance');
         Route::post('/movements/registerexit', 'MovementController@registerexit')->name('agrocefa.registerexit');
-        Route::get('/obtener_unidad_de_medida', 'MovementController@obtenerUnidadDeMedida')->name('agrocefa.obtenerunidadmedida');
-        Route::get('/obtener_categoria', 'MovementController@obtenercategotria')->name('agrocefa.obtenercategoria');
+        Route::get('/obtener_warehouse', 'MovementController@obtenerwarehouse')->name('agrocefa.warehouse');
+        Route::get('/obtener_element', 'MovementController@obtenerelement')->name('agrocefa.obtenerelement');
+        Route::get('/obtener_price', 'MovementController@getprice')->name('agrocefa.getprice');
+        Route::get('/obtener_datoselementoseleccionado', 'MovementController@obtenerDatosElemento')->name('agrocefa.obtenerdatos');
+        
         
 
         // RUTAS PARA ACTIVIDADES
@@ -91,5 +94,5 @@ Route::middleware(['lang'])->group(function() {
 });
 
 
-    });
+});
 

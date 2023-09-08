@@ -1,5 +1,5 @@
 @extends('agrocefa::layouts.master')
-
+<link rel="stylesheet" href="{{ asset('agrocefa/css/movements.css') }}"> id="card-header"
 @section('content')
 
 @if (session('success'))
@@ -29,32 +29,58 @@
 
 <div class="container">
     <div class="card">
-        <div class="card-header">
-            <h3></h3>
-        </div>
         <div class="card-body">
             {!! Form::open(['route' => 'agrocefa.registerentrance', 'method' => 'POST']) !!}
             @csrf
-
-            <div class="form-group">
-                {!! Form::label('date', 'Fecha') !!}
-                {!! Form::text('date', $date, ['class' => 'form-control', 'required']) !!}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {!! Form::label('date', 'Fecha') !!}
+                        {!! Form::text('date', $date, ['class' => 'form-control', 'required', 'disabled' => 'disabled']) !!}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {!! Form::label('user_id', 'Responsable') !!}
+                        {!! Form::select('user_id', $people->pluck('first_name', 'id'), null, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
+                    </div>
+                    
+                </div>
             </div>
-            <div class="form-group">
-                {!! Form::label('observation', 'Observacion') !!}
-                {!! Form::text('observation', null,  ['class' => 'form-control', 'required']) !!}
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" id="card-header">
+                            Entrega
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                {!! Form::label('deliverywarehouse', 'Bodega Entrega') !!}
+                                {!! Form::select('deliverywarehouse', $werhousentrance->pluck('name', 'id'), null, ['class' => 'form-control', 'required']) !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" id="card-header">
+                            Recibe
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                {!! Form::label('receivewarehouse', 'Bodega Recibe') !!}
+                                {!! Form::select('receivewarehouse', $warehouseData->pluck('name', 'id'), null, ['class' => 'form-control', 'required']) !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                {!! Form::label('user_id', 'Responsable') !!}
-                {!! Form::select('user_id', $people->pluck('first_name', 'id'), null, ['class' => 'form-control']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::label('deliverywarehouse', 'Bodega Entrega') !!}
-                {!! Form::select('deliverywarehouse', $werhousentrance->pluck('name', 'id'), null, ['class' => 'form-control', 'required']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::label('receivewarehouse', 'Bodega Recibe') !!}
-                {!! Form::select('receivewarehouse', $warehouseData->pluck('name', 'id'), null, ['class' => 'form-control', 'required']) !!}
+            <div class="row">
+                <div class="form-group">
+                    {!! Form::label('observation', 'Observacion') !!}
+                    {!! Form::textarea('observation', null,  ['class' => 'form-control', 'required']) !!}
+                </div>
             </div>
             <!-- Agregar la tabla dinámica -->
             <div class="form-group">
@@ -148,7 +174,7 @@
                 '<td><select class="form-control product-name" required></select></td>' +
                 '<td><input type="text" class="form-control product-measurement-unit" readonly></td>' +
                 '<td><input type="number" class="form-control product-quantity" placeholder="Cantidad"></td>' +
-                '<td><input type="number" class="form-control product-price" placeholder="Precio"></td>' +
+                '<td><input type="number" class="form-control product-price" placeholder="Precio" ></td>' +
                 '<td><input type="text" class="form-control product-category" readonly></td>' +
                 '<td><select class="form-control product-destination" required>' +
                 '<option value="Producción">Producción</option>' +
@@ -238,44 +264,36 @@
             updateProductsData();
         });
 
-        // Manejador de eventos para cambiar la unidad de medida y obtener la categoría al seleccionar un elemento
+        // Manejador de eventos para cambiar la unidad de medida, la categoría, la cantidad y el precio al seleccionar un elemento
         productTable.on('change', '.product-name', function () {
             var currentRow = $(this).closest('tr');
             var selectedElementId = $(this).find('option:selected').val();
 
-            // Realizar una solicitud AJAX para obtener la unidad de medida y la categoría del elemento
+            // Realizar una solicitud AJAX para obtener los datos del elemento
             $.ajax({
-                url: '{{ route('agrocefa.obtenerunidadmedida') }}',
+                url: '{{ route('agrocefa.obtenerdatos') }}',
                 method: 'GET',
                 data: { element: selectedElementId },
                 success: function (response) {
+                    console.log(response);
                     var measurementUnitField = currentRow.find('.product-measurement-unit');
+                    var categoryField = currentRow.find('.product-category');
+
+
                     measurementUnitField.val(response.unidad_medida || 'Unidad de medida no encontrada');
+                    categoryField.val(response.categoria || 'Categoría no encontrada');
 
-                    // Realizar una solicitud AJAX adicional para obtener la categoría
-                    $.ajax({
-                        url: '{{ route('agrocefa.obtenercategoria') }}',
-                        method: 'GET',
-                        data: { element: selectedElementId },
-                        success: function (response) {
-                            var categoryField = currentRow.find('.product-category');
-                            categoryField.val(response.categoria || 'Categoría no encontrada');
 
-                            // Llamar a updateProductsData después de cambiar la selección
-                            updateProductsData();
-                        },
-                        error: function () {
-                            var categoryField = currentRow.find('.product-category');
-                            categoryField.val('Error al obtener la categoría');
-
-                            // Llamar a updateProductsData después de cambiar la selección
-                            updateProductsData();
-                        }
-                    });
+                    // Llamar a updateProductsData después de cambiar la selección
+                    updateProductsData();
                 },
                 error: function () {
                     var measurementUnitField = currentRow.find('.product-measurement-unit');
+                    var categoryField = currentRow.find('.product-category');
+
                     measurementUnitField.val('Error al obtener la unidad de medida');
+                    categoryField.val('Error al obtener la categoría');
+  
 
                     // Llamar a updateProductsData después de cambiar la selección
                     updateProductsData();

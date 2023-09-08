@@ -45,7 +45,7 @@
         <div class="col-md-6">
             @include('agrocefa::parameters.variety')
             <br>
-            @include('agrocefa::parameters.aplicationmethod')
+
             
         <br>
     </div>
