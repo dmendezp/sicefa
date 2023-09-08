@@ -23,8 +23,4 @@ class CarbonfootprintController extends Controller
             return view('hdc::Calc_Huella.verficado', ['usuario'=>$usuario]);
         }
     }
-   /*  public function calculos(){
-        return view('hdc::Calc_Huella.datah');
-    }
- */
 }

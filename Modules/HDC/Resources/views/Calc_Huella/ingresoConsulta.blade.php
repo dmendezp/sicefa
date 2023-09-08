@@ -56,7 +56,7 @@
                 ruta = window.location.origin + '/hdc/persona/verificar/' + documento; // Obtener ruta para consultar por ajax
                 $.ajaxSetup({
                     headers: {
-                        'X-CSRF-TOKE': $('meta[name="csrf-token"]').attr('content')
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
                 $.ajax({

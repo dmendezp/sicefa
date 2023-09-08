@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['lang'])->group(function() {
     Route::prefix('hdc')->group(function() {
         Route::get('/index', 'HDCController@index')->name('cefa.hdc.index');
+
         /* Ruta del Formulario */
         Route::get('/Formulario', 'FormularioController@formulario')->name('cefa.hdc.formulario');
-        Route::get('/get_activities/{unit_id}', 'FormularioController@getActivities')->name('hdc.activities');
+        Route::post('/get_activities', 'FormularioController@getActivities')->name('hdc.activities');
+        Route::post('/tabla_aspectos_ambientales', 'FormularioController@aspectosambientales')->name('hdc.aspecto.ambiental');
 
-        Route::get('/Formulariolabor', 'FormularioController@formulariolabor')->name('hdc.formulariolabor');
         /* Ruta Para Administrar Recursos */
         Route::get('/AdminstrarRecursos', 'AdminresourcesController@adminresources')->name('cefa.hdc.adminresources');
 
