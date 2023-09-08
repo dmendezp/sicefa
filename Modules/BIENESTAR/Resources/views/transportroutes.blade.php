@@ -21,12 +21,16 @@
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
+                    <div class="col-md-3">
                             <label for="name_route">Nombre De La Ruta:</label>
-                            <input type="text" name="name_route" id="name_route" class="form-control" placeholder="Nombre Ruta" required>
+                            <input type="text" name="name_route" id="name_route" class="form-control" placeholder="Nombre Ruta" required pattern="[A-Za-z\s]+" oninput="this.value = this.value.replace(/\d+/g, '')">
                         </div>
+
                         <div class="col-md-3">
                             <label for="bus">Bus:</label>
                             <select name="bus" id="bus" class="form-control" required>
