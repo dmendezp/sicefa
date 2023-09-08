@@ -36,12 +36,14 @@
                         <a class="nav-link" href="{{route('cefa.agroindustria.instructor.activity')}}">Actividades</a>
                     </li>
                 @endif    
-                @if(Auth::user()->havePermission('agroindustria.storer.crud'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">Inventario</a>
-                    </li>
-                @endif
+               
+               
             @endif
+            @if(Auth::user()->havePermission('agroindustria.storer.crud'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">Inventario</a>
+            </li>
+        @endif
         </ul>
     </div>
     

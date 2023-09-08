@@ -54,7 +54,7 @@ class WarehouseController extends Controller
 /* $title = 'BodeagUnidad';
 
     // Obtener el ID del almacén llamado "agroindustria"
-    $warehouseId = Warehouse::where('name' ,'=', 'agroindustria')->pluck('id')->first();
+    $warehouseId = Warehouse::where('name' ,'=', 'agroindustria')->pluck(z'id')->first();
 
     // Obtener una lista de IDs de unidades productivas asociadas a ese almacén
     $productiveUnitWarehouses = ProductiveUnitWarehouse::where('warehouse_id', $warehouseId)->pluck('id');

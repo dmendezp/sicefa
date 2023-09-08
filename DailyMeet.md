@@ -77,10 +77,14 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 **Julian Javier Ramirez Diaz** - *Implementacion de movimientos internos.* - *90%* - *Ninguna* - *Ninguna*
 
 ---
-#### Meet 04-Nov-2022
-***IDavid Juliam Cadena Barrera** - *Mejoras en la vista de monitoreo* - *60 %* - *conflictos* - *solucionar conflictos*
+#### Meet 08-Sep-2023
+* **IDavid Juliam Cadena Barrera** - *Desarrollo de datatable.* - *74 %* - *Ninguna* - *Ninguna*
 
-* **Integrante 2** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+**Juan Diego Bonilla Aroca** - *Crud formulaciones y recetas* - *65%* - *Ninguna* - *Ninguna*
+
+**Julian Javier Ramirez Diaz** - *Implementacion de movimientos internos.* - *100%* - *Ninguna* - *Ninguna*
+
+---
 ---
 #### Meet 07-Nov-2022
 * **Integrante 1** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
