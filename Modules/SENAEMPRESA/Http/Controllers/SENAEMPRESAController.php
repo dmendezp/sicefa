@@ -32,26 +32,33 @@ class SENAEMPRESAController extends Controller
         return view('senaempresa::Company.SENAEMPRESA.senaempresa_registration', $data);
     }
 
-    public function store(Request $request)
-    {
-        $sena = new Senaempresa();
+public function store(Request $request)
+{
+    // Verificar si ya existe un registro con el mismo nombre
+    $existingSena = Senaempresa::where('name', $request->input('name'))->first();
 
-        // Verifica si el objeto se creó correctamente antes de asignar propiedades
-        if ($sena) {
-            $sena->name = $request->input('name');
-            $sena->description = $request->input('description');
-
-            if ($sena->save()) {
-                // Redirigir a la vista adecuada con un mensaje de éxito
-                return redirect()->route('cefa.senaempresa')->with('success', trans('senaempresa::menu.Position successfully created.'));
-            } else {
-                // Manejar el caso de error si la inserción falla
-                return redirect()->back()->with('error', trans('senaempresa::menu.Error in creating the position.'));
-            }
-        } else {
-            return redirect()->back()->with('error', trans('senaempresa::menu.Failed to create PositionCompany object.'));
-        }
+    if ($existingSena) {
+        // El registro ya existe, muestra una alerta de SweetAlert
+        alert()->warning('warning', trans('senaempresa::menu.senaempresa already exists!'));
+        return redirect()->back(); // Redirige de vuelta al formulario
     }
+    return view('senaempresa::Company.SENAEMPRESA.senaempresa', ['existingSena' => $existingSena]);
+
+    // El registro no existe, crea uno nuevo
+    $sena = new Senaempresa();
+    $sena->name = $request->input('name');
+    $sena->description = $request->input('description');
+
+    if ($sena->save()) {
+        // Redirigir a la vista adecuada con un mensaje de éxito
+        alert()->success('Éxito', trans('senaempresa::menu.Position successfully created.'));
+        return redirect()->route('cefa.senaempresa');
+    } else {
+        // Manejar el caso de error si la inserción falla
+        alert()->error('Error', trans('senaempresa::menu.Error in creating the position.'));
+        return redirect()->back();
+    }
+}
 
     public function edit($id)
     {

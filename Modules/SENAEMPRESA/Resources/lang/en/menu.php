@@ -90,6 +90,8 @@ return [
 
 
 	'SenaEmpresa deleted!'=>'SenaEmpresa deleted!',
+	'senaempresa already exists!'=>'senaempresa already exists!'
+
 
 
 ];

@@ -89,5 +89,5 @@ return [
     'Assign Courses to SenaEmpresa'=>'Asignar Cursos a SenaEmpresa',
     'Course assigned to senaempresa successfully.'=>'Curso asignado a la senaempresa exitosamente.',
     'Associates Courses-Senaempresa'=>'Asociados Cursos-Senaempresa',
-
+	'senaempresa already exists!'=>'senaempresa ya existe!'
 ];

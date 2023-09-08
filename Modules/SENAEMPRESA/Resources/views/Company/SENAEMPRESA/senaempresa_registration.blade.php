@@ -21,7 +21,7 @@
                         <div class="card-header">{{ $title }}</div>
 
                         <div class="card-body">
-                            <form action="{{ route('cefa.nuevos') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('cefa.nuevos') }}" method="POST"  enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="name" class="form-label">{{ trans('senaempresa::menu.Name') }}</label>
@@ -61,6 +61,30 @@
     <!--scripts utilizados para procesos-->
     @section('scripts')
     @show
+
+
+
+
+    <script>
+    @if(isset($existingSena) && $existingSena)
+        Swal.fire('warning', '{{ trans('senaempresa::menu.enaempresa already exists!') }}', 'warning');
+    @endif
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     @section('dataTables')
     @show

@@ -26,6 +26,8 @@
 
 <!--Sweetalert2 local para utilizar en la plantilla-->
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.js') }}"></script>
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 
 
 <!-- Select2 -->

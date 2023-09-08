@@ -20,6 +20,7 @@
         "mhmiton/laravel-modules-livewire": "^1.6",
         "nwidart/laravel-modules": "^8.2",
         "owen-it/laravel-auditing": "^13.0",
+        "realrashid/sweet-alert": "^7.1",
         "unisharp/laravel-filemanager": "^2.4",
         "yajra/laravel-datatables-oracle": "^9.19"
     },
