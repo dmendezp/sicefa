@@ -18,10 +18,10 @@
             <nav class="">
               <ul class="nav nav-pills nav-sidebar flex-column">
                 <li class="nav-item">
-                  <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
+                  <a href="{{ route('cefa.welcome') }}" class="nav-link">
                     <i class="fas fa-puzzle-piece"></i>
                     <p>
-                      Volver a Sicefa
+                    {{ trans('bienestar::menu.Back to Sicefa')}}
                     </p>
                   </a>
                 </li>
@@ -36,30 +36,13 @@
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="fas fa-user"></i>
-                <p>Aprendices</p>
+                <p>{{ trans('bienestar::menu.Apprentices')}}</p>
               </a>
             </li>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="fas fa-pizza-slice"></i>
-                <p>Alimentación <i class="fas fa-angle-left right"></i></p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">Opción 1</a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">Opción 2</a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">Opción 3</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="fas fa-house-user"></i>
-                <p>Internado <i class="fas fa-angle-left right"></i></p>
+                <p>{{ trans('bienestar::menu.Feeding')}} <i class="fas fa-angle-left right"></i></p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
@@ -76,11 +59,11 @@
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="fas fa-bus"></i>
-                <p>Transporte <i class="fas fa-angle-left right"></i></p>
+                <p>{{ trans('bienestar::menu.Transportation')}} <i class="fas fa-angle-left right"></i></p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('bienestar.buses') }}" class="nav-link">Buses</a>
+                  <a href="{{ route('cefa.bienestar.buses') }}" class="nav-link">Buses</a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ route('bienestar.drivers') }}" class="nav-link">Conductores</a>
@@ -95,18 +78,35 @@
             </li>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="fas fa-clipboard-list"></i>
-                <p>Convocatorias <i class="fas fa-angle-left right"></i></p>
+              <i class="fas fa-handshake"></i>
+                <p>{{ trans('bienestar::menu.Benefits')}} <i class="fas fa-angle-left right"></i></p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('bienestar.benefits') }}" class="nav-link">Beneficios</a>
+              <li class="nav-item">
+                  <a href="{{ route('cefa.bienestar.benefits') }}" class="nav-link">Tipos de Beneficios</a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ route('bienestar.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ route('bienestar.benefitstypeofbenefits')}}" class="nav-link">Configurar Beneficios</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="fas fa-clipboard-list"></i>
+                <p>{{ trans('bienestar::menu.Convoctions')}} <i class="fas fa-angle-left right"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('cefa.bienestar.benefits') }}" class="nav-link">Formularios</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('bienestar.typeofbenefits')}}" class="nav-link">Configurar Convocatoria</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('bienestar.benefitstypeofbenefits')}}" class="nav-link">Postulaciones </a>
                 </li>
               </ul>
             </li>

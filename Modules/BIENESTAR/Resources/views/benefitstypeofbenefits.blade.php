@@ -1,4 +1,5 @@
 @extends('bienestar::layouts.master')
+
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-md-center pt-4">

@@ -10,11 +10,11 @@ use Modules\BIENESTAR\Entities\Benefits;
 
 class BenefitsController extends Controller
 {
-    public function BenefitsView()
+    public function benefitsView()
     {
         $benefits = Benefits::all();
-        return view('bienestar::benefitsView',['benefits'=>$benefits]);
-    } 
+        return view('bienestar::benefits-View', ['benefits' => $benefits]);
+    }
 
     public function BenefitsViewAdd(Request $request)
     {
@@ -25,51 +25,53 @@ class BenefitsController extends Controller
         ];
 
         $request->validate($rules);
-    
-        // Si la validación pasa, crea el registro en la base de datos
+
+        // Obtén el nombre y el porcentaje del formulario
         $name = $request->input('name');
         $porcentege = $request->input('porcentege');
-    
+
+        // Busca un beneficio con el mismo nombre y porcentaje en la base de datos
+        $existingBenefit = Benefits::where('name', $name)->where('porcentege', $porcentege)->first();
+
+        // Verifica si ya existe un beneficio con el mismo nombre y porcentaje
+        if ($existingBenefit) {
+            return redirect()->route('cefa.bienestar.benefits')->with('error', 'Ya existe un beneficio con el mismo nombre y porcentaje.');
+        }
+
+        // Si la validación pasa y no existe un beneficio con el mismo nombre y porcentaje, crea el registro en la base de datos
         Benefits::create([
             'name' => $name,
             'porcentege' => $porcentege,
         ]);
-    
-        return redirect()->route('bienestar.benefits')->with('success', 'Beneficio agregado correctamente');
+
+        return redirect()->route('cefa.bienestar.benefits')->with('success', 'Beneficio agregado correctamente');
     }
 
-     public function update(Request $request, $id)
-     {
-         
-         $benefit = Benefits::find($id);
-     
-         // Actualizar los datos
-         $benefit->name = $request->input('name');
-         $benefit->porcentege = $request->input('porcentege');
-         $benefit->save();
-     
-         // Redirigir o devolver una respuesta según tus necesidades
-         return redirect()->route('bienestar.benefits')->with('success', 'Beneficio actualizado con éxito');
-     }
 
-     public function delete(Request $request, $id)
-     {
-         // Obtener el beneficio que deseas eliminar
-         $benefit = Benefits::find($id);
-     
-         // Verificar si el beneficio existe
-         if (!$benefit) {
-             return redirect()->route('bienestar.benefits')->with('error', 'El beneficio no existe.');
-         }
-     
-         // Eliminar el beneficio
-         $benefit->delete();
-     
-         // Redirigir con un mensaje de éxito
-         return redirect()->route('bienestar.benefits')->with('success', 'Beneficio eliminado con éxito');
-     }
-     
-     
+    public function update(Request $request, $id)
+    {
+
+        $benefit = Benefits::find($id);
+
+        // Actualizar los datos
+        $benefit->name = $request->input('name');
+        $benefit->porcentege = $request->input('porcentege');
+        $benefit->save();
+
+        // Redirigir o devolver una respuesta según tus necesidades
+        return redirect()->route('cefa.bienestar.benefits')->with('success', 'Beneficio actualizado con éxito');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $beneficio = Benefits::findOrFail($id);
+            $beneficio->delete();
+
+            return response()->json(['mensaje' =>'Vacancy eliminated with success']);
+        } catch (\Exception $e) {
+            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+        }
+        
+    }
 }
-
-

@@ -1,0 +1,248 @@
+@extends('bienestar::layouts.master')
+
+@section('content')
+<!-- Main content -->
+<div class="container-fluid">
+    <div class="row justify-content-md-center pt-4">
+        <div class="card card-green card-outline shadow col-md-8">
+            <div class="card-header">
+                <h3 class="card-title">{{ trans('bienestar::menu.Benefits')}}</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <form action="{{ route('cefa.bienestar.benefits.add')}}" method="post" onsubmit="return validarFormulario()">
+                    @csrf
+                    <div class="row align-items-center p-4">
+                        <div class="col-md-3">
+                            <label for="text1">{{ trans('bienestar::menu.Name')}}</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="number1">{{ trans('bienestar::menu.Porcentege')}}</label>
+                            <input type="number" class="form-control" id="porcentaje" min="0" max="100" placeholder="Ej: 75" name="porcentege" required>
+                            <div id="quota-error" style="color: red;"></div>
+                        </div>
+                        <div class="col-md-2 align-self-end">
+                            <div class="btns mt-3">
+                                <button class="btn btn-success btn-block" type="submit">{{ trans('bienestar::menu.Save')}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="mtop16">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{ trans('bienestar::menu.Name')}}</th>
+                                <th>{{ trans('bienestar::menu.Porcentege')}}</th>
+                                <th>{{ trans('bienestar::menu.Actions')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($benefits as $benefit)
+                            <tr>
+                                <td>{{ $benefit->id }}</td>
+                                <td>{{ $benefit->name }}</td>
+                                <td>{{ $benefit->porcentege }}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <!-- Botones de acciones CRUD (Editar, Eliminar, etc.) -->
+                                        <button class="btn btn-primary editButton mr-2" data-id="{{ $benefit->id }}" data-name="{{ $benefit->name }}" data-porcentege="{{ $benefit->porcentege }}" data-toggle="modal" data-target="#editModal-{{ $benefit->id }}"><i class="fas fa-edit"></i></button>
+
+                                        <!-- Modal para la edición -->
+                                        <div class="modal fade" id="editModal-{{ $benefit->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <!-- Contenido del modal de edición aquí -->
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editModalLabel">Editar Beneficio</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('cefa.bienestar.benefits.update', ['id' => $benefit->id]) }}" method="post">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <!-- Campos de edición aquí -->
+                                                            <input type="hidden" name="id" value="{{ $benefit->id }}">
+                                                            <div class="form-group">
+                                                                <label for="editName-{{ $benefit->id }}">Nombre</label>
+                                                                <input type="text" class="form-control" id="editName-{{ $benefit->id }}" name="name" required pattern="[A-Za-z ]+">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="editPorcentaje-{{ $benefit->id }}">Porcentaje</label>
+                                                                <input type="number" class="form-control" id="editPorcentaje-{{ $benefit->id }}" min="0" max="100" name="porcentege">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                <button type="submit" form="editForm-{{ $benefit->id }}" class="btn btn-primary">Guardar Cambios</button>
+                                                            </div>
+                                                            <!-- Botón para guardar cambios -->
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form action="{{ route('cefa.bienestar.benefits.delete', ['id' => $benefit->id]) }}" method="POST" class="formEliminar">
+                                        @csrf
+                                        @method("DELETE")
+                                        <!-- Botón para abrir el modal de eliminación -->
+                                        <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                </td>
+
+
+
+                </div>
+                </td>
+                </tr>
+                @endforeach
+                </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+</div>
+
+
+
+<script>
+    $(document).ready(function() {
+        // Configura el evento para llenar el formulario de edición
+        $('.editButton').on('click', function() {
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            var porcentege = $(this).data('porcentege');
+
+            $('#editName-' + id).val(name);
+            $('#editPorcentaje-' + id).val(porcentege);
+        });
+
+        // Configura el evento input para el campo "Nombre"
+        $('name').on('input', function() {
+            var name = $(this).val();
+
+            // Verifica que el campo "Nombre" solo contenga letras
+            if (!/^[A-Za-z]+$/.test(name)) {
+                swal("Alerta!", "El campo Nombre solo puede contener letras!");
+                $(this).val(''); // Borra cualquier carácter no válido
+            }
+        });
+
+        // Configura el evento input para el campo "Porcentaje"
+        $('#porcentaje').on('input', function() {
+            var porcentaje = $(this).val();
+
+            if (porcentaje < 0 || porcentaje > 100) {
+                alert('El campo Porcentaje debe ser un número entre 0 y 100');
+                $(this).val(''); // Borra cualquier número fuera de rango
+            }
+
+            // Limita la longitud del campo a 3 caracteres
+            if (porcentaje.length > 3) {
+                $(this).val(porcentaje.slice(0, 3));
+            }
+        });
+
+    });
+
+    function validarFormulario() {
+        var name = document.getElementById('name').value;
+        var porcentaje = document.getElementById('porcentaje').value;
+
+        if (name.trim() === '') {
+            alert('El campo Nombre no puede estar vacío');
+            return false; // Evita que se envíe el formulario
+        }
+
+        if (porcentaje < 0 || porcentaje > 100) {
+            alert('El campo Porcentaje debe ser un número entre 0 y 100');
+            return false; // Evita que se envíe el formulario
+        }
+
+        return true; // Envía el formulario si todo está correcto
+    }
+
+    function validarFormularioEdit() {
+        var nameInput = document.getElementById('editName');
+        var porcentaje = document.getElementById('editPorcentaje').value;
+
+        if (nameInput.type !== 'text') {
+            alert('El campo Nombre debe ser un campo de texto');
+            return false; // Evita que se envíe el formulario
+        }
+
+        var name = nameInput.value;
+
+        if (name.trim() === '') {
+            alert('El campo Nombre no puede estar vacío');
+            return false; // Evita que se envíe el formulario
+        }
+
+        if (!/^[A-Za-z]+$/.test(name)) {
+            alert('El campo Nombre solo puede contener letras');
+            nameInput.value = ''; // Borra cualquier carácter no válido
+            return false; // Evita que se envíe el formulario
+        }
+
+        if (porcentaje < 0 || porcentaje > 100) {
+            alert('El campo Porcentaje debe ser un número entre 0 y 100');
+            return false; // Evita que se envíe el formulario
+        }
+
+        return true; // Envía el formulario si todo está correcto
+    }
+</script>
+<script>
+    'use strict';
+    // Selecciona todos los formularios con la clase "formEliminar"
+    var forms = document.querySelectorAll('.formEliminar');
+
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Evita que el formulario se envíe de inmediato
+
+                Swal.fire({
+                    title: "Are you sure?'",
+                    text: "It is an irreversible process.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "Yes, delete it'",
+                    cancelButtonText: "Cancel" // Cambiar el texto del botón "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Enviar el formulario usando AJAX
+                        axios.post(form.action, new FormData(form))
+                            .then(function(response) {
+                                // Manejar la respuesta JSON del servidor
+                                if (response.data && response.data.mensaje) {
+                                    Swal.fire({
+                                        title: 'Vacancy deleted!',
+                                        text: response.data.mensaje,
+                                        icon: 'success'
+                                    }).then(() => {
+                                        // Recargar la página u otra acción según sea necesario
+                                        location
+                                            .reload(); // Recargar la página después de eliminar
+                                    });
+                                }
+                            })
+                            .catch(function(error) {
+                                // Manejar errores si es necesario
+                                console.error(error);
+                            });
+                    }
+                });
+            });
+        });
+</script>
+@endsection
