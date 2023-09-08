@@ -13,15 +13,15 @@
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto group">
     <!-- Botón de cambio de idioma -->
-    <li class="nav-item group-append">
-      <a class="nav-link" href="#">
-        <img src="{{ asset('ruta-al-icono-espanol.png') }}" alt="Español">
+    <li class="nav-item dropdown">
+      <a class="nav-link" data-toggle="dropdown" href="#">
+      <i class="fas fa-language"></i>
       </a>
-    </li>
-    <li class="nav-item group-append">
-      <a class="nav-link" href="#">
-        <img src="{{ asset('ruta-al-icono-ingles.png') }}" alt="Inglés">
-      </a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <!-- Contenido del menú desplegable de usuario -->
+        <a href="#" class="dropdown-item">Español</a>
+        <a href="#" class="dropdown-item">Ingles</a>
+      </div>
     </li>
     
     <!-- Icono de usuario -->

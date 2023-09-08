@@ -11,6 +11,25 @@
     
       <!-- Sidebar -->
       <div class="sidebar" style="background: #28b463;">
+       <!-- Línea separadora -->
+       <hr class="sidebar-divider">
+      <!-- Enlace "Volver a Sicefa" -->
+      <div class="user-panel ">
+            <nav class="">
+              <ul class="nav nav-pills nav-sidebar flex-column">
+                <li class="nav-item">
+                  <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <p>
+                      Volver a Sicefa
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+           <!-- Línea separadora -->
+           <hr class="sidebar-divider">
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -84,32 +103,14 @@
                   <a href="{{ route('bienestar.benefits') }}" class="nav-link">Beneficios</a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">Opción 2</a>
+                  <a href="{{ route('bienestar.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">Opción 3</a>
+                  <a href="{{ route('bienestar.benefitstypeofbenefits')}}" class="nav-link">Configurar Beneficios</a>
                 </li>
               </ul>
             </li>
-          </ul><br>
-          <!-- Línea separadora -->
-          <hr class="sidebar-divider">
-
-          <!-- Enlace "Volver a Sicefa" -->
-          <div class="user-panel mt-1 pb-1 mb-1 d-flex">
-            <nav class="">
-              <ul class="nav nav-pills nav-sidebar flex-column">
-                <li class="nav-item">
-                  <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
-                    <i class="fas fa-puzzle-piece"></i>
-                    <p>
-                      Volver a Sicefa
-                    </p>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+          </ul><br>          
         </nav>
         <!-- /.sidebar-menu -->
       </div>

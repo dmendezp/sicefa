@@ -93,22 +93,22 @@
                                         </div>
                                         <div class="modal-body">
                                             <!-- Formulario de edición para el conductor -->
-                                            <form action="{{ route('bienestar.drivers.update', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar({{ $busdriver->id }})">
+                                            <form action="{{ route('bienestar.drivers.update', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar('{{ $busdriver->id }}')">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-group">
                                                     <label for="nameEditar_{{ $busdriver->id }}">Nombre del Conductor</label>
-                                                    <input type="text" class="form-control" id="nameEditar_{{ $busdriver->id }}" name="name" value="{{ $busdriver->name }}" required oninput="validarNombreEditar({{ $busdriver->id }})">
+                                                    <input type="text" class="form-control" id="nameEditar_{{ $busdriver->id }}" name="name" value="{{ $busdriver->name }}" required oninput="validarNombreEditar('{{ $busdriver->id }}')">
                                                     <span id="nombreErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="emailEditar_{{ $busdriver->id }}">Email Conductor</label>
-                                                    <input type="text" class="form-control" id="emailEditar_{{ $busdriver->id }}" name="email" value="{{ $busdriver->email }}" required oninput="validarEmailEditar({{ $busdriver->id }})">
+                                                    <input type="text" class="form-control" id="emailEditar_{{ $busdriver->id }}" name="email" value="{{ $busdriver->email }}" required oninput="validarEmailEditar('{{ $busdriver->id }}')">
                                                     <span id="emailErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="phoneEditar_{{ $busdriver->id }}">Teléfono</label>
-                                                    <input type="text" class="form-control" id="phoneEditar_{{ $busdriver->id }}" name="phone" value="{{ $busdriver->phone }}" required oninput="validarTelefonoEditar({{ $busdriver->id }})">
+                                                    <input type="text" class="form-control" id="phoneEditar_{{ $busdriver->id }}" name="phone" value="{{ $busdriver->phone }}" required oninput="validarTelefonoEditar('{{ $busdriver->id }}')">
                                                     <span id="telefonoErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                 </div>
                                                 <!-- Agrega más campos de edición según tus necesidades -->

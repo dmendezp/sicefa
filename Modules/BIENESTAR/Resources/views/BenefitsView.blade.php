@@ -15,11 +15,11 @@
                     <div class="row align-items-center p-4">
                         <div class="col-md-3">
                             <label for="text1">Nombre</label>
-                            <input type="text" class="form-control" id="name" name="name" >
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <div class="col-md-3">
                             <label for="number1">Porcentaje</label>
-                            <input type="number" class="form-control" id="porcentaje" min="0" max="100" placeholder="Ej: 75" name="porcentege" >
+                            <input type="number" class="form-control" id="porcentaje" min="0" max="100" placeholder="Ej: 75" name="porcentege" required>
                             <div id="quota-error" style="color: red;"></div>
                         </div>
                         <div class="col-md-2 align-self-end">
@@ -137,25 +137,78 @@
             $('#editName').val(name);
             $('#editPorcentaje').val(porcentege);
         });
+     // Configura el evento input para el campo "Nombre"
+     $('#name').on('input', function() {
+        var name = $(this).val();
+
+        // Verifica que el campo "Nombre" solo contenga letras
+        if (!/^[A-Za-z]+$/.test(name)) {
+            alert('El campo Nombre solo puede contener letras');
+            $(this).val(''); // Borra cualquier carácter no válido
+        }
     });
 
-    function validarFormulario() {
-        var name = document.getElementById('name').value;
-        var porcentaje = document.getElementById('porcentaje').value;
-
-        if (name.trim() === '') {
-            alert('El campo Nombre no puede estar vacío');
-            return false; // Evita que se envíe el formulario
-        }
+    // Configura el evento input para el campo "Porcentaje"
+    $('#porcentaje').on('input', function() {
+        var porcentaje = $(this).val();
 
         if (porcentaje < 0 || porcentaje > 100) {
             alert('El campo Porcentaje debe ser un número entre 0 y 100');
-            return false; // Evita que se envíe el formulario
+            $(this).val(''); // Borra cualquier número fuera de rango
         }
 
-        return true; // Envía el formulario si todo está correcto
-    }
-</script>
+        // Limita la longitud del campo a 3 caracteres
+        if (porcentaje.length > 3) {
+            $(this).val(porcentaje.slice(0, 3));
+        }
+    });
 
+});
+
+function validarFormulario() {
+    var name = document.getElementById('name').value;
+    var porcentaje = document.getElementById('porcentaje').value;
+
+    if (name.trim() === '') {
+        alert('El campo Nombre no puede estar vacío');
+        return false; // Evita que se envíe el formulario
+    }
+
+    if (porcentaje < 0 || porcentaje > 100) {
+        alert('El campo Porcentaje debe ser un número entre 0 y 100');
+        return false; // Evita que se envíe el formulario
+    }
+
+    return true; // Envía el formulario si todo está correcto
+}
+function validarFormularioEdit() {
+    var nameInput = document.getElementById('editName');
+    var porcentaje = document.getElementById('editPorcentaje').value;
+
+    if (nameInput.type !== 'text') {
+        alert('El campo Nombre debe ser un campo de texto');
+        return false; // Evita que se envíe el formulario
+    }
+
+    var name = nameInput.value;
+
+    if (name.trim() === '') {
+        alert('El campo Nombre no puede estar vacío');
+        return false; // Evita que se envíe el formulario
+    }
+
+    if (!/^[A-Za-z]+$/.test(name)) {
+        alert('El campo Nombre solo puede contener letras');
+        nameInput.value = ''; // Borra cualquier carácter no válido
+        return false; // Evita que se envíe el formulario
+    }
+
+    if (porcentaje < 0 || porcentaje > 100) {
+        alert('El campo Porcentaje debe ser un número entre 0 y 100');
+        return false; // Evita que se envíe el formulario
+    }
+
+    return true; // Envía el formulario si todo está correcto
+}
 </script>
 @endsection
