@@ -17,33 +17,38 @@ class RoutesTransportationsController extends Controller
     // Obtén los datos de buses con sus conductores relacionados
     $buses = Buses::with('bus_driver')->whereHas('bus_driver')->get();
     $busDrivers = BusDrivers::all();
-    $routestransportations = RoutesTransportations::all();
+    $routestransportations = RoutesTransportations::with('bus')->get();
  
     return view('bienestar::transportroutes', ['buses'=>$buses, 'busDrivers'=>$busDrivers,'routestransportations'=>$routestransportations]);
 }
 
-    public function store(Request $request) 
-    {
-        return $request;
-        $request->validate([
-            'route_number' => 'required',
-            'route_name' =>'required',
-            'stop_bus' => 'required',
-            'arrival_time' => 'required',
-            'departure_time' => 'required',
-            'bus_id' => 'required'
+public function store(Request $request)
+{
+    // Valida los datos enviados por el formulario
+    $validatedData = $request->validate([
+        'route_number' => 'required',
+        'name_route' => 'required|string',
+        'bus' => 'required',
+        'stop_bus'=>'required|string',
+        'arrival_time' => 'required',
+        'departure_time' => 'required',
+    ]);
 
-            
-        ]);
+    // Crea una nueva instancia del modelo TransportRoute y asigna los valores
+    $transportRoute = new RoutesTransportations();
+    $transportRoute->route_number = $request->input('route_number');
+    $transportRoute->stop_bus = $request->input('stop_bus');
+    $transportRoute->name_route = $request->input('name_route');
+    $transportRoute->bus_id = $request->input('bus');
+    $transportRoute->arrival_time = $request->input('arrival_time');
+    $transportRoute->departure_time = $request->input('departure_time');
 
-        $routes = RoutesTransportations::all();
-        $busDrivers = BusDrivers::all();
-        $buses = Buses::all();
-        if($transportation->save()){
-            return redirect()->route('bienestar::transportroutes')->with('message', 'Ruta De Transporte Registrado Correctamente')->with('typealert', 'success');
-        }
-        return redirect()->route('bienestar::transportroutes')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
-    }
+    // Guarda el registro en la base de datos
+    $transportRoute->save();
+
+    // Puedes agregar un mensaje de éxito
+    return redirect()->route('bienestar.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
+}
 
     
 

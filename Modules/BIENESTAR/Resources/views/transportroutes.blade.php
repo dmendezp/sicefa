@@ -26,11 +26,10 @@
                                 <option value="8">8</option>
                             </select>
                         </div>
-                    <div class="col-md-3">
+                        <div class="col-md-3">
                             <label for="name_route">Nombre De La Ruta:</label>
-                            <input type="text" name="name_route" id="name_route" class="form-control" placeholder="Nombre Ruta" required pattern="[A-Za-z\s]+" oninput="this.value = this.value.replace(/\d+/g, '')">
+                            <input type="text" name="name_route" id="name_route" class="form-control" placeholder="Nombre Ruta" required>
                         </div>
-
                         <div class="col-md-3">
                             <label for="bus">Bus:</label>
                             <select name="bus" id="bus" class="form-control" required>
@@ -44,6 +43,10 @@
                         <div class="col-md-3">
                             <label for="bus">Nombre del Conductor:</label>
                             <input id="bus_driver" name="driver_name" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="bus">Parada:</label>
+                            <input id="stop_bus" name="stop_bus" type="text" class="form-control" placeholder="Ej: Juncal">
                         </div>
                         <div class="col-md-3">
                             <label for="arrival_time">Hora Llegada:</label>
@@ -71,7 +74,7 @@
                                 <th>Parada Bus:</th>                                
                                 <th>Hora Llegada:</th>
                                 <th>Hora Salida:</th>
-                                <th>Conductor</th>
+                                <th>Placa</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -84,7 +87,7 @@
                                 <td>{{ $transport->stop_bus}}</td>
                                 <td>{{ $transport->arrival_time}}</td>
                                 <td>{{ $transport->departure_time}}</td>
-                                <td>{{ $transport->bus_id}}</td>
+                                <td>{{ $transport->bus->plate}}</td>
                                 <td>
                                     <button class="btn btn-primary editButton" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>
                                     <!-- Botón para abrir el modal de eliminación -->
