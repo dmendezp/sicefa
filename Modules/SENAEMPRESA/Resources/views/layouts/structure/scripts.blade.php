@@ -76,6 +76,31 @@
         }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
     });
 </script>
+<!-- Alerta para guardar y editar -->
+@if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Exito!',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
+        });
+    </script>
+@endif
+
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session('error') }}',
+            showConfirmButton: false,
+            timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
+        });
+    </script>
+@endif
+
 
 
 <script src="{{ asset('senaempresa/js/modal.js') }}"></script>

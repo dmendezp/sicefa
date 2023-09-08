@@ -15,111 +15,87 @@
         @include('senaempresa::layouts.structure.breadcrumb')
 
         <div class="container">
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('warning'))
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    {{ session('warning') }}
-                </div>
-            @endif
-            @if (session('danger'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('danger') }}
-                </div>
-            @endif
             <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
+            <!-- Formulario para filtrar por curso -->
+            <form method="GET" action="{{ route('cefa.vacantes') }}">
+                <label for="cursoFilter">{{ trans('senaempresa::menu.Filter by course') }}:</label>
+                <select class="form-control" id="cursoFilter" name="cursoFilter" onchange="this.form.submit()">
+                    <option value="">{{ trans('senaempresa::menu.All courses') }}</option>
+                    @foreach ($courses as $course)
+                        <option value="{{ $course->id }}" {{ $selectedCourseId == $course->id ? 'selected' : '' }}>
+                            {{ $course->code }} {{ $course->program->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </form><br>
 
-            <!-- Verificar si no hay cursos relacionados con vacantes -->
-            @if ($courses->isEmpty())
-                <div class="alert alert-warning" role="alert">
-                    {{ trans('senaempresa::menu.There are no courses related to vacancies') }}
-                </div>
-            @else
-                <!-- Formulario para filtrar por curso -->
-                <form method="GET" action="{{ route('cefa.vacantes') }}">
-                    <label for="cursoFilter">{{ trans('senaempresa::menu.Filter by course') }}:</label>
-                    <select class="form-control" id="cursoFilter" name="cursoFilter" onchange="this.form.submit()">
-                        <option value="">{{ trans('senaempresa::menu.All courses') }}</option>
-                        @foreach ($courses as $course)
-                            <option value="{{ $course->id }}"
-                                {{ $selectedCourseId == $course->id ? 'selected' : '' }}>
-                                {{ $course->code }} {{ $course->program->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </form><br>
-
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <table id="datatable" class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>{{ trans('senaempresa::menu.Id') }}</th>
-                                        <th>{{ trans('senaempresa::menu.Name') }}</th>
-                                        <th>{{ trans('senaempresa::menu.Presentation') }}</th>
-                                        <th>{{ trans('senaempresa::menu.Id Position') }}</th>
-                                        <th>{{ trans('senaempresa::menu.Start Date and Time') }}</th>
-                                        <th>{{ trans('senaempresa::menu.Date and Time End') }}</th>
-                                        <th class="text-center">{{ trans('senaempresa::menu.Registration') }}</th>
-                                        <th><a href="{{ route('cefa.agregar_vacante') }}"
-                                                class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Verificar si no hay vacantes disponibles para el curso seleccionado -->
-                                    @if ($vacancies->isEmpty())
-                                        <div class="alert alert-info" role="alert">
-                                            {{ trans('senaempresa::menu.There are no vacancies available for the selected course') }}
-                                        </div><br>
-                                    @else
-                                        @foreach ($vacancies as $vacancy)
-                                            <tr>
-                                                <td>{{ $vacancy->id }}</td>
-                                                <td>{{ $vacancy->name }}</td>
-                                                <td><img src="{{ asset($vacancy->image) }}"
-                                                        alt="{{ $vacancy->name }}">
-                                                </td>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>{{ trans('senaempresa::menu.Id') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Name') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Presentation') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Id Position') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Start Date and Time') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Date and Time End') }}</th>
+                                    <th class="text-center">{{ trans('senaempresa::menu.Registration') }}</th>
+                                    <th><a href="{{ route('cefa.agregar_vacante') }}" class="btn btn-success btn-sm"><i
+                                                class="fas fa-user-plus"></i></a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Verificar si no hay vacantes disponibles para el curso seleccionado -->
+                                @if ($vacancies->isEmpty())
+                                    <div class="alert alert-info" role="alert">
+                                        {{ trans('senaempresa::menu.There are no vacancies available for the selected course') }}
+                                    </div><br>
+                                @else
+                                    @foreach ($vacancies as $vacancy)
+                                        <tr>
+                                            <td>{{ $vacancy->id }}</td>
+                                            <td>{{ $vacancy->name }}</td>
+                                            <td><img src="{{ asset($vacancy->image) }}" alt="{{ $vacancy->name }}">
+                                            </td>
+                                            <td>
+                                                @foreach ($PositionCompany as $position)
+                                                    @if ($position->id == $vacancy->position_company_id)
+                                                        {{ $position->description }}
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>{{ $vacancy->start_datetime }}</td>
+                                            <td>{{ $vacancy->end_datetime }}</td>
+                                            <td class="text-center">
+                                                <a class="openModalBtn" title="Inscripción"
+                                                    data-vacancy='@json($vacancy)' data-bs-toggle="modal"
+                                                    data-bs-target="#myModal">
+                                                    <i class="fas fa-eye" style="color: #000000;"></i>
+                                                </a>
+                                            </td>
+                                            <form class="formEliminar"
+                                                action="{{ route('cefa.eliminar_vacante', $vacancy->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
                                                 <td>
-                                                    @foreach ($PositionCompany as $position)
-                                                        @if ($position->id == $vacancy->position_company_id)
-                                                            {{ $position->description }}
-                                                        @endif
-                                                    @endforeach
+                                                    <a href="{{ route('cefa.editar_vacante', ['id' => $vacancy->id]) }}"
+                                                        class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                                            class="fas fa-trash-alt"></i></button>
                                                 </td>
-                                                <td>{{ $vacancy->start_datetime }}</td>
-                                                <td>{{ $vacancy->end_datetime }}</td>
-                                                <td class="text-center">
-                                                    <a class="openModalBtn" title="Inscripción"
-                                                        data-vacancy='@json($vacancy)'
-                                                        data-bs-toggle="modal" data-bs-target="#myModal">
-                                                        <i class="fas fa-eye" style="color: #000000;"></i>
-                                                    </a>
-                                                </td>
-                                                <form action="{{ route('cefa.eliminar_vacante', $vacancy->id) }}"
-                                                    method="POST" class="formEliminar">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <td>
-                                                        <a href="{{ route('cefa.editar_vacante', ['id' => $vacancy->id]) }}"
-                                                            class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                                                        <button type="submit" class="btn btn-danger btn-sm"><i
-                                                                class="fas fa-trash-alt"></i></button>
-                                                    </td>
-                                                </form>
-                                            </tr>
-                                        @endforeach
-                                    @endif
-                                </tbody>
-                            </table>
-                        </div>
+                                            </form>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            @endif
+            </div>
         </div>
         @include('senaempresa::Company.Vacant.inscription')
         @section('content')

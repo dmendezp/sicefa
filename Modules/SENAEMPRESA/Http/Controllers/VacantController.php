@@ -116,11 +116,13 @@ class VacantController extends Controller
         $vacancy->end_datetime = $request->input('end_datetime');
 
         if ($vacancy->save()) {
-            return redirect()->route('cefa.vacantes')->with('warning', trans('senaempresa::menu.Vacancy successfully updated.'));
+            return redirect()->route('cefa.vacantes')->with('success', trans('senaempresa::menu.Vacancy successfully updated.'));
         } else {
             return redirect()->back()->with('error', trans('senaempresa::menu.Error updating the Vacancy.'));
         }
     }
+
+
 
 
     public function destroy($id)
