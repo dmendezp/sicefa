@@ -33,7 +33,7 @@
 
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        <form action="{{ route('bienestar.drivers.add') }}" method="POST" onsubmit="return validarFormulario()">
+                        <form action="{{ route('cefa.bienestar.drivers.add') }}" method="POST" onsubmit="return validarFormulario()">
                             @csrf
                             <div class="form-row">
                                 <div class="col-md-3 mb-2">
@@ -95,7 +95,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <!-- Formulario de edición para el conductor -->
-                                            <form action="{{ route('bienestar.drivers.update', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar('{{ $busdriver->id }}')">
+                                            <form action="{{ route('cefa.bienestar.drivers.update', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar('{{ $busdriver->id }}')">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-group">
@@ -139,7 +139,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                            <form action="{{ route('bienestar.drivers.delete', ['id' => $busdriver->id]) }}" method="POST">
+                                            <form action="{{ route('cefa.bienestar.drivers.delete', ['id' => $busdriver->id]) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Eliminar</button>
