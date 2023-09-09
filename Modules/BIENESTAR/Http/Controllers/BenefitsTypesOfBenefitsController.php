@@ -20,9 +20,9 @@ class BenefitsTypesOfBenefitsController extends Controller
     {
         $benefitstypeofbenefits = BenefitsTypesOfBenefits::all();
         $benefits = Benefits::all();
-        $typeofbenefits = TypesOfBenefits::all();
+        $typeOfBenefits = TypesOfBenefits::all();
 
-        return view('bienestar::benefitstypeofbenefits', compact('benefitstypeofbenefits', 'benefits', 'typeofbenefits'));
+        return view('bienestar::benefitstypeofbenefits', compact('benefitstypeofbenefits', 'benefits', 'typeOfBenefits'));
     }
 
     public function store(Request $request)
@@ -39,7 +39,7 @@ class BenefitsTypesOfBenefitsController extends Controller
             'type_of_benefit_id' => $request->type_of_benefit_id,
         ]);
 
-        return redirect()->route('bienestar.benefitstypeofbenefits')->with('success', 'Registro creado correctamente.');
+        return redirect()->route('cefa.bienestar.benefitstypeofbenefits')->with('success', 'Registro creado correctamente.');
     }
 
     public function update(Request $request, $id)
@@ -54,7 +54,7 @@ class BenefitsTypesOfBenefitsController extends Controller
         $type = BenefitsTypesOfBenefits::find($id);
 
         if (!$type) {
-            return redirect()->route('bienestar.benefitstypeofbenefits')->with('error', 'Registro no encontrado.');
+            return redirect()->route('cefa.bienestar.benefitstypeofbenefits')->with('error', 'Registro no encontrado.');
         }
 
         // Actualizar los valores
@@ -62,7 +62,7 @@ class BenefitsTypesOfBenefitsController extends Controller
         $type->type_of_benefit_id = $request->type_of_benefit_id;
         $type->save();
 
-        return redirect()->route('bienestar.benefitstypeofbenefits')->with('success', 'Registro actualizado correctamente.');
+        return redirect()->route('cefa.bienestar.benefitstypeofbenefits')->with('success', 'Registro actualizado correctamente.');
     }
 
     public function destroy($id)
@@ -70,6 +70,6 @@ class BenefitsTypesOfBenefitsController extends Controller
         // Encuentra y elimina el registro por su ID
         BenefitsTypesOfBenefits::destroy($id);
 
-        return redirect()->route('bienestar.benefitstypeofbenefits')->with('success', 'Registro eliminado correctamente.');
+        return redirect()->route('cefa.bienestar.benefitstypeofbenefits')->with('success', 'Registro eliminado correctamente.');
     }
 }

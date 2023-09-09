@@ -22,8 +22,8 @@
                     <div class="col-md-4">
                         {!! Form::label('type_of_benefit_id', 'Seleccionar Tipo de Beneficiario:') !!}
                         <select id="type_of_benefit_id" name="type_of_benefit_id" class="form-control" required>
-                            @foreach($typeofbenefits as $typeofbenefit)
-                                <option value="{{ $typeofbenefit->id }}">{{ $typeofbenefit->name }}</option>
+                            @foreach($typeOfBenefits as $typeOfBenefit)
+                                <option value="{{ $typeOfBenefit->id }}">{{ $typeOfBenefit->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -80,50 +80,45 @@
 
     @foreach($benefitstypeofbenefits as $type)
         <!-- Modal de edición -->
-        <div class="modal fade" id="editModal_{{ $type->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_{{ $type->id }}" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel_{{ $type->id }}">Editar Registro</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+<div class="modal fade" id="editModal_{{ $type->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel_{{ $type->id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Registro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('cefa.bienestar.benefitstypeofbenefits.update', $type->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <label for="edit_benefit">Editar Tipo de Beneficio:</label>
+                        <select id="edit_benefit" name="benefit_id" class="form-control" required>
+                            @foreach($benefits as $benefit)
+                                <option value="{{ $benefit->id }}" {{ $type->benefit_id == $benefit->id ? 'selected' : '' }}>{{ $benefit->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="modal-body">
-                        <form action="{{ route('cefa.bienestar.benefitstypeofbenefits.update', $type->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="form-group row">
-                                <label for="edit_benefit" class="col-md-4 col-form-label text-md-right">Editar Tipo de Beneficio:</label>
-                                <div class="col-md-6">
-                                    <select id="edit_benefit" name="benefit_id" class="form-control" required>
-                                        @foreach($benefits as $benefit)
-                                            <option value="{{ $benefit->id }}" {{ $type->benefit_id == $benefit->id ? 'selected' : '' }}>{{ $benefit->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="edit_type" class="col-md-4 col-form-label text-md-right">Editar Tipo de Beneficiario:</label>
-                                <div class="col-md-6">
-                                    <select id="edit_type" name="type_of_benefit_id" class="form-control" required>
-                                        @foreach($typeofbenefits as $typeofbenefit)
-                                            <option value="{{ $typeofbenefit->id }}" {{ $type->type_of_benefit_id == $typeofbenefit->id ? 'selected' : '' }}>{{ $typeofbenefit->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                </div>
-                            </div>
-                        </form>
+                    <div class="form-group">
+                        <label for="edit_type">Editar Tipo de Beneficiario:</label>
+                        <select id="edit_type" name="type_of_benefit_id" class="form-control" required>
+                            @foreach($typeOfBenefits as $typeofbenefit)
+                                <option value="{{ $typeofbenefit->id }}" {{ $type->type_of_benefit_id == $typeofbenefit->id ? 'selected' : '' }}>{{ $typeofbenefit->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                </div>
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
+
         <!-- Modal de eliminación -->
         <div class="modal fade" id="deleteModal_{{ $type->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel_{{ $type->id }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
