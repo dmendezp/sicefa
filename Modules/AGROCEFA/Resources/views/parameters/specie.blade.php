@@ -23,15 +23,13 @@
                         <td>{{ $a->lifecycle }}</td>
                         <td>
                             <div class="button-group">
-                                <button class="btn btn-primary btn-sm btn-edit-specie"
-                                    data-bs-toggle="modal"
+                                <button class="btn btn-primary btn-sm btn-edit-specie" data-bs-toggle="modal"
                                     data-bs-target="#editarEspecieModal_{{ $a->id }}"
-                                    data-specie-id="{{ $a->id }}"><i
-                                        class='bx bx-edit icon'></i></button>
-                                <button id="delete" class="btn btn-danger btn-sm btn-delete-activity" data-bs-toggle="modal"
-                                    data-bs-target="#eliminarspecie_{{ $a->id }}"><i
-                                        class='bx bx-trash icon'></i></button>       
-                                
+                                    data-specie-id="{{ $a->id }}"><i class='bx bx-edit icon'></i></button>
+                                <button id="delete" class="btn btn-danger btn-sm btn-delete-activity"
+                                    data-bs-toggle="modal" data-bs-target="#eliminarspecie_{{ $a->id }}"><i
+                                        class='bx bx-trash icon'></i></button>
+
                             </div>
                         </td>
                     </tr>
@@ -41,81 +39,78 @@
     </div>
 </div>
 {{-- Modal agregar Especie --}}
-<div class="modal fade" id="crearspecie" tabindex="-1" aria-labelledby="crearspecie"
-aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Especie</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            {!! Form::open(['route' => 'agrocefa.species.store', 'method' => 'POST']) !!}
-            @csrf
-            <div class="form-group">
-                {!! Form::label('name', 'Nombre:') !!}
-                {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required']) !!}
+<div class="modal fade" id="crearspecie" tabindex="-1" aria-labelledby="crearspecie" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Especie</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="form-group">
-                {!! Form::label('lifecycle', 'Ciclo de vida:') !!}
-                {!! Form::select('lifecycle', ['Transitorio' => 'Transitorio', 'Permanente' => 'Permanente'], null, [
-                    'id' => 'lifecycle',
-                    'class' => 'form-control',
-                    'required',
-                ]) !!}
-            </div>
-            <!-- Agrega más campos según tus necesidades -->
-            <br>
-            {!! Form::submit('Registrar Especie', ['class' => 'btn btn-primary']) !!}
-            {!! Form::close() !!}
+            <div class="modal-body">
+                {!! Form::open(['route' => 'agrocefa.species.store', 'method' => 'POST']) !!}
+                @csrf
+                <div class="form-group">
+                    {!! Form::label('name', 'Nombre:') !!}
+                    {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('lifecycle', 'Ciclo de vida:') !!}
+                    {!! Form::select('lifecycle', ['Transitorio' => 'Transitorio', 'Permanente' => 'Permanente'], null, [
+                        'id' => 'lifecycle',
+                        'class' => 'form-control',
+                        'required',
+                    ]) !!}
+                </div>
+                <!-- Agrega más campos según tus necesidades -->
+                <br>
+                {!! Form::submit('Registrar Especie', ['class' => 'btn btn-primary']) !!}
+                {!! Form::close() !!}
 
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 {{-- Modal editar especie --}}
 @foreach ($species as $a)
-<div class="modal fade" id="editarEspecieModal_{{ $a->id }}" tabindex="-1"
-aria-labelledby="editarEspecieModalLabel_{{ $a->id }}" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="editarEspecieModalLabel_{{ $a->id }}">Editar
-                Especie</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            {!! Form::open([
-                'route' => ['agrocefa.species.update', 'id' => $a->id],
-                'method' => 'POST',
-                'id' => "editSpeciesForm_{$a->id}",
-            ]) !!}
-            @csrf
-            @method('PUT')
-            <div class="form-group">
-                {!! Form::label("name_{$a->id}", 'Nombre:') !!}
-                {!! Form::text('name', $a->name, ['id' => "name_{$a->id}", 'class' => 'form-control', 'required']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::label("lifecycle_{$a->id}", 'Ciclo de vida:') !!}
-                {!! Form::select('lifecycle', ['Transitorio' => 'Transitorio', 'Permanente' => 'Permanente'], $a->lifecycle, [
-                    'id' => "lifecycle_{$a->id}",
-                    'class' => 'form-control',
-                    'required',
-                ]) !!}
-            </div>
-            <!-- Agrega más campos según tus necesidades -->
-            <br>
-            {!! Form::submit('Actualizar Especie', ['class' => 'btn btn-primary']) !!}
-            {!! Form::close() !!}
+    <div class="modal fade" id="editarEspecieModal_{{ $a->id }}" tabindex="-1"
+        aria-labelledby="editarEspecieModalLabel_{{ $a->id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarEspecieModalLabel_{{ $a->id }}">Editar
+                        Especie</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {!! Form::open([
+                        'route' => ['agrocefa.species.update', 'id' => $a->id],
+                        'method' => 'POST',
+                        'id' => "editSpeciesForm_{$a->id}",
+                    ]) !!}
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        {!! Form::label("name_{$a->id}", 'Nombre:') !!}
+                        {!! Form::text('name', $a->name, ['id' => "name_{$a->id}", 'class' => 'form-control', 'required']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label("lifecycle_{$a->id}", 'Ciclo de vida:') !!}
+                        {!! Form::select('lifecycle', ['Transitorio' => 'Transitorio', 'Permanente' => 'Permanente'], $a->lifecycle, [
+                            'id' => "lifecycle_{$a->id}",
+                            'class' => 'form-control',
+                            'required',
+                        ]) !!}
+                    </div>
+                    <!-- Agrega más campos según tus necesidades -->
+                    <br>
+                    {!! Form::submit('Actualizar Especie', ['class' => 'btn btn-primary']) !!}
+                    {!! Form::close() !!}
 
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 @endforeach
 
 {{-- Modal de Eliminar Actividad --}}
@@ -125,16 +120,14 @@ aria-labelledby="editarEspecieModalLabel_{{ $a->id }}" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="eliminaractividadLabel">Eliminar Actividad</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <h5 class="modal-title" id="eliminaractividadLabel">Eliminar Especie</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     ¿Estás seguro de que deseas eliminar esta especie?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     {!! Form::open(['route' => ['agrocefa.species.destroy', 'id' => $a->id], 'method' => 'POST']) !!}
                     @csrf
                     @method('DELETE')

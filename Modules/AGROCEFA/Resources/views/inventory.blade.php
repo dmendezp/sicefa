@@ -2,11 +2,12 @@
 
 @section('content')
     <h1>Inventario</h1>
+
     <div class="container_inventory">
         <form method="POST" action="{{ route('agrocefa.inventory.showWarehouseFilter') }}">
             @csrf
             <div class="form-group">
-                <label for="category">Seleccionar Categoría:</label>
+                <label for="category">Selecciona la Categoría:</label>
                 <select name="category" id="category" class="form-control">
                     <option value="">Todas las categorías</option>
                     @foreach ($categories as $category)
@@ -14,7 +15,9 @@
                     @endforeach
                 </select>
             </div>
+
         </form>
+        <br>
         <div id="filteredResults">
             @include('agrocefa::inventoryPartial')
         </div>
@@ -23,7 +26,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // Cuando cambia la selección de categoría
-        $('#category').change(function () {
+        $('#category').change(function() {
             var selectedCategoryId = $(this).val();
 
             // Realizar una solicitud AJAX para obtener los resultados filtrados
@@ -34,11 +37,11 @@
                     _token: "{{ csrf_token() }}",
                     category: selectedCategoryId
                 },
-                success: function (data) {
+                success: function(data) {
                     // Actualizar el contenedor con los resultados filtrados
                     $('#filteredResults').html(data);
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.error(error);
                 }
             });
@@ -51,6 +54,7 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
+
         .container_inventory {
             margin-right: 50px;
         }

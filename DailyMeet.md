@@ -99,6 +99,15 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Yuderly Sapuy** - *CRUD cultivos finalizado* - *Avance 100%* - *Dificultades* - *Acciones*
 ---
 
+#### Meet 08-Sep-2023
+* **Andres Almario** - *Creacion de ruta controlador y vista de reporte consumo* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Crear rutas para el funcionamiento del CRUD de inventario e inclusion de iconos (No funcionales)* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - *Avance en la vista de desarrolladores* - *Avance 75%* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Avance en diseño de la vista AGROCEFA* - *Avance 80%* - *Dificultades* - *Acciones*
+---
+
+
+
 
 ## GANADERIA 🐮
 

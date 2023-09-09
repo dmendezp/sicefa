@@ -21,6 +21,9 @@ Route::middleware(['lang'])->group(function() {
         //RUTAS DE INVENTARIO
         Route::get('/inventory', 'InventoryController@inventory')->name('agrocefa.inventory');
         Route::post('/inventory/showWarehouseFilter', 'InventoryController@showWarehouseFilter')->name('agrocefa.inventory.showWarehouseFilter');
+        Route::post('/inventory', 'InventoryController@store')->name('agrocefa.inventory.store');
+        Route::put('/inventory/{id}', 'InventoryController@update')->name('agrocefa.inventory.update');
+        Route::delete('/inventory/delete/{id}', 'InventoryController@destroy')->name('agrocefa.inventory.destroy');
 
 
         // RUTAS PARA MOVIMIENTOS
@@ -64,10 +67,8 @@ Route::middleware(['lang'])->group(function() {
 
         // RUTAS PARA ESPECIES
         Route::get('/species', 'Parameters\ParameterAgroController@listspecie')->name('agrocefa.species.index');
-        Route::get('/species/{id}/edit', 'SpecieController@editView')->name('agrocefa.species.edit');
         Route::put('/species/{id}', 'Parameters\ParameterAgroController@update')->name('agrocefa.species.update');
-        Route::delete('/species/delete/{id}', 'Param eters\ParameterAgroController@destroy')->name('agrocefa.species.destroy');
-        Route::get('/species/create', 'SpecieController@create')->name('agrocefa.species.create');
+        Route::delete('/species/delete/{id}', 'Parameters\ParameterAgroController@destroy')->name('agrocefa.species.destroy');
         Route::post('/species', 'Parameters\ParameterAgroController@store')->name('agrocefa.species.store');
         
 

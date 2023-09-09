@@ -13,9 +13,7 @@ use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Category;
 
-
 class InventoryController extends Controller
-
 {
     public function inventory(Request $request)
     {
@@ -31,13 +29,14 @@ class InventoryController extends Controller
         // Obtener los registros de inventario que coinciden con las bodegas relacionadas
         $inventory = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)->get();
 
+        $productiveUnitName = ProductiveUnit::where('id', $selectedUnitId)->value('name');
 
         return view('agrocefa::inventory', [
             'inventory' => $inventory,
             'categories' => $categories,
+            'productiveUnitName' => $productiveUnitName,
         ]);
     }
-
 
     public function showWarehouseFilter(Request $request)
     {
@@ -50,7 +49,7 @@ class InventoryController extends Controller
         // Inicializar la consulta de inventario
         $query = Inventory::query();
 
-        $categories=Category::all();
+        $categories = Category::all();
 
         // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
         $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
@@ -72,7 +71,24 @@ class InventoryController extends Controller
         return view('agrocefa::inventoryPartial', [
             'inventory' => $inventory,
         ]);
+    }
 
-}
+    //Crear
+    public function store()
+    {
+
+    }
+
+    //Actualizar
+    public function update()
+    {
+        
+    }
+
+    //Eliminar
+    public function destroy()
+    {
+        
+    }
 
 }
