@@ -171,16 +171,19 @@
                         $('#errorModal').modal('hide');
                     },
                     error: function(xhr, status, error) {
-    if (xhr.status === 422) {
-        // Mostrar errores de validación en el formulario
-        var errors = JSON.parse(xhr.responseText.errors);
-        // Manejar los errores como desees
-        console.log(errors);
-    } else if (xhr.status === 409) {
-        // Mostrar el mensaje de error de duplicación
-        $('#duplicate-error').show();
-    }
-}
+                        if (xhr.status === 422) {
+                            // Mostrar errores de validación en el formulario
+                            var errors = JSON.parse(xhr.responseText.errors);
+                         // Manejar los errores como desees
+                         console.log(errors);
+                        } else if (xhr.status === 409) {
+                            // Mostrar el modal de error si el registro ya existe
+                            $('#errorModal').modal('show');
+
+                        }
+                    }
+                });
+            });
 
             // Evento de clic para el botón de editar
             $('.edit-button').click(function() {

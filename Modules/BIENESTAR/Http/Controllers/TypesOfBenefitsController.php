@@ -37,7 +37,7 @@ class TypesOfBenefitsController extends Controller
     $existingRecord = TypesOfBenefits::where('name', $request->name)->first();
 
     if ($existingRecord) {
-        return response()->json(['message' => 'El tipo de beneficiario ya existe en la base de datos.'], 409);
+        return response()->json(['error' => 'El tipo de beneficiario ya existe en la base de datos.'], 409);
 
     }
 
@@ -47,7 +47,7 @@ class TypesOfBenefitsController extends Controller
             'name' => $request->name,
         ]);
 
-        return response()->json(['message' => 'Tipo de beneficiario creado correctamente.'], 200);
+        return response()->json(['success' => 'Tipo de beneficiario creado correctamente.'], 200);
     } catch (\Exception $e) {
         return response()->json(['message' => 'Ha ocurrido un error al intentar crear el tipo de beneficiario.'], 500);
     }
