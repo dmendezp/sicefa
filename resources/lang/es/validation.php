@@ -157,7 +157,7 @@ return [
         'end_date' => 'fecha de finalización', // SICA
         'environment_id' => 'ambiente', // SICA
         'eps_id' => 'eps', // SICA
-        'farm_id' => 'granja', // SICA
+        'farm_id' => 'finca', // SICA
         'first_name' => 'nombre', // SICA
         'first_last_name' => 'primer apellido', // SICA
         'second_last_name' => 'segundo apellido', // SICA

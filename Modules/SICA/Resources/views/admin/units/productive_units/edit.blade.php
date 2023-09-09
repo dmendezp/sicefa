@@ -20,7 +20,7 @@
                                 <select name="sector_id" class="form-control" required>
                                     <option value="">-- Seleccione --</option>
                                     @foreach ($sectors as $s)
-                                        <option value="{{ $s->id }}" {{ $productive_unit->sector_id == $s->id ? 'selected' : '' }}>{{ $s->name }}</option>
+                                        <option value="{{ $s->id }}" {{ (old('sector_id') ?? $productive_unit->sector_id) == $s->id ? 'selected' : '' }}>{{ $s->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -46,6 +46,16 @@
 
                             {{-- Se incluye el componente para consultar una persona y asignarla como líder --}}
                             @livewire('sica::admin.units.productive-units.consult-leader', ['productive_unit'=>$productive_unit])
+
+                            <div class="form-group">
+                                <label>Finca:</label>
+                                <select name="farm_id" class="form-control" required>
+                                    <option value="">-- Seleccione --</option>
+                                    @foreach ($farms as $f)
+                                        <option value="{{ $f->id }}" {{ (old('farm_id') ?? $productive_unit->farm_id) == $f->id ? 'selected' : '' }}>{{ $f->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                         </div>
                         <div class="card-footer py-2 text-right">
