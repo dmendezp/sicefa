@@ -129,6 +129,10 @@
     font-size: 16px;
     top: -8px !important;
 }
+#divbreadcrumbs {
+    border: 2px solid #2ea29c !important;
+    border-radius: 5px;
+}
 
 /*--------------------------------------------------------------
   # Hero Section

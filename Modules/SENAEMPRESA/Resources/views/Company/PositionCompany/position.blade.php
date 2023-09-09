@@ -1,93 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-@include('senaempresa::layouts.structure.head')
+@extends('senaempresa::layouts.master')
 
-<body>
-    @csrf
-    <div class="wrapper">
+@section('content')
+    <div class="container">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('warning'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ session('warning') }}
+            </div>
+        @endif
 
-        <!-- Navbar -->
-        @include('senaempresa::layouts.structure.navbar')
-        <!-- /.navbar -->
+        <h1 class="text-center"><strong><em><span>{{ trans('senaempresa::menu.Positions') }}</span></em></strong>
+        </h1>
+        <br>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <table id="datatable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>{{ trans('senaempresa::menu.Id') }}</th>
+                                <th>{{ trans('senaempresa::menu.Requirements') }}</th>
+                                <th>{{ trans('senaempresa::menu.Description') }}</th>
+                                <th>{{ trans('senaempresa::menu.Status') }}</th>
+                                <th style="width: 200px;">
+                                    <a href="{{ route('cefa.nuevo_cargo') }}" class="btn btn-success btn-sm"><i
+                                            class="fas fa-user-plus"></i></a>
+                                </th>
 
-        <!-- Main Sidebar Container -->
-        @include('senaempresa::layouts.structure.aside')
-        @include('senaempresa::layouts.structure.breadcrumb')
-
-        <div class="container">
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('warning'))
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    {{ session('warning') }}
-                </div>
-            @endif
-
-            <h1 class="text-center"><strong><em><span>{{ trans('senaempresa::menu.Positions') }}</span></em></strong></h1>
-            <br>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <table id="datatable" class="table table-striped table-bordered">
-                            <thead>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($position_companies as $PositionCompany)
                                 <tr>
-                                    <th>{{ trans('senaempresa::menu.Id') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Requirements') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Description') }}</th>
-                                    <th>{{ trans('senaempresa::menu.Status') }}</th>
-                                    <th style="width: 200px;">
-                                        <a href="{{ route('cefa.nuevo_cargo') }}" class="btn btn-success btn-sm"><i
-                                                class="fas fa-user-plus"></i></a>
-                                    </th>
+                                    <td>{{ $PositionCompany->id }}</td>
+                                    <td>{{ $PositionCompany->requirement }}</td>
+                                    <td>{{ $PositionCompany->description }}</td>
+                                    <td>{{ $PositionCompany->state }}</td>
+                                    <form action="{{ route('cefa.eliminar_cargo', $PositionCompany->id) }}" method="POST"
+                                        class="formCargo">
+                                        @csrf
+                                        @method('DELETE')
+                                        <td>
+                                            <a href="{{ route('cefa.editar_cargo', ['id' => $PositionCompany->id]) }}"
+                                                class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
 
+                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                    class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($position_companies as $PositionCompany)
-                                    <tr>
-                                        <td>{{ $PositionCompany->id }}</td>
-                                        <td>{{ $PositionCompany->requirement }}</td>
-                                        <td>{{ $PositionCompany->description }}</td>
-                                        <td>{{ $PositionCompany->state }}</td>
-                                        <form action="{{ route('cefa.eliminar_cargo', $PositionCompany->id) }}"
-                                            method="POST" class="formCargo">
-                                            @csrf
-                                            @method('DELETE')
-                                            <td>
-                                                <a href="{{ route('cefa.editar_cargo', ['id' => $PositionCompany->id]) }}"
-                                                    class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-
-                                                <button type="submit" class="btn btn-danger btn-sm"><i
-                                                        class="fas fa-trash-alt"></i></button>
-                                        </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-
-        @section('content')
-        @show
-
-        <!-- Control Sidebar -->
-
-        <!-- /.control-sidebar -->
     </div>
+@endsection
 
-    <!-- Main Footer -->
-    @include('senaempresa::layouts.structure.footer')
-
-    @include('senaempresa::layouts.structure.scripts')
-
-    <!--scripts utilizados para procesos-->
-    @section('scripts')
+<!--scripts utilizados para procesos-->
+@section('scripts')
     <script>
         'use strict';
         // Selecciona todos los formularios con la clase "formEliminar"
@@ -120,7 +96,8 @@
                                             icon: 'success'
                                         }).then(() => {
                                             // Recargar la página u otra acción según sea necesario
-                                            location.reload(); // Recargar la página después de eliminar
+                                            location
+                                                .reload(); // Recargar la página después de eliminar
                                         });
                                     }
                                 })
@@ -133,11 +110,4 @@
                 });
             });
     </script>
-
-    @show
-
-    @section('dataTables')
-    @show
-</body>
-
-</html>
+@endsection

@@ -16,7 +16,8 @@ class SENAEMPRESAController extends Controller
      */
     public function index()
     {
-        return view('senaempresa::index');
+        $data = ['title' => 'Inicio'];
+        return view('senaempresa::index', $data);
     }
     public function senaempresa()
 
@@ -36,8 +37,8 @@ class SENAEMPRESAController extends Controller
     {
         // Verificar si ya existe un registro con el mismo nombre
         $existingSena = Senaempresa::where('name', $request->input('name'))->first();
-    
-      
+
+
 
         if ($existingSena) {
             // Si existe una vacante con el mismo nombre, verifica si está eliminada
@@ -50,24 +51,24 @@ class SENAEMPRESAController extends Controller
                 return redirect()->back()->with('error', 'SenaEmpresa ya existe en la base de datos');
             }
         } else {
-    
-        // El registro no existe, crea uno nuevo
-        $sena = new Senaempresa();
-        $sena->name = $request->input('name');
-        $sena->description = $request->input('description');
-    
-        if ($sena->save()) {
-            // Redirigir a la vista adecuada con un mensaje de éxito
-            alert()->success('success', trans('senaempresa::menu.Position successfully created.'));
-            return redirect()->route('company.senaempresa');
-        } else {
-            // Manejar el caso de error si la inserción falla
-            alert()->error('error', trans('senaempresa::menu.Error in creating the position.'));
-            return redirect()->back();
+
+            // El registro no existe, crea uno nuevo
+            $sena = new Senaempresa();
+            $sena->name = $request->input('name');
+            $sena->description = $request->input('description');
+
+            if ($sena->save()) {
+                // Redirigir a la vista adecuada con un mensaje de éxito
+                alert()->success('success', trans('senaempresa::menu.Position successfully created.'));
+                return redirect()->route('company.senaempresa');
+            } else {
+                // Manejar el caso de error si la inserción falla
+                alert()->error('error', trans('senaempresa::menu.Error in creating the position.'));
+                return redirect()->back();
+            }
         }
     }
-}
-    
+
 
     public function edit($id)
     {

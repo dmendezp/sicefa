@@ -71,10 +71,18 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('Estrategias/delete/{id}', 'SENAEMPRESAController@destroy')->name('company.senaempresa.eliminar_senaempresa');
 
         //Rutas para asociar cursos a senaempresa estrategias
-        Route::get('Estrategias/Asociar_Curso/', 'SENAEMPRESAController@cursos_senamepresa')->name('cefa.cursos_senaempresa');
-        Route::post('Estrategias/Curso_Asociado/', 'SENAEMPRESAController@curso_asociado_senaempresa')->name('cefa.curso_asociado_senaempresa');
-        Route::get('Estrategias/Mostrar_Curso/', 'SENAEMPRESAController@mostrar_asociado')->name('cefa.mostrar_asociados_senaempresa');
-        Route::delete('Estrategias/eliminar_asociacion', 'SENAEMPRESAController@eliminar_asociacion_empresa')->name('cefa.eliminar_asociacion_empresa');
+        Route::get('Estrategias/Asociar_Curso/', 'SENAEMPRESAController@cursos_senamepresa')->name('company.senaempresa.cursos_senaempresa');
+        Route::post('Estrategias/Curso_Asociado/', 'SENAEMPRESAController@curso_asociado_senaempresa')->name('company.senaempresa.curso_asociado_senaempresa');
+        Route::get('Estrategias/Mostrar_Curso/', 'SENAEMPRESAController@mostrar_asociado')->name('company.senaempresa.mostrar_asociados_senaempresa');
+        Route::delete('Estrategias/eliminar_asociacion', 'SENAEMPRESAController@eliminar_asociacion_empresa')->name('company.senaempresa.eliminar_asociacion_empresa');
+
+        //rutas de personal de senaempresa
+        Route::get('Personal/', 'StaffSenaempresaController@mostrar_personal')->name('company.senaempresa.personal');
+        Route::get('Personal/Nueva', 'StaffSenaempresaController@nuevo_personal')->name('company.senaempresa.nuevo_personal');
+        Route::post('Personal/Nueva', 'StaffSenaempresaController@personal_nuevo')->name('company.senaempresa.personal_nuevo');
+        Route::get('Personal/{id}/editar', 'StaffSenaempresaController@editar_personal')->name('company.senaempresa.editar_personal');
+        Route::post('Personal/{id}/actualizar', 'StaffSenaempresaController@personal_editado')->name('company.senaempresa.personal_editado');
+        Route::delete('Personal/delete/{id}', 'StaffSenaempresaController@destroy')->name('company.senaempresa.eliminar_personal');
 
         //Prestamos
         Route::get('Prestamos/', 'LoanController@register')->name('cefa.prestamos');
@@ -107,13 +115,5 @@ Route::middleware(['lang'])->group(function () {
         Route::get('Cargos/{id}/editar', 'PositionCompanyController@edit')->name('cefa.editar_cargo');
         Route::post('Cargos/{id}/actualizar', 'PositionCompanyController@update')->name('cefa.cargo_editado');
         Route::delete('cargos/delete/{id}', 'PositionCompanyController@destroy')->name('cefa.eliminar_cargo');
-
-        //rutas de personal de senaempresa
-        Route::get('Personal/', 'StaffSenaempresaController@mostrar_personal')->name('cefa.personal');
-        Route::get('Personal/Nueva', 'StaffSenaempresaController@nuevo_personal')->name('cefa.nuevo_personal');
-        Route::post('Personal/Nueva', 'StaffSenaempresaController@personal_nuevo')->name('cefa.personal_nuevo');
-        Route::get('Personal/{id}/editar', 'StaffSenaempresaController@editar_personal')->name('cefa.editar_personal');
-        Route::post('Personal/{id}/actualizar', 'StaffSenaempresaController@personal_editado')->name('cefa.personal_editado');
-        Route::delete('Personal/delete/{id}', 'StaffSenaempresaController@destroy')->name('cefa.eliminar_personal');
     });
 });

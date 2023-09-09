@@ -12,17 +12,6 @@ use Modules\SICA\Entities\Inventory;
 class LoanController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function new()
-    {
-        $data = ['title' => 'Nuevo'];
-        return view('senaempresa::Company.Loan.new', $data);
-    }
-
-
-    /**
      * Show the form for creating a new resource.
      * @return Renderable
      */

@@ -133,16 +133,16 @@
 
                         @if (in_array('senaempresa.admin', $userRoles))
                             <li class="nav-item">
-                                <a href="{{ route('cefa.mostrar_asociados_senaempresa') }}"
-                                    class="nav-link {{ !Route::is('cefa.mostrar_asociados_senaempresa') ?: 'active' }}">
+                                <a href="{{ route('company.senaempresa.mostrar_asociados_senaempresa') }}"
+                                    class="nav-link {{ !Route::is('company.senaempresa.mostrar_asociados_senaempresa') ?: 'active' }}">
                                     <i class="fas fa-file-invoice"></i>
                                     <p>{{ trans('senaempresa::menu.Courses SenaEmpresa') }}</p>
                                 </a>
                             </li>
                         @endif
                         <li class="nav-item">
-                            <a href="{{ route('cefa.personal') }}"
-                                class="nav-link {{ !Route::is('cefa.personal') ?: 'active' }}">
+                            <a href="{{ route('company.senaempresa.personal') }}"
+                                class="nav-link {{ !Route::is('company.senaempresa.personal') ?: 'active' }}">
                                 <i class="fas fa-users-cog"></i>
                                 <p>
                                     {{ trans('senaempresa::menu.Staff') }}

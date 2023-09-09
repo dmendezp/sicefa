@@ -2,60 +2,40 @@
 <html lang="en">
 @include('senaempresa::layouts.structure.head')
 
+@section('stylesheet')
+@show
 
 <body>
-    @csrf
+
     <div class="wrapper">
-
-
-
         <!-- Navbar -->
         @include('senaempresa::layouts.structure.navbar')
         <!-- /.navbar -->
-
-
         <!-- Main Sidebar Container -->
         @include('senaempresa::layouts.structure.aside')
-
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-12">
-                            <span id="real-time-date"></span>
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a
-                                        href="{{ route('senamepresa.index') }}">{{ trans('senaempresa::menu.Home') }}</a>
-                                </li>
-                            </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
+            @include('senaempresa::layouts.structure.breadcrumb')
             <!-- /.content-header -->
-
+            <!-- Main content -->
             @section('content')
             @show
-
-            <!-- Control Sidebar -->
-
-            <!-- /.control-sidebar -->
-
+            <!-- /.content -->
         </div>
-
+        <!-- /.content-wrapper -->
         <!-- Main Footer -->
         @include('senaempresa::layouts.structure.footer')
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    @include('senaempresa::layouts.structure.scripts')
 
-        @include('senaempresa::layouts.structure.scripts')
+    @section('scripts')
+    @show
 
-        <!--scripts utilizados para procesos-->
-        @section('scripts')
-        @show
-
-        @section('dataTables')
-        @show
+    @section('dataTables')
+    @show
 
 </body>
 
