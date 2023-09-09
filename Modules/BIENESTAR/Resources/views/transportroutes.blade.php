@@ -9,7 +9,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{ route('bienestar.transportroutes.store') }}" method="POST" role="form">
+                <form action="{{ route('cefa.bienestar.transportroutes.store') }}" method="POST" role="form">
                     @csrf
                     <div class="row p-4">
                         <div class="col-md-3">
@@ -35,7 +35,7 @@
                             <select name="bus" id="bus" class="form-control" required>
                                 <option value="">Selecciona un bus</option>
                                 @foreach ( $buses as $bus )
-                                <option value="{{ $bus->id }}" data-bus-driver="{{ $bus->bus_driver->name }}">{{ $bus->plate }}</option>                            
+                                <option value="{{ $bus->id }}" data-bus-driver="{{ $bus->bus_driver->name }}">{{ $bus->plate }}</option>
                                 @endforeach
 
                             </select>
@@ -71,7 +71,7 @@
                                 <th>Id</th>
                                 <th>Numero De Ruta:</th>
                                 <th>Nombre De La Ruta:</th>
-                                <th>Parada Bus:</th>                                
+                                <th>Parada Bus:</th>
                                 <th>Hora Llegada:</th>
                                 <th>Hora Salida:</th>
                                 <th>Placa</th>
@@ -90,8 +90,12 @@
                                 <td>{{ $transport->bus->plate}}</td>
                                 <td>
                                     <button class="btn btn-primary editButton" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>
-                                    <!-- Botón para abrir el modal de eliminación -->
-                                    <button class="btn btn-danger deleteButton" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#deleteModal{{ $transport->id }}"><i class="fas fa-trash-alt"></i></button>                               
+                                    <form action="{{ route('cefa.bienestar.transportroutes.destroy', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
+                                        @csrf
+                                        @method("DELETE")
+                                        <!-- Botón para abrir el modal de eliminación -->
+                                        <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -115,7 +119,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('bienestar/transportroutes/update/id') }}" method="POST" role="form">
+                <form action="{{ url('cefa.bienestar/transportroutes/update/id') }}" method="POST" role="form">
                     @method('PUT')
                     @csrf
                     <div class="row p-4">
