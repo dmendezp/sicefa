@@ -89,5 +89,25 @@ return [
     'Assign Courses to SenaEmpresa'=>'Asignar Cursos a SenaEmpresa',
     'Course assigned to senaempresa successfully.'=>'Curso asignado a la senaempresa exitosamente.',
     'Associates Courses-Senaempresa'=>'Asociados Cursos-Senaempresa',
-	'senaempresa already exists!'=>'senaempresa ya existe!'
+	'senaempresa already exists!'=>'senaempresa ya existe!',
+
+
+    'We provide'=>'Prestamos',
+    'People ID'=>'Personal ID',
+    'Select Personal ID'=>'Selecciona ID personal',
+    'Select a Position'=>'Selecciona un Cargo',
+    'Start date and time'=>'Fecha y Hora de Inicio',
+    'Inventory ID'=>'ID Inventario',
+    'End date and time'=>'Fecha y hora de finalización',
+    'Provide'=>'Prestar',
+    'Return'=>'Devolver',
+    'Loan added successfully.'=>'Prestamo agregado exitosamente.',
+    'There is not enough in the inventory to make the loan.'=>'No hay suficiente cantidad en el inventario para realizar el préstamo.',
+    'Loan successfully repaid.'=>'Préstamo devuelto exitosamente.',
+    'The loan was not found.'=>'No se encontró el préstamo.',
+
+
+
+
+
 ];

@@ -93,5 +93,19 @@ return [
 	'senaempresa already exists!'=>'senaempresa already exists!'
 
 
+    'We provide'=>'We provide',
+    'People ID'=>'People ID',
+    'Select Personal ID'=>'Select Personal ID',
+    'Select a Position'=>'Select a Position',
+    'Start date and time'=>'Start date and time',
+    'Inventory ID'=>'Inventory ID',
+    'End date and time'=>'End date and time',
+    'Provide'=>'Provide',
+    'Return'=>'Return',
+    'Loan added successfully.'=>'Loan added successfully.',
+    'There is not enough in the inventory to make the loan.'=>'There is not enough in the inventory to make the loan.',
+    'Loan successfully repaid.'=>'Loan successfully repaid.',
+    'The loan was not found.'=>'The loan was not found.',
+
 
 ];
