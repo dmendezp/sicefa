@@ -18,7 +18,7 @@ class CreateEnvironmentalAspectsTable extends Migration
             $table->string('name');
             $table->foreignId('resource_id')->constrained()->onDelete('cascade');
             $table->enum('aspect_type', ['consumption', 'residue']);
-            $table->float('conversion_factor');
+            $table->float('conversion_factor', 8, 3 );
             $table->boolean('personal');
             $table->softDeletes();
             $table->timestamps();

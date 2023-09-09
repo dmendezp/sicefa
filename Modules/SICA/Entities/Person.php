@@ -12,6 +12,7 @@ use Modules\SICA\Entities\Apprentice;
 use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
+use Modules\HDC\Entities\FamilyPersonFootprint;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Event;
 
@@ -122,6 +123,9 @@ class Person extends Model implements Auditable
     }
     public function farms(){ // Accede a todas las granjas que lidera esta persona
         return $this->hasMany(Farm::class);
+    }
+    public function familypersonfootprints(){ // Accede a todas las granjas que lidera esta persona
+        return $this->hasMany(FamilyPersonFootprint::class);
     }
     public function inventories(){ // Accede a todos los registros de inventarios que estan a cargo de esta persona
         return $this->hasMany(Inventory::class);

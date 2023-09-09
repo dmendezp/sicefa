@@ -15,8 +15,11 @@ class CreateFamilyPersonFootprintsTable extends Migration
     {
         Schema::create('family_person_footprints', function (Blueprint $table) {
             $table->id();
-
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->integer('carbon_print');
+            $table->softDeletes();
             $table->timestamps();
+            $table->unique(['family_person_footprint_id','person_id'], 'unique_family_person_footprint_person');
         });
     }
 
@@ -27,6 +30,7 @@ class CreateFamilyPersonFootprintsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('family_person_footprints');
     }
 }
