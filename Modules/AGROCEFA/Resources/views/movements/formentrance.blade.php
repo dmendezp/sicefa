@@ -1,5 +1,5 @@
 @extends('agrocefa::layouts.master')
-<link rel="stylesheet" href="{{ asset('agrocefa/css/movements.css') }}"> id="card-header"
+<link rel="stylesheet" href="{{ asset('agrocefa/css/movements.css') }}">
 @section('content')
 
 @if (session('success'))
@@ -11,10 +11,10 @@
         showConfirmButton: false,
         timer: 1500,
         customClass: {
-            popup: 'my-custom-popup-class', // Clase CSS personalizada para el cuadro de diálogo
+            popup: 'my-custom-popup-class', 
         },
         onOpen: () => {
-            // Cuando se abre el cuadro de diálogo, centrarlo verticalmente
+
             const popup = document.querySelector('.my-custom-popup-class');
             if (popup) {
             popup.style.display = 'flex';
@@ -36,13 +36,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         {!! Form::label('date', 'Fecha') !!}
-                        {!! Form::text('date', $date, ['class' => 'form-control', 'required', 'disabled' => 'disabled']) !!}
+                        {!! Form::text('date', $date, ['class' => 'form-control', 'required', 'readonly' => 'readonly']) !!}
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        {!! Form::label('user_id', 'Responsable') !!}
-                        {!! Form::select('user_id', $people->pluck('first_name', 'id'), null, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
+                        {!! Form::label('user_id', 'Responsable Entrega') !!}
+                        {!! Form::select('user_id', $people, null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
                     </div>
                     
                 </div>
@@ -50,8 +50,8 @@
             <br>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header" id="card-header">
+                    <div class="card" id="card">
+                        <div class="card-header" id="card_header">
                             Entrega
                         </div>
                         <div class="card-body">
@@ -63,8 +63,8 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header" id="card-header">
+                    <div class="card" id="card">
+                        <div class="card-header" id="card_header">
                             Recibe
                         </div>
                         <div class="card-body">
@@ -79,7 +79,7 @@
             <div class="row">
                 <div class="form-group">
                     {!! Form::label('observation', 'Observacion') !!}
-                    {!! Form::textarea('observation', null,  ['class' => 'form-control', 'required']) !!}
+                    {!! Form::textarea('observation', null,  ['class' => 'form-control', 'style' => 'max-height: 100px;']) !!}
                 </div>
             </div>
             <!-- Agregar la tabla dinámica -->
@@ -94,7 +94,7 @@
                             <th>Cantidad</th>
                             <th>Precio</th>
                             <th>Categoria</th>
-                            <th>Destino</th> <!-- Agregar la columna de Destino -->
+                            <th>Destino</th> 
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -117,7 +117,6 @@
     console.log("Contenido de  elements:", {!! json_encode($elements) !!});
 </script>
 <style>
-    /* Agrega esta regla CSS para ocultar la columna */
     #productTable th:nth-child(1),
     #productTable td:nth-child(1) {
         display: none;

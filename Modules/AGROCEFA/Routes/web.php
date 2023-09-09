@@ -10,13 +10,14 @@ use Modules\AGROCEFA\Http\Controllers\UsuarioController;
 Route::middleware(['lang'])->group(function() {
     Route::prefix('/agrocefa')->group(function() {
         
+        //Rutas Principales
         Route::get('/index', 'AGROCEFAController@index')->name('agrocefa.index');
         Route::get('/home', 'AGROCEFAController@home')->name('agrocefa.home');
         Route::get('/select-unit/{id}', 'AGROCEFAController@selectUnit')->name('agrocefa.select-unit');
-        Route::get('/insumos', 'AGROCEFAController@insumos')->name('agrocefa.insumos');
         Route::get('/bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
         Route::get('/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.parameters');
         Route::get('/user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
+
 
         //RUTAS DE INVENTARIO
         Route::get('/inventory', 'InventoryController@inventory')->name('agrocefa.inventory');
@@ -37,7 +38,11 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/obtener_price', 'MovementController@getprice')->name('agrocefa.getprice');
         Route::get('/obtener_datoselementoseleccionado', 'MovementController@obtenerDatosElemento')->name('agrocefa.obtenerdatos');
         
-        
+        // RUTAS PARA REPORTES
+
+        // Consumos
+        Route::get('/reports/consumption', 'Reports\ComsumptionController@viewconsumption')->name('agrocefa.reports.consumption');
+
 
         // RUTAS PARA ACTIVIDADES
         Route::get('/activities', 'Parameters\ActivityController@getActivitiesForSelectedUnit')->name('agrocefa.activities');
@@ -67,8 +72,10 @@ Route::middleware(['lang'])->group(function() {
 
         // RUTAS PARA ESPECIES
         Route::get('/species', 'Parameters\ParameterAgroController@listspecie')->name('agrocefa.species.index');
-        Route::put('/species/{id}', 'Parameters\ParameterAgroController@update')->name('agrocefa.species.update');
+        Route::get('/species/{id}/edit', 'SpecieController@editView')->name('agrocefa.species.edit');
+        Route::put('/species/{id}', 'Parameters\ParameterAgroController@update')->name('agrocefa.species.updat  e');
         Route::delete('/species/delete/{id}', 'Parameters\ParameterAgroController@destroy')->name('agrocefa.species.destroy');
+        Route::get('/species/create', 'SpecieController@create')->name('agrocefa.species.create');
         Route::post('/species', 'Parameters\ParameterAgroController@store')->name('agrocefa.species.store');
         
 
@@ -82,17 +89,12 @@ Route::middleware(['lang'])->group(function() {
         
         
 
-
-
-
-
-        
         //ruta de vista de desarrolladores
         Route::get('/desarrolladores', 'desarrolladoresController@index')->name('agrocefa.desarrolladores.index');
 
         //ruta para vista de bienvenida al usario
         Route::get('/usuario', 'usuarioController@index')->name('agrocefa.usuario.index');
-});
+    });
 
 
 });

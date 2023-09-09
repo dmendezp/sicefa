@@ -2,8 +2,8 @@
 
 namespace Modules\AGROCEFA\Http\Controllers;
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth; 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
@@ -49,37 +49,10 @@ class MovementController extends Controller
 
         // ---------------- Filtro para responsable -----------------------
         
-        // Verifica si hay un ID de unidad seleccionada en la sesión
-        if ($this->selectedUnitId) {
-            // Obtiene todas las actividades asociadas a la unidad productiva seleccionada
-            $activities = Activity::where('productive_unit_id', $this->selectedUnitId)->pluck('id');
-
-            // Obtiene el rol de las responsabilidades relacionadas con la actividades
-            $responsibilities = Responsibility::whereIn('activity_id', $activities)->pluck('role_id');
-
-            // Obtén los ids de usuarios relacionados con los roles de responsabilidades
-            $userIds = Role::whereIn('id', $responsibilities)
-                ->with('users:id')
-                ->get()
-                ->pluck('users')
-                ->flatten()
-                ->pluck('id')
-                ->unique()
-                ->toArray();
-
-            $people = User::whereIn('id', $userIds)
-                ->with('person:id,first_name,first_last_name')
-                ->get()
-                ->map(function ($user) {
-                    return [
-                        'id' => $user->id,
-                        'first_name' => $user->person->first_name,
-                        'person_id' => $user->person->id,
-                        'first_last_name' => $user->person->first_last_name,
-                    ];
-                });
-
-            Session::put('person_id', $people->first()['person_id']);
+            $user = Auth::user();
+            if ($user->person) {
+                $people = [$user->person->id => $user->person->first_name];
+            }
             // ---------------- Filtro para Bodega de Entrega -----------------------
 
             $wer = 'Almacen';
@@ -130,9 +103,6 @@ class MovementController extends Controller
                 }); 
             }
 
-            $this->pivotReceiveId = $warehouseData->first()['id'];
-            Session::put('pivotReceiveId', $this->pivotReceiveId);
-
 
             
             // ---------------- Filtro para Elementos -----------------------
@@ -140,8 +110,6 @@ class MovementController extends Controller
             $elements = Element::select('id', 'name')->get();
 
 
-
-        }   
 
 
         // ---------------- Retorno a vista y funciones -----------------------
@@ -168,14 +136,11 @@ class MovementController extends Controller
         $deliverywarehouse = $request->input('deliverywarehouse');
         $receivewarehouse = $request->input('receivewarehouse');
         $products = json_decode($request->input('products'), true);
-        $identrance = Session::get('pivotId');
-        $idreceive = Session::get('pivotReceiveId');
-        $person_id = Session::get('person_id');
-        
+
         $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->first();
         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
 
-        $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id',$this->selectedUnitId)->first();
+        $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id','=','5')->first();
         $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
 
 
@@ -204,23 +169,23 @@ class MovementController extends Controller
 
                     // Buscar si el elemento ya existe en 'inventories' para la ubicación y elemento específicos
                     $existingInventory = Inventory::where([
-                        'productive_unit_warehouse_id' => $idreceive,
+                        'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
                         'element_id' => $productElementId,
                     ])->first();
 
-                    dd($existingInventory);
 
                     if ($existingInventory) {
                         // Si el elemento existe, actualiza el precio y la cantidad
                         $existingInventory->price = $price;
                         $existingInventory->amount += $quantity;
                         $existingInventory->save();
+                        $inventoryIds[] = $existingInventory->id;
                     } else {
                         // Si el elemento no existe, crea un nuevo registro en 'inventories'
                         $stock = 3; // Este valor puede cambiar según tus requisitos
 
                         $inventory = new Inventory([
-                            'person_id' => $person_id,
+                            'person_id' => $user_id,
                             'productive_unit_warehouse_id' => $idreceive,
                             'element_id' => $productElementId,
                             'destination' => $destination,
@@ -289,7 +254,7 @@ class MovementController extends Controller
 
                 // Registrar el responsable del movimiento
                 $movement_responsabilities = new MovementResponsibility([
-                    'person_id' => $person_id, // Usar la variable $person_id
+                    'person_id' => $user_id, // Usar la variable $person_id
                     'movement_id' => end($movementIds),
                     'role' => 'REGISTRO',
                     'date' => $date,
@@ -397,26 +362,41 @@ class MovementController extends Controller
     }
 
 
-    public function obtenerwarehouse(Request $request) 
+    public function obtenerwarehouse(Request $request)
     {
         try {
             $productUnitId = $request->input('unit');
-            
+
+            $responsibility = ProductiveUnit::with('person')->where('id', $productUnitId)->first();
+
+            if ($responsibility) {
+                $people = [
+                    'person_id' => $responsibility->person_id,
+                    'first_name' => $responsibility->person->first_name,
+                ];
+
+                // Guarda el responsable en la sesión
+                Session::put('responsibilityreceive', $people);
+            }
+
             // Obtener las IDs de las bodegas relacionadas con la unidad productiva seleccionada
             $warehouseIds = ProductiveUnitWarehouse::where('productive_unit_id', $productUnitId)->pluck('warehouse_id');
-            
+
             // Consulta las bodegas correspondientes a las IDs obtenidas
             $warehouses = Warehouse::whereIn('id', $warehouseIds)->pluck('name', 'id');
-            if ($warehouses) {
-                // Devuelve la respuesta JSON con los nombres de las bodegas
-                return response()->json($warehouses);
-            } else {
-                return response()->json(['error' => 'Elemento no encontrado'], 404);
-            }
+
+            // Combinar la información del responsable y las bodegas en un solo arreglo
+            $response = [
+                'responsibility' => $people ?? null,
+                'warehouses' => $warehouses->toArray(),
+            ];
+
+            return response()->json($response);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
+
 
 
     public function obtenerelement(Request $request) 
@@ -425,8 +405,11 @@ class MovementController extends Controller
             $warehouseId = $request->input('warehouse');
             
             // Obtener las IDs de las bodegas relacionadas con la unidad productiva seleccionada
-            $warehouseIds = ProductiveUnitWarehouse::where('warehouse_id', $warehouseId)->pluck('id');
-            
+            $warehouseIds = ProductiveUnitWarehouse::where('warehouse_id', $warehouseId)->where('productive_unit_id', Session::get('selectedUnitId'))->pluck('id');
+
+            // Registrar un mensaje de información con los IDs de las bodegas
+            \Log::info('Bodega IDs:', $warehouseIds->toArray());
+
             // Obtener los elementos de las bodegas
             $inventory = Inventory::whereIn('productive_unit_warehouse_id', $warehouseIds)->get();
 
@@ -445,12 +428,20 @@ class MovementController extends Controller
                 // Devuelve la respuesta JSON con los IDs y nombres de los elementos
                 return response()->json($elementsData);
             } else {
+                // Registra un mensaje de error
+                \Log::error('Elemento no encontrado');
+
                 return response()->json(['error' => 'Elemento no encontrado'], 404);
             }
         } catch (\Exception $e) {
+            // Registra un mensaje de error interno del servidor
+            \Log::error('Error interno del servidor: ' . $e->getMessage());
+
             return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
+
+
 
     public function formexit()
     {
@@ -464,90 +455,57 @@ class MovementController extends Controller
 
         // ---------------- Filtro para responsable -----------------------
         
-        // Verifica si hay un ID de unidad seleccionada en la sesión
-        if ($this->selectedUnitId) {
-            // Obtiene todas las actividades asociadas a la unidad productiva seleccionada
-            $activities = Activity::where('productive_unit_id', $this->selectedUnitId)->pluck('id');
-
-            // Obtiene el rol de las responsabilidades relacionadas con la actividades
-            $responsibilities = Responsibility::whereIn('activity_id', $activities)->pluck('role_id');
-
-            // Obtén los ids de usuarios relacionados con los roles de responsabilidades
-            $userIds = Role::whereIn('id', $responsibilities)
-                ->with('users:id')
-                ->get()
-                ->pluck('users')
-                ->flatten()
-                ->pluck('id')
-                ->unique()
-                ->toArray();
-
-            $people = User::whereIn('id', $userIds)
-                ->with('person:id,first_name,first_last_name')
-                ->get()
-                ->map(function ($user) {
-                    return [
-                        'id' => $user->id,
-                        'first_name' => $user->person->first_name,
-                        'person_id' => $user->person->id,
-                        'first_last_name' => $user->person->first_last_name,
-                    ];
-                });
-
-            Session::put('person_id', $people->first()['person_id']);
-
-
-
-            // ---------------- Filtro para Bodega de Entrega -----------------------
-
-            // Intenta encontrar la unidad productiva por su ID y verifica si se encuentra
-            $selectedUnit = ProductiveUnit::find($this->selectedUnitId);
-
-
-            // Inicializa un array para almacenar la información de las bodegas
-            $warehouseData = [];
-
-            // Verifica si hay registros en la tabla productive_unit_warehouses para esta unidad
-            if ($selectedUnit) {
-                $warehouses = $selectedUnit->productive_unit_warehouses;
-
-                // Mapea las bodegas y agrega su información al array
-                $warehouseData = $warehouses->map(function ($warehouseRelation) {
-                    $warehouse = $warehouseRelation->warehouse;
-                    return [
-                        'id' => $warehouse->id,
-                        'name' => $warehouse->name,
-                    ];
-                }); 
-            }
-
-            $this->pivotId = $warehouseData->first()['id'];
-            Session::put('pivotId', $this->pivotId);
-
-
-
-            // ---------------- Filtro para unidades -----------------------
-
-
-            $productunits = ProductiveUnit::all();
         
 
+        // ---------------- Filtro para Bodega de Entrega -----------------------
 
-            
-            // ---------------- Filtro para Elementos -----------------------
-
-
-            $elements = Element::select('id', 'name')->get();
+        // Intenta encontrar la unidad productiva por su ID y verifica si se encuentra
+        $selectedUnit = ProductiveUnit::find($this->selectedUnitId);
 
 
+        // Inicializa un array para almacenar la información de las bodegas
+        $warehouseData = [];
 
-        }   
+        // Verifica si hay registros en la tabla productive_unit_warehouses para esta unidad
+        if ($selectedUnit) {
+            $warehouses = $selectedUnit->productive_unit_warehouses;
+
+            // Mapea las bodegas y agrega su información al array
+            $warehouseData = $warehouses->map(function ($warehouseRelation) {
+                $warehouse = $warehouseRelation->warehouse;
+                return [
+                    'id' => $warehouse->id,
+                    'name' => $warehouse->name,
+                ];
+            }); 
+        }
+
+        $this->pivotId = $warehouseData->first()['id'];
+        Session::put('pivotId', $this->pivotId);
+
+
+
+        // ---------------- Filtro para unidades -----------------------
+
+
+        $productunits = ProductiveUnit::all();
+    
+
+
+        
+        // ---------------- Filtro para Elementos -----------------------
+
+
+        $elements = Element::select('id', 'name')->get();
+
+
+
+        
 
 
         // ---------------- Retorno a vista y funciones -----------------------
 
         return view('agrocefa::movements.formexit', [
-            'people' => $people,
             'date' => $date,
             'warehouseData' => $warehouseData,
             'elements' => $elements,
@@ -575,15 +533,21 @@ class MovementController extends Controller
         $product_unit = $request->input('product_unit'); // Bodega que entrega los elementos
         $receivewarehouse = $request->input('receivewarehouse'); // Bodega que recibe los elementos
         $products = json_decode($request->input('products'), true); // Array que contiene los elementos y su informacion
-        $person_id = Session::get('person_id'); // Responsable del movimiento
         
-        
+        $responsibility = ProductiveUnit::with('person')->where('id', $this->selectedUnitId)->first();
+
+        if ($responsibility) {
+
+            $personid = $responsibility->person_id;
+            $people = $responsibility->person->first_name;
+        }
+
         $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id',$this->selectedUnitId)->first();
         $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
         
         $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->where('productive_unit_id',$product_unit)->first();
         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
-
+        
         // Verificar si $products no es null y es un array
         if (!is_null($products) && is_array($products)) {
 
@@ -611,7 +575,6 @@ class MovementController extends Controller
                         'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
                         'element_id' => $productElementId,
                     ])->first();
-                    
                     if ($existingInventory) {
                         if ($quantity > $existingInventory->amount) {
                             // Mostrar un mensaje de error que incluye el nombre del elemento
@@ -621,8 +584,8 @@ class MovementController extends Controller
                         // Restar la cantidad solicitada del inventario existente
                         $existingInventory->amount -= $quantity;
                         $existingInventory->save();
-                        $inventoryIds[] = $existingInventory->id;
                         $existingInventoryId = $existingInventory->id;
+
                     } else {
                         // Manejar el caso en que no se encuentra ningún registro que cumpla con las condiciones
                         $existingInventoryId = null; // O cualquier otro valor predeterminado que desees
@@ -685,9 +648,17 @@ class MovementController extends Controller
 
                 // Registrar el responsable del movimiento
                 $movement_responsabilities = new MovementResponsibility([
-                    'person_id' => $person_id, // Usar la variable $person_id
+                    'person_id' => $user_id, 
                     'movement_id' => end($movementIds),
                     'role' => 'REGISTRO',
+                    'date' => $date,
+                ]);
+
+                // Registrar el responsable del movimiento
+                $movement_responsabilities = new MovementResponsibility([
+                    'person_id' => $personid, // Usar la variable $person_id
+                    'movement_id' => end($movementIds),
+                    'role' => 'RECIBE',
                     'date' => $date,
                 ]);
 

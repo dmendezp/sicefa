@@ -1,5 +1,11 @@
 @extends('agrocefa::layouts.master')
 
+
 @section('content')
-<h1>ELIMINAR</h1>
+
+
+<div class="container">
+    <h3>Reporte Consumo</h3>
+</div>
+
 @endsection

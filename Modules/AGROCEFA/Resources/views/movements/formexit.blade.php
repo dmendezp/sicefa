@@ -10,10 +10,10 @@
                 showConfirmButton: false,
                 timer: 1500,
                 customClass: {
-                    popup: 'my-custom-popup-class', // Clase CSS personalizada para el cuadro de diálogo
+                    popup: 'my-custom-popup-class',
                 },
                 onOpen: () => {
-                    // Cuando se abre el cuadro de diálogo, centrarlo verticalmente
+                    /
                     const popup = document.querySelector('.my-custom-popup-class');
                     if (popup) {
                         popup.style.display = 'flex';
@@ -33,10 +33,10 @@
                 showConfirmButton: false,
                 timer: 15000,
                 customClass: {
-                    popup: 'my-custom-popup-class', // Clase CSS personalizada para el cuadro de diálogo
+                    popup: 'my-custom-popup-class', 
                 },
                 onOpen: () => {
-                    // Cuando se abre el cuadro de diálogo, centrarlo verticalmente
+                    
                     const popup = document.querySelector('.my-custom-popup-class');
                     if (popup) {
                         popup.style.display = 'flex';
@@ -47,7 +47,7 @@
             });
         </script>
     @endif
-    <h2>Formulario Salida</h2>
+    <h2>{{ trans('agrocefa::movements.ExitForm') }}</h2>
 
     <div class="container" id="containermovements">
         <div class="card">
@@ -62,9 +62,14 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            {!! Form::label('user_id', 'Responsable') !!}
-                            {!! Form::select('user_id', $people->pluck('first_name', 'id'), old('user_id'), ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('user_id', 'Receptor Responsable') !!}
+                                <!-- Campo oculto para almacenar el ID del responsable -->
+                                {!! Form::hidden('user_id', null, ['id' => 'userId']) !!}
+                                <!-- Campo de solo lectura para mostrar el nombre del responsable -->
+                                {!! Form::text('responsibility_name_display', null, ['class' => 'form-control', 'readonly' => 'readonly', 'id' => 'responsibilityNameDisplay']) !!}
+                            </div>
                         </div>
                     </div>    
                 </div>
@@ -122,7 +127,7 @@
                     <div class="row">
                         <div class="form-group">
                             {!! Form::label('observation', 'Observacion') !!}
-                            {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'style' => 'max-height: 100px;', 'required']) !!}
+                            {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'style' => 'max-height: 100px;']) !!}
                         </div>
                     </div>
                 </div>
@@ -316,7 +321,7 @@
             // Manejador de eventos para obtener los elementos
             $('#deliverywarehouse').on('change', function() {
                 var selectedWarehouseId = $(this).val(); // Obtener el ID de la bodega seleccionada
-
+                
                 // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
                 $.ajax({
                     url: '{{ route('agrocefa.obtenerelement') }}', // Reemplaza 'agrocefa.obtenerelementos' con la ruta adecuada
@@ -349,6 +354,8 @@
                     }
                 });
             });
+
+            
 
             // Manejador de eventos para cambiar la unidad de medida, la categoría, la cantidad y el precio al seleccionar un elemento
             productTable.on('change', '.product-name', function() {
@@ -444,45 +451,44 @@
 
                 // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
                 $.ajax({
-                    url: '{{ route('agrocefa.warehouse') }}', // Reemplaza 'obtenerbodegas' con la ruta adecuada
-                    method: 'GET', // Puedes usar GET u otro método según tu configuración
+                    url: '{{ route('agrocefa.warehouse') }}',
+                    method: 'GET',
                     data: {
                         unit: selectedProductId
-                    }, // Enviar el ID seleccionado como parámetro
+                    },
                     success: function(response) {
                         // Manejar la respuesta de la solicitud AJAX aquí
                         console.log('Respuesta de la solicitud AJAX:', response);
 
-                        // Convertir el objeto JSON en un array de objetos
-                        var warehousesArray = [];
-                        for (var id in response) {
-                            if (response.hasOwnProperty(id)) {
-                                warehousesArray.push({
-                                    id: id,
-                                    name: response[id]
-                                });
-                            }
+                        // Verificar si hay un responsable en la respuesta
+                        if (response.responsibility) {
+                            var responsibleId = response.responsibility.person_id;
+                            var responsibleName = response.responsibility.first_name;
+
+                            // Asignar el valor del ID del responsable al campo oculto "userId"
+                            $('#userId').val(responsibleId);
+
+                            // Asignar el nombre del responsable al campo de solo lectura "responsibilityNameDisplay"
+                            $('#responsibilityNameDisplay').val(responsibleName);
+                            
+                        
+                        
+
+                            // Actualizar el campo "Bodega Recibe" con las opciones recibidas
+                            var receivewarehouseSelect = $('#receivewarehouse');
+                            receivewarehouseSelect.empty(); // Vaciar las opciones actuales
+                            receivewarehouseSelect.append(new Option('Seleccione la bodega', ''));
+
+                            // Agregar las nuevas opciones desde el objeto de bodegas en la respuesta JSON
+                            $.each(response.warehouses, function(id, name) {
+                                receivewarehouseSelect.append(new Option(name, id));
+                            });
+                        } else {
+                            // Mostrar un campo de selección vacío y limpiar el campo "Receptor Responsable"
+                            $('#user_id').val('');
+                            $('#responsibilityName').val('');
+                            $('#receivewarehouse').val('');
                         }
-                        console.log('Respuesta de la solicitud:', warehousesArray);
-
-
-                        // Actualizar el campo "Bodega Recibe" con las opciones recibidas
-                        var receivewarehouseSelect = $('#receivewarehouse');
-                        console.log('Campo "Bodega Recibe" seleccionado:',
-                            receivewarehouseSelect);
-                        receivewarehouseSelect.empty(); // Vaciar las opciones actuales
-
-                        // Agregar la opción predeterminada "Seleccione el elemento"
-                        receivewarehouseSelect.append(new Option('Seleccione el la bodega',
-                        ''));
-
-                        // Agregar las nuevas opciones desde el array de objetos
-                        $.each(warehousesArray, function(index, warehouse) {
-                            receivewarehouseSelect.append(new Option(warehouse.name,
-                                warehouse.id));
-                        });
-
-
                     },
                     error: function() {
                         // Manejar errores si la solicitud AJAX falla

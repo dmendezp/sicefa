@@ -58,7 +58,7 @@
                         </a>
                         <!-- Agregamos el ul.sub-list dentro del li.nav-link.reports -->
                         <ul class="sub-list">
-                            <li id="sublist-li"><a href="#"><i class='bx bxl-apple icon' ></i><span class="text nav-text">{{ trans('agrocefa::universal.Consumption')}}</span></a></li>
+                            <li id="sublist-li"><a href="{{ route('agrocefa.reports.consumption')}}"><i class='bx bxl-apple icon' ></i><span class="text nav-text">{{ trans('agrocefa::universal.Consumption')}}</span></a></li>
                             <li id="sublist-li"><a href="#"><i class='bx bx-objects-vertical-bottom icon'></i><span class="text nav-text">{{ trans('agrocefa::universal.Balance')}}</span></a></li>
                             <li id="sublist-li"><a href="#"><i class='bx bx-lemon icon' ></i><span class="text nav-text">{{ trans('agrocefa::universal.Production')}}</span></a></li>
                         </ul>  
@@ -130,15 +130,13 @@
 </nav>
 
 <script>
-   document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const reportLinks = document.querySelectorAll('.nav-link.reports');
 
     reportLinks.forEach(reportLink => {
         const subList = reportLink.querySelector('.sub-list');
 
         reportLink.addEventListener('click', function(event) {
-            event.preventDefault();
-
             // Si la sub-lista ya está abierta, ciérrala y restablece el margen superior
             if (subList.style.display === 'block') {
                 subList.style.display = 'none';
@@ -165,11 +163,12 @@
                     const subListHeight = subList.offsetHeight;
                     nextLink.style.marginTop = subListHeight <= 100 ? '80px' : '180px';
                 }
-                
-                reportLink.classList.add('active');
+
+                // No prevenir el comportamiento predeterminado, lo que permite redirigir
             }
         });
     });
 });
+
 
 </script>
