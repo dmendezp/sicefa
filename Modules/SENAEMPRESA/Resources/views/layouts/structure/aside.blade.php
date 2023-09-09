@@ -7,9 +7,6 @@
 
         <span class="brand-text font-weight-light">Sena Empresa</span>
     </a>
-
-
-
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
@@ -68,8 +65,6 @@
                 </ul>
             </nav>
         </div>
-
-
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -239,46 +234,16 @@
                         </li>
                     </ul>
                 </li>
-        </nav>
-
-
-
-
-
-
-        <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu"
-            data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-                 with font-awesome or any other icon font library -->
-
-            <li class="nav-item">
-                <a href="#" class="nav-link ">
-                    <i class="nav-icon far fa-list-alt"></i>
-                    <p>
-                        Turnos
-                        <i class="right fas fa-angle-left "></i>
-                    </p>
-                </a>
-
-                @guest
                 <li class="nav-item">
-                    <a href="{{ route('calendarTurno.home') }}"
-                        class="nav-link {{ !Route::is('calendarTurno.home') ?: 'active' }}">
-                        <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>Turnos por Calendario</p>
+                    <a href="#" class="nav-link ">
+                        <i class="nav-icon far fa-list-alt"></i>
+                        <p>
+                            Turnos
+                            <i class="right fas fa-angle-left "></i>
+                        </p>
                     </a>
-                </li>
-            @else
-                <ul class="nav nav-treeview">
-                    @if (Auth::user()->havePermission('senaempresa.turnosRutinarios'))
-                        <li class="nav-item">
-                            <a href="{{ route('turnosRutinarios') }}"
-                                class="nav-link {{ !Route::is('turnosRutinarios') ?: 'active' }}">
-                                <i class="nav-icon fas fa-people-carry"></i>
-                                <p>Turnos Rutinarios</p>
-                            </a>
-                        </li>
-                    @endif
+
+                    @guest
                     <li class="nav-item">
                         <a href="{{ route('calendarTurno.home') }}"
                             class="nav-link {{ !Route::is('calendarTurno.home') ?: 'active' }}">
@@ -286,34 +251,50 @@
                             <p>Turnos por Calendario</p>
                         </a>
                     </li>
-                    @if (Auth::user()->havePermission('senaempresa.fingerPrint.home'))
+                @else
+                    <ul class="nav nav-treeview">
+                        @if (Auth::user()->havePermission('senaempresa.turnosRutinarios'))
+                            <li class="nav-item">
+                                <a href="{{ route('turnosRutinarios') }}"
+                                    class="nav-link {{ !Route::is('turnosRutinarios') ?: 'active' }}">
+                                    <i class="nav-icon fas fa-people-carry"></i>
+                                    <p>Turnos Rutinarios</p>
+                                </a>
+                            </li>
+                        @endif
                         <li class="nav-item">
-                            <a href="{{ route('fingerPrint.home') }}"
-                                class="nav-link {{ !Route::is('fingerPrint.home') ?: 'active' }}">
-                                <i class="nav-icon far fa-id-card"></i>
-                                <p>Turnos Sena Empresa</p>
+                            <a href="{{ route('calendarTurno.home') }}"
+                                class="nav-link {{ !Route::is('calendarTurno.home') ?: 'active' }}">
+                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <p>Turnos por Calendario</p>
+                            </a>
+                        </li>
+                        @if (Auth::user()->havePermission('senaempresa.fingerPrint.home'))
+                            <li class="nav-item">
+                                <a href="{{ route('fingerPrint.home') }}"
+                                    class="nav-link {{ !Route::is('fingerPrint.home') ?: 'active' }}">
+                                    <i class="nav-icon far fa-id-card"></i>
+                                    <p>Turnos Sena Empresa</p>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                    </li>
+                    @if (Auth::user()->havePermission('senaempresa.work.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('work.index') }}"
+                                class="nav-link {{ !Route::is('work.index') ?: 'active' }}">
+                                <i class="nav-icon fas fa-hammer"></i>
+                                <p>
+                                    Works
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
                             </a>
                         </li>
                     @endif
-                </ul>
-                </li>
-                @if (Auth::user()->havePermission('senaempresa.work.index'))
-                    <li class="nav-item">
-                        <a href="{{ route('work.index') }}" class="nav-link {{ !Route::is('work.index') ?: 'active' }}">
-                            <i class="nav-icon fas fa-hammer"></i>
-                            <p>
-                                Works
-                                <span class="right badge badge-danger">New</span>
-                            </p>
-                        </a>
-                    </li>
-                @endif
 
-            @endguest
-        </ul>
-
-
-
+                @endguest
+            </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>

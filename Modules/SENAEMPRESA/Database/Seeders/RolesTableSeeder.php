@@ -45,7 +45,27 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
-        $rol_admin = User::where('nickname', 'JSM6580')->first();
-        $rol_admin->roles()->syncWithoutDetaching([$rol_admin->id]);
+        // Lista de usuarios para asignar el rol
+        $usuariosParaAsignarRol = [
+            'JSM6580',
+            'JMM6580',
+            'DAP6580',
+            'JLG6580',
+        ];
+
+        foreach ($usuariosParaAsignarRol as $nickname) {
+            // Obtener el usuario por su nickname
+            $usuario = User::where('nickname', $nickname)->first();
+
+            if ($usuario) {
+                if ($usuario) {
+                    // Asignar el rol al usuario utilizando su ID
+                    $usuario->roles()->syncWithoutDetaching([$rol_admin->id]);
+                } else {
+                    // Lanzar una excepción si el usuario no se encuentra
+                    throw new \Exception('Usuario no encontrado con el nickname JSM6580');
+                }
+            }
+        }
     }
 }
