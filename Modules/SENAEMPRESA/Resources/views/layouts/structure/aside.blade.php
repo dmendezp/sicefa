@@ -103,18 +103,17 @@
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item">
-                    <a href="{{ route('cefa.Contactos') }}"
-                        class="nav-link {{ !Route::is('cefa.Contactos') ?: 'active' }}">
+                    <a href="{{ route('company.contact') }}"
+                        class="nav-link {{ !Route::is('company.contact') ?: 'active' }}">
                         <i class="fas fa-home"></i>
                         <p>
                             {{ trans('senaempresa::menu.Contact') }}
                         </p>
                     </a>
                 </li>
-                <li class="nav-item {{ !Route::is('vacant.*') ?: 'menu-is-opening menu-open' }}">
-                    <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
+                <li class="nav-item {{ !Route::is('senaempresa.*') ?: 'menu-is-opening menu-open' }}">
+                    <a href="#" class="nav-link {{ !Route::is('senaempresa.*') ?: 'active' }}">
                         <i class="fas fa-chess-rook"></i>
                         <p>SenaEmpresa
                             <i class="right fas fa-angle-left"></i>
@@ -122,21 +121,30 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('cefa.senaempresa') }}"
-                                class="nav-link {{ !Route::is('cefa.senaempresa') ?: 'active' }}">
+                            <a href="{{ route('company.senaempresa') }}"
+                                class="nav-link {{ !Route::is('company.senaempresa') ?: 'active' }}">
                                 <i class="fas fa-chess-rook"></i>
                                 <p>
                                     {{ trans('senaempresa::menu.Strategies') }}
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('cefa.mostrar_asociados_senaempresa') }}"
-                                class="nav-link {{ !Route::is('cefa.mostrar_asociados_senaempresa') ?: 'active' }}">
-                                <i class="fas fa-file-invoice"></i>
-                                <p>{{ trans('senaempresa::menu.Courses SenaEmpresa') }}</p>
-                            </a>
-                        </li>
+                        @php
+                            $userRoles = auth()
+                                ->user()
+                                ->roles->pluck('slug')
+                                ->toArray();
+                        @endphp
+
+                        @if (in_array('senaempresa.admin', $userRoles))
+                            <li class="nav-item">
+                                <a href="{{ route('cefa.mostrar_asociados_senaempresa') }}"
+                                    class="nav-link {{ !Route::is('cefa.mostrar_asociados_senaempresa') ?: 'active' }}">
+                                    <i class="fas fa-file-invoice"></i>
+                                    <p>{{ trans('senaempresa::menu.Courses SenaEmpresa') }}</p>
+                                </a>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <a href="{{ route('cefa.personal') }}"
                                 class="nav-link {{ !Route::is('cefa.personal') ?: 'active' }}">
@@ -191,8 +199,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('cefa.Postulados') }}"
-                                class="nav-link {{ !Route::is('cefa.Postulados') ?: 'active' }}">
+                            <a href="{{ route('senaempresa.Postulados') }}"
+                                class="nav-link {{ !Route::is('senaempresa.Postulados') ?: 'active' }}">
                                 <i class="fas fa-address-card"></i>
                                 <p>{{ trans('senaempresa::menu.Postulates') }}</p>
                             </a>
@@ -241,7 +249,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu"
             data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
+                 with font-awesome or any other icon font library -->
 
             <li class="nav-item">
                 <a href="#" class="nav-link ">

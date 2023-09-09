@@ -60,27 +60,41 @@ class VacantController extends Controller
         return view('senaempresa::Company.Vacant.registration', $data);
     }
 
-
     public function store(Request $request)
     {
         $imagePath = $request->file('image')->store('images', 'public');
 
-        $vacancy = new Vacancy();
-        $vacancy->name = $request->input('name');
-        $vacancy->image = $imagePath;
-        $vacancy->description_general = $request->input('description_general');
-        $vacancy->requirement = $request->input('requirement');
-        $vacancy->position_company_id = $request->input('position_company_id');
-        $vacancy->start_datetime = $request->input('start_datetime');
-        $vacancy->end_datetime = $request->input('end_datetime');
+        // Verificar si ya existe una vacante con el mismo nombre (ignorando eliminaciones suaves)
+        $existingVacancy = Vacancy::withTrashed()->where('name', $request->input('name'))->first();
 
-        if ($vacancy->save()) {
-            $vacancy = Vacancy::all();
+        if ($existingVacancy) {
+            // Si existe una vacante con el mismo nombre, verifica si está eliminada
+            if ($existingVacancy->trashed()) {
+                // Restaura la vacante eliminada suavemente
+                $existingVacancy->restore();
+                return redirect()->route('cefa.vacantes')->with('success', 'Vacante Restaurado con exito!');
+            } else {
+                // Si la vacante no está eliminada, muestra una alerta
+                return redirect()->back()->with('error', 'Vacante ya existe en la base de datos');
+            }
+        } else {
+            // Si no existe una vacante con el mismo nombre, crea una nueva
+            $vacancy = new Vacancy();
+            $vacancy->name = $request->input('name');
+            $vacancy->image = $imagePath;
+            $vacancy->description_general = $request->input('description_general');
+            $vacancy->requirement = $request->input('requirement');
+            $vacancy->position_company_id = $request->input('position_company_id');
+            $vacancy->start_datetime = $request->input('start_datetime');
+            $vacancy->end_datetime = $request->input('end_datetime');
 
-            $data = ['title' => 'Nueva Vacante', 'vacancy' => $vacancy];
-            return redirect()->route('cefa.vacantes', $data)->with('success', trans('senaempresa::menu.Vacant added with success'));
+            if ($vacancy->save()) {
+                $data = ['title' => 'Nueva Vacante', 'vacancy' => $vacancy];
+                return redirect()->route('cefa.vacantes', $data)->with('success', trans('senaempresa::menu.Vacancy added with success'));
+            }
         }
     }
+
     public function getVacancyDetails($id)
     {
         $vacancy = Vacancy::find($id);
@@ -116,11 +130,13 @@ class VacantController extends Controller
         $vacancy->end_datetime = $request->input('end_datetime');
 
         if ($vacancy->save()) {
-            return redirect()->route('cefa.vacantes')->with('warning', trans('senaempresa::menu.Vacancy successfully updated.'));
+            return redirect()->route('cefa.vacantes')->with('success', trans('senaempresa::menu.Vacancy successfully updated.'));
         } else {
             return redirect()->back()->with('error', trans('senaempresa::menu.Error updating the Vacancy.'));
         }
     }
+
+
 
 
     public function destroy($id)

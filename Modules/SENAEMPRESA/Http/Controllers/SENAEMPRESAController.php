@@ -77,7 +77,7 @@ public function store(Request $request)
         // Actualiza otros campos según necesites
         $company->save();
 
-        return redirect()->route('cefa.senaempresa')->with('warning', trans('senaempresa::menu.Registration successfully updated.'));
+        return redirect()->route('company.senaempresa')->with('warning', trans('senaempresa::menu.Registration successfully updated.'));
     }
 
 
@@ -136,7 +136,7 @@ public function store(Request $request)
     {
         $senaempresas = senaempresa::get();
         $courses = Course::with('vacancy')->get();
-        $data = ['title' => trans('senaempresa::menu.Associates Courses-Senaempresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
+        $data = ['title' => trans('senaempresa::menu.Assign Courses to SenaEmpresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
         return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
     }
     public function eliminar_asociacion_empresa(Request $request)

@@ -26,29 +26,41 @@
                                     <th>Id</th>
                                     <th>{{ trans('senaempresa::menu.Name') }}</th>
                                     <th>{{ trans('senaempresa::menu.Description') }}</th>
-                                    <th style="width: 200px;">
-                                        <a href="{{ route('cefa.agrega') }}" class="btn btn-success btn-sm"><i
-                                                class="fas fa-user-plus"></i></a>
-                                    </th>
+                                    @php
+                                        $userRoles = auth()
+                                            ->user()
+                                            ->roles->pluck('slug')
+                                            ->toArray();
+                                    @endphp
+
+                                    @if (in_array('senaempresa.admin', $userRoles))
+                                        <th>
+                                            <a href="{{ route('company.senaempresa.agrega') }}"
+                                                class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
+                                        </th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($senaempresas as $senaempresa)
                                     <tr>
-                                    <td>{{ $senaempresa->id }}</td>
+                                        <td>{{ $senaempresa->id }}</td>
                                         <td>{{ $senaempresa->name }}</td>
                                         <td>{{ $senaempresa->description }}</td>
-                                        <form action="{{ route('cefa.eliminar_senaempresa', $senaempresa->id) }}"
-                                            method="POST" class="formsena">
-                                            @csrf
-                                            @method('DELETE')
-                                            <td>
-                                                <a href="{{ route('cefa.editarlo', ['id' => $senaempresa->id]) }}"
-                                                class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                                                <button type="submit" class="btn btn-danger btn-sm"><i
-                                                class="fas fa-trash-alt"></i></button>
+                                        @if (in_array('senaempresa.admin', $userRoles))
+                                            <form
+                                                action="{{ route('company.senaempresa.eliminar_senaempresa', $senaempresa->id) }}"
+                                                method="POST" class="formsena">
+                                                @csrf
+                                                @method('DELETE')
+                                                <td>
+                                                    <a href="{{ route('company.senaempresa.editarlo', ['id' => $senaempresa->id]) }}"
+                                                        class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                                            class="fas fa-trash-alt"></i></button>
                                             </form>
-                                        </td>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -76,7 +88,7 @@
 
     <!--scripts utilizados para procesos-->
     @section('scripts')
-    <script>
+        <script>
             'use strict';
             // Selecciona todos los formularios con la clase "formEliminar"
             var forms = document.querySelectorAll('.formsena');
