@@ -46,9 +46,6 @@ class ProductiveUnit extends Model implements Auditable
     public function environment_productive_units(){ // Accede a todos los registros de las asociaciones de ambientes y unidades productivas que pertenecen a esta unidad productiva
         return $this->hasMany(EnvironmentProductiveUnit::class);
     }
-    public function environments(){ // Accede a todos los ambientes de formación que pertenecen a esta unidad productiva
-        return $this->hasMany(Environment::class);
-    }
     public function farm(){ // Accede a la información de la finca al que pertenece
         return $this->belongsTo(Farm::class);
     }
