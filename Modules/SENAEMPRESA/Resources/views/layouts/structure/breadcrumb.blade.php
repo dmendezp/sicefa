@@ -1,6 +1,6 @@
 <div class="content-header">
     <div class="container-fluid">
-        <div id="divbreadcrumbs" class="row mb-2">
+        <div id="divbreadcrumb" class="row mb-2">
             <div class="col-sm-6">
                 <span id="real-time-date"></span>
             </div><!-- /.col -->

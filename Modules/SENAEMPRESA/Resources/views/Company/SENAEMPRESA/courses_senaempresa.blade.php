@@ -13,8 +13,8 @@
             </div>
         @endif
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
+            <div class="col-md-6">
+                <div class="card card-primary card-outline shadow">
                     <div class="card-header">{{ $title }}</div>
                     <div class="card-body">
                         <form action="{{ route('company.senaempresa.curso_asociado_senaempresa') }}" method="POST">

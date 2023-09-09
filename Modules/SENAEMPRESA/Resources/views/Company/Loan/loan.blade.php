@@ -13,8 +13,8 @@
             </div>
         @endif
         <div class="row justify-content-center mt-5">
-            <div class="col-md-8">
-                <div class="card">
+            <div class="col-md-6">
+                <div class="card card-primary card-outline shadow">
                     <div class="card-header">{{ trans('senaempresa::menu.We provide') }}</div>
                     <div class="card-body">
                         <form action="{{ route('cefa.prestamo_nuevo') }}" method="POST" enctype="multipart/form-data">
@@ -66,10 +66,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div><br>
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card card-primary card-outline shadow">
                     <div class="card-header">{{ $title }}</div>
 
                     <div class="card-body">

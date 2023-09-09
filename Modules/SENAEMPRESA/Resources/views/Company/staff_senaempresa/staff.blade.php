@@ -16,7 +16,7 @@
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
         <br>
         <div class="col-md-12">
-            <div class="card">
+            <div class="card card-primary">
                 <div class="card-body">
                     <table id="datatable" class="table table-striped table-bordered">
                         <thead>

@@ -7,6 +7,10 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('senamepresa.index') }}" class="nav-link ">{{ trans('senaempresa::menu.Home') }}</a>
         </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="{{ route('company.contact') }}" class="nav-link ">{{ trans('senaempresa::menu.Contact') }}
+            </a>
+        </li>
 
         <!--{{--
     <li class="nav-item d-none d-sm-inline-block">

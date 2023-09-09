@@ -13,8 +13,8 @@
             </div>
         @endif
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="formulario">
+            <div class="col-md-6">
+                <div class="card card-primary card-outline shadow">
                     <div class="card-header">{{ $title }}</div>
                     <div class="card-body">
                         <form action="{{ route('cefa.curso_asociado') }}" method="POST">
@@ -50,7 +50,7 @@
         </div>
         <div class="row justify-content-center mt-5">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card card-primary card-outline shadow">
                     <div class="card-header">{{ $title }}</div>
                     <div class="card-body">
                         <table id="datatable" class="table table-striped table-bordered">

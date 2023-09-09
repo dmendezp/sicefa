@@ -98,15 +98,6 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('company.contact') }}"
-                        class="nav-link {{ !Route::is('company.contact') ?: 'active' }}">
-                        <i class="fas fa-home"></i>
-                        <p>
-                            {{ trans('senaempresa::menu.Contact') }}
-                        </p>
-                    </a>
-                </li>
                 <li class="nav-item {{ !Route::is('senaempresa.*') ?: 'menu-is-opening menu-open' }}">
                     <a href="#" class="nav-link {{ !Route::is('senaempresa.*') ?: 'active' }}">
                         <i class="fas fa-chess-rook"></i>
@@ -217,14 +208,6 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('cefa.Nuevo') }}"
-                                class="nav-link {{ !Route::is('cefa.Nuevo') ?: 'active' }}">
-                                <i class="fas fa-external-link-alt"></i>
-                                <p>{{ trans('senaempresa::menu.New') }}</p>
-                            </a>
-                        </li>
-
                         <li class="nav-item">
                             <a href="{{ route('cefa.prestamos') }}"
                                 class="nav-link {{ !Route::is('cefa.prestamos') ?: 'active' }}">
