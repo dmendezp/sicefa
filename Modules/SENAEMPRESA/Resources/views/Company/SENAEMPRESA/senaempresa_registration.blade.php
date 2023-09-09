@@ -21,7 +21,7 @@
                         <div class="card-header">{{ $title }}</div>
 
                         <div class="card-body">
-                            <form action="{{ route('cefa.nuevos') }}" method="POST"  enctype="multipart/form-data">
+                            <form action="{{ route('company.senaempresa.guardado') }}" method="POST"  enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="name"

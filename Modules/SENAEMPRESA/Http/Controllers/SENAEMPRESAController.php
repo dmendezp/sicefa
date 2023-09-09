@@ -32,33 +32,42 @@ class SENAEMPRESAController extends Controller
         return view('senaempresa::Company.SENAEMPRESA.senaempresa_registration', $data);
     }
 
-public function store(Request $request)
-{
-    // Verificar si ya existe un registro con el mismo nombre
-    $existingSena = Senaempresa::where('name', $request->input('name'))->first();
+    public function store(Request $request)
+    {
+        // Verificar si ya existe un registro con el mismo nombre
+        $existingSena = Senaempresa::where('name', $request->input('name'))->first();
+    
+      
 
-    if ($existingSena) {
-        // El registro ya existe, muestra una alerta de SweetAlert
-        alert()->warning('warning', trans('senaempresa::menu.senaempresa already exists!'));
-        return redirect()->back(); // Redirige de vuelta al formulario
-    }
-    return view('senaempresa::Company.SENAEMPRESA.senaempresa', ['existingSena' => $existingSena]);
-
-    // El registro no existe, crea uno nuevo
-    $sena = new Senaempresa();
-    $sena->name = $request->input('name');
-    $sena->description = $request->input('description');
-
-    if ($sena->save()) {
-        // Redirigir a la vista adecuada con un mensaje de éxito
-        alert()->success('Éxito', trans('senaempresa::menu.Position successfully created.'));
-        return redirect()->route('cefa.senaempresa');
-    } else {
-        // Manejar el caso de error si la inserción falla
-        alert()->error('Error', trans('senaempresa::menu.Error in creating the position.'));
-        return redirect()->back();
+        if ($existingSena) {
+            // Si existe una vacante con el mismo nombre, verifica si está eliminada
+            if ($existingSena->trashed()) {
+                // Restaura la vacante eliminada suavemente
+                $existingSena->restore();
+                return redirect()->route('company.senaempresa')->with('success', 'SenaEmpresa Restaurado con exito!');
+            } else {
+                // Si la vacante no está eliminada, muestra una alerta
+                return redirect()->back()->with('error', 'SenaEmpresa ya existe en la base de datos');
+            }
+        } else {
+    
+        // El registro no existe, crea uno nuevo
+        $sena = new Senaempresa();
+        $sena->name = $request->input('name');
+        $sena->description = $request->input('description');
+    
+        if ($sena->save()) {
+            // Redirigir a la vista adecuada con un mensaje de éxito
+            alert()->success('success', trans('senaempresa::menu.Position successfully created.'));
+            return redirect()->route('company.senaempresa');
+        } else {
+            // Manejar el caso de error si la inserción falla
+            alert()->error('error', trans('senaempresa::menu.Error in creating the position.'));
+            return redirect()->back();
+        }
     }
 }
+    
 
     public function edit($id)
     {

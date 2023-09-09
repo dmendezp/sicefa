@@ -31,34 +31,36 @@ class PositionCompanyController extends Controller
         return view('senaempresa::Company.PositionCompany.position_registration', $data);
     }
 
-    public function store(Request $request)
-    {
-        $positionCompany = new PositionCompany();
+   public function store(Request $request)
+{
+    $requirement = $request->input('requirement');
 
+    // Buscar un registro eliminado por soft delete con el mismo valor en "requirement"
+    $existingPositionCompany = PositionCompany::withTrashed()
+        ->where('requirement', $requirement)
+        ->first();
 
-        $validatedData = $request->validate([
-            'requirement' => 'required',
-            'description' => 'required',
-            'state' => 'required',
-        ]);
-
-        // Verifica si el objeto se creó correctamente antes de asignar propiedades
-        if ($positionCompany) {
-            $positionCompany->requirement = $request->input('requirement');
-            $positionCompany->description = $request->input('description');
-            $positionCompany->state = $request->input('state'); // Obtener el valor seleccionado del select
-
-            if ($positionCompany->save()) {
-                // Redirigir a la vista adecuada con un mensaje de éxito
-                return redirect()->route('cefa.cargos')->with('success', trans('senaempresa::menu.Position successfully created.'));
-            } else {
-                // Manejar el caso de error si la inserción falla
-                return redirect()->back()->with('error', trans('senaempresa::menu.Error in creating the position.'));
-            }
-        } else {
-            return redirect()->back()->with('error', trans('senaempresa::menu.Failed to create PositionCompany object.'));
-        }
+    if ($existingPositionCompany && $existingPositionCompany->trashed()) {
+        // Si el registro existe y está eliminado por soft delete, restaurarlo
+        $existingPositionCompany->restore();
+        return redirect()->route('cefa.cargos')->with('success', 'Cargo restaurado con éxito.');
+    } elseif ($existingPositionCompany) {
+        // Si el registro existe pero no está eliminado, mostrar un mensaje de error
+        return redirect()->back()->with('error', 'El cargo ya existe en la base de datos.');
     }
+
+    // Si no se encuentra ningún registro existente, crear uno nuevo
+    $positionCompany = new PositionCompany();
+    $positionCompany->requirement = $requirement;
+    $positionCompany->description = $request->input('description');
+    $positionCompany->state = $request->input('state');
+
+    if ($positionCompany->save()) {
+        return redirect()->route('cefa.cargos')->with('success', 'Cargo creado con éxito.');
+    }
+}
+
+    
     public function edit($id)
     {
 
