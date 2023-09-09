@@ -58,3 +58,17 @@
 #elementInventory{
     width: 200px;
 }
+
+#movimientos{
+    position: relative;
+    top: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.table-deliveries{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}

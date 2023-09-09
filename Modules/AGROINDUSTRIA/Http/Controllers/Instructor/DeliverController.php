@@ -17,6 +17,7 @@ use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\WarehouseMovement;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 use Validator, Str;
@@ -27,6 +28,12 @@ class DeliverController extends Controller
     public function deliveries()
     {
         $title = 'Entregas';
+
+        $user = Auth::user();
+        if ($user->person) {
+            $idPersona = $user->person->id;
+        }
+        
 
         //Bodega que entrega
         $result = app(AGROINDUSTRIAController::class)->unidd();
@@ -63,12 +70,32 @@ class DeliverController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a product')])->pluck('name', 'id');
 
+        $people = User::whereNotNull('person_id')->pluck('person_id');
+        $productiveUnitPeople = ProductiveUnit::with('person')->whereIn('person_id', $people)->get();
+        $receive = $productiveUnitPeople->map(function ($productiveUnitPerson) {
+            $personId = $productiveUnitPerson->person->id;
+            $personName = $productiveUnitPerson->person->first_name . ' ' . $productiveUnitPerson->person->first_last_name . ' ' . $productiveUnitPerson->person->second_last_name;
+
+            return [
+                'id' => $personId,
+                'name' => $personName
+            ];
+        })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a receiver')])->pluck('name', 'id');
+
+        $movements = Movement::with(['movement_details', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
+        ->whereHas('movement_responsibilities', function ($query) use ($idPersona) {
+            $query->where('person_id', $idPersona);
+        })->get();
+        
+
         $data = [
             'title' => $title,
             'productiveUnitWarehouse' => $idProductiveUnitWarehouse,
             'warehouseDeliver' => $warehouseDeliver,
             'warehouseReceive' => $warehouseReceive,
             'elements' => $elements,
+            'receive' => $receive,
+            'movements' => $movements
         ];
 
         return view('agroindustria::instructor.movements.deliveries', $data);
@@ -93,6 +120,7 @@ class DeliverController extends Controller
         });
 
         $rules=[
+            'receive' => 'required',
             'deliver_warehouse' => 'required',
             'receive_warehouse' => 'required',
             'element' => 'required|at_least_one_element',
@@ -100,6 +128,7 @@ class DeliverController extends Controller
         ];
 
         $messages = [
+            'receive.required' => trans('agroindustria::menu.You must select a receiver'),
             'deliver_warehouse.required' => trans('agroindustria::menu.You must select a delivery warehouse'),
             'receive_warehouse.required' => trans('agroindustria::menu.You must select the winery that receives'),
             'element.required' => trans('agroindustria::menu.You must select an item'),
@@ -109,11 +138,10 @@ class DeliverController extends Controller
         $validatedData = $request->validate($rules, $messages);
  
         //Se trae el id de la persona logueada para registrar el responsable
-        $idPersona = null;
-         $user = Auth::user();
-         if ($user->person) {
-             $idPersona = $user->person->id;
-         }
+        $user = Auth::user();
+        if ($user->person) {
+            $idPersona = $user->person->id;
+        }
 
         //Consulta el tipo de movimiento con el id 2 que es Movimiento Interno
         $movementType = MovementType::find(2);
@@ -202,6 +230,13 @@ class DeliverController extends Controller
         $mr->person_id = $idPersona;
         $mr->movement_id = $mo->id;
         $mr->role = 'ENTREGA';
+        $mr->date = $request->input('date');
+        $mr->save();
+
+        $mr = new MovementResponsibility;
+        $mr->person_id = $validatedData['receive'];
+        $mr->movement_id = $mo->id;
+        $mr->role = 'RECIBE';
         $mr->date = $request->input('date');
         $mr->save();
 

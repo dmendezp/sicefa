@@ -59,13 +59,6 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/index', [WarehouseController::class ,'index'])->name('cefa.agroindustria.storer.index');
             Route::get('/inventory', [WarehouseController::class ,'Inventory'])->name('cefa.agroindustria.storer.inventory');
 
-        });
-
-           
-       
+        });       
     });
-
-
-   
-
 });

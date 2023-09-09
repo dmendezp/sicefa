@@ -24,6 +24,8 @@ return [
     //Movimiento interno
     'Exit from Cellar' => 'Exit from Cellar',
     'Date' => 'Date',
+    'Receiver' => 'Receiver',
+    'Select a receiver' => 'Select a receiver',
     'Warehouse that Delivers' => 'Warehouse that Delivers',
     'Warehouse that Receives' => 'Warehouse that Receives',
     'Observations' => 'Observations',
@@ -34,6 +36,7 @@ return [
     'Price' => 'Price:',
     'Select a product' => 'Select a product',
     'Select a winery' => 'Select a Winery',
+    'You must select a receiver' => 'You must select a receiver',
     'You must select a delivery warehouse' => 'You must select a delivery warehouse',
     'You must select the winery that receives' => 'You must select the winery that receives',
     'You must select an item' => 'You must select an item',

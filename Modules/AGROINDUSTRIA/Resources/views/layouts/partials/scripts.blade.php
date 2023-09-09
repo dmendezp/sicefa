@@ -1,3 +1,4 @@
+
 {{-- Dropdown traduccion --}}
 <script>
     function toggleDropdown() {
@@ -162,7 +163,12 @@ window.onclick = function(event) {
         @endif
     @endif
 </script>
+
+<script>
+    new DataTable('#deliveries');
+</script>
   
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/6364639265.js" crossorigin="anonymous"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>

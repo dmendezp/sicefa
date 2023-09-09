@@ -25,6 +25,8 @@ return [
     //Movimiento interno
     'Exit from Cellar' => 'Salida de Bodega',
     'Date' => 'Fecha',
+    'Select a receiver' => 'Seleccione un receptor',
+    'Receiver' => 'Receptor',
     'Warehouse that Delivers' => 'Bodega que Entrega',
     'Warehouse that Receives' => 'Bodega que Recibe',
     'Observations' => 'Observaciones',
@@ -35,6 +37,7 @@ return [
     'Price' => 'Precio:',
     'Select a product' => 'Seleccione un producto',
     'Select a winery' => 'Seleccione una Bodega',
+    'You must select a receiver' => 'Debe seleccionar un receptor',
     'You must select a delivery warehouse' => 'Debes seleccionar una bodega de entrega',
     'You must select the winery that receives' => 'Debes seleccionar la bodega que recibe',
     'You must select an item' => 'Debes seleccionar un elemento',

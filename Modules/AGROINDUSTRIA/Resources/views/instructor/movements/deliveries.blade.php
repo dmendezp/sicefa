@@ -7,10 +7,14 @@
     <div class="form-body">
       {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.instructor.movements.out')]) !!}
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           {!! Form::hidden('productiveUnitWarehouse', $productiveUnitWarehouse, ['id' => 'productiveUnitWarehouse']) !!}
           {!! Form::label('fecha', trans('agroindustria::menu.Date')) !!}
           {!! Form::date('date', now(), ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+        </div>
+        <div class="col-md-6">
+          {!! Form::label('receive', trans('agroindustria::menu.Receiver')) !!}
+          {!! Form::select('receive', $receive, old('receive'), ['class' => 'form-control']) !!}
         </div>
         <div class="col-md-6">
           {!! Form::label('deliver_warehouse', trans('agroindustria::menu.Warehouse that Delivers')) !!}
@@ -71,8 +75,14 @@
   </div>
 </div>
 
+<h3 id="movimientos">Movimientos</h3>
+<div class="table-deliveries">
+  @include('agroindustria::instructor.movements.table')
+</div>
+
 @section('script')
 @endsection
+
 
 <script>
 $(document).ready(function() {
