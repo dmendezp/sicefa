@@ -5,34 +5,34 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card card-green card-outline shadow col-md-8">
             <div class="card-header">
-                <h3 class="card-title">Gestión de Tipos de Beneficiarios</h3>
+                <h3 class="card-title">{{ trans('bienestar::menu.Beneficiary Type Management')}}</h3>
             </div>
             <div class="card-body">
-                <h2>Ingresar Nuevo Tipo de Beneficiarios</h2>
+                <h2>{{ trans('bienestar::menu.Enter New Beneficiary Type')}}</h2>
                 <form id="guardarTipoBeneficio" action="{{ route('cefa.typeofbenefits.store') }}" method="post">
                     @csrf
                     <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">Nombre del Tipo de Beneficiarios:</label>
+                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ trans('bienestar::menu.Beneficiary Type Name')}}:</label>
                         <div class="col-md-6">
-                            <input type="text" id="name" placeholder="Ingrese Tipo de Beneficiario" name="name" class="form-control" pattern="[A-Za-z\s]+" title="Solo se permiten letras y espacios" required>
+                            <input type="text" id="name" placeholder={{ trans('bienestar::menu.Enter Beneficiary Type')}} name="name" class="form-control" pattern="[A-Za-z\s]+" title="Solo se permiten letras y espacios" required>
                             <span id="name-error" class="text-danger" style="display: none;">Por favor, ingrese un beneficiario.</span>
                             <span id="duplicate-error" class="text-danger" style="display: none;">Este tipo de beneficiario ya está registrado.</span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-success" style="background-color: #00FF22;">Guardar</button>
+                            <button type="submit" class="btn btn-success" style="background-color: #00FF22;">{{ trans('bienestar::menu.Save')}}</button>
                         </div>
                     </div>
                 </form>
                 <div class="mtop16">
-                    <h2>Listado de Tipos de Beneficiarios</h2>
+                    <h2>{{ trans('bienestar::menu.List of Beneficiary Type')}}</h2>
                     <table id="typesOfBenefitsTable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Tipo de Beneficiarios</th>
-                                <th>Acciones</th>
+                                <th>{{ trans('bienestar::menu.Beneficiary Type')}}</th>
+                                <th>{{ trans('bienestar::menu.Actions')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,7 +63,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel_{{ $type->id }}">Editar Registro</h5>
+                        <h5 class="modal-title">{{ trans('bienestar::menu.Edit Record') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -72,23 +72,20 @@
                         <form action="{{ route('cefa.typeofbenefits.update', $type->id) }}" method="POST">
                             @csrf
                             @method('PUT') <!-- Usar el método PUT para la actualización -->
-                            <div class="form-group row">
-                                <label for="edit_name" class="col-md-4 col-form-label text-md-right">Editar Nombre del Tipo de Beneficiarios:</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="edit_name" name="name" value="{{ $type->name }}" class="form-control">
-                                </div>
+                            <div class="form-group">
+                                <label for="edit_name">{{ trans('bienestar::menu.Edit Beneficiary Type Name') }}:</label>
+                                <input type="text" id="edit_name" name="name" value="{{ $type->name }}" class="form-control">
                             </div>
-                            <div class="form-group row">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                </div>
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">{{ trans('bienestar::menu.Cancel') }}</button>
+                                <button type="submit" class="btn btn-primary">{{ trans('bienestar::menu.Save Changes') }}</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        
 
         <!-- Modal de eliminación -->
         <div class="modal fade" id="deleteModal_{{ $type->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel_{{ $type->id }}" aria-hidden="true">
