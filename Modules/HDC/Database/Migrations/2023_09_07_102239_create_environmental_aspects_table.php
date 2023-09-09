@@ -22,7 +22,8 @@ class CreateEnvironmentalAspectsTable extends Migration
             $table->boolean('personal');
             $table->softDeletes();
             $table->timestamps();
-            $table->unique(['environmental_aspect_id','resource_id'], 'unique_environmental_aspect_resource');
+            $table->unique(['resource_id'], 'unique_environmental_aspect_resource');
+
         });
     }
 

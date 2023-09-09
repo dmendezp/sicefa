@@ -13,7 +13,6 @@ class FamilyPersonFootprint extends Model implements Auditable
     SoftDeletes; // Borrado suave
 
 protected $fillable = [ // Atributos modificables (asignación masiva)
-    'person_id',
     'carbon_print'
 ];
 
