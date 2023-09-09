@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'jennyfermarin05@gmail.com',
             'password' => Hash::make('123456789')
         ]);
-        $person = Person::where('document_number', 1079173785)->first(); // Consultar Persona
+        $person = Person::where('document_number', 1081152391)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'DAP6580'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
             'email' => 'diegopenagos955@gmail.com',
