@@ -14,7 +14,7 @@
     @if (Session::has('message'))
         <div class="container">
             <div class="alert alert-{{ Session::get('typealert') }} py-1" style="display:block; margin-bottom: 16px;">
-                {{ Session::get('message') }}
+                {!! Session::get('message') !!}
                 @if ($errors->any())
                     <ul>
                         @foreach ($errors->all() as $error)

@@ -45,5 +45,8 @@ class Farm extends Model implements Auditable
     public function person(){ // Accede a la información de la persona líder de esta granja
         return $this->belongsTo(Person::class);
     }
+    public function productive_units(){ // Accede a todos las unidades productivas pertenecen a esta granja
+        return $this->hasMany(ProductiveUnit::class);
+    }
 
 }

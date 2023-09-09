@@ -6,13 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
-use Modules\SICA\Entities\EPS;
-use Modules\SICA\Entities\PopulationGroup;
-use Modules\SICA\Entities\Apprentice;
 use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
-use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Event;
 
 class Person extends Model implements Auditable
@@ -46,7 +42,8 @@ class Person extends Model implements Auditable
         'sena_email',
         'avatar',
         'biometric_code',
-        'population_group_id'
+        'population_group_id',
+        'pension_entity_id'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
@@ -134,6 +131,9 @@ class Person extends Model implements Auditable
     }
     public function municipality_events(){ // Accede a todos los registros de eventos en municipios que le pertenecen a esta persona
         return $this->hasMany(MunicipalityEvent::class);
+    }
+    public function pension_entity(){ // Accede a la entidad de pensiones al que pertenece
+        return $this->belongsTo(PensionEntity::class);
     }
     public function population_group(){ // Accede al grupo poblacional que pertenece
         return $this->belongsTo(PopulationGroup::class);
