@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
                 <h2>Ingresar Nuevo Tipo de Beneficiarios</h2>
-                <form id="guardarTipoBeneficio" action="{{ route('typeofbenefits.store') }}" method="post">
+                <form id="guardarTipoBeneficio" action="{{ route('cefa.typeofbenefits.store') }}" method="post">
                     @csrf
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label text-md-right">Nombre del Tipo de Beneficiarios:</label>
@@ -69,7 +69,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('typeofbenefits.update', $type->id) }}" method="POST">
+                        <form action="{{ route('cefa.typeofbenefits.update', $type->id) }}" method="POST">
                             @csrf
                             @method('PUT') <!-- Usar el método PUT para la actualización -->
                             <div class="form-group row">
@@ -105,7 +105,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <form action="{{ route('typeofbenefits.destroy', $type->id) }}" method="POST" style="display: inline;">
+                        <form action="{{ route('cefa.typeofbenefits.destroy', $type->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Eliminar</button>

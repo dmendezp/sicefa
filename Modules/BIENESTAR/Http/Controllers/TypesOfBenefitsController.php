@@ -108,14 +108,14 @@ class TypesOfBenefitsController extends Controller
     $type = TypesOfBenefits::find($id);
 
     if (!$type) {
-        return redirect()->route('bienestar.typeofbenefits')->with('error', 'Tipo de beneficio no encontrado.');
+        return redirect()->route('cefa.bienestar.typeofbenefits')->with('error', 'Tipo de beneficio no encontrado.');
     }
 
     // Actualizar el nombre del tipo de beneficio
     $type->name = $request->name;
     $type->save();
 
-    return redirect()->route('bienestar.typeofbenefits')->with('success', 'Tipo de beneficio actualizado correctamente.');
+    return redirect()->route('cefa.bienestar.typeofbenefits')->with('success', 'Tipo de beneficio actualizado correctamente.');
 }
 
     /**
@@ -128,6 +128,6 @@ class TypesOfBenefitsController extends Controller
         // Encuentra y elimina el registro por su ID
         TypesOfBenefits::destroy($id);
         // Redirige a la misma vista después de eliminar
-        return redirect()->route('bienestar.typeofbenefits');
+        return redirect()->route('cefa.bienestar.typeofbenefits')->with('success', 'Eliminacion Ejecutada Correctamente.');
     }
 }

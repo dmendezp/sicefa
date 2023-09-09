@@ -8,7 +8,7 @@
                 <h3 class="card-title">{{ __('Gestión de Tipos de Beneficios') }}</h3>
             </div>
             <div class="card-body">
-                {!! Form::open(['route' => 'bienestar.benefitstypeofbenefits.store', 'method' => 'POST', 'role' => 'form', 'id' => 'guardarTipoBeneficio']) !!}
+                {!! Form::open(['route' => 'cefa.bienestar.benefitstypeofbenefits.store', 'method' => 'POST', 'role' => 'form', 'id' => 'guardarTipoBeneficio']) !!}
                 <div class="row p-3">
                     <div class="col-md-4">
                         {!! Form::label('benefit_id', 'Seleccionar Tipo de Beneficio:') !!}
@@ -90,7 +90,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('bienestar.benefitstypeofbenefits.update', $type->id) }}" method="POST">
+                        <form action="{{ route('cefa.bienestar.benefitstypeofbenefits.update', $type->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="form-group row">
@@ -139,7 +139,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <form action="{{ route('benefitstypeofbenefits.destroy', $type->id) }}" method="POST" style="display: inline;">
+                        <form action="{{ route('cefa.bienestar.benefitstypeofbenefits.destroy', $type->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Eliminar</button>
