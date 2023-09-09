@@ -52,17 +52,6 @@
         .forEach(function(form) {
             form.addEventListener('submit', function(event) {
                 event.preventDefault(); // Evita que el formulario se envíe de inmediato
-@if (session('success'))
-<script>
-  Swal.fire({
-  icon: 'success',
-  title: 'Exito!',
-  text: '{{ session('success') }}',
-  showConfirmButton: false,
-  timer: 2000
-});
-</script>
-@endif
 
                 Swal.fire({
                     title: "Are you sure?'",
@@ -99,6 +88,17 @@
                 });
             });
         });
+@if (session('success'))
+<script>
+  Swal.fire({
+  icon: 'success',
+  title: 'Exito!',
+  text: '{{ session('success') }}',
+  showConfirmButton: false,
+  timer: 2000
+});
+</script>
+@endif
 </script>
 @if (session('error'))
 <script>
