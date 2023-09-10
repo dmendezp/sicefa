@@ -29,7 +29,7 @@ return [
 	'New Position' => 'New Position',
 	'Failed to create PositionCompany object.' => 'Failed to create PositionCompany object.',
 	'Error in creating the position.' => 'Error in creating the position.',
-	'Position successfully created.' => 'Position successfully created.',
+	'Position successfully created' => 'Position successfully created',
 	'Edit the position.' => 'Edit the position.',
 	'Vacancies' => 'Vacancies',
 	'Name' => 'Name',
@@ -112,6 +112,13 @@ return [
 	'There is not enough in the inventory to make the loan.' => 'There is not enough in the inventory to make the loan.',
 	'Loan successfully repaid.' => 'Loan successfully repaid.',
 	'The loan was not found.' => 'The loan was not found.',
+	'SenaEmpresa successfully created' => 'SenaEmpresa successfully created',
+	'SenaEmpresa already exists in the database' => 'SenaEmpresa already exists in the database',
+	'SenaEmpresa Successfully restored' => 'SenaEmpresa Successfully restored',
+	'Position successfully restored' => 'Position successfully restored',
+	'success' => 'success',
+
+	
 
 
 ];

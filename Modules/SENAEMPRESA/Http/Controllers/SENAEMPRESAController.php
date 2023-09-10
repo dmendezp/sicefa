@@ -45,10 +45,10 @@ class SENAEMPRESAController extends Controller
             if ($existingSena->trashed()) {
                 // Restaura la vacante eliminada suavemente
                 $existingSena->restore();
-                return redirect()->route('company.senaempresa')->with('success', 'SenaEmpresa Restaurado con exito!');
+                return redirect()->route('company.senaempresa')->with('success', trans('senaempresa::menu.SenaEmpresa Successfully restored'));
             } else {
                 // Si la vacante no está eliminada, muestra una alerta
-                return redirect()->back()->with('error', 'SenaEmpresa ya existe en la base de datos');
+                return redirect()->back()->with('error', trans('senaempresa::menu.SenaEmpresa already exists in the database'));
             }
         } else {
 
@@ -56,16 +56,10 @@ class SENAEMPRESAController extends Controller
             $sena = new Senaempresa();
             $sena->name = $request->input('name');
             $sena->description = $request->input('description');
-
             if ($sena->save()) {
-                // Redirigir a la vista adecuada con un mensaje de éxito
-                alert()->success('success', trans('senaempresa::menu.Position successfully created.'));
-                return redirect()->route('company.senaempresa');
-            } else {
-                // Manejar el caso de error si la inserción falla
-                alert()->error('error', trans('senaempresa::menu.Error in creating the position.'));
-                return redirect()->back();
+                return redirect()->route('company.senaempresa')->with('success', trans('senaempresa::menu.SenaEmpresa successfully created'));
             }
+
         }
     }
 
@@ -87,7 +81,7 @@ class SENAEMPRESAController extends Controller
         // Actualiza otros campos según necesites
         $company->save();
 
-        return redirect()->route('company.senaempresa')->with('warning', trans('senaempresa::menu.Registration successfully updated.'));
+        return redirect()->route('company.senaempresa')->with('success', trans('senaempresa::menu.Registration successfully updated.'));
     }
 
 

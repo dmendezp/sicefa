@@ -29,7 +29,7 @@ return [
 	'New Position' => 'Nuevo Cargo',
 	'Failed to create PositionCompany object.' => 'No se pudo crear el objeto PositionCompany.',
 	'Error in creating the position.' => 'Error al crear cargo.',
-	'Position successfully created.' => 'Cargo creado con éxito.',
+	'Position successfully created' => 'Cargo creado con éxito',
 	'Edit the position.' => 'Editar cargo',
 	'Vacancies' => 'Vacantes',
 	'Name' => 'Nombre',
@@ -109,6 +109,15 @@ return [
 	'There is not enough in the inventory to make the loan.' => 'No hay suficiente cantidad en el inventario para realizar el préstamo.',
 	'Loan successfully repaid.' => 'Préstamo devuelto exitosamente.',
 	'The loan was not found.' => 'No se encontró el préstamo.',
+	'SenaEmpresa successfully created' => 'SenaEmpresa creada con exito',
+	'SenaEmpresa already exists in the database' => 'SenaEmpresa ya existe en la base de datos',
+	'Position successfully restored' => 'Cargo restaurada con éxito',
+	'SenaEmpresa Successfully restored' => 'SenaEmpresa Restaurado con éxito',
+	'success' => 'éxito',
+	'mistake' => 'error',
+
+	
+
 
 
 

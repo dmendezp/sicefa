@@ -43,10 +43,10 @@ class PositionCompanyController extends Controller
     if ($existingPositionCompany && $existingPositionCompany->trashed()) {
         // Si el registro existe y está eliminado por soft delete, restaurarlo
         $existingPositionCompany->restore();
-        return redirect()->route('cefa.cargos')->with('success', 'Cargo restaurado con éxito.');
+        return redirect()->route('cefa.cargos')->with('success', trans('senaempresa::menu.Position successfully restored'));
     } elseif ($existingPositionCompany) {
         // Si el registro existe pero no está eliminado, mostrar un mensaje de error
-        return redirect()->back()->with('error', 'El cargo ya existe en la base de datos.');
+        return redirect()->back()->with('error', trans('senaempresa::menu.The position already exists in the database'));
     }
 
     // Si no se encuentra ningún registro existente, crear uno nuevo
@@ -56,7 +56,7 @@ class PositionCompanyController extends Controller
     $positionCompany->state = $request->input('state');
 
     if ($positionCompany->save()) {
-        return redirect()->route('cefa.cargos')->with('success', 'Cargo creado con éxito.');
+        return redirect()->route('cefa.cargos')->with('success', trans('senaempresa::menu.Position successfully created'));
     }
 }
 
@@ -79,7 +79,7 @@ class PositionCompanyController extends Controller
         // Actualiza otros campos según necesites
         $position->save();
 
-        return redirect()->route('cefa.cargos')->with('warning', trans('senaempresa::menu.Registry successfully updated'));
+        return redirect()->route('cefa.cargos')->with('success', trans('senaempresa::menu.Registration successfully updated.'));
     }
     public function destroy($id)
     {
