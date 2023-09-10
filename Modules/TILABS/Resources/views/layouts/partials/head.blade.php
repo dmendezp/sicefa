@@ -4,7 +4,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>TI-LABS | {{ $view['titlePage'] }}</title>
 <!-- Favicons -->
-<link href="{{ asset('tilabs/favicon.ico') }}" rel="icon">
+<link href="{{ asset('modules/tilabs/favicon.ico') }}" rel="icon">
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!--  Iconos de Font Awesome versión 6 -->

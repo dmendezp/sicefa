@@ -2,7 +2,7 @@
 <script src="{{ asset('libs/jquery-3.6.4.min.js') }}"></script>
 <!-- General Scripts -->
 <script src="{{ asset('js/generalscripts.js') }}"></script>
-<script src="{{ asset('tilabs/js/scripts.js') }}"></script>
+<script src="{{ asset('modules/tilabs/js/scripts.js') }}"></script>
 <!-- AdminLTE -->
 <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
 <!-- Boostrap-5.3.0 -->
