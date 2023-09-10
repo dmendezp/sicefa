@@ -166,13 +166,15 @@
                                 <p>{{ trans('senaempresa::menu.Positions') }}</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('cefa.mostrar_asociados') }}"
-                                class="nav-link {{ !Route::is('cefa.mostrar_asociados') ?: 'active' }}">
-                                <i class="fas fa-file-invoice"></i>
-                                <p>{{ trans('senaempresa::menu.Courses Vacancies') }}</p>
-                            </a>
-                        </li>
+                        @if (in_array('senaempresa.admin', $userRoles))
+                            <li class="nav-item">
+                                <a href="{{ route('company.vacant.mostrar_asociados') }}"
+                                    class="nav-link {{ !Route::is('company.vacant.mostrar_asociados') ?: 'active' }}">
+                                    <i class="fas fa-file-invoice"></i>
+                                    <p>{{ trans('senaempresa::menu.Courses Vacancies') }}</p>
+                                </a>
+                            </li>
+                        @endif
 
                     </ul>
                 </li>

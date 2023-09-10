@@ -50,7 +50,7 @@
                                     @foreach ($positionCompany as $position)
                                         <option value="{{ $position->id }}"
                                             @if ($position->id === $vacancy->position_company_id) selected @endif>
-                                            {{ $position->id }} {{ $position->description }}</option>
+                                            {{ $position->id }} {{ $position->requirement }}</option>
                                     @endforeach
                                 </select>
                             </div>

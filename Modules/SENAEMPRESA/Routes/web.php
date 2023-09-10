@@ -103,10 +103,10 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('Vacantes/eliminar_vacante/{id}', 'VacantController@destroy')->name('cefa.eliminar_vacante');
 
         //Asociar curso a vacante
-        Route::get('Vacantes/Asociar_Curso/', 'VacantController@asociar_curso')->name('cefa.asociar_curso');
-        Route::post('Vacantes/Curso_Asociado/', 'VacantController@curso_asociado')->name('cefa.curso_asociado');
-        Route::get('Vacantes/Mostrar_Curso/', 'VacantController@mostrar_asociados')->name('cefa.mostrar_asociados');
-        Route::delete('/eliminar_asociacion', 'VacantController@eliminarAsociacion')->name('cefa.eliminar_asociacion');
+        Route::get('Vacantes/Asociar_Curso/', 'VacantController@asociar_curso')->name('company.vacant.asociar_curso');
+        Route::post('Vacantes/Curso_Asociado/', 'VacantController@curso_asociado')->name('company.vacant.curso_asociado');
+        Route::get('Vacantes/Mostrar_Curso/', 'VacantController@mostrar_asociados')->name('company.vacant.mostrar_asociados');
+        Route::delete('/eliminar_asociacion', 'VacantController@eliminarAsociacion')->name('company.vacant.eliminar_asociacion');
 
         //rutas para cargo;
         Route::get('Cargos/', 'PositionCompanyController@cargar')->name('cefa.cargos');

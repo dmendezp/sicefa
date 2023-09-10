@@ -16,7 +16,7 @@ class SENAEMPRESAController extends Controller
      */
     public function index()
     {
-        $data = ['title' => 'Inicio'];
+        $data = ['title' => trans('senaempresa::menu.Home')];
         return view('senaempresa::index', $data);
     }
     public function senaempresa()

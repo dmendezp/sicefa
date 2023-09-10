@@ -29,8 +29,8 @@
                                 <th>{{ trans('senaempresa::menu.Start Date and Time') }}</th>
                                 <th>{{ trans('senaempresa::menu.Date and Time End') }}</th>
                                 <th class="text-center">{{ trans('senaempresa::menu.Registration') }}</th>
-                                <th><a href="{{ route('cefa.agregar_vacante') }}" class="btn btn-success btn-sm"><i
-                                            class="fas fa-user-plus"></i></a>
+                                <th style="width: 100px;"><a href="{{ route('cefa.agregar_vacante') }}"
+                                        class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
                                 </th>
                             </tr>
                         </thead>
@@ -50,7 +50,7 @@
                                         <td>
                                             @foreach ($PositionCompany as $position)
                                                 @if ($position->id == $vacancy->position_company_id)
-                                                    {{ $position->description }}
+                                                    {{ $position->requirement }}
                                                 @endif
                                             @endforeach
                                         </td>

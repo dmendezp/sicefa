@@ -72,10 +72,10 @@ class VacantController extends Controller
             if ($existingVacancy->trashed()) {
                 // Restaura la vacante eliminada suavemente
                 $existingVacancy->restore();
-                return redirect()->route('cefa.vacantes')->with('success', 'Vacante Restaurado con exito!');
+                return redirect()->route('cefa.vacantes')->with('success', trans('senaempresa::menu.Vacancy Successfully Restored!'));
             } else {
                 // Si la vacante no está eliminada, muestra una alerta
-                return redirect()->back()->with('error', 'Vacante ya existe en la base de datos');
+                return redirect()->back()->with('error', trans('senaempresa::menu.Vacancy already exists in database'));
             }
         } else {
             // Si no existe una vacante con el mismo nombre, crea una nueva
@@ -90,7 +90,7 @@ class VacantController extends Controller
 
             if ($vacancy->save()) {
                 $data = ['title' => 'Nueva Vacante', 'vacancy' => $vacancy];
-                return redirect()->route('cefa.vacantes', $data)->with('success', trans('senaempresa::menu.Vacancy added with success'));
+                return redirect()->route('cefa.vacantes', $data)->with('success', trans('senaempresa::menu.Vacant added with success'));
             }
         }
     }
@@ -176,10 +176,15 @@ class VacantController extends Controller
         $course = Course::findOrFail($courseId);
         $vacancy = Vacancy::findOrFail($vacancyId);
 
-        // Asigna el curso a la vacante
-        $course->vacancy()->attach($vacancy);
-
-        return redirect()->back()->with('success', trans('senaempresa::menu.Course assigned to the vacancy successfully.'));
+        // Verifica si la asociación ya existe
+        if (!$course->vacancy()->wherePivot('course_id', $courseId)->wherePivot('vacancy_id', $vacancyId)->exists()) {
+            // Asigna el curso a la vacante
+            $course->vacancy()->attach($vacancy);
+            return redirect()->back()->with('success', trans('senaempresa::menu.Course assigned to the vacancy successfully.'));
+        } else {
+            //Alerta de que esa asociación ya existe
+            return redirect()->back()->with('error', trans('senaempresa::menu.Association already exists.'));
+        }
     }
 
     public function mostrar_asociados()
@@ -199,12 +204,13 @@ class VacantController extends Controller
         $courseId = $request->input('course_id');
         $vacancyId = $request->input('vacancy_id');
 
-        $course = Course::findOrFail($courseId);
-        $vacancy = Vacancy::findOrFail($vacancyId);
-
-        // Desasigna el curso de la vacante
-        $course->vacancy()->detach($vacancy);
-
-        return redirect()->back()->with('danger', trans('senaempresa::menu.Association eliminated with success.'));
+        try {
+            $course = Course::findOrFail($courseId);
+            // Eliminar Asociación Especifica
+            $course->vacancy()->wherePivot('course_id', $courseId)->wherePivot('vacancy_id', $vacancyId)->detach();
+            return response()->json(['mensaje' => trans('senaempresa::menu.Association eliminated with success.')]);
+        } catch (\Exception $e) {
+            return response()->json(['mensaje' => trans('senaempresa::menu.Error deleting the association')], 500);
+        }
     }
 }
