@@ -23,7 +23,7 @@ return [
 
     //Movimiento interno
     'Exit from Cellar' => 'Exit from Cellar',
-    'Date' => 'Date',
+    'Date Time' => 'Date and Time',
     'Receiver' => 'Receiver',
     'Select a receiver' => 'Select a receiver',
     'Warehouse that Delivers' => 'Warehouse that Delivers',
@@ -44,6 +44,15 @@ return [
     'Successful check out' => 'Successful check out',
     'Check out error' => 'Check out error',
     'Quantity entered is greater than inventory quantity' => 'Quantity entered is greater than inventory quantity',
+    'Status of the edited movement' => 'Status of the edited movement',
+    'Error when editing movement status' => 'Error when editing movement status',
+    'Motion successfully cancelled' => 'Motion successfully cancelled',
+    'Movement Cancel Error' => 'Movement Cancel Error',
+    'Cancel' => 'Cancel',
+    'Required field' => 'Required field',
+    'Return' => 'Return',
+    'Movement successfully returned' => 'Movement successfully returned',
+    'Error when returning the movement' => 'Error when returning the movement'
 ]
 
 ?>

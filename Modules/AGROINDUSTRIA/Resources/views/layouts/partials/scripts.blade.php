@@ -165,9 +165,16 @@ window.onclick = function(event) {
 </script>
 
 <script>
-    new DataTable('#deliveries');
+    $(document).ready(function() {
+    $('#deliveries').DataTable({
+        "order": [[0, "desc"]], // Ordenar por la primera columna (Fecha de Solicitud) en orden descendente
+        "paging": true,
+        // Agrega otras opciones de configuración según tus necesidades
+    });
+});
 </script>
-  
+
+
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/6364639265.js" crossorigin="anonymous"></script>
