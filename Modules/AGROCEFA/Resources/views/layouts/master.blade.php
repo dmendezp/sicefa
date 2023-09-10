@@ -22,7 +22,7 @@
 
   </section>
 
-  <script src="{{ asset('agrocefa/js/sidebarclose.js')}}"></script>
-
+ 
+  @include('agrocefa::partials.script')
 </body>
 </html> 

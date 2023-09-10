@@ -73,7 +73,7 @@ Route::middleware(['lang'])->group(function() {
         // RUTAS PARA ESPECIES
         Route::get('/species', 'Parameters\ParameterAgroController@listspecie')->name('agrocefa.species.index');
         Route::get('/species/{id}/edit', 'SpecieController@editView')->name('agrocefa.species.edit');
-        Route::put('/species/{id}', 'Parameters\ParameterAgroController@update')->name('agrocefa.species.updat  e');
+        Route::put('/species/{id}', 'Parameters\ParameterAgroController@update')->name('agrocefa.species.update');
         Route::delete('/species/delete/{id}', 'Parameters\ParameterAgroController@destroy')->name('agrocefa.species.destroy');
         Route::get('/species/create', 'SpecieController@create')->name('agrocefa.species.create');
         Route::post('/species', 'Parameters\ParameterAgroController@store')->name('agrocefa.species.store');
