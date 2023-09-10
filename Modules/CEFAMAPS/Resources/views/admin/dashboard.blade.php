@@ -4,7 +4,7 @@
     <li class="breadcrumb-item">
       <a href="#">
         <i class="fas fa-solid fa-user-tie"></i>
-            {{ trans('cefamaps::menu.Administrator') }}
+            {{ trans('cefamaps::dashboard.Breadcrumb_CEFAMAPS_Admin') }}
       </a>
     </li>
 @endsection
@@ -17,8 +17,7 @@
                 <div class="col-lg-12">
                     <div class="card card-lightblue card-outline">
                         <div class="card-header">
-                            <h3 class="m-0">{{ trans('cefamaps::environment.Setting') }} {{ trans('cefamaps::menu.To') }}
-                                {{ trans('cefamaps::menu.cefamaps') }}</h3>
+                            <h3 class="m-0">{{ trans('cefamaps::dashboard.Title_Card_Settings') }}</h3>
                         </div>
                         <div class="card-body">
                             <div class="content">
@@ -27,20 +26,20 @@
                                         <a class="btn btn-app btn-app-2"
                                             href="{{ route('cefamaps.admin.config.sector.index') }}">
                                             <i class="fas fa-solid fa-vector-square"></i>
-                                            {{ trans('cefamaps::sector.Sector') }}
+                                            {{ trans('cefamaps::dashboard.Title_Card_Sectors') }}
                                         </a>
                                         <a class="btn btn-app  btn-app-2"
                                             href="{{ route('cefamaps.admin.config.unit.index') }}">
-                                            <i class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::unit.Units') }}
+                                            <i class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::dashboard.Title_Card_Units') }}
                                         </a>
                                         <a class="btn btn-app btn-app-2"
                                             href="{{ route('cefamaps.admin.config.environment.index') }}">
                                             <i class="fas fa-solid fa-chalkboard-user"></i>
-                                            {{ trans('cefamaps::environment.Environment') }}
+                                            {{ trans('cefamaps::dashboard.Title_Card_Environments') }}
                                         </a>
                                         <a class="btn btn-app btn-app-2"
                                             href="{{ route('cefamaps.admin.config.page.index') }}">
-                                            <i class="fas fa-regular fa-file-lines"></i> {{ trans('cefamaps::page.Page') }}
+                                            <i class="fas fa-regular fa-file-lines"></i> {{ trans('cefamaps::dashboard.Title_Card_Pages') }}
                                         </a>
                                     </div>
                                 </div>
@@ -58,7 +57,7 @@
 @section('script')
     <script>
         Swal.fire({
-            title: "{{ trans('cefamaps::menu.Welcome') }} {{ Auth::user()->roles[0]->name }} - {{ Auth::user()->nickname }}",
+            title: "{{ trans('cefamaps::dashboard.Title_Alert') }} {{ Auth::user()->roles[0]->name }} - {{ Auth::user()->nickname }}",
             position: 'top-end',
             showConfirmButton: false,
             timer: 2000,

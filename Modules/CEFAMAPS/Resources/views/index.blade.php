@@ -7,7 +7,7 @@
                 <div class="col-lg-12">
                     <div class="card card-lightblue card-outline">
                         <div class="card-header">
-                            <h5 class="m-0">{{ trans('cefamaps::menu.Overview map') }}</h5>
+                            <h5 class="m-0">{{ trans('cefamaps::mainPage.Overview_Map') }}</h5>
                         </div>
                         <div class="card-body">
                             <div id="map"></div>

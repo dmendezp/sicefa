@@ -2,12 +2,13 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i>
-            {{ trans('cefamaps::menu.Administrator') }}</a></li>
+            {{ trans('cefamaps::environment.Breadcrumb_Environment') }}</a></li>
     <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.environment.index') }}"><i
-                class="nav-icon fas fa-solid fa-chalkboard-user"></i> {{ trans('cefamaps::environment.Environment') }}</a>
+                class="nav-icon fas fa-solid fa-chalkboard-user"></i>
+            {{ trans('cefamaps::environment.Breadcrumb_Active_Environment') }}</a>
     </li>
-    <li class="breadcrumb-item"><a href="#"><i class="fa-solid fa-square-plus"></i> {{ trans('cefamaps::menu.Add') }}
-            {{ trans('cefamaps::environment.Environment') }}</a></li>
+    <li class="breadcrumb-item"><a href="#"><i class="fa-solid fa-square-plus"></i>
+            {{ trans('cefamaps::environment.Breadcrumb_Active_Add_Environment') }}</a></li>
 @endsection
 
 @section('content')
@@ -17,8 +18,7 @@
                 <div class="col-lg-12">
                     <div class="card card-lightblue card-outline">
                         <div class="card-header">
-                            <h3 class="m-0">{{ trans('cefamaps::menu.Add') }}
-                                {{ trans('cefamaps::environment.Environment') }}</h3>
+                            <h3 class="m-0">{{ trans('cefamaps::environment.Title_Card_Add_Environment') }}</h3>
                         </div>
                         <div class="card-body">
                             <form method="post" action="{{ route('cefamaps.admin.config.environment.add') }}"
@@ -26,23 +26,22 @@
                                 @csrf
                                 <!-- inicio del nombre -->
                                 <div class="form-group">
-                                    <label for="name">{{ trans('cefamaps::menu.Name') }}
-                                        {{ trans('cefamaps::menu.Of The') }}
-                                        {{ trans('cefamaps::environment.Environment') }}</label>
+                                    <label
+                                        for="name">{{ trans('cefamaps::environment.Label_Name_Environment') }}</label>
                                     <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <!-- fin del nombre -->
                                 <!-- inicio de la imagen -->
                                 <div class="form-group">
-                                    <label for="file">{{ trans('cefamaps::menu.Add') }}
-                                        {{ trans('cefamaps::environment.File') }}</label>
+                                    <label for="file">{{ trans('cefamaps::environment.Label_Add_File') }}</label>
                                     <input type="file" class="form-control" name="file" id="file"
                                         accept="image/*" required>
                                 </div>
                                 <!-- fin de la imagen -->
                                 <!-- inicio de la descripcion -->
                                 <div class="form-group">
-                                    <label for="description">{{ trans('cefamaps::environment.Description') }}</label>
+                                    <label
+                                        for="description">{{ trans('cefamaps::environment.Label_Description_Environment') }}</label>
                                     <input type="text" class="form-control" id="description" name="description" required>
                                 </div>
                                 <!-- fin de la descripcion -->
@@ -50,14 +49,16 @@
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="length">{{ trans('cefamaps::environment.Length') }}</label>
+                                            <label
+                                                for="length">{{ trans('cefamaps::environment.Label_Length_Environment') }}</label>
                                             <input type="text" class="form-control" id="length" name="lengthspot"
                                                 placeholder="-1.2345">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="latitude">{{ trans('cefamaps::environment.Latitude') }}</label>
+                                            <label
+                                                for="latitude">{{ trans('cefamaps::environment.Label_Latitude_Environment') }}</label>
                                             <input type="text" class="form-control" id="latitude" name="latitudespot"
                                                 placeholder="1.2345">
                                         </div>
@@ -66,7 +67,7 @@
                                         <div class="form-group">
                                             <br>
                                             <button type="button" class="btn btn-info" data-toggle="modal"
-                                                data-target="#modalPunto">{{ trans('cefamaps::environment.Map') }}</button>
+                                                data-target="#modalPunto">{{ trans('cefamaps::environment.Btn_Map') }}</button>
                                             <div class="modal fade" id="modalPunto">
                                                 <div class="modal-dialog modal-xl">
                                                     <div class="modal-content">
@@ -95,7 +96,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label
-                                                for="unit">{{ trans('cefamaps::environment.Productive units') }}</label>
+                                                for="unit">{{ trans('cefamaps::environment.Label_Productive_Unit') }}</label>
                                             {!! Form::select(
                                                 'productive_unit_id',
                                                 $unitadd,
@@ -106,8 +107,7 @@
                                     </div>
                                     <div class="col-3">
                                         <div class="form-group">
-                                            <label>{{ trans('cefamaps::menu.Add') }}
-                                                {{ trans('cefamaps::environment.Productive units') }}</label>
+                                            <label>{{ trans('cefamaps::environment.Label_Add_Productive_Unit') }}</label>
                                             <br>
                                             <a href="#" class="btn btn-light btn-block btn-outline-success addunit"
                                                 type="button">
@@ -122,8 +122,8 @@
                                     <!-- inicio de la clase de ambiente -->
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="class">{{ trans('cefamaps::menu.Class') }}
-                                                {{ trans('cefamaps::environment.Environment') }}</label>
+                                            <label
+                                                for="class">{{ trans('cefamaps::environment.Label_Environment_Class') }}</label>
                                             {!! Form::select(
                                                 'class_environment_id',
                                                 $classenvironadd,
@@ -136,7 +136,7 @@
                                     <div class="col">
                                         <!-- inicio de la Farm id -->
                                         <div class="form-group">
-                                            <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
+                                            <label for="farm">{{ trans('cefamaps::environment.Label_Farm') }}</label>
                                             {!! Form::select(
                                                 'farm_id',
                                                 $farm,
@@ -149,8 +149,8 @@
                                     <!-- inicio del estado del environment -->
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="status">{{ trans('cefamaps::menu.Status') }}
-                                                {{ trans('cefamaps::environment.Environment') }}</label>
+                                            <label
+                                                for="status">{{ trans('cefamaps::environment.Label_Environment_Status') }}</label>
                                             {!! Form::select('status', getEnumValues('environments', 'status'), null, [
                                                 'class' => 'form-control',
                                                 'placeholder' => 'Selecciona...',
@@ -163,13 +163,13 @@
                                 <!-- fin de los complementos de environment -->
                                 <!-- inicio de la prueba -->
                                 <div class="form-group">
-                                    <label>{{ trans('cefamaps::menu.Type') }}
-                                        {{ trans('cefamaps::environment.Coordinates') }}</label>
+                                    <label>{{ trans('cefamaps::environment.Label_Type_Coordinates') }}</label>
                                     <select id="option" class="form-control select2" name="type" required>
                                         <option value="">Seleccione...</option>
-                                        <option value="Polygon">{{ trans('cefamaps::environment.Polygon') }}</option>
+                                        <option value="Polygon">
+                                            {{ trans('cefamaps::environment.Select_Coordiante_Polygon') }}</option>
                                         <option value="EvacuationRoute">
-                                            {{ trans('cefamaps::environment.Evacuation route') }}</option>
+                                            {{ trans('cefamaps::environment.Select_Coordiante_Ev_Route') }}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -179,7 +179,7 @@
                                 <!-- inicio boton de agregar -->
                                 <div class="d-grid gap-2">
                                     <button type="submit"
-                                        class="btn btn-light btn-block btn-outline-info btn-lg">{{ trans('cefamaps::menu.Save') }}</button>
+                                        class="btn btn-light btn-block btn-outline-info btn-lg">{{ trans('cefamaps::environment.Btn_Add_Environment') }}</button>
                                 </div>
                                 <!-- fin boton de agregar -->
                             </form>
@@ -310,7 +310,7 @@
                     html += '<div class="form-group">';
                     html += '<label for="latituderou">{{ trans('cefamaps::environment.Latitude') }}</label>';
                     html +=
-                    '<input type="text" class="form-control m-input" id="latituderou" name="latituderou[]">';
+                        '<input type="text" class="form-control m-input" id="latituderou" name="latituderou[]">';
                     html += '</div>';
                     html += '</div>';
                     html += '<div class="col-1">';

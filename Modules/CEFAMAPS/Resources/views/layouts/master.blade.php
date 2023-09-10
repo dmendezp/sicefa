@@ -28,7 +28,7 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item">
                               <a href="{{ route('cefa.cefamaps.index') }}">
-                                <i class="fas fa-map-marked-alt"></i> {{ trans('cefamaps::menu.cefamaps') }}
+                                <i class="fas fa-map-marked-alt"></i> {{ trans('cefamaps::general.Breadcrumb_CEFAMAPS') }}
                               </a>
                             </li>
                             @section('breadcrumb')

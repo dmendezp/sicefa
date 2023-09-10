@@ -9,7 +9,7 @@
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="#"><i class="fas fa-fire-extinguisher"></i> {{ trans('cefamaps::SST.SST') }}</a>
+    <li class="breadcrumb-item"><a href="#"><i class="fas fa-fire-extinguisher"></i> {{ trans('cefamaps::sst.Breadcrumb_SST') }}</a>
     </li>
 @endsection
 
@@ -35,7 +35,7 @@
                             <div class="col-lg-12">
                                 <div class="card card-lightblue card-outline">
                                     <div class="card-header">
-                                        <h5 class="m-0">Vista para SST</h5>
+                                        <h5 class="m-0">{{ trans('cefamaps::sst.Title_Card_SST') }}</h5>
                                     </div>
                                     <div class="card-body">
                                         <div id="map"></div>
@@ -72,7 +72,7 @@
 
         <br>
 
-        <p class="card-text">Information the routes of evacuation</p>
+        <p class="card-text">{{ trans('cefamaps::sst.Title_Card_Info') }}</p>
         <div class="container">
             <div class="row">
                 <div class="col-6">
