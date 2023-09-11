@@ -29,29 +29,33 @@ class TypesOfBenefitsController extends Controller
         'name' => [
             'required',
             'max:255',
-            Rule::unique('types_of_benefits'), // Verifica si el valor es único en la tabla
+            Rule::unique('types_of_benefits')->whereNull('deleted_at'), // Verificar que el nombre sea único y que no esté eliminado
         ],
     ]);
 
-    // Verificar si el registro ya existe en la base de datos
-    $existingRecord = TypesOfBenefits::where('name', $request->name)->first();
+    // Buscar un registro eliminado con el mismo nombre
+    $existingDeletedRecord = TypesOfBenefits::onlyTrashed()
+        ->where('name', $request->name)
+        ->first();
 
-    if ($existingRecord) {
-        return response()->json(['error' => 'El tipo de beneficiario ya existe en la base de datos.'], 409);
-
+    if ($existingDeletedRecord) {
+        // Restaurar el registro eliminado
+        $existingDeletedRecord->restore();
+        return response()->json(['mensaje' => 'Tipo de beneficiario restaurado correctamente.'], 200);
     }
 
-    // Si no existe, crea el nuevo registro
+    // Crear un nuevo registro
     try {
         TypesOfBenefits::create([
             'name' => $request->name,
         ]);
 
-        return response()->json(['success' => 'Tipo de beneficiario creado correctamente.'], 200);
+        return response()->json(['mensaje' => 'Tipo de beneficiario creado correctamente.'], 200);
     } catch (\Exception $e) {
-        return response()->json(['message' => 'Ha ocurrido un error al intentar crear el tipo de beneficiario.'], 500);
+        return response()->json(['error' => 'Ha ocurrido un error al intentar crear el tipo de beneficiario.'], 500);
     }
 }
+
 
 
     
@@ -105,29 +109,49 @@ class TypesOfBenefitsController extends Controller
     ]);
 
     // Buscar el tipo de beneficio por su ID
-    $type = TypesOfBenefits::find($id);
+    $type = TypesOfBenefits::findOrFail($id);
 
     if (!$type) {
-        return redirect()->route('cefa.bienestar.typeofbenefits')->with('error', 'Tipo de beneficio no encontrado.');
+        // Manejar el error con un mensaje de error y un código de estado 404
+        return response()->json(['error' => 'Tipo de beneficio no encontrado.'], 404);
+    }
+
+    // Verificar si el nuevo valor del campo 'name' ya existe en otros registros
+    $existingRecord = TypesOfBenefits::where('name', $request->name)
+        ->where('id', '!=', $type->id) // Excluye el registro actual de la comprobación
+        ->first();
+
+    if ($existingRecord) {
+        // Manejar el error con un mensaje de error y un código de estado 409 (Conflicto)
+        return response()->json(['error' => 'No se puede actualizar el tipo de beneficiario. El nombre ya está en uso.'], 409);
     }
 
     // Actualizar el nombre del tipo de beneficio
     $type->name = $request->name;
     $type->save();
 
-    return redirect()->route('cefa.bienestar.typeofbenefits')->with('success', 'Tipo de beneficio actualizado correctamente.');
+    // Retornar una respuesta JSON para manejarla en el script de SweetAlert
+    return response()->json(['mensaje' => 'Tipo de beneficio actualizado correctamente.'], 200);
 }
+
+
 
     /**
      * Remove the specified resource from storage.
      * @param int $id
      * @return Renderable
      */
+    
     public function destroy($id)
     {
-        // Encuentra y elimina el registro por su ID
-        TypesOfBenefits::destroy($id);
-        // Redirige a la misma vista después de eliminar
-        return redirect()->route('cefa.bienestar.typeofbenefits')->with('success', 'Eliminacion Ejecutada Correctamente.');
+        try {
+            $typeofbenefits = TypesOfBenefits::findOrFail($id);
+            $typeofbenefits->delete();
+
+            return response()->json(['mensaje' =>'Vacancy eliminated with success']);
+        } catch (\Exception $e) {
+            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+        }
+        
     }
 }
