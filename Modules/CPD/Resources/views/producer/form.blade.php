@@ -1,7 +1,7 @@
 @if (isset($producer))
     {!! Form::hidden('producer_id', $producer->id) !!}
 @endif
-{!! Form::label('name', 'Nombre:', ['class' => 'mt-3']) !!}
+{!! Form::label('name', trans('cpd::producer.F_Text_Name'), ['class' => 'mt-3']) !!}
 <div class="input-group">
     <div class="input-group-prepend">
         <span class="input-group-text">

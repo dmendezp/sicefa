@@ -7,18 +7,16 @@ $(document).ready(function(){
     $('.alert').slideDown();
     setTimeout(function(){ $('.alert').slideUp(); }, 10000);
 
-});    
-    
-    function ajaxSearchPersonUser(){
-        var doc = $('#document_number').val();
-        if(doc.length>0){
-            var miObjeto = new Object();
-            miObjeto.document_number = $('#document_number').val();
-            miObjeto.id = $('#id').val();
-            miObjeto.nickname = $('#nickname').val();
-            miObjeto.personal_email = $('#personal_email').val();
-            $('.old').remove();
-            var myString = JSON.stringify(miObjeto);
-                ajaxReplace('divperson','/sica/admin/security/user/search',myString);
-        } 
+});
+
+function ajaxSearchPersonUser(){
+    document_number = $('#document_number').val();
+    if(document_number == ''){
+        alert('Es necesario ingresar un número de documento para consultar la persona');
+    }else{
+        var object = new Object();
+        object.document_number = document_number;
+        var data = JSON.stringify(object);
+        ajaxReplace('divperson','/sica/admin/security/users/search/person',data);
     }
+}

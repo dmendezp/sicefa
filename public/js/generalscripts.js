@@ -1,8 +1,6 @@
 var base = $(location).attr("origin");
 
-
 function ajaxReplace(element, route, data){
-	//alert(data);
     if(element.length>0){
       $.ajaxSetup({
         headers: {

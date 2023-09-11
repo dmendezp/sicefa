@@ -4,71 +4,59 @@ namespace Modules\PTVENTA\Http\Controllers;
 
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Modules\PTVENTA\Entities\CashCount;
-use Modules\SICA\Entities\Movement;
-use Modules\SICA\Entities\MovementType;
-use Modules\SICA\Entities\Warehouse;
 
 class CashController extends Controller
 {
-    /**
-     * Show the form for closing the cash count.
-     * @return Renderable
-     */
     public function index()
     {
-        $view = ['titlePage' => trans('ptventa::cash.Cash Control'), 'titleView' => trans('ptventa::cash.Cash Control')];
-        $cashCounts = CashCount::where('state', 'Abierta')->get();
-        $cashCountAll = CashCount::orderBy('closing_date', 'desc')->get();
-        $warehouse = Warehouse::where('name','Punto de venta')->first();
-        $movement_type = MovementType::where('name','Venta')->first();
-        $sales = Movement::whereDate('registration_date', Carbon::today()->toDateString())
-                            ->where('movement_type_id',$movement_type->id)
-                            ->orderBy('registration_date','DESC')
-                            ->get();
-        return view('ptventa::cash.cashCount', compact('view', 'cashCounts', 'cashCountAll', 'warehouse', 'sales'));
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_cash_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_cash_index_title_view')];
+        $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
+        $active_cash = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
+                                        ->where('state', 'Abierta')
+                                        ->first();
+        $cash_counts = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
+                                ->orderBy('updated_at', 'DESC')
+                                ->get();
+        return view('ptventa::cash.index', compact('view', 'active_cash', 'cash_counts'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
-        $warehouse = Warehouse::where('name','Punto de venta')->first();
-
+        $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         // Verificar si hay una caja abierta
-        $openCashCount = CashCount::where('warehouse_id', $warehouse->id)->where('state', 'Abierta')->first();
-        if ($openCashCount) {
-            return redirect()->route('ptventa.cashCount.index')->with('error', ' ');
+        $open_cash_count = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
+                                    ->where('state', 'Abierta')
+                                    ->first();
+        if ($open_cash_count) {
+            return redirect()->route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.cash.index')->with('error', ' ');
         }
-
         $cashCount = new CashCount();
         $cashCount->person_id = Auth::user()->person_id;
-        $cashCount->warehouse_id = Warehouse::where('name','Punto de venta')->first()->id;
+        $cashCount->productive_unit_warehouse_id = $app_puw->id;
         $cashCount->opening_date = Carbon::now();
         $cashCount->initial_balance = 0;
         $cashCount->final_balance = null;
         $cashCount->closing_date = null;
+        $cashCount->total_sales = null;
         $cashCount->state = 'Abierta';
         $cashCount->save();
-
-        return redirect()->route('ptventa.cashCount.index')->with('success', ' ');
+        return redirect()->route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.cash.index')->with('success', ' ');
     }
 
     public function close(Request $request)
     {
+        $request->merge(['final_balance' => revertPriceFormat(e($request->input('final_balance')))]); // Limpiar el valor de final_balance
         try {
             DB::beginTransaction();
             // Validar los datos recibidos
             $validatedData = $request->validate([
-                'final_balance' => 'required',
+                'final_balance' => 'required'
             ]);
 
             $cashCount = CashCount::find($request->input('cash_count_id'));
@@ -79,23 +67,26 @@ class CashController extends Controller
 
             $cashCount->save();
 
+            $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
             CashCount::create([
                 'person_id' => Auth::user()->person_id,
-                'warehouse_id' =>  Warehouse::where('name','Punto de venta')->first()->id,
+                'productive_unit_warehouse_id' =>  $app_puw->id,
                 'opening_date' => Carbon::now(),
                 'initial_balance' => 0,
                 'final_balance' => null,
                 'closing_date' => null,
+                'total_sales' => null,
                 'state' => 'Abierta',
             ]);
 
             DB::commit(); // Confirmar cambios realizados durante la transacción
 
-            return redirect()->back()->with('success', trans('ptventa::cash.Successfully_closed_cash.'));
+            return redirect()->back()->with('success', trans('ptventa::cash.TextSuccess'));
         } catch (Exception $e) { // Capturar error durante la transacción
             // Transacción rechazada
             DB::rollBack(); // Devolver cambios realizados durante la transacción
-            return redirect()->back()->with('error', trans('ptventa::cash.Failed_closed_cash.'));
+            $message = trans('ptventa::cash.TextFailed');
+            return redirect()->back()->with('error', $message);
         }
     }
 }
