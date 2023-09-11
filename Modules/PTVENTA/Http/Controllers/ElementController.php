@@ -15,13 +15,13 @@ use Illuminate\Support\Facades\Validator;
 class ElementController extends Controller
 {
     public function index(){ // Vista de galería de imágenes
-        $view = ['titlePage'=> trans('ptventa::element.titlePage1'), 'titleView'=> trans('ptventa::element.titleView1')];
+        $view = ['titlePage'=> trans('ptventa::controllers.PTVENTA_element_index_title_page'), 'titleView'=> trans('ptventa::controllers.PTVENTA_element_index_title_view')];
         return view('ptventa::element.index', compact('view'));
     }
 
     public function create()
     {
-        $view = ['titlePage'=> trans('ptventa::element.titlePage2'), 'titleView'=> trans('ptventa::element.titleView2')];
+        $view = ['titlePage'=> trans('ptventa::controllers.PTVENTA_element_create_title_page'), 'titleView'=> trans('ptventa::controllers.PTVENTA_element_create_title_view')];
         $measurement_units = MeasurementUnit::orderBy('name','ASC')->get();
         $categories = Category::orderBy('name','ASC')->get();
         $kind_of_purchases = KindOfPurchase::orderBy('name','ASC')->get();
@@ -77,7 +77,7 @@ class ElementController extends Controller
         $measurement_units = MeasurementUnit::orderBy('name','ASC')->get();
         $categories = Category::orderBy('name','ASC')->get();
         $kind_of_purchases = KindOfPurchase::orderBy('name','ASC')->get();
-        $view = ['titlePage'=>'Productos - Actualizar imagen', 'titleView'=>'Actualizar imagen de producto'];
+        $view = ['titlePage'=>trans('ptventa::controllers.PTVENTA_element_edit_title_page'), 'titleView'=> trans('ptventa::controllers.PTVENTA_element_edit_title_view')];
         return view('ptventa::element.edit', compact('element', 'view', 'measurement_units', 'categories', 'kind_of_purchases'));
     }
 

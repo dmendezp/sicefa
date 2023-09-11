@@ -4,7 +4,7 @@
 @endpush
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('ptventa::movement.B1') }}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::movement.Breadcrumb_Active_Movement') }}</li>
 @endpush
 
 @section('content')
@@ -13,19 +13,19 @@
             <form action="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.consult') }}" method="POST" class="row g-3">
                 @csrf
                 <div class="col-md-3">
-                    <label class="form-label">{{ trans('ptventa::movement.TextForm1') }}</label>
+                    <label class="form-label">{{ trans('ptventa::movement.Title_Initial_Date') }}</label>
                     <input type="date" name="start_date" id="start_date" class="form-control" required>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">{{ trans('ptventa::movement.TextForm2') }}</label>
+                    <label class="form-label">{{ trans('ptventa::movement.Title_Final_Date') }}</label>
                     <input type="date" name="end_date" id="end_date" class="form-control" required>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">{{ trans('ptventa::movement.TextForm3') }}</label>
+                    <label class="form-label">{{ trans('ptventa::movement.Title_Document_Number') }}</label>
                     <input type="number" name="document_number" class="form-control">
                 </div>
                 <div class="col-md-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary btn-block">{{ trans('ptventa::movement.Btn1') }}</button>
+                    <button type="submit" class="btn btn-success btn-block">{{ trans('ptventa::movement.Btn_Consult') }}</button>
                 </div>
             </form>
         </div>
@@ -38,13 +38,13 @@
                     <table class="table table-hover" id="tableMovementsDetails">
                         <thead class="table-dark">
                             <tr>
-                                <th class="text-center">{{ trans('ptventa::movement.T1') }}</th>
-                                <th class="text-center">{{ trans('ptventa::movement.T2') }}</th>
-                                <th>{{ trans('ptventa::movement.T3') }}</th>
-                                <th>{{ trans('ptventa::movement.T4') }}</th>
-                                <th>{{ trans('ptventa::movement.T5') }}</th>
-                                <th class="text-center">{{ trans('ptventa::movement.T6') }}</th>
-                                <th class="text-center">{{ trans('ptventa::movement.T7') }}</th>
+                                <th class="text-center">{{ trans('ptventa::movement.T1_Number') }}</th>
+                                <th class="text-center">{{ trans('ptventa::movement.T2_Date') }}</th>
+                                <th>{{ trans('ptventa::movement.T3_Role') }}</th>
+                                <th>{{ trans('ptventa::movement.T4_Manager') }}</th>
+                                <th>{{ trans('ptventa::movement.T5_Movement_Type') }}</th>
+                                <th class="text-center">{{ trans('ptventa::movement.T6_Price') }}</th>
+                                <th class="text-center">{{ trans('ptventa::movement.T7_Actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,11 +70,11 @@
                                     <td class="text-center fw-bold">{{ priceFormat($movement->price) }}</td>
                                     <td class="text-center">
                                         @if($movement_type == 'Venta')
-                                            <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.movements.sale.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('ptventa::movement.Tooltip1') }}> 
+                                            <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.movements.sale.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('ptventa::movement.Tooltip') }}> 
                                         @elseif ($movement_type == 'Movimiento Interno')
-                                            <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.movements.entries.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('ptventa::movement.Tooltip1') }}>
+                                            <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.movements.entries.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('ptventa::movement.Tooltip') }}>
                                         @elseif ($movement_type == 'Baja')
-                                            <a href="#" class="btn btn-info">Baja
+                                        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.movements.low.show', $movement) }}" class="btn bg-olive" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('ptventa::movement.Tooltip') }}>
                                         @else 
                                             <a href="#">{{ $movement_type }}
                                         @endif
@@ -92,7 +92,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="mt-4">
-                    <p>{{ trans('ptventa::movement.TextOp') }}</p>
+                    <p>{{ trans('ptventa::movement.Text_Optional') }}</p>
                 </div>
             </div>
         </div>
@@ -117,12 +117,18 @@
         document.getElementById('end_date').addEventListener('change', updateDateAttributes);
     </script>
     <script>
-        // Permite la aplicación de datatables y la vez la traducción de las tablas
         $(document).ready(function() {
+            // Opciones comunes para todas las tablas DataTable
+            var dataTableOptions = {
+
+            };
+
+            // Verifica el idioma actual y decide si agregar la opción de idioma
+            if ('{{ session('lang') }}' === 'es') {
+                dataTableOptions.language = language_datatables;
+            }
             /* Inicialización of Datatables para movement_details */
-            $('#tableMovementsDetails').DataTable({
-                language: language_datatables, // Agregar traducción a español
-            });
+            $('#tableMovementsDetails').DataTable(dataTableOptions);
         });
     </script>
 @endpush
