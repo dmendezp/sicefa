@@ -34,25 +34,27 @@
                                             <th class="text-center">Icono</th>
                                             <th>Líder</th>
                                             <th class="text-center">Sector</th>
+                                            <th class="text-center">Finca</th>
                                             <th class="text-center">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($productive_units as $pw)
+                                        @foreach ($productive_units as $pu)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td>{{ $pw->name }}</td>
-                                                <td>{{ $pw->description }}</td>
+                                                <td>{{ $pu->name }}</td>
+                                                <td>{{ $pu->description }}</td>
                                                 <td class="text-center">
-                                                    <h1><i class="{{ $pw->icon }}"></i></h1>
+                                                    <h1><i class="{{ $pu->icon }}"></i></h1>
                                                 </td>
-                                                <td>{{ $pw->person->full_name }}</td>
-                                                <td class="text-center">{{ $pw->sector->name }}</td>
+                                                <td>{{ $pu->person->full_name }}</td>
+                                                <td class="text-center">{{ $pu->sector->name }}</td>
+                                                <td class="text-center">{{ $pu->farm->name }}</td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('sica.admin.units.productive_unit.edit', $pw) }}" data-toggle='tooltip' data-placement="top" title="Editar">
+                                                    <a href="{{ route('sica.admin.units.productive_unit.edit', $pu) }}" data-toggle='tooltip' data-placement="top" title="Editar">
                                                         <i class="fas fa-edit text-success"></i>
                                                     </a>
-                                                    <a href="{{ route('sica.admin.units.productive_unit.destroy', $pw) }}" data-toggle='tooltip' data-placement="top" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar esta unidad productiva?')">
+                                                    <a href="{{ route('sica.admin.units.productive_unit.destroy', $pu) }}" data-toggle='tooltip' data-placement="top" title="Eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar la unida productiva {{ $pu->name }}?')">
                                                         <i class="fas fa-trash-alt text-danger"></i>
                                                     </a>
                                                 </td>
