@@ -5,13 +5,14 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card card-green card-outline shadow col-md-8">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Gestión de Tipos de Beneficios') }}</h3>
+                <h3 class="card-title">{{ trans('bienestar::menu.Configure Benefits') }}</h3>
             </div>
             <div class="card-body">
-                {!! Form::open(['route' => 'cefa.bienestar.benefitstypeofbenefits.store', 'method' => 'POST', 'role' => 'form', 'id' => 'guardarTipoBeneficio']) !!}
+                {!! Form::open(['route' => 'cefa.bienestar.benefitstypeofbenefits.store', 'role' => 'form', 'class' => 'formCrear']) !!}
+                @csrf
                 <div class="row p-3">
                     <div class="col-md-4">
-                        {!! Form::label('benefit_id', 'Seleccionar Tipo de Beneficio:') !!}
+                        {!! Form::label('benefit_id', trans('bienestar::menu.Select Benefit Type')) !!}
                         <select id="benefit_id" name="benefit_id" class="form-control" required>
                             @foreach($benefits as $benefit)
                                 <option value="{{ $benefit->id }}">{{ $benefit->name }}</option>
@@ -20,7 +21,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        {!! Form::label('type_of_benefit_id', 'Seleccionar Tipo de Beneficiario:') !!}
+                        {!! Form::label('type_of_benefit_id', trans('bienestar::menu.Select Beneficiary Type')) !!}
                         <select id="type_of_benefit_id" name="type_of_benefit_id" class="form-control" required>
                             @foreach($typeOfBenefits as $typeOfBenefit)
                                 <option value="{{ $typeOfBenefit->id }}">{{ $typeOfBenefit->name }}</option>
@@ -30,7 +31,7 @@
 
                     <div class="col-md-2 align-self-end">
                         <div class="btns mt-3">
-                            {!! Form::submit('Guardar',['class'=>'btn btn-success', 'style'=>'background-color: #00FF22; color: black;']) !!}
+                            {!! Form::submit(trans('bienestar::menu.Save')  , ['class' => 'btn btn-success formSubmitButton', 'style' => 'background-color: #00FF22; color: black;']) !!}
                         </div>
                     </div>
                 </div>
@@ -50,8 +51,8 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Tipo de Beneficio</th>
-                                <th>Tipo de Beneficiario</th>
+                                <th>{{ trans('bienestar::menu.Benefit Type') }}</th>
+                                <th>{{ trans('bienestar::menu.Beneficiary Type') }}</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -62,12 +63,15 @@
                                 <td>{{ $type->benefits->name }}</td>
                                 <td>{{ $type->typeOfBenefits->name }}</td>
                                 <td style="display: flex; justify-content: center;">
-                                    <button class="btn btn-primary edit-button" data-id="{{ $type->id }}" data-toggle="modal" data-target="#editModal_{{ $type->id }}">
+                                    <button class="btn btn-primary edit-button formSubmitButton" data-id="{{ $type->id }}" data-toggle="modal" data-target="#editModal_{{ $type->id }}">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-danger delete-button" data-id="{{ $type->id }}" data-toggle="modal" data-target="#deleteModal_{{ $type->id }}">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                    <form action="{{ route('cefa.bienestar.benefitstypeofbenefits.destroy', $type->id) }}" method="POST" class="formEliminar">
+                                        @csrf
+                                        @method("DELETE")
+                                        <!-- Botón para abrir el modal de eliminación -->
+                                        <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -84,17 +88,17 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Editar Registro</h5>
+                <h5 class="modal-title">{{ trans('bienestar::menu.Edit Record') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('cefa.bienestar.benefitstypeofbenefits.update', $type->id) }}" method="POST">
+                <form action="{{ route('cefa.bienestar.benefitstypeofbenefits.update', $type->id) }}" method="POST" class="formEditar">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label for="edit_benefit">Editar Tipo de Beneficio:</label>
+                        <label for="edit_benefit">{{ trans('bienestar::menu.Edit Benefit Type Name') }}:</label>
                         <select id="edit_benefit" name="benefit_id" class="form-control" required>
                             @foreach($benefits as $benefit)
                                 <option value="{{ $benefit->id }}" {{ $type->benefit_id == $benefit->id ? 'selected' : '' }}>{{ $benefit->name }}</option>
@@ -102,7 +106,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="edit_type">Editar Tipo de Beneficiario:</label>
+                        <label for="edit_type">{{ trans('bienestar::menu.Edit Beneficiary Type Name') }}:</label>
                         <select id="edit_type" name="type_of_benefit_id" class="form-control" required>
                             @foreach($typeOfBenefits as $typeofbenefit)
                                 <option value="{{ $typeofbenefit->id }}" {{ $type->type_of_benefit_id == $typeofbenefit->id ? 'selected' : '' }}>{{ $typeofbenefit->name }}</option>
@@ -110,8 +114,8 @@
                         </select>
                     </div>
                     <div class="form-group text-center">
-                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">{{ trans('bienestar::menu.Cancel') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ trans('bienestar::menu.Save Changes') }}</button>
                     </div>
                 </form>
             </div>
@@ -119,30 +123,7 @@
     </div>
 </div>
 
-        <!-- Modal de eliminación -->
-        <div class="modal fade" id="deleteModal_{{ $type->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel_{{ $type->id }}" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel_{{ $type->id }}">Confirmar Eliminación</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Estás seguro de que deseas eliminar este registro?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <form action="{{ route('cefa.bienestar.benefitstypeofbenefits.destroy', $type->id) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     @endforeach
 </div>
 
@@ -152,6 +133,11 @@
 
         // Configurar el evento para el formulario de guardar
         $('#guardarTipoBeneficio').submit(function(e) {
+            e.preventDefault();
+
+            // Deshabilita el botón de guardar para evitar clics múltiples
+            $('.formSubmitButton').prop('disabled', true);
+
             // Validar que el campo de beneficio y tipo de beneficiario no estén vacíos
             var benefitSelect = $('#benefit_id');
             var typeOfBeneficiarySelect = $('#type_of_benefit_id');
@@ -160,20 +146,23 @@
 
             if (benefitSelect.val() === '') {
                 benefitError.show();
-                e.preventDefault();
             } else {
                 benefitError.hide();
             }
 
             if (typeOfBeneficiarySelect.val() === '') {
                 typeOfBeneficiaryError.show();
-                e.preventDefault();
             } else {
                 typeOfBeneficiaryError.hide();
             }
 
-            e.preventDefault();
-            
+            // Verificar si hay errores de validación antes de realizar la petición AJAX
+            if (benefitError.is(':visible') || typeOfBeneficiaryError.is(':visible')) {
+                // Habilitar el botón de guardar nuevamente
+                $('.formSubmitButton').prop('disabled', false);
+                return; // Detener el envío si hay errores de validación
+            }
+
             // Realizar la petición AJAX para almacenar el tipo de beneficio
             $.ajax({
                 url: $(this).attr('action'),
@@ -182,13 +171,19 @@
                 success: function(response) {
                     // Actualizar la tabla con los nuevos datos
                     $('#typesOfBenefitsTable tbody').append(response);
-                    
+
                     // Limpiar los campos del formulario
                     $('#benefit_id').val('');
                     $('#type_of_benefit_id').val('');
+
+                    // Habilitar el botón de guardar nuevamente
+                    $('.formSubmitButton').prop('disabled', false);
                 },
                 error: function(error) {
                     console.log(error);
+
+                    // Habilitar el botón de guardar nuevamente en caso de error
+                    $('.formSubmitButton').prop('disabled', false);
                 }
             });
         });
@@ -208,4 +203,3 @@
 </script>
 
 @endsection
-

@@ -92,45 +92,19 @@
 </script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Configura el evento para el formulario de creación
-    document.querySelector('.formCrear').addEventListener('submit', function (event) {
-        event.preventDefault(); // Evitar que el formulario se envíe de inmediato
-        var form = this;
-
-        // Realizar una solicitud AJAX para enviar el formulario
-        axios.post(form.action, new FormData(form))
-            .then(function (response) {
-                if (response.status === 200 && response.data.mensaje) {
-                    // Mostrar el SweetAlert de éxito
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Éxito',
-                        text: response.data.mensaje,
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then(function () {
-                        // Recargar la página después del SweetAlert
-                        location.reload();
-                    });
-                } else {
-                    // Mostrar el SweetAlert de error en caso de problemas
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Ha ocurrido un error al intentar crear el tipo de beneficiario.'
-                    });
-                }
-            })
-            .catch(function (error) {
-                // Mostrar el SweetAlert de error en caso de problemas
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Ha ocurrido un error al intentar crear el tipo de beneficiario.'
-                });
-            });
-    });
+    // Define una función reutilizable para mostrar los SweetAlerts
+    function showSweetAlert(icon, title, text, timer) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: text,
+            showConfirmButton: false,
+            timer: timer
+        }).then(function () {
+            // Recargar la página después del SweetAlert
+            location.reload();
+        });
+    }
 
     // Configura el evento para el formulario de edición
     document.querySelectorAll('.formEditar').forEach(function (form) {
@@ -143,36 +117,18 @@
                 .then(function (response) {
                     if (response.status === 200 && response.data.mensaje) {
                         // Mostrar el SweetAlert de éxito
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Éxito',
-                            text: response.data.mensaje,
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(function () {
-                            // Recargar la página después del SweetAlert
-                            location.reload();
-                        });
+                        showSweetAlert('success', 'Éxito', response.data.mensaje, 1500);
                     } else {
                         // Mostrar el SweetAlert de error en caso de problemas
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Ha ocurrido un error al intentar editar el tipo de beneficiario.'
-                        });
+                        showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
                     }
                 })
                 .catch(function (error) {
                     // Mostrar el SweetAlert de error en caso de problemas
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Ha ocurrido un error al intentar editar el tipo de beneficiario.'
-                    });
+                    showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
                 });
         });
     });
-});
 </script>
 
 
