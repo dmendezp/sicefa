@@ -111,11 +111,11 @@ Route::middleware(['lang'])->group(function () {
         //rutas para cargo;
 
         //
-        Route::get('Cargos/', 'PositionCompanyController@cargar')->name('cefa.cargos');
-        Route::get('Cargos/Nueva', 'PositionCompanyController@registro')->name('cefa.nuevo_cargo');
-        Route::post('Cargos/Nueva', 'PositionCompanyController@store')->name('cefa.cargo_nuevo');
-        Route::get('Cargos/{id}/editar', 'PositionCompanyController@edit')->name('cefa.editar_cargo');
-        Route::post('Cargos/{id}/actualizar', 'PositionCompanyController@update')->name('cefa.cargo_editado');
-        Route::delete('cargos/delete/{id}', 'PositionCompanyController@destroy')->name('cefa.eliminar_cargo');
+        Route::get('Cargos/', 'PositionCompanyController@cargar')->name('company.position.cargos');
+        Route::get('Cargos/Nueva', 'PositionCompanyController@registro')->name('company.position.nuevo_cargo');
+        Route::post('Cargos/Nueva', 'PositionCompanyController@store')->name('company.position.cargo_nuevo');
+        Route::get('Cargos/{id}/editar', 'PositionCompanyController@edit')->name('company.position.editar_cargo');
+        Route::post('Cargos/{id}/actualizar', 'PositionCompanyController@update')->name('company.position.cargo_editado');
+        Route::delete('cargos/delete/{id}', 'PositionCompanyController@destroy')->name('company.position.eliminar_cargo');
     });
 });

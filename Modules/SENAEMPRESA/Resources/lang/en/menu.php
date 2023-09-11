@@ -118,6 +118,7 @@ return [
 	'Position successfully restored' => 'Position successfully restored',
 	'success' => 'success',
 	'mistake' => 'mistake',
+	'The position already exists in the database' => 'The position already exists in the database'
 
 	
 

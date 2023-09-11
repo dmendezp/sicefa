@@ -74,6 +74,17 @@ class PermissionsTableSeeder extends Seeder
         $permission_intern[] = $permission->id; // Almacenar permiso para rol
         $permission_user[] = $permission->id; // Almacenar permiso para rol
 
+
+
+        $permission = Permission::updateOrCreate(['slug' => 'company.position.cargos'], [ // Registro o actualización de permiso
+            'name' => 'Vista SenaEmpresa Cargos',
+            'description' => 'uede ver vista de SenaEmpresa Cargos',
+            'description_english' => 'You can view SenaEmpresa Positions view',
+            'app_id' => $app->id
+        ]);
+        $permission_intern[] = $permission->id; // Almacenar permiso para rol
+        $permission_user[] = $permission->id; // Almacenar permiso para rol
+
         // Consulta de ROLES
         $rol_pasante = Role::where('slug', 'senaempresa.pasante')->first(); // Rol Pasante Senaempresa
         $rol_usuario = Role::where('slug', 'senaempresa.usuario')->first(); // Rol Usuario Senaempresa

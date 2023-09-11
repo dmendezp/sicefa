@@ -160,8 +160,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('cefa.cargos') }}"
-                                class="nav-link {{ !Route::is('cefa.cargos') ?: 'active' }}">
+                            <a href="{{ route('company.position.cargos') }}"
+                                class="nav-link {{ !Route::is('company.position.cargos') ?: 'active' }}">
                                 <i class="fas fa-user-plus"></i>
                                 <p>{{ trans('senaempresa::menu.Positions') }}</p>
                             </a>

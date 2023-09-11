@@ -8,7 +8,7 @@
                     <div class="card-header">{{ $title }}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('cefa.cargo_editado', $position->id) }}" method="POST">
+                        <form action="{{ route('company.position.cargo_editado', $position->id) }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="name"
@@ -38,7 +38,7 @@
 
                             <button type="submit"
                                 class="btn btn-success">{{ trans('senaempresa::menu.Save changes') }}</button>
-                            <a href="{{ route('cefa.cargos') }}"
+                            <a href="{{ route('company.position.cargos') }}"
                                 class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>
                         </form>
                     </div>

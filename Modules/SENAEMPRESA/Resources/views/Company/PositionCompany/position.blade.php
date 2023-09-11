@@ -27,7 +27,7 @@
                                 <th>{{ trans('senaempresa::menu.Description') }}</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
                                 <th style="width: 200px;">
-                                    <a href="{{ route('cefa.nuevo_cargo') }}" class="btn btn-success btn-sm"><i
+                                    <a href="{{ route('company.position.nuevo_cargo') }}" class="btn btn-success btn-sm"><i
                                             class="fas fa-user-plus"></i></a>
                                 </th>
 
@@ -40,12 +40,12 @@
                                     <td>{{ $PositionCompany->name }}</td>
                                     <td>{{ $PositionCompany->description }}</td>
                                     <td>{{ $PositionCompany->state }}</td>
-                                    <form action="{{ route('cefa.eliminar_cargo', $PositionCompany->id) }}" method="POST"
+                                    <form action="{{ route('company.position.eliminar_cargo', $PositionCompany->id) }}" method="POST"
                                         class="formCargo">
                                         @csrf
                                         @method('DELETE')
                                         <td>
-                                            <a href="{{ route('cefa.editar_cargo', ['id' => $PositionCompany->id]) }}"
+                                            <a href="{{ route('company.position.editar_cargo', ['id' => $PositionCompany->id]) }}"
                                                 class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
 
                                             <button type="submit" class="btn btn-danger btn-sm"><i
