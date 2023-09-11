@@ -53,7 +53,7 @@
             if(documento == ''){
                 alert('Ingrese el número de identifación para realizar la verifcación.');
             }else{
-                ruta = window.location.origin + '/hdc/persona/verificar/' + documento; // Obtener ruta para consultar por ajax
+                ruta = window.location.origin + '/hdc/calculos/persona/' + documento; // Obtener ruta para consultar por ajax
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -19,7 +19,7 @@ Route::middleware(['lang'])->group(function() {
         /* Ruta del Formulario */
         Route::get('/Formulario', 'FormularioController@formulario')->name('cefa.hdc.formulario');
         Route::post('/get_activities', 'FormularioController@getActivities')->name('hdc.activities');
-        Route::post('/tabla_aspectos_ambientales', 'FormularioController@aspectosambientales')->name('hdc.aspecto.ambiental');
+        Route::get('/get-environmental-aspects/{id}', 'FormularioController@aspectosambientales')->name('hdc.aspecto.ambiental');
 
         /* Ruta Para Administrar Recursos */
         Route::get('/AdminstrarRecursos', 'AdminresourcesController@adminresources')->name('cefa.hdc.adminresources');
@@ -27,6 +27,7 @@ Route::middleware(['lang'])->group(function() {
         /* Rutas de Calcula tu Huella */
         Route::get('persona', 'CarbonfootprintController@persona')-> name('carbonfootprint.persona');
         Route::get('/persona/verificar/{documento}', 'CarbonfootprintController@verficarPersona')-> name('carbonfootprint.persona.verificar');
+        Route::get('/calculos/persona/{documento}', 'CarbonfootprintController@calculosPersona')-> name('carbonfootprint.calculos.persona');
 
     });
 });

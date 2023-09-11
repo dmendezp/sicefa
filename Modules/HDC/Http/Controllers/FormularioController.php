@@ -5,6 +5,8 @@ namespace Modules\HDC\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\HDC\Entities\EnvironmentalAspectActivity;
+use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\ProductiveUnit;
 
 class FormularioController extends Controller
@@ -13,18 +15,18 @@ class FormularioController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-   /*  public function index()
+    /*  public function index()
     {
         return view('hdc::index');
     } */
-    public function formulario(){
+    public function formulario()
+    {
         $productive_unit = ProductiveUnit::orderBy('name', 'ASC')->get();
         return view('hdc::formulario', compact('productive_unit'));
-
     }
-    public function formulariolabor(){
+    public function formulariolabor()
+    {
         return view('hdc::formulariolabor');
-
     }
 
     public function getActivities()
@@ -34,15 +36,12 @@ class FormularioController extends Controller
         $activities = ProductiveUnit::findOrFail($datap->productive_unit_id)->activities;
         return view('hdc::activity', compact('activities'));
     }
-    public function aspectosambientales(Request $request)
+    
+    public function aspectosambientales($id)
     {
-        // Obtén y decodifica los datos enviados por AJAX
-        $data = json_decode($request->getContent());
+        $aspectosAmbientales = EnvironmentalAspectActivity::findOrFail($id)->environmental_aspect;
 
-        // Realiza cualquier lógica necesaria con los datos, si es necesario.
-
-        // Luego, devuelve la vista 'hdc::tablaaspectosambientales' con los datos que desees pasar a la vista.
-        return view('hdc::tablaaspectosambientales', ['data' => $data]);
+        return view('hdc::tablaaspectosambientales', compact('aspectosAmbientales'));
     }
 
     /**

@@ -8,10 +8,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Valor 1</td>
-                    <td><input class="form-control" type="number"></td>
-                </tr>
+                @foreach($aspectosAmbientales as $aspecto)
+                    <tr>
+                        {{--  <td>{{ $aspecto->name }}</td>  --}}
+                    </tr>
+                @endforeach
             </tbody>
         </table>
         <div class="d-flex justify-content-around">

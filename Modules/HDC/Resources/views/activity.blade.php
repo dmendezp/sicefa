@@ -11,19 +11,32 @@
             @endforeach
         </select>
     </div>
+    <div class="col-md-8">
+        <div class="card card-success card-outline shadow mt-2">
+            <div class="card-body">
+                <h5>Resultados:</h5>
+                <div class="mt-2" id="div-tabla"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {{--  @push('scripts')
     <script>
         // Cuando se cambia la unidad productiva seleccionada
         $(document).on("change", "#activity_id", function() {
-            console.log('Cambió la opción');
-            var myObjet = new Object();
-            myObjet.activity_id = $('#activity_id').val();
-            var myString = JSON.stringify(myObjet);
-            console.log('Datos enviados:', myString); // Verifica los datos enviados en la consola
-            ajaxReplace("div-tabla", '/hdc/tabla_aspectos_ambientales', myString)
-        });
+        // Obtener el valor seleccionado del campo 'activity_id'
+             activity_id = $(this).val();
+            if (activity_id == '') {
+                $("#div-tabla").html('Seleccione la unidad');
+            } else {
+                var myObjet = new Object();
+                myObjet.activity_id = $('#activity_id').val();
+                var myString = JSON.stringify(myObjet);
+                 console.log('Datos enviados:', myString);
 
+                ajaxReplace("div-tabla", '/hdc/tabla_aspectosambientales', myString);
+            }
+        });
     </script>
 @endpush  --}}
