@@ -12,8 +12,9 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">{{ trans('senaempresa::menu.Name') }}</label>
-                                <textarea class="form-control" id="name" name="name" rows="3" required></textarea>
+                                <input type="text" class="form-control" id="name" name="name" required>
                             </div>
+
 
                             <div class="mb-3">
                                 <label for="description"
@@ -22,12 +23,18 @@
                             </div>
                             <div class="form-group">
                                 <label for="state">{{ trans('senaempresa::menu.Status') }}</label>
-                                <select class="form-control" id="state" name="state">
+                                <select class="form-control @error('state') is-invalid @enderror" id="state" name="state">
                                     <option value="">{{ trans('senaempresa::menu.Select Status') }}</option>
-                                    <option value="activo">{{ trans('senaempresa::menu.Active') }}</option>
-                                    <option value="inactivo">{{ trans('senaempresa::menu.Inactive') }}</option>
+                                    <option value="activo" {{ old('state') == 'activo' ? 'selected' : '' }}>{{ trans('senaempresa::menu.Active') }}</option>
+                                    <option value="inactivo" {{ old('state') == 'inactivo' ? 'selected' : '' }}>{{ trans('senaempresa::menu.Inactive') }}</option>
                                 </select>
+                                @error('state')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
+
 
 
                             <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.Add') }}</button>

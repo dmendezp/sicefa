@@ -15,14 +15,11 @@
                                 <input type="text" name="name" value="{{ $company->name ?? old('name') }}"
                                     class="form-control" id="name" name="name" rows="3" required></textarea>
                             </div>
-
                             <div class="mb-3">
-                                <label for="description"
-                                    class="form-label">{{ trans('senaempresa::menu.Description') }}</label>
-                                <input type="text" name="description"
-                                    value="{{ $company->description ?? old('description') }}"</textarea class="form-control"
-                                    id="description" name="description" rows="3" required></textarea>
+                                <label for="description" class="form-label">{{ trans('senaempresa::menu.Description') }}</label>
+                                <textarea class="form-control" id="description" name="description" rows="3" required>{{ $company->description ?? old('description') }}</textarea>
                             </div>
+
 
                             <button type="submit"
                                 class="btn btn-success">{{ trans('senaempresa::menu.Save changes') }}</button>

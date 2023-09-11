@@ -33,6 +33,12 @@ class PositionCompanyController extends Controller
 
    public function store(Request $request)
 {
+    $validatedData = $request->validate([
+        'name' => 'required',
+        'description' => 'required',
+        'state' => 'required|in:activo,inactivo', // Agrega la validación aquí
+    ]);
+
     $name = $request->input('name');
 
     // Buscar un registro eliminado por soft delete con el mismo valor en "requirement"

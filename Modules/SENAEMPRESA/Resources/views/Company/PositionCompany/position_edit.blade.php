@@ -19,13 +19,10 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="description"
-                                    class="form-label">{{ trans('senaempresa::menu.General description') }}</label>
-                                <input type="text" name="description"
-                                    value="{{ $position->description ?? old('description') }}"</textarea
-                                    class="form-control" id="description" name="description" rows="3"
-                                    required></textarea>
+                                <label for="description" class="form-label">{{ trans('senaempresa::menu.General description') }}</label>
+                                <textarea class="form-control" id="description" name="description" rows="3" required>{{ $position->description ?? old('description') }}</textarea>
                             </div>
+
                             <div class="form-group">
                                 <label for="state">{{ trans('senaempresa::menu.Status') }}</label>
                                 <select class="form-control" id="state" name="state">

@@ -13,8 +13,9 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">{{ trans('senaempresa::menu.Name') }}</label>
-                                <textarea class="form-control" id="name" name="name" rows="3" required></textarea>
+                                <input type="text" class="form-control" id="name" name="name" required>
                             </div>
+
 
                             <div class="mb-3">
                                 <label for="description"

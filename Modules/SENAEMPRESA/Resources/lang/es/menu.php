@@ -115,7 +115,10 @@ return [
 	'SenaEmpresa Successfully restored' => 'SenaEmpresa Restaurado con éxito',
 	'success' => 'éxito',
 	'mistake' => 'error',
-	'The position already exists in the database' => 'el cargo ya existe en la base de datos'
+	'The position already exists in the database' => 'el cargo ya existe en la base de datos',
+	'Select Status' => 'Seleccionar estado',
+	'Status' => 'Estado',
+	
 
 	
 
