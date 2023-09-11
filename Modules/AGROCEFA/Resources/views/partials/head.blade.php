@@ -26,35 +26,11 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!----===== Datatables ===== -->
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.bootstrap.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.bootstrap4.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.bootstrap5.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.bootstrap5.min.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.bulma.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.bulma.min.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.dataTables.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.dataTables.min.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.foundation.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.foundation.min.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.jqueryui.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.jqueryui.min.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.semanticui.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/buttons.semanticui.min.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/common.scss') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/Buttons-2.3.6/css/mixins.scss') }}">
+<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/fontawesome-free/css/all.min.css') }}">
+<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/DataTables-1.13.4/css/dataTables.bootstrap.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/DataTables-1.13.4/css/dataTables.bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/DataTables-1.13.4/css/dataTables.bootstrap5.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/DataTables-1.13.4/css/dataTables.bootstrap5.min.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/DataTables-1.13.4/css/dataTables.dataTables.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/DataTables-1.13.4/css/dataTables.dataTables.min.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/DataTables-1.13.4/css/dataTables.jqueryui.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/DataTables-1.13.4/css/dataTables.jqueryui.min.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/DataTables-1.13.4/css/jquery.dataTables.css') }}">
-<link rel="stylesheet" href="{{ asset('DataTables-1.13.4/DataTables-1.13.4/css/jquery.dataTables.min.css') }}">
 
 
 <!--<title>Dashboard Sidebar Menu</title>--> 

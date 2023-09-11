@@ -5,6 +5,7 @@ namespace Modules\AGROCEFA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SICA\Entities\Inventory;
+use Modules\SICA\Entities\Labor;
 
 class Consumable extends Model
 {
@@ -26,7 +27,7 @@ class Consumable extends Model
      public function labor(){ // Accede a la información de la labor al que pertenece
         return $this->belongsTo(Labor::class);
     }
-    public function inventorie(){ // Accede a la información del inventario al que pertenece
+    public function inventory(){ // Accede a la información del inventario al que pertenece
         return $this->belongsTo(Inventory::class);
     }
     
