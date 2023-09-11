@@ -70,9 +70,7 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/course/edit/{id}', [AcademyController::class, 'editCourse'])->name('sica.admin.academy.course.edit');
             Route::post('/course/update/', [AcademyController::class, 'updateCourse'])->name('sica.admin.academy.course.update');
 
-            // Eliminar
-            Route::get('/course/delete/{id}', [AcademyController::class, 'deleteCourse'])->name('sica.admin.academy.course.delete');
-            Route::post('/course/delete/', [AcademyController::class, 'destroyCourse'])->name('sica.admin.academy.course.destroy');
+          
         });
     });
 }); 

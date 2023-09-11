@@ -57,7 +57,14 @@ Route::middleware(['lang'])->group(function(){
         //intern
         Route::prefix('storer')->group(function (){
             Route::get('/index', [WarehouseController::class ,'index'])->name('cefa.agroindustria.storer.index');
+            Route::get('/create', [WarehouseController::class ,'formcreate'])->name('cefa.agroindustria.storer.create');
+
             Route::get('/inventory', [WarehouseController::class ,'Inventory'])->name('cefa.agroindustria.storer.inventory');
+            Route::post('/create', [WarehouseController::class ,'create'])->name('cefa.agroindustria.storer.create');
+        
+           // Eliminar
+           Route::get('/register/delete/{id}', [WarehouseController::class, 'deleteRegister'])->name('cefa.agroindustria.storer.delete');
+           Route::post('/register/delete/', [WarehouseController::class, 'destroyRegister'])->name('cefa.agroindustria.storer.destroy');
 
         });       
     });
