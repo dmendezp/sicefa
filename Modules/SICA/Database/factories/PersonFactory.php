@@ -3,6 +3,7 @@ namespace Modules\SICA\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\SICA\Entities\EPS;
+use Modules\SICA\Entities\PensionEntity;
 use Modules\SICA\Entities\PopulationGroup;
 
 class PersonFactory extends Factory
@@ -38,7 +39,8 @@ class PersonFactory extends Factory
             'first_last_name' => $this->faker->lastName(),
             'second_last_name' => $this->faker->lastName(),
             'eps_id' => EPS::inRandomOrder()->first()->id,
-            'population_group_id' => PopulationGroup::inRandomOrder()->first()->id
+            'population_group_id' => PopulationGroup::inRandomOrder()->first()->id,
+            'pension_entity_id' => PensionEntity::inRandomOrder()->first()->id
         ];
     }
 }
