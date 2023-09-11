@@ -4,9 +4,12 @@ namespace Modules\PTVENTA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\SICA\Entities\App;
+use Modules\SICA\Entities\AppProductiveUnit;
 use Modules\SICA\Entities\Country;
 use Modules\SICA\Entities\Department;
 use Modules\SICA\Entities\Farm;
+use Modules\SICA\Entities\KindOfPurchase;
+use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\Municipality;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\ProductiveUnit;
@@ -38,7 +41,10 @@ class AppTableSeeder extends Seeder
             'description' => 'Unidades encargadas de comercializar o vender productos directos o por producción de centro'
         ]);
 
-        /* Obtener ubicación de la granja */
+        /* Persona líder de finca y unidad productiva */
+        $leader = Person::where('document_number', 52829681)->first(); // Consulta de datos personales de Lola Fernanda Herrera Hernandez
+
+        /* Obtener ubicación de la finca */
         $country = Country::firstOrCreate([
             'name' => 'Colombia'
         ]);
@@ -48,20 +54,16 @@ class AppTableSeeder extends Seeder
         ]);
         $municipality = Municipality::firstOrCreate([
             'department_id' => $department->id,
-            'name' => 'Huila'
+            'name' => 'Campoalegre'
         ]);
-
-        /* Registro o actualización de granja para la unidad productiva Punto de venta */
-        $responsible = Person::where('document_number', 52829681)->first(); // Consulta de datos personales de Lola Fernanda Herrera Hernandez
-        $farm = Farm::updateOrCreate(['name' => 'CEFA'], [
-            'description' => 'Centro de Formación Agroindustrial La Angostura',
-            'area' => 25000,
-            'person_id' => $responsible->id,
-            'municipality_id' => $municipality->id
+        $farm = Farm::firstOrCreate(['name'=>'CEFA'],[
+            'description'=>'Centro de Formación Agroindustrial La Angostura',
+            'area'=>100000,
+            'person_id'=>$leader->id,
+            'municipality_id'=>$municipality->id,
         ]);
 
         /* Registro o actualización de la unidad productiva para PTVENTA */
-        $leader = Person::where('document_number', 52829681)->first(); // Consulta de datos personales de Lola Fernanda Herrera Hernandez
         $productive_unit = ProductiveUnit::updateOrCreate(['name' => 'Punto de venta'], [
             'description' => 'Unidad del centro de formación dedicada a la comercialización de las producción del centro',
             'icon' => 'fas fa-dolly',
@@ -70,7 +72,11 @@ class AppTableSeeder extends Seeder
             'farm_id' => $farm->id
         ]);
 
-        $app->productive_units()->syncWithoutDetaching([$productive_unit->id]); // Asociar a aplicación con unidad productiva
+        // Asociar a aplicación con unidad productiva
+        AppProductiveUnit::firstOrCreate([
+            'app_id' => $app->id,
+            'productive_unit_id' => $productive_unit->id
+        ]);
 
         /* Registro o actualización de bodega Punto de venta */
         $warehouse = Warehouse::updateOrCreate(['name' => 'Punto de venta'], [
@@ -82,6 +88,26 @@ class AppTableSeeder extends Seeder
         ProductiveUnitWarehouse::firstOrCreate([
             'productive_unit_id' => $productive_unit->id,
             'warehouse_id' => $warehouse->id
+        ]);
+
+        // Verificar o registrar tipo de compra
+        KindOfPurchase::firstOrCreate([
+            'name' => 'Producción de centro',
+            'description' => 'Elementos de consumo que provienen de producción de centro'
+        ]);
+
+        // Verficar o registrar tipos de movimientos
+        MovementType::firstOrCreate([
+            'name' => 'Baja',
+            'consecutive' => 0
+        ]);
+        MovementType::firstOrCreate([
+            'name' => 'Venta',
+            'consecutive' => 0
+        ]);
+        MovementType::firstOrCreate([
+            'name' => 'Movimiento Interno',
+            'consecutive' => 0
         ]);
 
     }

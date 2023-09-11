@@ -4,6 +4,7 @@ namespace Modules\PTVENTA\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Route;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\MeasurementUnit;
@@ -14,13 +15,13 @@ use Illuminate\Support\Facades\Validator;
 class ElementController extends Controller
 {
     public function index(){ // Vista de galería de imágenes
-        $view = ['titlePage'=> trans('ptventa::element.titlePage1'), 'titleView'=> trans('ptventa::element.titleView1')];
+        $view = ['titlePage'=> trans('ptventa::controllers.PTVENTA_element_index_title_page'), 'titleView'=> trans('ptventa::controllers.PTVENTA_element_index_title_view')];
         return view('ptventa::element.index', compact('view'));
     }
 
     public function create()
     {
-        $view = ['titlePage'=> trans('ptventa::element.titlePage2'), 'titleView'=> trans('ptventa::element.titleView2')];
+        $view = ['titlePage'=> trans('ptventa::controllers.PTVENTA_element_create_title_page'), 'titleView'=> trans('ptventa::controllers.PTVENTA_element_create_title_view')];
         $measurement_units = MeasurementUnit::orderBy('name','ASC')->get();
         $categories = Category::orderBy('name','ASC')->get();
         $kind_of_purchases = KindOfPurchase::orderBy('name','ASC')->get();
@@ -69,14 +70,14 @@ class ElementController extends Controller
             $message_ptventa = "Se ha producido un error en el momento de agregar el elemento";
             $message_ptventa_type = 'error';
         }
-        return redirect(route('ptventa.element.image.index'))->with('message_ptventa', $message_ptventa)->with('message_ptventa_type', $message_ptventa_type);
+        return redirect(route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.index'))->with('message_ptventa', $message_ptventa)->with('message_ptventa_type', $message_ptventa_type);
     }
 
     public function edit(Element $element){ // Vista de formulario para actualizar imagen de elemento
         $measurement_units = MeasurementUnit::orderBy('name','ASC')->get();
         $categories = Category::orderBy('name','ASC')->get();
         $kind_of_purchases = KindOfPurchase::orderBy('name','ASC')->get();
-        $view = ['titlePage'=>'Productos - Actualizar imagen', 'titleView'=>'Actualizar imagen de producto'];
+        $view = ['titlePage'=>trans('ptventa::controllers.PTVENTA_element_edit_title_page'), 'titleView'=> trans('ptventa::controllers.PTVENTA_element_edit_title_view')];
         return view('ptventa::element.edit', compact('element', 'view', 'measurement_units', 'categories', 'kind_of_purchases'));
     }
 
@@ -119,13 +120,13 @@ class ElementController extends Controller
         $UNSPSC_code = e($request->input('UNSPSC_code'));
         $element->UNSPSC_code = !empty($UNSPSC_code) ? $UNSPSC_code : null;
         if ($element->save()){// Actualizar el registro del elemento con la nueva imagen cargada
-        $message_ptventa = "Imagen actualizada exitosamente";
-        $message_ptventa_type = 'success';
+            $message_ptventa = "Imagen actualizada exitosamente";
+            $message_ptventa_type = 'success';
         }else{
-        $message_ptventa = "Se ha producido un error en el momento de actualizar la imagen";
-        $message_ptventa_type = 'error';
+            $message_ptventa = "Se ha producido un error en el momento de actualizar la imagen";
+            $message_ptventa_type = 'error';
         }
-        return redirect(route('ptventa.element.image.index'))->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
+        return redirect(route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.index'))->with('message_ptventa',$message_ptventa)->with('message_ptventa_type',$message_ptventa_type);
     }
 
 }

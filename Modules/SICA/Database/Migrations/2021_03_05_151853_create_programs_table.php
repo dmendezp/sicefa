@@ -17,8 +17,8 @@ class CreateProgramsTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('network_id')->constrained()->onDelete('cascade');
-            $table->enum('program_type', ['Tecnólogo','Técnico','Operario']);
-            $table->unsignedInteger('sofia_code')->unique();
+            $table->enum('program_type', ['Tecnólogo','Técnico','Operario','Sin especificar']);
+            $table->unsignedInteger('sofia_code');
             $table->softDeletes();
             $table->timestamps();
             $table->unique(['name', 'sofia_code']); // Generar llave única entre la columnas name y sofia_code

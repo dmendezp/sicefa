@@ -2,13 +2,13 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item active">
-        <a href="{{ route('ptventa.element.image.index') }}" class="text-decoration-none">{{ trans('ptventa::element.Products') }}</a>
+        <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.index') }}" class="text-decoration-none">{{ trans('ptventa::element.Breadcrumb_Element') }}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('ptventa::element.Register Product') }}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::element.Breadcrumb_Active_Create_Element') }}</li>
 @endpush
 
 @section('content')
-    {!! Form::open(['route'=>'ptventa.element.image.store', 'method'=>'POST', 'id'=>'form-element' , 'enctype'=>'multipart/form-data']) !!}
+    {!! Form::open(['route'=>'ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.store', 'method'=>'POST', 'id'=>'form-element' , 'enctype'=>'multipart/form-data']) !!}
         @csrf
         <div class="card card-success card-outline mx-auto mb-3">
             <div class="card-body">
@@ -16,20 +16,20 @@
                     <div class="col-md-4">
                         <div class="card card-success border-success">
                             <div class="card-header text-center h5 py-1">
-                                {{ trans('ptventa::element.TitleCard1') }}
+                                {{ trans('ptventa::element.Title_Card_Image') }}
                             </div>
                             <div class="card-body text-center">
                                 <img src="{{ asset('modules/sica/images/sinImagen.png') }}" id="imagenSeleccionada" class="img-fluid img-thumbnail" style="max-height: 200px; max-width:300px float: left;">
                                 <hr>
                                 <div class="my-0 text-left">
-                                    <label for="formFile" class="form-label">{{ trans('ptventa::element.TextForm1') }}</label>
+                                    <label for="formFile" class="form-label">{{ trans('ptventa::element.Title_Form_Image') }}</label>
                                     <input type="file" name="image" id="image" class="form-control">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        {!! Form::label('name', trans('ptventa::element.TextForm2'), ['class' => 'mt-3']) !!}
+                        {!! Form::label('name', trans('ptventa::element.Title_Form_Element_Name'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -45,7 +45,7 @@
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
                         @enderror
 
-                        {!! Form::label('measurement_unit', trans('ptventa::element.TextForm3'), ['class' => 'mt-3']) !!}
+                        {!! Form::label('measurement_unit', trans('ptventa::element.Title_Form_Unit'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -53,7 +53,7 @@
                                 </span>
                             </div>
                             <select name="measurement_unit_id" class="form-select" required>
-                                <option value="">{{ trans('ptventa::element.SelectForm1') }}</option>
+                                <option value="">{{ trans('ptventa::element.Select_Form_MU') }}</option>
                                 @foreach ($measurement_units as $mu)
                                     <option value="{{ $mu->id }}" {{ old('measurement_unit_id') == $mu->id ? 'selected' : '' }}>{{ $mu->name }}</option>
                                 @endforeach
@@ -63,7 +63,7 @@
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
                         @enderror
 
-                        {!! Form::label('description', trans('ptventa::element.TextForm4'), ['class' => 'mt-3']) !!}
+                        {!! Form::label('description', trans('ptventa::element.Title_Form_Description'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -77,7 +77,7 @@
                         @enderror
                     </div>
                     <div class="col-md-4">
-                        {!! Form::label('price', trans('ptventa::element.TextForm5'), ['class' => 'mt-3']) !!}
+                        {!! Form::label('price', trans('ptventa::element.Title_Form_Price'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -94,7 +94,7 @@
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
                         @enderror
 
-                        {!! Form::label('category_id', trans('ptventa::element.TextForm6'), ['class' => 'mt-3']) !!}
+                        {!! Form::label('category_id', trans('ptventa::element.Title_Form_Category'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -102,7 +102,7 @@
                                 </span>
                             </div>
                             <select name="category_id" class="form-select" required>
-                                <option value="">{{ trans('ptventa::element.SelectForm1')}}</option>
+                                <option value="">{{ trans('ptventa::element.Select_Form_Category')}}</option>
                                 @foreach ($categories as $c)
                                     <option value="{{ $c->id }}" {{ old('measurement_unit_id') == $c->id ? 'selected' : '' }}>{{ $c->name }}</option>
                                 @endforeach
@@ -112,7 +112,7 @@
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
                         @enderror
 
-                        {!! Form::label('UNSPSC_code', trans('ptventa::element.TextForm7'), ['class' => 'mt-3']) !!}
+                        {!! Form::label('UNSPSC_code', trans('ptventa::element.Title_Form_COD_UNSPSC'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -125,7 +125,7 @@
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
                         @enderror
 
-                        {!! Form::label('kind_of_purchase_id', trans('ptventa::element.TextForm8'), ['class' => 'mt-3']) !!}
+                        {!! Form::label('kind_of_purchase_id', trans('ptventa::element.Title_Form_Type_Purchase'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -133,7 +133,7 @@
                                 </span>
                             </div>
                             <select name="kind_of_purchase_id" class="form-select" required>
-                                <option value="">{{ trans('ptventa::element.SelectForm1')}}</option>
+                                <option value="">{{ trans('ptventa::element.Select_Form_Type_Purchase')}}</option>
                                 @foreach ($kind_of_purchases as $kp)
                                     <option value="{{ $kp->id }}" {{ old('measurement_unit_id') == $kp->id ? 'selected' : '' }}>{{ $kp->name }}</option>
                                 @endforeach
@@ -146,12 +146,14 @@
                 </div>
             </div>
             <div class="card-footer bg-white text-right">
-                <a href="{{ route('ptventa.element.image.index') }}" class="btn btn-sm btn-light mr-2">
-                    <strong>{{ trans('ptventa::element.Btn3')}}</strong>
+                <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.index') }}" class="btn btn-sm btn-light mr-2">
+                    <strong>{{ trans('ptventa::element.Btn_Cancel')}}</strong>
                 </a>
-                <button type="submit" class="btn btn-sm btn-success" id="btn-register-element">
-                    <b>{{ trans('ptventa::element.Btn2')}}</b>
-                </button>
+                @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.element.store'))
+                    <button type="submit" class="btn btn-sm btn-success" id="btn-register-element">
+                        <b>{{ trans('ptventa::element.Btn_Register')}}</b>
+                    </button>
+                @endif
             </div>
         </div>
     {!! Form::close() !!}

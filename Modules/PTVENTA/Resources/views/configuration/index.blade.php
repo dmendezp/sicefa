@@ -1,23 +1,34 @@
 @extends('ptventa::layouts.master')
 
 @push('head')
-    <link rel="stylesheet" href="{{ asset('modules/ptventa/css/custom_styles.css') }}">
 @endpush
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('ptventa::Configuration.Configuration') }}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::configuration.Breadcrumb_Active_Configuration') }}</li>
 @endpush
 
 @section('content')
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h4>{{ trans('ptventa::Configuration.TitleCard1') }}</h4>
-                    <p>{{ trans('ptventa::Configuration.TextCard1') }}</p>
-                    <button class="btn btn-success" id="imprimirBtn">{{ trans('ptventa::Configuration.Btn1') }} 
-                        <i class="fa-solid fa-ticket"></i>
-                    </button>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4>{{ trans('ptventa::Configuration.Title_Card_Ticket') }}</h4>
+                            <p>{{ trans('ptventa::Configuration.Text_Card_Ticket') }}</p>
+                            @if (Auth::user()->havePermission(
+                                    'ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.configuration.postprinting'))
+                                <button class="btn btn-success"
+                                    id="imprimirBtn">{{ trans('ptventa::Configuration.Btn_Generate_Ticket') }}
+                                    <i class="fa-solid fa-ticket"></i>
+                                </button>
+                            @endif
+                        </div>
+                        <div class="col-md-4 position-relative">
+                            <div class="position-absolute start-0 top-0 bottom-0 bg-gradient-fade"></div>
+                            <img class="img-fluid" src="{{ asset('modules/ptventa/images/general/ticket.jpg') }}" alt="">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -27,7 +38,7 @@
 @include('ptventa::layouts.partials.plugins.sweetalert2')
 
 @push('scripts')
-    {{-- Ruta de la estructura fuente del plugin de Parzibyte - Impresoras termicas v3 --}}    
+    {{-- Ruta de la estructura fuente del plugin de Parzibyte - Impresoras termicas v3 --}}
     <script src="{{ asset('modules/ptventa/js/sale/conector_javascript_POS80C.js') }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
@@ -52,22 +63,20 @@
             imprimirBtn.addEventListener('click', async (event) => {
                 event.preventDefault();
 
-                try {
-                    // Intenta imprimir usando la impresora con nombre "POS-80C"
-                    await conector.imprimirEn("POS-80C");
-
-                    // Si la impresora esta disponible el resultado es exitoso
-                    // Redireccionar al usuario a la vista del botón
-                    window.location.href = "{{ route('cefa.ptventa.configuration') }}";
-                } catch (error) {
-                    // A ocurrido un error en la impresion
-                    // Muestra el SweetAlert2 con la notificacion
+                // Intenta imprimir usando la impresora con nombre "POS-80C"
+                respuesta = await conector.imprimirEn("POS-80C");
+                if (respuesta === true) {
                     Swal.fire({
-                        icon: 'error',
-                        title: '{{trans("ptventa::Configuration.title")}}',
-                        text: '{{trans("ptventa::Configuration.text")}}',
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Factura generada correctamente.',
+                        showConfirmButton: false,
+                        timer: 1500
                     });
+                } else {
+                    alert(respuesta);
                 }
+
             });
         });
     </script>

@@ -3,17 +3,17 @@
 namespace Modules\PTVENTA\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Route;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
 use Modules\PTVENTA\Entities\CashCount;
-use Modules\PTVENTA\Http\Controllers\InventoryController;
 
 class SaleController extends Controller
 {
 
     public function index(){
-        $view = ['titlePage'=> trans('ptventa::sales.titlePage'), 'titleView'=> trans('ptventa::sales.titleView')];
-        $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
+        $view = ['titlePage'=> trans('ptventa::controllers.PTVENTA_sale_index_title_page'), 'titleView'=> trans('ptventa::controllers.PTVENTA_sale_index_title_view')];
+        $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         $cashCount = CashCount::where('productive_unit_warehouse_id',$app_puw->id)
                                 ->where('state','Abierta')
                                 ->first();
@@ -33,16 +33,23 @@ class SaleController extends Controller
 
     public function register(){
         // Verificar si hay una caja abierta
-        $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
+        $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         $open_cash_count = CashCount::where('productive_unit_warehouse_id',$app_puw->id)
                                     ->where('state', 'Abierta')
                                     ->first();
         if (!$open_cash_count) {
-            return redirect()->route('ptventa.sale.index')->with('error', 'Primero debes abrir una caja.');
+            return redirect(route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.sale.index'))->with('error', 'Primero debes abrir una caja.');
         }
         // Continuar con la vista de registro de venta si hay una caja abierta
-        $view = ['titlePage' => trans('ptventa::sales.titlePage'), 'titleView' => trans('ptventa::sales.titleView2')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_sale_register_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_sale_register_title_view')];
         return view('ptventa::sale.register', compact('view'));
+    }
+
+    /* Ver detalle de venta */
+    public function show($movement_id){
+        $movement = Movement::with('movement_details.inventory.element.measurement_unit')->find($movement_id);
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_sale_show_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_sale_show_title_view')];
+        return view('ptventa::sale.show', compact('view', 'movement'));
     }
 
 }

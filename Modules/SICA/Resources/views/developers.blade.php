@@ -18,7 +18,7 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="{{ asset('storage/photos/shares/people/Diego.png') }}"
+                       src="{{ asset('modules/sica/images/Diego.png') }}"
                        alt="User profile picture">
                 </div>
                 <h3 class="profile-username text-center">Diego Andres Mendez Pastrana</h3>
@@ -43,7 +43,7 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="{{ asset('sica/images/logofs.png') }}"
+                       src="{{ asset('modules/sica/images/logofs.png') }}"
                        alt="User profile picture">
                 </div>
                 <h3 class="profile-username text-center">Fabrica de Software</h3>
@@ -77,7 +77,7 @@
                     <li>Plantilla AdminLTE de <a href="https://adminlte.io" title="AdminLTE" target="blank">adminlte.io/</a></li>
                     <li>Iconos gratuitos de <a href="https://fontawesome.com/icons?d=gallery" title="Flaticon" target="blank"> fontawesome.com</a></li>
                   </ul>
-                        
+
                 </div>
               </div>
               <!-- /.card-body -->
