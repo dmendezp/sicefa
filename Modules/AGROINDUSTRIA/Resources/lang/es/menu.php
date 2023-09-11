@@ -24,7 +24,7 @@ return [
 
     //Movimiento interno
     'Exit from Cellar' => 'Salida de Bodega',
-    'Date' => 'Fecha',
+    'Date Time' => 'Fecha y Hora',
     'Select a receiver' => 'Seleccione un receptor',
     'Receiver' => 'Receptor',
     'Warehouse that Delivers' => 'Bodega que Entrega',
@@ -45,6 +45,15 @@ return [
     'Successful check out' => 'Registro de salida exitoso',
     'Check out error' => 'Error en el registro de salida',
     'Quantity entered is greater than inventory quantity' => 'La cantidad ingresada es mayor a la del inventario',
+    'Status of the edited movement' => 'Estado del movimiento editado',
+    'Error when editing movement status' => 'Error al editar estado del movimiento',
+    'Motion successfully cancelled' => 'Movimiento anulado exitosamente',
+    'Movement Cancel Error' => 'Error al anular el movimiento',
+    'Cancel' => 'Anular',
+    'Required field' => 'Campo requerido',
+    'Return' => 'Devolver',
+    'Movement successfully returned' => 'Movimiento devuelto con éxito',
+    'Error when returning the movement' => 'Error al devolver el movimiento',
 ]
 
 ?>

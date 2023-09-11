@@ -48,7 +48,12 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/activity', [ActivityController::class, 'activity'])->name('cefa.agroindustria.instructor.activity');
             //Movimientos
             Route::get('/movements', [DeliverController::class, 'deliveries'])->name('cefa.agroindustria.instructor.movements');
+            Route::get('/movements/pending', [DeliverController::class, 'pending'])->name('cefa.agroindustria.instructor.movements.pending');
+            Route::put('/movements/pending/{id}', [DeliverController::class, 'stateMovement'])->name('cefa.agroindustria.instructor.movements.pending.state');
+            Route::put('/movements/cancelled/{id}', [DeliverController::class, 'anularMovimiento'])->name('cefa.agroindustria.instructor.movements.cancelled');
+            Route::put('/movements/return/{id}', [DeliverController::class, 'devolverMovimiento'])->name('cefa.agroindustria.instructor.movements.return');
             Route::get('/movements/{id}', [DeliverController::class, 'priceInventory'])->name('cefa.agroindustria.instructor.movements.id');
+            Route::get('/movements/warehouse/{idPerson}', [DeliverController::class, 'warehouseReceive'])->name('cefa.agroindustria.instructor.movements.warehouse');
             Route::post('/movements/out', [DeliverController::class, 'createMoveOut'])->name('cefa.agroindustria.instructor.movements.out');
 
             Route::get('/formulation', [FormulationController::class, 'create'])->name('cefa.agroindustria.instructor.formulations.create');

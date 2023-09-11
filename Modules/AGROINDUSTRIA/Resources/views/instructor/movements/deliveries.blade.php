@@ -3,18 +3,21 @@
 
 <div class="movements">
   <div class="form">
-    <div class="form-header">{{trans('agroindustria::menu.Exit from Cellar')}}</div>
+    <div class="form-header">{{trans('agroindustria::menu.Exit from Cellar')}} <a type="button" href="{{route('cefa.agroindustria.instructor.movements.pending')}}">Pendientes</a></div>
     <div class="form-body">
       {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.instructor.movements.out')]) !!}
       <div class="row">
         <div class="col-md-6">
           {!! Form::hidden('productiveUnitWarehouse', $productiveUnitWarehouse, ['id' => 'productiveUnitWarehouse']) !!}
-          {!! Form::label('fecha', trans('agroindustria::menu.Date')) !!}
-          {!! Form::date('date', now(), ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+          {!! Form::label('fecha', trans('agroindustria::menu.Date Time')) !!}
+          {!! Form::datetime('date', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'readonly' => 'readonly']) !!}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="receive">
           {!! Form::label('receive', trans('agroindustria::menu.Receiver')) !!}
-          {!! Form::select('receive', $receive, old('receive'), ['class' => 'form-control']) !!}
+          {!! Form::select('receive', $receive, old('receive'), ['class' => 'form-control', 'id' => 'receive-selected']) !!}
+          @error('receive')
+          <span class="text-danger">{{ $message }}</span>
+          @enderror
         </div>
         <div class="col-md-6">
           {!! Form::label('deliver_warehouse', trans('agroindustria::menu.Warehouse that Delivers')) !!}
@@ -25,7 +28,7 @@
         </div>
         <div class="col-md-6">
           {!! Form::label('receive_warehouse', trans('agroindustria::menu.Warehouse that Receives')) !!}
-          {!! Form::select('receive_warehouse', $warehouseReceive, old('receive_warehouse'), ['placeholder' => trans('agroindustria::menu.Select a winery'), 'class' => 'form-control', 'id' => 'receive_warehouse']) !!}
+          {!! Form::select('receive_warehouse', [], old('receive_warehouse'), ['placeholder' => trans('agroindustria::menu.Select a winery'), 'class' => 'form-control', 'id' => 'receive_warehouse']) !!}
           @error('receive_warehouse')
             <span class="text-danger">{{ $message }}</span>
           @enderror
@@ -87,7 +90,6 @@
 <script>
 $(document).ready(function() {
     // Aplicar Select2 al campo de selección con el id 'receive_warehouse'
-    $('#receive_warehouse').select2();
 
     // Aplicar Select2 al campo de selección con el id 'elementInventory'
     $('#elementInventory').select2();
@@ -146,6 +148,37 @@ $(document).ready(function() {
         $(this).parent(".elements").remove();
     });
 });
+</script>
+
+<script>
+$(document).ready(function() {
+    // Detecta cambios en el primer campo de selección (Receiver)
+    $('#receive-selected').on('change', function() {
+        var selectedReceiver = $(this).val();
+
+        var url = {!! json_encode(route('cefa.agroindustria.instructor.movements.warehouse', ['idPerson' => ':idPerson'])) !!}.replace(':idPerson', selectedReceiver.toString());
+        console.log('URL de AJAX:', url);
+
+        // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(response) {
+                var options = '<option value="">' + '{{ trans("agroindustria::menu.Select a winery") }}' + '</option>';
+                $.each(response.id, function(index, warehouse) {
+                    options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
+                });
+
+                // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                $('#receive_warehouse').html(options);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+
 </script>
 
 <script>

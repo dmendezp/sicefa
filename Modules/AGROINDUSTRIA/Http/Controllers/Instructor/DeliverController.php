@@ -25,6 +25,12 @@ use Validator, Str;
 
 class DeliverController extends Controller
 {
+    private $receiveOptions = [
+        'aprobado' => 'Aprobado',
+        'devuelto' => 'Devuelto',
+        // Agrega más opciones según tus necesidades
+    ];
+
     public function deliveries()
     {
         $title = 'Entregas';
@@ -48,18 +54,17 @@ class DeliverController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a winery')])->pluck('name', 'id');
 
-        //Bodega que recibe
-        $warehouseReceive = Warehouse::pluck('name','id');
 
+        //Consulta la unidad productiva segun el id de la bodega relacionada
         $ProductiveUnitWarehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehouseId)
         ->get();
-    
         $idProductiveUnitWarehouse = $ProductiveUnitWarehouse->pluck('id');
+    
 
-
+        //Consulta el inventario que pertenece a la bodega de esa unidad productiva
         $inventories = Inventory::with('element')
         ->whereIn('productive_unit_warehouse_id', $idProductiveUnitWarehouse)->get();
-
+        //Filtra los elementos de ese inventario
         $elements = $inventories->map(function ($inventory) {
             $elementId = $inventory->element->id;
             $elementName = $inventory->element->name;
@@ -70,6 +75,7 @@ class DeliverController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a product')])->pluck('name', 'id');
 
+        //Consulta los lideres de las unidades productivas
         $people = User::whereNotNull('person_id')->pluck('person_id');
         $productiveUnitPeople = ProductiveUnit::with('person')->whereIn('person_id', $people)->get();
         $receive = $productiveUnitPeople->map(function ($productiveUnitPerson) {
@@ -82,23 +88,55 @@ class DeliverController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a receiver')])->pluck('name', 'id');
 
-        $movements = Movement::with(['movement_details', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
+        //Consulta los movimientos del responsable con el rol de ENTREGA
+        $idMovements = Movement::pluck('id');
+        $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
         ->whereHas('movement_responsibilities', function ($query) use ($idPersona) {
-            $query->where('person_id', $idPersona);
-        })->get();
+            $query->where('person_id', $idPersona)
+                  ->where('role', 'ENTREGA');
+        })->orderByRaw("
+        CASE
+            WHEN state = 'Solicitado' THEN 1
+            ELSE 2
+        END")->get();
         
 
         $data = [
             'title' => $title,
             'productiveUnitWarehouse' => $idProductiveUnitWarehouse,
             'warehouseDeliver' => $warehouseDeliver,
-            'warehouseReceive' => $warehouseReceive,
             'elements' => $elements,
             'receive' => $receive,
-            'movements' => $movements
+            'movements' => $movements,
+            'receiveOptions' => $this->receiveOptions
         ];
 
         return view('agroindustria::instructor.movements.deliveries', $data);
+    }
+
+    public function warehouseReceive($idPerson){    
+        // Asegúrate de que $id sea un arreglo
+        if (!is_array($idPerson)) {
+            $idPerson = [$idPerson];
+        }
+        
+
+        $warehouseReceives = ProductiveUnitWarehouse::with('warehouse')
+        ->whereHas('productive_unit', function($query) use ($idPerson){
+            $query->where('person_id', $idPerson);
+        })->get();
+
+        $warehouse = $warehouseReceives->map(function ($w){
+            $id = $w->warehouse->id;
+            $name = $w->warehouse->name;
+
+            return[
+                'id' => $id,
+                'name' => $name
+            ];
+        });
+    
+        return response()->json(['id' => $warehouse]);
     }
 
     public function priceInventory($id){    
@@ -266,7 +304,132 @@ class DeliverController extends Controller
             'icon' => $icon,
             'message_line' => $message_line,
         ]);
-
     }
+
+    public function pending(){
+        $title = "Pendientes";
+        
+        $user = Auth::user();
+        if ($user->person) {
+            $idPersona = $user->person->id;
+        }
+
+        $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
+        ->whereHas('movement_responsibilities', function ($query) use ($idPersona) {
+            $query->where('person_id', $idPersona)
+                  ->where('role', 'RECIBE');
+        })->orderByRaw("
+        CASE
+            WHEN state = 'Solicitado' THEN 1
+            ELSE 2
+        END")->get();
+
+        $idMovement = $movements->pluck('id');
+
+        $dataReceive = MovementResponsibility::with('person')
+        ->whereIn('movement_id', $idMovement)
+        ->where('role', 'RECIBE')
+        ->get();        
+
+        $data = [
+            'title' => $title,
+            'movements' => $movements,
+            'dataReceive' => $dataReceive,
+            'receiveOptions' => $this->receiveOptions
+        ];
+        return view('agroindustria::instructor.movements.pending', $data);
+    }
+
+    public function stateMovement($id) {
+    // Obtén el movimiento que deseas actualizar
+    $movement = Movement::findOrFail($id);
+    $movement->state = 'Aprobado';
+    $movement->save();
+    // Verifica si el estado del movimiento se establece como "aprobado"
+    if ($movement->state === 'Aprobado') {
+        // Recorre los detalles del movimiento
+        foreach ($movement->movement_details as $detail) {
+            // Actualiza la cantidad en el inventario restando la cantidad del movimiento
+            $inventory = $detail->inventory;
+            $inventory->amount -= $detail->amount;
+            $inventory->save();
+        }
+    }
+
+    // Actualiza el estado del movimiento
+   
+
+    if ($movement->save()) {
+        $icon = 'success';
+        $message_line = trans('agroindustria::menu.Status of the edited movement');
+    } else {
+        $icon = 'error';
+        $message_line = trans('agroindustria::menu.Error when editing movement status');
+    }
+
+    return redirect()->route('cefa.agroindustria.instructor.movements.pending')->with(['icon' => $icon, 'message_line' => $message_line]);
+}
+
+
+    public function anularMovimiento(Request $request, $id){
+
+        $rules=[
+            'observation' => 'required',
+        ];
+        $messages = [
+            'observation.required' => trans('agroindustria::menu.Required field'),
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+        $movement = Movement::find($id);
+        if ($movement) {
+            $movement->observation = $validatedData['observation'];
+            $movement->state = 'Anulado';
+            $movement->save();
+        }
+        if($movement->save()){
+            $icon = 'success';
+            $message_line = trans('agroindustria::menu.Motion successfully cancelled');
+        }else{
+            $icon = 'error';
+            $message_line = trans('agroindustria::menu.Movement Cancel Error');
+        }
+
+        return redirect()->route('cefa.agroindustria.instructor.movements')->with([
+            'icon' => $icon,
+            'message_line' => $message_line,
+        ]);
+    }
+
+    public function devolverMovimiento(Request $request, $id){
+
+        $rules=[
+            'observation' => 'required',
+        ];
+        $messages = [
+            'observation.required' => trans('agroindustria::menu.Required field'),
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+        $movement = Movement::find($id);
+        if ($movement) {
+            $movement->observation = $validatedData['observation'];
+            $movement->state = 'Devuelto';
+            $movement->save();
+        }
+        if($movement->save()){
+            $icon = 'success';
+            $message_line = trans('agroindustria::menu.Movement successfully returned');
+        }else{
+            $icon = 'error';
+            $message_line = trans('agroindustria::menu.Error when returning the movement');
+        }
+
+        return redirect()->route('cefa.agroindustria.instructor.movements.pending')->with([
+            'icon' => $icon,
+            'message_line' => $message_line,
+        ]);
+    }
+
 
 }
