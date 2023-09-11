@@ -165,11 +165,10 @@ window.onclick = function(event) {
 </script>
 
 <script>
-<<<<<<< HEAD
     new DataTable('#deliveries');
     new DataTable('#example');
-<<<<<<< Updated upstream
-=======
+</script>
+<script>
     $(document).ready(function() {
     $('#deliveries').DataTable({
         "order": [[0, "desc"]], // Ordenar por la primera columna (Fecha de Solicitud) en orden descendente
@@ -177,9 +176,7 @@ window.onclick = function(event) {
         // Agrega otras opciones de configuración según tus necesidades
     });
 });
->>>>>>> e9a9364577d8986525073a717829c856b8cb86d9
-=======
->>>>>>> Stashed changes
+
 </script>
 
 
@@ -189,4 +186,5 @@ window.onclick = function(event) {
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 

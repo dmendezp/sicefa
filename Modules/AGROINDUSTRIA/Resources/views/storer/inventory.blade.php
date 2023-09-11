@@ -9,7 +9,7 @@
             <br>
             <center>    <h1>Inventario</h1>
                 </center>
-                
+
             <a href="" style="width: 50px; height: 40px; margin-left: 1030px;" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"    ><i style="margin-top: 12px;" class="fa-solid fa-plus fa-sm"></i></a>
             <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -34,19 +34,19 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                            
-                                              
+
+
                                                 @foreach ( $inventories as $inventory)
                                                 <input type="hidden" name="productive_unit_warehouse_id" value="{{ $inventory->productive_unit_warehouse_id}}">                                            
                                                 <input type="hidden" name="person_id" value="2">     
-                                                                                           
+
                                                 @endforeach
-        
+
                                                 <div class="mb-3">
                                                     <label class="form-label">Descripcion.</label>
                                                     <input type="text" class="form-control" name="description" placeholder="Ingrese Descripcion.">
                                                 </div>
-                                    
+
                                                 <div class="mb-3">
                                                     <label class="form-label">Categoria.</label>
                                                     <select class="form-select" name="category_id" aria-label="Default select example">
@@ -57,18 +57,18 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                    
+
                                             <div class="col">
                                                 <div class="mb-3">
                                                     <label class="form-label">Precio.   </label>
                                                     <input type="number" class="form-control" name="price" placeholder="Ingrese Precio.">
                                                 </div>
-                                    
+
                                                 <div class="mb-3">
                                                     <label class="form-label">Disponible.</label>
                                                     <input type="number" class="form-control" name="stock" placeholder="Ingrese cantidad disponible.">
                                                 </div>
-                                    
+
                                                 <div class="mb-3">
                                                     <label class="form-label">Fecha de expiracion.</label>
                                                     <input type="date" class="form-control" name="expiration_date" placeholder="Seleccione Fecha de vencimiento.">
@@ -80,17 +80,17 @@
                                             </div>
                                         </div>
                                     </form>
-                                    
-                                    
-                                    
+
+
+
                                 </div>
                             </div>
-                    
+
                 </div>
             </div>
           </div>
-        
-        
+
+
             <br>
                 <thead>
                     <tr>
@@ -120,17 +120,16 @@
                             <button type="button" class="btn btn-primary">Eliminar</button>
                         </td>
                     </tr>
-                    
                     @endforeach
                     </tbody>
-                
+                    @section('script')
+                    @endsection
+                        
             </table>
         </div>  
         </div>
 </center>
 
     
-@section('script')
-@endsection
 
 @endsection
