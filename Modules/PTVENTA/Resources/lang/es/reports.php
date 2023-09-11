@@ -1,48 +1,58 @@
 <?php
 
 return [
-    //Breadcrumbs
-	'Reports'           => 'Reportes',
-	'Reports Panel'     => 'Panel de Reportes',
-	'Inventory Entries' => 'Entradas de Inventario',
-	'Sales'             => 'Ventas',
+    // Breadcrumbs
+	'Breadcrumb_Reports_1'                  => 'Reportes',
+	'Breadcrumb_Active_Inventory_1'         => 'Panel de Reportes',
+	'Breadcrumb_Active_Inventory_Entries_1' => 'Entradas de Inventario',
+	'Breadcrumb_Active_Sales_1'             => 'Ventas',
 
-    //--->Section Card Master<---
-    'Title'  => 'Selecciona aquí el tipo de reporte que deseas consultar',
+    // ---Section Card Select Report---
+    'Title_Select_Report'          => 'Selecciona aquí el tipo de reporte que deseas consultar',
+    // Card Inventory
+    'Title_Card_Inventory'         => 'Inventario',
+    'Text_Card_Inventory'          => 'Genera el reporte de inventario actual',
+    // Card Inventory Entries
+    'Title_Card_Inventory_Entries' => 'Entradas de Inventario',
+    'Text_Card_Inventory_Entries'  => 'Genera el reporte de entradas de inventario por fechas',
+    // Card Inventory Sale
+    'Title_Card_Inventory_Sales'   => 'Ventas',
+    'Text_Card_Inventory_Sales'    => 'Genera el reporte de ventas por fechas',
 
-    //--->Section Cards Reports<---
-    //Inventory
-    'TitleCard1'  => 'Inventario',
-    'TextCard1'   => 'Genera el reporte de inventario actual',
+    // ---Section Report Inventory Entries---
+    'Title_Form_Start_Date' => 'Fecha de Inicio:',
+    'Title_Form_End_Date'   => 'Fecha Final:',
+    // Table With Result Search
+    '1T_Number'               => 'N°',
+    '1T_Voucher'              => 'N° Comprobante',
+    '1T_Responsible_Delivery' => 'Responsable de Entrega',
+    '1T_Registration_Date'    => 'Fecha de Ingreso',
+    '1T_Product'              => 'Producto',
+    '1T_Amount'               => 'Cantidad',
+    '1T_Price'                => 'Precio',
+    '1T_Subtotal'             => 'Subtotal',
+    '1T_Total'                => 'Total',
+    '1T_Text_Optional'        => 'No se encontraron registros para las fechas seleccionadas.',
 
-    //--->Section Inventory Entries<---
-    //Principal
-    'TitleCard2'  => 'Entradas de Inventario',
-    'TextCard2'   => 'Genera el reporte de entradas de inventario por fechas',
-    //View
-    //Form
-    'TextForm1'   => 'Fecha de Inicio:',
-    'TextForm2'   => 'Fecha Final:',
-    //Table
-    '1'       => 'N°',
-    '2'       => 'N° Comprobante',
-    '3'       => 'Responsable de Entrega',
-    '4'       => 'Fecha de Ingreso',
-    '5'       => 'Producto',
-    '6'       => 'Cantidad',
-    '7'       => 'Precio',
-    '8'       => 'Subtotal',
-    '9'       => 'Total',
-    'AltText' => 'No se encontraron registros para las fechas seleccionadas.',
-
-    //--->Section Sales<---
-    'TitleCard3'  => 'Ventas',
-    'TextCard3'   => 'Genera el reporte de ventas por fechas',
+    // ---Section Report Sales---
+    'Title_Form_Start_Date' => 'Fecha de Inicio:',
+    'Title_Form_End_Date'   => 'Fecha Final:',
+    // Table With Result Search
+    '2T_Number'               => 'N°',
+    '2T_Voucher'              => 'N° Comprobante',
+    '2T_Responsible_Delivery' => 'Responsable de Entrega',
+    '2T_Registration_Date'    => 'Fecha de Ingreso',
+    '2T_Product'              => 'Producto',
+    '2T_Amount'               => 'Cantidad',
+    '2T_Price'                => 'Precio',
+    '2T_Subtotal'             => 'Subtotal',
+    '2T_Total'                => 'Total',
+    '2T_Text_Optional'        => 'No se encontraron registros para las fechas seleccionadas.',
     
-    //Buttons
-    'Btn1'   => 'Buscar',
-    'Btn2'   => 'Generar Reporte',
+    // Btns
+    'Btn_Search'       => 'Buscar',
+    'Btn_Generate_PDF' => 'Generar Reporte',
     
     //Sweetalert2
-    'title'   => 'Realiza primero la consulta, luego si genera el reporte.',
+    'Title'   => 'Debes realizar primero la consulta, luego si genera el reporte.',
 ];

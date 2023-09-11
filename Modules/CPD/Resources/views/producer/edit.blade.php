@@ -12,8 +12,8 @@
             @include('cpd::producer.form')
         </div>
         <div class="modal-footer py-1">
-            <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cancelar</button>
-            {!! Form::submit('Actualizar', ['class'=>'btn btn-success btn-md py-0']) !!}
+            <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">{{ trans('cpd::producer.Btn_Cancel') }}</button>
+            {!! Form::submit(trans('cpd::producer.Btn_Update'), ['class'=>'btn btn-success btn-md py-0']) !!}
         </div>
     {!! Form::close() !!}
 </div>

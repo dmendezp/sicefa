@@ -1,7 +1,7 @@
 @extends('cpd::layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">Productores</li>
+    <li class="breadcrumb-item">{{ trans('cpd::producer.Breadcrumb_Producers') }}</li>
 @endsection
 
 @section('content')
@@ -20,13 +20,13 @@
                                     <table id="table-producers" class="table table-bordered table-striped table-sm dtr-inline">
                                         <thead>
                                             <tr>
-                                                <th class="align-middle text-center">#</th>
-                                                <th class="align-middle text-center">Productor</th>
+                                                <th class="align-middle text-center">{{ trans('cpd::producer.1T_Number') }}</th>
+                                                <th class="align-middle text-center">{{ trans('cpd::producer.1T_Producer') }}</th>
                                                 <th class="text-center" >
                                                     <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.producer.create') }}')">
-                                                        <b class="btn btn-primary py-0 px-1 btn-sm" data-toggle="tooltip" data-placement="top" title="Registrar productor">
+                                                        <b class="btn btn-primary py-0 px-1 btn-sm" data-toggle="tooltip" data-placement="top" title="{{ trans('cpd::producer.T_Register_Producer') }}">
                                                             <i class="fas fa-plus-circle"></i>
-                                                            Registrar
+                                                            {{ trans('cpd::producer.Btn_Register') }}
                                                         </b>
                                                     </a>
                                                 </th>
@@ -39,12 +39,12 @@
                                                     <td class="align-middle">{{ $producer->name }}</td>
                                                     <td class="align-middle text-center">
                                                         <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.producer.edit', $producer->id) }}')">
-                                                            <b class="text-success" data-toggle="tooltip" data-placement="top" title="Actualizar productor">
+                                                            <b class="text-success" data-toggle="tooltip" data-placement="top" title="{{ trans('cpd::producer.T_Edit_Producer') }}">
                                                                 <i class="far fa-edit"></i>
                                                             </b>
                                                         </a>
                                                         <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.producer.delete', $producer->id) }}')">
-                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar monitoreo">
+                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="{{ trans('cpd::producer.T_Delete_Producer') }}">
                                                                 <i class="far fa-trash-alt"></i>
                                                             </b>
                                                         </a>

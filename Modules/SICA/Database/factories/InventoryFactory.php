@@ -41,7 +41,7 @@ class InventoryFactory extends Factory
         }
 
         return [
-            'element_id' => Element::pluck('id')->random(),
+            'element_id' => Element::whereNotNull('price')->pluck('id')->random(),
             'destination' => 'Producción',
             'description' => $this->faker->randomElement([null, rtrim($this->faker->unique()->sentence(), '.')]),
             'price' => $this->faker->numberBetween(10, 100) * 100,

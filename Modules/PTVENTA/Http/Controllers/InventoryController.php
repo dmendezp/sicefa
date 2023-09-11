@@ -3,35 +3,18 @@
 namespace Modules\PTVENTA\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Modules\SICA\Entities\Warehouse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
-use Modules\SICA\Entities\ProductiveUnit;
-use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use TCPDF;
 
 class InventoryController extends Controller
 {
-
-    public $app_puw; // Establecer unidad productiva y bodega general de la aplicación
-
-    // Obtener unidad productiva y bodega general de la aplicación
-    public function getAppPuw()
-    {
-        if (!$this->app_puw) {
-            $productive_unit = ProductiveUnit::where('name', 'Punto de venta')->firstOrFail(); // Unidad productiva de la aplicación
-            $warehouse = Warehouse::where('name', 'Punto de venta')->firstOrFail(); // Bodega de la aplicación
-            $this->app_puw = ProductiveUnitWarehouse::where('productive_unit_id', $productive_unit->id)->where('warehouse_id', $warehouse->id)->firstOrFail();
-        }
-        return $this->app_puw;
-    }
-
-    public function index()
-    { // Listado del inventario actual
-        $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+    // Listado del inventario actual
+    public function index(){
+        $inventories = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
             ->where('amount', '<>', 0)
             ->orderBy('updated_at', 'DESC')
             ->get();
@@ -52,51 +35,71 @@ class InventoryController extends Controller
         }
 
         // Convertimos los grupos a la colección final
-        foreach ($groups as $group) {
+        foreach ($groups as $group){
             $groupedInventories->push($group);
         }
-        $view = ['titlePage' => trans('ptventa::inventory.titlePage1'), 'titleView' => trans('ptventa::inventory.titleView1')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_index_title_view')];
         return view('ptventa::inventory.index', compact('view', 'groupedInventories'));
     }
 
-    public function create()
-    { // Formulario de registro (entrada) de inventario
-        $view = ['titlePage' => trans('ptventa::inventory.titlePage2'), 'titleView' => trans('ptventa::inventory.titleView2')];
+    // Formulario de registro (entrada) de inventario
+    public function create(){
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_create_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_create_title_view')];
         return view('ptventa::inventory.create', compact('view'));
     }
 
-
-    public function status(Request $request)
-    { // Lista de productos vencidos y por vencer
-        $view = ['titlePage' => 'Inventario - Estado', 'titleView' => 'Productos en riesgo por caducidad'];
-        $productosVencidos = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
-            ->where('state', 'Disponible')
-            ->where('expiration_date', '<', now())
-            ->orderBy('expiration_date')
-            ->get();
-        $productosPorVencer = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
-            ->where('state', 'Disponible')
-            ->where('expiration_date', '>', now())
-            ->where('expiration_date', '<=', now()->addDays(3))
-            ->orderBy('expiration_date')
-            ->get();
+    // Lista de productos vencidos y por vencer
+    public function status(Request $request) {
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_status_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_status_title_view')];
+        $productosVencidos = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
+                                        ->where('state', 'Disponible')
+                                        ->where('expiration_date', '<', now())
+                                        ->orderBy('expiration_date')
+                                        ->get();
+        $productosPorVencer = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
+                                        ->where('state', 'Disponible')
+                                        ->where('expiration_date', '>', now())
+                                        ->where('expiration_date', '<=', now()->addDays(3))
+                                        ->orderBy('expiration_date')
+                                        ->get();
         return view('ptventa::inventory.status', compact('view', 'productosVencidos', 'productosPorVencer'));
     }
 
-    //Funciones para reporte de inventario
-    public function reports()
-    { //Vista principal del panel de reportes
-        $view = ['titlePage' => trans('ptventa::reports.Reports'), 'titleView' => trans('ptventa::reports.Reports Panel')];
+    /* Ingresar a registro de bajas de inventario */
+    public function low_create(){
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_low_create_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_low_create_title_view')];
+        return view('ptventa::inventory.low', compact('view'));
+    }
+
+    /* Ver detalle de movimiento interno */
+    public function show_entry(Movement $movement){
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_show_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_show_title_view')];
+        return view('ptventa::inventory.show-entry', compact('view', 'movement'));
+    }
+
+    /* Ver detalle de baja de inventario */
+    public function showLow(Movement $movement){
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_show_low_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_show_low_title_view')];
+        return view('ptventa::inventory.show-low', compact('view', 'movement'));
+    }
+
+    //======================================== Funciones para reporte de inventario =========================================
+    //Vista principal del panel de reportes
+    public function reports(){
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_reports_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_reports_title_view')];
         return view('ptventa::reports.index', compact('view'));
     }
 
     // Método para generar el reporte PDF de inventario actual
-    public function generateInventoryPDF(Request $request)
-    {
-        $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+    public function generateInventoryPDF(Request $request){
+        $inventories = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
             ->where('amount', '<>', 0)
             ->orderBy('updated_at', 'DESC')
             ->get();
+
+        // Se accede al nombre de la bodega y unidad productiva
+        $puw = PUW::getAppPuw();
+
         $groupedInventories = collect(); // Creamos una nueva colección para almacenar el resultado
         $groups = []; // Creamos un array para mantener el seguimiento de los grupos
 
@@ -137,21 +140,22 @@ class InventoryController extends Controller
         $pdf->Cell(0, 0, $header, 0, 1, 'C');
 
         // Establecer el contenido del PDF
-        $html = '<h3 style="text-align: center;">' . $title . '</h3>';
+        $html = '<h4 style="text-align: center;"><strong>Bodega:</strong> ' . $puw->warehouse->name . ' - <strong>Unidad Productiva:</strong> ' . $puw->productive_unit->name . '</h4>';
+        $html .= '<h3 style="text-align: center;">' . $title . '</h3>';
         $html .= '<table style="border-collapse: collapse; width: 100%;">';
         $html .= '<thead style="background-color: #f2f2f2;">';
         $html .= '<tr>';
         // Columna del #
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;">#</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;"><b>#</b></th>';
         // Resto de columnas
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;">Producto</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">N° Lote</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">Fecha Producción</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">Fecha Vencimiento</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 46px;">Cantidad</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">Precio Entrada</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">Precio Venta</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;">Existencias</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;"><b>Producto</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 45px;"><b>N° Lote</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;"><b>Fecha Producción</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;"><b>Fecha Vencimiento</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;"><b>Cantidad</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;"><b>Precio Entrada</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;"><b>Precio Venta</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 62px;"><b>Existencias</b></th>';
         $html .= '</tr>';
         $html .= '</thead>';
         $html .= '<tbody>';
@@ -162,13 +166,13 @@ class InventoryController extends Controller
             $html .= '<tr>';
             $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 25px;">' . $key + 1 . '</td>';
             $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;">' . $firstRecord->element->name . '</td>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">' . $firstRecord->lot_number . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 45px;">' . $firstRecord->lot_number . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">' . $firstRecord->production_date . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">' . $firstRecord->expiration_date . '</td>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 46px;">' . $firstRecord->amount . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">' . $firstRecord->amount . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">' . priceFormat($firstRecord->price) . '</td>';
             $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">' . priceFormat($firstRecord->element->price) . '</td>';
-            $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;">' . $group->sum('amount') . '</td>';
+            $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 62px;">' . $group->sum('amount') . '</td>';
             $html .= '</tr>';
             foreach ($group->slice(1) as $record) {
                 $html .= '<tr>';
@@ -192,9 +196,8 @@ class InventoryController extends Controller
     }
 
     // Método para mostrar la vista del formulario de entradas de inventario
-    public function showInventoryEntriesForm()
-    {
-        $view = ['titlePage' => trans('ptventa::reports.Reports'), 'titleView' => trans('ptventa::reports.Inventory Entries')];
+    public function showInventoryEntriesForm(){
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_show_entries_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_show_entries_title_view')];
 
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
@@ -204,8 +207,7 @@ class InventoryController extends Controller
     }
 
     // Método para realizar la consulta de entradas de inventario y redirigir a la vista
-    public function generateInventoryEntries(Request $request)
-    {
+    public function generateInventoryEntries(Request $request){
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
@@ -223,7 +225,7 @@ class InventoryController extends Controller
 
         // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
-            $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+            $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                 ->where('role', 'Recibe');
         })
             ->where('movement_type_id', $movement_type->id)
@@ -236,8 +238,7 @@ class InventoryController extends Controller
     }
 
     // Método para generar el reporte PDF de entradas de inventario
-    public function generateInventoryEntriesPDF(Request $request)
-    {
+    public function generateInventoryEntriesPDF(Request $request){
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
@@ -255,7 +256,7 @@ class InventoryController extends Controller
 
         // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
-            $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+            $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                 ->where('role', 'Recibe');
         })
             ->where('movement_type_id', $movement_type->id)
@@ -263,6 +264,9 @@ class InventoryController extends Controller
             ->whereBetween('registration_date', [$startDate, $endDate])
             ->orderBy('registration_date', 'ASC')
             ->get();
+
+        // Se accede al nombre de la bodega y unidad productiva
+        $puw = PUW::getAppPuw();
 
         // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
@@ -283,21 +287,22 @@ class InventoryController extends Controller
         $pdf->Cell(0, 0, $header, 0, 1, 'C');
 
         // Establecer el contenido del PDF con el título (incluyendo las fechas)
-        $html = '<h3 style="text-align: center;">' . $title . '</h3>';
+        $html = '<h4 style="text-align: center;"><strong>Bodega:</strong> ' . $puw->warehouse->name . ' - <strong>Unidad Productiva:</strong> ' . $puw->productive_unit->name . '</h4>';
+        $html .= '<h3 style="text-align: center;">' . $title . '</h3>';
 
         // Crear el encabezado de la tabla
         $html .= '<table style="border-collapse: collapse; width: 100%;">';
         $html .= '<thead style="background-color: #f2f2f2;">';
         $html .= '<tr>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;">#</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 52px;">Número de Voucher</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;">Responsable que entrega</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de ingreso</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 90px;">Producto</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Cantidad</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Precio</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Subtotal</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Total</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;"><b>#</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 52px;"><b>N° de Voucher</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;"><b>Responsable que entrega</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><b>Fecha de ingreso</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 90px;"><b>Producto</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Cantidad</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Precio</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Subtotal</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Total</b></th>';
         $html .= '</tr>';
         $html .= '</thead>';
 
@@ -336,9 +341,8 @@ class InventoryController extends Controller
     }
 
     // Método para mostrar la vista del formulario de ventas
-    public function showSalesForm()
-    {
-        $view = ['titlePage' => trans('ptventa::reports.Reports'), 'titleView' => trans('ptventa::reports.Sales')];
+    public function showSalesForm(){
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_sales_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_sales_title_view')];
 
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
@@ -348,8 +352,7 @@ class InventoryController extends Controller
     }
 
     // Método para realizar la consulta de ventas y redirigir a la vista
-    public function generateSales(Request $request)
-    {
+    public function generateSales(Request $request){
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
@@ -367,7 +370,7 @@ class InventoryController extends Controller
 
         // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
-            $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+            $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                 ->where('role', 'Entrega');
         })
             ->where('movement_type_id', $movement_type->id)
@@ -380,8 +383,7 @@ class InventoryController extends Controller
     }
 
     // Método para generar el reporte PDF de ventas
-    public function generateSalesPDF(Request $request)
-    {
+    public function generateSalesPDF(Request $request){
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
@@ -399,7 +401,7 @@ class InventoryController extends Controller
 
         // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
-            $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+            $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                 ->where('role', 'Entrega');
         })
             ->where('movement_type_id', $movement_type->id)
@@ -407,6 +409,9 @@ class InventoryController extends Controller
             ->whereBetween('registration_date', [$startDate, $endDate])
             ->orderBy('registration_date', 'ASC')
             ->get();
+
+        // Se accede al nombre de la bodega y unidad productiva
+        $puw = PUW::getAppPuw();
 
         // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
@@ -427,28 +432,26 @@ class InventoryController extends Controller
         $pdf->Cell(0, 0, $header, 0, 1, 'C');
 
         // Establecer el contenido del PDF con el título (incluyendo las fechas)
-        $html = '<h3 style="text-align: center;">' . $title . '</h3>';
+        $html = '<h4 style="text-align: center;"><strong>Bodega:</strong> ' . $puw->warehouse->name . ' - <strong>Unidad Productiva:</strong> ' . $puw->productive_unit->name . '</h4>';
+        $html .= '<h3 style="text-align: center;">' . $title . '</h3>';
 
         // Crear el encabezado de la tabla
         $html .= '<table style="border-collapse: collapse; width: 100%;">';
         $html .= '<thead style="background-color: #f2f2f2;">';
         $html .= '<tr>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;">#</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 52px;">N° Comprobante</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;">Cliente</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de ingreso</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 90px;">Producto</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Cantidad</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Precio</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Subtotal</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Total</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;"><b>#</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 52px;"><b>N° Comprobante</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;"><b>Cliente</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><b>Fecha de ingreso</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 90px;"><b>Producto</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Cantidad</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Precio</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Subtotal</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Total</b></th>';
         $html .= '</tr>';
         $html .= '</thead>';
 
         // Variables para almacenar los totales
-        $totalAmount= 0;
-        $totalPrecio = 0;
-        $totalSubtotal = 0;
         $totalTotal = 0;
 
         // Crear el cuerpo de la tabla con los datos de los movimientos
@@ -472,9 +475,6 @@ class InventoryController extends Controller
                     $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px;" rowspan="' . count($movement->movement_details) . '">' . priceFormat($movement->price) . '</td>';
                 }
                 $html .= '</tr>';
-                $totalAmount += $movement_detail->amount;
-                $totalPrecio += $movement_detail->price;
-                $totalSubtotal += ($movement_detail->amount * $movement_detail->price);
             }
             // Actualizar el totalTotal con el precio del movimiento
             $totalTotal += $movement->price;
@@ -484,10 +484,7 @@ class InventoryController extends Controller
         // Pie de pagina que muestra los totales de cantidad, precio, subtotal y total
         $html .= '<tfoot>';
         $html .= '<tr>';
-        $html .= '<td style="border: 1px solid #dddddd; text-aling: center; padding: 8px; width: 299px;"><strong> Total: </strong></td>'; // Celdas vacías para las columnas sin totales
-        $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . $totalAmount . '</strong></td>';
-        $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . priceFormat($totalPrecio) . '</strong></td>';
-        $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . priceFormat($totalSubtotal) . '</strong></td>';
+        $html .= '<td style="border: 1px solid #dddddd; text-align: right; padding: 8px; width: 478px;"><strong> Total: </strong></td>'; // Celdas vacías para las columnas sin totales
         $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;"><strong>' . priceFormat($totalTotal) . '</strong></td>';
         $html .= '</tr>';
         $html .= '</tfoot>';
@@ -500,5 +497,3 @@ class InventoryController extends Controller
         $pdf->Output('reporte_ventas.pdf', 'I');
     }
 }
-
-

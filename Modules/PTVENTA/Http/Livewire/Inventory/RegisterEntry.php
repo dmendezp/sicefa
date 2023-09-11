@@ -19,6 +19,7 @@ use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\WarehouseMovement;
 use Illuminate\Support\Facades\Gate;
+use Modules\PTVENTA\Http\Controllers\PUW;
 
 class RegisterEntry extends Component
 {
@@ -39,7 +40,7 @@ class RegisterEntry extends Component
     public $product_expiration_date; // Fecha de vencimiento del producto (elemento) seleccionado
     public $product_lot_number; // Número de lote de producción del producto (elemento) seleccionado
     public $product_inventory_code; // Número de inventario del producto (elemento) seleccionado
-    public $product_description; // Descripción del producto (elemento) sleccionado
+    public $observation; // Observación del movimiento
     public $product_mark; // Marca del producto (elemento) seleccionado
     public $product_destination = 'Producción'; // Destino del producto (elemento) seleccionado
 
@@ -59,9 +60,7 @@ class RegisterEntry extends Component
     // Establecer bodega
     public function defaultAction(){
         $this->reset(); // Vaciar los valores de todos los atributos para evitar irregularidades en los valores de estos
-        $productive_unit = ProductiveUnit::where('name','Punto de venta')->firstOrFail(); // Unidad productiva de la aplicación
-        $warehouse = Warehouse::where('name','Punto de venta')->firstOrFail(); // Bodega de la aplicación
-        $this->puw = ProductiveUnitWarehouse::where('productive_unit_id',$productive_unit->id)->where('warehouse_id',$warehouse->id)->firstOrFail();
+        $this->puw = PUW::getAppPuw(); // Obtener unidad productiva y bodega relacionada
         $this->products = Element::whereNotNull('price')->orderBy('name','ASC')->get();
         $this->productive_units = ProductiveUnit::whereHas('productive_unit_warehouses')->orderBy('name','ASC')->get();
         $this->destinations = getEnumValues('inventories','destination'); // Consultar destinos para elementos de inventario
@@ -100,7 +99,6 @@ class RegisterEntry extends Component
                 'product_expiration_date' => $this->product_expiration_date,
                 'product_lot_number' => $this->product_lot_number,
                 'product_inventory_code' => $this->product_inventory_code,
-                'product_description' => $this->product_description,
                 'product_mark' => $this->product_mark,
                 'product_destination' => $this->product_destination
             ]);
@@ -110,7 +108,7 @@ class RegisterEntry extends Component
 
     // Vaciar variables del formulario de producto
     public function resetValuesProduct(){
-        $this->reset('product_element_id','product_price','product_amount','product_production_date','product_expiration_date','product_lot_number','product_inventory_code','product_description','product_mark','product_destination');
+        $this->reset('product_element_id','product_price','product_amount','product_production_date','product_expiration_date','product_lot_number','product_inventory_code','product_mark','product_destination');
     }
 
     // Editar producto selecionado
@@ -123,7 +121,6 @@ class RegisterEntry extends Component
         $this->product_expiration_date = $product['product_expiration_date'];
         $this->product_lot_number = $product['product_lot_number'];
         $this->product_inventory_code = $product['product_inventory_code'];
-        $this->product_description = $product['product_description'];
         $this->product_mark = $product['product_mark'];
         $this->product_destination = $product['product_destination'];
         $this->selected_products->forget($product_index); // Eliminar el producto seleccionado para actualizar
@@ -156,6 +153,7 @@ class RegisterEntry extends Component
                             'movement_type_id' => $movementType->id,
                             'voucher_number' => 0,
                             'state' => 'Aprobado',
+                            'observation' => $this->observation,
                             'price' => 0
                         ]);
 
@@ -168,7 +166,6 @@ class RegisterEntry extends Component
                                 'productive_unit_warehouse_id'=>$this->puw->id,
                                 'element_id'=>$product['product_element_id'],
                                 'destination'=>$product['product_destination'],
-                                'description'=>$product['product_description'],
                                 'price'=>$product['product_price'],
                                 'amount'=>$product['product_amount'],
                                 'stock'=>0,
@@ -229,8 +226,11 @@ class RegisterEntry extends Component
 
                         // Transacción completada exitosamente
                         $this->emit('message', 'success', 'Operación realizada', 'Entrada de inventario registrado exitosamente.');
-                        // Imprimir factura de entrada de inventario
-                        $this->emit('printTicket', $movement->voucher_number, $current_datetime->format('Y-m-d H:i:s'), $this->delivery_person->full_name, Auth::user()->person->full_name, $this->selected_products, $movement->price);
+
+                        // Obtener toda la información necesario para generar la orden de impresión
+                        $final_movement = Movement::with('warehouse_movements.productive_unit_warehouse.warehouse','movement_details.inventory.element.measurement_unit','movement_responsibilities.person')->find($movement->id);
+                        $this->emit('printTicket', $final_movement); // Enviar orden de impresión
+
                         $this->defaultAction(); // Refrescar totalmente los componentes
                     } catch (Exception $e) { // Capturar error durante la transacción
                         // Transacción rechazada

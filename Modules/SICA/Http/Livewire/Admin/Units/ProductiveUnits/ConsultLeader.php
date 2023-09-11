@@ -13,9 +13,7 @@ class ConsultLeader extends Component
     public $leader_id; // ID de la persona líder
     public $leader_full_name; // Nombre completo de la persona líder
 
-    public function mount($productive_unit)
-    {
-
+    public function mount($productive_unit){
         // Verificar y asignar valores en caso de que se detecten variables de sesión para la recuperación de datos
         if (Session::has('leader_full_name')) {
             $this->leader_document_number = Session::get('leader_document_number', '');
@@ -33,7 +31,6 @@ class ConsultLeader extends Component
                 $this->leader_full_name = '';
             }
         }
-
     }
 
     public function render()

@@ -10,7 +10,7 @@
 <!-- AdminLTE -->
 <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.css') }}"> <!-- Estilos principales de adminLTE -->
 <!-- Estilos personalizados -->
-<link rel="stylesheet" href="{{ asset('modules/ptventa/css/styles_dashboard.min.css') }}"> <!-- En este archivo se modifican las propiedades de estilos de la plantilla adminLTE ten en cuenta que es el archivo min -->
+<link rel="stylesheet" href="{{ asset('modules/ptventa/css/styles_dashboard.css') }}"> <!-- En este archivo se modifican las propiedades de estilos de la plantilla adminLTE ten en cuenta que es el archivo min -->
 <link rel="stylesheet" href="{{ asset('modules/ptventa/css/googlefonts.css') }}"> <!-- En este archivo se modifican las fuentes que se estan utilizando en la aplicacion -->
 <link rel="stylesheet" href="{{ asset('modules/ptventa/css/card_styles.css') }}"> <!-- En este archivo se modifican las propiedades de estilos de las cards mostradas en el index -->
 <link rel="stylesheet" href="{{ asset('modules/ptventa/css/custom_styles.css') }}"> <!-- En este archivo se modifican las propiedades de estilos generales -->

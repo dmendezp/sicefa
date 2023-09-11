@@ -1,7 +1,7 @@
-@extends('cpd::layoeruts.mast')
+@extends('cpd::layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">Inicio</li>
+    <li class="breadcrumb-item">{{ trans('cpd::mainPage.Breadcrumb_Home') }}</li>
 @endsection
 
 @section('content')
@@ -9,11 +9,12 @@
         <div class="container-fluid row">
             <div class="card card-warning card-outline col-auto mx-auto">
                 <div class="card-body">
+                    <h3> <em>{{ $view['titleView'] }}</em> </h3>
                     <div class="row justify-content-center">
-                        <div class="col-auto p-1">
+                        <div class="col-auto">
                             <img src="{{ asset('cpd/images/CPD Portada.jpg') }}" alt="Main cover image" class="img-fluid" style="max-height:450px">
                         </div>
-                        <div class="col-auto p-1">
+                        <div class="col-auto">
                             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="max-width:378px; max-height:450px;">
                                 <ol class="carousel-indicators">
                                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

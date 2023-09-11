@@ -22,7 +22,7 @@ class RolesTableSeeder extends Seeder
 
 
         // Registrar o actualizar rol de SUPERADMINISTRADOR
-        $user_super_admin = Role::updateOrCreate(['slug' => 'superadmin'], [
+        $role_super_admin = Role::updateOrCreate(['slug' => 'superadmin'], [
             'name' => 'Super Administrador',
             'description' => 'Rol Superadministrador de SICEFA',
             'description_english' => 'Role Super administrator of SICEFA',
@@ -31,7 +31,7 @@ class RolesTableSeeder extends Seeder
         ]);
 
         // Registrar o actualizar rol de ADMINISTRADOR
-        $rol_admin = Role::updateOrCreate(['slug' => 'sica.admin'], [
+        $role_admin = Role::updateOrCreate(['slug' => 'sica.admin'], [
             'name' => 'Administrador',
             'description' => 'Rol Administrador de la aplicacion SICA',
             'description_english' => 'SICA Application Administrator Role',
@@ -39,7 +39,7 @@ class RolesTableSeeder extends Seeder
         ]);
 
         // Registrar o actualizar rol de COORDINADOR
-        $rol_coordinator = Role::updateOrCreate(['slug' => 'sica.coordinator'], [
+        $role_coordinator = Role::updateOrCreate(['slug' => 'sica.coordinator'], [
             'name' => 'Coordinador Académico',
             'description' => 'Rol Coordinador Académico de la aplicación SICA',
             'description_english' => 'Role Academic Coordinator of the SICA application',
@@ -47,7 +47,7 @@ class RolesTableSeeder extends Seeder
         ]);
 
         // Registrar o actualizar rol de REGISTRO ASISTENCIA
-        $rol_attendance = Role::updateOrCreate(['slug' => 'sica.attendance'], [
+        $role_attendance = Role::updateOrCreate(['slug' => 'sica.attendance'], [
             'name' => 'Registro Asistencia',
             'description' => 'Rol para el registro de asistencias de la aplicación SICA',
             'description_english' => 'Role for the attendance record of the SICA application',
@@ -57,15 +57,18 @@ class RolesTableSeeder extends Seeder
 
         // Consulta de usuarios
         $user_super_admin = User::where('nickname','damendez')->first(); // Usuario Administrador con full-access (Diego Andrés Mendéz Pastrana)
-        $user_admin = User::where('nickname','JDGM0331')->first(); // Usuario Administrador (Jesús David Guevara Munar)
+        $user_super_admin_1 = User::where('nickname','JDGM0331')->first(); // Usuario Administrador con full-access (Jesús David Guevara Munar)
+        $user_admin = User::where('nickname','Resmerveilons')->first(); // Usuario Administrador (Manuel Steven Ossa Lievano)
         $user_coordinator = User::where('nickname','gmsanchez')->first(); // Usuario Administrador (Gloria Maritza Sanchez Alarcón)
         $user_attendance = User::where('nickname','DiegoT')->first(); // Usuario Administrador (Diego Andrés Tovar Rodriguez)
 
+
         // Asignación de ROLES para los USUARIOS de la aplicación SICA (Sincronización de las relaciones sin eliminar las relaciones existentes)
-        $user_super_admin->roles()->syncWithoutDetaching([$user_super_admin->id]);
-        $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]);
-        $user_coordinator->roles()->syncWithoutDetaching([$rol_coordinator->id]);
-        $user_attendance->roles()->syncWithoutDetaching([$rol_attendance->id]);
+        $user_super_admin->roles()->syncWithoutDetaching([$role_super_admin->id]);
+        $user_super_admin_1->roles()->syncWithoutDetaching([$role_super_admin->id]);
+        $user_admin->roles()->syncWithoutDetaching([$role_admin->id]);
+        $user_coordinator->roles()->syncWithoutDetaching([$role_coordinator->id]);
+        $user_attendance->roles()->syncWithoutDetaching([$role_attendance->id]);
 
     }
 }
