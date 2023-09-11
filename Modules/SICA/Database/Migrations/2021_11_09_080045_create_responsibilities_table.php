@@ -19,10 +19,11 @@ class CreateResponsibilitiesTable extends Migration
             $table->foreignId('role_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
+            $table->unique(['activity_id','role_id'], 'unique_activity_role'); // Generar llave única entre las columnas activity_id y role_id
         });
     }
 
-    /**
+    /** 
      * Reverse the migrations.
      *
      * @return void

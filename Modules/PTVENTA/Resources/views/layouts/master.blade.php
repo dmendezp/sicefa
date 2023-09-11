@@ -4,7 +4,7 @@
         @include('ptventa::layouts.partials.head')
         @stack('head')
         <style>
-            .whatsapp {
+            .button-register-sale {
                 position:fixed;
                 width:60px;
                 height:60px;
@@ -53,9 +53,11 @@
                 <!-- Container-fluid -->
                 <div class="container-fluid">
                     @section('content') @show
-                    <a href="https://wa.me/5211234567890?text=Me%20gustaría%20saber%20el%20precio%20del%20coche" class="whatsapp bg-success pt-2 pe-1" target="_blank">
-                         <i class="fas fa-shopping-cart"></i>
-                    </a>
+                    @if(!Route::is('cefa.ptventa.*') && Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.sale.register'))
+                        <a href="{{ Route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.sale.register') }}" class="button-register-sale bg-success pt-2 pe-1" >
+                            <i class="fa-solid fa-cart-shopping fa-bounce"></i>
+                        </a>
+                    @endif
                 </div>
                 <!--/. container-fluid -->
             </section>

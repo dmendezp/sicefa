@@ -1,5 +1,17 @@
 /* -------------------ZONE CUSTOM GENERAL STYLES ---------------------- */
 
+/* Colores para el boton de instagram en developers */
+/* CSS */
+.custom-instagram-btn {
+  /* Estilo del botón */
+  background: linear-gradient(45deg, #833AB4, #E1306C);
+}
+
+/* Estilo del icono */
+.custom-instagram-btn i {
+  color: white;
+}
+
 /* Creacion de ajustes de tamaño para la card de inventario, aqui se configura para que esta tenga un tamaño definido y lo que tenga dentro tambien sea adaptable */
 .custom-height {
     height: 70px; /* Ajusta la altura según tus necesidades */

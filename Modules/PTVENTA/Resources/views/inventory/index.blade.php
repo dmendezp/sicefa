@@ -2,73 +2,99 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('ptventa.inventory.index') }}" class="text-decoration-none">Inventario</a>
+        <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.index') }}"
+            class="text-decoration-none">{{ trans('ptventa::inventory.Breadcrumb_Inventory_1') }}</a>
     </li>
-    <li class="breadcrumb-item active">Productos</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::inventory.Breadcrumb_Active_Inventory_1') }}</li>
 @endpush
 
 @section('content')
     <div class="card card-success card-outline shadow-sm">
         <div class="card-body">
-
             <div class="row">
                 <div class="col">
-                    <h5 class="text-center"><em>Lista de productos disponibles actualmente</em></h5>
+                    <h5 class="text-center"><em>{{ trans('ptventa::inventory.Title_Inventory') }}</em></h5>
                 </div>
                 <div class="col-auto">
                     <div class="d-flex justify-content-end">
-                        <a href="{{ route('ptventa.inventory.create') }}" class="btn btn-success btn-sm me-1">
-                            <i class="fa-solid fa-thumbs-up mr-2"></i>Registrar entrada
-                        </a>
-                        {{-- <a href="{{ route('ptventa.inventory.low') }}" class="btn btn-danger btn-sm me-1">
-                            <i class="fa-solid fa-thumbs-down mr-2"></i>Registrar baja
-                        </a> --}}
-                        {{-- <a href="{{ route('ptventa.inventory.pdf') }}" class="btn btn-danger btn-sm me-1">PDF</a> --}}
-                        <a href="{{ route('ptventa.inventory.status') }}" class="btn btn-secondary btn-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i>Vencidos / Por vencer
-                        </a>
+                        @if (Auth::user()->havePermission('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.create'))
+                            <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.create') }}" class="btn btn-success btn-sm me-1">
+                                <i class="fa-solid fa-thumbs-up fa-fade mr-2"></i>{{ trans('ptventa::inventory.Btn_Register_Entry') }}
+                            </a>
+                        @endif
+                        @if (Auth::user()->havePermission('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.status'))
+                            <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.status') }}" class="btn btn-secondary btn-sm me-1">
+                                <i class="fa-solid fa-triangle-exclamation fa-fade mr-2"></i>{{ trans('ptventa::inventory.Btn_Expired') }}
+                            </a>
+                        @endif
+                        @if (Auth::user()->havePermission('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.low'))
+                            <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.low') }}" class="btn btn-danger btn-sm me-1">
+                                <i class="fa-solid fa-arrow-down-wide-short fa-fade mr-2"></i>{{ trans('ptventa::inventory.Btn_Register_Low') }}
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
 
             <hr>
 
-            <div class="table-responsive" data-aos="zoom-in">
-                <table class="table table-hover" id="inventories-table">
+            <div class="table-responsive px-1" data-aos="zoom-in">
+                <table class="table table-bordered border-secondary table-hover">
                     <thead class="table-dark">
-                        <tr>
-                            <th scope="col">N°</th>
-                            <th>Producto</th>
-                            <th class="text-center">Categoría</th>
-                            <th class="text-center">Precio Unitario</th>
-                            <th class="text-center">Stock</th>
-                            <th class="text-center">Cantidad</th>
-                            <th class="text-center">Estado</th>
-                            <th class="text-center">Acción</th>
+                        <tr class="border-dark">
+                            <th class="text-center">{{ trans('ptventa::inventory.1T_Number') }}</th>
+                            <th>{{ trans('ptventa::inventory.2T_Product') }}</th>
+                            <th class="text-center">{{ __('ptventa::inventory.10T_Destination') }}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.3T_Lot') }}</th>
+                            <th class="text-center">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                {{ trans('ptventa::inventory.4T_Production') }}
+                            </th>
+                            <th class="text-center">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                {{ trans('ptventa::inventory.5T_Expiration') }}
+                            </th>
+                            <th class="text-center">{{ trans('ptventa::inventory.6T_Entry') }}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.7T_Amount') }}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.8T_Sale') }}</th>
+                            <th class="text-center">{{ trans('ptventa::inventory.9T_Stocks') }}</th>
                         </tr>
                     </thead>
-                    <tbody class="table-group-divider">
-                        @foreach ($inventories as $inventory)
+                    <tbody>
+                        @foreach ($groupedInventories as $group)
+                            @php
+                                $firstRecord = $group->first();
+                                $rowspan = $group->count();
+                            @endphp
                             <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
-                                <td><strong>{{ $inventory->element->name }}</strong></td>
-                                <td class="text-center">{{ $inventory->element->category->name }}</td>
-                                <td class="text-center">{{ priceFormat($inventory->price) }}</td>
-                                <td class="text-center">{{ $inventory->stock }}</td>
-                                <td class="text-center">{{ $inventory->amount }}</td>
-                                <td class="text-center">
-                                    @if ($inventory->state == 'Disponible')
-                                        <b class="bg-success rounded-5 ps-2 pe-2" style="font-size: 12px;">Disponible</b>
-                                    @else
-                                        <b class="bg-gradient-dark rounded-5 ps-2 pe-2" style="font-size: 12px;">No disponible</b>
-                                    @endif
+                                <td rowspan="{{ $rowspan }}" class="text-center border-secondary align-middle">
+                                    {{ $loop->iteration }}</td>
+                                <td rowspan="{{ $rowspan }}" class="border-secondary align-middle">
+                                    <strong>{{ $firstRecord->element->name }}</strong>
                                 </td>
-                                <td class="text-center">
-                                    <button type="button" class="btn btn-outline-secondary btn-sm py-0" title="Ver detalles">
-                                        <i class="far fa-eye"></i>
-                                    </button>
+                                <td class="text-center border-secondary">{{ $firstRecord->destination }}</td>
+                                <td class="text-center border-secondary">{{ $firstRecord->lot_number }}</td>
+                                <td class="text-center border-secondary">{{ $firstRecord->production_date }}</td>
+                                <td class="text-center border-secondary">{{ $firstRecord->expiration_date }}</td>
+                                <td class="text-center border-secondary">{{ priceFormat($firstRecord->price) }}</td>
+                                <td class="text-center border-secondary">{{ $firstRecord->amount }}</td>
+                                <td rowspan="{{ $rowspan }}" class="text-center border-secondary align-middle">
+                                    <strong>{{ priceFormat($firstRecord->element->price) }}</strong>
+                                </td>
+                                <td rowspan="{{ $rowspan }}" class="text-center border-secondary align-middle">
+                                    <strong>{{ $group->sum('amount') }}</strong>
                                 </td>
                             </tr>
+                            @foreach ($group->slice(1) as $record)
+                                <tr>
+                                    <td class="text-center border-secondary">{{ $record->destination }}</td>
+                                    <td class="text-center border-secondary">{{ $record->lot_number }}</td>
+                                    <td class="text-center border-secondary">{{ $record->production_date }}</td>
+                                    <td class="text-center border-secondary">{{ $record->expiration_date }}</td>
+                                    <td class="text-center border-secondary">{{ priceFormat($record->price) }}</td>
+                                    <td class="text-center border-secondary">{{ $record->amount }}</td>
+                                </tr>
+                            @endforeach
                         @endforeach
                     </tbody>
                 </table>
@@ -76,20 +102,3 @@
         </div>
     </div>
 @endsection
-
-@include('ptventa::layouts.partials.plugins.datatables')
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            // Configuración de Datatables para la tabla de registros de inventario
-            $('#inventories-table').DataTable({
-                language: language_datatables, // Agregar traducción a español
-                "order": [],
-                "columnDefs": [{
-                    "targets": [2, 3, 4, 5, 6],
-                    "orderable": false
-                }]
-            });
-        });
-    </script>
-@endpush

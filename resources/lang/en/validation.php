@@ -137,8 +137,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'roles_id' => [
+            'required' => 'It is necessary to select at least one role.', // SICA
         ],
     ],
 
@@ -154,11 +154,31 @@ return [
     */
 
     'attributes' => [
-        'person_document_type' => 'tipo de documento', // PTVENTA
-        'person_document_number' => 'número de documento', // PTVENTA
-        'person_first_name' => 'nombres', // PTVENTA
-        'person_first_last_name' => 'primer apellido', // PTVENTA
-        'person_second_last_name' => 'segundo apellido', // PTVENTA
+        'activity_id' => 'activity', // SICA
+        'activity_type_id' => 'activity type', // SICA
+        'app_id' => 'app', // SICA
+        'environment_id' => 'environment', // SICA
+        'eps_id' => 'eps', // SICA
+        'farm_id' => 'farm', // SICA
+        'first_name' => 'name', // SICA
+        'leader_id' => 'leader person', // SICA
+        'municipality_id' => 'municipality', // SICA
+        'pension_entity_id' => 'pension entity', // SICA
+        'person_document_type' => 'document type', // PTVENTA
+        'person_document_number' => 'document number', // PTVENTA
+        'person_first_name' => 'first name', // PTVENTA
+        'person_first_last_name' => 'first last name', // PTVENTA
+        'person_id' => 'person', // SICA
+        'person_second_last_name' => 'second last name', // PTVENTA
+        'population_group_id' => 'population group', // SICA
+        'productive_unit_id' => 'productive unit', // SICA
+        'responsible_id' => 'responsible person', // SICA
+        'role_id' => 'rol', // SICA
+        'sector_id' => 'sector', // SICA
+        'warehouse_id' => 'warehouse', // SICA
     ],
+
+    'distinct_app_roles' => 'Selected roles must belong to distinct applications.',
+    'at_least_one_role' => 'The selection of at least one role is required.',
 
 ];
