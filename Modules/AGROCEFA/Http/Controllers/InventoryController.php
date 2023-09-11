@@ -12,6 +12,7 @@ use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Category;
+use Modules\SICA\Entities\Person;
 
 class InventoryController extends Controller
 {
@@ -22,6 +23,8 @@ class InventoryController extends Controller
 
         // Obtener todas las categorías
         $categories = Category::all();
+        $ProductiveUnitWarehouses = ProductiveUnitWarehouse::all();
+        $elements = Element::all();
 
         // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
         $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
@@ -35,6 +38,8 @@ class InventoryController extends Controller
             'inventory' => $inventory,
             'categories' => $categories,
             'productiveUnitName' => $productiveUnitName,
+            'ProductiveUnitWarehouses' => $ProductiveUnitWarehouses,
+            'elements' => $elements,
         ]);
     }
 
@@ -73,22 +78,89 @@ class InventoryController extends Controller
         ]);
     }
 
-    //Crear
-    public function store()
+    public function store(Request $request)
     {
+        // Validar los datos del formulario (ajusta las reglas de validación según tus necesidades)
+        $validatedData = $request->validate([
+            'productive_unit_warehouse_id' => 'required',
+            'element_id' => 'required',
+            'destination' => 'required|in:Producción,Formación',
+            'description' => 'required|string',
+            'price' => 'required',
+            'amount' => 'required',
+            'stock' => 'required',
 
+            // Agrega más reglas de validación según tus campos
+        ]);
+
+        // Crear un nuevo registro de inventario
+        $inventory = new Inventory();
+        $inventory->person_id = auth()->user()->id;
+        $inventory->productive_unit_warehouse_id = $request->input('productive_unit_warehouse_id');
+        $inventory->element_id = $request->input('element_id');
+        $inventory->destination = $request->input('destination');
+        $inventory->description = $request->input('description');
+        $inventory->price = $request->input('price');
+        $inventory->amount = $request->input('amount');
+        $inventory->stock = $request->input('stock');
+
+        // Guardar el nuevo registro en la base de datos
+        $inventory->save();
+
+        // Redirigir a la página de inventario o mostrar un mensaje de éxito
+        try {
+            return redirect()
+                ->route('agrocefa.inventory')
+                ->with('success', 'Registro exitoso.');
+        } catch (\Throwable $th) {
+            return redirect()
+                ->back()
+                ->with('error', 'Error al crear el registro. Por favor, inténtalo de nuevo.');
+        }
     }
 
     //Actualizar
-    public function update()
+    public function update(Request $request, $id)
     {
-        
+        // Validar los datos del formulario (ajusta las reglas de validación según tus necesidades)
+        $validatedData = $request->validate([
+            'productive_unit_warehouse_id' => 'required',
+            'element_id' => 'required',
+            'destination' => 'required|in:Producción,Formación',
+            'description' => 'required|string',
+            'price' => 'required',
+            'amount' => 'required',
+            'stock' => 'required',
+
+        ]);
+
+        // Encontrar el registro a actualizar
+        $inventory = Inventory::findOrFail($id);
+
+        $inventory = new Inventory();
+        $inventory->person_id = auth()->user()->id;
+        $inventory->productive_unit_warehouse_id = $request->input('productive_unit_warehouse_id');
+        $inventory->element_id = $request->input('element_id');
+        $inventory->destination = $request->input('destination');
+        $inventory->description = $request->input('description');
+        $inventory->price = $request->input('price');
+        $inventory->amount = $request->input('amount');
+        $inventory->stock = $request->input('stock');
+        $inventory->save();
+
+        return redirect()->route('agrocefa.inventory');
     }
 
     //Eliminar
-    public function destroy()
+    public function destroy($id)
     {
-        
-    }
+        try {
+            $inventory = Inventory::findOrFail($id);
+            $inventory->delete();
 
+            return redirect()->route('agrocefa.inventory')->with('error', 'Registro eliminado.');
+        } catch (\Exception $e) {
+            return redirect()->route('agrocefa.inventory')->with('error', 'Error al eliminar la especie.');
+        }
+    }
 }
