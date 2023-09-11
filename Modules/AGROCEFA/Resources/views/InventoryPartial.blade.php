@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">
             Registros
-            <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearspecie"><i
+            <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearegistro"><i
                     class='bx bx-plus icon'></i></button>
         </div>
         <div class="card-body">
@@ -12,9 +12,12 @@
                         <th>ID</th>
                         <th>Bodega</th>
                         <th>Elemento</th>
+                        <th>Destino</th>
                         <th>Descripcion</th>
                         <th>Categoria</th>
                         <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Stock</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -24,16 +27,20 @@
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->productive_unit_warehouse->warehouse->name }}</td>
                             <td>{{ $item->element->name }}</td>
-                            <td>{{ $item->element->description }}</td>
+                            <td>{{ $item->destination }}</td>
+                            <td>{{ $item->description }}</td>
                             <td>{{ $item->element->category->name }}</td>
                             <td>{{ $item->price }}</td>
+                            <td>{{ $item->amount }}</td>
+                            <td>{{ $item->stock }}</td>
+
                             <td>
                                 <div class="button-group">
-                                    <button class="btn btn-primary btn-sm btn-edit-specie" data-bs-toggle="modal"
-                                        data-bs-target="#editarEspecieModal_" data-specie-id=""><i
+                                    <button class="btn btn-primary btn-sm btn-edit-inventory" data-bs-toggle="modal"
+                                        data-bs-target="#editarRegistroModal_{{ $item->id }}" data-inventory-id="{{ $item->id }}"><i
                                             class='bx bx-edit icon'></i></button>
                                     <button id="delete" class="btn btn-danger btn-sm btn-delete-activity"
-                                        data-bs-toggle="modal" data-bs-target="#eliminarspecie_"><i
+                                        data-bs-toggle="modal" data-bs-target="#eliminarinventory_{{ $item->id }}"><i
                                             class='bx bx-trash icon'></i></button>
                                 </div>
                             </td>
@@ -48,3 +55,7 @@
     <br>
     <p>No hay registros disponibles.</p>
 @endif
+
+
+
+

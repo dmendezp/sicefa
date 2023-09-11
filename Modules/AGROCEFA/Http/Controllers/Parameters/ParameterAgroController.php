@@ -88,7 +88,7 @@ class ParameterAgroController extends Controller
         $specie->save();
     
         // Redireccionar a la vista de lista de especies o a otra página según sea necesario
-        return redirect()->route('agrocefa.parameters')/* ->with('success', 'Especie actualizada correctamente.') */;
+        return redirect()->route('agrocefa.parameters');/* ->with('success', 'Especie actualizada correctamente.') */;
     }
 
     /* Funcion eliminar especie*/
