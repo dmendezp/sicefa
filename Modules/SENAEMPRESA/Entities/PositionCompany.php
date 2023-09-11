@@ -13,7 +13,7 @@ class PositionCompany extends Model implements Auditable
         SoftDeletes, // Borrado suave
         HasFactory;
 
-    protected $fillable = ['requirement', 'description', 'state', 'activo', 'inactivo'];
+    protected $fillable = ['name', 'description', 'state', 'activo', 'inactivo'];
 
     protected static function newFactory()
     {

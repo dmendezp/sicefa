@@ -117,6 +117,7 @@ return [
 	'SenaEmpresa Successfully restored' => 'SenaEmpresa Successfully restored',
 	'Position successfully restored' => 'Position successfully restored',
 	'success' => 'success',
+	'mistake' => 'mistake',
 
 	
 

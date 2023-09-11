@@ -23,7 +23,7 @@
                         <thead>
                             <tr>
                                 <th>{{ trans('senaempresa::menu.Id') }}</th>
-                                <th>{{ trans('senaempresa::menu.Requirements') }}</th>
+                                <th>{{ trans('senaempresa::menu.Name') }}</th>
                                 <th>{{ trans('senaempresa::menu.Description') }}</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
                                 <th style="width: 200px;">
@@ -37,7 +37,7 @@
                             @foreach ($position_companies as $PositionCompany)
                                 <tr>
                                     <td>{{ $PositionCompany->id }}</td>
-                                    <td>{{ $PositionCompany->requirement }}</td>
+                                    <td>{{ $PositionCompany->name }}</td>
                                     <td>{{ $PositionCompany->description }}</td>
                                     <td>{{ $PositionCompany->state }}</td>
                                     <form action="{{ route('cefa.eliminar_cargo', $PositionCompany->id) }}" method="POST"

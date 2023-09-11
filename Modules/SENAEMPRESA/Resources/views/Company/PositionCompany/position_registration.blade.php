@@ -11,8 +11,8 @@
                         <form action="{{ route('cefa.cargo_nuevo') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label for="requirement" class="form-label">{{ trans('senaempresa::menu.Name') }}</label>
-                                <textarea class="form-control" id="requirement" name="requirement" rows="3" required></textarea>
+                                <label for="name" class="form-label">{{ trans('senaempresa::menu.Name') }}</label>
+                                <textarea class="form-control" id="name" name="name" rows="3" required></textarea>
                             </div>
 
                             <div class="mb-3">

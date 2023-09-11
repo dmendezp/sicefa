@@ -33,11 +33,11 @@ class PositionCompanyController extends Controller
 
    public function store(Request $request)
 {
-    $requirement = $request->input('requirement');
+    $name = $request->input('name');
 
     // Buscar un registro eliminado por soft delete con el mismo valor en "requirement"
     $existingPositionCompany = PositionCompany::withTrashed()
-        ->where('requirement', $requirement)
+        ->where('name', $name)
         ->first();
 
     if ($existingPositionCompany && $existingPositionCompany->trashed()) {
@@ -51,7 +51,7 @@ class PositionCompanyController extends Controller
 
     // Si no se encuentra ningún registro existente, crear uno nuevo
     $positionCompany = new PositionCompany();
-    $positionCompany->requirement = $requirement;
+    $positionCompany->name = $request->input('name');
     $positionCompany->description = $request->input('description');
     $positionCompany->state = $request->input('state');
 
@@ -72,7 +72,7 @@ class PositionCompanyController extends Controller
     public function update(Request $request, $id)
     {
         $position = PositionCompany::find($id);
-        $position->requirement = $request->input('requirement');
+        $position->name = $request->input('name');
         $position->description = $request->input('description');
         $position->state = $request->input('state'); // Obtener el valor seleccionado del select
 

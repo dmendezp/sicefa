@@ -153,8 +153,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('cefa.vacantes') }}"
-                                class="nav-link {{ !Route::is('cefa.vacantes') ?: 'active' }}">
+                            <a href="{{ route('company.vacant.vacantes') }}"
+                                class="nav-link {{ !Route::is('company.vacant.vacantes') ?: 'active' }}">
                                 <i class="fas fa-user-tag"></i>
                                 <p>{{ trans('senaempresa::menu.Availables') }}</p>
                             </a>
