@@ -11,17 +11,17 @@
         <div class="modal-body px-4 py-0">
             @include('cpd::producer.form')
             <p class="mt-3 bg-light text-center">
-                Monitoreos asociados: <b>{{ $producer->studies->count() }}</b>
+                {{ trans('cpd::producer.F_Text_Associated_Monitoring') }} <b>{{ $producer->studies->count() }}</b>
             </p>
             @if ($producer->studies->count() > 0)
                 <div class="alert py-1" role="alert" style="background-color: rgb(251, 209, 216); font-size: 14px;">
-                    <b>Los monitores asociados también serán eliminados.</b>
+                    <b>{{ trans('cpd::producer.F_Text_Alert_Associated_Monitoring') }}</b>
                 </div>
             @endif
         </div>
         <div class="modal-footer py-1">
-            <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cancelar</button>
-            {!! Form::submit('Eliminar', ['class'=>'btn btn-danger btn-md py-0']) !!}
+            <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">{{ trans('cpd::producer.Btn_Cancel') }}</button>
+            {!! Form::submit(trans('cpd::producer.Btn_Delete'), ['class'=>'btn btn-danger btn-md py-0']) !!}
         </div>
     {!! Form::close() !!}
 </div>

@@ -2,10 +2,10 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item">
-        <a href="{{ route('cpd.admin.study.index') }}">Monitoreos</a>
+        <a href="{{ route('cpd.admin.study.index') }}">{{ trans('cpd::monitoring.Breadcrumb_Monitoring') }}</a>
     </li>
     <li class="breadcrumb-item">
-        Registro
+        {{ trans('cpd::monitoring.Breadcrumb_Active_Monitoring_Register') }}
     </li>
 @endsection
 
@@ -25,11 +25,11 @@
                                 @include('cpd::study.form')
                             </div>
                             <div class="card-footer bg-white">
-                                <a href="{{ route('cpd.admin.study.index') }}" class="btn btn-light float-left" data-toggle='tooltip' data-placement="top" title="Cancelar registro">
-                                    <b>Cancelar</b>
+                                <a href="{{ route('cpd.admin.study.index') }}" class="btn btn-light float-left" data-toggle='tooltip' data-placement="top" title='{{ trans('cpd::monitoring.T_Cancel_Register') }}'>
+                                    <b> {{ trans('cpd::monitoring.Btn_Cancel') }}</b>
                                 </a>
-                                <button type="submit" class="btn btn-primary float-right" data-toggle='tooltip' data-placement="top" title="Registrar monitoreo">
-                                    <b>Guardar</b>
+                                <button type="submit" class="btn btn-primary float-right" data-toggle='tooltip' data-placement="top" title='{{ trans('cpd::monitoring.T_Register_Monitoring') }}'>
+                                    <b> {{ trans('cpd::monitoring.Btn_Save') }}</b>
                                 </button>
                             </div>
                         </form>
@@ -64,10 +64,10 @@
             theme: 'bootstrap4',
             language: {
                 noResults: function() {
-                    return "No hay resultado";
+                    return '{{ trans('cpd::monitoring.F_Search_Text_1') }}';
                 },
                 searching: function() {
-                    return "Buscando..";
+                    return '{{ trans('cpd::monitoring.F_Search_Text_2') }}';
                 }
             }
         });
@@ -75,10 +75,10 @@
             theme: 'bootstrap4',
             language: {
                 noResults: function() {
-                    return "No hay resultado";
+                    return '{{ trans('cpd::monitoring.F_Search_Text_1') }}';
                 },
                 searching: function() {
-                    return "Buscando..";
+                    return '{{ trans('cpd::monitoring.F_Search_Text_2') }}';
                 }
             }
         });
