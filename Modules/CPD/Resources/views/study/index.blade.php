@@ -1,7 +1,7 @@
 @extends('cpd::layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">Monitoreos</li>
+    <li class="breadcrumb-item">{{ trans('cpd::monitoring.Breadcrumb_Monitoring') }}</li>
 @endsection
 
 @section('content')
@@ -22,22 +22,22 @@
                                             <thead>
                                                 <tr>
                                                     <th colspan="1" class="text-center" >
-                                                        <a href="{{ route('cpd.admin.study.create') }}" class="text-primary" class="text-primary" data-toggle='tooltip' data-placement="top" title="Registrar monitoreo" style="font-size: 20px;">
+                                                        <a href="{{ route('cpd.admin.study.create') }}" class="text-primary" class="text-primary" data-toggle='tooltip' data-placement="top" title="{{ trans('cpd::monitoring.T_Register_Monitoring') }}" style="font-size: 20px;">
                                                             <i class="fas fa-plus-circle"></i>
                                                         </a>
                                                     </th>
-                                                    <th rowspan="2" class="align-middle text-center">#</th>
-                                                    <th rowspan="2" class="align-middle text-center">Productor</th>
-                                                    <th rowspan="2" class="align-middle text-center">Monitoreo</th>
-                                                    <th rowspan="2" class="align-middle text-center">Municipio / Vereda</th>
-                                                    <th rowspan="2" class="align-middle text-center">Tipología</th>
-                                                    <th rowspan="2" class="align-middle text-center">Altitud</th>
+                                                    <th rowspan="2" class="align-middle text-center">{{ trans('cpd::monitoring.1T_Number') }}</th>
+                                                    <th rowspan="2" class="align-middle text-center">{{ trans('cpd::monitoring.1T_Producer') }}</th>
+                                                    <th rowspan="2" class="align-middle text-center">{{ trans('cpd::monitoring.1T_Monitoring') }}</th>
+                                                    <th rowspan="2" class="align-middle text-center">{{ trans('cpd::monitoring.1T_Municipality_Village') }}</th>
+                                                    <th rowspan="2" class="align-middle text-center">{{ trans('cpd::monitoring.1T_Typology') }}</th>
+                                                    <th rowspan="2" class="align-middle text-center">{{ trans('cpd::monitoring.1T_Altitude') }}</th>
                                                     @foreach ($datas as $data)
                                                         <th colspan="{{ $data->metadatas->count() }}">{{ $data->name }}</th>
                                                     @endforeach
                                                 </tr>
                                                 <tr>
-                                                    <th class="align-middle text-center">Acciones</th>
+                                                    <th class="align-middle text-center">{{ trans('cpd::monitoring.1T_Actions') }}</th>
                                                     @foreach ($datas as $data)
                                                         @if($data->metadatas->count())
                                                             @foreach ($data->metadatas as $metadata)
@@ -52,15 +52,15 @@
                                                     <tr>
                                                         <td class="align-middle text-center">
                                                             <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.show', $study->id) }}')">
-                                                                <b class="text-info" data-toggle="tooltip" data-placement="top" title="Ver detalle de monitoreo">
+                                                                <b class="text-info" data-toggle="tooltip" data-placement="top" title="{{ trans('cpd::monitoring.T_View_Monitoring') }}">
                                                                     <i class="fas fa-eye"></i>
                                                                 </b>
                                                             </a>
-                                                            <a href="{{ route('cpd.admin.study.edit', $study->id) }}" class="text-success"  data-toggle='tooltip' data-placement="top" title="Actualizar monitoreo">
+                                                            <a href="{{ route('cpd.admin.study.edit', $study->id) }}" class="text-success"  data-toggle='tooltip' data-placement="top" title="{{ trans('cpd::monitoring.T_Edit_Monitoring') }}">
                                                                 <i class="fas fa-edit"></i>
                                                             </a>
                                                             <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('cpd.admin.study.delete', $study->id) }}')">     
-                                                                <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar monitoreo">
+                                                                <b class="text-danger" data-toggle="tooltip" data-placement="top" title="{{ trans('cpd::monitoring.T_Delete_Monitoring') }}">
                                                                     <i class="far fa-trash-alt"></i>
                                                                 </b>
                                                             </a>
@@ -130,34 +130,34 @@
                     },
                     {
                         extend: 'colvis',
-                        text: ['Mostrar/Ocultar']},
+                        text: ['{{ trans('cpd::monitoring.TB_Show_Hide') }}']},
                     {
                         extend: 'colvisGroup',
-                        text: 'Fisicoquímico',
+                        text: '{{ trans('cpd::monitoring.TB_Physicochemist') }}',
                         show: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27],
                         hide: [28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51],
                     },
                     {
                         extend: 'colvisGroup',
-                        text: 'Biota',
+                        text: '{{ trans('cpd::monitoring.TB_Biota') }}',
                         show: [1,2,3,4,5,6,28,29,30,31,32,33,34],
                         hide: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51],
                     },
                     {
                         extend: 'colvisGroup',
-                        text: 'Cultivo',
+                        text: '{{ trans('cpd::monitoring.TB_Farming') }}',
                         show: [1,2,3,4,5,6,35,36,37,38,39,40],
                         hide: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,41,42,43,44,45,46,47,48,49,50,51],
                     },
                     {
                         extend: 'colvisGroup',
-                        text: 'Clima',
+                        text: '{{ trans('cpd::monitoring.TB_Weather') }}',
                         show: [1,2,3,4,5,6,41,42,43,44,45,46,47,48,49,50,51],
                         hide: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40],
                     },
                     {
                         extend: 'colvisGroup',
-                        text: 'Todo',
+                        text: '{{ trans('cpd::monitoring.TB_All') }}',
                         show: ':hidden'
                     }
                 ],
