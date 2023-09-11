@@ -54,7 +54,7 @@ return [
 	'PTVENTA_inventory_low_create_title_view' => 'Inventory Removals',
 	// Show
 	'PTVENTA_inventory_show_title_page' => 'Movement - Details',
-	'PTVENTA_inventory_show_title_view' => 'Movement Details',
+	'PTVENTA_inventory_show_title_view' => 'Detail - Inventory entry',
 	// Show Low
 	'PTVENTA_inventory_show_low_title_page' => 'Movement - Details',
 	'PTVENTA_inventory_show_low_title_view' => 'Movement Details',

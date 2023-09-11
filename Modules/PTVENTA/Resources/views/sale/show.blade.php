@@ -1,8 +1,5 @@
 @extends('ptventa::layouts.master')
 
-@push('head')
-@endpush
-
 @push('breadcrumbs')
     <li class="breadcrumb-item active">
         <a href="{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.index') }}"
@@ -53,15 +50,41 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $processed_elements = [];
+                                $iteration_group = 0;
+                            @endphp
                             @foreach ($movement->movement_details as $md)
-                                <tr>
-                                    <th scope="row" class="text-center">{{ $loop->iteration }}</th>
-                                    <td>{{ $md->inventory->element->name }}</td>
-                                    <td class="text-center">{{ $md->amount }}</td>
-                                    <td class="text-center fw-bold">{{ priceFormat($md->price) }}</td>
-                                    <td class="text-center fw-bold">{{ priceFormat($md->price * $md->amount) }}</td>
-                                </tr>
+                                @php
+                                    $element_id = $md->inventory->element_id;
+                                @endphp
+                                {{-- Comprobar si ya hemos procesado este elemento --}}
+                                @if (!in_array($element_id, $processed_elements))
+                                    {{-- Marcar el elemento como procesado --}}
+                                    @php
+                                        $processed_elements[] = $element_id;
+                                        $iteration_group ++;
+                                    @endphp
+                                    {{-- Calcular la cantidad total para este elemento --}}
+                                    @php
+                                        $total_amount = 0;
+                                        foreach ($movement->movement_details as $aux_md) {
+                                            if ($aux_md->inventory->element_id === $element_id) {
+                                                $total_amount += $aux_md->amount;
+                                            }
+                                        }
+                                    @endphp
+                                    {{-- Renderizar la fila para el elemento --}}
+                                    <tr>
+                                        <th scope="row" class="text-center">{{ $iteration_group }}</th>
+                                        <td>{{ $md->inventory->element->product_name }}</td>
+                                        <td class="text-center">{{ $total_amount }}</td>
+                                        <td class="text-center">{{ priceFormat($md->price) }}</td>
+                                        <td class="text-center fw-bold">{{ priceFormat($md->price * $total_amount) }}</td>
+                                    </tr>
+                                @endif
                             @endforeach
+
                         </tbody>
                         <tfoot>
                             <tr>
@@ -73,13 +96,15 @@
                     </table>
                 </div>
                 <div class="text-center mt-4">
-                    <button class="btn btn-success">{{ trans('ptventa::sales.Btn_Generate_Ticket') }}</button>
+                    <button class="btn btn-success" onclick="printTicket()" id="printButton">{{ trans('ptventa::sales.Btn_Generate_Ticket') }}</button>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 
+@include('ptventa::layouts.partials.plugins.sweetalert2') {{-- Implementación de Sweetalert2 --}}
+@include('ptventa::layouts.partials.plugins.toastr') {{-- Implementación de Toastr --}}
 @push('scripts')
     <!-- Scripts del plugin para imprimer en impresoras termicas -->
     <script src="{{ asset('modules/ptventa/js/sale/conector_javascript_POS80C.js') }}"></script>
@@ -87,8 +112,33 @@
     <script src="{{ asset('libs/cleave.js-1.6.0/dist/cleave.js') }}"></script>
     <!-- Formateadores de datos -->
     <script src="{{ asset('modules/ptventa/js/data-formats.js') }}"></script>
-    <!-- Scripts del componente register-sale -->
-    <script src="{{ asset('modules/ptventa/js/print/pos_print.js') }}"></script>
-    <!-- Scripts del componente register-sale -->
-    <script src="{{ asset('modules/ptventa/js/sale/register/livewire-register-sale.js') }}"></script>
+    <!-- Scripts para impresión en impresora pos termica -->
+    <script src="{{ asset('modules/ptventa/js/pos_print/prints.js') }}"></script>
+
+    <script>
+        async function printTicket() {
+            const printButton = document.getElementById("printButton");
+            try {
+                printButton.disabled = true; // Deshabilita el botón antes de la acción asíncrona
+                var movement = {!! $movement !!};
+                respuesta = await print_sale(movement); // Imprimir factura de venta realizada
+                if(respuesta){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Factura generada correctamente.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            } catch (error) {
+                /* Lanzar notificación toastr */
+                toastr.options.timeOut = 0;
+                toastr.options.closeButton = true;
+                toastr.error('Es posible que no este en ejecución el plugin_impresora_termica en el equipo.', 'Error de impresión');
+            } finally {
+                printButton.disabled = false; // Habilita el botón nuevamente después de la acción asíncrona
+            }
+        }
+    </script>
 @endpush

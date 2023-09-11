@@ -23,7 +23,8 @@ return [
     '7T_Amount'     => 'Amount',
     '8T_Sale'       => '$ Sale',
     '9T_Stocks'     => 'Stocks',
-    
+    '10T_Destination' => 'Destination',
+
     // ---Section Register Inventory---
     // Card Responsibles and Warehouses
     'Title_Responsible'              => 'Responsibles and Warehouses',
@@ -42,7 +43,7 @@ return [
     'Title_Form_Expiration_Date' => 'Expiration Date:',
     'Title_Form_Lot_Number'      => 'Lot Number:',
     'Title_Form_Inventory_Code'  => 'Inventory Code:',
-    'Title_Form_Description'     => 'Description:',
+    'Title_Form_Observation'     => 'General observation:',
     'Title_Form_Mark'            => 'Mark:',
     'Title_Form_Destination'     => 'Destination:',
     'Select_Form_Destination'    => '-- Select --',
@@ -66,7 +67,7 @@ return [
     '3T_Amount'          => 'Amount',
     '3T_Product'         => 'Product',
     '3T_Expiration_Date' => 'Expiration Date',
-    
+
     // ---Section Low Inventory---
     // Card Form Register Low
     'Title_Form_Origin_Warehouse'  => 'Warehouse of origin',

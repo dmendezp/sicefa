@@ -14,16 +14,17 @@ return [
     // Section Card Show Inventory
     'Title_Inventory' => 'Lista de productos diponibles actualmente',
     // Table Show Inventory
-    '1T_Number'     => 'N°',
-    '2T_Product'    => 'Producto',
-    '3T_Lot'        => 'N° Lote',
-    '4T_Production' => 'Producción',
-    '5T_Expiration' => 'Vencimiento',
-    '6T_Entry'      => '$ Entrada',
-    '7T_Amount'     => 'Cantidad',
-    '8T_Sale'       => '$ Venta',
-    '9T_Stocks'     => 'Existencias',
-    
+    '1T_Number'       => 'N°',
+    '2T_Product'      => 'Producto',
+    '3T_Lot'          => 'N° Lote',
+    '4T_Production'   => 'Producción',
+    '5T_Expiration'   => 'Vencimiento',
+    '6T_Entry'        => '$ Entrada',
+    '7T_Amount'       => 'Cantidad',
+    '8T_Sale'         => '$ Venta',
+    '9T_Stocks'       => 'Existencias',
+    '10T_Destination' => 'Destination',
+
     // ---Section Register Inventory---
     // Card Responsibles and Warehouses
     'Title_Responsible'              => 'Responsables y Bodegas',
@@ -42,7 +43,7 @@ return [
     'Title_Form_Expiration_Date' => 'Fecha de Vencimiento:',
     'Title_Form_Lot_Number'      => 'Número de Lote:',
     'Title_Form_Inventory_Code'  => 'Código de Inventario:',
-    'Title_Form_Description'     => 'Descripción:',
+    'Title_Form_Observation'     => 'Observación general:',
     'Title_Form_Mark'            => 'Marca:',
     'Title_Form_Destination'     => 'Destino:',
     'Select_Form_Destination'    => '-- Selecciona --',
@@ -57,7 +58,7 @@ return [
     '2T_Inventory_Code'  => 'Código de Inventario',
     '2T_Description'     => 'Descripción',
     '2T_Actions'         => 'Acciones',
-    
+
     // ---Section Status Inventory---
     // Inventory Expired
     'Title_Table_Expired'    => 'Productos Vencidos',
@@ -66,7 +67,7 @@ return [
     '3T_Amount'          => 'Cantidad',
     '3T_Product'         => 'Producto',
     '3T_Expiration_Date' => 'Fecha de Vencimiento',
-    
+
     // ---Section Low Inventory---
     // Card Form Register Low
     'Title_Form_Origin_Warehouse'  => 'Bodega de origen',

@@ -90,9 +90,9 @@ class InventoryController extends Controller
     }
 
     /* Ver detalle de movimiento interno */
-    public function show(Movement $movement){
+    public function show_entry(Movement $movement){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_show_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_show_title_view')];
-        return view('ptventa::inventory.show', compact('view', 'movement'));
+        return view('ptventa::inventory.show-entry', compact('view', 'movement'));
     }
 
     /* Ver detalle de baja de inventario */

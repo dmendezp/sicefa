@@ -65,7 +65,6 @@
                             ]) !!}
                         </div>
                     </div>
-
                     <div class="col-md-2">
                         <div class="form-group">
                             <label class="form-label my-0">{{ trans('ptventa::inventory.Title_Form_Expiration_Date') }}</label>
@@ -76,64 +75,86 @@
                             ]) !!}
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label class="form-label my-0">{{ trans('ptventa::inventory.Title_Form_Mark') }}</label>
-                            {!! Form::text('product_mark', isset($inventory) ? $inventory->mark : '', [
-                                'class' => 'form-control form-control-sm text-center',
-                                'id' => 'product_mark',
-                                'readonly',
-                            ]) !!}
+                </div>
+                <div class="row">
+                    <div class="col-md-4 my-auto">
+                        <div class="form-group my-0">
+                            <div class="form-floating">
+                                {!! Form::textarea(null, null, [
+                                    'class' => 'form-control',
+                                    'style' => 'height: 124px',
+                                    'placeholder' => 'Registre alguna observación',
+                                    'wire:model.defer' => 'observation'
+                                ]) !!}
+                                <label>{{ trans('ptventa::inventory.Title_Form_Observation') }}</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label class="form-label my-0">{{ trans('ptventa::inventory.Title_Form_Destination') }}</label>
-                            {!! Form::text('product_destination', isset($inventory) ? $inventory->destination : '', [
-                                'class' => 'form-control form-control-sm text-center',
-                                'id' => 'product_destination',
-                                'readonly',
-                            ]) !!}
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label class="form-label my-0">{{ trans('ptventa::inventory.Title_Form_Price') }}</label>
-                            {!! Form::text('product_price', isset($inventory) ? $inventory->price : '', [
-                                'class' => 'form-control form-control-sm text-center',
-                                'id' => 'product_price',
-                                'readonly',
-                            ]) !!}
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label class="form-label my-0">{{ trans('ptventa::inventory.Title_Form_Existing_Amount') }}</label>
-                            {!! Form::text('amount', isset($inventory) ? $inventory->amount : '', [
-                                'class' => 'form-control form-control-sm text-center',
-                                'id' => 'amount',
-                                'readonly',
-                            ]) !!}
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label class="form-label my-0">
-                                <strong class="text-danger">*</strong>{{ trans('ptventa::inventory.Title_Form_Amount') }}
-                            </label>
-                            {!! Form::number('product_amount', $product_amount, [
-                                'class' => 'form-control form-control-sm text-center',
-                                'wire:model.defer' => 'product_amount',
-                                'id' => 'product_amount',
-                                'required',
-                            ]) !!}
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-sm form-control">{{ trans('ptventa::inventory.Btn_Add_List') }}
-                                <i class="fas fa-plus"></i>
-                            </button>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label my-0">{{ trans('ptventa::inventory.Title_Form_Price') }}</label>
+                                    {!! Form::text('product_price', isset($inventory) ? $inventory->price : '', [
+                                        'class' => 'form-control form-control-sm text-center',
+                                        'id' => 'product_price',
+                                        'readonly',
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label my-0">{{ trans('ptventa::inventory.Title_Form_Existing_Amount') }}</label>
+                                    {!! Form::text('amount', isset($inventory) ? $inventory->amount : '', [
+                                        'class' => 'form-control form-control-sm text-center',
+                                        'id' => 'amount',
+                                        'readonly',
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label my-0">
+                                        <strong class="text-danger">*</strong>{{ trans('ptventa::inventory.Title_Form_Amount') }}
+                                    </label>
+                                    {!! Form::number('product_amount', null, [
+                                        'class' => 'form-control form-control-sm text-center',
+                                        'wire:model.defer' => 'product_amount',
+                                        'id' => 'product_amount',
+                                        'step' => 0,
+                                        'min' => 0,
+                                        'required',
+                                        isset($inventory) ? '' : 'disabled'
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label my-0">{{ trans('ptventa::inventory.Title_Form_Mark') }}</label>
+                                    {!! Form::text('product_mark', isset($inventory) ? $inventory->mark : '', [
+                                        'class' => 'form-control form-control-sm text-center',
+                                        'id' => 'product_mark',
+                                        'readonly',
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label my-0">{{ trans('ptventa::inventory.Title_Form_Destination') }}</label>
+                                    {!! Form::text('product_destination', isset($inventory) ? $inventory->destination : '', [
+                                        'class' => 'form-control form-control-sm text-center',
+                                        'id' => 'product_destination',
+                                        'readonly',
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-auto">
+                                <div class="form-group my-0">
+                                    <button type="submit" class="btn btn-success btn-sm form-control">{{ trans('ptventa::inventory.Btn_Add_List') }}
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -248,6 +269,8 @@
         <script src="{{ asset('modules/ptventa/js/data-formats.js') }}"></script>
         <!-- Scripts del componente register-low -->
         <script src="{{ asset('modules/ptventa/js/inventory/low/livewire-register-low.js') }}"></script>
+        <!-- Scripts para impresión en impresora pos termica -->
+        <script src="{{ asset('modules/ptventa/js/pos_print/prints.js') }}"></script>
     @endsection
 
 </div>

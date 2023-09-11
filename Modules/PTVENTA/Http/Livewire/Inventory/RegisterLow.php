@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
-use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementDetail;
@@ -26,6 +25,7 @@ class RegisterLow extends Component
     public Collection $selected_products; // Productos (elementos) seleccionados
     public $inventory;
     public $product_amount; // Cantidad del producto (elemento) seleccionado
+    public $observation; // Observación del movimiento
 
     public function __construct()
     {
@@ -96,22 +96,23 @@ class RegisterLow extends Component
                     break;
                 }
             }
-            
+
             if (!$found) {
                 $this->selected_products->push([
                     'inventory_id' => $this->inventory_id,
-                    'product_name' => $this->inventory->element->name,
+                    'product_name' => $this->inventory->element->product_name,
                     'product_lot_number' => $this->inventory->lot_number,
                     'product_inventory_code' => $this->inventory->inventory_code,
                     'product_production_date' => $this->inventory->production_date,
                     'product_expiration_date' => $this->inventory->expiration_date,
                     'product_mark' => $this->inventory->mark,
-                    'product_price' => $this->inventory->element->price,
+                    'product_price' => $this->inventory->price,
                     'product_amount' => $this->product_amount,
                 ]);
             }
         }
         $this->reset('inventory', 'product_amount', 'inventory_id');
+        $this->emit('input-product-amount', 0); // Actualizar cantidad máxima del producto y desactivarlo
     }
 
     public function editProduct($product_index)
@@ -150,6 +151,7 @@ class RegisterLow extends Component
                     'movement_type_id' => $movement_type->id,
                     'voucher_number' => 0,
                     'state' => 'Aprobado',
+                    'observation' => $this->observation,
                     'price' => 0
                 ]);
 
@@ -200,7 +202,12 @@ class RegisterLow extends Component
                 DB::commit(); // Confirmar cambios realizados durante la transacción
 
                 // Transacción completada exitosamente
-                $this->emit('message', 'success', 'Operación realizada', 'Baja de inventario realizada exitosamente');
+                $this->emit('message', 'success', 'Operación realizada', 'Baja de inventario registrada exitosamente');
+
+                // Obtener toda la información necesario para generar la orden de impresión
+                $final_movement = Movement::with('warehouse_movements.productive_unit_warehouse.warehouse','movement_details.inventory.element.measurement_unit','movement_responsibilities.person')->find($movement->id);
+                $this->emit('printTicket', $final_movement); // Enviar orden de impresión
+
                 $this->defaultAction(); // Refrescar totalmente los componentes
             } catch (Exception $e) { // Capturar error durante la transacción
                 // Transacción rechazada
@@ -208,7 +215,7 @@ class RegisterLow extends Component
                 $this->emit('message', 'error', 'Operación rechazada', 'Ha ocurrido un error en el registro de la baja en '.$error.'. Por favor intente nuevamente.', null);
             }
         } else {
-            // Emitir mensaje de advertencia cuando el producto no esta seleccionado 
+            // Emitir mensaje de advertencia cuando el producto no esta seleccionado
             $this->emit('message', 'alert-warning', null, 'Es necesario agregar al menos un producto.');
         }
     }

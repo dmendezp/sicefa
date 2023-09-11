@@ -22,7 +22,7 @@ return [
 	// -----PTVENTAController - Cajero---
 	'PTVENTA_cashier_title_page' => 'Cajero',
 	'PTVENTA_cashier_title_view' => 'Página principal',
-	
+
 	// -----SaleController-----
 	// Index
 	'PTVENTA_sale_index_title_page' => 'Ventas',
@@ -33,12 +33,12 @@ return [
 	// Show
 	'PTVENTA_sale_show_title_page' => 'Movimiento - Detalles',
 	'PTVENTA_sale_show_title_view' => 'Detalles de Movimiento',
-	
+
 	// -----MovementController-----
 	// Index
 	'PTVENTA_movement_index_title_page' => 'Movimiento',
 	'PTVENTA_movement_index_title_view' => 'Histórico de Movimientos',
-	
+
 	// -----InventoryController-----
 	// Index
 	'PTVENTA_inventory_index_title_page' => 'Inventario - Listado',
@@ -54,7 +54,7 @@ return [
 	'PTVENTA_inventory_low_create_title_view' => 'Bajas de Inventario',
 	// Show
 	'PTVENTA_inventory_show_title_page' => 'Movimiento - Detalles',
-	'PTVENTA_inventory_show_title_view' => 'Detalles de Movimiento',
+	'PTVENTA_inventory_show_title_view' => 'Detalle - Entrada de inventario',
 	// Show Low
 	'PTVENTA_inventory_show_low_title_page' => 'Movimiento - Detalles',
 	'PTVENTA_inventory_show_low_title_view' => 'Detalles de Movimiento',

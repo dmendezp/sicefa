@@ -35,6 +35,7 @@ class PeopleTableSeeder extends Seeder
             'document_type' => 'Cédula de ciudadanía',
             'first_name' => 'PUNTO DE',
             'first_last_name' => 'VENTA',
+            'second_last_name' => '',
             'eps_id' => $eps->id,
             'population_group_id' => $population_group->id
         ]);
@@ -48,7 +49,7 @@ class PeopleTableSeeder extends Seeder
             'eps_id' => $eps->id,
             'population_group_id' => $population_group->id
         ]);
-        
+
         // Consulta o registro de datos para Manuel Steven Ossa Lievano (Cajero de punto de venta)
         Person::firstOrCreate(['document_number' => 1000226706], [ // Consultar o registrar Persona
             'document_type' => 'Cédula de ciudadanía',

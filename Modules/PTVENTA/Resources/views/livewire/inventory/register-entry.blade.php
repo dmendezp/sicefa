@@ -84,6 +84,8 @@
                                 'class' => 'form-control text-center',
                                 'wire:model.defer' => 'product_amount',
                                 'id' => 'product_amount',
+                                'step' => 0,
+                                'min' => 0,
                                 'required',
                             ]) !!}
                         </div>
@@ -131,9 +133,9 @@
                                     'class' => 'form-control',
                                     'style' => 'height: 124px',
                                     'placeholder' => 'Registre alguna observación',
-                                    'wire:model.defer' => 'product_description',
+                                    'wire:model.defer' => 'observation',
                                 ]) !!}
-                                <label>{{ trans('ptventa::inventory.Title_Form_Description') }}</label>
+                                <label>{{ trans('ptventa::inventory.Title_Form_Observation') }}</label>
                             </div>
                         </div>
                     </div>
@@ -290,6 +292,8 @@
         <script src="{{ asset('modules/ptventa/js/data-formats.js') }}"></script>
         <!-- Scripts del componente register-entry -->
         <script src="{{ asset('modules/ptventa/js/inventory/entry/livewire-register-entry.js') }}"></script>
+        <!-- Scripts para impresión en impresora pos termica -->
+        <script src="{{ asset('modules/ptventa/js/pos_print/prints.js') }}"></script>
     @endsection
 
 </div>

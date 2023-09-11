@@ -73,9 +73,13 @@ class GenerateSale extends Component
                                             ->where('productive_unit_id',$productive_unit->id)
                                             ->firstOrFail(); // Obtener unidad productiva y bodega relacionada
         $inventories = Inventory::where('productive_unit_warehouse_id',$this->puw->id)
+                                ->where('amount','>',0)
                                 ->where('destination','Producción')
                                 ->where('state','Disponible')
-                                ->whereDate('expiration_date', '>=', now())
+                                ->where(function ($query) {
+                                    $query->whereDate('expiration_date', '>=', now())
+                                        ->orWhereNull('expiration_date');
+                                })
                                 ->pluck('id','element_id');  // Obtener elemen_id unicos para conocer los elementos activos del inventario
         $elementIds = $inventories->keys()->toArray(); // Obtenemos solo el id de los elementos
         $this->products = Element::whereIn('id', $elementIds)->whereNotNull('price')->orderBy('name')->get(); // Consultar elementos que tenga precio para acceder a su nombre
@@ -86,11 +90,13 @@ class GenerateSale extends Component
     public function inventoryProduct($element_id){ // Consultar cantidad disponible del producto
         $inventory = Inventory::where('productive_unit_warehouse_id',$this->puw->id)
                                 ->where('element_id',$element_id)
+                                ->where('amount','>',0)
                                 ->where('destination','Producción')
                                 ->where('state','Disponible')
-                                ->whereDate('expiration_date', '>=', now())
-                                ->select('element_id', DB::raw('SUM(amount) as product_total_amount'))
-                                ->groupBy('element_id')
+                                ->where(function ($query) {
+                                    $query->whereDate('expiration_date', '>=', now())
+                                        ->orWhereNull('expiration_date');
+                                })->select(DB::raw('SUM(amount) as product_total_amount'))
                                 ->first();
         $inventory->sale_price = priceFormat(Element::findOrFail($element_id)->price); // Consultar precio de venta del producto
         return $inventory;
@@ -103,8 +109,8 @@ class GenerateSale extends Component
             $this->emit('input-product-amount', 0, 0, 0, 0);
         }else{
             $inventory = $this->inventoryProduct($this->product_id);
-            $produc_amount_selected = $this->selected_products->where('product_element_id', $this->product_id)->sum('product_amount');
-            $this->product_total_amount = $inventory->product_total_amount - $produc_amount_selected;
+            $product_amount_selected = $this->selected_products->where('product_element_id', $this->product_id)->sum('product_amount');
+            $this->product_total_amount = $inventory->product_total_amount - $product_amount_selected;
             $this->product_price = $inventory->sale_price;
             $this->reset('product_subtotal','product_amount');
             $this->emit('input-product-amount', $this->product_total_amount, $this->product_price, $this->product_subtotal, $this->total);
@@ -134,7 +140,7 @@ class GenerateSale extends Component
             if (!$found) {
                 $this->selected_products->push([
                     'product_element_id' => $this->product_id,
-                    'product_name' => Element::find($this->product_id)->name,
+                    'product_name' => Element::find($this->product_id)->product_name,
                     'product_amount' => $this->product_amount,
                     'product_price' => $this->product_price,
                     'product_subtotal' => $this->product_amount * revertPriceFormat($this->product_price)
@@ -244,12 +250,16 @@ class GenerateSale extends Component
 
                     // Consultar todo el inventario del producto seleccionado
                     $inventories = Inventory::where('productive_unit_warehouse_id', $this->puw->id)
-                        ->where('element_id', $product['product_element_id'])
-                        ->where('state', 'Disponible')
-                        ->where('destination', 'Producción')
-                        ->whereDate('expiration_date', '>=', now())
-                        ->orderBy('expiration_date', 'asc')
-                        ->get();
+                                            ->where('element_id', $product['product_element_id'])
+                                            ->where('amount','>',0)
+                                            ->where('destination','Producción')
+                                            ->where('state','Disponible')
+                                            ->where(function ($query) {
+                                                $query->whereDate('expiration_date', '>=', now())
+                                                    ->orWhereNull('expiration_date');
+                                            })
+                                            ->orderBy('expiration_date', 'asc')
+                                            ->get();
 
                     // Recorrer inventario y disminuir cantidades de acuerdo a la cantidad requerida para la venta
                     foreach ($inventories as $inventory) {
@@ -318,16 +328,13 @@ class GenerateSale extends Component
 
                 // Transacción completada exitosamente
                 $this->emit('message', 'success', trans('ptventa::sales.Alert_Successful_Sale'), 'Operación realizada',  $value);
-                $this->emit('printTicket', // Generar impresión de la factura de venta
-                    $movement->voucher_number,
-                    ($movement->registration_date)->format('Y-m-d H:i:s'),
-                    $this->customer_full_name,
-                    Person::where('document_number',$this->customer_document_number)->first()->identification_type_number,
-                    Auth::user()->person->full_name,
-                    $this->selected_products,
-                    $movement->price
-                );
-                $this->defaultAction();
+
+
+                // Obtener toda la información necesario para generar la orden de impresión
+                $final_movement = Movement::with('warehouse_movements.productive_unit_warehouse.warehouse','movement_details.inventory.element.measurement_unit','movement_responsibilities.person')->find($movement->id);
+                $this->emit('printTicket', $final_movement); // Enviar orden de impresión
+
+                $this->defaultAction(); // Restaurar totalmente los datos del componente
                 $this->emit('clear-sale-values'); // Limpiar valores de venta
             } catch (Exception $e) { // Capturar error durante la transacción
                 // Transacción rechazada

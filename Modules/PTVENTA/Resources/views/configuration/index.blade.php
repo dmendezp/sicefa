@@ -63,23 +63,20 @@
             imprimirBtn.addEventListener('click', async (event) => {
                 event.preventDefault();
 
-                try {
-                    // Intenta imprimir usando la impresora con nombre "POS-80C"
-                    await conector.imprimirEn("POS-80C");
-
-                    // Si la impresora esta disponible el resultado es exitoso
-                    // Redireccionar al usuario a la vista del botón
-                    window.location.href =
-                        "{{ route('ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.configuration.index') }}";
-                } catch (error) {
-                    // A ocurrido un error en la impresion
-                    // Muestra el SweetAlert2 con la notificacion
+                // Intenta imprimir usando la impresora con nombre "POS-80C"
+                respuesta = await conector.imprimirEn("POS-80C");
+                if (respuesta === true) {
                     Swal.fire({
-                        icon: 'error',
-                        title: '{{ trans('ptventa::Configuration.title') }}',
-                        text: '{{ trans('ptventa::Configuration.text') }}',
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Factura generada correctamente.',
+                        showConfirmButton: false,
+                        timer: 1500
                     });
+                } else {
+                    alert(respuesta);
                 }
+
             });
         });
     </script>

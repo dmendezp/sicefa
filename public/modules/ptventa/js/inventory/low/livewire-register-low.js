@@ -1,6 +1,6 @@
 // Establecer configuraciones para el campo de ingreso de cantidad
 Livewire.on('input-product-amount', function(product_total_amount) {
-    
+
     var $product_amount = $('#product_amount');
 
     if (product_total_amount == 0) {
@@ -17,7 +17,7 @@ Livewire.on('input-product-amount', function(product_total_amount) {
                 input.val(product_total_amount);
             } else {
                 input.val();
-            }            
+            }
         });
     }
 });
@@ -56,6 +56,14 @@ Livewire.on('message', function(type, action, message) {
     }
 });
 
-Livewire.on('printTicket', async function(voucher_number, date, customer, dt_customer, seller, details, total) {
-    print_sale(voucher_number, date, customer, dt_customer, seller, details, total);
+/* Generar impresión de factura de baja de inventario */
+Livewire.on('printTicket', async function(movement) {
+    try {
+        await print_low_inventory(movement); // Imprimir factura de baja de inventario
+    } catch (error) {
+        /* Lanzar notificación toastr */
+        toastr.options.timeOut = 0;
+        toastr.options.closeButton = true;
+        toastr.error('Es posible que no este en ejecución el plugin_impresora_termica en el equipo.', 'Error de impresión');
+    }
 });

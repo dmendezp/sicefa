@@ -72,7 +72,7 @@ class Person extends Model implements Auditable
     }
     public function getIdentificationTypeNumberAttribute(){ // Obtener de manera abreviada del tipo y número de identificación
         // Arreglo de mapeo entre tipos de documentos y sus abreviaturas
-        $documentTypeAbbreviations = [
+        $document_type_abbreviations = [
             'Cédula de ciudadanía' => 'CC',
             'Tarjeta de identidad' => 'TI',
             'Cédula de extranjería' => 'CE',
@@ -80,7 +80,7 @@ class Person extends Model implements Auditable
             'Documento nacional de identidad' => 'DNI',
             'Registro civil' => 'RC'
         ];
-        return $documentTypeAbbreviations[$this->attributes['document_type']].'-'.$this->attributes['document_number'];
+        return $document_type_abbreviations[$this->attributes['document_type']].'-'.$this->attributes['document_number'];
     }
     public function setAddressAttribute($value){ // Convierte el primer carácter en mayúscula del dato address (MUTADOR)
         $this->attributes['address'] = ucfirst($value);

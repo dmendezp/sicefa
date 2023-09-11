@@ -157,10 +157,16 @@ Livewire.on('close-modal-register-customer', function() {
     modalRegisterCustomer.hide();
 });
 
-Livewire.on('printTicket', async function(voucher_number, date, customer, dt_customer, seller, details, total) {
-
-    print_sale(voucher_number, date, customer, dt_customer, seller, details, total);
-
+/* Generar impresión de factura de venta realizada */
+Livewire.on('printTicket', async function(movement) {
+    await print_sale(movement); // Imprimir factura de venta realizada
+    try {
+    } catch (error) {
+        /* Lanzar notificación toastr */
+        toastr.options.timeOut = 0;
+        toastr.options.closeButton = true;
+        toastr.error('Es posible que no este en ejecución el plugin_impresora_termica en el equipo.', 'Error de impresión');
+    }
 });
 
 

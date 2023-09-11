@@ -47,7 +47,8 @@ class SaleController extends Controller
     }
 
     /* Ver detalle de venta */
-    public function show(Movement $movement){
+    public function show($movement_id){
+        $movement = Movement::with('movement_details.inventory.element.measurement_unit')->find($movement_id);
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_sale_show_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_sale_show_title_view')];
         return view('ptventa::sale.show', compact('view', 'movement'));
     }

@@ -8,7 +8,7 @@
                 <select id='product_id' class="form-select" wire:model="product_id">
                     <option value="">{{ trans('ptventa::sales.Select_Product') }}</option>
                     @foreach ($products as $product)
-                        <option value="{{ $product->id }}"> {{ $product->name }} </option>
+                        <option value="{{ $product->id }}"> {{ $product->product_name }} </option>
                     @endforeach
                 </select>
             </div>
@@ -273,6 +273,8 @@
         <script src="{{ asset('modules/ptventa/js/data-formats.js') }}"></script>
         <!-- Scripts del componente register-sale -->
         <script src="{{ asset('modules/ptventa/js/sale/register/livewire-register-sale.js') }}"></script>
+        <!-- Scripts para impresión en impresora pos termica -->
+        <script src="{{ asset('modules/ptventa/js/pos_print/prints.js') }}"></script>
         <!-- Scripts del de la internacionalizacion del alert que confirma la venta -->
         <script>
             window.translations = @json([

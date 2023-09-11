@@ -44,6 +44,7 @@
                         <tr class="border-dark">
                             <th class="text-center">{{ trans('ptventa::inventory.1T_Number') }}</th>
                             <th>{{ trans('ptventa::inventory.2T_Product') }}</th>
+                            <th class="text-center">{{ __('ptventa::inventory.10T_Destination') }}</th>
                             <th class="text-center">{{ trans('ptventa::inventory.3T_Lot') }}</th>
                             <th class="text-center">
                                 <i class="fa-solid fa-calendar-days"></i>
@@ -71,6 +72,7 @@
                                 <td rowspan="{{ $rowspan }}" class="border-secondary align-middle">
                                     <strong>{{ $firstRecord->element->name }}</strong>
                                 </td>
+                                <td class="text-center border-secondary">{{ $firstRecord->destination }}</td>
                                 <td class="text-center border-secondary">{{ $firstRecord->lot_number }}</td>
                                 <td class="text-center border-secondary">{{ $firstRecord->production_date }}</td>
                                 <td class="text-center border-secondary">{{ $firstRecord->expiration_date }}</td>
@@ -85,6 +87,7 @@
                             </tr>
                             @foreach ($group->slice(1) as $record)
                                 <tr>
+                                    <td class="text-center border-secondary">{{ $record->destination }}</td>
                                     <td class="text-center border-secondary">{{ $record->lot_number }}</td>
                                     <td class="text-center border-secondary">{{ $record->production_date }}</td>
                                     <td class="text-center border-secondary">{{ $record->expiration_date }}</td>

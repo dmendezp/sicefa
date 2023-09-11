@@ -58,8 +58,8 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::post('cashier/reports/sales', 'generateSales')->name('ptventa.cashier.reports.generate.sales'); // Realizar consulta de ventas realizadas por fechas recibidas (Cajero)
             Route::post('admin/reports/sales/generatepdf', 'generateSalesPDF')->name('ptventa.admin.reports.generate.sales.pdf'); // Generar PDF de ventas realizadas (Administrador)
             Route::post('cashier/reports/sales/generatepdf', 'generateSalesPDF')->name('ptventa.cashier.reports.generate.sales.pdf'); // Generar PDF de ventas realizadas (Cajero)
-            Route::get('admin/entries/show/{movement}', 'show')->name('ptventa.admin.movements.entries.show'); // Ver detalle de movimiento interno (Administrador)
-            Route::get('cashier/entries/show/{movement}', 'show')->name('ptventa.cashier.movements.entries.show'); // Ver detalle de movimiento interno (Cajero)
+            Route::get('admin/entries/show/{movement}', 'show_entry')->name('ptventa.admin.movements.entries.show'); // Ver detalle de movimiento interno (Administrador)
+            Route::get('cashier/entries/show/{movement}', 'show_entry')->name('ptventa.cashier.movements.entries.show'); // Ver detalle de movimiento interno (Cajero)
             // Reportes de bajas
             Route::get('admin/low/show/{movement}', 'showLow')->name('ptventa.admin.movements.low.show'); // Ver detalle de baja (Administrador)
             Route::get('cashier/low/show/{movement}', 'showLow')->name('ptventa.cashier.movements.low.show'); // Ver detalle de baja (Cajero)
@@ -95,7 +95,7 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::post('admin/cash/close', 'close')->name('ptventa.admin.cash.close'); // Cerrar sesión de caja (Administrador)
             Route::post('cashier/cash/close', 'close')->name('ptventa.cashier.cash.close'); // Cerrar sesión de caja (Cajero)
         });
-        
+
         // Rutas para movements ó historico de cajas
         Route::controller(MovementController::class)->group(function(){
             Route::get('admin/movement/index', 'index')->name('ptventa.admin.movements.index'); // Vista principal de historico de movimientos (Administrador)
@@ -103,6 +103,6 @@ Route::middleware(['lang'])->group(function(){  // Middleware para la internzaci
             Route::post('admin/movement/consult', 'consult')->name('ptventa.admin.movements.consult'); // Consultar movimientos por fecha y actor (Administrador)
             Route::post('cashier/movement/consult', 'consult')->name('ptventa.cashier.movements.consult'); // Consultar movimientos por fecha y actor (Cajero)
         });
-        
+
     });
 });

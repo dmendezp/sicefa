@@ -17,6 +17,7 @@
 @endsection
 
 @include('ptventa::layouts.partials.plugins.sweetalert2') {{-- Implementación de Sweetalert2 --}}
+@include('ptventa::layouts.partials.plugins.toastr') {{-- Implementación de Toastr --}}
 @push('scripts')
     @livewireScripts()
     @section('sripts-generate-sale') @show <!-- Scripts necesarios para generar una venta -->
