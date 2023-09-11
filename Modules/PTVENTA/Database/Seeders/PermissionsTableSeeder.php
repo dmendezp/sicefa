@@ -323,7 +323,25 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'See internal movement details',
             'app_id' => $app->id
         ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Ver detalle de baja (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.movements.low.show'], [ // Registro o actualización de permiso
+            'name' => 'Ver detalle de baja (Administrador)',
+            'description' => 'Ver detalle de baja',
+            'description_english' => 'See low detail',
+            'app_id' => $app->id
+        ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ver detalle de baja (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.movements.low.show'], [ // Registro o actualización de permiso
+            'name' => 'Ver detalle de baja (Cajero)',
+            'description' => 'Ver detalle de baja',
+            'description_english' => 'See low detail',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
         // Vista principal de ventas realizadas en sesión de caja (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.sale.index'], [ // Registro o actualización de permiso
@@ -361,24 +379,6 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
-        // Ver detalle de venta (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.movements.sale.show'],[
-            'name' => 'Ver detalle de venta (Administrador)',
-            'description' => 'Ver detalle de venta',
-            'description_english' => 'See sales details',
-            'app_id' => $app->id
-        ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
-
-        // Ver detalle de venta (Cajero)
-        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.movements.sale.show'],[
-            'name' => 'Ver detalle de venta (Cajero)',
-            'description' => 'Ver detalle de venta',
-            'description_english' => 'See sales details',
-            'app_id' => $app->id
-        ]);
-        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
-
         // Registro de venta (Administrador y/o Cajero)
         $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin-cashier.generate.sale'], [ // Registro o actualización de permiso
             'name' => 'Registro de venta (Administrador y/o Cajero)',
@@ -387,6 +387,24 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Ver detalle de venta (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.admin.movements.sale.show'],[ // Registro o actualización de permiso
+            'name' => 'Ver detalle de venta (Administrador)',
+            'description' => 'Ver detalle de venta',
+            'description_english' => 'See sales details',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ver detalle de venta (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'ptventa.cashier.movements.sale.show'],[ // Registro o actualización de permiso
+            'name' => 'Ver detalle de venta (Cajero)',
+            'description' => 'Ver detalle de venta',
+            'description_english' => 'See sales details',
+            'app_id' => $app->id
+        ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
         // Vista principal de productos (Administrador)

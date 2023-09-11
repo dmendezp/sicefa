@@ -162,6 +162,8 @@ return [
         'farm_id' => 'farm', // SICA
         'first_name' => 'name', // SICA
         'leader_id' => 'leader person', // SICA
+        'municipality_id' => 'municipality', // SICA
+        'pension_entity_id' => 'pension entity', // SICA
         'person_document_type' => 'document type', // PTVENTA
         'person_document_number' => 'document number', // PTVENTA
         'person_first_name' => 'first name', // PTVENTA
@@ -170,6 +172,7 @@ return [
         'person_second_last_name' => 'second last name', // PTVENTA
         'population_group_id' => 'population group', // SICA
         'productive_unit_id' => 'productive unit', // SICA
+        'responsible_id' => 'responsible person', // SICA
         'role_id' => 'rol', // SICA
         'sector_id' => 'sector', // SICA
         'warehouse_id' => 'warehouse', // SICA

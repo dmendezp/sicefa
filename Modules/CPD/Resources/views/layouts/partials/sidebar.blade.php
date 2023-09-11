@@ -9,56 +9,52 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-1 pb-1 mb-1 d-flex">
-            <div class="row col-md-12">
-                <div class="image mt-2 mb-2">
-                    @if(isset(Auth::user()->person->avatar))
-                        @if (file_exists(asset('storage/'.Auth::user()->person->avatar)))
-                            <img src="{{ asset('storage/'.Auth::user()->person->avatar) }}" class="img-circle elevation-2" alt="User Image">
-                        @else
-                            <img src="{{ asset('cpd/images/user-white.png') }}" class="img-circle elevation-2" alt="User Image">
-                        @endif
-                    @else
-                        <img src="{{ asset('cpd/images/user-white.png') }}" class="img-circle elevation-2" alt="User Image">
-                    @endif
-                </div>
-
-                @guest
-                    <div class="col info info-user">
-                        <div>{{ trans('menu.Welcome') }}</div>
-                            <div>
-                                <a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a>
-                            </div>
-                        </div>
-                        <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}">
-                            <a href="{{ route('login') }}" class="d-block" >
-                                <i class="fas fa-sign-in-alt"></i>
-                            </a>
-                        </div>
+        <div class="user-panel mt-3 pb-3 mb-1 d-flex">
+            <div class="image">
+                @if (isset(Auth::user()->person->avatar))
+                    <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"class="img-circle elevation-2"
+                        alt="User Image">
                 @else
-                        <div class="col info info-user">
-                            <div data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">{{ Auth::user()->nickname }}</div>
-                            <div class="small"><em> {{ Auth::user()->roles[0]->name }}</em></div>
-                        </div>
-                        <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Logout') }}">
-                            <a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                <i class="fas fa-sign-out-alt"></i>
-                            </a>
-                    </div>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                @endguest
+                    <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
+                @endif
             </div>
+            @guest
+                <div class="col info info-user">
+                    <a href="{{ route('login') }}" class="d-block" style="text-decoration: none">{{ trans('ptventa::general.Session') }}</a>
+                </div>
+                <div class="col-auto info float-right ">
+                    <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ trans('ptventa::general.InSession') }}">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </a>
+                </div>
+            @else
+                <div class="col info info-user">
+                    <div data-toggle="tooltip" data-placement="top"
+                        title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
+                        {{ Auth::user()->nickname }}
+                    </div>
+                    <div class="small">
+                        <em> {{ Auth::user()->roles[0]->name }}</em>
+                    </div>
+                </div>
+                <div class="col-auto info float-right mt-2">
+                    <a href="{{ route('logout') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ trans('ptventa::general.ExitSession') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            @endguest
         </div>
 
-        <div class="user-panel mt-1 pb-1 mb-1 d-flex">
+        <div class="user-panel d-flex">
             <ul class="nav nav-pills nav-sidebar flex-column">
                 <li class="nav-item">
-                    <a href="{{ route('cefa.welcome') }}" class="nav-link">
+                    <a href="{{ route('cefa.welcome') }}"
+                        class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
                         <i class="nav-icon fas fa-puzzle-piece"></i>
-                        <p>{{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}</p>
+                        <p>{{ trans('ptventa::general.Back to SICEFA') }}</p>
                     </a>
                 </li>
             </ul>
@@ -72,21 +68,21 @@
                     <li class="nav-item">
                         <a href="{{ route('cpd.admin.study.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.study.')) active @endif">
                             <i class="nav-icon fas fa-clipboard-list"></i>
-                            <p>Monitoreos</p>
+                            <p>{{ trans('cpd::general.Monitoring') }}</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('cpd.admin.producer.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.producer.')) active @endif">
                             <i class="nav-icon fas fa-people-carry"></i>
-                            <p>Productores</p>
+                            <p>{{ trans('cpd::general.Producers') }}</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('cefa.cpd.metadata.index') }}" class="nav-link  @if (strpos(Route::currentRouteName(), '.metadata')) active @endif">
                             <i class="nav-icon fas fa-database"></i>
-                            <p>Metadatos</p>
+                            <p>{{ trans('cpd::general.Metadata') }}</p>
                         </a>
                     </li>
                 @endauth

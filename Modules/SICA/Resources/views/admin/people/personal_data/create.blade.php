@@ -239,6 +239,17 @@
                                         ]) !!}
                                     </div>
                                 </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <b class="text-danger">*</b>
+                                        <label>Entidad de pensiones</label>
+                                        {!! Form::select('pension_entity_id', $pension_entities, null, [
+                                            'class' => 'form-control',
+                                            'placeholder' => '-- Seleccione --',
+                                            'required'
+                                        ]) !!}
+                                    </div>
+                                </div>
                             </div>
                             <div class="text-center">
                                 {!! Form::submit('Registrar', ['class' => 'btn btn-primary']) !!}

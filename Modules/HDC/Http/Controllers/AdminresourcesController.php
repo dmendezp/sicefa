@@ -37,7 +37,7 @@ class AdminresourcesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 
     }
 
     /**
@@ -76,8 +76,10 @@ class AdminresourcesController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy($productive_unit, $resource)
     {
-        //
+       //
+            
     }
+
 }

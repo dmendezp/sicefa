@@ -20,6 +20,7 @@ class CreateProductiveUnitsTable extends Migration
             $table->string('icon')->nullable();
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('sector_id')->constrained()->onDelete('cascade');
+            $table->foreignId('farm_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

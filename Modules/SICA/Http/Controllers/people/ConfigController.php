@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Event;
 use Modules\SICA\Entities\EPS;
+use Modules\SICA\Entities\InsurerEntity;
+use Modules\SICA\Entities\PensionEntity;
 use Modules\SICA\Entities\PopulationGroup;
 
 class ConfigController extends Controller
@@ -17,7 +19,9 @@ class ConfigController extends Controller
         $events = Event::orderBy('updated_at','DESC')->get();
         $epss = EPS::orderBy('updated_at','DESC')->get();
         $populations = PopulationGroup::orderBy('updated_at','DESC')->get();
-        $data = ['title'=>trans('sica::menu.Config'), 'events'=>$events, 'epss'=>$epss, 'populations'=>$populations];
+        $pension_entities = PensionEntity::orderByDesc('updated_at')->get();
+        $insurer_entities = InsurerEntity::orderByDesc('updated_at')->get();
+        $data = ['title'=>trans('sica::menu.Config'), 'events'=>$events, 'epss'=>$epss, 'populations'=>$populations, 'pension_entities'=>$pension_entities, 'insurer_entities'=>$insurer_entities];
         return view('sica::admin.people.config.index',$data);
     }
 

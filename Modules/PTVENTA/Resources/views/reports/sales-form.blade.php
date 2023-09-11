@@ -7,9 +7,9 @@
 @push('breadcrumbs')
     <li class="breadcrumb-item">
         <a href="{{ route('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.index') }}"
-            class="text-decoration-none">{{ trans('ptventa::reports.Reports') }}</a>
+            class="text-decoration-none">{{ trans('ptventa::reports.Breadcrumb_Reports_1') }}</a>
     </li>
-    <li class="breadcrumb-item active">{{ trans('ptventa::reports.Sales') }}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::reports.Breadcrumb_Active_Sales_1') }}</li>
 @endpush
 
 @section('content')
@@ -23,16 +23,16 @@
                                 method="POST">
                                 @csrf
                                 <div class="form-group mr-3">
-                                    <label class="mr-2">{{ trans('ptventa::reports.TextForm1') }}</label>
+                                    <label class="mr-2">{{ trans('ptventa::reports.Title_Form_Start_Date') }}</label>
                                     <input type="date" class="form-control" name="start_date" id="start_date" value="{{ $start_date }}" required>
                                 </div>
                                 <div class="form-group mr-3">
-                                    <label class="mr-2">{{ trans('ptventa::reports.TextForm2') }}</label>
+                                    <label class="mr-2">{{ trans('ptventa::reports.Title_Form_End_Date') }}</label>
                                     <input type="date" class="form-control" name="end_date" id="end_date" value="{{ $end_date }}" required>
                                 </div>
                                 @if(Auth::user()->havePermission('ptventa.'.getRoleRouteName(Route::currentRouteName()).'.reports.generate.sales'))
                                     <button type="submit" class="btn btn-primary">
-                                        {{ trans('ptventa::reports.Btn1') }}
+                                        {{ trans('ptventa::reports.Btn_Search') }}
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
                                 @endif
@@ -45,7 +45,7 @@
                                     <input type="hidden" name="start_date" value="{{ $start_date }}">
                                     <input type="hidden" name="end_date" value="{{ $end_date }}">
                                     <button type="submit" class="btn btn-danger">
-                                        {{ trans('ptventa::reports.Btn2') }}
+                                        {{ trans('ptventa::reports.Btn_Generate_PDF') }}
                                         <i class="fa-solid fa-file-pdf"></i>
                                     </button>
                                 </form>
@@ -60,15 +60,15 @@
                             <table class="table table-bordered table-hover">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th class=text-center>{{ trans('ptventa::reports.1') }}</th>
-                                        <th class="text-center">{{ trans('ptventa::reports.2') }}</th>
-                                        <th>{{ trans('ptventa::reports.3') }}</th>
-                                        <th>{{ trans('ptventa::reports.4') }}</th>
-                                        <th>{{ trans('ptventa::reports.5') }}</th>
-                                        <th class="text-center">{{ trans('ptventa::reports.6') }}</th>
-                                        <th class="text-center">{{ trans('ptventa::reports.7') }}</th>
-                                        <th class="text-center">{{ trans('ptventa::reports.8') }}</th>
-                                        <th class="text-center">{{ trans('ptventa::reports.9') }}</th>
+                                        <th class=text-center>{{ trans('ptventa::reports.2T_Number') }}</th>
+                                        <th class="text-center">{{ trans('ptventa::reports.2T_Voucher') }}</th>
+                                        <th>{{ trans('ptventa::reports.2T_Responsible_Delivery') }}</th>
+                                        <th>{{ trans('ptventa::reports.2T_Registration_Date') }}</th>
+                                        <th>{{ trans('ptventa::reports.2T_Product') }}</th>
+                                        <th class="text-center">{{ trans('ptventa::reports.2T_Amount') }}</th>
+                                        <th class="text-center">{{ trans('ptventa::reports.2T_Price') }}</th>
+                                        <th class="text-center">{{ trans('ptventa::reports.2T_Subtotal') }}</th>
+                                        <th class="text-center">{{ trans('ptventa::reports.2T_Total') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -133,7 +133,7 @@
                             </table>
                         </div>
                     @else
-                        <p>{{ trans('ptventa::reports.AltText') }}</p>
+                        <p>{{ trans('ptventa::reports.2T_Text_Optional') }}</p>
                     @endif
                 </div>
             </div>
@@ -173,7 +173,7 @@
 
         Toast.fire({
             icon: 'info',
-            title: '{{ trans('ptventa::reports.title') }}'
+            title: '{{ trans('ptventa::reports.Title') }}'
         })
     </script>
 @endpush

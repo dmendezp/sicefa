@@ -21,7 +21,6 @@ class Environment extends Model implements Auditable
         'length',
         'latitude',
         'farm_id',
-        'productive_unit_id',
         'status',
         'type_environment',
         'class_environment_id'
@@ -57,9 +56,6 @@ class Environment extends Model implements Auditable
     }
     public function pages(){ // Accede a la información del page al que pertenece
         return $this->hasMany(Page::class);
-    }
-    public function productive_unit(){ // Accede a la información de la unidad productiva al que pertenece
-        return $this->belongsTo(ProductiveUnit::class);
     }
 
 }

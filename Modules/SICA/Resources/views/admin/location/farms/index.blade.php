@@ -10,9 +10,9 @@
                     </div>
                     <div class="card-body">
                         <div class="btns">
-                            <a href="#" class="btn btn-primary" disabled>
+                            <a href="{{ route('sica.admin.location.farms.create') }}" class="btn btn-primary">
                                 <i class="fas fa-plus"></i>
-                                Registrar granja
+                                Registrar finca
                             </a>
                         </div>
                         <div class="mtop16">
@@ -23,7 +23,7 @@
                                         <th>Nombre</th>
                                         <th>Descripción</th>
                                         <th>Responsable</th>
-                                        <th class="text-center">Lugar</th>
+                                        <th class="text-center">Localización</th>
                                         <th class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
@@ -37,12 +37,16 @@
                                             <td class="text-center">{{ $f->municipality->cou_dep_mun }}</td>
                                             <td class="text-center">
                                                 <div class="text-center">
-                                                    <a href="#" class="text-success" data-toggle='tooltip' data-placement="top" title="Actualizar granja" disabled>
+                                                    <a href="{{ route('sica.admin.location.farms.edit', $f) }}" class="text-success" data-toggle='tooltip' data-placement="top" title="Actualizar finca">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <a href="#" class="text-danger" data-toggle='tooltip' data-placement="top" title="Eliminar granja" disabled>
-                                                        <i class="fas fa-trash-alt"></i>
+                                                    <a href="{{ route('sica.admin.location.farms.destroy', $f) }}" onclick="event.preventDefault(); if(confirm('¿Estás seguro de que deseas eliminar la finca {{ $f->name }}?')) { document.getElementById('delete-form-farm{{ $f->id }}').submit(); }" data-toggle='tooltip' data-placement="top" title="Eliminar finca">
+                                                        <i class="fas fa-trash-alt text-danger"></i>
                                                     </a>
+                                                    <form id="delete-form-farm{{ $f->id }}" action="{{ route('sica.admin.location.farms.destroy', $f) }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>

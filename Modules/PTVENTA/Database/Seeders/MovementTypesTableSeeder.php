@@ -25,5 +25,10 @@ class MovementTypesTableSeeder extends Seeder
             'consecutive' => 0
         ]);
 
+        // Registrar tipo de movimiento para bajas de inventario
+        MovementType::firstOrCreate(['name' => 'Baja'],[
+            'consecutive' => 0
+        ]);
+
     }
 }

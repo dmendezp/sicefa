@@ -41,7 +41,7 @@ return [
 
     // thead
     'th1' => 'Productive Unit',
-    'th2' => 'Resource Used',
+    'th2' => 'Environmental Aspect',
     'th3' => 'Actions',
 
 

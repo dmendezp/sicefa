@@ -18,7 +18,8 @@ class ProductiveUnit extends Model implements Auditable
         'description',
         'icon',
         'person_id',
-        'sector_id'
+        'sector_id',
+        'farm_id'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
@@ -46,8 +47,8 @@ class ProductiveUnit extends Model implements Auditable
     public function environment_productive_units(){ // Accede a todos los registros de las asociaciones de ambientes y unidades productivas que pertenecen a esta unidad productiva
         return $this->hasMany(EnvironmentProductiveUnit::class);
     }
-    public function environments(){ // Accede a todos los ambientes de formación que pertenecen a esta unidad productiva
-        return $this->hasMany(Environment::class);
+    public function farm(){ // Accede a la información de la finca al que pertenece
+        return $this->belongsTo(Farm::class);
     }
     public function person(){ // Accede a la información de la persona lider de esta unidad productiva
         return $this->belongsTo(Person::class);
