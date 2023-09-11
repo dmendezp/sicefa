@@ -41,7 +41,7 @@ Route::middleware(['lang'])->group(function() {
         // RUTAS PARA REPORTES
 
         // Consumos
-        Route::get('/reports/consumption', 'Reports\ComsumptionController@viewconsumption')->name('agrocefa.reports.consumption');
+        Route::get('/reports/consumable', 'Reports\ConsumableController@index')->name('agrocefa.reports.consumable');
 
 
         // RUTAS PARA ACTIVIDADES
