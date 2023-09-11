@@ -19,7 +19,7 @@ Route::middleware(['lang'])->group(function() {
         /* Ruta del Formulario */
         Route::get('/Formulario', 'FormularioController@formulario')->name('cefa.hdc.formulario');
         Route::post('/get_activities', 'FormularioController@getActivities')->name('hdc.activities');
-        Route::get('/get-environmental-aspects/{id}', 'FormularioController@aspectosambientales')->name('hdc.aspecto.ambiental');
+        Route::post('/aspecto_ambiental', 'FormularioController@aspectosambientales')->name('hdc.aspecto.ambiental');
 
         /* Ruta Para Administrar Recursos */
         Route::get('/AdminstrarRecursos', 'AdminresourcesController@adminresources')->name('cefa.hdc.adminresources');

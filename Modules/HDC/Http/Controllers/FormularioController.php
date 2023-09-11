@@ -36,13 +36,30 @@ class FormularioController extends Controller
         $activities = ProductiveUnit::findOrFail($datap->productive_unit_id)->activities;
         return view('hdc::activity', compact('activities'));
     }
-    
-    public function aspectosambientales($id)
-    {
-        $aspectosAmbientales = EnvironmentalAspectActivity::findOrFail($id)->environmental_aspect;
 
-        return view('hdc::tablaaspectosambientales', compact('aspectosAmbientales'));
-    }
+
+
+        public function aspectosambientales()
+        {
+            $data = json_decode($_POST['data']);
+
+            // Obtén el ID de la actividad seleccionada desde los datos decodificados
+            $activityId = $data->activity_id;
+
+            // Realiza la consulta para obtener los aspectos ambientales relacionados a través de la tabla intermedia
+            // Reemplaza 'actividad_aspecto_ambiental' con el nombre de tu tabla intermedia
+            // Reemplaza 'AspectoAmbiental' con el nombre de tu modelo de aspectos ambientales
+            $aspectos = DB::table('environmental_aspect_activities')
+                ->where('activity_id', $activityId)
+                ->join('EnvironmentalAspect', 'environmental_aspect_activities.environmental_aspect_id', '=', 'environmental_aspect.id')
+                ->get();
+
+            // $aspectos ahora contiene los aspectos ambientales relacionados con la actividad seleccionada a través de la tabla intermedia
+
+            // Haz lo que necesites con $aspectos, como devolverlos en una vista
+
+            return view('hdc::tablaaspectosambientales', compact('activitiesWithEnvironmentalAspects'));
+        }
 
     /**
      * Show the form for creating a new resource.

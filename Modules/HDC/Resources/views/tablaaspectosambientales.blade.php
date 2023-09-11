@@ -8,11 +8,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($aspectosAmbientales as $aspecto)
-                    <tr>
-                        {{--  <td>{{ $aspecto->name }}</td>  --}}
-                    </tr>
-                @endforeach
+               <tr></tr>
+                
             </tbody>
         </table>
         <div class="d-flex justify-content-around">

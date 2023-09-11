@@ -11,14 +11,6 @@
             @endforeach
         </select>
     </div>
-    <div class="col-md-8">
-        <div class="card card-success card-outline shadow mt-2">
-            <div class="card-body">
-                <h5>Resultados:</h5>
-                <div class="mt-2" id="div-tabla"></div>
-            </div>
-        </div>
-    </div>
 </div>
 
 {{--  @push('scripts')

@@ -31,7 +31,14 @@
                     </div>
                     <!-- /.card -->
                 </div>
-
+                <div class="col-md-8">
+                    <div class="card card-success card-outline shadow mt-2">
+                        <div class="card-body">
+                            <h5>Resultados:</h5>
+                            <div class="mt-2" id="div-tabla"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -50,6 +57,26 @@
                 var myString = JSON.stringify(myObjet);
                 ajaxReplace("div-actividades", '/hdc/get_activities', myString)
 
+            }
+        });
+    </script>
+@endpush
+ @push('scripts')
+    <script>
+        // Cuando se cambia la unidad productiva seleccionada
+        $(document).on("change", "#activity_id", function() {
+        // Obtener el valor seleccionado del campo 'activity_id'
+             activity_id = $(this).val();
+            if (activity_id == '') {
+                $("#div-tabla").html('Seleccione la unidad');
+            } else {
+                var myObjet = new Object();
+                myObjet.activity_id = $('#activity_id').val();
+                var myString = JSON.stringify(myObjet);
+                 {{--  console.log('Datos enviados:', myString);  --}}
+                 console.log('Mary se jodio con una pequeña consulta');
+
+                ajaxReplace("div-tabla", '/hdc/aspecto_ambiental/', myString);
             }
         });
     </script>
