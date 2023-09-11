@@ -3,7 +3,7 @@
 @foreach ($viewenviron as $v)
     @section('breadcrumb')
         <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-city"></i>
-                {{ trans('cefamaps::environment.Environment') }}</a></li>
+                {{ trans('cefamaps::environment.Breadcrumb_Active_Environment') }}</a></li>
         <li class="breadcrumb-item"><a href="#"><i class="nav-icon fa-solid fa-school"></i>
                 {{ $v->class_environment->name }}</a></li>
     @endsection
@@ -21,8 +21,7 @@
                     <div class="col-lg-12">
                         <div class="card card-lightblue card-outline">
                             <div class="card-header">
-                                <h3 class="m-0">{{ trans('cefamaps::environment.Environment') }} -
-                                    {{ $v->class_environment->name }}</h3>
+                                <h3 class="m-0">{{ trans('cefamaps::environment.Title_Card_View_Environment') }} : <em>{{ $v->class_environment->name }}</em></h3>
                             </div>
                             <div class="card-body">
                                 <div class="row align-items-start">

@@ -1,10 +1,17 @@
 @extends('cefamaps::layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i>
-            {{ trans('cefamaps::menu.Administrator') }}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.sector.index') }}"><i
-                class="fas fa-solid fa-vector-square"></i> {{ trans('cefamaps::sector.Sector') }}</a></li>
+    <li class="breadcrumb-item">
+        <a href="{{ route('cefamaps.admin.dashboard') }}">
+            <i class="fas fa-solid fa-user-tie"></i>
+                {{ trans('cefamaps::sector.Breadcrumb_Sector') }}
+        </a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{{ route('cefamaps.admin.config.sector.index') }}">
+            <i class="fas fa-solid fa-vector-square"></i> {{ trans('cefamaps::sector.Breadcrumb_Active_Sector') }}
+        </a>
+    </li>
 @endsection
 
 @section('content')
@@ -14,16 +21,16 @@
                 <div class="col-lg-12">
                     <div class="card card-lightblue card-outline">
                         <div class="card-header">
-                            <h3 class="m-0">{{ trans('cefamaps::sector.Sector') }}</h3>
+                            <h3 class="m-0">{{ trans('cefamaps::sector.Title_Card_Sectors') }}</h3>
                         </div>
                         <div class="card-body">
                             <div class="content">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>N°</th>
-                                            <th>{{ trans('cefamaps::sector.Name') }}</th>
-                                            <th>{{ trans('cefamaps::sector.Description') }}</th>
+                                            <th>{{ trans('cefamaps::sector.1T_Number') }}</th>
+                                            <th>{{ trans('cefamaps::sector.1T_Name') }}</th>
+                                            <th>{{ trans('cefamaps::sector.1T_Description') }}</th>
                                             <th>
                                                 <a href="{{ route('cefamaps.admin.config.sector.add') }}"
                                                     class="btn btn-success">
@@ -52,14 +59,6 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>N°</th>
-                                            <th>{{ trans('cefamaps::sector.Name') }}</th>
-                                            <th>{{ trans('cefamaps::sector.Description') }}</th>
-                                            <th></th>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -83,8 +82,8 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: '{{ trans('cefamaps::menu.Accept') }}',
-                    cancelButtonText: '{{ trans('cefamaps::menu.Cancel') }}'
+                    confirmButtonText: '{{ trans('cefamaps::sector.Btn_Accept') }}',
+                    cancelButtonText: '{{ trans('cefamaps::sector.Btn_Cancel') }}'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = url

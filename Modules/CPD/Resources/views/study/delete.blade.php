@@ -13,13 +13,13 @@
         </h5>
         <ul class="row bg-light">
             <li class="col-4">
-                <b>Monitoreo: </b> {{ $study->monitoring }}
+                <b>{{ trans('cpd::monitoring.F_Text_Monitoring') }} </b> {{ $study->monitoring }}
             </li>
             <li class="col-4">
-                <b>Tipología: </b> {{ $study->typology }}
+                <b>{{ trans('cpd::monitoring.F_Text_Typology') }} </b> {{ $study->typology }}
             </li>
             <li class="col-4">
-                <b>Altitud: </b> {{ $study->altitud }}
+                <b>{{ trans('cpd::monitoring.F_Text_Altitude') }} </b> {{ $study->altitud }}
             </li>
         </ul>
         @foreach ($datas as $data)
@@ -39,10 +39,10 @@
         @endforeach
     </div>
     <div class="modal-footer py-1">
-        <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">{{ trans('cpd::monitoring.Btn_Close') }}</button>
         {!! Form::open(['route'=>'cpd.admin.study.destroy', 'method'=>'POST', 'id'=>'form-study']) !!}
             {!! Form::hidden('study_id', $study->id) !!}
-            {!! Form::submit('Eliminar', ['class'=>'btn btn-danger btn-md py-0']) !!}
+            {!! Form::submit(trans('cpd::monitoring.Btn_Delete'), ['class'=>'btn btn-danger btn-md py-0']) !!}
         {!! Form::close() !!}
     </div>
 </div>

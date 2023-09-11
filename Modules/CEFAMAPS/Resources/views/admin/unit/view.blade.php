@@ -21,7 +21,7 @@
                     <div class="col-lg-12">
                         <div class="card card-lightblue card-outline">
                             <div class="card-header">
-                                <h3 class="m-0">{{ trans('cefamaps::unit.Unit') }} -
+                                <h3 class="m-0">{{ trans('cefamaps::unit.Title_Card_View_Unit') }} -
                                     {{ $u->productive_unit->sector->name }} - {{ $u->productive_unit->name }}</h3>
                             </div>
                             <div class="card-body">

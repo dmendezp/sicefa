@@ -66,5 +66,16 @@ class PeopleTableSeeder extends Seeder
             'pension_entity_id' => $pension_entity->id
         ]);
 
+        // Consulta o registro de datos para Manuel Steven Ossa Lievano
+        Person::firstOrCreate(['document_number' => 1000226706], [ // Consultar o registrar Persona
+            'document_type' => 'Cédula de ciudadanía',
+            'first_name' => 'MANUEL STEVEN',
+            'first_last_name' => 'OSSA',
+            'second_last_name' => 'LIEVANO',
+            'eps_id' => $eps->id,
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id
+        ]);
+
     }
 }

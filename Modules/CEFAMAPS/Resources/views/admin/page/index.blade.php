@@ -2,9 +2,9 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i>
-            {{ trans('cefamaps::menu.Administrator') }}</a></li>
+            {{ trans('cefamaps::page.Breadcrumb_Pages') }}</a></li>
     <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.page.index') }}"><i
-                class="fas fa-regular fa-file-lines"></i> {{ trans('cefamaps::page.Page') }}</a></li>
+                class="fas fa-regular fa-file-lines"></i> {{ trans('cefamaps::page.Breadcrumb_Active_Pages') }}</a></li>
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
                 <div class="col-lg-12">
                     <div class="card card-lightblue card-outline">
                         <div class="card-header">
-                            <h3 class="m-0">{{ trans('cefamaps::page.Page') }}</h3>
+                            <h3 class="m-0">{{ trans('cefamaps::page.Title_Card_Pages') }}</h3>
                         </div>
                         <div class="card-body">
                             <div class="content">
@@ -22,10 +22,10 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>N°</th>
-                                                <th>{{ trans('cefamaps::page.Page') }}</th>
-                                                <th>{{ trans('cefamaps::page.Content') }}</th>
-                                                <th>{{ trans('cefamaps::environment.Environment') }}</th>
+                                                <th>{{ trans('cefamaps::page.1T_Number') }}</th>
+                                                <th>{{ trans('cefamaps::page.1T_Page') }}</th>
+                                                <th>{{ trans('cefamaps::page.1T_Content') }}</th>
+                                                <th>{{ trans('cefamaps::page.1T_Environment') }}</th>
                                                 <th>
                                                     <a href="{{ route('cefamaps.admin.config.page.add') }}"
                                                         class="btn btn-success">
@@ -42,15 +42,14 @@
                                                     <td>
                                                         <button type="button" class="btn btn-default" data-toggle="modal"
                                                             data-target="#modal{{ $r->id }}">
-                                                            {{ trans('cefamaps::page.Page') }} {{ $r->id }}
+                                                            {{ trans('cefamaps::page.Label_Name_Content_Page_N') }} : {{ $r->id }}
                                                         </button>
                                                         <div class="modal fade" id="modal{{ $r->id }}">
                                                             <div class="modal-dialog modal-xl">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header bg-primary">
                                                                         <h4 class="modal-title">
-                                                                            {{ trans('cefamaps::page.Content') }}
-                                                                            {{ trans('cefamaps::page.Page') }}
+                                                                            {{ trans('cefamaps::page.Label_Name_Content_Page_N') }} :
                                                                             {{ $r->id }}</h4>
                                                                         <button type="button" class="close"
                                                                             data-dismiss="modal" aria-label="Close">

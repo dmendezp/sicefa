@@ -4,6 +4,7 @@ namespace Modules\SICA\Http\Controllers\people;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Route;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\PopulationGroup;
@@ -56,11 +57,11 @@ class BasicDataController extends Controller
                     //return date('Y-m-d');
                     $att = EventAttendance::where(DB::raw("(DATE_FORMAT(date,'%Y-%m-%d'))"),date('Y-m-d'))->where('event_id',$event)->where('person_id',$person->id)->get();
                     if(count($att)>0){
-                        return redirect(route('sica.attendance.people.events_attendance.index'))->with('message_result', ucfirst($person->full_name).' ya se encuentra registrado en la asistencia')->with('typealert', 'info')->with(['title'=>$title,'events'=>$events]);
+                        return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.people.events_attendance.index'))->with('message_result', ucfirst($person->full_name).' ya se encuentra registrado en la asistencia')->with('typealert', 'info')->with(['title'=>$title,'events'=>$events]);
                         break;
                     }
                     $ea = EventAttendance::create(['event_id' => $event,'person_id' => $person->id,'date' => date('Y-m-d')]);
-                    return redirect(route('sica.attendance.people.events_attendance.index'))->with('message_result', 'Asistencia registrada exitosamente para: '.ucfirst($person->full_name))->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
+                    return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.people.events_attendance.index'))->with('message_result', 'Asistencia registrada exitosamente para: '.ucfirst($person->full_name))->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
                     break;
             }
         }
@@ -95,7 +96,7 @@ class BasicDataController extends Controller
             if($p->save()){
                 //$p->events()->syncWithoutDetaching($request->input('event_id'));
                 $ea = EventAttendance::create(['event_id' => $request->input('event_id'),'person_id' => $p->id,'date' => date('Y-m-d')]);
-                return redirect(route('sica.attendance.people.events_attendance.index'))->with('message_result', 'Persona y asistencia registrada exitosamente')->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
+                return redirect(route('sica.'.getRoleRouteName(Route::currentRouteName()).'.people.events_attendance.index'))->with('message_result', 'Persona y asistencia registrada exitosamente')->with('typealert', 'success')->with(['title'=>$title,'events'=>$events]);
             }
         endif;
     }

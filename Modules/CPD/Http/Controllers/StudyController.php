@@ -14,14 +14,14 @@ class StudyController extends Controller
 {
 
     public function index(){
-        $view = ['titlePage'=>'Monitoreos', 'titleView'=>'Monitoreos de los cultivos de cacao'];
+        $view = ['titlePage' => trans('cpd::controllers.CPD_Study_index_title_page'), 'titleView' => trans('cpd::controllers.CPD_Study_index_title_view')];
         $datas = Data::all();
         $studies = Study::orderBy('id','DESC')->get();
         return view('cpd::study.index', compact('view','datas','studies'));
     }
 
     public function create(){
-        $view = ['titlePage'=>'Monitoreos - registro', 'titleView'=>'Registro de monitoreo de cultivo de cacao'];
+        $view = ['titlePage' => trans('cpd::controllers.CPD_Study_create_title_page'), 'titleView' => trans('cpd::controllers.CPD_Study_create_title_view')];
         $datas = Data::all();
         $producers = Producer::orderBy('name','ASC')->pluck('name','id');
         $villages = Village::get()->pluck("VillMun", "id");
@@ -46,16 +46,16 @@ class StudyController extends Controller
         }
         if($st->save()){
             $message_cpd_type = 'success';
-            $message_cpd = 'Monitoreo registrado exitosamente.';
+            $message_cpd = trans('cpd::monitoring.S_Title_Success_Register');
         }else{
             $message_cpd_type = 'error';
-            $message_cpd = 'No se pudo registrar el monitoreo.';
+            $message_cpd = trans('cpd::monitoring.S_Title_Fail_Register');
         }
         return redirect(route('cpd.admin.study.index'))->with(['message_cpd_type'=>$message_cpd_type, 'message_cpd'=>$message_cpd]);
     }
 
     public function edit($id){
-        $view = ['titlePage'=>'Monitoreos - actualizar', 'titleView'=>'Actualización de monitoreo de cultivo de cacao'];
+        $view = ['titlePage' => trans('cpd::controllers.CPD_Study_edit_title_page'), 'titleView' => trans('cpd::controllers.CPD_Study_edit_title_view')];
         $datas = Data::all();
         $producers = Producer::orderBy('name','ASC')->pluck('name','id');
         $villages = Village::get()->pluck("VillMun", "id");
@@ -81,23 +81,23 @@ class StudyController extends Controller
         }
         if($st->save()){
             $message_cpd_type = 'success';
-            $message_cpd = 'Monitoreo actualizado exitosamente.';
+            $message_cpd = trans('cpd::monitoring.S_Title_Success_Edit');
         }else{
             $message_cpd_type = 'error';
-            $message_cpd = 'No se pudo actualizar el monitoreo.';
+            $message_cpd = trans('cpd::monitoring.S_Title_Fail_Edit');
         }
         return redirect(route('cpd.admin.study.index'))->with(['message_cpd_type'=>$message_cpd_type, 'message_cpd'=>$message_cpd]);
     }
 
     public function show($id){
-        $titleView = 'Detalle de monitoreo';
+        $titleView = trans('cpd::controllers.CPD_Study_show_title_view');
         $datas = Data::all();
         $study = Study::find($id);
         return view('cpd::study.detail', compact('titleView','study','datas'));
     }
 
     public function delete($id){
-        $titleView = '¿Confirma eliminar el siguiente monitoreo?';
+        $titleView = trans('cpd::controllers.CPD_Study_delete_title_view');
         $datas = Data::all();
         $study = Study::find($id);
         return view('cpd::study.delete', compact('titleView','study','datas'));
@@ -107,10 +107,10 @@ class StudyController extends Controller
         $st = Study::findOrFail($request->input('study_id'));
         if($st->delete()){
             $message_cpd_type = 'success';
-            $message_cpd = 'Monitoreo eliminado exitosamente.';
+            $message_cpd = trans('cpd::monitoring.S_Title_Success_Delete');
         }else{
             $message_cpd_type = 'error';
-            $message_cpd = 'No se pudo eliminar el monitoreo.';
+            $message_cpd = trans('cpd::monitoring.S_Title_Fail_Delete');
         }
         return redirect(route('cpd.admin.study.index'))->with(['message_cpd_type'=>$message_cpd_type, 'message_cpd'=>$message_cpd]);
     }

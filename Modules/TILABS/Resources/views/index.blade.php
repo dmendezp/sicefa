@@ -45,7 +45,7 @@
                 <div class="col-md-6">
                     <section id="hero">
                         <div class="order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-                            <img src="{{ asset('tilabs/images/devices.png') }}" class="img-fluid animated zoom" alt="">
+                            <img src="{{ asset('modules/tilabs/images/devices.png') }}" class="img-fluid animated zoom" alt="">
                         </div>
                     </section>
                 </div>

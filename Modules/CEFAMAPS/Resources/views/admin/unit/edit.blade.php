@@ -2,10 +2,10 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i>
-            {{ trans('cefamaps::menu.Administrator') }}</a></li>
+            {{ trans('cefamaps::unit.Breadcrumb_Unit') }}</a></li>
     <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.unit.index') }}"><i
-                class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::unit.Units') }}</a></li>
-    <li class="breadcrumb-item"><a href="#"><i class="fas fa-map-signs"></i> {{ trans('cefamaps::menu.Edit') }}</a></li>
+                class="fas fa-solid fa-mountain-sun"></i> {{ trans('cefamaps::unit.Breadcrumb_Active_Unit') }}</a></li>
+    <li class="breadcrumb-item"><a href="#"><i class="fas fa-map-signs"></i> {{ trans('cefamaps::unit.Breadcrumb_Active_Edit_Unit') }}</a></li>
     <li class="breadcrumb-item"><a href="#"><i class="fas {{ $editunit->icon }}"></i> {{ $editunit->name }}</a></li>
 @endsection
 
@@ -16,29 +16,30 @@
                 <div class="col-lg-12">
                     <div class="card card-lightblue card-outline">
                         <div class="card-header">
-                            <h3 class="m-0">{{ trans('cefamaps::menu.Edit') }} {{ $editunit->name }}</h3>
+                            <h3 class="m-0">{{ trans('cefamaps::unit.Title_Card_Edit_Unit') }} :
+                                <em>{{ $editunit->name }}</em>
+                            </h3>
                         </div>
                         <div class="card-body">
                             <div class="content">
                                 <form action="{{ route('cefamaps.admin.unit.edit') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $editunit->id }}" required>
-                                    <!-- inicio del nombre -->
-                                    <div class="form-group">
-                                        <label for="name">{{ trans('cefamaps::unit.Name') }}
-                                            {{ trans('cefamaps::unit.Of The') }}
-                                            {{ trans('cefamaps::unit.Unit') }}</label>
-                                        <input type="text" class="form-control" id="name" name="name"
-                                            value="{{ $editunit->name }}" required>
-                                    </div>
-                                    <!-- fin del nombre -->
-                                    <div class="row align-items-center">
-                                        <div class="col">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <!-- inicio del nombre -->
+                                            <div class="form-group">
+                                                <label for="name">{{ trans('cefamaps::unit.Label_Name_Unit') }}
+                                                </label>
+                                                <input type="text" class="form-control" id="name" name="name"
+                                                    value="{{ $editunit->name }}" required>
+                                            </div>
+                                            <!-- fin del nombre -->
+                                        </div>
+                                        <div class="col-md-4">
                                             <!-- inicio del icono -->
                                             <div class="form-group">
-                                                <label for="icon">{{ trans('cefamaps::unit.Icon') }}
-                                                    {{ trans('cefamaps::unit.Of The') }}
-                                                    {{ trans('cefamaps::unit.Unit') }}</label>
+                                                <label for="icon">{{ trans('cefamaps::unit.Label_Icon_Unit') }}</label>
                                                 <?php
                                                 $datosDefinidos = [
                                                     'fa-solid fa-hippo' => 'Hipopotamo',
@@ -74,10 +75,10 @@
                                             </div>
                                             <!-- fin del icono -->
                                         </div>
-                                        <div class="col">
+                                        <div class="col-md-4">
                                             <!-- inicio del Sector -->
                                             <div class="form-group">
-                                                <label for="sector">{{ trans('cefamaps::sector.Sector') }}</label>
+                                                <label for="sector">{{ trans('cefamaps::unit.Label_Sector_Unit') }}</label>
                                                 {!! Form::select('sector_id', $sectoredit, $editunit->sector_id, [
                                                     'class' => 'form-control',
                                                     'placeholder' => 'Seleccione...',
@@ -86,10 +87,12 @@
                                             </div>
                                             <!-- fin del Sector -->
                                         </div>
-                                        <div class="col">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <!-- incio de la farm -->
                                             <div class="form-group">
-                                                <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
+                                                <label for="farm">{{ trans('cefamaps::unit.Label_Farm_Unit') }}</label>
                                                 {!! Form::select('farm_id', $farm, $editunit->farm_id, [
                                                     'class' => 'form-control',
                                                     'placeholder' => 'Seleccione...',
@@ -98,53 +101,51 @@
                                             </div>
                                             <!-- fin de la farm -->
                                         </div>
+                                        <div class="col-md-6">
+                                            <!-- inicio de la descripcion -->
+                                            <div class="form-group">
+                                                <label for="description">{{ trans('cefamaps::unit.Label_Description_Unit') }}</label>
+                                                <input type="text" class="form-control" id="description"
+                                                    name="description" value="{{ $editunit->description }}" required>
+                                            </div>
+                                            <!-- fin de la descripcion -->
+                                        </div>
                                     </div>
-                                    <!-- inicio de la descripcion -->
-                                    <div class="form-group">
-                                        <label for="description">{{ trans('cefamaps::unit.Description') }}
-                                            {{ trans('cefamaps::unit.Of The') }}
-                                            {{ trans('cefamaps::unit.Unit') }}</label>
-                                        <input type="text" class="form-control" id="description" name="description"
-                                            value="{{ $editunit->description }}" required>
-                                    </div>
-                                    <!-- fin de la descripcion -->
                                     <div class="row align-items-end">
-                                        <div class="col">
+                                        <div class="col-md-4">
                                             <!-- inicio de la persona encargada de la unidad -->
                                             <div class="form-group">
-                                                <label for="person">{{ trans('cefamaps::unit.Person in charge') }}
-                                                    {{ trans('cefamaps::unit.Of The') }}
-                                                    {{ trans('cefamaps::unit.Unit') }}</label>
+                                                <label for="person">{{ trans('cefamaps::unit.Label_Person_Charge') }}</label>
                                                 <div class="input-group mb-3">
                                                     <input type="number" class="form-control"
-                                                        placeholder="{{ trans('cefamaps::unit.Number') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::unit.Document') }}"
+                                                        placeholder="{{ trans('cefamaps::unit.Placeholder_Person_Charge') }}"
                                                         id="document" name="document"
                                                         value="{{ $editunit->person->document_number }}">
                                                     <div class="input-group-append">
                                                         <button id="search" class="btn btn-info btn-block"
-                                                            type="button">{{ trans('cefamaps::menu.Search') }}</button>
+                                                            type="button">{{ trans('cefamaps::unit.Btn_Search') }}</button>
                                                     </div>
                                                 </div>
+                                                <div class="form-text">{{ trans('cefamaps::unit.Help_Text_Person_Charge') }}</div>
                                             </div>
                                             <!-- fin de la persona encargada de la unidad -->
                                         </div>
-
-                                        <div class="col-4">
+                                        <div class="col-md-4">
                                             <!-- Inicio del resultado de la busqueda -->
                                             <div class="form-group">
                                                 <div id="resultDocument"></div>
                                             </div>
                                             <!-- Fin del resultado de la busqueda -->
                                         </div>
-
+                                        <div class="col-md-4">
+                                            <!-- inicio boton de agregar -->
+                                            <div class="d-grid gap-2">
+                                                <button type="submit"
+                                                    class="btn btn-light btn-block btn-outline-info btn-lg">{{ trans('cefamaps::unit.Btn_Edit_Unit') }}</button>
+                                            </div>
+                                            <!-- fin boton de agregar -->
+                                        </div>
                                     </div>
-                                    <!-- inicio boton de agregar -->
-                                    <div class="d-grid gap-2">
-                                        <button type="submit"
-                                            class="btn btn-light btn-block btn-outline-info btn-lg">{{ trans('cefamaps::menu.Edit') }}
-                                            {{ trans('cefamaps::unit.Unit') }}</button>
-                                    </div>
-                                    <!-- fin boton de agregar -->
                                 </form>
                             </div>
                         </div>
@@ -192,7 +193,7 @@
                     });
                     // Por si el docuemnto no existe
                     if (htmlResultados === '') {
-                        htmlResultados += `<label>{{ trans('cefamaps::unit.Document notfound') }}</label>`;
+                        htmlResultados += `<label>{{ trans('cefamaps::unit.Document_not_found') }}</label>`;
                     }
                     result.innerHTML = htmlResultados;
                 })

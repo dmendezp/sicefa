@@ -5,16 +5,16 @@
               <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
           </li>
           <li class="nav-item d-none d-sm-inline-block {{ !Route::is('*cefa.*') ?: 'active' }}">
-              <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link">{{ trans('cefamaps::menu.Home') }}</a>
+              <a href="{{ route('cefa.cefamaps.index') }}" class="nav-link">{{ trans('cefamaps::general.Home') }}</a>
           </li>
           <li class="nav-item d-none d-sm-inline-block {{ !Route::is('*sst.*') ?: 'active' }}">
-              <a href="{{ route('cefamaps.sst.index') }}" class="nav-link">{{ trans('cefamaps::SST.Home') }}</a>
+              <a href="{{ route('cefamaps.sst.index') }}" class="nav-link">{{ trans('cefamaps::general.SST') }}</a>
           </li>
           @guest
           @else
               <li class="nav-item d-none d-sm-inline-block {{ !Route::is('*admin.*') ?: 'active' }}">
                   <a href="{{ route('cefamaps.admin.dashboard') }}"
-                      class="nav-link">{{ trans('cefamaps::menu.Administrator') }}</a>
+                      class="nav-link">{{ trans('cefamaps::general.Admin') }}</a>
               </li>
           @endguest
       </ul>
@@ -35,11 +35,11 @@
               <div class="dropdown-menu dropdown-menu-right p-0">
                   <a href="{{ url('lang', ['en']) }}" class="dropdown-item">
                       <img src="{{ asset('general/images/estados-unidos-de-america_r.svg') }}" class="icon-bar"
-                          alt="User Image" style="width: 20px; height: 20px;"> English
+                          alt="User Image" style="width: 20px; height: 20px;"> {{ trans('cefamaps::general.English') }}
                   </a>
                   <a href="{{ url('lang', ['es']) }}" class="dropdown-item">
                       <img src="{{ asset('general/images/colombia_r.svg') }}" class="icon-bar" alt="User Image"
-                          style="width: 20px; height: 20px;"> Español
+                          style="width: 20px; height: 20px;"> {{ trans('cefamaps::general.Spanish') }}
                   </a>
               </div>
           </li>
