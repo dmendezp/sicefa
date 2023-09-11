@@ -17,7 +17,7 @@ class ProducerController extends Controller
      */
     public function index()
     {
-        $view = ['titlePage' => 'Productores', 'titleView' => 'Productores de cacao'];
+        $view = ['titlePage' => trans('cpd::controllers.CPD_Producer_index_title_page'), 'titleView' => trans('cpd::controllers.CPD_Producer_index_title_view')];
         $producers = Producer::orderBy('id', 'DESC')->get();
         return view('cpd::producer.index', compact('view', 'producers'));
     }
@@ -28,7 +28,7 @@ class ProducerController extends Controller
      */
     public function create()
     {
-        $titleView = 'Registro de productor';
+        $titleView = trans('cpd::controllers.CPD_Producer_create_title_view');
         return view('cpd::producer.create', compact('titleView'));
     }
 
@@ -49,10 +49,10 @@ class ProducerController extends Controller
             $pr->name = e($request->input('name'));
             if ($pr->save()) {
                 $message_cpd_type = 'success';
-                $message_cpd = 'Productor registrado exitosamente.';
+                $message_cpd = trans('cpd::producer.S_Title_Success_Register');
             } else {
                 $message_cpd_type = 'error';
-                $message_cpd = 'No se pudo registrar el productor.';
+                $message_cpd = trans('cpd::producer.S_Title_Fail_Register');
             }
         }
         return redirect(route('cpd.admin.producer.index'))->with(['message_cpd_type' => $message_cpd_type, 'message_cpd' => $message_cpd]);
@@ -65,7 +65,7 @@ class ProducerController extends Controller
      */
     public function edit($id)
     {
-        $titleView = 'Actualización del productor';
+        $titleView = trans('cpd::controllers.CPD_Producer_edit_title_view');
         $producer = Producer::find($id);
         return view('cpd::producer.edit', compact('titleView', 'producer'));
     }
@@ -88,10 +88,10 @@ class ProducerController extends Controller
             $pr->name = e($request->input('name'));
             if ($pr->save()) {
                 $message_cpd_type = 'success';
-                $message_cpd = 'Productor actualizado exitosamente.';
+                $message_cpd = trans('cpd::producer.S_Title_Success_Edit');
             } else {
                 $message_cpd_type = 'error';
-                $message_cpd = 'No se pudo actualizar el productor.';
+                $message_cpd = ('cpd::producer.S_Title_Fail_Edit');
             }
         }
         return redirect(route('cpd.admin.producer.index'))->with(['message_cpd_type' => $message_cpd_type, 'message_cpd' => $message_cpd]);
@@ -104,7 +104,7 @@ class ProducerController extends Controller
      */
     public function delete($id)
     {
-        $titleView = '¿Confirma eliminar el siguiente productor?';
+        $titleView = trans('cpd::controllers.CPD_Producer_delete_title_view');
         $producer = Producer::find($id);
         return view('cpd::producer.delete', compact('titleView', 'producer'));
     }
@@ -123,11 +123,11 @@ class ProducerController extends Controller
             $pr->delete();
             DB::commit();
             $message_cpd_type = 'success';
-            $message_cpd = 'Productor eliminado exitosamente.';
+            $message_cpd = trans('cpd::producer.S_Title_Success_Delete');
         } catch (\Exception $e) {
             DB::rollback();
             $message_cpd_type = 'error';
-            $message_cpd = 'No se pudo eliminar el productor intentalo nuevamente.';
+            $message_cpd = trans('cpd::producer.S_Title_Fail_Delete');
         }
         return redirect(route('cpd.admin.producer.index'))->with(['message_cpd_type' => $message_cpd_type, 'message_cpd' => $message_cpd]);
     }
