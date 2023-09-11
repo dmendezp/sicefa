@@ -31,15 +31,13 @@ class CreateContractorsTable extends Migration
             $table->date('sesion_date')->nullable();
             $table->foreignId('employee_type_id')->constrained()->onDelete('cascade');
             $table->string('SIIF_code');
-            $table->string('health_entity');
-            $table->string('pension_entity');
-            $table->string('insurer_entity');
+            $table->foreignId('insurer_entity_id')->constrained()->onDelete('cascade');
             $table->string('policy_number');
             $table->date('policy_issue_date');
             $table->date('policy_approval_date');
             $table->date('policy_effective_date');
             $table->date('policy_expiration_date');
-            $table->string('risk_type',5);
+            $table->enum('risk_type', ['I','II','III','IV','V']);
             $table->enum('state', ['Activo','Inactivo']);
             $table->softDeletes();
             $table->timestamps();

@@ -9,7 +9,7 @@
                         <h3 class="card-title">Actualizar Datos Personales</h3>
                     </div>
                     <div class="card-body box-profile">
-                        {!! Form::open(['url' => route('sica.admin.people.personal_data.update', $person->id)]) !!}
+                        {!! Form::open(['url' => route('sica.admin.people.personal_data.update', $person)]) !!}
                             @method('put')
                             <div class="row">
                                 <div class="col-sm-6">
@@ -248,6 +248,17 @@
                                         <b class="text-danger">*</b>
                                         <label>Grupo poblacional</label>
                                         {!! Form::select('population_group_id', $population_groups, $person->population_group_id, [
+                                            'class' => 'form-control',
+                                            'placeholder' => '-- Seleccione --',
+                                            'required',
+                                        ]) !!}
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <b class="text-danger">*</b>
+                                        <label>Entidad de pensiones</label>
+                                        {!! Form::select('pension_entity_id', $pension_entities, $person->pension_entity_id, [
                                             'class' => 'form-control',
                                             'placeholder' => '-- Seleccione --',
                                             'required',

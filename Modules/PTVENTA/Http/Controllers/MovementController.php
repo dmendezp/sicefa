@@ -14,7 +14,7 @@ class MovementController extends Controller
     
     /* Vista principal de historico de movimientos */
     public function index(Request $request) {
-        $view = ['titlePage' => trans('ptventa::movement.titlePage'), 'titleView' => trans('ptventa::movement.titleView')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_movement_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_movement_index_title_view')];
         $start_date = Carbon::now()->startOfDay()->format('Y-m-d H:i:s'); // Fecha del actual con la primer hora del día
         $end_date = Carbon::now()->endOfDay()->format('Y-m-d H:i:s'); // Fecha del actual con la última hora del día
         $movements = Movement::whereBetween('registration_date', [$start_date, $end_date])
@@ -25,7 +25,7 @@ class MovementController extends Controller
 
     /* Consultar movimientos por fecha y actor */
     public function consult(Request $request){
-        $view = ['titlePage' => trans('ptventa::movement.titlePage'), 'titleView' => trans('ptventa::movement.titleView')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_movement_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_movement_index_title_view')];
         $start_date = Carbon::createFromFormat('Y-m-d', $request->input('start_date'))->startOfDay(); // Fecha inicial con la primer hora del día
         $end_date = Carbon::createFromFormat('Y-m-d', $request->input('end_date'))->endOfDay(); // Fecha final con la última hora del día
         $movements = Movement::whereBetween('registration_date', [$start_date, $end_date])

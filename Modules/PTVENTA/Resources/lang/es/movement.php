@@ -1,33 +1,29 @@
 <?php
 
-return [
-    //Origin Controller MovementController
-	'titlePage' => 'Movement',
-	'titleView' => 'Histórico de Movimientos',
+return [    
+    // Breadcrumbs
+	'Breadcrumb_Active_Movement' => 'Histórico de Movimientos',
     
-    //Breadcrumbs
-	'B1' => 'Histórico de Movimientos',
+    // Card consult date
+	'Title_Initial_Date' => 'Fecha inicial',
+	'Title_Final_Date'   => 'Fecha final',
+	'Title_Document_Number' => 'Número de documento',
+	
+	// Table Show Movements
+	'T1_Number'        => 'N°',
+	'T2_Date'          => 'Fecha',
+	'T3_Role'          => 'Rol',
+	'T4_Manager'       => 'Responsable',
+	'T5_Movement_Type' => 'Tipo de Movimiento',
+	'T6_Price'         => '$ Valor',
+	'T7_Actions'       => 'Acciones',
+	
+	// Text Optional
+	'Text_Optional' => 'No hay movimientos disponibles o registrados en el dia de hoy.',
     
-    //Form
-	'TextForm1' => 'Fecha inicial',
-	'TextForm2' => 'Fecha final',
-	'TextForm3' => 'Número de documento',
+    // Btns
+	'Btn_Consult' => 'Consultar',
 	
-	//Table
-	'T1' => 'N°',
-	'T2' => 'Fecha',
-	'T3' => 'Rol',
-	'T4' => 'Responsable',
-	'T5' => 'Tipo de Movimiento',
-	'T6' => '$ Valor',
-	'T7' => 'Acciones',
-	
-	//TextOpcional
-	'TextOp' => 'No hay movimientos disponibles o registrados en el dia de hoy.',
-    
-    //Btns
-	'Btn1' => 'Consultar',
-	
-	//Tooltips
-	'Tooltip1' => 'Ver',
+	// Tooltips
+	'Tooltip' => 'Ver',
 ];

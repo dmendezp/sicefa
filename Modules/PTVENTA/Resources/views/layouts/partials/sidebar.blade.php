@@ -12,15 +12,14 @@
             <div class="user-panel mt-3 pb-3 mb-1 d-flex">
                 <div class="image">
                     @if (isset(Auth::user()->person->avatar))
-                        <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"class="img-circle elevation-2"
-                            alt="User Image">
+                        <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"class="img-circle elevation-2" alt="User Image">
                     @else
                         <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
                     @endif
                 </div>
                 @guest
                     <div class="col info info-user">
-                        <a href="{{ route('login') }}" class="d-block" style="text-decoration: none">{{ trans('ptventa::general.Session') }}</a>
+                        <a href="{{ route('login') }}" class="d-block custom-color" style="text-decoration: none">{{ trans('ptventa::general.Session') }}</a>
                     </div>
                     <div class="col-auto info float-right ">
                         <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ trans('ptventa::general.InSession') }}">
@@ -29,12 +28,11 @@
                     </div>
                 @else
                     <div class="col info info-user">
-                        <div data-toggle="tooltip" data-placement="top"
-                            title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
-                            {{ Auth::user()->nickname }}
+                        <div data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
+                            <div style="color:white">{{ Auth::user()->nickname }}</div>
                         </div>
-                        <div class="small">
-                            <em> {{ Auth::user()->roles[0]->name }}</em>
+                        <div class="small" style="color:white">
+                            <em>{{ Auth::user()->roles[0]->name }}</em>
                         </div>
                     </div>
                     <div class="col-auto info float-right mt-2">
@@ -63,7 +61,6 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
                     {{-- Menú de opciones públicas --}}
                     @if(Route::is('cefa.ptventa.*'))
                         <li class="nav-item">

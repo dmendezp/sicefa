@@ -104,12 +104,22 @@
                 <!-- CIERRA MENU PARA HOME (DE ACCESO GENERAL) -->
                 <!-- MENU PARA ADMINISTRADOR -->
                 @if (Route::is('sica.admin.*'))
-                    <li class="nav-item">
-                        <a href="{{ route('sica.admin.dashboard') }}" class="nav-link {{ !Route::is('sica.admin.dashboard') ?: 'active' }}">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <p> {{ trans('sica::menu.Dashboard') }}</p>
-                        </a>
-                    </li>
+                    @if (Auth::user()->havePermission('sica.admin.dashboard'))
+                        <li class="nav-item">
+                            <a href="{{ route('sica.admin.dashboard') }}" class="nav-link {{ !Route::is('sica.admin.dashboard') ?: 'active' }}">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <p> {{ trans('sica::menu.Dashboard') }}</p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('sica.admin.events_attendance_dashboard'))
+                        <li class="nav-item">
+                            <a href="{{ route('sica.admin.events_attendance_dashboard') }}" class="nav-link {{ !Route::is('sica.admin.events_attendance_dashboard') ?: 'active' }}">
+                                <i class="fa-solid fa-chart-pie"></i>
+                                <p>Panel de eventos</p>
+                            </a>
+                        </li>
+                    @endif
                     <!-- MENU PARA PEOPLE -->
                     <li class="nav-item {{ !Route::is('sica.admin.people.*') ?: 'menu-is-opening menu-open' }}">
                         <a href="#" class="nav-link {{ !Route::is('sica.admin.people.*') ?: 'active' }}">
@@ -165,11 +175,11 @@
                                     <p>{{ trans('sica::menu.Contractors') }}</p>
                                 </a>
                             </li>
-                            @if (Auth::user()->havePermission('sica.admin.people.events_attendance.dashboard'))
+                            @if (Auth::user()->havePermission('sica.admin.people.events_attendance.index'))
                                 <li class="nav-item">
-                                    <a href="{{ route('sica.admin.people.events_attendance.dashboard') }}" class="nav-link {{ !Route::is('sica.admin.people.events_attendance.*') ?: 'active' }}">
-                                        <i class="fa-solid fa-chart-pie"></i>
-                                        <p>Panel de eventos</p>
+                                    <a href="{{ route('sica.admin.people.events_attendance.index') }}" class="nav-link {{ Route::is('sica.admin.people.events_attendance.*', 'sica.admin.people.basic_data.*') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-clipboard-user"></i>
+                                        <p>{{ trans('sica::menu.Events attendance') }}</p>
                                     </a>
                                 </li>
                             @endif
@@ -449,7 +459,7 @@
                         <ul class="nav nav-treeview">
                             @if (Auth::user()->havePermission('sica.attendance.people.events_attendance.index'))
                                 <li class="nav-item">
-                                    <a href="{{ route('sica.attendance.people.events_attendance.index') }}" class="nav-link {{ !Route::is('sica.attendance.people.events_attendance*') ?: 'active' }}">
+                                    <a href="{{ route('sica.attendance.people.events_attendance.index') }}" class="nav-link {{ Route::is('sica.attendance.people.events_attendance.*', 'sica.attendance.people.basic_data.*') ? 'active' : '' }}">
                                         <i class="fa-solid fa-clipboard-user"></i>
                                         <p>{{ trans('sica::menu.Events attendance') }}</p>
                                     </a>

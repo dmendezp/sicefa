@@ -1,93 +1,87 @@
 <?php
 
 return [
-    //Origin Controller SaleController
-	'titlePage'    => 'Sales',
-	'titleView'    => 'Sales today',
-	'titleView2'    => 'Register sales',
-    
-	'titlePageM'    => 'Movement - Details',
-	'titleViewM'    => 'Movement Details',
-
-    //Breadcrumbs
-	'Sales'    => 'Sales',
-	'Today'    => 'Today',
-	'Register' => 'Resgister',
-	'B4' => 'Movements',
-	'B5' => 'Details',
+    // Breadcrumbs
+	'Breadcrumb_Active_Sales_1'    => 'Today',
+	'Breadcrumb_Sales_1'           => 'Sales',
+	'Breadcrumb_Active_Register_1' => 'Register',
+	'Breadcrumb_Register_1'        => 'Sales',
+	'Breadcrumb_Active_Show_1'     => 'Details',
+	'Breadcrumb_Show_1'            => 'Movements',
   
-	//Section Card
-    //Table Titles
-	//Index Sales
-    '1T1' => '#',
-    '1T2' => 'Voucher',
-    '1T3' => 'Client',
-    '1T4' => 'Time',
-    '1T5' => 'State',
-    '1T6' => 'Value',
-    '1T7' => 'Total sales:',
+	// Table Sales Today
+    '1T_Number'  => '#',
+    '1T_Voucher' => 'Voucher',
+    '1T_Client'  => 'Client',
+    '1T_Date'    => 'Date',
+    '1T_State'   => 'State',
+    '1T_Value'   => 'Value',
+    '1T_Total'   => 'Total sales:',
 
-    //Section BTNS
-    'Btn1'   => 'Register Sale',
-    'Btn2'   => 'Register',
-    'Btn3'   => 'Cancel',
-    'Btn4'   => 'Generate Ticket',
+    // Section Btns
+    'Btn_Register_Sale'   => 'Register Sale',
+    'Btn_Register_Client' => 'Register Client',
+    'Btn_Cancel_Register' => 'Cancel',
+    'Btn_Generate_Ticket' => 'Generate Ticket',
+    'Btn_Accept'          => 'Accept',
     
-    //Section optional
-    'TextOp1'   => 'No Sales Registered.',
-    'TextOp2'   => 'There is no open cash box.',
+    //Section optional text
+    'Text_Optional_1'   => 'No Sales Registered.',
+    'Text_Optional_2'   => 'There is no open cash box.',
 	
-	//Section Form
-    'TextForm1'   => 'Product:',
-    'SelectForm1' => '-- Select product --',
-    'TextForm2'   => 'Stocks:',
-    'TextForm3'   => 'Price:',
-    'TextForm4'   => 'Amount:',
-    'TextForm5'   => 'Subtotal:',
+	// Section Form Register Sale
+    'Title_Product'  => 'Product:',
+    'Select_Product' => '-- Select product --',
+    'Title_Stock'    => 'Stocks:',
+    'Title_Price'    => 'Price:',
+    'Title_Amount'   => 'Amount:',
+    'Title_Subtotal' => 'Subtotal:',
 	
-	//Section Card
-    //Table Titles
-	//Register Sales
-    '2T1'   => '#',
-    '2T2'   => 'Product',
-    '2T3'   => 'Amount',
-    '2T4'   => 'Value',
-    '2T5'   => 'Total',
-    '2T6'   => 'Actions',
+	// Table List Products to Register
+    '2T_Number'  => '#',
+    '2T_Product' => 'Product',
+    '2T_Amount'  => 'Amount',
+    '2T_Value'   => 'Value',
+    '2T_Total'   => 'Total',
+    '2T_Actions' => 'Actions',
 	
-	//Tootips
+	// Tooltips
     'Tooltip1' => 'Update Product',
     'Tooltip2' => 'Delete Product',
 	
-	//Section Sales Data
-	//Card
-    'TitleCard' => 'Sale',
-    'TextCard' => 'Identification:',
-    'TextCard1' => 'Name:',
+	// Section Sales Data
+    'Title_Sales_Data'    => 'Sale',
+    'Text_Identification' => 'Identification:',
+    'Text_Name'           => 'Name:',
 
-	//Section Modal
-	'TitleModal' => 'Register Client',
-	'AlertModal' => 'The person consulted is not registered.',
-	'PlaceholderModal1' => '-- Select --',
-	'PlaceholderModal2' => 'Number',
-	'TextModal1' => 'Identification',
-	'TextModal2' => 'First names',
-	'PlaceholderModal3' => 'First and second name',
-	'TextModal3' => 'Last names',
-	'PlaceholderModal4' => 'First last name',
-	'PlaceholderModal5' => 'Second last name',
+	// Section Modal Register Person
+	'Title_Modal'                       => 'Register Client',
+	'Alert_Modal'                       => 'The person consulted is not registered.',
+	'Title_Modal_Identification'        => 'Identification',
+	'Placeholder_Identification'        => '-- Select --',
+	'Placeholder_Number_Identification' => 'Number',
+	'Title_Modal_Name'                  => 'First names',
+	'Placeholder_Name'                  => 'First and second name',
+	'Title_Modal_Last_Name'             => 'Last names',
+	'Placeholder_First_Last_Name'       => 'First last name',
+	'Placeholder_Second_Last_Name'      => 'Second last name',
 
-    //---Section Movement Sales---
-    'FormText1' => 'N° Voucher',
-	'FormText2' => 'Date:',
-	'FormText3' => 'Customer:',
-	'FormText4' => 'Client:',
-	'FormText5' => 'Movement Type:',
-
-    //Table Movement Sales
-    '3T1' => '#',
-    '3T2' => 'Product',
-    '3T3' => 'Amount',
-    '3T4' => 'Subtotal',
-    '3T5' => 'Total',
+    // Section Alerts
+	'Alert_Successful_Sale'             => 'Sale successfully registered.',
+	'Alert_Change_Of'                   => 'It has a change of:',
+	'Alert_Select_Client'               => 'It is necessary to select a customer.',
+	'Alert_Registered_Client'           => 'Registered Client.',
+    
+    // ----Section Show Movement Sales----
+    'Form_Title_Voucher'       => 'N° Voucher',
+	'Form_Title_Date'          => 'Date:',
+	'Form_Title_Customer'      => 'Customer:',
+	'Form_Title_Client'        => 'Client:',
+	'Form_Title_Movement_Type' => 'Movement Type:',
+    // Table Show Movement Sales
+    '3T_Number'   => '#',
+    '3T_Product'  => 'Product',
+    '3T_Amount'   => 'Amount',
+    '3T_Subtotal' => 'Subtotal',
+    '3T_Total'    => 'Total',
 ];
