@@ -1,22 +1,22 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
-use Modules\SICA\Http\Controllers\SICAController;
 
-Route::middleware(['lang'])->group(function(){
+Route::middleware(['lang'])->group(function () { // Middleware para la internacionalización (manejo de idiomas) y verficación de permisos y roles
+    Route::prefix('tilabs')->group(function() {  // Agrega el prefijo en la url (sicefa.test/tilabs/...)
 
-    Route::prefix('tilabs')->group(function() {
-        Route::get('/index', 'TILABSController@index')->name('cefa.tilabs.index');
-        Route::get('/labs', 'TILABSController@labs')->name('cefa.tilabs.labs');
-        Route::get('/inventory', 'TILABSController@inventory')->name('cefa.tilabs.inventory');
-        Route::get('/developers', 'TILABSController@developers')->name('cefa.tilabs.developers');
-        
-        Route::prefix('admin')->group(function() {
-            Route::get('/dashboard', 'TILABSController@dashboard')->name('tilabs.admin.dashboard');
-            Route::get('/loan', 'TILABSController@loan')->name('tilabs.admin.loan');
-            Route::get('/return', 'TILABSController@return')->name('tilabs.admin.return');
-            Route::get('/transactions', 'TILABSController@transactions')->name('tilabs.admin.transactions');
+        // Rutas generales para el modulo TILABS
+        Route::controller(TILABSController::class)->group(function(){ // Agregar por única vez el controlodaar para posteriormente solo definir rutas con el formato (url, método_controlador)->name(nombre_de_ruta)
+            Route::get('/index', 'index')->name('cefa.tilabs.index'); // Vista principal y pública de la aplicación (Pública)
+            Route::get('/developers', 'developers')->name('cefa.tilabs.developers'); // Vista de creditos y desarrolladores, pública de la aplicación (Pública)
+            Route::get('/about', 'about')->name('cefa.tilabs.about'); // Vista mas info sobre PTVENTA y pública de la aplicación (Pública)
+            
+            Route::get('/dashboard', 'dashboard')->name('tilabs.admin.dashboard');
+            Route::get('/labs', 'labs')->name('tilabs.admin.labs');
+            Route::get('/inventory', 'inventory')->name('tilabs.admin.inventory');
+            Route::get('/loan', 'loan')->name('tilabs.admin.loan');
+            Route::get('/return', 'return')->name('tilabs.admin.return');
+            Route::get('/transactions', 'transactions')->name('tilabs.admin.transactions');
         });
     });
-
 });
-

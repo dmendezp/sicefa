@@ -5578,8 +5578,8 @@ function SalesDetails(props) {
                   type: "submit",
                   defaultValue: "Enviar"
                 })
-              })
-            })]
+              })]
+            })
           })
         })
       })]
