@@ -57,43 +57,6 @@ Route::middleware(['lang'])->group(function(){
         Route::get('admin/academy/course/delete/{id}', [AcademyController::class, 'deleteCourse'])->name('sica.admin.academy.course.delete');
         Route::post('admin/academy/course/delete/', [AcademyController::class, 'destroyCourse'])->name('sica.admin.academy.course.destroy');
 
-<<<<<<< HEAD
-            //Eliminar
-            Route::get('/network/delete/{id}', [AcademyController::class, 'deleteNetwork'])->name('sica.admin.academy.network.delete');
-            Route::post('/network/delete/', [AcademyController::class, 'destroyNetwork'])->name('sica.admin.academy.network.destroy');
-
-            // ------------- Rutas de Programas de Formación ---------------------
-            //Listar
-            Route::get('/programs', [AcademyController::class, 'programs'])->name('sica.admin.academy.programs');
-
-            //Agregar
-            Route::get('/program/create', [AcademyController::class, 'createProgram'])->name('sica.admin.academy.program.create');
-            Route::post('/program/store', [AcademyController::class, 'storeProgram'])->name('sica.admin.academy.program.store');
-
-            //Editar
-            Route::get('/program/edit/{id}', [AcademyController::class, 'editProgram'])->name('sica.admin.academy.program.edit');
-            Route::post('/program/update/', [AcademyController::class, 'updateProgram'])->name('sica.admin.academy.program.update');
-
-            // Eliminar
-            Route::get('/program/delete/{id}', [AcademyController::class, 'deleteProgram'])->name('sica.admin.academy.program.delete');
-            Route::post('/program/delete/', [AcademyController::class, 'destroyProgram'])->name('sica.admin.academy.program.destroy');
-
-            // ------------- Rutas de Titulaciones ------------------------------
-            //Listar
-            Route::get('/courses', [AcademyController::class, 'courses'])->name('sica.admin.academy.courses');
-            
-            //Agregar
-            Route::get('/course/create', [AcademyController::class, 'createCourse'])->name('sica.admin.academy.course.create');
-            Route::post('/course/store', [AcademyController::class, 'storeCourse'])->name('sica.admin.academy.course.store');
-
-            //Editar
-            Route::get('/course/edit/{id}', [AcademyController::class, 'editCourse'])->name('sica.admin.academy.course.edit');
-            Route::post('/course/update/', [AcademyController::class, 'updateCourse'])->name('sica.admin.academy.course.update');
-
-          
-        });
-=======
->>>>>>> FABRICA4
     });
 
 });
