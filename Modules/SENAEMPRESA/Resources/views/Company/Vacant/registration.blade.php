@@ -8,7 +8,7 @@
                     <div class="card-header">{{ $title }}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('cefa.nueva_vacante') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('company.vacant.nueva_vacante') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">{{ trans('senaempresa::menu.Name') }}</label>
@@ -59,7 +59,7 @@
                                     placeholder="{{ trans('senaempresa::menu.Date and Time End') }}">
                             </div><br>
                             <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.Add') }}</button>
-                            <a href="{{ route('cefa.vacantes') }}"
+                            <a href="{{ route('company.vacant.vacantes') }}"
                                 class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>
                         </form>
                     </div>

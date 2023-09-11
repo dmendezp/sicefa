@@ -62,7 +62,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('Postulados/', 'CompanyController@vacant')->name('senaempresa.Postulados');
         Route::get('Postulados/Seleccionados/', 'CompanyController@seleccionados')->name('cefa.seleccionados');
 
-        //Rutas para senaempresa 
+        //Rutas para senaempresa
         Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('company.senaempresa');
         Route::get('Estrategias/Nueva', 'SENAEMPRESAController@agregar')->name('company.senaempresa.agrega');
         Route::post('Estrategias/Nueva', 'SENAEMPRESAController@store')->name('company.senaempresa.guardado');
@@ -95,12 +95,12 @@ Route::middleware(['lang'])->group(function () {
         Route::get('Vacantes/Inscripción/', 'InscriptionController@inscription')->name('inscription');
 
         //Rutas de vacantes
-        Route::get('Vacantes/', 'VacantController@vacantes')->name('cefa.vacantes');
-        Route::get('Vacantes/Agregar_Vacante/', 'VacantController@agregar_vacante')->name('cefa.agregar_vacante');
-        Route::post('Vacantes/Nueva_Vacante/', 'VacantController@store')->name('cefa.nueva_vacante');
-        Route::get('Vacantes/{id}/Editar_Vacante/', 'VacantController@edit')->name('cefa.editar_vacante');
-        Route::post('Vacantes/Vacante_Editado/{id}/', 'VacantController@update')->name('cefa.vacante_editado');
-        Route::delete('Vacantes/eliminar_vacante/{id}', 'VacantController@destroy')->name('cefa.eliminar_vacante');
+        Route::get('Vacantes/', 'VacantController@vacantes')->name('company.vacant.vacantes');
+        Route::get('Vacantes/Agregar_Vacante/', 'VacantController@agregar_vacante')->name('company.vacant.agregar_vacante');
+        Route::post('Vacantes/Nueva_Vacante/', 'VacantController@store')->name('company.vacant.nueva_vacante');
+        Route::get('Vacantes/{id}/Editar_Vacante/', 'VacantController@edit')->name('company.vacant.editar_vacante');
+        Route::post('Vacantes/Vacante_Editado/{id}/', 'VacantController@update')->name('company.vacant.vacante_editado');
+        Route::delete('Vacantes/eliminar_vacante/{id}', 'VacantController@destroy')->name('company.vacant.eliminar_vacante');
 
         //Asociar curso a vacante
         Route::get('Vacantes/Asociar_Curso/', 'VacantController@asociar_curso')->name('company.vacant.asociar_curso');
@@ -109,6 +109,8 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('/eliminar_asociacion', 'VacantController@eliminarAsociacion')->name('company.vacant.eliminar_asociacion');
 
         //rutas para cargo;
+
+        //
         Route::get('Cargos/', 'PositionCompanyController@cargar')->name('cefa.cargos');
         Route::get('Cargos/Nueva', 'PositionCompanyController@registro')->name('cefa.nuevo_cargo');
         Route::post('Cargos/Nueva', 'PositionCompanyController@store')->name('cefa.cargo_nuevo');

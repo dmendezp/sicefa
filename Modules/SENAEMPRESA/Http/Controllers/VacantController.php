@@ -72,7 +72,7 @@ class VacantController extends Controller
             if ($existingVacancy->trashed()) {
                 // Restaura la vacante eliminada suavemente
                 $existingVacancy->restore();
-                return redirect()->route('cefa.vacantes')->with('success', trans('senaempresa::menu.Vacancy Successfully Restored!'));
+                return redirect()->route('company.vacant.vacantes')->with('success', trans('senaempresa::menu.Vacancy Successfully Restored!'));
             } else {
                 // Si la vacante no está eliminada, muestra una alerta
                 return redirect()->back()->with('error', trans('senaempresa::menu.Vacancy already exists in database'));
@@ -90,7 +90,7 @@ class VacantController extends Controller
 
             if ($vacancy->save()) {
                 $data = ['title' => 'Nueva Vacante', 'vacancy' => $vacancy];
-                return redirect()->route('cefa.vacantes', $data)->with('success', trans('senaempresa::menu.Vacant added with success'));
+                return redirect()->route('company.vacant.vacantes', $data)->with('success', trans('senaempresa::menu.Vacant added with success'));
             }
         }
     }
@@ -130,7 +130,7 @@ class VacantController extends Controller
         $vacancy->end_datetime = $request->input('end_datetime');
 
         if ($vacancy->save()) {
-            return redirect()->route('cefa.vacantes')->with('success', trans('senaempresa::menu.Vacancy successfully updated.'));
+            return redirect()->route('company.vacant.vacantes')->with('success', trans('senaempresa::menu.Vacancy successfully updated.'));
         } else {
             return redirect()->back()->with('error', trans('senaempresa::menu.Error updating the Vacancy.'));
         }
