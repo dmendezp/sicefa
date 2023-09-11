@@ -35,7 +35,15 @@ return[
     'Cancel'=>'Cancel',
     'Save Changes'=>'Save Changes',
 
-       
+    //Vista benefitstypeofbenefits
+
+    'Configure Benefits'=>'Configure Benefits',
+    'Select Benefit Type'=>'Select Benefit Type',
+    'Select Beneficiary Type'=>'Select Beneficiary Type',
+    'List of Benefit Types'=>'List of Benefit Types',
+    'Beneficiary Type'=>'Beneficiary Type',
+    'Benefit Type'=>'Benefit Type',
+    'Edit Benefit Type Name'=>'Edit Benefit Type Name',
 ]
 
 ?>

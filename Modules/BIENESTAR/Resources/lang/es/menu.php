@@ -34,7 +34,14 @@ return[
     'Cancel'=>'Cancelar',
     'Save Changes'=>'Guardar Cambios',
 
-    
+        //Vista benefitstypeofbenefits
+
+    'Configure Benefits'=>'Configurar Beneficios',
+    'Select Benefit Type'=>'Seleccionar Tipo de Beneficio',
+    'Select Beneficiary Type'=>'Seleccionar Tipo de Beneficiario',
+    'List of Benefit Types'=>'Listado de Tipos de Beneficios',
+    'Benefit Type'=>'Tipo de Beneficio',
+    'Edit Beneficiary Type Name'=>'Editar Tipo de Beneficio',
 ]
 
 ?>
