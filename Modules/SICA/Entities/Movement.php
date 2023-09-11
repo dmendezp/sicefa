@@ -40,8 +40,8 @@ class Movement extends Model implements Auditable
     public function movement_details(){ // Accede a todos los detalles de movimiento que pertenecen a este movimiento
         return $this->hasMany(MovementDetail::class);
     }
-    public function movement_responsabilities(){ // Accede a todos los registros de responsables de movimiento que esten asociados con este movimiento
-        return $this->hasMany(MovementResponsability::class);
+    public function movement_responsibilities(){ // Accede a todos los registros de responsables de movimiento que le pertenecen a este movimiento
+        return $this->hasMany(MovementResponsibility::class);
     }
     public function movement_type(){ // Accede al tipo de movimiento al que pertenece
         return $this->belongsTo(MovementType::class);

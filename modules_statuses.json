@@ -6,5 +6,7 @@
     "TILABS": true,
     "GANADERIA": true,
     "SENAEMPRESA": true,
-    "CPD": true
+    "CPD": true,
+    "PTVENTA": true,
+    "SIGAC": true
 }

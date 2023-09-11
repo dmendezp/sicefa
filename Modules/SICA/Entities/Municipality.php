@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Department;
-use Modules\CPD\Entities\Village;
+use Modules\SICA\Entities\Village;
 
 class Municipality extends Model implements Auditable
 {
@@ -39,7 +39,10 @@ class Municipality extends Model implements Auditable
     public function farms(){ // Accede a todas las granjas que pertenecen a este municipio
         return $this->hasMany(Farm::class);
     }
-    public function villages(){
+    public function municipality_events(){ // Accede a todos los registros de eventos en municipios que le pertenecen a este municipio
+        return $this->hasMany(MunicipalityEvent::class);
+    }
+    public function villages(){ // Accede a todos los registros de veredas que le pertenecen a este municipio
         return $this->hasMany(Village::class);
     }
 

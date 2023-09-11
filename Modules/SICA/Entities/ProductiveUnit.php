@@ -40,10 +40,13 @@ class ProductiveUnit extends Model implements Auditable
     public function activities(){ // Accede a todas las actividades que pertenecen a esta unidad productiva
         return $this->hasMany(Activity::class);
     }
-    public function apps(){ // Accede a una o varias aplicaciones asociadas a él (Relación muchos a muchos)
-        return $this->belongsToMany(App::class);
+    public function app_productive_units(){ // Accede a todos los registros de las asociaciones entre aplicación y unidad productiva que pertenecen a esta unidad productiva (PIVOTE)
+        return $this->hasMany(AppProductiveUnit::class);
     }
-    public function farm(){ // Accede a la información de la granja al que pertenece
+    public function environment_productive_units(){ // Accede a todos los registros de las asociaciones de ambientes y unidades productivas que pertenecen a esta unidad productiva
+        return $this->hasMany(EnvironmentProductiveUnit::class);
+    }
+    public function farm(){ // Accede a la información de la finca al que pertenece
         return $this->belongsTo(Farm::class);
     }
     public function person(){ // Accede a la información de la persona lider de esta unidad productiva
@@ -52,8 +55,8 @@ class ProductiveUnit extends Model implements Auditable
     public function sector(){ // Accede a la información del sector al que pertenece
         return $this->belongsTo(Sector::class);
     }
-    public function warehouses(){ // Accede a una o varias unidades bodegas asociadas a él (Relación muchos a muchos)
-        return $this->belongsToMany(Warehouse::class);
+    public function productive_unit_warehouses(){ // Accede a todos los registros de unidad productiva y bodega que pertenecen a esta unidad productiva
+        return $this->hasMany(ProductiveUnitWarehouse::class);
     }
 
 }

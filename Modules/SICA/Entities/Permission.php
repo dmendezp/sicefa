@@ -33,8 +33,8 @@ class Permission extends Model implements Auditable
     public function app(){ // Accede a la aplicación al que pertenece
         return $this->belongsTo(App::class);
     }
-    public function roles(){ // Accede a todos los reles que pertenecen a este permiso (PIVOTE)
-        return $this->belongsToMany(Role::class);
+    public function roles(){ // Accede a todos los rOles que pertenecen a este permiso (PIVOTE)
+        return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
 }

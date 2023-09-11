@@ -4,7 +4,6 @@ namespace Modules\SICA\Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Modules\SICA\Entities\Person;
 
 class UsersTableSeeder extends Seeder
@@ -43,6 +42,13 @@ class UsersTableSeeder extends Seeder
         User::updateOrCreate(['nickname' => 'DiegoT'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
             'email' => 'datovar74@misena.edu.co',
+        ]);
+
+        // Registrar o actualizar usuario para Manuel Steven Ossa Lievano
+        $person = Person::where('document_number',1000226706)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'Resmerveilons'], [ // Actualizar o crear usuario
+            'person_id' => $person->id,
+            'email' => 'manuelstevenossa@gmail.com'
         ]);
 
     }
