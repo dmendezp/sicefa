@@ -57,13 +57,15 @@ class RolesTableSeeder extends Seeder
 
         // Consulta de usuarios
         $user_super_admin = User::where('nickname','damendez')->first(); // Usuario Administrador con full-access (Diego Andrés Mendéz Pastrana)
-        $user_admin = User::where('nickname','JDGM0331')->first(); // Usuario Administrador (Jesús David Guevara Munar)
+        $user_super_admin_1 = User::where('nickname','JDGM0331')->first(); // Usuario Administrador con full-access (Jesús David Guevara Munar)
+        $user_admin = User::where('nickname','Resmerveilons')->first(); // Usuario Administrador (Manuel Steven Ossa Lievano)
         $user_coordinator = User::where('nickname','gmsanchez')->first(); // Usuario Administrador (Gloria Maritza Sanchez Alarcón)
         $user_attendance = User::where('nickname','DiegoT')->first(); // Usuario Administrador (Diego Andrés Tovar Rodriguez)
 
 
         // Asignación de ROLES para los USUARIOS de la aplicación SICA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $user_super_admin->roles()->syncWithoutDetaching([$role_super_admin->id]);
+        $user_super_admin_1->roles()->syncWithoutDetaching([$role_super_admin->id]);
         $user_admin->roles()->syncWithoutDetaching([$role_admin->id]);
         $user_coordinator->roles()->syncWithoutDetaching([$role_coordinator->id]);
         $user_attendance->roles()->syncWithoutDetaching([$role_attendance->id]);
