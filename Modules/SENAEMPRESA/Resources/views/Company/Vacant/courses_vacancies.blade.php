@@ -2,11 +2,6 @@
 
 @section('content')
     <div class="container mt-5">
-        @if (session('danger'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('danger') }}
-            </div>
-        @endif
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card card-primary card-outline shadow">
@@ -62,7 +57,7 @@
                                     @foreach ($courses as $course)
                                         @foreach ($course->vacancy as $vacant)
                                             <tr>
-                                                <td>#</td>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $course->code }} {{ $course->program->name }}</td>
                                                 <td>{{ $vacant->name }}</td>
                                                 <td>

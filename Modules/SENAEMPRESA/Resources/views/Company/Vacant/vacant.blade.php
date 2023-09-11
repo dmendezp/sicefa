@@ -31,14 +31,7 @@
                                 <th>{{ trans('senaempresa::menu.Date and Time End') }}</th>
                                 <th class="text-center">{{ trans('senaempresa::menu.Registration') }}</th>
 
-                                @php
-                                    $userRoles = auth()
-                                        ->user()
-                                        ->roles->pluck('slug')
-                                        ->toArray();
-                                @endphp
-
-                                @if (in_array('senaempresa.admin', $userRoles))
+                                @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                     <th style="width: 100px;"><a href="{{ route('company.vacant.agregar_vacante') }}"
                                             class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
                                     </th>
@@ -74,7 +67,7 @@
                                                 <i class="fas fa-eye" style="color: #000000;"></i>
                                             </a>
                                         </td>
-                                        @if (in_array('senaempresa.admin', $userRoles))
+                                        @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                             <form class="formEliminar"
                                                 action="{{ route('company.vacant.eliminar_vacante', $vacancy->id) }}"
                                                 method="POST">

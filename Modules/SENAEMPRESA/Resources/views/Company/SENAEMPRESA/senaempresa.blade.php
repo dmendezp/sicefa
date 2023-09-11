@@ -13,14 +13,7 @@
                                 <th>Id</th>
                                 <th>{{ trans('senaempresa::menu.Name') }}</th>
                                 <th>{{ trans('senaempresa::menu.Description') }}</th>
-                                @php
-                                    $userRoles = auth()
-                                        ->user()
-                                        ->roles->pluck('slug')
-                                        ->toArray();
-                                @endphp
-
-                                @if (in_array('senaempresa.admin', $userRoles))
+                                @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                     <th>
                                         <a href="{{ route('company.senaempresa.agrega') }}" class="btn btn-success btn-sm"><i
                                                 class="fas fa-user-plus"></i></a>
@@ -34,7 +27,7 @@
                                     <td>{{ $senaempresa->id }}</td>
                                     <td>{{ $senaempresa->name }}</td>
                                     <td>{{ $senaempresa->description }}</td>
-                                    @if (in_array('senaempresa.admin', $userRoles))
+                                    @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                         <form
                                             action="{{ route('company.senaempresa.eliminar_senaempresa', $senaempresa->id) }}"
                                             method="POST" class="formsena">

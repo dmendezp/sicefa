@@ -115,14 +115,7 @@
                                 </p>
                             </a>
                         </li>
-                        @php
-                            $userRoles = auth()
-                                ->user()
-                                ->roles->pluck('slug')
-                                ->toArray();
-                        @endphp
-
-                        @if (in_array('senaempresa.admin', $userRoles))
+                        @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                             <li class="nav-item">
                                 <a href="{{ route('company.senaempresa.mostrar_asociados_senaempresa') }}"
                                     class="nav-link {{ !Route::is('company.senaempresa.mostrar_asociados_senaempresa') ?: 'active' }}">
@@ -166,15 +159,16 @@
                                 <p>{{ trans('senaempresa::menu.Positions') }}</p>
                             </a>
                         </li>
-                        @if (in_array('senaempresa.admin', $userRoles))
+                        @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                             <li class="nav-item">
                                 <a href="{{ route('company.vacant.mostrar_asociados') }}"
-                                    class="nav-link {{ !Route::is('company.vacant.mostrar_asociados') ?: 'active' }}">
+                                    class="nav-link {{ Route::is('company.vacant.mostrar_asociados') ? 'active' : '' }}">
                                     <i class="fas fa-file-invoice"></i>
                                     <p>{{ trans('senaempresa::menu.Courses Vacancies') }}</p>
                                 </a>
                             </li>
                         @endif
+
 
                     </ul>
                 </li>

@@ -59,7 +59,6 @@ class SENAEMPRESAController extends Controller
             if ($sena->save()) {
                 return redirect()->route('company.senaempresa')->with('success', trans('senaempresa::menu.SenaEmpresa successfully created'));
             }
-
         }
     }
 
@@ -124,22 +123,20 @@ class SENAEMPRESAController extends Controller
         $course = Course::findOrFail($courseId);
         $senaempresa = senaempresa::findOrFail($senaempresaId);
 
-        // Asigna el curso a la senaempresa
-        $course->senaempresa()->attach($senaempresa);
-
-        return redirect()->back()->with('success', trans('senaempresa::menu.Course assigned to senaempresa successfully.'));
-    }
-    public function mostrar_registros()
-    {
-        $senaempresas = senaempresa::get();
-        $courses = Course::with('program')->get();
-        $data = ['title' => trans('senaempresa::menu.Assign Courses to SenaEmpresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
-        return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
+        // Verifica si la asociación ya existe
+        if (!$course->senaempresa()->wherePivot('course_id', $courseId)->wherePivot('senaempresa_id', $senaempresaId)->exists()) {
+            // Asigna el curso a la senaempres registrada
+            $course->senaempresa()->attach($senaempresa);
+            return redirect()->back()->with('success', trans('senaempresa::menu.Course assigned to senaempresa successfully.'));
+        } else {
+            //Alerta de que esa asociación ya existe
+            return redirect()->back()->with('error', trans('senaempresa::menu.Association already exists.'));
+        }
     }
     public function mostrar_asociado()
     {
         $senaempresas = senaempresa::get();
-        $courses = Course::with('vacancy')->get();
+        $courses = Course::with('senaempresa')->get();
         $data = ['title' => trans('senaempresa::menu.Assign Courses to SenaEmpresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
         return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
     }
@@ -153,12 +150,13 @@ class SENAEMPRESAController extends Controller
         $courseId = $request->input('course_id');
         $senaempresaId = $request->input('senaempresa_id');
 
-        $course = Course::findOrFail($courseId);
-        $senaempresa = senaempresa::findOrFail($senaempresaId);
-
-        // Desasigna el curso de la senaempresa
-        $course->senaempresa()->detach($senaempresa);
-
-        return redirect()->back()->with('danger', trans('senaempresa::menu.Association eliminated with success.'));
+        try {
+            $course = Course::findOrFail($courseId);
+            // Eliminar Asociación Especifica
+            $course->senaempresa()->wherePivot('course_id', $courseId)->wherePivot('senaempresa_id', $senaempresaId)->detach();
+            return response()->json(['mensaje' => trans('senaempresa::menu.Association eliminated with success.')]);
+        } catch (\Exception $e) {
+            return response()->json(['mensaje' => trans('senaempresa::menu.Error deleting the association')], 500);
+        }
     }
 }

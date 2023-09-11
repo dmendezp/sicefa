@@ -109,8 +109,6 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('/eliminar_asociacion', 'VacantController@eliminarAsociacion')->name('company.vacant.eliminar_asociacion');
 
         //rutas para cargo;
-
-        //
         Route::get('Cargos/', 'PositionCompanyController@cargar')->name('cefa.cargos');
         Route::get('Cargos/Nueva', 'PositionCompanyController@registro')->name('cefa.nuevo_cargo');
         Route::post('Cargos/Nueva', 'PositionCompanyController@store')->name('cefa.cargo_nuevo');
