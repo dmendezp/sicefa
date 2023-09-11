@@ -28,7 +28,7 @@ class UnitController extends Controller
         $farm = Farm::get();
         $sector = Sector::get();
         $classenviron = ClassEnvironment::get();
-        $data = ['title'=>trans('cefamaps::unit.Units'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron, 'sector'=>$sector];
+        $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_Unit_Index_title_page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron, 'sector'=>$sector];
         return view('cefamaps::admin.unit.index',$data);
     }
 
@@ -45,7 +45,7 @@ class UnitController extends Controller
         $farm = Farm::pluck('name','id');
         $sector = Sector::get();
         $sectoradd = Sector::pluck('name','id');
-        $data = ['title'=>trans('cefamaps::menu.Add'), 'person'=>$person, 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'sector'=>$sector, 'classenviron'=>$classenviron, 'sectoradd'=>$sectoradd];
+        $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_Unit_Add_title_page'), 'person'=>$person, 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'sector'=>$sector, 'classenviron'=>$classenviron, 'sectoradd'=>$sectoradd];
         return view('cefamaps::admin.unit.add',$data);
     }
 
@@ -94,7 +94,7 @@ class UnitController extends Controller
         $sector = Sector::get();
         $sectoredit = Sector::pluck('name','id');
         $editunit = ProductiveUnit::findOrFail($id);
-        $data = ['title'=>trans('cefamaps::menu.Edit'), 'person'=>$person, 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'sector'=>$sector, 'editunit'=>$editunit, 'classenviron'=>$classenviron, 'sectoredit'=>$sectoredit];
+        $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_Unit_Edit_title_page'), 'person'=>$person, 'unit'=>$unit, 'environ'=>$environ, 'farm'=>$farm, 'sector'=>$sector, 'editunit'=>$editunit, 'classenviron'=>$classenviron, 'sectoredit'=>$sectoredit];
         return view('cefamaps::admin.unit.edit',$data);
     }
 
@@ -153,7 +153,11 @@ class UnitController extends Controller
         $sector = Sector::get();
         $pages = Page::get();
         $viewunit = Environment::where('productive_unit_id',$id)->get();
+<<<<<<< HEAD
         $data = ['title'=>trans('cefamaps::unit.Units'), 'unit'=>$unit, 'environ'=>$environ, 'sector'=>$sector, 'viewunit'=>$viewunit, 'classenviron'=>$classenviron, 'pages'=>$pages];
+=======
+        $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_Unit_View_title_page'), 'unit'=>$unit, 'environ'=>$environ, 'sector'=>$sector, 'viewunit'=>$viewunit, 'classenviron'=>$classenviron, 'pages'=>$pages];
+>>>>>>> FABRICA4
         return view('cefamaps::admin.unit.view',$data);
     }
 

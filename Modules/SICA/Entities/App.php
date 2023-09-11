@@ -36,11 +36,11 @@ class App extends Model implements Auditable
     }
 
     // RELACIONES
+    public function app_productive_units(){ // Accede a todos los registros de las asociaciones entre aplicación y unidad productiva que pertenecen a esta aplicación (PIVOTE)
+        return $this->hasMany(AppProductiveUnit::class);
+    }
     public function permissions(){ // Accede a todos los permisos que pertenecen a esta aplicación
         return $this->hasMany(Permission::class);
-    }
-    public function productive_units(){ // Accede a todas las unidades productivas que pertenecen a esta aplicación (PIVOTE)
-        return $this->belongsToMany(ProductiveUnit::class)->withTimestamps();
     }
     public function roles(){ // Accede a todos los roles que pertenecen a esta aplicación
         return $this->hasMany(Role::class);

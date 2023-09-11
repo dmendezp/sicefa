@@ -21,7 +21,6 @@ class CreateEnvironmentsTable extends Migration
             $table->string('length')->nullable();
             $table->string('latitude')->nullable();
             $table->foreignId('farm_id')->constrained()->onDelete('cascade');
-            $table->foreignId('productive_unit_id')->constrained()->onDelete('cascade');
             $table->enum('status',['Disponible','No Disponible']);
             $table->string('type_environment')->nullable();
             $table->foreignId('class_environment_id')->constrained()->onDelete('cascade');
