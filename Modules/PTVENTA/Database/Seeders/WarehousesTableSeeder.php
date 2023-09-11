@@ -27,11 +27,13 @@ class WarehousesTableSeeder extends Seeder
         /* Registro o actualización de la unidad productiva Complejo agroindustrial */
         $leader = Person::where('document_number', 7723876)->firstOrFail(); // Consulta de datos personales de Vilmer Andres Mendez Murcia
         $sector = Sector::where('name','Comercial')->firstOrFail(); // Consulta del sector
+        $farm = Farm::where('name','CEFA')->firstOrFail(); // Consulta de la finca del Centro de Formación Agroindustrial La Angostura
         $productive_unit = ProductiveUnit::updateOrCreate(['name' => 'Complejo agroindustrial'], [
             'description' => 'Unidad del centro de formación dedicada a la fabricación de productos tipo industrial',
             'icon' => 'fas fa-dolly',
             'person_id' => $leader->id,
-            'sector_id' => $sector->id
+            'sector_id' => $sector->id,
+            'farm_id' => $farm->id
         ]);
 
         /* Registro o actualización de bodega para Agroindustria */
