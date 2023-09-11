@@ -58,10 +58,19 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Panel de control de asistencias de eventos (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.events_attendance.dashboard'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.events_attendance_dashboard'], [ // Registro o actualización de permiso
             'name' => 'Panel de control de asistencias de eventos (Administrador)',
             'description' => 'Panel de control de asistenciaa de eventos',
             'description_english' => 'Events attendance control panel',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de asistencia a eventos (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.events_attendance.index'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de asistencia a eventos (Administrador)',
+            'description' => 'Formulario de registro de asistencia a eventos',
+            'description_english' => 'Event attendance registration form',
             'app_id' => $app->id
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
@@ -75,6 +84,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_attendance[] = $permission->id; // Almacenar permiso para rol
 
+        // Buscar o registrar datos básicos de persona para registrar asistencia a evento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.basic_data.search'], [ // Registro o actualización de permiso
+            'name' => 'Buscar o registrar datos básicos de persona para registrar asistencia a evento (Administrador)',
+            'description' => 'Permite buscar los datos de una persona por número de documento para registrar su asistencia',
+            'description_english' => "Allows you to search for a person's data by document number to register their attendance",
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
         // Buscar o registrar datos básicos de persona para registrar asistencia a evento (Asistencia)
         $permission = Permission::updateOrCreate(['slug' => 'sica.attendance.people.basic_data.search'], [ // Registro o actualización de permiso
             'name' => 'Buscar o registrar datos básicos de persona para registrar asistencia a evento (Asistencia)',
@@ -83,6 +101,15 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permission_attendance[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar datos básicos de personas y asistencia a evento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.basic_data.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar datos básicos de personas y asistencia a evento (Administrador)',
+            'description' => 'Permite registrar datos personales básicos y asistencia a evento',
+            'description_english' => 'Allows you to record basic personal data and event assistance',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Registrar datos básicos de personas y asistencia a evento (Asistencia)
         $permission = Permission::updateOrCreate(['slug' => 'sica.attendance.people.basic_data.store'], [ // Registro o actualización de permiso

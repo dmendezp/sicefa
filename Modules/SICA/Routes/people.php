@@ -50,10 +50,13 @@ Route::middleware(['lang'])->group(function(){
         Route::post('/admin/people/personal_data/load_store',[TempTablesController::class, 'personal_data_load_store'])->name('sica.admin.people.personal_data.load.store'); // Registro de datos personales a partir de un archivo (Administrador)
 
         // --------------  Rutas de Asistencia a eventos ---------------------------------
-        Route::get('/admin/people/events_attendance', [SICAController::class, 'attendance_dashboard'])->name('sica.admin.people.events_attendance.dashboard'); // Panel de control de asistencias a eventos (Administrador)
+        Route::get('/admin/events_attendance_dashboard', [SICAController::class, 'attendance_dashboard'])->name('sica.admin.events_attendance_dashboard'); // Panel de control de asistencias a eventos (Administrador)
+        Route::get('/admin/people/events_attendance', [AttendanceController::class, 'index'])->name('sica.admin.people.events_attendance.index'); // Formulario de registro de asistencia a eventos (Administrador)
         Route::get('/attendance/people/events_attendance', [AttendanceController::class, 'index'])->name('sica.attendance.people.events_attendance.index'); // Formulario de registro de asistencia a eventos (Asistencia)
         // Rutas de Datos Básicos para asistencia a eventos
+        Route::get('/admin/people/basic_data/search', [BasicDataController::class, 'search'])->name('sica.admin.people.basic_data.search'); // Buscar o registrar datos básicos de persona para registrar asistencia a evento (Administrador)
         Route::get('/attendance/people/basic_data/search', [BasicDataController::class, 'search'])->name('sica.attendance.people.basic_data.search'); // Buscar o registrar datos básicos de persona para registrar asistencia a evento (Asistencia)
+        Route::post('/admin/people/basic_data/store', [BasicDataController::class, 'store'])->name('sica.admin.people.basic_data.store'); // Registrar datos básicos de personas y asistencia a evento (Administrador)
         Route::post('/attendance/people/basic_data/store', [BasicDataController::class, 'store'])->name('sica.attendance.people.basic_data.store'); // Registrar datos básicos de personas y asistencia a evento (Asistencia)
 
         // --------------  Rutas de Aprendices ---------------------------------

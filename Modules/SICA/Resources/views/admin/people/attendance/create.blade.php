@@ -10,7 +10,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body box-profile">
-                        <form action="{{ route('sica.attendance.people.basic_data.store') }}" method="post" id="submit">
+                        <form action="{{ route('sica.'.getRoleRouteName(Route::currentRouteName()).'.people.basic_data.store') }}" method="post" id="submit">
                             @csrf
                             <input type="hidden" name="event_id" value="{{ $event }}">
                             <div class="row">
