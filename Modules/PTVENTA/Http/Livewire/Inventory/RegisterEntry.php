@@ -19,6 +19,7 @@ use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\WarehouseMovement;
 use Illuminate\Support\Facades\Gate;
+use Modules\PTVENTA\Http\Controllers\PUW;
 
 class RegisterEntry extends Component
 {
@@ -59,9 +60,7 @@ class RegisterEntry extends Component
     // Establecer bodega
     public function defaultAction(){
         $this->reset(); // Vaciar los valores de todos los atributos para evitar irregularidades en los valores de estos
-        $productive_unit = ProductiveUnit::where('name','Punto de venta')->firstOrFail(); // Unidad productiva de la aplicación
-        $warehouse = Warehouse::where('name','Punto de venta')->firstOrFail(); // Bodega de la aplicación
-        $this->puw = ProductiveUnitWarehouse::where('productive_unit_id',$productive_unit->id)->where('warehouse_id',$warehouse->id)->firstOrFail();
+        $this->puw = PUW::getAppPuw(); // Obtener unidad productiva y bodega relacionada
         $this->products = Element::whereNotNull('price')->orderBy('name','ASC')->get();
         $this->productive_units = ProductiveUnit::whereHas('productive_unit_warehouses')->orderBy('name','ASC')->get();
         $this->destinations = getEnumValues('inventories','destination'); // Consultar destinos para elementos de inventario

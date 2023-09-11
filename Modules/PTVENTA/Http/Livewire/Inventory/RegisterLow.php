@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Modules\PTVENTA\Http\Controllers\PUW;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementDetail;
@@ -47,11 +48,7 @@ class RegisterLow extends Component
     public function defaultAction()
     {
         $this->reset(); // Vaciar los valores de todos los atributos para evitar irregularidades en los valores de estos
-        $productive_unit = ProductiveUnit::where('name', 'Punto de venta')->firstOrFail(); // Unidad productiva de la aplicación
-        $warehouse = Warehouse::where('name', 'Punto de venta')->firstOrFail();
-        $this->puw = ProductiveUnitWarehouse::where('productive_unit_id', $productive_unit->id)
-            ->where('warehouse_id', $warehouse->id)
-            ->firstOrFail();
+        $this->puw = PUW::getAppPuw(); // Obtener unidad productiva y bodega relacionada
         $this->products = Inventory::where('productive_unit_warehouse_id', $this->puw->id)
                                     ->join('elements', 'inventories.element_id', '=', 'elements.id')
                                     ->orderBy('elements.name', 'ASC')

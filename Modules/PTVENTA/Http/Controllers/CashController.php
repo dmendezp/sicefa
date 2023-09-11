@@ -4,21 +4,19 @@ namespace Modules\PTVENTA\Http\Controllers;
 
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Modules\PTVENTA\Entities\CashCount;
-use Modules\PTVENTA\Http\Controllers\InventoryController;
 
 class CashController extends Controller
 {
     public function index()
     {
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_cash_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_cash_index_title_view')];
-        $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
+        $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         $active_cash = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
                                         ->where('state', 'Abierta')
                                         ->first();
@@ -30,7 +28,7 @@ class CashController extends Controller
 
     public function store(Request $request)
     {
-        $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
+        $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         // Verificar si hay una caja abierta
         $open_cash_count = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
                                     ->where('state', 'Abierta')
@@ -69,7 +67,7 @@ class CashController extends Controller
 
             $cashCount->save();
 
-            $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
+            $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
             CashCount::create([
                 'person_id' => Auth::user()->person_id,
                 'productive_unit_warehouse_id' =>  $app_puw->id,

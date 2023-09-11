@@ -3,35 +3,18 @@
 namespace Modules\PTVENTA\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Modules\SICA\Entities\Warehouse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
-use Modules\SICA\Entities\ProductiveUnit;
-use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use TCPDF;
 
 class InventoryController extends Controller
 {
-
-    public $app_puw; // Establecer unidad productiva y bodega general de la aplicación
-
-    // Obtener unidad productiva y bodega general de la aplicación
-    public function getAppPuw()
-    {
-        if (!$this->app_puw) {
-            $productive_unit = ProductiveUnit::where('name', 'Punto de venta')->firstOrFail(); // Unidad productiva de la aplicación
-            $warehouse = Warehouse::where('name', 'Punto de venta')->firstOrFail(); // Bodega de la aplicación
-            $this->app_puw = ProductiveUnitWarehouse::where('productive_unit_id', $productive_unit->id)->where('warehouse_id', $warehouse->id)->firstOrFail();
-        }
-        return $this->app_puw;
-    }
-
-    public function index()
-    { // Listado del inventario actual
-        $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+    // Listado del inventario actual
+    public function index(){
+        $inventories = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
             ->where('amount', '<>', 0)
             ->orderBy('updated_at', 'DESC')
             ->get();
@@ -52,29 +35,28 @@ class InventoryController extends Controller
         }
 
         // Convertimos los grupos a la colección final
-        foreach ($groups as $group) {
+        foreach ($groups as $group){
             $groupedInventories->push($group);
         }
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_index_title_view')];
         return view('ptventa::inventory.index', compact('view', 'groupedInventories'));
     }
 
-    public function create()
-    { // Formulario de registro (entrada) de inventario
+    // Formulario de registro (entrada) de inventario
+    public function create(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_create_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_create_title_view')];
         return view('ptventa::inventory.create', compact('view'));
     }
 
-
-    public function status(Request $request)
-    { // Lista de productos vencidos y por vencer
+    // Lista de productos vencidos y por vencer
+    public function status(Request $request) {
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_status_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_status_title_view')];
-        $productosVencidos = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+        $productosVencidos = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                                         ->where('state', 'Disponible')
                                         ->where('expiration_date', '<', now())
                                         ->orderBy('expiration_date')
                                         ->get();
-        $productosPorVencer = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+        $productosPorVencer = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                                         ->where('state', 'Disponible')
                                         ->where('expiration_date', '>', now())
                                         ->where('expiration_date', '<=', now()->addDays(3))
@@ -101,17 +83,16 @@ class InventoryController extends Controller
         return view('ptventa::inventory.show-low', compact('view', 'movement'));
     }
 
-    //Funciones para reporte de inventario
-    public function reports()
-    { //Vista principal del panel de reportes
+    //======================================== Funciones para reporte de inventario =========================================
+    //Vista principal del panel de reportes
+    public function reports(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_reports_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_reports_title_view')];
         return view('ptventa::reports.index', compact('view'));
     }
 
     // Método para generar el reporte PDF de inventario actual
-    public function generateInventoryPDF(Request $request)
-    {
-        $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+    public function generateInventoryPDF(Request $request){
+        $inventories = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
             ->where('amount', '<>', 0)
             ->orderBy('updated_at', 'DESC')
             ->get();
@@ -210,8 +191,7 @@ class InventoryController extends Controller
     }
 
     // Método para mostrar la vista del formulario de entradas de inventario
-    public function showInventoryEntriesForm()
-    {
+    public function showInventoryEntriesForm(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_show_entries_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_show_entries_title_view')];
 
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
@@ -222,8 +202,7 @@ class InventoryController extends Controller
     }
 
     // Método para realizar la consulta de entradas de inventario y redirigir a la vista
-    public function generateInventoryEntries(Request $request)
-    {
+    public function generateInventoryEntries(Request $request){
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
@@ -241,7 +220,7 @@ class InventoryController extends Controller
 
         // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
-            $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+            $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                 ->where('role', 'Recibe');
         })
             ->where('movement_type_id', $movement_type->id)
@@ -254,8 +233,7 @@ class InventoryController extends Controller
     }
 
     // Método para generar el reporte PDF de entradas de inventario
-    public function generateInventoryEntriesPDF(Request $request)
-    {
+    public function generateInventoryEntriesPDF(Request $request){
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
@@ -273,7 +251,7 @@ class InventoryController extends Controller
 
         // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
-            $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+            $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                 ->where('role', 'Recibe');
         })
             ->where('movement_type_id', $movement_type->id)
@@ -354,8 +332,7 @@ class InventoryController extends Controller
     }
 
     // Método para mostrar la vista del formulario de ventas
-    public function showSalesForm()
-    {
+    public function showSalesForm(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_sales_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_sales_title_view')];
 
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
@@ -366,8 +343,7 @@ class InventoryController extends Controller
     }
 
     // Método para realizar la consulta de ventas y redirigir a la vista
-    public function generateSales(Request $request)
-    {
+    public function generateSales(Request $request){
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
@@ -385,7 +361,7 @@ class InventoryController extends Controller
 
         // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
-            $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+            $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                 ->where('role', 'Entrega');
         })
             ->where('movement_type_id', $movement_type->id)
@@ -398,8 +374,7 @@ class InventoryController extends Controller
     }
 
     // Método para generar el reporte PDF de ventas
-    public function generateSalesPDF(Request $request)
-    {
+    public function generateSalesPDF(Request $request){
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
@@ -417,7 +392,7 @@ class InventoryController extends Controller
 
         // Consulta para obtener los registros de Movement entre las fechas seleccionadas
         $movements = Movement::whereHas('warehouse_movements', function ($query) {
-            $query->where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+            $query->where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                 ->where('role', 'Entrega');
         })
             ->where('movement_type_id', $movement_type->id)

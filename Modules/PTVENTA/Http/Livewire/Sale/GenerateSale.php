@@ -22,6 +22,7 @@ use Modules\SICA\Entities\MovementResponsibility;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Illuminate\Support\Facades\Gate;
+use Modules\PTVENTA\Http\Controllers\PUW;
 
 class GenerateSale extends Component
 {
@@ -67,11 +68,7 @@ class GenerateSale extends Component
     public function defaultAction(){
         $this->reset(); // Vaciar los valores de todos los atributos para evitar irregularidades en los valores de estos
         $this->consultCustomer(); // Consultar cliente predeterminado
-        $warehouse = Warehouse::where('name','Punto de venta')->firstOrFail(); // Consultar granja
-        $productive_unit = ProductiveUnit::where('name','Punto de venta')->firstOrFail(); // Consultar unidad productiva
-        $this->puw = ProductiveUnitWarehouse::where('warehouse_id',$warehouse->id)
-                                            ->where('productive_unit_id',$productive_unit->id)
-                                            ->firstOrFail(); // Obtener unidad productiva y bodega relacionada
+        $this->puw = PUW::getAppPuw(); // Obtener unidad productiva y bodega relacionada
         $inventories = Inventory::where('productive_unit_warehouse_id',$this->puw->id)
                                 ->where('amount','>',0)
                                 ->where('destination','Producción')

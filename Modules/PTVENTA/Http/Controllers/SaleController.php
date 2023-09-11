@@ -7,14 +7,13 @@ use Illuminate\Support\Facades\Route;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
 use Modules\PTVENTA\Entities\CashCount;
-use Modules\PTVENTA\Http\Controllers\InventoryController;
 
 class SaleController extends Controller
 {
 
     public function index(){
         $view = ['titlePage'=> trans('ptventa::controllers.PTVENTA_sale_index_title_page'), 'titleView'=> trans('ptventa::controllers.PTVENTA_sale_index_title_view')];
-        $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
+        $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         $cashCount = CashCount::where('productive_unit_warehouse_id',$app_puw->id)
                                 ->where('state','Abierta')
                                 ->first();
@@ -34,7 +33,7 @@ class SaleController extends Controller
 
     public function register(){
         // Verificar si hay una caja abierta
-        $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
+        $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         $open_cash_count = CashCount::where('productive_unit_warehouse_id',$app_puw->id)
                                     ->where('state', 'Abierta')
                                     ->first();
