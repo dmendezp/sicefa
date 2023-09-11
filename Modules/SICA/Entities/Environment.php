@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\CEFAMAPS\Entities\Coordinate;
 use Modules\CEFAMAPS\Entities\Page;
+<<<<<<< HEAD
 use Modules\AGROCEFA\Entities\Crop;
+=======
+>>>>>>> FABRICA4
 
 class Environment extends Model implements Auditable
 {
@@ -22,7 +25,6 @@ class Environment extends Model implements Auditable
         'length',
         'latitude',
         'farm_id',
-        'productive_unit_id',
         'status',
         'type_environment',
         'class_environment_id'
@@ -50,17 +52,23 @@ class Environment extends Model implements Auditable
     public function coordinates(){ // Accede a la información del coordinate al que pertenece
         return $this->hasMany(Coordinate::class);
     }
+    public function environment_productive_units(){ // Accede a todos los registros de las asociaciones de ambientes y unidades productivas que pertenecen a este ambiente
+        return $this->hasMany(EnvironmentProductiveUnit::class);
+    }
     public function farm(){ // Accede a la información de la granja al que pertenece
         return $this->belongsTo(Farm::class);
     }
     public function pages(){ // Accede a la información del page al que pertenece
         return $this->hasMany(Page::class);
     }
+<<<<<<< HEAD
     public function productive_unit(){ // Accede a la información de la unidad productiva al que pertenece
         return $this->belongsTo(ProductiveUnit::class);
     }
     public function crops(){
         return $this->belongsToMany(Crop::class);
     }
+=======
+>>>>>>> FABRICA4
 
 }

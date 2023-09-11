@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Modules",
+    "\\Modules\\CEFAMAPS",
+    "\\Modules\\CEFAMAPS\\Database",
+    "\\Modules\\CEFAMAPS\\Database\\Seeders",
+    "\\Modules\\CEFAMAPS\\Resources",
+    "\\Modules\\CEFAMAPS\\Resources\\views",
+    "\\Modules\\CEFAMAPS\\Resources\\views\\admin",
+    "\\Modules\\CEFAMAPS\\Resources\\views\\admin\\environment"
+  ],
+  "SelectedNode": "\\Modules\\CEFAMAPS\\Database\\Seeders\\PeopleTableSeeder.php",
+  "PreviewInSolutionExplorer": false
+}
