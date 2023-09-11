@@ -39,116 +39,148 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
         $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
 
-        // Dashboard de asistencia
+        // Panel de control de asistencias a eventos (Asistencia)
         $permission = Permission::updateOrCreate(['slug' => 'sica.attendance.dashboard'], [ // Registro o actualización de permiso
-            'name' => 'Attendance Dashboard',
-            'description' => 'Puede ver el dashboard de asistencia',
-            'description_english' => 'You can see the assistance dashboard',
+            'name' => 'Panel de control de asistencias a eventos (Asistencia)',
+            'description' => 'Panel de control de asistencias a eventos',
+            'description_english' => 'Event attendance control panel',
             'app_id' => $app->id
         ]);
         $permission_attendance[] = $permission->id; // Almacenar permiso para rol
 
-        // Administrara datos personales
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data'], [ // Registro o actualización de permiso
-            'name' => 'Administrar datos personales',
-            'description' => 'Puede gestionar la información de las personas',
-            'description_english' => "Can manage people's information",
+        // Vista principal de datos personales
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de datos personales (Administrador)',
+            'description' => 'Vista principal de datos personales',
+            'description_english' => 'Main view of personal data',
             'app_id' => $app->id
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Asistencia a eventos (admin)
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.events_attendance'], [ // Registro o actualización de permiso
-            'name' => 'Asistencia a eventos (admin)',
-            'description' => 'Registro de asistencia a eventos',
-            'description_english' => 'Event attendance record',
+        // Panel de control de asistencias de eventos (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.events_attendance_dashboard'], [ // Registro o actualización de permiso
+            'name' => 'Panel de control de asistencias de eventos (Administrador)',
+            'description' => 'Panel de control de asistenciaa de eventos',
+            'description_english' => 'Events attendance control panel',
             'app_id' => $app->id
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Asistencia - Busqueda por documento (admin)
+        // Formulario de registro de asistencia a eventos (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.events_attendance.index'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de asistencia a eventos (Administrador)',
+            'description' => 'Formulario de registro de asistencia a eventos',
+            'description_english' => 'Event attendance registration form',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de asistencia a eventos (Asistencia)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.attendance.people.events_attendance.index'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de asistencia a eventos (Asistencia)',
+            'description' => 'Formulario de registro de asistencia a eventos',
+            'description_english' => 'Event attendance registration form',
+            'app_id' => $app->id
+        ]);
+        $permission_attendance[] = $permission->id; // Almacenar permiso para rol
+
+        // Buscar o registrar datos básicos de persona para registrar asistencia a evento (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.basic_data.search'], [ // Registro o actualización de permiso
-            'name' => 'Asistencia - Busqueda por documento (admin)',
-            'description' => 'Permite buscar los datos de una persona por numero de documento para registrar su asistencia',
+            'name' => 'Buscar o registrar datos básicos de persona para registrar asistencia a evento (Administrador)',
+            'description' => 'Permite buscar los datos de una persona por número de documento para registrar su asistencia',
             'description_english' => "Allows you to search for a person's data by document number to register their attendance",
             'app_id' => $app->id
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Registrar asistencia (admin)
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.basic_data.add'], [ // Registro o actualización de permiso
-            'name' => 'Registrar asistencia (admin)',
-            'description' => 'Permite registrar datos personales básicos y asistencias',
-            'description_english' => 'Allows you to record basic personal data and assistance',
-            'app_id' => $app->id
-        ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
-
-        // Asistencia a eventos
-        $permission = Permission::updateOrCreate(['slug' => 'sica.attendance.people.events_attendance'], [ // Registro o actualización de permiso
-            'name' => 'Asistencia a eventos',
-            'description' => 'Registro de asistencia a eventos',
-            'description_english' => 'Event attendance record',
-            'app_id' => $app->id
-        ]);
-        $permission_attendance[] = $permission->id; // Almacenar permiso para rol
-
-        // Asistencia - Busqueda por documento
+        // Buscar o registrar datos básicos de persona para registrar asistencia a evento (Asistencia)
         $permission = Permission::updateOrCreate(['slug' => 'sica.attendance.people.basic_data.search'], [ // Registro o actualización de permiso
-            'name' => 'Asistencia - Busqueda por documento',
-            'description' => 'Permite buscar los datos de una persona por numero de documento para registrar su asistencia',
+            'name' => 'Buscar o registrar datos básicos de persona para registrar asistencia a evento (Asistencia)',
+            'description' => 'Permite buscar los datos de una persona por número de documento para registrar su asistencia',
             'description_english' => "Allows you to search for a person's data by document number to register their attendance",
             'app_id' => $app->id
         ]);
         $permission_attendance[] = $permission->id; // Almacenar permiso para rol
 
-        // Registrar asistencia
-        $permission = Permission::updateOrCreate(['slug' => 'sica.attendance.people.basic_data.add'], [ // Registro o actualización de permiso
-            'name' => 'Registrar asistencia',
-            'description' => 'Permite registrar datos personales básicos y asistencias',
-            'description_english' => 'Allows you to record basic personal data and assistance',
+        // Registrar datos básicos de personas y asistencia a evento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.basic_data.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar datos básicos de personas y asistencia a evento (Administrador)',
+            'description' => 'Permite registrar datos personales básicos y asistencia a evento',
+            'description_english' => 'Allows you to record basic personal data and event assistance',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar datos básicos de personas y asistencia a evento (Asistencia)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.attendance.people.basic_data.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar datos básicos de personas y asistencia a evento (Asistencia)',
+            'description' => 'Permite registrar datos personales básicos y asistencia a evento',
+            'description_english' => 'Allows you to record basic personal data and event assistance',
             'app_id' => $app->id
         ]);
         $permission_attendance[] = $permission->id; // Almacenar permiso para rol
 
-        // Búsqueda de aprendices
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.apprentices'], [ // Registro o actualización de permiso
-            'name' => 'Búsqueda de aprendices',
+        // BVista principal para consultar aprendices por titulación (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.apprentices.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal para consultar aprendices por titulación (Administrador)',
             'description' => 'Puede acceder a lista de aprendices por titulación',
             'description_english' => 'You can access the list of apprentices by program',
             'app_id' => $app->id
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
-        $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
 
-        // Listar Instructores
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.instructors'], [ // Registro o actualización de permiso
-            'name' => 'Listar Instructores',
+        // Vista principal de instructores (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.instructors.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de instructores (Administrador)',
             'description' => 'Puede acceder a lista de instructores',
             'description_english' => 'You can access the list of instructors',
             'app_id' => $app->id
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de instructores (Coordinador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.coordinator.people.instructors.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de instructores (Administrador)',
+            'description' => 'Puede acceder a lista de instructores',
+            'description_english' => 'You can access the list of instructors',
+            'app_id' => $app->id
+        ]);
         $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
 
-        // Listar Funcionarios
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.officers'], [ // Registro o actualización de permiso
-            'name' => 'Listar Funcionarios',
+        // Vista principal de funcionarios (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.employees.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de funcionarios (Administrador)',
             'description' => 'Puede acceder a lista de funcionarios',
             'description_english' => 'You can access the list of officers',
             'app_id' => $app->id
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de funcionarios (Coordinador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.coordinator.people.employees.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de funcionarios (Coordinador)',
+            'description' => 'Puede acceder a lista de funcionarios',
+            'description_english' => 'You can access the list of officers',
+            'app_id' => $app->id
+        ]);
         $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
 
-        // Listar Contratistas
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.contractors'], [ // Registro o actualización de permiso
-            'name' => 'Listar Contratistas',
+        // Vista principal de contratistas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.contractors.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de contratistas (Administrador)',
             'description' => 'Puede acceder a lista de contratistas',
             'description_english' => 'You can access the list of contractors',
             'app_id' => $app->id
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de contratistas (Coordinador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.coordinator.people.contractors.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de contratistas (Coordinador)',
+            'description' => 'Puede acceder a lista de contratistas',
+            'description_english' => 'You can access the list of contractors',
+            'app_id' => $app->id
+        ]);
         $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
 
         // Listar Trimestres

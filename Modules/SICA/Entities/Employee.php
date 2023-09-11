@@ -20,8 +20,6 @@ class Employee extends Model implements Auditable
         'professional_card_issue_date',
         'employee_type_id',
         'position_id',
-        'health_entity',
-        'pension_entity',
         'risk_type',
         'state'
     ];
@@ -34,12 +32,6 @@ class Employee extends Model implements Auditable
     ];
 
     // MUTADORES Y ACCESORES
-    public function setHealthEntityAttribute($value){ // Convierte el primer carácter en mayúscula del dato health_entity (MUTADOR)
-        $this->attributes['health_entity'] = ucfirst($value);
-    }
-    public function setPensionEntityAttribute($value){ // Convierte el primer carácter en mayúscula del dato pension_entity (MUTADOR)
-        $this->attributes['pension_entity'] = ucfirst($value);
-    }
     public function setRiskTypeAttribute($value){ // Convertir a mayúsculas el valor del dato risk_type (MUTADOR)
         $this->attributes['risk_type'] = mb_strtoupper($value);
     }

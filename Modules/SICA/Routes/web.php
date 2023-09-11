@@ -1,6 +1,6 @@
 <?php
-//use Illuminate\Support\Facades\Route;
-//use Modules\SICA\Http\Controllers\SICAController;
+
+use Illuminate\Support\Facades\Route;
 
 Route::middleware(['lang'])->group(function(){
 
@@ -10,8 +10,11 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/developers', 'SICAController@developers')->name('cefa.sica.home.developers');
         Route::get('/contact', 'SICAController@contact')->name('cefa.sica.home.contact');
         Route::get('/admin', 'SICAController@admin_dashboard')->name('sica.admin.dashboard');
-        Route::get('/attendance', 'SICAController@attendance_dashboard')->name('sica.attendance.dashboard');
-        
-    });  
+        Route::get('/attendance', 'SICAController@attendance_dashboard')->name('sica.attendance.dashboard'); /* Panel de control de asistencias a eventos (Asistencia) */
 
+<<<<<<< HEAD
+=======
+    });
+
+>>>>>>> FABRICA4
 });

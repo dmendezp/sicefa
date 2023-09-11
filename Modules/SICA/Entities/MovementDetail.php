@@ -5,12 +5,14 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MovementDetail extends Model implements Auditable
 {
 
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
-        SoftDeletes; // Borrado suave
+        SoftDeletes, // Borrado suave
+        HasFactory; // Generación de datos de prueba
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'movement_id',
@@ -32,6 +34,13 @@ class MovementDetail extends Model implements Auditable
     }
     public function movement(){ // Accede a la información del movimiento al que pertence
         return $this->belongsTo(Movement::class);
+    }
+
+
+    // Configuración de factory para la generación de datos de pruebas
+    protected static function newFactory()
+    {
+        return \Modules\SICA\Database\factories\MovementDetailFactory::new();
     }
 
 }

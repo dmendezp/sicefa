@@ -11,12 +11,12 @@
         </div>
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-4">
                 <div class="row justify-content-center">
                     <div class="col-md-4 col-12">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>300</h3>
+                                <h4>300</h4>
                                 <p>Aprendices Actuales</p>
                             </div>
                             <div class="icon">
@@ -28,7 +28,7 @@
                     <div class="col-md-4 col-12">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>10<sup style="font-size: 20px">%</sup></h3>
+                                <h4>10<sup style="font-size: 20px">%</sup></h4>
                                 <p>Tecnológo en Etapa Práctica</p>
                             </div>
                             <div class="icon">
@@ -40,7 +40,7 @@
                     <div class="col-md-4 col-12">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>44</h3>
+                                <h4>44</h4>
                                 <p>Tecnológo Etapa Lectiva</p>
                             </div>
                             <div class="icon">
@@ -52,7 +52,7 @@
                     <div class="col-md-4 col-12">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>65</h3>
+                                <h4>65</h4>
                                 <p>Instructores de Planta</p>
                             </div>
                             <div class="icon">
@@ -64,7 +64,7 @@
                     <div class="col-md-4 col-12">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>65</h3>
+                                <h4>65</h4>
                                 <p>Instructores de Contrato</p>
                             </div>
                             <div class="icon">
@@ -74,36 +74,53 @@
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
 
             <div class="col-6">
                 <div class="d-flex flex-wrap justify-content-around gap-3">
                     <div class="card col-md-4 col-12 text-center mb-4 shadow-lg border-0" style="width: 18rem;"
+=======
+            
+            <div class="col-8">
+                <div class="d-flex flex-wrap justify-content-around gap-1">
+                    <div class="card col-md-4 col-12 text-center mb-4 shadow-lg border-0" style="width: 16rem;"
+>>>>>>> FABRICA4
                         data-aos="fade-up" data-aos-duration="1000">
                         <img src="{{ asset('modules/sigac/images/burbuja-de-dialogo.gif') }}"
                             class="card-img-top custom-img align-self-center" alt="...">
                         <div class="card-body">
-                            <h3>{{ trans('sigac::index.CardTitle1') }}</h3>
-                            <p class="card-text"> {{ trans('sigac::index.CardDescription1') }}</p>
+                            <h5>{{ trans('sigac::index.CardTitle1') }}</h5>
+                            <p class="card-text">{{ trans('sigac::index.CardDescription1') }}</p>
                         </div>
                     </div>
+<<<<<<< HEAD
 
                     <div class="card col-md-4 col-12 text-center mb-4 shadow-lg border-0" style="width: 18rem;"
+=======
+            
+                    <div class="card col-md-4 col-12 text-center mb-4 shadow-lg border-0" style="width: 16rem;"
+>>>>>>> FABRICA4
                         data-aos="fade-up" data-aos-duration="2000">
                         <img src="{{ asset('modules/sigac/images/libros.gif') }}"
                             class="card-img-top custom-img align-self-center" alt="...">
                         <div class="card-body">
-                            <h3>{{ trans('sigac::index.CardTitle2') }}</h3>
+                            <h5>{{ trans('sigac::index.CardTitle2') }}</h5>
                             <p class="card-text">{{ trans('sigac::index.CardDescription2') }}</p>
                         </div>
                     </div>
+<<<<<<< HEAD
 
                     <div class="card col-md-4 col-12 text-center mb-4 shadow-lg border-0" style="width: 18rem;"
+=======
+            
+                    <div class="card col-md-4 col-12 text-center mb-4 shadow-lg border-0" style="width: 16rem;"
+>>>>>>> FABRICA4
                         data-aos="fade-up" data-aos-duration="3000">
                         <img src="{{ asset('modules/sigac/images/buscar.gif') }}"
                             class="card-img-top custom-img align-self-center" alt="...">
                         <div class="card-body">
-                            <h3>{{ trans('sigac::index.CardTitle3') }}</h3>
-                            <p class="card-text"> {{ trans('sigac::index.CardDescription3') }}</p>
+                            <h5>{{ trans('sigac::index.CardTitle3') }}</h5>
+                            <p class="card-text">{{ trans('sigac::index.CardDescription3') }}</p>
                         </div>
                     </div>
                 </div>

@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "datatables.net": "^1.11.5",
-        "datatables.net-dt": "^1.11.5"
+        "datatables.net-dt": "^1.11.5",
+        "sweetalert2": "^11.7.3"
     }
 }

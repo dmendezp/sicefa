@@ -5,7 +5,6 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
-use Modules\SICA\Entities\Person;
 
 class PopulationGroup extends Model implements Auditable
 {
@@ -38,4 +37,5 @@ class PopulationGroup extends Model implements Auditable
     public function people(){ // Accede a todas las personas asociadas a este grupo poblacional
         return $this->hasMany(Person::class);
     }
+
 }
