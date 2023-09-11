@@ -47,7 +47,7 @@ class PTVENTAController extends Controller
         $movement_type = MovementType::where('name', 'Venta')->firstOrFail();
 
         $app_puw = PUW::getAppPuw(); // Obtener la unidad productiva y bodega de la aplicación
-
+        
         // Obtén la fecha actual y retrocede dos meses
         $currentDate = Carbon::now();
         $startDate = $currentDate->copy()->subMonths(2)->startOfMonth();
@@ -72,6 +72,7 @@ class PTVENTAController extends Controller
         $maxSalesAmount = 0;
         $previousSalesAmount = 0;
         $currentYear = null;
+        $percentageChange = 0;
 
         foreach ($salesByMonth as $month => $sales) {
             $salesTotal = $sales->sum('price');

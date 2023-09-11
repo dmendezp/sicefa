@@ -57,20 +57,21 @@
                     <h3 class="card-title">{{ trans('ptventa::mainPage.Title_Recently_Added') }}</h3>
                 </div>
                 <div class="card-body p-0">
-                    <ul class="products-list product-list-in-card pr-2">
-                        @foreach ($recentlyAddedInventory as $inventory)
-                            <li class="item">
-                                <div class="product-info">
-                                    <span class="product-title">{{ $inventory->element->name }}</span>
-                                    <span
-                                        class="badge badge-success float-right">{{ priceFormat($inventory->price) }}</span>
-                                    <span class="product-description">
-                                        {{ $inventory->description }}
-                                    </span>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
+                    @if (count($recentlyAddedInventory) > 0)
+                        <ul class="products-list product-list-in-card pr-2">
+                            @foreach ($recentlyAddedInventory as $inventory)
+                                <li class="item">
+                                    <div class="product-info">
+                                        <span class="product-title">{{ $inventory->element->name }}</span>
+                                        <span class="badge badge-success float-right">{{ priceFormat($inventory->price) }}</span>
+                                        <span class="product-description">{{ $inventory->description }}</span>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p class="text-center"> <em>No hay productos agregados.</em> </p>
+                    @endif
                 </div>
                 <div class="card-footer text-center">
                     <a href="{{ route('ptventa.admin.inventory.index') }}" class="btn btn-success uppercase">

@@ -96,6 +96,10 @@ class InventoryController extends Controller
             ->where('amount', '<>', 0)
             ->orderBy('updated_at', 'DESC')
             ->get();
+
+        // Se accede al nombre de la bodega y unidad productiva
+        $puw = PUW::getAppPuw();
+
         $groupedInventories = collect(); // Creamos una nueva colección para almacenar el resultado
         $groups = []; // Creamos un array para mantener el seguimiento de los grupos
 
@@ -136,21 +140,22 @@ class InventoryController extends Controller
         $pdf->Cell(0, 0, $header, 0, 1, 'C');
 
         // Establecer el contenido del PDF
-        $html = '<h3 style="text-align: center;">' . $title . '</h3>';
+        $html = '<h4 style="text-align: center;"><strong>Bodega:</strong> ' . $puw->warehouse->name . ' - <strong>Unidad Productiva:</strong> ' . $puw->productive_unit->name . '</h4>';
+        $html .= '<h3 style="text-align: center;">' . $title . '</h3>';
         $html .= '<table style="border-collapse: collapse; width: 100%;">';
         $html .= '<thead style="background-color: #f2f2f2;">';
         $html .= '<tr>';
         // Columna del #
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;">#</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;"><b>#</b></th>';
         // Resto de columnas
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;">Producto</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">N° Lote</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">Fecha Producción</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">Fecha Vencimiento</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 46px;">Cantidad</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">Precio Entrada</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">Precio Venta</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;">Existencias</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;"><b>Producto</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 45px;"><b>N° Lote</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;"><b>Fecha Producción</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;"><b>Fecha Vencimiento</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;"><b>Cantidad</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;"><b>Precio Entrada</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;"><b>Precio Venta</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 62px;"><b>Existencias</b></th>';
         $html .= '</tr>';
         $html .= '</thead>';
         $html .= '<tbody>';
@@ -161,13 +166,13 @@ class InventoryController extends Controller
             $html .= '<tr>';
             $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 25px;">' . $key + 1 . '</td>';
             $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 130px;">' . $firstRecord->element->name . '</td>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">' . $firstRecord->lot_number . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 45px;">' . $firstRecord->lot_number . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">' . $firstRecord->production_date . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 62px;">' . $firstRecord->expiration_date . '</td>';
-            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 46px;">' . $firstRecord->amount . '</td>';
+            $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">' . $firstRecord->amount . '</td>';
             $html .= '<td style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">' . priceFormat($firstRecord->price) . '</td>';
             $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 50px;">' . priceFormat($firstRecord->element->price) . '</td>';
-            $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 60px;">' . $group->sum('amount') . '</td>';
+            $html .= '<td rowspan="' . $rowspan . '" style="border: 1px solid #dddddd; text-align: center; padding: 8px; width: 62px;">' . $group->sum('amount') . '</td>';
             $html .= '</tr>';
             foreach ($group->slice(1) as $record) {
                 $html .= '<tr>';
@@ -260,6 +265,9 @@ class InventoryController extends Controller
             ->orderBy('registration_date', 'ASC')
             ->get();
 
+        // Se accede al nombre de la bodega y unidad productiva
+        $puw = PUW::getAppPuw();
+
         // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
 
@@ -279,21 +287,22 @@ class InventoryController extends Controller
         $pdf->Cell(0, 0, $header, 0, 1, 'C');
 
         // Establecer el contenido del PDF con el título (incluyendo las fechas)
-        $html = '<h3 style="text-align: center;">' . $title . '</h3>';
+        $html = '<h4 style="text-align: center;"><strong>Bodega:</strong> ' . $puw->warehouse->name . ' - <strong>Unidad Productiva:</strong> ' . $puw->productive_unit->name . '</h4>';
+        $html .= '<h3 style="text-align: center;">' . $title . '</h3>';
 
         // Crear el encabezado de la tabla
         $html .= '<table style="border-collapse: collapse; width: 100%;">';
         $html .= '<thead style="background-color: #f2f2f2;">';
         $html .= '<tr>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;">#</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 52px;">Número de Voucher</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;">Responsable que entrega</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de ingreso</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 90px;">Producto</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Cantidad</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Precio</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Subtotal</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Total</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;"><b>#</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 52px;"><b>N° de Voucher</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;"><b>Responsable que entrega</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><b>Fecha de ingreso</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 90px;"><b>Producto</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Cantidad</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Precio</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Subtotal</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Total</b></th>';
         $html .= '</tr>';
         $html .= '</thead>';
 
@@ -401,6 +410,9 @@ class InventoryController extends Controller
             ->orderBy('registration_date', 'ASC')
             ->get();
 
+        // Se accede al nombre de la bodega y unidad productiva
+        $puw = PUW::getAppPuw();
+
         // Crear una nueva instancia de TCPDF
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
 
@@ -420,21 +432,22 @@ class InventoryController extends Controller
         $pdf->Cell(0, 0, $header, 0, 1, 'C');
 
         // Establecer el contenido del PDF con el título (incluyendo las fechas)
-        $html = '<h3 style="text-align: center;">' . $title . '</h3>';
+        $html = '<h4 style="text-align: center;"><strong>Bodega:</strong> ' . $puw->warehouse->name . ' - <strong>Unidad Productiva:</strong> ' . $puw->productive_unit->name . '</h4>';
+        $html .= '<h3 style="text-align: center;">' . $title . '</h3>';
 
         // Crear el encabezado de la tabla
         $html .= '<table style="border-collapse: collapse; width: 100%;">';
         $html .= '<thead style="background-color: #f2f2f2;">';
         $html .= '<tr>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;">#</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 52px;">N° Comprobante</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;">Cliente</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fecha de ingreso</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 90px;">Producto</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Cantidad</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Precio</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Subtotal</th>';
-        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;">Total</th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 10px; width: 25px;"><b>#</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 52px;"><b>N° Comprobante</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 72px;"><b>Cliente</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><b>Fecha de ingreso</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: left; padding: 8px; width: 90px;"><b>Producto</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Cantidad</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Precio</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Subtotal</b></th>';
+        $html .= '<th style="border: 1px solid #dddddd; text-align: center; padding: 8px;"><b>Total</b></th>';
         $html .= '</tr>';
         $html .= '</thead>';
 
