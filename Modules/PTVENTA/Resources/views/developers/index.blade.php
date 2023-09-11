@@ -4,7 +4,7 @@
 @endpush
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('ptventa::devs.Breadcrumb_Active_Main') }}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::devs.Breadcrumb_Active_Devs') }}</li>
 @endpush
 
 @section('content')
@@ -53,7 +53,7 @@
                                 <a class="btn btn-dark" href="https://github.com/nelsygomez11">
                                     <i class="fab fa-github"></i>
                                 </a>
-                                <a class="btn btn-info" href="#"><i class="fab fa-twitter"></i></a>
+                                
                             </div>
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
                                 <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/ANYI-Profile.jpg') }}" alt="AnyiProfile" width="140" height="140">
@@ -299,14 +299,14 @@
                                 style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/codepen.webp') }}"
-                                            alt="Codepen-logo" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/toastr-js.webp') }}"
+                                            alt="Toastr-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
-                                        <h6>Codepen</h6>
+                                        <h6>Toastr-Js</h6>
                                     </div>
                                     <a class="btn btn-success btn-block w-100"
-                                        href="https://codepen.io/">{{ trans('ptventa::devs.More Info') }}</a>
+                                        href="https://codeseven.github.io/toastr/">{{ trans('ptventa::devs.More Info') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -350,14 +350,14 @@
                                 style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/uiverse.webp') }}"
-                                            alt="UIVerse-logo" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/visual_Studio_Code.webp') }}"
+                                            alt="VSCode-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
-                                        <h6>UI Verse</h6>
+                                        <h6>VSCode</h6>
                                     </div>
                                     <a class="btn btn-success btn-block w-100"
-                                        href="https://uiverse.io/">{{ trans('ptventa::devs.More Info') }}</a>
+                                        href="https://code.visualstudio.com/">{{ trans('ptventa::devs.More Info') }}</a>
                                 </div>
                             </div>
                         </div>

@@ -43,9 +43,9 @@ class RolesTableSeeder extends Seeder
 
 
         // Consulta de usuarios|
-        $user_admin = User::where('nickname','LFHerre')->firstOrFail(); // Usuario Super Administrador (Lola Fernanda Herrera Hernandez)
-        $user_cashier = User::where('nickname','MSOssa')->firstOrFail(); // Usuario Cajero (Manuel Steven Ossa Lievano)
-        $user_superadmin = User::where('nickname','JDGM0331')->firstOrFail(); // Usuario Cajero (Manuel Steven Ossa Lievano)
+        $user_admin = User::where('nickname','LFHerre')->firstOrFail(); // Usuario Administrador (Lola Fernanda Herrera Hernandez)
+        $user_cashier = User::where('nickname','Resmerveilons')->firstOrFail(); // Usuario Cajero (Manuel Steven Ossa Lievano)
+        $user_superadmin = User::where('nickname','JDGM0331')->firstOrFail(); // Usuario Super Administrador (Jesús David Guevara Munar)
 
         // Asignación de ROLES para los USUARIOS de la aplicación PTVENTA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]);
