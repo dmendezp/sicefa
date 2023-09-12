@@ -1,0 +1,13 @@
+{
+    "name": "GTH",
+    "alias": "gth",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\GTH\\Providers\\GTHServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

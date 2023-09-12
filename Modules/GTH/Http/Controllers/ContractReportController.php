@@ -1,0 +1,162 @@
+<?php
+
+namespace Modules\GTH\Http\Controllers;
+
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\Contractor;
+use Modules\SICA\Entities\ContractorType;
+use Modules\SICA\Entities\EmployeeType;
+use Modules\SICA\Entities\Person; // Asegúrate de importar el modelo Person
+
+class ContractReportController extends Controller
+{
+
+    private $personId;
+
+    public function viewcontractreports()
+    {
+        $contractorTypes = ContractorType::all();
+        $employeeTypes = EmployeeType::all();
+
+        // Obtener una lista de contratos con la información de la persona
+        $contracts = Contractor::with('person')->get();
+
+        return view('gth::contract_report.contractreports', compact('contractorTypes', 'employeeTypes'));
+    }
+
+    public function create(Request $request)
+    {
+
+        $person_id = Session::get('person_id');
+        // Accede a todos los campos del formulario sin validación
+        $formData = $request->all();
+
+        // Puedes acceder a cada campo individualmente como sigue:
+        $contract_number = $formData['contract_number'];
+        $contract_start_date = $formData['contract_start_date'];
+        $contract_end_date = $formData['contract_end_date'];
+        $total_contract_value = $formData['total_contract_value'];
+        $contractor_type_id = $formData['contractor_type_id'];
+        $sesion = $formData['sesion'];
+        $sesion_date = $formData['sesion_date'];
+        $employee_type_id = $formData['employee_type_id'];
+
+        $SIIF_code = $formData['SIIF_code'];
+        $insurer_entity = $formData['insurer_entity'];
+        $policy_number = $formData['policy_number'];
+        $policy_issue_date = $formData['policy_issue_date'];
+        $policy_approval_date = $formData['policy_approval_date'];
+        $policy_effective_date = $formData['policy_effective_date'];
+        $policy_expiration_date = $formData['policy_expiration_date'];
+        $risk_type = $formData['risk_type'];
+        $state = $formData['state'];
+
+        $contracts = new Contractor([
+            'person_id' => $person_id,
+            'contract_number' => $contract_number,
+            'contract_start_date' => $contract_start_date,
+            'contract_end_date' => $contract_end_date,
+            'total_contract_value' => $total_contract_value,
+            'contractor_type_id' => $contractor_type_id,
+            'sesion' => $sesion,
+            'sesion_date' => $sesion_date,
+            'employee_type_id' => $employee_type_id,
+            'SIIF_code' => $SIIF_code,
+            'insurer_entity' => $insurer_entity,
+            'policy_number' => $policy_number,
+            'policy_issue_date' => $policy_issue_date,
+            'policy_approval_date' => $policy_approval_date,
+            'policy_effective_date' => $policy_effective_date,
+            'policy_expiration_date' => $policy_expiration_date,
+            'risk_type' => $risk_type,
+            'state' => $state,
+        ]);
+
+        $contracts->save();
+
+        return redirect()->route('gth.contractreports.view'); // Muestra el formulario de registro
+    }
+
+    public function store(Request $request)
+    {
+        $rules = [
+            'contract_start_date' => 'required|date',
+            'total_contract_value' => 'numeric',
+            'contract_type_id' => 'required|integer|exists:contract_types,id', // Ajusta el nombre de la tabla si es diferente
+            'contract_object' => 'required|string',
+            // Continúa agregando las reglas para los demás atributos
+        ];
+
+        $request->validate($rules);
+
+        try {
+            // Crear una nueva instancia del modelo Contractor con los datos del formulario
+            $contractor = new Contractor([
+                'id' => $request->input('id'),
+                'person_id' => $request->input('person_id'),
+                'contract_number' => $request->input('contract_number'),
+                'contract_start_date' => $request->input('contract_start_date'),
+                'contract_end_date' => $request->input('contract_end_date'),
+                'total_contract_value' => $request->input('total_contract_value'),
+                'contractor_type_id' => $request->input('contractor_type_id'),
+                'sesion' => $request->input('sesion'),
+                'sesion_date' => $request->input('sesion_date'),
+                'employee_type_id' => $request->input('employee_type_id'),
+                'SIIF_code' => $request->input('SIIF_code'),
+                'insurer_entity' => $request->input('insurer_entity'),
+                'policy_number' => $request->input('policy_number'),
+                'policy_issue_date' => $request->input('policy_issue_date'),
+                'policy_approval_date' => $request->input('policy_approval_date'),
+                'policy_effective_date' => $request->input('policy_effective_date'),
+                'policy_expiration_date' => $request->input('policy_expiration_date'),
+                'risk_type' => $request->input('risk_type'),
+                'state' => $request->input('state'),
+            ]);
+
+            // Guardar el contrato en la base de datos
+            $contractor->save();
+
+            // Redirecciona a la vista adecuada con un mensaje de éxito
+            return redirect()->route('gth.contractreports.view')->with('success', 'Contrato guardado exitosamente');
+        } catch (\Exception $e) {
+            // Manejar errores, puedes redirigir a una página de error o mostrar un mensaje de error
+return redirect()->route('contractors.view')->with('success', 'Contrato guardado exitosamente');
+        }
+    }
+
+
+    public function getPersonData(Request $request)
+    {
+        $numeroDocumento = $request->input('document_number');
+
+        // Realiza la búsqueda de la persona en la base de datos por número de documento
+        $person = Person::where('document_number', $numeroDocumento)->first();
+
+        if ($person) {
+
+
+            $this->personId = $person->id;
+            Session::put('person_id', $this->personId);
+            // Devuelve los datos de la persona en formato JSON
+            return response()->json([
+                'id' => $person->id,
+                'first_name' => $person->first_name,
+                'first_last_name' => $person->first_last_name,
+                'second_last_name' => $person->second_last_name,
+            ]);
+
+        } else {
+            // Devuelve una respuesta de error si la persona no se encuentra
+            return response()->json(['error' => 'Persona no encontrada'], 404);
+        }
+    }
+
+
+
+
+
+
+
+}

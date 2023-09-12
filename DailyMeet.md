@@ -13,6 +13,78 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 <!-- Mira **Deployment** para conocer como desplegar el proyecto. -->
 
 
+## GTH 📌
+
+### Sprint 1 🔄
+#### Sprint Planning 23-Agos-2023
+* **Daniel Guzman** - *Creación de CRUD para Tipos de Empleado y  Reportes de registro Biométrico*
+* **Mayerli Castañeda** - *Creación de CRUD para Tipos de Contrato*
+...
+#### Meet 23-Agos-2023
+* **Daniel Guzman** - *Diseñar una vista para agregar un nuevo tipo de empleado.* - *8 %* - *Niguna* - *Ninguna*
+* **Mayerli Castañeda** - *Ninguna* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 24-Agos-2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*   
+---
+#### Meet 25-Agos-2023
+* **Daniel Guzman** - *Ajustes de iconos y organizacion de iconos* - *0 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Diseño de plantilla de contratacion* - *8 %* - *Dificultades* - *Acciones*
+---
+#### Meet 26-Agos-2023
+* **Daniel Guzman** - *Reportes de registro Biométrico y Creación de CRUD para Tipos de Empleado* - *91 % y 61 %* - *Si* - *Tengo los modales pero aun no tiene funcionalidad y aun no los muestra*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 27-Agos-2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 28-Agos-2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+
+### Sprint 2 🔄
+#### Sprint Planning 29-Agos-2023
+* **Daniel Guzman** - *Registro de contratistas*
+* **Mayerli Castañeda** - *Gestión de Contratos*
+...
+#### Meet 29-Agos-2023
+* **Daniel Guzman** - *Crear las rutas para ingresar a la vista y las otras funciones para el registro del contrato* - *30 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 30-Agos-2023
+* **Daniel Guzman** - *AImplementar la utilización de los modelos para realizar el registro de la información del contrato en las tablas necesarias* - *50 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*   
+---
+#### Meet 31-Agos-2023
+* **Daniel Guzman** - *Crear controlador para construir las funciones* - *66 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 1-Agos-2023
+* **Daniel Guzman** - *Crear un modal para "Ver Detalles" con información relevante de la persona.* - *73 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 2-Agos-2023
+* **Daniel Guzman** - *Agregar un filtro en la página para seleccionar entre "Registrados", "No Registrados" y "Mostrar Todos".* - *64 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 3-Agos-2023
+* **Daniel Guzman** - *Crear validación de campos del formulario por ejemplo campos requeridos, tipo de datos* - *70 %* - *Tengo dificultad con la base de datos* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 4-Agos-2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 5-Agos-2023
+* **Daniel Guzman** - *Implementación de auditoria (Monitoriar los movimientos)* - *86 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
+
+
+
 ## CEFAMAPS 📌
 
 ### Sprint 1 🔄
