@@ -19,6 +19,19 @@
                                 <label for="description" class="form-label">{{ trans('senaempresa::menu.Description') }}</label>
                                 <textarea class="form-control" id="description" name="description" rows="3" required>{{ $company->description ?? old('description') }}</textarea>
                             </div>
+                            <div class="mb-3">
+                                <label for="quarter_id" class="form-label">Id Trimestre</label>
+                                <select class="form-control" name="quarter_id" aria-label="Selecciona un Cargo" required>
+                                    <option value="" selected>Selecciona un trimestre</option>
+                                    @foreach ($quarters as $quarter)
+                                    <option value="{{ $quarter->id }}"{{ $quarter->id == $company->quarter_id ? 'selected' : '' }}>
+
+                                        {{ $quarter->id }} {{ $quarter->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
 
 
                             <button type="submit"

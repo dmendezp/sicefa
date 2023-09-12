@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Course;
+use Modules\SICA\Entities\Quarter;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class senaempresa extends Model implements Auditable
@@ -14,7 +15,7 @@ class senaempresa extends Model implements Auditable
         SoftDeletes, // Borrado suave
         HasFactory;
 
-    protected $fillable = ['name', 'description', 'quarters_id'];
+    protected $fillable = ['name', 'description', 'quarter_id'];
 
     protected static function newFactory()
     {
@@ -24,5 +25,9 @@ class senaempresa extends Model implements Auditable
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'course_senaempresa');
+    }
+    public function quarter()
+    {
+        return $this->belongsTo(Quarter::class);
     }
 }
