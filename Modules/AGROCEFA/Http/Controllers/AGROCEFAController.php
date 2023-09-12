@@ -10,8 +10,12 @@ use Illuminate\Support\Facades\Auth;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Activity;
 use Spatie\Permission\Models\Role;
-
-
+use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementType;
+use Modules\SICA\Entities\WarehouseMovement;
+use Modules\SICA\Entities\MovementResponsibility;
+use Modules\SICA\Entities\MovementDetail;
+use Modules\SICA\Entities\ProductiveUnitWarehouse;
 class AGROCEFAController extends Controller
 {
     /**
@@ -84,17 +88,72 @@ class AGROCEFAController extends Controller
 
     public function home()
     {
-        // Puedes acceder al ID de unidad seleccionado desde la sesión si lo necesitas
-        $selectedUnitId = Session::get('selectedUnitId');
+        $this->selectedUnitId = Session::get('selectedUnitId');
+
+        $selectedUnit = ProductiveUnit::find($this->selectedUnitId);
 
         // Obtener el nombre de la unidad a través del modelo ProductiveUnit
-        $selectedUnitName = ProductiveUnit::where('id', $selectedUnitId)->value('name');
+        $selectedUnitName = ProductiveUnit::where('id', $this->selectedUnitId)->value('name');
 
-        // Realiza cualquier lógica adicional que necesites para esta vista
+         // Inicializa un array para almacenar la información de las bodegas
+         $warehouseData = [];
 
+         // Verifica si hay registros en la tabla productive_unit_warehouses para esta unidad
+         if ($selectedUnit) {
+             $warehouses = $selectedUnit->productive_unit_warehouses;
+ 
+             // Mapea las bodegas y agrega su información al array
+             $warehouseData = $warehouses->map(function ($warehouseRelation) {
+                 $warehouse = $warehouseRelation->warehouse;
+                 return [
+                     'id' => $warehouse->id,
+                     'name' => $warehouse->name,
+                 ];
+             });
+         }
+ 
+         $warehousereceive = $warehouseData->first()['id'];
+ 
+         $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehousereceive)->where('productive_unit_id', $this->selectedUnitId)->first();
+         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
+ 
+         $warehousemovementid = WarehouseMovement::where('productive_unit_warehouse_id', $productiveWarehousereceiveId)->where('role', '=', 'Recibe')->get()->pluck('movement_id');
+ 
+         $movements = Movement::whereIn('id', $warehousemovementid)->with('movement_type', 'movement_responsibilities.person', 'movement_details.inventory.element', 'warehouse_movements.productive_unit_warehouse.productive_unit', 'warehouse_movements.productive_unit_warehouse.warehouse')->get()->toArray();
+         $datas = [];
+ 
+         foreach ($movements as $movement) {
+             $id = $movement['id'];
+             $date = $movement['registration_date'];
+             $respnsibility = $movement['movement_responsibilities'][0]['person']['first_name'];
+             $productiveunit = $movement['warehouse_movements'][0]['productive_unit_warehouse']['productive_unit']['name'];
+             $warehouse = $movement['warehouse_movements'][0]['productive_unit_warehouse']['warehouse']['name'];
+             $inventory = $movement['movement_details'][0]['inventory']['element']['name'];
+             $amount = $movement['movement_details'][0]['amount'];
+             $price = $movement['movement_details'][0]['price'];
+             $state = $movement['state'];
+ 
+             // Agregar información al array asociativo
+             $datas[] = [
+                 'id' => $id,
+                 'date' => $date,
+                 'respnsibility' => $respnsibility,
+                 'productiveunit' => $productiveunit,
+                 'warehouse' => $warehouse,
+                 'inventory' => $inventory,
+                 'amount' => $amount,
+                 'price' => $price,
+                 'state' => $state,
+                 // Agrega aquí otros datos que necesites
+             ];
+         }
+ 
+         // Contar el número de registros después de obtener los datos
+         $movementsCount = count($datas);
         // Retornar la vista deseada
         return view('agrocefa::home', [
             'selectedUnitName' => $selectedUnitName,
+            'notification' => $movementsCount,
         ]);
     }
 

@@ -28,9 +28,12 @@ Route::middleware(['lang'])->group(function() {
 
 
         // RUTAS PARA MOVIMIENTOS
+
         Route::get('/movements', 'MovementController@viewmovements')->name('agrocefa.movements');
         Route::get('/movements/formentrance', 'MovementController@formentrance')->name('agrocefa.formentrance');
         Route::get('/movements/formexit', 'MovementController@formexit')->name('agrocefa.formexit');
+        Route::get('/movements/request', 'MovementController@requestentrance')->name('agrocefa.movements.notification');
+        Route::post('/movements/request/confirmation/{id}', 'MovementController@confirmation')->name('agrocefa.movements.confirmation');
         Route::post('/movements/registerentrance', 'MovementController@registerentrance')->name('agrocefa.registerentrance');
         Route::post('/movements/registerexit', 'MovementController@registerexit')->name('agrocefa.registerexit');
         Route::get('/obtener_warehouse', 'MovementController@obtenerwarehouse')->name('agrocefa.warehouse');

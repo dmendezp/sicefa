@@ -59,7 +59,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 ---
 #### Meet 01-Sep-2023
-* **Andres Almario** - *Diseñar la vista de movimientos* - *Avance %* - *Dificultades* - *Acciones*
+* **Andres Almario** - *Diseñar la vista de movimientos* - *Avance 100%* - *Dificultades* - *Acciones*
 * **Dayana Valenzuela** - *Crear controlador para inventario, ruta y funciones de prueba* - *Avance 100%* - *Dificultades* - *Acciones*
 * **Laura Vanessa** - *Ruta y diseño de vista de desarrolladores* - *Avance 100%* - *Dificultades* - *Acciones*
 * **Yuderly Sapuy** - *Creacion de archivo de vista para el usuario acerca de AGROCEFA Y ruta  para retornar a la vista* - *30 %* - *N/A* - *N/A*
@@ -84,6 +84,26 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Laura Vanessa** - *Avance en la vista de Desarrolladores y Avance eL CRUD de variedad * - *Avance 60%* - *Dificultades* - *Acciones*
 * **Yuderly Sapuy** - *Avance en la vista Acerca de AGROCEFA para el rol de usuario* - *Avance 60%* - *Dificultades N/A* - *Acciones*
 
+#### Meet 06-Sep-2023
+* **Andres Almario** - *Registro movimientos de entrada* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Listar elementos de inventario segun unidad productiva e implementacion del filtro por categoria* - *Avance 70%* - *Dificultad para implementar el AJAX* - *Buscar soluciones al problema*
+* **Laura Vanessa** - *Funciones de CRUD variedad* - *Avance 60%* - *Errores en el foreach* - *Solicitar ayuda de otro integrante*
+* **Yuderly Sapuy** - *Cambios en los campos para unidades de medida, ajustes de tabla crops y algunas funcionalidades del CRUD* - *Avance 80%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 07-Sep-2023
+* **Andres Almario** - *Registro solicitud de salida de elementos* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Filtro por categoria con AJAX finalizado, inicializacion del CRUD y modificaciones del CRUD especies* - *Avance 75%* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - *CRUD de variedad finalizado, avance en la vista desarrolladores* - *Avance 80%* - *Problemas en el editar del CRUD* - *Solicitar ayuda de otro integrante*
+* **Yuderly Sapuy** - *CRUD cultivos finalizado* - *Avance 100%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 08-Sep-2023
+* **Andres Almario** - *Creacion de ruta controlador y vista de reporte consumo* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Crear rutas para el funcionamiento del CRUD de inventario e inclusion de iconos (No funcionales)* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - *Avance en la vista de desarrolladores* - *Avance 75%* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Avance en diseño de la vista AGROCEFA* - *Avance 80%* - *Dificultades* - *Acciones*
+---
 ## PUNTO DE VENTA 🛒
 
 ### Sprint 1 🔄
@@ -237,26 +257,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Nelsy yulied Gómez Morales** - *Mostrar las ventas del día y generar reporte PDF* - *Avance %* - *Dificultades* - *Acciones*
 --- 
 
-#### Meet 06-Sep-2023
-* **Andres Almario** - *Registro movimientos de entrada* - *Avance 100%* - *Dificultades* - *Acciones*
-* **Dayana Valenzuela** - *Listar elementos de inventario segun unidad productiva e implementacion del filtro por categoria* - *Avance 70%* - *Dificultad para implementar el AJAX* - *Buscar soluciones al problema*
-* **Laura Vanessa** - *Funciones de CRUD variedad* - *Avance 60%* - *Errores en el foreach* - *Solicitar ayuda de otro integrante*
-* **Yuderly Sapuy** - *Cambios en los campos para unidades de medida, ajustes de tabla crops y algunas funcionalidades del CRUD* - *Avance 80%* - *Dificultades* - *Acciones*
----
 
-#### Meet 07-Sep-2023
-* **Andres Almario** - *Registro solicitud de salida de elementos* - *Avance 100%* - *Dificultades* - *Acciones*
-* **Dayana Valenzuela** - *Filtro por categoria con AJAX finalizado, inicializacion del CRUD y modificaciones del CRUD especies* - *Avance 75%* - *Dificultades* - *Acciones*
-* **Laura Vanessa** - *CRUD de variedad finalizado, avance en la vista desarrolladores* - *Avance 80%* - *Problemas en el editar del CRUD* - *Solicitar ayuda de otro integrante*
-* **Yuderly Sapuy** - *CRUD cultivos finalizado* - *Avance 100%* - *Dificultades* - *Acciones*
----
-
-#### Meet 08-Sep-2023
-* **Andres Almario** - *Creacion de ruta controlador y vista de reporte consumo* - *Avance 100%* - *Dificultades* - *Acciones*
-* **Dayana Valenzuela** - *Crear rutas para el funcionamiento del CRUD de inventario e inclusion de iconos (No funcionales)* - *Avance 100%* - *Dificultades* - *Acciones*
-* **Laura Vanessa** - *Avance en la vista de desarrolladores* - *Avance 75%* - *Dificultades* - *Acciones*
-* **Yuderly Sapuy** - *Avance en diseño de la vista AGROCEFA* - *Avance 80%* - *Dificultades* - *Acciones*
----
 
 
 

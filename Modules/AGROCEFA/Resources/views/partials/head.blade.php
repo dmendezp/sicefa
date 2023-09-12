@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="{{ asset('agrocefa/css/footer.css') }}">
 <link rel="stylesheet" href="{{ asset('agrocefa/css/stilos.css') }}">
 <link rel="stylesheet" href="{{ asset('agrocefa/css/navbar.css') }}">
-
+<link rel="stylesheet" href="{{ asset('agrocefa/css/movements.css') }}">
 
 <!----===== Boxicons CSS ===== -->
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
