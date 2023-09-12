@@ -5,8 +5,8 @@ namespace Modules\HDC\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\HDC\Entities\EnvironmentalAspectActivity;
 use Modules\SICA\Entities\Activity;
-use Modules\SICA\Entities\Labor;
 use Modules\SICA\Entities\ProductiveUnit;
 
 class FormularioController extends Controller
@@ -15,18 +15,33 @@ class FormularioController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-   /*  public function index()
+    /*  public function index()
     {
         return view('hdc::index');
     } */
-    public function formulario(){
+    public function formulario()
+    {
         $productive_unit = ProductiveUnit::orderBy('name', 'ASC')->get();
         return view('hdc::formulario', compact('productive_unit'));
-
     }
-    public function formulariolabor(){
+    public function formulariolabor()
+    {
         return view('hdc::formulariolabor');
+    }
 
+    public function getActivities()
+    {
+        $datap = json_decode(($_POST['data']));
+        // Obtener las actividades relacionadas con la unidad productiva
+        $activities = ProductiveUnit::findOrFail($datap->productive_unit_id)->activities;
+        return view('hdc::activity', compact('activities'));
+    }
+    
+    public function aspectosambientales($id)
+    {
+        $aspectosAmbientales = EnvironmentalAspectActivity::findOrFail($id)->environmental_aspect;
+
+        return view('hdc::tablaaspectosambientales', compact('aspectosAmbientales'));
     }
 
     /**

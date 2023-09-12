@@ -13,11 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware(['lang'])->group(function() {
-    Route::prefix('/hdc')->group(function() {
+    Route::prefix('hdc')->group(function() {
         Route::get('/index', 'HDCController@index')->name('cefa.hdc.index');
+
         /* Ruta del Formulario */
         Route::get('/Formulario', 'FormularioController@formulario')->name('cefa.hdc.formulario');
-        Route::get('/Formulariolabor', 'FormularioController@formulariolabor')->name('hdc.formulariolabor');
+        Route::post('/get_activities', 'FormularioController@getActivities')->name('hdc.activities');
+        Route::get('/get-environmental-aspects/{id}', 'FormularioController@aspectosambientales')->name('hdc.aspecto.ambiental');
+
         /* Ruta Para Administrar Recursos */
         Route::get('/AdminstrarRecursos', 'AdminresourcesController@adminresources')->name('cefa.hdc.adminresources');
 
@@ -28,6 +31,7 @@ Route::middleware(['lang'])->group(function() {
          
         /* Ruta de Graficas */
         Route::get('/Graficas', 'GraficasController@Graficas')->name('cefa.hdc.Graficas');
+        Route::get('/calculos/persona/{documento}', 'CarbonfootprintController@calculosPersona')-> name('carbonfootprint.calculos.persona');
 
     });
 });

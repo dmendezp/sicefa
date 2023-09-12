@@ -4,25 +4,19 @@ namespace Modules\PTVENTA\Http\Controllers;
 
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Modules\PTVENTA\Entities\CashCount;
-use Modules\PTVENTA\Http\Controllers\InventoryController;
 
 class CashController extends Controller
 {
-    /**
-     * Show the form for closing the cash count.
-     * @return Renderable
-     */
     public function index()
     {
-        $view = ['titlePage' => trans('ptventa::cash.Cash Control'), 'titleView' => trans('ptventa::cash.Cash Control')];
-        $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_cash_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_cash_index_title_view')];
+        $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         $active_cash = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
                                         ->where('state', 'Abierta')
                                         ->first();
@@ -32,14 +26,9 @@ class CashController extends Controller
         return view('ptventa::cash.index', compact('view', 'active_cash', 'cash_counts'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
-        $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
+        $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         // Verificar si hay una caja abierta
         $open_cash_count = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
                                     ->where('state', 'Abierta')
@@ -78,7 +67,7 @@ class CashController extends Controller
 
             $cashCount->save();
 
-            $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
+            $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
             CashCount::create([
                 'person_id' => Auth::user()->person_id,
                 'productive_unit_warehouse_id' =>  $app_puw->id,
@@ -92,11 +81,11 @@ class CashController extends Controller
 
             DB::commit(); // Confirmar cambios realizados durante la transacción
 
-            return redirect()->back()->with('success', trans('ptventa::cash.Text4'));
+            return redirect()->back()->with('success', trans('ptventa::cash.TextSuccess'));
         } catch (Exception $e) { // Capturar error durante la transacción
             // Transacción rechazada
             DB::rollBack(); // Devolver cambios realizados durante la transacción
-            $message = trans('ptventa::cash.Text5');
+            $message = trans('ptventa::cash.TextFailed');
             return redirect()->back()->with('error', $message);
         }
     }

@@ -18,7 +18,7 @@ class RolesTableSeeder extends Seeder
     {
 
         // Consultar aplicación SICA para registrar los roles
-        $app = App::where('name','PTVENTA')->first();
+        $app = App::where('name','PTVENTA')->firstOrFail();
 
         // Consultar rol  de superadministrador
         $rol_superadmin = Role::where('slug','superadmin')->firstOrFail();
@@ -32,7 +32,7 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
-        // Registrar o actualizar rol de ADMINISTRADOR
+        // Registrar o actualizar rol de CAJERO
         $rol_cashier = Role::updateOrCreate(['slug' => 'ptventa.cashier'], [
             'name' => 'Cajero',
             'description' => 'Rol cajero de la aplicación PTVENTA',
@@ -42,15 +42,15 @@ class RolesTableSeeder extends Seeder
         ]);
 
 
-        // Consulta de usuarios
-        $user_superadmin = User::where('nickname','LFHerre')->first(); // Usuario Super Administrador (Lola Fernanda Herrera Hernandez)
-        $user_admin = User::where('nickname','PTVENTA')->first(); // Usuario Administrador (Punto de Venta)
-        $user_cashier = User::where('nickname','MSOssa')->first(); // Usuario Cajero (Manuel Steven Ossa Lievano)
+        // Consulta de usuarios|
+        $user_admin = User::where('nickname','LFHerre')->firstOrFail(); // Usuario Administrador (Lola Fernanda Herrera Hernandez)
+        $user_cashier = User::where('nickname','Resmerveilons')->firstOrFail(); // Usuario Cajero (Manuel Steven Ossa Lievano)
+        $user_superadmin = User::where('nickname','JDGM0331')->firstOrFail(); // Usuario Super Administrador (Jesús David Guevara Munar)
 
         // Asignación de ROLES para los USUARIOS de la aplicación PTVENTA (Sincronización de las relaciones sin eliminar las relaciones existentes)
-        $user_superadmin->roles()->syncWithoutDetaching([$rol_superadmin->id]);
         $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]);
         $user_cashier->roles()->syncWithoutDetaching([$rol_cashier->id]);
+        $user_superadmin->roles()->syncWithoutDetaching([$rol_superadmin->id]);
 
     }
 }

@@ -4,7 +4,6 @@ namespace Modules\SICA\Http\Controllers\unit;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Sector;
 use Illuminate\Support\Facades\Validator;
@@ -13,6 +12,7 @@ use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\ActivityType;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\EnvironmentProductiveUnit;
+use Modules\SICA\Entities\Farm;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Warehouse;
 
@@ -29,7 +29,8 @@ class UnitController extends Controller
     /* Formulario de registro de unidad productiva */
     public function productive_unit_create(){
         $sectors = Sector::orderBy('name','ASC')->get();
-        $data = ['title'=>'Unidades productivas - Registro', 'sectors'=>$sectors];
+        $farms = Farm::orderBy('name')->get();
+        $data = ['title'=>'Unidades productivas - Registro', 'sectors'=>$sectors, 'farms'=>$farms];
         return view('sica::admin.units.productive_units.create',$data);
     }
 
@@ -39,7 +40,8 @@ class UnitController extends Controller
             'name'=> 'required|unique:productive_units',
             'description'=> 'required',
             'leader_id'=> 'required',
-            'sector_id'=> 'required'
+            'sector_id'=> 'required',
+            'farm_id'=> 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -62,7 +64,8 @@ class UnitController extends Controller
     /* Consultar unidad productiva para su actualización (Administrador) */
     public function productive_unit_edit(ProductiveUnit $productive_unit){
         $sectors = Sector::orderBy('name','ASC')->get();
-        $data = ['title'=>'Unidades productivas - Actualización', 'sectors'=>$sectors, 'productive_unit'=>$productive_unit];
+        $farms = Farm::orderBy('name')->get();
+        $data = ['title'=>'Unidades productivas - Actualización', 'sectors'=>$sectors, 'productive_unit'=>$productive_unit, 'farms'=>$farms];
         return view('sica::admin.units.productive_units.edit',$data);
     }
 
@@ -72,7 +75,8 @@ class UnitController extends Controller
             'name'=> 'required|unique:productive_units,name,'.$productive_unit->id,
             'description'=> 'required',
             'leader_id'=> 'required',
-            'sector_id'=> 'required'
+            'sector_id'=> 'required',
+            'farm_id'=> 'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {

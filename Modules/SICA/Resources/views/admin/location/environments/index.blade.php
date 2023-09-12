@@ -20,7 +20,6 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th class="text-center">Unidad productiva</th>
                                         <th class="text-center">Nombre</th>
                                         <th class="text-center">Tipo</th>
                                         <th class="text-center">Coordenadas</th>
@@ -31,7 +30,6 @@
                                     @foreach ($environments as $e)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td class="text-center">{{ $e->productive_unit->name }}</td>
                                             <td class="text-center">{{ $e->name }}</td>
                                             <td class="text-center">{{ $e->type_environment }}</td>
                                             <td class="text-center">{{ $e->length }} / {{ $e->latitude }}</td>

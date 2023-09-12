@@ -1,53 +1,65 @@
 <?php
 
 return [
-    //Origin Controller SaleController
-	'titlePage1' => 'Productos - Galería de imágenes',
-	'titleView1' => 'Administración de imágenes de productos',
-	'titlePage2' => 'Productos - Crear Producto',
-	'titleView2' => 'Crear Nuevo Producto',
+    // Breadcrumbs
+	'Breadcrumb_Element'               => 'Productos',
+	'Breadcrumb_Active_Element'        => 'Principal',
+	'Breadcrumb_Active_Create_Element' => 'Registrar Producto',
+	'Breadcrumb_Active_Edit_Element'   => 'Editar Producto',
 
-    //Breadcrumbs
-	'Products'         => 'Productos',
-	'Images'           => 'Imágenes',
-	'Register Product' => 'Registrar Producto',
+	// Btns
+	'Btn_Register_Product' => 'Registrar Producto',
+	'Btn_register'         => 'Registrar',
+	'Btn_Cancel'           => 'Cancelar',
+	'Btn_Update'           => 'Actualizar',
     
-	//Buttons
-	'Btn1'   => 'Registrar Producto',
-	'Btn2'   => 'Registrar',
-	'Btn3'   => 'Cancelar',
+    // Placeholder Search
+	'Placeholder_Search' => 'Buscar productos por nombre',
     
-    //Placeholder Search
-	'Placeholder1'   => 'Buscar productos por nombre',
+    // Loaders
+	'Loader_Loading' => 'Cargando...',
     
-    //Loader
-	'Loader1'   => 'Cargando...',
+    // Label Results and Info
+	'Title_Form_Showing'    => 'Mostrando',
+	'Title_Form_Result'     => 'resultado',
+	'Title_Form_Results'    => 'resultados',
+	'Title_Form_Category'   => 'para la categoría',
+	'Title_Form_No_Results' => 'No se encontraron resultados',
     
-    //LabelInfo
-	'LabelPart1'   => 'Mostrando',
-	'LabelPart2'   => 'resultado',
-	'LabelPart3'   => 'resultados',
-	'LabelPart4'   => 'para la categoría',
-    
-    //Exeptions
-	'TextExept'   => 'No se encontraron resultados',
-    
-    //Panel Category
-	'TitleTextPanel' => 'Categorías',
-	'TextPanel'      => 'Sin Categoría',
-	'TextPanel1'     => 'No hay categorías',
+    // Panel Category
+	'Title_Panel_Category'      => 'Categorías',
+	'Title_Panel_Uncategorized' => 'Sin Categoría',
+	'Title_Panel_No_Categories' => 'No hay categorías',
 	
-	//---Section Register Product
-	'TitleCard1' => 'Imagen',
+	// -----Section Register Product-----
+	// Card Image
+	'Title_Card_Image'          => 'Imagen',
+	// Form
+	'Title_Form_Image'          => 'Imagen:',
+	'Title_Form_Element_Name'   => 'Nombre del elemento:',
+	'Title_Form_Unit'           => 'Unidad de medida:',
+	'Select_Form_MU'            => '-- Seleccionar --',
+	'Title_Form_Description'    => 'Descripción:',
+	'Title_Form_Price'          => 'Precio:',
+	'Title_Form_Category'       => 'Categoría:',
+	'Select_Form_Category'      => '-- Seleccionar --',
+	'Title_Form_COD_UNSPSC'     => 'Código UNSPSC:',
+	'Title_Form_Type_Purchase'  => 'Tipo de compra:',
+	'Select_Form_Type_Purchase' => '-- Seleccionar --',
 
-	//Form
-	'TextForm1'   => 'Imagen:',
-	'TextForm2'   => 'Nombre del elemento:',
-	'TextForm3'   => 'Unidad de medida:',
-	'SelectForm1' => '-- Seleccionar --',
-	'TextForm4'   => 'Descripción:',
-	'TextForm5'   => 'Precio:',
-	'TextForm6'   => 'Categoría:',
-	'TextForm7'   => 'Código UNSPSC:',
-	'TextForm8'   => 'Tipo de compra:',
+	//-----Section Edit Product-----
+	// Card Image
+	'Title_Card_Image'         => 'Imagen',
+	// Form
+	'Title_Form_Image'          => 'Imagen:',
+	'Title_Form_Element_Name'   => 'Nombre del elemento:',
+	'Title_Form_Unit'           => 'Unidad de medida:',
+	'Select_Form_MU'            => '-- Seleccionar --',
+	'Title_Form_Description'    => 'Descripción:',
+	'Title_Form_Price'          => 'Precio:',
+	'Title_Form_Category'       => 'Categoría:',
+	'Select_Form_Category'      => '-- Seleccionar --',
+	'Title_Form_COD_UNSPSC'     => 'Código UNSPSC:',
+	'Title_Form_Type_Purchase'  => 'Tipo de compra:',
+	'Select_Form_Type_Purchase' => '-- Seleccionar --',
 ];

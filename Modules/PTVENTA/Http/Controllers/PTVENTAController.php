@@ -18,25 +18,25 @@ class PTVENTAController extends Controller
 
     public function index()
     {
-        $view = ['titlePage' => trans('ptventa::mainPage.Main page'), 'titleView' => trans('ptventa::mainPage.Main page')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_index_title_view')];
         return view('ptventa::index', compact('view'));
     }
 
     public function devs()
     {
-        $view = ['titlePage' => trans('ptventa::devs.Developers'), 'titleView' => trans('ptventa::devs.Developers and credits')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_devs_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_devs_title_page')];
         return view('ptventa::developers.index', compact('view'));
     }
 
     public function info()
     {
-        $view = ['titlePage' => trans('ptventa::about.About us'), 'titleView' => trans('ptventa::about.About us')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_info_title_page'), 'titleView' => trans('ptventa::Controllers.PTVENTA_info_title_view')];
         return view('ptventa::information.index', compact('view'));
     }
 
     public function configuration()
     {
-        $view = ['titlePage' => trans('ptventa::configuration.Configuration'), 'titleView' => trans('ptventa::configuration.Configuration')];
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_configuration_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_configuration_title_view')];
         return view('ptventa::configuration.index', compact('view'));
     }
 
@@ -46,8 +46,8 @@ class PTVENTAController extends Controller
 
         $movement_type = MovementType::where('name', 'Venta')->firstOrFail();
 
-        $app_puw = (new InventoryController())->getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
-
+        $app_puw = PUW::getAppPuw(); // Obtener la unidad productiva y bodega de la aplicación
+        
         // Obtén la fecha actual y retrocede dos meses
         $currentDate = Carbon::now();
         $startDate = $currentDate->copy()->subMonths(2)->startOfMonth();
@@ -71,16 +71,28 @@ class PTVENTAController extends Controller
         $maxSalesMonth = null;
         $maxSalesAmount = 0;
         $previousSalesAmount = 0;
+        $currentYear = null;
+        $percentageChange = 0;
 
         foreach ($salesByMonth as $month => $sales) {
-            $months[] = Carbon::createFromFormat('!m', $month)->format('F');
             $salesTotal = $sales->sum('price');
-            $salesTotals[] = $salesTotal;
 
-            if ($salesTotal > $maxSalesAmount) {
+            // Obtén el año actual
+            $year = Carbon::createFromFormat('!m', $month)->format('Y');
+
+            // Si el año cambió, verifica si el mes actual tuvo más ventas que el máximo anterior y reinicia
+            if ($year !== $currentYear) {
+                $currentYear = $year;
+                $maxSalesAmount = $salesTotal;
+                $maxSalesMonth = Carbon::createFromFormat('!m', $month)->format('F');
+            } elseif ($salesTotal > $maxSalesAmount) {
                 $maxSalesAmount = $salesTotal;
                 $maxSalesMonth = Carbon::createFromFormat('!m', $month)->format('F');
             }
+
+            // Resto del código para calcular el porcentaje de cambio, etc.
+            $months[] = Carbon::createFromFormat('!m', $month)->format('F');
+            $salesTotals[] = $salesTotal;
 
             if ($previousSalesAmount !== 0) {
                 $percentageChange = (($salesTotal - $previousSalesAmount) / $previousSalesAmount) * 100;
@@ -91,24 +103,27 @@ class PTVENTAController extends Controller
             $previousSalesAmount = $salesTotal;
         }
 
-        //Permite hacer el conteo de todas las unidades productivas actuales
+        // Permite hacer el conteo de todas las unidades productivas actuales
         $totalProductiveUnits = ProductiveUnit::count();
 
-        //Permite hacer el conteo de todas las bodegas actuales
+        // Permite hacer el conteo de todas las bodegas actuales
         $totalWarehouses = Warehouse::count();
 
+        // Permite obtener el conteo de todas las cajas actuales con estado cerrado
         $closedCashCounts = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
                                     ->where('state', 'Cerrada')
                                     ->count();
 
+        // Permite obtener el conteo de todo el inventario actual
         $totalInventory = Inventory::select('id', 'element_id')
                                     ->where('productive_unit_warehouse_id', $app_puw->id)
                                     ->where('amount', '<>', 0)
                                     ->distinct('element_id')
                                     ->count();
 
-        // Obtener los últimos 5 elementos registrados en el inventario
-        $recentlyAddedInventory = Inventory::orderBy('created_at', 'desc')->take(5)->get();
+        // Obtener los últimos 6 elementos registrados en el inventario
+        $recentlyAddedInventory = Inventory::where('productive_unit_warehouse_id', $app_puw->id)
+                                            ->orderBy('created_at', 'desc')->take(6)->get();
 
         return view('ptventa::admin-index', compact('view', 'months', 'salesTotals', 'maxSalesMonth', 'percentageChange', 'totalProductiveUnits', 'totalWarehouses', 'closedCashCounts', 'totalInventory', 'recentlyAddedInventory'));
     }

@@ -1,33 +1,29 @@
 <?php
 
 return [
-    //Origin Controller MovementController
-	'titlePage'    => 'Movement',
-	'titleView'    => 'Movement History',
+    // Breadcrumbs
+	'Breadcrumb_Active_Movement' => 'Movement History',
     
-    //Breadcrumbs
-	'B1' => 'Movement History',
-    
-    //Form
-	'TextForm1' => 'Initial date',
-	'TextForm2' => 'Final date',
-	'TextForm3' => 'Document number',
+    // Card consult date
+	'Title_Initial_Date'    => 'Initial date',
+	'Title_Final_Date'      => 'Final date',
+	'Title_Document_Number' => 'Document number',
 	
-	//Table
-	'T1' => '#',
-	'T2' => 'Date',
-	'T3' => 'Role',
-	'T4' => 'Manager',
-	'T5' => 'Movement Type',
-	'T6' => '$ Price',
-	'T7' => 'Actions',
+	// Table Show Movements
+	'T1_Number' => '#',
+	'T2_Date' => 'Date',
+	'T3_Role' => 'Role',
+	'T4_Manager' => 'Manager',
+	'T5_Movement_Type' => 'Movement Type',
+	'T6_Price' => '$ Price',
+	'T7_Actions' => 'Actions',
 	
-	//TextOpcional
-	'TextOp' => 'There are no movements available or registered today.',
+	// Text Optional
+	'Text_Optional' => 'There are no movements available or registered today.',
     
-    //Btns
-	'Btn1' => 'Consult',
+    // Btns
+	'Btn_Consult' => 'Consult',
 
-	//Tooltips
-	'Tooltip1' => 'See',
+	// Tooltips
+	'Tooltip' => 'See',
 ];

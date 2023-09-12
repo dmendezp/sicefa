@@ -45,17 +45,18 @@
         </div>
     </div><!-- /.container-fluid -->
 @stop
-@section('js')
+
+@push('scripts')
     <script>
         function verficarUsuario(){
             documento = $('#documento').val();
             if(documento == ''){
                 alert('Ingrese el número de identifación para realizar la verifcación.');
             }else{
-                ruta = 'http://sicefa.test:8081/hdc//verificar-persona'+documento;
+                ruta = window.location.origin + '/hdc/calculos/persona/' + documento; // Obtener ruta para consultar por ajax
                 $.ajaxSetup({
                     headers: {
-                        'X-CSRF-TOKE': $('meta[name="csrf-token"]').attr('content')
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
                 $.ajax({
@@ -70,5 +71,5 @@
             }
         }
     </script>
-@stop
+@endpush
 

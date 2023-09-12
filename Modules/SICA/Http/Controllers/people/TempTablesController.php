@@ -13,6 +13,7 @@ use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\Line;
 use Modules\SICA\Entities\Network;
+use Modules\SICA\Entities\PensionEntity;
 use Modules\SICA\Imports\PeopleImport;
 use Modules\SICA\Imports\ApprenticeImport;
 
@@ -119,6 +120,7 @@ class TempTablesController extends Controller
                 ]);
                 $eps = EPS::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar EPS
                 $population_group = PopulationGroup::firstOrCreate(['name' => 'NINGUNA']); // Consultar o registrar Grupo Poblacional
+                $pension_entity = PensionEntity::firstOrCreate(['name' => 'NINGUNA']); // Consultar o registrar Entidad de pensiones
 
                 // Recorrer datos y relizar registros
                 foreach($apprentices_data as $data){
@@ -155,6 +157,7 @@ class TempTablesController extends Controller
                         $attribute => strtolower($data[5]),
                         'eps_id' => $eps->id,
                         'population_group_id' => $population_group->id,
+                        'pension_entity_id' => $pension_entity->id
                     ]);
 
                     // Consultar o registrar aprendiz
