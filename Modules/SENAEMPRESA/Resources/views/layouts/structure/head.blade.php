@@ -5,9 +5,6 @@
 
     <link rel="icon" href="{{ asset('AdminLTE/dist/img/logo P SENA.png') }}">
 
-    <!-- Estilo del video senaempresa -->
-    <link rel="stylesheet" href="{{ asset('senaempresa/css/main.css') }}">
-
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -34,7 +31,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Estilos Propios -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('senaempresa/css/style_senaempresa.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('modules/senaempresa/css/style_senaempresa.css') }}">
 
     <!-- Estilos de fullcalendar -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css">
@@ -49,8 +46,8 @@
         integrity="sha384-KyZXEAg3QhqLMpG8r+ld9m9/dDZDlMTgzyaWmPgQF3U7o6z5qI0nE5ss1f2Gh0b5" crossorigin="anonymous">
 
 
-    <link href="{{ asset('senaempresa/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('senaempresa/css/we.css') }}" rel="stylesheet">
-    <link href="{{ asset('senaempresa/css/registration.css') }}" rel="stylesheet">
-    <link href="{{ asset('senaempresa/css/vacant.css') }}" rel="stylesheet">
+    <link href="{{ asset('modules/senaempresa/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('modules/senaempresa/css/we.css') }}" rel="stylesheet">
+    <link href="{{ asset('modules/senaempresa/css/registration.css') }}" rel="stylesheet">
+    <link href="{{ asset('modules/senaempresa/css/vacant.css') }}" rel="stylesheet">
 </head>

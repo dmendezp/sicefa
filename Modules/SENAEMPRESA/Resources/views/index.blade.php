@@ -4,7 +4,7 @@
     <br>
     <article>
         <header id"hom">
-            <img id"hom" src="{{ asset('senaempresa/images/Aviso Modelo Final.jpg') }}" alt="">
+            <img id"hom" src="{{ asset('modules/senaempresa/images/Aviso Modelo Final.jpg') }}" alt="">
         </header>
     </article>
 @endsection

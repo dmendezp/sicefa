@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col">
                 <div class="my-card"> <img class="my-card-img"
-                        src="{{ asset('senaempresa/images/produccion_agricola.jpg') }}" />
+                        src="{{ asset('modules/senaempresa/images/produccion_agricola.jpg') }}" />
                     <div class="my-card-body trainer-card-body">
                         <h5>Tecnologo en Producción Agrícola</h5>
                         <p>Planificar, organizar y supervisar el proceso de siembra, cultivo,
@@ -32,7 +32,7 @@
             </div>
             <div class="col">
                 <div class="my-card"> <img class="my-card-img"
-                        src="{{ asset('senaempresa/images/Gestión_Empresas_Agropecuarias.jpg') }}" />
+                        src="{{ asset('modules/senaempresa/images/Gestión_Empresas_Agropecuarias.jpg') }}" />
                     <div class="my-card-body trainer-card-body">
                         <h5>Tecnologo en Gestión de Empresas Agropecuarias
                         </h5>
@@ -44,7 +44,8 @@
                 </div>
             </div>
             <div class="col">
-                <div class="my-card"> <img class="my-card-img" src="{{ asset('senaempresa/images/Acuicultura.jpg') }}" />
+                <div class="my-card"> <img class="my-card-img"
+                        src="{{ asset('modules/senaempresa/images/Acuicultura.jpg') }}" />
                     <div class="my-card-body trainer-card-body">
                         <h5>Tecnologo en Acuicultura
                         </h5>
@@ -57,7 +58,8 @@
         </div>
         <div class="row">
             <div class="col">
-                <div class="my-card"> <img class="my-card-img" src="{{ asset('senaempresa/images/Ambiental.jpg') }}" />
+                <div class="my-card"> <img class="my-card-img"
+                        src="{{ asset('modules/senaempresa/images/Ambiental.jpg') }}" />
                     <div class="my-card-body trainer-card-body">
                         <h5>Tecnologo en Control Ambiental</h5>
                         <p>Realizar seguimiento y análisis de parámetros ambientales como
@@ -68,7 +70,8 @@
                 </div>
             </div>
             <div class="col">
-                <div class="my-card"> <img class="my-card-img" src="{{ asset('senaempresa/images/Alimentos.jpg') }}" />
+                <div class="my-card"> <img class="my-card-img"
+                        src="{{ asset('modules/senaempresa/images/Alimentos.jpg') }}" />
                     <div class="my-card-body trainer-card-body">
                         <h5>Tecnologo en Control de Calidad de Alimentos</h5>
                         <p>Realiza pruebas y análisis para evaluar la calidad de los
@@ -79,7 +82,8 @@
                 </div>
             </div>
             <div class="col">
-                <div class="my-card"> <img class="my-card-img" src="{{ asset('senaempresa/images/Mercados.jpg') }}" />
+                <div class="my-card"> <img class="my-card-img"
+                        src="{{ asset('modules/senaempresa/images/Mercados.jpg') }}" />
                     <div class="my-card-body trainer-card-body">
                         <h5>Tecnologo en Gestión de Mercados</h5>
                         <p> Diseñar planes estratégicos que incluyan la definición de objetivos, segmentación de

@@ -16,7 +16,8 @@
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle"
-                                    src="{{ asset('senaempresa/images/Contacto/Medina.jpg') }}" alt="User profile picture">
+                                    src="{{ asset('modules/senaempresa/images/Contacto/Medina.jpg') }}"
+                                    alt="User profile picture">
                             </div>
                             <h3 class="profile-username text-center">Junior Stiven Medina Hernandez</h3>
                             <p class="text-muted text-center">Aprendiz - Tgo. Analisis y desarollo de software</p>
@@ -43,7 +44,8 @@
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle"
-                                    src="{{ asset('senaempresa/images/Contacto/Marin.jpg') }}" alt="User profile picture">
+                                    src="{{ asset('modules/senaempresa/images/Contacto/Marin.jpg') }}"
+                                    alt="User profile picture">
                             </div>
                             <h3 class="profile-username text-center">Jennifer Marin Montealegre</h3>
                             <p class="text-muted text-center">Aprendiz - Tgo. Analisis y desarollo de software</p>
@@ -72,7 +74,8 @@
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle"
-                                    src="{{ asset('senaempresa/images/Contacto/Penagos.jpg') }}" alt="User profile picture">
+                                    src="{{ asset('modules/senaempresa/images/Contacto/Penagos.jpg') }}"
+                                    alt="User profile picture">
                             </div>
                             <h3 class="profile-username text-center">Diego Alejandro Penagos Ninco</h3>
                             <p class="text-muted text-center">Aprendiz - Tgo. Analisis y desarollo de software</p>
@@ -99,7 +102,8 @@
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle"
-                                    src="{{ asset('senaempresa/images/Contacto/Garay.jpg') }}" alt="User profile picture">
+                                    src="{{ asset('modules/senaempresa/images/Contacto/Garay.jpg') }}"
+                                    alt="User profile picture">
                             </div>
                             <h3 class="profile-username text-center">Jary Liceth Garay</h3>
                             <p class="text-muted text-center">Aprendiz - Tgo. Analisis y desarollo de software</p>

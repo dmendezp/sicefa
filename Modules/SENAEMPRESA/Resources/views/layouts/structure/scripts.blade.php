@@ -105,5 +105,5 @@
 
 
 
-<script src="{{ asset('senaempresa/js/modal.js') }}"></script>
-<script src="{{ asset('senaempresa/js/fecha_alerta.js') }}"></script>
+<script src="{{ asset('modules/senaempresa/js/modal.js') }}"></script>
+<script src="{{ asset('modules/senaempresa/js/fecha_alerta.js') }}"></script>
