@@ -51,18 +51,18 @@ Route::middleware(['lang'])->group(function () {
         Route::put('/benefitstypeofbenefits/updateInline', 'BenefitsTypesOfBenefitsController@updateInline')->name('cefa.bienestar.benefitstypeofbenefits.updateInline');
 
         // Rutas para la vista postulation
-        Route::get('/postulations', 'PostulationsController@index')->name('bienestar.postulations.index');
-        Route::get('/postulations/{id}', 'PostulationsController@show')->name('bienestar.postulations.show');
-        Route::get('/postulations/modal/{id}', 'PostulationsController@showModal')->name('bienestar.postulations.modal');
-        Route::post('/update-postulation-score/{id}', 'PostulationsController@updateScore')->name('bienestar.postulations.update-score');
-        Route::post('/assign-benefits', 'PostulationsController@assignBenefits')->name('bienestar.postulations.assign-benefits');
-        Route::get('/convocatoria', 'ConvocationsController@convocatoria')->name('convocatoria');
-        Route::post('/bienestar/assign-benefits', 'PostulationsController@assignBenefits')->name('bienestar.postulations.assign-benefits');
-        Route::put('bienestar/postulations/update-state/{id}', 'PostulationsController@updateState')->name('bienestar.postulations.update-state');
-        Route::post('/bienestar/postulations/create', 'PostulationsController@create')->name('bienestar.postulations.create');
-        Route::post('bienestar/postulations/mark-as-beneficiaries', 'PostulationsController@markAsBeneficiaries')->name('bienestar.postulations.mark-as-beneficiaries');
-        Route::post('/marcar-beneficiarios', 'PostulationsController@markAsBeneficiaries')->name('bienestar.postulations.mark-as-beneficiaries');
-        Route::post('bienestar/postulations/mark-as-beneficiaries', 'PostulationsController@markAsBeneficiaries')->name('bienestar.postulations.mark-as-beneficiaries');
+        Route::get('/postulations', 'PostulationsController@index')->name('cefa.bienestar.postulations.index');
+        Route::get('/postulations/{id}', 'PostulationsController@show')->name('cefa.bienestar.postulations.show');
+        Route::get('/postulations/modal/{id}', 'PostulationsController@showModal')->name('cefa.bienestar.postulations.modal');
+        Route::post('/update-postulation-score/{id}', 'PostulationsController@updateScore')->name('cefa.bienestar.postulations.update-score');
+        Route::post('/assign-benefits', 'PostulationsController@assignBenefits')->name('cefa.bienestar.postulations.assign-benefits');
+        Route::post('/bienestar/assign-benefits', 'PostulationsController@assignBenefits')->name('cefa.bienestar.postulations.assign-benefits');
+        Route::put('bienestar/postulations/update-state/{id}', 'PostulationsController@updateState')->name('cefa.bienestar.postulations.update-state');
+        Route::post('/bienestar/postulations/create', 'PostulationsController@create')->name('cefa.bienestar.postulations.create');
+        Route::post('bienestar/postulations/mark-as-beneficiaries', 'PostulationsController@markAsBeneficiaries')->name('cefa.bienestar.postulations.mark-as-beneficiaries');
+        Route::post('/marcar-beneficiarios', 'PostulationsController@markAsBeneficiaries')->name('cefa.bienestar.postulations.mark-as-beneficiaries');
+        Route::post('bienestar/postulations/mark-as-beneficiaries', 'PostulationsController@markAsBeneficiaries')->name('cefa.bienestar.postulations.mark-as-beneficiaries');Route::post('/bienestar/postulations/mark-as-beneficiaries', 'PostulationsController@markAsBeneficiaries')->name('bienestar.postulations.mark-as-beneficiaries');
+        Route::post('/bienestar/postulations/assign-benefits', 'PostulationsController@assignBenefits')->name('bienestar.postulations.assign-benefits');
 
 
 

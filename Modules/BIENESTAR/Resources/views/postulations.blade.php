@@ -38,7 +38,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <form id="mark-beneficiaries-form" action="{{ route('bienestar.postulations.mark-as-beneficiaries') }}" method="POST">
+            <form id="mark-beneficiaries-form" action="{{ route('cefa.bienestar.postulations.mark-as-beneficiaries') }}" method="POST">
                 @csrf
                 <input type="hidden" id="selected-postulations" name="selected-postulations" value="">
                 <!-- Botón que abrirá el modal de confirmación -->
@@ -66,7 +66,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                                 <!-- Formulario que enviará la asignación de beneficios -->
-                                <form id="benefit-assignment-form" action="{{ route('bienestar.postulations.assign-benefits') }}" method="POST">
+                                <form id="benefit-assignment-form" action="{{ route('cefa.bienestar.postulations.assign-benefits') }}" method="POST">
                                     @csrf
                                     <input type="hidden" id="selected-postulations" name="selected-postulations" value="">
                                     <input type="hidden" id="benefitId" name="benefit_id" value="1"> <!-- Cambia el valor según tu lógica -->
@@ -124,7 +124,7 @@
                 <p><strong>Total Score:</strong> <span id="total-score_{{ $postulation->id }}">{{ $postulation->total_score }}</span></p>
 
                 <div class="form-group">
-                    <form action="{{ route('bienestar.postulations.update-score', ['id' => $postulation->id]) }}"
+                    <form action="{{ route('cefa.bienestar.postulations.update-score', ['id' => $postulation->id]) }}"
                         method="POST">
                         @csrf
                         <div class="form-group">
@@ -135,7 +135,7 @@
                     </form>
                 </div>
                 <div class="form-group">
-                    <form action="{{ route('bienestar.postulations.update-state', ['id' => $postulation->id]) }}"
+                    <form action="{{ route('cefa.bienestar.postulations.update-state', ['id' => $postulation->id]) }}"
                         method="POST">
                         @csrf
                         @method('PUT') <!-- Cambia a 'PUT' -->
