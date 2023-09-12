@@ -50,7 +50,7 @@ class StaffSenaempresaController extends Controller
         // Guarda la instancia en la base de datos
         if ($staffSenaempresa->save()) {
             // Redirige a la vista adecuada con un mensaje de éxito
-            return redirect()->route('cefa.personal')->with('success', 'Personal creado exitosamente.');
+            return redirect()->route('company.senaempresa.personal')->with('success', 'Personal creado exitosamente.');
         } else {
             // Maneja el caso de error si la inserción falla
             return redirect()->back()->with('error', 'Error al crear el personal.');
@@ -84,7 +84,7 @@ class StaffSenaempresaController extends Controller
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
         $staffSenaempresa->save();
 
-        return redirect()->route('cefa.personal')->with('warning', 'Registro actualizado exitosamente.');
+        return redirect()->route('company.senaempresa.personal')->with('success', 'Registro actualizado exitosamente.');
     }
     public function destroy($id)
     {

@@ -2,16 +2,6 @@
 
 @section('content')
     <div class="container">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('warning'))
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ session('warning') }}
-            </div>
-        @endif
 
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
         <br>
@@ -25,11 +15,13 @@
                                 <th>Cargo</th>
                                 <th>Aprendiz</th>
                                 <th>Imagen Personal</th>
-                                <th>
-                                    <a href="{{ route('company.senaempresa.nuevo_personal') }}"
-                                        class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
-                                    </a>
-                                </th>
+                                @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
+                                    <th>
+                                        <a href="{{ route('company.senaempresa.nuevo_personal') }}"
+                                            class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
+                                        </a>
+                                    </th>
+                                @endif
 
                             </tr>
                         </thead>
@@ -49,17 +41,19 @@
                                         {{ $StaffSenaempresa->Apprentice->Person->first_last_name }}</td>
                                     <td><img src="{{ asset($StaffSenaempresa->image) }}"
                                             alt="{{ $StaffSenaempresa->image }}"></td>
-                                    <form
-                                        action="{{ route('company.senaempresa.eliminar_personal', $StaffSenaempresa->id) }}"
-                                        method="POST" class="formPersonal">
-                                        @csrf
-                                        @method('DELETE')
-                                        <td>
-                                            <a href="{{ route('company.senaempresa.editar_personal', ['id' => $StaffSenaempresa->id]) }}"
-                                                class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                                            <button type="submit" class="btn btn-danger btn-sm"><i
-                                                    class="fas fa-trash-alt"></i></button>
-                                    </form>
+                                    @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
+                                        <form
+                                            action="{{ route('company.senaempresa.eliminar_personal', $StaffSenaempresa->id) }}"
+                                            method="POST" class="formPersonal">
+                                            @csrf
+                                            @method('DELETE')
+                                            <td>
+                                                <a href="{{ route('company.senaempresa.editar_personal', ['id' => $StaffSenaempresa->id]) }}"
+                                                    class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                                <button type="submit" class="btn btn-danger btn-sm"><i
+                                                        class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                    @endif
                                     </td>
                                 </tr>
                             @endforeach
