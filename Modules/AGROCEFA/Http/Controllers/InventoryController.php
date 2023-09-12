@@ -13,6 +13,10 @@ use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\MeasurementUnit;
+use Modules\SICA\Entities\kindOfPurchase;
+
+
 
 class InventoryController extends Controller
 {
@@ -25,6 +29,8 @@ class InventoryController extends Controller
         $categories = Category::all();
         $ProductiveUnitWarehouses = ProductiveUnitWarehouse::all();
         $elements = Element::all();
+        $measurementUnits = MeasurementUnit::all();
+        $purchaseTypes = kindOfPurchase::all();
 
         // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
         $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
@@ -40,6 +46,8 @@ class InventoryController extends Controller
             'productiveUnitName' => $productiveUnitName,
             'ProductiveUnitWarehouses' => $ProductiveUnitWarehouses,
             'elements' => $elements,
+            'measurementUnits' => $measurementUnits,
+            'purchaseTypes' => $purchaseTypes,
         ]);
     }
 
@@ -78,6 +86,47 @@ class InventoryController extends Controller
         ]);
     }
 
+    public function addCategory(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'kind_of_property' => 'required|in:Devolutivo,Bodega',
+    ]);
+        //Crear nuevo registro de categoria
+        $category = new Category();
+        $category->name= $request->input('name');
+        $category->kind_of_property= $request->input('kind_of_property');
+        $category->save();
+
+        return redirect()->route('agrocefa.inventory')->with('success', 'Registro exitoso');
+
+    }
+
+    public function addElement(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'measurement_unit_id' => 'required',
+            'description' => 'required',
+            'kind_of_purchase_id' => 'required',
+            'category_id' => 'required',
+            'price' => 'required',
+    ]);
+        //Crear nuevo registro de categoria
+        $element = new Element();
+        $element->name= $request->input('name');
+        $element->measurement_unit_id= $request->input('measurement_unit_id');
+        $element->description= $request->input('description');
+        $element->kind_of_purchase_id= $request->input('kind_of_purchase_id');
+        $element->category_id= $request->input('category_id');
+        $element->price= $request->input('price');
+
+        $element->save();
+
+        return redirect()->route('agrocefa.inventory')->with('success', 'Registro exitoso');
+
+    }
+
     public function store(Request $request)
     {
         // Validar los datos del formulario (ajusta las reglas de validación según tus necesidades)
@@ -88,7 +137,7 @@ class InventoryController extends Controller
             'description' => 'required|string',
             'price' => 'required',
             'amount' => 'required',
-            'stock' => 'required',
+            'stock' => 'required',           
 
             // Agrega más reglas de validación según tus campos
         ]);
@@ -131,13 +180,11 @@ class InventoryController extends Controller
             'price' => 'required',
             'amount' => 'required',
             'stock' => 'required',
-
         ]);
 
         // Encontrar el registro a actualizar
         $inventory = Inventory::findOrFail($id);
 
-        $inventory = new Inventory();
         $inventory->person_id = auth()->user()->id;
         $inventory->productive_unit_warehouse_id = $request->input('productive_unit_warehouse_id');
         $inventory->element_id = $request->input('element_id');
@@ -146,9 +193,12 @@ class InventoryController extends Controller
         $inventory->price = $request->input('price');
         $inventory->amount = $request->input('amount');
         $inventory->stock = $request->input('stock');
+
         $inventory->save();
 
-        return redirect()->route('agrocefa.inventory');
+        return redirect()
+            ->route('agrocefa.inventory')
+            ->with('register', 'Registro actualizado');
     }
 
     //Eliminar
@@ -158,9 +208,13 @@ class InventoryController extends Controller
             $inventory = Inventory::findOrFail($id);
             $inventory->delete();
 
-            return redirect()->route('agrocefa.inventory')->with('error', 'Registro eliminado.');
+            return redirect()
+                ->route('agrocefa.inventory')
+                ->with('error', 'Registro eliminado.');
         } catch (\Exception $e) {
-            return redirect()->route('agrocefa.inventory')->with('error', 'Error al eliminar la especie.');
+            return redirect()
+                ->route('agrocefa.inventory')
+                ->with('error', 'Error al eliminar la especie.');
         }
     }
 }
