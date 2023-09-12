@@ -102,6 +102,7 @@ return [
 	'We provide' => 'We provide',
 	'People ID' => 'People ID',
 	'Select Personal ID' => 'Select Personal ID',
+    'Select Inventory ID' => 'Select Inventory ID',
 	'Select a Position' => 'Select a Position',
 	'Start date and time' => 'Start date and time',
 	'Inventory ID' => 'Inventory ID',
@@ -125,7 +126,7 @@ return [
 	'ID Quarter' => 'ID Quarter',
 
 
-	
+
 
 
 ];
