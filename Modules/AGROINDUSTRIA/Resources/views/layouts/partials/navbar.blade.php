@@ -102,7 +102,7 @@
                       @if(isset(Auth::user()->person->avatar))
                       <img src="{{ asset(Auth::user()->person->avatar) }}" id="img" class="img-circle elevation-2" alt="User Image">
                       @else
-                      <img src="{{ asset('sica/images/blanco.png') }}" id="img" class="img-circle elevation-2" alt="User Image" width="5px">
+                      <img src="{{ asset('modules/sica/images/blanco.png') }}" id="img" class="img-circle elevation-2" alt="User Image" width="5px">
                       @endif
                     </div>
                   </a>
