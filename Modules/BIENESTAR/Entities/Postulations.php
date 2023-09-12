@@ -41,7 +41,7 @@ class Postulations extends Model implements Auditable
     }
 
     public function convocation(){// Accede a los datos de la Convocatoria al que pertenece
-        return $this->belongsTo(Convocations::class);
+        return $this->belongsTo(Convocations::class, 'convocation_id');
     }
 
     public function postulationBenefits(){// Accede a los datos del beneficio que tiene la postulacion al que pertenece
@@ -53,7 +53,7 @@ class Postulations extends Model implements Auditable
     }
 
     public function typeOfBenefit(){// Accede a los datos del tipo de beneficiario al que pertenece
-        return $this->belongsTo(TypesOfBenefits::class);
+        return $this->belongsTo(TypesOfBenefits::class, 'type_of_benefit_id');
     }
 
     

@@ -35,7 +35,7 @@ class TypesOfBenefits extends Model implements Auditable
         return $this->hasMany(BenefitsTypesOfBenefits::class, 'type_of_benefit_id');
     }
     public function postulation(){// Accede a los datos de la postulacion al que pertenece
-        return $this->hasMany(Postulations::class, );
+        return $this->hasMany(Postulations::class, 'postulation_id' );
     }
 
     
