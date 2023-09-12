@@ -25,6 +25,9 @@ class ProductiveUnitWarehouse extends Model implements Auditable
     ];
 
     // RELACIONES
+    public function cash_counts(){ // Accede a todas las sesiones de caja asociados a esta unidad productiva y bodega
+        return $this->hasMany(CashCount::class);
+    }
     public function inventories(){ // Accede a todos los inventarios asociados a esta unidad productiva y bodega
         return $this->hasMany(Inventory::class);
     }

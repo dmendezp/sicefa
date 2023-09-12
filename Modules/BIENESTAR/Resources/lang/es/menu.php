@@ -55,6 +55,27 @@ return[
      'Question'=>'Pregunta',
      'Answer'=>'Respuesta',
      'Edit Question'=>'Editar Pregunta',
+
+        //Vista typeofbenefits
+    'Beneficiary Type Management'=>'Gestión de Tipo de Beneficiarios',
+    'Enter New Beneficiary Type'=>'Ingresar Nuevo Tipo de Beneficiario',
+    'Beneficiary Type Name'=>'Nombre del Tipo de Beneficiarios',
+    'Enter Beneficiary Type'=>'Ingrese Tipo de Beneficiario',
+    'List of Beneficiary Type'=>'Listado de Tipo de Beneficiarios',
+    'Beneficiary Type'=>'Tipo de Beneficiarios',
+    'Edit Record'=>'Editar Registro',
+    'Edit Beneficiary Type Name'=>'Editar el Nombre del Tipo de Beneficiarios',
+    'Cancel'=>'Cancelar',
+    'Save Changes'=>'Guardar Cambios',
+
+        //Vista benefitstypeofbenefits
+
+    'Configure Benefits'=>'Configurar Beneficios',
+    'Select Benefit Type'=>'Seleccionar Tipo de Beneficio',
+    'Select Beneficiary Type'=>'Seleccionar Tipo de Beneficiario',
+    'List of Benefit Types'=>'Listado de Tipos de Beneficios',
+    'Benefit Type'=>'Tipo de Beneficio',
+    'Edit Beneficiary Type Name'=>'Editar Tipo de Beneficio',
 ]
 
 ?>

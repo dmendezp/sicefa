@@ -1,9 +1,3 @@
-@php
-    $state = getEnumValues('events', 'state'); /* Get values for state */
-    $state['available']='Disponible'; /* Replace value available->Disponible to show view in state */
-    $state['disabled']='Deshabilitado'; /* Replace value disabled->Deshabilitado to show view in state */
-@endphp
-
 @if (isset($event))
     {!! Form::hidden('id', $event->id) !!}
 @endif
@@ -50,6 +44,6 @@
 <div class="form-group row mt-3">
     {!! Form::label('state', 'Estado :', ['class' => 'col-sm-auto col-form-label']) !!}
     <div class="col-sm-auto">
-        {!! Form::select('state', $state, isset($event) ? $event->state : null, ['class'=>'form-control', 'required'])  !!}
+        {!! Form::select('state', getEnumValues('events', 'state'), isset($event) ? $event->state : null, ['class'=>'form-control', 'required'])  !!}
     </div>
 </div>
