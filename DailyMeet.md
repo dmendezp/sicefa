@@ -104,6 +104,22 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Laura Vanessa** - *Avance en la vista de desarrolladores* - *Avance 75%* - *Dificultades* - *Acciones*
 * **Yuderly Sapuy** - *Avance en diseño de la vista AGROCEFA* - *Avance 80%* - *Dificultades* - *Acciones*
 ---
+
+#### Meet 09-Sep-2023
+* **Andres Almario** - *Implementacion de datatable para reporte y descarga* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Funcionalidad del CRUD inventario finalizada* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - ** - *Avance* - *Dificultades* - *Acciones*
+---
+
+#### Meet 10-Sep-2023
+* **Andres Almario** - *Consulta,filtro de fechas y descarga de reporte de consumo* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Dayana Valenzuela** - *Implementación para agregar elementos y categorías completada* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Avance vista usuario* - *Avance 80%* - *Dificultades* - *Acciones*
+---
+
+
 ## PUNTO DE VENTA 🛒
 
 ### Sprint 1 🔄
