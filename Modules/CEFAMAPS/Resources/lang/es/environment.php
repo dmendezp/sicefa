@@ -1,6 +1,5 @@
 <?php
 return [
-<<<<<<< HEAD
     'Setting'=>'Configuración',
     'Environment' => 'Ambiente',
     'Type' => 'Tipo de',
@@ -17,7 +16,6 @@ return [
     'Map' => 'Mapa',
     'View' => 'Vista',
     'Spot' => 'Punto',
-=======
     // Breadcrumbs
     'Breadcrumb_Environment'             => 'Administrador',
     'Breadcrumb_Active_Environment'      => 'Ambientes',
@@ -92,7 +90,6 @@ return [
     'Text_Alert'         => 'Acá no sirvel el control Z',
     
     // ??
->>>>>>> FABRICA4
     'Available' => 'Disponible',
     'Not available' => 'No Disponible',
 ];

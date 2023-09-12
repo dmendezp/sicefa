@@ -30,9 +30,9 @@ Route::middleware(['lang'])->group(function () {
 
         //Vista CRUD Buses
         Route::get('/buses', 'BusesController@index')->name('cefa.bienestar.buses');
-        Route::post('/buses/store', 'BusesController@store')->name('bienestar.buses.store');
-        Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('bienestar.buses.destroy');
-        Route::put('/buses/update/{id}', 'BusesController@update')->name('bienestar.buses.update');
+        Route::post('/buses/store', 'BusesController@store')->name('cefa.bienestar.buses.store');
+        Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('cefa.bienestar.buses.destroy');
+        Route::put('/buses/update/{id}', 'BusesController@update')->name('cefa.bienestar.buses.update');
 
         // Vista CRUD tipo de beneficios
         Route::get('/typeofbenefits', 'TypesOfBenefitsController@typeofbenefits')->name('cefa.bienestar.typeofbenefits');
@@ -81,9 +81,9 @@ Route::middleware(['lang'])->group(function () {
 
 
         // vista de gestiones de convocatorias
-        Route::get('/Convocations', 'ConvocationsController@index')->name('bienestar.Convocations');
-        Route::post('/Convocations/store', 'ConvocationsController@store')->name('bienestar.Convocations.store');
-        Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('bienestar.Convocations.update');
+        Route::get('/Convocations', 'ConvocationsController@index')->name('cefa.bienestar.Convocations');
+        Route::post('/Convocations/store', 'ConvocationsController@store')->name('cefa.bienestar.Convocations.store');
+        Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('cefa.bienestar.Convocations.update');
 
 
         //Vista crud formularios

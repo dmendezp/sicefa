@@ -10,7 +10,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                {!! Form::open(['route' => 'bienestar.buses.store', 'method' => 'POST', 'role' => 'form'])
+                {!! Form::open(['route' => 'cefa.bienestar.buses.store', 'method' => 'POST', 'role' => 'form'])
                 !!}
                 <div class="row p-4">
                     <div class="col-md-3">
@@ -63,7 +63,7 @@
                                             data-quota="{{ $b->quota }}"><i class="fa fa-edit"></i>
                                         </button>
 
-                                        {!! Form::open(['route' => ['bienestar.buses.destroy', $b->id],
+                                        {!! Form::open(['route' => ['cefa.bienestar.buses.destroy', $b->id],
                                         'method' => 'DELETE', 'style' => 'display: inline;']) !!}
                                         <button class="btn btn-sm btn-danger"
                                             onclick="if(confirm('¿Estás seguro de que deseas eliminar este elemento?')) { $(this).closest('form').submit(); return false; }"><i class="fa fa-trash-alt"></i></button>
@@ -94,37 +94,36 @@
                 </button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['url' => 'bienestar/buses/update/id', 'method' => 'PUT', 'role' =>
+                {!! Form::open(['url' => 'cefa.bienestar/buses/update/id', 'method' => 'PUT', 'role' =>
                 'form']) !!}
                 <div class="row p-4">
-                    <div class="col-md-12">
-                        <label for="plate">placa:</label>
-                        <div class="form-group">
-                        {!! Form::text('plate', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la placa',
-                        'required','oninput' => 'this.value = this.value.toUpperCase()']) !!}
-                </div>
+                <div class="col-md-12">
+            <div class="form-group">
+                <label for="plate">Placa:</label>
+                <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
+                <span id="plate-error" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="bus_driver">Conductor:</label>
+                {!! Form::select('bus_driver', $busDrivers, null, ['class' => 'form-control', 'required', 'id' => 'bus_driver_select']) !!}
+            </div>
+        </div>
 
-                    </div>
-                    <div class="col-md-12">
-                    <label for="bus_driver">conductor:</label>
-                        <div class="form-group">
-                        {!! Form::select('bus_driver', $busDrivers, null, ['class' => 'form-control','required', 'id' =>
-                        'bus_driver_select']) !!}
-                </div>
-                    </div>
-                   <div class="col-md-12">
-                        <label for="quota">cupos:</label>
-                        <div class="form-group">
-                            {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required','oninput' => 'this.value = this.value.replace(/^0+/g, \'\')', 'onblur' => 'validateQuota(this)']) !!}
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="btns">
-                            {!! Form::submit('Actualizar',['class'=>'btn btn-success']) !!}
-                        </div>
-                    </div>
-                </div>
-                {!! Form::close() !!}
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="quota">Cupos:</label>
+                {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required', 'oninput' => 'this.value = this.value.replace(/^0+/g, \'\')', 'onblur' => 'validateQuota(this)']) !!}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                {!! Form::submit('Actualizar', ['class' => 'btn btn-success']) !!}
+            </div>
+        </div>
+    </div>
+    {!! Form::close() !!}
             </div>
         </div>
     </div>
@@ -153,6 +152,26 @@
         });
     });
 </script>
+<script>
+    //placa
+    document.getElementById('plate').addEventListener('input', function() {
+        var plateInput = this.value;
+        var plateError = document.getElementById('plate-error');
+
+        // Verifica si el valor coincide con el patrón de 3 letras seguidas de 3 números
+        if (/^[A-Za-z]{3}[0-9]{3}$/.test(plateInput)) {
+            plateError.textContent = ''; // Oculta la alerta si es válido
+            this.setCustomValidity(''); // Marca el campo como válido
+        } else {
+            plateError.textContent = 'La placa debe tener 3 letras seguidas de 3 números.';
+            this.setCustomValidity('Invalid'); // Marca el campo como inválido
+        }
+    });
+</script>
+
+
+
+
 <script>
     //cupos
   document.getElementById('quota').addEventListener('input', function() {
@@ -188,7 +207,16 @@
                 if (plateInput.length > 6) {
                     this.value = plateInput.slice(0, 6);
                 }
-            });
+                // Verifica si hay más de 3 letras o 3 números
+                var letters = plateInput.match(/[A-Za-z]/g) || [];
+                var numbers = plateInput.match(/[0-9]/g) || [];
+
+                if (letters.length > 3 || numbers.length > 3) {
+                    plateError.text('Debe ingresar exactamente 3 letras y 3 números').show();
+                } else {
+                    plateError.hide();
+                }
+            }); 
         });
     });
 </script>
@@ -253,4 +281,5 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 @endsection
