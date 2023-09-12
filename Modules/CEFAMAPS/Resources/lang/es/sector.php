@@ -1,6 +1,5 @@
 <?php
 return [
-<<<<<<< HEAD
   'Sector' => 'Sector',
   'Index' => 'Inicio Sector',
   'Add' => 'Agregar Sector',
@@ -9,7 +8,6 @@ return [
   'Description' => 'Descripcion',
   'delete_alert_title' => 'Esta seguro de eliminarlo?',
   'delete_alert_text' => 'Si lo eliminas, no lo volveras a verlo',
-=======
   // Breadcrumbs
   'Breadcrumb_Sector'             => 'Administrador',
   'Breadcrumb_Active_Sector'      => 'Sectores',
@@ -42,5 +40,4 @@ return [
   'Btn_Cancel'                => 'Cancelar',
   'Btn_Add_Sector'            => 'Registrar Sector',
   'Edit_Edit_Sector'          => 'Editar Sector',
->>>>>>> FABRICA4
 ];

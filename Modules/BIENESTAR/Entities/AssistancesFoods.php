@@ -33,11 +33,11 @@ class AssistancesFoods extends Model implements Auditable
     //RELACIONES
 
     public function apprentice(){// Accede a los datos del aprendiz al que pertenece
-        return $this->belongsTo(\Modules\SICA\Entities\Apprentice::class);
+        return $this->belongsTo(\Modules\SICA\Entities\Apprentice::class, 'apprentice_id');
     }
 
     public function postulationBenefits(){// Accede a los datos del beneficio que tiene la postulacion al que pertenece
-        return $this->belongsTo(PostulationsBenefits::class);
+        return $this->belongsTo(PostulationsBenefits::class, 'postulation_benefit_id');
     }
 
 

@@ -35,11 +35,11 @@ class Answers extends Model implements Auditable
     // RELACIONES
 
     public function postulation(){// Accede a todas las postulaciones que pertenecen a esta respuesta
-        return $this->belongsTo(Postulations::class);
+        return $this->belongsTo(Postulations::class, 'postulation_id');
     }
     
     public function question(){// Accede a todas las preguntas que pertenecen a esta respuesta
-        return $this->belongsTo(Questions::class);
+        return $this->belongsTo(Questions::class, 'questions_id');
     }
 
     

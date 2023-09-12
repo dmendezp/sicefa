@@ -39,11 +39,8 @@ class SectorController extends Controller
     $unit = ProductiveUnit::get();
     $classenviron = ClassEnvironment::get();
     $sector = Sector::get();
-<<<<<<< HEAD
     $data = ['title'=>trans('cefamaps::sector.Add'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'classenviron'=>$classenviron];
-=======
     $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_Sector_Add_title_page'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'classenviron'=>$classenviron];
->>>>>>> FABRICA4
     return view('cefamaps::admin.sector.add',$data);
   }
 
@@ -72,11 +69,8 @@ class SectorController extends Controller
     $sector = Sector::get();
     $classenviron = ClassEnvironment::get();
     $editsector = Sector::findOrFail($id);
-<<<<<<< HEAD
     $data = ['title'=>trans('cefamaps::sector.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'editsector'=>$editsector, 'classenviron'=>$classenviron];
-=======
     $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_Sector_Edit_title_page'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'editsector'=>$editsector, 'classenviron'=>$classenviron];
->>>>>>> FABRICA4
     return view('cefamaps::admin.sector.edit',$data);
   }
 
