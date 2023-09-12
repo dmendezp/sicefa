@@ -101,10 +101,12 @@ class BusesController extends Controller
      */
     public function destroy($id)
     {
-        $bus = Buses::findOrFail($id);
-        if($bus->delete()):
-            return redirect()->route('cefa.bienestar.buses')->with('message', 'Bus eliminado')->with('typealert', 'danger');
-        endif;
+       try{
+          $bus = Buses::findOrFail($id);
+          $bus->delete();
+          return response()->json(['mensaje' => 'eliminado with success']);      
+        }  catch (\Exception $e) {
+            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+        }  
     }
-    
 }

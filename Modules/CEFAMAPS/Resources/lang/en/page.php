@@ -1,10 +1,8 @@
 <?php
 
 return [
-<<<<<<< HEAD
   'Page' => 'Page',
   'Content' => 'Content'
-=======
   // Breadcrumbs
   'Breadcrumb_Pages'             => 'Administrator',
   'Breadcrumb_Active_Pages'      => 'Pages',
@@ -36,5 +34,4 @@ return [
   // Btns
   'Btn_Register_Page' => 'Register Page',
   'Btn_Edit_Page'     => 'Edit Page',
->>>>>>> FABRICA4
 ];

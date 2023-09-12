@@ -15,39 +15,27 @@ class SSTController extends Controller
     public function index()
     {
         $environ = Environment::get();
-<<<<<<< HEAD
         $data = ['title'=>trans('cefamaps::SST.Home'), 'environ'=>$environ];
-=======
         $data = ['titlePage' => trans('cefamaps::controllers.CEFAMAPS_SST_Index_title_page'), 'environ'=>$environ];
->>>>>>> FABRICA4
         return view('cefamaps::sst.index', $data);
     }
     
     public function evacuation()
     {
-<<<<<<< HEAD
         $data = ['title'=>trans('cefamaps::menu.Home')];
-=======
         $data = ['titlePage' => trans('cefamaps::controllers.CEFAMAPS_STT_Evacuation_title_page')];
->>>>>>> FABRICA4
         return view('cefamaps::sst.evacuation', $data);
     }
     public function Extintores()
     {
-<<<<<<< HEAD
         $data = ['title'=>trans('cefamaps::menu.Home')];
-=======
         $data = ['titlePage' => trans('cefamaps::controllers.CEFAMAPS_STT_Extintores_title_page')];
->>>>>>> FABRICA4
         return view('cefamaps::sst.Extintores', $data);
     }
     public function healt()
     {
-<<<<<<< HEAD
         $data = ['title'=>trans('cefamaps::menu.Home')];
-=======
         $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_STT_Healt_title_page')];
->>>>>>> FABRICA4
         return view('cefamaps::sst.healt', $data);
     }
 

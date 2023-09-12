@@ -61,13 +61,10 @@
                                         </button>
 
                                         {!! Form::open(['route' => ['cefa.bienestar.buses.destroy', $b->id],
-                                        'method' => 'DELETE', 'style' => 'display: inline;']) !!}
-                                        <button class="btn btn-sm btn-danger"
-                                            onclick="if(confirm('¿Estás seguro de que deseas eliminar este elemento?')) { $(this).closest('form').submit(); return false; }"><i class="fa fa-trash-alt"></i></button>
-                                        {!! Form::close() !!}
-                                        {!! Form::open(['route' => ['cefa.bienestar.buses.destroy', $b->id], 'method' => 'DELETE', 'class' => 'formEliminar', 'style' => 'display: inline;']) !!}
+                                        'method' => 'DELETE', 'class' => 'formEliminar', 'style'=> 'display: inline;']) !!}
                                         <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash-alt"></i></button>
-                                        {!! Form::close()!!}
+                                        {!! Form::close() !!}
+                                       
                                     </div>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog">
