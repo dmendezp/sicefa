@@ -12,18 +12,18 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src='images/slider1.jpg' class="d-block w-100" style="wight: 600px" alt="...">
+            <img src='{{ asset('modules/gth/images/slider1.jpg') }}' class="d-block w-100" style="wight: 600px" alt="...">
             <div class="carousel-caption d-none d-md-block">
 
             </div>
           </div>
           <div class="carousel-item">
-            <img src='images/slider1.jpg' class="d-block w-100" style="wight: 600px" alt="...">
+            <img src='{{ asset('modules/gth/images/slider1.jpg') }}' class="d-block w-100" style="wight: 600px" alt="...">
             <div class="carousel-caption d-none d-md-block">
             </div>
           </div>
           <div class="carousel-item">
-            <img src='images/slider1.jpg' class="d-block w-100" style="wight: 600px" alt="...">
+            <img src='{{ asset('modules/gth/images/slider1.jpg') }}' class="d-block w-100" style="wight: 600px" alt="...">
             <div class="carousel-caption d-none d-md-block">
             </div>
           </div>

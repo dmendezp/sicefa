@@ -1,10 +1,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{{ asset('gth/css/plantilla.css') }}">
+<link rel="stylesheet" href="{{ asset('modules/gth/css/plantilla.css') }}">
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.css') }}">
 <title>Talento Humano</title>
 <script src="https://kit.fontawesome.com/dbfa94ab11.js" crossorigin="anonymous"></script>
-<script src="{{ asset('gth/js/sidebar.js') }}" crossorigin="anonymous"></script>
+<script src="{{ asset('modules/gth/js/sidebar.js') }}" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
