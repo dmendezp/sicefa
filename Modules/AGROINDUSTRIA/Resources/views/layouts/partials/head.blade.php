@@ -5,17 +5,17 @@
         <title>AGROINDUSTRIA | {{$title}}</title>
        {{-- Laravel Mix - CSS File --}}
        {{-- <link rel="stylesheet" href="{{ mix('css/agroindustria.css') }}"> --}}
-        <link rel="icon" href="{{asset('agroindustria/favicon.ico')}}">       
-       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/cssunidades.css')}}">
-       <link rel="stylesheet" href="{{asset('agroindustria/css/styleinvb.css')}}">
-       <link rel="stylesheet" href="{{asset('agroindustria/css/styleindex.css')}}">
-       <link rel="stylesheet" href="{{asset('agroindustria/css/navbar.css')}}">
-       <link rel="stylesheet" href="{{asset('agroindustria/css/styleU.css')}}">
-       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/styleRequest.css')}}">
-       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/deliveries.css')}}">
-       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/activity.css')}}">
-       <link rel="stylesheet" href="{{asset('agroindustria/css/instructor/deliveries.css')}}">
-       <link rel="stylesheet" href="{{asset('agroindustria/css/storer/inventory.css')}}">
+        <link rel="icon" href="{{asset('modules/agroindustria/favicon.ico')}}">       
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/cssunidades.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/styleinvb.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/styleindex.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/navbar.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/styleU.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/styleRequest.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/deliveries.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/activity.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/deliveries.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/storer/inventory.css')}}">
        <meta name="csrf-token" content="{{ csrf_token() }}">
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

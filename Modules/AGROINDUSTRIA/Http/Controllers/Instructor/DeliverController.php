@@ -343,35 +343,62 @@ class DeliverController extends Controller
         return view('agroindustria::instructor.movements.pending', $data);
     }
 
-    public function stateMovement($id) {
-    // Obtén el movimiento que deseas actualizar
-    $movement = Movement::findOrFail($id);
-    $movement->state = 'Aprobado';
-    $movement->save();
-    // Verifica si el estado del movimiento se establece como "aprobado"
-    if ($movement->state === 'Aprobado') {
-        // Recorre los detalles del movimiento
-        foreach ($movement->movement_details as $detail) {
-            // Actualiza la cantidad en el inventario restando la cantidad del movimiento
-            $inventory = $detail->inventory;
-            $inventory->amount -= $detail->amount;
-            $inventory->save();
+    public function stateMovement(Request $request, $id) {
+        // Obtén el movimiento que deseas actualizar
+        $movement = Movement::findOrFail($id);
+        $movement->state = 'Aprobado';
+        $movement->save();
+        // Verifica si el estado del movimiento se establece como "aprobado"
+        if ($movement->state === 'Aprobado') {
+            // Recorre los detalles del movimiento
+            foreach ($movement->movement_details as $detail) {
+                // Actualiza la cantidad en el inventario restando la cantidad del movimiento
+                $inventory = $detail->inventory;
+                $inventory->amount -= $detail->amount;
+                $inventory->save();
+
+                $receiveWarehouseMovement = $movement->warehouse_movements->first(function ($movement) {
+                    return $movement->role === 'Recibe';
+                });
+        
+                if ($receiveWarehouseMovement) {
+                    $receive_warehouse = $receiveWarehouseMovement->warehouse_id;
+                    
+                    $receive = ProductiveUnitWarehouse::where('warehouse_id', $receive_warehouse)->pluck('id')->first();
+                    
+                
+                    $receiverInventory = new Inventory();
+                    $receiverInventory->person_id = $detail->inventory->person_id;
+                    $receiverInventory->productive_unit_warehouse_id = $receive;
+                    $receiverInventory->element_id = $detail->inventory->element_id;
+                    $receiverInventory->destination = $detail->inventory->destination;
+                    $receiverInventory->description = $detail->inventory->description;
+                    $receiverInventory->price = $detail->price;
+                    $receiverInventory->amount = $detail->amount; // Aquí usamos la cantidad del detalle
+                    $receiverInventory->stock = $detail->inventory->stock;
+                    $receiverInventory->production_date = $detail->inventory->production_date;
+                    $receiverInventory->lot_number = $detail->inventory->lot_number;
+                    $receiverInventory->expiration_date = $detail->inventory->expiration_date;
+                    $receiverInventory->state = $detail->inventory->state;
+                    $receiverInventory->mark = $detail->inventory->mark;
+                    $receiverInventory->inventory_code = $detail->inventory->inventory_code;
+                    $receiverInventory->save();      
+                }
+            }
         }
+
+    
+        
+        if ($receiverInventory->save()) {
+            $icon = 'success';
+            $message_line = trans('agroindustria::menu.Status of the edited movement');
+        } else {
+            $icon = 'error';
+            $message_line = trans('agroindustria::menu.Error when editing movement status');
+        }
+
+        return redirect()->route('cefa.agroindustria.instructor.movements.pending')->with(['icon' => $icon, 'message_line' => $message_line]);
     }
-
-    // Actualiza el estado del movimiento
-   
-
-    if ($movement->save()) {
-        $icon = 'success';
-        $message_line = trans('agroindustria::menu.Status of the edited movement');
-    } else {
-        $icon = 'error';
-        $message_line = trans('agroindustria::menu.Error when editing movement status');
-    }
-
-    return redirect()->route('cefa.agroindustria.instructor.movements.pending')->with(['icon' => $icon, 'message_line' => $message_line]);
-}
 
 
     public function anularMovimiento(Request $request, $id){
