@@ -40,13 +40,21 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('cefa.agroindustria.instructor.activity')}}">{{trans('agroindustria::menu.Activities')}}</a>
                     </li>
-                @endif    
+                @endif  
+                @if(Auth::user()->havePermission('agroindustria.instructor.formulations'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('cefa.agroindustria.instructor.formulations')}}">Formulacion</a>
+                    </li>
+                @endif
+                 
+               
+               
             @endif
             @if(Auth::user()->havePermission('agroindustria.storer.crud'))
             <li class="nav-item">
                 <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
             </li>
-            @endif
+        @endif
         </ul>
     </div>
     

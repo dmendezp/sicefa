@@ -174,6 +174,16 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_instructor[] = $permission->id;
 
+        //Visualizar formulario de registro de formulaciones
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.formulations'], [
+            'name' => 'Visualizar la vista de formulacion.',
+            'description' => 'Puede visualizar el formulario de formulacion y hacer uso de el para crear una formulacion.',
+            'description_english' => 'You can display the formulation form and use it to create a formulation.',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id;
+
 
 
         $rol_admin = Role::where('slug', 'agroindustria.admin')->first(); // Rol Administrador

@@ -21,8 +21,6 @@ use Modules\SICA\Entities\WarehouseMovement;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Auth;
-
-
 use Validator, Str;
 
 class WarehouseController extends Controller

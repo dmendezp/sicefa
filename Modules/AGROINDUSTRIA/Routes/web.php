@@ -53,8 +53,11 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/movements/warehouse/{idPerson}', [DeliverController::class, 'warehouseReceive'])->name('cefa.agroindustria.instructor.movements.warehouse');
             Route::post('/movements/out', [DeliverController::class, 'createMoveOut'])->name('cefa.agroindustria.instructor.movements.out');
 
-            Route::get('/formulation', [FormulationController::class, 'create'])->name('cefa.agroindustria.instructor.formulations.create');
+           
             Route::get('/units', 'AGROINDUSTRIAController@unidd')->name('cefa.agroindustria.instructor.units');
+
+            //Formulacion
+            Route::get('/formulation', [FormulationController::class, 'index'])->name('cefa.agroindustria.instructor.formulations');
         });
     
         //storer
