@@ -11,78 +11,113 @@ use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\Person;
+use Collective\Html\FormFacade as Form;
 class WarehouseController extends Controller
 {
-    public $app_puw;
-   
-    // Obtener la relación entre la unidad productiva y el almacén
-    public function getAppPuw()
-    { 
-        if (!$this->app_puw){
-            $productiveUnit = ProductiveUnit::where('name','Agroindustria')->firstOrFail();
-            $Warehouses = Warehouse::where('name','agroindustria')->firstOrFail();
-            $this->app_puw = ProductiveUnitWarehouse::where('productive_unit_id', $productiveUnit->id)
-                                                   ->where('warehouse_id', $Warehouses->id)
-                                                   ->firstOrFail();
-
-
-        } 
-
-        
-        return $this->app_puw;
-    }
-
+  
     
-
     // Mostrar el listado de inventario
     public function inventory()
     {
-        
-     
-        $categories = Category::all();
-        $elements = Element::all();
         $title = 'inventory';
-        $inventories = Inventory::where('productive_unit_warehouse_id', $this->getAppPuw()->id)
+        $productiveUnit = ProductiveUnit::where('name', 'Agroindustria')->firstOrFail();
+        $Warehouses = Warehouse::where('name', 'agroindustria')->firstOrFail();
+        $app_puw = ProductiveUnitWarehouse::where('productive_unit_id', $productiveUnit->id)
+                                          ->where('warehouse_id', $Warehouses->id)
+                                          ->pluck('id');
+    
+        $categories = Category::all();                                     
+        $elements = Element::all();
+    
+        $productiveunitwarehouses = ProductiveUnitWarehouse::whereIn('id', $app_puw)->get();
+    
+        $inventories = Inventory::whereIn('productive_unit_warehouse_id', $app_puw)
                                 ->orderBy('updated_at', 'DESC')
                                 ->get();
-
-                      
-           
-
-        return view('agroindustria::storer.inventory', compact('title', 'inventories', 'categories', 'elements',));
+    
+        return view('agroindustria::storer.inventory', compact('title', 'inventories', 'categories', 'elements', 'productiveunitwarehouses'));
     }
+  //Funcion de crear.
+  public function create(Request $request){
 
+    $request->validate([
+        'element_id' => 'required|integer',
+        'description' => 'required|string|max:255',
+        'price' => 'required|numeric',
+        'stock' => 'required|integer',
+        'expiration_date' => 'required|date',
+    ]);
 
+    $inventory = new Inventory();
+    $inventory->element_id = $request->post('element_id');
+    $inventory->productive_unit_warehouse_id = $request->post('productive_unit_warehouse_id');
+    $inventory->person_id = $request->post('person_id');
+    $inventory->description = $request->post('description');
+    $inventory->price = $request->post('price');
+    $inventory->stock = $request->post('stock');
+    $inventory->amount = $request->post('stock');
+    $inventory->expiration_date = $request->post('expiration_date');
+    $inventory->save();
 
-    public function create(Request $request){
+    return redirect()->route('cefa.agroindustria.storer.inventory')->with("success" , "AGREGADO CON EXITO"); 
+}  
+    
 
-     /*    $inventory = new Inventory();
-        $inventory->element_id = $request->post('element_id');
-        $inventory->productive_unit_warehouse_id = $request->post('productive_unit_warehouse_id');
-        $inventory->person_id = $request->post('person_id');
-        $inventory->description = $request->post('description');
-        $inventory->category_id = $request->post('category_id');
-        $inventory->price = $request->post('price');
-        $inventory->stock = $request->post('stock');
-        $inventory->expiration_date = $request->post('expiration_date');
-        $inventory->save();
+//Funcion de editar.
+public function editForm($id)
+{
+    $inventory = Inventory::findOrFail($id);
+    $elements = Element::all();
+    $productiveunitwarehouses = ProductiveUnitWarehouse::all();
 
-
-        return redirect()->route('agroindustria::storer.inventory')->with("success" , "AGREGADO CON EXITO"); */
-         
-dd($_POST);
-        
-        
-
-
-       
-
-    }
-
+    return view('agroindustria::storer.inventory', compact('inventory', 'elements', 'productiveunitwarehouses'));
+}
+//Funcion Eliminar.
+public function destroy($id)
+{
+    $inventory = Inventory::findOrFail($id);
+    $inventory->delete();
+    
+    return redirect()->route('cefa.agroindustria.storer.inventory')->with("destroy", "ELIMINADO CON EXITO");
 }
 
-       
-                  
+    
+        
+    
+
+/*     public function edit($id)
+{
+    $inventory = Inventory::findOrFail($id);
+    $elements = Element::all();
+    $productiveunitwarehouses = ProductiveUnitWarehouse::all();
+
+    return view('agroindustria::storer.inventory', compact('inventory', 'elements', 'productiveunitwarehouses'));
+}
+
+public function update(Request $request, $id)
+{
+  $request->validate([
+            'element_id' => 'required|integer',
+            'description' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'expiration_date' => 'required|date',
+        ]);
+
+    $inventory = Inventory::findOrFail($id);
+    $inventory->element_id = $request->post('element_id');
+    $inventory->productive_unit_warehouse_id = $request->post('productive_unit_warehouse_id');
+    $inventory->person_id = $request->post('person_id');
+    $inventory->description = $request->post('description');
+    $inventory->price = $request->post('price');
+    $inventory->stock = $request->post('stock');
+    $inventory->amount = $request->post('stock');
+    $inventory->expiration_date = $request->post('expiration_date');
+    $inventory->save();
+
+    return redirect()->route('cefa.agroindustria.storer.inventory')->with("success", "ACTUALIZADO CON EXITO");
+}
+ */
          
         
                                
@@ -93,3 +128,4 @@ dd($_POST);
         
 
 
+}
