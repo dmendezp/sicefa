@@ -91,9 +91,9 @@
                     </li>
 
                     <li class="nav-link">
-                        <a href="">
+                        <a href="{{ route('agrocefa.usuario.index') }}">
                             <i class='bx bx-search-alt-2 icon'></i>
-                            <span class="text nav-text">{{ trans('agrocefa::universal.AGROCEFA?') }}</span>
+                            <span class="text nav-text">{{ trans('agrocefa::universal.AGROCEFA?')}}</span>
                         </a>
                     </li>
                     <li class="nav-link reports">

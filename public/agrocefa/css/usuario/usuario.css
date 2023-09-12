@@ -5,6 +5,11 @@
     --color-title: #004916;
 }
 
+/* LOGO AGROCEFA*/
+.logo{
+  margin-right: 2%;
+  width: 5%;
+  }
 
 body{
     font-family: 'Poppins', sans-serif;
@@ -302,6 +307,89 @@ button:hover::before {
 }
 
 
+/*Seccion final*/
+
+.questions_copy{
+  width: 60%;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+/* tarjeta otros */
+.cardc-container {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.cardc {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.cardc .front-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1)
+}
+
+.cardc .front-content p {
+  font-size: 32px;
+  font-weight: 700;
+  opacity: 1;
+  background: linear-gradient(-45deg, #3e29f8 0%, #0fff2f 100% );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1)
+}
+
+.cardc .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  background: linear-gradient(-45deg, #29f856 0%, #2d4e96 100% );
+  color: hsl(175, 60%, 17%);
+  padding: 20px;
+  line-height: 1.5;
+  border-radius: 5px;
+  pointer-events: none;
+  transform: translateX(-96%);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.cardc .content .heading {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.cardc:hover .content {
+  transform: translateY(0);
+}
+
+.cardc:hover .front-content {
+  transform: translateX(-30%);
+}
+
+.cardc:hover .front-content p {
+  opacity: 0;
+}
+
+
 
 
 
@@ -543,11 +631,7 @@ padding: 5px;
     cursor: pointer;
   }
 
-  /* LOGO SENA EMPRESA*/
-   .logo{
-    margin-right: 2%;
-    width: 5%;
-   }
+  
 
 
 
@@ -646,13 +730,6 @@ p {
 }
 
 
-/*Seccion final*/
-
-.questions_copy{
-  width: 60%;
-  margin: 0 auto;
-  margin-bottom: 30px;
-}
 
 /*footer*/
 
@@ -740,6 +817,11 @@ p {
 .footer_img{
   width: 30px;
 }
+
+
+
+
+
 
 
 /*Media queries*/

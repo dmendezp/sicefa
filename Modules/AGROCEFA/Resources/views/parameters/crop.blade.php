@@ -1,7 +1,7 @@
 {{-- CRUD parametro Cultivo --}}
 <div class="card" style="width: 90%; margin-left: 40px">
     <div class="card-header">
-        Cultivo
+        {{trans('agrocefa::cultivo.Crop')}}
         <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop"><i
             class='bx bx-plus icon'></i></button>
     </div>
@@ -10,10 +10,10 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Área Sembrada</th>
-                    <th>Fecha de Siembra</th>
-                    <th>Densidad</th>
+                    <th>{{trans('agrocefa::cultivo.Name')}}</th>
+                    <th>{{trans('agrocefa::cultivo.Sown area')}}</th>
+                    <th>{{trans('agrocefa::cultivo.Seedtime')}}</th>
+                    <th>{{trans('agrocefa::cultivo.Plant Density')}}</th>
                     <th>Ambiente</th>
                     <th>Variedad</th>
                     <th>Fecha Fin</th>
@@ -39,7 +39,7 @@
                         <td>{{ $crop->finish_date }}</td>
                         <td>
                             <button class="btn btn-primary btn-sm btn-edit-crop"
-                                data-bs-target="#editCultivo_{{ $crop->id }}"
+                                data-bs-target="#editCultivo_{{ $crop->id }}"Ñ
                                 data-bs-toggle="modal">
                                 <i class='bx bx-edit icon'></i>
                             </button>
@@ -79,7 +79,7 @@
                         <input type="date" name="seed_time" id="seed_time" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="density">Densidad de Plantas</label>
+                        <label for="density">{{trans('agrocefa::cultivo.Plant Density')}}</label>
                         <input type="text" name="density" id="density" class="form-control" placeholder="Ejemplo: 5 plantas/m²" required>
                     </div>
                     <div class="form-group">
