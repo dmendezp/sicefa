@@ -121,6 +121,9 @@ return [
 	'The position already exists in the database' => 'The position already exists in the database',
 	'Select Status' => 'Select Status',
 	'Status' => 'Status',
+	'Quarter' => 'Quarter',
+	'ID Quarter' => 'ID Quarter',
+
 
 	
 

@@ -117,7 +117,8 @@ return [
 	'mistake' => 'error',
 	'The position already exists in the database' => 'el cargo ya existe en la base de datos',
 	'Select Status' => 'Seleccionar estado',
-	'Status' => 'Estado',
+	'Quarter' => 'Trimestre',
+	'ID Quarter' => 'ID Trimestre',
 	
 
 	

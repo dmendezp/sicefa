@@ -23,7 +23,7 @@
                                 <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="quarter_id" class="form-label">Id Trimestre</label>
+                                <label for="quarter_id" class="form-label">{{ trans('senaempresa::menu.ID Quarter') }}</label>
                                 <select class="form-control" name="quarter_id" aria-label="Selecciona un Cargo" required>
                                     <option value="" selected>Selecciona un trimestre</option>
                                     @foreach ($quarters as $quarter)

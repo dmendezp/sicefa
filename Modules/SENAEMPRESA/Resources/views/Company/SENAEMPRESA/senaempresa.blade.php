@@ -13,7 +13,7 @@
                                 <th>Id</th>
                                 <th>{{ trans('senaempresa::menu.Name') }}</th>
                                 <th>{{ trans('senaempresa::menu.Description') }}</th>
-                                <th>trimestre</th>
+                                <th>{{ trans('senaempresa::menu.Quarter') }}</th>
                                 @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                     <th>
                                         <a href="{{ route('company.senaempresa.agrega') }}" class="btn btn-success btn-sm"><i

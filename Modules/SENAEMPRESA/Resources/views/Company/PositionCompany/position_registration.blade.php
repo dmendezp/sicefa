@@ -23,16 +23,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="state">{{ trans('senaempresa::menu.Status') }}</label>
-                                <select class="form-control @error('state') is-invalid @enderror" id="state" name="state">
+                                <select class="form-control @error('state') is-invalid @enderror" id="state" name="state" aria-label="Selecciona un Cargo" required>>
                                     <option value="">{{ trans('senaempresa::menu.Select Status') }}</option>
                                     <option value="activo" {{ old('state') == 'activo' ? 'selected' : '' }}>{{ trans('senaempresa::menu.Active') }}</option>
                                     <option value="inactivo" {{ old('state') == 'inactivo' ? 'selected' : '' }}>{{ trans('senaempresa::menu.Inactive') }}</option>
                                 </select>
-                                @error('state')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
                             </div>
 
 
