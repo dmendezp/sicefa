@@ -69,7 +69,7 @@
                   <a href="{{ route('bienestar.drivers') }}" class="nav-link">Conductores</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('bienestar.transportroutes') }}" class="nav-link">Rutas</a>
+                  <a href="{{ route('cefa.bienestar.transportroutes') }}" class="nav-link">Rutas</a>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">Asignar Rutas</a>

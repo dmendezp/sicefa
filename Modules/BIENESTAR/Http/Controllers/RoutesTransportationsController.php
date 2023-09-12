@@ -10,6 +10,7 @@ use Modules\BIENESTAR\Entities\BusDrivers;
 use Modules\BIENESTAR\Entities\Buses;
 
 class RoutesTransportationsController extends Controller
+
 {
      
     public function index()
@@ -47,9 +48,40 @@ public function store(Request $request)
     $transportRoute->save();
 
     // Puedes agregar un mensaje de éxito
-    return redirect()->route('bienestar.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
+    return redirect()->route('cefa.bienestar.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
 }
 
-    
+public function update(Request $request, $id)
+{
+    // Valida los datos enviados por el formulario
+    $validatedData = $request->validate([
+        'route_number' => 'required|numeric',
+        'name_route' => 'required|string',
+        'bus' => 'required|numeric',
+        'driver_name' => 'required|string',
+        'stop_bus' => 'required|string',
+        'arrival_time' => 'required|date_format:H:i',
+        'departure_time' => 'required|date_format:H:i',
+    ]);
+
+    // Busca el registro que deseas actualizar por su ID
+    $transportRoute = TransportRoute::find($id);
+
+    // Actualiza los valores del modelo con los datos validados del formulario
+    $transportRoute->route_number = $validatedData['route_number'];
+    $transportRoute->name_route = $validatedData['name_route'];
+    $transportRoute->bus = $validatedData['bus'];
+    $transportRoute->driver_name = $validatedData['driver_name'];
+    $transportRoute->stop_bus = $validatedData['stop_bus'];
+    $transportRoute->arrival_time = $validatedData['arrival_time'];
+    $transportRoute->departure_time = $validatedData['departure_time'];
+
+    // Guarda el registro actualizado en la base de datos
+    $transportRoute->save();
+
+    // Redirige a la vista deseada con un mensaje de éxito
+    return redirect()->route('cefa.bienestar.transportroutes')->with('success', 'Registro de ruta de transporte actualizado exitosamente.');
+}
+
 
 }
