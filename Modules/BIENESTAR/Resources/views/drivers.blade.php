@@ -27,7 +27,7 @@
                 </div>
 
                 <!-- Alerta de nombre repetido -->
-                <div class="alert alert-danger col-md-12 text-center" style="display: none;">
+                <div class="alert alert-danger col-md-12 text-center nombreRepetido" style="display: none;">
                     El conductor ya existe.
                 </div>
 
@@ -38,6 +38,7 @@
                             <div class="form-row">
                                 <div class="col-md-3 mb-2">
                                     <input type="text" placeholder="{{ trans('bienestar::menu.Driver (Full Name)')}}" class="form-control namedriver" name="namedriver" required oninput="validarNombre(this)">
+                                    <span class="nombreError" style="color: red;"></span> <!-- Alerta específica para este campo -->
                                 </div>
 
                                 <div class="col-md-3 mb-2">
@@ -154,19 +155,23 @@
 
     // Función para validar el nombre del conductor al agregar
     function validarNombre(input) {
-        var nombre = input.value.trim(); // Obtener el valor del campo actual
-        var errorDiv = input.nextElementSibling; // Div para mostrar el mensaje de error
+    var nombre = input.value.trim(); // Obtener el valor del campo actual
+    var errorDiv = input.nextElementSibling; // Span para mostrar el mensaje de error específico al lado del campo
 
-        // Verificar si el nombre ya existe en la lista de conductores
-        if (conductoresExistentes.includes(nombre)) {
-            input.setCustomValidity("Invalid"); // Marcar el campo actual como inválido
-            errorDiv.textContent = ""; // Limpiar el mensaje de error
-            mostrarAlerta(document.querySelector('.alert-danger')); // Mostrar alerta de nombre repetido
-        } else {
-            input.setCustomValidity(""); // Marcar el campo actual como válido
-            errorDiv.textContent = ""; // Limpiar el mensaje de error
-        }
+    // Verificar si el nombre ya existe en la lista de conductores
+    if (conductoresExistentes.includes(nombre)) {
+        input.setCustomValidity("El conductor ya existe."); // Marcar el campo actual como inválido
+        errorDiv.textContent = "El conductor ya existe."; // Mostrar el mensaje de error específico
+        mostrarAlerta(document.querySelector('.nombreRepetido')); // Mostrar alerta de nombre repetido específica
+    } else if (!/^[A-Za-z\s]+$/.test(nombre)) {
+        // Verificar si el nombre contiene solo letras y espacios
+        input.setCustomValidity("El nombre solo debe contener letras y espacios.");
+        errorDiv.textContent = "El nombre solo debe contener letras y espacios.";
+    } else {
+        input.setCustomValidity(""); // Marcar el campo actual como válido
+        errorDiv.textContent = ""; // Limpiar el mensaje de error específico
     }
+}
 
     // Función para validar el correo electrónico al agregar
     function validarEmail() {
@@ -216,26 +221,30 @@
 
     // Función para validar el nombre del conductor al editar
     function validarNombreEditar(id) {
-        var nombre = document.getElementById("nameEditar_" + id).value.trim();
+    var nombreInput = document.getElementById("nameEditar_" + id);
+    var nombre = nombreInput.value.trim();
+    var errorDiv = document.getElementById("nombreErrorEditar_" + id);
 
-        // Verificar si el nombre ya existe en la lista de conductores
-        if (conductoresExistentes.includes(nombre)) {
-            document.getElementById("nombreErrorEditar_" + id).textContent = "Este conductor ya existe.";
-            mostrarAlerta(document.querySelector('.alert-danger')); // Mostrar alerta de nombre repetido
-        } else {
-            document.getElementById("nombreErrorEditar_" + id).textContent = ""; // Limpiar el mensaje de error
-        }
+    // Verificar si el nombre contiene solo letras y espacios
+    if (!/^[A-Za-z\s]+$/.test(nombre)) {
+        nombreInput.setCustomValidity("El nombre solo debe contener letras y espacios.");
+        errorDiv.textContent = "El nombre solo debe contener letras y espacios.";
+    } else {
+        nombreInput.setCustomValidity(""); // Marcar el campo actual como válido
+        errorDiv.textContent = ""; // Limpiar el mensaje de error específico
     }
+}
 
     // Función para validar el correo electrónico al editar
     function validarEmailEditar(id) {
         var email = document.getElementById("emailEditar_" + id).value.trim();
         var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Expresión regular para verificar una dirección de correo válida
+        var errorDiv = document.getElementById("emailErrorEditar_" + id);
 
         if (!emailPattern.test(email)) {
-            document.getElementById("emailErrorEditar_" + id).textContent = "Ingrese una dirección de correo electrónico válida.";
+            errorDiv.textContent = "Ingrese una dirección de correo electrónico válida."; // Mostrar el mensaje de error específico
         } else {
-            document.getElementById("emailErrorEditar_" + id).textContent = ""; // Limpiar el mensaje de error
+            errorDiv.textContent = ""; // Limpiar el mensaje de error específico
         }
     }
 
@@ -246,11 +255,13 @@
         // Eliminar cualquier espacio en blanco del número
         telefono = telefono.replace(/\s/g, '');
 
+        var errorDiv = document.getElementById("telefonoErrorEditar_" + id);
+
         // Verificar si el número tiene exactamente 10 caracteres numéricos
         if (telefono.length !== 10 || isNaN(telefono)) {
-            document.getElementById("telefonoErrorEditar_" + id).textContent = "El número de teléfono debe tener exactamente 10 caracteres numéricos.";
+            errorDiv.textContent = "El número de teléfono debe tener exactamente 10 caracteres numéricos."; // Mostrar el mensaje de error específico
         } else {
-            document.getElementById("telefonoErrorEditar_" + id).textContent = ""; // Limpiar el mensaje de error
+            errorDiv.textContent = ""; // Limpiar el mensaje de error específico
         }
     }
 
