@@ -56,8 +56,14 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/formulation', [FormulationController::class, 'create'])->name('cefa.agroindustria.instructor.formulations.create');
             Route::get('/units', 'AGROINDUSTRIAController@unidd')->name('cefa.agroindustria.instructor.units');
         });
-
+    
+        //storer
         Route::prefix('storer')->group(function (){
-        });
+            Route::get('/inventory', [WarehouseController::class ,'inventory'])->name('cefa.agroindustria.storer.inventory');
+            Route::post('/create', [WarehouseController::class ,'create'])->name('cefa.agroindustria.storer.create'); 
+            Route::get('/update/{id}', [WarehouseController::class ,'edit'])->name('cefa.agroindustria.storer.update'); 
+            Route::post('/edit', [WarehouseController::class ,'show'])->name('cefa.agroindustria.storer.show'); 
+            Route::delete('/destroy/{id}', [WarehouseController::class ,'destroy'])->name('cefa.agroindustria.storer.inventory.delete');   
+        });       
     });
 });

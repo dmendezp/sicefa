@@ -27,24 +27,22 @@ use Validator, Str;
 
 class WarehouseController extends Controller
 {
-  
     
     // Mostrar el listado de inventario
     public function inventory(){
         $title = 'inventory';
-        $productiveUnit = ProductiveUnit::where('name', 'Agroindustria')->firstOrFail();
-        $Warehouses = Warehouse::where('name', 'agroindustria')->firstOrFail();
+        $productiveUnit = ProductiveUnit::where('name', 'Panaderia')->firstOrFail();
+        $Warehouses = Warehouse::where('name', 'Panaderia')->firstOrFail();
         $app_puw = ProductiveUnitWarehouse::where('productive_unit_id', $productiveUnit->id)
                                           ->where('warehouse_id', $Warehouses->id)
                                           ->pluck('id');
     
         $categories = Category::all();                                     
-        $elements = Element::all();
+        $elements = Element::orderBy('name', 'asc')->pluck('name', 'id');
     
         $productiveunitwarehouses = ProductiveUnitWarehouse::whereIn('id', $app_puw)->get();
     
         $inventories = Inventory::whereIn('productive_unit_warehouse_id', $app_puw)
-                                ->orderBy('updated_at', 'DESC')
                                 ->get();
         $data = [
             'title' => $title,
@@ -79,6 +77,44 @@ class WarehouseController extends Controller
 
         return redirect()->route('cefa.agroindustria.storer.inventory')->with("success" , "AGREGADO CON EXITO"); 
     }  
+
+    public function edit($id){
+        $in = Inventory::findOrFail($id);
+        return redirect()->route('cefa.agroindustria.storer.inventory', compact('in')); 
+    }
+
+    public function show(Request $request){
+        $in = Inventory::findOrFail($request->input('id'));
+        $in->element_id = $request->input('new_element_id');
+        $in->productive_unit_warehouse_id = $request->input('new_productive_unit_warehouse_id');
+        $in->person_id = $request->input('new_person_id');
+        $in->description = $request->input('new_description');
+        $in->price = $request->input('new_price');
+        $in->expiration_date = $request->input('new_expiration_date');
+        $in->save();
+
+        if($in->save()){
+            $icon = 'success';
+                $message_line = 'Edicion exitosa';
+        }else{
+            $icon = 'error';
+            $message_line = 'Erro al editar';
+        }
+
+        return redirect()->route('cefa.agroindustria.storer.inventory')->with([
+            'icon' => $icon,
+            'message_line' => $message_line,
+        ]); 
+
+    }
+
+    //Funcion Eliminar.
+    public function destroy($id){
+        $inventory = Inventory::findOrFail($id);
+        $inventory->delete();
+        
+        return redirect()->route('cefa.agroindustria.storer.inventory')->with("destroy", "ELIMINADO CON EXITO");
+    }
 
     public function discharge (){
         $title = "Bajas";
@@ -274,12 +310,6 @@ class WarehouseController extends Controller
         ]);
     }
 
-    //Funcion Eliminar.
-    public function destroy($id){
-        $inventory = Inventory::findOrFail($id);
-        $inventory->delete();
-        
-        return redirect()->route('cefa.agroindustria.storer.inventory')->with("destroy", "ELIMINADO CON EXITO");
-    }
+    
 
 }
