@@ -53,7 +53,7 @@ class BusDriversController extends Controller
         return redirect()->route('cefa.bienestar.drivers')->with('success', 'Conductor actualizado con éxito');
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
         $busdriver = BusDrivers::find($id);
 

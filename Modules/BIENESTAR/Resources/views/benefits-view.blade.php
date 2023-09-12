@@ -56,7 +56,7 @@
                                                 <div class="modal-content">
                                                     <!-- Contenido del modal de edición aquí -->
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="editModalLabel">Editar Beneficio</h5>
+                                                        <h5 class="modal-title" id="editModalLabel">{{ trans('bienestar::menu.Edit Benefit')}}</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -68,16 +68,16 @@
                                                             <!-- Campos de edición aquí -->
                                                             <input type="hidden" name="id" value="{{ $benefit->id }}">
                                                             <div class="form-group">
-                                                                <label for="editName-{{ $benefit->id }}">Nombre</label>
+                                                                <label for="editName-{{ $benefit->id }}">{{ trans('bienestar::menu.Name')}}</label>
                                                                 <input type="text" class="form-control" id="editName-{{ $benefit->id }}" name="name" required pattern="[A-Za-z ]+">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="editPorcentaje-{{ $benefit->id }}">Porcentaje</label>
+                                                                <label for="editPorcentaje-{{ $benefit->id }}">{{ trans('bienestar::menu.Porcentege')}}</label>
                                                                 <input type="number" class="form-control" id="editPorcentaje-{{ $benefit->id }}" min="0" max="100" name="porcentege">
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                <button type="submit" form="editForm-{{ $benefit->id }}" class="btn btn-primary">Guardar Cambios</button>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('bienestar::menu.Close')}}</button>
+                                                                <button type="submit" form="editForm-{{ $benefit->id }}" class="btn btn-primary">{{ trans('bienestar::menu.Save')}}</button>
                                                             </div>
                                                             <!-- Botón para guardar cambios -->
                                                         </form>

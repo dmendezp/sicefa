@@ -10,7 +10,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                {!! Form::open(['url' => route('bienestar.Convocations.store'), 'method' => 'POST']) !!}
+                {!! Form::open(['url' => route('cefa.bienestar.Convocations.store'), 'method' => 'POST']) !!}
                 @csrf
                 <div class="row p-3">
                     <div class="col-md-4">
@@ -22,8 +22,8 @@
                     </div>
 
                     <div class="col-md-4">
-                        {!! Form::label('description_convocation', 'Descripcion:') !!}
-                        {!! Form::text('description_convocation', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion',
+                        {!! Form::label('description', 'Descripcion:') !!}
+                        {!! Form::text('description', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion',
                             'required']) !!}
                     </div>
                 
@@ -121,43 +121,45 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(['url' => 'bienestar/Convocations/update/id', 'method' => 'PUT']) !!}
+                    {!! Form::open(['url' => 'cefa.bienestar/Convocations/update/id', 'method' => 'PUT']) !!}
                     <div class="row p-4">
                         <div class="col-md-12">
-                        <label for="quota">titulo:</label>
                         <div class="form-group">
+                        <label for="quota">titulo:</label>
                             {!! Form::text('title', null, ['class'=> 'form-control', 'placeholder' => 'Ingrese Titulo',
                                 'required']) !!}
                         </div>
                         <div class="col-md-12">
-                        <label for="quota">descripcion:</label>
                         <div class="form-group">
+                        <label for="quota">descripcion:</label>
                             {!! Form::text('description', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion',
                                 'required']) !!}
                         </div>
                         <div class="col-md-12">
+                        <div class="form-group">
                         <label for="food_quotas">Cupos alimentacion:</label>
                                 <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2"min="1" max="99">
                                 <span id="food_quotas-error" class="text-danger"></span>
                         </div>
                         <div class="col-md-12">
+                        <div class="form-group">
                         <label for="transport_quotas">Cupos Transporte:</label>
                                 <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
                                 <span id="transport_quotas-error" class="text-danger"></span>
                             </div>
                         <div class="col-md-12">
-                        <label for="quota">fecha inicio:</label>
                         <div class="form-group">
+                        <label for="quota">fecha inicio:</label>
                             {!! Form::date('start_date', null, ['class' => 'form-control', 'required']) !!}
                         </div>
                         <div class="col-md-12">
-                        <label for="quota">fecha final:</label>
                         <div class="form-group">
+                        <label for="quota">fecha final:</label>
                             {!! Form::date('end_date', null, ['class' => 'form-control', 'required']) !!}
                         </div>
                         <div class="col-md-12">
-                        <label for="quota">intervalo tiempo:</label>
                         <div class="form-group">
+                        <label for="quota">intervalo tiempo:</label>
                         {!! Form::date('time_interval', null, ['class' => 'form-control',  'required']) !!}
                     </div>
                         <div class="col-md-2">
@@ -179,19 +181,23 @@
             var button = $(this);
             var title = button.data('title');
             var description = button.data('description');
+            var foodQuotas = button.data('food-quotas');
+            var transportQuotas = button.data('transport-quotas');
             var startDate = button.data('start-date');
             var endDate = button.data('end-date');
-            var transportQuotas = button.data('transport-quotas');
-            var foodQuotas = button.data('food-quotas');
+            var timeinterval=button.data('time_interval');
             var convocationId = button.data('id');
             
             var modal = $('#modal-default');
             modal.find('[name="title"]').val(title);
             modal.find('[name="description"]').val(description);
+            modal.find('[name="food_quotas"]').val(foodQuotas);
+            modal.find('[name="transport_quotas"]').val(transportQuotas);
             modal.find('[name="start_date"]').val(startDate);
             modal.find('[name="end_date"]').val(endDate);
-            modal.find('[name="transport_quotas"]').val(transportQuotas);
-            modal.find('[name="food_quotas"]').val(foodQuotas);
+            modal.find('[name="time_interval"]').val(timeinterval);
+            
+            
 
             // Actualiza la acción del formulario en el modal
             var form = modal.find('form');

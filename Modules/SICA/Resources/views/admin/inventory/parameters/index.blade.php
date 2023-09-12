@@ -168,6 +168,38 @@
                     </div>
                 </div>
                 {{-- Aqui finaliza la tabla unidades de medida --}}
+
+                {{-- Aqui finaliza la tabla unidades de medida --}}
+                <div class="col-md-6"  id="card-movement_types">
+                    <div class="card card-orange card-outline shadow">
+                        <div class="card-header">
+                            <h3 class="card-title">Tipos de movimiento</h3>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <table id="tableMovementType" class="display table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th>Nombre</th>
+                                            <th class="text-center">Consecutivo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($movement_types as $mt)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td>{{ $mt->name }}</td>
+                                                <td class="text-center">{{ $mt->consecutive }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- Aqui finaliza la tabla unidades de medida --}}
             </div>
         </div>
     </div>
@@ -238,7 +270,11 @@
         });
 
         $('#tableKindOfPurchase').DataTable({
-            // opciones de configuración para la tabla 2
+            // opciones de configuración para la tabla 3
+        });
+
+        $('#tableMovementType').DataTable({
+            // opciones de configuración para la tabla 4
         });
     });
 </script>

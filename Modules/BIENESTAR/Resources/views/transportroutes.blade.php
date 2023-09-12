@@ -5,7 +5,7 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card card-green card-outline shadow col-md-12">
             <div class="card-header">
-                <h3 class="card-title">Insertar De Rutas</h3>
+                <h3 class="card-title">{{ trans('bienestar::menu.Insert Routes')}}</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -13,9 +13,9 @@
                     @csrf
                     <div class="row p-4">
                         <div class="col-md-3">
-                            <label for="route_number">Numero De Ruta:</label>
+                            <label for="route_number">{{ trans('bienestar::menu.Routing Number')}}</label>
                             <select name="route_number" id="route_number" class="form-control" required>
-                                <option value="">Selecciona un número de ruta</option>
+                                <option value="">{{ trans('bienestar::menu.Select a route number')}}</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -27,13 +27,13 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <label for="name_route">Nombre De La Ruta:</label>
-                            <input type="text" name="name_route" id="name_route" class="form-control" placeholder="Nombre Ruta" required>
+                            <label for="name_route">{{ trans('bienestar::menu.Route Name')}}</label>
+                            <input type="text" name="name_route" id="name_route" class="form-control" placeholder="{{ trans('bienestar::menu.Route Name')}}" required>
                         </div>
                         <div class="col-md-3">
-                            <label for="bus">Bus:</label>
+                            <label for="bus">{{ trans('bienestar::menu.Bus')}}</label>
                             <select name="bus" id="bus" class="form-control" required>
-                                <option value="">Selecciona un bus</option>
+                                <option value="">{{ trans('bienestar::menu.Select a bus')}}</option>
                                 @foreach ( $buses as $bus )
                                 <option value="{{ $bus->id }}" data-bus-driver="{{ $bus->bus_driver->name }}">{{ $bus->plate }}</option>
                                 @endforeach
@@ -41,25 +41,25 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <label for="bus">Nombre del Conductor:</label>
+                            <label for="bus">{{ trans('bienestar::menu.Drivers Name')}}</label>
                             <input id="bus_driver" name="driver_name" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly">
                         </div>
                         <div class="col-md-3">
-                            <label for="bus">Parada:</label>
+                            <label for="bus">{{ trans('bienestar::menu.Bus stop')}}</label>
                             <input id="stop_bus" name="stop_bus" type="text" class="form-control" placeholder="Ej: Juncal">
                         </div>
                         <div class="col-md-3">
-                            <label for="arrival_time">Hora Llegada:</label>
+                            <label for="arrival_time">{{ trans('bienestar::menu.Arrival Time')}}</label>
                             <input type="time" name="arrival_time" id="arrival_time" class="form-control" required>
                         </div>
                         <div class="col-md-3">
-                            <label for="departure_time">Hora Salida:</label>
+                            <label for="departure_time">{{ trans('bienestar::menu.Departure Time')}}</label>
                             <input type="time" name="departure_time" id="departure_time" class="form-control" required>
                         </div>
                         <div class="col-md-3">
                             <label>&nbsp;</label>
                             <div class="btns mt-0">
-                                <button type="submit" class="btn btn-success" style="background-color: #179722; color: white;">Guardar</button>
+                                <button type="submit" class="btn btn-success" style="background-color: #179722; color: white;">{{ trans('bienestar::menu.Save')}}</button>
                             </div>
                         </div>
                     </div>
@@ -69,13 +69,13 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Numero De Ruta:</th>
-                                <th>Nombre De La Ruta:</th>
-                                <th>Parada Bus:</th>
-                                <th>Hora Llegada:</th>
-                                <th>Hora Salida:</th>
-                                <th>Placa</th>
-                                <th>Acciones</th>
+                                <th>{{ trans('bienestar::menu.Routing Number')}}</th>
+                                <th>{{ trans('bienestar::menu.Route Name')}}</th>
+                                <th>{{ trans('bienestar::menu.Bus stop')}}</th>
+                                <th>{{ trans('bienestar::menu.Arrival Time')}}</th>
+                                <th>{{ trans('bienestar::menu.Departure Time')}}</th>
+                                <th>{{ trans('bienestar::menu.Plate')}}</th>
+                                <th>{{ trans('bienestar::menu.Actions')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -88,15 +88,15 @@
                                 <td>{{ $transport->arrival_time}}</td>
                                 <td>{{ $transport->departure_time}}</td>
                                 <td>{{ $transport->bus->plate}}</td>
-                                <td>
-                                    <button class="btn btn-primary editButton" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>
+                                <td><div class="d-flex">
+                                    <button class="btn btn-primary editButton mr-2" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>
                                     <form action="{{ route('cefa.bienestar.transportroutes.destroy', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
                                         @csrf
                                         @method("DELETE")
                                         <!-- Botón para abrir el modal de eliminación -->
                                         <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
                                     </form>
-                                </td>
+                                </div></td>
                             </tr>
                             @endforeach
                         </tbody>
