@@ -15,7 +15,12 @@ class CreateFormulationsTable extends Migration
     {
         Schema::create('formulations', function (Blueprint $table) {
             $table->id();
-
+            $table->foreignId('element_id')->constrained()->onDelete('cascade');
+            $table->text('proccess');
+            $table->Integer('amount');
+            $table->date('date');
+            $table->foreignId('productive_unit_id')->constrained()->onDelete('cascade');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +32,7 @@ class CreateFormulationsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('formulations');
     }
 }

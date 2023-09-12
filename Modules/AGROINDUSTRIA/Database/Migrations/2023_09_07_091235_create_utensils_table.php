@@ -13,8 +13,11 @@ class CreateUtensilsTable extends Migration
      */
     public function up()
     {
-        Schema::create('utensils', function (Blueprint $table) {
+        Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('element_id')->constrained()->onDelete('cascade');
+            $table->Integer('amount');
+            $table->foreignId('formulation_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -27,6 +30,7 @@ class CreateUtensilsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('utensils');
     }
 }

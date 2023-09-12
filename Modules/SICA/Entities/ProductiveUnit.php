@@ -62,5 +62,8 @@ class ProductiveUnit extends Model implements Auditable
     public function productive_unit_warehouses(){ // Accede a todos los registros de unidad productiva y bodega que pertenecen a esta unidad productiva
         return $this->hasMany(ProductiveUnitWarehouse::class);
     }
+    public function formulations(){ // Accede a todos las formulaciones de una unidad productiva
+        return $this->hasMany(Formulations::class);
+    }
 
 }
