@@ -12,9 +12,6 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/admin', 'SICAController@admin_dashboard')->name('sica.admin.dashboard');
         Route::get('/attendance', 'SICAController@attendance_dashboard')->name('sica.attendance.dashboard'); /* Panel de control de asistencias a eventos (Asistencia) */
 
-<<<<<<< HEAD
-=======
     });
 
->>>>>>> FABRICA4
 });
