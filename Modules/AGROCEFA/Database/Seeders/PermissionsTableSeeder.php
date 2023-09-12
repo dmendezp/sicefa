@@ -23,7 +23,7 @@ class PermissionsTableSeeder extends Seeder
 
 
         // Consultar aplicación SICA para registrar los roles
-        $app = App::where('name','AGROCEFA')->first();
+        $app = App::where('name', 'AGROCEFA')->first();
 
 
         /* -------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ class PermissionsTableSeeder extends Seeder
         // ---------- Registro o actualización de permiso ---------
 
         // Gestionar Parametros
-        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.parameters.index'], [ 
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.parameters.index'], [
             'name' => 'Gestionar los Parametros',
             'description' => 'Tendra el acceso a gestionar los parametros',
             'description_english' => 'You will have access to manage the parameters',
@@ -51,6 +51,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id;
         $permissions_passant[] = $permission->id;
+
+        // Gestionar acciones del Inventario
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.admin.inventory.manage'], [
+            'name' => 'Gestionar acciones del inventario',
+            'description' => 'Puede gestionar las diferentes acciones del inventario',
+            'description_english' => 'You can manage the different inventory actions',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
 
         // Gestionar Regitro de Labor
         $permission = Permission::updateOrCreate(['slug' => 'agrocefa.labormanagement.index'], [
@@ -79,7 +88,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_passant[] = $permission->id; // Almacenar permiso para rol
-        
+
         // Visualizar productos de invetario
         $permission = Permission::updateOrCreate(['slug' => 'agrocefa.passant.inventory.index'], [
             'name' => 'Visualizar elementos de inventario',
@@ -87,8 +96,8 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can see the elements that are in the inventory of the agricultural sector of Cefa',
             'app_id' => $app->id
         ]);
-        $permissions_admin[] = $permission->id; 
-        $permissions_passant[] = $permission->id; 
+        $permissions_admin[] = $permission->id;
+        $permissions_passant[] = $permission->id;
 
 
         // Consulta de ROLES
@@ -96,8 +105,7 @@ class PermissionsTableSeeder extends Seeder
         $rol_passant = Role::where('slug', 'agrocefa.pasante')->first();
 
         // Asignación de permisos para roles
-        $rol_admin->permissions()-> syncWithoutDetaching($permissions_admin);
-        $rol_passant->permissions()-> syncWithoutDetaching($permissions_passant);
+        $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
+        $rol_passant->permissions()->syncWithoutDetaching($permissions_passant);
     }
 }
-

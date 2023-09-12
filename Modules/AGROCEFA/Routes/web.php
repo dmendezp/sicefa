@@ -23,6 +23,8 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/inventory', 'InventoryController@inventory')->name('agrocefa.inventory');
         Route::post('/inventory/showWarehouseFilter', 'InventoryController@showWarehouseFilter')->name('agrocefa.inventory.showWarehouseFilter');
         Route::post('/inventory', 'InventoryController@store')->name('agrocefa.inventory.store');
+        Route::post('/inventory/addCategory', 'InventoryController@addCategory')->name('agrocefa.inventory.addCategory');
+        Route::post('/inventory/addElement', 'InventoryController@addElement')->name('agrocefa.inventory.addElement');
         Route::put('/inventory/{id}', 'InventoryController@update')->name('agrocefa.inventory.update');
         Route::delete('/inventory/delete/{id}', 'InventoryController@destroy')->name('agrocefa.inventory.destroy');
 
