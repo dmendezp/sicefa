@@ -16,22 +16,26 @@ class SSTController extends Controller
     {
         $environ = Environment::get();
         $data = ['title'=>trans('cefamaps::SST.Home'), 'environ'=>$environ];
+        $data = ['titlePage' => trans('cefamaps::controllers.CEFAMAPS_SST_Index_title_page'), 'environ'=>$environ];
         return view('cefamaps::sst.index', $data);
     }
     
     public function evacuation()
     {
         $data = ['title'=>trans('cefamaps::menu.Home')];
+        $data = ['titlePage' => trans('cefamaps::controllers.CEFAMAPS_STT_Evacuation_title_page')];
         return view('cefamaps::sst.evacuation', $data);
     }
     public function Extintores()
     {
         $data = ['title'=>trans('cefamaps::menu.Home')];
+        $data = ['titlePage' => trans('cefamaps::controllers.CEFAMAPS_STT_Extintores_title_page')];
         return view('cefamaps::sst.Extintores', $data);
     }
     public function healt()
     {
         $data = ['title'=>trans('cefamaps::menu.Home')];
+        $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_STT_Healt_title_page')];
         return view('cefamaps::sst.healt', $data);
     }
 

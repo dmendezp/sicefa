@@ -17,7 +17,7 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card card-green card-outline shadow col-md-10">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Agregar conductores') }}</h3>
+                <h3 class="card-title">{{ trans('bienestar::menu.Add Drivers')}}</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -27,31 +27,32 @@
                 </div>
 
                 <!-- Alerta de nombre repetido -->
-                <div class="alert alert-danger col-md-12 text-center" style="display: none;">
+                <div class="alert alert-danger col-md-12 text-center nombreRepetido" style="display: none;">
                     El conductor ya existe.
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        <form action="{{ route('bienestar.drivers.add') }}" method="POST" onsubmit="return validarFormulario()">
+                        <form action="{{ route('cefa.bienestar.drivers.add') }}" method="POST" onsubmit="return validarFormulario()">
                             @csrf
                             <div class="form-row">
                                 <div class="col-md-3 mb-2">
-                                    <input type="text" placeholder="Conductor (Nombres/Apellidos)" class="form-control namedriver" name="namedriver" required oninput="validarNombre(this)">
+                                    <input type="text" placeholder="{{ trans('bienestar::menu.Driver (Full Name)')}}" class="form-control namedriver" name="namedriver" required oninput="validarNombre(this)">
+                                    <span class="nombreError" style="color: red;"></span> <!-- Alerta específica para este campo -->
                                 </div>
 
                                 <div class="col-md-3 mb-2">
-                                    <input type="text" placeholder="Email" class="form-control" name="email" id="email" required oninput="validarEmail()">
+                                    <input type="text" placeholder="{{ trans('bienestar::menu.Email')}}" class="form-control" name="email" id="email" required oninput="validarEmail()">
                                     <span id="emailError" style="color: red;"></span>
                                 </div>
 
                                 <div class="col-md-3 mb-2">
-                                    <input type="text" placeholder="Teléfono" class="form-control" name="phone" id="phone" required oninput="validarTelefono()">
+                                    <input type="text" placeholder="{{ trans('bienestar::menu.Phone')}}" class="form-control" name="phone" id="phone" required oninput="validarTelefono()">
                                     <span id="telefonoError" style="color: red;"></span>
                                 </div>
 
                                 <div class="col-md-3 mb-2">
-                                    <button type="submit" class="btn btn-success btn-block">Guardar</button>
+                                    <button type="submit" class="btn btn-success btn-block">{{ trans('bienestar::menu.Save')}}</button>
                                 </div>
                             </div>
                         </form>
@@ -62,24 +63,30 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Conductor</th>
-                                <th>Email</th>
-                                <th>Teléfono</th>
-                                <th>Acciones</th>
+                                <th>Id</th>
+                                <th>{{ trans('bienestar::menu.Driver')}}</th>
+                                <th>{{ trans('bienestar::menu.Email')}}</th>
+                                <th>{{ trans('bienestar::menu.Phone')}}</th>
+                                <th>{{ trans('bienestar::menu.Actions')}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Aquí deberías iterar sobre los conductores y llenar las filas de la tabla -->
                             @foreach($busdrivers as $busdriver)
                             <tr>
+                                <td>{{ $busdriver->id }}</td>
                                 <td>{{ $busdriver->name }}</td>
                                 <td>{{ $busdriver->email }}</td>
                                 <td>{{ $busdriver->phone }}</td>
                                 <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-info" data-toggle="modal" data-target="#modal-edit-{{ $busdriver->id }}"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $busdriver->id }}"><i class="fas fa-trash-alt"></i></button>
-                                    </div>
+                                    <div class="d-flex">
+                                        <button class="btn btn-info mr-2" data-toggle="modal" data-target="#modal-edit-{{ $busdriver->id }}"><i class="fas fa-edit"></i></button>
+                                        <form action="{{ route('cefa.bienestar.drivers.delete', ['id' => $busdriver->id]) }}" method="POST" class="formEliminar">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                            </form>
+                                                                            </div>
                                 </td>
                             </tr>
 
@@ -95,54 +102,29 @@
                                         </div>
                                         <div class="modal-body">
                                             <!-- Formulario de edición para el conductor -->
-                                            <form action="{{ route('bienestar.drivers.update', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar('{{ $busdriver->id }}')">
+                                            <form action="{{ route('cefa.bienestar.drivers.update', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar('{{ $busdriver->id }}')">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-group">
-                                                    <label for="nameEditar_{{ $busdriver->id }}">Nombre del Conductor</label>
+                                                    <label for="nameEditar_{{ $busdriver->id }}">{{ trans('bienestar::menu.Driver')}}</label>
                                                     <input type="text" class="form-control" id="nameEditar_{{ $busdriver->id }}" name="name" value="{{ $busdriver->name }}" required oninput="validarNombreEditar('{{ $busdriver->id }}')">
                                                     <span id="nombreErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="emailEditar_{{ $busdriver->id }}">Email Conductor</label>
+                                                    <label for="emailEditar_{{ $busdriver->id }}">{{ trans('bienestar::menu.Email')}}</label>
                                                     <input type="text" class="form-control" id="emailEditar_{{ $busdriver->id }}" name="email" value="{{ $busdriver->email }}" required oninput="validarEmailEditar('{{ $busdriver->id }}')">
                                                     <span id="emailErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="phoneEditar_{{ $busdriver->id }}">Teléfono</label>
+                                                    <label for="phoneEditar_{{ $busdriver->id }}">{{ trans('bienestar::menu.Phone')}}</label>
                                                     <input type="text" class="form-control" id="phoneEditar_{{ $busdriver->id }}" name="phone" value="{{ $busdriver->phone }}" required oninput="validarTelefonoEditar('{{ $busdriver->id }}')">
                                                     <span id="telefonoErrorEditar_{{ $busdriver->id }}" style="color: red;"></span>
                                                 </div>
                                                 <!-- Agrega más campos de edición según tus necesidades -->
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('bienestar::menu.Close')}}</button>
+                                                    <button type="submit" class="btn btn-primary">{{ trans('bienestar::menu.Save')}}</button>
                                                 </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Modal para eliminar conductor -->
-                            <div class="modal fade" id="modal-delete-{{ $busdriver->id }}">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Eliminar Conductor</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>¿Estás seguro de que deseas eliminar al conductor <strong>{{ $busdriver->name }}</strong>?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                            <form action="{{ route('bienestar.drivers.delete', ['id' => $busdriver->id]) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Eliminar</button>
                                             </form>
                                         </div>
                                     </div>
@@ -173,19 +155,23 @@
 
     // Función para validar el nombre del conductor al agregar
     function validarNombre(input) {
-        var nombre = input.value.trim(); // Obtener el valor del campo actual
-        var errorDiv = input.nextElementSibling; // Div para mostrar el mensaje de error
+    var nombre = input.value.trim(); // Obtener el valor del campo actual
+    var errorDiv = input.nextElementSibling; // Span para mostrar el mensaje de error específico al lado del campo
 
-        // Verificar si el nombre ya existe en la lista de conductores
-        if (conductoresExistentes.includes(nombre)) {
-            input.setCustomValidity("Invalid"); // Marcar el campo actual como inválido
-            errorDiv.textContent = ""; // Limpiar el mensaje de error
-            mostrarAlerta(document.querySelector('.alert-danger')); // Mostrar alerta de nombre repetido
-        } else {
-            input.setCustomValidity(""); // Marcar el campo actual como válido
-            errorDiv.textContent = ""; // Limpiar el mensaje de error
-        }
+    // Verificar si el nombre ya existe en la lista de conductores
+    if (conductoresExistentes.includes(nombre)) {
+        input.setCustomValidity("El conductor ya existe."); // Marcar el campo actual como inválido
+        errorDiv.textContent = "El conductor ya existe."; // Mostrar el mensaje de error específico
+        mostrarAlerta(document.querySelector('.nombreRepetido')); // Mostrar alerta de nombre repetido específica
+    } else if (!/^[A-Za-z\s]+$/.test(nombre)) {
+        // Verificar si el nombre contiene solo letras y espacios
+        input.setCustomValidity("El nombre solo debe contener letras y espacios.");
+        errorDiv.textContent = "El nombre solo debe contener letras y espacios.";
+    } else {
+        input.setCustomValidity(""); // Marcar el campo actual como válido
+        errorDiv.textContent = ""; // Limpiar el mensaje de error específico
     }
+}
 
     // Función para validar el correo electrónico al agregar
     function validarEmail() {
@@ -235,26 +221,30 @@
 
     // Función para validar el nombre del conductor al editar
     function validarNombreEditar(id) {
-        var nombre = document.getElementById("nameEditar_" + id).value.trim();
+    var nombreInput = document.getElementById("nameEditar_" + id);
+    var nombre = nombreInput.value.trim();
+    var errorDiv = document.getElementById("nombreErrorEditar_" + id);
 
-        // Verificar si el nombre ya existe en la lista de conductores
-        if (conductoresExistentes.includes(nombre)) {
-            document.getElementById("nombreErrorEditar_" + id).textContent = "Este conductor ya existe.";
-            mostrarAlerta(document.querySelector('.alert-danger')); // Mostrar alerta de nombre repetido
-        } else {
-            document.getElementById("nombreErrorEditar_" + id).textContent = ""; // Limpiar el mensaje de error
-        }
+    // Verificar si el nombre contiene solo letras y espacios
+    if (!/^[A-Za-z\s]+$/.test(nombre)) {
+        nombreInput.setCustomValidity("El nombre solo debe contener letras y espacios.");
+        errorDiv.textContent = "El nombre solo debe contener letras y espacios.";
+    } else {
+        nombreInput.setCustomValidity(""); // Marcar el campo actual como válido
+        errorDiv.textContent = ""; // Limpiar el mensaje de error específico
     }
+}
 
     // Función para validar el correo electrónico al editar
     function validarEmailEditar(id) {
         var email = document.getElementById("emailEditar_" + id).value.trim();
         var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Expresión regular para verificar una dirección de correo válida
+        var errorDiv = document.getElementById("emailErrorEditar_" + id);
 
         if (!emailPattern.test(email)) {
-            document.getElementById("emailErrorEditar_" + id).textContent = "Ingrese una dirección de correo electrónico válida.";
+            errorDiv.textContent = "Ingrese una dirección de correo electrónico válida."; // Mostrar el mensaje de error específico
         } else {
-            document.getElementById("emailErrorEditar_" + id).textContent = ""; // Limpiar el mensaje de error
+            errorDiv.textContent = ""; // Limpiar el mensaje de error específico
         }
     }
 
@@ -265,11 +255,13 @@
         // Eliminar cualquier espacio en blanco del número
         telefono = telefono.replace(/\s/g, '');
 
+        var errorDiv = document.getElementById("telefonoErrorEditar_" + id);
+
         // Verificar si el número tiene exactamente 10 caracteres numéricos
         if (telefono.length !== 10 || isNaN(telefono)) {
-            document.getElementById("telefonoErrorEditar_" + id).textContent = "El número de teléfono debe tener exactamente 10 caracteres numéricos.";
+            errorDiv.textContent = "El número de teléfono debe tener exactamente 10 caracteres numéricos."; // Mostrar el mensaje de error específico
         } else {
-            document.getElementById("telefonoErrorEditar_" + id).textContent = ""; // Limpiar el mensaje de error
+            errorDiv.textContent = ""; // Limpiar el mensaje de error específico
         }
     }
 

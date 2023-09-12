@@ -7,6 +7,8 @@ return [
     'Config' => 'Configuracion',
     'Overview map' => 'Mapa General',
     'Welcome' => 'Bienvenido',
+    'Dashboard' => 'Panel de control',
+
     'Delete' => 'Eliminar',
     'Edit' => 'Editar',
     'Add' => 'Agregar',

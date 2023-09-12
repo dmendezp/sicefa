@@ -56,7 +56,7 @@
                                                 <div class="modal-content">
                                                     <!-- Contenido del modal de edición aquí -->
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="editModalLabel">Editar Beneficio</h5>
+                                                        <h5 class="modal-title" id="editModalLabel">{{ trans('bienestar::menu.Edit Benefit')}}</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -68,16 +68,16 @@
                                                             <!-- Campos de edición aquí -->
                                                             <input type="hidden" name="id" value="{{ $benefit->id }}">
                                                             <div class="form-group">
-                                                                <label for="editName-{{ $benefit->id }}">Nombre</label>
+                                                                <label for="editName-{{ $benefit->id }}">{{ trans('bienestar::menu.Name')}}</label>
                                                                 <input type="text" class="form-control" id="editName-{{ $benefit->id }}" name="name" required pattern="[A-Za-z ]+">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="editPorcentaje-{{ $benefit->id }}">Porcentaje</label>
+                                                                <label for="editPorcentaje-{{ $benefit->id }}">{{ trans('bienestar::menu.Porcentege')}}</label>
                                                                 <input type="number" class="form-control" id="editPorcentaje-{{ $benefit->id }}" min="0" max="100" name="porcentege">
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                <button type="submit" form="editForm-{{ $benefit->id }}" class="btn btn-primary">Guardar Cambios</button>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('bienestar::menu.Close')}}</button>
+                                                                <button type="submit" form="editForm-{{ $benefit->id }}" class="btn btn-primary">{{ trans('bienestar::menu.Save')}}</button>
                                                             </div>
                                                             <!-- Botón para guardar cambios -->
                                                         </form>
@@ -85,19 +85,16 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <form action="{{ route('cefa.bienestar.benefits.delete', ['id' => $benefit->id]) }}" method="POST" class="formEliminar">
+                                            @csrf
+                                            @method("DELETE")
+                                            <!-- Botón para abrir el modal de eliminación -->
+                                            <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
                                     </div>
-                                    <form action="{{ route('cefa.bienestar.benefits.delete', ['id' => $benefit->id]) }}" method="POST" class="formEliminar">
-                                        @csrf
-                                        @method("DELETE")
-                                        <!-- Botón para abrir el modal de eliminación -->
-                                        <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
                                 </td>
-
-
-
                 </div>
-                </td>
                 </tr>
                 @endforeach
                 </tbody>
@@ -125,15 +122,22 @@
         });
 
         // Configura el evento input para el campo "Nombre"
-        $('name').on('input', function() {
+        // Configura el evento input para el campo "Nombre"
+        $('#name').on('input', function() {
             var name = $(this).val();
 
             // Verifica que el campo "Nombre" solo contenga letras
             if (!/^[A-Za-z]+$/.test(name)) {
-                swal("Alerta!", "El campo Nombre solo puede contener letras!");
+                Swal.fire({
+                    title: 'Alerta',
+                    text: 'El campo Nombre solo debe contener letras',
+                    icon: 'warning',
+                    confirmButtonText: 'Ok'
+                });
                 $(this).val(''); // Borra cualquier carácter no válido
             }
         });
+
 
         // Configura el evento input para el campo "Porcentaje"
         $('#porcentaje').on('input', function() {
@@ -149,6 +153,7 @@
                 $(this).val(porcentaje.slice(0, 3));
             }
         });
+
 
     });
 
@@ -199,50 +204,5 @@
         return true; // Envía el formulario si todo está correcto
     }
 </script>
-<script>
-    'use strict';
-    // Selecciona todos los formularios con la clase "formEliminar"
-    var forms = document.querySelectorAll('.formEliminar');
 
-    Array.prototype.slice.call(forms)
-        .forEach(function(form) {
-            form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Evita que el formulario se envíe de inmediato
-
-                Swal.fire({
-                    title: "Are you sure?'",
-                    text: "It is an irreversible process.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: "Yes, delete it'",
-                    cancelButtonText: "Cancel" // Cambiar el texto del botón "Cancelar"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Enviar el formulario usando AJAX
-                        axios.post(form.action, new FormData(form))
-                            .then(function(response) {
-                                // Manejar la respuesta JSON del servidor
-                                if (response.data && response.data.mensaje) {
-                                    Swal.fire({
-                                        title: 'Vacancy deleted!',
-                                        text: response.data.mensaje,
-                                        icon: 'success'
-                                    }).then(() => {
-                                        // Recargar la página u otra acción según sea necesario
-                                        location
-                                            .reload(); // Recargar la página después de eliminar
-                                    });
-                                }
-                            })
-                            .catch(function(error) {
-                                // Manejar errores si es necesario
-                                console.error(error);
-                            });
-                    }
-                });
-            });
-        });
-</script>
 @endsection

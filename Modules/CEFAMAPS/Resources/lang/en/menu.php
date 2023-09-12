@@ -7,6 +7,8 @@ return [
     'Administrator' => 'Administrator',
     'Overview map' => 'Overview map',
     'Welcome' => 'Welcome',
+    'Dashboard' => 'Dashboard',
+ 
     'Delete' => 'Delete',
     'Edit' => 'Edit',
     'Add' => 'Add',

@@ -66,7 +66,7 @@
                   <a href="{{ route('cefa.bienestar.buses') }}" class="nav-link">Buses</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('bienestar.drivers') }}" class="nav-link">Conductores</a>
+                  <a href="{{ route('cefa.bienestar.drivers') }}" class="nav-link">Conductores</a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.transportroutes') }}" class="nav-link">Rutas</a>
@@ -86,10 +86,10 @@
                   <a href="{{ route('cefa.bienestar.benefits') }}" class="nav-link">Tipos de Beneficios</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('bienestar.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
+                  <a href="{{ route('cefa.bienestar.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('bienestar.benefitstypeofbenefits')}}" class="nav-link">Configurar Beneficios</a>
+                  <a href="{{ route('cefa.bienestar.benefitstypeofbenefits')}}" class="nav-link">Configurar Beneficios</a>
                 </li>
               </ul>
             </li>
@@ -100,13 +100,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('cefa.bienestar.benefits') }}" class="nav-link">Formularios</a>
+                  <a href="{{ route('cefa.bienestar.editform') }}" class="nav-link">Formularios</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('bienestar.typeofbenefits')}}" class="nav-link">Configurar Convocatoria</a>
+                  <a href="{{ route('cefa.bienestar.typeofbenefits')}}" class="nav-link">Configurar Convocatoria</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('bienestar.benefitstypeofbenefits')}}" class="nav-link">Postulaciones </a>
+                  <a href="{{ route('cefa.bienestar.benefitstypeofbenefits')}}" class="nav-link">Postulaciones </a>
                 </li>
               </ul>
             </li>

@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\BenefitsTypesOfBenefits;
 use Modules\BIENESTAR\Entities\TypesOfBenefits;
 use Modules\BIENESTAR\Entities\Benefits;
+use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 
 class BenefitsTypesOfBenefitsController extends Controller
@@ -20,56 +22,95 @@ class BenefitsTypesOfBenefitsController extends Controller
     {
         $benefitstypeofbenefits = BenefitsTypesOfBenefits::all();
         $benefits = Benefits::all();
-        $typeofbenefits = TypesOfBenefits::all();
+        $typeOfBenefits = TypesOfBenefits::all();
 
-        return view('bienestar::benefitstypeofbenefits', compact('benefitstypeofbenefits', 'benefits', 'typeofbenefits'));
+        return view('bienestar::benefitstypeofbenefits', compact('benefitstypeofbenefits', 'benefits', 'typeOfBenefits'));
     }
 
     public function store(Request $request)
-    {
-        // Validar los datos del formulario
-        $request->validate([
-            'benefit_id' => 'required|exists:benefits,id',
-            'type_of_benefit_id' => 'required|exists:types_of_benefits,id',
-        ]);
+{
+    // Validar los datos del formulario
+    $request->validate([
+        'benefit_id' => 'required|exists:benefits,id',
+        'type_of_benefit_id' => 'required|exists:types_of_benefits,id',
+    ]);
 
-        // Crear un nuevo registro en la tabla pivot
-        BenefitsTypesOfBenefits::create([
+    // Buscar si hay un registro eliminado con los mismos valores
+    $existingRecord = BenefitsTypesOfBenefits::withTrashed()
+        ->where([
             'benefit_id' => $request->benefit_id,
             'type_of_benefit_id' => $request->type_of_benefit_id,
-        ]);
+        ])->first();
 
-        return redirect()->route('bienestar.benefitstypeofbenefits')->with('success', 'Registro creado correctamente.');
+    if ($existingRecord) {
+        if ($existingRecord->trashed()) {
+            // Restaurar el registro si está eliminado
+            $existingRecord->restore();
+            return response()->json(['mensaje' => 'Registro restaurado correctamente.'], 200);
+        } else {
+            // Mostrar un mensaje de error si el registro ya existe
+            return response()->json(['error' => 'El registro ya existe.'], 400);
+        }
     }
 
-    public function update(Request $request, $id)
-    {
-        // Validar los datos del formulario
-        $request->validate([
-            'benefit_id' => 'required|exists:benefits,id',
-            'type_of_benefit_id' => 'required|exists:types_of_benefits,id',
-        ]);
+    // Si no existe un registro eliminado, crear uno nuevo en la tabla pivot
+    BenefitsTypesOfBenefits::create([
+        'benefit_id' => $request->benefit_id,
+        'type_of_benefit_id' => $request->type_of_benefit_id,
+    ]);
 
-        // Buscar el registro por su ID
-        $type = BenefitsTypesOfBenefits::find($id);
+    return response()->json(['mensaje' => 'Registro creado correctamente.'], 200);
+}
 
-        if (!$type) {
-            return redirect()->route('bienestar.benefitstypeofbenefits')->with('error', 'Registro no encontrado.');
-        }
 
-        // Actualizar los valores
+public function update(Request $request, $id)
+{
+    // Validar los datos del formulario
+    $request->validate([
+        'benefit_id' => 'required|exists:benefits,id',
+        'type_of_benefit_id' => 'required|exists:types_of_benefits,id',
+    ]);
+
+    // Buscar el registro por su ID
+    $type = BenefitsTypesOfBenefits::find($id);
+
+    if (!$type) {
+        return response()->json(['error' => 'Registro no encontrado.'], 404);
+    }
+
+    // Verificar si el registro está eliminado
+    if ($type->trashed()) {
+        return response()->json(['error' => 'No se puede editar un registro eliminado.'], 400);
+    }
+
+    // Verificar si los nuevos valores son diferentes de los valores actuales
+    if (
+        $type->benefit_id != $request->benefit_id ||
+        $type->type_of_benefit_id != $request->type_of_benefit_id
+    ) {
+        // Actualizar los valores solo si son diferentes
         $type->benefit_id = $request->benefit_id;
         $type->type_of_benefit_id = $request->type_of_benefit_id;
         $type->save();
 
-        return redirect()->route('bienestar.benefitstypeofbenefits')->with('success', 'Registro actualizado correctamente.');
+        return response()->json(['mensaje' => 'Registro actualizado correctamente.'], 200);
+    } else {
+        // Mostrar un mensaje de error si los valores son iguales
+        return response()->json(['error' => 'Los nuevos valores son iguales a los valores actuales.'], 400);
     }
+}
 
+
+    
     public function destroy($id)
     {
-        // Encuentra y elimina el registro por su ID
-        BenefitsTypesOfBenefits::destroy($id);
+        try {
+            $benefitstypeofbenefits = BenefitsTypesOfBenefits::findOrFail($id);
+            $benefitstypeofbenefits->delete(); // Esto debería activar el Soft Delete
 
-        return redirect()->route('bienestar.benefitstypeofbenefits')->with('success', 'Registro eliminado correctamente.');
+            return response()->json(['mensaje' =>'Vacancy eliminated with success']);
+        } catch (\Exception $e) {
+            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+        }
     }
 }

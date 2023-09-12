@@ -39,7 +39,7 @@ class Convocations extends Model implements Auditable
     }
 
     public function postulation(){// Accede a los datos de la postulacion al que pertenece
-        return $this->hasMany(Postulations::class, );
+        return $this->hasMany(Postulations::class, 'postulation_id');
     }
 
     

@@ -25,6 +25,7 @@ class CEFAMAPSController extends Controller
         $sector = Sector::get();
         $environ = Environment::get();
         $data = ['title'=>trans('cefamaps::menu.Home'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'classenviron'=>$classenviron];
+        $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_index_title_page'), 'environ'=>$environ, 'unit'=>$unit, 'sector'=>$sector, 'classenviron'=>$classenviron];
         return view('cefamaps::index',$data);
     }
 }

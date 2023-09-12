@@ -30,68 +30,69 @@ Route::middleware(['lang'])->group(function () {
 
         //Vista CRUD Buses
         Route::get('/buses', 'BusesController@index')->name('cefa.bienestar.buses');
-        Route::post('/buses/store', 'BusesController@store')->name('bienestar.buses.store');
-        Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('bienestar.buses.destroy');
-        Route::put('/buses/update/{id}', 'BusesController@update')->name('bienestar.buses.update');
+        Route::post('/buses/store', 'BusesController@store')->name('cefa.bienestar.buses.store');
+        Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('cefa.bienestar.buses.destroy');
+        Route::put('/buses/update/{id}', 'BusesController@update')->name('cefa.bienestar.buses.update');
 
         // Vista CRUD tipo de beneficios
-        Route::get('/typeofbenefits', 'TypesOfBenefitsController@typeofbenefits')->name('bienestar.typeofbenefits');
-        Route::post('/typeofbenefits/create', 'TypesOfBenefitsController@store')->name('typeofbenefits.store');
-        Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('typeofbenefits.destroy');
-        Route::put('/bienestar/typeofbenefits/{id}', 'TypesOfBenefitsController@update')->name('typeofbenefits.update');
-        Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('typeofbenefits.destroy');
+        Route::get('/typeofbenefits', 'TypesOfBenefitsController@typeofbenefits')->name('cefa.bienestar.typeofbenefits');
+        Route::post('/typeofbenefits/create', 'TypesOfBenefitsController@store')->name('cefa.typeofbenefits.store');
+        Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('cefa.typeofbenefits.destroy');
+        Route::put('/bienestar/typeofbenefits/{id}', 'TypesOfBenefitsController@update')->name('cefa.typeofbenefits.update');
+        Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('cefa.typeofbenefits.destroy');
 
 
 
         // Vista CRUD Pivota
-        Route::get('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@benefitstypeofbenefits')->name('bienestar.benefitstypeofbenefits');
-        Route::post('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@store')->name('bienestar.benefitstypeofbenefits.store');
-        Route::put('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@update')->name('bienestar.benefitstypeofbenefits.update');
-        Route::delete('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@destroy')->name('benefitstypeofbenefits.destroy');
-        Route::put('/benefitstypeofbenefits/updateInline', 'BenefitsTypesOfBenefitsController@updateInline')->name('benefitstypeofbenefits.updateInline');
+        Route::get('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@benefitstypeofbenefits')->name('cefa.bienestar.benefitstypeofbenefits');
+        Route::post('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@store')->name('cefa.bienestar.benefitstypeofbenefits.store');
+        Route::put('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@update')->name('cefa.bienestar.benefitstypeofbenefits.update');
+        Route::delete('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@destroy')->name('cefa.bienestar.benefitstypeofbenefits.destroy');
+        Route::put('/benefitstypeofbenefits/updateInline', 'BenefitsTypesOfBenefitsController@updateInline')->name('cefa.bienestar.benefitstypeofbenefits.updateInline');
 
         // Rutas para la vista postulation
-        Route::get('/postulations', 'PostulationsController@index')->name('bienestar.postulations.index');
-        Route::get('/postulations/{id}', 'PostulationsController@show')->name('bienestar.postulations.show');
-        Route::get('/postulations/modal/{id}', 'PostulationsController@showModal')->name('bienestar.postulations.modal');
-        Route::post('/update-postulation-score/{id}', 'PostulationsController@updateScore')->name('bienestar.postulations.update-score');
-        Route::post('/assign-benefits', 'PostulationsController@assignBenefits')->name('bienestar.postulations.assign-benefits');
-        Route::get('/convocatoria', 'ConvocationsController@convocatoria')->name('convocatoria');
-        Route::post('/bienestar/assign-benefits', 'PostulationsController@assignBenefits')->name('bienestar.postulations.assign-benefits');
-        Route::put('bienestar/postulations/update-state/{id}', 'PostulationsController@updateState')->name('bienestar.postulations.update-state');
-        Route::post('/bienestar/postulations/create', 'PostulationsController@create')->name('bienestar.postulations.create');
-        Route::post('bienestar/postulations/mark-as-beneficiaries', 'PostulationsController@markAsBeneficiaries')->name('bienestar.postulations.mark-as-beneficiaries');
-        Route::post('/marcar-beneficiarios', 'PostulationsController@markAsBeneficiaries')->name('bienestar.postulations.mark-as-beneficiaries');
-        Route::post('bienestar/postulations/mark-as-beneficiaries', 'PostulationsController@markAsBeneficiaries')->name('bienestar.postulations.mark-as-beneficiaries');
+        Route::get('/postulations', 'PostulationsController@index')->name('cefa.bienestar.postulations.index');
+        Route::get('/postulations/{id}', 'PostulationsController@show')->name('cefa.bienestar.postulations.show');
+        Route::get('/postulations/modal/{id}', 'PostulationsController@showModal')->name('cefa.bienestar.postulations.modal');
+        Route::post('/update-postulation-score/{id}', 'PostulationsController@updateScore')->name('cefa.bienestar.postulations.update-score');
+        Route::post('/assign-benefits', 'PostulationsController@assignBenefits')->name('cefa.bienestar.postulations.assign-benefits');
+        Route::post('/bienestar/assign-benefits', 'PostulationsController@assignBenefits')->name('cefa.bienestar.postulations.assign-benefits');
+        Route::put('bienestar/postulations/update-state/{id}', 'PostulationsController@updateState')->name('cefa.bienestar.postulations.update-state');
+        Route::post('/bienestar/postulations/create', 'PostulationsController@create')->name('cefa.bienestar.postulations.create');
+        Route::post('bienestar/postulations/mark-as-beneficiaries', 'PostulationsController@markAsBeneficiaries')->name('cefa.bienestar.postulations.mark-as-beneficiaries');
+        Route::post('/marcar-beneficiarios', 'PostulationsController@markAsBeneficiaries')->name('cefa.bienestar.postulations.mark-as-beneficiaries');
+        Route::post('bienestar/postulations/mark-as-beneficiaries', 'PostulationsController@markAsBeneficiaries')->name('cefa.bienestar.postulations.mark-as-beneficiaries');Route::post('/bienestar/postulations/mark-as-beneficiaries', 'PostulationsController@markAsBeneficiaries')->name('bienestar.postulations.mark-as-beneficiaries');
+        Route::post('/bienestar/postulations/assign-benefits', 'PostulationsController@assignBenefits')->name('bienestar.postulations.assign-benefits');
 
 
 
         //Vistas Rutas de transporte
-        Route::get('/transportroutes', 'RoutesTransportationsController@index')->name('cefa.bienestar.transportroutes');
-        Route::post('/transportroutes/add', 'RoutesTransportationsController@transportroutesAdd')->name('cefa.bienestar.transportroutes.add');
-        Route::post('/transportroutes/store', 'RoutesTransportationsController@store')->name('cefa.bienestar.transportroutes.store');
+        Route::get('/transportroutes', 'RoutesTransportationsController@index')->name('cefa.cefa.bienestar.transportroutes');
+        Route::post('/transportroutes/add', 'RoutesTransportationsController@transportroutesAdd')->name('cefa.cefa.bienestar.transportroutes.add');
+        Route::post('/transportroutes/store', 'RoutesTransportationsController@store')->name('cefa.cefa.bienestar.transportroutes.store');
+        Route::delete('/transportroutes/delete/{id}', 'RoutesTransportationsController@destroy')->name('cefa.bienestar.transportroutes.destroy');
         Route::post('/transportroutes/update{id}', 'RoutesTransportationsController@update')->name('cefa.bienestar.transportroutes.update');
 
 
         // vista de conductores
-        Route::get('/drivers', 'BusDriversController@drivers')->name('bienestar.drivers');
-        Route::post('/drivers/add', 'BusDriversController@driversAdd')->name('bienestar.drivers.add');
-        Route::put('/drivers/update/{id}', 'BusDriversController@driversUp')->name('bienestar.drivers.update');
-        Route::delete('/drivers/delete/{id}', 'BusDriversController@delete')->name('bienestar.drivers.delete');
+        Route::get('/drivers', 'BusDriversController@drivers')->name('cefa.bienestar.drivers');
+        Route::post('/drivers/add', 'BusDriversController@driversAdd')->name('cefa.bienestar.drivers.add');
+        Route::put('/drivers/update/{id}', 'BusDriversController@driversUp')->name('cefa.bienestar.drivers.update');
+        Route::delete('/drivers/delete/{id}', 'BusDriversController@delete')->name('cefa.bienestar.drivers.delete');
 
 
         // vista de gestiones de convocatorias
-        Route::get('/Convocations', 'ConvocationsController@index')->name('bienestar.Convocations');
-        Route::post('/Convocations/store', 'ConvocationsController@store')->name('bienestar.Convocations.store');
-        Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('bienestar.Convocations.update');
+        Route::get('/Convocations', 'ConvocationsController@index')->name('cefa.bienestar.Convocations');
+        Route::post('/Convocations/store', 'ConvocationsController@store')->name('cefa.bienestar.Convocations.store');
+        Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('cefa.bienestar.Convocations.update');
 
 
         //Vista crud formularios
-        Route::get('/editforms', 'ConvocationsQuestionsController@editform')->name('bienestar.editform');
-        Route::post('/saveform', 'ConvocationsQuestionsController@saveform')->name('bienestar.saveform');
-        Route::post('/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('bienestar.editform.update');
-        Route::delete('/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('bienestar.delete_question');
-        Route::get('/addquestions', 'ConvocationsQuestionsController@add_question')->name('bienestar.add_question');
-        Route::post('/addquestions/add', 'ConvocationsQuestionsController@addQuestion')->name('bienestar.add_question.add');
+        Route::get('/editforms', 'ConvocationsQuestionsController@editform')->name('cefa.bienestar.editform');
+        Route::post('/saveform', 'ConvocationsQuestionsController@saveform')->name('cefa.bienestar.saveform');
+        Route::post('/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('cefa.bienestar.editform.update');
+        Route::delete('/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('cefa.bienestar.delete_question');
+        Route::get('/addquestions', 'ConvocationsQuestionsController@add_question')->name('cefa.bienestar.add_question');
+        Route::post('/addquestions/add', 'ConvocationsQuestionsController@addQuestion')->name('cefa.bienestar.add_question.add');
     });
 });

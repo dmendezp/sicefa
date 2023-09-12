@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="card card-secondary">
             <div class="card-header py-1">
-                <h3 class="card-title">Datos generales del monitoreo</h3>
+                <h3 class="card-title">{{ trans('cpd::monitoring.Form_Title_Monitoring_Dates') }}</h3>
             </div>
             <div class="card-body pt-2 pb-0">
                 <div class="row">
@@ -14,11 +14,11 @@
                             <div class="row">
                                 <div class="col-auto pt-1">
                                     <b class="text-danger">*</b>
-                                    {!! Form::label('producer_id', 'Productor: ', ['class' => 'form-label']) !!}
+                                    {!! Form::label('producer_id', trans('cpd::monitoring.F_Text_Producer'), ['class' => 'form-label']) !!}
                                 </div>
                                 <div class="col ms-0 ps-0">
                                     {!! Form::select('producer_id', $producers, isset($study) ? $study->producer_id : null, [
-                                        'placeholder' => '-- Seleccione --',
+                                        'placeholder' => trans('cpd::monitoring.F_Select'),
                                         'class' => 'form-control',
                                         'id' => 'producer_id',
                                         'required'
@@ -32,11 +32,11 @@
                             <div class="row">
                                 <div class="col-auto pt-1">
                                     <b class="text-danger">*</b>
-                                    {!! Form::label('village_id', 'Vereda: ', ['class' => 'form-label']) !!}
+                                    {!! Form::label('village_id', trans('cpd::monitoring.F_Text_Village'), ['class' => 'form-label']) !!}
                                 </div>
                                 <div class="col ms-0 ps-0">
                                     {!! Form::select('village_id', $villages, isset($study) ? $study->village_id : null, [
-                                        'placeholder' => '-- Seleccione --',
+                                        'placeholder' => trans('cpd::monitoring.F_Select'),
                                         'class' => 'form-control',
                                         'id' => 'village_id',
                                         'required'
@@ -52,15 +52,15 @@
                             <div class="row">
                                 <div class="col-auto pt-1">
                                     <b class="text-danger">*</b>
-                                    {!! Form::label('monitoring', 'Monitoreo: ', ['class' => 'form-label']) !!}
+                                    {!! Form::label('monitoring', trans('cpd::monitoring.F_Text_Monitoring'), ['class' => 'form-label']) !!}
                                 </div>
                                 <div class="col ms-0 ps-0">
                                     {!! Form::number('monitoring', isset($study) ? $study->monitoring : null, [
-                                        'placeholder' => 'Año',
+                                        'placeholder' => trans('cpd::monitoring.F_Placeholder_Year'),
                                         'class' => 'form-control',
                                         'data-toggle' => 'tooltip',
                                         'data-placement' => 'top',
-                                        'title' => 'Año de monitoreo',
+                                        'title' => trans('cpd::monitoring.T_Year_of_monitoring'),
                                         'oninput' => 'this.value=(parseInt(this.value)||0)',
                                         'required'
                                     ]) !!}
@@ -73,14 +73,14 @@
                             <div class="row">
                                 <div class="col-auto pt-1">
                                     <b class="text-danger">*</b>
-                                    {!! Form::label('typology', 'Tipología: ', ['class' => 'form-label']) !!}
+                                    {!! Form::label('typology', trans('cpd::monitoring.F_Text_Typology'), ['class' => 'form-label']) !!}
                                 </div>
                                 <div class="col ms-0 ps-0">
                                     {!! Form::select('typology', getEnumValues('studies', 'typology'), isset($study) ? $study->typology : null, [
                                         'class' => 'form-control',
                                         'data-toggle' => 'tooltip',
                                         'data-placement' => 'top',
-                                        'title' => 'Tipo de cultivo',
+                                        'title' => trans('cpd::monitoring.T_Type_Farming'),
                                         'required'
                                     ]) !!}
                                 </div>
@@ -92,7 +92,7 @@
                             <div class="row">
                                 <div class="col-auto pt-1">
                                     <b class="text-danger">*</b>
-                                    {!! Form::label('altitud', 'Altitud: ', ['class' => 'form-label']) !!}
+                                    {!! Form::label('altitud', trans('cpd::monitoring.F_Text_Altitude'), ['class' => 'form-label']) !!}
                                 </div>
                                 <div class="col ms-0 ps-0">
                                     {!! Form::number('altitud', isset($study) ? $study->altitud : null, [
@@ -100,7 +100,7 @@
                                         'class' => 'form-control',
                                         'data-toggle' => 'tooltip',
                                         'data-placement' => 'top',
-                                        'title' => 'Metros sobre el nivel del mar',
+                                        'title' => trans('cpd::monitoring.T_Meters_Sea_Level'),
                                         'oninput' => 'this.value=(parseInt(this.value)||0)',
                                         'required'
                                     ]) !!}

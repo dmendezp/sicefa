@@ -7,6 +7,8 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\MeasurementUnit;
 use Modules\SICA\Entities\KindOfPurchase;
+use Modules\SICA\Entities\Movement;
+use Modules\SICA\Entities\MovementType;
 
 class ParameterController extends Controller
 {
@@ -15,7 +17,8 @@ class ParameterController extends Controller
         $categories = Category::orderBy('updated_at', 'DESC')->get(); // Consultar categorías de manera descende por el dato updated_at
         $measurementUnit = MeasurementUnit::orderBy('updated_at', 'DESC')->get(); // Consultar measurementUnit de manera descende por el dato updated_at
         $kindOfPurchase = KindOfPurchase::orderBy('updated_at', 'DESC')->get(); // Consultar kindOfPurchase de manera descende por el dato uptaded_at
-        $data = ['title'=>trans('sica::menu.Parameters'),'categories'=>$categories, 'measurementUnit'=>$measurementUnit, 'kindOfPurchase'=>$kindOfPurchase];
+        $movement_types = MovementType::orderBy('name', 'ASC')->get(); // Consultar todos los registro de MovementType por orden alfabetico ascendente del atributo name
+        $data = ['title'=>trans('sica::menu.Parameters'),'categories'=>$categories, 'measurementUnit'=>$measurementUnit, 'kindOfPurchase'=>$kindOfPurchase, 'movement_types'=>$movement_types];
         return view('sica::admin.inventory.parameters.index',$data);
     }
 

@@ -10,15 +10,16 @@
 <div class="container">
     <div class="card">
             <div class="card-body">
-                <form method="POST" action="{{ route('bienestar.add_question.add') }}">
+                <form method="POST" action="{{ route('cefa.bienestar.add_question.add') }}">
                     @csrf
+                    <a href="{{ route('cefa.bienestar.editform')}}" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-left"></i></a>
                     <div class="form-group">
-                        <label for="texto_pregunta">Pregunta:</label>
+                        <label for="texto_pregunta">Pregunta</label>
                         <input type="text" name="text_question" class="form-control">
                     </div>
                     <div class="form-group">
-                    <label for="type_benefit">Tipo de pregunta:</label>
-                    <select class="form-control" id="type_benefit" name="type_benefit" required>
+                    <label for="type_benefit">Tipo de pregunta</label>
+                    <select class="form-control" id="question_category" name="question_category" required>
                         <option value="General">General</option>
                         <option value="Alimentacion">Alimentación</option>
                         <option value="Transporte">Transporte</option>
@@ -26,7 +27,7 @@
 
                 </div>
                     <div class="form-group" id="respuestas">
-                        <label for="respuestas">Respuestas:</label>
+                        <label for="respuestas">Respuestas</label>
                         <div class="input-group">
                             <input type="text" name="respuestas[]" class="form-control">
                             <div class="input-group-append">
@@ -34,12 +35,14 @@
                             </div>
                         </div><br>
                     </div>
+                    <div class="form-group">
                     <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>                    
                 </form>
             </div>
         </div>
     </div>
-    <!-- Agregar la mitad derecha para editar el formulario -->
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

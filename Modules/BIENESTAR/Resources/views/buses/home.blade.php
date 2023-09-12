@@ -6,31 +6,31 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card card-green card-outline shadow col-md-8">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Buses') }}</h3>
+                <h3 class="card-title">{{ trans('bienestar::menu.Buses')}}</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                {!! Form::open(['route' => 'bienestar.buses.store', 'method' => 'POST', 'role' => 'form'])
+                {!! Form::open(['route' => 'cefa.bienestar.buses.store', 'method' => 'POST', 'role' => 'form'])
                 !!}
                 <div class="row p-4">
                     <div class="col-md-3">
-                        <label for="plate">Placa:</label>
-                        <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
+                        <label for="plate">{{ trans('bienestar::menu.Plate')}}</label>
+                        <input type="text" name="plate" id="plate" class="form-control" placeholder="{{ trans('bienestar::menu.Enter the plate')}}" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
                         <span id="plate-error" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
-                        {!! Form::label('bus_driver', 'Conductor:') !!}
+                        {!! Form::label('bus_driver',__('bienestar::menu.Driver')) !!}
                         {!! Form::select('bus_driver', $busDrivers, null, ['class' => 'form-control','placeholder' =>
                         'Seleccione...','required']) !!}
                     </div>
                     <div class="col-md-3">
-                                <label for="quota">Cupos:</label>
-                                <input type="number" name="quota" id="quota" class="form-control" placeholder="Ingrese los cupos" required maxlength="2"oninput="validateQuota(this)"min="1" max="99">
-                                <span id="quota-error" class="text-danger"></span>
-                            </div>
+                        <label for="quota">{{ trans('bienestar::menu.Quotas')}}:</label>
+                        <input type="number" name="quota" id="quota" class="form-control" placeholder="Ingrese los cupos" required maxlength="2" oninput="validateQuota(this)" min="1" max="99">
+                        <span id="quota-error" class="text-danger"></span>
+                    </div>
                     <div class="col-md-2 align-self-end">
                         <div class="btns mt-3">
-                            {!! Form::submit('Guardar',['class'=>'btn btn-success', 'style'=>'background-color: #179722;
+                            {!! Form::submit(__('bienestar::menu.Save'),['class'=>'btn btn-success', 'style'=>'background-color: #179722;
                             color: with;']) !!}
                         </div>
                     </div>
@@ -41,33 +41,74 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Conductor</th>
-                                <th>Placa</th>
-                                <th>Cupos</th>
-                                <th>Acciones</th>
+                                <th>{{ trans('bienestar::menu.Driver')}}</th>
+                                <th>{{ trans('bienestar::menu.Plate')}}</th>
+                                <th>{{ trans('bienestar::menu.Quotas')}}</th>
+                                <th>{{ trans('bienestar::menu.Actions')}}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                             @foreach ($buses as $b)
                             <tr>
-                            <td>{{ $b->id }}</td>
-                            <td>{{ isset($b->bus_driver) ? $b->bus_driver->name : ''}}</td>
-                            <td>{{ $b->plate }}</td>
-                           <td>{{ $b->quota }}</td>
-                           <td>
+                                <td>{{ $b->id }}</td>
+                                <td>{{ isset($b->bus_driver) ? $b->bus_driver->name : ''}}</td>
+                                <td>{{ $b->plate }}</td>
+                                <td>{{ $b->quota }}</td>
+                                <td>
                                     <div class="opts">
-                                        <button class="btn btn-sm btn-info" data-toggle="modal"
-                                            data-target="#modal-default" data-plate="{{ $b->plate }}"
-                                            data-bus-driver="{{ $b->bus_driver }}" data-bus-id="{{ $b->id }}"
-                                            data-quota="{{ $b->quota }}"><i class="fa fa-edit"></i>
+                                        <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-default" data-plate="{{ $b->plate }}" data-bus-driver="{{ $b->bus_driver }}" data-bus-id="{{ $b->id }}" data-quota="{{ $b->quota }}"><i class="fa fa-edit"></i>
                                         </button>
 
-                                        {!! Form::open(['route' => ['bienestar.buses.destroy', $b->id],
-                                        'method' => 'DELETE', 'style' => 'display: inline;']) !!}
-                                        <button class="btn btn-sm btn-danger"
-                                            onclick="if(confirm('¿Estás seguro de que deseas eliminar este elemento?')) { $(this).closest('form').submit(); return false; }"><i class="fa fa-trash-alt"></i></button>
+                                        {!! Form::open(['route' => ['cefa.bienestar.buses.destroy', $b->id],
+                                        'method' => 'DELETE', 'class' => 'formEliminar', 'style'=> 'display: inline;']) !!}
+                                        <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash-alt"></i></button>
                                         {!! Form::close() !!}
+                                       
+                                    </div>
+                                    <div class="modal fade" id="modal-default">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">{{ trans('bienestar::menu.Edit Bus')}}</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {!! Form::model($b, ['route' => ['cefa.bienestar.buses.update', $b->id], 'method' => 'PUT', 'role'=>'form'])!!}
+                                                    <div class="row p-4">
+                                                        <div class="col-md-12">
+                                                            <label for="plate">{{ trans('bienestar::menu.Plate')}}</label>
+                                                            <div class="form-group">
+                                                                {!! Form::text('plate', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la placa',
+                                                                'required','oninput' => 'this.value = this.value.toUpperCase()']) !!}
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <label for="bus_driver">{{ trans('bienestar::menu.Driver')}}</label>
+                                                            <div class="form-group">
+                                                                {!! Form::select('bus_driver', $busDrivers, null, ['class' => 'form-control','required', 'id' =>
+                                                                'bus_driver_select']) !!}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <label for="quota">{{ trans('bienestar::menu.Quotas')}}</label>
+                                                            <div class="form-group">
+                                                                {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required','oninput' => 'this.value = this.value.replace(/^0+/g, \'\')', 'onblur' => 'validateQuota(this)']) !!}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="btns">
+                                                                {!! Form::submit(__('bienestar::menu.Save'),['class'=>'btn btn-success']) !!}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {!! Form::close() !!}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -94,37 +135,36 @@
                 </button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['url' => 'bienestar/buses/update/id', 'method' => 'PUT', 'role' =>
+                {!! Form::open(['url' => 'cefa.bienestar/buses/update/id', 'method' => 'PUT', 'role' =>
                 'form']) !!}
                 <div class="row p-4">
-                    <div class="col-md-12">
-                        <label for="plate">placa:</label>
-                        <div class="form-group">
-                        {!! Form::text('plate', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la placa',
-                        'required','oninput' => 'this.value = this.value.toUpperCase()']) !!}
-                </div>
+                <div class="col-md-12">
+            <div class="form-group">
+                <label for="plate">Placa:</label>
+                <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
+                <span id="plate-error" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="bus_driver">Conductor:</label>
+                {!! Form::select('bus_driver', $busDrivers, null, ['class' => 'form-control', 'required', 'id' => 'bus_driver_select']) !!}
+            </div>
+        </div>
 
-                    </div>
-                    <div class="col-md-12">
-                    <label for="bus_driver">conductor:</label>
-                        <div class="form-group">
-                        {!! Form::select('bus_driver', $busDrivers, null, ['class' => 'form-control','required', 'id' =>
-                        'bus_driver_select']) !!}
-                </div>
-                    </div>
-                   <div class="col-md-12">
-                        <label for="quota">cupos:</label>
-                        <div class="form-group">
-                            {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required','oninput' => 'this.value = this.value.replace(/^0+/g, \'\')', 'onblur' => 'validateQuota(this)']) !!}
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="btns">
-                            {!! Form::submit('Actualizar',['class'=>'btn btn-success']) !!}
-                        </div>
-                    </div>
-                </div>
-                {!! Form::close() !!}
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="quota">Cupos:</label>
+                {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required', 'oninput' => 'this.value = this.value.replace(/^0+/g, \'\')', 'onblur' => 'validateQuota(this)']) !!}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                {!! Form::submit('Actualizar', ['class' => 'btn btn-success']) !!}
+            </div>
+        </div>
+    </div>
+    {!! Form::close() !!}
             </div>
         </div>
     </div>
@@ -132,7 +172,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#modal-default').on('show.bs.modal', function (event) {
+        $('#modal-default').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var plate = button.data('plate');
             var busDriver = button.data('bus-driver');
@@ -154,28 +194,48 @@
     });
 </script>
 <script>
+    //placa
+    document.getElementById('plate').addEventListener('input', function() {
+        var plateInput = this.value;
+        var plateError = document.getElementById('plate-error');
+
+        // Verifica si el valor coincide con el patrón de 3 letras seguidas de 3 números
+        if (/^[A-Za-z]{3}[0-9]{3}$/.test(plateInput)) {
+            plateError.textContent = ''; // Oculta la alerta si es válido
+            this.setCustomValidity(''); // Marca el campo como válido
+        } else {
+            plateError.textContent = 'La placa debe tener 3 letras seguidas de 3 números.';
+            this.setCustomValidity('Invalid'); // Marca el campo como inválido
+        }
+    });
+</script>
+
+
+
+
+<script>
     //cupos
-  document.getElementById('quota').addEventListener('input', function() {
-    const quotaInput = this.value;
-    const quotaError = document.getElementById('quota-error');
+    document.getElementById('quota').addEventListener('input', function() {
+        const quotaInput = this.value;
+        const quotaError = document.getElementById('quota-error');
 
-    // Removemos cualquier caracter no numérico y limitamos la longitud a 2
-    const cleanedInput = quotaInput.replace(/\D/g, '').substring(0, 2);
+        // Removemos cualquier caracter no numérico y limitamos la longitud a 2
+        const cleanedInput = quotaInput.replace(/\D/g, '').substring(0, 2);
 
-    // Verificamos si la entrada contiene exactamente dos números
-    if (/^\d{2}$/.test(cleanedInput)) {
-      quotaError.textContent = ''; // Campo válido, borra el mensaje de error
-      this.value = cleanedInput; // Actualizamos el valor del campo
-    } else {
-      // Muestra El Mensaje De Error
-    }
-  });
+        // Verificamos si la entrada contiene exactamente dos números
+        if (/^\d{2}$/.test(cleanedInput)) {
+            quotaError.textContent = ''; // Campo válido, borra el mensaje de error
+            this.value = cleanedInput; // Actualizamos el valor del campo
+        } else {
+            // Muestra El Mensaje De Error
+        }
+    });
 </script>
 
 <script>
     //modal de placas
     $(document).ready(function() {
-        $('#modal-default').on('show.bs.modal', function (event) {
+        $('#modal-default').on('show.bs.modal', function(event) {
             // ... (código existente)
 
             var modal = $(this);
@@ -188,14 +248,23 @@
                 if (plateInput.length > 6) {
                     this.value = plateInput.slice(0, 6);
                 }
-            });
+                // Verifica si hay más de 3 letras o 3 números
+                var letters = plateInput.match(/[A-Za-z]/g) || [];
+                var numbers = plateInput.match(/[0-9]/g) || [];
+
+                if (letters.length > 3 || numbers.length > 3) {
+                    plateError.text('Debe ingresar exactamente 3 letras y 3 números').show();
+                } else {
+                    plateError.hide();
+                }
+            }); 
         });
     });
 </script>
 <script>
     //modal del cupos
     $(document).ready(function() {
-        $('#modal-default').on('show.bs.modal', function (event) {
+        $('#modal-default').on('show.bs.modal', function(event) {
             // ... (código existente)
 
             var modal = $(this);
@@ -209,7 +278,7 @@
                 var cleanedInput = quotaInput.replace(/\D/g, '').substring(0, 2);
 
                 // Verificamos si la entrada contiene exactamente dos números y no es igual a "00"
-                if (/^\d{2}$/.test(cleanedInput))  {
+                if (/^\d{2}$/.test(cleanedInput)) {
                     quotaError.text(''); // Campo válido, borra el mensaje de error
                     this.value = cleanedInput; // Actualizamos el valor del campo
                 } else {
@@ -253,4 +322,5 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 @endsection
