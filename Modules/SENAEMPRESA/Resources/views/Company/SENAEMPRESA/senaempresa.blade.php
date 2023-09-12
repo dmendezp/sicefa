@@ -13,6 +13,7 @@
                                 <th>Id</th>
                                 <th>{{ trans('senaempresa::menu.Name') }}</th>
                                 <th>{{ trans('senaempresa::menu.Description') }}</th>
+                                <th>trimestre</th>
                                 @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                     <th>
                                         <a href="{{ route('company.senaempresa.agrega') }}" class="btn btn-success btn-sm"><i
@@ -27,6 +28,7 @@
                                     <td>{{ $senaempresa->id }}</td>
                                     <td>{{ $senaempresa->name }}</td>
                                     <td>{{ $senaempresa->description }}</td>
+                                    <td>{{ $senaempresa->quarter->name }}</td>
                                     @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                         <form
                                             action="{{ route('company.senaempresa.eliminar_senaempresa', $senaempresa->id) }}"
