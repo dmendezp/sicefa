@@ -1,7 +1,6 @@
 <?php
 
 return [
-<<<<<<< HEAD
     'Units' => 'Unidades',
     'Name' => 'Nombre',
     'Person in charge' => 'Persona Encargada',
@@ -33,7 +32,6 @@ return [
     'Wheat Building' => 'Edificio de Trigo',
     'Tree Mango' => 'Arbol de Mango',
     'Coffee'=>'Cafe'
-=======
     // Breadcrumbs
     'Breadcrumb_Unit'             => 'Administrador',
     'Breadcrumb_Active_Unit'      => 'Unidades',
@@ -104,5 +102,4 @@ return [
     'Document_Not_Found' => 'El número de documento no existe.',
     'AlertDocumentText'  => 'No has escrito ningun número de documento',
     'AlertDocumentTitle' => 'Escribe tu numero de documento',
->>>>>>> FABRICA4
 ];

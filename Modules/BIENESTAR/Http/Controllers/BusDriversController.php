@@ -28,7 +28,7 @@ class BusDriversController extends Controller
             'phone' => $request->input('phone'),
         ]);
 
-        return redirect()->route('bienestar.drivers')->with('success', 'Conductor agregado exitosamente.');
+        return redirect()->route('cefa.bienestar.drivers')->with('success', 'Conductor agregado exitosamente.');
     }
 
     public function driversUp(Request $request, $id)
@@ -42,7 +42,7 @@ class BusDriversController extends Controller
         $busdriver = BusDrivers::find($id);
 
         if (!$busdriver) {
-            return redirect()->route('bienestar.drivers')->with('error', 'El conductor no existe.');
+            return redirect()->route('cefa.bienestar.drivers')->with('error', 'El conductor no existe.');
         }
 
         $busdriver->name = $request->input('name');
@@ -50,19 +50,19 @@ class BusDriversController extends Controller
         $busdriver->phone = $request->input('phone');
         $busdriver->save();
 
-        return redirect()->route('bienestar.drivers')->with('success', 'Conductor actualizado con éxito');
+        return redirect()->route('cefa.bienestar.drivers')->with('success', 'Conductor actualizado con éxito');
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
         $busdriver = BusDrivers::find($id);
 
         if (!$busdriver) {
-            return redirect()->route('bienestar.drivers')->with('error', 'El conductor no existe.');
+            return redirect()->route('cefa.bienestar.drivers')->with('error', 'El conductor no existe.');
         }
 
         $busdriver->delete();
 
-        return redirect()->route('bienestar.drivers')->with('success', 'Conductor eliminado con éxito');
+        return redirect()->route('cefa.bienestar.drivers')->with('success', 'Conductor eliminado con éxito');
     }
 }

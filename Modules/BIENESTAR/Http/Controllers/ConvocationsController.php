@@ -41,16 +41,19 @@ class ConvocationsController extends Controller
 
 
         $convocations = new Convocations;
-        $convocations->name = $request->input('title');
+        $convocations->title = $request->input('title');
+        $convocations->description = $request->input('description');
+        $convocations->food_quotas = $request->input('food_quotas');
+        $convocations->transport_quotas = $request->input('transport_quotas');
         $convocations->start_date= $request->input('start_date');
         $convocations->end_date= $request->input('end_date');
         $convocations->time_interval= $request->input('time_interval');
         $convocations->save();
         
         if($convocations->save()){
-            return redirect()->route('bienestar.Convocations')->with('message', 'Convocatoria registrada Correctamente')->with('typealert', 'success');
+            return redirect()->route('cefa.bienestar.Convocations')->with('message', 'Convocatoria registrada Correctamente')->with('typealert', 'success');
         }else{
-            return redirect()->route('bienestar.Convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
+            return redirect()->route('cefa.bienestar.Convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
         }
     }
 
@@ -76,14 +79,16 @@ class ConvocationsController extends Controller
         $convocations = Convocations::findOrFail($id);
         $convocations->title = $request->input('title');
         $convocations->description = $request->input('description');
+        $convocations->food_quotas = $request->input('food_quotas');
+        $convocations->transport_quotas = $request->input('transport_quotas');
         $convocations->start_date = $request->input('start_date');
         $convocations->end_date = $request->input('end_date');
         $convocations->transport_quotas = $request->input('transport_quotas');
         $convocations->food_quotas = $request->input('food_quotas');
         if($convocations->save()){
-            return redirect()->route('bienestar.Convocations')->with('message', 'Registro Actualizado Correctamente')->with('typealert', 'success');
+            return redirect()->route('cefa.bienestar.Convocations')->with('message', 'Registro Actualizado Correctamente')->with('typealert', 'success');
         }
-        return redirect()->route('bienestar.Convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
+        return redirect()->route('cefa.bienestar.Convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
     }
 
     /**

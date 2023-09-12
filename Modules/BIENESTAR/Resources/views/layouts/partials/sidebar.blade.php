@@ -100,7 +100,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('cefa.bienestar.benefits') }}" class="nav-link">Formularios</a>
+                  <a href="{{ route('cefa.bienestar.editform') }}" class="nav-link">Formularios</a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.typeofbenefits')}}" class="nav-link">Configurar Convocatoria</a>

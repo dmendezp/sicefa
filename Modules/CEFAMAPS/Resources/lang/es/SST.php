@@ -1,8 +1,6 @@
 <?php
 return [
-<<<<<<< HEAD
     'Home'=>'SST',
-=======
     // Breadcrumbs
     'Breadcrumb_SST'                     => 'SST',
     'Breadcrumb_Active_Environment'      => 'Ambientes',
@@ -15,5 +13,4 @@ return [
     'Title_Card_Evacuation_Route'   => 'Información de la rutas de evacuación',
     'Title_Card_Fire_Extinguishers' => 'Información de extintores',
     'Title_Card_Healt'              => 'Información de salud',
->>>>>>> FABRICA4
 ];

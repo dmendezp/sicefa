@@ -38,10 +38,7 @@ class ElementFactory extends Factory
             'description' => rtrim($this->faker->unique()->sentence(), '.'),
             'kind_of_purchase_id' => KindOfPurchase::inRandomOrder()->first()->id,
             'category_id' => Category::inRandomOrder()->first()->id,
-<<<<<<< HEAD
-=======
             'price' => $this->faker->numberBetween(10, 100) * 100,
->>>>>>> FABRICA4
             'slug' => Str::slug($element_name, '-'),
             //'image' => $base_path . $image_faker // Devuelve la ruta completa de la imagen guardada.
         ];

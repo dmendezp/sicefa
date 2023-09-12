@@ -36,17 +36,14 @@ class MovementFactory extends Factory
         $fr = $this->faker->dateTimeBetween($fmr, $fa); // Fecha de registro
 
         return [
-<<<<<<< HEAD
             'registration_date' => $fr->format('Y-m-d'),
             'movement_type_id' => MovementType::inRandomOrder()->first()->id,
-=======
             'registration_date' => $fr->format('Y-m-d H:i:s'),
             'movement_type_id' => MovementType::where('name','Venta')
                                                 ->orWhere('name','Movimiento Interno')
                                                 ->inRandomOrder()
                                                 ->first()
                                                 ->id,
->>>>>>> FABRICA4
             'voucher_number' => function (array $attributes) {
                 $movementType = MovementType::find($attributes['movement_type_id']);
                 $consecutive = $movementType->consecutive + 1;

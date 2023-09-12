@@ -1,7 +1,6 @@
 <?php
 
 return [
-<<<<<<< HEAD
     'Units' => 'Units',
     'Name' => 'Name',
     'Person in charge' => 'Person In Charge',
@@ -35,7 +34,6 @@ return [
     'Coffee' => 'Coffee'
     
 ];
-=======
     // Breadcrumbs
     'Breadcrumb_Unit'             => 'Administrator',
     'Breadcrumb_Active_Unit'      => 'Units',
@@ -107,4 +105,3 @@ return [
     'AlertDocumentText'  => 'You have not written any document number',
     'AlertDocumentTitle' => 'Write your document number',
 ];
->>>>>>> FABRICA4

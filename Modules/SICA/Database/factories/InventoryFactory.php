@@ -41,15 +41,12 @@ class InventoryFactory extends Factory
         }
 
         return [
-<<<<<<< HEAD
             'person_id' => Person::pluck('id')->random(),
             'warehouse_id' => Warehouse::pluck('id')->random(),
             'element_id' => Element::pluck('id')->random(),
             'destination' => $this->faker->randomElement(getEnumValues('inventories','destination')),
-=======
             'element_id' => Element::whereNotNull('price')->pluck('id')->random(),
             'destination' => 'Producción',
->>>>>>> FABRICA4
             'description' => $this->faker->randomElement([null, rtrim($this->faker->unique()->sentence(), '.')]),
             'price' => $this->faker->numberBetween(10, 1000) * 100,
             'amount' => $amount,
