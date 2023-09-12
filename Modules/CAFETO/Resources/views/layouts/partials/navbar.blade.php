@@ -7,6 +7,12 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('cefa.cafeto.index') }}" class="nav-link text-light">Inicio</a>
         </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link text-light">Administrador</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link text-light">Cajero</a>
+        </li>
     </ul>
 
     <!-- Right navbar links -->

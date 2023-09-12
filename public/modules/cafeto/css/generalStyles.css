@@ -43,6 +43,10 @@
     display: none;
 }
 
+.sidebar-dark-green{
+    background-color: var(--color-secundario) !important;
+  }
+
 .sidebar-collapse .main-sidebar:hover .info {
     display: block !important;
 }

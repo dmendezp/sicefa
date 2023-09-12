@@ -4,12 +4,6 @@
 <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
 <!-- Bootstrap-5.3.0-alpha -->
 <script src="{{ asset('libs/Bootstrap-5.3.0-alpha/js/bootstrap.bundle.min.js')}}"></script>
-
-<script>
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-</script>
-
 <!-- Boostrap-enable-tooltip-->
 <script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
