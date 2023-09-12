@@ -40,7 +40,7 @@
                                         {{ trans('senaempresa::menu.Select a position') }}</option>
                                     @foreach ($PositionCompany as $positionCompany)
                                         <option value="{{ $positionCompany->id }}">
-                                            {{ $positionCompany->id }} {{ $positionCompany->requirement }}
+                                            {{ $positionCompany->id }} {{ $positionCompany->name }}
                                         </option>
                                     @endforeach
                                 </select>

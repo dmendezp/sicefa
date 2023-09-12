@@ -54,7 +54,7 @@
                                         <td>
                                             @foreach ($PositionCompany as $position)
                                                 @if ($position->id == $vacancy->position_company_id)
-                                                    {{ $position->requirement }}
+                                                    {{ $position->name }}
                                                 @endif
                                             @endforeach
                                         </td>

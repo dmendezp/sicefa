@@ -2,22 +2,13 @@
 
 @section('content')
     <div class="container">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-            </div>
-        @endif
+        @if (Auth::check() && (Auth::user()->roles[0]->name === 'Administrador Senaempresa' || Auth::user()->roles[0]->name === 'Pasante Senaempresa' ))
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
                 <div class="card card-primary card-outline shadow">
-                    <div class="card-header">{{ trans('senaempresa::menu.We provide') }}</div>
+                    <div class="card-header">{{ trans('senaempresa::menu.Loans') }}</div>
                     <div class="card-body">
-                        <form action="{{ route('cefa.prestamo_nuevo') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('company.loan.prestamo_nuevo') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="staff_senaempresa_id"
@@ -37,8 +28,8 @@
                             <div class="mb-3">
                                 <label for="inventory_id"
                                     class="form-label">{{ trans('senaempresa::menu.Inventory ID') }}</label>
-                                <select class="form-control" name="inventory_id" aria-label="Selecciona un Cargo">
-                                    <option value="" selected>{{ trans('senaempresa::menu.Select a Position') }}
+                                <select class="form-control" name="inventory_id" aria-label="Selecciona Inventario ID">
+                                    <option value="" selected>{{ trans('senaempresa::menu.Select Inventory ID') }}
                                     </option>
                                     @foreach ($inventories as $inventory)
                                         <option value="{{ $inventory->id }}">
@@ -66,7 +57,9 @@
                     </div>
                 </div>
             </div>
-        </div><br>
+        </div>
+        @endif
+        <br>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card card-primary card-outline shadow">
@@ -74,7 +67,7 @@
 
                     <div class="card-body">
                         <table id="datatable" class="table table-sm table-striped">
-                            <thead class="bg-primary text-white">
+                            <thead>
                                 <tr>
                                     <th>{{ trans('senaempresa::menu.Id') }}</th>
                                     <th>{{ trans('senaempresa::menu.People ID') }}</th>
@@ -110,7 +103,7 @@
                                         <td>{{ $loan->state }}</td>
                                         <td>
                                             @if ($loan->state === 'Prestado')
-                                                <a href="{{ route('cefa.devolver_prestamo', ['id' => $loan->id]) }}"
+                                                <a href="{{ route('company.loan.devolver_prestamo', ['id' => $loan->id]) }}"
                                                     class="btn btn-primary">{{ trans('senaempresa::menu.Return') }}</a>
                                             @endif
                                         </td>

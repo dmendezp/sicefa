@@ -205,8 +205,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('cefa.prestamos') }}"
-                                class="nav-link {{ !Route::is('cefa.prestamos') ?: 'active' }}">
+                            <a href="{{ route('company.loan.prestamos') }}"
+                                class="nav-link {{ !Route::is('company.loan.prestamos') ?: 'active' }}">
                                 <i class="fas fa-poll"></i>
                                 <p>{{ trans('senaempresa::menu.Registrants') }}</p>
                             </a>

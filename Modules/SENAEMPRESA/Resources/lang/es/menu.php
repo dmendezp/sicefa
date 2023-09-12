@@ -99,6 +99,7 @@ return [
 	'We provide' => 'Prestamos',
 	'People ID' => 'Personal ID',
 	'Select Personal ID' => 'Selecciona ID personal',
+    'Select Inventory ID' => 'Seleccione ID de inventario',
 	'Select a Position' => 'Selecciona un Cargo',
 	'Start date and time' => 'Fecha y Hora de Inicio',
 	'Inventory ID' => 'ID Inventario',
@@ -119,9 +120,9 @@ return [
 	'Select Status' => 'Seleccionar estado',
 	'Quarter' => 'Trimestre',
 	'ID Quarter' => 'ID Trimestre',
-	
 
-	
+
+
 
 
 
