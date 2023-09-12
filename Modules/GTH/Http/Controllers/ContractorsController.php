@@ -7,10 +7,14 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Contractor;
 use Modules\SICA\Entities\ContractorType;
 use Modules\SICA\Entities\EmployeeType;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class ContractorsController extends Controller
 {
-    // Muestra la vista de la lista de contratistas
+    // ...
+
+    // Muestra la lista de contratistas
     public function viewcontractor()
     {
         $contractors = Contractor::all();
@@ -19,36 +23,115 @@ class ContractorsController extends Controller
 
         return view('gth::contracts.contractors', compact('contractors', 'contractorTypes', 'employeeTypes'));
     }
-    // Muestra el formulario de creación de contratistas
 
-    public function create()
+
+
+
+    public function show($id)
     {
-        return view('gth.contractors.create');
+        // Recuperar la información del contratista por su ID
+        $contractor = Contractor::find($id);
+
+        if (!$contractor) {
+            // Manejar el caso en el que no se encuentra el contratista
+            abort(404);
+        }
+
+        // Pasar el contratista a la vista
+        return view('gth::contracts.contractors', compact('contractor'));
     }
 
-    public function store(Request $request)
+
+
+
+
+    // Muestra la vista de edición de un contratista en un modal
+    public function edit($id)
     {
-        $request->validate([
-            'contract_number' => 'required|unique:contractors,contract_number',
+        $contractor = Contractor::findOrFail($id);
+        $contractorTypes = ContractorType::all();
+        $employeeTypes = EmployeeType::all();
+
+        if (!$contractor) {
+            // Manejar la situación en la que no se encuentra el contratista
+            return redirect()->route('gth.contractors.view')
+                ->with('error', 'Contratista no encontrado');
+        }
+
+        return view('gth::contracts.contractors', compact('contractor', 'contractorTypes', 'employeeTypes'));
+    }
+
+
+
+
+
+
+    // Almacena un nuevo contratista en la base de datos
+    public function store(Request $request, $id)
+    {
+        // Valida los datos del formulario antes de guardar
+        $validator = Validator::make($request->all(), [
+            'contract_number' => 'required|string|max:255', // Ejemplo de regla de validación para el número de contrato
+            // Agrega más reglas de validación según tus necesidades para los otros campos
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('gth.contractors.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Crea un nuevo contratista
+        $contractor = new Contractor;
+
+        // Asigna los valores desde $request a los atributos del modelo Contractor
+        $contractor->contract_number = $request->input('contract_number');
+        // Asigna más atributos aquí
+
+        // Guarda el nuevo contratista en la base de datos
+        $contractor->save();
+
+        return redirect()->route('gth.contractors.view')
+            ->with('success', 'Contratista creado exitosamente');
+    }
+
+
+
+
+    // Actualiza un contratista en la base de datos
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'person_id' => 'required|integer',
+            'contract_number' => 'required|string|max:255',
             'contract_start_date' => 'required|date',
             'contract_end_date' => 'nullable|date',
             'total_contract_value' => 'nullable|numeric',
-            'contractor_type_id' => 'required|exists:contractor_types,id',
-            'employee_type_id' => 'required|exists:employee_types,id',
-            'sesion' => 'nullable|string',
+            'contractor_type_id' => 'required|integer',
+            'employee_type_id' => 'required|integer',
+            'sesion' => 'nullable|string|max:255',
             'sesion_date' => 'nullable|date',
-            'SIIF_code' => 'nullable|string',
-            'insurer_entity' => 'nullable|string',
-            'policy_number' => 'nullable|string',
+            'SIIF_code' => 'nullable|string|max:255',
+            'insurer_entity' => 'nullable|string|max:255',
+            'policy_number' => 'nullable|string|max:255',
             'policy_issue_date' => 'nullable|date',
             'policy_approval_date' => 'nullable|date',
             'policy_effective_date' => 'nullable|date',
             'policy_expiration_date' => 'nullable|date',
-            'risk_type' => 'nullable|string',
-            'state' => 'required|in:Activo,Inactivo',
+            'risk_type' => 'nullable|string|max:255',
+            'state' => 'nullable|string|max:255',
+            // Agrega más campos aquí
         ]);
 
-        $contractor = new Contractor();
+        if ($validator->fails()) {
+            return redirect()->route('gth.contractors.edit', $id)
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+        $contractor = Contractor::findOrFail($id);
+        // Actualiza los atributos del modelo Contractor con los valores desde $request
         $contractor->contract_number = $request->input('contract_number');
         $contractor->contract_start_date = $request->input('contract_start_date');
         $contractor->contract_end_date = $request->input('contract_end_date');
@@ -66,83 +149,25 @@ class ContractorsController extends Controller
         $contractor->policy_expiration_date = $request->input('policy_expiration_date');
         $contractor->risk_type = $request->input('risk_type');
         $contractor->state = $request->input('state');
+        // Actualiza más atributos aquí
 
         $contractor->save();
 
-        return redirect()->route('gth.contractors.view')->with('success', 'Contrato creado exitosamente');
+        return redirect()->route('gth.contractors.view')
+            ->with('success', 'Contratista actualizado exitosamente');
     }
 
 
-    public function edit($id)
+
+
+
+    // Elimina un contratista de la base de datos
+    public function destroy($id)
     {
-        // Obtén el contrato que se va a editar
-        $contractor = Contractor::find($id);
+        $contractor = Contractor::findOrFail($id);
+        $contractor->delete();
 
-        // Verifica si el contrato existe
-        if (!$contractor) {
-            return redirect()->route('gth.contractors.view')->with('error', 'Contrato no encontrado');
-        }
-
-        // Muestra el formulario de edición con los datos del contrato
-        return view('gth.contractors.edit', compact('contractors'));
-    }
-
-    public function update(Request $request)
-    {
-        // Validación de los datos del formulario
-        $request->validate([
-            'contract_number' => 'required|unique:contractors,contract_number,' . $request->input('contractor_id'),
-            'contract_start_date' => 'required|date',
-            'contract_end_date' => 'nullable|date',
-            'total_contract_value' => 'nullable|numeric',
-            'contractor_type_id' => 'required|exists:contractor_types,id',
-            'employee_type_id' => 'required|exists:employee_types,id',
-            'sesion' => 'nullable|string',
-            'sesion_date' => 'nullable|date',
-            'SIIF_code' => 'nullable|string',
-            'insurer_entity' => 'nullable|string',
-            'policy_number' => 'nullable|string',
-            'policy_issue_date' => 'nullable|date',
-            'policy_approval_date' => 'nullable|date',
-            'policy_effective_date' => 'nullable|date',
-            'policy_expiration_date' => 'nullable|date',
-            'risk_type' => 'nullable|string',
-            'state' => 'required|in:Activo,Inactivo',
-        ]);
-
-        // Buscar el contrato que se va a actualizar
-        $contractor = Contractor::find($request->input('contractor_id'));
-
-        // Verificar si el contrato existe
-        if (!$contractor) {
-            return redirect()->route('gth.contractors.view')->with('error', 'Contrato no encontrado');
-        }
-
-        // Actualizar los campos del contrato con los datos del formulario
-        $contractor->fill($request->all());
-
-        // Guardar los cambios en el contrato
-        $contractor->save();
-
-        // Redirigir a la vista de lista de contratos con un mensaje de éxito
-        return redirect()->route('gth.contractors.view')->with('success', 'Contrato actualizado exitosamente');
-    }
-
-
-    public function delete($id)
-    {
-        // Buscar el contrato que se va a eliminar
-        $contract = Contractor::find($id);
-
-        // Verificar si el contrato existe
-        if (!$contract) {
-            return redirect()->route('gth.contractors.view')->with('error', 'Contrato no encontrado');
-        }
-
-        // Eliminar el contrato
-        $contract->delete();
-
-        // Redirigir a la vista de lista de contratos con un mensaje de éxito
-        return redirect()->route('gth.contractors.view')->with('success', 'Contrato eliminado exitosamente');
+        return redirect()->route('gth.contractors.view')
+            ->with('success', 'Contratista eliminado exitosamente');
     }
 }

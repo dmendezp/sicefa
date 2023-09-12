@@ -44,7 +44,7 @@
                     </div>
 
                     <!-- Información del Contrato -->
-                    <div class="containe+r">
+                    <div class="container">
                         <h2>Información del Contrato</h2>
 
                         <!-- Sección 1: Datos Básicos del Contrato -->

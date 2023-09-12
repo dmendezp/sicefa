@@ -39,14 +39,9 @@ Route::prefix('gth')->group(function () {
     //Contractors
     Route::get('/contractors', 'ContractorsController@viewcontractor')->name('gth.contractors.view');
     Route::get('/contractors/create', 'ContractorsController@create')->name('gth.contractors.create');
-    Route::post('/contractors', 'ContractorsController@store')->name('gth.contractors.store');
-    Route::get('/contractors/{contractor}', 'ContractorsController@show')->name('gth.contractors.show');
-    Route::get('/contracts/{id}/edit', 'ContractorsController@edit')->name('gth.contracts.edit');
-    Route::patch('/contracts/{id}', 'ContractsController@update')->name('gth.contracts.update');
-    Route::delete('/contracts/{id}', 'ContractsController@delete')->name('gth.contracts.delete');
-
-
-
-
-
+    Route::post('/contractors/store', 'ContractorsController@store')->name('gth.contractors.store');
+    Route::get('/contractors/{id}', 'ContractorsController@show')->name('gth.contractors.show');
+    Route::get('/contractors/edit/{id}', 'ContractorsController@edit')->name('gth.contractors.edit');
+    Route::patch('contractors/{id}', 'ContractorsController@update')->name('gth.contractors.update');
+    Route::delete('/contractors/{id}/delete', 'ContractorsController@destroy')->name('gth.contractors.destroy');
 });
