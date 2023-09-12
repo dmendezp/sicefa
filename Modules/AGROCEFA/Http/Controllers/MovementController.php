@@ -36,6 +36,99 @@ class MovementController extends Controller
         return view('agrocefa::movements.index');
     }
 
+    public function requestentrance()
+    {
+        // Obtén el ID de la unidad productiva seleccionada de la sesión
+        $this->selectedUnitId = Session::get('selectedUnitId');
+
+        $selectedUnit = ProductiveUnit::find($this->selectedUnitId);
+
+        // Inicializa un array para almacenar la información de las bodegas
+        $warehouseData = [];
+
+        // Verifica si hay registros en la tabla productive_unit_warehouses para esta unidad
+        if ($selectedUnit) {
+            $warehouses = $selectedUnit->productive_unit_warehouses;
+
+            // Mapea las bodegas y agrega su información al array
+            $warehouseData = $warehouses->map(function ($warehouseRelation) {
+                $warehouse = $warehouseRelation->warehouse;
+                return [
+                    'id' => $warehouse->id,
+                    'name' => $warehouse->name,
+                ];
+            });
+        }
+
+        $warehousereceive = $warehouseData->first()['id'];
+
+        $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehousereceive)->where('productive_unit_id', $this->selectedUnitId)->first();
+        $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
+
+        $warehousemovementid = WarehouseMovement::where('productive_unit_warehouse_id', $productiveWarehousereceiveId)->where('role', '=', 'Recibe')->get()->pluck('movement_id');
+
+        $movements = Movement::whereIn('id', $warehousemovementid)->where('state','=','Solicitado')->with('movement_type', 'movement_responsibilities.person', 'movement_details.inventory.element', 'warehouse_movements.productive_unit_warehouse.productive_unit', 'warehouse_movements.productive_unit_warehouse.warehouse')->get()->toArray();
+        $datas = [];
+
+        foreach ($movements as $movement) {
+            $id = $movement['id'];
+            $date = $movement['registration_date'];
+            $respnsibility = $movement['movement_responsibilities'][0]['person']['first_name'];
+            $productiveunit = $movement['warehouse_movements'][0]['productive_unit_warehouse']['productive_unit']['name'];
+            $warehouse = $movement['warehouse_movements'][0]['productive_unit_warehouse']['warehouse']['name'];
+            $inventory = $movement['movement_details'][0]['inventory']['element']['name'];
+            $inventoryId = $movement['movement_details'][0]['inventory_id'];
+            $amount = $movement['movement_details'][0]['amount'];
+            $price = $movement['movement_details'][0]['price'];
+            $state = $movement['state'];
+
+            // Agregar información al array asociativo
+            $datas[] = [
+                'id' => $id,
+                'date' => $date,
+                'respnsibility' => $respnsibility,
+                'productiveunit' => $productiveunit,
+                'warehouse' => $warehouse,
+                'inventory' => $inventory,
+                'amount' => $amount,
+                'price' => $price,
+                'state' => $state,
+                'inventory_id' => $inventoryId,
+                // Agrega aquí otros datos que necesites
+            ];
+        }
+
+
+        return view('agrocefa::movements.requestentrance', ['datas' => $datas]);
+    }
+
+
+    public function confirmation(Request $request, $id)
+    {
+        // Obtener el movimiento que se va a confirmar
+        $movement = Movement::find($id);
+    
+        if (!$movement) {
+            // Manejar el caso en que el movimiento no se encuentre
+            return redirect()->back()->with('error', 'Movimiento no encontrado');
+        }
+    
+        // Actualizar el estado del movimiento a "aprobado"
+        $movement->state = 'Aprobado';
+        $movement->save();
+    
+        // Obtener los datos enviados desde el formulario
+        $inventoryId = $request->input('inventory_id');
+        $amount = $request->input('amount');
+        $price = $request->input('price');
+    
+        // Actualizar el inventario de la bodega
+        // Esto puede requerir lógica específica para tu aplicación
+    
+        // Redirigir de nuevo a la vista con un mensaje de éxito
+        return redirect()->back()->with('success', 'Movimiento confirmado exitosamente');
+    }
+    
 
     public function formentrance()
     {
@@ -136,12 +229,14 @@ class MovementController extends Controller
         $deliverywarehouse = $request->input('deliverywarehouse');
         $receivewarehouse = $request->input('receivewarehouse');
         $products = json_decode($request->input('products'), true);
-
         $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->first();
         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
 
-        $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id','=','5')->first();
+        $productiveexterna = ProductiveUnit::where('name','=','Almacen')->get()->pluck('id');
+        
+        $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id',$productiveexterna)->first();
         $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
+
 
 
         // Verificar si $products no es null y es un array
@@ -180,6 +275,7 @@ class MovementController extends Controller
                         $existingInventory->amount += $quantity;
                         $existingInventory->save();
                         $inventoryIds[] = $existingInventory->id;
+                        
                     } else {
                         // Si el elemento no existe, crea un nuevo registro en 'inventories'
                         $stock = 3; // Este valor puede cambiar según tus requisitos
@@ -196,6 +292,7 @@ class MovementController extends Controller
 
                         $inventory->save();
                         $inventoryIds[] = $inventory->id;
+                        
                     }
 
                     // Agrega los datos del elemento al arreglo
@@ -218,11 +315,10 @@ class MovementController extends Controller
                         'observation' => $observation,
                         'state' => 'Aprobado',
                     ]);
-
                     // Guarda el nuevo registro en la base de datos
                     $movement->save();
                     $movementIds[] = $movement->id;
-
+                    
                     // Registrar detalle del movimiento para cada elemento
                     $movement_details = new MovementDetail([
                         'movement_id' => end($movementIds), // Asociar al movimiento actual

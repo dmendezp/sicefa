@@ -48,8 +48,8 @@ class SICAController extends Controller
         return view('sica::admin.dashboard',$data);
     }
 
-    public function attendance_dashboard()
-    {
+    /* Panel de control de asistencias a eventos */
+    public function attendance_dashboard(){
         $people = Person::count();
         $apprentices = Apprentice::count();
         $event = Event::count();
@@ -57,11 +57,31 @@ class SICAController extends Controller
         $eas = $events;
         $i=0;
         foreach($events as $e){
-            $attendance = EventAttendance::select('date',DB::raw('count(id) as total'))->where('event_id',$e->id)->groupBy('date')->get();
-            $dis = EventAttendance::where('event_id',$e->id)->distinct()->count('person_id');
-            $disp = EventAttendance::select('person_id')->where('event_id',$e->id)->distinct()->get();
-            $rage=Person::select('document_type', DB::raw('count(document_type) as val'))->whereIN('id',$disp)->groupBy('document_type')->get();
-            $pop=Person::select('population_groups.name', DB::raw('count(population_group_id) as val'))->whereIN('people.id',$disp)->groupBy('population_group_id')->join('population_groups', 'people.population_group_id', '=', 'population_groups.id')->get();
+            $attendance = EventAttendance::select('date',DB::raw('count(id) as total'))
+                                        ->where('event_id',$e->id)
+                                        ->groupBy('date')
+                                        ->get();
+            $dis = EventAttendance::where('event_id',$e->id)
+                                    ->distinct()
+                                    ->count('person_id');
+            $disp = EventAttendance::select('person_id')
+                                    ->where('event_id',$e->id)
+                                    ->distinct()
+                                    ->get();
+            $rage=  Person::select('document_type', DB::raw('count(document_type) as val'))
+                            ->whereIN('id',$disp)
+                            ->groupBy('document_type')
+                            ->get();
+            /* $pop = Person::select('population_groups.name', DB::raw('count(population_group_id) as val'))
+                            ->whereIN('people.id',$disp)
+                            ->groupBy('population_group_id')
+                            ->join('population_groups', 'people.population_group_id', '=', 'population_groups.id')
+                            ->get(); */
+            $pop = Person::select('population_groups.name', DB::raw('count(population_group_id) as val'))
+                                ->whereIn('people.id', $disp)
+                                ->groupBy('population_groups.name') // Agregado 'name' al GROUP BY
+                                ->join('population_groups', 'people.population_group_id', '=', 'population_groups.id')
+                                ->get();
             $eas[$i]['attendance']=$attendance;
             $eas[$i]['total']=$dis;
             $eas[$i]['rage']=$rage;

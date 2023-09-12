@@ -2,10 +2,16 @@
 <div class="navbar">
   @if (Auth::check() && (Auth::user()->roles[0]->name === 'Administrador' || Auth::user()->roles[0]->name === 'Pasante'))
   <ul>
-      <li style="margin-left: 40px;margin-right: 170px"><a href="#" id="an">AGROCEFA-{{ Session::get('selectedUnitName') }}</a></li>
-      <li style="margin-right: 240px"><a href="{{ route('agrocefa.index') }}" id="an">{{ trans('agrocefa::universal.Home')}}</a></li>
+      <li style="margin-left: 40px;margin-right: 130px"><a href="#" id="an">AGROCEFA-{{ Session::get('selectedUnitName') }}</a></li>
+      <li style="margin-right: 200px"><a href="{{ route('agrocefa.index') }}" id="an">{{ trans('agrocefa::universal.Home')}}</a></li>
       <li style="margin-right: 40px"><a href="{{ url('lang',['en']) }}" id="an" class="dropdown-item"><img src="{{asset('agrocefa/images/general/en.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English')}}</a></li>
-      <li style="margin-right: 20px"><a href="{{ url('lang',['es']) }}" id="an" class="dropdown-item"><img src="{{asset('agrocefa/images/general/es.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish')}}</a></li>
+      <li style="margin-right: 100px"><a href="{{ url('lang',['es']) }}" id="an" class="dropdown-item"><img src="{{asset('agrocefa/images/general/es.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish')}}</a></li>
+      <li><a href="{{ route('agrocefa.movements.notification') }}" id="an">
+        <i class="fa-regular fa-bell fa-flip"></i>
+        @if (isset($notification) && $notification > 0)
+            <span class="notification-badge">{{ $notification }}</span>
+        @endif
+    </a></li>
   </ul>
   @else
   <ul>

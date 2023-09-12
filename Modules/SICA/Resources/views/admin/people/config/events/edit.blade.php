@@ -7,13 +7,13 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {!! Form::open(['route'=>'sica.admin.people.config.event.edit', 'method'=>'POST', 'id'=>'form-config']) !!}
+    {!! Form::open(['route'=>'sica.admin.people.config.events.update', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-0">
-                @include('sica::admin.people.config.events.form')
+            @include('sica::admin.people.config.events.form')
         </div>
         <div class="modal-footer py-1">
-                <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cancelar</button>
-                {!! Form::submit('Actualizar', ['class'=>'btn btn-success btn-md py-0']) !!}
+            <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cancelar</button>
+            {!! Form::submit('Actualizar', ['class'=>'btn btn-success btn-md py-0']) !!}
         </div>
     {!! Form::close() !!}
 </div>

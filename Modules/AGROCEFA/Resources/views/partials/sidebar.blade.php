@@ -60,7 +60,7 @@
                             </a>
                             <!-- Agregamos el ul.sub-list dentro del li.nav-link.reports -->
                             <ul class="sub-list">
-                                <li id="sublist-li"><a href="{{ route('agrocefa.reports.consumption') }}"><i
+                                <li id="sublist-li"><a href="{{ route('agrocefa.reports.consumable') }}"><i
                                             class='bx bxl-apple icon'></i><span
                                             class="text nav-text">{{ trans('agrocefa::universal.Consumption') }}</span></a>
                                 </li>

@@ -45,6 +45,7 @@ return [
 	'Security' => 'Security',
 	'Apps' => 'Apps',
 	'Roles' => 'Roles',
+	'Permissions' => 'Permissions',
 	'Developers' => 'Developers',
 	'Contact' => 'Contact us',
 	'Back to' => 'Back to',

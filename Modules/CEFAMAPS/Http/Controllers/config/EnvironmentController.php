@@ -29,7 +29,7 @@ class EnvironmentController extends Controller
         $sector = Sector::get();
         $classenviron = ClassEnvironment::get();
         $environ = Environment::with('coordinates')->get();
-        $data = ['title'=>trans('cefamaps::environment.Environment'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'sector'=>$sector, 'classenviron'=>$classenviron];
+        $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_Environment_Index_title_page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'sector'=>$sector, 'classenviron'=>$classenviron];
         return view('cefamaps::admin.environment.index',$data);
     }
 
@@ -46,7 +46,7 @@ class EnvironmentController extends Controller
         $sector = Sector::get();
         $classenviron = ClassEnvironment::get();
         $classenvironadd = ClassEnvironment::pluck('name','id');
-        $data = ['title'=>trans('cefamaps::menu.Add'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron, 'sector'=>$sector, 'unitadd'=>$unitadd, 'classenvironadd'=>$classenvironadd];
+        $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_Environment_Add_title_page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'classenviron'=>$classenviron, 'sector'=>$sector, 'unitadd'=>$unitadd, 'classenvironadd'=>$classenvironadd];
         return view('cefamaps::admin.environment.add',$data);
     }
 
@@ -106,7 +106,7 @@ class EnvironmentController extends Controller
         $classenvironedit = ClassEnvironment::pluck('name','id');
         $coor = Coordinate::find($id);
         $editenviron = Environment::with('coordinates')->find($id);
-        $data = ['title'=>trans('cefamaps::menu.Edit'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'coor'=>$coor, 'editenviron'=>$editenviron, 'classenviron'=>$classenviron, 'sector'=>$sector, 'unitedit'=>$unitedit, 'classenvironedit'=>$classenvironedit];
+        $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_Environment_Edit_title_page'), 'environ'=>$environ, 'unit'=>$unit, 'farm'=>$farm, 'coor'=>$coor, 'editenviron'=>$editenviron, 'classenviron'=>$classenviron, 'sector'=>$sector, 'unitedit'=>$unitedit, 'classenvironedit'=>$classenvironedit];
         return view('cefamaps::admin.environment.edit',$data);
     }
 
@@ -177,7 +177,6 @@ class EnvironmentController extends Controller
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
-        return $editcoor;
     }
 
     /**
@@ -192,7 +191,7 @@ class EnvironmentController extends Controller
         $classenviron = ClassEnvironment::get();
         $viewenviron = Environment::where('class_environment_id',$id)->get();
         $pages = Page::get();
-        $data = ['title'=>trans('cefamaps::environment.Environment'), 'unit'=>$unit, 'sector'=>$sector, 'environ'=>$environ, 'classenviron'=>$classenviron, 'viewenviron'=>$viewenviron, 'pages'=>$pages];
+        $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_Environment_View_title_page'), 'unit'=>$unit, 'sector'=>$sector, 'environ'=>$environ, 'classenviron'=>$classenviron, 'viewenviron'=>$viewenviron, 'pages'=>$pages];
         return view('cefamaps::admin.environment.view',$data);
     }
 

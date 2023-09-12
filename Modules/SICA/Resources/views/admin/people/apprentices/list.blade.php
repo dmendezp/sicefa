@@ -5,61 +5,52 @@
 	<!-- /.card-header -->
 	<div class="card-body">
 		<div class="btns">
-			<a href="{{ route('evs.admin.elections.add') }}" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> {{ __('Apprentices Add') }}</a>
+			<a href="#" class="btn btn-primary" disabled>
+                <i class="fas fa-calendar-plus"></i>
+                Registrar aprendiz
+            </a>
 		</div>
 		<div class="mtop16">
-			<table id="example1" class="table table-bordered table-striped">
+			<table id="apprentices_table" class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Documento</th>
+						<th class="text-center">#</th>
+						<th class="text-center">Documento</th>
 						<th>Nombre</th>
 						<th>Correo</th>
-						<th>Estado</th>
-						<th>Acciones</th>
+						<th class="text-center">Estado</th>
+						<th class="text-center">Acciones</th>
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($apprentices as $a)	
-					<tr>
-						<td>{{ $loop->iteration }}</td>
-						<td>{{ $a->person->document_number }}</td>
-						<td>{{ $a->person->full_name }}</td>
-						<td>{{ $a->person->personal_email }}</td>
-						<td>{{ $a->apprentice_status }}</td>
-						<td>
-							<div class="opts">
-
-								<a href="{{ url('sica/admin/people/apprentice/edit/'.$a->id) }}" data-toggle='tooltip' data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
-
-								<a class="btn-delete" href="#" data-action="delete" data-toggle='tooltip' data-placement="top" data-object="{{ $a->id }}" data-path="sica/admin/people/apprentice" title="Eliminar"><i class="fas fa-trash-alt"></i></a>
-
-							</div>
-						</td>
-					</tr>
+					@foreach($apprentices as $a)
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $a->person->document_number }}</td>
+                            <td>{{ $a->person->full_name }}</td>
+                            <td>{{ $a->person->personal_email }}</td>
+                            <td class="text-center">{{ $a->apprentice_status }}</td>
+                            <td class="text-center">
+                                <div class="opts">
+                                    <a href="#" class="text-success" data-toggle='tooltip' data-placement="top" title="Actualizar aprendiz" disabled>
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="#" class="text-danger" data-toggle='tooltip' data-placement="top" title="Eliminar apprendiz" disabled>
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
 					@endforeach
 				</tbody>
-
 			</table>
 		</div>
 	</div>
-	<!-- Timelime example  -->
 </div>
+
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
+    $(function () {
+        $("#apprentices_table").DataTable({});
     });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
 </script>
 
