@@ -136,12 +136,14 @@ class MovementController extends Controller
         $deliverywarehouse = $request->input('deliverywarehouse');
         $receivewarehouse = $request->input('receivewarehouse');
         $products = json_decode($request->input('products'), true);
-
         $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->first();
         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
 
-        $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id','=','5')->first();
+        $productiveexterna = ProductiveUnit::where('name','=','Almacen')->get()->pluck('id');
+        
+        $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id',$productiveexterna)->first();
         $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
+
 
 
         // Verificar si $products no es null y es un array
@@ -180,6 +182,7 @@ class MovementController extends Controller
                         $existingInventory->amount += $quantity;
                         $existingInventory->save();
                         $inventoryIds[] = $existingInventory->id;
+                        
                     } else {
                         // Si el elemento no existe, crea un nuevo registro en 'inventories'
                         $stock = 3; // Este valor puede cambiar según tus requisitos
@@ -196,6 +199,7 @@ class MovementController extends Controller
 
                         $inventory->save();
                         $inventoryIds[] = $inventory->id;
+                        
                     }
 
                     // Agrega los datos del elemento al arreglo
@@ -218,11 +222,10 @@ class MovementController extends Controller
                         'observation' => $observation,
                         'state' => 'Aprobado',
                     ]);
-
                     // Guarda el nuevo registro en la base de datos
                     $movement->save();
                     $movementIds[] = $movement->id;
-
+                    
                     // Registrar detalle del movimiento para cada elemento
                     $movement_details = new MovementDetail([
                         'movement_id' => end($movementIds), // Asociar al movimiento actual
