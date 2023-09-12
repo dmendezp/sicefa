@@ -4,14 +4,22 @@ return [
     'Home' => 'Inicio',
     'Task' => 'Labor',
     'Activities' => 'Actividades',
-    "List of Activities" => "Lista de Actividades",
-    "Movements" => "Movimientos",
+    'List of Activities' => 'Lista de Actividades',
+    'Movements' => 'Movimientos',
+    'Inventory' => 'Inventario',
+    'Request for supplies' => 'Solicitud de insumos',
+    'Desregistrations' => 'Bajas',
+    'Units' => 'Unidades',
+    'Dashboard' => 'Tablero',
 
     //Botones
     'Add Product' => 'Agregar producto', 
     'Delete' => 'Eliminar',
     'Check Out' => 'Registrar Salida',
     'Register deregistration' => 'Registrar baja',
+    'Approve' => 'Aprobar',
+    'Return' => 'Devolver',
+    'Cancel' => 'Cancelar',
 
     //Solicitudes
     'Request Registered Successfully' => 'Solicitud registrada exitosamente',
@@ -24,6 +32,12 @@ return [
     'You must enter an amount' => 'Debe ingresar una cantidad',
 
     //Movimiento interno
+    'Send' => 'Envía',
+    'Receive' => 'Recibe',
+    'Movements' => 'Movimientos',
+    'State' => 'Estado',
+    'Pending' => 'Pendientes',
+    'Movements Pending' => 'Movimientos Pendientes',
     'Exit from Cellar' => 'Salida de Bodega',
     'Date Time' => 'Fecha y Hora',
     'Select a receiver' => 'Seleccione un receptor',

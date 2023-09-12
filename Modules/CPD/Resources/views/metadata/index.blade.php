@@ -1,7 +1,7 @@
 @extends('cpd::layouts.master')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">Metadatos</li>
+    <li class="breadcrumb-item">{{ trans('cpd::metadata.Breadcrumb_Metadata') }}</li>
 @endsection
 
 @section('content')
@@ -20,10 +20,10 @@
                                     <table id="table-producers" class="table table-bordered table-sm dtr-inline">
                                         <thead>
                                             <tr>
-                                                <th class="align-middle text-center">Grupo</th>
-                                                <th class="align-middle text-center">Abreviatura</th>
-                                                <th class="align-middle text-center">Metadato</th>
-                                                <th class="align-middle text-center">Unidad</th>
+                                                <th class="align-middle text-center">{{ trans('cpd::metadata.1T_Group') }}</th>
+                                                <th class="align-middle text-center">{{ trans('cpd::metadata.1T_Abbreviation') }}</th>
+                                                <th class="align-middle text-center">{{ trans('cpd::metadata.1T_Metadata') }}</th>
+                                                <th class="align-middle text-center">{{ trans('cpd::metadata.1T_Unit') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>

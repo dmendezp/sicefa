@@ -1,5 +1,6 @@
 <?php
 return [
+<<<<<<< HEAD
     'Home' => 'Inicio',
     'Dashboard' => 'Panel de control',
     'Administrator' => 'Administrador',
@@ -7,6 +8,10 @@ return [
     'Config' => 'Configuracion',
     'Overview map' => 'Mapa General',
     'Welcome' => 'Bienvenido',
+=======
+    'Dashboard' => 'Panel de control',
+
+>>>>>>> FABRICA4
     'Delete' => 'Eliminar',
     'Edit' => 'Editar',
     'Add' => 'Agregar',

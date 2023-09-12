@@ -3,7 +3,7 @@
 
 <div class="movements">
   <div class="form">
-    <div class="form-header">{{trans('agroindustria::menu.Exit from Cellar')}} <a type="button" href="{{route('cefa.agroindustria.instructor.movements.pending')}}">Pendientes</a></div>
+    <div class="form-header">{{trans('agroindustria::menu.Exit from Cellar')}} <a type="button" href="{{route('cefa.agroindustria.instructor.movements.pending')}}">{{trans(('agroindustria::menu.Pending'))}}</a></div>
     <div class="form-body">
       {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.instructor.movements.out')]) !!}
       <div class="row">
@@ -78,7 +78,7 @@
   </div>
 </div>
 
-<h3 id="movimientos">Movimientos</h3>
+<h3 id="movimientos">{{trans('agroindustria::menu.Movements')}}</h3>
 <div class="table-deliveries">
   @include('agroindustria::instructor.movements.table')
 </div>

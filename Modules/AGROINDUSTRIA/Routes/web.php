@@ -8,6 +8,7 @@ use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ActivityController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\RequestController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\DeliverController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Unit\BakeryController;
+use Modules\AGROINDUSTRIA\Http\Controllers\Unit\PasteleriaController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\WarehouseController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Intern\InventoryController;
 
@@ -26,15 +27,7 @@ Route::middleware(['lang'])->group(function(){
             Route::post('/discharge/create', [WarehouseController::class, 'createDischarge'])->name('cefa.agroindustria.admin.discharge.create');
             Route::get('/discharge/element/{id}', [WarehouseController::class, 'dataElement'])->name('cefa.agroindustria.admin.discharge.element');
         });
-
-         //intern
-         Route::prefix('storer')->group(function (){
-            Route::get('/index', [WarehouseController::class ,'index'])->name('agroindustria.storer.index');
-            Route::get('/inventory', [WarehouseController::class ,'Inventory'])->name('agroindustria.storer.inventory');
-        
-        });
-
-        
+   
         //unidades productivas
         Route::prefix('units')->group(function (){
             Route::get('/pasteleria/{unit}', [PasteleriaController::class, 'index_pasteleria'])->name('cefa.agroindustria.units.pasteleria');
@@ -64,14 +57,7 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/units', 'AGROINDUSTRIAController@unidd')->name('cefa.agroindustria.instructor.units');
         });
 
-
-        
-        //storer
         Route::prefix('storer')->group(function (){
-            Route::get('/index', [WarehouseController::class ,'index'])->name('cefa.agroindustria.storer.index');
-            Route::get('/inventory', [WarehouseController::class ,'inventory'])->name('cefa.agroindustria.storer.inventory');
-            Route::post('/create', [WarehouseController::class ,'create'])->name('cefa.agroindustria.storer.create');
-        
-        });       
+        });
     });
 });

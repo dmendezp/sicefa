@@ -3,14 +3,22 @@ return [
     'Home' => 'Home',
     'Task' => 'Task',
     'Activities' => 'Activities',
-    "List of Activities" => "List of Activities",
-    "Movements" => "Movements",
+    'List of Activities' => 'List of Activities',
+    'Movements' => 'Movements',
+    'Inventory' => 'Inventory',
+    'Request for supplies' => 'Request for supplies',
+    'Desregistrations' => 'Desregistrations',
+    'Units' => 'Units',
+    'Dashboard' => 'Dashboard',
 
     //Botones
     'Add Product' => 'Add product',
     'Delete' => 'Delete',
     'Check Out' => 'Check Out',
     'Register deregistration' => 'Register deregistration',
+    'Approve' => 'Approve',
+    'Return' => 'Return',
+    'Cancel' => 'Cancel',
 
     //Solicitudes
     'Request Registered Successfully' => 'Request Registered Successfully',
@@ -23,6 +31,12 @@ return [
     'Debe ingresar una cantidad' => 'Debe ingresar una cantidad',
 
     //Movimiento interno
+    'Send' => 'Send',
+    'Receive' => 'Receive',
+    'Movements' => 'Movements',
+    'State' => 'State',
+    'Pending' => 'Pending',
+    'Movements Pending' => 'Movements Pending',
     'Exit from Cellar' => 'Exit from Cellar',
     'Date Time' => 'Date and Time',
     'Receiver' => 'Receiver',

@@ -15,17 +15,17 @@
           @if(isset(Auth::user()->person->avatar))
           <img src="{{ asset('storage/'.Auth::user()->person->avatar) }}" class="img-circle elevation-2" alt="User Image">
           @else
-          <img src="{{ asset('sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
           @endif
         </div>
         @guest
           <div class="col info info-user">
-            <div>{{ trans('menu.Welcome') }}</div>             
+            <div>{{ trans('menu.Welcome') }}</div>
             <div><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
 
           </div>
           <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block" ><i class="fas fa-sign-in-alt"></i></a>
-          </div>  
+          </div>
         @else
           <div class="col info info-user">
             <div data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">{{ Auth::user()->nickname }}</div>
@@ -51,9 +51,9 @@
                       {{ trans('sica::menu.Back to') }} {{ env('APP_NAME') }}
                     </p>
                   </a>
-                </li>  
+                </li>
             </ul>
-        </nav>      
+        </nav>
       </div>
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -61,7 +61,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
       @if(Route::is('*.juries.*'))
-        
+
           <li class="nav-item">
             <a href="{{ route('cefa.evs.juries.login') }}" class="nav-link {{ ! Route::is('cefa.evs.juries.login') ?: 'active' }}">
               <i class="fas fa-home"></i>
@@ -94,7 +94,7 @@
                 {{ __('Logout') }}
               </p>
             </a>
-          </li>        
+          </li>
         @endif
       @endif
       @if(Route::is('*.voto.*'))
@@ -113,7 +113,7 @@
                 Votar
               </p>
             </a>
-          </li>        
+          </li>
           <li class="nav-item">
             <a href="{{ route('cefa.evs.voto.normatividad') }}" class="nav-link {{ ! Route::is('cefa.evs.voto.normatividad') ?: 'active' }}">
               <i class="far fa-file-alt"></i>
@@ -150,7 +150,7 @@
                 {{ __('Dashboard') }}
               </p>
             </a>
-          </li>         
+          </li>
           <li class="nav-item">
             <a href="{{ route('evs.admin.elections') }}" class="nav-link {{ ! Route::is('evs.admin.elections*') ?: 'active' }}">
               <i class="fas fa-calendar-alt"></i>

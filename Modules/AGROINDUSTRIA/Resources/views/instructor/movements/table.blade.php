@@ -1,15 +1,15 @@
 <table id="deliveries" class="hover" style="width: 98%;">
     <thead>
         <tr>
-            <th>Fecha y Hora de Solicitud</th>
-            <th>Envia</th>
-            <th>Recibe</th>
-            <th>Elemento</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Total del Movimiento</th>
-            <th>Estado</th>
-            <th>Observaciones</th>
+            <th>{{trans('agroindustria::menu.Date Time')}}</th>
+            <th>{{trans('agroindustria::menu.Send')}}</th>
+            <th>{{trans('agroindustria::menu.Receive')}}</th>
+            <th>{{trans('agroindustria::menu.Element')}}</th>
+            <th>{{trans('agroindustria::menu.Amount')}}</th>
+            <th>{{trans('agroindustria::menu.Price')}}</th>
+            <th>{{trans('agroindustria::menu.Total Movement')}}</th>
+            <th>{{trans('agroindustria::menu.State')}}</th>
+            <th>{{trans('agroindustria::menu.Observations')}}</th>
             <th></th>
         </tr>
     </thead>
@@ -54,17 +54,17 @@
                         @if ($movement->state === 'Solicitado' & $responsibility->role === 'RECIBE')
                             @if ($responsibility->person_id === Auth::user()->person->id)
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#aprobar{{$movement->id}}">
-                                Aprobar
+                                {{trans('agroindustria::menu.Approve')}}
                             </button>  
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#devolver{{$movement->id}}">
-                                Devolver
+                              {{trans('agroindustria::menu.Return')}}
                             </button>
                             @endif
                             @else
                               @if($movement->state === 'Solicitado' & $responsibility->role === 'ENTREGA')
                                 @if ($responsibility->person_id === Auth::user()->person->id)
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#anular{{$movement->id}}">
-                                    Cancelar
+                                  {{trans('agroindustria::menu.Cancel')}}
                                     </button>                            
                                 @endif
                               @endif

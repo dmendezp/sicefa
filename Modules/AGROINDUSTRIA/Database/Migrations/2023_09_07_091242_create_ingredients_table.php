@@ -15,6 +15,9 @@ class CreateIngredientsTable extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('element_id')->constrained()->onDelete('cascade');
+            $table->Integer('amount');
+            $table->foreignId('formulation_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -27,6 +30,7 @@ class CreateIngredientsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('ingredients');
     }
 }
