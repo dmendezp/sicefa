@@ -19,6 +19,14 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/index', 'AGROINDUSTRIAController@index')->name('cefa.agroindustria.home.index');
         Route::get('/cedula/{coordinatorId}', [RequestController::class, 'document_coordinator'])->name('cefa.agroindustria.cedula');
 
+        //admin
+        Route::prefix('admin')->group(function (){
+            Route::get('/dashboard', 'AGROINDUSTRIAController@dashboard')->name('cefa.agroindustria.admin.dashboard');
+            Route::get('/discharge', [WarehouseController::class, 'discharge'])->name('cefa.agroindustria.admin.discharge');
+            Route::post('/discharge/create', [WarehouseController::class, 'createDischarge'])->name('cefa.agroindustria.admin.discharge.create');
+            Route::get('/discharge/element/{id}', [WarehouseController::class, 'dataElement'])->name('cefa.agroindustria.admin.discharge.element');
+        });
+
          //intern
          Route::prefix('storer')->group(function (){
             Route::get('/index', [WarehouseController::class ,'index'])->name('agroindustria.storer.index');
@@ -26,10 +34,6 @@ Route::middleware(['lang'])->group(function(){
         
         });
 
-        //admin
-        Route::prefix('admin')->group(function (){
-            Route::get('/dashboard', 'AGROINDUSTRIAController@dashboard')->name('cefa.agroindustria.admin.dashboard');
-        });
         
         //unidades productivas
         Route::prefix('units')->group(function (){

@@ -13,7 +13,12 @@
                 </li>
             @endif
             
-            
+            @if(Route::is('*admin.*'))
+                <li class="nav-item">
+                    <a href="{{route('cefa.agroindustria.admin.discharge')}}" class="nav-link">Bajas</a>
+                </li>
+            @endif
+
             @if(Route::is('*instructor.*') || Route::is('*units.*'))
                 <!--Menú instructor-->
                 @if(Auth::user()->havePermission('agroindustria.instructor.request'))

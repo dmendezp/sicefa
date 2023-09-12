@@ -10,6 +10,7 @@ return [
     'Add Product' => 'Add product',
     'Delete' => 'Delete',
     'Check Out' => 'Check Out',
+    'Register deregistration' => 'Register deregistration',
 
     //Solicitudes
     'Request Registered Successfully' => 'Request Registered Successfully',
@@ -30,10 +31,10 @@ return [
     'Warehouse that Receives' => 'Warehouse that Receives',
     'Observations' => 'Observations',
     'Products' => 'Products',
-    'Element' => 'Element:',
-    'Amount' => 'Amount:',
-    'Quantity Available' => 'Quantity Available:',
-    'Price' => 'Price:',
+    'Element' => 'Element',
+    'Amount' => 'Amount',
+    'Quantity Available' => 'Quantity Available',
+    'Price' => 'Price',
     'Select a product' => 'Select a product',
     'Select a winery' => 'Select a Winery',
     'You must select a receiver' => 'You must select a receiver',
@@ -52,7 +53,16 @@ return [
     'Required field' => 'Required field',
     'Return' => 'Return',
     'Movement successfully returned' => 'Movement successfully returned',
-    'Error when returning the movement' => 'Error when returning the movement'
+    'Error when returning the movement' => 'Error when returning the movement',
+
+    //Bajas
+    'Registration of deregistrations' => 'Registration of deregistrations',
+    'Responsible' => 'Responsible',
+    'Total Movement' => 'Total Movement',
+    'Unit of Measurement' => 'Unit of Measurement',
+    'Lote' => 'Lote',
+    'Expiration Date' => 'Expiration Date',
+    'Deregistrations' => 'Deregistrations'
 ]
 
 ?>

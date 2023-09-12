@@ -11,6 +11,7 @@ return [
     'Add Product' => 'Agregar producto', 
     'Delete' => 'Eliminar',
     'Check Out' => 'Registrar Salida',
+    'Register deregistration' => 'Registrar baja',
 
     //Solicitudes
     'Request Registered Successfully' => 'Solicitud registrada exitosamente',
@@ -31,10 +32,10 @@ return [
     'Warehouse that Receives' => 'Bodega que Recibe',
     'Observations' => 'Observaciones',
     'Products' => 'Productos',
-    'Element' => 'Elemento:',
-    'Amount' => 'Cantidad:',
-    'Quantity Available' => 'Cantidad Disponible:',
-    'Price' => 'Precio:',
+    'Element' => 'Elemento',
+    'Amount' => 'Cantidad',
+    'Quantity Available' => 'Cantidad Disponible',
+    'Price' => 'Precio',
     'Select a product' => 'Seleccione un producto',
     'Select a winery' => 'Seleccione una Bodega',
     'You must select a receiver' => 'Debe seleccionar un receptor',
@@ -54,6 +55,15 @@ return [
     'Return' => 'Devolver',
     'Movement successfully returned' => 'Movimiento devuelto con éxito',
     'Error when returning the movement' => 'Error al devolver el movimiento',
+
+    //Bajas
+    'Registration of deregistrations' => 'Registro de bajas',
+    'Responsible' => 'Responsable',
+    'Total Movement' => 'Total del Movimiento',
+    'Unit of Measurement' => 'Unidad de Medida',
+    'Lote' => 'Lote',
+    'Expiration Date' => 'Fecha de vencimiento',
+    'Deregistrations' => 'Bajas'
 ]
 
 ?>

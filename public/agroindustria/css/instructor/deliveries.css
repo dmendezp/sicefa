@@ -86,3 +86,55 @@
     justify-content: center;
     margin-top: 20px;
 }
+
+.discharge{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#elements{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.elements_discharge{
+    display: flex;
+    flex-direction: row; /* Alinea los campos uno al lado del otro */
+    align-items: flex-start;
+    max-width: 800px;
+}
+
+.button_discharge{
+    position: relative;
+    top: 100px;
+    right: 450px;
+}
+
+.baja{
+    background-color: #fa9cb2;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.baja:hover{
+    background-color: #ffbbcb;
+}
+
+#bajas{
+    position: relative;
+    top: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.table_discharge{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}

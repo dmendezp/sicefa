@@ -246,13 +246,16 @@ class DeliverController extends Controller
                 if (isset($inventories[$key])) {
                     $detail->inventory_id = $inventories[$key];
                 } else {
-                    // Manejar el caso en el que $inventories[$key] no existe
-                    // Puedes agregar una acción aquí, como mostrar un mensaje de error o realizar alguna otra lógica personalizada.
-                    // Por ejemplo:
                     return back()
                         ->withInput()
                         ->with('icon', 'error')
                         ->with('message_line', trans('agroindustria::menu.You must select an item'));
+                }
+                if($amount<=0){
+                    return back()
+                    ->withInput()
+                    ->with('icon', 'error')
+                    ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
                 }
         
                 $detail->amount = $amount;
