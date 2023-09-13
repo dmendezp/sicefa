@@ -13,9 +13,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('../modules/bienestar/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- jQuery -->
-  <script src="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/plugins/jquery/jquery.min.js') }}"></script>
   <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   <!-- DataTables JS -->
@@ -24,18 +24,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <!-- fullCalendar -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/fullcalendar/main.css') }}">
-  <link rel="stylesheet" href="{{ asset('../bienestarxd/AdminLTE-3.2.0/dist/css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('../modules/bienestar/AdminLTE-3.2.0/dist/css/adminlte.min.css') }}">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
   </script>
   <!--styles-->
   <!-- fullCalendar -->
-  <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/fullcalendar/main.css') }}">
+  <link rel="stylesheet" href="{{ asset('modules/bienestar/AdminLTE-3.2.0/plugins/fullcalendar/main.css') }}">
 
-  <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('bienestarxd/AdminLTE-3.2.0/dist/css/adminlte.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('../bienestarxd/css/styles.css') }}">
+  <link rel="stylesheet" href="{{ asset('modules/bienestar/AdminLTE-3.2.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('modules/bienestar/AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('modules/bienestar/AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('modules/bienestar/AdminLTE-3.2.0/dist/css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('../modules/bienestar/css/styles.css') }}">
   <link rel="stylesheet" href="{{ asset('../libs/jquery-3.6.4.min.js') }}">
 
 
@@ -271,16 +271,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
-    <script src="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('../bienestarxd/AdminLTE-3.2.0/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/dist/js/adminlte.min.js') }}"></script>
     <!-- js general -->
-    <script src="{{ asset('../bienestarxd/js/script.js') }}"></script>
+    <script src="{{ asset('../modules/bienestar/js/script.js') }}"></script>
     <!-- fullCalendar 2.2.5 -->
-    <script src="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/moment/moment.min.js') }}"></script>
-    <script src="{{ asset('../bienestarxd/AdminLTE-3.2.0/plugins/fullcalendar/main.js') }}"></script>
+    <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('../modules/bienestar/AdminLTE-3.2.0/plugins/fullcalendar/main.js') }}"></script>
     <!-- Page specific script -->
 
     @section('script')
