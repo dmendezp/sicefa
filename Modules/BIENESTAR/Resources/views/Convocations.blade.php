@@ -13,43 +13,51 @@
                 {!! Form::open(['url' => route('cefa.bienestar.Convocations.store'), 'method' => 'POST']) !!}
                 @csrf
                 <div class="row p-3">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
+                      <div class="form-group">
                         {!! Form::label('title convocation',__('bienestar::menu.title convocation')) !!}
                         {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Convocatoria','id'=>'title_convocation']) !!}
                         <span  id="title_error" class="text-danger" ></span>
                         
+                     </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-12">
+                     <div class="form-group">
                         {!! Form::label('description',__('bienestar::menu.description')) !!}
                         {!! Form::text('description', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion','id' => 'description']) !!}
                         <span id="description_error" class="text-danger"></span>
+                     </div>
                     </div>
                 
-                    <div class="col-md-4">
-                    <label for="food_quotas">{{ trans('bienestar::menu.food quotas')}}</label>
-                                <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
-                                <span id="food_quotas-error" class="text-danger"></span>
+                    <div class="col-md-6"> 
+                        <label for="food_quotas">{{ trans('bienestar::menu.food quotas')}}</label>
+                        <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
+                        <span id="food_quotas-error" class="text-danger"></span>
+                      
                     </div>
-                    <div class="col-md-4">
-                    <label for="transport_quotas">{{ trans('bienestar::menu.transport quotas')}}</label>
-                                <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
-                                <span id="transport_quotas-error" class="text-danger"></span>
-
-                    <div class="col-md-12">
-                        {!! Form::label('time interval',__('bienestar::menu.time interval')) !!}
-                        {!! Form::date('time interval', null, ['class' => 'form-control',  'required']) !!}
-                    </div>
-                    </div>
+                    <div class="col-md-6">  
+                     <div class="form-group">
+                        <label for="transport_quotas">{{ trans('bienestar::menu.transport quotas')}}</label>
+                        <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
+                        <span id="transport_quotas-error" class="text-danger"></span>   
+                     </div>
+                   </div>
                     <hr>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         {!! Form::label('start date', __('bienestar::menu.start date')) !!}
                         {!! Form::date('start date', null, ['class' => 'form-control',  'required']) !!}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         {!! Form::label('end date', __('bienestar::menu.end date')) !!}
                         {!! Form::date('end date', null, ['class' => 'form-control',  'required']) !!}
                     </div>
+                    <div class="col-md-3">
+                        {!! Form::label('time interval',__('bienestar::menu.time interval')) !!}
+                        {!! Form::date('time interval', null, ['class' => 'form-control',  'required']) !!}
+                    </div>
+                    
+                    
                     <div class="col-md-2 align-self-end">
                             <div class="btns mt-3">
                                 {!! Form::submit(__('bienestar::menu.Save'),['class'=>'btn btn-success', 'style'=>'background-color: #179722;
@@ -127,7 +135,7 @@
                 </div>
                 <div class="modal-body">
                     {!! Form::open(['url' => 'cefa.bienestar/Convocations/update/id', 'method' => 'PUT','role' => 'form']) !!}
-                    <div class="row ">
+                    <div class="row p-3">
                         <div class="col-md-12">
                         <div class="form-group">
                         <label for="title">{{ trans('bienestar::menu.title convocation')}}</label>
@@ -135,38 +143,44 @@
                                 'required']) !!}
                         </div>
                         <div class="col-md-12">
-                        <div class="form-group">
-                        <label for="quota">{{ trans('bienestar::menu.description')}}</label>
-                            {!! Form::text('description', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion',
+                          <div class="form-group">
+                              <label for="quota">{{ trans('bienestar::menu.description')}}</label>
+                              {!! Form::text('description', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion',
                                 'required']) !!}
+                           </div>
                         </div>
                         <div class="col-md-12">
-                        <div class="form-group">
-                        <label for="food_quotas">{{ trans('bienestar::menu.food quotas')}}</label>
-                                <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2"min="1" max="99">
-                                <span id="food_quotas-error" class="text-danger"></span>
+                          <div class="form-group">
+                             <label for="food_quotas">{{ trans('bienestar::menu.food quotas')}}</label>
+                             <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2"min="1" max="99">
+                             <span id="food_quotas-error" class="text-danger"></span>
+                           </div>
                         </div>
                         <div class="col-md-12">
-                        <div class="form-group">
-                        <label for="transport_quotas">{{ trans('bienestar::menu.transport quotas')}}</label>
+                            <div class="form-group">
+                                <label for="transport_quotas">{{ trans('bienestar::menu.transport quotas')}}</label>
                                 <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
                                 <span id="transport_quotas-error" class="text-danger"></span>
                             </div>
+                       </div>
                         <div class="col-md-12">
-                        <div class="form-group">
-                        <label for="quota">{{trans('bienestar::menu.start date')}}</label>
-                            {!! Form::date('start_date', null, ['class' => 'form-control', 'required']) !!}
+                            <div class="form-group">
+                              <label for="quota">{{trans('bienestar::menu.start date')}}</label>
+                              {!! Form::date('start_date', null, ['class' => 'form-control', 'required']) !!}
+                           </div>
                         </div>
                         <div class="col-md-12">
-                        <div class="form-group">
-                        <label for="quota">{{ trans('bienestar::menu.end date')}}</label>
-                            {!! Form::date('end_date', null, ['class' => 'form-control', 'required']) !!}
+                           <div class="form-group">
+                               <label for="quota">{{ trans('bienestar::menu.end date')}}</label>
+                               {!! Form::date('end_date', null, ['class' => 'form-control', 'required']) !!}
+                           </div>
                         </div>
                         <div class="col-md-12">
-                        <div class="form-group">
-                        <label for="quota">{{ trans('bienestar::menu.time interval')}}</label>
-                        {!! Form::date('time_interval', null, ['class' => 'form-control',  'required']) !!}
-                    </div>
+                           <div class="form-group">
+                             <label for="quota">{{ trans('bienestar::menu.time interval')}}</label>
+                             {!! Form::date('time_interval', null, ['class' => 'form-control',  'required']) !!}
+                          </div>
+                       </div>
                         <div class="col-md-2">
                             <div class="btns">
                                 {!! Form::submit('Actualizar',['class' =>'btn btn-success']) !!}
