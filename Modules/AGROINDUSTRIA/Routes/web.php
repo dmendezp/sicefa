@@ -58,6 +58,7 @@ Route::middleware(['lang'])->group(function(){
 
             //Formulacion
             Route::get('/formulation', [FormulationController::class, 'index'])->name('cefa.agroindustria.instructor.formulations');
+            Route::post('/formulation/create', [FormulationController::class, 'create'])->name('cefa.agroindustria.instructor.formulations.create');
         });
     
         //storer

@@ -25,11 +25,6 @@ use Validator, Str;
 
 class DeliverController extends Controller
 {
-    private $receiveOptions = [
-        'aprobado' => 'Aprobado',
-        'devuelto' => 'Devuelto',
-        // Agrega más opciones según tus necesidades
-    ];
 
     public function deliveries()
     {
@@ -100,6 +95,8 @@ class DeliverController extends Controller
             ELSE 2
         END")->get();
         
+        // Cuenta los movimientos con estado "solicitado"
+        $pendingMovementsCount = Movement::where('state', 'Solicitado')->count();
 
         $data = [
             'title' => $title,
@@ -108,7 +105,7 @@ class DeliverController extends Controller
             'elements' => $elements,
             'receive' => $receive,
             'movements' => $movements,
-            'receiveOptions' => $this->receiveOptions
+            'pedingMovements' => $pendingMovementsCount,
         ];
 
         return view('agroindustria::instructor.movements.deliveries', $data);
@@ -338,7 +335,6 @@ class DeliverController extends Controller
             'title' => $title,
             'movements' => $movements,
             'dataReceive' => $dataReceive,
-            'receiveOptions' => $this->receiveOptions
         ];
         return view('agroindustria::instructor.movements.pending', $data);
     }

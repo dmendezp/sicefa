@@ -41,6 +41,22 @@
     border-radius: 4px;
 }
 
+#add-ingredients{
+    color: white;
+    font-weight: bold;
+    border: none;
+    background-color: green;
+    border-radius: 4px;
+}
+
+#add-utencils{
+    color: white;
+    font-weight: bold;
+    border: none;
+    background-color: green;
+    border-radius: 4px;
+}
+
 .remove-element{
     padding: 10px 15px 5px 0px;
     color: white;
@@ -137,4 +153,10 @@
     align-items: center;
     justify-content: center;
     margin-top: 20px;
+}
+
+#pedingMovements{
+    position: relative;
+    left: 710px;
+    text-decoration: none;
 }
