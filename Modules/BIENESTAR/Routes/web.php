@@ -84,6 +84,7 @@ Route::middleware(['lang'])->group(function () {
         // vista de gestiones de convocatorias
         Route::get('/Convocations', 'ConvocationsController@index')->name('cefa.bienestar.Convocations');
         Route::post('/Convocations/store', 'ConvocationsController@store')->name('cefa.bienestar.Convocations.store');
+        Route::delete('/Convocations/delete/{id}', 'ConvocationsController@destroy')->name('cefa.bienestar.Convocations.destroy');
         Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('cefa.bienestar.Convocations.update');
 
 
