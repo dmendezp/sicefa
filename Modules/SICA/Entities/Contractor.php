@@ -29,9 +29,7 @@ class Contractor extends Model implements Auditable
         'sesion_date',
         'employee_type_id',
         'SIIF_code',
-        'health_entity',
-        'pension_entity',
-        'insurer_entity',
+        'insurer_entity_id',
         'policy_number',
         'policy_issue_date',
         'policy_approval_date',
@@ -55,15 +53,6 @@ class Contractor extends Model implements Auditable
     public function setContractObligationsAttribute($value){ // Convierte el primer carácter en mayúscula del dato contract_obligations (MUTADOR)
         $this->attributes['contract_obligations'] = ucfirst($value);
     }
-    public function setHealthEntityAttribute($value){ // Convierte el primer carácter en mayúscula del dato health_entity (MUTADOR)
-        $this->attributes['health_entity'] = ucfirst($value);
-    }
-    public function setInsurerEntityAttribute($value){ // Convierte el primer carácter en mayúscula del dato insurer_entity (MUTADOR)
-        $this->attributes['insurer_entity'] = ucfirst($value);
-    }
-    public function setPensionEntityAttribute($value){ // Convierte el primer carácter en mayúscula del dato pension_entity (MUTADOR)
-        $this->attributes['pension_entity'] = ucfirst($value);
-    }
     public function setRiskTypeAttribute($value){ // Convertir a mayúsculas el valor del dato risk_type (MUTADOR)
         $this->attributes['risk_type'] = mb_strtoupper($value);
     }
@@ -77,6 +66,9 @@ class Contractor extends Model implements Auditable
     }
     public function employee_type(){ // Accede al tipo de empleado al que pertenece
         return $this->belongsTo(EmployeeType::class);
+    }
+    public function insurer_entity(){ // Accede a la entidad aseguradora al que pertenece
+        return $this->belongsTo(InsurerEntity::class);
     }
     public function person(){ // Accede a la información de la persona al que pertenece
         return $this->belongsTo(Person::class);

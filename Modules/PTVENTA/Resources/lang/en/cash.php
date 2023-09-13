@@ -1,50 +1,64 @@
 <?php
 
 return [
-    //Breadcrumbs Cash Closing
-	'Cash'         => 'Cash',
-	'Cash Control' => 'Cash Control',
+    // Breadcrumbs
+	'Breadcrumb_Cash_1'        => 'Cash Control',
+	'Breadcrumb_Active_Cash_1' => 'Opening and closing of cash register',
 
-    //Card 1
-    'TitleCard1'    => 'Cash Closing',
-    //Card 2
-    'TitleCard2'    => 'Cash History',
-
-    //Table
-    '1T1' => 'N°',
-    '1T2' => 'Opening Manager',
-    '1T3' => 'Opening Date',
-    '1T4' => 'Initial Balance',
-    '1T5' => 'State',
-    '1T6' => 'Action',
-    '1T7' => 'Final Balance',
-    '1T8' => 'Closing Date',
-    '1T9' => 'Warehouse',
-    '1T10' => 'Total Sales',
-
-    //Modal
-    'TitleModal' => 'Perform cash closing',
-    'Close cash' => 'Close cash',
+    // -----Card Closed Cash-----
+    'Title_Card_Cash_Closing'  => 'Cash Closing',
+    // Table
+    '1T_Number'          => 'N°',
+    '1T_Opening_Manager' => 'Opening Manager',
+    '1T_Opening_Date'    => 'Opening Date',
+    '1T_Initial_Balance' => 'Initial Balance',
+    '1T_Final_Balance'   => 'Final Balance',
+    '1T_State'           => 'State',
+    '1T_Action'          => 'Action',
+    
+    // -----Card History Cash-----
+    'Title_Card_Cash_History' => 'Cash History',
+    // Table
+    '2T_Number'          => 'N°',
+    '2T_Opening_Manager' => 'Opening Manager',
+    '2T_Opening_Date'    => 'Opening Date',
+    '2T_Closing_Date'    => 'Closing Date',
+    '2T_Initial_Balance' => 'Initial Balance',
+    '2T_Final_Balance'   => 'Final Balance',
+    '2T_Total_Sales'     => 'Total Sales',
+    '2T_State'           => 'State',
+    '2T_Warehouse'       => 'Warehouse',
+    
+    // -----Modal-----
+    'Title_Modal'           => 'Perform cash closing',
+    'Modal_Opening_Manager' => 'Opening Manager',
+    'Modal_Opening_Date'    => 'Opening Date',
+    'Modal_Initial_Balance' => 'Initial Balance',
+    'Modal_Final_Balance'   => 'Final Balance',
+    'Modal_Total_Sales'     => 'Total Sales',
+    'Modal_Closing_Date'    => 'Closing Date',
+    'Modal_Warehouse'       => 'Warehouse',
 
     //Buttons
-    'Btn1' => 'Open cash',
-    'Btn2' => 'Confirm',
-    'Btn3' => 'Cancel',
+    'Btn_Open_Cash'  => 'Open cash',
+    'Btn_Close_Cash' => 'Close cash',
+    'Btn_Confirm'    => 'Confirm',
+    'Btn_Cancel'     => 'Cancel',
 
     //Tooltips
-    'TextTooltip1' => 'Close current cash',
+    'Text_Tooltip_Closed' => 'Close current cash',
 
-    //Alerts - Sweetalert2
-    //Alert 1 - Confirm close cash
-    'Title1' => 'Are you sure you want to close the cash?',
-    'Text1'  => 'When closing the cash, a new one will be started.',
-    //Alert 2 - Cancel close cash
-    'Title2' => 'Operation canceled',
-    'Text2'  => 'The cash will stay open!',
-    //Alert 3 - Result success
-    'Title3' => 'Successful Operation',
-    'Text3'  => 'You have started a new cash!',
-    'Title4' => 'Operation Declined!',
-    'Text4'  => 'Successfully closed cash.',
-    'Text5'  => 'Failed to close cash count (possibly a value for the final balance has not been sent).',
+    // -----Alerts - Sweetalert2-----
+    // Cash closing confirmation alert
+    'TitleClosingCash'       => 'Are you sure you want to close the cash?',
+    'TextClosingCash'        => 'When closing the cash, a new one will be started.',
+    // Cancel close cash
+    'TitleClosingCashCancel' => 'Operation canceled',
+    'TextClosingCashCancel'  => 'The cash will stay open!',
+    // Result success
+    'TitleSuccess'           => 'Successful Operation',
+    'Text3'                  => 'You have started a new cash!',
+    'TitleAlert'             => 'Operation Declined!',
+    'TextSuccess'            => 'Successfully closed cash.',
+    'TextFailed'             => 'Failed to close cash count (possibly a value for the final balance has not been sent).',
 ];

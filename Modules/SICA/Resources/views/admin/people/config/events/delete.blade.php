@@ -7,7 +7,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {!! Form::open(['route'=>'sica.admin.people.config.event.delete', 'method'=>'POST', 'id'=>'form-config']) !!}
+    {!! Form::open(['route'=>'sica.admin.people.config.events.destroy', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-3" style="font-size: 20px;">
             {!! Form::hidden('id', $event->id) !!}
             <div class="row">
@@ -38,8 +38,8 @@
             </div>
         </div>
         <div class="modal-footer py-1">
-                <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cancelar</button>
-                {!! Form::submit('Eliminar', ['class'=>'btn btn-danger btn-md py-0']) !!}
+            <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">Cancelar</button>
+            {!! Form::submit('Eliminar', ['class'=>'btn btn-danger btn-md py-0']) !!}
         </div>
     {!! Form::close() !!}
 </div>

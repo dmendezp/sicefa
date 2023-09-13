@@ -83,13 +83,13 @@ Livewire.on('message', function(type, action, message, change_value) {
             text: message,
             html: (type == 'success') ?
                 '<div class="bg-light py-2">' +
-                    '<p class="text-secondary">Tiene un cambio de:</p>' +
+                    '<p class="text-secondary">' + window.translations.alertChangeOf + '</p>' +
                     '<h1>'+ change_value +'</h1>' +
                 '</div>'
                 : null,
             icon: type,
             iconColor: color[type],
-            confirmButtonText: 'Aceptar',
+            confirmButtonText: window.translations.btnAccept,
             confirmButtonColor: 'green'
         });
     }
@@ -157,10 +157,16 @@ Livewire.on('close-modal-register-customer', function() {
     modalRegisterCustomer.hide();
 });
 
-Livewire.on('printTicket', async function(voucher_number, date, customer, dt_customer, seller, details, total) {
-
-    print_sale(voucher_number, date, customer, dt_customer, seller, details, total);
-
+/* Generar impresión de factura de venta realizada */
+Livewire.on('printTicket', async function(movement) {
+    await print_sale(movement); // Imprimir factura de venta realizada
+    try {
+    } catch (error) {
+        /* Lanzar notificación toastr */
+        toastr.options.timeOut = 0;
+        toastr.options.closeButton = true;
+        toastr.error('Es posible que no este en ejecución el plugin_impresora_termica en el equipo.', 'Error de impresión');
+    }
 });
 
 
