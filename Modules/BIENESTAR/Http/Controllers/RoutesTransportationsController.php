@@ -18,7 +18,7 @@ class RoutesTransportationsController extends Controller
         // Obtén los datos de buses con sus conductores relacionados
         $buses = Buses::with('bus_driver')->whereHas('bus_driver')->get();
         $busDrivers = BusDrivers::all();
-        $routestransportations = RoutesTransportations::with('bus')->get();
+        $routestransportations = RoutesTransportations::with('bus.bus_driver')->get();
 
         return view('bienestar::transportroutes', ['buses' => $buses, 'busDrivers' => $busDrivers, 'routestransportations' => $routestransportations]);
     }
@@ -48,51 +48,59 @@ class RoutesTransportationsController extends Controller
         $transportRoute->save();
 
     // Puedes agregar un mensaje de éxito
-    return redirect()->route('cefa.bienestar.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
-}
+        return redirect()->route('cefa.bienestar.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
+    }
 
-public function update(Request $request, $id)
-{
-    // Valida los datos enviados por el formulario
-    $validatedData = $request->validate([
-        'route_number' => 'required|numeric',
-        'name_route' => 'required|string',
-        'bus' => 'required|numeric',
-        'driver_name' => 'required|string',
-        'stop_bus' => 'required|string',
-        'arrival_time' => 'required|date_format:H:i',
-        'departure_time' => 'required|date_format:H:i',
-    ]);
+    public function edit($id){
+        $idTransport = RoutesTransportations::findOrFail($id);
+        return redirect()->route('cefa.bienestar.transportroutes', compact('idTransport'));
+    }
 
-    // Busca el registro que deseas actualizar por su ID
-    $transportRoute = TransportRoute::find($id);
+    public function update(Request $request)
+    {
+        // Valida los datos enviados por el formulario
+        $validatedData = $request->validate([
+            'new_route_number' => 'required',
+            'new_name_route' => 'required|string',
+            'new_bus' => 'required',
+            'new_stop_bus' => 'required|string',
+            'new_arrival_time' => 'required',
+            'new_departure_time' => 'required',
+        ]);
 
-    // Actualiza los valores del modelo con los datos validados del formulario
-    $transportRoute->route_number = $validatedData['route_number'];
-    $transportRoute->name_route = $validatedData['name_route'];
-    $transportRoute->bus = $validatedData['bus'];
-    $transportRoute->driver_name = $validatedData['driver_name'];
-    $transportRoute->stop_bus = $validatedData['stop_bus'];
-    $transportRoute->arrival_time = $validatedData['arrival_time'];
-    $transportRoute->departure_time = $validatedData['departure_time'];
+        // Busca el registro existente por su ID
+        $transportRoute = RoutesTransportations::findOrFail($request->input('id_transport'));
+        
+        
+        // Actualiza los campos del registro con los datos del formulario
+        $transportRoute->route_number = $request->input('new_route_number');
+        $transportRoute->stop_bus = $request->input('new_stop_bus');
+        $transportRoute->name_route = $request->input('new_name_route');
+        $transportRoute->bus_id = $request->input('new_bus');
+        $transportRoute->arrival_time = $request->input('new_arrival_time');
+        $transportRoute->departure_time = $request->input('new_departure_time');
 
-    // Guarda el registro actualizado en la base de datos
-    $transportRoute->save();
+        // Guarda los cambios en la base de datos
+        $transportRoute->save();
 
-    // Redirige a la vista deseada con un mensaje de éxito
-    return redirect()->route('cefa.bienestar.transportroutes')->with('success', 'Registro de ruta de transporte actualizado exitosamente.');
-}
-
+        // Puedes agregar un mensaje de éxito
+        return redirect()->route('cefa.bienestar.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
+    }
 
     public function destroy($id)
     {
         try {
-            $routes = RoutesTransportations::findOrFail($id);
-            $routes->delete();
+            $beneficio = RoutesTransportations::findOrFail($id);
+            $beneficio->delete();
 
-            return response()->json(['mensaje' => 'Vacancy eliminated with success']);
+            return response()->json(['mensaje' =>'Vacancy eliminated with success']);
         } catch (\Exception $e) {
-            return response()->json(['mensaje' => 'Error when deleting the vacancy'], 500);
+            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
         }
+        
     }
+
+
+    
+
 }

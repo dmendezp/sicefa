@@ -9,7 +9,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{ route('cefa.bienestar.transportroutes.store') }}" method="POST" role="form">
+                <form action="{{ route('cefa.bienestar.transportroutes.add') }}" method="POST" role="form">
                     @csrf
                     <div class="row p-4">
                         <div class="col-md-3">
@@ -89,7 +89,7 @@
                                 <td>{{ $transport->departure_time}}</td>
                                 <td>{{ $transport->bus->plate}}</td>
                                 <td><div class="d-flex">
-                                    <button class="btn btn-primary editButton mr-2" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-primary editButton mr-2" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal{{$transport->id}}"><i class="fas fa-edit"></i></button>
                                     <form action="{{ route('cefa.bienestar.transportroutes.destroy', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
                                         @csrf
                                         @method("DELETE")
@@ -111,65 +111,64 @@
 
 <!-- Modales de edición -->
 @foreach ( $routestransportations as $transport)
-<div class="modal fade" id="editModal{{ $transport->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $transport->id }}" aria-hidden="true">
+<div class="modal fade" id="editModal{{ $transport->id }}" tabindex="-1" aria-labelledby="editModal{{ $transport->id }}Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel{{ $transport->id }}">Editar Transporte</h5>
+                <h5 class="modal-title" id="editModal{{ $transport->id }}Label">Editar Transporte</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Formulario de edición con validación -->
-                <form id="editForm{{ $transport->id }}" action="{{ route('cefa.bienestar.transportroutes.update', ['id' => $transport->id]) }}" method="post" onsubmit="return validateForm{{ $transport->id }}()">
-                @csrf
-                    <div class="form-group">
-                        <label for="route_number{{ $transport->id }}">Número De Ruta:</label>
-                        <select name="route_number" id="route_number{{ $transport->id }}" class="form-control" required>
-                            <option value="">Selecciona un número de ruta</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="name_route{{ $transport->id }}">Nombre De La Ruta:</label>
-                        <input type="text" name="name_route" id="name_route{{ $transport->id }}" class="form-control" placeholder="Nombre Ruta" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="bus{{ $transport->id }}">Bus:</label>
-                        <select name="bus" id="bus{{ $transport->id }}" class="form-control" required onchange="updateDriverName{{ $transport->id }}()">
-                            <option value="">Selecciona un bus</option>
-                            <!-- Aquí puedes agregar opciones dinámicamente con tu backend -->
-                            <option value="1" data-bus-driver="Conductor 1">Bus 1</option>
-                            <option value="2" data-bus-driver="Conductor 2">Bus 2</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="bus_driver{{ $transport->id }}">Nombre del Conductor:</label>
-                        <input id="bus_driver{{ $transport->id }}" name="driver_name" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly">
-                    </div>
-                    <div class="form-group">
-                        <label for="stop_bus{{ $transport->id }}">Parada:</label>
-                        <input id="stop_bus{{ $transport->id }}" name="stop_bus" type="text" class="form-control" placeholder="Ej: Juncal">
-                    </div>
-                    <div class="form-group">
-                        <label for="arrival_time{{ $transport->id }}">Hora Llegada:</label>
-                        <input type="time" name="arrival_time" id="arrival_time{{ $transport->id }}" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="departure_time{{ $transport->id }}">Hora Salida:</label>
-                        <input type="time" name="departure_time" id="departure_time{{ $transport->id }}" class="form-control" required>
-                    </div>
+<!-- Formulario de edición con validación -->
+<form id="editForm{{ $transport->id }}" action="{{ route('cefa.bienestar.transportroutes.update') }}" method="post" onsubmit="return validateForm{{ $transport->id }}()">
 
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                </form>
+@csrf
+    <div class="form-group">
+        <input type="hidden" name="id_transport" value="{{$transport->id}}">
+        <label for="route_number{{ $transport->id }}">Número De Ruta:</label>
+        <select name="new_route_number" id="route_number{{ $transport->id }}" class="form-control" required>
+            <option value="">Selecciona un número de ruta</option>
+            @for ($i = 1; $i <= 8; $i++)
+                <option value="{{ $i }}" @if ($i == $transport->route_number) selected @endif>{{ $i }}</option>
+            @endfor
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="name_route{{ $transport->id }}">Nombre De La Ruta:</label>
+        <input type="text" name="new_name_route" id="name_route{{ $transport->id }}" class="form-control" placeholder="Nombre Ruta" required value="{{ $transport->name_route }}">
+    </div>
+    <div class="form-group">
+        <label for="bus{{ $transport->id }}">Bus:</label>
+        <select name="new_bus" id="bus{{ $transport->id }}" class="form-control" required onchange="updateDriverName{{ $transport->id }}()">
+            <option value="">Selecciona un bus</option>
+            <!-- Aquí puedes agregar opciones dinámicamente con tu backend -->
+            <option value="1" data-bus-driver="Conductor 1" @if ($transport->bus_id == 1) selected @endif>Bus 1</option>
+            <option value="2" data-bus-driver="Conductor 2" @if ($transport->bus_id == 2) selected @endif>Bus 2</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="bus_driver{{ $transport->id }}">Nombre del Conductor:</label>
+        <input id="bus_driver{{ $transport->id }}" name="new_driver_name" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly" value="{{ $transport->bus->bus_driver->name }}">
+    </div>
+    <div class="form-group">
+        <label for="stop_bus{{ $transport->id }}">Parada:</label>
+        <input id="stop_bus{{ $transport->id }}" name="new_stop_bus" type="text" class="form-control" placeholder="Ej: Juncal" value="{{ $transport->stop_bus }}">
+    </div>
+    <div class="form-group">
+        <label for="arrival_time{{ $transport->id }}">Hora Llegada:</label>
+        <input type="time" name="new_arrival_time" id="arrival_time{{ $transport->id }}" class="form-control" required value="{{ $transport->arrival_time }}">
+    </div>
+    <div class="form-group">
+        <label for="departure_time{{ $transport->id }}">Hora Salida:</label>
+        <input type="time" name="new_departure_time" id="departure_time{{ $transport->id }}" class="form-control" required value="{{ $transport->departure_time }}">
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+</form>
+
             </div>
         </div>
     </div>
@@ -186,56 +185,17 @@
     </div>
 </div>
 
-
 <script>
-    // Obtén una referencia al elemento select y al input
-    var selectBus = document.getElementById('bus');
-    var conductorInput = document.getElementById('bus_driver');
-
-    // Agrega un evento de cambio al select
-    selectBus.addEventListener('change', function() {
-        // Obtén el valor seleccionado
-        var selectedBusId = selectBus.value;
-
-        // Busca la opción seleccionada y obtén el nombre del conductor desde el atributo de datos
-        var selectedOption = selectBus.options[selectBus.selectedIndex];
-        var conductorName = selectedOption.getAttribute('data-bus-driver');
-
-        // Actualiza el valor del input con el nombre del conductor
-        conductorInput.value = conductorName;
-    });
-
-    // Función para abrir el modal de eliminación
-    $(document).on('click', '.deleteButton', function () {
-        var transportId = $(this).data('id');
-        var modal = $('#deleteModal' + transportId);
-
-        // Abre el modal
-        modal.modal('show');
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        // Agrega un evento cuando el modal se muestra
-        $('.editButton').on('click', function () {
-            var id = $(this).data('id');
-            var routeNumber = $(this).data('route-number');
-            var nameRoute = $(this).data('name-route');
-            var stopBus = $(this).data('stop-bus');
-            var arrivalTime = $(this).data('arrival-time');
-            var departureTime = $(this).data('departure-time');
-            var busId = $(this).data('bus-id');
-            var busDriver = $(this).data('bus-driver');
-
-            // Llena el formulario con los valores obtenidos
-            $('#route_number' + id).val(routeNumber);
-            $('#name_route' + id).val(nameRoute);
-            $('#stop_bus' + id).val(stopBus);
-            $('#arrival_time' + id).val(arrivalTime);
-            $('#departure_time' + id).val(departureTime);
-            $('#bus' + id).val(busId);
-            $('#bus_driver' + id).val(busDriver);
-        });
+    // Escuchar el evento de cambio en el campo de selección "Bus"
+    $('#bus').change(function() {
+        // Obtener el valor seleccionado en el campo de selección "Bus"
+        var selectedBusId = $(this).val();
+        
+        // Encontrar la opción seleccionada y obtener el atributo "data-bus-driver"
+        var selectedBusDriver = $('option:selected', this).data('bus-driver');
+        
+        // Actualizar el campo de entrada "Nombre del Conductor" con el nombre del conductor
+        $('#bus_driver').val(selectedBusDriver);
     });
 </script>
 @endsection
