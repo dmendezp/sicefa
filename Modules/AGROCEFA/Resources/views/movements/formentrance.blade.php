@@ -25,7 +25,7 @@
         });
     </script>
 @endif
-<h2>Formulario Entrada</h2>
+<h2>{{trans('agrocefa::movements.Entry_Form')}}</h2>
 
 <div class="container">
     <div class="card">
@@ -35,13 +35,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        {!! Form::label('date', 'Fecha') !!}
+                        {!! Form::label('date', trans('agrocefa::movements.Date')) !!}
                         {!! Form::text('date', $date, ['class' => 'form-control', 'required', 'readonly' => 'readonly']) !!}
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        {!! Form::label('user_id', 'Responsable Entrega') !!}
+                        {!! Form::label('user_id', trans('agrocefa::movements.Responsibility')) !!}
                         {!! Form::select('user_id', $people, null, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
                     </div>
                     
@@ -52,11 +52,11 @@
                 <div class="col-md-6">
                     <div class="card" id="card">
                         <div class="card-header" id="card_header">
-                            Entrega
+                            {{ trans('agrocefa::movements.Delivery') }}
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                {!! Form::label('deliverywarehouse', 'Bodega Entrega') !!}
+                                {!! Form::label('deliverywarehouse', trans('agrocefa::movements.Warehouse_That_Delivers')) !!}
                                 {!! Form::select('deliverywarehouse', $werhousentrance->pluck('name', 'id'), null, ['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
@@ -65,11 +65,11 @@
                 <div class="col-md-6">
                     <div class="card" id="card">
                         <div class="card-header" id="card_header">
-                            Recibe
+                            {{ trans('agrocefa::movements.Receive') }}
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                {!! Form::label('receivewarehouse', 'Bodega Recibe') !!}
+                                {!! Form::label('receivewarehouse', trans('agrocefa::movements.Warehouse_That_Receives')) !!}
                                 {!! Form::select('receivewarehouse', $warehouseData->pluck('name', 'id'), null, ['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
@@ -78,37 +78,37 @@
             </div>
             <div class="row">
                 <div class="form-group">
-                    {!! Form::label('observation', 'Observacion') !!}
+                    {!! Form::label('observation', trans('agrocefa::movements.Observation')) !!}
                     {!! Form::textarea('observation', null,  ['class' => 'form-control', 'style' => 'max-height: 100px;']) !!}
                 </div>
             </div>
             <!-- Agregar la tabla dinámica -->
             <div class="form-group">
-                <h3>Productos</h3>
+                <h3>{{ trans('agrocefa::movements.Elements')}}</h3>
                 <table id="productTable" class="table table-bordered">
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Nombre del Producto</th>
-                            <th>Unidad de Medida</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                            <th>Categoria</th>
-                            <th>Destino</th> 
-                            <th>Acciones</th>
+                            <th>{{ trans('agrocefa::movements.1T_Name_Of_The_Element') }}</th>
+                            <th>{{ trans('agrocefa::movements.1T_Measurement_Unit') }}</th>
+                            <th>{{ trans('agrocefa::movements.1T_Amount') }}</th>
+                            <th>{{ trans('agrocefa::movements.1T_Price') }}</th>
+                            <th>{{ trans('agrocefa::movements.1T_Category') }}</th>
+                            <th>{{ trans('agrocefa::movements.1T_Destination') }}</th>
+                            <th>{{ trans('agrocefa::movements.1T_Actions') }}</th> 
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Filas de la tabla se agregarán dinámicamente aquí -->
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-primary" id="addProduct">Agregar Producto</button>
+                <button type="button" class="btn btn-primary" id="addProduct">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
             </div>
             <!-- Otros campos del formulario según tus necesidades -->
             <input type="hidden" name="products" id="productsInput" value="">
             <input type="hidden" class="product-selected-id" name="product_selected_id">
             <br>
-            {!! Form::submit('Registrar Entrada', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit( trans('agrocefa::movements.Btn_Register_Entrance'), ['class' => 'btn btn-primary']) !!}
             {!! Form::close() !!}
         </div>
     </div>
@@ -171,20 +171,20 @@
             var newRow = $('<tr class="product-row">');
             newRow.html('<td><input type="hidden" class="product-element-id"></td>' +
                 '<td><select class="form-control product-name" required></select></td>' +
-                '<td><input type="text" class="form-control product-measurement-unit" readonly></td>' +
-                '<td><input type="number" class="form-control product-quantity" placeholder="Cantidad"></td>' +
-                '<td><input type="number" class="form-control product-price" placeholder="Precio" ></td>' +
+                '<td><input type="text" name="product-measurement-unit[]" class="form-control product-measurement-unit" readonly></td>' +
+                '<td><input type="number" class="form-control product-quantity" placeholder="{{trans('agrocefa::movements.Placeholder_Amount')}}"></td>' +
+                '<td><input type="number" class="form-control product-price" placeholder="{{trans('agrocefa::movements.Placeholder_Price')}}" ></td>' +
                 '<td><input type="text" class="form-control product-category" readonly></td>' +
                 '<td><select class="form-control product-destination" required>' +
                 '<option value="Producción">Producción</option>' +
                 '<option value="Formación">Formación</option>' +
                 '</select></td>' +
-                '<td><button type="button" class="btn btn-danger removeProduct">Eliminar</button></td>' +
-                '<td><button type="button" class="btn btn-success saveProduct">Guardar</button></td>');
+                '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>' +
+                '<button type="button" class="btn btn-success saveProduct"><i class="fa fa-check"></i></button></td>');
 
             // Llenar el select de nombre de producto en la nueva fila
             var productNameSelect = newRow.find('.product-name');
-            productNameSelect.append('<option value="">Seleccione un elemento</option>');
+            productNameSelect.append('<option value="">{{trans('agrocefa::movements.Placeholder_Element')}}</option>');
 
             // Iterar sobre los elementos y agregar las opciones al menú desplegable
             $.each(elements, function(index, element) {
@@ -286,7 +286,7 @@
                     // Llamar a updateProductsData después de cambiar la selección
                     updateProductsData();
                 },
-                error: function () {
+                error    : function () {
                     var measurementUnitField = currentRow.find('.product-measurement-unit');
                     var categoryField = currentRow.find('.product-category');
 

@@ -47,7 +47,7 @@
             });
         </script>
     @endif
-    <h2>{{ trans('agrocefa::movements.ExitForm') }}</h2>
+    <h2>{{ trans('agrocefa::movements.Exit_Form') }}</h2>
 
     <div class="container" id="containermovements">
         <div class="card">
@@ -57,14 +57,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('date', 'Fecha') !!}
+                            {!! Form::label('date', trans('agrocefa::movements.Date')) !!}
                             {!! Form::text( 'date', old('date', $date), ['class' => 'form-control', 'required', 'readonly' => 'readonly']) !!}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('user_id', 'Receptor Responsable') !!}
+                                {!! Form::label('user_id', trans('agrocefa::movements.Responsible_Recipient')) !!}
                                 <!-- Campo oculto para almacenar el ID del responsable -->
                                 {!! Form::hidden('user_id', null, ['id' => 'userId']) !!}
                                 <!-- Campo de solo lectura para mostrar el nombre del responsable -->
@@ -78,16 +78,16 @@
                     <div class="col-md-6">
                         <div class="card" id="card">
                             <div class="card-header" id="card_header">
-                                Entrega
+                                {{ trans('agrocefa::movements.Delivery') }}
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    {!! Form::label('productive_unit', 'Unidad Productiva') !!}
+                                    {!! Form::label('productive_unit', trans('agrocefa::movements.Productive_Unit')) !!}
                                     {!! Form::text('productive_unit',  Session::get('selectedUnitName'), ['class' => 'form-control', 'readonly' => 'readonly']) !!}
 
                                 </div>
                                 <div class="form-group">
-                                    {!! Form::label('deliverywarehouse', 'Bodega Entrega') !!}
+                                    {!! Form::label('deliverywarehouse', trans('agrocefa::movements.Warehouse_That_Delivers')) !!}
                                     {!! Form::select(
                                         'deliverywarehouse',
                                         ['' => 'Seleccione la unidad'] + $warehouseData->pluck('name', 'id')->toArray(),
@@ -101,11 +101,11 @@
                     <div class="col-md-6">
                         <div class="card" id="card">
                             <div class="card-header" id="card_header">
-                                Recibe
+                                {{ trans('agrocefa::movements.Receive') }}
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    {!! Form::label('product_unit', 'Unidad Productiva') !!}
+                                    {!! Form::label('product_unit', trans('agrocefa::movements.Productive_Unit')) !!}
                                     {!! Form::select(
                                         'product_unit',
                                         ['' => 'Seleccione la unidad'] + $productunits->pluck('name', 'id')->toArray(),
@@ -114,7 +114,7 @@
                                     ) !!}
                                 </div>
                                 <div class="form-group">
-                                    {!! Form::label('receivewarehouse', 'Bodega Recibe') !!}
+                                    {!! Form::label('receivewarehouse', trans('agrocefa::movements.Warehouse_That_Receives')) !!}
                                     {!! Form::select('receivewarehouse', [], old('receivewarehouse'), [
                                         'class' => 'form-control',
                                         'required',
@@ -126,7 +126,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group">
-                            {!! Form::label('observation', 'Observacion') !!}
+                            {!! Form::label('observation', trans('agrocefa::movements.Observation')) !!}
                             {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'style' => 'max-height: 100px;']) !!}
                         </div>
                     </div>
@@ -134,31 +134,31 @@
                 <br>
                 <!-- Agregar la tabla dinámica -->
                 <div class="form-group">
-                    <h3 id="title">Elementos</h3>
+                    <h3 id="title">{{ trans('agrocefa::movements.Elements')}}</h3>
                     <table id="productTable" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Nombre del Producto</th>
-                                <th>Unidad de Medida</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th>Categoria</th>
-                                <th>Destino</th> <!-- Agregar la columna de Destino -->
-                                <th>Acciones</th>
+                                <th>{{ trans('agrocefa::movements.1T_Name_Of_The_Element')}}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Measurement_Unit')}}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Amount')}}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Price')}}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Category')}}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Destination')}}</th> <!-- Agregar la columna de Destino -->
+                                <th>{{ trans('agrocefa::movements.1T_Actions')}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Filas de la tabla se agregarán dinámicamente aquí -->
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-primary" id="addProduct">Agregar Producto</button>
+                    <button type="button" class="btn btn-primary" id="addProduct">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
                 </div>
                 <!-- Otros campos del formulario según tus necesidades -->
                 <input type="hidden" name="products" id="productsInput" value="">
                 <input type="hidden" class="product-selected-id" name="product_selected_id">
                 <br>
-                {!! Form::submit('Registrar Entrada', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit(trans('agrocefa::movements.Btn_Register_Entrance'), ['class' => 'btn btn-primary']) !!}
                 {!! Form::close() !!}
             </div>
         </div>

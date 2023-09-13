@@ -8,9 +8,10 @@
       <li style="margin-right: 100px"><a href="{{ url('lang',['es']) }}" id="an" class="dropdown-item"><img src="{{asset('agrocefa/images/general/es.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish')}}</a></li>
       <li><a href="{{ route('agrocefa.movements.notification') }}" id="an">
         <i class="fa-regular fa-bell fa-flip"></i>
-        @if (isset($notification) && $notification > 0)
-            <span class="notification-badge">{{ $notification }}</span>
+        @if (Session::has('notification') && Session::get('notification') > 0)
+          <span class="notification-badge">{{ Session::get('notification') }}</span>
         @endif
+
     </a></li>
   </ul>
   @else

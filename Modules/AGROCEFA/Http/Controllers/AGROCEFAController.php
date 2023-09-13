@@ -119,7 +119,7 @@ class AGROCEFAController extends Controller
  
          $warehousemovementid = WarehouseMovement::where('productive_unit_warehouse_id', $productiveWarehousereceiveId)->where('role', '=', 'Recibe')->get()->pluck('movement_id');
  
-         $movements = Movement::whereIn('id', $warehousemovementid)->with('movement_type', 'movement_responsibilities.person', 'movement_details.inventory.element', 'warehouse_movements.productive_unit_warehouse.productive_unit', 'warehouse_movements.productive_unit_warehouse.warehouse')->get()->toArray();
+         $movements = Movement::whereIn('id', $warehousemovementid)->where('state','=','Solicitado')->with('movement_type', 'movement_responsibilities.person', 'movement_details.inventory.element', 'warehouse_movements.productive_unit_warehouse.productive_unit', 'warehouse_movements.productive_unit_warehouse.warehouse')->get()->toArray();
          $datas = [];
  
          foreach ($movements as $movement) {
@@ -150,6 +150,8 @@ class AGROCEFAController extends Controller
  
          // Contar el número de registros después de obtener los datos
          $movementsCount = count($datas);
+
+         Session::put('notification', $movementsCount);
         // Retornar la vista deseada
         return view('agrocefa::home', [
             'selectedUnitName' => $selectedUnitName,

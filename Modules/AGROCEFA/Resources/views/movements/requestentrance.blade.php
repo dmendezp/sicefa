@@ -51,6 +51,9 @@
                                             {!! Form::open(['route' => ['agrocefa.movements.confirmation', $data['id']], 'method' => 'POST']) !!}
                                             @csrf
                                             {!! Form::hidden('inventory_id', $data['inventory_id']) !!}
+                                            {!! Form::hidden('element_id', $data['element_id']) !!}
+                                            {!! Form::hidden('destination', $data['destination']) !!}
+                                            {!! Form::hidden('person_id', $data['person_id']) !!}
                                             {!! Form::hidden('amount', $data['amount']) !!}
                                             {!! Form::hidden('price', $data['price']) !!}
                                             {!! Form::submit('Confirmar', ['class' => 'btn btn-primary']) !!}

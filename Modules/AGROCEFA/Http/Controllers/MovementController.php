@@ -65,6 +65,9 @@ class MovementController extends Controller
         $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehousereceive)->where('productive_unit_id', $this->selectedUnitId)->first();
         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
 
+        Session::put('productiveunitwarehouseid',$productiveWarehousereceiveId);
+    
+
         $warehousemovementid = WarehouseMovement::where('productive_unit_warehouse_id', $productiveWarehousereceiveId)->where('role', '=', 'Recibe')->get()->pluck('movement_id');
 
         $movements = Movement::whereIn('id', $warehousemovementid)->where('state','=','Solicitado')->with('movement_type', 'movement_responsibilities.person', 'movement_details.inventory.element', 'warehouse_movements.productive_unit_warehouse.productive_unit', 'warehouse_movements.productive_unit_warehouse.warehouse')->get()->toArray();
@@ -73,10 +76,13 @@ class MovementController extends Controller
         foreach ($movements as $movement) {
             $id = $movement['id'];
             $date = $movement['registration_date'];
+            $person_id = $movement['movement_responsibilities'][0]['person_id'];
             $respnsibility = $movement['movement_responsibilities'][0]['person']['first_name'];
             $productiveunit = $movement['warehouse_movements'][0]['productive_unit_warehouse']['productive_unit']['name'];
             $warehouse = $movement['warehouse_movements'][0]['productive_unit_warehouse']['warehouse']['name'];
             $inventory = $movement['movement_details'][0]['inventory']['element']['name'];
+            $destination = $movement['movement_details'][0]['inventory']['destination'];
+            $elementid = $movement['movement_details'][0]['inventory']['element_id'];
             $inventoryId = $movement['movement_details'][0]['inventory_id'];
             $amount = $movement['movement_details'][0]['amount'];
             $price = $movement['movement_details'][0]['price'];
@@ -94,6 +100,9 @@ class MovementController extends Controller
                 'price' => $price,
                 'state' => $state,
                 'inventory_id' => $inventoryId,
+                'element_id' => $elementid,
+                'destination' => $destination,
+                'person_id' => $person_id,
                 // Agrega aquí otros datos que necesites
             ];
         }
@@ -119,9 +128,44 @@ class MovementController extends Controller
     
         // Obtener los datos enviados desde el formulario
         $inventoryId = $request->input('inventory_id');
+        $elementId = $request->input('element_id');
+        $destination = $request->input('destination');
+        $personid = $request->input('person_id');
         $amount = $request->input('amount');
         $price = $request->input('price');
-    
+        
+        
+        $productiveunitwarehouseId = Session::get('productiveunitwarehouseid');;
+
+
+        $inventory = Inventory::where([
+            'productive_unit_warehouse_id' => $productiveunitwarehouseId,
+            'element_id' => $elementId,
+        ])->first();
+            
+
+        if ($inventory) {
+            $inventory->price = $price;
+            $inventory->amount += $amount;
+            $inventory->save();
+            $inventoryIds[] = $inventory->id;
+        }
+        else {
+        $stock = 3;
+        $inventory = new Inventory([
+            'person_id' => $personid,
+            'productive_unit_warehouse_id' => $productiveunitwarehouseId,
+            'element_id' => $elementId,
+            'destination' => $destination,
+            'price' => $price,
+            'amount' => $amount, // Agregar la cantidad recibida
+            'stock' => $stock,
+        ]);
+
+        $inventory->save();
+        $inventoryIds[] = $inventory->id;
+
+        }
         // Actualizar el inventario de la bodega
         // Esto puede requerir lógica específica para tu aplicación
     
@@ -236,7 +280,7 @@ class MovementController extends Controller
         
         $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id',$productiveexterna)->first();
         $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
-
+        
 
 
         // Verificar si $products no es null y es un array
@@ -486,7 +530,7 @@ class MovementController extends Controller
                 'responsibility' => $people ?? null,
                 'warehouses' => $warehouses->toArray(),
             ];
-
+            dump($response);
             return response()->json($response);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error interno del servidor'], 500);
