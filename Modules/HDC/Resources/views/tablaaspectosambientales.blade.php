@@ -8,13 +8,16 @@
                 </tr>
             </thead>
             <tbody>
-               <tr></tr>
-                
+                @foreach($as as $aspecto)
+                <tr>
+                    <td>{{ $aspecto['name'] }}</td>
+                    <td><input class="form-control" type="number"></td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
         <div class="d-flex justify-content-around">
-            <a href="#" class="btn btn-success">Agregar</a>
+            <a href="#" class="btn btn-success">Guardar</a>
         </div>
     </div>
 </div>
-

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\Resource;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\SICA\Entities\Activity;
 
 
 class EnvironmentalAspect extends Model implements Auditable
@@ -29,15 +30,16 @@ class EnvironmentalAspect extends Model implements Auditable
     ];
 
     // RELACIONES
-    public function environmental_aspect_activities(){ // Accede a todas los registros de aspectos ambientales y actividades que pertenecen a esta actividad
-        return $this->hasMany(EnvironmentalAspectActivity::class);
-    }
     // Relación: Un aspecto ambiental puede tener muchos registros de "personal aspectos"
     public function personenvironmentalaspects(){
         return $this->hasMany(PersonEnvironmentalAspect::class);
     }
     public function resource(){ // Accede al recurso al que pertenece
         return $this->belongsTo(Resource::class);
+    }
+
+    public function activities(){
+        return $this->belongsToMany(Activity::class);
     }
 
 }

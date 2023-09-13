@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEnvironmentalAspectActivitiesTable extends Migration
+class CreateActivityEnvironmentalAspectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEnvironmentalAspectActivitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('environmental_aspect_activities', function (Blueprint $table) {
+        Schema::create('activity_environmental_aspects', function (Blueprint $table) {
             $table->id();
             $table->foreignId('activity_id')->constrained()->onDelete('cascade');
             $table->foreignId('environmental_aspect_id')->constrained()->onDelete('cascade');
@@ -31,6 +31,6 @@ class CreateEnvironmentalAspectActivitiesTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('environmental_aspect_activities');
+        Schema::dropIfExists('activity_environmental_aspects');
     }
 }

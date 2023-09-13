@@ -46,11 +46,26 @@
 
 @push('scripts')
     <script>
+
+        // Cuando se cambia la unidad productiva seleccionada
+        $(document).on("change", "#activity_id", function() {
+            // Obtener el valor seleccionado del campo 'activity_id'
+                    activity_id = $(this).val();
+                if (activity_id == '') {
+                    $("#div-tabla").html('');
+                } else {
+                    var myObjet = new Object();
+                    myObjet.activity_id = $('#activity_id').val();
+                    var myString = JSON.stringify(myObjet);
+                    //console.log('Datos enviados:', myString);
+                    ajaxReplace("div-tabla", '/hdc/get_aspects', myString);
+                }
+            });
         // Cuando se cambia la unidad productiva seleccionada
         $(document).on("change", "#productive_unit_id", function() {
             unit_id = $(this).val();
             if (unit_id == '') {
-                $("#div-actividades").html('Seleccione la unidad');
+                $("#div-actividades").html('');
             } else {
                 var myObjet = new Object();
                 myObjet.productive_unit_id = $('#productive_unit_id').val();
@@ -59,26 +74,8 @@
 
             }
         });
-    </script>
-@endpush
- @push('scripts')
-    <script>
-        // Cuando se cambia la unidad productiva seleccionada
-        $(document).on("change", "#activity_id", function() {
-        // Obtener el valor seleccionado del campo 'activity_id'
-             activity_id = $(this).val();
-            if (activity_id == '') {
-                $("#div-tabla").html('Seleccione la unidad');
-            } else {
-                var myObjet = new Object();
-                myObjet.activity_id = $('#activity_id').val();
-                var myString = JSON.stringify(myObjet);
-                 {{--  console.log('Datos enviados:', myString);  --}}
-                 console.log('Mary se jodio con una pequeña consulta');
 
-                ajaxReplace("div-tabla", '/hdc/aspecto_ambiental/', myString);
-            }
-        });
+
     </script>
 @endpush
 

@@ -1,4 +1,6 @@
 @extends('hdc::layouts.master')
+<!-- Sweealert2 -->
+<link rel="stylesheet" href="{{ asset('AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
 
 @section('title', 'calcular')
 
@@ -31,7 +33,7 @@
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <button class="btn btn-success mt-4" onclick="verficarUsuario()">Verificar</button>
+                                <button class="btn btn-success mt-4" onclick="verficarUsuario()">Consultar</button>
                             </div>
                         </div>
                     </div>
@@ -47,6 +49,7 @@
 @stop
 
 @push('scripts')
+<script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
         function verficarUsuario(){
             documento = $('#documento').val();
@@ -71,5 +74,18 @@
             }
         }
     </script>
+    @if(session('error'))
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Persona No Encontrada',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+    @endif
+</script>
 @endpush
+
 

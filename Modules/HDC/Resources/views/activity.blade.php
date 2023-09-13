@@ -13,22 +13,3 @@
     </div>
 </div>
 
-{{--  @push('scripts')
-    <script>
-        // Cuando se cambia la unidad productiva seleccionada
-        $(document).on("change", "#activity_id", function() {
-        // Obtener el valor seleccionado del campo 'activity_id'
-             activity_id = $(this).val();
-            if (activity_id == '') {
-                $("#div-tabla").html('Seleccione la unidad');
-            } else {
-                var myObjet = new Object();
-                myObjet.activity_id = $('#activity_id').val();
-                var myString = JSON.stringify(myObjet);
-                 console.log('Datos enviados:', myString);
-
-                ajaxReplace("div-tabla", '/hdc/tabla_aspectosambientales', myString);
-            }
-        });
-    </script>
-@endpush  --}}

@@ -5,9 +5,9 @@ namespace Modules\HDC\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\HDC\Entities\EnvironmentalAspectActivity;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\ProductiveUnit;
+
 
 class FormularioController extends Controller
 {
@@ -38,31 +38,25 @@ class FormularioController extends Controller
     }
 
 
+    public function getAspects()
+    {
 
-        public function aspectosambientales()
-        {
-            $data = json_decode($_POST['data']);
+        $data = json_decode($_POST['data']);
 
-            // Obtén el ID de la actividad seleccionada desde los datos decodificados
-            $activityId = $data->activity_id;
+        $aspects = Activity::with('environmental_aspects')->where('id', $data->activity_id)->get();
+        
+        $as = $aspects->flatMap(function ($aspect){
+            return $aspect->environmental_aspects->map(function ($relation){
+                return [
+                    'name' => $relation->name
+                ];
+            });
+        });
 
-            // Realiza la consulta para obtener los aspectos ambientales relacionados a través de la tabla intermedia
-            // Reemplaza 'actividad_aspecto_ambiental' con el nombre de tu tabla intermedia
-            // Reemplaza 'AspectoAmbiental' con el nombre de tu modelo de aspectos ambientales
-            $aspectos = DB::table('environmental_aspect_activities')
-                ->where('activity_id', $activityId)
-                ->join('EnvironmentalAspect', 'environmental_aspect_activities.environmental_aspect_id', '=', 'environmental_aspect.id')
-                ->get();
-
-            // $aspectos ahora contiene los aspectos ambientales relacionados con la actividad seleccionada a través de la tabla intermedia
-
-            // Haz lo que necesites con $aspectos, como devolverlos en una vista
-
-            return view('hdc::tablaaspectosambientales', compact('activitiesWithEnvironmentalAspects'));
-        }
-
+        return view('hdc::tablaaspectosambientales', compact('as'));
+    }
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource
      * @return Renderable
      */
     public function create()
