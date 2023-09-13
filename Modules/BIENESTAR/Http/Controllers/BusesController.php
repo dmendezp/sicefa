@@ -77,16 +77,17 @@ class BusesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+        /* $request->validate([
             'plate' => 'required|regex:/^[A-Za-z]{1,5}\d{1,3}$/|unique:buses,plate', // Añade la regla unique
             'quota' => 'required|numeric',
             'bus_driver' => 'required|exists:bus_drivers,id', // Asegura que bus_driver exista en la tabla bus_drivers
-        ]);
-        
+        ]); */
+         
         $buses = Buses::findOrFail($id);
         $buses->plate = $request->input('plate');
         $buses->quota = $request->input('quota');
         $buses->bus_driver_id = $request->input('bus_driver');
+        $buses->save();
         if($buses->save()){
             return redirect()->route('cefa.bienestar.buses')->with('message', 'Bus actualizado correctamente.')->with('typealert', 'success');
         }
