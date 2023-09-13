@@ -47,16 +47,16 @@
             margin: 20px;
         }
         /* Estilos para las tarjetas */
-.developer-card {
-    background-color: #ecd8d800;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
-    max-width: calc(25% - 20px);
-    margin: 10px;
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.2s; /* Agregamos una transición a la propiedad transform */
-    border-radius: 15%; /* Forma de semi círculo */
-}
+        .developer-card {
+            background-color: #ecd8d800;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
+            max-width: calc(25% - 20px);
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s; /* Agregamos una transición a la propiedad transform */
+            border-radius: 15%; /* Forma de semi círculo */
+        }
 
 /* Agregamos el efecto de escala en hover */
 .developer-card:hover {
