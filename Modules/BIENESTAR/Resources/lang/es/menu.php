@@ -76,6 +76,9 @@ return[
     'List of Benefit Types'=>'Listado de Tipos de Beneficios',
     'Benefit Type'=>'Tipo de Beneficio',
     'Edit Beneficiary Type Name'=>'Editar Tipo de Beneficio',
+
+    //vista convocatoria
+    'Convocations'=>'Convoctorias'
 ]
 
 ?>

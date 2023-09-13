@@ -6,7 +6,7 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card card-green card-outline shadow col-md-8">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Convocations') }}</h3>
+                <h3 class="card-title">{{ trans('bienestar::menu.Convocations')}}</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

@@ -81,6 +81,9 @@ return[
     'Beneficiary Type'=>'Beneficiary Type',
     'Benefit Type'=>'Benefit Type',
     'Edit Benefit Type Name'=>'Edit Benefit Type Name',
+
+    //vist de convoctorias
+    'Convocations'=>'Convocations',
 ]
 
 ?>

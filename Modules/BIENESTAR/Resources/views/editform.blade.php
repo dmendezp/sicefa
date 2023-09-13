@@ -3,6 +3,13 @@
 @section('content')
 <div class="container">
     <h1 class="mb-4">{{ trans('bienestar::menu.Edit Form')}}</h1>
+    <div class="conteiner">
+        <div class="card">
+            <div class="card-body">
+                
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="card">
             <div class="card-body">
