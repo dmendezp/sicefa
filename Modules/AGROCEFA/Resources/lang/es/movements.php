@@ -26,6 +26,8 @@ return [
     '1T_Measurement_Unit' => 'Unidad de Medida',
     '1T_Amount' => 'Cantidad',
     '1T_Price' => 'Precio',
+    '1T_Lot' => 'Lote',
+    '1T_Stock' => 'Stock',
     '1T_Category' => 'Categoria',
     '1T_Destination' => 'Destino',
     '1T_Actions' => 'Acciones',

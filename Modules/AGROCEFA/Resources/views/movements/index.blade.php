@@ -16,7 +16,7 @@
         <div class="col-md-6">
             <a href="{{ route('agrocefa.formexit') }}" class="card-link">
                 <div class="card">
-                    <h3>{{trans('agrocefa::movements.Receive')}}</h3>
+                    <h3>{{trans('agrocefa::movements.Exit')}}</h3>
                 </div>
             </a>
         </div>

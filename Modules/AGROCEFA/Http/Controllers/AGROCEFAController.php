@@ -111,7 +111,8 @@ class AGROCEFAController extends Controller
                  ];
              });
          }
- 
+         
+         
          $warehousereceive = $warehouseData->first()['id'];
  
          $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehousereceive)->where('productive_unit_id', $this->selectedUnitId)->first();
@@ -121,32 +122,49 @@ class AGROCEFAController extends Controller
  
          $movements = Movement::whereIn('id', $warehousemovementid)->where('state','=','Solicitado')->with('movement_type', 'movement_responsibilities.person', 'movement_details.inventory.element', 'warehouse_movements.productive_unit_warehouse.productive_unit', 'warehouse_movements.productive_unit_warehouse.warehouse')->get()->toArray();
          $datas = [];
- 
+
          foreach ($movements as $movement) {
-             $id = $movement['id'];
-             $date = $movement['registration_date'];
-             $respnsibility = $movement['movement_responsibilities'][0]['person']['first_name'];
-             $productiveunit = $movement['warehouse_movements'][0]['productive_unit_warehouse']['productive_unit']['name'];
-             $warehouse = $movement['warehouse_movements'][0]['productive_unit_warehouse']['warehouse']['name'];
-             $inventory = $movement['movement_details'][0]['inventory']['element']['name'];
-             $amount = $movement['movement_details'][0]['amount'];
-             $price = $movement['movement_details'][0]['price'];
-             $state = $movement['state'];
- 
-             // Agregar información al array asociativo
-             $datas[] = [
-                 'id' => $id,
-                 'date' => $date,
-                 'respnsibility' => $respnsibility,
-                 'productiveunit' => $productiveunit,
-                 'warehouse' => $warehouse,
-                 'inventory' => $inventory,
-                 'amount' => $amount,
-                 'price' => $price,
-                 'state' => $state,
-                 // Agrega aquí otros datos que necesites
-             ];
-         }
+            $id = $movement['id'];
+            $date = $movement['registration_date'];
+            $person_id = $movement['movement_responsibilities'][0]['person_id'];
+            $respnsibility = $movement['movement_responsibilities'][0]['person']['first_name'];
+            $productiveunit = $movement['warehouse_movements'][0]['productive_unit_warehouse']['productive_unit']['name'];
+            $warehouse = $movement['warehouse_movements'][0]['productive_unit_warehouse']['warehouse']['name'];
+            
+            // Verificar si hay elementos en movement_details
+            if (isset($movement['movement_details']) && is_array($movement['movement_details']) && count($movement['movement_details']) > 0) {
+                // Iterar a través de los elementos en movement_details
+                foreach ($movement['movement_details'] as $detail) {
+                    $inventory = $detail['inventory']['element']['name'];
+                    $destination = $detail['inventory']['destination'];
+                    $elementid = $detail['inventory']['element_id'];
+                    $inventoryId = $detail['inventory_id'];
+                    $amount = $detail['amount'];
+                    $price = $detail['price'];
+                    $state = $movement['state'];
+                    $lot = $detail['inventory']['lot_number'];
+
+                    // Agregar información al array asociativo
+                    $datas[] = [
+                        'id' => $id,
+                        'date' => $date,
+                        'respnsibility' => $respnsibility,
+                        'productiveunit' => $productiveunit,
+                        'warehouse' => $warehouse,
+                        'inventory' => $inventory,
+                        'amount' => $amount,
+                        'price' => $price,
+                        'state' => $state,
+                        'inventory_id' => $inventoryId,
+                        'element_id' => $elementid,
+                        'destination' => $destination,
+                        'person_id' => $person_id,
+                        'lot' => $lot,
+                        // Agrega aquí otros datos que necesites
+                    ];
+                }
+            }
+        }
  
          // Contar el número de registros después de obtener los datos
          $movementsCount = count($datas);

@@ -1,52 +1,29 @@
 @extends('agrocefa::layouts.master')
 <link rel="stylesheet" href="{{ asset('agrocefa/css/movements.css') }}">
 @section('content')
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: '{{ session('success') }}',
-                showConfirmButton: false,
-                timer: 1500,
-                customClass: {
-                    popup: 'my-custom-popup-class',
-                },
-                onOpen: () => {
-                    /
-                    const popup = document.querySelector('.my-custom-popup-class');
-                    if (popup) {
-                        popup.style.display = 'flex';
-                        popup.style.alignItems = 'center';
-                        popup.style.justifyContent = 'center';
-                    }
-                },
-            });
-        </script>
-    @endif
-    @if (session('error'))
-        <script>
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: '{{ session('error') }}',
-                showConfirmButton: false,
-                timer: 15000,
-                customClass: {
-                    popup: 'my-custom-popup-class', 
-                },
-                onOpen: () => {
-                    
-                    const popup = document.querySelector('.my-custom-popup-class');
-                    if (popup) {
-                        popup.style.display = 'flex';
-                        popup.style.alignItems = 'center';
-                        popup.style.justifyContent = 'center';
-                    }
-                },
-            });
-        </script>
-    @endif
+@if (session('success'))
+<script>
+    Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'Registro Exitoso',
+    showConfirmButton: false,
+    timer: 1500,
+    customClass: {
+        popup: 'my-custom-popup-class', 
+    },
+    onOpen: () => {
+
+        const popup = document.querySelector('.my-custom-popup-class');
+        if (popup) {
+        popup.style.display = 'flex';
+        popup.style.alignItems = 'center';
+        popup.style.justifyContent = 'center';
+        }
+    },
+    });
+</script>
+@endif
     <h2>{{ trans('agrocefa::movements.Exit_Form') }}</h2>
 
     <div class="container" id="containermovements">
@@ -58,7 +35,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             {!! Form::label('date', trans('agrocefa::movements.Date')) !!}
-                            {!! Form::text( 'date', old('date', $date), ['class' => 'form-control', 'required', 'readonly' => 'readonly']) !!}
+                            {!! Form::text('date', old('date', $date), ['class' => 'form-control', 'required', 'readonly' => 'readonly']) !!}
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -68,10 +45,14 @@
                                 <!-- Campo oculto para almacenar el ID del responsable -->
                                 {!! Form::hidden('user_id', null, ['id' => 'userId']) !!}
                                 <!-- Campo de solo lectura para mostrar el nombre del responsable -->
-                                {!! Form::text('responsibility_name_display', null, ['class' => 'form-control', 'readonly' => 'readonly', 'id' => 'responsibilityNameDisplay']) !!}
+                                {!! Form::text('responsibility_name_display', null, [
+                                    'class' => 'form-control',
+                                    'readonly' => 'readonly',
+                                    'id' => 'responsibilityNameDisplay',
+                                ]) !!}
                             </div>
                         </div>
-                    </div>    
+                    </div>
                 </div>
                 <br>
                 <div class="row">
@@ -83,7 +64,10 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     {!! Form::label('productive_unit', trans('agrocefa::movements.Productive_Unit')) !!}
-                                    {!! Form::text('productive_unit',  Session::get('selectedUnitName'), ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+                                    {!! Form::text('productive_unit', Session::get('selectedUnitName'), [
+                                        'class' => 'form-control',
+                                        'readonly' => 'readonly',
+                                    ]) !!}
 
                                 </div>
                                 <div class="form-group">
@@ -127,36 +111,39 @@
                     <div class="row">
                         <div class="form-group">
                             {!! Form::label('observation', trans('agrocefa::movements.Observation')) !!}
-                            {!! Form::textarea('observation', old('observation'), ['class' => 'form-control', 'style' => 'max-height: 100px;']) !!}
+                            {!! Form::textarea('observation', old('observation'), [
+                                'class' => 'form-control',
+                                'style' => 'max-height: 100px;',
+                            ]) !!}
                         </div>
                     </div>
                 </div>
                 <br>
                 <!-- Agregar la tabla dinámica -->
                 <div class="form-group">
-                    <h3 id="title">{{ trans('agrocefa::movements.Elements')}}</h3>
+                    <h3 id="title">{{ trans('agrocefa::movements.Elements') }}</h3>
                     <table id="productTable" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>{{ trans('agrocefa::movements.1T_Name_Of_The_Element')}}</th>
-                                <th>{{ trans('agrocefa::movements.1T_Measurement_Unit')}}</th>
-                                <th>{{ trans('agrocefa::movements.1T_Amount')}}</th>
-                                <th>{{ trans('agrocefa::movements.1T_Price')}}</th>
-                                <th>{{ trans('agrocefa::movements.1T_Category')}}</th>
-                                <th>{{ trans('agrocefa::movements.1T_Destination')}}</th> <!-- Agregar la columna de Destino -->
-                                <th>{{ trans('agrocefa::movements.1T_Actions')}}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Name_Of_The_Element') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Measurement_Unit') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Amount') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Price') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Category') }}</th>
+                                <th>{{ trans('agrocefa::movements.1T_Destination') }}</th>
+                                <!-- Agregar la columna de Destino -->
+                                <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Filas de la tabla se agregarán dinámicamente aquí -->
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-primary" id="addProduct">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
+                    <button type="button" class="btn btn-primary"
+                        id="addProduct">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
                 </div>
-                <!-- Otros campos del formulario según tus necesidades -->
-                <input type="hidden" name="products" id="productsInput" value="">
-                <input type="hidden" class="product-selected-id" name="product_selected_id">
+
                 <br>
                 {!! Form::submit(trans('agrocefa::movements.Btn_Register_Entrance'), ['class' => 'btn btn-primary']) !!}
                 {!! Form::close() !!}
@@ -178,272 +165,14 @@
     <script>
         $(document).ready(function() {
             var productTable = $('#productTable tbody');
-            var elements = {!! json_encode($elements) !!};
-            var productsData = [];
+            var elements = {};
+            var warehouses = {}; // Objeto para almacenar las bodegas
+            var selectedElements = {}; // Objeto para mantener un registro de elementos seleccionados en cada fila
 
-            // Función para actualizar los datos de los productos
-            function updateProductsData() {
-                productsData = [];
-
-                // Recorrer todas las filas de la tabla de productos
-                productTable.find('tr.product-row').each(function() {
-                    var currentRow = $(this);
-                    var productNameSelect = currentRow.find('.product-name');
-                    var productName = productNameSelect.val();
-                    var selectedElementId = productNameSelect.find('option:selected').val();
-                    var measurementUnit = currentRow.find('.product-measurement-unit').val();
-                    var quantity = currentRow.find('.product-quantity').val();
-                    var price = currentRow.find('.product-price').val();
-                    var category = currentRow.find('.product-category').val();
-                    var destination = currentRow.find('.product-destination').val();
-
-                    // Verificar que todos los campos tengan valores
-                    if (productName && measurementUnit && quantity && price && category && destination) {
-                        // Agregar el producto a la lista de productos
-                        productsData.push({
-                            'product-name': selectedElementId,
-                            'product-measurement-unit': measurementUnit,
-                            'product-quantity': quantity,
-                            'product-price': price,
-                            'product-category': category,
-                            'product-destination': destination,
-                            'id': selectedElementId,
-                            'name': productName
-                        });
-                    }
-                });
-
-                // Actualizar el campo oculto con los datos de los productos
-                $('#productsInput').val(JSON.stringify(productsData));
-            }
-
-
-            // Función para agregar una nueva fila de producto
-            function addProductRow() {
-                var newRow = $('<tr class="product-row">');
-                    newRow.html('<td><input type="hidden" class="product-element-id"></td>' +
-                    '<td class="col-2"><select class="form-control product-name" required></select></td>' +
-                    '<td><input type="text" class="form-control product-measurement-unit" readonly></td>' +
-                    '<td class="col-2"><input type="number" class="form-control product-quantity" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
-                    '<td><input type="text" class="form-control product-price" readonly ></td>' +
-                    '<td><input type="text" class="form-control product-category" readonly></td>' +
-                    '<td class="col-2"><input type="text" class="form-control product-destination" readonly></td>' +
-                    '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>' +
-                    '<button type="button" class="btn btn-success saveProduct"><i class="fa fa-check"></i></button></td>');
-
-
-
-                // Agregar la fila a la tabla
-                productTable.append(newRow);
-
-                // Manejador de eventos para el botón Guardar
-                newRow.find('.saveProduct').click(function() {
-                    var currentRow = $(this).closest('tr');
-
-                    // Verificar si todos los campos en la fila actual están completos
-                    if (currentRow.find('.product-name').val() && currentRow.find(
-                            '.product-measurement-unit').val() && currentRow.find('.product-quantity')
-                    .val() && currentRow.find('.product-price').val() && currentRow.find(
-                            '.product-category').val() && currentRow.find('.product-destination').val()) {
-                        updateProductsData();
-
-                        var productNameSelect = currentRow.find('.product-name');
-                        var productName = productNameSelect.val();
-                        var selectedElementId = productNameSelect.find('option:selected').val();
-                        var measurementUnit = currentRow.find('.product-measurement-unit').val();
-                        var quantity = currentRow.find('.product-quantity').val();
-                        var price = currentRow.find('.product-price').val();
-                        var category = currentRow.find('.product-category').val();
-                        var destination = currentRow.find('.product-destination').val();
-
-                        // Actualizar el producto en productsData
-                        var updatedProduct = {
-                            'product-name': selectedElementId,
-                            'product-measurement-unit': measurementUnit,
-                            'product-quantity': quantity,
-                            'product-price': price,
-                            'product-category': category,
-                            'product-destination': destination,
-                            'id': selectedElementId,
-                            'name': productName
-                        };
-
-                        // Buscar y reemplazar el producto en productsData
-                        for (var i = 0; i < productsData.length; i++) {
-                            if (productsData[i]['id'] === selectedElementId) {
-                                productsData[i] = updatedProduct;
-                                break;
-                            }
-                        }
-
-                        $('#productsInput').val(JSON.stringify(productsData));
-
-                        // Reemplazar el botón "Guardar" por el icono de chulito
-                        var saveButton = currentRow.find('.saveProduct');
-                        var checkIcon = saveButton.find('i.fa-check');
-                        saveButton.text('').append(checkIcon);
-                        saveButton.attr('disabled', true); // Deshabilitar el botón
-
-                        alert('Elemento Agregado');
-                    } else {
-                        alert('Por favor, complete todos los campos de la fila actual antes de guardar.');
-                    }
-                });
-
-                // Llamar a updateProductsData después de agregar un producto
-                updateProductsData();
-            }
-
-
+            var newRow;
 
             // Llamar a addProductRow al cargar la página para generar la primera fila
             addProductRow();
-
-            // Manejador de eventos para el botón Agregar Producto
-            $('#addProduct').click(function() {
-                var lastRow = productTable.find('tr.product-row:last');
-
-                if (lastRow.find('.product-name').val() && lastRow.find('.product-measurement-unit')
-                .val() && lastRow.find('.product-quantity').val() && lastRow.find('.product-price').val() &&
-                    lastRow.find('.product-category').val() && lastRow.find('.product-destination').val()) {
-                    addProductRow();
-                } else {
-                    alert('Por favor, complete todos los campos de la fila actual antes de agregar otra.');
-                }
-            });
-
-            // Manejador de eventos para eliminar productos
-            productTable.on('click', '.removeProduct', function() {
-                $(this).closest('tr').remove();
-                updateProductsData();
-            });
-
-            // Manejador de eventos para obtener los elementos
-            $('#deliverywarehouse').on('change', function() {
-                var selectedWarehouseId = $(this).val(); // Obtener el ID de la bodega seleccionada
-                
-                // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
-                $.ajax({
-                    url: '{{ route('agrocefa.obtenerelement') }}', // Reemplaza 'agrocefa.obtenerelementos' con la ruta adecuada
-                    method: 'GET', // Puedes usar GET u otro método según tu configuración
-                    data: {
-                        warehouse: selectedWarehouseId
-                    }, // Enviar el ID seleccionado como parámetro
-                    success: function(response) {
-                        // Manejar la respuesta de la solicitud AJAX aquí
-                        console.log('Respuesta de la solicitud elementos:', response);
-
-                        // Obtener el campo de selección de productos
-                        var productNameSelect = $('.product-name');
-                        productNameSelect.empty(); // Vaciar las opciones actuales
-
-                        // Agregar la opción predeterminada "Seleccione el elemento"
-                        productNameSelect.append(new Option('Seleccione el elemento', ''));
-
-                        // Iterar sobre la respuesta JSON y agregar las opciones al campo de selección
-                        $.each(response, function(index, element) {
-                            // Aquí, element se refiere a un objeto en la respuesta JSON
-                            // Agregar una nueva opción con el atributo "element_id" como valor y "destination" como texto
-                            productNameSelect.append(new Option(element.name, element
-                                .id));
-                        });
-                    },
-                    error: function() {
-                        // Manejar errores si la solicitud AJAX falla
-                        console.error('Error en la solicitud AJAX');
-                    }
-                });
-            });
-
-            
-
-            // Manejador de eventos para cambiar la unidad de medida, la categoría, la cantidad y el precio al seleccionar un elemento
-            productTable.on('change', '.product-name', function() {
-                var currentRow = $(this).closest('tr');
-                var selectedElementId = $(this).find('option:selected').val();
-
-                // Realizar una solicitud AJAX para obtener los datos del elemento
-                $.ajax({
-                    url: '{{ route('agrocefa.obtenerdatos') }}',
-                    method: 'GET',
-                    data: {
-                        element: selectedElementId
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        var measurementUnitField = currentRow.find('.product-measurement-unit');
-                        var categoryField = currentRow.find('.product-category');
-
-
-                        measurementUnitField.val(response.unidad_medida ||
-                            'Unidad de medida no encontrada');
-                        categoryField.val(response.categoria || 'Categoría no encontrada');
-
-
-                        // Llamar a updateProductsData después de cambiar la selección
-                        updateProductsData();
-                    },
-                    error: function() {
-                        var measurementUnitField = currentRow.find('.product-measurement-unit');
-                        var categoryField = currentRow.find('.product-category');
-
-                        measurementUnitField.val('Error al obtener la unidad de medida');
-                        categoryField.val('Error al obtener la categoría');
-
-
-                        // Llamar a updateProductsData después de cambiar la selección
-                        updateProductsData();
-                    }
-                });
-            });
-
-            // Manejador de eventos para cambiar el precio y mostrar cantidad al seleccionar un elemento
-            productTable.on('change', '.product-name', function() {
-                var currentRow = $(this).closest('tr');
-                var selectedElementId = $(this).find('option:selected').val();
-
-                // Realizar una solicitud AJAX para obtener los datos del elemento
-                $.ajax({
-                    url: '{{ route('agrocefa.getprice') }}',
-                    method: 'GET',
-                    data: {
-                        element: selectedElementId
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        var priceField = currentRow.find('.product-price');
-                        var quantityField = currentRow.find('.product-quantity');
-                        var destinationField = currentRow.find('.product-destination');
-                        var quantityMessage = currentRow.find('.quantity-message');
-                        
-                        priceField.val(response.price || 'Precio no encontrado');
-                        quantityField.val(response.amount || 'Cantidad no encontrada');
-                        destinationField.val(response.destination || 'Destino no encontrada');
-                        
-                        // Actualiza el contenido del span con la cantidad y aplica la clase CSS
-                        quantityMessage.text('Cantidad Disponible: ' + (response.amount || 'Cantidad no encontrada')).addClass('small-font');
-
-                        // Llamar a updateProductsData después de cambiar la selección
-                        updateProductsData();
-                    },
-                    error: function() {
-                        var priceField = currentRow.find('.product-price');
-                        var quantityField = currentRow.find('.product-quantity');
-                        var quantityMessage = currentRow.find('.quantity-message');
-                        var destinationField = currentRow.find('.product-destination');
-
-                        priceField.val('Error al obtener el precio');
-                        quantityField.val('');
-                        
-                        // Actualiza el contenido del span con un mensaje de error y aplica la clase CSS
-                        quantityMessage.text('Cantidad Disponible: Error al obtener la cantidad').addClass('small-font');
-
-                        // Llamar a updateProductsData después de cambiar la selección
-                        updateProductsData();
-                    }
-                });
-            });
-
 
             // Manejador de eventos para el cambio en el campo "Unidad Productiva"
             $('#productUnitSelect').on('change', function() {
@@ -497,7 +226,191 @@
                 });
             });
 
+            // Función para agregar una nueva fila de producto
+            function addProductRow() {
+                newRow = $('<tr class="product-row">');
+                newRow.html('<td><input type="hidden" id="product-name" class="product-name" name="product-name[]"><input type="hidden" id="product-lot" class="product-lot" name="product-lot[]"></td>' +
+                    '<td class="col-2"><select id="product-id" class="form-control product-id" name="product-id[]" required></select></td>' +
+                    '<td><input type="text" id="product-measurement-unit" class="form-control product-measurement-unit" name="product-measurement-unit[]" readonly><input type="hidden" id="product-stock" class="product-stock" name="product-stock[]"></td>' +
+                    '<td class="col-2"><input type="number" id="product-quantity" class="form-control product-quantity" name="product-quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
+                    '<td><input type="text" id="product-price" class="form-control product-price" name="product-price[]" readonly></td>' +
+                    '<td><input type="text" id="product-category" class="form-control product-category" name="product-category[]" readonly></td>' +
+                    '<td class="col-2"><input type="text" id="product-destination" class="form-control product-destination" name="product-destination[]" readonly></td>' +
+                    '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>'
+                );
 
+                // Agregar la fila a la tabla
+                productTable.append(newRow);
+
+                
+            }
+
+            // Manejador de eventos para el cambio en la bodega
+            $('#deliverywarehouse').on('change', function() {
+                var selectedWarehouseId = $(this).val(); // Obtener el ID de la bodega seleccionada
+
+                // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
+                $.ajax({
+                    url: '{{ route('agrocefa.obtenerelement') }}', // Reemplaza 'agrocefa.obtenerelementos' con la ruta adecuada
+                    method: 'GET', // Puedes usar GET u otro método según tu configuración
+                    data: {
+                        warehouse: selectedWarehouseId
+                    }, // Enviar el ID seleccionado como parámetro
+                    success: function(response) {
+                        // Manejar la respuesta de la solicitud AJAX aquí
+                        console.log('Respuesta de la solicitud elementos:', response);
+
+                        // Almacenar la lista de elementos en la variable "elements"
+                        elements = response;
+
+                        // Obtener el campo de selección de productos de la última fila
+                        var productNameSelect = $('.product-id:last');
+                        var productName = $('.product-name');
+                        
+                        productNameSelect.empty(); // Vaciar las opciones actuales
+
+                        // Agregar la opción predeterminada "Seleccione el elemento"
+                        productNameSelect.append(new Option('Seleccione el elemento', ''));
+                        
+                        // Iterar sobre la respuesta JSON y agregar las opciones al campo de selección
+                        $.each(response, function(index, element) {
+                            // Agregar una nueva opción con el atributo "value" como el ID del elemento y "name" como texto
+                            console.log(element.name);
+                            productNameSelect.append(new Option(element.name, element.id));
+                            productName.val(element.name || '');
+                            // Actualizar los atributos "name" de otros campos según sea necesario
+                            var currentRow = productNameSelect.closest('tr.product-row');
+
+                            currentRow.find('.product-measurement-unit').attr('name', 'product-measurement-unit[]');
+                            currentRow.find('.product-price').attr('name', 'product-price[]');
+                            currentRow.find('.product-category').attr('name', 'product-category[]');
+                            currentRow.find('.product-destination').attr('name', 'product-destination[]');
+                        });
+                    },
+                    error: function() {
+                        // Manejar errores si la solicitud AJAX falla
+                        console.error('Error en la solicitud AJAX');
+                    }
+                });
+            });
+
+            // Manejador de eventos para el botón Agregar Producto
+            $('#addProduct').click(function() {
+                var lastRow = productTable.find('tr.product-row:last');
+
+                if (lastRow.find('#product-id').val() && lastRow.find('#product-measurement-unit').val() && lastRow.find('#product-quantity').val() && lastRow.find('#product-price').val() && lastRow.find('#product-category').val() && lastRow.find('#product-destination').val()) {
+                    addProductRow();
+
+                    // Obtener el elemento seleccionado en la fila anterior
+                    var selectedElementId = selectedElements[lastRow.index()];
+
+                    // Llenar el campo de selección de productos de esta fila con los elementos previamente obtenidos
+                    var productNameSelect = newRow.find('.product-id'); // Acceder a newRow en lugar de lastRow
+                    productNameSelect.append(new Option('Seleccione el elemento', ''));
+                    $.each(elements, function(index, element) {
+                        productNameSelect.append(new Option(element.name, element.id));
+                    });
+
+                    // Asignar el elemento seleccionado al registro correspondiente
+                    selectedElements[newRow.index()] = selectedElementId;
+                } else {
+                    alert('Por favor, complete todos los campos de la fila actual antes de agregar otra.');
+                }
+            });
+
+
+
+            // Manejador de eventos para cambiar la unidad de medida, la categoría, la cantidad y el precio al seleccionar un elemento
+            productTable.on('change', 'select[name="product-id[]"]:last', function() {
+                var currentRow = $(this).closest('tr');
+                var selectedElementId = $(this).val(); // Usar .val() para obtener el valor seleccionado
+
+                // Realizar una solicitud AJAX para obtener los datos del elemento
+                $.ajax({
+                    url: '{{ route('agrocefa.obtenerdatos') }}',
+                    method: 'GET',
+                    data: {
+                        element: selectedElementId
+                    },
+                    success: function(response) {
+                        console.log(response);
+
+                        var measurementUnitField = currentRow.find('#product-measurement-unit');
+                        var categoryField = currentRow.find('#product-category');
+                        var nameField = currentRow.find('#product-name');
+
+
+                        measurementUnitField.val(response.unidad_medida ||
+                            'Unidad de medida no encontrada');
+                        categoryField.val(response.categoria || 'Categoría no encontrada');
+                        nameField.val(response.name || 'Nombre no encontrada');
+
+
+                    },
+                    error: function() {
+                        var measurementUnitField = currentRow.find('#product-measurement-unit');
+                        var categoryField = currentRow.find('#product-category');
+                        var nameField = currentRow.find('#product-name');
+
+                        measurementUnitField.val('Error al obtener la unidad de medida');
+                        categoryField.val('Error al obtener la categoría');
+                        nameField.val('Error al obtener el nombre');
+                    }
+                });
+            });
+
+
+
+
+            // Manejador de eventos para cambiar el precio y mostrar cantidad al seleccionar un elemento
+            productTable.on('change', 'select[name="product-id[]"]', function() {
+                var currentRow = $(this).closest('tr');
+                var selectedElementId = $(this).val(); // Obtener el valor seleccionado
+
+                // Realizar una solicitud AJAX para obtener los datos del elemento
+                $.ajax({
+                    url: '{{ route('agrocefa.getprice') }}',
+                    method: 'GET',
+                    data: {
+                        element: selectedElementId
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        // Actualizar los campos de precio, cantidad y destino
+                        currentRow.find('#product-price').val(response.price || '');
+                        currentRow.find('#product-quantity').val(response.amount || '');
+                        currentRow.find('#product-destination').val(response.destination || '');
+                        currentRow.find('#product-lot').val(response.lote || '');
+                        currentRow.find('#product-stock').val(response.stock || '');
+
+                        var quantityMessage = currentRow.find('.quantity-message');
+                        
+                        var amount = response.amount;
+                        if (amount !== null) {
+                            quantityMessage.text('Cantidad Disponible: ' + amount).removeClass('error-message');
+                        } else {
+                            quantityMessage.text('Cantidad no disponible').addClass('error-message');
+                        }
+                        
+                    },
+                    error: function() {
+                        var priceField = currentRow.find('#product-price');
+                        var quantityField = currentRow.find('#product-quantity');
+                        var destinationField = currentRow.find('#product-destination');
+                        var lotField = currentRow.find('#product-lot');
+                        var stockField = currentRow.find('#product-stock');
+                        var quantityMessage = currentRow.find('.quantity-message');
+
+                        priceField.val('Error al obtener el precio');
+                        quantityField.val('');
+                        destinationField.val('');
+
+                        // Actualiza el contenido del span con un mensaje de error y aplica la clase CSS
+                        quantityMessage.text('Cantidad Disponible: Error al obtener la cantidad').addClass('error-message');
+                    }
+                });
+            });
         });
+
     </script>
 @endsection

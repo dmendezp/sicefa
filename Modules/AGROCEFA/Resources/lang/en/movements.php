@@ -27,6 +27,8 @@ return [
     '1T_Measurement_Unit' => 'Measurement Unit',
     '1T_Amount' => 'Amount',
     '1T_Price' => 'Price',
+    '1T_Lot' => 'Lot',
+    '1T_Stock' => 'Stock',
     '1T_Category' => 'Category',
     '1T_Destination' => 'Destination',
     '1T_Actions' => 'Actions',

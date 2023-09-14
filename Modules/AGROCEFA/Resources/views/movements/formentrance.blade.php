@@ -27,8 +27,8 @@
 @endif
 <h2>{{trans('agrocefa::movements.Entry_Form')}}</h2>
 
-<div class="container">
-    <div class="card">
+<div class="container" style="margin-left: 5px">
+    <div class="card" style="width: 105%">
         <div class="card-body">
             {!! Form::open(['route' => 'agrocefa.registerentrance', 'method' => 'POST']) !!}
             @csrf
@@ -93,6 +93,8 @@
                             <th>{{ trans('agrocefa::movements.1T_Measurement_Unit') }}</th>
                             <th>{{ trans('agrocefa::movements.1T_Amount') }}</th>
                             <th>{{ trans('agrocefa::movements.1T_Price') }}</th>
+                            <th>{{ trans('agrocefa::movements.1T_Lot') }}</th>
+                            <th>{{ trans('agrocefa::movements.1T_Stock') }}</th>
                             <th>{{ trans('agrocefa::movements.1T_Category') }}</th>
                             <th>{{ trans('agrocefa::movements.1T_Destination') }}</th>
                             <th>{{ trans('agrocefa::movements.1T_Actions') }}</th> 
@@ -104,9 +106,6 @@
                 </table>
                 <button type="button" class="btn btn-primary" id="addProduct">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
             </div>
-            <!-- Otros campos del formulario según tus necesidades -->
-            <input type="hidden" name="products" id="productsInput" value="">
-            <input type="hidden" class="product-selected-id" name="product_selected_id">
             <br>
             {!! Form::submit( trans('agrocefa::movements.Btn_Register_Entrance'), ['class' => 'btn btn-primary']) !!}
             {!! Form::close() !!}
@@ -130,60 +129,26 @@
         var elements = {!! json_encode($elements) !!};
         var productsData = [];
 
-        // Función para actualizar los datos de los productos
-        function updateProductsData() {
-            productsData = [];
-
-            // Recorrer todas las filas de la tabla de productos
-            productTable.find('tr.product-row').each(function () {
-                var currentRow = $(this);
-                var productNameSelect = currentRow.find('.product-name');
-                var productName = productNameSelect.val();
-                var selectedElementId = productNameSelect.find('option:selected').val();
-                var measurementUnit = currentRow.find('.product-measurement-unit').val();
-                var quantity = currentRow.find('.product-quantity').val();
-                var price = currentRow.find('.product-price').val();
-                var category = currentRow.find('.product-category').val();
-                var destination = currentRow.find('.product-destination').val();
-
-                // Verificar que todos los campos tengan valores
-                if (productName && measurementUnit && quantity && price && category && destination) {
-                    // Agregar el producto a la lista de productos
-                    productsData.push({
-                        'product-name': selectedElementId,
-                        'product-measurement-unit': measurementUnit,
-                        'product-quantity': quantity,
-                        'product-price': price,
-                        'product-category': category,
-                        'product-destination': destination,
-                        'id': selectedElementId,
-                        'name': productName
-                    });
-                }
-            });
-
-            // Actualizar el campo oculto con los datos de los productos
-            $('#productsInput').val(JSON.stringify(productsData));
-        }
-
         // Función para agregar una nueva fila de producto
         function addProductRow() {
             var newRow = $('<tr class="product-row">');
-            newRow.html('<td><input type="hidden" class="product-element-id"></td>' +
-                '<td><select class="form-control product-name" required></select></td>' +
-                '<td><input type="text" name="product-measurement-unit[]" class="form-control product-measurement-unit" readonly></td>' +
-                '<td><input type="number" class="form-control product-quantity" placeholder="{{trans('agrocefa::movements.Placeholder_Amount')}}"></td>' +
-                '<td><input type="number" class="form-control product-price" placeholder="{{trans('agrocefa::movements.Placeholder_Price')}}" ></td>' +
-                '<td><input type="text" class="form-control product-category" readonly></td>' +
-                '<td><select class="form-control product-destination" required>' +
-                '<option value="Producción">Producción</option>' +
-                '<option value="Formación">Formación</option>' +
-                '</select></td>' +
-                '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>' +
-                '<button type="button" class="btn btn-success saveProduct"><i class="fa fa-check"></i></button></td>');
+                newRow.html('<td><input type="hidden" id="product-name" class="product-name" name="product-name[]"></td>' +
+                    '<td class="col-2"><select id="product-id" class="form-control product-id" name="product-id[]" required></select></td>' +
+                    '<td><input type="text" id="product-measurement-unit" class="form-control product-measurement-unit" name="product-measurement-unit[]" readonly></td>' +
+                    '<td class="col-1.5"><input type="number" id="product-quantity" class="form-control product-quantity" name="product-quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
+                    '<td><input type="text" id="product-price" class="form-control product-price" name="product-price[]"></td>' +
+                    '<td><input type="text" id="product-lot" class="form-control product-lot" name="product-lot[]" placeholder="Lote #"></td>' +
+                    '<td><input type="text" id="product-stock" class="form-control product-stock" name="product-stock[]" placeholder="Stock"></td>' +
+                    '<td><input type="text" id="product-category" class="form-control product-category" name="product-category[]" readonly></td>' +
+                    '<td class="col-1.5"><select id="product-destination" class="form-control product-destination" name="product-destination[]" required>' +
+                    '<option value="Producción">Producción</option>' +
+                    '<option value="Formación">Formación</option>' +
+                    '</select></td>' +
+                    '<td><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>'
+                );
 
             // Llenar el select de nombre de producto en la nueva fila
-            var productNameSelect = newRow.find('.product-name');
+            var productNameSelect = newRow.find('.product-id');
             productNameSelect.append('<option value="">{{trans('agrocefa::movements.Placeholder_Element')}}</option>');
 
             // Iterar sobre los elementos y agregar las opciones al menú desplegable
@@ -194,53 +159,6 @@
             // Agregar la fila a la tabla
             productTable.append(newRow);
 
-            // Manejador de eventos para el botón Guardar
-            newRow.find('.saveProduct').click(function () {
-                var currentRow = $(this).closest('tr');
-
-                // Verificar si todos los campos en la fila actual están completos
-                if (currentRow.find('.product-name').val() && currentRow.find('.product-measurement-unit').val() && currentRow.find('.product-quantity').val() && currentRow.find('.product-price').val() && currentRow.find('.product-category').val() && currentRow.find('.product-destination').val()) {
-                    updateProductsData();
-
-                    var productNameSelect = currentRow.find('.product-name');
-                    var productName = productNameSelect.val();
-                    var selectedElementId = productNameSelect.find('option:selected').val();
-                    var measurementUnit = currentRow.find('.product-measurement-unit').val();
-                    var quantity = currentRow.find('.product-quantity').val();
-                    var price = currentRow.find('.product-price').val();
-                    var category = currentRow.find('.product-category').val();
-                    var destination = currentRow.find('.product-destination').val();
-
-                    // Actualizar el producto en productsData
-                    var updatedProduct = {
-                        'product-name': selectedElementId,
-                        'product-measurement-unit': measurementUnit,
-                        'product-quantity': quantity,
-                        'product-price': price,
-                        'product-category': category,
-                        'product-destination': destination,
-                        'id': selectedElementId,
-                        'name': productName
-                    };
-
-                    // Buscar y reemplazar el producto en productsData
-                    for (var i = 0; i < productsData.length; i++) {
-                        if (productsData[i]['id'] === selectedElementId) {
-                            productsData[i] = updatedProduct;
-                            break;
-                        }
-                    }
-
-                    $('#productsInput').val(JSON.stringify(productsData));
-
-                    alert('Elemento Agregado');
-                } else {
-                    alert('Por favor, complete todos los campos de la fila actual antes de guardar.');
-                }
-            });
-
-            // Llamar a updateProductsData después de agregar un producto
-            updateProductsData();
         }
 
         // Llamar a addProductRow al cargar la página para generar la primera fila
@@ -250,7 +168,7 @@
         $('#addProduct').click(function () {
             var lastRow = productTable.find('tr.product-row:last');
 
-            if (lastRow.find('.product-name').val() && lastRow.find('.product-measurement-unit').val() && lastRow.find('.product-quantity').val() && lastRow.find('.product-price').val() && lastRow.find('.product-category').val() && lastRow.find('.product-destination').val()) {
+            if (lastRow.find('#product-name').val() && lastRow.find('#product-measurement-unit').val() && lastRow.find('#product-quantity').val() && lastRow.find('#product-price').val() && lastRow.find('#product-category').val() && lastRow.find('#product-destination').val()) {
                 addProductRow();
             } else {
                 alert('Por favor, complete todos los campos de la fila actual antes de agregar otra.');
@@ -264,7 +182,7 @@
         });
 
         // Manejador de eventos para cambiar la unidad de medida, la categoría, la cantidad y el precio al seleccionar un elemento
-        productTable.on('change', '.product-name', function () {
+        productTable.on('change', '.product-id', function () {
             var currentRow = $(this).closest('tr');
             var selectedElementId = $(this).find('option:selected').val();
 
@@ -275,27 +193,29 @@
                 data: { element: selectedElementId },
                 success: function (response) {
                     console.log(response);
-                    var measurementUnitField = currentRow.find('.product-measurement-unit');
-                    var categoryField = currentRow.find('.product-category');
+                    var measurementUnitField = currentRow.find('#product-measurement-unit');
+                    var categoryField = currentRow.find('#product-category');
+                    var nameField = currentRow.find('#product-name');
+                    var destinationField = currentRow.find('#product-destination');
 
 
-                    measurementUnitField.val(response.unidad_medida || 'Unidad de medida no encontrada');
+                    measurementUnitField.val(response.unidad_medida ||
+                        'Unidad de medida no encontrada');
                     categoryField.val(response.categoria || 'Categoría no encontrada');
+                    nameField.val(response.name || 'Nombre no encontrada');
+                    destinationField.val(response.destination || 'Destino no encontrada');
 
 
-                    // Llamar a updateProductsData después de cambiar la selección
-                    updateProductsData();
                 },
-                error    : function () {
-                    var measurementUnitField = currentRow.find('.product-measurement-unit');
-                    var categoryField = currentRow.find('.product-category');
+                error: function() {
+                    var measurementUnitField = currentRow.find('#product-measurement-unit');
+                    var categoryField = currentRow.find('#product-category');
+                    var nameField = currentRow.find('#product-name');
+                    var destinationField = currentRow.find('#product-name');
 
                     measurementUnitField.val('Error al obtener la unidad de medida');
                     categoryField.val('Error al obtener la categoría');
-  
-
-                    // Llamar a updateProductsData después de cambiar la selección
-                    updateProductsData();
+                    nameField.val('Error al obtener el nombre');
                 }
             });
         });
