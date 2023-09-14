@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\ConvocationsQuestions;
 use Modules\BIENESTAR\Entities\Questions;
 use Modules\BIENESTAR\Entities\AnswersQuestions;
+use Modules\BIENESTAR\Entities\Convocations;
 
 class ConvocationsQuestionsController extends Controller
 {
@@ -24,11 +25,11 @@ class ConvocationsQuestionsController extends Controller
 
     public function editform()
     {
-
+        $convocations = Convocations::all();
         $questions = Questions::all();
         $answers = AnswersQuestions::all();
 
-        return view('bienestar::editform', ['questions' => $questions, 'answers' => $answers]);
+        return view('bienestar::editform', ['questions' => $questions, 'answers' => $answers, 'convocations' => $convocations]);
     }
 
     public function deleteQuestion($id)
@@ -99,24 +100,37 @@ class ConvocationsQuestionsController extends Controller
         return redirect()->back()->with('success', 'Pregunta y respuestas actualizadas con éxito.');
     }
 
-    public function saveform(Request $request)
+    /**
+     * @method('POST')
+     */
+    public function saveForm(Request $request)
     {
-        // Obtiene los IDs de las preguntas seleccionadas del formulario
-        $selectedQuestionIds = explode(',', $request->input('selected_question_ids'));
+        // Validar los datos del formulario
+        $request->validate( [
+            'convocatoria_id' => 'required|exists:convocations,id', // Asegúrate de que estés validando contra la tabla de convocatorias
+            'selected_question_ids' => 'required|string', // Ajusta esto según tu necesidad
+        ]);
 
-        // Realiza la lógica para guardar los IDs en la base de datos
-        // Por ejemplo, puedes usar Eloquent para guardarlos en una tabla
+        try {
+            // Obtener el ID de la convocatoria y los IDs de las preguntas seleccionadas
+            $convocatoriaId = $request->input('convocatoria_id');
+            $selectedQuestionIds = explode(',', $request->input('selected_question_ids'));
 
-        // Asumiendo que tienes un modelo llamado Pregunta y una tabla preguntas
-        foreach ($selectedQuestionIds as $questionId) {
-            $pregunta = new ConvocationsQuestions();
-            $pregunta->id = $questionId;
-            $pregunta->save();
+            // Recorre los IDs de las preguntas seleccionadas y guárdalos en la base de datos
+            foreach ($selectedQuestionIds as $questionId) {
+                // Aquí puedes guardar $convocatoriaId y $questionId en tu base de datos
+                $pregunta = new ConvocationsQuestions();
+                $pregunta->convocation_id = $convocatoriaId;
+                $pregunta->questions_id = $questionId;
+                $pregunta->save();
+            }
+
+            // Devolver una respuesta JSON exitosa
+            return response()->json(['mensaje' => 'Guardado correctamente'], 200);
+        } catch (\Exception $e) {
+            // En caso de error, manejar el error y devolver una respuesta JSON con un mensaje de error
+            return response()->json(['mensaje' => 'Ha ocurrido un error al intentar guardar'], 500);
         }
-
-        // Redirige o realiza cualquier otra acción que necesites después de guardar los datos
-
-        return redirect()->back()->with('success', 'Preguntas guardadas exitosamente');
-
     }
+    
 }
