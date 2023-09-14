@@ -3,11 +3,9 @@
 @section('content')
 <!-- Main Content -->
 <div class="container-fluid">
+<h1>{{ trans('bienestar::menu.Convocations')}} <i class="fas fa-clipboard-list"></i> </h1>
     <div class="row justify-content-md-center pt-4">
-        <div class="card card-green card-outline shadow col-md-8">
-            <div class="card-header">
-                <h3 class="card-title">{{ trans('bienestar::menu.Convocations')}}</h3>
-            </div>
+        <div class="card shadow col-md-8">
             <!-- /.card-header -->
             <div class="card-body">
                 {!! Form::open(['url' => route('cefa.bienestar.Convocations.store'), 'method' => 'POST']) !!}
@@ -15,9 +13,9 @@
                 <div class="row p-3">
                     <div class="col-md-12">
                       <div class="form-group">
-                        {!! Form::label('title convocation',__('bienestar::menu.title convocation')) !!}
+                        {!! Form::label('name',__('bienestar::menu.title convocation')) !!}
                         {!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Convocatoria','id'=>'title_convocation']) !!}
-                        <span  id="title_error" class="text-danger" ></span>
+                        <span  id="name_error" class="text-danger" ></span>
                         
                      </div>
                     </div>
@@ -85,7 +83,7 @@
                                 @foreach($Convocations as $convocation)
                                 <tr>
                                     <td>{{ $convocation->id }}</td>
-                                    <td>{{ $convocation->title }}</td>
+                                    <td>{{ $convocation->name}}</td>
                                     <td>{{ $convocation->description }}</td>
                                     <td>{{ $convocation->food_quotas }}</td>
                                     <td>{{ $convocation->transport_quotas }}</td>
@@ -97,7 +95,7 @@
                                     <div class="btn-group">
                                      <button class="btn btn-sm btn-info edit-button mr-1" data-toggle="modal"
                                         data-target="#modal-default" data-id="{{ $convocation->id }}"
-                                        data-title="{{ $convocation->title }}"
+                                        data-name="{{ $convocation->name }}"
                                         data-description="{{ $convocation->description }}"
                                         data-food_quotas="{{ $convocation->food_quotas }}"
                                         data-transport_quotas="{{ $convocation->transport_quotas}}"
@@ -138,13 +136,13 @@
                     <div class="row p-3">
                         <div class="col-md-12">
                         <div class="form-group">
-                        <label for="title">{{ trans('bienestar::menu.title convocation')}}</label>
+                        <label for="name">{{ trans('bienestar::menu.title convocation')}}</label>
                             {!! Form::text('title', null, ['class'=> 'form-control', 'placeholder' => 'Ingrese Titulo',
                                 'required']) !!}
                         </div>
                         <div class="col-md-12">
                           <div class="form-group">
-                              <label for="quota">{{ trans('bienestar::menu.description')}}</label>
+                              <label for="description">{{ trans('bienestar::menu.description')}}</label>
                               {!! Form::text('description', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion',
                                 'required']) !!}
                            </div>

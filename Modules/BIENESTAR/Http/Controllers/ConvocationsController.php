@@ -40,7 +40,7 @@ class ConvocationsController extends Controller
         
         // Define las reglas de validación
         $convocations = new Convocations;
-        $convocations->title = $request->input('title');
+        $convocations->name = $request->input('title');
         $convocations->description = $request->input('description');
         $convocations->food_quotas = $request->input('food_quotas');
         $convocations->transport_quotas = $request->input('transport_quotas');
@@ -75,7 +75,7 @@ class ConvocationsController extends Controller
     public function update(Request $request, $id)
     {
         $convocations = Convocations::findOrFail($id);
-        $convocations->title = $request->input('title');
+        $convocations->name = $request->input('title');
         $convocations->description = $request->input('description');
         $convocations->food_quotas = $request->input('food_quotas');
         $convocations->transport_quotas = $request->input('transport_quotas');

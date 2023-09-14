@@ -3,11 +3,9 @@
 @section('content')
 <!-- Main content -->
 <div class="container-fluid">
+<h1>{{ trans('bienestar::menu.Buses')}} <i class="fas fa-bus"></i></h1>
     <div class="row justify-content-md-center pt-4">
-        <div class="card card-green card-outline shadow col-md-8">
-            <div class="card-header">
-                <h3 class="card-title">{{ trans('bienestar::menu.Buses')}}</h3>
-            </div>
+        <div class="card shadow col-md-8">
             <!-- /.card-header -->
             <div class="card-body">
             {!! Form::open(['route' => 'cefa.bienestar.buses.store', 'method' => 'POST', 'role' => 'form'])
