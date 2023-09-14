@@ -44,5 +44,8 @@ class RequestExternal extends Model implements Auditable
     public function supplies(){ // Accede a la información de los insumos que pertenecen a esta solicitud
         return $this->hasMany(Supply::class);
     }
+    public function course(){ // Accede a la información de la unidad productiva al que pertenece
+        return $this->belongsTo(Course::class);
+    }
     
 }

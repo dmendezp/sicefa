@@ -7,10 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\CEFAMAPS\Entities\Coordinate;
 use Modules\CEFAMAPS\Entities\Page;
-<<<<<<< HEAD
-use Modules\SIGAC\Entities\InstructorProgram;
-=======
->>>>>>> FABRICA4
 
 class Environment extends Model implements Auditable
 {
@@ -61,14 +57,5 @@ class Environment extends Model implements Auditable
     public function pages(){ // Accede a la información del page al que pertenece
         return $this->hasMany(Page::class);
     }
-<<<<<<< HEAD
-    public function productive_unit(){ // Accede a la información de la unidad productiva al que pertenece
-        return $this->belongsTo(ProductiveUnit::class);
-    }
-    public function instructorProgram(){
-        return $this->hasMany(InstructorProgram::class);
-    }
-=======
->>>>>>> FABRICA4
 
 }
