@@ -15,7 +15,7 @@ class CAFETOController extends Controller
     }
 
     public function devs(){
-        $view = ['titlePage'=>trans('cafeto::devs.Developers'), 'titleView'=>trans('cafeto::devs.Developers and credits')];
+        $view = ['titlePage'=>trans('cafeto::controllers.CAFETO_devs_title_page'), 'titleView'=>trans('cafeto::controllers.CAFETO_devs_title_view')];
         $apps = App::get();
         return view('cafeto::developers.index', compact('apps','view'));
     }
