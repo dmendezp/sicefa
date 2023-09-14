@@ -16,7 +16,7 @@
 <div class="container-fluid">
 <h1>{{ trans('bienestar::menu.Add Drivers')}}  <i class="fas fa-bus"></i></h1>
     <div class="row justify-content-md-center pt-4">
-        <div class="card card-green card-outline shadow col-md-10">
+        <div class="card shadow col-md-10">
 
             <div class="card-header">
             </div>
