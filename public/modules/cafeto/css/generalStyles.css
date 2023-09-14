@@ -1,9 +1,9 @@
 /* =====Estilos personalizados de la aplicacion de CAFETO===== */
 /* Colores personalizados para la aplicación de CAFETO */
 :root {
-    --color-primario: #a17b47; /* Color principal suave - Marrón */
-    --color-secundario: #6E7E52; /* Color secundario suave - Verde grisáceo */
-    --color-terciario: #d9c5b2; /* Color terciario suave - Beige */
+    --color-primario: #212529; /* Color principal suave */
+    --color-secundario: #343a40; /* Color secundario suave */
+    --color-terciario: #ffffff; /* Color terciario suave  */
     --color-blanco: #ffffff; /* Color blanco */
 }
 /* ---- Personalizacion de estilos de cada boton del sidebar ---- */
