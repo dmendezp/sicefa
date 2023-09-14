@@ -12,7 +12,7 @@
                 @method('DELETE')
                 {{ Form::hidden('id', $f->id)}}
                 <div class="form-group">
-                    <p id="delete_receipe">{{trans('agroindustria::formulations.You want to remove the recipe from')}} {{$f->element->name}}</p>
+                    <p id="delete_receipe">¿{{trans('agroindustria::formulations.You want to remove the recipe from')}} {{$f->element->name}}?</p>
                 </div>                
         </div>
         <div class="modal-footer">

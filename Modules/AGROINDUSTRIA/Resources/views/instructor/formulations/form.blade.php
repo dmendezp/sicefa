@@ -122,7 +122,8 @@
 <script>
     $(document).ready(function() {
         // Aplicar Select2 al campo de selección con el id 'receive_warehouse'
-    
+        $('#element_id').select2();
+        
         // Aplicar Select2 al campo de selección con el id 'elementInventory'
         $('#elementInventory').select2();
     

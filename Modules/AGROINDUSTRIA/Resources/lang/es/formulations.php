@@ -25,7 +25,7 @@ return [
     //datatable
     'Production Quantity' => 'Cantidad de Producción',
     'Delete' => 'Eliminar',
-    'You want to remove the recipe from' => 'You want to remove the recipe from',
+    'You want to remove the recipe from' => 'Desea eliminar la receta de',
     'Recipe successfully deleted' => 'Receta eliminada con éxito',
     'Error deleting the recipe' => 'Error al eliminar la receta',
 ]

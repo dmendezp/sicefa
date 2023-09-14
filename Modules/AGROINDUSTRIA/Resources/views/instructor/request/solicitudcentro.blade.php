@@ -6,29 +6,9 @@
                 <div class="form-body">
                     {!! Form::open(['url' => route('cefa.agroindustria.instructor.enviarsolicitud'),'method' => 'post']) !!}
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             {!! Form::label('date', 'Fecha de Solicitud') !!}
                             {!! Form::date('date', now(), ['class'=>'form-control', 'readonly' => 'readonly']) !!}
-                        </div>
-                        <div class="col-md-6">
-                            {!! Form::label('area', 'Area') !!}
-                            {!! Form::text('area', 'Agroindustria', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
-                        </div>
-                        <div class="col-md-6">
-                            {!! Form::label('region_code', 'Codigo Regional') !!}
-                            {!! Form::number('region_code', '41', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
-                        </div>
-                        <div class="col-md-6">
-                            {!! Form::label('region_name', 'Nombre Regional') !!}
-                            {!! Form::text('region_name', 'Huila', ['class'=>'form-control', 'readonly' => 'readonly']) !!}    
-                        </div>
-                        <div class="col-md-6">
-                            {!! Form::label('cost_code', 'Codigo de Costos') !!}
-                            {!! Form::number('cost_code', '911610', ['class'=>'form-control', 'readonly' => 'readonly']) !!}
-                        </div>
-                        <div class="col-md-6">
-                            {!! Form::label('cost_center_name', 'Nombre Centro de costo') !!}
-                            {!! Form::text('cost_center_name', 'Centro de Formación Agroindustrial', ['class'=>'form-control', 'readonly' => 'readonly']) !!}    
                         </div>
                         <div class="col-md-6">
                             {!! Form::label('coordinator', 'Nombre de jefe de oficina o coordinador de área') !!}

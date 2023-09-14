@@ -96,7 +96,12 @@ class DeliverController extends Controller
         END")->get();
         
         // Cuenta los movimientos con estado "solicitado"
-        $pendingMovementsCount = Movement::where('state', 'Solicitado')->count();
+        $pendingMovementsCount = Movement::whereHas('warehouse_movements', function ($query) {
+            $query->where('role', 'Recibe');
+        })->whereHas('movement_responsibilities', function ($r) use ($idPersona){
+            $r->where('person_id', $idPersona)
+            ->where('role', 'RECIBE');
+        })->where('state', 'Solicitado')->count();
 
         $data = [
             'title' => $title,
@@ -124,7 +129,7 @@ class DeliverController extends Controller
         })->get();
 
         $warehouse = $warehouseReceives->map(function ($w){
-            $id = $w->warehouse->id;
+            $id = $w->id;
             $name = $w->warehouse->name;
 
             return[
@@ -280,13 +285,13 @@ class DeliverController extends Controller
 
         //Registro del WarehouseMovement (entrega)
         $wm = new WarehouseMovement;
-        $wm->warehouse_id = $validatedData['deliver_warehouse'];
+        $wm->productive_unit_warehouse_id = $validatedData['deliver_warehouse'];
         $wm->movement_id = $mo->id;
         $wm->role = 'Entrega';
         $wm->save();
 
         $wm = new WarehouseMovement;
-        $wm->warehouse_id = $validatedData['receive_warehouse'];
+        $wm->productive_unit_warehouse_id = $validatedData['receive_warehouse'];
         $wm->movement_id = $mo->id;
         $wm->role = 'Recibe';
 
