@@ -87,6 +87,36 @@ return [
     'Ingredients' => 'Ingredientes',
     'Utensils' => 'Utensilios',
     'Products' => 'Productos',
+    
+    //Inventory datatable
+   
+    'Name' => 'Nombre',
+    'Inventory'=>'Inventario',
+    'Category' => 'Categoria',
+    'Price' => 'Precio',
+    'Stock'=>'Disponible',
+    'date of expiration'=>'Fecha de expiracion',
+    'Description'=>'Descripcion',
+    'Actions'=>'Acciones',
+
+
+    //List Inventory
+    /* ''insumo pronto a agotarse = 'Insumos pronto a agotarse
+' */
+   
+    'Amount stock'=>'Cantidad disponible',
+
+    'save'=>'Guardar',
+    'close'=>'Cerrar',
+    'Element' => 'Elemento',
+    'Select an item' => 'seleccione un elemento',
+    'select an expiration date'=> 'seleccione una fecha de expiración',
+    'enter a price'=> 'ingrese un precio',
+    'enter the quantity available'=>'ingrese la cantidad disponible',
+    'enter a description'=> 'ingrese una descripción',
+    
 ]
+
+
 
 ?>

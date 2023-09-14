@@ -25,7 +25,14 @@ use Validator, Str;
 
 class WarehouseController extends Controller
 {
+   
+    public function inventoryAlert(){
+        $title = ('inventoryAlert');
+        $inventoryAlert = Inventory::where('amount', '<=', 10)->with('element')->get();
+        return view('agroindustria::storer.inventoryAlert', compact('inventoryAlert','title'));
+    }
     
+
     // Mostrar el listado de inventario
     public function inventory(){
         $title = 'inventory';
@@ -58,20 +65,34 @@ class WarehouseController extends Controller
             'element_id' => 'required|integer',
             'description' => 'required|string|max:255',
             'price' => 'required|numeric',
-            'stock' => 'required|integer',
+            'amount' => 'required|integer',
             'expiration_date' => 'required|date',
         ]);
 
         $inventory = new Inventory();
         $inventory->element_id = $request->post('element_id');
         $inventory->productive_unit_warehouse_id = $request->post('productive_unit_warehouse_id');
-        $inventory->person_id = $request->post('person_id');
-        $inventory->description = $request->post('description');
+        $inventory->person_id = $request->post('person_id');       
         $inventory->price = $request->post('price');
         $inventory->stock = $request->post('stock');
-        $inventory->amount = $request->post('stock');
+        $inventory->amount = $request->post('amount');
         $inventory->expiration_date = $request->post('expiration_date');
+        $inventory->description = $request->post('description');
         $inventory->save();
+
+        if($inventory->save()){
+            $icon = 'success';
+                $message_line = 'Registro exitoso';
+        }else{
+            $icon = 'error';
+            $message_line = 'Error al registrar';
+        }
+
+        return redirect()->route('cefa.agroindustria.storer.inventory')->with([
+            'icon' => $icon,
+            'message_line' => $message_line,
+        ]); 
+
 
         return redirect()->route('cefa.agroindustria.storer.inventory')->with("success" , "AGREGADO CON EXITO"); 
     }  
@@ -88,8 +109,10 @@ class WarehouseController extends Controller
         $in->person_id = $request->input('new_person_id');
         $in->description = $request->input('new_description');
         $in->price = $request->input('new_price');
+        $in->stock = $request->input('new_stock');
+        $in->amount = $request->input('new_amount');
         $in->expiration_date = $request->input('new_expiration_date');
-        $in->save();
+        $in->save();    
 
         if($in->save()){
             $icon = 'success';

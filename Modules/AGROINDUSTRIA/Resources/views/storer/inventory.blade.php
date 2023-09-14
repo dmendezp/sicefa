@@ -1,22 +1,23 @@
 @extends('agroindustria::layouts.master')
 @section('content')
-<div class="container">
-    <div class="card" style="width: 1100px;">
+    <div class="card" style="margin-left: 135px ;width: 1100px;">
         <div class="card-body">
-            <h1 class="text-center">Inventario</h1>
-            @if (\Session::has('success'))
-            <div class="alert alert-success">
-                <p>{{\Session::get('success')}}</p>
-            </div>
-            @endif
+            <h1 class="text-center">{{trans('agroindustria::menu.Inventory')}}</h1>
+            
             @if (\Session::has('destroy'))
             <div class="alert alert-danger">
                 <p>{{\Session::get('destroy')}}</p>
             </div>
             @endif
-            <button class="btn btn-success float-end mb-2" style="width: 45px; height: 35px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+           <button class="btn btn-success float-end mb-2" style="width: 45px; height: 35px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="fa-solid fa-plus fa-sm"></i>
             </button>
+            
+            <a href="{{route('cefa.agroindustria.storer.inventory.list')}}" class="btn btn-info float-end mb-2" style="margin-right: 10px; width: 45px; height: 35px;">
+                <i class="fa-solid fa-exclamation fa-sm"></i>
+            </a>
+            
+            
             {!! Form::open(['route' => 'cefa.agroindustria.storer.create', 'method' => 'POST', 'id' => 'inventoryForm']) !!}
             {{ csrf_field() }}
             @include('agroindustria::storer.form')
@@ -27,13 +28,13 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
-                        <th>Categoria</th>
-                        <th>Precio</th>
-                        <th>Disponible</th>
-                        <th>Fecha de expiracion</th>
-                        <th>Acciones</th>
+                        <th>{{trans('agroindustria::menu.Name')}}</th>
+                        <th>{{trans('agroindustria::menu.Category')}}</th>
+                        <th>{{trans('agroindustria::menu.Price')}}</th>
+                        <th>{{trans('agroindustria::menu.Stock')}}</th>
+                        <th>{{trans('agroindustria::menu.Expiration Date')}}</th>
+                        <th>{{trans('agroindustria::menu.Description')}}</th>                       
+                        <th>{{trans('agroindustria::menu.Actions')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,11 +42,12 @@
                         <tr>
                             <td>{{ $inventory->id }}</td>
                             <td>{{ $inventory->element->name }}</td>
-                            <td>{{ $inventory->description }}</td>
                             <td>{{ $inventory->element->category->name }}</td>
                             <td>{{ $inventory->price }}</td>
-                            <td>{{ $inventory->stock }}</td>
+                            <td>{{ $inventory->amount }}</td>
                             <td>{{ $inventory->expiration_date }}</td>
+                            <td>{{ $inventory->description }}</td>
+                           
                             <td>
                                 <button class="btn btn-primary float-end mb-2" style="width: 45px; height: 35px;" data-bs-toggle="modal" data-bs-target="#editModal{{$inventory->id}}">
                                     <i class="fa-solid fa-pen-to-square fa-sm"></i>
@@ -65,8 +67,10 @@
             </table>
         </div>
     </div>
-</div>
+ 
 
+    
+    <br>
 
 @section('script')
 @endsection
