@@ -139,6 +139,8 @@ return [
     'All' => 'Todos',
     'Borrowed' => 'Prestado',
     'Returned' => 'Devuelto',
+    'Search Apprentice by Document or Name'=>'Buscar Aprendiz por Documento o Nombre',
+    'Update'=>'Actualizar',
 
 
 

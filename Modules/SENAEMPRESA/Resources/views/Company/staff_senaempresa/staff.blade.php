@@ -39,8 +39,9 @@
                                     </td>
                                     <td>{{ $StaffSenaempresa->Apprentice->Person->first_name }}
                                         {{ $StaffSenaempresa->Apprentice->Person->first_last_name }}</td>
-                                    <td><img src="{{ asset($StaffSenaempresa->image) }}"
-                                            alt="{{ $StaffSenaempresa->image }}"></td>
+                                        <td>
+                                            <img src="{{ asset($StaffSenaempresa->image) }}" alt="{{ $StaffSenaempresa->image }}">
+                                        </td>
                                     @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                         <form
                                             action="{{ route('company.senaempresa.eliminar_personal', $StaffSenaempresa->id) }}"

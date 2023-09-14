@@ -142,6 +142,8 @@ return [
     'All' => 'All',
     'Borrowed' => 'Borrowed',
     'Returned' => 'Returned',
+    'Search Apprentice by Document or Name'=>'Search Apprentice by Document or Name',
+    'Update'=>'Update',
 
 
 

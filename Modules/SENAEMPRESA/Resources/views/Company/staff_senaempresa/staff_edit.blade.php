@@ -54,9 +54,9 @@
                                 @endif
                             </div>
 
-                            <button type="submit" class="btn btn-success">Actualizar</button>
+                            <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.Update') }}</button>
                             <a href="{{ route('company.senaempresa.personal') }}"
-                                class="btn btn-danger btn-xl">Cancelar</a>
+                                class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>
                         </form>
                     </div>
                 </div>

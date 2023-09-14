@@ -3,7 +3,6 @@
 @section('content')
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
-        <!-- Formulario para filtrar por curso -->
         <form method="GET" action="{{ route('company.vacant.vacantes') }}">
             <label for="cursoFilter">{{ trans('senaempresa::menu.Filter by course') }}:</label>
             <select class="form-control" id="cursoFilter" name="cursoFilter" onchange="this.form.submit()">
