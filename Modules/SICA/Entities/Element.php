@@ -64,6 +64,18 @@ class Element extends Model implements Auditable
     public function measurement_unit(){ // Accede a la unidad de medida al que pertenece
         return $this->belongsTo(MeasurementUnit::class);
     }
+    public function formulations(){ // Accede a la información de los elementos usados en la Formula.
+        return $this->hasMany(Formulation::class);
+    }
+    public function ingredients(){ // Accede a la información de los elementos usados en la Formula.
+        return $this->hasMany(Ingredient::class);
+    }
+    public function utensils(){ // Accede a la información de los elementos usados en la Formula.
+        return $this->hasMany(Utensil::class);
+    }
+    public function supplys(){ // Accede a la información de los elementos usados en la Formula.
+        return $this->hasMany(Supply::class);
+    }
 
 
     // Configuración de factory para la generación de datos de pruebas

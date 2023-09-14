@@ -33,4 +33,7 @@ class Supply extends Model implements Auditable
     public function request_external(){ // Accede a la información de la solicitud externa al que pertenece
         return $this->belongsTo(RequestExternal::class);
     }
+    public function element(){ // Accede a la información de la solicitud externa al que pertenece
+        return $this->belongsTo(Element::class);
+    }
 }
