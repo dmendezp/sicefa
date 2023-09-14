@@ -8,4 +8,7 @@ return [
 	// Devs
 	'CAFETO_devs_title_page' => 'Desarrolladores',
 	'CAFETO_devs_title_view' => 'Desarrolladores y créditos',
+	// Info
+	'CAFETO_info_title_page' => 'Acerca de',
+	'CAFETO_info_title_view' => 'Acerca de',
 ];

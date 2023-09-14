@@ -21,7 +21,7 @@ class CAFETOController extends Controller
     }
 
     public function info(){
-        $view = ['titlePage'=>trans('cafeto::about.About us'), 'titleView'=>trans('cafeto::about.About us')];
+        $view = ['titlePage'=>trans('cafeto::controllers.CAFETO_info_title_page'), 'titleView'=>trans('cafeto::controllers.CAFETO_info_title_page')];
         $apps = App::get();
         return view('cafeto::information.index', compact('apps','view'));
     }
