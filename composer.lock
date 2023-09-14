@@ -3262,19 +3262,6 @@
             "time": "2023-02-06T13:44:46+00:00"
         },
         {
-<<<<<<< HEAD
-            "name": "nesbot/carbon",
-            "version": "2.68.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4f991ed2a403c85efbc4f23eb4030063fdbe01da",
-                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da",
-=======
             "name": "mpdf/mpdf",
             "version": "v8.2.0",
             "source": {
@@ -4052,17 +4039,6 @@
             "time": "2023-06-19T14:51:52+00:00"
         },
         {
-<<<<<<< HEAD
-            "name": "phpoffice/phpspreadsheet",
-            "version": "1.29.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "fde2ccf55eaef7e86021ff1acce26479160a0fa0"
-            },
-            "dist": {
-                "type": "zip",
-=======
             "name": "paragonie/random_compat",
             "version": "v9.99.100",
             "source": {
@@ -4212,7 +4188,6 @@
             },
             "dist": {
                 "type": "zip",
->>>>>>> e4c4eae2730393d9c2fcda171dd0df7ec91f1433
                 "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/fde2ccf55eaef7e86021ff1acce26479160a0fa0",
                 "reference": "fde2ccf55eaef7e86021ff1acce26479160a0fa0",
                 "shasum": ""
