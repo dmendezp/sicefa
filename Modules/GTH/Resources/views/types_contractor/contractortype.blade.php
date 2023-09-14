@@ -29,6 +29,7 @@
                                             <a href="#" class="btn btn-warning editar-btn" data-bs-toggle="modal"
                                                 data-bs-target="#editarModal" data-id="{{ $contractor->id }}"
                                                 data-nombre="{{ $contractor->name }}">Editar</a>
+                                                
                                             <form action="{{ route('gth.contractortypes.delete', $contractor->id) }}"
                                                 method="POST" class="btnEliminar" class="d-inline">
                                                 @csrf

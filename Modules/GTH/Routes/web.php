@@ -55,6 +55,6 @@ Route::prefix('gth')->group(function () {
     Route::post('/contractors/store', 'ContractorsController@store')->name('gth.contractors.store');
     Route::get('/contractors/{id}', 'ContractorsController@show')->name('gth.contractors.show');
     Route::get('/contractors/edit/{id}', 'ContractorsController@edit')->name('gth.contractors.edit');
-    Route::patch('contractors/{id}', 'ContractorsController@update')->name('gth.contractors.update');
+    Route::post('contractors/{id}', 'ContractorsController@update')->name('gth.contractors.update');
     Route::delete('/contractors/{id}/delete', 'ContractorsController@destroy')->name('gth.contractors.destroy');
 });

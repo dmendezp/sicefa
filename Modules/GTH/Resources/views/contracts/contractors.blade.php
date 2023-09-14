@@ -2,6 +2,12 @@
 
 @section('content')
     <div class="container">
+        @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
@@ -25,7 +31,7 @@
                                     @foreach ($contractors as $contract)
                                         @if ($contract)
                                             <tr>
-                                                <td>{{ $contract->id }}</td>
+                                                <td>{{ $contract->person->id }}</td>
                                                 <td>{{ $contract->person->document_type }}</td>
                                                 <td>{{ $contract->person->document_number }}</td>
                                                 <td>{{ $contract->person->first_name }}
@@ -33,10 +39,6 @@
                                                 </td>
                                                 <!-- Agrega más campos según tus necesidades -->
                                                 <td>
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                        data-target="#contractDetailsModal{{ $contract->id }}">
-                                                        Ver contrato
-                                                    </button>
                                                     <div class="btn-group" role="group" aria-label="Acciones">
                                                         <a href="#" class="btn btn-warning editar-btn"
                                                             data-bs-toggle="modal"
@@ -70,7 +72,7 @@
                                                         <form action="{{ route('gth.contractors.update', $contract->id) }}"
                                                             method="POST">
                                                             @csrf
-                                                            @method('PATCH')
+                                                            @method('POST')
 
                                                             <!-- Agrega un campo de formulario oculto para almacenar el ID del contrato actualmente editado -->
                                                             <input type="hidden" id="currentContractId-{{ $contract->id }}"
@@ -84,6 +86,15 @@
                                                                     id="contract_number-{{ $contract->id }}"
                                                                     name="contract_number"
                                                                     value="{{ old('contract_number', $contract->contract_number) }}"
+                                                                    required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="contract_year-{{ $contract->id }}"
+                                                                    class="form-label">Año de Contrato:</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="contract_year-{{ $contract->id }}"
+                                                                    name="contract_year"
+                                                                    value="{{ old('contract_year', $contract->contract_year) }}"
                                                                     required>
                                                             </div>
                                                             <div class="mb-3">
@@ -104,15 +115,7 @@
                                                                     value="{{ old('contract_end_date', $contract->contract_end_date) }}"
                                                                     required>
                                                             </div>
-                                                            <div class="mb-3">
-                                                                <label for="total_contract_value-{{ $contract->id }}"
-                                                                    class="form-label">Valor Total del Contrato:</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="total_contract_value-{{ $contract->id }}"
-                                                                    name="total_contract_value"
-                                                                    value="{{ old('total_contract_value', $contract->total_contract_value) }}"
-                                                                    required>
-                                                            </div>
+                                                            
                                                             <div class="mb-3">
                                                                 <label for="contractor_type_id-{{ $contract->id }}"
                                                                     class="form-label">Tipo de Contrato:</label>
@@ -140,6 +143,26 @@
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
+                                                                <label for="amount_hours-{{ $contract->id }}"
+                                                                    class="form-label">Horas de Trabajo:</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="amount_hours-{{ $contract->id }}"
+                                                                    name="amount_hours"
+                                                                    value="{{ old('amount_hours', $contract->amount_hours) }}"
+                                                                    required>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="total_contract_value-{{ $contract->id }}"
+                                                                    class="form-label">Valor Total del Contrato:</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="total_contract_value-{{ $contract->id }}"
+                                                                    name="total_contract_value"
+                                                                    value="{{ old('total_contract_value', $contract->total_contract_value) }}"
+                                                                    required>
+                                                            </div>
+                                                            
+                                                            <div class="mb-3">
                                                                 <label for="sesion-{{ $contract->id }}"
                                                                     class="form-label">Sesión:</label>
                                                                 <input type="text" class="form-control"
@@ -161,13 +184,24 @@
                                                                     value="{{ old('SIIF_code', $contract->SIIF_code) }}"
                                                                     required>
                                                             </div>
+
                                                             <div class="mb-3">
-                                                                <label for="insurer_entity-{{ $contract->id }}"
+                                                                <label for="assigment_value-{{ $contract->id }}"
+                                                                    class="form-label">Valor de Asignacion:</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="assigment_valuee-{{ $contract->id }}"
+                                                                    name="assigment_value"
+                                                                    value="{{ old('assigment_value', $contract->assigment_value) }}"
+                                                                    required>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="insurer_entity_id-{{ $contract->id }}"
                                                                     class="form-label">Entidad Aseguradora:</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="insurer_entity-{{ $contract->id }}"
-                                                                    name="insurer_entity"
-                                                                    value="{{ old('insurer_entity', $contract->insurer_entity) }}"
+                                                                    id="insurer_entity_id-{{ $contract->id }}"
+                                                                    name="insurer_entity_id"
+                                                                    value="{{ old('insurer_entity_id', $contract->insurer_entity_id) }}"
                                                                     required>
                                                             </div>
                                                             <div class="mb-3">
@@ -231,6 +265,24 @@
                                                                 <input type="text" class="form-control"
                                                                     id="state-{{ $contract->id }}" name="state"
                                                                     value="{{ old('state', $contract->state) }}" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="contract_object-{{ $contract->id }}"
+                                                                    class="form-label">Objeto del Contrato:</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="contract_object-{{ $contract->id }}"
+                                                                    name="contract_object"
+                                                                    value="{{ old('contract_object', $contract->contract_object) }}"
+                                                                    required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="contract_obligations-{{ $contract->id }}"
+                                                                    class="form-label">Obligacion del Contrato:</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="contract_obligations-{{ $contract->id }}"
+                                                                    name="contract_obligations"
+                                                                    value="{{ old('contract_obligations', $contract->contract_obligations) }}"
+                                                                    required>
                                                             </div>
                                                             <!-- Agrega más campos aquí -->
                                                             <!-- Mensajes de error de validación -->
@@ -369,16 +421,22 @@
                 success: function(data) {
                     // Actualiza los campos del formulario con los datos del contrato
                     $('#person_id').val(data.person_id);
+                    $('supervisor_id').val(data.supervisor_id);
                     $('#contract_number').val(data.contract_number);
+                    $('#contract_year').val(data.contract_year);
                     $('#contract_start_date').val(data.contract_start_date);
                     $('#contract_end_date').val(data.contract_end_date);
                     $('#total_contract_value').val(data.total_contract_value);
                     $('#contract_type_id').val(data.contract_type_id);
+                    $('#contract_object').val(data.contract_object);
+                    $('#contract_obligations').val(data.contract_obligations);
+                    $('#amount_hours').val(data.amount_hours);
+                    $('#assigment_value').val(data.assigment_value);
                     $('#sesion').val(data.sesion);
                     $('#sesion_date').val(data.sesion_date);
                     $('#employee_type_id').val(data.employee_type_id);
                     $('#SIIF_code').val(data.SIIF_code);
-                    $('#insurer_entity').val(data.insurer_entity);
+                    $('#insurer_entity_id').val(data.insurer_entity_id);
                     $('#policy_number').val(data.policy_number);
                     $('#policy_issue_date').val(data.policy_issue_date);
                     $('#policy_approval_date').val(data.policy_approval_date);

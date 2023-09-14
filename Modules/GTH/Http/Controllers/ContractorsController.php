@@ -71,7 +71,8 @@ class ContractorsController extends Controller
     {
         // Valida los datos del formulario antes de guardar
         $validator = Validator::make($request->all(), [
-            'contract_number' => 'required|string|max:255', // Ejemplo de regla de validación para el número de contrato
+            'contract_number' => 'required|string|max:255',
+            'fecha' => 'date', // Agrega la regla de validación 'date' para el campo 'fecha'
             // Agrega más reglas de validación según tus necesidades para los otros campos
         ]);
 
@@ -86,7 +87,7 @@ class ContractorsController extends Controller
 
         // Asigna los valores desde $request a los atributos del modelo Contractor
         $contractor->contract_number = $request->input('contract_number');
-        // Asigna más atributos aquí
+        // Asigna más atributos aquí, incluyendo 'fecha'
 
         // Guarda el nuevo contratista en la base de datos
         $contractor->save();
@@ -98,19 +99,26 @@ class ContractorsController extends Controller
 
 
 
+
     // Actualiza un contratista en la base de datos
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'person_id' => 'required|integer',
+            'supervisor_id' => 'required|integer',
             'contract_number' => 'required|string|max:255',
+            'contract_year' => 'required|date',
             'contract_start_date' => 'required|date',
             'contract_end_date' => 'nullable|date',
             'total_contract_value' => 'nullable|numeric',
             'contractor_type_id' => 'required|integer',
-            'employee_type_id' => 'required|integer',
+            'contract_object' => 'nullable|string',
+            'contract_obligations' => 'nullable|string',
+            'amount_hours' => 'nullable|string',
+            'assigment_value' => 'nullable|string',
             'sesion' => 'nullable|string|max:255',
             'sesion_date' => 'nullable|date',
+            'employee_type_id' => 'required|integer',
             'SIIF_code' => 'nullable|string|max:255',
             'insurer_entity' => 'nullable|string|max:255',
             'policy_number' => 'nullable|string|max:255',
@@ -120,26 +128,23 @@ class ContractorsController extends Controller
             'policy_expiration_date' => 'nullable|date',
             'risk_type' => 'nullable|string|max:255',
             'state' => 'nullable|string|max:255',
-            // Agrega más campos aquí
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->route('gth.contractors.edit', $id)
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-
         $contractor = Contractor::findOrFail($id);
-        // Actualiza los atributos del modelo Contractor con los valores desde $request
+        // Update the attributes of the Contractor model with values from $request
         $contractor->contract_number = $request->input('contract_number');
+        $contractor->contract_year = $request->input('contract_year');
         $contractor->contract_start_date = $request->input('contract_start_date');
         $contractor->contract_end_date = $request->input('contract_end_date');
         $contractor->total_contract_value = $request->input('total_contract_value');
         $contractor->contractor_type_id = $request->input('contractor_type_id');
-        $contractor->employee_type_id = $request->input('employee_type_id');
+        $contractor->contract_object = $request->input('contract_object');
+        $contractor->contract_obligations = $request->input('contract_obligations');
+        $contractor->amount_hours = $request->input('amount_hours');
+        $contractor->assigment_value = $request->input('assigment_value');
         $contractor->sesion = $request->input('sesion');
         $contractor->sesion_date = $request->input('sesion_date');
+        $contractor->employee_type_id = $request->input('employee_type_id');
         $contractor->SIIF_code = $request->input('SIIF_code');
         $contractor->insurer_entity = $request->input('insurer_entity');
         $contractor->policy_number = $request->input('policy_number');
@@ -149,13 +154,15 @@ class ContractorsController extends Controller
         $contractor->policy_expiration_date = $request->input('policy_expiration_date');
         $contractor->risk_type = $request->input('risk_type');
         $contractor->state = $request->input('state');
-        // Actualiza más atributos aquí
+        // Update more attributes here
 
-        $contractor->save();
-
-        return redirect()->route('gth.contractors.view')
-            ->with('success', 'Contratista actualizado exitosamente');
+        if ($contractor->save()) {
+            return redirect()->route('gth.contractors.view')->with('success', 'Contratista actualizado exitosamente');
+        } else {
+            return redirect()->back()->with('success', 'Error al actualizar contratista');
+        }
     }
+
 
 
 
