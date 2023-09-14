@@ -1,6 +1,6 @@
 @extends('hdc::layouts.master')
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hdc::hdcgeneral.li2')}}</li>
+    <li class="breadcrumb-item active">{{ trans('hdc::adminresources.Indicator_manageresources')}}</li>
 @endpush
 
 @section('content')
@@ -9,7 +9,7 @@
         <div class="d-flex justify-content-center">
             <div class="card card-green card-outline shadow col-md-12">
                 <div class="card-header">
-                    <h3 class="card-title">{{ trans('hdc::hdcgeneral.ct1') }}</h3>
+                    <h3 class="card-title">{{ trans('hdc::adminresources.ct1') }}</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -17,25 +17,25 @@
                             <form action="{{ route('cefa.hdc.adminresources') }}" method="post">
                                 @csrf
                                 <div class="form-group">
-                                    <label>{{ trans('hdc::hdcgeneral.label1') }}</label>
+                                    <label>{{ trans('hdc::adminresources.label1') }}</label>
                                     <select name="productive_unit_id" class="form-control" required>
-                                        <option value="">{{ trans('hdc::hdcgeneral.option1') }}</option>
+                                        <option value="">{{ trans('hdc::adminresources.select1') }}</option>
                                         @foreach ($productive_unit as $pro) {{-- Consulta las unidades productivas de SICEFA --}}
                                             <option value="{{ $pro->id }}">{{ $pro->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>{{ trans('hdc::hdcgeneral.label2') }}</label>
+                                    <label>{{ trans('hdc::adminresources.label2') }}</label>
                                     <select name="Resource_id" class="form-control" required>
-                                        <option value="">{{ trans('hdc::hdcgeneral.option1') }}</option>
+                                        <option value="">{{ trans('hdc::adminresources.select1') }}</option>
                                         @foreach($resource as $re)
                                             <option value="{{ $re->name }}">{{ $re->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success" background-color="green">{{ trans('hdc::hdcgeneral.btn1') }}</button>
+                                    <button type="submit" class="btn btn-success" background-color="green">{{ trans('hdc::adminresources.btn1') }}</button>
                                 </div>
                             </form>
                         </div>
@@ -44,9 +44,9 @@
                                 <table class="table table-bordered table-stripped table-hover">
                                     <thead class="table-dark">
                                         <tr>
-                                            <th>{{ trans('hdc::hdcgeneral.th1') }}</th>
-                                            <th>{{ trans('hdc::hdcgeneral.th2')}}</th>
-                                            <th class="text-center">{{ trans('hdc::hdcgeneral.th3') }}</th>
+                                            <th>{{ trans('hdc::adminresources.th1') }}</th>
+                                            <th>{{ trans('hdc::adminresources.th2')}}</th>
+                                            <th class="text-center">{{ trans('hdc::adminresources.th3') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>

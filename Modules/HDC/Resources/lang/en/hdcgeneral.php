@@ -1,55 +1,46 @@
 <?php
 
 return [
+    // Titlos Del Nabvar
     'Home' => 'Home',
-    'RegisterConsumption' => 'Register Consumption',
-    'English' => 'English',
-    'Spanish' => 'Spanish',
-    'manageresources' => 'Manage Resources',
-    'consumptionconsultation' => 'Consumption Consultation',
-    'instructions' => 'instructions',
     'administrator' => 'Administrator',
     'user' => 'User',
+    'English' => 'English',
+    'Spanish' => 'Spanish',
+
+    // Titulos Del Sidebar
     'carbonfootprint' => 'Carbon Footprint',
     'login' => 'Login',
     'BacktoSICEFA' => 'Back To SICEFA',
+    'RegisterConsumption' => 'Register Consumption',
+    'consumptionconsultation' => 'Consumption Consultation',
+    'manageresources' => 'Manage Resources',
+    'instructions' => 'instructions',
 
-    // Indicator
+    // Indicador pagina Inicio
     'li1' => 'Homepage',
-    'li2' => 'Manage Resources',
 
-    // Title
+    // Titulo Bienvenido a HDC
     'title1' => 'Welcome To HDC',
+    // Titulo ¿Que Es La Huella de Carbono?
     'title2' => '¿What Is Carbon Footprint?',
+    // Titulo ¿Como se calcula La Huella?
     'title3' => '¿How Is The Footprint Calculated?',
+    // Titulo ¿Grafica Del Año?
     'title4' => 'Graph Of Year',
+    // Titulo ¿Cual Es Su Objetivo?
     'title5' => '¿What Is Your Objective?',
    
-
-    // card-title
-    'ct1' => 'Manage Resources',
-
-    // label
-    'label1' => 'Productive Unit:',
-    'label2' => 'Environmental Aspect:',
-
-    // Select Options
+    // Subtitulo
     'option1' => '-- Select --',
 
-    // Buttons
-    'btn1' => 'Save',
-
-    // thead
-    'th1' => 'Productive Unit',
-    'th2' => 'Environmental Aspect',
-    'th3' => 'Actions',
-
-
-    //  Caption
+    // Subtitulo
     'caption1' => '(Carbon Footprint)',
 
-    // Text
+    // Texto ¿que es Huella de Carbono?
     'text1' => 'Carbon footprint is a term used to measure the amount of greenhouse gas (GHG) emissions, mainly carbon dioxide (CO2) that are released into the atmosphere due to human activities, such as burning fossil fuels, deforestation and industrial production.',
+    // Texto ¿Como se calcula La Huella?
     'text2' => 'To calculate said footprint, the consumption data (Activity) is multiplied by its corresponding coefficient or emission factor depending on the type of resource used (Energy, fuel, Water or Waste) in said activity.',
+    // Texto ¿Cual Es Su Objetivo?
     'text3' => 'The objective of measuring the carbon footprint is to evaluate and quantify the total amount of greenhouse gases emitted directly or indirectly by an activity, product or individual. It helps to understand and reduce the contribution to climate change, identifying areas where measures can be taken to reduce emissions and promote more sustainable practices.',
 ];
