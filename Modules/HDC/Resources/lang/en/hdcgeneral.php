@@ -31,7 +31,7 @@ return [
 
     // label
     'label1' => 'Productive Unit:',
-    'label2' => 'Resource:',
+    'label2' => 'Environmental Aspect:',
 
     // Select Options
     'option1' => '-- Select --',
