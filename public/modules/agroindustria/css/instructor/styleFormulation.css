@@ -1,0 +1,30 @@
+.table_formulation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+#proccess{
+    height: 0px;
+}
+
+.button_receipe{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.save_receipe{
+    background-color: #fa9cb2;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    margin-top: 15px;
+    padding: 10px 30px 10px 30px;
+}
+
+p{
+    font-size: large
+}

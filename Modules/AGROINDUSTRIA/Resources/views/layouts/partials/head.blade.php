@@ -7,10 +7,11 @@
        {{-- <link rel="stylesheet" href="{{ mix('css/agroindustria.css') }}"> --}}
         <link rel="icon" href="{{asset('modules/agroindustria/favicon.ico')}}">       
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/cssunidades.css')}}">
-       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/styleinvb.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/storer/styleinvb.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/styleindex.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/navbar.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/styleU.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/styleFormulation.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/styleRequest.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/deliveries.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/activity.css')}}">

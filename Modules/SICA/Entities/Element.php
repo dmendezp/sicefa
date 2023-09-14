@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Support\Str;
+use Modules\AGROINDUSTRIA\Entities\Formulation;
+use Modules\AGROINDUSTRIA\Entities\Ingredient;
+use Modules\AGROINDUSTRIA\Entities\Supply;
+use Modules\AGROINDUSTRIA\Entities\Utensil;
 
 class Element extends Model implements Auditable
 {
@@ -55,6 +59,12 @@ class Element extends Model implements Auditable
     public function category(){ // Accede a la categoría al que pertenece
         return $this->belongsTo(Category::class);
     }
+    public function formulations(){ // Accede a todos los registros de formulaciones que le pertenecen a este elemento
+        return $this->hasMany(Formulation::class);
+    }
+    public function ingredients(){ // Accede a todos los registros de ingredientes que le pertenecen a este elemento
+        return $this->hasMany(Ingredient::class);
+    }
     public function inventories(){ // Accede a todos los registros de inventarios que le pertenecen a este elemento
         return $this->hasMany(Inventory::class);
     }
@@ -64,17 +74,11 @@ class Element extends Model implements Auditable
     public function measurement_unit(){ // Accede a la unidad de medida al que pertenece
         return $this->belongsTo(MeasurementUnit::class);
     }
-    public function formulations(){ // Accede a la información de los elementos usados en la Formula.
-        return $this->hasMany(Formulation::class);
-    }
-    public function ingredients(){ // Accede a la información de los elementos usados en la Formula.
-        return $this->hasMany(Ingredient::class);
-    }
-    public function utensils(){ // Accede a la información de los elementos usados en la Formula.
-        return $this->hasMany(Utensil::class);
-    }
-    public function supplys(){ // Accede a la información de los elementos usados en la Formula.
+    public function supplys(){ // Accede a todos los registros de insumos que le pertenecen a este elemento
         return $this->hasMany(Supply::class);
+    }
+    public function utensils(){ // Accede a todos los registros de utensilios que le pertenecen a este elemento
+        return $this->hasMany(Utensil::class);
     }
 
 

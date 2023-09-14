@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Apprentice;
+use Modules\AGROINDUSTRIA\Entities\RequestExternal;
+
 
 class Course extends Model implements Auditable
 {

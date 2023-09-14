@@ -58,9 +58,13 @@ Route::middleware(['lang'])->group(function(){
 
             //Formulacion
             Route::get('/formulation', [FormulationController::class, 'index'])->name('cefa.agroindustria.instructor.formulations');
+            Route::get('/formulation/form', [FormulationController::class, 'form'])->name('cefa.agroindustria.instructor.formulario');
+            Route::get('/formulation/form/{id}', [FormulationController::class, 'edit'])->name('cefa.agroindustria.instructor.form.edit');
             Route::post('/formulation/create', [FormulationController::class, 'create'])->name('cefa.agroindustria.instructor.formulations.create');
+            Route::post('/formulation/edit', [FormulationController::class, 'update'])->name('cefa.agroindustria.instructor.formulations.update');
+            Route::delete('/formulation/delete/{id}', [FormulationController::class, 'destroy'])->name('cefa.agroindustria.instructor.formulations.delete');
         });
-    
+
         //storer
         Route::prefix('storer')->group(function (){
             Route::get('/inventory', [WarehouseController::class ,'inventory'])->name('cefa.agroindustria.storer.inventory');

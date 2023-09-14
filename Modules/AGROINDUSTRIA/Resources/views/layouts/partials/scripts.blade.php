@@ -149,7 +149,7 @@ window.onclick = function(event) {
     @if(Session::get('message_line'))
         @if (Session::get('icon') == 'success')
             swal({
-                title: "Éxito!",
+                title: "{{trans('agroindustria::formulations.Success')}}",
                 text: "{{ Session::get('message_line') }}",
                 icon: "success",
             });
@@ -175,7 +175,6 @@ window.onclick = function(event) {
     });
 });
 </script>
-
 
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

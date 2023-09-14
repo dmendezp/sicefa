@@ -18,8 +18,26 @@ use Validator, Str;
 
 class FormulationController extends Controller
 {
+    private $dataAdd;
+
     public function index()
     {
+        $titleIndex = 'Formulaciones';
+        $user = Auth::user();
+        if($user){
+            $idPersona = $user->person->id;
+            $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
+        }
+        $formulations = Formulation::with('person', 'element', 'utensils.element', 'ingredients.element')->where('person_id', $idPersona)->get();
+
+        $data = [
+            'title' => $titleIndex,
+            'formulations' => $formulations
+        ];
+        return view('agroindustria::instructor.formulations.table', $data);  
+    }
+
+    public function form(){
         $title = 'Formulacion';
         $user = Auth::user();
         if($user){
@@ -39,18 +57,20 @@ class FormulationController extends Controller
                 'id' => $productiveUnitsId,
                 'name' => $productiveUnitsName,
             ];
-        })->prepend(['id' => null, 'name' => 'Seleccione una unidad productiva'])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => trans('agroindustria::formulations.Select a productive unit')])->pluck('name', 'id');
 
-        $formulations = Formulation::with('person', 'element', 'utensils.element', 'ingredients.element')->where('person_id', $idPersona)->get();
+        $registros = null;
 
-        $data = [
+        $this->dataAdd = [
             'title' => $title,
             'person' => $name,
             'productiveUnits' => $productiveUnits,
             'elements' => $element,
-            'formulations' => $formulations
+            'registros' => $registros
         ];
-        return view('agroindustria::instructor.formulations.create', $data);  
+
+        return view('agroindustria::instructor.formulations.form', $this->dataAdd);  
+
     }
 
     public function create(Request $request){  
@@ -58,6 +78,7 @@ class FormulationController extends Controller
         if ($user->person) {
             $idPersona = $user->person->id;
         }
+
 
         $rules = [
             'element_id' => 'required',
@@ -67,10 +88,10 @@ class FormulationController extends Controller
         ];
 
         $messages = [
-            'proccess.required' => 'Debes registrar un proceso',
-            'amount.required' => 'Debes ingresar una cantidad',
-            'productive_unit_id.required' => 'Debes seleccionar una unidad productiva',
-            'element_id.required' => 'Debes seleccionar un elemento',
+            'proccess.required' => trans('agroindustria::formulations.You must register a process'),
+            'amount.required' => trans('agroindustria::menu.You must enter an amount'),
+            'productive_unit_id.required' => trans('agroindustria::formulations.You must select a production unit'),
+            'element_id.required' => trans('agroindustria::menu.You must select an item'),
         ];
 
             $validatedData = $request->validate($rules, $messages);
@@ -96,31 +117,188 @@ class FormulationController extends Controller
             // Recorrer los datos de productos y guardarlos en Supply
             foreach ($nameIngredients as $key => $ingredient) {
                 $i = new Ingredient;
-                $i->element_id = $ingredient;
+                if(isset($ingredient)){
+                    $i->element_id = $ingredient;
+                }else{
+                    return back()
+                    ->withInput()
+                    ->with('icon', 'error')
+                    ->with('message_line', trans('agroindustria::menu.You must select an item'));
+                }
                 $i->formulation_id = $f->id;
-                $i->amount = $amountIngredients[$key];
+                if(isset($amountIngredients[$key])){
+                    $i->amount = $amountIngredients[$key];
+                }else{
+                    return back()
+                    ->withInput()
+                    ->with('icon', 'error')
+                    ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
+                }
                 $i->save();
 
                 $u = new Utensil;
-                $u->element_id = $nameUtencils[$key];
+                if(isset($nameUtencils[$key])){
+                    $u->element_id = $nameUtencils[$key];
+                }else{
+                    return back()
+                    ->withInput()
+                    ->with('icon', 'error')
+                    ->with('message_line', trans('agroindustria::menu.You must select an item'));
+                }
                 $u->formulation_id = $f->id;
-                $u->amount = $amountUtencils[$key];
+                if(isset($amountUtencils[$key])){
+                    $u->amount = $amountUtencils[$key];
+                }else{
+                    return back()
+                    ->withInput()
+                    ->with('icon', 'error')
+                    ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
+                }
                 $u->save();
             }
 
 
             if($u->save()){
                $icon = 'success';
-                   $message_line = 'Formula creada con éxito';
+                   $message_line = trans('agroindustria::formulations.Successfully created recipe');
             }else{
                $icon = 'error';
-               $message_line = 'Error al crear la formula';
+               $message_line = trans('agroindustria::formulations.Error creating the recipe');
             }
             return redirect()->route('cefa.agroindustria.instructor.formulations')->with([
                 'icon' => $icon,
                 'message_line' => $message_line,
             ]); 
+    }   
+
+    public function edit($id){
+        $title = 'Formulacion';
+        $user = Auth::user();
+        if($user){
+            $idPersona = $user->person->id;
+            $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
+        }
+        
+        $element = Element::pluck('name', 'id');
+
+        $result = app(AGROINDUSTRIAController::class)->unidd();
+        $pu = $result['units'];        
+        $productiveUnits = $pu->map(function ($p) {
+            $productiveUnitsId = $p->id;
+            $productiveUnitsName = $p->name;
+
+            return [
+                'id' => $productiveUnitsId,
+                'name' => $productiveUnitsName,
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione una unidad productiva'])->pluck('name', 'id');
+        
+        $registros = Formulation::with('person', 'element', 'utensils.element', 'ingredients.element')->findOrFail($id);
+        
+        $this->dataAdd = [
+            'title' => $title,
+            'person' => $name,
+            'productiveUnits' => $productiveUnits,
+            'registros' => $registros,
+            'elements' => $element,
+        ];
+
+        return view('agroindustria::instructor.formulations.form', $this->dataAdd);  
+
     }
 
+    public function update(Request $request){
+        $user = Auth::user();
+        if ($user->person) {
+            $idPersona = $user->person->id;
+        }
+        $rules = [
+            'element_id' => 'required',
+            'proccess' => 'required',
+            'amount' => 'required',
+            'productive_unit_id' => 'required',
+        ];
+
+        $messages = [
+            'proccess.required' => 'Debes registrar un proceso',
+            'amount.required' => 'Debes ingresar una cantidad',
+            'productive_unit_id.required' => 'Debes seleccionar una unidad productiva',
+            'element_id.required' => 'Debes seleccionar un elemento',
+        ];
+
+        $validatedData = $request->validate($rules, $messages);
+
+        $f = Formulation::findOrFail($request->input('id'));
+        $f->element_id = $validatedData['element_id'];
+        $f->person_id = $idPersona;
+        $f->productive_unit_id = $validatedData['productive_unit_id'];
+        $f->proccess = $validatedData['proccess'];
+        $f->amount=  $validatedData['amount'];
+        $f->date = $request->input('date');
+        $f->save();
+
+        // Obtener los datos de ingredientes del formulario
+        $nameIngredients = $request->input('element_ingredients');
+        $amountIngredients = $request->input('amount_ingredients');
+        
+        // Obtener los datos de ingredientes del formulario
+        $nameUtencils = $request->input('element_utencils');
+        $amountUtencils = $request->input('amount_utencils');
+
+        // Recorrer los datos de productos y guardarlos en Supply
+        foreach ($nameIngredients as $key => $ingredient) {
+            $ingredientId = $f->ingredients[$key]->id ?? null; // Obtener el ID del ingrediente si existe
     
+            Ingredient::updateOrInsert(
+                ['id' => $ingredientId], // Condición para la actualización o inserción
+                [
+                    'element_id' => $ingredient,
+                    'formulation_id' => $f->id,
+                    'amount' => $amountIngredients[$key],
+                ]
+            );
+        }
+        foreach ($nameUtencils as $key => $utencil) {
+            $utencilId = $f->utensils[$key]->id ?? null; // Obtener el ID del utensilio si existe
+    
+            Utensil::updateOrInsert(
+                ['id' => $utencilId], // Condición para la actualización o inserción
+                [
+                    'element_id' => $utencil,
+                    'formulation_id' => $f->id,
+                    'amount' => $amountUtencils[$key],
+                ]
+            );
+        }
+
+        if($f->save()){
+           $icon = 'success';
+               $message_line = 'Formula editada con éxito';
+        }else{
+           $icon = 'error';
+           $message_line = 'Error al editar la formula';
+        }
+
+        return redirect()->route('cefa.agroindustria.instructor.formulations')->with([
+            'icon' => $icon,
+            'message_line' => $message_line,
+        ]); 
+    }
+
+    public function destroy($id){
+        $f = Formulation::findOrFail($id);
+        $f->delete();
+
+        if($f->delete()){
+            $icon = 'success';
+                $message_line = trans('agroindustria::formulations.Recipe successfully deleted');
+            }else{
+                $icon = 'error';
+                $message_line = trans('agroindustria::formularions.Error deleting the recipe');
+            }
+        return redirect()->route('cefa.agroindustria.instructor.formulations')->with([
+            'icon' => $icon,
+            'message_line' => $message_line,
+        ]); 
+    }
 }
