@@ -86,6 +86,20 @@ return [
     'Ingredients' => 'Ingredients',
     'Utensils' => 'Utensils',
     'Products' => 'Products',
+    //Inventary data table.
+    'Name' => 'Name',
+    'Category' => 'Category',
+    'Description' => 'Description',
+    'Element' => 'Element',
+    'Actions'=>'Actions',
+    'Stock'=>'Stock',
+
+    //list inventory
+    'Amount stock'=>'Amount stock',
+   
+
+
+
 
 
 ]
