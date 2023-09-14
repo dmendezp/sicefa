@@ -4,10 +4,8 @@
 <div class="container-fluid" style="max-width:1200px">
 <h1>{{ trans('bienestar::menu.Insert Routes')}}  <i class="fas fa-bus"></i></h1>
     <div class="row justify-content-md-center pt-4">
-        <div class="card card-green card-outline shadow col-md-12">
-            <div class="card-header">
-                
-            </div>
+        <div class="card shadow col-md-12">
+           
             <!-- /.card-header -->
             <div class="card-body">
                 <form action="{{ route('cefa.bienestar.transportroutes.add') }}" method="POST" role="form">
