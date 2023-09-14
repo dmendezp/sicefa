@@ -15,10 +15,6 @@ class ContractTypController extends Controller
         return view('gth::types_contractor.contractortype',['contractortype'=> $contractortype]);
     }
 
-    public function getcreatecontractortypes()
-    {
-        return view('gth::types_contractor.create');
-    }
 
     public function postcreatecontractortypes(Request $request)
     {
@@ -26,8 +22,7 @@ class ContractTypController extends Controller
         $contractorType->name = $request->input('name');
         $contractorType->save();
 
-        $contractorType = ContractorType::get();
-        return view('gth::types_contractor.contractortype',['contractorType'=> $contractorType]);
+        return redirect()->route('gth.contractortypes.view');
     }
 
 
@@ -68,10 +63,5 @@ class ContractTypController extends Controller
             return redirect()->route('gth.contractortypes.view')->with('error', 'No se pudo eliminar el tipo de contratista.');
         }
     }
-
-
-
-
-
 
 }
