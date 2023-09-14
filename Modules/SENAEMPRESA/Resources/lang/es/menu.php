@@ -99,7 +99,7 @@ return [
 	'We provide' => 'Prestamos',
 	'People ID' => 'Personal ID',
 	'Select Personal ID' => 'Selecciona ID personal',
-    'Select Inventory ID' => 'Seleccione ID de inventario',
+	'Select Inventory ID' => 'Seleccione ID de inventario',
 	'Select a Position' => 'Selecciona un Cargo',
 	'Start date and time' => 'Fecha y Hora de Inicio',
 	'Inventory ID' => 'ID Inventario',
@@ -119,38 +119,28 @@ return [
 	'The position already exists in the database' => 'el cargo ya existe en la base de datos',
 	'Quarter' => 'Trimestre',
 	'ID Quarter' => 'ID Trimestre',
-    'Position' => 'Cargo',
-    'self-image' => 'Imagen Personal',
-    'Apprentice'=>'Aprendiz',
-    'Yes, remove it'=>'Sí, eliminarlo',
-    'Staff eliminated!'=>'Personal eliminado!',
-    'Position ID'=>'Cargo Id',
-    'Apprentice Id'=>'Id Aprendiz',
-    'Select an Apprentice'=>'Selecciona un Aprendiz',
-    'Current image'=>'Imagen Actual',
-    'There’s no registered image.'=>'No hay imagen registrada.',
-    'Staff SenaEmpresa'=>'Personal de SenaEmpresa',
-    'Staff successfully created.'=>'Personal creado exitosamente.',
-    'Error in creating the staff.'=>'Error al crear el personal.',
-    'Edit Personal'=>'Editar Personal',
-    'Staff eliminated with success'=>'Personal eliminada con éxito',
-    'Error while deleting the Personal'=>'Error al eliminar la Personal',
-    'Filter by State'  => 'Filtrar por estado',
-    'All' => 'Todos',
-    'Borrowed' => 'Prestado',
-    'Returned' => 'Devuelto',
-    'Search Apprentice by Document or Name'=>'Buscar Aprendiz por Documento o Nombre',
-    'Update'=>'Actualizar',
-
-
-
-
-
-
-
-
-
-
-
-
+	'Position' => 'Cargo',
+	'self-image' => 'Imagen Personal',
+	'Apprentice' => 'Aprendiz',
+	'Yes, remove it' => 'Sí, eliminarlo',
+	'Staff eliminated!' => 'Personal eliminado!',
+	'Position ID' => 'Cargo Id',
+	'Apprentice Id' => 'Id Aprendiz',
+	'Select an Apprentice' => 'Selecciona un Aprendiz',
+	'Current image' => 'Imagen Actual',
+	'There’s no registered image.' => 'No hay imagen registrada.',
+	'Staff SenaEmpresa' => 'Personal de SenaEmpresa',
+	'Staff successfully created.' => 'Personal creado exitosamente.',
+	'Error in creating the staff.' => 'Error al crear el personal.',
+	'Edit Personal' => 'Editar Personal',
+	'Staff eliminated with success' => 'Personal eliminada con éxito',
+	'Error while deleting the Personal' => 'Error al eliminar la Personal',
+	'Filter by State'  => 'Filtrar por estado',
+	'All' => 'Todos',
+	'Borrowed' => 'Prestado',
+	'Returned' => 'Devuelto',
+	'Search Apprentice by Document or Name' => 'Buscar Aprendiz por Documento o Nombre',
+	'Update' => 'Actualizar',
+	'Loan not found.' => 'Préstamo no encontrado.',
+	'Loan updated successfully.' => 'Préstamo actualizado exitosamente.'
 ];
