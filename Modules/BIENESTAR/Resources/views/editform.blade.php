@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <form method="POST" action="{{ route('cefa.bienestar.saveform') }}" id="mainForm" class="formCrear">
+    <form method="POST" action="{{ route('cefa.bienestar.saveform') }}" id="mainForm">
         @csrf
         <h1 class="mb-4">{{ trans('bienestar::menu.Edit Form')}}</h1>
         <div class="card">

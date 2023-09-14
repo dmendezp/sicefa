@@ -7,7 +7,7 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-8">            
             <div class="card-body">
-                <form action="{{ route('cefa.bienestar.benefits.add')}}" method="post" onsubmit="return validarFormulario()">
+                <form action="{{ route('cefa.bienestar.benefits.add')}}" method="post" onsubmit="return validarFormulario()" class="formGuardar">
                     @csrf
                     <div class="row align-items-center p-4">
                         <div class="col-md-3">
