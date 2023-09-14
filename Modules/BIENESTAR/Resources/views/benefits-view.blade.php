@@ -3,12 +3,9 @@
 @section('content')
 <!-- Main content -->
 <div class="container-fluid">
+<h1 class="mb-4">{{ trans('bienestar::menu.Benefits')}}</h1>
     <div class="row justify-content-md-center pt-4">
-        <div class="card card-green card-outline shadow col-md-8">
-            <div class="card-header">
-                <h3 class="card-title">{{ trans('bienestar::menu.Benefits')}}</h3>
-            </div>
-            <!-- /.card-header -->
+        <div class="card shadow col-md-8">            
             <div class="card-body">
                 <form action="{{ route('cefa.bienestar.benefits.add')}}" method="post" onsubmit="return validarFormulario()">
                     @csrf
