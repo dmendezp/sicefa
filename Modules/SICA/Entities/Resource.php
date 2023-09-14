@@ -4,6 +4,7 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\HDC\Entities\EnvironmentalAspect;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Resource extends Model implements Auditable
@@ -29,6 +30,9 @@ class Resource extends Model implements Auditable
     // RELACIONES
     public function labor_resources(){ // Accede a todos los registros de recursos de labor que pertenecen a este recurso
         return $this->hasMany(LaborResource::class);
+    }
+    public function environmental_aspects(){
+        return $this->hasMany(EnvironmentalAspect::class);
     }
     public function measurement_unit(){ // Accede a la unidad de medida al que pertenece
         return $this->belongsTo(MeasurementUnit::class);

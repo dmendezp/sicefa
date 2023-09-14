@@ -3,8 +3,8 @@
         <table class="table table-bordered table-striped table-hover">
             <thead class="table-dark">
                 <tr>
-                    <th>Aspectos Ambientales</th>
-                    <th>Cantidad</th>
+                    <th>{{ trans('hdc::ConsumptionRegistry.Title_Heading_Table_Column1') }}</th>
+                    <th>{{ trans('hdc::ConsumptionRegistry.Title_Heading_Table_Column2') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,7 +17,7 @@
             </tbody>
         </table>
         <div class="d-flex justify-content-around">
-            <a href="#" class="btn btn-success">Guardar</a>
+            <a href="#" class="btn btn-success">{{ trans('hdc::ConsumptionRegistry.Btn_Save') }}</a>
         </div>
     </div>
 </div>

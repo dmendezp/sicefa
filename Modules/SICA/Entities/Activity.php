@@ -4,6 +4,7 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\HDC\Entities\EnvironmentalAspect;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Activity extends Model implements Auditable
@@ -45,6 +46,9 @@ class Activity extends Model implements Auditable
     }
     public function labors(){ // Accede a todas las labores que pertenecen a esta actividad
         return $this->hasMany(Labor::class);
+    }
+    public function environmental_aspects(){
+        return $this->belongsToMany(EnvironmentalAspect::class, 'activity_environmental_aspects');
     }
     public function productive_unit(){ // Accede a la información de la unidad productiva al que pertenece
         return $this->belongsTo(ProductiveUnit::class);
