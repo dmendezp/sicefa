@@ -39,7 +39,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                <!-- Repite este bloque para cada tipo de empleado -->
+                                <!-- Repite este bloque para cada tipo de contrato -->
                             </tbody>
                         </table>
                     </div>
@@ -77,7 +77,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Tipo de Contrato</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Tipo de Contrato:</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -87,8 +87,7 @@
                             action="{{ route('gth.contractortypes.update', ['id' => $contractor->id]) }}">
                             @csrf
                             @method('PATCH')
-                            <input type="hidden" name="id" value="{{ $contractor->id }}">
-                            <!-- Cambiado a $contractor -->
+                            <input type="hidden" name="id" value="{{ $contractor->id }}"><!-- Cambiado a $contractor -->
                             <div class="mb-3">
                                 <label for="editName" class="form-label">Nombre</label>
                                 <input type="text" class="form-control" id="editName" name="name"
