@@ -19,6 +19,7 @@ Route::middleware(['lang'])->group(function(){
     Route::prefix('agroindustria')->group(function() {
         Route::get('/index', 'AGROINDUSTRIAController@index')->name('cefa.agroindustria.home.index');
         Route::get('/cedula/{coordinatorId}', [RequestController::class, 'document_coordinator'])->name('cefa.agroindustria.cedula');
+        Route::get('/formulation/recipes', 'AGROINDUSTRIAController@recipes')->name('cefa.agroindustria.home.formulations.recipes');
         
         //admin
         Route::prefix('admin')->group(function (){
@@ -58,7 +59,6 @@ Route::middleware(['lang'])->group(function(){
 
             //Formulacion
             Route::get('/formulation', [FormulationController::class, 'index'])->name('cefa.agroindustria.instructor.formulations');
-            Route::get('/formulation/recipes', [FormulationController::class,'recipes'])->name('cefa.agroindustria.instructor.formulations.recipes');
             Route::get('/formulation/form', [FormulationController::class, 'form'])->name('cefa.agroindustria.instructor.formulario');
             Route::get('/formulation/form/{id}', [FormulationController::class, 'edit'])->name('cefa.agroindustria.instructor.form.edit');
             Route::post('/formulation/create', [FormulationController::class, 'create'])->name('cefa.agroindustria.instructor.formulations.create');

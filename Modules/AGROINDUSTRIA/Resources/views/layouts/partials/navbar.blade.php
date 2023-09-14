@@ -12,7 +12,7 @@
                     <a class="nav-link" href="{{route('cefa.agroindustria.home.index')}}">{{trans('agroindustria::menu.Home')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.instructor.formulations.recipes')}}">{{trans('agroindustria::menu.Products')}}</a>
+                    <a class="nav-link" href="{{route('cefa.agroindustria.home.formulations.recipes')}}">{{trans('agroindustria::menu.Products')}}</a>
                 </li>
             @endif
             

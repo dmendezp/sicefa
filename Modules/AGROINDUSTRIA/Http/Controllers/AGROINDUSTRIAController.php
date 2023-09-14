@@ -10,6 +10,9 @@ use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Warehouse;
+use Modules\AGROINDUSTRIA\Entities\Formulation;
+use Modules\AGROINDUSTRIA\Entities\Ingredient;
+use Modules\AGROINDUSTRIA\Entities\Utensil;
 use DB;
 
 class AGROINDUSTRIAController extends Controller
@@ -52,6 +55,14 @@ class AGROINDUSTRIAController extends Controller
         }
     }
 
+    public function recipes()
+    {
+        $utensils = Utensil::all();
+        $ingredients = Ingredient::all();
+        $formulations = Formulation::all();
+        $title = 'Recetas';
+        return view('agroindustria::instructor.formulations.recipes', compact('title','formulations','ingredients','utensils'));  
+    }
     public function solicitud()
     {
         $title = 'Solicitud';

@@ -20,14 +20,7 @@ class FormulationController extends Controller
 {
     private $dataAdd;
 
-    public function recipes()
-    {
-        $utensils = Utensil::all();
-        $ingredients = Ingredient::all();
-        $formulations = Formulation::all();
-        $title = 'Recetas';
-        return view('agroindustria::instructor.formulations.recipes', compact('title','formulations','ingredients','utensils'));  
-    }
+    
 
     public function index()
     {
