@@ -1,4 +1,4 @@
-x@extends('bienestar::layouts.master')
+@extends('bienestar::layouts.master')
 
 @section('content')
 <!-- Main content -->
