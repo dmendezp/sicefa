@@ -8,7 +8,32 @@
             <!-- Checkbox "Seleccionar Todas" fuera del modal -->
             <label>
             </label>
-
+            <form id="assignBenefitForm" action="{{ route('cefa.bienestar.postulations.assign-or-update-benefit') }}" method="POST">
+                @csrf
+                <select id="benefit-select" class="form-control" name="benefit_id">
+                    <option value="">Selecciona un beneficio</option>
+                    @foreach($benefits as $benefit)
+                        <option value="{{ $benefit->id }}">{{ $benefit->name }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-sm btn-primary" id="assign-benefit-btn">
+                    Asignar Beneficio
+                </button>
+                <!-- Campos ocultos para el estado y el mensaje predeterminados -->
+                <input type="hidden" name="state" value="Beneficiado">
+                <input type="hidden" name="message" value="Felicidades, has sido aceptado para recibir el beneficio">
+            </form>
+            <form id="mark-no-beneficiaries-form" action="{{ route('cefa.bienestar.postulations.mark-as-no-beneficiaries') }}" method="POST">
+                @csrf
+                <input type="hidden" id="selected-postulations-no-beneficiary" name="selected-postulations" value="">
+                <input type="hidden" name="benefit_id" value="{{ $benefit->id }}"> <!-- Cambia $benefit->id al valor adecuado -->
+                <input type="hidden" name="state" value="No Beneficiado">
+                <input type="hidden" name="message" value="Lamentamos decirle que no has sido aceptado para recibir el beneficio">
+                <button type="submit" class="btn btn-sm btn-danger" id="mark-no-beneficiaries-btn">
+                    Marcar Seleccionados como No Beneficiado
+                </button>
+            </form>
+            
             <table id="benefitsTable" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -41,43 +66,45 @@
             <form id="mark-beneficiaries-form" action="{{ route('cefa.bienestar.postulations.mark-as-beneficiaries') }}" method="POST">
                 @csrf
                 <input type="hidden" id="selected-postulations" name="selected-postulations" value="">
-                <!-- Botón que abrirá el modal de confirmación -->
-                <button type="button" class="btn btn-sm btn-primary" id="mark-beneficiaries-btn" data-toggle="modal" data-target="#confirmationModal">
-                    Marcar Seleccionados como Beneficiarios
-                </button>
-                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal">Marcar Seleccionados como No Beneficiado</button>
+                <div class="container">
+                
+
+                
+
+
+
                 <!-- Modal de confirmación -->
-                <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="confirmationModalLabel">Confirmar acción</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>¿Estás seguro de que deseas marcar a los seleccionados como "Beneficiarios"?</p>
-                                <!-- Lista de aprendices seleccionados -->
-                                <ul id="selected-learners-list">
-                                    <!-- Aquí se mostrarán los nombres de los aprendices seleccionados -->
-                                </ul>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                <!-- Formulario que enviará la asignación de beneficios -->
-                                <form id="benefit-assignment-form" action="{{ route('cefa.bienestar.postulations.assign-benefits') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" id="selected-postulations" name="selected-postulations" value="">
-                                    <input type="hidden" id="benefitId" name="benefit_id" value="1"> <!-- Cambia el valor según tu lógica -->
-                                    <input type="hidden" id="state" name="state" value="Beneficiado"> <!-- Cambia el valor según tu lógica -->
-                                    <input type="hidden" id="message" name="message" value="Felicidades, Has sido aceptado al Beneficio solicitado"> <!-- Cambia el mensaje según tu lógica -->
-                                    <button type="submit" class="btn btn-primary">Confirmar</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Confirmar acción</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmationMessage">¿Estás seguro de que deseas marcar a los seleccionados como "Beneficiarios"?</p>
+                <!-- Lista de aprendices seleccionados -->
+                <ul id="selected-learners-list">
+                    <!-- Aquí se mostrarán los nombres de los aprendices seleccionados -->
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <!-- Formulario que enviará la asignación de beneficios -->
+                <form id="benefit-assignment-form" action="{{ route('cefa.bienestar.postulations.assign-benefits') }}" method="POST">
+                    @csrf
+                    <input type="hidden" id="selected-postulations" name="selected-postulations" value="">
+                    <input type="hidden" id="benefitId" name="benefit_id" value="1"> <!-- Cambia el valor según tu lógica -->
+                    <input type="hidden" id="state" name="state" value="Beneficiado"> <!-- Cambia el valor según tu lógica -->
+                    <input type="hidden" id="message" name="message" value="Felicidades, Has sido aceptado al Beneficio solicitado"> <!-- Cambia el mensaje según tu lógica -->
+                    <button type="submit" class="btn btn-primary" id="confirmActionBtn">Confirmar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
                 
             </form>
         </div>
@@ -164,28 +191,25 @@
 @endforeach
 
 <script>
+    // Define la variable markNoBeneficiariesUrl con la ruta adecuada en tu módulo BIENESTAR
+    const markNoBeneficiariesUrl = '{{ route('cefa.bienestar.postulations.mark-as-no-beneficiaries') }}';
+
     document.addEventListener("DOMContentLoaded", function () {
-        const markAsBeneficiariesRoute = '{{ route('bienestar.postulations.mark-as-beneficiaries') }}';
-        const assignBenefitsRoute = '{{ route('bienestar.postulations.assign-benefits') }}';
-        const confirmBeneficiariesBtn = document.getElementById('mark-beneficiaries-btn');
-        const modalForm = document.getElementById('benefit-assignment-form');
-        // Agrega aquí la lógica para el checkbox "Seleccionar Todas"
-        const selectAllCheckbox = document.getElementById('select-all');
-        const postulationCheckboxes = document.querySelectorAll('input[name="selected-postulations[]"]');
+        // Script para asignar beneficio
+        const assignBenefitForm = document.getElementById('assignBenefitForm');
 
-        selectAllCheckbox.addEventListener('change', function () {
-            const isChecked = selectAllCheckbox.checked;
+        assignBenefitForm.addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevenir el envío predeterminado del formulario
+            
+            // Obtener el beneficio seleccionado
+            const selectedBenefitId = document.getElementById('benefit-select').value;
 
-            postulationCheckboxes.forEach(checkbox => {
-                checkbox.checked = isChecked;
-            });
-        });
+            // Obtener el estado y el mensaje predeterminados desde los campos ocultos
+            const state = document.querySelector('input[name="state"]').value;
+            const message = document.querySelector('input[name="message"]').value;
 
-        console.log(postulationCheckboxes); // Añadido el console.log aquí
-
-        confirmBeneficiariesBtn.addEventListener('click', function () {
-            // Abre el modal de confirmación
-            const selectedPostulations = [...postulationCheckboxes]
+            // Obtener las postulaciones seleccionadas
+            const selectedPostulations = [...document.querySelectorAll('input[name="selected-postulations[]"]')]
                 .filter(checkbox => checkbox.checked)
                 .map(checkbox => checkbox.value);
 
@@ -194,77 +218,53 @@
                 return;
             }
 
-            // Establece las selecciones como valor del campo oculto
-            document.getElementById('selected-postulations').value = JSON.stringify(selectedPostulations);
+            if (!selectedBenefitId) {
+                alert('Por favor, selecciona un beneficio.');
+                return;
+            }
 
-            // Envia una solicitud al servidor para marcar como beneficiarios
-            fetch(markAsBeneficiariesRoute, {
+            // Construir los datos a enviar al servidor
+            const formData = new FormData();
+            formData.append('benefit_id', selectedBenefitId);
+            formData.append('selectedPostulations', JSON.stringify(selectedPostulations));
+            formData.append('state', state); // Utiliza el estado predeterminado
+            formData.append('message', message); // Utiliza el mensaje predeterminado
+
+            // Enviar la solicitud al servidor para asignar beneficios
+            fetch('{{ route('cefa.bienestar.postulations.assign-or-update-benefit') }}', {
                 method: 'POST',
+                body: JSON.stringify({
+                    benefit_id: selectedBenefitId,
+                    selectedPostulations: selectedPostulations,
+                    state: state,
+                    message: message
+                }),
                 headers: {
+                    'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ selectedPostulations })
             })
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    // Actualiza la vista con la información actualizada
-                    // Cierra el modal
-                    $('#confirmationModal').modal('hide');
-                    // Recarga la página o actualiza la vista de manera adecuada
-                    window.location.reload(); // Esto recargará la página
-                } else {
-                    // Muestra un mensaje de error si es necesario
-                    alert('Error al marcar como beneficiarios: ' + data.error);
-                }
+                // Manejar la respuesta del servidor aquí
             })
             .catch(error => {
                 console.error('Error:', error);
             });
         });
 
-        @foreach($postulations as $postulation)
-        const totalScoreSpan_{{ $postulation->id }} = document.getElementById('total-score_{{ $postulation->id }}');
-        const updateStateForm_{{ $postulation->id }} = document.getElementById('update-state-form_{{ $postulation->id }}');
+        // Script para marcar como "No Beneficiado"
+        const markNoBeneficiariesForm = document.getElementById('mark-no-beneficiaries-form');
 
-        updateStateForm_{{ $postulation->id }}.addEventListener('submit', function (event) {
-            event.preventDefault();
-            const form = updateStateForm_{{ $postulation->id }};
-            const benefitId = form.dataset.benefitId;
-            const newState = form.querySelector('#state_{{ $postulation->id }}').value;
+        markNoBeneficiariesForm.addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevenir el envío predeterminado del formulario
 
-            // Realizar una solicitud AJAX para actualizar el estado
-            fetch(updateStateRoute.replace('benefitIdPlaceholder', benefitId), {
-                    method: 'PUT',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                    body: JSON.stringify({
-                        state: newState
-                    }),
-                })
+            // Obtener el estado y el mensaje para "No Beneficiado"
+            const state = 'No Beneficiado';
+            const message = 'Lamentamos decirle que no has sido aceptado para recibir el beneficio';
 
-                .then(response => response.json())
-                .then(data => {
-                    if (data.state) {
-                        // Actualiza la vista con el nuevo estado (puedes personalizar esto)
-                        alert('Estado actualizado con éxito: ' + data.state);
-                    } else {
-                        // Muestra un mensaje de error si es necesario
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        });
-        @endforeach
-
-         // Agrega la lógica para marcar como beneficiarios
-        const markBeneficiariesForm = document.getElementById('benefit-assignment-form');
-        markBeneficiariesForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-            const selectedPostulations = [...postulationCheckboxes]
+            // Obtener las postulaciones seleccionadas
+            const selectedPostulations = [...document.querySelectorAll('input[name="selected-postulations[]"]')]
                 .filter(checkbox => checkbox.checked)
                 .map(checkbox => checkbox.value);
 
@@ -273,65 +273,33 @@
                 return;
             }
 
-            // Establece las selecciones como valor del campo oculto
-            document.getElementById('selected-postulations').value = JSON.stringify(selectedPostulations);
+            // Construir los datos a enviar al servidor para marcar como "No Beneficiado"
+            const formData = new FormData();
+            formData.append('selectedPostulations', JSON.stringify(selectedPostulations));
+            formData.append('state', state);
+            formData.append('message', message);
 
-            // Envía el formulario
-            markBeneficiariesForm.submit();
-        });
-
-        function updateSelectedLearnersList() {
-            const selectedPostulationCheckboxes = [...postulationCheckboxes]
-                .filter(checkbox => checkbox.checked);
-
-            const selectedLearnersList = document.getElementById('selected-learners-list');
-            selectedLearnersList.innerHTML = '';
-
-            selectedPostulationCheckboxes.forEach(checkbox => {
-                const learnerName = checkbox.dataset.learnerName; // Asegúrate de tener este atributo en tus checkboxes
-                const listItem = document.createElement('li');
-                listItem.textContent = learnerName;
-                selectedLearnersList.appendChild(listItem);
+            // Enviar la solicitud al servidor para marcar como "No Beneficiado"
+            fetch(markNoBeneficiariesUrl, { // Usa la variable JavaScript aquí
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Manejar la respuesta del servidor aquí
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
-
-            // Mostrar el modal después de actualizar la lista
-            $('#confirmationModal').modal('show');
-        }
-
-        // Agrega un listener para actualizar la lista cuando cambie la selección de postulaciones
-        postulationCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateSelectedLearnersList);
         });
-        confirmBeneficiariesBtn.addEventListener('click', function () {
-    // Abre el modal de asignación de beneficios
-    $('#confirmationModal').modal('show');
-    updateSelectedLearnersList(); // Llama a esta función para mostrar los seleccionados
-});
 
-// ...
-
-// Agrega una función para actualizar la lista de aprendices seleccionados
-function updateSelectedLearnersList() {
-    const selectedPostulationCheckboxes = [...postulationCheckboxes]
-        .filter(checkbox => checkbox.checked);
-
-    const selectedLearnersList = document.getElementById('selected-learners-list');
-    selectedLearnersList.innerHTML = '';
-
-    selectedPostulationCheckboxes.forEach(checkbox => {
-        const learnerName = checkbox.dataset.learnerName; // Asegúrate de tener este atributo en tus checkboxes
-        const listItem = document.createElement('li');
-        listItem.textContent = learnerName;
-        selectedLearnersList.appendChild(listItem);
-    });
-}
-
-// Agrega un listener para actualizar la lista cuando cambie la selección de postulaciones
-postulationCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', updateSelectedLearnersList);
-});
+        // Resto de tu código JavaScript
+        // ...
     });
 </script>
 
-
+</div>
 @endsection

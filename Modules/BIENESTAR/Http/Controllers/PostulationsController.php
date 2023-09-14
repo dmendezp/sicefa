@@ -12,6 +12,8 @@ use Modules\BIENESTAR\Entities\TypesOfBenefits;
 use Modules\BIENESTAR\Entities\Questions;
 use Modules\BIENESTAR\Entities\Benefits;
 use Modules\BIENESTAR\Entities\PostulationsBenefits;
+use Modules\BIENESTAR\Entities\Answers;
+use Illuminate\Http\JsonResponse;
 
 
 class PostulationsController extends Controller
@@ -22,10 +24,11 @@ class PostulationsController extends Controller
      */
     public function index()
 {
+    $postulationBenefits = PostulationsBenefits::all();
     $benefits = Benefits::all();
     $postulations = Postulations::with(['apprentice', 'convocation', 'typeOfBenefit'])->get();
     $questions = Questions::all(); // Obtener todas las preguntas disponibles
-    return view('bienestar::postulations', compact('postulations', 'benefits', 'questions'));
+    return view('bienestar::postulations', compact('postulations', 'benefits', 'questions', 'postulationBenefits'));
 }
 
 public function show($id) {
@@ -71,45 +74,65 @@ public function show($id) {
     }
 }
 
-public function assignBenefits(Request $request)
+public function assignOrUpdateBenefit(Request $request)
 {
     try {
-        // Obtener los IDs de las postulaciones seleccionadas desde el formulario
-        $selectedPostulations = $request->input('selected-postulations');
-
-        // Validar que al menos una postulación haya sido seleccionada
-        if (empty($selectedPostulations)) {
-            return response()->json(['error' => 'No se han seleccionado postulaciones'], 400);
-        }
-
         // Obtener los datos del formulario
         $benefitId = $request->input('benefit_id');
-        $state = $request->input('state');
-        
-        // Obtener el valor de message del formulario o establecer una cadena vacía si no se proporciona
-        $message = $request->input('message');
-        // Recorrer las postulaciones seleccionadas y crear registros en postulations_benefits
+        $state = 'Beneficiado'; // Establecer el estado como "Beneficiado"
+        $message = 'Ha sido aceptado'; // Establecer el mensaje
+
+        // Obtener las postulaciones seleccionadas desde el formulario
+        $selectedPostulations = $request->input('selectedPostulations', []);
+
+        // Realizar la lógica para asignar o actualizar beneficios en la tabla postulations_benefits
         foreach ($selectedPostulations as $postulationId) {
-            PostulationsBenefits::create([
-                'postulation_id' => $postulationId,
-                'benefit_id' => $benefitId,
-                'state' => $state,
-                'message' => $message, // Asegúrate de que $message tenga el valor correcto
-            ]);
+            // Verificar si ya existe un registro en postulation_benefits para esta postulación
+            $existingBenefit = PostulationsBenefits::where('postulation_id', $postulationId)->first();
+
+            if ($existingBenefit) {
+                // Si existe, actualiza los datos necesarios
+                $existingBenefit->benefit_id = $benefitId;
+                $existingBenefit->state = $state;
+                $existingBenefit->message = $message;
+                $existingBenefit->save();
+            } else {
+                // Si no existe, crea un nuevo registro
+                $newBenefit = new PostulationsBenefits();
+                $newBenefit->postulation_id = $postulationId;
+                $newBenefit->benefit_id = $benefitId;
+                $newBenefit->state = $state;
+                $newBenefit->message = $message;
+                $newBenefit->save();
+            }
         }
 
-        return response()->json(['message' => 'Beneficios asignados con éxito']);
+        // Marcar como "No Beneficiado" a las postulaciones no seleccionadas
+        $allPostulations = Postulation::all(); // Supongamos que Postulation es el modelo de tus postulaciones
+
+        foreach ($allPostulations as $postulation) {
+            if (!in_array($postulation->id, $selectedPostulations)) {
+                // Marcar como "No Beneficiado"
+                $postulation->state = 'No Beneficiado';
+                $postulation->message = 'No ha sido aceptado';
+                $postulation->save();
+            }
+        }
+
+        return redirect()->route('bienestar.postulations.index')->with('success', 'Beneficios asignados o actualizados con éxito en postulations_benefits.');
     } catch (\Exception $e) {
-        return response()->json(['error' => 'Error al asignar beneficios: ' . $e->getMessage()], 500);
+        return redirect()->back()->with('error', 'Error al asignar o actualizar beneficios en postulations_benefits: ' . $e->getMessage());
     }
 }
+
+
 
 public function updateState(Request $request)
 {
     try {
         $postulationId = $request->input('postulation_id');
 
-        // Buscar la postulación por ID
+        // Buscar la postulación por ID 
         $postulation = Postulations::findOrFail($postulationId);
 
         // Validar y actualizar el estado
@@ -199,11 +222,15 @@ public function markAsBeneficiaries(Request $request)
             return redirect()->back()->with('error', 'No se han seleccionado postulaciones');
         }
 
-        // Obtener el beneficio correspondiente según la lógica de tu aplicación
+        // Determinar el beneficio y el estado según el botón presionado
         $benefitId = $this->determineBenefitId($request);
+        $state = 'Beneficiado'; // Por defecto, se establece como "Beneficiado"
+        $message = 'Felicidades, Has sido aceptado al Beneficio solicitado';
 
-        if ($benefitId === null) {
-            return redirect()->back()->with('error', 'No se pudo determinar el beneficio');
+        // Verificar qué botón se presionó y ajustar el estado y el mensaje en consecuencia
+        if ($request->has('mark-as-no-beneficiado')) {
+            $state = 'No Beneficiado';
+            $message = 'Lamentablemente, no has sido aceptado al Beneficio solicitado';
         }
 
         // Actualizar el estado y el beneficio de las postulaciones seleccionadas
@@ -215,8 +242,8 @@ public function markAsBeneficiaries(Request $request)
             PostulationsBenefits::create([
                 'postulation_id' => $postulation->id,
                 'benefit_id' => $benefitId,
-                'state' => 'Beneficiado',
-                'message' => 'Felicidades, Has sido aceptado al Beneficio solicitado',
+                'state' => $state,
+                'message' => $message,
             ]);
         }
 
@@ -226,28 +253,93 @@ public function markAsBeneficiaries(Request $request)
     }
 }
 
+public function markAsNoBeneficiaries(Request $request)
+{
+    try {
+        // Obtener los IDs de las postulaciones seleccionadas desde el formulario
+        $selectedPostulations = $request->input('selected-postulations');
+
+        // Validar que al menos una postulación haya sido seleccionada
+        if (empty($selectedPostulations)) {
+            return response()->json(['error' => 'No se han seleccionado postulaciones'], 400);
+        }
+
+        // Determinar el beneficio y el estado
+        $benefitId = $this->determineBenefitId($request);
+        $state = 'No Beneficiado';
+        $message = 'Lamentamos decirle que no has sido aceptado para recibir el beneficio';
+
+        // Actualizar el estado y el beneficio de las postulaciones seleccionadas
+        foreach ($selectedPostulations as $postulationId) {
+            // Obtener la postulación por ID
+            $postulation = Postulations::findOrFail($postulationId);
+
+            // Actualizar el estado y el beneficio de la postulación
+            PostulationsBenefits::create([
+                'postulation_id' => $postulation->id,
+                'benefit_id' => $benefitId,
+                'state' => $state,
+                'message' => $message,
+            ]);
+        }
+
+        return response()->json(['message' => 'Postulaciones marcadas como no beneficiarias con éxito'], 200);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Error al marcar como no beneficiarias: ' . $e->getMessage()], 500);
+    }
+}
+
+
 // Agrega tu lógica para determinar el beneficio aquí
 private function determineBenefitId(Request $request)
-{
-    // Aquí debes determinar el ID del beneficio según la lógica de tu aplicación.
-    // Puedes hacerlo según la respuesta del formulario, como mencionaste anteriormente.
-    // Por ejemplo, si la respuesta es "Alimentación", el ID del beneficio será 1.
-    // Ajusta esto según tu lógica.
-    $benefitId = null;
+    {
+        // Aquí debes determinar el ID del beneficio según la lógica de tu aplicación.
+        // Puedes hacerlo según la respuesta del formulario, como mencionaste anteriormente.
+        // Por ejemplo, si la respuesta es "Alimentación", el ID del beneficio será 1.
+        // Ajusta esto según tu lógica.
+        $benefitId = null;
 
-    // Ejemplo de lógica:
-    $response = $request->input('response');
+        // Ejemplo de lógica:
+        $response = $request->input('response');
 
-    if ($response === 'Alimentación') {
-        $benefitId = 1; // Cambia esto según tu lógica.
-    } elseif ($response === 'Transporte') {
-        $benefitId = 2; // Cambia esto según tu lógica.
-    } elseif ($response === 'Internado') {
-        $benefitId = 3; // Cambia esto según tu lógica.
+        if ($response === 'Alimentación') {
+            $benefitId = 1; // Cambia esto según tu lógica.
+        } elseif ($response === 'Transporte') {
+            $benefitId = 2; // Cambia esto según tu lógica.
+        } elseif ($response === 'Internado') {
+            $benefitId = 3; // Cambia esto según tu lógica.
+        }
+
+        return $benefitId;
     }
 
-    return $benefitId;
+public function updateBenefits(Request $request)
+{
+    try {
+        $selectedPostulations = json_decode($request->input('selected-postulations'));
+
+        if (empty($selectedPostulations)) {
+            return redirect()->back()->with('error', 'No se han seleccionado postulaciones');
+        }
+
+        // Obtén los valores comunes para actualizar
+        $benefitId = $request->input('benefit_id');
+        $state = $request->input('state');
+        $message = $request->input('message');
+
+        // Actualiza los registros de acuerdo con los ID de las postulaciones seleccionadas
+        PostulationsBenefits::whereIn('postulation_id', $selectedPostulations)->update([
+            'benefit_id' => $benefitId,
+            'state' => $state,
+            'message' => $message,
+        ]);
+
+        return redirect()->back()->with('success', 'Postulaciones actualizadas con éxito');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Error al actualizar postulaciones: ' . $e->getMessage());
+    }
 }
+
 
 
     /**
