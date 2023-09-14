@@ -15,19 +15,35 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        
 
         // Registrar o actualizar usuario para Administrador
-        $person = Person::where('document_number',7720811)->first(); // Consultar Persona
-        User::updateOrCreate(['nickname' => 'admin_agrocefa'], [ // Actualizar o crear usuario
+        $person = Person::where('document_number',13706)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'William'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
-            'email' => 'adminagrocefa@gmail.com',
+            'email' => 'adminagrocefa@gmail.com', //con: Wioc3706
+        ]);
+
+
+        // Registrar o actualizar usuario para Administrador
+        $person = Person::where('document_number',1077721216)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'AndresFS'], [ // Actualizar o crear usuario
+            'person_id' => $person->id,
+            'email' => 'andres@gmail.com', //con: Anal1216
         ]);
 
         // Registrar o actualizar usuario para Pasante
-        $person = Person::where('document_number', 27102233)->first(); // Consultar Persona
-        User::updateOrCreate(['nickname' => 'pasante_agrocefa'], [ // Actualizar o crear usuario
+        $person = Person::where('document_number', 1007531693)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'Yaya'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
-            'email' => 'pasante@gmail.com', //con: Leva2233
+            'email' => 'pasante@gmail.com', //con: Dava1693
+        ]);
+
+        // Registrar o actualizar usuario para Pasante
+        $person = Person::where('document_number', 1004418487)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'Yuderly'], [ // Actualizar o crear usuario
+            'person_id' => $person->id,
+            'email' => 'pasanteagrocefa@gmail.com', //con: Yusa8487
         ]);
 
     }

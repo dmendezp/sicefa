@@ -30,7 +30,7 @@
 <div class="container" style="margin-left: 20px">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="mb-4">Parametrizacion</h1>
+            <h1 class="mb-4">{{ trans('agrocefa::parameters.Parameters') }}</h1>
         </div>
     </div>
     <div class="row">

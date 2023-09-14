@@ -1,7 +1,7 @@
 {{-- CRUD Parametro Actividad --}}
 <div class="card">
     <div class="card-header">
-        Actividad
+        {{ trans('agrocefa::parameters.Activity') }}
         <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad"><i
                 class='bx bx-plus icon'></i></button>
     </div>
@@ -10,11 +10,11 @@
             <thead>
                 <tr>
                     <th class="col-1">ID</th>
-                    <th class="col-1">Nombre</th>
-                    <th class="col-1">Tipo</th>
-                    <th class="col-2">Descripción</th>
-                    <th class="col-1">Periodo</th>
-                    <th class="col-3">Acciones</th>
+                    <th class="col-1">{{ trans('agrocefa::parameters.1T_Name') }}</th>
+                    <th class="col-1">{{ trans('agrocefa::parameters.1T_Type') }}</th>
+                    <th class="col-2">{{ trans('agrocefa::parameters.1T_Description') }}</th>
+                    <th class="col-1">{{ trans('agrocefa::parameters.1T_Period') }}</th>
+                    <th class="col-3">{{ trans('agrocefa::parameters.1T_Actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,19 +55,19 @@
                 {!! Form::open(['route' => 'agrocefa.activity.create', 'method' => 'POST']) !!}
                 @csrf
                 <div class="form-group">
-                    {!! Form::label('activity_type_id', 'Tipo de Actividad') !!}
+                    {!! Form::label('activity_type_id', trans('agrocefa::parameters.Modal_Type_Activity') ) !!}
                     {!! Form::select('activity_type_id', $activityTypes->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('name', 'Nombre de la actividad') !!}
+                    {!! Form::label('name', trans('agrocefa::parameters.Modal_Name_Activity')) !!}
                     {!! Form::text('name', null, ['class' => 'form-control', 'required']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('description', 'Descripción') !!}
+                    {!! Form::label('description', trans('agrocefa::parameters.Modal_Description')) !!}
                     {!! Form::text('description', null, ['class' => 'form-control', 'required']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('period', 'Periodo') !!}
+                    {!! Form::label('period', trans('agrocefa::parameters.Modal_Period')) !!}
                     {!! Form::select(
                         'period',
                         ['Diario' => 'Diario', 'Quincenal' => 'Quincenal', 'Mensual' => 'Mensual', 'Anual' => 'Anual'],
@@ -77,7 +77,7 @@
                 </div>
                 <!-- Otros campos del formulario según tus necesidades -->
                 <br>
-                {!! Form::submit('Registrar Actividad', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit(trans('agrocefa::parameters.Btn_Register_Activity'), ['class' => 'btn btn-primary']) !!}
                 {!! Form::close() !!}
             </div>
         </div>

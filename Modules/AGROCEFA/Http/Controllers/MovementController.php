@@ -65,41 +65,66 @@ class MovementController extends Controller
         $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehousereceive)->where('productive_unit_id', $this->selectedUnitId)->first();
         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
 
-        $warehousemovementid = WarehouseMovement::where('productive_unit_warehouse_id', $productiveWarehousereceiveId)->where('role', '=', 'Recibe')->get()->pluck('movement_id');
+        Session::put('productiveunitwarehouseid',$productiveWarehousereceiveId);
+    
 
+        $warehousemovementid = WarehouseMovement::where('productive_unit_warehouse_id', $productiveWarehousereceiveId)->where('role', '=', 'Recibe')->get()->pluck('movement_id');
+        
         $movements = Movement::whereIn('id', $warehousemovementid)->where('state','=','Solicitado')->with('movement_type', 'movement_responsibilities.person', 'movement_details.inventory.element', 'warehouse_movements.productive_unit_warehouse.productive_unit', 'warehouse_movements.productive_unit_warehouse.warehouse')->get()->toArray();
         $datas = [];
 
         foreach ($movements as $movement) {
             $id = $movement['id'];
             $date = $movement['registration_date'];
+            $person_id = $movement['movement_responsibilities'][0]['person_id'];
             $respnsibility = $movement['movement_responsibilities'][0]['person']['first_name'];
             $productiveunit = $movement['warehouse_movements'][0]['productive_unit_warehouse']['productive_unit']['name'];
             $warehouse = $movement['warehouse_movements'][0]['productive_unit_warehouse']['warehouse']['name'];
-            $inventory = $movement['movement_details'][0]['inventory']['element']['name'];
-            $inventoryId = $movement['movement_details'][0]['inventory_id'];
-            $amount = $movement['movement_details'][0]['amount'];
-            $price = $movement['movement_details'][0]['price'];
-            $state = $movement['state'];
+            
+            // Verificar si hay elementos en movement_details
+            if (isset($movement['movement_details']) && is_array($movement['movement_details']) && count($movement['movement_details']) > 0) {
+                // Iterar a través de los elementos en movement_details
+                foreach ($movement['movement_details'] as $detail) {
+                    $inventory = $detail['inventory']['element']['name'];
+                    $destination = $detail['inventory']['destination'];
+                    $elementid = $detail['inventory']['element_id'];
+                    $inventoryId = $detail['inventory_id'];
+                    $amount = $detail['amount'];
+                    $price = $detail['price'];
+                    $state = $movement['state'];
+                    $lot = $detail['inventory']['lot_number'];
 
-            // Agregar información al array asociativo
-            $datas[] = [
-                'id' => $id,
-                'date' => $date,
-                'respnsibility' => $respnsibility,
-                'productiveunit' => $productiveunit,
-                'warehouse' => $warehouse,
-                'inventory' => $inventory,
-                'amount' => $amount,
-                'price' => $price,
-                'state' => $state,
-                'inventory_id' => $inventoryId,
-                // Agrega aquí otros datos que necesites
-            ];
+                    // Agregar información al array asociativo
+                    $datas[] = [
+                        'id' => $id,
+                        'date' => $date,
+                        'respnsibility' => $respnsibility,
+                        'productiveunit' => $productiveunit,
+                        'warehouse' => $warehouse,
+                        'inventory' => $inventory,
+                        'amount' => $amount,
+                        'price' => $price,
+                        'state' => $state,
+                        'inventory_id' => $inventoryId,
+                        'element_id' => $elementid,
+                        'destination' => $destination,
+                        'person_id' => $person_id,
+                        'lot' => $lot,
+                        // Agrega aquí otros datos que necesites
+                    ];
+                }
+            } else {
+                // Si no hay elementos en movement_details, puedes agregar un valor predeterminado o manejarlo de otra manera según tu lógica.
+            }
+
+            // Contar el número de registros después de obtener los datos
+            $movementsCount = count($datas);
+
+            Session::put('notification', $movementsCount);
         }
 
 
-        return view('agrocefa::movements.requestentrance', ['datas' => $datas]);
+        return view('agrocefa::movements.requestentrance', ['datas' => $datas,'notification' => $movementsCount,]);
     }
 
 
@@ -107,29 +132,86 @@ class MovementController extends Controller
     {
         // Obtener el movimiento que se va a confirmar
         $movement = Movement::find($id);
-    
+
         if (!$movement) {
             // Manejar el caso en que el movimiento no se encuentre
             return redirect()->back()->with('error', 'Movimiento no encontrado');
         }
-    
+
         // Actualizar el estado del movimiento a "aprobado"
         $movement->state = 'Aprobado';
         $movement->save();
-    
+
         // Obtener los datos enviados desde el formulario
-        $inventoryId = $request->input('inventory_id');
-        $amount = $request->input('amount');
-        $price = $request->input('price');
-    
-        // Actualizar el inventario de la bodega
-        // Esto puede requerir lógica específica para tu aplicación
-    
+        $personid = $request->input('person_id');
+        $lot = $request->input('lot');
+
+        // Iterar a través de los elementos del movimiento
+        foreach ($movement->movement_details as $detail) {
+            $elementId = $detail->inventory->element_id;
+            $destination = $detail->inventory->destination;
+            $amount = $detail->amount;
+            $price = $detail->price;
+
+            // Obtener el inventario existente o crear uno nuevo
+            $inventory = Inventory::where([
+                'productive_unit_warehouse_id' => $detail->movement->warehouse_movements[0]->productive_unit_warehouse_id,
+                'element_id' => $elementId,
+                'lot_number' => $lot,
+            ])->first();
+
+            if ($inventory) {
+                // Actualizar el inventario existente
+                $inventory->amount += $amount;
+                $inventory->price = $price; // Puedes actualizar el precio si es necesario
+                $inventory->save();
+            } else {
+                // Crear un nuevo registro de inventario
+                $inventory = new Inventory([
+                    'person_id' => $personid,
+                    'productive_unit_warehouse_id' => $detail->movement->warehouse_movements[0]->productive_unit_warehouse_id,
+                    'element_id' => $elementId,
+                    'destination' => $destination,
+                    'price' => $price,
+                    'amount' => $amount,
+                    'stock' => 3,
+                    'lot_number' => $lot,
+                ]);
+
+                $inventory->save();
+            }
+
+        }
+
         // Redirigir de nuevo a la vista con un mensaje de éxito
         return redirect()->back()->with('success', 'Movimiento confirmado exitosamente');
     }
-    
 
+    public function returnMovement(Request $request, $id)
+    {
+        // Obtener el movimiento que se va a devolver
+        $movement = Movement::find($id);
+
+        if (!$movement) {
+            // Manejar el caso en que el movimiento no se encuentre
+            return redirect()->back()->with('error', 'Movimiento no encontrado');
+        }
+
+        // Verificar que se ha proporcionado una descripción de la devolución
+        $request->validate([
+            'return_description' => 'required',
+        ]);
+
+        // Cambiar el estado del movimiento a "Devuelto" y agregar la descripción
+        $movement->state = 'Devuelto';
+        $movement->observation = $request->input('return_description');
+        $movement->save();
+
+        // Redirigir de nuevo a la vista con un mensaje de éxito
+        return redirect()->back()->with('success', 'Movimiento devuelto exitosamente');
+    }
+
+    
     public function formentrance()
     {
         // Fecha actual
@@ -228,7 +310,7 @@ class MovementController extends Controller
         $user_id = $request->input('user_id');
         $deliverywarehouse = $request->input('deliverywarehouse');
         $receivewarehouse = $request->input('receivewarehouse');
-        $products = json_decode($request->input('products'), true);
+
         $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->first();
         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
 
@@ -236,36 +318,62 @@ class MovementController extends Controller
         
         $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id',$productiveexterna)->first();
         $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
+        
+        // Obtén los datos de los campos de la tabla con llaves [ ]
+        $productElementIds = $request->input('product-id');
+        $productNames = $request->input('product-name');
+        $productQuantities = $request->input('product-quantity');
+        $productPrices = $request->input('product-price');
+        $productDestinations = $request->input('product-destination');
+        $productLots = $request->input('product-lot');
+        $productStocks = $request->input('product-stock');
 
 
+        // Inicializa un arreglo para almacenar los datos de los productos
+        $productsData = [];
 
-        // Verificar si $products no es null y es un array
-        if (!is_null($products) && is_array($products)) {
-            // Inicializa un arreglo para almacenar los datos de los productos
-            $productsData = [];
-
-            // Inicializa el precio total en 0
-            $totalPrice = 0;
+        // Inicializa el precio total en 0
+        $totalPrice = 0;
 
             // Inicia una transacción de base de datos
             DB::beginTransaction();
 
             try {
+                $movementId = null;
+
+                // Generar el voucher como consecutivo simple sin ceros adicionales
+                $voucher = $this->getNextVoucherNumber();
+                
+                // Registra un solo movimiento con el precio total calculado
+                $movement = new Movement([
+                    'registration_date' => $date,
+                    'movement_type_id' => $movementType->id,
+                    'voucher_number' => $voucher,
+                    'price' => $totalPrice,
+                    'observation' => $observation,
+                    'state' => 'Aprobado',
+                    ]);
+        
+                $movement->save();
+                $movementId = $movement->id;
+                
                 // Procesar cada elemento
-                foreach ($products as $product) {
-                    // Obtén los datos necesarios para cada elemento
-                    $productElementId = $product['id'];
-                    $quantity = $product['product-quantity'];
-                    $price = $product['product-price'];
-                    $destination = $product['product-destination'];
-
-                    // Suma el precio del elemento al precio total
-                    $totalPrice += $price * $quantity;
-
-                    // Buscar si el elemento ya existe en 'inventories' para la ubicación y elemento específicos
+                foreach ($productElementIds as $index => $productElementId) {
+                    // Accede a los datos de cada elemento de la tabla
+                    
+                    $quantity = $productQuantities[$index];
+                    $price = $productPrices[$index];
+                    $destination = $productDestinations[$index];
+                    $lot = $productLots[$index];
+                    $stock = $productStocks[$index];
+                    
+                    
+                
+                    // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
                     $existingInventory = Inventory::where([
-                        'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
+                        'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
                         'element_id' => $productElementId,
+                        'lot_number' => $lot,
                     ])->first();
 
 
@@ -278,51 +386,31 @@ class MovementController extends Controller
                         
                     } else {
                         // Si el elemento no existe, crea un nuevo registro en 'inventories'
-                        $stock = 3; // Este valor puede cambiar según tus requisitos
 
-                        $inventory = new Inventory([
+                        $newInventory = new Inventory([
                             'person_id' => $user_id,
-                            'productive_unit_warehouse_id' => $idreceive,
+                            'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
                             'element_id' => $productElementId,
                             'destination' => $destination,
                             'price' => $price,
                             'amount' => $quantity,
                             'stock' => $stock,
+                            'lot_number' => $lot ?: null,
                         ]);
 
-                        $inventory->save();
-                        $inventoryIds[] = $inventory->id;
+                        $newInventory->save();
+                        $existingInventoryId = $newInventory->id;
                         
                     }
 
-                    // Agrega los datos del elemento al arreglo
-                    $productsData[] = [
-                        'element_id' => $productElementId,
-                        'quantity' => $quantity,
-                        'price' => $price,
-                        'destination' => $destination,
-                    ];
-
-                    // Generar el voucher como consecutivo simple sin ceros adicionales
-                    $voucher = $this->getNextVoucherNumber();
-
-                    // Registra un solo movimiento con el precio total calculado
-                    $movement = new Movement([
-                        'registration_date' => $date,
-                        'movement_type_id' => $movementType->id,
-                        'voucher_number' => $voucher,
-                        'price' => $totalPrice,
-                        'observation' => $observation,
-                        'state' => 'Aprobado',
-                    ]);
-                    // Guarda el nuevo registro en la base de datos
-                    $movement->save();
-                    $movementIds[] = $movement->id;
+                     // Calcula el precio total para este elemento y agrégalo al precio total general
+                    $totalPrice += ($quantity * $price);
+                    
                     
                     // Registrar detalle del movimiento para cada elemento
                     $movement_details = new MovementDetail([
-                        'movement_id' => end($movementIds), // Asociar al movimiento actual
-                        'inventory_id' => end($inventoryIds), // Asociar al inventario actual
+                        'movement_id' => $movementId, // Asociar al movimiento actual
+                        'inventory_id' => $existingInventoryId, // Asociar al inventario actual
                         'amount' => $quantity, // Cantidad del elemento actual
                         'price' => $price, // Precio del elemento actual
                     ]);
@@ -330,18 +418,21 @@ class MovementController extends Controller
                     $movement_details->save();
                 }
 
+                // Actualiza el precio total en el movimiento principal
+                $movement->price = $totalPrice;
+                $movement->save();
                 
 
                 // Registrar las bodegas y rol del movimiento
                 $warehouse_movement_entrega = new WarehouseMovement([
                     'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
-                    'movement_id' => end($movementIds),
+                    'movement_id' => $movementId,
                     'role' => 'Entrega', 
                 ]);
 
                 $warehouse_movement_recibe = new WarehouseMovement([
                     'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
-                    'movement_id' => end($movementIds),
+                    'movement_id' => $movementId,
                     'role' => 'Recibe', 
                 ]);
 
@@ -351,7 +442,7 @@ class MovementController extends Controller
                 // Registrar el responsable del movimiento
                 $movement_responsabilities = new MovementResponsibility([
                     'person_id' => $user_id, // Usar la variable $person_id
-                    'movement_id' => end($movementIds),
+                    'movement_id' => $movementId,
                     'role' => 'REGISTRO',
                     'date' => $date,
                 ]);
@@ -372,9 +463,7 @@ class MovementController extends Controller
 
                 \Log::error('Error en el registro: ' . $e->getMessage());
             }
-        } else {
-            // Manejo de caso en el que $products es null o no es un array
-        }
+
     }
 
 
@@ -416,11 +505,13 @@ class MovementController extends Controller
             if ($elementData) {
                 $unidadMedida = $elementData->measurement_unit->name;
                 $categoria = $elementData->category->name;
+                $name = $elementData->name;
 
 
                 return response()->json([
                     'unidad_medida' => $unidadMedida,
                     'categoria' => $categoria,
+                    'name' => $name,
 
                 ]);
             } else {
@@ -444,10 +535,16 @@ class MovementController extends Controller
                 $destination = $dataelement->destination;
                 $price = $dataelement->price;
                 $amount = $dataelement->amount;
+                $lote = $dataelement->lot_number;
+                $stock = $dataelement->stock;
+
                 return response()->json([
                     'price' => $price,
                     'amount' => $amount,
                     'destination' => $destination,
+                    'lote' => $lote,
+                    'stock' => $stock,
+
                 ]);
             } else {
                 return response()->json(['error' => 'Precio no encontrado'], 404);
@@ -492,6 +589,7 @@ class MovementController extends Controller
             return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
+
 
 
 
@@ -612,11 +710,10 @@ class MovementController extends Controller
     }
 
     
-    public function registerexit (Request $request)
+    public function registerexit(Request $request)
     {
-
         // Obtén el ID de la unidad productiva seleccionada de la sesión
-        $this->selectedUnitId= Session::get('selectedUnitId');
+        $this->selectedUnitId = Session::get('selectedUnitId');
 
         // Obtener para Tipo de Movimiento
         $movementType = MovementType::select('id', 'consecutive')->where('name', '=', 'Movimiento Interno')->first();
@@ -624,158 +721,169 @@ class MovementController extends Controller
         // Obtener los datos del formulario
         $date = $request->input('date'); // Fecha actual del movimiento
         $observation = $request->input('observation'); // Observacion del movimiento
-        $user_id = $request->input('user_id'); // Usuario del movimiento 
+        $user_id = $request->input('user_id'); // Usuario del movimiento
         $deliverywarehouse = $request->input('deliverywarehouse'); // Bodega que entrega los elementos
         $product_unit = $request->input('product_unit'); // Bodega que entrega los elementos
         $receivewarehouse = $request->input('receivewarehouse'); // Bodega que recibe los elementos
-        $products = json_decode($request->input('products'), true); // Array que contiene los elementos y su informacion
-        
+
         $responsibility = ProductiveUnit::with('person')->where('id', $this->selectedUnitId)->first();
 
         if ($responsibility) {
-
             $personid = $responsibility->person_id;
             $people = $responsibility->person->first_name;
         }
 
-        $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id',$this->selectedUnitId)->first();
+        $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id', $this->selectedUnitId)->first();
         $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;
-        
-        $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->where('productive_unit_id',$product_unit)->first();
+
+        $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $receivewarehouse)->where('productive_unit_id', $product_unit)->first();
         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
-        
-        // Verificar si $products no es null y es un array
-        if (!is_null($products) && is_array($products)) {
 
-            // Inicializa un arreglo para almacenar los datos de los productos
-            $productsData = [];
+        // Obtén los datos de los campos de la tabla con llaves [ ]
+        $productElementIds = $request->input('product-id');
+        $productNames = $request->input('product-name');
+        $productQuantities = $request->input('product-quantity');
+        $productPrices = $request->input('product-price');
+        $productDestinations = $request->input('product-destination');
+        $productLots = $request->input('product-lot');
+        $productStocks = $request->input('product-stock');
 
-            // Inicializa el precio total en 0
-            $totalPrice = 0;
+        // Inicializa el precio total en 0
+        $totalPrice = 0;
 
-            // Inicia una transacción de base de datos 
-            DB::beginTransaction();
+        // Inicia una transacción de base de datos
+        DB::beginTransaction();
 
-            try {
+        try {
+            $movementId = null; // Declara $movementId antes del bucle
 
-                
-                // Procesar cada elemento
-                foreach ($products as $product) {
-                    $productElementId = $product['id'];
-                    $quantity = $product['product-quantity'];
-                    $price = $product['product-price'];
-                    $destination = $product['product-destination'];
-                
-                    // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
-                    $existingInventory = Inventory::where([
+            // Generar el voucher como consecutivo simple sin ceros adicionales
+            $voucher = $this->getNextVoucherNumber();
+
+            // Registra un solo movimiento con el precio total calculado
+            $movement = new Movement([
+                'registration_date' => $date,
+                'movement_type_id' => $movementType->id,
+                'voucher_number' => $voucher,
+                'price' => $totalPrice,
+                'observation' => $observation,
+                'state' => 'Solicitado',
+            ]);
+
+            // Guarda el nuevo registro en la base de datos
+            $movement->save();
+            $movementId = $movement->id;
+
+            foreach ($productElementIds as $index => $productElementId) {
+                // Accede a los datos de cada elemento de la tabla
+                $name = $productNames[$index];
+                $quantity = $productQuantities[$index];
+                $price = $productPrices[$index];
+                $destination = $productDestinations[$index];
+                $lot = $productLots[$index];
+                $stock = $productStocks[$index];
+            
+                // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
+                $existingInventory = Inventory::where([
+                    'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
+                    'element_id' => $productElementId,
+                    'lot_number' => $lot,
+                ])->first();
+            
+                if ($existingInventory) {
+                    if ($quantity > $existingInventory->amount) {
+                        // Mostrar un mensaje de error que incluye el nombre del elemento
+                        $elementName = $existingInventory->element->name;
+                        return redirect()->back()->withInput()->with('error', 'La cantidad solicitada del elemento ' . $elementName . ' es mayor que la cantidad disponible (' . $existingInventory->amount . ').');
+                    }
+            
+                    // Restar la cantidad solicitada del inventario existente
+                    $existingInventory->amount -= $quantity;
+                    $existingInventory->save();
+                    $existingInventoryId = $existingInventory->id;
+                } else {
+                    // Si el elemento no existe en el inventario, crea un nuevo registro en 'inventories'
+                    $newInventory = new Inventory([
+                        'person_id' => $user_id,
                         'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
                         'element_id' => $productElementId,
-                    ])->first();
-                    if ($existingInventory) {
-                        if ($quantity > $existingInventory->amount) {
-                            // Mostrar un mensaje de error que incluye el nombre del elemento
-                            $elementName = $existingInventory->element->name;
-                            return redirect()->back()->withInput()->with('error', 'La cantidad solicitada del elemento ' . $elementName . ' es mayor que la cantidad disponible (' . $existingInventory->amount . ').');
-                        }
-                        // Restar la cantidad solicitada del inventario existente
-                        $existingInventory->amount -= $quantity;
-                        $existingInventory->save();
-                        $existingInventoryId = $existingInventory->id;
-
-                    } else {
-                        // Manejar el caso en que no se encuentra ningún registro que cumpla con las condiciones
-                        $existingInventoryId = null; // O cualquier otro valor predeterminado que desees
-                    }
-                
-
-                    // Agrega los datos del elemento al arreglo
-                    $productsData[] = [
-                        'element_id' => $productElementId,
-                        'quantity' => $quantity,
                         'price' => $price,
-                        'destination' => $destination,
-                    ];
-
-                    // Generar el voucher como consecutivo simple sin ceros adicionales
-                    $voucher = $this->getNextVoucherNumber();
-
-                    // Registra un solo movimiento con el precio total calculado
-                    $movement = new Movement([
-                        'registration_date' => $date,
-                        'movement_type_id' => $movementType->id,
-                        'voucher_number' => $voucher,
-                        'price' => $totalPrice,
-                        'observation' => $observation,
-                        'state' => 'Solicitado',
+                        'amount' => $quantity,
+                        'stock' => $stock,
+                        'lot_number' => $lot ?: null,
                     ]);
-
-                    // Guarda el nuevo registro en la base de datos
-                    $movement->save();
-                    $movementIds[] = $movement->id;
-
-                    // Registrar detalle del movimiento para cada elemento
-                    $movement_details = new MovementDetail([
-                        'movement_id' => end($movementIds), // Asociar al movimiento actual
-                        'inventory_id' => $existingInventoryId, // Asociar al inventario actual
-                        'amount' => $quantity, // Cantidad del elemento actual
-                        'price' => $price, // Precio del elemento actual
-                    ]);
-
-                    $movement_details->save();
+            
+                    $newInventory->save();
+            
+                    $existingInventoryId = $newInventory->id;
                 }
-
-                
-
-                // Registrar las bodegas y rol del movimiento
-                $warehouse_movement_entrega = new WarehouseMovement([
-                    'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
-                    'movement_id' => end($movementIds),
-                    'role' => 'Entrega', 
+            
+                // Calcula el precio total para este elemento y agrégalo al precio total general
+                $totalPrice += ($quantity * $price);
+            
+                // Registrar detalle del movimiento para cada elemento
+                $movementDetails = new MovementDetail([
+                    'movement_id' => $movementId, // Asociar al movimiento actual
+                    'inventory_id' => $existingInventoryId, // Asociar al inventario actual
+                    'amount' => $quantity, // Cantidad del elemento actual
+                    'price' => $price, // Precio del elemento actual
                 ]);
+            
+                $movementDetails->save();
+            }
 
-                $warehouse_movement_recibe = new WarehouseMovement([
-                    'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
-                    'movement_id' => end($movementIds),
-                    'role' => 'Recibe', 
-                ]);
+            // Actualiza el precio total en el movimiento principal
+            $movement->price = $totalPrice;
+            $movement->save();
 
-                $warehouse_movement_entrega->save();
-                $warehouse_movement_recibe->save();
+            // Registrar las bodegas y rol del movimiento
+            $warehouse_movement_entrega = new WarehouseMovement([
+                'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
+                'movement_id' => $movementId, // Usar $movementId en lugar de end($movementIds)
+                'role' => 'Entrega',
+            ]);
 
-                // Registrar el responsable del movimiento
-                $movement_responsabilities = new MovementResponsibility([
-                    'person_id' => $user_id, 
-                    'movement_id' => end($movementIds),
+            $warehouse_movement_recibe = new WarehouseMovement([
+                'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
+                'movement_id' => $movementId, // Usar $movementId en lugar de end($movementIds)
+                'role' => 'Recibe',
+            ]);
+
+            $warehouse_movement_entrega->save();
+            $warehouse_movement_recibe->save();
+
+            // Crear un array con los registros de responsabilidades
+            $responsibilitiesData = [
+                [
+                    'person_id' => $user_id,
+                    'movement_id' => $movementId, // Usar $movementId en lugar de end($movementIds)
                     'role' => 'REGISTRO',
                     'date' => $date,
-                ]);
-
-                // Registrar el responsable del movimiento
-                $movement_responsabilities = new MovementResponsibility([
-                    'person_id' => $personid, // Usar la variable $person_id
-                    'movement_id' => end($movementIds),
+                ],
+                [
+                    'person_id' => $personid, // Usar la variable $personid
+                    'movement_id' => $movementId, // Usar $movementId en lugar de end($movementIds)
                     'role' => 'RECIBE',
                     'date' => $date,
-                ]);
+                ],
+            ];
 
-                $movement_responsabilities->save();
+            // Insertar los registros en la tabla movement_responsibilities
+            MovementResponsibility::insert($responsibilitiesData);
+            // Registra datos en otras tablas utilizando $inventoryIds y otros valores (si es necesario)
 
-                // Registra datos en otras tablas utilizando $inventoryIds y otros valores (si es necesario)
+            // Si todo está correcto, realiza un commit de la transacción
+            DB::commit();
 
-                // Si todo está correcto, realiza un commit de la transacción
-                DB::commit();
+            // Después de realizar la operación de registro con éxito
+            return redirect()->route('agrocefa.formexit')->with('success', 'El registro se ha completado con éxito.');
 
-                // Después de realizar la operación de registro con éxito
-                return redirect()->route('agrocefa.formexit')->with('success', 'El registro se ha completado con éxito.');
+        } catch (\Exception $e) {
+            // En caso de error, realiza un rollback de la transacción y maneja el error
+            DB::rollBack();
 
-            } catch (\Exception $e) {
-                // En caso de error, realiza un rollback de la transacción y maneja el error
-                DB::rollBack();
-
-                \Log::error('Error en el registro: ' . $e->getMessage());
-            }
-        } else {
-            // Manejo de caso en el que $products es null o no es un array
+            \Log::error('Error en el registro: ' . $e->getMessage());
         }
     }
+
 }

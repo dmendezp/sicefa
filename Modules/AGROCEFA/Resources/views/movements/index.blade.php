@@ -2,21 +2,21 @@
 
 @section('content')
 
-<h2>Movimientos</h2>
+<h2>{{ trans('agrocefa::movements.Movements')}}</h2>
 
 <div class="container">
     <div class="row">
         <div class="col-md-6" style="width: 600px;margin-left: 60px">
             <a href="{{ route('agrocefa.formentrance') }}" class="card-link">
                 <div class="card">
-                    <h3>Entrada</h3>
+                    <h3>{{trans('agrocefa::movements.Entrance')}}</h3>
                 </div>
             </a>
         </div>
         <div class="col-md-6">
             <a href="{{ route('agrocefa.formexit') }}" class="card-link">
                 <div class="card">
-                    <h3>Salida</h3>
+                    <h3>{{trans('agrocefa::movements.Exit')}}</h3>
                 </div>
             </a>
         </div>

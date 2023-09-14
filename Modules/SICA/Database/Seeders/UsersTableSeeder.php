@@ -44,7 +44,6 @@ class UsersTableSeeder extends Seeder
             'email' => 'datovar74@misena.edu.co',
         ]);
 
-        
         // Registrar o actualizar usuario para Manuel Steven Ossa Lievano
         $person = Person::where('document_number',1000226706)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'Resmerveilons'], [ // Actualizar o crear usuario

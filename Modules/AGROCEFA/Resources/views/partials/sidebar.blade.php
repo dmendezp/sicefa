@@ -84,7 +84,7 @@
                         </a>
                     </li>
                     <li class="nav-link">
-                        <a href="{{ route('agrocefa.bodegas') }}">
+                        <a href="{{ route('agrocefa.desarrolladores.index') }}">
                             <i class='bx bx-code icon'></i>
                             <span class="text nav-text">{{ trans('agrocefa::universal.Developers') }}</span>
                         </a>

@@ -6,12 +6,12 @@
       <li style="margin-right: 200px"><a href="{{ route('agrocefa.index') }}" id="an">{{ trans('agrocefa::universal.Home')}}</a></li>
       <li style="margin-right: 40px"><a href="{{ url('lang',['en']) }}" id="an" class="dropdown-item"><img src="{{asset('agrocefa/images/general/en.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English')}}</a></li>
       <li style="margin-right: 100px"><a href="{{ url('lang',['es']) }}" id="an" class="dropdown-item"><img src="{{asset('agrocefa/images/general/es.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish')}}</a></li>
-      <li><a href="{{ route('agrocefa.movements.notification') }}" id="an">
+      <li><a href="{{ route('agrocefa.movements.notification') }}" id="an" title="Ver Movimientos Pendientes">
         <i class="fa-regular fa-bell fa-flip"></i>
-        @if (isset($notification) && $notification > 0)
-            <span class="notification-badge">{{ $notification }}</span>
+        @if (Session::has('notification') && Session::get('notification') > 0)
+          <span class="notification-badge">{{ Session::get('notification') }}</span>
         @endif
-    </a></li>
+      </a></li>
   </ul>
   @else
   <ul>
@@ -29,7 +29,7 @@
             @if (isset(Auth::user()->person->avatar))
                 <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}" class="profile-img img-circle elevation-2" alt="User Image">
             @else
-                <img  src="{{ asset('sica/images/blanco.png') }}" class="profile-img img-circle elevation-2" alt="User Image">
+                <img  src="{{ asset('agrocefa/images/general/user.png') }}" class="profile-img img-circle elevation-2" alt="User Image">
             @endif
         @endauth
         </div>

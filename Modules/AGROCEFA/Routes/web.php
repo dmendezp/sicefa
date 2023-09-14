@@ -36,6 +36,7 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/movements/formexit', 'MovementController@formexit')->name('agrocefa.formexit');
         Route::get('/movements/request', 'MovementController@requestentrance')->name('agrocefa.movements.notification');
         Route::post('/movements/request/confirmation/{id}', 'MovementController@confirmation')->name('agrocefa.movements.confirmation');
+        Route::post('/movements/request/returnmovement/{id}', 'MovementController@returnMovement')->name('agrocefa.movements.return');
         Route::post('/movements/registerentrance', 'MovementController@registerentrance')->name('agrocefa.registerentrance');
         Route::post('/movements/registerexit', 'MovementController@registerexit')->name('agrocefa.registerexit');
         Route::get('/obtener_warehouse', 'MovementController@obtenerwarehouse')->name('agrocefa.warehouse');

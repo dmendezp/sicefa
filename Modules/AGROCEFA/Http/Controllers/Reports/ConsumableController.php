@@ -39,34 +39,49 @@ class ConsumableController extends Controller
             ->get();
 
         
-        // Crear un array asociativo para almacenar toda la información
-        $data = [];
+        // Crear un array asociativo para almacenar toda la información agrupada por labor
+        $groupedData = [];
+        $totalLaborSubtotal = 0;
 
         foreach ($consumables as $consumable) {
+            $laborId = $consumable->labor->id;
 
-            $consumableId = $consumable->id;
-            $laborDescription = $consumable->labor->description;
-            $laborDate = $consumable->labor->date;
+            if (!isset($groupedData[$laborId])) {
+                // Inicializa el array para esta labor si aún no existe
+                $groupedData[$laborId] = [
+                    'laborDescription' => $consumable->labor->description,
+                    'laborDate' => $consumable->labor->date,
+                    'elements' => [],
+                    'laborSubtotal' => 0, // Inicializa el subtotal de labor
+                ];
+            }
+
             $elementName = $consumable->inventory->element->name;
             $consumableAmount = $consumable->amount;
             $consumablePrice = $consumable->price;
-            
+
+            // Calcular el subtotal por elemento
+            $elementSubtotal = $consumableAmount * $consumablePrice;
 
             // Agregar información al array asociativo
-            $datas[] = [
-                'consumableId' => $consumableId,
+            $groupedData[$laborId]['elements'][] = [
                 'elementName' => $elementName,
-                'laborDescription' => $laborDescription,
-                'laborDate' => $laborDate,
                 'consumableAmount' => $consumableAmount,
                 'consumablePrice' => $consumablePrice,
-                // Agrega aquí otros datos que necesites
+                'elementSubtotal' => $elementSubtotal, // Agregar el subtotal al elemento
             ];
-        }
-        
 
-        return view('agrocefa::reports.consumption',['datas' => $datas]);
+            // Sumar el subtotal del elemento al subtotal de labor
+            $groupedData[$laborId]['laborSubtotal'] += $elementSubtotal;
+            $totalLaborSubtotal += $elementSubtotal; // Sumar al total de subtotales de labor
+        }
+
+        return view('agrocefa::reports.consumption', [
+            'groupedData' => $groupedData,
+            'totalLaborSubtotal' => $totalLaborSubtotal,
+        ]);
     }
+    
 
     public function filterByDate(Request $request)
     {
@@ -97,32 +112,47 @@ class ConsumableController extends Controller
             ->get();
 
         
-        // Crear un array asociativo para almacenar toda la información
-        $data = [];
+        // Crear un array asociativo para almacenar toda la información agrupada por labor
+        $groupedData = [];
+        $totalLaborSubtotal = 0;
 
         foreach ($consumables as $consumable) {
+            $laborId = $consumable->labor->id;
 
-            $consumableId = $consumable->id;
-            $laborDescription = $consumable->labor->description;
-            $laborDate = $consumable->labor->date;
+            if (!isset($groupedData[$laborId])) {
+                // Inicializa el array para esta labor si aún no existe
+                $groupedData[$laborId] = [
+                    'laborDescription' => $consumable->labor->description,
+                    'laborDate' => $consumable->labor->date,
+                    'elements' => [],
+                    'laborSubtotal' => 0, // Inicializa el subtotal de labor
+                ];
+            }
+
             $elementName = $consumable->inventory->element->name;
             $consumableAmount = $consumable->amount;
             $consumablePrice = $consumable->price;
-            
+
+            // Calcular el subtotal por elemento
+            $elementSubtotal = $consumableAmount * $consumablePrice;
 
             // Agregar información al array asociativo
-            $datas[] = [
-                'consumableId' => $consumableId,
+            $groupedData[$laborId]['elements'][] = [
                 'elementName' => $elementName,
-                'laborDescription' => $laborDescription,
-                'laborDate' => $laborDate,
                 'consumableAmount' => $consumableAmount,
                 'consumablePrice' => $consumablePrice,
-                // Agrega aquí otros datos que necesites
+                'elementSubtotal' => $elementSubtotal, // Agregar el subtotal al elemento
             ];
+
+            // Sumar el subtotal del elemento al subtotal de labor
+            $groupedData[$laborId]['laborSubtotal'] += $elementSubtotal;
+            $totalLaborSubtotal += $elementSubtotal; // Sumar al total de subtotales de labor
         }
 
-        return view('agrocefa::reports.consumption', ['datas' => $datas]);
+        return view('agrocefa::reports.consumption', [
+            'groupedData' => $groupedData,
+            'totalLaborSubtotal' => $totalLaborSubtotal,
+        ]);
     }
 
 
