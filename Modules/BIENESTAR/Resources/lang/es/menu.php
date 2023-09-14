@@ -55,6 +55,7 @@ return[
      'Question'=>'Pregunta',
      'Answer'=>'Respuesta',
      'Edit Question'=>'Editar Pregunta',
+     'Choose a call for proposals'=>'Elija una convocatoria',
 
         //Vista typeofbenefits
     'Beneficiary Type Management'=>'Gestión de Tipo de Beneficiarios',

@@ -2,22 +2,24 @@
 
 @section('content')
 <div class="container">
-    <h1 class="mb-4">{{ trans('bienestar::menu.Edit Form')}}</h1>
-    <div class="conteiner">
+    <form method="POST" action="{{ route('cefa.bienestar.saveform') }}" id="mainForm">
+        @csrf
+        <h1 class="mb-4">{{ trans('bienestar::menu.Edit Form')}}  <i class="fas fa-clipboard-list"></i></h1></h1>
         <div class="card">
             <div class="card-body">
-                
+                <select class="form-control" id="id_convocatoria" name="convocatoria_id">
+                    <option value="">{{ trans('bienestar::menu.Choose a call for proposals')}}</option>
+                    @foreach ($convocations as $con)
+                    <option value="{{ $con->id }}">{{ $con->name }}</option>
+                    @endforeach
+                </select>
+
             </div>
         </div>
-    </div>
-    <div class="container">
         <div class="card">
             <div class="card-body">
                 <a href="{{ route('cefa.bienestar.add_question') }}" class="btn btn-success mb-3"><i class="fas fa-plus-circle"></i>{{ trans('bienestar::menu.Add Question')}}</a>
-                <form method="POST" action="{{ route('cefa.bienestar.saveform') }}" id="mainForm">
-                    @csrf
-                    <!-- Aquí van los checkbox y otras partes del formulario principal -->                                                       
-
+                <!-- Aquí van los checkbox y otras partes del formulario principal -->
                 @foreach ($questions as $question)
                 <div class="card mb-4">
                     <div class="card-body">
@@ -30,29 +32,28 @@
                             <div class="d-flex">
                                 <a class="btn btn-primary mr-2" data-toggle="modal" data-target="#editModal{{$question->id}}"><i class="fas fa-edit"></i></a>
                                 <form action="{{ route('cefa.bienestar.delete_question', ['id' => $question->id]) }}" method="POST" id="formEliminar" class="formEliminar">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" form="formEliminar" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
+                                    @csrf
+                                    <button type="submit" form="formEliminar" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                </form>
                             </div>
                         </div>
 
                         <div class="form-group">
-                                <label for="nombre">{{ trans('bienestar::menu.Question')}}</label>
-                                <input type="text" class="form-control" id="nombre" value="{{ $question->question }}" readonly>
-                            </div>
+                            <label for="nombre">{{ trans('bienestar::menu.Question')}}</label>
+                            <input type="text" class="form-control" id="nombre" value="{{ $question->question }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo_pregunta">{{ trans('bienestar::menu.Answer')}}</label>
                             <div class="form-group">
-                                <label for="tipo_pregunta">{{ trans('bienestar::menu.Answer')}}</label>
-                                <div class="form-group">
-                                    <select class="form-control" id="tipo_pregunta" readonly>
-                                        @foreach ($answers as $answer)
-                                        @if ($answer->question_id == $question->id)
-                                        <option value="{{ $answer->id }}">{{ $answer->answer }}</option>
-                                        @endif
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <select class="form-control" id="tipo_pregunta" readonly>
+                                    @foreach ($answers as $answer)
+                                    @if ($answer->question_id == $question->id)
+                                    <option value="{{ $answer->id }}">{{ $answer->answer }}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
                             </div>
+                        </div>
 
                     </div>
                 </div>
@@ -90,46 +91,45 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" form="editForm{{$question->id}}" class="btn btn-primary">{{ trans('bienestar::menu.Save')}}</button>
+                                <button type="submit" form="editForm{{$question->id}}" class="btn btn-success">{{ trans('bienestar::menu.Save')}}</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 @endforeach
-                <button type="submit" form="mainForm" class="btn btn-primary">{{ trans('bienestar::menu.Save')}}</button>
-                </form>
+                <button type="submit" form="mainForm" class="btn btn-success">{{ trans('bienestar::menu.Save')}}</button>
             </div>
         </div>
-    </div>
+    </form>
 </div>
-<script>
-$(document).ready(function() {
-    // Manejador de evento para el envío del formulario
-    $("#mainForm").submit(function(event) {
-        // Evita que el formulario se envíe automáticamente
-        event.preventDefault();
+    <script>
+        $(document).ready(function() {
+            // Manejador de evento para el envío del formulario
+            $("#mainForm").submit(function(event) {
+                // Evita que el formulario se envíe automáticamente
+                event.preventDefault();
 
-        // Obtiene todos los checkboxes seleccionados
-        var selectedCheckboxes = $("input[name='preguntas_seleccionadas[]']:checked");
+                // Obtiene todos los checkboxes seleccionados
+                var selectedCheckboxes = $("input[name='preguntas_seleccionadas[]']:checked");
 
-        // Verifica si al menos un checkbox está seleccionado
-        if (selectedCheckboxes.length === 0) {
-            alert("Debes seleccionar al menos una pregunta.");
-            return;
-        }
+                // Verifica si al menos un checkbox está seleccionado
+                if (selectedCheckboxes.length === 0) {
+                    alert("Debes seleccionar al menos una pregunta.");
+                    return;
+                }
 
-        // Prepara un arreglo para almacenar los IDs de las preguntas seleccionadas
-        var selectedQuestionIds = [];
-        selectedCheckboxes.each(function() {
-            selectedQuestionIds.push($(this).attr("id").replace("pregunta", ""));
+                // Prepara un arreglo para almacenar los IDs de las preguntas seleccionadas
+                var selectedQuestionIds = [];
+                selectedCheckboxes.each(function() {
+                    selectedQuestionIds.push($(this).attr("id").replace("pregunta", ""));
+                });
+
+                // Agrega los IDs de las preguntas seleccionadas como un campo oculto en el formulario
+                $("#mainForm").append('<input type="hidden" name="selected_question_ids" value="' + selectedQuestionIds.join(",") + '">');
+
+                // Ahora, puedes enviar el formulario con los IDs de las preguntas seleccionadas
+                this.submit();
+            });
         });
-
-        // Agrega los IDs de las preguntas seleccionadas como un campo oculto en el formulario
-        $("#mainForm").append('<input type="hidden" name="selected_question_ids" value="' + selectedQuestionIds.join(",") + '">');
-
-        // Ahora, puedes enviar el formulario con los IDs de las preguntas seleccionadas
-        this.submit();
-    });
-});
-</script>
+    </script>
 @endsection

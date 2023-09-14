@@ -49,4 +49,35 @@ To change the color of the sidebar buttons from blue to gray when you mouse over
   color: white; /* Cambia el color del texto a gris oscuro */
 }
 
+h1{
+  font-weight: bold; /* Grosor de la fuente */
+  color: black; /* Color del texto */
+  text-align: initial; /* Alineación del texto */
+  margin-bottom: 20px; /* Espacio en la parte inferior del elemento */
+}
+h2, h3, h4, h5, h6 {
+  font-weight: bold; /* Grosor de la fuente para todos los encabezados */
+  color: black; /* Color del texto para todos los encabezados */
+}
 
+#logo{
+  font-size: 25px;
+  font-weight: bold; /* Grosor de la fuente */
+  color: white; /* Color del texto */
+  text-align: center; /* Alineación del texto */
+  margin-bottom: 20px; /* Espacio en la parte inferior del elemento */
+}
+
+.nav-link {
+  font-weight: bold;
+}
+.dropdown-item{
+  font-weight: bold;
+}
+/* Estilo CSS para aplicar fuente en negrita a todos los botones con clases btn y btn-success */
+.btn.btn-success {
+  font-weight: bold;
+}
+label {
+  font-weight: bold;
+}

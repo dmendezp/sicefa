@@ -57,6 +57,7 @@ return[
     'Question'=>'Question',
     'Answer'=>'Answer',
     'Edit Question'=>'Edit Question',
+    'Choose a call for proposals'=>'Choose a call for proposals',
     
 
 
