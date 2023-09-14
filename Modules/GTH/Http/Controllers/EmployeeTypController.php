@@ -26,8 +26,7 @@ class EmployeeTypController extends Controller
         $employeeType->name = $request->input('name');
         $employeeType->save();
 
-        $employeetype = EmployeeType::get();
-        return view('gth::types_employee.employeetype',['employeetype'=> $employeetype]);
+        return redirect()->route('gth.employeetypes.view');
     }
 
 
