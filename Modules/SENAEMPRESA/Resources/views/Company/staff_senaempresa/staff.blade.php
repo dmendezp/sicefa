@@ -33,7 +33,7 @@
                                         @foreach ($PositionCompany as $position)
                                             @if ($position->id == $StaffSenaempresa->position_company_id)
                                                 {{ $StaffSenaempresa->position_company_id }}
-                                                {{ $position->description }}
+                                                {{ $position->name }}
                                             @endif
                                         @endforeach
                                     </td>

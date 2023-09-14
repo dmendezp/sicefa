@@ -21,7 +21,7 @@
                                         <option value="{{ $positionCompany->id }}"
                                             {{ $positionCompany->id == $staffSenaempresa->position_company_id ? 'selected' : '' }}>
                                             {{ $positionCompany->id }}
-                                            {{ $positionCompany->description }}
+                                            {{ $positionCompany->name }}
                                         </option>
                                     @endforeach
                                 </select>
