@@ -50,7 +50,7 @@ class ConsumableController extends Controller
                 // Inicializa el array para esta labor si aún no existe
                 $groupedData[$laborId] = [
                     'laborDescription' => $consumable->labor->description,
-                    'laborDate' => $consumable->labor->date,
+                    'laborDate' => $consumable->labor->execution_date,
                     'elements' => [],
                     'laborSubtotal' => 0, // Inicializa el subtotal de labor
                 ];
@@ -104,7 +104,7 @@ class ConsumableController extends Controller
             return redirect()->back()->with('error', 'No se encontraron actividades para la unidad seleccionada.');
         }
 
-        $labors = Labor::whereBetween('date', [$startDate, $endDate])->get()->pluck('id');
+        $labors = Labor::whereBetween('execution_date', [$startDate, $endDate])->get()->pluck('id');
 
         // Obtén los consumibles relacionados con esas labors
         $consumables = Consumable::whereIn('labor_id', $labors)
@@ -123,7 +123,7 @@ class ConsumableController extends Controller
                 // Inicializa el array para esta labor si aún no existe
                 $groupedData[$laborId] = [
                     'laborDescription' => $consumable->labor->description,
-                    'laborDate' => $consumable->labor->date,
+                    'laborDate' => $consumable->labor->execution_date,
                     'elements' => [],
                     'laborSubtotal' => 0, // Inicializa el subtotal de labor
                 ];

@@ -16,6 +16,7 @@
 
 <div class="container" id="containermovements">
     <h2>Movimientos de Entrada Pendientes</h2>
+    @if (count($datas) > 0)
     <div class="container my-5">
         <div class="row">
             <div class="card">
@@ -88,6 +89,9 @@
         </div>
     </div>
 </div>
+@else
+        <p>No hay movimientos pendientes.</p>
+@endif
 @foreach ($datas as $data)
     <div class="modal fade" id="returnModal{{ $data['id'] }}" tabindex="-1" role="dialog" aria-labelledby="returnModalLabel{{ $data['id'] }}" aria-hidden="true">
         <div class="modal-dialog" role="document">

@@ -116,15 +116,19 @@ class MovementController extends Controller
             } else {
                 // Si no hay elementos en movement_details, puedes agregar un valor predeterminado o manejarlo de otra manera según tu lógica.
             }
-
-            // Contar el número de registros después de obtener los datos
-            $movementsCount = count($datas);
-
-            Session::put('notification', $movementsCount);
         }
+            $movementsCount = count($datas); // Contar la cantidad de movimientos
 
-
-        return view('agrocefa::movements.requestentrance', ['datas' => $datas,'notification' => $movementsCount,]);
+        if ($movementsCount === 0) {
+            $movementsCount = 0;
+            Session::put('notification', $movementsCount);
+            // No hay movimientos pendientes, muestra la vista con una tabla vacía
+            return view('agrocefa::movements.requestentrance', ['datas' => $datas]);
+        } else {
+            // Hay movimientos pendientes, establece la notificación y muestra la vista con la tabla
+            Session::put('notification', $movementsCount);
+            return view('agrocefa::movements.requestentrance', ['datas' => $datas, 'notification' => $movementsCount]);
+        }
     }
 
 
@@ -154,6 +158,7 @@ class MovementController extends Controller
             $price = $detail->price;
 
             // Obtener el inventario existente o crear uno nuevo
+
             $inventory = Inventory::where([
                 'productive_unit_warehouse_id' => $detail->movement->warehouse_movements[0]->productive_unit_warehouse_id,
                 'element_id' => $elementId,
@@ -180,11 +185,22 @@ class MovementController extends Controller
 
                 $inventory->save();
             }
+            $inventoryexist = Inventory::where([
+                'productive_unit_warehouse_id' => $detail->movement->warehouse_movements[1]->productive_unit_warehouse_id,
+                'element_id' => $elementId,
+                'lot_number' => $lot,
+            ])->first();    
+
+            if ($inventoryexist) {
+                // Actualizar el inventario existente
+                $inventoryexist->amount -= $amount;
+                $inventoryexist->save();
+            }
 
         }
 
         // Redirigir de nuevo a la vista con un mensaje de éxito
-        return redirect()->back()->with('success', 'Movimiento confirmado exitosamente');
+        return redirect()->route('agrocefa.movements.notification')->with('success', 'Movimiento confirmado exitosamente');
     }
 
     public function returnMovement(Request $request, $id)
@@ -798,7 +814,6 @@ class MovementController extends Controller
                     }
             
                     // Restar la cantidad solicitada del inventario existente
-                    $existingInventory->amount -= $quantity;
                     $existingInventory->save();
                     $existingInventoryId = $existingInventory->id;
                 } else {

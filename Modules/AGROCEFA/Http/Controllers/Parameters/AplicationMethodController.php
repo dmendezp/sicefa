@@ -23,7 +23,7 @@ class AplicationMethodController extends Controller
         
         // Verifica si hay un ID de unidad seleccionada en la sesión
         if ($this->selectedUnitId) {
-            $laborsData = Activity::with('labors.agriculturals')
+            $laborsData = Activity::with('labors.agricultural_labors')
                 ->where('productive_unit_id', $this->selectedUnitId)
                 ->get()
                 ->map(function ($activity) {
@@ -34,7 +34,7 @@ class AplicationMethodController extends Controller
                             return [
                                 'labor_id' => $labor->id,
                                 'description' => $labor->description, // Reemplaza 'nombre' con el nombre real del campo de labor
-                                'agriculturals' => $labor->agriculturals->map(function ($agricultural) {
+                                'agricultural_labors' => $labor->agricultural_labors->map(function ($agricultural) {
                                     return [
                                         'agricultural_id' => $agricultural->id,
                                         'agricultural_method' => $agricultural->application_method,

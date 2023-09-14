@@ -40,6 +40,7 @@ return [
 
     'Btn_Add_Element' => 'Add Element',
     'Btn_Register_Entrance' => 'Register Entrance',
+    'Btn_Register_Exit' => 'Btn_Register_Exit',
     'Btn_Delete' => 'Delete',
     'Btn_Save' => 'Save',
 ];

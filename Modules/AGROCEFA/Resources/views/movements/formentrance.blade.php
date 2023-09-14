@@ -25,6 +25,29 @@
         });
     </script>
 @endif
+@if (session('error'))
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: '{{ session('error') }}',
+                showConfirmButton: false,
+                timer: 15000,
+                customClass: {
+                    popup: 'my-custom-popup-class', 
+                },
+                onOpen: () => {
+                    
+                    const popup = document.querySelector('.my-custom-popup-class');
+                    if (popup) {
+                        popup.style.display = 'flex';
+                        popup.style.alignItems = 'center';
+                        popup.style.justifyContent = 'center';
+                    }
+                },
+            });
+        </script>
+    @endif
 <h2>{{trans('agrocefa::movements.Entry_Form')}}</h2>
 
 <div class="container" style="margin-left: 5px">

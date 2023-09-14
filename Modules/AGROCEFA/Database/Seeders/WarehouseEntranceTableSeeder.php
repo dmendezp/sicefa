@@ -10,6 +10,10 @@ use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Sector;
 use Modules\SICA\Entities\Farm;
+use Modules\SICA\Entities\Department;
+use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\Municipality;
+use Modules\SICA\Entities\Country;
 
 class WarehouseEntranceTableSeeder extends Seeder
 {
@@ -24,17 +28,33 @@ class WarehouseEntranceTableSeeder extends Seeder
         // Consultar la app para realizar la creacion de roles
         $app = App::where('name','AGROCEFA')->first();
 
+        $person = Person::where('document_number','13706')->first();
+
         $sector = Sector::updateOrCreate([ 
             'name' => 'Agricola',
             'description' => 'Sector agricola del cefa',
+        ]);
+
+        $country = Country::updateOrCreate([ 
+            'name' => 'Colombia'
+        ]);
+
+        $departament = Department::updateOrCreate([ 
+            'name' => 'Huila',
+            'country_id' => $country->id,
+        ]);
+
+        $municipality = Municipality::updateOrCreate([ 
+            'name' => 'Campoalegre',
+            'department_id' => $departament->id,
         ]);
 
         $farm = Farm::updateOrCreate([ 
             'name' => 'Cefa',
             'description' => 'Granja Agruindustrial la angostura (cefa)',
             'area' => '800000',
-            'person_id' => '3',
-            'municipality_id' => '4'
+            'person_id' => $person->id,
+            'municipality_id' => $municipality->id
         ]);
 
         $warehouseentrance = Warehouse::updateOrCreate([ 
@@ -46,7 +66,7 @@ class WarehouseEntranceTableSeeder extends Seeder
         $productiveentrance = ProductiveUnit::updateOrCreate([ 
             'name' => 'Almacen',
             'description' => 'Unidad para realizar movimientos de entrada',
-            'person_id' => '5',
+            'person_id' => $person->id,
             'sector_id' => $sector->id,
             'farm_id' => $farm->id
         ]);

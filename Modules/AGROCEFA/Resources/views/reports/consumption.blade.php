@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h3>Reporte Consumo</h3>
-        <form id="filterForm" method="POST" action="{{ route('agrocefa.reports.filterByDate') }}">
+        <form id="filterForm" method="GET" action="{{ route('agrocefa.reports.filterByDate') }}">
             @csrf
             <div class="form-group">
                 <label for="startDate">{{ trans('agrocefa::reports.Start_Date') }}</label>
@@ -26,8 +26,6 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{ trans('agrocefa::reports.1T_Date_Of_Consumable') }}</th>
-                                    <th>{{ trans('agrocefa::reports.1T_Labor') }}</th>
                                     <th>{{ trans('agrocefa::reports.1T_Element') }}</th>
                                     <th>{{ trans('agrocefa::reports.1T_Amount') }}</th>
                                     <th>{{ trans('agrocefa::reports.1T_Price') }}</th>
@@ -37,7 +35,7 @@
                             <tbody>
                                 @foreach ($groupedData as $laborId => $data)
                                     <tr>
-                                        <td colspan="6">
+                                        <td colspan="4">
                                             <strong>{{ trans('agrocefa::reports.Labor') }} {{ $data['laborDescription'] }}</strong><br>
                                             <em>{{ trans('agrocefa::reports.Date_Labor') }} {{ $data['laborDate'] }}</em>
                                         </td>
@@ -46,8 +44,6 @@
                                     @foreach ($data['elements'] as $element)
                                         <tr>
                                             <td></td>
-                                            <td>{{ $data['laborDate'] }}</td>
-                                            <td>{{ $data['laborDescription'] }}</td>
                                             <td>{{ $element['elementName'] }}</td>
                                             <td>{{ $element['consumableAmount'] }}</td>
                                             <td>{{ $element['consumablePrice'] }}</td>
@@ -56,7 +52,7 @@
                                     @endforeach
                                 @endforeach
                                 <tr>
-                                    <td colspan="6"><strong>{{ trans('agrocefa::reports.1T_Total') }}</strong></td>
+                                    <td colspan="4"><strong>{{ trans('agrocefa::reports.1T_Total') }}</strong></td>
                                     <td><strong>{{ $totalLaborSubtotal }}</strong></td>
                                 </tr>
                             </tbody>
