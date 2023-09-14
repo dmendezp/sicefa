@@ -4,8 +4,8 @@
       <a href="#" class="brand-link" style="text-decoration: none; display: flex; align-items: center;">
         <i class="fas fa-hand-holding-heart" style="color: #ffffff; font-size: 60px; margin-right: 10px;"></i>
         <div>
-          <span class="brand-text font-weight-dark" style="color: white; font-size: 25px">Bienestar al</span><br>
-          <span class="brand-text font-weight-dark" style="color: white; font-size: 25px">Aprendiz</span>
+          <span class="brand-text font-weight-dark" id="logo">Bienestar al</span><br>
+          <span class="brand-text font-weight-dark" id="logo">Aprendiz</span>
         </div>
       </a><br>
     

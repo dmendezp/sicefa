@@ -88,7 +88,6 @@
                 });
             });
         });
-
 </script>
 
 <script>
@@ -131,67 +130,27 @@
     });
 </script>
 
+<!-- Alerta para guardar y editar -->
+@if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Exito!',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
+        });
+    </script>
+@endif
 
-
-
-
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector('.formCrear').addEventListener('submit', function (event) {
-        event.preventDefault(); // Evitar que el formulario se envíe de inmediato
-        var form = this;
-
-        // Realizar una solicitud AJAX para enviar el formulario
-        axios.post(form.action, new FormData(form))
-            .then(function (response) {
-                if (response.status === 200) {
-                    if (response.data.mensaje) {
-                        // Mostrar el SweetAlert de éxito
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Éxito',
-                            text: response.data.mensaje,
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(function () {
-                            // Recargar la página después del SweetAlert
-                            location.reload();
-                        });
-                    } else if (response.data.restaurado) {
-                        // Mostrar un SweetAlert para indicar que se ha restaurado un registro
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Información',
-                            text: 'El tipo de beneficiario existía y se ha restaurado correctamente.',
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(function () {
-                            // Recargar la página después del SweetAlert
-                            location.reload();
-                        });
-                    }
-                } else {
-                    // Mostrar el SweetAlert de error en caso de problemas
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Ha ocurrido un error al intentar crear el tipo de beneficiario.'
-                    });
-                }
-            })
-            .catch(function (error) {
-                // Mostrar el SweetAlert de error en caso de problemas
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Ha ocurrido un error al intentar crear el tipo de beneficiario.'
-                });
-            });
-    });
-});
-</script>
-
-
-
-
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session('error') }}',
+            showConfirmButton: false,
+            timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
+        });
+    </script>
+@endif

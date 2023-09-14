@@ -2,11 +2,10 @@
 
 @section('content')
 <div class="container-fluid" style="max-width:1200px">
+<h1>{{ trans('bienestar::menu.Insert Routes')}}  <i class="fas fa-bus"></i></h1>
     <div class="row justify-content-md-center pt-4">
-        <div class="card card-green card-outline shadow col-md-12">
-            <div class="card-header">
-                <h3 class="card-title">{{ trans('bienestar::menu.Insert Routes')}}</h3>
-            </div>
+        <div class="card shadow col-md-12">
+           
             <!-- /.card-header -->
             <div class="card-body">
                 <form action="{{ route('cefa.bienestar.transportroutes.add') }}" method="POST" role="form">
@@ -26,10 +25,10 @@
                                 <option value="8">8</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
-                            <label for="name_route">{{ trans('bienestar::menu.Route Name')}}</label>
-                            <input type="text" name="name_route" id="name_route" class="form-control" placeholder="{{ trans('bienestar::menu.Route Name')}}" required>
-                        </div>
+                            <div class="col-md-3">
+                                <label for="name_route">{{ trans('bienestar::menu.Route Name')}}</label>
+                                <input type="text" name="name_route" id="name_route" class="form-control" placeholder="{{ trans('bienestar::menu.Route Name')}}" required>
+                            </div>
                         <div class="col-md-3">
                             <label for="bus">{{ trans('bienestar::menu.Bus')}}</label>
                             <select name="bus" id="bus" class="form-control" required>
@@ -108,7 +107,6 @@
         <!-- /.card-body -->
     </div>
 </div>
-
 <!-- Modales de edición -->
 @foreach ( $routestransportations as $transport)
 <div class="modal fade" id="editModal{{ $transport->id }}" tabindex="-1" aria-labelledby="editModal{{ $transport->id }}Label" aria-hidden="true">
