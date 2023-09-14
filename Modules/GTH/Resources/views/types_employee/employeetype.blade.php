@@ -100,41 +100,34 @@
 @endsection
 
 @section('js')
-    @if (session('eliminar') == 'ok')
-    <script>
-        Swal.fire(
-        'Eliminado!',
-        'El tipo de empleado ha sido eliminado.',
-        'Con éxito'
-        )
-    </script>
+<script>
+    'use strict';
+    // Selecciona todos los formularios con la clase "formEliminar"
+    var forms = document.querySelectorAll('.btnEliminar');
 
-    @endif
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Evita que el formulario se envíe de inmediato
 
-    <script>
-
-        document.getElementById("btnEliminar").addEventListener("click", function(event) {
-            event.preventDefault(); // Evita que el formulario se envíe automáticamente
-
-            const employeeId = this.getAttribute("data-id"); // Obtiene el ID del empleado
-
-
-            Swal.fire({
-            title: 'Estas Seguro?',
-            text: "¡No podrás revertir esto!!",
-            icon: 'Advertencia',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, bórralo!'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                this.submit();
-            }
-            })
+                Swal.fire({
+                    title: "Are you sure?'",
+                    text: "It is an irreversible process.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: "Yes, delete it'",
+                    cancelButtonText: "Cancel" // Cambiar el texto del botón "Cancelar"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                    }
+                });
+            });
         });
 
-    </script>
+</script>
 @endsection
 
 

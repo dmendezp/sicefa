@@ -30,7 +30,6 @@ Route::prefix('gth')->group(function () {
 
     // Type_contractor
     Route::get('/contractortypes', 'ContractTypController@viewcontractortypes')->name('gth.contractortypes.view'); //nombres de la vista
-    Route::get('/contractortypes/create', 'ContractTypController@getcreatecontractortypes')->name('gth.contractortypes.create');
     Route::post('/contractortypes/create', 'ContractTypController@postcreatecontractortypes')->name('gth.contractortypes.create');
     Route::delete('/gth/contractortypes/{id}/delete', 'ContractTypController@deleteContractorTypes')->name('gth.contractortypes.delete');
     Route::patch('/gth/contractortypes/update{id}', 'ContractTypController@updatecontractortypes')->name('gth.contractortypes.update');

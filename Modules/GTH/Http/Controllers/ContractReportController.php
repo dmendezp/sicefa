@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Contractor;
 use Modules\SICA\Entities\ContractorType;
 use Modules\SICA\Entities\EmployeeType;
+use Modules\SICA\Entities\InsurerEntity;
 use Modules\SICA\Entities\Person; // Asegúrate de importar el modelo Person
 
 class ContractReportController extends Controller
@@ -19,32 +20,38 @@ class ContractReportController extends Controller
     {
         $contractorTypes = ContractorType::all();
         $employeeTypes = EmployeeType::all();
+        $insurerEntity = InsurerEntity::all();
+        
 
         // Obtener una lista de contratos con la información de la persona
         $contracts = Contractor::with('person')->get();
 
-        return view('gth::contract_report.contractreports', compact('contractorTypes', 'employeeTypes'));
+        return view('gth::contract_report.contractreports', compact('contractorTypes', 'employeeTypes', 'insurerEntity'));
     }
 
     public function create(Request $request)
     {
-
         $person_id = Session::get('person_id');
         // Accede a todos los campos del formulario sin validación
         $formData = $request->all();
 
         // Puedes acceder a cada campo individualmente como sigue:
+        $supervisor_id = $formData['supervisor_id'];
         $contract_number = $formData['contract_number'];
+        $contract_year = $formData['contract_year'];
         $contract_start_date = $formData['contract_start_date'];
         $contract_end_date = $formData['contract_end_date'];
         $total_contract_value = $formData['total_contract_value'];
         $contractor_type_id = $formData['contractor_type_id'];
+        $contract_object = $formData['contract_object'];
+        $contract_obligations = $formData['contract_obligations'];
+        $amount_hours = $formData['amount_hours'];
+        $assigment_value = $formData['assigment_value'];
         $sesion = $formData['sesion'];
         $sesion_date = $formData['sesion_date'];
         $employee_type_id = $formData['employee_type_id'];
-
         $SIIF_code = $formData['SIIF_code'];
-        $insurer_entity = $formData['insurer_entity'];
+        $insurer_entity_id = $formData['insurer_entity_id'];
         $policy_number = $formData['policy_number'];
         $policy_issue_date = $formData['policy_issue_date'];
         $policy_approval_date = $formData['policy_approval_date'];
@@ -55,16 +62,22 @@ class ContractReportController extends Controller
 
         $contracts = new Contractor([
             'person_id' => $person_id,
+            'supervisor_id' => $supervisor_id,
             'contract_number' => $contract_number,
+            'contract_year' => $contract_year,
             'contract_start_date' => $contract_start_date,
             'contract_end_date' => $contract_end_date,
             'total_contract_value' => $total_contract_value,
             'contractor_type_id' => $contractor_type_id,
+            'contract_object' => $contract_object,
+            'contract_obligations' => $contract_obligations,
+            'amount_hours' => $amount_hours,
+            'assigment_value' => $assigment_value,
             'sesion' => $sesion,
             'sesion_date' => $sesion_date,
             'employee_type_id' => $employee_type_id,
             'SIIF_code' => $SIIF_code,
-            'insurer_entity' => $insurer_entity,
+            'insurer_entity_id' => $insurer_entity_id,
             'policy_number' => $policy_number,
             'policy_issue_date' => $policy_issue_date,
             'policy_approval_date' => $policy_approval_date,
@@ -81,31 +94,34 @@ class ContractReportController extends Controller
 
     public function store(Request $request)
     {
-        $rules = [
+        /*$rules = [
             'contract_start_date' => 'required|date',
             'total_contract_value' => 'numeric',
             'contract_type_id' => 'required|integer|exists:contract_types,id', // Ajusta el nombre de la tabla si es diferente
             'contract_object' => 'required|string',
             // Continúa agregando las reglas para los demás atributos
-        ];
-
-        $request->validate($rules);
-
+        ];*/
         try {
             // Crear una nueva instancia del modelo Contractor con los datos del formulario
             $contractor = new Contractor([
                 'id' => $request->input('id'),
                 'person_id' => $request->input('person_id'),
+                'supervisor_id' => $request->input('supervisor_id'),
                 'contract_number' => $request->input('contract_number'),
+                'contract_year' => $request->input('contract_year'),
                 'contract_start_date' => $request->input('contract_start_date'),
                 'contract_end_date' => $request->input('contract_end_date'),
                 'total_contract_value' => $request->input('total_contract_value'),
                 'contractor_type_id' => $request->input('contractor_type_id'),
+                'contract_object' => $request->input('contract_object'),
+                'contract_obligations' => $request->input('contract_obligations'),
+                'amount_hours' => $request->input('amount_hours'),
+                'assigment_value' => $request->input('assigment_value'),
                 'sesion' => $request->input('sesion'),
                 'sesion_date' => $request->input('sesion_date'),
                 'employee_type_id' => $request->input('employee_type_id'),
                 'SIIF_code' => $request->input('SIIF_code'),
-                'insurer_entity' => $request->input('insurer_entity'),
+                'insurer_entity_id' => $request->input('insurer_entity_id'),
                 'policy_number' => $request->input('policy_number'),
                 'policy_issue_date' => $request->input('policy_issue_date'),
                 'policy_approval_date' => $request->input('policy_approval_date'),

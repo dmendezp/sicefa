@@ -57,8 +57,17 @@ class EmployeeTypController extends Controller
     }
 
 
+    public function deleteEmployeeType($id)
+    {
+        try {
+            $employeeType = EmployeeType::findOrFail($id);
+            $employeeType->delete();
 
-
+            return redirect()->route('gth.employeetypes.view')->with('success', 'Tipo de empleado eliminado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('gth.employeetypes.view')->with('error', 'No se pudo eliminar el tipo de contratista.');
+        }
+    }
 
 
 }
