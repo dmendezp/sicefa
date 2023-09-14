@@ -19,7 +19,7 @@
             <tbody>
                 @foreach ($laborsData as $data)
                     @foreach ($data['labors'] as $labor)
-                        @foreach ($labor['agriculturals'] as $agricultural)
+                        @foreach ($labor['agricultural_labors'] as $agricultural)
                             <tr>
                                 <td>{{ $agricultural['agricultural_id'] }}</td>
                                 <td>{{ $labor['description'] }}</td>
@@ -86,7 +86,7 @@
 {{-- Modal de Edición Metodo de Aplicación --}}
 @foreach ($laborsData as $data)
 @foreach ($data['labors'] as $labor)
-    @foreach ($labor['agriculturals'] as $agricultural)
+    @foreach ($labor['agricultural_labors'] as $agricultural)
         <div class="modal fade"
             id="editarMetodoAplicacion_{{ $agricultural['agricultural_id'] }}" tabindex="-1"
             aria-labelledby="editarMetodoAplicacionLabel" aria-hidden="true">
@@ -132,7 +132,7 @@
 {{-- Modal de Eliminar Metodo de Aplicaicon --}}
 @foreach ($laborsData as $data)
 @foreach ($data['labors'] as $labor)
-    @foreach ($labor['agriculturals'] as $agricultural)
+    @foreach ($labor['agricultural_labors'] as $agricultural)
         <!-- Modal de Eliminación -->
         <div class="modal fade" id="eliminaraplicacion_{{ $agricultural['agricultural_id'] }}" tabindex="-1"
             aria-labelledby="eliminaraplicacionLabel" aria-hidden="true">

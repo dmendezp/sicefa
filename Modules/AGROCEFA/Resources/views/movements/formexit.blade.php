@@ -24,6 +24,29 @@
     });
 </script>
 @endif
+@if (session('error'))
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: '{{ session('error') }}',
+                showConfirmButton: false,
+                timer: 15000,
+                customClass: {
+                    popup: 'my-custom-popup-class', 
+                },
+                onOpen: () => {
+                    
+                    const popup = document.querySelector('.my-custom-popup-class');
+                    if (popup) {
+                        popup.style.display = 'flex';
+                        popup.style.alignItems = 'center';
+                        popup.style.justifyContent = 'center';
+                    }
+                },
+            });
+        </script>
+    @endif
     <h2>{{ trans('agrocefa::movements.Exit_Form') }}</h2>
 
     <div class="container" id="containermovements">
@@ -145,7 +168,7 @@
                 </div>
 
                 <br>
-                {!! Form::submit(trans('agrocefa::movements.Btn_Register_Entrance'), ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit(trans('agrocefa::movements.Btn_Register_Exit'), ['class' => 'btn btn-primary', 'id' => 'registerButton']) !!}
                 {!! Form::close() !!}
             </div>
         </div>
@@ -410,6 +433,45 @@
                     }
                 });
             });
+
+            // Manejador de eventos para cambiar la cantidad y habilitar/deshabilitar el botón de registro
+            productTable.on('change', 'input[name="product-quantity[]"]', function() {
+                var currentRow = $(this).closest('tr');
+                var selectedElementId = currentRow.find('select[name="product-id[]"]').val(); // Obtener el valor seleccionado
+                var enteredQuantity = parseInt($(this).val()); // Obtener la cantidad ingresada como número entero
+
+                if (!isNaN(enteredQuantity)) {
+                    $.ajax({
+                        url: '{{ route('agrocefa.getprice') }}',
+                        method: 'GET',
+                        data: {
+                            element: selectedElementId
+                        },
+                        success: function(response) {
+                            console.log(response);
+
+                            var availableQuantity = response.amount;
+
+                            var quantityMessage = currentRow.find('.quantity-message');
+
+                            if (enteredQuantity <= availableQuantity) {
+                                quantityMessage.text('Cantidad Disponible: ' + availableQuantity).removeClass('error-message');
+                                $('#registerButton').prop('disabled', false); // Habilitar el botón
+                            } else {
+                                quantityMessage.text('La cantidad que desea enviar es mayor a la disponible : ' + availableQuantity).addClass('error-message');
+                                $('#registerButton').prop('disabled', true); // Deshabilitar el botón
+                            }
+                        },
+                        error: function() {
+                            var quantityMessage = currentRow.find('.quantity-message');
+                            quantityMessage.text('Error al obtener la cantidad disponible').addClass('error-message');
+                            $('#registerButton').prop('disabled', true);
+                        }
+                    });
+                }
+            });
+
+
         });
 
     </script>

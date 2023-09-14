@@ -39,6 +39,7 @@ return [
 
     'Btn_Add_Element' => 'Agregar Elemento',
     'Btn_Register_Entrance' => 'Registrar entrada',
+    'Btn_Register_Exit' => 'Registrar salida',
     'Btn_Delete' => 'Eliminar',
     'Btn_Save' => 'Guardar',
 ];
