@@ -5,6 +5,7 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\SENAEMPRESA\Entities\Loan;
 use Illuminate\Routing\Controller;
 use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
@@ -57,10 +58,6 @@ class LoanController extends Controller
             return redirect()->route('company.loan.prestamos')->with('error', trans('senaempresa::menu.The loan was not found.'));
         }
     }
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
     public function register()
     {
         $loans = Loan::get();
@@ -75,7 +72,15 @@ class LoanController extends Controller
             'staff_senaempresas' => $staff_senaempresas,
             'inventories' => $inventories,
         ];
-        return view('senaempresa::Company.Loan.new_loan', $data);
+        if (
+            Auth::check() &&
+            (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
+                Auth::user()->roles[0]->name === 'Pasante Senaempresa')
+        ) {
+            return view('senaempresa::Company.Loan.new_loan', $data);
+        } else {
+            return redirect()->route('company.loan.prestamos')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
     }
     public function prestamo_nuevo(Request $request)
     {
@@ -119,8 +124,15 @@ class LoanController extends Controller
             'staff_senaempresas' => $staff_senaempresas,
             'inventories' => $inventories,
         ];
-
-        return view('senaempresa::Company.Loan.edit_loan', $data);
+        if (
+            Auth::check() &&
+            (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
+                Auth::user()->roles[0]->name === 'Pasante Senaempresa')
+        ) {
+            return view('senaempresa::Company.Loan.edit_loan', $data);
+        } else {
+            return redirect()->route('company.loan.prestamos')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
     }
     public function update(Request $request, $id)
     {

@@ -142,5 +142,6 @@ return [
 	'Search Apprentice by Document or Name' => 'Buscar Aprendiz por Documento o Nombre',
 	'Update' => 'Actualizar',
 	'Loan not found.' => 'Préstamo no encontrado.',
-	'Loan updated successfully.' => 'Préstamo actualizado exitosamente.'
+	'Loan updated successfully.' => 'Préstamo actualizado exitosamente.',
+	'Its not authorized' => 'No Está Autorizado'
 ];

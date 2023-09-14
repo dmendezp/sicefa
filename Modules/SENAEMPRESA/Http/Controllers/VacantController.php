@@ -5,6 +5,7 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Vacancy;
@@ -57,7 +58,11 @@ class VacantController extends Controller
         $vacancies = Vacancy::get();
         $data = ['title' => trans('senaempresa::menu.New vacancy'), 'vacancies' => $vacancies, 'PositionCompany' => $activePositions];
 
-        return view('senaempresa::Company.Vacant.registration', $data);
+        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            return view('senaempresa::Company.Vacant.registration', $data);
+        } else {
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
     }
 
     public function store(Request $request)
@@ -109,7 +114,11 @@ class VacantController extends Controller
 
         $data = ['title' => trans('senaempresa::menu.Edit vacancy'), 'vacancy' => $vacancy, 'positionCompany' => $activePositions];
 
-        return view('senaempresa::Company.Vacant.vacant_edit', $data);
+        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            return view('senaempresa::Company.Vacant.vacant_edit', $data);
+        } else {
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
     }
 
 
@@ -157,7 +166,11 @@ class VacantController extends Controller
         $vacancies = Vacancy::get();
         $courses = Course::with('program')->get();
         $data = ['title' => trans('senaempresa::menu.Assign Courses to Vacancies'), 'courses' => $courses, 'vacancies' => $vacancies];
-        return view('senaempresa::Company.Vacant.courses_vacancies', $data);
+        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            return view('senaempresa::Company.Vacant.courses_vacancies', $data);
+        } else {
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
     }
 
     public function curso_asociado(Request $request)
@@ -192,7 +205,11 @@ class VacantController extends Controller
         $vacancies = Vacancy::get();
         $courses = Course::with('vacancy')->get();
         $data = ['title' => trans('senaempresa::menu.Show Associates'), 'courses' => $courses, 'vacancies' => $vacancies];
-        return view('senaempresa::Company.Vacant.courses_vacancies', $data);
+        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            return view('senaempresa::Company.Vacant.courses_vacancies', $data);
+        } else {
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
     }
     public function eliminarAsociacion(Request $request)
     {

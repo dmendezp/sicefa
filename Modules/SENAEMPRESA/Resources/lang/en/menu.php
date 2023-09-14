@@ -145,5 +145,6 @@ return [
 	'Search Apprentice by Document or Name' => 'Search Apprentice by Document or Name',
 	'Update' => 'Update',
 	'Loan not found.' => 'Loan not found.',
-	'Loan updated successfully.' => 'Loan updated successfully.'
+	'Loan updated successfully.' => 'Loan updated successfully.',
+	'Its not authorized' => 'Its not authorized'
 ];

@@ -5,6 +5,7 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SICA\Entities\Apprentice;
@@ -24,18 +25,17 @@ class StaffSenaempresaController extends Controller
         $data = ['title' => trans('senaempresa::menu.Staff'), 'staff_senaempresas' => $staff_senaempresas, 'PositionCompany' => $PositionCompany];
         return view('senaempresa::Company.staff_senaempresa.staff', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
     public function nuevo_personal()
     {
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
         $PositionCompany = PositionCompany::all();
         $Apprentices = Apprentice::all();
         $data = ['title' => trans('senaempresa::menu.Staff SenaEmpresa'), 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices];
-        return view('senaempresa::Company.staff_senaempresa.staff_registration', $data);
+        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            return view('senaempresa::Company.staff_senaempresa.staff_registration', $data);
+        } else {
+            return redirect()->route('company.senaempresa.personal')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
     }
 
     public function personal_nuevo(Request $request)
@@ -57,11 +57,6 @@ class StaffSenaempresaController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function editar_personal($id)
     {
 
@@ -70,7 +65,11 @@ class StaffSenaempresaController extends Controller
         $apprentices = Apprentice::all();
 
         $data = ['title' => trans('senaempresa::menu.Edit Personal.'), 'staffSenaempresa' => $staffSenaempresa, 'PositionCompany' => $PositionCompany, 'apprentices' => $apprentices];
-        return view('senaempresa::Company.staff_senaempresa.staff_edit', $data);
+        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            return view('senaempresa::Company.staff_senaempresa.staff_edit', $data);
+        } else {
+            return redirect()->route('company.senaempresa.personal')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
     }
     public function personal_editado(Request $request, $id)
     {

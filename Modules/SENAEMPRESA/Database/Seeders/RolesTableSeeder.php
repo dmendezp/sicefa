@@ -35,6 +35,7 @@ class RolesTableSeeder extends Seeder
             'name' => 'Pasante Senaempresa',
             'description' => 'Rol pasante de la aplicacion SENAEMPRESA',
             'description_english' => 'SENAEMPRESA application trainee role',
+            'full_access' => 'No',
             'app_id' => $app->id
         ]);
         // Registrar o actualizar rol de USUARIO
@@ -42,30 +43,20 @@ class RolesTableSeeder extends Seeder
             'name' => 'Usuario Senaempresa',
             'description' => 'Rol usuario de la aplicacion SENAEMPRESA',
             'description_english' => 'SENAEMPRESA Application User Role',
+            'full_access' => 'No',
             'app_id' => $app->id
         ]);
 
-        // Lista de usuarios para asignar el rol
-        $usuariosParaAsignarRol = [
-            'JSM6580',
-            'JMM6580',
-            'DAP6580',
-            'JLG6580',
-        ];
+        // Consulta de usuarios
+        $user_jsm6580 = User::where('nickname', 'JSM6580')->first();
+        $user_jmm6580 = User::where('nickname', 'JMM6580')->first();
+        $user_dap6580 = User::where('nickname', 'DAP6580')->first();
+        $user_jlg6580 = User::where('nickname', 'JLG6580')->first();
 
-        foreach ($usuariosParaAsignarRol as $nickname) {
-            // Obtener el usuario por su nickname
-            $usuario = User::where('nickname', $nickname)->first();
-
-            if ($usuario) {
-                if ($usuario) {
-                    // Asignar el rol al usuario utilizando su ID
-                    $usuario->roles()->syncWithoutDetaching([$rol_admin->id]);
-                } else {
-                    // Lanzar una excepción si el usuario no se encuentra
-                    throw new \Exception('Usuario no encontrado con el nickname JSM6580');
-                }
-            }
-        }
+        // Asignacion de roles a usuarios
+        $user_jsm6580->roles()->syncWithoutDetaching([$rol_admin->id]);
+        $user_jmm6580->roles()->syncWithoutDetaching([$rol_admin->id]);
+        $user_dap6580->roles()->syncWithoutDetaching([$rol_pasante->id]);
+        $user_jlg6580->roles()->syncWithoutDetaching([$rol_usuario->id]);
     }
 }

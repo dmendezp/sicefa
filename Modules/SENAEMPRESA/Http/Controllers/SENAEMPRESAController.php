@@ -5,6 +5,7 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\SENAEMPRESA\Entities\senaempresa;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Quarter;
@@ -33,7 +34,11 @@ class SENAEMPRESAController extends Controller
         $senaempresas = Senaempresa::all();
         $quarters = Quarter::all();
         $data = ['title' => trans('senaempresa::menu.New SenaEmpresa'), 'senaempresas' => $senaempresas, 'quarters' => $quarters];
-        return view('senaempresa::Company.SENAEMPRESA.senaempresa_registration', $data);
+        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            return view('senaempresa::Company.SENAEMPRESA.senaempresa_registration', $data);
+        } else {
+            return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
     }
 
     public function store(Request $request)
@@ -60,7 +65,7 @@ class SENAEMPRESAController extends Controller
             $sena->name = $request->input('name');
             $sena->description = $request->input('description');
             $sena->quarter_id = $request->input('quarter_id');
-           
+
 
             if ($sena->save()) {
                 return redirect()->route('company.senaempresa')->with('success', trans('senaempresa::menu.SenaEmpresa successfully created'));
@@ -76,7 +81,11 @@ class SENAEMPRESAController extends Controller
         $company = Senaempresa::find($id);
         $quarters = Quarter::all();
         $data = ['title' => trans('senaempresa::menu.Edit SenaEmpresa'), 'company' => $company, 'quarters' => $quarters];
-        return view('senaempresa::Company.SENAEMPRESA.senaempresa_edit', $data);
+        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            return view('senaempresa::Company.SENAEMPRESA.senaempresa_edit', $data);
+        } else {
+            return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
     }
     public function update(Request $request, $id)
     {
@@ -87,21 +96,21 @@ class SENAEMPRESAController extends Controller
             'quarter_id' => 'required|exists:quarters,id', // Asegura que el quarter_id exista en la tabla quarters
             // Agrega validaciones para otros campos si es necesario
         ]);
-    
+
         // Busca el registro en la base de datos
         $company = Senaempresa::find($id);
-    
+
         // Verifica si el registro existe
         if (!$company) {
             return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Record not found.'));
         }
-    
+
         // Actualiza los campos del registro con los datos del formulario
         $company->name = $request->input('name');
         $company->description = $request->input('description');
         $company->quarter_id = $request->input('quarter_id');
         // Actualiza otros campos según sea necesario
-    
+
         // Intenta guardar los cambios en la base de datos
         if ($company->save()) {
             return redirect()->route('company.senaempresa')->with('success', trans('senaempresa::menu.Registration successfully updated.'));
@@ -110,7 +119,7 @@ class SENAEMPRESAController extends Controller
             return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Error updating registration.'));
         }
     }
-    
+
 
     public function destroy($id)
     {
@@ -132,7 +141,11 @@ class SENAEMPRESAController extends Controller
         $senaempresas = senaempresa::get();
         $courses = Course::with('program')->get();
         $data = ['title' => trans('senaempresa::menu.Assign Courses to SenaEmpresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
-        return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
+        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
+        } else {
+            return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
     }
 
     public function curso_asociado_senaempresa(Request $request)
@@ -166,7 +179,11 @@ class SENAEMPRESAController extends Controller
         $senaempresas = senaempresa::get();
         $courses = Course::with('senaempresa')->get();
         $data = ['title' => trans('senaempresa::menu.Assign Courses to SenaEmpresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
-        return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
+        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
+        } else {
+            return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
     }
     public function eliminar_asociacion_empresa(Request $request)
     {
