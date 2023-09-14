@@ -30,11 +30,11 @@ class BusDrivers extends Model implements Auditable
      //RELACIONES
      
     public function buses(){// Accede a todos los buses que pertenecen a este conductor
-    	return $this->hasMany(Buses::class);
+    	return $this->hasMany(Buses::class, 'bus_driver_id');
     }
 
     public function transportation_assistance(){// Accede a todas las asistencias de trasporte que pertenecen a este conductor
-    	return $this->hasMany(TransportationAssistances::class);
+    	return $this->hasMany(TransportationAssistances::class, 'bus_driver_id');
     }
 
 
