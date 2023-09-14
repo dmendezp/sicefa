@@ -57,6 +57,7 @@ return[
     'Question'=>'Question',
     'Answer'=>'Answer',
     'Edit Question'=>'Edit Question',
+    'Choose a call for proposals'=>'Choose a call for proposals',
     
 
 
@@ -81,6 +82,20 @@ return[
     'Beneficiary Type'=>'Beneficiary Type',
     'Benefit Type'=>'Benefit Type',
     'Edit Benefit Type Name'=>'Edit Benefit Type Name',
+    
+    //vista Convocations
+    'Convocations'=>'Convocations',
+    'title convocation'=>'title convocation',
+    'description'=>'description',
+    'food quotas'=>'food quotas',
+    'transport quotas'=>'transport quotas',
+    'time interval'=>'time interval',
+    'start date'=>'start date',
+    'end date'=>'end date',
+    'save'=>'save',
+    'Actions'=>'Actions',
+    'Edit convocations'=>'Edit convocations',
+    
 ]
 
 ?>

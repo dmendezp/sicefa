@@ -55,6 +55,7 @@ return[
      'Question'=>'Pregunta',
      'Answer'=>'Respuesta',
      'Edit Question'=>'Editar Pregunta',
+     'Choose a call for proposals'=>'Elija una convocatoria',
 
         //Vista typeofbenefits
     'Beneficiary Type Management'=>'Gestión de Tipo de Beneficiarios',
@@ -76,6 +77,20 @@ return[
     'List of Benefit Types'=>'Listado de Tipos de Beneficios',
     'Benefit Type'=>'Tipo de Beneficio',
     'Edit Beneficiary Type Name'=>'Editar Tipo de Beneficio',
+
+    //vista Convocations
+    'Convocations'=>'convocatorias',
+    'title convocation'=>'titulo convocatoria',
+    'description'=>'descripcion',
+    'food quotas'=>'cupos  alimentacion',
+    'transport quotas'=>'cupos transporte',
+    'time interval'=>'intervalo tiempo',
+    'start date'=>'fecha inicio',
+    'end date'=>'fecha final',
+    'save'=>'guardar',
+    'Actions'=>'acciones',
+    'Edit convocations'=>'editar convocatorias',
+    
 ]
 
 ?>

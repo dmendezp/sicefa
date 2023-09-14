@@ -36,8 +36,6 @@ class MovementFactory extends Factory
         $fr = $this->faker->dateTimeBetween($fmr, $fa); // Fecha de registro
 
         return [
-            'registration_date' => $fr->format('Y-m-d'),
-            'movement_type_id' => MovementType::inRandomOrder()->first()->id,
             'registration_date' => $fr->format('Y-m-d H:i:s'),
             'movement_type_id' => MovementType::where('name','Venta')
                                                 ->orWhere('name','Movimiento Interno')

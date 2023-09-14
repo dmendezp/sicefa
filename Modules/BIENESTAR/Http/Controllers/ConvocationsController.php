@@ -85,6 +85,7 @@ class ConvocationsController extends Controller
         $convocations->end_date = $request->input('end_date');
         $convocations->transport_quotas = $request->input('transport_quotas');
         $convocations->food_quotas = $request->input('food_quotas');
+        $convocations->ftime_interval= $request->input('time_interval');
         if($convocations->save()){
             return redirect()->route('cefa.bienestar.Convocations')->with('message', 'Registro Actualizado Correctamente')->with('typealert', 'success');
         }
@@ -98,6 +99,12 @@ class ConvocationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $convocations = Convocations::findOrFail($id);
+            $convocations->delete();
+            return response()->json(['mensaje' => 'eliminado with success']);      
+          }  catch (\Exception $e) {
+              return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+          }  
     }
 }

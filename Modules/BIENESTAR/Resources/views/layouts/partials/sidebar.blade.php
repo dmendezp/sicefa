@@ -103,6 +103,9 @@
                   <a href="{{ route('cefa.bienestar.editform') }}" class="nav-link">Formularios</a>
                 </li>
                 <li class="nav-item">
+                  <a href="{{ route('cefa.bienestar.Convocations')}}" class="nav-link">Convocatorias</a>
+                </li>
+                <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.typeofbenefits')}}" class="nav-link">Configurar Convocatoria</a>
                 </li>
                 <li class="nav-item">

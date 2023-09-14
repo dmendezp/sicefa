@@ -44,7 +44,7 @@
       });
     </script>
 <script>
-    'use strict';
+    'use strict';//Boton de eliminar
     // Selecciona todos los formularios con la clase "formEliminar"
     var forms = document.querySelectorAll('.formEliminar');
 

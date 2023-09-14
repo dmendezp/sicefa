@@ -51,13 +51,13 @@
 
                             @foreach ($buses as $b)
                             <tr>
-                                <td>{{ $b->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ isset($b->bus_driver) ? $b->bus_driver->name : ''}}</td>
                                 <td>{{ $b->plate }}</td>
                                 <td>{{ $b->quota }}</td>
                                 <td>
                                     <div class="opts">
-                                        <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-default" data-plate="{{ $b->plate }}" data-bus-driver="{{ $b->bus_driver }}" data-bus-id="{{ $b->id }}" data-quota="{{ $b->quota }}"><i class="fa fa-edit"></i>
+                                        <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-default-{{$b->id}}" data-plate="{{ $b->plate }}" data-bus-driver="{{ $b->bus_driver }}" data-bus-id="{{ $b->id }}" data-quota="{{ $b->quota }}"><i class="fa fa-edit"></i>
                                         </button>
 
                                         {!! Form::open(['route' => ['cefa.bienestar.buses.destroy', $b->id],
@@ -66,7 +66,7 @@
                                         {!! Form::close() !!}
                                        
                                     </div>
-                                    <div class="modal fade" id="modal-default">
+                                    <div class="modal fade" id="modal-default-{{$b->id}}">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -79,10 +79,10 @@
                                                     {!! Form::model($b, ['route' => ['cefa.bienestar.buses.update', $b->id], 'method' => 'PUT', 'role'=>'form'])!!}
                                                     <div class="row p-4">
                                                         <div class="col-md-12">
-                                                            <label for="plate">{{ trans('bienestar::menu.Plate')}}</label>
-                                                            <div class="form-group">
-                                                                {!! Form::text('plate', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la placa',
-                                                                'required','oninput' => 'this.value = this.value.toUpperCase()']) !!}
+                                                             <div class="form-group">
+                                                        <label for="plate">{{ trans('bienestar::menu.Plate')}}</label>
+                                                        <input type="text" name="plate" id="plate" class="form-control" placeholder="{{ trans('bienestar::menu.Enter the plate')}}" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
+                                                        <span id="plate-error" class="text-danger"></span>
                                                             </div>
 
                                                         </div>
@@ -94,10 +94,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <label for="quota">{{ trans('bienestar::menu.Quotas')}}</label>
-                                                            <div class="form-group">
-                                                                {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required','oninput' => 'this.value = this.value.replace(/^0+/g, \'\')', 'onblur' => 'validateQuota(this)']) !!}
-                                                            </div>
+                                                        <label for="quota">{{ trans('bienestar::menu.Quotas')}}:</label>
+                                                        <div class="form-group">
+                                                        <input type="number" name="quota" id="quota" class="form-control" placeholder="Ingrese los cupos" required maxlength="2" oninput="validateQuota(this)" min="1" max="99">
+                                                        <span id="quota-error" class="text-danger"></span>
                                                         </div>
                                                         <div class="col-md-2">
                                                             <div class="btns">
@@ -124,7 +124,7 @@
     </div>
 </div>
 
-
+<!-- /.modal -->
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -141,7 +141,7 @@
                 <div class="col-md-12">
             <div class="form-group">
                 <label for="plate">Placa:</label>
-                <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
+                <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6" oninput="this.value = this.value.toUpperCase(); validatePlate(this);">
                 <span id="plate-error" class="text-danger"></span>
             </div>
         </div>
@@ -155,7 +155,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="quota">Cupos:</label>
-                {!! Form::text('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required', 'oninput' => 'this.value = this.value.replace(/^0+/g, \'\')', 'onblur' => 'validateQuota(this)']) !!}
+                {!! Form::number('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required', 'oninput' => 'this.value = this.value.replace(/^0+/g, \'\')', 'onblur' => 'validateQuota(this)']) !!}
             </div>
         </div>
         <div class="col-md-12">
@@ -319,6 +319,7 @@
         }
     }
 </script>
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
