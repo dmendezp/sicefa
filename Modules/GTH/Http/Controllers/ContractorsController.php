@@ -5,133 +5,37 @@ namespace Modules\GTH\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Contractor;
-use Modules\SICA\Entities\ContractorType;
-use Modules\SICA\Entities\EmployeeType;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Validator;
 
 class ContractorsController extends Controller
 {
-    // ...
-
-    // Muestra la lista de contratistas
+    //Funcion mostrar vista tipo de empleado
     public function viewcontractor()
     {
-        $contractors = Contractor::all();
-        $contractorTypes = ContractorType::all();
-        $employeeTypes = EmployeeType::all();
-
-        return view('gth::contracts.contractors', compact('contractors', 'contractorTypes', 'employeeTypes'));
+        $contractor = Contractor::get();
+        return view('gth::contracts.contractors', ['contractor' => $contractor]);
     }
 
 
-
-
-    public function show($id)
+    public function postcreatecontractor(Request $request)
     {
-        // Recuperar la información del contratista por su ID
-        $contractor = Contractor::find($id);
-
-        if (!$contractor) {
-            // Manejar el caso en el que no se encuentra el contratista
-            abort(404);
-        }
-
-        // Pasar el contratista a la vista
-        return view('gth::contracts.contractors', compact('contractor'));
-    }
-
-
-
-
-
-    // Muestra la vista de edición de un contratista en un modal
-    public function edit($id)
-    {
-        $contractor = Contractor::findOrFail($id);
-        $contractorTypes = ContractorType::all();
-        $employeeTypes = EmployeeType::all();
-
-        if (!$contractor) {
-            // Manejar la situación en la que no se encuentra el contratista
-            return redirect()->route('gth.contractors.view')
-                ->with('error', 'Contratista no encontrado');
-        }
-
-        return view('gth::contracts.contractors', compact('contractor', 'contractorTypes', 'employeeTypes'));
-    }
-
-
-
-
-
-
-    // Almacena un nuevo contratista en la base de datos
-    public function store(Request $request, $id)
-    {
-        // Valida los datos del formulario antes de guardar
-        $validator = Validator::make($request->all(), [
-            'contract_number' => 'required|string|max:255',
-            'fecha' => 'date', // Agrega la regla de validación 'date' para el campo 'fecha'
-            // Agrega más reglas de validación según tus necesidades para los otros campos
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->route('gth.contractors.create')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        // Crea un nuevo contratista
         $contractor = new Contractor;
-
-        // Asigna los valores desde $request a los atributos del modelo Contractor
-        $contractor->contract_number = $request->input('contract_number');
-        // Asigna más atributos aquí, incluyendo 'fecha'
-
-        // Guarda el nuevo contratista en la base de datos
+        $contractor->name = $request->input('name');
         $contractor->save();
 
-        return redirect()->route('gth.contractors.view')
-            ->with('success', 'Contratista creado exitosamente');
+        return redirect()->route('gth.contractors.view');
     }
 
 
-
-
-
-    // Actualiza un contratista en la base de datos
-    public function update(Request $request, $id)
+    public function updatecontractor(Request $request, $id)
     {
         $request->validate([
-            'person_id' => 'required|integer',
-            'supervisor_id' => 'required|integer',
-            'contract_number' => 'required|string|max:255',
-            'contract_year' => 'required|date',
-            'contract_start_date' => 'required|date',
-            'contract_end_date' => 'nullable|date',
-            'total_contract_value' => 'nullable|numeric',
-            'contractor_type_id' => 'required|integer',
-            'contract_object' => 'nullable|string',
-            'contract_obligations' => 'nullable|string',
-            'amount_hours' => 'nullable|string',
-            'assigment_value' => 'nullable|string',
-            'sesion' => 'nullable|string|max:255',
-            'sesion_date' => 'nullable|date',
-            'employee_type_id' => 'required|integer',
-            'SIIF_code' => 'nullable|string|max:255',
-            'insurer_entity' => 'nullable|string|max:255',
-            'policy_number' => 'nullable|string|max:255',
-            'policy_issue_date' => 'nullable|date',
-            'policy_approval_date' => 'nullable|date',
-            'policy_effective_date' => 'nullable|date',
-            'policy_expiration_date' => 'nullable|date',
-            'risk_type' => 'nullable|string|max:255',
-            'state' => 'nullable|string|max:255',
+            'name' => 'required|max:255', // Agrega más reglas según tus necesidades
+            // Agrega más campos y reglas según tus necesidades
         ]);
 
         $contractor = Contractor::findOrFail($id);
-        // Update the attributes of the Contractor model with values from $request
+
+        // Actualizar los campos necesarios
         $contractor->contract_number = $request->input('contract_number');
         $contractor->contract_year = $request->input('contract_year');
         $contractor->contract_start_date = $request->input('contract_start_date');
@@ -146,35 +50,36 @@ class ContractorsController extends Controller
         $contractor->sesion_date = $request->input('sesion_date');
         $contractor->employee_type_id = $request->input('employee_type_id');
         $contractor->SIIF_code = $request->input('SIIF_code');
-        $contractor->insurer_entity = $request->input('insurer_entity');
+        $contractor->insurer_entity_id = $request->input('insurer_entity_id');
         $contractor->policy_number = $request->input('policy_number');
         $contractor->policy_issue_date = $request->input('policy_issue_date');
-        $contractor->policy_approval_date = $request->input('policy_approval_date');
         $contractor->policy_effective_date = $request->input('policy_effective_date');
         $contractor->policy_expiration_date = $request->input('policy_expiration_date');
         $contractor->risk_type = $request->input('risk_type');
         $contractor->state = $request->input('state');
-        // Update more attributes here
 
-        if ($contractor->save()) {
-            return redirect()->route('gth.contractors.view')->with('success', 'Contratista actualizado exitosamente');
-        } else {
-            return redirect()->back()->with('success', 'Error al actualizar contratista');
-        }
+        $contractor->save();
+
+        // Redirigir a donde quieras después de la actualización
+        return redirect()->route('gth.contractors.view')->with('success', 'Tipo de Contrato actualizado exitosamente.');
+    }
+
+    public function showContractor($id)
+    {
+        $contractor = Contractor::find($id);
+        return view('contracts.contractors', ['contractor' => $contractor]);
     }
 
 
-
-
-
-
-    // Elimina un contratista de la base de datos
-    public function destroy($id)
+    public function deleteContractor($id)
     {
-        $contractor = Contractor::findOrFail($id);
-        $contractor->delete();
+        try {
+            $contractor = Contractor::findOrFail($id);
+            $contractor->delete();
 
-        return redirect()->route('gth.contractors.view')
-            ->with('success', 'Contratista eliminado exitosamente');
+            return redirect()->route('gth.contractors.view')->with('success', 'Tipo de contratista eliminado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('gth.contractors.view')->with('error', 'No se pudo eliminar el tipo de contratista.');
+        }
     }
 }

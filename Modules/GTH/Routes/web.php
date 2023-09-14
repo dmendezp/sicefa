@@ -51,10 +51,10 @@ Route::prefix('gth')->group(function () {
 
     //Contractors
     Route::get('/contractors', 'ContractorsController@viewcontractor')->name('gth.contractors.view');
-    Route::get('/contractors/create', 'ContractorsController@create')->name('gth.contractors.create');
-    Route::post('/contractors/store', 'ContractorsController@store')->name('gth.contractors.store');
-    Route::get('/contractors/{id}', 'ContractorsController@show')->name('gth.contractors.show');
-    Route::get('/contractors/edit/{id}', 'ContractorsController@edit')->name('gth.contractors.edit');
-    Route::post('contractors/{id}', 'ContractorsController@update')->name('gth.contractors.update');
-    Route::delete('/contractors/{id}/delete', 'ContractorsController@destroy')->name('gth.contractors.destroy');
+    Route::post('/contractors/create', 'ContractorsController@postcreatecontractor')->name('gth.contractor.create');
+    Route::delete('/gth/contractors/{id}/delete', 'ContractorsController@deleteContractor')->name('gth.contractor.delete');
+    Route::patch('/gth/contractors/update{id}', 'ContractorsController@updatecontractor')->name('gth.contractor.update');
+    Route::get('gth/contractors/{id}', [ContractorsController::class, 'showContractor'])->name('gth.contractor.show');
+
+
 });
