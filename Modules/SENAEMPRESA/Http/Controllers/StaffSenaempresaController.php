@@ -64,7 +64,7 @@ class StaffSenaempresaController extends Controller
         $PositionCompany = PositionCompany::all();
         $apprentices = Apprentice::all();
 
-        $data = ['title' => trans('senaempresa::menu.Edit Personal.'), 'staffSenaempresa' => $staffSenaempresa, 'PositionCompany' => $PositionCompany, 'apprentices' => $apprentices];
+        $data = ['title' => trans('senaempresa::menu.Edit Personal'), 'staffSenaempresa' => $staffSenaempresa, 'PositionCompany' => $PositionCompany, 'apprentices' => $apprentices];
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
             return view('senaempresa::Company.staff_senaempresa.staff_edit', $data);
         } else {
