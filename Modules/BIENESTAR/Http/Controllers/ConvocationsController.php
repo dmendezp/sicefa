@@ -37,9 +37,8 @@ class ConvocationsController extends Controller
      */
     public function store(Request $request)
     {
+        
         // Define las reglas de validación
-
-
         $convocations = new Convocations;
         $convocations->title = $request->input('title');
         $convocations->description = $request->input('description');
@@ -75,7 +74,6 @@ class ConvocationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
         $convocations = Convocations::findOrFail($id);
         $convocations->title = $request->input('title');
         $convocations->description = $request->input('description');
@@ -83,9 +81,8 @@ class ConvocationsController extends Controller
         $convocations->transport_quotas = $request->input('transport_quotas');
         $convocations->start_date = $request->input('start_date');
         $convocations->end_date = $request->input('end_date');
-        $convocations->transport_quotas = $request->input('transport_quotas');
-        $convocations->food_quotas = $request->input('food_quotas');
         $convocations->ftime_interval= $request->input('time_interval');
+         
         if($convocations->save()){
             return redirect()->route('cefa.bienestar.Convocations')->with('message', 'Registro Actualizado Correctamente')->with('typealert', 'success');
         }
@@ -107,4 +104,6 @@ class ConvocationsController extends Controller
               return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
           }  
     }
+
+
 }

@@ -3,7 +3,8 @@
 @section('content')
 <!-- Main content -->
 <div class="container-fluid">
-<h1 class="mb-4">{{ trans('bienestar::menu.Benefits')}}</h1>
+<h1 class="mb-4">{{ trans('bienestar::menu.Benefits')}}  
+              <i class="fas fa-handshake"></i> </h1>
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-8">            
             <div class="card-body">
@@ -16,8 +17,7 @@
                         </div>
                         <div class="col-md-3">
                             <label for="number1">{{ trans('bienestar::menu.Porcentege')}}</label>
-                            <input type="number" class="form-control" id="porcentaje" min="0" max="100" placeholder="Ej: 75" name="porcentege" required>
-                            <div id="quota-error" style="color: red;"></div>
+                            <input type="number" class="form-control" id="porcentaje" min="0" max="100" placeholder="Ej: 75" name="porcentege" required>                           
                         </div>
                         <div class="col-md-2 align-self-end">
                             <div class="btns mt-3">

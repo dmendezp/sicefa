@@ -4,7 +4,7 @@
 <div class="container">
     <form method="POST" action="{{ route('cefa.bienestar.saveform') }}" id="mainForm">
         @csrf
-        <h1 class="mb-4">{{ trans('bienestar::menu.Edit Form')}}</h1>
+        <h1 class="mb-4">{{ trans('bienestar::menu.Edit Form')}}  <i class="fas fa-clipboard-list"></i></h1></h1>
         <div class="card">
             <div class="card-body">
                 <select class="form-control" id="id_convocatoria" name="convocatoria_id">
@@ -91,13 +91,13 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" form="editForm{{$question->id}}" class="btn btn-primary">{{ trans('bienestar::menu.Save')}}</button>
+                                <button type="submit" form="editForm{{$question->id}}" class="btn btn-success">{{ trans('bienestar::menu.Save')}}</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 @endforeach
-                <button type="submit" form="mainForm" class="btn btn-primary">{{ trans('bienestar::menu.Save')}}</button>
+                <button type="submit" form="mainForm" class="btn btn-success">{{ trans('bienestar::menu.Save')}}</button>
             </div>
         </div>
     </form>

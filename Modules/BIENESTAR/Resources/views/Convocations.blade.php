@@ -165,25 +165,26 @@
                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                              <label for="quota">{{trans('bienestar::menu.start date')}}</label>
+                              <label for="start_date">{{trans('bienestar::menu.start date')}}</label>
                               {!! Form::date('start_date', null, ['class' => 'form-control', 'required']) !!}
                            </div>
                         </div>
                         <div class="col-md-12">
                            <div class="form-group">
-                               <label for="quota">{{ trans('bienestar::menu.end date')}}</label>
+                               <label for="end_date">{{ trans('bienestar::menu.end date')}}</label>
                                {!! Form::date('end_date', null, ['class' => 'form-control', 'required']) !!}
                            </div>
                         </div>
                         <div class="col-md-12">
                            <div class="form-group">
-                             <label for="quota">{{ trans('bienestar::menu.time interval')}}</label>
+                             <label for="time_interval">{{ trans('bienestar::menu.time interval')}}</label>
                              {!! Form::date('time_interval', null, ['class' => 'form-control',  'required']) !!}
                           </div>
                        </div>
                         <div class="col-md-2">
                             <div class="btns">
-                                {!! Form::submit('Actualizar',['class' =>'btn btn-success']) !!}
+                                {!! Form::submit('Actualizar',['class' =>'btn btn-success','id' => 'updateButton']) !!}
+                                
                             </div>
                         </div>
                     </div>
@@ -314,7 +315,54 @@
  });
 
 </script>
+<script>
+    $(document).ready(function() {
+    // ...
 
+    $('.edit-button').click(function() {
+        // ...
+
+        // Actualiza la acción del formulario en el modal
+        var form = modal.find('form');
+        var updateUrl = form.attr('action');
+        form.attr('action', updateUrl);
+
+        // Actualiza el valor del campo oculto con el ID de la convocatoria
+        form.find('#convocation_id').val(convocationId);
+    });
+
+    // Maneja la solicitud de actualización cuando se hace clic en el botón "Actualizar"
+    $('#updateButton').click(function(e) {
+        e.preventDefault(); // Evita el envío del formulario predeterminado
+        var form = $(this).closest('form');
+        var formData = form.serialize(); // Serializa los datos del formulario
+
+        // Realiza una solicitud AJAX para actualizar la convocatoria
+        $.ajax({
+            url: form.attr('action'),
+            method: 'PUT',
+            data: formData,
+            success: function(response) {
+                // Maneja la respuesta, por ejemplo, muestra un mensaje de éxito
+                Swal.fire('Éxito', 'La convocatoria se ha actualizado correctamente', 'success');
+                // Cierre la vista modal después de la actualización si es necesario
+                $('#modal-default').modal('hide');
+                // Actualiza la tabla de convocatorias si es necesario
+                // ...
+
+                // Restablece el formulario si es necesario
+                form[0].reset();
+            },
+            error: function(error) {
+                // Maneja errores, muestra un mensaje de error si es necesario
+                Swal.fire('Error', 'Hubo un problema al actualizar la convocatoria', 'error');
+            }
+        });
+    });
+});
+
+
+</script>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
