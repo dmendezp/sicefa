@@ -76,7 +76,18 @@ return [
     'Unit of Measurement' => 'Unit of Measurement',
     'Lote' => 'Lote',
     'Expiration Date' => 'Expiration Date',
-    'Deregistrations' => 'Deregistrations'
+    'Deregistrations' => 'Deregistrations',
+
+    //Lista De Productos
+    'List of Products' => 'List of Products',
+    'Productive Unit' => 'Productive Unit',
+    'Proccess' =>'Proccess',
+    'Amount' => 'Amount',
+    'Ingredients' => 'Ingredients',
+    'Utensils' => 'Utensils',
+    'Products' => 'Products',
+
+
 ]
 
 ?>

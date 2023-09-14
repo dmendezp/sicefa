@@ -11,6 +11,7 @@
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/styleindex.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/navbar.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/styleU.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/productos.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/styleFormulation.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/styleRequest.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/deliveries.css')}}">

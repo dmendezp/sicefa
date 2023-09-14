@@ -11,6 +11,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('cefa.agroindustria.home.index')}}">{{trans('agroindustria::menu.Home')}}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.instructor.formulations.recipes')}}">{{trans('agroindustria::menu.Products')}}</a>
+                </li>
             @endif
             
             @if(Route::is('*admin.*'))
@@ -46,15 +49,17 @@
                         <a class="nav-link" href="{{route('cefa.agroindustria.instructor.formulations')}}">{{trans('agroindustria::formulations.Recipes')}}</a>
                     </li>
                 @endif
+                @if(Auth::user()->havePermission('agroindustria.storer.crud'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
+                    </li>
+                @endif
+                
                  
                
                
             @endif
-            @if(Auth::user()->havePermission('agroindustria.storer.crud'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
-            </li>
-        @endif
+            
         </ul>
     </div>
     

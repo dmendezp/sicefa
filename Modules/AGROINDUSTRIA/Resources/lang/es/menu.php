@@ -77,7 +77,16 @@ return [
     'Unit of Measurement' => 'Unidad de Medida',
     'Lote' => 'Lote',
     'Expiration Date' => 'Fecha de vencimiento',
-    'Deregistrations' => 'Bajas'
+    'Deregistrations' => 'Bajas',
+
+    //Lista De Productos
+    'List of Products' => 'Lista de Productos',
+    'Productive Unit' => 'Unidad Productiva',
+    'Proccess' =>'Proceso',
+    'Amount' => 'Cantidad',
+    'Ingredients' => 'Ingredientes',
+    'Utensils' => 'Utensilios',
+    'Products' => 'Productos',
 ]
 
 ?>
