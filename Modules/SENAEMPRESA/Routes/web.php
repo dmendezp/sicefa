@@ -85,11 +85,12 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('Personal/delete/{id}', 'StaffSenaempresaController@destroy')->name('company.senaempresa.eliminar_personal');
 
         //Prestamos
-        Route::get('Prestamos/', 'LoanController@register')->name('company.loan.prestamos');
-        Route::get('Prestamos/Nuevo/', 'LoanController@new')->name('company.loan.Nuevo');
+        Route::get('Prestamos/', 'LoanController@index')->name('company.loan.prestamos');
+        Route::get('Prestamos/Nuevo/', 'LoanController@register')->name('company.loan.Nuevo');
         Route::post('Prestamos/Prestamo_Nuevo/', 'LoanController@prestamo_nuevo')->name('company.loan.prestamo_nuevo');
+        Route::get('Prestamos/edit/{id}', 'LoanController@editar')->name('company.loan.editar');
+        Route::put('Prestamos/loan/update/{id}', 'LoanController@update')->name('company.loan.update');
         Route::get('Prestamos/devolver_prestamo/{id}', 'LoanController@devolver_prestamo')->name('company.loan.devolver_prestamo');
-
 
         //Inscripciones a vacantes
         Route::get('Vacantes/Inscripción/', 'InscriptionController@inscription')->name('inscription');
