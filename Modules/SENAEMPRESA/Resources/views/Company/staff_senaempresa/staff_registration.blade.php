@@ -12,9 +12,9 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label for="position_company_id" class="form-label">Id Cargo</label>
+                                <label for="position_company_id" class="form-label">{{ trans('senaempresa::menu.Position ID') }}</label>
                                 <select class="form-control" name="position_company_id" aria-label="Selecciona un Cargo">
-                                    <option value="" selected>Selecciona un Cargo</option>
+                                    <option value="" selected>{{ trans('senaempresa::menu.Select a Position') }}</option>
                                     @foreach ($PositionCompany as $positionCompany)
                                         <option value="{{ $positionCompany->id }}">
                                             {{ $positionCompany->id }}
@@ -24,9 +24,9 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="apprentice_id" class="form-label">Id Aprendiz</label>
+                                <label for="apprentice_id" class="form-label">{{ trans('senaempresa::menu.Apprentice Id') }}</label>
                                 <select class="form-control" name="apprentice_id" aria-label="Selecciona un Aprendiz">
-                                    <option value="" selected>Selecciona un Aprendiz</option>
+                                    <option value="" selected>{{ trans('senaempresa::menu.Select an Apprentice') }}</option>
                                     @foreach ($Apprentices as $Apprentice)
                                         <option value="{{ $Apprentice->id }}">
                                             {{ $Apprentice->Person->document_number }}
@@ -37,11 +37,11 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="image" class="form-label">Imgen Personal</label><br>
+                                <label for="image" class="form-label">{{ trans('senaempresa::menu.self-image') }}</label><br>
                                 <input type="file" id="image" name="image">
                             </div>
-                            <button type="submit" class="btn btn-success">Agregar</button>
-                            <a href="{{ route('company.senaempresa.personal') }}" class="btn btn-danger btn-xl">Cancelar</a>
+                            <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.Add') }}</button>
+                            <a href="{{ route('company.senaempresa.personal') }}" class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>
                         </form>
                     </div>
 

@@ -120,10 +120,30 @@ return [
 	'success' => 'success',
 	'mistake' => 'mistake',
 	'The position already exists in the database' => 'The position already exists in the database',
-	'Select Status' => 'Select Status',
-	'Status' => 'Status',
+	'Position' => 'Position',
+	'self-image' => 'self-image',
 	'Quarter' => 'Quarter',
 	'ID Quarter' => 'ID Quarter',
+    'Apprentice'=>'Apprentice',
+    'Yes, remove it'=>'Yes, remove it',
+    'Staff eliminated!'=>'Staff eliminated!',
+    'Position ID'=>'Position ID',
+    'Apprentice Id'=>'Apprentice Id',
+    'Select an Apprentice'=>'Select an Apprentice',
+    'Current image'=>'Current image',
+    'There’s no registered image.'=>'There’s no registered image.',
+    'Staff SenaEmpresa'=>'Staff SenaEmpresa',
+    'Staff successfully created.'=>'Staff successfully created.',
+    'Error in creating the staff.'=>'Error in creating the staff.',
+    'Edit Personal'=>'Edit Personal',
+    'Staff eliminated with success'=>'Staff eliminated with success',
+    'Error while deleting the Personal'=>'Error while deleting the Personal',
+    'Filter by State'  => 'Filter by State',
+    'All' => 'All',
+    'Borrowed' => 'Borrowed',
+    'Returned' => 'Returned',
+
+
 
 
 

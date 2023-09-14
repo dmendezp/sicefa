@@ -21,7 +21,7 @@ class StaffSenaempresaController extends Controller
     {
         $PositionCompany = PositionCompany::all();
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
-        $data = ['title' => 'Personal', 'staff_senaempresas' => $staff_senaempresas, 'PositionCompany' => $PositionCompany];
+        $data = ['title' => trans('senaempresa::menu.Staff'), 'staff_senaempresas' => $staff_senaempresas, 'PositionCompany' => $PositionCompany];
         return view('senaempresa::Company.staff_senaempresa.staff', $data);
     }
 
@@ -34,7 +34,7 @@ class StaffSenaempresaController extends Controller
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
         $PositionCompany = PositionCompany::all();
         $Apprentices = Apprentice::all();
-        $data = ['title' => 'Personal SenaEmpresa', 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices];
+        $data = ['title' => trans('senaempresa::menu.Staff SenaEmpresa'), 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices];
         return view('senaempresa::Company.staff_senaempresa.staff_registration', $data);
     }
 
@@ -50,10 +50,10 @@ class StaffSenaempresaController extends Controller
         // Guarda la instancia en la base de datos
         if ($staffSenaempresa->save()) {
             // Redirige a la vista adecuada con un mensaje de éxito
-            return redirect()->route('company.senaempresa.personal')->with('success', 'Personal creado exitosamente.');
+            return redirect()->route('company.senaempresa.personal')->with('success', trans('senaempresa::menu.Staff successfully created.'));
         } else {
             // Maneja el caso de error si la inserción falla
-            return redirect()->back()->with('error', 'Error al crear el personal.');
+            return redirect()->back()->with('error', trans('senaempresa::menu.Error in creating the staff.'));
         }
     }
 
@@ -69,7 +69,7 @@ class StaffSenaempresaController extends Controller
         $PositionCompany = PositionCompany::all();
         $apprentices = Apprentice::all();
 
-        $data = ['title' => 'Editar Personal', 'staffSenaempresa' => $staffSenaempresa, 'PositionCompany' => $PositionCompany, 'apprentices' => $apprentices];
+        $data = ['title' => trans('senaempresa::menu.Edit Personal.'), 'staffSenaempresa' => $staffSenaempresa, 'PositionCompany' => $PositionCompany, 'apprentices' => $apprentices];
         return view('senaempresa::Company.staff_senaempresa.staff_edit', $data);
     }
     public function personal_editado(Request $request, $id)
@@ -84,7 +84,7 @@ class StaffSenaempresaController extends Controller
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
         $staffSenaempresa->save();
 
-        return redirect()->route('company.senaempresa.personal')->with('success', 'Registro actualizado exitosamente.');
+        return redirect()->route('company.senaempresa.personal')->with('success', trans('senaempresa::menu.Registration successfully updated.'));
     }
     public function destroy($id)
     {
@@ -92,9 +92,9 @@ class StaffSenaempresaController extends Controller
             $company = StaffSenaempresa::findOrFail($id);
             $company->delete();
 
-            return response()->json(['mensaje' => 'Personal eliminada con éxito']);
+            return response()->json(['mensaje' => trans('senaempresa::menu.Staff eliminated with success')]);
         } catch (\Exception $e) {
-            return response()->json(['mensaje' => 'Error al eliminar la Personal'], 500);
+            return response()->json(['mensaje' => trans('senaempresa::menu.Error while deleting the Personal')], 500);
         }
     }
 }
