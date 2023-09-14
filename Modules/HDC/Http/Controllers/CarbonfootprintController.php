@@ -19,12 +19,14 @@ class CarbonfootprintController extends Controller
         $persona = Person::where('document_number', $documento)->first();
 
         if (is_null($persona)) {
-            // Maneja el caso en el que no se encuentra una persona con el documento proporcionado.
-            return redirect()->route('carbonfootprint.persona')->with('error','Persona No Encontrada');
+            // Retorna una respuesta JSON con un mensaje de error si no se encuentra la persona
+            return response()->json(['mensaje' => 'Persona No Encontrada']);
         } else {
-            return view('hdc::Calc_Huella.tabla', ['persona' => $persona,]);
+            // Retorna una vista con los datos de la persona si se encuentra
+            return view('hdc::Calc_Huella.tabla', ['persona' => $persona]);
         }
     }
+
 }
 
 

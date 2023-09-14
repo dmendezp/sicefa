@@ -10,7 +10,7 @@ use Modules\SICA\Entities\ProductiveUnit;
 
 
 
-class ProductiveUnitResourse extends Model implements Auditable
+class ProductiveUnitResource extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
     SoftDeletes; // Borrado suave

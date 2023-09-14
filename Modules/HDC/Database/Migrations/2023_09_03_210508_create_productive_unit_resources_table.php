@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductiveUnitResoursesTable extends Migration
+class CreateProductiveUnitResourcesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateProductiveUnitResoursesTable extends Migration
      */
     public function up()
     {
-        Schema::create('productive_unit_resourses', function (Blueprint $table) {
+        Schema::create('productive_unit_resources', function (Blueprint $table) {
             $table->id();
             $table->foreignId('resource_id')->constrained()->onDelete('cascade');
             $table->foreignId('productive_unit_id')->constrained()->onDelete('cascade');
@@ -31,6 +31,6 @@ class CreateProductiveUnitResoursesTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('productive_unit_resourses');
+        Schema::dropIfExists('productive_unit_resources');
     }
 }

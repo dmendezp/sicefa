@@ -4,6 +4,7 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\HDC\Entities\ProductiveUnitResource;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class ProductiveUnit extends Model implements Auditable
@@ -57,6 +58,9 @@ class ProductiveUnit extends Model implements Auditable
     }
     public function productive_unit_warehouses(){ // Accede a todos los registros de unidad productiva y bodega que pertenecen a esta unidad productiva
         return $this->hasMany(ProductiveUnitWarehouse::class);
+    }
+    public function productive_unit_resources(){ // Accede a todos los registros de unidad productiva y bodega que pertenecen a esta unidad productiva
+        return $this->hasMany(ProductiveUnitResource::class);
     }
 
 }
