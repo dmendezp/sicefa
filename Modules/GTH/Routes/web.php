@@ -35,8 +35,14 @@ Route::prefix('gth')->group(function () {
     Route::patch('/gth/contractortypes/update{id}', 'ContractTypController@updatecontractortypes')->name('gth.contractortypes.update');
     Route::get('gth/contractortypes/{id}', [ContractTypController::class, 'showContractorTypes'])->name('gth.contractortypes.show');
 
-    //Biometric_report
+    // Biometric_report
     Route::get('/biometricreports', 'BiometricReportController@viewBiometricReports')->name('gth.biometricreports.view');
+    Route::post('/biometricreports/create/{id}', 'BiometricReportController@postcreateBiometricReport')->name('gth.biometricreports.create');
+    Route::put('/gth/biometricreports/update{id}', 'BiometricReportController@updateBiometricReport')->name('gth.biometricreports.update');
+    Route::get('/gth/biometricreports/{id}/showpersondetails', 'BiometricReportController@showPersonDetails')->name('gth.biometricreports.showpersondetails');
+    Route::patch('/gth/biometricreports/{id}', 'BiometricReportController@showcontractortypes')->name('gth.contractortypes.show');
+
+
 
     //Contract_report
     Route::get('/contractreports', 'ContractReportController@viewcontractreports')->name('gth.contractreports.view');
