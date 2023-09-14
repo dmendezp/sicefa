@@ -26,4 +26,11 @@ class CAFETOController extends Controller
         return view('cafeto::information.index', compact('apps','view'));
     }
 
+    public function configuration()
+    {
+        $view = ['titlePage' => trans('cafeto::controllers.CAFETO_configuration_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_configuration_title_view')];
+        $apps = App::get();
+        return view('cafeto::configuration.index', compact('apps','view'));
+    }
+
 }

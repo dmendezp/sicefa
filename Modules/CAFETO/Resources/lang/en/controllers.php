@@ -11,4 +11,7 @@ return [
     // Info
 	'CAFETO_info_title_page' => 'About us',
 	'CAFETO_info_title_view' => 'About us',
+    // Configuration
+	'CAFETO_configuration_title_page' => 'Configuration',
+	'CAFETO_configuration_title_view' => 'Configuration',
 ];

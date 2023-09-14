@@ -11,4 +11,7 @@ return [
 	// Info
 	'CAFETO_info_title_page' => 'Acerca de',
 	'CAFETO_info_title_view' => 'Acerca de',
+	// Configuration
+	'CAFETO_configuration_title_page' => 'Configuración',
+	'CAFETO_configuration_title_view' => 'Configuración',
 ];
