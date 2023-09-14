@@ -49,16 +49,21 @@
                                 @endif
                             </td>
                             <td>
+                                @if (empty($person->biometric_code))
                                 <a href="#" class="btn btn-outline-secondary detalles-btn" data-bs-toggle="modal"
                                     data-bs-target="#detallesModal"
                                     data-nombre="{{ $person->first_name }} {{ $person->first_last_name }} {{ $person->second_last_name }}"
                                     data-documento="{{ $person->document_number }}"
-                                    data-fecha-emision="{{ $person->date_of_issue }}"
-                                    data-primer-apellido="{{ $person->first_last_name }}"
-                                    data-segundo-apellido="{{ $person->second_last_name }}"
                                     data-codigo-biometrico="{{ $person->biometric_code }}"
-                                    data-estado="{{ $person->deleted_at ? 'No Registrado' : 'Registrado' }}">Ver
-                                    detalles</a>
+                                    data-estado="No Registrado">Ver detalles</a>
+                            @else
+                                <a href="#" class="btn btn-outline-secondary detalles-btn" data-bs-toggle="modal"
+                                    data-bs-target="#detallesModal"
+                                    data-nombre="{{ $person->first_name }} {{ $person->first_last_name }} {{ $person->second_last_name }}"
+                                    data-documento="{{ $person->document_number }}"
+                                    data-codigo-biometrico="{{ $person->biometric_code }}"
+                                    data-estado="Registrado">Ver detalles</a>
+                            @endif
                                 @if (empty($person->biometric_code))
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#crearModal_{{ $person->id }}">
@@ -104,8 +109,7 @@
         </div>
     @endforeach
 
-
-    <!-- Modal de Ver detalles -->
+<!-- Modal de Ver detalles -->
 <div class="modal fade" id="detallesModal" tabindex="-1" role="dialog" aria-labelledby="detallesModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -116,9 +120,6 @@
             <div class="modal-body">
                 <p><strong>Nombre:</strong> <span id="modalNombre"></span></p>
                 <p><strong>Documento de Identidad:</strong> <span id="modalDocumento"></span></p>
-                <p><strong>Fecha de Emisión:</strong> <span id="modalFechaEmision"></span></p>
-                <p><strong>Primer Apellido:</strong> <span id="modalPrimerApellido"></span></p>
-                <p><strong>Segundo Apellido:</strong> <span id="modalSegundoApellido"></span></p>
                 <p><strong>Código Biométrico:</strong> <span id="modalCodigoBiometrico"></span></p>
                 <p><strong>Estado:</strong> <span id="modalEstado"></span></p>
                 <!-- Agrega más detalles aquí según tus necesidades -->
@@ -130,42 +131,33 @@
     </div>
 </div>
 
-<!-- Código JavaScript para activar el modal y establecer los detalles -->
-<script>
+    <!-- Código JavaScript para activar el modal y establecer los detalles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const detallesBtns = document.querySelectorAll('.detalles-btn');
+            const modalNombre = document.getElementById('modalNombre');
+            const modalDocumento = document.getElementById('modalDocumento');
+            const modalCodigoBiometrico = document.getElementById('modalCodigoBiometrico');
+            const modalEstado = document.getElementById('modalEstado');
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const detallesBtns = document.querySelectorAll('.detalles-btn');
-        const modalNombre = document.getElementById('modalNombre');
-        const modalDocumento = document.getElementById('modalDocumento');
-        const modalFechaEmision = document.getElementById('modalFechaEmision');
-        const modalPrimerApellido = document.getElementById('modalPrimerApellido');
-        const modalSegundoApellido = document.getElementById('modalSegundoApellido');
-        const modalCodigoBiometrico = document.getElementById('modalCodigoBiometrico');
-        const modalEstado = document.getElementById('modalEstado');
+            detallesBtns.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    // Obtiene los datos desde los atributos de datos del botón
+                    const nombre = btn.getAttribute('data-nombre');
+                    const documento = btn.getAttribute('data-documento');
+                    const codigoBiometrico = btn.getAttribute('data-codigo-biometrico');
+                    const estado = btn.getAttribute('data-estado');
 
-        detallesBtns.forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                // Obtiene los datos desde los atributos de datos del botón
-                const nombre = btn.getAttribute('data-nombre');
-                const documento = btn.getAttribute('data-documento');
-                const fechaEmision = btn.getAttribute('data-fecha-emision');
-                const primerApellido = btn.getAttribute('data-primer-apellido');
-                const segundoApellido = btn.getAttribute('data-segundo-apellido');
-                const codigoBiometrico = btn.getAttribute('data-codigo-biometrico');
-                const estado = btn.getAttribute('data-estado');
-
-                // Establece los datos en el modal
-                modalNombre.textContent = nombre;
-                modalDocumento.textContent = documento;
-                modalFechaEmision.textContent = fechaEmision;
-                modalPrimerApellido.textContent = primerApellido;
-                modalSegundoApellido.textContent = segundoApellido;
-                modalCodigoBiometrico.textContent = codigoBiometrico;
-                modalEstado.textContent = estado;
+                    // Establece los datos en el modal
+                    modalNombre.textContent = nombre;
+                    modalDocumento.textContent = documento;
+                    modalCodigoBiometrico.textContent = codigoBiometrico;
+                    modalEstado.textContent = estado;
+                });
             });
         });
-    });
-</script>
+    </script>
+
 
 
     <script>
