@@ -17,7 +17,7 @@ class PasteleriaController extends Controller
      */
     public function index_pasteleria($unit)
     {
-        session(['viewing_unit' => true]);
+        session(['viewing_unit' => $unit]);
         $title = 'Pasteleria';
         $result = app(AGROINDUSTRIAController::class)->unidd();
         $units = $result['units'];        

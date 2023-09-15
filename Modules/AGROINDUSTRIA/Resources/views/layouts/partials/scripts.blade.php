@@ -101,9 +101,8 @@ window.onclick = function(event) {
 
             // Realiza una petición AJAX para obtener la cantidad
             if (elementoSeleccionado) {
-                console.log('ID de la persona seleccionada:', elementoSeleccionado);
                 $.ajax({
-                    url: {!! json_encode(route('cefa.agroindustria.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
+                    url: {!! json_encode(route('cefa.agroindustria.units.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
                     method: 'GET',
                     success: function (response) {
                     if (Array.isArray(response.id)) {
@@ -128,6 +127,7 @@ window.onclick = function(event) {
             } else {
                 // Si se selecciona la opción predeterminada, deja el campo de "Cédula" en blanco
                 $('#available').val('');
+                $('#price').val('');
             }
         });
     });

@@ -11,12 +11,12 @@
             $unitIcons = [       
                 'Panaderia' => 'fas fa-bread-slice fa-lg',
                 'Chocolateria' => 'fas fa-mug-hot fa-lg',
-                'Pasteleria' => 'fas fa-birthday-cake fa-lg',
+                //'Pasteleria' => 'fas fa-birthday-cake fa-lg',
             ];
             $unitRoutes = [
                 'Panaderia' => route('cefa.agroindustria.units.bakery', ['unit'=> $unit->id]), // Reemplazar con la ruta real
-                'Chocolateria' => route('cefa.agroindustria.units.pasteleria',['unit' => $unit->id]), 
-                'Pasteleria' => route('cefa.agroindustria.units.pasteleria',['unit' => $unit->id]), 
+                'Chocolateria' => route('cefa.agroindustria.units.chocolateria',['unit' => $unit->id]), 
+                //'Pasteleria' => route('cefa.agroindustria.units.pasteleria',['unit' => $unit->id]), 
             ];
 
             // Determinar el ícono correspondiente al nombre de la unidad actual

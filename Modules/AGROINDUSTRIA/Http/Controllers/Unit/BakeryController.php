@@ -5,22 +5,16 @@ namespace Modules\AGROINDUSTRIA\Http\Controllers\unit;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\AGROINDUSTRIA\Http\Controllers\AGROINDUSTRIAController;
 use Modules\SICA\Entities\ProductiveUnit;
 
 class BakeryController extends Controller
 {
-    public function bakery($unit)
-    {
-        session(['viewing_unit' => true]);
+    public function bakery($unit){
+        session(['viewing_unit' => $unit]);
         $title = 'Panaderia';
-        $result = app(AGROINDUSTRIAController::class)->unidd();
-        $units = $result['units'];        
         $selectedUnit = ProductiveUnit::findOrFail($unit);
-        
-        // Eliminar la variable de sesión después de usarla y antes de cargar la vista
-    
-        return view('agroindustria::units.bakery.index', compact('title', 'selectedUnit'))->with('viewing_unit', true);
+        session(['viewing_unit_name' => $selectedUnit->name]);
+        return view('agroindustria::units.bakery', compact('title', 'selectedUnit'));
     }
     
 

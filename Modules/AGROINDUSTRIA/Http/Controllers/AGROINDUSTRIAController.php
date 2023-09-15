@@ -40,14 +40,8 @@ class AGROINDUSTRIAController extends Controller
                 $productiveUnits = ProductiveUnit::whereIn('id', $units)
                 ->get();
 
-                $warehouses = ProductiveUnitWarehouse::where('productive_unit_id', $units)
-                ->pluck('warehouse_id');
-
-                $warehouseName = Warehouse::where('id', $warehouses)->get();
-
                  // Retorna la vista 'homeproductive_units' con datos de unidades y la unidad seleccionada
                 return view('agroindustria::units', [
-                    'warehouses' => $warehouseName,
                     'units' => $productiveUnits,
                     'title' => 'Unidad'
                 ])->with('noRecords', $productiveUnits->isEmpty());
@@ -63,10 +57,11 @@ class AGROINDUSTRIAController extends Controller
         $title = 'Recetas';
         return view('agroindustria::instructor.formulations.recipes', compact('title','formulations','ingredients','utensils'));  
     }
-    public function solicitud()
+    public function navbarUnit()
     {
-        $title = 'Solicitud';
-        return view('agroindustria::instructor.solicitud', compact('title'));
+        $selectedUnit = session('viewing_unit');
+        $unitName = ProductiveUnit::findOrFail($selectedUnit);
+        return view('agroindustria::layouts.partiasl.navbar', compact('title', 'unitName'));
     }
 
     public function enviarsolicitud()

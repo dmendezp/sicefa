@@ -29,6 +29,8 @@ class DeliverController extends Controller
     public function deliveries()
     {
         $title = 'Entregas';
+        $selectedUnit = session('viewing_unit');
+        $unitName = ProductiveUnit::findOrFail($selectedUnit);
 
         $user = Auth::user();
         if ($user->person) {
@@ -37,11 +39,14 @@ class DeliverController extends Controller
         
 
         //Bodega que entrega
-        $result = app(AGROINDUSTRIAController::class)->unidd();
-        $warehouses = $result['warehouses'];        
-        $warehouseDeliver = $warehouses->map(function ($w) use (&$warehouseId) {
-            $warehouseId = $w->id;
-            $warehouseName = $w->name;
+        $warehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->get();
+        foreach ($warehouses as $row){
+            $id = $row->id;
+        }
+
+        $warehouseDeliver = $warehouses->map(function ($w) {
+            $warehouseId = $w->warehouse->id;
+            $warehouseName = $w->warehouse->name;
 
             return [
                 'id' => $warehouseId,
@@ -50,15 +55,9 @@ class DeliverController extends Controller
         })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a winery')])->pluck('name', 'id');
 
 
-        //Consulta la unidad productiva segun el id de la bodega relacionada
-        $ProductiveUnitWarehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehouseId)
-        ->get();
-        $idProductiveUnitWarehouse = $ProductiveUnitWarehouse->pluck('id');
-    
-
         //Consulta el inventario que pertenece a la bodega de esa unidad productiva
         $inventories = Inventory::with('element')
-        ->whereIn('productive_unit_warehouse_id', $idProductiveUnitWarehouse)->get();
+        ->where('productive_unit_warehouse_id', $id)->get();
         //Filtra los elementos de ese inventario
         $elements = $inventories->map(function ($inventory) {
             $elementId = $inventory->element->id;
@@ -70,18 +69,18 @@ class DeliverController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a product')])->pluck('name', 'id');
 
-        //Consulta los lideres de las unidades productivas
-        $people = User::whereNotNull('person_id')->pluck('person_id');
-        $productiveUnitPeople = ProductiveUnit::with('person')->whereIn('person_id', $people)->get();
-        $receive = $productiveUnitPeople->map(function ($productiveUnitPerson) {
-            $personId = $productiveUnitPerson->person->id;
-            $personName = $productiveUnitPerson->person->first_name . ' ' . $productiveUnitPerson->person->first_last_name . ' ' . $productiveUnitPerson->person->second_last_name;
+
+        //Consulta las unidades productivas
+        $productiveUnit = ProductiveUnit::with('person')->get();
+        $receiveUnit = $productiveUnit->map(function ($p) {
+            $unitId = $p->id;
+            $unitName = $p->name;
 
             return [
-                'id' => $personId,
-                'name' => $personName
+                'id' => $unitId,
+                'name' => $unitName
             ];
-        })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a receiver')])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => 'Seleccione una unidad productiva'])->pluck('name', 'id');
 
         //Consulta los movimientos del responsable con el rol de ENTREGA
         $idMovements = Movement::pluck('id');
@@ -94,7 +93,7 @@ class DeliverController extends Controller
             WHEN state = 'Solicitado' THEN 1
             ELSE 2
         END")->get();
-        
+
         // Cuenta los movimientos con estado "solicitado"
         $pendingMovementsCount = Movement::whereHas('warehouse_movements', function ($query) {
             $query->where('role', 'Recibe');
@@ -103,12 +102,14 @@ class DeliverController extends Controller
             ->where('role', 'RECIBE');
         })->where('state', 'Solicitado')->count();
 
+
         $data = [
             'title' => $title,
-            'productiveUnitWarehouse' => $idProductiveUnitWarehouse,
+            'unitName' => $unitName,
+            'productiveUnitWarehouse' => $id,
             'warehouseDeliver' => $warehouseDeliver,
             'elements' => $elements,
-            'receive' => $receive,
+            'receiveUnit' => $receiveUnit,
             'movements' => $movements,
             'pedingMovements' => $pendingMovementsCount,
         ];
@@ -116,25 +117,27 @@ class DeliverController extends Controller
         return view('agroindustria::instructor.movements.deliveries', $data);
     }
 
-    public function warehouseReceive($idPerson){    
+    public function warehouseReceive($id){    
         // Asegúrate de que $id sea un arreglo
-        if (!is_array($idPerson)) {
-            $idPerson = [$idPerson];
+        if (!is_array($id)) {
+            $id = [$id];
         }
-        
-
-        $warehouseReceives = ProductiveUnitWarehouse::with('warehouse')
-        ->whereHas('productive_unit', function($query) use ($idPerson){
-            $query->where('person_id', $idPerson);
-        })->get();
+       
+        $warehouseReceives = ProductiveUnitWarehouse::with('productive_unit.person', 'warehouse')
+        ->where('productive_unit_id', $id)->get();
 
         $warehouse = $warehouseReceives->map(function ($w){
-            $id = $w->id;
+            $id = $w->warehouse->id;
             $name = $w->warehouse->name;
+            $idPerson = $w->productive_unit->person->id;
+            $personName = $w->productive_unit->person->first_name . ' ' . $w->productive_unit->person->first_last_name . ' ' . $w->productive_unit->person->second_last_name;
+
 
             return[
                 'id' => $id,
-                'name' => $name
+                'name' => $name,
+                'idPerson' => $idPerson,
+                'personName' => $personName,
             ];
         });
     
@@ -154,16 +157,11 @@ class DeliverController extends Controller
     
     public function createMoveOut(Request $request){
 
-        Validator::extend('at_least_one_element', function ($attribute, $value, $parameters, $validator) use ($request) {
-            $elements = $request->input('element');
-            return !empty($elements);
-        });
-
         $rules=[
             'receive' => 'required',
             'deliver_warehouse' => 'required',
             'receive_warehouse' => 'required',
-            'element' => 'required|at_least_one_element',
+            'element' => 'required',
             'amount' => 'required'
         ];
 
@@ -225,7 +223,7 @@ class DeliverController extends Controller
         
         // Encontrar el inventario correspondiente a ese elemento
         $inventories = Inventory::whereIn('element_id', $selectedElementId)
-        ->whereIn('productive_unit_warehouse_id', $puw)
+        ->where('productive_unit_warehouse_id', $puw)
         ->pluck('id');
     
         //Registra Detalles del Movimiento
@@ -277,24 +275,37 @@ class DeliverController extends Controller
         $mr->save();
 
         $mr = new MovementResponsibility;
-        $mr->person_id = $validatedData['receive'];
+        $mr->person_id = $request->input('receive_id');
         $mr->movement_id = $mo->id;
         $mr->role = 'RECIBE';
         $mr->date = $request->input('date');
         $mr->save();
 
         //Registro del WarehouseMovement (entrega)
+        $ProductiveUnitWarehouseDeliver = ProductiveUnitWarehouse::where('warehouse_id', $validatedData['deliver_warehouse'])
+        ->get();
+        foreach($ProductiveUnitWarehouseDeliver as $pd){
+            $idD = $pd->id;
+        }
+
         $wm = new WarehouseMovement;
-        $wm->productive_unit_warehouse_id = $validatedData['deliver_warehouse'];
+        $wm->productive_unit_warehouse_id = $idD;
         $wm->movement_id = $mo->id;
         $wm->role = 'Entrega';
         $wm->save();
 
+        $ProductiveUnitWarehouse = ProductiveUnitWarehouse::where('warehouse_id', $validatedData['receive_warehouse'])
+        ->where('productive_unit_id', $request->input('receiveUnit'))
+        ->get();
+        foreach($ProductiveUnitWarehouse as $p){
+            $id = $p->id;
+        }
+
+
         $wm = new WarehouseMovement;
-        $wm->productive_unit_warehouse_id = $validatedData['receive_warehouse'];
+        $wm->productive_unit_warehouse_id = $id;
         $wm->movement_id = $mo->id;
         $wm->role = 'Recibe';
-
         $wm->save();
 
         if($wm->save()){
@@ -305,7 +316,7 @@ class DeliverController extends Controller
             $message_line = trans('agroindustria::menu.Check out error');
         }
 
-        return redirect()->route('cefa.agroindustria.instructor.movements')->with([
+        return redirect()->route('cefa.agroindustria.units.instructor.movements')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]);
@@ -361,16 +372,12 @@ class DeliverController extends Controller
                 $receiveWarehouseMovement = $movement->warehouse_movements->first(function ($movement) {
                     return $movement->role === 'Recibe';
                 });
-        
-                if ($receiveWarehouseMovement) {
-                    $receive_warehouse = $receiveWarehouseMovement->warehouse_id;
-                    
-                    $receive = ProductiveUnitWarehouse::where('warehouse_id', $receive_warehouse)->pluck('id')->first();
-                    
                 
+                if ($receiveWarehouseMovement) {
+                    $receive_warehouse = $receiveWarehouseMovement->productive_unit_warehouse_id;
                     $receiverInventory = new Inventory();
                     $receiverInventory->person_id = $detail->inventory->person_id;
-                    $receiverInventory->productive_unit_warehouse_id = $receive;
+                    $receiverInventory->productive_unit_warehouse_id = $receive_warehouse;
                     $receiverInventory->element_id = $detail->inventory->element_id;
                     $receiverInventory->destination = $detail->inventory->destination;
                     $receiverInventory->description = $detail->inventory->description;
@@ -398,7 +405,7 @@ class DeliverController extends Controller
             $message_line = trans('agroindustria::menu.Error when editing movement status');
         }
 
-        return redirect()->route('cefa.agroindustria.instructor.movements.pending')->with(['icon' => $icon, 'message_line' => $message_line]);
+        return redirect()->route('cefa.agroindustria.units.instructor.movements.pending')->with(['icon' => $icon, 'message_line' => $message_line]);
     }
 
 
@@ -426,7 +433,7 @@ class DeliverController extends Controller
             $message_line = trans('agroindustria::menu.Movement Cancel Error');
         }
 
-        return redirect()->route('cefa.agroindustria.instructor.movements')->with([
+        return redirect()->route('cefa.agroindustria.units.instructor.movements')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]);
@@ -456,11 +463,9 @@ class DeliverController extends Controller
             $message_line = trans('agroindustria::menu.Error when returning the movement');
         }
 
-        return redirect()->route('cefa.agroindustria.instructor.movements.pending')->with([
+        return redirect()->route('cefa.agroindustria.units.instructor.movements.pending')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]);
     }
-
-
 }

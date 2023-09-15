@@ -3,18 +3,30 @@
 
 <div class="movements">
   <div class="form">
-    <div class="form-header">{{trans('agroindustria::menu.Exit from Cellar')}} <a id="pedingMovements" href="{{route('cefa.agroindustria.instructor.movements.pending')}}">{{trans(('agroindustria::menu.Pending'))}}  ({{ $pedingMovements }})</a></div>
+    <div class="form-header">{{trans('agroindustria::menu.Exit from Cellar')}} <a id="pedingMovements" href="{{route('cefa.agroindustria.units.instructor.movements.pending')}}">{{trans(('agroindustria::menu.Pending'))}}  ({{ $pedingMovements }})</a></div>
     <div class="form-body">
-      {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.instructor.movements.out')]) !!}
+      {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.movements.out')]) !!}
       <div class="row">
         <div class="col-md-6">
           {!! Form::hidden('productiveUnitWarehouse', $productiveUnitWarehouse, ['id' => 'productiveUnitWarehouse']) !!}
           {!! Form::label('fecha', trans('agroindustria::menu.Date Time')) !!}
           {!! Form::datetime('date', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'readonly' => 'readonly']) !!}
         </div>
-        <div class="col-md-6" id="receive">
+        <div class="col-md-6">
           {!! Form::label('receive', trans('agroindustria::menu.Receiver')) !!}
-          {!! Form::select('receive', $receive, old('receive'), ['class' => 'form-control', 'id' => 'receive-selected']) !!}
+          {!! Form::text('receive', null,  ['class' => 'form-control', 'readonly' => 'readonly', 'id' => 'receivePerson']) !!}
+          {!! Form::hidden('receive_id', null, ['id' => 'receive']) !!}
+          @error('receive')
+          <span class="text-danger">{{ $message }}</span>
+          @enderror
+        </div>
+        <div class="col-md-6">
+          {!! Form::label('productive_unit', 'Unidad Productiva que entrega') !!}
+          {!! Form::text('productive_unit', $unitName->name, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+        </div>
+        <div class="col-md-6" id="receiveUnit">
+          {!! Form::label('receiveUnit', 'Unidad productiva que recibe') !!}
+          {!! Form::select('receiveUnit', $receiveUnit, old('receiveUnit'), ['class' => 'form-control', 'id' => 'receiveUnit-selected']) !!}
           @error('receive')
           <span class="text-danger">{{ $message }}</span>
           @enderror
@@ -23,14 +35,14 @@
           {!! Form::label('deliver_warehouse', trans('agroindustria::menu.Warehouse that Delivers')) !!}
           {!! Form::select('deliver_warehouse', $warehouseDeliver, old('deliver_warehouse'), ['class' => 'form-control', 'id' => 'deliver_warehouse']) !!}
           @error('deliver_warehouse')
-            <span class="text-danger">{{ $message }}</span>
+          <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
         <div class="col-md-6">
           {!! Form::label('receive_warehouse', trans('agroindustria::menu.Warehouse that Receives')) !!}
           {!! Form::select('receive_warehouse', [], old('receive_warehouse'), ['placeholder' => trans('agroindustria::menu.Select a winery'), 'class' => 'form-control', 'id' => 'receive_warehouse']) !!}
           @error('receive_warehouse')
-            <span class="text-danger">{{ $message }}</span>
+          <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
         <div class="col-md-12">
@@ -116,7 +128,7 @@ $(document).ready(function() {
         // Realizar una petición AJAX para obtener la cantidad disponible
         if (elementoSeleccionado) {
             $.ajax({
-                url: {!! json_encode(route('cefa.agroindustria.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
+                url: {!! json_encode(route('cefa.agroindustria.units.instructor.movements.id', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
                 method: 'GET',
                 success: function(response) {
                     if (Array.isArray(response.id)) {
@@ -140,6 +152,7 @@ $(document).ready(function() {
         } else {
             // Si se selecciona la opción predeterminada, dejar el campo de cantidad disponible en blanco
             availableField.val('');
+            priceField.val('');
         }
     });
 
@@ -153,11 +166,10 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
     // Detecta cambios en el primer campo de selección (Receiver)
-    $('#receive-selected').on('change', function() {
+    $('#receiveUnit-selected').on('change', function() {
         var selectedReceiver = $(this).val();
 
-        var url = {!! json_encode(route('cefa.agroindustria.instructor.movements.warehouse', ['idPerson' => ':idPerson'])) !!}.replace(':idPerson', selectedReceiver.toString());
-        console.log('URL de AJAX:', url);
+        var url = {!! json_encode(route('cefa.agroindustria.units.instructor.movements.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedReceiver.toString());
 
         // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
         $.ajax({
@@ -168,9 +180,13 @@ $(document).ready(function() {
                 $.each(response.id, function(index, warehouse) {
                     options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
                 });
+                var personId = response.id[0].idPerson;
+                var personName = response.id[0].personName;
 
                 // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
                 $('#receive_warehouse').html(options);
+                $('#receivePerson').val(personName);
+                $('#receive').val(personId);
             },
             error: function(error) {
                 console.log(error);
@@ -209,5 +225,3 @@ $(document).ready(function() {
 
 </script>
 @endsection
-
-    

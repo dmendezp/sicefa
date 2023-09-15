@@ -1,5 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-Dark" style="background-color:rgb(247, 244, 244); margin-bottom:20px">
-    <a class="navbar-brand" id="title" href="{{route('cefa.agroindustria.home.index')}}">AGROINDUSTRIA</a>
+    <a class="navbar-brand" id="title" href="{{ route('cefa.agroindustria.home.index') }}">
+        @if (session('viewing_unit'))
+            AGROINDUSTRIA - {{ session('viewing_unit_name') }}
+        @else
+            AGROINDUSTRIA
+        @endif
+    </a>
+    
 
     <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
         aria-expanded="false" aria-label="Toggle navigation"></button>
@@ -22,31 +29,31 @@
                 </li>
             @endif
 
-            @if(Route::is('*instructor.*') || Route::is('*units.*'))
+            @if(Route::is('*units.*'))
                 <!--Menú instructor-->
                 @if(Auth::user()->havePermission('agroindustria.instructor.request'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.instructor.solicitud')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.solicitud')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
                 </li>
                 @endif
                 @if(Auth::user()->havePermission('agroindustria.instructor.deliveries'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.instructor.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
                 </li>
                 @endif
                 @if(Auth::user()->havePermission('agroindustria.instructor.labor'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.instructor.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
                 </li>
                 @endif
                 @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.instructor.activity')}}">{{trans('agroindustria::menu.Activities')}}</a>
+                        <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.activity')}}">{{trans('agroindustria::menu.Activities')}}</a>
                     </li>
                 @endif  
                 @if(Auth::user()->havePermission('agroindustria.instructor.formulations'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.instructor.formulations')}}">{{trans('agroindustria::formulations.Recipes')}}</a>
+                        <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.formulations')}}">{{trans('agroindustria::formulations.Recipes')}}</a>
                     </li>
                 @endif
                 @if(Auth::user()->havePermission('agroindustria.storer.crud'))
@@ -97,7 +104,7 @@
     @endif
     <!-- Traduccion -->
     <div class="dropdown_lang">
-        <button class="dropbtn" onclick="toggleDropdown()">{{ session('lang') }} <i class="fas fa-globe"></i></button>
+        <button class="dropbtn" onclick="toggleDropdown()"> {{ session('lang') }} <i class="fas fa-globe"></i></button>
         <div id="myDropdown" class="dropdown-content">
             <a href="{{ url('lang',['es']) }}">Español</a>
             <a href="{{ url('lang',['en']) }}">English</a>

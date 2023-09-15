@@ -86,7 +86,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('cefa.agroindustria.instructor.movements.pending.state', ['id' => $movement->id]) }}" method="POST">
+            <form action="{{ route('cefa.agroindustria.units.instructor.movements.pending.state', ['id' => $movement->id]) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
@@ -112,7 +112,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.instructor.movements.cancelled', ['id' => $movement->id])]) !!}
+            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.movements.cancelled', ['id' => $movement->id])]) !!}
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -142,7 +142,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.instructor.movements.return', ['id' => $movement->id])]) !!}
+            {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.movements.return', ['id' => $movement->id])]) !!}
             @csrf
             @method('PUT')
             <div class="form-group">
