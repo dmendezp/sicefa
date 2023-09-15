@@ -27,6 +27,11 @@ return [
     /* TRADUCCIONES DEL MODAL DE EDITAR CULTIVO */
     'Edit Crop' => 'Edit Crop',
     'Update Crop' => 'Update Crop',
+    /* TRADUCCIONES DEL MODAL DE ELIMINAR CULTIVO */  
+    'Delete Crop' => 'Delete Crop',
+    'Are you sure you want to remove this Crop?' => 'Are you sure you want to remove this Crop?',
+    'Cancel' => 'Cancel',
+    'Delete' => 'Delete',
 
 
 ];

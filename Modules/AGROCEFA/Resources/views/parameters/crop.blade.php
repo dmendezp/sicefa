@@ -1,22 +1,22 @@
 {{-- CRUD parametro Cultivo --}}
 <div class="card" style="width: 90%; margin-left: 40px">
     <div class="card-header">
-        {{trans('agrocefa::cultivo.Crop')}}
+        {{ trans('agrocefa::cultivo.Crop') }}
         <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop"><i
-            class='bx bx-plus icon'></i></button>
+                class='bx bx-plus icon'></i></button>
     </div>
     <div class="card-body">
         <table class="table table-sm table-bordered table-striped" style="width: 90%">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>{{trans('agrocefa::cultivo.Name')}}</th>
-                    <th>{{trans('agrocefa::cultivo.Sown area')}}</th>
-                    <th>{{trans('agrocefa::cultivo.Seedtime')}}</th>
-                    <th>{{trans('agrocefa::cultivo.Plant Density')}}</th>
-                    <th>Ambiente</th>
-                    <th>Variedad</th>
-                    <th>Fecha Fin</th>
+                    <th>{{ trans('agrocefa::cultivo.Name') }}</th>
+                    <th>{{ trans('agrocefa::cultivo.Sown area') }}</th>
+                    <th>{{ trans('agrocefa::cultivo.Seedtime') }}</th>
+                    <th>{{ trans('agrocefa::cultivo.Plant Density') }}</th>
+                    <th>{{ trans('agrocefa::cultivo.Environment') }}</th>
+                    <th>{{ trans('agrocefa::cultivo.Variety') }}</th>
+                    <th>{{ trans('agrocefa::cultivo.End date') }}</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -39,8 +39,7 @@
                         <td>{{ $crop->finish_date }}</td>
                         <td>
                             <button class="btn btn-primary btn-sm btn-edit-crop"
-                                data-bs-target="#editCultivo_{{ $crop->id }}"Ñ
-                                data-bs-toggle="modal">
+                                data-bs-target="#editCultivo_{{ $crop->id }}" data-bs-toggle="modal">
                                 <i class='bx bx-edit icon'></i>
                             </button>
 
@@ -60,52 +59,55 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="agregarCropModalLabel">Agregar Cultivo</h5>
+                <h5 class="modal-title" id="agregarCropModalLabel">{{ trans('agrocefa::cultivo.Add Crop') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('agrocefa.crop.create')}}" method="POST">
+                <form action="{{ route('agrocefa.crop.create') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="crop_name">Nombre del Cultivo</label>
+                        <label for="crop_name">{{ trans('agrocefa::cultivo.Crop Name') }}</label>
                         <input type="text" name="crop_name" id="crop_name" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="sown_area">Área Sembrada</label>
-                        <input type="text" name="sown_area" id="sown_area" class="form-control" placeholder="Ejemplo: 3,5 m²" required>
-                    </div> 
+                        <label for="sown_area">{{ trans('agrocefa::cultivo.Sown area') }}</label>
+                        <input type="text" name="sown_area" id="sown_area" class="form-control"
+                            placeholder="{{ trans('agrocefa::cultivo.Example: 3.5 m²') }}" required>
+                    </div>
                     <div class="form-group">
-                        <label for="seed_time">Fecha de Siembra</label>
+                        <label for="seed_time">{{ trans('agrocefa::cultivo.Seedtime') }}</label>
                         <input type="date" name="seed_time" id="seed_time" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="density">{{trans('agrocefa::cultivo.Plant Density')}}</label>
-                        <input type="text" name="density" id="density" class="form-control" placeholder="Ejemplo: 5 plantas/m²" required>
+                        <label for="density">{{ trans('agrocefa::cultivo.Plant Density') }}</label>
+                        <input type="text" name="density" id="density" class="form-control"
+                            placeholder="{{ trans('agrocefa::cultivo.Example: 5 floors/m²') }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="environment_id">Ambiente</label>
+                        <label for="environment_id">{{ trans('agrocefa::cultivo.Environment') }}</label>
                         <select name="environment_id" id="environment_id" class="form-control">
-                            <option value="">Seleccionar Ambiente</option>
+                            <option value="">{{ trans('agrocefa::cultivo.Select Environment') }}</option>
                             @foreach ($environments as $environment)
                                 <option value="{{ $environment->id }}">{{ $environment->name }}</option>
                             @endforeach
                         </select>
-                    </div>                    
+                    </div>
                     <div class="form-group">
-                        <label for="variety_id">Variedad</label>
+                        <label for="variety_id">{{ trans('agrocefa::cultivo.Variety') }}</label>
                         <select name="variety_id" id="varietyt_id" class="form-control">
-                            <option value="">Seleccionar Variedad</option>
+                            <option value="">{{ trans('agrocefa::cultivo.Select Variety') }}</option>
                             @foreach ($varieties as $variety)
                                 <option value="{{ $variety->id }}">{{ $variety->name }}</option>
                             @endforeach
                         </select>
-                    </div>                    
+                    </div>
                     <div class="form-group">
-                        <label for="finish_date">Fecha Fin</label>
+                        <label for="finish_date">{{ trans('agrocefa::cultivo.End date') }}</label>
                         <input type="date" name="finish_date" id="finish_date" class="form-control" required>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-primary">Registrar Cultivo</button>
+                    <button type="submit"
+                        class="btn btn-primary">{{ trans('agrocefa::cultivo.Register Crop') }}</button>
                 </form>
             </div>
         </div>
@@ -115,59 +117,73 @@
 
 {{-- Modal de Edición Cultivo --}}
 @foreach ($crops as $crop)
-<div class="modal fade" id="editCultivo_{{ $crop->id }}" tabindex="-1"
-    aria-labelledby="editCultivoLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="agregarCultivoModalLabel">Editar Cultivo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Formulario de edición con un ID único -->
-                {!! Form::open(['route' => ['agrocefa.crop.edit', $crop->id], 'method' => 'PUT', 'id' => 'edit-crop-form']) !!}
-                @csrf
-                <div class="form-group">
-                    {!! Form::label('crop_name', 'Nombre del Cultivo') !!}
-                    {!! Form::text('crop_name', $crop->name, ['class' => 'form-control', 'required']) !!}
+    <div class="modal fade" id="editCultivo_{{ $crop->id }}" tabindex="-1" aria-labelledby="editCultivoLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agregarCultivoModalLabel">{{ trans('agrocefa::cultivo.Edit Crop') }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="form-group">
-                    {!! Form::label('sown_area', 'Área Sembrada') !!}
-                    <div class="input-group">
-                        {!! Form::text('sown_area', $crop->sown_area, ['class' => 'form-control', 'placeholder' => 'Ejemplo: 3,5 m²', 'required']) !!}
+                <div class="modal-body">
+                    <!-- Formulario de edición con un ID único -->
+                    {!! Form::open(['route' => ['agrocefa.crop.edit', $crop->id], 'method' => 'PUT', 'id' => 'edit-crop-form']) !!}
+                    @csrf
+                    <div class="form-group">
+                        {!! Form::label('crop_name', trans('agrocefa::cultivo.Crop Name')) !!}
+                        {!! Form::text('crop_name', $crop->name, [
+                            'class' => 'form-control',
+                            'required',
+                            'placeholder' => trans('agrocefa::cultivo.Crop Name'),
+                        ]) !!}
                     </div>
-                </div>
-                <div class="form-group">
-                    {!! Form::label('seed_time', 'Fecha de Siembra') !!}
-                    {!! Form::text('seed_time', $crop->seed_time, ['class' => 'form-control', 'required']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('density', 'Densidad de Plantas') !!}
-                    <div class="input-group">
-                        {!! Form::text('density', $crop->density, ['class' => 'form-control', 'placeholder' => 'Ejemplo: 5 plantas/m²', 'required']) !!}
+                    <div class="form-group">
+                        {!! Form::label('sown_area', trans('agrocefa::cultivo.Sown area')) !!}
+                        <div class="input-group">
+                            {!! Form::text('sown_area', $crop->sown_area, [
+                                'class' => 'form-control',
+                                'placeholder' => 'Ejemplo: 3,5 m²',
+                                'required',
+                            ]) !!}
+                        </div>
                     </div>
+                    <div class="form-group">
+                        {!! Form::label('seed_time', trans('agrocefa::cultivo.Seedtime')) !!}
+                        {!! Form::text('seed_time', $crop->seed_time, ['class' => 'form-control', 'required']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('density', 'Densidad de Plantas') !!}
+                        <div class="input-group">
+                            {!! Form::text('density', $crop->density, [
+                                'class' => 'form-control',
+                                'placeholder' => 'Ejemplo: 5 plantas/m²',
+                                'required',
+                            ]) !!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('environment_id', trans('agrocefa::cultivo.Environment')) !!}
+                        {!! Form::select('environment_id', $environments->pluck('name', 'id'), $crop->environment_id, [
+                            'class' => 'form-control',
+                        ]) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('variety_id', trans('agrocefa::cultivo.Variety')) !!}
+                        {!! Form::select('variety_id', $varieties->pluck('name', 'id'), $crop->variety_id, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('finish_date', trans('agrocefa::cultivo.End date')) !!}
+                        {!! Form::text('finish_date', $crop->finish_date, ['class' => 'form-control', 'required']) !!}
+                    </div>
+                    <!-- Otros campos del formulario según tus necesidades -->
+                    <br>
+                    {!! Form::submit(trans('agrocefa::cultivo.Update Crop'), ['class' => 'btn btn-primary']) !!}
+                    {!! Form::close() !!}
                 </div>
-                <div class="form-group">
-                    {!! Form::label('environment_id', 'Ambiente') !!}
-                    {!! Form::select('environment_id', $environments->pluck('name', 'id'), $crop->environment_id, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('variety_id', 'Variedad') !!}
-                    {!! Form::select('variety_id', $varieties->pluck('name', 'id'), $crop->variety_id, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('finish_date', 'Fecha Fin') !!}
-                    {!! Form::text('finish_date', $crop->finish_date, ['class' => 'form-control', 'required']) !!}
-                </div>
-                <!-- Otros campos del formulario según tus necesidades -->
-                <br>
-                {!! Form::submit('Actualizar Cultivo', ['class' => 'btn btn-primary']) !!}
-                {!! Form::close() !!}
             </div>
         </div>
     </div>
-</div>
 @endforeach
 
 
@@ -178,20 +194,20 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="eliminarcultivoLabel">Eliminar Cultivo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <h5 class="modal-title" id="eliminarcultivoLabel">{{ trans('agrocefa::cultivo.Delete Crop') }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar este Cultivo?
+                    {{ trans('agrocefa::cultivo.Are you sure you want to remove this Crop?') }}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Cancelar</button>
+                        data-bs-dismiss="modal">{{ trans('agrocefa::cultivo.Cancel') }}</button>
                     {!! Form::open(['route' => ['agrocefa.crop.delete', 'id' => $crop->id], 'method' => 'POST']) !!}
                     @csrf
                     @method('DELETE')
-                    {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
+                    {!! Form::submit(trans('agrocefa::cultivo.Delete'), ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -201,7 +217,7 @@
 {{-- script de limpiar los campos cuando se va a agregar un nuevo cultivo --}}
 <script>
     $(document).ready(function() {
-        $('#crearcrop').on('show.bs.modal', function () {
+        $('#crearcrop').on('show.bs.modal', function() {
             // Limpiar los campos del formulario
             $('#crop_name').val('');
             $('#seed_time').val('');
@@ -216,34 +232,32 @@
 
 
 <script>
-$('.btn-edit-crop').on('click', function (event) {
-    var cropId = $(this).data('crop-id');
+    $('.btn-edit-crop').on('click', function(event) {
+        var cropId = $(this).data('crop-id');
 
-    // Obtener los datos del cultivo desde algún lugar (puede ser una API, base de datos, etc.)
-    var cropData = cropsData.find(function (crop) {
-        return crop.id === cropId;
+        // Obtener los datos del cultivo desde algún lugar (puede ser una API, base de datos, etc.)
+        var cropData = cropsData.find(function(crop) {
+            return crop.id === cropId;
+        });
+
+        // Llenar los campos del formulario con los datos del cultivo
+        $('#edit-crop-form').find('#name').val(cropData.name);
+        $('#edit-crop-form').find('#sown_area').val(cropData.sown_area);
+        $('#edit-crop-form').find('#seed_time').val(cropData.seed_time);
+        $('#edit-crop-form').find('#density').val(cropData.density);
+        $('#edit-crop-form').find('#variety_id').val(cropData.variety_id);
+        $('#edit-crop-form').find('#finish_date').val(cropData.finish_date);
+
+        // Construir la URL del formulario con el ID del cultivo
+        var formAction = '{{ route('agrocefa.crop.edit', ['id' => 'CROP_ID']) }}';
+        formAction = formAction.replace('CROP_ID', cropId);
+
+        // Actualizar la URL del formulario con el ID del cultivo
+        $('#edit-crop-form').attr('action', formAction);
     });
 
-    // Llenar los campos del formulario con los datos del cultivo
-    $('#edit-crop-form').find('#name').val(cropData.name);
-    $('#edit-crop-form').find('#sown_area').val(cropData.sown_area);
-    $('#edit-crop-form').find('#seed_time').val(cropData.seed_time);
-    $('#edit-crop-form').find('#density').val(cropData.density);
-    $('#edit-crop-form').find('#variety_id').val(cropData.variety_id);
-    $('#edit-crop-form').find('#finish_date').val(cropData.finish_date);
-
-    // Construir la URL del formulario con el ID del cultivo
-    var formAction = '{{ route('agrocefa.crop.edit', ['id' => 'CROP_ID']) }}';
-    formAction = formAction.replace('CROP_ID', cropId);
-
-    // Actualizar la URL del formulario con el ID del cultivo
-    $('#edit-crop-form').attr('action', formAction);
-});
-
-// Asegúrate de que los datos de los cultivos estén disponibles aquí
-var cropsData = [
-    // ... Lista de objetos de cultivo con sus propiedades ...
-];
+    // Asegúrate de que los datos de los cultivos estén disponibles aquí
+    var cropsData = [
+        // ... Lista de objetos de cultivo con sus propiedades ...
+    ];
 </script>
-
-

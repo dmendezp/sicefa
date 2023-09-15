@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\CEFAMAPS\Entities\Coordinate;
 use Modules\CEFAMAPS\Entities\Page;
+use Modules\AGROCEFA\Entities\Crop;
 
 class Environment extends Model implements Auditable
 {
@@ -56,6 +57,9 @@ class Environment extends Model implements Auditable
     }
     public function pages(){ // Accede a la información del page al que pertenece
         return $this->hasMany(Page::class);
+    }
+    public function crop(){
+        return $this->belongsToMany(Crop::class);
     }
 
 }
