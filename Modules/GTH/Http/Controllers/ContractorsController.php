@@ -28,14 +28,7 @@ class ContractorsController extends Controller
 
     public function updatecontractor(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|max:255', // Agrega más reglas según tus necesidades
-            // Agrega más campos y reglas según tus necesidades
-        ]);
-
         $contractor = Contractor::findOrFail($id);
-
-        // Actualizar los campos necesarios
         $contractor->contract_number = $request->input('contract_number');
         $contractor->contract_year = $request->input('contract_year');
         $contractor->contract_start_date = $request->input('contract_start_date');
@@ -58,10 +51,14 @@ class ContractorsController extends Controller
         $contractor->risk_type = $request->input('risk_type');
         $contractor->state = $request->input('state');
 
-        $contractor->save();
+        if ($contractor->save()) {
+            return redirect()->route('gth.contractors.view')->with('success', 'Tipo de Contrato actualizado exitosamente.');
+        } else {
+            return redirect()->black()->with('error', 'Error al actualizar vacante');
+        };
 
         // Redirigir a donde quieras después de la actualización
-        return redirect()->route('gth.contractors.view')->with('success', 'Tipo de Contrato actualizado exitosamente.');
+        
     }
 
     public function showContractor($id)
