@@ -12,7 +12,7 @@ class VarietyController extends Controller
 
     public function index()
     {
-        $varieties = Variety::all();
+        $varieties = Variety::with('specie')->get();
         return view('agrocefa::parameters.parameter ', compact('varieties'));
     }
 

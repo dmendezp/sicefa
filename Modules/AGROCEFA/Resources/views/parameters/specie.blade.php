@@ -1,18 +1,27 @@
 {{-- CRUD Parametro Especie --}}
 <div class="card">
     <div class="card-header">
-        Especies
-        <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearspecie"><i
-                class='bx bx-plus icon'></i></button>
+        {{ trans('agrocefa::specie.Species') }}
+        @auth
+            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearspecie"><i
+                        class='bx bx-plus icon'></i>
+                </button>
+            @endif
+        @endauth
     </div>
     <div class="card-body">
         <table class="table table-sm table-bordered table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Ciclo de vida</th>
-                    <th>Acciones</th>
+                    <th>{{ trans('agrocefa::specie.Name') }}</th>
+                    <th>{{ trans('agrocefa::specie.lifecycle') }}</th>
+                    @auth
+                        @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                            <th>{{ trans('agrocefa::specie.Actions') }}</th>
+                        @endif
+                    @endauth
                 </tr>
             </thead>
             <tbody>
@@ -21,17 +30,21 @@
                         <td>{{ $a->id }}</td>
                         <td>{{ $a->name }}</td>
                         <td>{{ $a->lifecycle }}</td>
-                        <td>
-                            <div class="button-group">
-                                <button class="btn btn-primary btn-sm btn-edit-specie" data-bs-toggle="modal"
-                                    data-bs-target="#editarEspecieModal_{{ $a->id }}"
-                                    data-specie-id="{{ $a->id }}"><i class='bx bx-edit icon'></i></button>
-                                <button id="delete" class="btn btn-danger btn-sm btn-delete-activity"
-                                    data-bs-toggle="modal" data-bs-target="#eliminarspecie_{{ $a->id }}"><i
-                                        class='bx bx-trash icon'></i></button>
+                        @auth
+                            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                                <td>
+                                    <div class="button-group">
+                                        <button class="btn btn-primary btn-sm btn-edit-specie" data-bs-toggle="modal"
+                                            data-bs-target="#editarEspecieModal_{{ $a->id }}"
+                                            data-specie-id="{{ $a->id }}"><i class='bx bx-edit icon'></i></button>
+                                        <button id="delete" class="btn btn-danger btn-sm btn-delete-activity"
+                                            data-bs-toggle="modal" data-bs-target="#eliminarspecie_{{ $a->id }}"><i
+                                                class='bx bx-trash icon'></i></button>
 
-                            </div>
-                        </td>
+                                    </div>
+                                </td>
+                            @endif
+                        @endauth
                     </tr>
                 @endforeach
             </tbody>
@@ -43,18 +56,18 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Especie</h5>
+                <h5 class="modal-title" id="agregarAsistenciaModalLabel">{{ trans('agrocefa::specie.AddSpecie') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 {!! Form::open(['route' => 'agrocefa.species.store', 'method' => 'POST']) !!}
                 @csrf
                 <div class="form-group">
-                    {!! Form::label('name', 'Nombre:') !!}
+                    {!! Form::label('name', trans('agrocefa::specie.Name') . ':') !!}
                     {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control', 'required']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('lifecycle', 'Ciclo de vida:') !!}
+                    {!! Form::label('lifecycle', trans('agrocefa::specie.lifecycle') . ':') !!}
                     {!! Form::select('lifecycle', ['Transitorio' => 'Transitorio', 'Permanente' => 'Permanente'], null, [
                         'id' => 'lifecycle',
                         'class' => 'form-control',
@@ -63,7 +76,7 @@
                 </div>
                 <!-- Agrega más campos según tus necesidades -->
                 <br>
-                {!! Form::submit('Registrar Especie', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit(trans('agrocefa::specie.Register'), ['class' => 'btn btn-primary']) !!}
                 {!! Form::close() !!}
 
             </div>
@@ -78,8 +91,9 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editarEspecieModalLabel_{{ $a->id }}">Editar
-                        Especie</h5>
+                    <h5 class="modal-title" id="editarEspecieModalLabel_{{ $a->id }}">
+                        {{ trans('agrocefa::specie.UpdateSpecie') }}
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -91,11 +105,11 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        {!! Form::label("name_{$a->id}", 'Nombre:') !!}
+                        {!! Form::label("name_{$a->id}", trans('agrocefa::specie.Name') . ':') !!}
                         {!! Form::text('name', $a->name, ['id' => "name_{$a->id}", 'class' => 'form-control', 'required']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label("lifecycle_{$a->id}", 'Ciclo de vida:') !!}
+                        {!! Form::label("lifecycle_{$a->id}", trans('agrocefa::specie.lifecycle') . ':') !!}
                         {!! Form::select('lifecycle', ['Transitorio' => 'Transitorio', 'Permanente' => 'Permanente'], $a->lifecycle, [
                             'id' => "lifecycle_{$a->id}",
                             'class' => 'form-control',
@@ -104,7 +118,7 @@
                     </div>
                     <!-- Agrega más campos según tus necesidades -->
                     <br>
-                    {!! Form::submit('Actualizar Especie', ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit(trans('agrocefa::specie.UpdateSpecie'), ['class' => 'btn btn-primary']) !!}
                     {!! Form::close() !!}
 
                 </div>
@@ -120,18 +134,20 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="eliminaractividadLabel">Eliminar Especie</h5>
+                    <h5 class="modal-title" id="eliminaractividadLabel">{{ trans('agrocefa::specie.DeleteSpecie') }}
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar esta especie?
+                    {{ trans('agrocefa::specie.MessageDelete') }}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">{{ trans('agrocefa::specie.Cancel') }}</button>
                     {!! Form::open(['route' => ['agrocefa.species.destroy', 'id' => $a->id], 'method' => 'POST']) !!}
                     @csrf
                     @method('DELETE')
-                    {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
+                    {!! Form::submit(trans('agrocefa::specie.Delete'), ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>

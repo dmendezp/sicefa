@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\AGROCEFA\Entities\Specie; 
+use Modules\AGROCEFA\Entities\Specie;
 use Modules\SICA\Entities\Activity;
 use Modules\AGROCEFA\Entities\Crop;
 use Modules\SICA\Entities\ActivityType;
@@ -14,19 +14,21 @@ use Modules\SICA\Entities\Environment;
 use Modules\AGROCEFA\Entities\Variety;
 use Modules\AGROCEFA\Http\Controllers\Parameters\ActivityController;
 use Modules\AGROCEFA\Http\Controllers\Parameters\AplicationMethodController;
+use Modules\AGROCEFA\Http\Controllers\SpecieController;
 
 
 class ParameterAgroController extends Controller
-{   
+{
     public function parametersview()
-    {       
+    {
         $activityController = new ActivityController();
         $aplicationController = new AplicationMethodController();
+        $SpecieController = new SpecieController();
         $crops = Crop::all();
         $selectedUnitId = Session::get('selectedUnitId'); // Obtén el ID de la unidad seleccionada
-        $activityTypes= ActivityType::all(); //Listar Tipos de Actividad
-        $species= Specie::all();// listar especies
-        $varieties= Variety::all();//
+        $activityTypes = ActivityType::all(); //Listar Tipos de Actividad
+        $varieties = Variety::all(); //
+        $species = $SpecieController->getSpeciesForSelectedUnit();
         $activities = $activityController->getActivitiesForSelectedUnit(); // Llama a la función y obtiene las actividades
         $laborsData = $aplicationController->getAplicationForLabor(); // Llama a la función y obtiene las actividades
         $environments = Environment::all(); // Agrega esta línea para obtener los ambientes
@@ -44,7 +46,7 @@ class ParameterAgroController extends Controller
         ]);
     }
 
-
+    /* Funcion crear especie */
     public function store(Request $request)
     {
         // Validación de los datos enviados desde el formulario
@@ -70,7 +72,6 @@ class ParameterAgroController extends Controller
     }
 
     /* Funcion editar especie */
-
     public function update(Request $request, $id)
     {
         // Validar los datos del formulario si es necesario
@@ -78,21 +79,20 @@ class ParameterAgroController extends Controller
             'name' => 'required|string|max:255',
             'lifecycle' => 'required|in:Transitorio,Permanente',
         ]);
-    
+
         // Encontrar la especie a actualizar
         $specie = Specie::findOrFail($id);
-    
+
         // Actualizar los datos de la especie
         $specie->name = $request->input('name');
         $specie->lifecycle = $request->input('lifecycle');
         $specie->save();
-    
+
         // Redireccionar a la vista de lista de especies o a otra página según sea necesario
         return redirect()->route('agrocefa.parameters');/* ->with('success', 'Especie actualizada correctamente.') */;
     }
 
     /* Funcion eliminar especie*/
-
     public function destroy($id)
     {
         try {
@@ -118,7 +118,7 @@ class ParameterAgroController extends Controller
         // Crear una nueva instancia de variedad y asignar los valores validados
         $varieties = new Variety();
         $varieties->name = $validatedData['name'];
-        $varieties->specie_id = $validatedData['specie_id'];  
+        $varieties->specie_id = $validatedData['specie_id'];
         // Asigna más valores si hay más campos en el formulario
 
         // Intenta guardar el nuevo registro en la base de datos
@@ -129,7 +129,7 @@ class ParameterAgroController extends Controller
             return redirect()->back()->with('error', 'Error al crear la variedad. Por favor, inténtalo de nuevo.');
         }
     }
-     /* Funcion editar variedad */
+    /* Funcion editar variedad */
 
     public function edit(Request $request, $id)
     {
@@ -138,15 +138,15 @@ class ParameterAgroController extends Controller
             'name' => 'required|string|max:255',
             'specie_id' => 'required    ',
         ]);
-    
+
         // Encontrar la especie a actualizar
         $varieties = Specie::findOrFail($id);
-    
+
         // Actualizar los datos de la especie
         $varieties->name = $request->input('name');
         $varieties->lifecycle = $request->input('lifecycle');
         $varieties->save();
-    
+
         // Redireccionar a la vista de lista de especies o a otra página según sea necesario
         return redirect()->route('agrocefa.parameters')/* ->with('success', 'Especie actualizada correctamente.') */;
     }
@@ -163,6 +163,4 @@ class ParameterAgroController extends Controller
             return redirect()->route('agrocefa.parameters')->with('error', 'Error al eliminar la variedad');
         }
     }
-
-    
 }

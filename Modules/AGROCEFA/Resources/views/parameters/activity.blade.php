@@ -2,8 +2,13 @@
 <div class="card">
     <div class="card-header">
         {{ trans('agrocefa::parameters.Activity') }}
-        <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad"><i
-                class='bx bx-plus icon'></i></button>
+        @auth
+            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad"><i
+                        class='bx bx-plus icon'></i>
+                </button>
+            @endif
+        @endauth
     </div>
     <div class="card-body">
         <table class="table table-sm table-bordered table-striped" style="font-size: 0.9rem;">
@@ -14,7 +19,11 @@
                     <th class="col-1">{{ trans('agrocefa::parameters.1T_Type') }}</th>
                     <th class="col-2">{{ trans('agrocefa::parameters.1T_Description') }}</th>
                     <th class="col-1">{{ trans('agrocefa::parameters.1T_Period') }}</th>
-                    <th class="col-3">{{ trans('agrocefa::parameters.1T_Actions') }}</th>
+                    @auth
+                        @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                            <th class="col-3">{{ trans('agrocefa::parameters.1T_Actions') }}</th>
+                        @endif
+                    @endauth
                 </tr>
             </thead>
             <tbody>
@@ -25,15 +34,18 @@
                         <td>{{ $activity->activity_type->name }}</td>
                         <td>{{ $activity->description }}</td>
                         <td>{{ $activity->period }}</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm btn-edit-activity" data-bs-toggle="modal"
-                                data-bs-target="#editaractividad_{{ $activity->id }}"
-                                data-activity-id="{{ $activity->id }}"><i
-                                    class='bx bx-edit icon'></i></button>
-                            <button class="btn btn-danger btn-sm btn-delete-activity" data-bs-toggle="modal"
-                                data-bs-target="#eliminaractividad_{{ $activity->id }}"><i
-                                    class='bx bx-trash icon'></i></button>
-                        </td>
+                        @auth
+                            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                                <td>
+                                    <button class="btn btn-primary btn-sm btn-edit-activity" data-bs-toggle="modal"
+                                        data-bs-target="#editaractividad_{{ $activity->id }}"
+                                        data-activity-id="{{ $activity->id }}"><i class='bx bx-edit icon'></i></button>
+                                    <button class="btn btn-danger btn-sm btn-delete-activity" data-bs-toggle="modal"
+                                        data-bs-target="#eliminaractividad_{{ $activity->id }}"><i
+                                            class='bx bx-trash icon'></i></button>
+                                </td>
+                            @endif
+                        @endauth
                     </tr>
                 @endforeach
             </tbody>
@@ -42,20 +54,18 @@
 </div>
 <br>
 {{-- Modal Actividad --}}
-<div class="modal fade" id="crearactividad" tabindex="-1" aria-labelledby="crearactividad"
-    aria-hidden="true">
+<div class="modal fade" id="crearactividad" tabindex="-1" aria-labelledby="crearactividad" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Actividad</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 {!! Form::open(['route' => 'agrocefa.activity.create', 'method' => 'POST']) !!}
                 @csrf
                 <div class="form-group">
-                    {!! Form::label('activity_type_id', trans('agrocefa::parameters.Modal_Type_Activity') ) !!}
+                    {!! Form::label('activity_type_id', trans('agrocefa::parameters.Modal_Type_Activity')) !!}
                     {!! Form::select('activity_type_id', $activityTypes->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
@@ -92,8 +102,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="agregarAsistenciaModalLabel">Editar Actividad</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     {!! Form::open(['route' => ['agrocefa.activity.edit', 'id' => $activity->id], 'method' => 'POST']) !!}
@@ -135,15 +144,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="eliminaractividadLabel">Eliminar Actividad</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     ¿Estás seguro de que deseas eliminar esta actividad?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     {!! Form::open(['route' => ['agrocefa.activity.delete', 'id' => $activity->id], 'method' => 'POST']) !!}
                     @csrf
                     @method('DELETE')
@@ -173,11 +180,11 @@
         // Construir la URL del formulario con el ID de la actividad
         var formAction = '{{ route('agrocefa.activity.edit', ['id' => 'ACTIVITY_ID']) }}';
         formAction = formAction.replace('ACTIVITY_ID', activityId);
-        
+
         // Actualizar la URL del formulario con el ID de la actividad
         $('#edit-activity-form').attr('action', formAction);
     });
-    
+
     // Asegúrate de que los datos de las actividades estén disponibles aquí
     var activitiesData = [
         // ... Lista de objetos de actividad con sus propiedades ...

@@ -17,6 +17,7 @@ class CreateSpeciesTable extends Migration
             $table->id();
             $table->string('name');
             $table->enum('lifecycle', ['Transitorio', 'Permanente']);
+            $table->foreignId('productive_unit_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

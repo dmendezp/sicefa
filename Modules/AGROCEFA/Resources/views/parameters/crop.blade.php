@@ -2,8 +2,13 @@
 <div class="card" style="width: 90%; margin-left: 40px">
     <div class="card-header">
         {{ trans('agrocefa::cultivo.Crop') }}
-        <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop"><i
-                class='bx bx-plus icon'></i></button>
+        @auth
+            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop"><i
+                        class='bx bx-plus icon'></i>
+                </button>
+            @endif
+        @endauth
     </div>
     <div class="card-body">
         <table class="table table-sm table-bordered table-striped" style="width: 90%">
@@ -17,7 +22,11 @@
                     <th>{{ trans('agrocefa::cultivo.Environment') }}</th>
                     <th>{{ trans('agrocefa::cultivo.Variety') }}</th>
                     <th>{{ trans('agrocefa::cultivo.End date') }}</th>
-                    <th>Acciones</th>
+                    @auth
+                        @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                            <th>Acciones</th>
+                        @endif
+                    @endauth
                 </tr>
             </thead>
             <tbody>
@@ -37,17 +46,19 @@
                         </td>
                         <td>{{ $crop->variety->name }}</td>
                         <td>{{ $crop->finish_date }}</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm btn-edit-crop"
-                                data-bs-target="#editCultivo_{{ $crop->id }}" data-bs-toggle="modal">
-                                <i class='bx bx-edit icon'></i>
-                            </button>
-
-
-                            <button class="btn btn-danger btn-sm btn-delete-crop" data-bs-toggle="modal"
-                                data-bs-target="#eliminarcultivo_{{ $crop->id }}"><i
-                                    class='bx bx-trash icon'></i></button>
-                        </td>
+                        @auth
+                            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                                <td>
+                                    <button class="btn btn-primary btn-sm btn-edit-crop"
+                                        data-bs-target="#editCultivo_{{ $crop->id }}" data-bs-toggle="modal">
+                                        <i class='bx bx-edit icon'></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm btn-delete-crop" data-bs-toggle="modal"
+                                        data-bs-target="#eliminarcultivo_{{ $crop->id }}"><i
+                                            class='bx bx-trash icon'></i></button>
+                                </td>
+                            @endif
+                        @endauth
                     </tr>
                 @endforeach
             </tbody>

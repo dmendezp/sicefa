@@ -61,6 +61,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id;
 
+        // Gestionar acciones de parametrizacion
+        $permission = Permission::updateOrCreate(['slug' => 'agrocefa.admin.parameters.manage'], [
+            'name' => 'Gestionar acciones de parametrizacion',
+            'description' => 'Puede gestionar las diferentes acciones de la seccion de parámetros',
+            'description_english' => 'You can manage the different actions of the parameters section',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id;
+
         // Gestionar Regitro de Labor
         $permission = Permission::updateOrCreate(['slug' => 'agrocefa.labormanagement.index'], [
             'name' => 'Gestionar el registro de Labores',
