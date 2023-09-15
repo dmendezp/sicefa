@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido a la vista desarrolladores</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-JCHmOKJsZwJzoyY9vgZKLDjp/0sopofWt3IkL5uaz5PzU2Oyj8S+oUi7vQ34lX5wWcHhV1xVfQw28RfWb5NzZsQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* Estilos generales */
         body {
@@ -15,28 +17,6 @@
             padding: 0;
             background-color: #f0f0f0;
             text-align: center;
-        }
-
-        /* Carrusel */
-        .carousel {
-           max-width: 1500px; /* Ancho máximo igual al ancho de las imágenes */
-           max-height: 800px; /* Reducir el alto del carrusel */
-           margin: 0 auto; /* Centrar el carrusel horizontalmente */
-           overflow: hidden;
-           position: relative;
-        }
-
-
-        .carousel-container {
-            display: flex;
-            overflow: hidden;
-        }
-
-        .carousel img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.3s ease-in-out;
         }
 
         /* Tarjetas */
@@ -51,35 +31,23 @@
             background-color: #ecd8d800;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
             max-width: calc(25% - 20px);
-            margin: 10px;
-            padding: 20px;
+            margin: 20px;
+            padding: 5px;
             text-align: center;
             transition: transform 0.2s; /* Agregamos una transición a la propiedad transform */
-            border-radius: 15%; /* Forma de semi círculo */
+            border-radius: 10%; /* Forma de semi círculo */
         }
 
-/* Agregamos el efecto de escala en hover */
-.developer-card:hover {
-    transform: scale(1.05); /* Escalar la tarjeta en un 5% más grande en hover */
-}
-
-
-        .developer-card {
-            background-color: #ecd8d800;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
-            max-width: calc(25% - 20px);
-            margin: 10px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.2s;
-            border-radius: 15%; /* Forma de semi círculo */
+        /* Agregamos el efecto de escala en hover */
+        .developer-card:hover {
+            transform: scale(1.05); /* Escalar la tarjeta en un 5% más grande en hover */
         }
 
         .developer-card img {
-            width: 250px; /* Ancho fijo para las imágenes */
-            height: 250px; /* Altura fija para todas las imágenes */
+            width: 279px; /* Ancho fijo para las imágenes */
+            height: 350px; /* Altura fija para todas las imágenes */
             border-radius: 25%; /* Forma de semi círculo */
-            margin-bottom: 10px;
+            margin-bottom: 4%;
         }
 
         h1 {
@@ -93,68 +61,94 @@
         }
 
         /* Botón de herramientas */
-        .tools-button {
-            background-color: #007BFF;
-            color: #fff;
+        .glitch-button {
+            padding: 10px 50px;
+            font-size: 20px;
             border: none;
-            padding: 10px 20px;
-            margin: 10px auto;
-            border-radius: 0%; /* Forma de semi círculo */
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 24px;
-            transform: translateY(-50%);
+            border-radius: 5px;
+            color: rgb(6, 6, 6);
+            background-color: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        .glitch-button {
+            margin-top: 40px;
+            margin-bottom: 50px; /* Ajusta el margen inferior según sea necesario */
+         /* ... Otros estilos del botón ... */
+        }
+
+        .glitch-button::after {
+            --move1: inset(50% 50% 50% 50%);
+            --move2: inset(31% 0 40% 0);
+            --move3: inset(39% 0 15% 0);
+            --move4: inset(45% 0 40% 0);
+            --move5: inset(45% 0 6% 0);
+            --move6: inset(14% 0 61% 0);
+            clip-path: var(--move1);
+            content: 'GLITCH';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             display: block;
         }
 
-        .tools-button:hover {
-            background-color: #0056b3;
+        .glitch-button:hover::after {
+            animation: glitch_4011 1s;
+            text-shadow: 10px 10px 10px black;
+            animation-timing-function: steps(2, end);
+            text-shadow: -3px -3px 0px #070707df, 3px 3px 0px #000000;
+            background-color: transparent;
+            border: 3px solid rgba(6, 8, 8, 0.037);
+        }
+
+        .glitch-button:hover {
+            text-shadow: -1px -1px 0px #000000f1, 1px 1px 0px #000000;
+            background-color: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.922);
+            box-shadow: 0px 10px 10px -10px rgb(0, 0, 0);
         }
 
         /* Estilos para ocultar la lista de herramientas al principio */
         .hidden {
             display: none;
         }
-
-        /* Estilos para la lista de herramientas */
-        <!-- Estilos para la tabla de imágenes -->
-        .tools-table {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
+        .button-class {
+            margin-top: 10px; /* Ajusta la cantidad de espacio que desees */
         }
 
-        .tools-table img {
-            max-width: 50px; /* Ancho máximo de las imágenes */
-            margin: 0 10px; /* Espacio entre las imágenes */
+        /* Estilo para la imagen de abajo */
+        .tuclase {
+            text-align: center;
+            font-family: 'Comic Sans MS', sans-serif;
+            font-weight: bold;
+            font-size: 100px;
+            color: #19aa05;
+            text-shadow: -1px 0 #414D68, 0 1px #414D68, 1px 0 #414D68, 0 -1px #414D68, -2px 2px 0 #414D68, 2px 2px 0 #414D68, 1px 1px #414D68, 2px 2px #414D68, 3px 3px #414D68, 4px 4px #414D68, 5px 5px #414D68;
+        }
+
+        /* Estilo para los iconos */
+        .icono-grande {
+            font-size: 100px; /* Cambia el tamaño según tus preferencias */
+            margin: 20px; /* Espacio entre los iconos */
         }
 
     </style>
 </head>
 <body>
-    <p>Desarrolladores</p>
-    <div class="carousel">
-        <div class="carousel-container">
-            <img src="{{ asset('agrocefa/images/desar/centro.jpg') }}" class="knowledge_img">
-            <img src="{{ asset('agrocefa/images/desar/caru2.jpg') }}" class="knowledge_img">   
-            <img src="{{ asset('agrocefa/images/desar/.jpg') }}" class="knowledge_img">
-            <img src="{{ asset('agrocefa/images/desar/.jpg') }}" class="knowledge_img">
-        </div>
-    </div>
-    
-    <div class="carousel-container">
-        <button class="carousel-button" onclick="prevSlide()">&#10094;</button>
-        <button class="carousel-button" onclick="nextSlide()">&#10095;</button>
-    </div>
+   
+    <!-- Título con imagen curvada -->
+    <h1 class="curved-title tuclase">{{ trans('agrocefa::desarrolladores.Developers')}}</h1>
 
     <div class="card-container">
         <div class="developer-card">
-            <img src="{{ asset('agrocefa/images/desar/caru.jpg') }}" class="knowledge_img">
-            <h1>Andres Almario</h1>
+            <img src="{{ asset('agrocefa/images/desar/mario.jpg') }}" class="knowledge_img">
+            <h1>Andres Felipe Almario</h1>
         </div>
 
         <div class="developer-card">
-            <img src="{{ asset('agrocefa/images/desar/yaya.jpg') }}" class="knowledge_img">   
+            <img src="{{ asset('agrocefa/images/desar/ya.jpg') }}" class="knowledge_img">   
             <h1>Dayana Valenzuela</h1>
         </div>
 
@@ -164,55 +158,32 @@
         </div>
 
         <div class="developer-card">
-            <img src="{{ asset('agrocefa/images/desar/.jpg') }}" class="knowledge_img">
+            <img src="{{ asset('agrocefa/images/desar/lau.jpg') }}" class="knowledge_img">
             <h1>Laura Rodriguez</h1>
         </div>
     </div>
 
-    <button class="tools-button" onclick="showTools()">herramientas uttlizadas para el desarrollo</button>
-
-    <div class="tools-list hidden">
-        <h2>Herramientas Utilizadas:</h2>
+    <button class="btn glitch-button" onclick="showTools()">{{ trans('agrocefa::desarrolladores.Tools used for development')}}</button>
+    <div class="hidden">
         <div class="tools-table">
-            <img src="ruta-de-la-imagen-1.jpg" alt="Herramienta 1">
-            <img src="ruta-de-la-imagen-2.jpg" alt="Herramienta 2">
-            <img src="ruta-de-la-imagen-3.jpg" alt="Herramienta 3">
-            <!-- Agrega más imágenes según sea necesario -->
+            <i class="fab fa-html5 icono-grande" title="HTML"></i>
+            <i class="fab fa-js icono-grande" title="JavaScript"></i>
+            <i class="fab fa-php icono-grande" title="PHP"></i>
+            <i class="fab fa-laravel icono-grande" title="Laravel"></i>
+            <i class="fab fa-bootstrap icono-grande" title="Bootstrap"></i>
+            <i class="fab fa-css3 icono-grande" title="CSS"></i>
+            <i class="fab fa-git icono-grande" title="Git"></i>
+            <i class="fas fa-comment-alt icono-grande" title="Chat GPT"></i>
         </div>
     </div>
     
-
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel img');
-
-        function showSlide(index) {
-            if (index < 0) {
-                index = slides.length - 1;
-            } else if (index >= slides.length) {
-                index = 0;
-            }
-
-            slides.forEach((slide) => {
-                slide.style.transform = 'translateX(-' + (index * 100) + '%)';
-            });
-
-            currentSlide = index;
-        }
-
-        function prevSlide() {
-            showSlide(currentSlide - 1);
-        }
-
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
-
         function showTools() {
-            const toolsList = document.querySelector('.tools-list');
+            const toolsList = document.querySelector('.hidden');
             toolsList.classList.toggle('hidden');
         }
     </script>
+    @include('agrocefa::partials.footer')
 </body>
 </html>
 @endsection

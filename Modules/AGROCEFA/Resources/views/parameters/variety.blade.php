@@ -82,7 +82,8 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar esta Variedad?
+               {{ trans('agrocefa::variety.edit variety')}}
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
