@@ -9,7 +9,7 @@ class CAFETOController extends Controller
 {
 
     public function index(){
-        $view = ['titlePage'=>'Inicio', 'titleView'=>'Página Principal'];
+        $view = ['titlePage'=>trans('cafeto::controllers.CAFETO_index_title_page'), 'titleView'=>trans('cafeto::controllers.CAFETO_index_title_view')];
         $apps = App::get();
         return view('cafeto::index', compact('apps', 'view'));
     }
@@ -31,6 +31,20 @@ class CAFETOController extends Controller
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_configuration_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_configuration_title_view')];
         $apps = App::get();
         return view('cafeto::configuration.index', compact('apps','view'));
+    }
+
+    public function admin()
+    {
+        $view = ['titlePage' => trans('cafeto::controllers.CAFETO_admin_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_admin_title_view')];
+        $apps = App::get();
+        return view('cafeto::admin-index', compact('apps','view'));
+    }
+
+    public function cashier()
+    {
+        $view = ['titlePage' => trans('cafeto::controllers.CAFETO_cashier_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_cashier_title_view')];
+        $apps = App::get();
+        return view('cafeto::cashier-index', compact('apps','view'));
     }
 
 }

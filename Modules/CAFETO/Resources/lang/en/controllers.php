@@ -14,4 +14,10 @@ return [
     // Configuration
 	'CAFETO_configuration_title_page' => 'Configuration',
 	'CAFETO_configuration_title_view' => 'Configuration',
+    // Index - Admin
+	'CAFETO_admin_title_page' => 'Administrator',
+	'CAFETO_admin_title_view' => 'Homepage',
+    // Index - Cashier
+	'CAFETO_cashier_title_page' => 'Cashier',
+	'CAFETO_cashier_title_view' => 'Homepage',
 ];

@@ -5,14 +5,20 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars" style="color:aliceblue"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('cefa.cafeto.index') }}" class="nav-link text-light">Inicio</a>
+            <a href="{{ route('cefa.cafeto.index') }}" class="nav-link text-light @if(Route::is('cefa.cafeto.*')) active @endif">Inicio</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link text-light">Administrador</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link text-light">Cajero</a>
-        </li>
+        @auth
+            @if(checkRol('cafeto.admin'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('cafeto.admin.index') }}" class="nav-link text-light @if(Route::is('cafeto.admin*')) active @endif">Administrador</a>
+                </li>
+            @endif
+            @if (checkRol('cafeto.cashier'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('cafeto.cashier.index') }}" class="nav-link text-light @if(Route::is('cafeto.cashier*')) active @endif">Cajero</a>
+                </li>
+            @endif
+        @endauth
     </ul>
 
     <!-- Right navbar links -->
