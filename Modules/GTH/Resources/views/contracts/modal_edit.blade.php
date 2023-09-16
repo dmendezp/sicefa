@@ -53,21 +53,27 @@
                         <div class="mb-3">
                             <label for="contractor_type_id-{{ $contract->id }}"
                                 class="form-label">Tipo de Contrato:</label>
-                            <input type="text" class="form-control"
-                            id="contractor_type_id-{{ $contract->id }}"
-                            name="contractor_type_id"
-                            value="{{ old('contractor_type_id', $contract->contractor_type_id) }}"
-                            required>
+                            <select name="contractor_type_id" id="contractor_type_id"
+                                class="form-control @error('contractor_type_id') is-invalid @enderror"
+                                required>
+                                @foreach ($contractorTypes as $contractorType)
+                                <option value="{{ $contractorType->id }}" {{ $contractorType->id == $contract->contractor_type_id ? 'selected' : '' }}>
+                                        {{ $contractorType->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label for="employee_type_id-{{ $contract->id }}"
-                                class="form-label">Tipo de Empleado:</label>
-                                <input type="text" class="form-control"
-                                id="employee_type_id-{{ $contract->id }}"
-                                name="employee_type_id"
-                                value="{{ old('employee_type_id', $contract->employee_type_id) }}"
-                                required>
+                            <label for="employee_type_id-{{ $contract->id }}" class="form-label">Tipo de Empleado:</label>
+                            <select name="employee_type_id" id="employee_type_id" class="form-control @error('employee_type_id') is-invalid @enderror" required>
+                                @foreach ($employeeTypes as $employeeType)
+                                    <option value="{{ $employeeType->id }}" {{ $employeeType->id == $contract->employee_type_id ? 'selected' : '' }}>
+                                        {{ $employeeType->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
+                        
                         <div class="mb-3">
                             <label for="amount_hours-{{ $contract->id }}"
                                 class="form-label">Horas de Trabajo:</label>
@@ -121,15 +127,20 @@
                                 required>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="insurer_entity_id-{{ $contract->id }}"
-                                class="form-label">Entidad Aseguradora:</label>
-                            <input type="text" class="form-control"
-                                id="insurer_entity_id-{{ $contract->id }}"
-                                name="insurer_entity_id"
-                                value="{{ old('insurer_entity_id', $contract->insurer_entity_id) }}"
-                                required>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="insurer_entity_id">Entidad Aseguradora:</label>
+                                <select name="insurer_entity_id" id="insurer_entity_id"
+                                    class="form-control @error('insurer_entity_id') is-invalid @enderror" required>
+                                    @foreach ($insurerEntitys as $insurerEntity)
+                                        <option value="{{ $insurerEntity->id }}" {{ $insurerEntity->id == $contract->insurer_entity_id ? 'selected' : '' }}>
+                                            {{ $insurerEntity->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
+                        
                         <div class="mb-3">
                             <label for="policy_number-{{ $contract->id }}"
                                 class="form-label">Número de Póliza:</label>
@@ -177,21 +188,31 @@
                                 value="{{ old('policy_expiration_date', $contract->policy_expiration_date) }}"
                                 required>
                         </div>
-                        <div class="mb-3">
-                            <label for="risk_type-{{ $contract->id }}"
-                                class="form-label">Tipo de Riesgo:</label>
-                            <input type="text" class="form-control"
-                                id="risk_type-{{ $contract->id }}" name="risk_type"
-                                value="{{ old('risk_type', $contract->risk_type) }}"
-                                required>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="risk_type">Tipo de Riesgo:</label>
+                                <select name="risk_type" id="risk_type" class="form-control @error('risk_type') is-invalid @enderror" required>
+                                    <option value="I" {{ old('risk_type', $contract->risk_type) == 'I' ? 'selected' : '' }}>I</option>
+                                    <option value="II" {{ old('risk_type', $contract->risk_type) == 'II' ? 'selected' : '' }}>II</option>
+                                    <option value="III" {{ old('risk_type', $contract->risk_type) == 'III' ? 'selected' : '' }}>III</option>
+                                    <option value="IV" {{ old('risk_type', $contract->risk_type) == 'IV' ? 'selected' : '' }}>IV</option>
+                                    <option value="V" {{ old('risk_type', $contract->risk_type) == 'V' ? 'selected' : '' }}>V</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="state-{{ $contract->id }}"
-                                class="form-label">Estado:</label>
-                            <input type="text" class="form-control"
-                                id="state-{{ $contract->id }}" name="state"
-                                value="{{ old('state', $contract->state) }}" required>
+                        
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="state">Estado:</label>
+                                <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
+                                    <option value="Activo" {{ old('state', $contract->state) === 'Activo' ? 'selected' : '' }}>
+                                        Activo</option>
+                                    <option value="Inactivo" {{ old('state', $contract->state) === 'Inactivo' ? 'selected' : '' }}>
+                                        Inactivo</option>
+                                </select>
+                            </div>
                         </div>
+                        
                         <div class="mb-3">
                             <label for="contract_object-{{ $contract->id }}"
                                 class="form-label">Objeto del Contrato:</label>

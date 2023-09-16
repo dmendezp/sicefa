@@ -8,10 +8,7 @@
                     <div class="card-header">
                         <h1 class="card-title">Reportes de contratos</h1>
                     </div>
-                    <div class="card-body">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearModal">
-                            Crear Contrato
-                        </button>
+                
                         <table class="table">
                             <thead>
                                 <tr>

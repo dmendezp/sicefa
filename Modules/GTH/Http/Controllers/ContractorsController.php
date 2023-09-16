@@ -5,6 +5,9 @@ namespace Modules\GTH\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Contractor;
+use Modules\SICA\Entities\EmployeeType;
+use Modules\SICA\Entities\ContractorType;
+use Modules\SICA\Entities\InsurerEntity;
 
 class ContractorsController extends Controller
 {
@@ -12,7 +15,10 @@ class ContractorsController extends Controller
     public function viewcontractor()
     {
         $contractor = Contractor::get();
-        return view('gth::contracts.contractors', ['contractor' => $contractor]);
+        $employeeTypes = EmployeeType::all();
+        $contractorTypes = ContractorType::all();
+        $insurerEntitys = InsurerEntity::all();
+        return view('gth::contracts.contractors', ['contractor' => $contractor, 'employeeTypes' => $employeeTypes, 'contractorTypes' => $contractorTypes, 'insurerEntitys' => $insurerEntitys]);
     }
 
 
@@ -57,7 +63,6 @@ class ContractorsController extends Controller
             return redirect()->black()->with('error', 'Error al actualizar vacante');
         };
 
-        // Redirigir a donde quieras después de la actualización
         
     }
 
