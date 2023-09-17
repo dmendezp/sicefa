@@ -17,7 +17,6 @@ class ProductiveUnitRoleTable extends Migration
             $table->id();
             $table->foreignId('productive_unit_id')->constrained()->onDelete('cascade');
             $table->foreignId('role_id')->constrained()->onDelete('cascade');
-            $table->softDeletes();
             $table->timestamps();
             $table->unique(['productive_unit_id','role_id'], 'unique_productive_unit_role'); // Generar llave única entre las columnas productive_unit y role_id
         });
