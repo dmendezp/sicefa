@@ -186,76 +186,6 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
-                <!-- fin de las longitudes y latitudes -->
-                <!-- inicio para el id de la unidad -->
-                <div class="row align-items-end">
-                  <div class="col">
-                    <div class="form-group">
-                      <label for="unit">{{ trans('cefamaps::environment.Productive units') }}</label>
-                      {!! Form::select('productive_unit_id',$unitadd, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="form-group">
-                      <label>{{ trans('cefamaps::menu.Add') }} {{ trans('cefamaps::environment.Productive units') }}</label>
-                      <br>
-                        <a href="#" class="btn btn-light btn-block btn-outline-success addunit" type="button">
-                          <i class="fa-solid fa-square-plus"></i>
-                        </a>
-                    </div>
-                  </div>
-                </div>
-                <!-- fin para el id de la unidad -->
-                <!-- inicio de los complementos de environment -->
-                <div class="row align-items-end">
-                  <!-- inicio de la clase de ambiente -->
-                  <div class="col">
-                    <div class="form-group">
-                      <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
-                      {!! Form::select('class_environment_id',$classenvironadd, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
-                    </div>
-                  </div>
-                  <!-- fin de la clase de ambiente -->
-                  <div class="col">
-                    <!-- inicio de la Farm id -->
-                    <div class="form-group">
-                      <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
-                      {!! Form::select('farm_id',$farm, [],['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
-                    </div>
-                    <!-- fin de la Farm id -->
-                  </div>
-                  <!-- inicio del estado del environment -->
-                  <div class="col">
-                    <div class="form-group">
-                      <label for="status">{{ trans('cefamaps::menu.Status') }} {{ trans('cefamaps::environment.Environment') }}</label>
-                      {!! Form::select('status',getEnumValues('environments', 'status'),null, ['class' =>'form-control','placeholder' => 'Selecciona...','required'])!!}
-                    </div>
-                  </div>
-                  <!-- fin del estado del environment -->
-                </div>
-                <!-- fin de los complementos de environment -->
-                <!-- inicio de la prueba -->
-                <div class="form-group">
-                  <label>{{ trans('cefamaps::menu.Type') }} {{ trans('cefamaps::environment.Coordinates') }}</label>
-                  <select id="option" class="form-control select2" name="type" required>
-                    <option value="">Seleccione...</option>
-                    <option value="Polygon">{{ trans('cefamaps::environment.Polygon') }}</option>
-                    <option value="EvacuationRoute">{{ trans('cefamaps::environment.Evacuation route') }}</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <p id="aqui"></p>
-                </div>
-                <!-- fin de la prueba -->
-                <!-- inicio boton de agregar -->
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-light btn-block btn-outline-info btn-lg">{{ trans('cefamaps::menu.Save') }}</button>
-                </div>
-                <!-- fin boton de agregar -->
-              </form>
-=======
->>>>>>> FABRICA4
             </div>
         </div>
     </div>
@@ -364,39 +294,9 @@
                     '<button id="addRow" type="button" class="btn btn-info">{{ trans('cefamaps::menu.Add') }}</button>' +
                     '</div>'
 
-<<<<<<< HEAD
-      } else if (eleccion === 'EvacuationRoute') {
-        parrafo.innerHTML +=  '<div id="inputFormRow">' +
-                                '<div class="row align-items-center">' +
-                                  '<div class="col">' +
-                                    '<div class="form-group">' +
-                                      '<label for="lengthrou">{{ trans("cefamaps::environment.Length") }}</label>' +
-                                      '<input type="text" class="form-control m-input" id="lengthrou" name="lengthrou[]">' +
-                                    '</div>' +
-                                  '</div>' +
-                                  '<div class="col">' +
-                                    '<div class="form-group">' +
-                                      '<label for="latituderou">{{ trans("cefamaps::environment.Latitude") }}</label>' +
-                                      '<input type="text" class="form-control m-input" id="latituderou" name="latituderou[]">' +
-                                    '</div>' +
-                                  '</div>' +
-                                  '<div class="col-1">' +
-                                    '<div class="form-group">' +
-                                      '<br>' +
-                                      '<button id="Eliminar" type="button" class="btn btn-danger">{{ trans("cefamaps::menu.Delete") }}</button>' +
-                                    '</div>' +
-                                  '</div>' +
-                                '</div>' +
-                              '</div>' +
-                              '<div id="Agregar"></div>' +
-                              '<div class="d-grid gap-2">' +
-                                '<button id="addRow" type="button" class="btn btn-info">{{ trans("cefamaps::menu.Add") }}</button>' +
-                              '</div>'
-=======
                 // agregar registro
                 $('#addRow').click(function() {
                     var html = "";
->>>>>>> FABRICA4
 
                     html += '<div id="inputFormRow">';
                     html += '<div class="row align-items-end">';
@@ -423,33 +323,8 @@
                     html += '</div>';
                     html += '</div>';
 
-<<<<<<< HEAD
-                                html += '<div id="inputFormRow">';
-                                html += '<div class="row align-items-end">';
-                                html += '<div class="col">';
-                                html += '<div class="form-group">';
-                                html += '<label for="lengthrou">{{ trans("cefamaps::environment.Length") }}</label>';
-                                html += '<input type="text" class="form-control m-input" id="lengthrou" name="lengthrou[]">';
-                                html += '</div>';
-                                html += '</div>';
-                                html += '<div class="col">';
-                                html += '<div class="form-group">';
-                                html += '<label for="latituderou">{{ trans("cefamaps::environment.Latitude") }}</label>';
-                                html += '<input type="text" class="form-control m-input" id="latituderou" name="latituderou[]">';
-                                html += '</div>';
-                                html += '</div>';
-                                html += '<div class="col-1">';
-                                html += '<div class="form-group">';
-                                html += '<br>';
-                                html += '<button id="Eliminar" type="button" class="btn btn-danger">{{ trans("cefamaps::menu.Delete") }}</button>';
-                                html += '</div>';
-                                html += '</div>';
-                                html += '</div>';
-                                html += '</div>';
-=======
                     $('#Agregar').append(html);
                 });
->>>>>>> FABRICA4
 
                 // borrar registro
                 $(document).on('click', '#Eliminar', function() {

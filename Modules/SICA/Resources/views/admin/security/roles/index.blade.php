@@ -12,7 +12,12 @@
                             </div>
                             <div class="col-md-auto px-0">
                                 <a href="{{ route('sica.admin.security.roles.permision_role.index') }}" class="btn btn-info float-right ml-1">
-                                    <i class="fa-solid fa-angles-right fa-beat-fade mr-1"></i> Relación de roles y permisos
+                                    <i class="fa-solid fa-angles-right fa-beat-fade mr-1"></i> Roles y permisos
+                                </a>
+                            </div>
+                            <div class="col-md-auto px-0">
+                                <a href="{{ route('sica.admin.security.roles.pu_roles.index') }}" class="btn btn-info float-right ml-1">
+                                    <i class="fa-solid fa-angles-right fa-beat-fade mr-1"></i> Roles y unidades productivas
                                 </a>
                             </div>
                             <div class="col-md-auto px-0">

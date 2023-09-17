@@ -38,6 +38,5 @@
           <a href="#" class="dropdown-item">{{ trans('bienestar::menu.Log Out')}}</a>
         </div>
       </li>
-        
     </ul>
   </nav>

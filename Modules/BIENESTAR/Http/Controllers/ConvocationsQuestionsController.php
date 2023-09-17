@@ -106,16 +106,16 @@ class ConvocationsQuestionsController extends Controller
     public function saveForm(Request $request)
     {
         // Validar los datos del formulario
-        $request->validate( [
-            'convocatoria_id' => 'required|exists:convocations,id', // Asegúrate de que estés validando contra la tabla de convocatorias
-            'selected_question_ids' => 'required|string', // Ajusta esto según tu necesidad
+        $request->validate([
+            'convocatoria_id' => 'required|exists:convocations,id',
+            'selected_question_ids' => 'required|string',
         ]);
-
+    
         try {
             // Obtener el ID de la convocatoria y los IDs de las preguntas seleccionadas
             $convocatoriaId = $request->input('convocatoria_id');
             $selectedQuestionIds = explode(',', $request->input('selected_question_ids'));
-
+    
             // Recorre los IDs de las preguntas seleccionadas y guárdalos en la base de datos
             foreach ($selectedQuestionIds as $questionId) {
                 // Aquí puedes guardar $convocatoriaId y $questionId en tu base de datos
@@ -124,13 +124,14 @@ class ConvocationsQuestionsController extends Controller
                 $pregunta->questions_id = $questionId;
                 $pregunta->save();
             }
-
+    
             // Devolver una respuesta JSON exitosa
-            return response()->json(['mensaje' => 'Guardado correctamente'], 200);
+            return redirect()->route('cefa.bienestar.editform')->with('success','Se ha guardado con exito');
         } catch (\Exception $e) {
             // En caso de error, manejar el error y devolver una respuesta JSON con un mensaje de error
-            return response()->json(['mensaje' => 'Ha ocurrido un error al intentar guardar'], 500);
+            return redirect()->route('cefa.bienestar.editform')->with('error','Error al guardar');
         }
     }
+    
     
 }

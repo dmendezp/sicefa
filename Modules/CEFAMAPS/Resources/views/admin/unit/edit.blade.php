@@ -10,101 +10,6 @@
 @endsection
 
 @section('content')
-<<<<<<< HEAD
-
-  <div class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card card-lightblue card-outline">
-            <div class="card-header">
-              <h3 class="m-0">{{ trans('cefamaps::menu.Edit') }} {{$editunit->name}}</h3>
-            </div>
-            <div class="card-body">
-              <div class="content">
-                <form action="{{ route('cefamaps.admin.unit.edit') }}" method="post">
-                  @csrf
-                  <input type="hidden" name="id" value="{{ $editunit->id }}" required>
-                    <!-- inicio del nombre -->
-                    <div class="form-group">
-                      <label for="name">{{ trans('cefamaps::unit.Name') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
-                      <input type="text" class="form-control" id="name" name="name" value="{{ $editunit->name }}" required>
-                    </div>
-                    <!-- fin del nombre -->
-                  <div class="row align-items-center">
-                    <div class="col">
-                      <!-- inicio del icono -->
-                      <div class="form-group">
-                        <label for="icon">{{ trans('cefamaps::unit.Icon') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
-                        <?php
-                          $datosDefinidos = [
-                            'fa-solid fa-hippo' => 'Hipopotamo',
-                            'fa-solid fa-otter' => 'Nutria',
-                            'fa-solid fa-dog' => 'Perro',
-                            'fa-solid fa-cow' => 'Vaca',
-                            'fa-solid fa-fish' => 'Pescado',
-                            'fa-solid fa-shrimp' => 'Camarón',
-                            'fa-solid fa-horse' => 'Caballo',
-                            'fa-solid fa-frog' => 'Rana',
-                            'fa-solid fa-dove' => 'Paloma',
-                            'fa-solid fa-cat' => 'Gato',
-                            'fa-solid fa-piggy-bank' => 'Cerdo',
-                            'fa-regular fa-lemon' => 'Limon',
-                            'fas fa-seedling' => 'Arroz',
-                            'fa-solid fa-building-wheat' => 'Edificio de Trigo',
-                            'fa-solid fa-tree' => 'Arbol de Mango',
-                            'fas fa-coffee' => 'Cafe'
-                          ];
-
-                          $datoIngresado = $editunit->icon;
-
-                          echo '<select class="form-control select2" name="icon" id="icon">';
-                          foreach ($datosDefinidos as $valor => $texto) {
-                            echo '<option value="' . $valor . '"';
-                            if ($valor === $datoIngresado) {
-                              echo ' selected';
-                            }
-                            echo '>' . $texto . '</option>';
-                          }
-                          echo '</select>';
-                        ?>
-                      </div>
-                      <!-- fin del icono -->
-                    </div>
-                    <div class="col">
-                      <!-- inicio del Sector -->
-                      <div class="form-group">
-                        <label for="sector">{{ trans('cefamaps::sector.Sector') }}</label>
-                        {!! Form::select('sector_id',$sectoredit, $editunit->sector_id,['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
-                      </div>
-                      <!-- fin del Sector -->
-                    </div>
-                    <div class="col">
-                      <!-- incio de la farm -->
-                      <div class="form-group">
-                        <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
-                        {!! Form::select('farm_id',$farm, $editunit->farm_id,['class' => 'form-control','placeholder' => 'Seleccione...', 'required']) !!}
-                      </div>
-                      <!-- fin de la farm -->
-                    </div>
-                  </div>
-                  <!-- inicio de la descripcion -->
-                  <div class="form-group">
-                    <label for="description">{{ trans('cefamaps::unit.Description') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
-                    <input type="text" class="form-control" id="description" name="description" value="{{ $editunit->description }}" required>
-                  </div>
-                  <!-- fin de la descripcion -->
-                  <div class="row align-items-end">
-                    <div class="col">
-                      <!-- inicio de la persona encargada de la unidad -->
-                      <div class="form-group">
-                        <label for="person">{{ trans('cefamaps::unit.Person in charge') }} {{ trans('cefamaps::unit.Of The') }} {{ trans('cefamaps::unit.Unit') }}</label>
-                        <div class="input-group mb-3">
-                          <input type="number" class="form-control" placeholder="{{ trans('cefamaps::unit.Number') }} {{ trans('cefamaps::menu.Of The') }} {{ trans('cefamaps::unit.Document') }}" id="document" name="document" value="{{ $editunit->person->document_number }}">
-                          <div class="input-group-append">
-                            <button id="search" class="btn btn-info btn-block" type="button">{{ trans('cefamaps::menu.Search') }}</button>
-                          </div>
-=======
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -243,7 +148,6 @@
                                     </div>
                                 </form>
                             </div>
->>>>>>> FABRICA4
                         </div>
                     </div>
                 </div>

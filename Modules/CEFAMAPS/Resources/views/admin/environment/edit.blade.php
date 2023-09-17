@@ -1,14 +1,6 @@
 @extends('cefamaps::layouts.master')
 
 @section('breadcrumb')
-<<<<<<< HEAD
-
-    <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i> {{ trans('cefamaps::menu.Administrator') }}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.environment.index') }}"><i class="nav-icon fas fa-solid fa-chalkboard-user"></i> {{ trans('cefamaps::environment.Environment') }}</a></li>
-    <li class="breadcrumb-item"><a href="#"><i class="fas fa-map-signs"></i> {{ trans('cefamaps::menu.Edit') }}</a></li>
-    <li class="breadcrumb-item"><a href="#"><img src="{{ asset('modules/cefamaps/images/uploads/'.$editenviron->picture) }}" width="25" height="25">{{$editenviron->name}}</a></li>
-
-=======
     <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.dashboard') }}"><i class="fas fa-solid fa-user-tie"></i>
             {{ trans('cefamaps::environment.Breadcrumb_Environment') }}</a></li>
     <li class="breadcrumb-item"><a href="{{ route('cefamaps.admin.config.environment.index') }}"><i
@@ -18,7 +10,6 @@
     <li class="breadcrumb-item"><a href="#"><img
                 src="{{ asset('modules/cefamaps/images/uploads/' . $editenviron->picture) }}" width="25"
                 height="25">{{ $editenviron->name }}</a></li>
->>>>>>> FABRICA4
 @endsection
 
 @section('content')
@@ -54,12 +45,8 @@
                                             </div>
                                         </div>
                                         <div class="col-2">
-<<<<<<< HEAD
-                                            <img src="{{ asset('modules/cefamaps/images/uploads/'.$editenviron->picture) }}" width="90" height="90">
-=======
                                             <img src="{{ asset('modules/cefamaps/images/uploads/' . $editenviron->picture) }}"
                                                 width="90" height="90">
->>>>>>> FABRICA4
                                         </div>
                                     </div>
                                     <!-- fin de la imagen -->
@@ -120,10 +107,6 @@
                                     <!-- fin de las longitudes y latitudes -->
                                     <!-- inicio para el id de la unidad -->
                                     <div class="form-group">
-<<<<<<< HEAD
-                                        <label for="unit">{{ trans('cefamaps::environment.Productive units') }}</label>
-                                        {!! Form::select('productive_unit_id',$unitedit, $editenviron->productive_unit_id,['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
-=======
                                         <label
                                             for="unit">{{ trans('cefamaps::environment.Label_Productive_Unit') }}</label>
                                         {!! Form::select('productive_unit_id', $unitedit, $editenviron->productive_unit_id, [
@@ -131,7 +114,6 @@
                                             'placeholder' => 'Seleccione...',
                                             'required',
                                         ]) !!}
->>>>>>> FABRICA4
                                     </div>
                                     <!-- fin para el id de la unidad -->
                                     <!-- inicio de los complementos de environment -->
@@ -139,34 +121,24 @@
                                         <!-- inicio de la clase de ambiente -->
                                         <div class="col">
                                             <div class="form-group">
-<<<<<<< HEAD
-                                                <label for="class">{{ trans('cefamaps::menu.Class') }} {{ trans('cefamaps::environment.Environment') }}</label>
-                                                {!! Form::select('class_environment_id',$classenvironedit, $editenviron->class_environment_id,['class' => 'form-control','placeholder' => 'Seleccione...','required']) !!}
-=======
                                                 <label for="class">{{ trans('cefamaps::environment.Label_Environment_Class') }}</label>
                                                 {!! Form::select('class_environment_id', $classenvironedit, $editenviron->class_environment_id, [
                                                     'class' => 'form-control',
                                                     'placeholder' => 'Seleccione...',
                                                     'required',
                                                 ]) !!}
->>>>>>> FABRICA4
                                             </div>
                                         </div>
                                         <!-- fin de la clase de ambiente -->
                                         <div class="col">
                                             <!-- inicio para el id del Farm -->
                                             <div class="form-group">
-<<<<<<< HEAD
-                                                <label for="farm">{{ trans('cefamaps::unit.Farm') }}</label>
-                                                {!! Form::select('farm_id',$farm, $editenviron->farm_id,['class' => 'form-control','placeholder' => 'Seleccione...', 'required']) !!}
-=======
                                                 <label for="farm">{{ trans('cefamaps::environment.Label_Farm') }}</label>
                                                 {!! Form::select('farm_id', $farm, $editenviron->farm_id, [
                                                     'class' => 'form-control',
                                                     'placeholder' => 'Seleccione...',
                                                     'required',
                                                 ]) !!}
->>>>>>> FABRICA4
                                             </div>
                                             <!-- fin para el id del Farm -->
                                         </div>
@@ -198,17 +170,6 @@
                                         <div class="content">
                                             <!-- inicio de las longitudes y latitudes -->
                                             <div class="form-group">
-<<<<<<< HEAD
-                                                @foreach($editenviron->coordinates as $c)
-                                                    <div id="inputFormRow{{$c->id}}">
-                                                        <input type="hidden" name="idcoord[]" id="idcoordenada" value="{{$c->id}}">
-                                                        <div class="row align-items-center">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label for="length">{{ trans('cefamaps::environment.Length') }}</label>
-                                                                    <input type="text" class="form-control m-input" id="length[]" name="length[]" value="{{$c->length}}">
-                                                                </div>
-=======
                                                 @foreach ($editenviron->coordinates as $c)
                                                     <input type="hidden" name="idcoord[]" id="idcoordenada"
                                                         value="{{ $c->id }}">
@@ -220,7 +181,6 @@
                                                                 <input type="text" class="form-control m-input"
                                                                     id="length[]" name="length[]"
                                                                     value="{{ $c->length }}">
->>>>>>> FABRICA4
                                                             </div>
                                                         </div>
                                                         <div class="col-md-5">
@@ -303,41 +263,7 @@
             $('#Agregar').append(html);
         });
 
-<<<<<<< HEAD
-    // agregar registro
-    $('#addRow').click(function () {
-    var html = "";
-    html += '<div id="inputFormRow">';
-    html += '<div class="row align-items-end">';
-    html += '<div class="col">';
-    html += '<div class="form-group">';
-    html += '<label for="length">{{ trans("cefamaps::environment.Length") }}</label>';
-    html += '<input type="hidden" id="idEnv" name="idlength[]"">';
-    html += '<input type="text" class="form-control m-input" id="idLongitud">';
-    html += '</div>';
-    html += '</div>';
-    html += '<div class="col">';
-    html += '<div class="form-group">';
-    html += '<label for="latitude">{{ trans("cefamaps::environment.Latitude") }}</label>';
-    html += '<input type="hidden" name="idlatitude[]"">';
-    html += '<input type="text" class="form-control m-input" id="idLatitud">';
-    html += '</div>';
-    html += '</div>';
-    html += '<div class="col-1">';
-    html += '<div class="form-group">';
-    html += '<br>';
-    html += '<button id="btnEliminar" onclick="eliminarInput({{$coor->id}})" type="button" class="btn btn-danger">{{ trans("cefamaps::menu.Delete") }}</button>';
-    html += '<button id="btnCrear" onclick="addInput()" type="button" class="btn btn-info">{{ trans("cefamaps::menu.Save") }}</button>';
-    html += '</div>';
-    html += '</div>';
-    html += '</div>';
-    html += '</div>';
-
-    $('#Agregar').append(html);
-  });
-=======
         var ideEl;
->>>>>>> FABRICA4
 
         function eliminarInput(id) {
             if (id === '') {} else {
@@ -382,29 +308,16 @@
 
     <!-- Inicio mapa para las cooordenadas -->
     <script type="text/javascript">
-<<<<<<< HEAD
-    
-    function initMap(){
-      var latitude = {{$editenviron->latitude}};
-      var length = {{$editenviron->length}};
-=======
         function initMap() {
             var latitude = {{ $editenviron->latitude }};
             var length = {{ $editenviron->length }};
->>>>>>> FABRICA4
 
             coordenas = {
                 lng: length,
                 lat: latitude
             };
 
-<<<<<<< HEAD
-      generarMapa(coordenas);
-      
-    };
-=======
             generarMapa(coordenas);
->>>>>>> FABRICA4
 
         };
 
@@ -415,22 +328,11 @@
                 center: new google.maps.LatLng(coordenas.lat, coordenas.lng)
             });
 
-<<<<<<< HEAD
-      marcador.addListener('dragend', function(event){
-        document.getElementById("latitude").value = this.getPosition().lat();
-        document.getElementById("length").value = this.getPosition().lng();
-      });
-    }
-    
-  </script>
-  <!-- Fin mapa para las cooordenadas -->
-=======
             marcador = new google.maps.Marker({
                 map: mapa,
                 draggable: true,
                 position: new google.maps.LatLng(coordenas.lat, coordenas.lng)
             });
->>>>>>> FABRICA4
 
             marcador.addListener('dragend', function(event) {
                 document.getElementById("latitude").value = this.getPosition().lat();

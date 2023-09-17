@@ -55,14 +55,14 @@ class BusDriversController extends Controller
 
     public function delete($id)
     {
+        
+    try {
         $busdriver = BusDrivers::find($id);
-
-        if (!$busdriver) {
-            return redirect()->route('cefa.bienestar.drivers')->with('error', 'El conductor no existe.');
-        }
-
         $busdriver->delete();
 
-        return redirect()->route('cefa.bienestar.drivers')->with('success', 'Conductor eliminado con éxito');
+        return response()->json(['mensaje' =>'Vacancy eliminated with success']);
+    } catch (\Exception $e) {
+        return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
     }
+ }
 }

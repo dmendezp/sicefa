@@ -1,6 +1,5 @@
 <?php
 return [
-    'Home'=>'SST',
     // Breadcrumbs
     'Breadcrumb_SST'                     => 'SST',
     'Breadcrumb_Active_Environment'      => 'Ambientes',

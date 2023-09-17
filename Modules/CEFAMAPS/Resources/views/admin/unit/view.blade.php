@@ -1,33 +1,5 @@
 @extends('cefamaps::layouts.master')
 
-<<<<<<< HEAD
-@foreach($viewunit as $u) 
-  @section('breadcrumb')  
-
-    <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-mountain-city"></i> {{ $u->productive_unit->sector->name }}</a></li>
-    <li class="breadcrumb-item"><a href="#"><i class="fas {{ $u->productive_unit->icon }}"></i> {{ $u->productive_unit->name }}</a></li>
-    
-  @endsection
-@endforeach
-
-@section('style')
-	<link rel="stylesheet" href="{{ asset('modules/cefamaps/css/viewenviron.css') }}">
-@endsection
-
-@foreach($viewunit as $u)
-  @section('content')
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="card card-lightblue card-outline">
-              <div class="card-header">
-                <h3 class="m-0">{{ trans('cefamaps::unit.Unit') }} - {{ $u->productive_unit->sector->name }} - {{ $u->productive_unit->name }}</h3>
-              </div>
-              <div class="card-body">
-                <div id="map"></div>
-              </div>
-=======
 @foreach ($viewunit as $u)
     @section('breadcrumb')
         <li class="breadcrumb-item"><a href="#"><i class="fas fa-solid fa-mountain-city"></i>
@@ -58,30 +30,9 @@
                         </div>
                     </div>
                 </div>
->>>>>>> FABRICA4
             </div>
         </div>
 
-<<<<<<< HEAD
-    <!-- Inicio El modal para que aparezacan todas la paginas -->
-    <div class="modal fade" id="modal-lg">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">{{trans('cefamaps::page.Page')}}</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <lord-icon src="https://cdn.lordicon.com/rivoakkk.json" trigger="hover" colors="primary:#000000,secondary:#000000" style="width:32px;height:32px"></lord-icon>
-            </button>
-          </div>
-            <div class="modal-body">
-              <div class="row align-items-start">
-                @foreach($u->pages as $p)
-                  <div class="col-4">
-                    <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#modal{{$p->id}}">{{$p->name}}</button>
-                  </div>
-                @endforeach
-              </div>
-=======
         <!-- Inicio El modal para que aparezacan todas la paginas -->
         <div class="modal fade" id="modal-lg">
             <div class="modal-dialog modal-lg">
@@ -104,7 +55,6 @@
                         </div>
                     </div>
                 </div>
->>>>>>> FABRICA4
             </div>
         </div>
         <!-- Fin El modal para que aparezacan todas la paginas -->
@@ -153,9 +103,6 @@
             // Inicio poligono
             @foreach ($viewunit as $u)
 
-<<<<<<< HEAD
-      var iconBase = '{{ asset("modules/cefamaps/images/bank.png") }}';
-=======
                 // The marker, positioned at Uluru
                 const marker{{ $u->id }} = new google.maps.Marker({
                     position: {
@@ -167,7 +114,6 @@
                     icon: iconBase,
                     /* Para poder tener un icono diferente */
                 });
->>>>>>> FABRICA4
 
                 const infoCultivo{{ $u->id }} = new google.maps.InfoWindow();
 
@@ -186,26 +132,9 @@
                     '</div>'
                 );
 
-<<<<<<< HEAD
-      infoCultivo{{$u->id}}.setContent(
-        '<div class="card-content">' +
-          '<div class="button-container">' +
-            '<h2>{{trans("cefamaps::page.Page")}}</h2>' +
-            '<button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#modal-lg">{{$u->name}}</button>' +
-          '</div>' +
-          '<div class="image-container">' +
-            '<img src="{{ asset("modules/cefamaps/images/uploads/".$u->picture) }}" alt="Imagen de la tarjeta" class="image">' +
-            '<div class="image-text">' +
-              '<p>{{$u->description}}</p>' +
-            '</div>' +
-          '</div>' +
-        '</div>'
-      );
-=======
                 marker{{ $u->id }}.addListener("click", () => {
                     infoCultivo{{ $u->id }}.open(map, marker{{ $u->id }});
                 });
->>>>>>> FABRICA4
 
                 // Define the LatLng coordinates for the polygon's path.
                 const Coords{{ $u->id }} = [

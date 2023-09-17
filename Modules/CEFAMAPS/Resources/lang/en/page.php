@@ -1,8 +1,6 @@
 <?php
 
 return [
-  'Page' => 'Page',
-  'Content' => 'Content'
   // Breadcrumbs
   'Breadcrumb_Pages'             => 'Administrator',
   'Breadcrumb_Active_Pages'      => 'Pages',

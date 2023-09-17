@@ -3,18 +3,16 @@
 @section('content')
 <!-- Main content -->
 <div class="container-fluid">
+<h1>{{ trans('bienestar::menu.Buses')}} <i class="fas fa-bus"></i></h1>
     <div class="row justify-content-md-center pt-4">
-        <div class="card card-green card-outline shadow col-md-8">
-            <div class="card-header">
-                <h3 class="card-title">{{ trans('bienestar::menu.Buses')}}</h3>
-            </div>
+        <div class="card shadow col-md-8">
             <!-- /.card-header -->
             <div class="card-body">
-                {!! Form::open(['route' => 'cefa.bienestar.buses.store', 'method' => 'POST', 'role' => 'form'])
+            {!! Form::open(['route' => 'cefa.bienestar.buses.store', 'method' => 'POST', 'role' => 'form'])
                 !!}
                 <div class="row p-4">
-                    <div class="col-md-3">
-                        <label for="plate">{{ trans('bienestar::menu.Plate')}}</label>
+                   <div class="col-md-3">
+                      <label for="plate">{{ trans('bienestar::menu.Plate')}}</label>
                         <input type="text" name="plate" id="plate" class="form-control" placeholder="{{ trans('bienestar::menu.Enter the plate')}}" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
                         <span id="plate-error" class="text-danger"></span>
                     </div>
@@ -48,7 +46,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             @foreach ($buses as $b)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -57,14 +54,17 @@
                                 <td>{{ $b->quota }}</td>
                                 <td>
                                     <div class="opts">
-                                        <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-default-{{$b->id}}" data-plate="{{ $b->plate }}" data-bus-driver="{{ $b->bus_driver }}" data-bus-id="{{ $b->id }}" data-quota="{{ $b->quota }}"><i class="fa fa-edit"></i>
+                                        <button class="btn btn-sm btn-info" data-toggle="modal"
+                                            data-target="#modal-default" data-plate="{{ $b->plate }}"
+                                            data-bus-driver="{{ $b->bus_driver }}" data-bus-id="{{ $b->id }}"
+                                            data-quota="{{ $b->quota }}"><i class="fa fa-edit"></i>
                                         </button>
 
+
                                         {!! Form::open(['route' => ['cefa.bienestar.buses.destroy', $b->id],
-                                        'method' => 'DELETE', 'class' => 'formEliminar', 'style'=> 'display: inline;']) !!}
-                                        <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash-alt"></i></button>
-                                        {!! Form::close() !!}
-                                       
+                                        'method' => 'DELETE','class' => 'formEliminar', 'style' => 'display: inline;']) !!}
+                                        <button class="btn btn-sm btn-danger"type="submit"><i class="fa fa-trash-alt"></i></button>
+                                        {!! Form::close() !!}                                       
                                     </div>
                                     <div class="modal fade" id="modal-default-{{$b->id}}">
                                         <div class="modal-dialog">
@@ -181,18 +181,17 @@
 
             var modal = $(this);
             modal.find('[name="plate"]').val(plate);
+            modal.find('[name="bus_driver"]').val(busDriver.id);
             modal.find('[name="quota"]').val(quota);
 
-            // Establece la opción seleccionada en el select
-            modal.find('#bus_driver_select').val(busDriver.id);
-
-            // Pone el id del bus en la url del formulario
+            // Poner el ID del bus en la URL del formulario
             var form = modal.find('form');
             var updateUrl = form.attr('action').replace(/id/g, busId);
             form.attr('action', updateUrl);
         });
     });
 </script>
+
 <script>
     //placa
     document.getElementById('plate').addEventListener('input', function() {
@@ -305,23 +304,43 @@
     }
 </script>
 <script>
-    //cupos de  modal editar cero
-    function validateQuota(input) {
-        var quotaValue = input.value;
-        var errorElement = document.getElementById('quota-error');
+    //placa en el modal de edición
+    document.getElementById('plate_edit').addEventListener('input', function() {
+        var plateInput = this.value;
+        var plateError = document.getElementById('plate-edit-error');
 
-        if (quotaValue === '0') {
-            errorElement.textContent = 'Los cupos no pueden ser "00".';
-            input.setCustomValidity('Los cupos no pueden ser "00"'); // Evitar que el formulario se envíe
+        // Verifica si el valor coincide con el patrón de 3 letras seguidas de 3 números
+        if (/^[A-Za-z]{3}[0-9]{3}$/.test(plateInput)) {
+            plateError.textContent = ''; // Oculta la alerta si es válido
+            this.setCustomValidity(''); // Marca el campo como válido
         } else {
-            errorElement.textContent = ''; // Borrar el mensaje de error si no es "0"
-            input.setCustomValidity(''); // Restablecer la validación personalizada
+            plateError.textContent = 'La placa debe tener 3 letras seguidas de 3 números.';
+            this.setCustomValidity('Invalid'); // Marca el campo como inválido
         }
-    }
+    });
 </script>
+<script>
+    //cupos
+    document.getElementById('quota_edit').addEventListener('input', function() {
+        const quotaInput = this.value;
+        const quotaError = document.getElementById('quota-edit-error');
 
+        // Removemos cualquier caracter no numérico y limitamos la longitud a 2
+        const cleanedInput = quotaInput.replace(/\D/g, '').substring(0, 2);
+
+        // Verificamos si la entrada contiene exactamente dos números
+        if (/^\d{2}$/.test(cleanedInput)) {
+            quotaError.textContent = ''; // Campo válido, borra el mensaje de error
+            this.value = cleanedInput; // Actualizamos el valor del campo
+        } else {
+            // Muestra El Mensaje De Error
+        }
+    });
+</script>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
 @endsection

@@ -25,7 +25,6 @@ class AdminController extends Controller
         $environ = Environment::get();
         $classenviron = ClassEnvironment::get();
         $roles = Role::count();
-        $data = ['title'=>trans('cefamaps::menu.Dashboard'), 'roles'=>$roles, 'unit'=>$unit, 'sector'=>$sector, 'environ'=>$environ, 'classenviron'=>$classenviron];
         $data = ['titlePage'=>trans('cefamaps::controllers.CEFAMAPS_dashboard_title_page'), 'roles'=>$roles, 'unit'=>$unit, 'sector'=>$sector, 'environ'=>$environ, 'classenviron'=>$classenviron];
         return view('cefamaps::admin.dashboard',$data);
     }
