@@ -28,6 +28,12 @@ class RoleController extends Controller
         return view('sica::admin.security.permission_role.index', $data);
     }
 
+    /* Listado de asociaciones de roles y unidades productivas */
+    public function pu_roles_index(){
+        $data = ['title'=>'Roles y unidades productivas'];
+        return view('sica::admin.security.pu_roles.index', $data);
+    }
+
     /* Lista de permisos disponibles */
     public function permissions_index(){
         $permissions = Permission::join('apps', 'apps.id', '=', 'permissions.app_id') // Unir las tablas roles y apps

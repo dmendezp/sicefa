@@ -7,7 +7,6 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Person;
 use App\Models\User;
 use App\Rules\AtLeastOneRoleSelected;
-use App\Rules\DistinctAppRoles;
 use Modules\SICA\Entities\App;
 use Validator;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +48,7 @@ class UserController extends Controller
             'person_id' => 'required|unique:users',
             'nickname' => 'required|unique:users',
             'personal_email' => 'required|email|unique:users,email',
-            'roles_id' => ['required', new AtLeastOneRoleSelected(), new DistinctAppRoles()]
+            'roles_id' => ['required', new AtLeastOneRoleSelected()]
         ];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()){
@@ -94,7 +93,7 @@ class UserController extends Controller
         // Vefirificar si hay algun cambio en los roles del usuario
         if ($user->roles->pluck('id')->toArray() != $request->input('roles_id')) {
             $rules = [
-                'roles_id' => ['required', new AtLeastOneRoleSelected(), new DistinctAppRoles()]
+                'roles_id' => ['required', new AtLeastOneRoleSelected()]
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {

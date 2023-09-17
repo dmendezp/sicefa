@@ -35,23 +35,17 @@
                                 <strong>Roles disponibles:</strong>
                             </div>
                             <div class="row justify-content-md-center mb-3">
-
                                 @foreach ($apps as $app)
                                     <div class="col-md-3 border border-1 p-3 bg-light">
                                         <h5><i class="fas {{ $app->icon }} mr-2" style="color: {{ $app->color }}"></i>{{ $app->name }}</h5>
-                                        <div class="form-check">
-                                            <input class="form-check-input" name="roles_id[{{ $app->id }}]" type="radio" value="" id="no_role_{{ $app->id }}" {{ !$user->roles->contains('app_id', $app->id) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="no_role_{{ $app->id }}"><em>Sin rol asignado</em></label>
-                                        </div>
                                         @foreach ($app->roles->sortBy('name') as $role)
                                             <div class="form-check">
-                                                <input class="form-check-input" name="roles_id[{{ $app->id }}]" type="radio" value="{{ $role->id }}" id="role_{{ $role->id }}" {{ $user->roles->contains($role->id) ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="role_{{ $role->id }}">{{ $role->name }}</label>
+                                                <input class="form-check-input" name="roles_id[]" type="checkbox" value="{{ $role->id }}" {{ $user->roles->contains($role->id) ? 'checked' : '' }}>
+                                                <label class="form-check-label">{{ $role->name }}</label>
                                             </div>
                                         @endforeach
                                     </div>
                                 @endforeach
-
                             </div>
                             <div class="row mb-0 text-center">
                                 <div class="col-md">
