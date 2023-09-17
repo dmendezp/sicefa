@@ -18,10 +18,14 @@ Route::middleware(['lang'])->group(function(){
         // --------------  Rutas de Roles ---------------------------------
         Route::get('/admin/security/roles', [RoleController::class, 'roles_index'])->name('sica.admin.security.roles.index'); /* Lista de roles disponibles (Administrador) */
         Route::get('/admin/security/roles/permission_role', [RoleController::class, 'roles_permission_role'])->name('sica.admin.security.roles.permision_role.index'); /* Lista de la asociación de roles y permisos (Administrador) */
+        // -------------- Rutas de asociación de roles y unidades productivas ---------------------------------
+        Route::get('/admin/security/roles/pu_roles', [RoleController::class, 'pu_roles_index'])->name('sica.admin.security.roles.pu_roles.index'); /* Listado de asociaciones de roles y unidades productivas (Administrador) */
+        // Registrar permiso (sica.admin.security.roles.pu_roles.store); Registrar asociación de rol y unidad productiva (Administrador) <Función livewire>
+        // Registrar permiso (sica.admin.security.roles.pu_roles.destroy); Eliminar asociación de rol y unidad productiva (Administrador) <Función livewire>
         // -------------- Rutas de responsibilidades (asociación de actividades y roles) ---------------------------------
         Route::get('/admin/security/roles/responsibilitities', [RoleController::class, 'responsibilities_index'])->name('sica.admin.security.roles.responsibilities.index'); /* Listado de responsabilidades disponibles (Administrador) */
         // Registrar permiso (sica.admin.security.roles.responsibilities.store); Registrar responsabilidad (Administrador) <Función livewire>
-        // Registrar permiso (sica.admin.security.roles.responsibilities.destroy); Eliminar responsabilidad (Administrador Y Cajero|) <Función livewire>
+        // Registrar permiso (sica.admin.security.roles.responsibilities.destroy); Eliminar responsabilidad (Administrador) <Función livewire>
 
         // --------------  Rutas de Permisos ---------------------------------
         Route::get('/admin/security/permissions', [RoleController::class, 'permissions_index'])->name('sica.admin.security.permissions.index'); /* Lista de permisos disponibles (Administrador) */
