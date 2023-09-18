@@ -145,21 +145,23 @@ class WarehouseController extends Controller
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
         }
 
-        $resultWarehouses = app(AGROINDUSTRIAController::class)->unidd();
-        $warehouses = $resultWarehouses['warehouses'];
-        $warehouse = $warehouses->map(function ($w) use (&$warehouseId) {
-            $warehouseId = $w->id;
+        $warehouseApp = Warehouse::with('productive_unit_warehouses.productive_unit')->where('app_id', 10)->get();
 
-            return [
-                'id' => $warehouseId,
-            ];
-        });
-        $ProductiveUnitWarehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehouseId)
-        ->get();
-        $idProductiveUnitWarehouse = $ProductiveUnitWarehouse->pluck('id');
+        $productiveUnit = $warehouseApp->flatMap(function ($w) {
+            return $w->productive_unit_warehouses->map(function ($puw) {
+                return [
+                    'id' => $puw->productive_unit->id,
+                    'name' => $puw->productive_unit->name,
+                ];
+            });
+        })->prepend(['id' => null, 'name' => 'Seleccione una unidad productiva'])->pluck('name', 'id');
+        
 
-        $result = app(DeliverController::class)->deliveries();
-        $elements = $result['elements'];
+        //$ProductiveUnitWarehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehouseId)->get();
+        //$idProductiveUnitWarehouse = $ProductiveUnitWarehouse->pluck('id');
+
+        /*$result = app(DeliverController::class)->deliveries();
+        $elements = $result['elements'];*/
         
         $movements = Movement::with(['movement_details.inventory.element', 'movement_responsibilities.person', 'movement_type', 'warehouse_movements'])
         ->whereHas('movement_responsibilities', function ($query) use ($idPersona) {
@@ -169,10 +171,10 @@ class WarehouseController extends Controller
 
         $data = [
             'title' => $title,
-            'elements' => $elements,
+            //'elements' => $elements,
             'name' => $name,
-            'warehouseId' => $warehouseId,
-            'productiveUnitWarehouse' => $idProductiveUnitWarehouse,
+            'productiveUnit' => $productiveUnit,
+            //'productiveUnitWarehouse' => $idProductiveUnitWarehouse,
             'movements' => $movements
         ];
 
