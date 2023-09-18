@@ -39,6 +39,9 @@ class MeasurementUnit extends Model implements Auditable
     public function elements(){ // Accede a todos los elementos que pertenecen a esta unidad de medida
         return $this->hasMany(Element::class);
     }
+    public function environmental_aspects(){ // Accede a todos los aspectos ambientales que pertenecen a esta unidad de medida
+        return $this->hasMany(EnvironmentalAspect::class);
+    }
 
 
     // Configuración de factory para la generación de datos de pruebas

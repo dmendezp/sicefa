@@ -21,4 +21,9 @@ class Resource extends Model implements Auditable
         'updated_at'
     ];
 
+    // RELACIONES
+    public function environmental_aspects(){ // Accede a todos los aspectos ambientales que pertenecen a este recurso
+        return $this->hasMany(EnvironmentalAspect::class);
+    }
+
 }
