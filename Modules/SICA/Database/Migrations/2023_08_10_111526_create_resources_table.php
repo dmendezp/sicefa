@@ -16,9 +16,6 @@ class CreateResourcesTable extends Migration
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->foreignId('measurement_unit_id')->constrained()->onDelete('cascade');
-            $table->float('cpf_coefficient', 8, 3);
-            $table->enum('status',['Activo','Inactivo']);
             $table->softDeletes();
             $table->timestamps();
         });

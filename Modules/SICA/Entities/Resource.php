@@ -12,12 +12,7 @@ class Resource extends Model implements Auditable
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
         SoftDeletes; // Borrado suave
 
-    protected $fillable = [ // Atributos modificables (asignación masiva)
-        'name',
-        'measurement_unit_id',
-        'status',
-        'cpf_coefficient'
-    ];
+    protected $fillable = ['name']; // Atributos modificables (asignación masiva)
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
 
@@ -29,9 +24,6 @@ class Resource extends Model implements Auditable
     // RELACIONES
     public function labor_resources(){ // Accede a todos los registros de recursos de labor que pertenecen a este recurso
         return $this->hasMany(LaborResource::class);
-    }
-    public function measurement_unit(){ // Accede a la unidad de medida al que pertenece
-        return $this->belongsTo(MeasurementUnit::class);
     }
 
 }
