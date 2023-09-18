@@ -1,7 +1,7 @@
 @extends('hdc::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hdc::hdcgeneral.li1')}}</li>
+    <li class="breadcrumb-item active">{{ trans('hdc::hdcgeneral.Indicator_Homepage')}}</li>
 @endpush
 
 @section('content')

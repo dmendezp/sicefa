@@ -8,7 +8,7 @@ return [
     'ct1' => 'Manage Resources',
 
     // Titulo label unidad productiva
-    'label1' => 'Productive Unit:',
+    'label1' => 'Activity:',
     'label2' => 'Environmental Aspect:',
 
     // Desplegables

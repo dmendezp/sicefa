@@ -24,6 +24,7 @@ Route::middleware(['lang'])->group(function() {
 
         /* Ruta Para Administrar Recursos */
         Route::get('/AdminstrarRecursos', 'AdminresourcesController@adminresources')->name('cefa.hdc.adminresources');
+        Route::post('/AdministrarRecursos/guardar','AdminresourcesController@store')->name('hdc.adminresources.store');
 
         /* Rutas de Calcula tu Huella */
         Route::get('persona', 'CarbonfootprintController@persona')-> name('carbonfootprint.persona');

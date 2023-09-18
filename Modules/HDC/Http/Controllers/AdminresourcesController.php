@@ -6,8 +6,9 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Modules\SICA\Entities\ProductiveUnit;
-use Modules\SICA\Entities\Resource;
+use Modules\SICA\Entities\Activity;
+use Modules\HDC\Entities\EnvironmentalAspect;
+use Modules\SICA\Entities\activity_environmental_aspects;
 
 class AdminresourcesController extends Controller
 {
@@ -16,9 +17,11 @@ class AdminresourcesController extends Controller
      * @return Renderable
      */
     public function adminresources() {
-        $productive_unit = ProductiveUnit::orderBy('name', 'ASC')->get();
-        $resource = Resource::orderBy('name', 'ASC')->get();
-        return view('hdc::Adminresources',['productive_unit' => $productive_unit, 'resource' => $resource]);
+        $activity_id = Activity::orderBy('name', 'ASC')->get();
+        $environmental_aspect_id = EnvironmentalAspect::orderBy('name', 'ASC')->get();
+        return view('hdc::Adminresources',['activity_id' => $activity_id, 'environmental_aspect_id' => $environmental_aspect_id]);
+
+        
     }
 
     /**
@@ -37,7 +40,7 @@ class AdminresourcesController extends Controller
      */
     public function store(Request $request)
     {
-        // 
+        $request;
     }
 
     /**

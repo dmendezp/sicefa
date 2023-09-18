@@ -14,14 +14,14 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4 pr-3 pb-3">
-                            <form action="{{ route('cefa.hdc.adminresources') }}" method="post">
+                            <form action="{{ route('hdc.adminresources.store') }}" method="post">
                                 @csrf
                                 <div class="form-group">
                                     <label>{{ trans('hdc::adminresources.label1') }}</label>
                                     <select name="productive_unit_id" class="form-control" required>
                                         <option value="">{{ trans('hdc::adminresources.select1') }}</option>
-                                        @foreach ($productive_unit as $pro) {{-- Consulta las unidades productivas de SICEFA --}}
-                                            <option value="{{ $pro->id }}">{{ $pro->name }}</option>
+                                        @foreach ($activity_id as $a) {{-- Consulta las unidades productivas de SICEFA --}}
+                                            <option value="{{ $a->id }}">{{ $a->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -29,8 +29,8 @@
                                     <label>{{ trans('hdc::adminresources.label2') }}</label>
                                     <select name="Resource_id" class="form-control" required>
                                         <option value="">{{ trans('hdc::adminresources.select1') }}</option>
-                                        @foreach($resource as $re)
-                                            <option value="{{ $re->name }}">{{ $re->name }}</option>
+                                        @foreach($environmental_aspect_id as $ea)
+                                            <option value="{{ $ea->name }}">{{ $ea->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -50,16 +50,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($productive_unit as $pro)
-                                            @foreach ($resource as $re)
+                                        @foreach ($activity_id as $a)
+                                            @foreach ($environmental_aspect_id as $ea )
                                                 <tr>
                                                     <td >
-                                                    {{ $pro->name }}
+                                                    {{ $a->name }}
                                                     </td>
-                                                    <td>{{ $re->name }}</td>
+                                                    <td>{{ $ea->name }}</td>
                                                     <td class="text-center">
-                                                        <a href="" data-toogle='tooltip' data-placement="top" title="Eliminar"
-                                                            onclick="return confirm('¿Estas Seguro Que Deseas Eliminar La Asociación De La Unidad Productiva {{ $pro->name }} Y El Recurso {{ $re->name }}?')">
+                                                        <a href="hdc.adminresources" data-toogle='tooltip' data-placement="top" title="Eliminar"
+                                                            onclick="return confirm('¿Estas Seguro Que Deseas Eliminar La Asociación De La Unidad Productiva {{ $a->name }} Y El Aspecto Ambiental {{ $ea->name }}?')">
                                                             <i class="fas fa-trash-alt text-danger"></i>
                                                         </a>
                                                     </td>

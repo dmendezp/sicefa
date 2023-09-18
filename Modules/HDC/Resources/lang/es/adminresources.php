@@ -8,7 +8,7 @@ return [
     'ct1' => 'Administrar Recursos',
 
     // Titulo label unidad productiva y aspecto ambiental
-    'label1' => 'Unidad Productiva:',
+    'label1' => 'Actividad:',
     'label2' => 'Aspecto Ambiental:',
 
     // Desplegables
@@ -18,7 +18,7 @@ return [
     'btn1' => 'Guardar',
 
      // Titulo De La Tabla
-     'th1' => 'Unidad Productiva',
+     'th1' => 'Actividad',
      'th2' => 'Apecto Ambiental',
      'th3' => 'Acciones',
 ];

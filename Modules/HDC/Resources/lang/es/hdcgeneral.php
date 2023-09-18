@@ -19,7 +19,7 @@ return [
     
 
     // Indicador pagina Inicio
-    'li1' => 'Pagina Principal',
+    'Indicator_Homepage' => 'Pagina Principal',
     
 
     // Titulo Bienvenido a HDC

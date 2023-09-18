@@ -18,7 +18,7 @@ return [
     'instructions' => 'instructions',
 
     // Indicador pagina Inicio
-    'li1' => 'Homepage',
+    'Indicator_Homepage' => 'Homepage',
 
     // Titulo Bienvenido a HDC
     'title1' => 'Welcome To HDC',
