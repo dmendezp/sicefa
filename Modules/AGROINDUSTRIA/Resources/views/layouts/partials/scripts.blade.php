@@ -98,7 +98,7 @@ window.onclick = function(event) {
     $(document).ready(function () {
         $('#elementInventory').change(function () {
             var elementoSeleccionado = $(this).val();
-
+            
             // Realiza una petición AJAX para obtener la cantidad
             if (elementoSeleccionado) {
                 $.ajax({

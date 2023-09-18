@@ -10,7 +10,7 @@
         <div class="col-md-6">
           {!! Form::hidden('productiveUnitWarehouse', $productiveUnitWarehouse, ['id' => 'productiveUnitWarehouse']) !!}
           {!! Form::label('fecha', trans('agroindustria::menu.Date Time')) !!}
-          {!! Form::datetime('date', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+          {!! Form::datetime('date', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'id' => 'readonly-bg-gray', 'readonly' => 'readonly']) !!}
         </div>
         <div class="col-md-6">
           {!! Form::label('receive', trans('agroindustria::menu.Receiver')) !!}
@@ -22,12 +22,12 @@
         </div>
         <div class="col-md-6">
           {!! Form::label('productive_unit', 'Unidad Productiva que entrega') !!}
-          {!! Form::text('productive_unit', $unitName->name, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+          {!! Form::text('productive_unit', $unitName->name, ['class' => 'form-control', 'id' => 'readonly-bg-gray', 'readonly' => 'readonly']) !!}
         </div>
         <div class="col-md-6" id="receiveUnit">
           {!! Form::label('receiveUnit', 'Unidad productiva que recibe') !!}
           {!! Form::select('receiveUnit', $receiveUnit, old('receiveUnit'), ['class' => 'form-control', 'id' => 'receiveUnit-selected']) !!}
-          @error('receive')
+          @error('receiveUnit')
           <span class="text-danger">{{ $message }}</span>
           @enderror
         </div>
@@ -57,7 +57,7 @@
               <div class="elements">
                 <div class="form-group">
                   {!! Form::label('elementInventory' , trans('agroindustria::menu.Element')) !!}
-                  {!! Form::select('element[]', $elements, null, [ 'id' => 'elementInventory']) !!}
+                  {!! Form::select('element[]', $elements, null, ['id' => 'elementInventory']) !!}
                   @if ($errors->has('element'))
                     <span class="text-danger">{{ $errors->first('element') }}</span>
                   @endif
@@ -100,26 +100,31 @@
 
 
 <script>
-$(document).ready(function() {
-    // Aplicar Select2 al campo de selección con el id 'receive_warehouse'
-
-    // Aplicar Select2 al campo de selección con el id 'elementInventory'
+  // Aplicar Select2 al campo de selección con el id 'elementInventory'
+  $(document).ready(function() {
     $('#elementInventory').select2();
+  });
 
+  $(document).ready(function() {
     // Agregar un nuevo campo de producto
     $("#add-element").click(function() {
-        var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element[]", $elements, null, ["id" => "elementInventory", "readonly" => "readonly", "class" => "element-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", NULL, ["id" => "amount"]) !!}</div> <div class="form-group">{!! Form::label("amountAvailable" , trans("agroindustria::menu.Quantity Available")) !!} {!! Form::number("available[]", null, ["id" => "available", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("price" , trans("agroindustria::menu.Price")) !!} {!! Form::number("price[]", null, ["id" => "price", "readonly" => "readonly"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
+        var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("elementInventory" , trans("agroindustria::menu.Element")) !!} {!! Form::select("element[]", $elements, null, ["readonly" => "readonly", "class" => "elementInventory-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", NULL, ["id" => "amount"]) !!}</div> <div class="form-group">{!! Form::label("amountAvailable" , trans("agroindustria::menu.Quantity Available")) !!} {!! Form::number("available[]", null, ["id" => "available", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("price" , trans("agroindustria::menu.Price")) !!} {!! Form::number("price[]", null, ["id" => "price", "readonly" => "readonly"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
 
         // Agregar el nuevo campo al DOM
         $("#products").append(newProduct);
 
         // Inicializar Select2 en los campos 'element' en el nuevo campo
-        $('.element-select:last').select2();
+        $('.elementInventory-select:last').select2();
 
     });
 
+    // Eliminar un campo de producto
+    $("#products").on("click", ".remove-element", function() {
+        $(this).parent(".elements").remove();
+    });
+
     // Escuchar el evento change en el elemento con ID 'products' (delegado)
-    $("#products").on("change", ".element-select", function() {
+    $("#products").on("change", ".elementInventory-select", function() {
         var elementoSeleccionado = $(this).val();
         var parentElement = $(this).closest('.elements');
         var availableField = parentElement.find('input#available');
@@ -156,10 +161,7 @@ $(document).ready(function() {
         }
     });
 
-    // Eliminar un campo de producto
-    $("#products").on("click", ".remove-element", function() {
-        $(this).parent(".elements").remove();
-    });
+    
 });
 </script>
 

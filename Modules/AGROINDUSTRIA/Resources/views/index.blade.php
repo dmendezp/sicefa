@@ -1,5 +1,4 @@
 @extends('agroindustria::layouts.master')
-@include('agroindustria::layouts.partials.head')
 @section('content')
     
 
@@ -13,7 +12,7 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                <img src="{{ asset('agroindustria/img/PhotoReal_Industria_de_alimentos_2.jpg') }}" class="d-block w-100" alt="...">
+                <img src="{{ asset('modules/agroindustria/img/PhotoReal_Industria_de_alimentos_2.jpg') }}" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>A G R O I N D U S T R I A</h5>
                     <br>
@@ -35,7 +34,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-            <img src="{{ asset('agroindustria/img/PhotoReal_cocineros_1.jpg') }}" class="d-block w-100" alt="...">
+            <img src="{{ asset('modules/agroindustria/img/PhotoReal_cocineros_1.jpg') }}" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
             <h5>N O S O T R O S</h5>
                     <br>
@@ -58,7 +57,7 @@
             </div>
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('agroindustria/img/PhotoReal_Industria_de_alimentos_3.jpg') }}" class="d-block w-100" alt="...">
+                <img src="{{ asset('modules/agroindustria/img/PhotoReal_Industria_de_alimentos_3.jpg') }}" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
             <h5>N O S E Q P O N E R</h5>
                     <br>

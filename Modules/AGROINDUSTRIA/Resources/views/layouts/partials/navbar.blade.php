@@ -69,18 +69,7 @@
             
         </ul>
     </div>
-    
-    <!-- Dashboard inicio -->
-    <div class="dashboard_home">
-        <ul class="home">
-            <li class="nav-item">
-                <a href="{{ route('cefa.agroindustria.home.index') }}" class="nav-link">{{trans('agroindustria::menu.Home')}}</a>
-            </li>
-        </ul>
-    </div>
-
-    
-
+        
      <!-- Dashboard unidades -->
      @if(auth()->check() && checkRol('agroindustria.instructor.vilmer') || auth()->check() && checkRol('agroindustria.instructor.chocolate'))  
      <div class="dashboard_units">  

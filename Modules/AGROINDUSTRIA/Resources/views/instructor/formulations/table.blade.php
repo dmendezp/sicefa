@@ -14,7 +14,7 @@
                 <th>{{trans('agroindustria::formulations.Utencils')}}</th>
                 <th>{{trans('agroindustria::formulations.Amount')}}</th>
                 <th>
-                    <a href="{{route('cefa.agroindustria.instructor.formulario')}}">
+                    <a href="{{route('cefa.agroindustria.units.instructor.formulario')}}">
                         <button class="btn btn-success float-end mb-2">
                             <i class="fa-solid fa-plus"></i>
                         </button>
@@ -50,7 +50,7 @@
                     @endforeach
                 </td>
                 <td>
-                    <a href="{{route('cefa.agroindustria.instructor.form.edit',  ['id' => $f->id])}}">
+                    <a href="{{route('cefa.agroindustria.units.instructor.form.edit',  ['id' => $f->id])}}">
                         <button data-record-id="{{$f->id}}" class="btn btn-primary float-end mb-2 edit-button" style="width: 45px; height: 35px;">
                             <i class="fa-solid fa-pen-to-square fa-sm"></i>
                         </button>

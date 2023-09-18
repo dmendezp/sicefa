@@ -40,6 +40,7 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/unidd', [UnitController::class, 'unidd'])->name('cefa.agroindustria.instructor.unidd');
             //Solicitudes
             Route::get('/solicitud', [RequestController::class, 'solicitud'])->name('cefa.agroindustria.units.instructor.solicitud');
+            Route::get('/amount/{id}', [RequestController::class, 'amount'])->name('cefa.agroindustria.units.instructor.amount');
             Route::post('/enviarsolicitud', [RequestController::class, 'create'])->name('cefa.agroindustria.units.instructor.enviarsolicitud');
 
             Route::get('/labor', [LaborController::class, 'labor'])->name('cefa.agroindustria.units.instructor.labor');

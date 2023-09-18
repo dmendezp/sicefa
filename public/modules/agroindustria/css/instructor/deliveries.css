@@ -33,7 +33,8 @@
 }
 
 #add-element{
-    padding: 0px 400px 0px 365px;
+    padding: 10px 0px 10px 0px;
+    width: 100%;
     color: white;
     font-weight: bold;
     border: none;
@@ -58,7 +59,9 @@
 }
 
 .remove-element{
-    padding: 10px 15px 5px 0px;
+    position: relative;
+    left: 2px;
+    padding: 10px 10px 10px 10px;
     color: white;
     font-weight: bold;
     margin-top: 20px;

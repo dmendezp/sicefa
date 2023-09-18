@@ -19,6 +19,10 @@ use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\WarehouseMovement;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Modules\AGROINDUSTRIA\Emails\MovementApproved;
+
 
 use Validator, Str;
 
@@ -56,16 +60,18 @@ class DeliverController extends Controller
 
 
         //Consulta el inventario que pertenece a la bodega de esa unidad productiva
-        $inventories = Inventory::with('element')
+        $inventories = Inventory::with('element.measurement_unit')
         ->where('productive_unit_warehouse_id', $id)->get();
         //Filtra los elementos de ese inventario
         $elements = $inventories->map(function ($inventory) {
             $elementId = $inventory->element->id;
             $elementName = $inventory->element->name;
+            $unitName = $inventory->element->measurement_unit->name;
+            $elementWithUnit = $elementName . ' (' . $unitName . ')';
 
             return [
                 'id' => $elementId,
-                'name' => $elementName
+                'name' => $elementWithUnit
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::menu.Select a product')])->pluck('name', 'id');
 
@@ -157,169 +163,179 @@ class DeliverController extends Controller
     
     public function createMoveOut(Request $request){
 
-        $rules=[
-            'receive' => 'required',
-            'deliver_warehouse' => 'required',
-            'receive_warehouse' => 'required',
-            'element' => 'required',
-            'amount' => 'required'
-        ];
-
-        $messages = [
-            'receive.required' => trans('agroindustria::menu.You must select a receiver'),
-            'deliver_warehouse.required' => trans('agroindustria::menu.You must select a delivery warehouse'),
-            'receive_warehouse.required' => trans('agroindustria::menu.You must select the winery that receives'),
-            'element.required' => trans('agroindustria::menu.You must select an item'),
-            'amount.required' => trans('agroindustria::menu.You must enter an amount')
-        ];
-
-        $validatedData = $request->validate($rules, $messages);
- 
-        //Se trae el id de la persona logueada para registrar el responsable
-        $user = Auth::user();
-        if ($user->person) {
-            $idPersona = $user->person->id;
-        }
-
-        //Consulta el tipo de movimiento con el id 2 que es Movimiento Interno
-        $movementType = MovementType::find(2);
-
-        //Trae la cantidad ingresada y el precio del inventario
-        $amounts = $validatedData['amount'];
-        $prices = $request->input('price');
-        $available = $request->input('available');
-        $totalPrice = 0;
-
-        //Multiplicacion entre la cantidad ingresada y el precio
-        foreach ($amounts as $key => $amount){   
-            if($amount > $available[$key]){
-                return back()->with('icon', 'error')
-                ->with('message_line', trans('agroindustria::menu.Quantity entered is greater than inventory quantity'));
-            }else{   
-                $a = $amount;
-                $p = $prices[$key];
-
-                $priceMovement = $a*$p;
-                $totalPrice += $priceMovement;   
-            }   
-        }
-
-        //Registra el movimiento
-        $mo = new Movement;
-        $mo->registration_date = $request->input('date');
-        $mo->movement_type_id = $movementType->id;
-        $mo->voucher_number = $movementType->consecutive;
-        $mo->price = $totalPrice;
-        $mo->observation = $request->input('observation');
-        $mo->state = 'Solicitado';
-
-        $mo->save();
         
-        //Consulta el elemento seleccionado
-        $selectedElementId = $validatedData['element'];
+            $rules=[
+                'receive' => 'required',
+                'deliver_warehouse' => 'required',
+                'receive_warehouse' => 'required',
+                'element' => 'required',
+                'amount' => 'required'
+            ];
 
+            $messages = [
+                'receive.required' => trans('agroindustria::menu.You must select a receiver'),
+                'deliver_warehouse.required' => trans('agroindustria::menu.You must select a delivery warehouse'),
+                'receive_warehouse.required' => trans('agroindustria::menu.You must select the winery that receives'),
+                'element.required' => trans('agroindustria::menu.You must select an item'),
+                'amount.required' => trans('agroindustria::menu.You must enter an amount')
+            ];
 
-        $puw = json_decode($request->input('productiveUnitWarehouse'));
+            $validatedData = $request->validate($rules, $messages);
         
-        // Encontrar el inventario correspondiente a ese elemento
-        $inventories = Inventory::whereIn('element_id', $selectedElementId)
-        ->where('productive_unit_warehouse_id', $puw)
-        ->pluck('id');
-    
-        //Registra Detalles del Movimiento
-        foreach ($amounts as $key => $amount) {
-            if (empty($amount) || $amount <= 0) {
-                return back()
-                    ->withInput()
-                    ->with('icon', 'error')
-                    ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
-            } elseif ($amount > $available[$key]) {
-                return back()
-                    ->withInput()
-                    ->with('icon', 'error')
+            try {
+                // Inicia una transacción de base de datos
+                DB::beginTransaction();
+            //Se trae el id de la persona logueada para registrar el responsable
+            $user = Auth::user();
+            if ($user->person) {
+                $idPersona = $user->person->id;
+            }
+
+            //Consulta el tipo de movimiento con el id 2 que es Movimiento Interno
+            $movementType = MovementType::find(2);
+
+            //Trae la cantidad ingresada y el precio del inventario
+            $amounts = $validatedData['amount'];
+            $prices = $request->input('price');
+            $available = $request->input('available');
+            $totalPrice = 0;
+
+            //Multiplicacion entre la cantidad ingresada y el precio
+            foreach ($amounts as $key => $amount){   
+                if($amount > $available[$key]){
+                    return back()->with('icon', 'error')
                     ->with('message_line', trans('agroindustria::menu.Quantity entered is greater than inventory quantity'));
-            } else {
-                $detail = new MovementDetail;
-                $detail->movement_id = $mo->id;
+                }else{   
+                    $a = $amount;
+                    $p = $prices[$key];
+
+                    $priceMovement = $a*$p;
+                    $totalPrice += $priceMovement;   
+                }   
+            }
+
+            //Registra el movimiento
+            $mo = new Movement;
+            $mo->registration_date = $request->input('date');
+            $mo->movement_type_id = $movementType->id;
+            $mo->voucher_number = $movementType->consecutive;
+            $mo->price = $totalPrice;
+            $mo->observation = $request->input('observation');
+            $mo->state = 'Solicitado';
+
+            $mo->save();
+            
+            //Consulta el elemento seleccionado
+            $selectedElementId = $validatedData['element'];
+
+
+            $puw = json_decode($request->input('productiveUnitWarehouse'));
+            
+            // Encontrar el inventario correspondiente a ese elemento
+            $inventories = Inventory::whereIn('element_id', $selectedElementId)
+            ->where('productive_unit_warehouse_id', $puw)
+            ->pluck('id');
         
-                // Verificar si $inventories[$key] existe antes de asignarlo
-                if (isset($inventories[$key])) {
-                    $detail->inventory_id = $inventories[$key];
-                } else {
+            //Registra Detalles del Movimiento
+            foreach ($amounts as $key => $amount) {
+                if (empty($amount) || $amount <= 0) {
                     return back()
                         ->withInput()
                         ->with('icon', 'error')
-                        ->with('message_line', trans('agroindustria::menu.You must select an item'));
-                }
-                if($amount<=0){
+                        ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
+                } elseif ($amount > $available[$key]) {
                     return back()
-                    ->withInput()
-                    ->with('icon', 'error')
-                    ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
+                        ->withInput()
+                        ->with('icon', 'error')
+                        ->with('message_line', trans('agroindustria::menu.Quantity entered is greater than inventory quantity'));
+                } else {
+                    $detail = new MovementDetail;
+                    $detail->movement_id = $mo->id;
+            
+                    // Verificar si $inventories[$key] existe antes de asignarlo
+                    if (isset($inventories[$key])) {
+                        $detail->inventory_id = $inventories[$key];
+                    } else {
+                        return back()
+                            ->withInput()
+                            ->with('icon', 'error')
+                            ->with('message_line', trans('agroindustria::menu.You must select an item'));
+                    }
+                    if($amount<=0){
+                        return back()
+                        ->withInput()
+                        ->with('icon', 'error')
+                        ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
+                    }
+            
+                    $detail->amount = $amount;
+                    $detail->price = $prices[$key];
+                    $mo->movement_details()->save($detail);
                 }
-        
-                $detail->amount = $amount;
-                $detail->price = $prices[$key];
-                $mo->movement_details()->save($detail);
             }
+            
+            
+
+            //Registra Responsable del Movimiento
+            $mr = new MovementResponsibility;
+            $mr->person_id = $idPersona;
+            $mr->movement_id = $mo->id;
+            $mr->role = 'ENTREGA';
+            $mr->date = $request->input('date');
+            $mr->save();
+
+            $mr = new MovementResponsibility;
+            $mr->person_id = $request->input('receive_id');
+            $mr->movement_id = $mo->id;
+            $mr->role = 'RECIBE';
+            $mr->date = $request->input('date');
+            $mr->save();
+
+            //Registro del WarehouseMovement (entrega)
+            $ProductiveUnitWarehouseDeliver = ProductiveUnitWarehouse::where('warehouse_id', $validatedData['deliver_warehouse'])
+            ->get();
+            foreach($ProductiveUnitWarehouseDeliver as $pd){
+                $idD = $pd->id;
+            }
+
+            $wm = new WarehouseMovement;
+            $wm->productive_unit_warehouse_id = $idD;
+            $wm->movement_id = $mo->id;
+            $wm->role = 'Entrega';
+            $wm->save();
+
+            $ProductiveUnitWarehouse = ProductiveUnitWarehouse::where('warehouse_id', $validatedData['receive_warehouse'])
+            ->where('productive_unit_id', $request->input('receiveUnit'))
+            ->get();
+            foreach($ProductiveUnitWarehouse as $p){
+                $id = $p->id;
+            }
+
+
+            $wm = new WarehouseMovement;
+            $wm->productive_unit_warehouse_id = $id;
+            $wm->movement_id = $mo->id;
+            $wm->role = 'Recibe';
+            $wm->save();
+            
+
+            DB::commit();
+
+            // Redirige a la página de éxito
+            return redirect()->route('cefa.agroindustria.units.instructor.movements')->with([
+                'icon' => 'success',
+                'message_line' => trans('agroindustria::menu.Successful check out'),
+            ]);
+        } catch (\Exception $e) {
+            // Si ocurre algún error durante la transacción, se revierten todas las operaciones
+            DB::rollBack();
+
+            // Redirige de vuelta con un mensaje de error
+            return redirect()->route('cefa.agroindustria.units.instructor.movements')->with([
+                'icon' => 'error',
+                'message_line' => trans('agroindustria::menu.Check out error'),
+            ]);
         }
-        
-        
-
-        //Registra Responsable del Movimiento
-        $mr = new MovementResponsibility;
-        $mr->person_id = $idPersona;
-        $mr->movement_id = $mo->id;
-        $mr->role = 'ENTREGA';
-        $mr->date = $request->input('date');
-        $mr->save();
-
-        $mr = new MovementResponsibility;
-        $mr->person_id = $request->input('receive_id');
-        $mr->movement_id = $mo->id;
-        $mr->role = 'RECIBE';
-        $mr->date = $request->input('date');
-        $mr->save();
-
-        //Registro del WarehouseMovement (entrega)
-        $ProductiveUnitWarehouseDeliver = ProductiveUnitWarehouse::where('warehouse_id', $validatedData['deliver_warehouse'])
-        ->get();
-        foreach($ProductiveUnitWarehouseDeliver as $pd){
-            $idD = $pd->id;
-        }
-
-        $wm = new WarehouseMovement;
-        $wm->productive_unit_warehouse_id = $idD;
-        $wm->movement_id = $mo->id;
-        $wm->role = 'Entrega';
-        $wm->save();
-
-        $ProductiveUnitWarehouse = ProductiveUnitWarehouse::where('warehouse_id', $validatedData['receive_warehouse'])
-        ->where('productive_unit_id', $request->input('receiveUnit'))
-        ->get();
-        foreach($ProductiveUnitWarehouse as $p){
-            $id = $p->id;
-        }
-
-
-        $wm = new WarehouseMovement;
-        $wm->productive_unit_warehouse_id = $id;
-        $wm->movement_id = $mo->id;
-        $wm->role = 'Recibe';
-        $wm->save();
-
-        if($wm->save()){
-            $icon = 'success';
-            $message_line = trans('agroindustria::menu.Successful check out');
-        }else{
-            $icon = 'error';
-            $message_line = trans('agroindustria::menu.Check out error');
-        }
-
-        return redirect()->route('cefa.agroindustria.units.instructor.movements')->with([
-            'icon' => $icon,
-            'message_line' => $message_line,
-        ]);
     }
 
     public function pending(){
@@ -368,6 +384,14 @@ class DeliverController extends Controller
                 $inventory = $detail->inventory;
                 $inventory->amount -= $detail->amount;
                 $inventory->save();
+
+                $person = $detail->inventory->person;
+
+                // Verifica si la persona tiene una dirección de correo electrónico válida
+                if ($person && $person->personal_email) {
+                    // Envía el correo electrónico
+                    Mail::to($person->personal_email)->send(new MovementApproved($detail->inventory));
+                }
 
                 $receiveWarehouseMovement = $movement->warehouse_movements->first(function ($movement) {
                     return $movement->role === 'Recibe';

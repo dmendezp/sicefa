@@ -17,7 +17,6 @@ class CreateSuppliesTable extends Migration
             $table->id();
             $table->foreignId('element_id')->constrained()->onDelete('cascade');
             $table->foreignId('request_external_id')->constrained()->onDelete('cascade');
-            $table->foreignId('measurement_unit_id')->constrained()->onDelete('cascade');
             $table->string('sena_code');
             $table->integer('amount');
             $table->string('observation')->nullable();

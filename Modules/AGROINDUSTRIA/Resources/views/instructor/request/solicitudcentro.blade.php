@@ -4,7 +4,7 @@
             <div class="form">
                 <div class="form-header">SOLICITUD DE BIENES</div>
                 <div class="form-body">
-                    {!! Form::open(['url' => route('cefa.agroindustria.instructor.enviarsolicitud'),'method' => 'post']) !!}
+                    {!! Form::open(['url' => route('cefa.agroindustria.units.instructor.enviarsolicitud'),'method' => 'post']) !!}
                     <div class="row">
                         <div class="col-md-12">
                             {!! Form::label('date', 'Fecha de Solicitud') !!}
