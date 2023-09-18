@@ -35,6 +35,9 @@ class EnvironmentalAspect extends Model implements Auditable
     }
 
     // RELACIONES
+    public function environmental_aspect_labors(){ // Accede a todos los registros de la asociación entre aspectos ambientales y labores que pertenecen a este aspecto ambiental
+        return $this->hasMany(EnvironmentalAspectLabor::class);
+    }
     public function resource(){ // Accede al recurso al que pertenece
         return $this->belongsTo(Resource::class);
     }
