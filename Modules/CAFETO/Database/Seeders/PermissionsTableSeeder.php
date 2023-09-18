@@ -42,6 +42,88 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista del inventario actual (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.inventory.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista del inventario actual (Administrador) ',
+            'description' => 'Puede ver el inventario actual de productos (elementos) en bodega',
+            'description_english' => 'You can see the current inventory of products (elements) in warehouse',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista del inventario actual (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.inventory.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista del inventario actual (Cajero) ',
+            'description' => 'Puede ver el inventario actual de productos (elementos) en bodega',
+            'description_english' => 'You can see the current inventory of products (elements) in warehouse',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de entrada de inventario (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.inventory.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de entrada de inventario (Administrador)',
+            'description' => 'Formulario de registro de entrada de inventario',
+            'description_english' => 'Inventory entry registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de entrada de inventario (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.inventory.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de entrada de inventario (Cajero)',
+            'description' => 'Formulario de registro de entrada de inventario',
+            'description_english' => 'Inventory entry registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Registro de entrada de inventario (Administrador y/o Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin-cashier.inventory.store'], [ // Registro o actualización de permiso
+            'name' => 'Registro de entrada de inventario (Administrador y/o Cajero)',
+            'description' => 'Registro de entrada de inventario',
+            'description_english' => 'Inventory entry record',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Ver productos vencidos y por vencer (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.inventory.status'], [ // Registro o actualización de permiso
+            'name' => 'Ver productos vencidos y por vencer (Administrador)',
+            'description' => 'Ver productos vencidos y por vencer',
+            'description_english' => 'View expired and expiring products',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ver productos vencidos y por vencer (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.inventory.status'], [ // Registro o actualización de permiso
+            'name' => 'Ver productos vencidos y por vencer (Cajero)',
+            'description' => 'Ver productos vencidos y por vencer',
+            'description_english' => 'View expired and expiring products',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de bajas de inventario (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.inventory.low'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de bajas de inventario (Administrador)',
+            'description' => 'Formulario de registro de bajas de inventario',
+            'description_english' => 'Inventory removal registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de bajas de inventario (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.inventory.low'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de bajas de inventario (Cajero)',
+            'description' => 'Formulario de registro de bajas de inventario',
+            'description_english' => 'Inventory removal registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'cafeto.admin')->first(); // Rol Administrador
         $rol_cashier = Role::where('slug', 'cafeto.cashier')->first(); // Rol Operador de Cajero

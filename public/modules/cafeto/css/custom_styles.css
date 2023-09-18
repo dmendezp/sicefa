@@ -1,27 +1,17 @@
 /* -------------------ZONE CUSTOM GENERAL STYLES ---------------------- */
 
-/* Colores para el boton de instagram en developers */
-/* CSS */
-.custom-instagram-btn {
-  /* Estilo del botón */
-  background: linear-gradient(45deg, #833AB4, #E1306C);
-}
-
-/* Estilo del icono */
-.custom-instagram-btn i {
-  color: white;
-}
-
 /* Creacion de ajustes de tamaño para la card de inventario, aqui se configura para que esta tenga un tamaño definido y lo que tenga dentro tambien sea adaptable */
 .custom-height {
-    height: 70px; /* Ajusta la altura según tus necesidades */
-  }
-  
+  height: 70px;
+  /* Ajusta la altura según tus necesidades */
+}
+
 .object-fit {
   object-fit: cover;
-  height: 100%; /* Establece la altura de la imagen en 100% para que se ajuste a la altura de la tarjeta */
+  height: 100%;
+  /* Establece la altura de la imagen en 100% para que se ajuste a la altura de la tarjeta */
 }
-  
+
 .flex-column {
   display: flex;
   flex-direction: column;
@@ -31,13 +21,15 @@
 /* Animacion del boton para ver los creditos */
 @keyframes bounce {
   0% {
-      transform: translateY(0);
+    transform: translateY(0);
   }
+
   50% {
-      transform: translateY(-10px);
+    transform: translateY(-10px);
   }
+
   100% {
-      transform: translateY(0);
+    transform: translateY(0);
   }
 }
 
@@ -49,4 +41,14 @@
 /* Estilos para el texto centrado en la tabla de entrada de inventarios */
 .vertical-center {
   vertical-align: middle;
+}
+
+/* Cambia el color del borde superiro de las cards que se usan en el aplicativo */
+.custom-border-color {
+  border-top-color: #bc6c25 !important;
+}
+
+/* Cambia el color del header de las cards que se usan en el aplicativo */
+.custom-card-header {
+  background-color: #bc6c25 !important; /* Cambia el color de fondo de la cabecera a #bc6c25 */
 }

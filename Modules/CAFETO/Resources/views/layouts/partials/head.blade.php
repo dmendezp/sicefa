@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="{{asset('AdminLTE/dist/css/adminlte.min.css')}}">
 <!-- Estilos personalizados -->
 <link rel="stylesheet" href="{{asset('modules/cafeto/css/generalStyles.css')}}">
+<link rel="stylesheet" href="{{asset('modules/cafeto/css/custom_styles.css')}}">
 <link rel="stylesheet" href="{{asset('modules/cafeto/css/googlefonts.css')}}">
 <!-- Bootstrap-5.3.0-alpha -->
 <link rel="stylesheet" href=" {{ asset('libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css') }}">

@@ -16,6 +16,11 @@
             text-align: center;
             font-size: 30px;
             z-index: 100;
+            background-color: #bc6c25;
+        }
+
+        .button-register-sale:hover {
+            color: #FFF;
         }
     </style>
 </head>
@@ -59,7 +64,7 @@
                 <!-- Container-fluid -->
                 <div class="container-fluid">
                     @section('content') @show
-                    <a href="#" class="button-register-sale bg-success pt-2 pe-1">
+                    <a href="#" class="button-register-sale pt-2 pe-1">
                         <i class="fa-solid fa-cart-shopping fa-bounce"></i>
                     </a>
                 </div>

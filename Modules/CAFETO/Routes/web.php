@@ -23,16 +23,18 @@ Route::middleware(['lang'])->group(function () {  // Middleware para la internza
             Route::get('information', 'info')->name('cefa.cafeto.info'); // Vista mas info sobre cafeto y pública de la aplicación (Pública)
             Route::get('admin', 'admin')->name('cafeto.admin.index'); // Vista principal del Administrador (Administrador)
             Route::get('cashier', 'cashier')->name('cafeto.cashier.index'); // Vista principal del Cajero (Cajero)
-            Route::get('admin/configuration', 'configuration')->name('cefa.cafeto.configuration'); // Vista de configuracion, como generar un ticket o factura de prueba y verificar la conexion de la impresora, etc. (Administrador)
-            Route::get('cashier/configuration', 'configuration')->name('cefa.cafeto.configuration'); // Vista de configuracion, como generar un ticket o factura de prueba y verificar la conexion de la impresora, etc. (Cajero)
-
         });
-
+        
         // Rutas para Inventario
         Route::controller(InventoryController::class)->group(function () {
             Route::get('admin/inventory/index', 'index')->name('cafeto.admin.inventory.index'); // Inventario actual (Administrador)
             Route::get('cashier/inventory/index', 'index')->name('cafeto.cashier.inventory.index'); // Inventario actual (Cajero)
-            Route::get('inventory/create', 'create')->name('cafeto.inventory.create'); // Formulario de registro de entrada de inventario
+            Route::get('admin/inventory/create', 'create')->name('cafeto.admin.inventory.create'); // Formulario de registro de entrada de inventario (Administrador)
+            Route::get('cashier/inventory/create', 'create')->name('cafeto.cashier.inventory.create'); // Formulario de registro de entrada de inventario (Cajero)
+            Route::get('admin/inventory/status', 'status')->name('cafeto.admin.inventory.status'); // Producto vencidos y por vencer (Administrador)
+            Route::get('cashier/inventory/status', 'status')->name('cafeto.cashier.inventory.status'); // Producto vencidos y por vencer (Cajero)
+            Route::get('admin/inventory/low', 'low_create')->name('cafeto.admin.inventory.low'); // Formulario de registro de bajas de inventario (Administrador)
+            Route::get('cashier/inventory/low', 'low_create')->name('cafeto.cashier.inventory.low'); // Formulario de registro de bajas de inventario (Cajero)
 
 
             //Rutas para reportes de inventario

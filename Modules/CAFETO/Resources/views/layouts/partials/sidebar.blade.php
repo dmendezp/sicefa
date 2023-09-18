@@ -92,14 +92,14 @@
                         <li class="nav-item">
                             <a href="{{ route('cafeto.admin.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.admin.index') ?: 'active' }} text-light">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Home</p>
+                                <i class="nav-icon fa-solid fa-house-chimney"></i>
+                                <p>Inicio</p>
                             </a>
                         </li>
                     @endif
                     @if(Auth::user()->havePermission('cafeto.admin.inventory.index'))
                         <li class="nav-item">
-                            <a href="#"
+                            <a href="{{ route('cafeto.admin.inventory.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.admin.inventory.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fas fa-boxes"></i>
                                 <p>Inventario</p>
@@ -166,8 +166,8 @@
                         <li class="nav-item">
                             <a href="{{ route('cafeto.cashier.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.cashier.index') ?: 'active' }} text-light">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Home</p>
+                                <i class="nav-icon fa-solid fa-house-chimney"></i>
+                                <p>Inicio</p>
                             </a>
                         </li>
                     @endif

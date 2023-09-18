@@ -22,16 +22,66 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $view = ['titlePage'=>'Inventario', 'titleView'=>'Administración de inventario'];
+
+        $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_index_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_index_title_view')];
         $apps = App::get();
-        return view('cafeto::inventory.index', compact('apps', 'view'));
+        $inventories = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
+            ->where('amount', '<>', 0)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+        $groupedInventories = collect(); // Creamos una nueva colección para almacenar el resultado
+        $groups = []; // Creamos un array para mantener el seguimiento de los grupos
+
+        foreach ($inventories as $inventory) {
+            $elementId = $inventory->element_id;
+
+            // Verificamos si el grupo ya existe en el array de grupos
+            if (array_key_exists($elementId, $groups)) {
+                // Si el grupo ya existe, agregamos el registro al grupo existente
+                $groups[$elementId]->push($inventory);
+            } else {
+                // Si el grupo no existe, lo creamos y agregamos el registro al nuevo grupo
+                $groups[$elementId] = collect([$inventory]);
+            }
+        }
+
+        // Convertimos los grupos a la colección final
+        foreach ($groups as $group){
+            $groupedInventories->push($group);
+        }
+        return view('cafeto::inventory.index', compact('apps', 'view',  'groupedInventories'));
     }
 
     public function create()
     { // Formulario de registro (entrada) de inventario
-        $view = ['titlePage' => trans('ptventa::inventory.titlePage2'), 'titleView' => trans('ptventa::inventory.titleView2')];
+        $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_create_title_view')];
         $apps = App::get();
         return view('cafeto::inventory.create', compact('view', 'apps'));
+    }
+
+    // Lista de productos vencidos y por vencer
+    public function status(Request $request) {
+        $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_status_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_status_title_view')];
+        $apps = App::get();
+        $productosVencidos = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
+                                        ->where('state', 'Disponible')
+                                        ->where('expiration_date', '<', now())
+                                        ->orderBy('expiration_date')
+                                        ->get();
+        $productosPorVencer = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
+                                        ->where('state', 'Disponible')
+                                        ->where('expiration_date', '>', now())
+                                        ->where('expiration_date', '<=', now()->addDays(3))
+                                        ->orderBy('expiration_date')
+                                        ->get();
+        return view('cafeto::inventory.status', compact('view', 'apps', 'productosVencidos', 'productosPorVencer'));
+    }
+
+    /* Ingresar a registro de bajas de inventario */
+    public function low_create(){
+        $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_low_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_low_create_title_view')];
+        $apps = App::get();
+        return view('cafeto::inventory.low', compact('view', 'apps'));
     }
 
     //Funciones Para Reporte de inventario

@@ -46,7 +46,7 @@ class RolesTableSeeder extends Seeder
         $user_cashier = User::where('nickname','Resmerveilons')->firstOrFail(); // Usuario Cajero (Manuel Steven Ossa Lievano)
         $user_superadmin = User::where('nickname','JDGM0331')->firstOrFail(); // Usuario Super Administrador (Jesús David Guevara Munar)
 
-        // Asignación de ROLES para los USUARIOS de la aplicación PTVENTA (Sincronización de las relaciones sin eliminar las relaciones existentes)
+        // Asignación de ROLES para los USUARIOS de la aplicación CAFETO (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]);
         $user_cashier->roles()->syncWithoutDetaching([$rol_cashier->id]);
         $user_superadmin->roles()->syncWithoutDetaching([$rol_superadmin->id]);

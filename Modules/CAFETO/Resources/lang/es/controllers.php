@@ -20,4 +20,18 @@ return [
 	// Index - Cashier
 	'CAFETO_cashier_title_page' => 'Cajero',
 	'CAFETO_cashier_title_view' => 'Página principal',
+
+	// -----InventoryController-----
+	// Index
+	'CAFETO_inventory_index_title_page' => 'Inventario - Listado',
+	'CAFETO_inventory_index_title_view' => 'Administración general de inventario',
+	// Create
+	'CAFETO_inventory_create_title_page' => 'Inventario - Registro',
+	'CAFETO_inventory_create_title_view' => 'Registro de Inventario',
+	// Status
+	'CAFETO_inventory_status_title_page' => 'Inventario - Estado',
+	'CAFETO_inventory_status_title_view' => 'Productos en riesgo por expiración y vencidos',
+	// Low Create
+	'CAFETO_inventory_low_create_title_page' => 'Bajas de Inventario',
+	'CAFETO_inventory_low_create_title_view' => 'Bajas de Inventario',
 ];

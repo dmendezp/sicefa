@@ -2,8 +2,8 @@
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                data-target="#navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1"
+                aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -74,7 +74,7 @@
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.admin.inventory.index'))
                                                     <li>
-                                                        <a href="#">
+                                                        <a href="{{ route('cafeto.admin.inventory.index') }}">
                                                             <i class="fa-solid fa-boxes-stacked"></i>Inventario
                                                         </a>
                                                     </li>
@@ -158,7 +158,7 @@
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.cashier.inventory.index'))
                                                     <li>
-                                                        <a href="#">
+                                                        <a href="{{ route('cafeto.cashier.inventory.index') }}">
                                                             <i class="fa-solid fa-boxes-stacked"></i>Inventario
                                                         </a>
                                                     </li>
@@ -220,22 +220,31 @@
                     </li>
                 @endif
 
+                <!-- Mode User -->
                 @guest
                 @else
-                    <!-- Mode User -->
-                    <div class="module module-reservation pull-left">
-                        <a class="btn-popup btn-popup-theme">Modo: {{ Auth::user()->roles[0]->name }}</a>
-                    </div>
+                    @auth
+                        @if (checkRol('cafeto.admin'))
+                        <div class="module module-reservation pull-left">
+                            <a class="btn-popup btn-popup-theme">Modo: Administrador</a>
+                        </div>
+                        @endif
+                        @if (checkRol('cafeto.cashier'))
+                        <div class="module module-reservation pull-left">
+                            <a class="btn-popup btn-popup-theme">Modo: Cajero</a>
+                        </div>
+                        @endif
+                    @endauth
                 @endguest
-
 
                 <!-- Menu Session-->
                 <li class="has-dropdown">
                     @guest
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item">Iniciar Sesion</a>
                     @else
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item"><i
-                                class="fa-regular fa-id-badge"></i> {{ Auth::user()->person->fullname }}</a>
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item">
+                            {{ Auth::user()->person->fullname }} <i class="fa-solid fa-angles-down"></i>
+                        </a>
                     @endguest
                     <ul class="dropdown-menu">
                         @guest
@@ -248,15 +257,23 @@
                             @auth
                                 @if (checkRol('cafeto.admin'))
                                     <li>
-                                        <a href="{{ route('cafeto.admin.index') }}" class="menu-item">Administrador</a>
+                                        <a href="{{ route('cafeto.admin.index') }}" class="menu-item">Modo Administrador</a>
                                     </li>
                                 @endif
                                 @if (checkRol('cafeto.cashier'))
                                     <li>
-                                        <a href="{{ route('cafeto.cashier.index') }}" class="menu-item">Cajero</a>
+                                        <a href="{{ route('cafeto.cashier.index') }}" class="menu-item">Modo Cajero</a>
                                     </li>
                                 @endif
+                                <li>
+                                    <a href="{{ route('cefa.cafeto.index') }}" class="menu-item">Modo Usuario</a>
+                                </li>
                             @endauth
+                            <li>
+                                <a class="menu-item" href="{{ route('cefa.welcome') }}">
+                                    Volver a SICEFA <i class="nav-icon fas fa-puzzle-piece"></i>
+                                </a>
+                            </li>
                             <li>
                                 <a class="menu-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

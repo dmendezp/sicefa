@@ -4,17 +4,17 @@
         <li class="nav-item mx-2">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars" style="color:aliceblue"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        <li class="nav-item d-none d-sm-inline-block mx-2">
             <a href="{{ route('cefa.cafeto.index') }}" class="nav-link text-light @if(Route::is('cefa.cafeto.*')) active @endif">Inicio</a>
         </li>
         @auth
             @if(checkRol('cafeto.admin'))
-                <li class="nav-item d-none d-sm-inline-block">
+                <li class="nav-item d-none d-sm-inline-block mx-2">
                     <a href="{{ route('cafeto.admin.index') }}" class="nav-link text-light @if(Route::is('cafeto.admin*')) active @endif">Administrador</a>
                 </li>
             @endif
             @if (checkRol('cafeto.cashier'))
-                <li class="nav-item d-none d-sm-inline-block">
+                <li class="nav-item d-none d-sm-inline-block mx-2">
                     <a href="{{ route('cafeto.cashier.index') }}" class="nav-link text-light @if(Route::is('cafeto.cashier*')) active @endif">Cajero</a>
                 </li>
             @endif
@@ -76,7 +76,7 @@
         <!-- Navbar Search -->
         <li>
             <div class="nav-item dropdown mx-1">
-                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                <button class="btn dropdown-toggle nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false"
                     data-bs-toggle="tooltip" data-bs-placement="left"
                     data-bs-title="{{ trans('cafeto::general.Language') }}">
                     <i class="fas fa-globe-americas"></i> {{ session('lang') }}
