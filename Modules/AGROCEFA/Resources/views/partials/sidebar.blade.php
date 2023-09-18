@@ -78,7 +78,7 @@
                 @endauth
                 @guest
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="{{ route('agrocefa.index') }}">
                             <i class='bx bx-home icon'></i>
                             <span class="text nav-text">{{ trans('agrocefa::universal.Home') }}</span>
                         </a>
