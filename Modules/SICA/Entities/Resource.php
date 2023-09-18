@@ -21,9 +21,4 @@ class Resource extends Model implements Auditable
         'updated_at'
     ];
 
-    // RELACIONES
-    public function labor_resources(){ // Accede a todos los registros de recursos de labor que pertenecen a este recurso
-        return $this->hasMany(LaborResource::class);
-    }
-
 }
