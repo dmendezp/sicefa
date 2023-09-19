@@ -26,7 +26,9 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/dashboard', 'AGROINDUSTRIAController@dashboard')->name('cefa.agroindustria.admin.dashboard');
             Route::get('/discharge', [WarehouseController::class, 'discharge'])->name('cefa.agroindustria.admin.discharge');
             Route::post('/discharge/create', [WarehouseController::class, 'createDischarge'])->name('cefa.agroindustria.admin.discharge.create');
-            Route::get('/discharge/element/{id}', [WarehouseController::class, 'dataElement'])->name('cefa.agroindustria.admin.discharge.element');
+            Route::get('/discharge/warehouse/{id}', [WarehouseController::class, 'warehouse'])->name('cefa.agroindustria.admin.discharge.warehouse');
+            Route::get('/discharge/element/{id}', [WarehouseController::class, 'element'])->name('cefa.agroindustria.admin.discharge.element');
+            Route::get('/discharge/elementData/{id}', [WarehouseController::class, 'dataElement'])->name('cefa.agroindustria.admin.discharge.elementData');
         });
    
         //unidades productivas

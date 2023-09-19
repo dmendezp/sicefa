@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             {!! Form::label('date', 'Fecha de Solicitud') !!}
-                            {!! Form::date('date', now(), ['class'=>'form-control', 'readonly' => 'readonly']) !!}
+                            {!! Form::date('date', now(), ['class'=>'form-control', 'id'=>'readonly-bg-gray', 'readonly' => 'readonly']) !!}
                         </div>
                         <div class="col-md-6">
                             {!! Form::label('coordinator', 'Nombre de jefe de oficina o coordinador de área') !!}
@@ -18,16 +18,16 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            {!! Form::label('document_numver_coordinator', 'Cédula') !!}
+                            {!! Form::label('document_number_coordinator', 'Cédula') !!}
                             {!! Form::number('document_number_coordinator',null, ['class'=>'form-control', 'readonly' => 'readonly', 'id' => 'document_number_coordinator']) !!}
                         </div>
                         <div class="col-md-6">
                             {!! Form::label('receiver', 'Nombre de a quien se le asignara el bien') !!}
-                            {!! Form::text('receiver', $name, ['class' => 'form-control', 'readonly' => 'readonly',]) !!}                        
+                            {!! Form::text('receiver', $name, ['class' => 'form-control', 'id'=>'readonly-bg-gray', 'readonly' => 'readonly',]) !!}                        
                         </div>
                         <div class="col-md-6">
                             {!! Form::label('document_number_person', 'Cédula') !!}
-                            {!! Form::number('document_number_person', $cedula, ['class'=>'form-control', 'readonly' => 'readonly']) !!}    
+                            {!! Form::number('document_number_person', $cedula, ['class'=>'form-control', 'id'=>'readonly-bg-gray', 'readonly' => 'readonly']) !!}    
                         </div>
                         <div class="col-md-12">
                             {!! Form::label('course_id', 'Código de grupo o ficha de caracterización') !!}
@@ -40,32 +40,28 @@
                             <div id="products">
                                 <h3>Productos</h3>
                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                <button type="button" id="add-product">Agregar Producto</button>
+                                <button type="button" id="add-product" id="center_button">Agregar Producto</button>
                                 <div class="product">
                                     {!! Form::number('code_sena[]', null, ['placeholder' => 'Código SENA']) !!}
-                                    {!! Form::select('product_name[]', $element->pluck('text', 'value')->prepend('Nombre del producto', ''), null, ['readonly' => 'readonly', 'id' => 'element']) !!}
-                                    {!! Form::select('measurement_unit[]', $measurementUnit->pluck('text', 'value')->prepend('Unidad de Medida', ''), null, ['id' => 'measurement_unit']) !!}
-                                    {!! Form::number('amount[]', null, ['placeholder' => 'Cantidad']) !!}
+                                    {!! Form::select('product_name[]', $element, null, ['id' => 'element']) !!}
+                                    <span class="available-quantity"></span>
+                                    {!! Form::number('amount[]', null, ['placeholder' => 'Cantidad', 'class' => 'amount-input']) !!}
                                     {!! Form::text('observations[]', null, ['placeholder' => 'Observaciones']) !!}
-                                    <button class="remove-product">Eliminar</button>
-                                </div>
-                                
+                                    {!! Form::button('Eliminar', ['class'=>'remove-product']) !!}                                
+                                </div>                           
                             </div>
                         </div>
                         
+                        <div class="button">
+                            {!! Form::submit('Enviar',['class' => 'enviar','name' => 'enviar']) !!}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        
-        
-        <div class="button">
-            {!! Form::submit('Enviar',['class' => 'enviar','name' => 'enviar']) !!}
-        </div>
     {!! Form:: close() !!}
     
-    @section('js')
+    @section('script')
     @endsection
     <script>
         $(document).ready(function() {
@@ -79,14 +75,9 @@
         });
     
         $(document).ready(function() {
-            // Aplicar Select2 al campo de selección con el id 'course'
-            $('#measurement_unit').select2();
-        });
-    
-        $(document).ready(function() {
             // Agregar un nuevo campo de producto
             $("#add-product").click(function() {
-                    var newProduct = '<div class="product">{!! Form::number("code_sena[]", null, ["placeholder"=>"Código SENA"]) !!} {!! Form::select("product_name[]", $element->pluck("text", "value")->prepend("Nombre del producto", ''), null, ["readonly" => "readonly", "class" => "element-select"]) !!} {!! Form::select("measurement_unit[]", $measurementUnit->pluck("text", "value")->prepend("Unidad de Medida", ""), null, ["class" => "measurement-unit-select"]) !!} {!! Form::number("amount[]", NULL, ["placeholder" => "Cantidad"]) !!} {!! Form::text("observations[]", NULL, ["placeholder" => "Observaciones"]) !!} <button class="remove-product">Eliminar</button></div>';
+                    var newProduct = '<div class="product">{!! Form::number("code_sena[]", null, ["placeholder"=>"Código SENA"]) !!} {!! Form::select("product_name[]", $element, null, ["readonly" => "readonly", "class" => "element-select"]) !!}<span class="available-quantity"></span> {!! Form::number("amount[]", NULL, ["placeholder" => "Cantidad"]) !!} {!! Form::text("observations[]", NULL, ["placeholder" => "Observaciones"]) !!} {!! Form::button("Eliminar", ["class"=>"remove-product"]) !!}</div>';
     
                 // Agregar el nuevo campo al DOM
                 $("#products").append(newProduct);
@@ -94,16 +85,36 @@
                 // Inicializar Select2 en los campos 'element' en el nuevo campo
                 $('.element-select:last').select2();
     
-                // Inicializar Select2 en los campos 'measurement_unit' en el nuevo campo
-                $('.measurement-unit-select:last').select2();
             });
     
             // Eliminar un campo de producto
             $("#products").on("click", ".remove-product", function() {
                 $(this).parent(".product").remove();
             });
+                $("#products").on("change", "select[name^='product_name']", function() {
+                var selectedElement = $(this).val();
+                var parentProduct = $(this).closest('.product');
+                var availableQuantity = parentProduct.find('.available-quantity');
+                // Realizar una solicitud AJAX para obtener la cantidad disponible
+                $.ajax({
+                    url: {!! json_encode(route('cefa.agroindustria.units.instructor.amount', ['id' => ':id'])) !!}.replace(':id', selectedElement.toString()),
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.inventory.length > 0) {
+                            var inventory = response.inventory[0];
+                            var quantity = parseFloat(inventory.amount);
+
+                            availableQuantity.text('Cantidad Disponible: ' + quantity);
+                        } else {
+                            availableQuantity.text(''); // Limpia el texto si no se encuentra la cantidad disponible
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error al obtener la cantidad disponible:', error);
+                        availableQuantity.text(''); // Limpia el texto en caso de error
+                    }
+                });
+            });
         });
-    </script>
-    
-    
+    </script>   
 @endsection

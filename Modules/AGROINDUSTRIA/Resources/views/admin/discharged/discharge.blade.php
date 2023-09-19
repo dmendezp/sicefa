@@ -10,15 +10,19 @@
                 {{--{!! Form::hidden('productiveUnitWarehouse', $productiveUnitWarehouse, ['id' => 'productiveUnitWarehouse']) !!}--}}
                 {{--{!! Form::hidden('warehouseId', $warehouseId, ['id' => 'warehouseId']) !!}--}}
                 {!! Form::label('date', trans('agroindustria::menu.Date Time')) !!}
-                {!! Form::datetime('date', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+                {!! Form::datetime('date', now()->format('Y-m-d\TH:i:s'), ['class' => 'form-control', 'id' => 'readonly-bg-gray', 'readonly' => 'readonly']) !!}
             </div>
             <div class="col-md-6">
                 {!! Form::label('productive_unit', 'Unidad Productiva') !!}
-                {!! Form::select('productive_unit', $productiveUnit, old('productive_unit'), ['class' => 'form-control']) !!}
+                {!! Form::select('productive_unit', $productiveUnit, old('productive_unit'), ['class' => 'form-control', 'id' => 'productive_unit']) !!}
             </div>
             <div class="col-md-6">
                 {!! Form::label('inChage', trans('agroindustria::menu.Responsible')) !!}  
-                {!! Form::text('inChage', $name, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
+                {!! Form::text('inChage', $name, ['class' => 'form-control', 'id' => 'readonly-bg-gray', 'readonly' => 'readonly']) !!}
+            </div>
+            <div class="col-md-6">
+                {!! Form::label('warehouse', 'Bodegas') !!}
+                {!! Form::select('warehouse', [], old('warehouse'), ['placeholder' => trans('agroindustria::menu.Select a winery'), 'class' => 'form-control', 'id' => 'warehouse']) !!}
             </div>
             <div class="col-md-12">
                 {!! Form::label('observation', trans('agroindustria::menu.Observations')) !!}
@@ -27,47 +31,44 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
+            <div class="col-md-12">
+                <div id="elements">
+                <h3>{{trans('agroindustria::menu.Products')}}</h3>
+                <!-- Aquí se agregarán los campos de producto dinámicamente -->
+                <button type="button" id="add-product" id="center_button">Agregar Producto</button>
+                <div class="elements_discharge">
+                    <div class="form-group">
+                        {!! Form::label('elementInventory' , trans('agroindustria::menu.Element')) !!}
+                        {!! Form::select('element[]', [], null, ['placeholder' => 'Seleccione un elemento', 'id' => 'element_discharge']) !!}
+                        @if ($errors->has('element'))
+                          <span class="text-danger">{{ $errors->first('element') }}</span>
+                        @endif
+                      </div>
+                    <div class="form-group">
+                        {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
+                        {!! Form::number('amount[]', null, ['id' => 'amount']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('lote' , trans('agroindustria::menu.Lote')) !!}
+                        {!! Form::text('lote[]', null, ['id' => 'lote', 'readonly'=> 'readonly']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('fVto' , trans('agroindustria::menu.Expiration Date')) !!}
+                        {!! Form::text('fVto[]', null, ['id' => 'fVto', 'readonly'=> 'readonly']) !!}
+                    </div>
+                        <button type="button" class="remove-element">{{trans('agroindustria::menu.Delete')}}</button>
+                    </div>
+                </div>                           
+            </div>
+            <div class="button_discharge">
+                {!! Form::submit(trans('agroindustria::menu.Register deregistration'),['class' => 'baja', 'name' => 'baja']) !!}
+            </div>
         </div>
-        
-        
-      </div>
+        </div>
     </div>
-  </div>
-  <div id="elements">
-    <div id="products_discharge">
-        <h3>{{trans('agroindustria::menu.Products')}}</h3>
-        <!-- Aquí se agregarán los campos de producto dinámicamente -->
-        <button type="button" id="add-element">{{trans('agroindustria::menu.Add Product')}}</button> {!! Form::submit(trans('agroindustria::menu.Register deregistration'),['class' => 'baja', 'name' => 'baja']) !!}
-
-        <div class="elements_discharge">
-            {{--<div class="form-group">
-                {!! Form::label('elementDischarge' , trans('agroindustria::menu.Element')) !!}
-                {!! Form::select('element[]', $elements, null, ['id' => 'element_discharge']) !!}
-            </div>--}}
-            <div class="form-group">
-                {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
-                {!! Form::number('amount[]', null, ['id' => 'amount']) !!}
-            </div>    
-            <div class="form-group">  
-                {!! Form::label('measurementUnit' , trans('agroindustria::menu.Unit of Measurement')) !!}
-                {!! Form::text('measurementUnit[]', null, ['id' => 'measurementUnit', 'readonly' => 'readonly']) !!}
-            </div>  
-            <div class="form-group">
-                {!! Form::label('lote' , trans('agroindustria::menu.Lote')) !!}
-                {!! Form::text('lote[]', null, ['id' => 'lote', 'readonly'=> 'readonly']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::label('fVto' , trans('agroindustria::menu.Expiration Date')) !!}
-                {!! Form::text('fVto[]', null, ['id' => 'fVto', 'readonly'=> 'readonly']) !!}
-                {!! Form::hidden('price[]', null, ['id' => 'price', 'readonly'=> 'readonly']) !!}
-            </div>
-                <button type="button" class="remove-element">{{trans('agroindustria::menu.Delete')}}</button>
-            </div>
-    </div>
-    <div class="button_discharge">
-      </div>
-      {!! Form:: close() !!}
 </div>
+{!! Form:: close() !!}
+
 
 <h3 id="bajas">{{trans('agroindustria::menu.Deregistrations')}}</h3>
 <div class="table_discharge">
@@ -79,14 +80,13 @@
 <script>
     $(document).ready(function() {    
         // Aplicar Select2 al campo de selección con el id 'elementInventory'
-        $('#element_discharge').select2();
     
         // Agregar un nuevo campo de producto
-        $("#add-element").click(function() {
-            var newProduct = '<div class="elements_discharge"><div class="form-group">{!! Form::label("elementDischarge" , trans("agroindustria::menu.Element")) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", NULL, ["id" => "amount"]) !!}</div> <div class="form-group">{!! Form::label("measurementUnit" , trans("agroindustria::menu.Unit of Measurement")) !!} {!! Form::text("measurementUnit[]", null, ["id" => "measurementUnit", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("lote" , trans("agroindustria::menu.Lote")) !!} {!! Form::number("lote[]", null, ["id" => "lote", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("fVto" , trans("agroindustria::menu.Expiration Date")) !!} {!! Form::text("fVto[]", null, ["id" => "fVto", "readonly" => "readonly"]) !!}{!! Form::hidden("price[]", null, ["id" => "price", "readonly"=> "readonly"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
+        $("#add-product").click(function() {
+            var newProduct = '<div class="elements_discharge"><div class="form-group">{!! Form::label("elementDischarge" , trans("agroindustria::menu.Element")) !!}{!! Form::select("element[]", [], null, ["placeholder" => "Seleccione un elemento", "id" => "element_discharge"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", NULL, ["id" => "amount"]) !!}</div> <div class="form-group">{!! Form::label("lote" , trans("agroindustria::menu.Lote")) !!} {!! Form::number("lote[]", null, ["id" => "lote", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("fVto" , trans("agroindustria::menu.Expiration Date")) !!} {!! Form::text("fVto[]", null, ["id" => "fVto", "readonly" => "readonly"]) !!}{!! Form::hidden("price[]", null, ["id" => "price", "readonly"=> "readonly"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
     
             // Agregar el nuevo campo al DOM
-            $("#products_discharge").append(newProduct);
+            $("#elements").append(newProduct);
     
             // Inicializar Select2 en los campos 'element' en el nuevo campo
             $('.element-selected:last').select2();
@@ -94,7 +94,7 @@
         });
     
         // Escuchar el evento change en el elemento con ID 'products' (delegado)
-        $("#products_discharge, #elements").on("change", "#element_discharge", function() {            
+        $("#elements").on("change", "#element_discharge", function() {            
             var elementoSeleccionado = $(this).val();
             var parentElement = $(this).closest('.elements_discharge');
             var measurementUnitField = parentElement.find('input#measurementUnit');
@@ -108,20 +108,18 @@
             // Realizar una petición AJAX para obtener la cantidad disponible
             if (elementoSeleccionado) {
                 $.ajax({
-                    url: {!! json_encode(route('cefa.agroindustria.admin.discharge.element', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
+                    url: {!! json_encode(route('cefa.agroindustria.admin.discharge.elementData', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
                     method: 'GET',
                     success: function(response) {
                         if (Array.isArray(response.id)) {
                             // Si recibes un arreglo de IDs, puedes recorrerlos aquí
                             response.id.forEach(function(value) {
-                                var measurementUnit = value.measurementUnit; 
                                 var lote = parseFloat(value.lote);  
                                 var fVto = new Date(value.fVto);
                                 var options = { day: 'numeric', month: 'numeric',  year: 'numeric'};
                                 var formattedFVto = fVto.toLocaleDateString(undefined, options);
                                 var price = parseFloat(value.price);  
 
-                                measurementUnitField.val(measurementUnit);
                                 loteField.val(lote);
                                 fVtofield.val(formattedFVto);
                                 pricefield.val(price);
@@ -144,9 +142,62 @@
                 price.val('');
             }
         });
-    
+        $(document).ready(function() {
+            // Detecta cambios en el primer campo de selección (Receiver)
+            $('#productive_unit').on('change', function() {
+                var selectedProductiveUnit = $(this).val();
+
+                var url = {!! json_encode(route('cefa.agroindustria.admin.discharge.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedProductiveUnit.toString());
+
+                // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {
+                        var options = '<option value="">' + '{{ trans("agroindustria::menu.Select a winery") }}' + '</option>';
+                        $.each(response.id, function(index, warehouse) {
+                            options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
+                        });
+
+                        // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                        $('#warehouse').html(options);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function() {
+            // Detecta cambios en el primer campo de selección (Receiver)
+            $('#productive_unit').on('change', function() {
+                var selectedWarehouse = $(this).val();
+
+                var url = {!! json_encode(route('cefa.agroindustria.admin.discharge.element', ['id' => ':id'])) !!}.replace(':id', selectedWarehouse.toString());
+
+                // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {
+                        var options = '<option value="">' + 'Seleccione un elemento' + '</option>';
+                        $.each(response.id, function(index, warehouse) {
+                            options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
+                        });
+
+                        // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                        $('#element_discharge').html(options);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+        
         // Eliminar un campo de producto
-        $("#products_discharge").on("click", ".remove-element", function() {
+        $("#elements").on("click", ".remove-element", function() {
             $(this).parent(".elements_discharge").remove();
         });
     });

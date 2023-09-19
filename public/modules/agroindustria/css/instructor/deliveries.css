@@ -112,17 +112,13 @@
     align-items: center;
 }
 
-#elements{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .elements_discharge{
     display: flex;
     flex-direction: row; /* Alinea los campos uno al lado del otro */
     align-items: flex-start;
     max-width: 800px;
+    margin-top: 10px;
 }
 
 .button_discharge{

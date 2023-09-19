@@ -155,7 +155,6 @@ class WarehouseController extends Controller
                 ];
             });
         })->prepend(['id' => null, 'name' => 'Seleccione una unidad productiva'])->pluck('name', 'id');
-        
 
         //$ProductiveUnitWarehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehouseId)->get();
         //$idProductiveUnitWarehouse = $ProductiveUnitWarehouse->pluck('id');
@@ -171,7 +170,6 @@ class WarehouseController extends Controller
 
         $data = [
             'title' => $title,
-            //'elements' => $elements,
             'name' => $name,
             'productiveUnit' => $productiveUnit,
             //'productiveUnitWarehouse' => $idProductiveUnitWarehouse,
@@ -181,6 +179,48 @@ class WarehouseController extends Controller
         return view ('agroindustria::admin.discharged.discharge', $data);
     }
 
+
+    public function warehouse($id){    
+        // Asegúrate de que $id sea un arreglo
+        if (!is_array($id)) {
+            $id = [$id];
+        }
+    
+        $warehouseProductiveUnit = ProductiveUnitWarehouse::with('warehouse')->where('productive_unit_id', $id)->get();
+        $warehouse = $warehouseProductiveUnit->map(function ($wp) {
+            $id = $wp->warehouse->id;
+            $name = $wp->warehouse->name;
+
+            return [
+                'id' => $id,
+                'name' => $name,
+            ];
+        });
+        
+        return response()->json(['id' => $warehouse]);
+    }
+
+    public function element ($id){
+        // Asegúrate de que $id sea un arreglo
+        if (!is_array($id)) {
+            $id = [$id];
+        }
+    
+        $warehouse = ProductiveUnitWarehouse::where('productive_unit_id', $id)->pluck('id');
+        $elementInventory = Inventory::with('element')->whereIn('productive_unit_warehouse_id', $warehouse)->get();
+        $element = $elementInventory->map(function ($e) {
+            $id = $e->element->id;
+            $name = $e->element->name;
+
+            return [
+                'id' => $id,
+                'name' => $name,
+            ];
+        });
+    
+        return response()->json(['id' => $element]);
+    }
+    
     public function dataElement($id){    
         // Asegúrate de que $id sea un arreglo
         if (!is_array($id)) {
@@ -188,7 +228,7 @@ class WarehouseController extends Controller
         }
     
         $inventoryElement = Inventory::with('element.measurement_unit')->where('element_id', $id)->get();
-        $element = $inventoryElement->map(function ($e) {
+        $elementData = $inventoryElement->map(function ($e) {
             $measurementUnit = $e->element->measurement_unit->name;
             $lote = $e->lot_number;
             $fVto = $e->expiration_date;
@@ -201,8 +241,9 @@ class WarehouseController extends Controller
                 'price' => $price
             ];
         });
+        dd($elementData);
     
-        return response()->json(['id' => $element]);
+        return response()->json(['id' => $elementData]);
     }
 
     public function createDischarge(Request $request) {
