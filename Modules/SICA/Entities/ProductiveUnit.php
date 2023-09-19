@@ -53,9 +53,6 @@ class ProductiveUnit extends Model implements Auditable
     public function person(){ // Accede a la información de la persona lider de esta unidad productiva
         return $this->belongsTo(Person::class);
     }
-    public function productive_unit_resources(){ // Accede a todos los registros de unidad productiva y bodega que pertenecen a esta unidad productiva
-        return $this->hasMany(ProductiveUnitResource::class);
-    }
     public function productive_unit_warehouses(){ // Accede a todos los registros de unidad productiva y bodega que pertenecen a esta unidad productiva
         return $this->hasMany(ProductiveUnitWarehouse::class);
     }

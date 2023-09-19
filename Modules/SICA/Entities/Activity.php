@@ -47,9 +47,6 @@ class Activity extends Model implements Auditable
     public function labors(){ // Accede a todas las labores que pertenecen a esta actividad
         return $this->hasMany(Labor::class);
     }
-    public function environmental_aspects(){
-        return $this->belongsToMany(EnvironmentalAspect::class, 'activity_environmental_aspects');
-    }
     public function productive_unit(){ // Accede a la información de la unidad productiva al que pertenece
         return $this->belongsTo(ProductiveUnit::class);
     }

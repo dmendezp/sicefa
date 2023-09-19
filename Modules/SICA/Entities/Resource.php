@@ -32,14 +32,8 @@ class Resource extends Model implements Auditable
     public function labor_resources(){ // Accede a todos los registros de recursos de labor que pertenecen a este recurso
         return $this->hasMany(LaborResource::class);
     }
-    public function environmental_aspects(){
-        return $this->hasMany(EnvironmentalAspect::class);
-    }
     public function measurement_unit(){ // Accede a la unidad de medida al que pertenece
         return $this->belongsTo(MeasurementUnit::class);
-    }
-    public function productive_unit_resources(){ // Accede a todos los registros de recursos de la unidad productiva que pertenecen a este recurso
-        return $this->hasMany(ProductiveUnitResource::class);
     }
 
 }
