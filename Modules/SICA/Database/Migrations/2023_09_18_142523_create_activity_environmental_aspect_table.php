@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResourcesTable extends Migration
+class CreateActivityEnvironmentalAspectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateResourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('resources', function (Blueprint $table) {
+        Schema::create('activity_environmental_aspect', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->softDeletes();
+            $table->foreignId('activity_id')->constrained()->onDelete('cascade');
+            $table->foreignId('environmental_aspect_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateResourcesTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('resources');
+        Schema::dropIfExists('activity_environmental_aspect');
     }
 }
