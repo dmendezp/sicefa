@@ -64,9 +64,11 @@
                 <!-- Container-fluid -->
                 <div class="container-fluid">
                     @section('content') @show
-                    <a href="#" class="button-register-sale pt-2 pe-1">
-                        <i class="fa-solid fa-cart-shopping fa-bounce"></i>
-                    </a>
+                    @if(!Route::is('cefa.cafeto.*') && Auth::user()->havePermission('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.sale.register'))
+                        <a href="{{ Route('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.sale.register') }}" class="button-register-sale pt-2 pe-1" >
+                            <i class="fa-solid fa-cart-shopping fa-bounce"></i>
+                        </a>
+                    @endif
                 </div>
                 <!--/. container-fluid -->
             </section>

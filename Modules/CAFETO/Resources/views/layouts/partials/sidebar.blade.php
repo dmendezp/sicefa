@@ -108,10 +108,18 @@
                     @endif
                     @if(Auth::user()->havePermission('cafeto.admin.sale.index'))
                         <li class="nav-item">
-                            <a href="#"
+                            <a href="{{ route('cafeto.admin.sale.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.admin.sale.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fas fa-shopping-cart"></i>
                                 <p>Ventas</p>
+                            </a>
+                        </li>
+                    @endif
+                    @if(Auth::user()->havePermission('cafeto.admin.cash.index'))
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-light">
+                                <i class="nav-icon fa-solid fa-cash-register"></i>
+                                <p>Control de Caja</p>
                             </a>
                         </li>
                     @endif
@@ -121,14 +129,6 @@
                                 class="nav-link {{ !Route::is('cafeto.element.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fas fa-image"></i>
                                 <p>Adm. Elementos</p>
-                            </a>
-                        </li>
-                    @endif
-                    @if(Auth::user()->havePermission('cafeto.admin.cash.index'))
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-light">
-                                <i class="nav-icon fa-solid fa-cash-register"></i>
-                                <p>Control de Caja</p>
                             </a>
                         </li>
                     @endif
@@ -182,7 +182,7 @@
                     @endif
                     @if(Auth::user()->havePermission('cafeto.cashier.sale.index'))
                         <li class="nav-item">
-                            <a href="#"
+                            <a href="{{ route('cafeto.cashier.sale.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.cashier.sale.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fas fa-shopping-cart"></i>
                                 <p>Ventas</p>

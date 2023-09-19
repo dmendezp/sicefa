@@ -110,7 +110,7 @@
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.admin.sale.index'))
                                                     <li>
-                                                        <a href="#">
+                                                        <a href="{{ route('cafeto.admin.sale.index') }}">
                                                             <i class="fa-solid fa-cart-shopping"></i>Ventas
                                                         </a>
                                                     </li>
@@ -187,7 +187,7 @@
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.cashier.sale.index'))
                                                     <li>
-                                                        <a href="#">
+                                                        <a href="{{ route('cafeto.cashier.sale.index') }}">
                                                             <i class="fa-solid fa-cart-shopping"></i>Ventas
                                                         </a>
                                                     </li>

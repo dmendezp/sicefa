@@ -124,6 +124,52 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista principal de ventas realizadas en sesión de caja (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.sale.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de ventas realizadas en sesión de caja (Administrador)',
+            'description' => 'Vista principal de ventas realizadas en sesión de caja',
+            'description_english' => 'Main view of sales made in the cash session',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de ventas realizadas en sesión de caja (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.sale.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de ventas realizadas en sesión de caja (Cashier)',
+            'description' => 'Vista principal de ventas realizadas en sesión de caja',
+            'description_english' => 'Main view of sales made in the cash session',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de venta (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.sale.register'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de venta (Administrador)',
+            'description' => 'Formulario de registro de venta',
+            'description_english' => 'Sale registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de venta (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.sale.register'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de venta (Cajero)',
+            'description' => 'Formulario de registro de venta',
+            'description_english' => 'Sale registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Registro de venta (Administrador y/o Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin-cashier.generate.sale'], [ // Registro o actualización de permiso
+            'name' => 'Registro de venta (Administrador y/o Cajero)',
+            'description' => 'Registro de venta',
+            'description_english' => 'Sale record',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'cafeto.admin')->first(); // Rol Administrador
         $rol_cashier = Role::where('slug', 'cafeto.cashier')->first(); // Rol Operador de Cajero

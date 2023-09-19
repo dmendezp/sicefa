@@ -34,4 +34,12 @@ return [
 	// Low Create
 	'CAFETO_inventory_low_create_title_page' => 'Bajas de Inventario',
 	'CAFETO_inventory_low_create_title_view' => 'Bajas de Inventario',
+
+	// -----SaleController-----
+	// Index
+	'CAFETO_sale_index_title_page' => 'Ventas',
+	'CAFETO_sale_index_title_view' => 'Ventas realizadas hoy',
+	// Register
+	'CAFETO_sale_register_title_page' => 'Ventas',
+	'CAFETO_sale_register_title_view' => 'Registro de Ventas',
 ];

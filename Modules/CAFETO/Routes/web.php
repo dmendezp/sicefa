@@ -54,9 +54,12 @@ Route::middleware(['lang'])->group(function () {  // Middleware para la internza
             Route::post('reports/inventory/entries/generatepdf', 'generateInventoryEntriesPDF')->name('cafeto.reports.generate.entries.pdf'); // Generar PDF de entradas de inventario
         });
 
-        /* Rutas para administrar las ventas */
+        // Rutas para ventas
         Route::controller(SaleController::class)->group(function () {
             Route::get('admin/sale/index', 'index')->name('cafeto.admin.sale.index'); // Vista principal de ventas realizadas en sesión de caja (Administrador)
+            Route::get('cashier/sale/index', 'index')->name('cafeto.cashier.sale.index'); // Vista principal de ventas realizadas en sesión de caja (Cajero)
+            Route::get('admin/sale/register', 'register')->name('cafeto.admin.sale.register'); // Formulario de registro de venta (Administrador)
+            Route::get('cashier/sale/register', 'register')->name('cafeto.cashier.sale.register'); // Formulario de registro de venta (Cajero)
         });
 
         /* Ruta para admiistrar los pruductos */
