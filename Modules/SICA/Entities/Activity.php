@@ -44,6 +44,9 @@ class Activity extends Model implements Auditable
     public function activity_type(){ // Accede a la información del tipo de actividad al que pertenece
         return $this->belongsTo(ActivityType::class);
     }
+    public function environmental_aspects(){ // Accede todos los aspectos ambientales que pertenecen a esta actividad (PIVOTE)
+        return $this->belongsToMany(EnvironmentalAspect::class)->withTimestamps();
+    }
     public function labors(){ // Accede a todas las labores que pertenecen a esta actividad
         return $this->hasMany(Labor::class);
     }
