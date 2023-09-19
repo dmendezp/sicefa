@@ -2,6 +2,8 @@
 
 namespace Modules\AGROCEFA\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
+use Modules\AGROCEFA\Emails\Responsibility as Email;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth; 
 use Carbon\Carbon;
@@ -747,7 +749,9 @@ class MovementController extends Controller
         if ($responsibility) {
             $personid = $responsibility->person_id;
             $people = $responsibility->person->first_name;
+            $email = $responsibility->person->misena_email;
         }
+
 
         $deliveryproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $deliverywarehouse)->where('productive_unit_id', $this->selectedUnitId)->first();
         $productiveWarehousedeliveryId = $deliveryproductive_warehouse->id;

@@ -14,6 +14,7 @@ use Modules\SICA\Entities\Department;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Municipality;
 use Modules\SICA\Entities\Country;
+use Modules\SICA\Entities\MovementType;
 
 class WarehouseEntranceTableSeeder extends Seeder
 {
@@ -74,6 +75,11 @@ class WarehouseEntranceTableSeeder extends Seeder
         $productive_unit_warehouse = ProductiveUnitWarehouse::updateOrCreate([
             'productive_unit_id' => $productiveentrance->id,
             'warehouse_id' => $warehouseentrance->id
+        ]);
+
+        $movementype = MovementType::updateOrCreate([
+            'name' => 'Movimiento Entrada',
+            'consecutive' => 0
         ]);
     }
 }

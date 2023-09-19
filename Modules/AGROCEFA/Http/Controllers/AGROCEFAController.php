@@ -26,39 +26,44 @@ class AGROCEFAController extends Controller
     // Verifica si el usuario está autenticado
     public function index()
     {
+
+        // Limpiar la variable 'selectedUnitName'
+        Session::forget('selectedUnitName');
+
+        // Limpiar la variable 'selectedRole'
+        Session::forget('selectedRole');
+
         // Verifica si el usuario está autenticado
         if (Auth::check()) {
             // Obtiene el usuario autenticado
             $user = Auth::user();
 
-            // Verifica si el usuario tiene roles de "Administrador" o "Pasante"
-            if ($user->roles->contains('name', 'Administrador') || $user->roles->contains('name', 'Pasante')) {
-                // Obtiene las responsabilidades relacionadas con los roles del usuario
-                $responsibilities = $user->roles->flatMap(function ($role) {
-                    return $role->responsibilities->pluck('activity_id');
-                });
-                
-                // Obtiene los IDs de las unidades productivas basadas en las actividades
-                $units = Activity::whereIn('id', $responsibilities)
-                                ->pluck('productive_unit_id');
+            // Obtén el ID del rol del usuario
+            $productive_units_role = $user->roles()->with('productive_units')->get();
 
-                // Obtiene las unidades productivas a partir de los IDs obtenidos
-                $productiveUnits = ProductiveUnit::whereIn('id', $units)
-                                                ->get();
+            // Recorre la colección de roles
+            foreach ($productive_units_role as $role) {
+                // Accede a la relación "productive_units" en cada rol
+                $productiveUnits = $role->productive_units;
 
-                // Obtiene el ID de la unidad seleccionada desde la sesión
-                $selectedUnitId = Session::get('selectedUnitId');
-
-                // Retorna la vista 'homeproductive_units' con datos de unidades y la unidad seleccionada
-                return view('agrocefa::homeproductive_units', [
-                    'units' => $productiveUnits,
-                    'selectedUnitId' => $selectedUnitId, // Pasar el ID de unidad seleccionado a la vista
-                ]);
+                // Recorre las unidades productivas y agrega sus IDs al array
+                foreach ($productiveUnits as $unit) {
+                    $unitIds[] = $unit->id;
+                }
             }
-        } else {
-            // Si el usuario no está autenticado, muestra la vista 'homeproductive_units' sin datos especiales
-            return view('agrocefa::home');
+
+            $productiveUnits = ProductiveUnit::whereIn('id', $unitIds)->get();
+
+
+
+            return view('agrocefa::homeproductive_units', [
+                'units' => $productiveUnits,
+            ]);
         }
+
+        // Si el usuario no está autenticado, muestra la vista 'homeproductive_units' sin datos especiales
+        return view('agrocefa::home');
+        
     }
 
 
@@ -68,18 +73,33 @@ class AGROCEFAController extends Controller
 
         // Actualiza la variable de sesión con el nuevo ID de unidad seleccionado
         Session::put('selectedUnitId', $id);
-        $unit = ProductiveUnit::find($id);
+
+        $units = ProductiveUnit::with('roles')->where('id', $id)->get();
+
+        // Recorre la colección de roles
+        foreach ($units as $unit) {
+            // Accede a la relación "productive_units" en cada rol
+            $roles = $unit->roles;
+            $unitName = $unit->name;
+            $unitId = $unit->id;
+
+            // Recorre las unidades productivas y agrega sus IDs al array
+            foreach ($roles as $rol) {
+                $rolId = $rol->id;
+                $roleName = $rol->name;
+            }
+        }
+
 
         // Verifica si se encontró la unidad
-        if (!$unit) {
+        if (!$unitId) {
             // Maneja la situación en la que no se encuentra la unidad
             return redirect()->route('agrocefa.home')->with('error', 'La unidad productiva no se encontró');
         }
     
-        // Obtén el nombre de la unidad
-        $unitName = $unit->name;
-    
         Session::put('selectedUnitName', $unitName);
+
+        Session::put('selectedRole', $roleName);
 
         // Redirige a la vista de inicio con el ID de unidad seleccionado
         return redirect()->route('agrocefa.home');

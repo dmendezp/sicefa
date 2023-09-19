@@ -1,5 +1,6 @@
 @extends('agrocefa::layouts.master')
-
+<link rel="stylesheet" href="{{ asset('agrocefa/css/usuario/usuario.css') }}">
+<link rel="stylesheet" href="{{ asset('agrocefa/css/usuario/normalize.css') }}">
 @section('content')
     <html lang="es">
 
