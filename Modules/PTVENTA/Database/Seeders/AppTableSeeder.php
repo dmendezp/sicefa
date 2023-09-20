@@ -97,16 +97,13 @@ class AppTableSeeder extends Seeder
         ]);
 
         // Verficar o registrar tipos de movimientos
-        MovementType::firstOrCreate([
-            'name' => 'Baja',
+        MovementType::firstOrCreate(['name' => 'Baja'],[
             'consecutive' => 0
         ]);
-        MovementType::firstOrCreate([
-            'name' => 'Venta',
+        MovementType::firstOrCreate(['name' => 'Venta'],[
             'consecutive' => 0
         ]);
-        MovementType::firstOrCreate([
-            'name' => 'Movimiento Interno',
+        MovementType::firstOrCreate(['name' => 'Movimiento Interno'],[
             'consecutive' => 0
         ]);
 
