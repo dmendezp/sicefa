@@ -81,7 +81,7 @@ class ConvocationsController extends Controller
     public function update(Request $request, $id)
     {
         $convocations = Convocations::findOrFail($id);
-        $convocations->name = $request->input('title');
+        $convocations->name = $request->input('name');
         $convocations->description = $request->input('description');
         $convocations->food_quotas = $request->input('food_quotas');
         $convocations->transport_quotas = $request->input('transport_quotas');

@@ -41,6 +41,7 @@ return[
     'Quotas'=>'Cupos',
     'Edit Bus'=>'Editar Bus',
     'Enter the plate'=>'Ingrese la Placa',
+    'plate'=>'placa',
 
     //vista drivers
     'Add Drivers'=>'Agregar Conductores',

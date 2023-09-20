@@ -102,17 +102,18 @@
                                     <td>
 
                                     <div class="btn-group">
-                                     <button class="btn btn-sm btn-info edit-button mr-1" data-toggle="modal"
-                                        data-target="#modal-default" data-id="{{ $convocation->id }}"
-                                        data-name="{{ $convocation->name }}"
-                                        data-description="{{ $convocation->description }}"
-                                        data-food_quotas="{{ $convocation->food_quotas }}"
-                                        data-transport_quotas="{{ $convocation->transport_quotas}}"
-                                        data-start-date="{{ $convocation->start_date }}"
-                                        data-end-date="{{ $convocation->end_date }}"
-                                        data-quarter_id="{{ $convocation->quarter_id }}"><i class="fa fa-edit"></i>
-                                     </button>
-                                    
+    <button class="btn btn-sm btn-info edit-button mr-1" data-toggle="modal"
+        data-target="#modal-default" data-id="{{ $convocation->id }}"
+        data-name="{{ $convocation->name }}"
+        data-description="{{ $convocation->description }}"
+        data-food_quotas="{{ $convocation->food_quotas }}"
+        data-transport_quotas="{{ $convocation->transport_quotas}}"
+        data-start-date="{{ $convocation->start_date }}"
+        data-end-date="{{ $convocation->end_date }}"
+        data-quarter_id="{{ $convocation->quarter_id }}">
+        <i class="fa fa-edit"></i>
+    </button>
+
                                          <!-- Botón para eliminar -->
                                          {!! Form::open(['route' => ['cefa.bienestar.Convocations.destroy', $convocation->id],
                                         'method' => 'DELETE', 'class' => 'formEliminar', 'style'=> 'display: inline;']) !!}
@@ -142,12 +143,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(['url' => 'cefa.bienestar/Convocations/update/id', 'method' => 'PUT','role' => 'form']) !!}
+                {!! Form::model($convocation, ['route' => ['cefa.bienestar.Convocations.update', $convocation->id], 'method' => 'PUT', 'role' => 'form']) !!}
                     <div class="row p-3">
                         <div class="col-md-12">
                             <div class="form-group">
                                 {!! Form::label('name',__('bienestar::menu.title convocation')) !!}
-                                {!! Form::text('title', null, ['class'=> 'form-control', 'placeholder' => 'Ingrese Titulo','id'=>'title_convocation']) !!}
+                                {!! Form::text('name', null, ['class'=> 'form-control', 'placeholder' => 'Ingrese Titulo','id'=>'title_convocation']) !!}
                                 <span  id="name_error" class="text-danger" ></span>
                            </div>
                         </div>
@@ -167,6 +168,8 @@
                              <span id="food_quotas-error" class="text-danger"></span>
                            </div>
                         </div>
+
+                        
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="transport_quotas">{{ trans('bienestar::menu.transport quotas')}}</label>
@@ -213,32 +216,29 @@
 
 <script>
     $(document).ready(function() {
-        $('.edit-button').click(function() {
-            var button = $(this);
-            var title = button.data('title');
-            var description = button.data('description');
-            var foodQuotas = button.data('food-quotas');
-            var transportQuotas = button.data('transport-quotas');
-            var startDate = button.data('start-date');
-            var endDate = button.data('end-date');
-            var quarterid=button.data('quarter_id');
-            var convocationId = button.data('id');
-            
-            var modal = $('#modal-default');
-            modal.find('[name="title"]').val(title);
-            modal.find('[name="description"]').val(description);
-            modal.find('[name="food_quotas"]').val(foodQuotas);
-            modal.find('[name="transport_quotas"]').val(transportQuotas);
-            modal.find('[name="start_date"]').val(startDate);
-            modal.find('[name="end_date"]').val(endDate);
-            modal.find('[name="quarter_id"]').val(quarteid);
-            
-            
+        // Add a click event handler to the edit button
+        $(".edit-button").click(function() {
+            // Get the data attributes from the button
+            var id = $(this).data("id");
+            var name = $(this).data("name");
+            var description = $(this).data("description");
+            var food_quotas = $(this).data("food_quotas");
+            var transport_quotas = $(this).data("transport_quotas");
+            var start_date = $(this).data("start-date");
+            var end_date = $(this).data("end-date");
+            var quarter_id = $(this).data("quarter_id");
 
-            // Actualiza la acción del formulario en el modal
-            var form = modal.find('form');
-            var updateUrl = form.attr('action').replace('id', convocationId);
-            form.attr('action', updateUrl);
+            // Populate the form fields with the data
+            $("#modal-default #name").val(name);
+            $("#modal-default #description").val(description);
+            $("#modal-default #food_quotas").val(food_quotas);
+            $("#modal-default #transport_quotas").val(transport_quotas);
+            $("#modal-default #start_date").val(start_date);
+            $("#modal-default #end_date").val(end_date);
+            $("#modal-default select[name='quarter_id']").val(quarter_id);
+
+            // Set the form action URL to include the record ID for editing
+            $("#modal-default form").attr("action", "{{ route('cefa.bienestar.Convocations.update', '') }}/" + id);
         });
     });
 </script>
@@ -331,52 +331,7 @@
  });
 
 </script>
-<script>
-    $(document).ready(function() {
-    // ...
 
-    $('.edit-button').click(function() {
-        // ...
-
-        // Actualiza la acción del formulario en el modal
-        var form = modal.find('form');
-        var updateUrl = form.attr('action');
-        form.attr('action', updateUrl);
-
-        // Actualiza el valor del campo oculto con el ID de la convocatoria
-        form.find('#convocation_id').val(convocationId);
-    });
-
-    // Maneja la solicitud de actualización cuando se hace clic en el botón "Actualizar"
-    $('#updateButton').click(function(e) {
-        e.preventDefault(); // Evita el envío del formulario predeterminado
-        var form = $(this).closest('form');
-        var formData = form.serialize(); // Serializa los datos del formulario
-
-        // Realiza una solicitud AJAX para actualizar la convocatoria
-        $.ajax({
-            url: form.attr('action'),
-            method: 'PUT',
-            data: formData,
-            success: function(response) {
-                // Maneja la respuesta, por ejemplo, muestra un mensaje de éxito
-                Swal.fire('Éxito', 'La convocatoria se ha actualizado correctamente', 'success');
-                // Cierre la vista modal después de la actualización si es necesario
-                $('#modal-default').modal('hide');
-                // Actualiza la tabla de convocatorias si es necesario
-                // ...
-
-                // Restablece el formulario si es necesario
-                form[0].reset();
-            },
-            error: function(error) {
-                // Maneja errores, muestra un mensaje de error si es necesario
-                Swal.fire('Error', 'Hubo un problema al actualizar la convocatoria', 'error');
-            }
-        });
-    });
-});
-</script>
 
  
 
