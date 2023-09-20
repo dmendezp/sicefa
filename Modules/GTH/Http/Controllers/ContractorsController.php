@@ -58,12 +58,13 @@ class ContractorsController extends Controller
         $contractor->state = $request->input('state');
 
         if ($contractor->save()) {
-            return redirect()->route('gth.contractors.view')->with('success', 'Tipo de Contrato actualizado exitosamente.');
+            return redirect()->route('gth.contractors.view')->with('success', 'El Contrato ha actualizado exitosamente.');
         } else {
             return redirect()->black()->with('error', 'Error al actualizar vacante');
-        };
+        }
+        ;
 
-        
+
     }
 
     public function showContractor($id)

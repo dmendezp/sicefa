@@ -26,17 +26,20 @@
                                         <td>{{ $contractor->id }}</td>
                                         <td>{{ $contractor->name }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-warning editar-btn" data-bs-toggle="modal"
-                                                data-bs-target="#editarModal" data-id="{{ $contractor->id }}"
-                                                data-nombre="{{ $contractor->name }}">Editar</a>
-                                                
-                                            <form action="{{ route('gth.contractortypes.delete', $contractor->id) }}"
-                                                method="POST" class="btnEliminar" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"
-                                                    data-id="{{ $contractor->id }}">Eliminar</button>
-                                            </form>
+                                            <div class="d-flex">
+                                                <a href="#" class="btn btn-warning editar-btn" data-bs-toggle="modal"
+                                                    data-bs-target="#editarModal_{{ $contractor->id }}"
+                                                    data-id="{{ $contractor->id }}"
+                                                    data-nombre="{{ $contractor->name }}">Editar</a>
+                                                <div style="width: 10px;"></div>
+                                                <form action="{{ route('gth.contractortypes.delete', $contractor->id) }}"
+                                                    method="POST" class="btnEliminar" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger"
+                                                        data-id="{{ $contractor->id }}">Eliminar</button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -74,41 +77,56 @@
     </div>
 
     <!-- Modal de Edición -->
-    <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Tipo de Contrato:</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @if (isset($contractor))
-                        <!-- Cambiado a $contractor -->
-                        <form id="editForm" method="POST"
-                            action="{{ route('gth.contractortypes.update', ['id' => $contractor->id]) }}">
-                            @csrf
-                            @method('PATCH')
-                            <input type="hidden" name="id" value="{{ $contractor->id }}"><!-- Cambiado a $contractor -->
-                            <div class="mb-3">
-                                <label for="editName" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="editName" name="name"
-                                    value="{{ old('name', $contractor->name) }}"> <!-- Cambiado a $contractor -->
-                                @error('name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <!-- Resto del formulario -->
-                            <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">Guardar
-                                Cambios</button>
-                        </form>
-                    @endif
+    @foreach ($contractortype as $contractor)
+        <div class="modal fade" id="editarModal_{{ $contractor->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar Tipo de Contrato:</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @if (isset($contractor))
+                            <!-- Cambiado a $contractor -->
+                            <form id="editForm" method="POST"
+                                action="{{ route('gth.contractortypes.update', ['id' => $contractor->id]) }}">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="id"
+                                    value="{{ $contractor->id }}"><!-- Cambiado a $contractor -->
+                                <div class="mb-3">
+                                    <label for="editName" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="editName" name="name"
+                                        value="{{ old('name', $contractor->name) }}"> <!-- Cambiado a $contractor -->
+                                    @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <!-- Resto del formulario -->
+                                <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">Guardar
+                                    Cambios</button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
 @endsection
 
 @section('js')
+    <script>
+        function confirmarCambios() {
+            Swal.fire({
+                title: 'Guardado exitoso',
+                text: 'Los datos se han guardado correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    </script>
+
     <script>
         'use strict';
         // Selecciona todos los formularios con la clase "formEliminar"
@@ -146,24 +164,69 @@
             });
     </script>
 
-<script>
-    'use strict';
-    var Guardar = document.getElementById('Guardar');
+    <script>
+        'use strict';
+        var Guardar = document.getElementById('Guardar');
 
-    Guardar.addEventListener('click', function() {
-        // Simulamos una operación de guardado exitosa (puedes reemplazar esto con tu lógica real de guardado)
-        // Supongamos que aquí tienes tu lógica para guardar datos en el servidor
+        Guardar.addEventListener('click', function() {
+            // Simulamos una operación de guardado exitosa (puedes reemplazar esto con tu lógica real de guardado)
+            // Supongamos que aquí tienes tu lógica para guardar datos en el servidor
 
-        // Luego de que se haya completado la operación de guardado, muestra el SweetAlert
-        Swal.fire({
-            title: 'Guardado exitoso',
-            text: 'Los datos se han guardado correctamente.',
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
+            // Luego de que se haya completado la operación de guardado, muestra el SweetAlert
+            Swal.fire({
+                title: 'Guardado exitoso',
+                text: 'Los datos se han guardado correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
         });
-    });
-</script>
+    </script>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Exito!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
+            });
+        </script>
+    @endif
 
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}',
+                showConfirmButton: false,
+                timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
+            });
+        </script>
+    @endif
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Exito!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
+            });
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}',
+                showConfirmButton: false,
+                timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
+            });
+        </script>
+    @endif
 @endsection
 
 
