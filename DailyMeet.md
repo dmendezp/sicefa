@@ -42,7 +42,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ---
 #### Meet 28-Agos-2023
 * **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *diseñar la vista de contrato* - *5* - *Dificultades* - *Acciones*
 ---
 
 ### Sprint 2 🔄
@@ -81,6 +81,16 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 #### Meet 5-Agos-2023
 * **Daniel Guzman** - *Implementación de auditoria (Monitoriar los movimientos)* - *86 %* - *Ninguna* - *Ninguna*
 * **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+#### Meet 14-septiembre -2023
+* **Daniel Guzman** - *Implementación de auditoria (Monitoriar los movimientos)* - *86 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - *vista de reporte de contracto* - *50* - *Dificultades* - *Acciones*
+#### Meet 15-septiembre-2023
+* **Daniel Guzman** - *Implementación de auditoria (Monitoriar los movimientos)* - *86 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - * Alerta y modal de editar* - *80 %* - *Tengo dificultades en la funcionaliada de las alerta y con la base de datos * - *Acciones*
+#### Meet 16-septiembre-2023
+* **Daniel Guzman** - *Implementación de auditoria (Monitoriar los movimientos)* - *86 %* - *Ninguna* - *Ninguna*
+* **Mayerli Castañeda** - * organizar el modal de editar* - *80 %* - *Dificultades* - *Acciones*
+
 ---
 
 ### Sprint 3 🔄
