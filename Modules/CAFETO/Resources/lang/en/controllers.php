@@ -43,6 +43,17 @@ return [
 	'CAFETO_sale_register_title_page' => 'Sales',
 	'CAFETO_sale_register_title_view' => 'Register Sales',
 
+	// -----ElementController-----
+	// Index
+	'CAFETO_element_index_title_page' => 'Products - Image Gallery',
+	'CAFETO_element_index_title_view' => 'Product image administration',
+	// Create
+	'CAFETO_element_create_title_page' => 'Products - Create Product',
+	'CAFETO_element_create_title_view' => 'Create New Product',
+	// Create
+	'CAFETO_element_edit_title_page' => 'Products - Edit Product',
+	'CAFETO_element_edit_title_view' => 'Update product information',
+
 	// -----CashController-----
 	// Index
 	'CAFETO_cash_index_title_page' => 'Cash Control',

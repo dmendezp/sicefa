@@ -170,6 +170,51 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista principal de productos (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.element.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de productos (Administrador)',
+            'description' => 'Vista principal de productos',
+            'description_english' => 'Products main view',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario para acutalizar producto (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.element.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para acutalizar producto (Administrador)',
+            'description' => 'Formulario para acutalizar producto',
+            'description_english' => 'Products main view',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar producto (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.element.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar producto (Administrador)',
+            'description' => 'Actualizar producto',
+            'description_english' => 'Update product',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de producto (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.element.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de producto (Administrador)',
+            'description' => 'Formulario de registro de producto',
+            'description_english' => 'Product registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar producto (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.element.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar producto (Administrador)',
+            'description' => 'Registrar producto',
+            'description_english' => 'Register product',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
          // Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)
          $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.cash.index'], [ // Registro o actualización de permiso
             'name' => 'Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)',

@@ -62,13 +62,13 @@ Route::middleware(['lang'])->group(function () {  // Middleware para la internza
             Route::get('cashier/sale/register', 'register')->name('cafeto.cashier.sale.register'); // Formulario de registro de venta (Cajero)
         });
 
-        /* Ruta para admiistrar los pruductos */
+        // Rutas para Elementos
         Route::controller(ElementController::class)->group(function () {
             Route::get('admin/element/index', 'index')->name('cafeto.admin.element.index'); // Vista principal de productos (Administrador)
-            Route::get('edit/{element}', 'edit')->name('cafeto.element.edit'); // Vista del formulario para acutalizar imagen de elemento
-            Route::post('update/{element}', 'update')->name('cafeto.element.update'); // Carga de nueva imagen para elemento
-            Route::get('create', 'create')->name('cafeto.element.create');
-            Route::post('store', 'store')->name('cafeto.element.store');
+            Route::get('admin/element/edit/{element}', 'edit')->name('cafeto.admin.element.edit'); // Formulario para actualizar producto (Administrador)
+            Route::post('admin/element/update/{element}', 'update')->name('cafeto.admin.element.update'); // Actualizar producto (Administrador)
+            Route::get('admin/element/create', 'create')->name('cafeto.admin.element.create'); // Formulario de registro de producto (Administrador)
+            Route::post('admin/element/store', 'store')->name('cafeto.admin.element.store'); // Registrar producto (Administrador)
         });
 
         // Rutas para Caja

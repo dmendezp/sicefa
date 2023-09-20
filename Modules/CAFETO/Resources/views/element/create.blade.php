@@ -2,34 +2,34 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item active">
-        <a href="{{ route('cafeto.element.index') }}" class="text-decoration-none">Producto</a>
+        <a href="{{ route('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.element.index') }}" class="text-decoration-none">{{ trans('cafeto::element.Breadcrumb_Element') }}</a>
     </li>
-    <li class="breadcrumb-item active">Registrar Producto</li>
+    <li class="breadcrumb-item active">{{ trans('cafeto::element.Breadcrumb_Active_Create_Element') }}</li>
 @endpush
 
 @section('content')
-    {!! Form::open(['route'=>'cafeto.element.store', 'method'=>'POST', 'id'=>'form-element' , 'enctype'=>'multipart/form-data']) !!}
+    {!! Form::open(['route'=>'cafeto.'.getRoleRouteName(Route::currentRouteName()).'.element.store', 'method'=>'POST', 'id'=>'form-element' , 'enctype'=>'multipart/form-data']) !!}
         @csrf
-        <div class="card card-success card-outline mx-auto mb-3">
+        <div class="card card-success card-outline mx-auto mb-3 custom-border-color">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="card card-success border-success">
-                            <div class="card-header text-center h5 py-1">
-                                Imagen
+                        <div class="card card-success border-dark">
+                            <div class="card-header text-center h5 py-1 custom-card-header">
+                                {{ trans('cafeto::element.Title_Card_Image') }}
                             </div>
                             <div class="card-body text-center">
                                 <img src="{{ asset('modules/sica/images/sinImagen.png') }}" id="imagenSeleccionada" class="img-fluid img-thumbnail" style="max-height: 200px; max-width:300px float: left;">
                                 <hr>
                                 <div class="my-0 text-left">
-                                    <label for="formFile" class="form-label">Seleccione</label>
+                                    <label for="formFile" class="form-label">{{ trans('cafeto::element.Title_Form_Image') }}</label>
                                     <input type="file" name="image" id="image" class="form-control">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        {!! Form::label('name', 'Nombre', ['class' => 'mt-3']) !!}
+                        {!! Form::label('name', trans('cafeto::element.Title_Form_Element_Name'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -45,29 +45,25 @@
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
                         @enderror
 
-                        {!! Form::label('measurement_unit', 'Unidad de Medida', ['class' => 'mt-3']) !!}
+                        {!! Form::label('measurement_unit', trans('cafeto::element.Title_Form_Unit'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="fas fa-list"></i>
                                 </span>
                             </div>
-                            {!! Form::select(
-                                'measurement_unit_id',
-                                $measurement_units,
-                                isset($element) ? $element->measurement_unit_id : null,
-                                [
-                                    'placeholder' => '-- Seleccione --',
-                                    'class' => 'form-control',
-                                    'required',
-                                ],
-                            ) !!}
+                            <select name="measurement_unit_id" class="form-select" required>
+                                <option value="">{{ trans('cafeto::element.Select_Form_MU') }}</option>
+                                @foreach ($measurement_units as $mu)
+                                    <option value="{{ $mu->id }}" {{ old('measurement_unit_id') == $mu->id ? 'selected' : '' }}>{{ $mu->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         @error('measurement_unit_id')
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
                         @enderror
 
-                        {!! Form::label('description', 'Descripciòn', ['class' => 'mt-3']) !!}
+                        {!! Form::label('description', trans('cafeto::element.Title_Form_Description'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -81,7 +77,7 @@
                         @enderror
                     </div>
                     <div class="col-md-4">
-                        {!! Form::label('price', 'Precio', ['class' => 'mt-3']) !!}
+                        {!! Form::label('price', trans('cafeto::element.Title_Form_Price'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -98,24 +94,25 @@
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
                         @enderror
 
-                        {!! Form::label('category_id', 'Categoria', ['class' => 'mt-3']) !!}
+                        {!! Form::label('category_id', trans('cafeto::element.Title_Form_Category'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="fas fa-list"></i>
                                 </span>
                             </div>
-                            {!! Form::select('category_id', $categories, isset($element) ? $element->category_id : null, [
-                                    'class' => 'form-control',
-                                    'required',
-                                    'placeholder' => '--Seleccione--',
-                                ]) !!}
+                            <select name="category_id" class="form-select" required>
+                                <option value="">{{ trans('cafeto::element.Select_Form_Category')}}</option>
+                                @foreach ($categories as $c)
+                                    <option value="{{ $c->id }}" {{ old('measurement_unit_id') == $c->id ? 'selected' : '' }}>{{ $c->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         @error('category_id')
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
                         @enderror
 
-                        {!! Form::label('UNSPSC_code', 'Codigo', ['class' => 'mt-3']) !!}
+                        {!! Form::label('UNSPSC_code', trans('cafeto::element.Title_Form_COD_UNSPSC'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -128,20 +125,19 @@
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
                         @enderror
 
-                        {!! Form::label('kind_of_purchase_id', 'Tipo de Compra', ['class' => 'mt-3']) !!}
+                        {!! Form::label('kind_of_purchase_id', trans('cafeto::element.Title_Form_Type_Purchase'), ['class' => 'mt-3']) !!}
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="fas fa-list"></i>
                                 </span>
                             </div>
-                            {!! Form::select( 'kind_of_purchase_id', $kind_of_purchase, isset($element) ? $element->kind_of_purchase_id : null,
-                                [
-                                    'class' => 'form-control',
-                                    'required',
-                                    'placeholder' => '--Seleccione--',
-                                ],
-                            ) !!}
+                            <select name="kind_of_purchase_id" class="form-select" required>
+                                <option value="">{{ trans('cafeto::element.Select_Form_Type_Purchase')}}</option>
+                                @foreach ($kind_of_purchases as $kp)
+                                    <option value="{{ $kp->id }}" {{ old('measurement_unit_id') == $kp->id ? 'selected' : '' }}>{{ $kp->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         @error('kind_of_purchase_id')
                             <div class="alert alert-danger py-0 my-1">{{ $message }}</div>
@@ -150,12 +146,14 @@
                 </div>
             </div>
             <div class="card-footer bg-white text-right">
-                <a href="{{ route('cafeto.element.index') }}" class="btn btn-sm btn-light mr-2">
-                    <strong>Cancelar</strong>
+                <a href="{{ route('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.element.index') }}" class="btn btn-sm btn-light mr-2">
+                    <strong>{{ trans('cafeto::element.Btn_Cancel')}}</strong>
                 </a>
+                @if(Auth::user()->havePermission('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.element.store'))
                     <button type="submit" class="btn btn-sm btn-success" id="btn-register-element">
-                        <b>Guardar</b>
+                        <b>{{ trans('cafeto::element.Btn_Register')}}</b>
                     </button>
+                @endif
             </div>
         </div>
     {!! Form::close() !!}

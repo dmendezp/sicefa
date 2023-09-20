@@ -43,6 +43,17 @@ return [
 	'CAFETO_sale_register_title_page' => 'Ventas',
 	'CAFETO_sale_register_title_view' => 'Registro de Ventas',
 
+	// -----ElementController-----
+	// Index
+	'CAFETO_element_index_title_page' => 'Productos - Galería de imágenes',
+	'CAFETO_element_index_title_view' => 'Administración de imágenes de productos',
+	// Create
+	'CAFETO_element_create_title_page' => 'Productos - Crear Producto',
+	'CAFETO_element_create_title_view' => 'Crear Nuevo Producto',
+	// Edit
+	'CAFETO_element_edit_title_page' => 'Productos - Editar Producto',
+	'CAFETO_element_edit_title_view' => 'Actualizar información del producto',
+
 	// -----CashController-----
 	// Index
 	'CAFETO_cash_index_title_page' => 'Control de Caja',

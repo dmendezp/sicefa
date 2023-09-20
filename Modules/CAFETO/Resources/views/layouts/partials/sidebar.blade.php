@@ -125,7 +125,7 @@
                     @endif
                     @if(Auth::user()->havePermission('cafeto.admin.element.index'))
                         <li class="nav-item">
-                            <a href="#"
+                            <a href="{{ route('cafeto.admin.element.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.element.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fas fa-image"></i>
                                 <p>Adm. Elementos</p>
@@ -191,7 +191,7 @@
                     @endif
                     @if(Auth::user()->havePermission('cafeto.cashier.cash.index'))
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-light">
+                            <a href="{{ route('cafeto.cashier.cash.index') }}" class="nav-link text-light">
                                 <i class="nav-icon fa-solid fa-cash-register"></i>
                                 <p>Control de Caja</p>
                             </a>

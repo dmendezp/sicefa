@@ -81,7 +81,7 @@
                                                 @endif
                                                 @if (Auth::user()->havePermission('cafeto.admin.element.index'))
                                                     <li>
-                                                        <a href="#">
+                                                        <a href="{{ route('cafeto.admin.element.index') }}">
                                                             <i class="fa-regular fa-image"></i>Adm. Elementos
                                                         </a>
                                                     </li>
@@ -199,9 +199,9 @@
                                                         </a>
                                                     </li>
                                                 @endif
-                                                @if (Auth::user()->havePermission('cafeto.admin.cash.index'))
+                                                @if (Auth::user()->havePermission('cafeto.cashier.cash.index'))
                                                     <li>
-                                                        <a href="{{ route('cafeto.admin.cash.index') }}">
+                                                        <a href="{{ route('cafeto.cashier.cash.index') }}">
                                                             <i class="fa-solid fa-cash-register"></i>Control de Caja
                                                         </a>
                                                     </li>
