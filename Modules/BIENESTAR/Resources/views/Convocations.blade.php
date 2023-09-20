@@ -144,20 +144,22 @@
                 <div class="modal-body">
                     {!! Form::open(['url' => 'cefa.bienestar/Convocations/update/id', 'method' => 'PUT','role' => 'form']) !!}
                     <div class="row p-3">
-                         <div class="col-md-12">
-                             <div class="form-group">
-                                 <label for="name">{{ trans('bienestar::menu.title convocation')}}</label>
-                                  {!! Form::text('title', null, ['class'=> 'form-control', 'placeholder' => 'Ingrese Titulo',
-                                   'required']) !!}
-                            </div>
-                        </div>
                         <div class="col-md-12">
-                          <div class="form-group">
-                              <label for="description">{{ trans('bienestar::menu.description')}}</label>
-                              {!! Form::text('description', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion',
-                                'required']) !!}
+                            <div class="form-group">
+                                {!! Form::label('name',__('bienestar::menu.title convocation')) !!}
+                                {!! Form::text('title', null, ['class'=> 'form-control', 'placeholder' => 'Ingrese Titulo','id'=>'title_convocation']) !!}
+                                <span  id="name_error" class="text-danger" ></span>
                            </div>
                         </div>
+
+                        <div class="col-md-12">
+                          <div class="form-group">
+                              {!! Form::label('description',__('bienestar::menu.description')) !!}
+                              {!! Form::text('description', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion','id' => 'description']) !!}
+                              <span id="description_error" class="text-danger"></span>
+                           </div>
+                        </div>
+
                         <div class="col-md-12">
                           <div class="form-group">
                              <label for="food_quotas">{{ trans('bienestar::menu.food quotas')}}</label>

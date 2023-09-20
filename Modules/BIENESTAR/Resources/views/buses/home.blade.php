@@ -30,7 +30,6 @@
                         <div class="btns mt-3">
                             {!! Form::submit(__('bienestar::menu.Save'),['class'=>'btn btn-success', 'style'=>'background-color: #179722;
                             color: with;']) !!}
-                            
                         </div>
                     </div>
                 </div>
@@ -136,8 +135,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['url' => 'cefa.bienestar/buses/update/id', 'method' => 'PUT', 'role' =>
-                'form']) !!}
+                {!! Form::model($b, ['route' => ['cefa.bienestar.buses.update', $b->id], 'method' => 'PUT', 'role' => 'form']) !!}
                 <div class="row p-4">
                 <div class="col-md-12">
             <div class="form-group">
