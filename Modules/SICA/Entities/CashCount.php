@@ -1,12 +1,10 @@
 <?php
 
-namespace Modules\PTVENTA\Entities;
+namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\SICA\Entities\Person;
-use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class CashCount extends Model implements Auditable
@@ -43,4 +41,5 @@ class CashCount extends Model implements Auditable
     public function productive_unit_warehouse(){ // Accede a la unidad productiva y bodega que pertenece
         return $this->belongsTo(ProductiveUnitWarehouse::class);
     }
+    
 }
