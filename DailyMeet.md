@@ -81,7 +81,20 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 #### Meet 5-Agos-2023
 * **Daniel Guzman** - *Implementación de auditoria (Monitoriar los movimientos)* - *86 %* - *Ninguna* - *Ninguna*
 * **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
 
+### Sprint 3 🔄
+#### Sprint Planning 19-Septiembre-2023
+* **Daniel Guzman** - *CRUDs de insurer_intities y Pension*
+* **Mayerli Castañeda** - *CRUD de Position*
+#### Meet 19-Sep-2023
+* **Daniel Guzman** - *Diseñar la vista y crear las rutas para las vistas* - *50 %* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 20-Sep-2023
+* **Daniel Guzman** - *CRUD terminado* - *100 %* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
 
 
 
