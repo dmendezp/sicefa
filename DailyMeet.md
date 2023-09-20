@@ -111,50 +111,50 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 -   **Junior Medina** - _Mostrar vacantes según el curso_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
 -   **Diego Penagos** - *creacion de agregar senaempresa - *50 %* - *Dificultades* - *Acciones\*
--   **Jary Garay** - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
--   **Jennifer Marin** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+-   **Jennifer Marin** - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
 
 #### Meet 06-sep-2023
 
 -   **Junior Medina** - _Traducción del sidebar_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
 -   **Diego Penagos** - *creacion de agregar senaempresa - *100 %* - *Dificultades* - *Acciones\*
--   **Jary Garay** - _Permisos de vista de Senaempresa estrategias para pasante y usuario_ - _100 %_ - _Dificultades_ - _Acciones_
--   **Jennifer Marin** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+-   **Jennifer Marin** - _Permisos de vista de Senaempresa estrategias para pasante y usuario_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
 
 #### Meet 07-sep-2023
 
 -   **Junior Medina** - _Alerta para no permitir el registro de una vacante ya existente_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
 -   **Diego Penagos** - *creacion de editar y elimnar senaempresa - *100 %* - *Dificultades* - *Acciones\*
--   **Jary Garay** - _Permisos de vista de Senaempresa estrategias para pasante y usuario_ - _100 %_ - _Dificultades_ - _Acciones_
--   **Jennifer Marin** - _NO se reporto _ - _0 %_ - _Dificultades_ - _Acciones_
+-   **Jennifer Marin** - _Permisos de vista de Senaempresa estrategias para pasante y usuario_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto _ - _0 %_ - _Dificultades_ - _Acciones_
 
 #### Meet 08-sep-2023
 
 -   **Junior Medina** - _Alerta para no permitir el registro de una vacante ya existente_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
 -   **Diego Penagos** - *Traduccion de senaempresa- *100 %* - *Dificultades* - *Acciones\*
--   **Jary Garay** - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
--   **Jennifer Marin** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+-   **Jennifer Marin** - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
 
 #### Meet 09-sep-2023
 
 -   **Junior Medina** - _Actualización de vista contacto_ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
 -   **Diego Penagos** - *SweetAlert de cargso y senaempresa - *80 %* - *Dificultades* - *Acciones\*
--   **Jary Garay** - _swealert2 de eliminar y agregar de pivote cursos vacantes_ - _100 %_ - _Dificultades_ - _Acciones_
--   **Jennifer Marin** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+-   **Jennifer Marin** - _swealert2 de eliminar y agregar de pivote cursos vacantes_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
 
 #### Meet 10-sep-2023
 
 -   **Junior Medina** - _swealert2 de eliminar y agregar de pivote cursos vacantes _ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
 -   **Diego Penagos** - *SweetAlert,traducciones de senaempresa y positon - *100 %* - *Dificultades* - *Acciones\*
--   **Jary Garay** - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
--   **Jennifer Marin** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+-   **Jennifer Marin** - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
 
 #### Meet 11-sep-2023
 
 -   **Junior Medina** - _Arreglo en pivote de curso Senaempresa _ - _100 %_ - _Dificultades=Ninguna_ -_Acciones_
 -   **Diego Penagos** - *Permisos a la vista Cargos - *100 %* - *Dificultades* - *Acciones\*
--   **Jary Garay** - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
--   **Jennifer Marin** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
+-   **Jennifer Marin**  - _botones de agregar editar y eliminar_ - _100 %_ - _Dificultades_ - _Acciones_
+-   **Jary Garay** - _NO se reporto_ - _0 %_ - _Dificultades_ - _Acciones_
 
 ADS0 2500871
 Centro de Formacion Agroindustrial la Angostura SENA.

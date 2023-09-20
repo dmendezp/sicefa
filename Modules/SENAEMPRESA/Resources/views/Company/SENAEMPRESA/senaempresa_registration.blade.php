@@ -51,7 +51,7 @@
 @section('scripts')
     <script>
         @if (isset($existingSena) && $existingSena)
-            Swal.fire('warning', '{{ trans('senaempresa::menu.enaempresa already exists!') }}', 'warning');
+            Swal.fire('warning', '{{ trans('senaempresa::menu.SenaEmpresa already exists!') }}', 'warning');
         @endif
     </script>
 @endsection
