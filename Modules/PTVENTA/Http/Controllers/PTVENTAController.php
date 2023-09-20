@@ -4,13 +4,11 @@ namespace Modules\PTVENTA\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Routing\Controller;
-use Modules\PTVENTA\Entities\CashCount;
+use Modules\SICA\Entities\CashCount;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
-use Modules\PTVENTA\Http\Controllers\InventoryController;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\ProductiveUnit;
-use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Warehouse;
 
 class PTVENTAController extends Controller
@@ -47,7 +45,7 @@ class PTVENTAController extends Controller
         $movement_type = MovementType::where('name', 'Venta')->firstOrFail();
 
         $app_puw = PUW::getAppPuw(); // Obtener la unidad productiva y bodega de la aplicación
-        
+
         // Obtén la fecha actual y retrocede dos meses
         $currentDate = Carbon::now();
         $startDate = $currentDate->copy()->subMonths(2)->startOfMonth();
