@@ -6,7 +6,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
-use Modules\PTVENTA\Entities\CashCount;
+use Modules\SICA\Entities\CashCount;
 
 class SaleController extends Controller
 {

@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use Modules\PTVENTA\Entities\CashCount;
+use Modules\SICA\Entities\CashCount;
 
 class CashController extends Controller
 {
@@ -21,7 +21,7 @@ class CashController extends Controller
                                         ->where('state', 'Abierta')
                                         ->first();
         $cash_counts = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
-                                ->orderBy('updated_at', 'DESC')
+                                ->orderByDesc('id')
                                 ->get();
         return view('ptventa::cash.index', compact('view', 'active_cash', 'cash_counts'));
     }

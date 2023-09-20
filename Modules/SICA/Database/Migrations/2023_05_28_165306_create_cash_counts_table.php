@@ -18,13 +18,13 @@ class CreateCashCountsTable extends Migration
             $table->foreignId('person_id')->constrained()->onDelete('cascade'); //Trae el usuario administrador que abre la caja.
             $table->foreignId('productive_unit_warehouse_id')->constrained()->onDelete('cascade'); // Trae la unidad y bodega a la que esta asociada la caja.
             $table->dateTime('opening_date'); // Genera la fecha de apertura.
-            $table->decimal('initial_balance', 10, 2); // Genera el saldo inicial.
-            $table->decimal('final_balance', 10, 2)->nullable(); // Genera el saldo final.
+            $table->integer('initial_balance'); // Genera el saldo inicial.
+            $table->integer('final_balance')->nullable(); // Genera el saldo final.
             $table->dateTime('closing_date')->nullable(); // Genera la fecha de cierre de caja.
-            $table->decimal('total_sales', 10, 2)->nullable(); // Acumulador del total de ventas.
+            $table->integer('total_sales')->nullable(); // Acumulador del total de ventas.
             $table->enum('state', ['Abierta', 'Cerrada'])->default('Abierta'); // Por defecto estara la caja en estado abierta.
-            $table->timestamps(); //Genera los campos de creacion y modificacion.
             $table->softDeletes(); // Add soft delete column
+            $table->timestamps(); //Genera los campos de creacion y modificacion.
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLaborResourcesTable extends Migration
+class CreateEnvironmentalAspectLaborsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateLaborResourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('labor_resources', function (Blueprint $table) {
+        Schema::create('environmental_aspect_labors', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('environmental_aspect_id')->constrained()->onDelete('cascade');
             $table->foreignId('labor_id')->constrained()->onDelete('cascade');
-            $table->foreignId('resource_id')->constrained()->onDelete('cascade');
-            $table->integer('price');
             $table->integer('amount');
+            $table->integer('price');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +32,6 @@ class CreateLaborResourcesTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('labor_resources');
+        Schema::dropIfExists('environmental_aspect_labors');
     }
 }
