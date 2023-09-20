@@ -8,7 +8,7 @@
                     <div class="card-header">
                         <h1 class="card-title">Reportes de contratos</h1>
                     </div>
-                
+
                         <table class="table">
                             <thead>
                                 <tr>
@@ -33,7 +33,7 @@
                                                 @method('DELETE')
                                         <td>
                                             <a href="#" class="btn btn-warning editar-btn" data-bs-toggle="modal"
-                                                data-bs-target="#editarModal" data-number="{{ $contract->contract_number }}"
+                                                data-bs-target="#editarModal_{{ contract->id }}" data-number="{{ $contract->contract_number }}"
                                                 data-contract-year="{{ $contract->contract_year }}"
                                                 data-contract-start-date="{{ $contract->contract_start_date }}"
                                                 data-contract-end-date="{{ $contract->contract_end_date }}"
@@ -125,7 +125,7 @@
                 confirmButtonText: 'Aceptar'
             });
         });
-        
+
     </script>
     @if (session('success'))
     <script>
@@ -150,7 +150,7 @@
         });
     </script>
 @endif
-    
+
 @endsection
 
 
