@@ -125,7 +125,7 @@ class InventoryController extends Controller
 
         $element->save();
 
-        return redirect()->route('agrocefa.inventory.inventory')->with('success', 'Registro exitoso');
+        return redirect()->route('agrocefa.inventory')->with('success', 'Registro exitoso');
     }
 
     public function store(Request $request)
