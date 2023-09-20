@@ -30,14 +30,14 @@
                 
                     <div class="col-md-6"> 
                         <label for="food_quotas">{{ trans('bienestar::menu.food quotas')}}</label>
-                        <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
+                        <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="999">
                         <span id="food_quotas-error" class="text-danger"></span>
                       
                     </div>
                     <div class="col-md-6">  
                      <div class="form-group">
                         <label for="transport_quotas">{{ trans('bienestar::menu.transport quotas')}}</label>
-                        <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
+                        <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="999">
                         <span id="transport_quotas-error" class="text-danger"></span>   
                      </div>
                    </div>
@@ -51,18 +51,26 @@
                         {!! Form::date('end date', null, ['class' => 'form-control',  'required']) !!}
                     </div>
                     <div class="col-md-3">
-                        {!! Form::label('time interval',__('bienestar::menu.time interval')) !!}
-                        {!! Form::date('time interval', null, ['class' => 'form-control',  'required']) !!}
-                    </div>
-                    
-                    
+                        <div class="form-group">
+                                <label for="quarter_id">{{ trans('bienestar::menu.quarter id')}}</label>
+                                <select class="form-control" name="quarter_id" required>
+                                    <option value="0">Seleccione...</option>
+                                    @foreach ($quarters as $quarter)
+                                        <option value="{{ $quarter->id }}">{{ $quarter->name }}</option>
+                                    @endforeach
+                               </select>
+                        </div>
+                   </div> 
                     <div class="col-md-2 align-self-end">
+                       <div class="d-flex align-items-end">
                             <div class="btns mt-3">
                                 {!! Form::submit(__('bienestar::menu.Save'),['class'=>'btn btn-success', 'style'=>'background-color: #179722;
                                 color: with;']) !!}
                             </div>
                         </div>
                     </div>
+                     </div>
+                     
                     {!! Form::close() !!}
                     <div class="mtop16">
                         <table id="example1" class="table table-bordered table-striped">
@@ -75,13 +83,13 @@
                                     <th>{{ trans('bienestar::menu.transport quotas')}}</th>
                                     <th>{{ trans('bienestar::menu.start date')}}</th>
                                     <th>{{ trans('bienestar::menu.end date')}}</th>
-                                    <th>{{ trans('bienestar::menu.time interval')}}</th> 
+                                    <th>{{ trans('bienestar::menu.quarter id')}}</th> 
                                     <th>{{ trans('bienestar::menu.Actions')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($Convocations as $convocation)
-                                <tr>
+                                @foreach($convocations as $convocation)
+                                 <tr>
                                     <td>{{ $convocation->id }}</td>
                                     <td>{{ $convocation->name}}</td>
                                     <td>{{ $convocation->description }}</td>
@@ -89,7 +97,8 @@
                                     <td>{{ $convocation->transport_quotas }}</td>
                                     <td>{{ $convocation->start_date }}</td>
                                     <td>{{ $convocation->end_date }}</td>
-                                    <td>{{ $convocation->time_interval }}</</td>
+                                    <td>{{ isset($convocation->quarter_id) ? $convocation->quarter_id : ''}}{{ $convocation->quarters ? $convocation->quarters->name : ''}}</td>
+
                                     <td>
 
                                     <div class="btn-group">
@@ -101,7 +110,7 @@
                                         data-transport_quotas="{{ $convocation->transport_quotas}}"
                                         data-start-date="{{ $convocation->start_date }}"
                                         data-end-date="{{ $convocation->end_date }}"
-                                        data-food-quotas="{{ $convocation->time_interval }}"><i class="fa fa-edit"></i>
+                                        data-quarter_id="{{ $convocation->quarter_id }}"><i class="fa fa-edit"></i>
                                      </button>
                                     
                                          <!-- Botón para eliminar -->
@@ -110,7 +119,7 @@
                                         <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash-alt"></i></button>
                                         {!! Form::close() !!}
                                     </div>
-                                </tr>
+                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -121,7 +130,8 @@
             <!-- /-card -->
         </div>
     </div>
-
+    
+  <!-- /-modal -->
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -134,11 +144,12 @@
                 <div class="modal-body">
                     {!! Form::open(['url' => 'cefa.bienestar/Convocations/update/id', 'method' => 'PUT','role' => 'form']) !!}
                     <div class="row p-3">
-                        <div class="col-md-12">
-                        <div class="form-group">
-                        <label for="name">{{ trans('bienestar::menu.title convocation')}}</label>
-                            {!! Form::text('title', null, ['class'=> 'form-control', 'placeholder' => 'Ingrese Titulo',
-                                'required']) !!}
+                         <div class="col-md-12">
+                             <div class="form-group">
+                                 <label for="name">{{ trans('bienestar::menu.title convocation')}}</label>
+                                  {!! Form::text('title', null, ['class'=> 'form-control', 'placeholder' => 'Ingrese Titulo',
+                                   'required']) !!}
+                            </div>
                         </div>
                         <div class="col-md-12">
                           <div class="form-group">
@@ -150,14 +161,14 @@
                         <div class="col-md-12">
                           <div class="form-group">
                              <label for="food_quotas">{{ trans('bienestar::menu.food quotas')}}</label>
-                             <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2"min="1" max="99">
+                             <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2"min="1" max="999">
                              <span id="food_quotas-error" class="text-danger"></span>
                            </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="transport_quotas">{{ trans('bienestar::menu.transport quotas')}}</label>
-                                <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
+                                <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="999">
                                 <span id="transport_quotas-error" class="text-danger"></span>
                             </div>
                        </div>
@@ -174,11 +185,16 @@
                            </div>
                         </div>
                         <div class="col-md-12">
-                           <div class="form-group">
-                             <label for="time_interval">{{ trans('bienestar::menu.time interval')}}</label>
-                             {!! Form::date('time_interval', null, ['class' => 'form-control',  'required']) !!}
-                          </div>
-                       </div>
+                            <div class="form-group">
+                                <label for="quarter_id">{{ trans('bienestar::menu.quarter id')}}</label>
+                                <select class="form-control" name="quarter_id" required>
+                                    <option value="0">Seleccione...</option>
+                                    @foreach ($quarters as $quarter)
+                                        <option value="{{ $quarter->id }}">{{ $quarter->name }}</option>
+                                    @endforeach
+                               </select>
+                           </div>
+                       </div> 
                         <div class="col-md-2">
                             <div class="btns">
                                 {!! Form::submit('Actualizar',['class' =>'btn btn-success','id' => 'updateButton']) !!}
@@ -203,7 +219,7 @@
             var transportQuotas = button.data('transport-quotas');
             var startDate = button.data('start-date');
             var endDate = button.data('end-date');
-            var timeinterval=button.data('time_interval');
+            var quarterid=button.data('quarter_id');
             var convocationId = button.data('id');
             
             var modal = $('#modal-default');
@@ -213,7 +229,7 @@
             modal.find('[name="transport_quotas"]').val(transportQuotas);
             modal.find('[name="start_date"]').val(startDate);
             modal.find('[name="end_date"]').val(endDate);
-            modal.find('[name="time_interval"]').val(timeinterval);
+            modal.find('[name="quarter_id"]').val(quarteid);
             
             
 
@@ -233,10 +249,10 @@
     const food_quotasError = document.getElementById('food_quotas-error');
 
     // Removemos cualquier caracter no numérico y limitamos la longitud a 2
-    const cleanedInput = food_quotasInput.replace(/\D/g, '').substring(0, 2);
+    const cleanedInput = food_quotasInput.replace(/\D/g, '').substring(0, 3);
 
     // Verificamos si la entrada contiene exactamente dos números
-    if (/^\d{2}$/.test(cleanedInput)) {
+    if (/^\d{3}$/.test(cleanedInput)) {
         food_quotasError.textContent = ''; // Campo válido, borra el mensaje de error
       this.value = cleanedInput; // Actualizamos el valor del campo
     } else {
@@ -252,10 +268,10 @@
     const transport_quotasError = document.getElementById('transport_quotas-error');
 
     // Removemos cualquier caracter no numérico y limitamos la longitud a 2
-    const cleanedInput = transport_quotasInput.replace(/\D/g, '').substring(0, 2);
+    const cleanedInput = transport_quotasInput.replace(/\D/g, '').substring(0, 3);
 
     // Verificamos si la entrada contiene exactamente dos números
-    if (/^\d{2}$/.test(cleanedInput)) {
+    if (/^\d{3}$/.test(cleanedInput)) {
         transport_quotasError.textContent = ''; // Campo válido, borra el mensaje de error
       this.value = cleanedInput; // Actualizamos el valor del campo
     } else {
@@ -358,9 +374,14 @@
         });
     });
 });
-
-
 </script>
+
+ 
+
+
+
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

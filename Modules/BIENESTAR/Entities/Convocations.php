@@ -5,6 +5,7 @@ namespace Modules\BIENESTAR\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\SICA\Entities\Quarter;
 
 class Convocations extends Model implements Auditable
 {
@@ -41,6 +42,10 @@ class Convocations extends Model implements Auditable
     public function postulation(){// Accede a los datos de la postulacion al que pertenece
         return $this->hasMany(Postulations::class, 'postulation_id');
     }
+    public function quarters(){
+    	return $this->belongsTo(Quarter::class, 'quarters_id');
+    }
+    
 
     
 

@@ -30,6 +30,7 @@
                         <div class="btns mt-3">
                             {!! Form::submit(__('bienestar::menu.Save'),['class'=>'btn btn-success', 'style'=>'background-color: #179722;
                             color: with;']) !!}
+                            
                         </div>
                     </div>
                 </div>

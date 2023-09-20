@@ -95,6 +95,7 @@ return[
     'save'=>'save',
     'Actions'=>'Actions',
     'Edit convocations'=>'Edit convocations',
+    'quarter id'=>'quarter id',
     
 ]
 

@@ -90,6 +90,7 @@ return[
     'save'=>'guardar',
     'Actions'=>'acciones',
     'Edit convocations'=>'editar convocatorias',
+    'quarter id'=>'trimestre',
     
 ]
 
