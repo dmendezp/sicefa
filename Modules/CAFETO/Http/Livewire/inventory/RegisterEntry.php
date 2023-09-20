@@ -13,7 +13,6 @@ use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementDetail;
 use Modules\SICA\Entities\MovementResponsibility;
 use Modules\SICA\Entities\MovementType;
-use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;

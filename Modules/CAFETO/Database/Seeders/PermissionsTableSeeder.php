@@ -170,6 +170,60 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
+         // Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)
+         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.cash.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)',
+            'description' => 'Vista principal de sesión de caja activa e historico de sesiones de caja',
+            'description_english' => 'Main view of active cash session and cash session history',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de sesión de caja activa e historico de sesiones de caja (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.cash.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de sesión de caja activa e historico de sesiones de caja (Cajero)',
+            'description' => 'Vista principal de sesión de caja activa e historico de sesiones de caja',
+            'description_english' => 'Main view of active cash session and cash session history',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar caja cuando no hay ninguna activa (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.cash.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar caja cuando no hay ninguna activa (Administrador)',
+            'description' => 'Registrar caja cuando no hay ninguna activa',
+            'description_english' => 'Register box when there is none active',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar caja cuando no hay ninguna activa (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.cash.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar caja cuando no hay ninguna activa (Cajero)',
+            'description' => 'Registrar caja cuando no hay ninguna activa',
+            'description_english' => 'Register box when there is none active',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Cerrar sesión de caja (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.cash.close'], [ // Registro o actualización de permiso
+            'name' => 'Cerrar sesión de caja (Administrador)',
+            'description' => 'Cerrar sesión de caja',
+            'description_english' => 'Close cash session',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Cerrar sesión de caja (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.cash.close'], [ // Registro o actualización de permiso
+            'name' => 'Cerrar sesión de caja (Cajero)',
+            'description' => 'Cerrar sesión de caja',
+            'description_english' => 'Close cash session',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'cafeto.admin')->first(); // Rol Administrador
         $rol_cashier = Role::where('slug', 'cafeto.cashier')->first(); // Rol Operador de Cajero

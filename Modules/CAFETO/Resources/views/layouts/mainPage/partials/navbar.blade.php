@@ -115,6 +115,13 @@
                                                         </a>
                                                     </li>
                                                 @endif
+                                                @if (Auth::user()->havePermission('cafeto.admin.cash.index'))
+                                                    <li>
+                                                        <a href="{{ route('cafeto.admin.cash.index') }}">
+                                                            <i class="fa-solid fa-cash-register"></i>Control de caja
+                                                        </a>
+                                                    </li>
+                                                @endif
                                             </ul>
                                         </div>
                                         <!-- .col-md-3 end -->
@@ -189,6 +196,13 @@
                                                     <li>
                                                         <a href="{{ route('cafeto.cashier.sale.index') }}">
                                                             <i class="fa-solid fa-cart-shopping"></i>Ventas
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                                @if (Auth::user()->havePermission('cafeto.admin.cash.index'))
+                                                    <li>
+                                                        <a href="{{ route('cafeto.admin.cash.index') }}">
+                                                            <i class="fa-solid fa-cash-register"></i>Control de Caja
                                                         </a>
                                                     </li>
                                                 @endif

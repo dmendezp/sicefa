@@ -70,5 +70,15 @@ Route::middleware(['lang'])->group(function () {  // Middleware para la internza
             Route::get('create', 'create')->name('cafeto.element.create');
             Route::post('store', 'store')->name('cafeto.element.store');
         });
+
+        // Rutas para Caja
+        Route::controller(CashController::class)->group(function(){
+            Route::get('admin/cash/index', 'index')->name('cafeto.admin.cash.index'); // Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)
+            Route::get('cashier/cash/index', 'index')->name('cafeto.cashier.cash.index'); // Vista principal de sesión de caja activa e historico de sesiones de caja (Cajero)
+            Route::post('admin/cash/store', 'store')->name('cafeto.admin.cash.store'); // Registrar caja cuando no hay ninguna activa (Administrador)
+            Route::post('cashier/cash/store', 'store')->name('cafeto.cashier.cash.store'); // Registrar caja cuando no hay ninguna activa (Cajero)
+            Route::post('admin/cash/close', 'close')->name('cafeto.admin.cash.close'); // Cerrar sesión de caja (Administrador)
+            Route::post('cashier/cash/close', 'close')->name('cafeto.cashier.cash.close'); // Cerrar sesión de caja (Cajero)
+        });
     });
 });

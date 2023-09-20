@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Modules\CAFETO\Http\Controllers\PUW;
-use Modules\PTVENTA\Entities\CashCount;
+use Modules\SICA\Entities\CashCount;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\EPS;
 use Modules\SICA\Entities\Inventory;
@@ -35,7 +35,7 @@ class GenerateSale extends Component
     public $payment_value; // Contiene el valor de pago
     public $change_value; // Contiene el valor de cambio a partir de la resta entre el valor de pago y el total de la venta
     public Collection $selected_products; // Productos seleccionados
-    public $customer_document_number = 123456789; // Número de documento del cliente (Estación de café)
+    public $customer_document_number = 987654321; // Número de documento del cliente (Estación de café)
     public $customer_document_type; // Tipo de documento del cliente
     public $customer_full_name; // Nombre completo del cliente
 

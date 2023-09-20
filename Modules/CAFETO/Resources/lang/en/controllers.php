@@ -42,4 +42,9 @@ return [
 	// Register
 	'CAFETO_sale_register_title_page' => 'Sales',
 	'CAFETO_sale_register_title_view' => 'Register Sales',
+
+	// -----CashController-----
+	// Index
+	'CAFETO_cash_index_title_page' => 'Cash Control',
+	'CAFETO_cash_index_title_view' => 'Opening and closing of cash register',
 ];

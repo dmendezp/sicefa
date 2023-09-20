@@ -32,8 +32,8 @@ class PeopleTableSeeder extends Seeder
             'pension_entity_id' => $pension_entity->id
         ]);
 
-        // Consulta o registro de datos para Punto de venta (para cuando se quiere generar un venta sin persona natural como cliente)
-        Person::firstOrCreate(['document_number' => 123456789], [ // Consultar o registrar Persona
+        // Consulta o registro de datos para Estación de Café (para cuando se quiere generar un venta sin persona natural como cliente)
+        Person::firstOrCreate(['document_number' => 987654321], [ // Consultar o registrar Persona
             'document_type' => 'Cédula de ciudadanía',
             'first_name' => 'ESTACIÓN DE',
             'first_last_name' => 'CAFÉ',

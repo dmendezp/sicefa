@@ -117,7 +117,7 @@
                     @endif
                     @if(Auth::user()->havePermission('cafeto.admin.cash.index'))
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-light">
+                            <a href="{{ route('cafeto.admin.cash.index') }}" class="nav-link {{ !Route::is('cafeto.admin.cash.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-cash-register"></i>
                                 <p>Control de Caja</p>
                             </a>
