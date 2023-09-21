@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\Convocations;
+use Modules\SICA\Entities\Quarter;
 
 
 class ConvocationsController extends Controller
@@ -14,6 +15,7 @@ class ConvocationsController extends Controller
     {
         // Mostrar el formulario para crear una nueva convocatoria
         return view('bienestar::convocatoria');
+        
     }
     
     
@@ -24,8 +26,12 @@ class ConvocationsController extends Controller
     public function index()
     {
         // Obtenemos Listado Convocatoria
-       $convocations=Convocations::all();
-       return view('bienestar::Convocations',['Convocations'=>$convocations]);   
+       $convocations=Convocations::all(); 
+       //obtenemos el listado de buses
+       $convocations = Convocations::with('quarters')->get();
+       $quarters = Quarter::pluck('name','id','start_date','end_date');
+       $quarters= Quarter::all(); 
+       return view('bienestar::convocations',['convocations'=>$convocations,'quarters'=>$quarters]);
     }
 
     
@@ -46,7 +52,7 @@ class ConvocationsController extends Controller
         $convocations->transport_quotas = $request->input('transport_quotas');
         $convocations->start_date= $request->input('start_date');
         $convocations->end_date= $request->input('end_date');
-        $convocations->time_interval= $request->input('time_interval');
+        $convocations->quarter_id= $request->input('quarter_id');
         $convocations->save();
         
         if($convocations->save()){
@@ -75,13 +81,13 @@ class ConvocationsController extends Controller
     public function update(Request $request, $id)
     {
         $convocations = Convocations::findOrFail($id);
-        $convocations->name = $request->input('title');
+        $convocations->name = $request->input('name');
         $convocations->description = $request->input('description');
         $convocations->food_quotas = $request->input('food_quotas');
         $convocations->transport_quotas = $request->input('transport_quotas');
         $convocations->start_date = $request->input('start_date');
         $convocations->end_date = $request->input('end_date');
-        $convocations->ftime_interval= $request->input('time_interval');
+        $convocations->quarter_id= $request->input('quarter_id');
          
         if($convocations->save()){
             return redirect()->route('cefa.bienestar.Convocations')->with('message', 'Registro Actualizado Correctamente')->with('typealert', 'success');

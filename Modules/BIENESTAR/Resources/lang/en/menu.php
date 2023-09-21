@@ -43,6 +43,7 @@ return[
     'Quotas'=>'Quotas',
     'Edit Bus'=>'Edit Bus',
     'Enter the plate'=>'Enter the plate',
+    'plate'=>'plate',
 
     //vista drivers
     'Add Drivers'=>'Add Drivers',
@@ -95,6 +96,8 @@ return[
     'save'=>'save',
     'Actions'=>'Actions',
     'Edit convocations'=>'Edit convocations',
+    'quarter id'=>'quarter id',
+
     
 ]
 

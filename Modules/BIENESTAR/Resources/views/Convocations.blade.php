@@ -30,14 +30,14 @@
                 
                     <div class="col-md-6"> 
                         <label for="food_quotas">{{ trans('bienestar::menu.food quotas')}}</label>
-                        <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
+                        <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="999">
                         <span id="food_quotas-error" class="text-danger"></span>
                       
                     </div>
                     <div class="col-md-6">  
                      <div class="form-group">
                         <label for="transport_quotas">{{ trans('bienestar::menu.transport quotas')}}</label>
-                        <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
+                        <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="999">
                         <span id="transport_quotas-error" class="text-danger"></span>   
                      </div>
                    </div>
@@ -51,18 +51,26 @@
                         {!! Form::date('end date', null, ['class' => 'form-control',  'required']) !!}
                     </div>
                     <div class="col-md-3">
-                        {!! Form::label('time interval',__('bienestar::menu.time interval')) !!}
-                        {!! Form::date('time interval', null, ['class' => 'form-control',  'required']) !!}
-                    </div>
-                    
-                    
+                        <div class="form-group">
+                                <label for="quarter_id">{{ trans('bienestar::menu.quarter id')}}</label>
+                                <select class="form-control" name="quarter_id" required>
+                                    <option value="0">Seleccione...</option>
+                                    @foreach ($quarters as $quarter)
+                                        <option value="{{ $quarter->id }}">{{ $quarter->name }}</option>
+                                    @endforeach
+                               </select>
+                        </div>
+                   </div> 
                     <div class="col-md-2 align-self-end">
+                       <div class="d-flex align-items-end">
                             <div class="btns mt-3">
                                 {!! Form::submit(__('bienestar::menu.Save'),['class'=>'btn btn-success', 'style'=>'background-color: #179722;
                                 color: with;']) !!}
                             </div>
                         </div>
                     </div>
+                     </div>
+                     
                     {!! Form::close() !!}
                     <div class="mtop16">
                         <table id="example1" class="table table-bordered table-striped">
@@ -75,13 +83,13 @@
                                     <th>{{ trans('bienestar::menu.transport quotas')}}</th>
                                     <th>{{ trans('bienestar::menu.start date')}}</th>
                                     <th>{{ trans('bienestar::menu.end date')}}</th>
-                                    <th>{{ trans('bienestar::menu.time interval')}}</th> 
+                                    <th>{{ trans('bienestar::menu.quarter id')}}</th> 
                                     <th>{{ trans('bienestar::menu.Actions')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($Convocations as $convocation)
-                                <tr>
+                                @foreach($convocations as $convocation)
+                                 <tr>
                                     <td>{{ $convocation->id }}</td>
                                     <td>{{ $convocation->name}}</td>
                                     <td>{{ $convocation->description }}</td>
@@ -89,28 +97,30 @@
                                     <td>{{ $convocation->transport_quotas }}</td>
                                     <td>{{ $convocation->start_date }}</td>
                                     <td>{{ $convocation->end_date }}</td>
-                                    <td>{{ $convocation->time_interval }}</</td>
+                                    <td>{{ isset($convocation->quarter_id) ? $convocation->quarter_id : ''}}{{ $convocation->quarters ? $convocation->quarters->name : ''}}</td>
+
                                     <td>
 
                                     <div class="btn-group">
-                                     <button class="btn btn-sm btn-info edit-button mr-1" data-toggle="modal"
-                                        data-target="#modal-default" data-id="{{ $convocation->id }}"
-                                        data-name="{{ $convocation->name }}"
-                                        data-description="{{ $convocation->description }}"
-                                        data-food_quotas="{{ $convocation->food_quotas }}"
-                                        data-transport_quotas="{{ $convocation->transport_quotas}}"
-                                        data-start-date="{{ $convocation->start_date }}"
-                                        data-end-date="{{ $convocation->end_date }}"
-                                        data-food-quotas="{{ $convocation->time_interval }}"><i class="fa fa-edit"></i>
-                                     </button>
-                                    
+    <button class="btn btn-sm btn-info edit-button mr-1" data-toggle="modal"
+        data-target="#modal-default" data-id="{{ $convocation->id }}"
+        data-name="{{ $convocation->name }}"
+        data-description="{{ $convocation->description }}"
+        data-food_quotas="{{ $convocation->food_quotas }}"
+        data-transport_quotas="{{ $convocation->transport_quotas}}"
+        data-start-date="{{ $convocation->start_date }}"
+        data-end-date="{{ $convocation->end_date }}"
+        data-quarter_id="{{ $convocation->quarter_id }}">
+        <i class="fa fa-edit"></i>
+    </button>
+
                                          <!-- Botón para eliminar -->
                                          {!! Form::open(['route' => ['cefa.bienestar.Convocations.destroy', $convocation->id],
                                         'method' => 'DELETE', 'class' => 'formEliminar', 'style'=> 'display: inline;']) !!}
                                         <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash-alt"></i></button>
                                         {!! Form::close() !!}
                                     </div>
-                                </tr>
+                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -121,7 +131,8 @@
             <!-- /-card -->
         </div>
     </div>
-
+    
+  <!-- /-modal -->
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -132,32 +143,37 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(['url' => 'cefa.bienestar/Convocations/update/id', 'method' => 'PUT','role' => 'form']) !!}
+                {!! Form::model('', ['route' => ['cefa.bienestar.Convocations.update', ''], 'method' => 'PUT', 'role' => 'form']) !!}
                     <div class="row p-3">
                         <div class="col-md-12">
-                        <div class="form-group">
-                        <label for="name">{{ trans('bienestar::menu.title convocation')}}</label>
-                            {!! Form::text('title', null, ['class'=> 'form-control', 'placeholder' => 'Ingrese Titulo',
-                                'required']) !!}
-                        </div>
-                        <div class="col-md-12">
-                          <div class="form-group">
-                              <label for="description">{{ trans('bienestar::menu.description')}}</label>
-                              {!! Form::text('description', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion',
-                                'required']) !!}
+                            <div class="form-group">
+                                {!! Form::label('name',__('bienestar::menu.title convocation')) !!}
+                                {!! Form::text('name', null, ['class'=> 'form-control', 'placeholder' => 'Ingrese Titulo','id'=>'title_convocation']) !!}
+                                <span  id="name_error" class="text-danger" ></span>
                            </div>
                         </div>
+
+                        <div class="col-md-12">
+                          <div class="form-group">
+                              {!! Form::label('description',__('bienestar::menu.description')) !!}
+                              {!! Form::text('description', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion','id' => 'description']) !!}
+                              <span id="description_error" class="text-danger"></span>
+                           </div>
+                        </div>
+
                         <div class="col-md-12">
                           <div class="form-group">
                              <label for="food_quotas">{{ trans('bienestar::menu.food quotas')}}</label>
-                             <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2"min="1" max="99">
+                             <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2"min="1" max="999">
                              <span id="food_quotas-error" class="text-danger"></span>
                            </div>
                         </div>
+
+                        
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="transport_quotas">{{ trans('bienestar::menu.transport quotas')}}</label>
-                                <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="99">
+                                <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="999">
                                 <span id="transport_quotas-error" class="text-danger"></span>
                             </div>
                        </div>
@@ -174,11 +190,16 @@
                            </div>
                         </div>
                         <div class="col-md-12">
-                           <div class="form-group">
-                             <label for="time_interval">{{ trans('bienestar::menu.time interval')}}</label>
-                             {!! Form::date('time_interval', null, ['class' => 'form-control',  'required']) !!}
-                          </div>
-                       </div>
+                            <div class="form-group">
+                                <label for="quarter_id">{{ trans('bienestar::menu.quarter id')}}</label>
+                                <select class="form-control" name="quarter_id" required>
+                                    <option value="0">Seleccione...</option>
+                                    @foreach ($quarters as $quarter)
+                                        <option value="{{ $quarter->id }}">{{ $quarter->name }}</option>
+                                    @endforeach
+                               </select>
+                           </div>
+                       </div> 
                         <div class="col-md-2">
                             <div class="btns">
                                 {!! Form::submit('Actualizar',['class' =>'btn btn-success','id' => 'updateButton']) !!}
@@ -195,32 +216,29 @@
 
 <script>
     $(document).ready(function() {
-        $('.edit-button').click(function() {
-            var button = $(this);
-            var title = button.data('title');
-            var description = button.data('description');
-            var foodQuotas = button.data('food-quotas');
-            var transportQuotas = button.data('transport-quotas');
-            var startDate = button.data('start-date');
-            var endDate = button.data('end-date');
-            var timeinterval=button.data('time_interval');
-            var convocationId = button.data('id');
-            
-            var modal = $('#modal-default');
-            modal.find('[name="title"]').val(title);
-            modal.find('[name="description"]').val(description);
-            modal.find('[name="food_quotas"]').val(foodQuotas);
-            modal.find('[name="transport_quotas"]').val(transportQuotas);
-            modal.find('[name="start_date"]').val(startDate);
-            modal.find('[name="end_date"]').val(endDate);
-            modal.find('[name="time_interval"]').val(timeinterval);
-            
-            
+        // Add a click event handler to the edit button
+        $(".edit-button").click(function() {
+            // Get the data attributes from the button
+            var id = $(this).data("id");
+            var name = $(this).data("name");
+            var description = $(this).data("description");
+            var food_quotas = $(this).data("food_quotas");
+            var transport_quotas = $(this).data("transport_quotas");
+            var start_date = $(this).data("start-date");
+            var end_date = $(this).data("end-date");
+            var quarter_id = $(this).data("quarter_id");
 
-            // Actualiza la acción del formulario en el modal
-            var form = modal.find('form');
-            var updateUrl = form.attr('action').replace('id', convocationId);
-            form.attr('action', updateUrl);
+            // Populate the form fields with the data
+            $("#modal-default #name").val(name);
+            $("#modal-default #description").val(description);
+            $("#modal-default #food_quotas").val(food_quotas);
+            $("#modal-default #transport_quotas").val(transport_quotas);
+            $("#modal-default #start_date").val(start_date);
+            $("#modal-default #end_date").val(end_date);
+            $("#modal-default select[name='quarter_id']").val(quarter_id);
+
+            // Set the form action URL to include the record ID for editing
+            $("#modal-default form").attr("action", "{{ route('cefa.bienestar.Convocations.update', '') }}/" + id);
         });
     });
 </script>
@@ -233,10 +251,10 @@
     const food_quotasError = document.getElementById('food_quotas-error');
 
     // Removemos cualquier caracter no numérico y limitamos la longitud a 2
-    const cleanedInput = food_quotasInput.replace(/\D/g, '').substring(0, 2);
+    const cleanedInput = food_quotasInput.replace(/\D/g, '').substring(0, 3);
 
     // Verificamos si la entrada contiene exactamente dos números
-    if (/^\d{2}$/.test(cleanedInput)) {
+    if (/^\d{3}$/.test(cleanedInput)) {
         food_quotasError.textContent = ''; // Campo válido, borra el mensaje de error
       this.value = cleanedInput; // Actualizamos el valor del campo
     } else {
@@ -252,10 +270,10 @@
     const transport_quotasError = document.getElementById('transport_quotas-error');
 
     // Removemos cualquier caracter no numérico y limitamos la longitud a 2
-    const cleanedInput = transport_quotasInput.replace(/\D/g, '').substring(0, 2);
+    const cleanedInput = transport_quotasInput.replace(/\D/g, '').substring(0, 3);
 
     // Verificamos si la entrada contiene exactamente dos números
-    if (/^\d{2}$/.test(cleanedInput)) {
+    if (/^\d{3}$/.test(cleanedInput)) {
         transport_quotasError.textContent = ''; // Campo válido, borra el mensaje de error
       this.value = cleanedInput; // Actualizamos el valor del campo
     } else {
@@ -313,54 +331,14 @@
  });
 
 </script>
-<script>
-    $(document).ready(function() {
-    // ...
-
-    $('.edit-button').click(function() {
-        // ...
-
-        // Actualiza la acción del formulario en el modal
-        var form = modal.find('form');
-        var updateUrl = form.attr('action');
-        form.attr('action', updateUrl);
-
-        // Actualiza el valor del campo oculto con el ID de la convocatoria
-        form.find('#convocation_id').val(convocationId);
-    });
-
-    // Maneja la solicitud de actualización cuando se hace clic en el botón "Actualizar"
-    $('#updateButton').click(function(e) {
-        e.preventDefault(); // Evita el envío del formulario predeterminado
-        var form = $(this).closest('form');
-        var formData = form.serialize(); // Serializa los datos del formulario
-
-        // Realiza una solicitud AJAX para actualizar la convocatoria
-        $.ajax({
-            url: form.attr('action'),
-            method: 'PUT',
-            data: formData,
-            success: function(response) {
-                // Maneja la respuesta, por ejemplo, muestra un mensaje de éxito
-                Swal.fire('Éxito', 'La convocatoria se ha actualizado correctamente', 'success');
-                // Cierre la vista modal después de la actualización si es necesario
-                $('#modal-default').modal('hide');
-                // Actualiza la tabla de convocatorias si es necesario
-                // ...
-
-                // Restablece el formulario si es necesario
-                form[0].reset();
-            },
-            error: function(error) {
-                // Maneja errores, muestra un mensaje de error si es necesario
-                Swal.fire('Error', 'Hubo un problema al actualizar la convocatoria', 'error');
-            }
-        });
-    });
-});
 
 
-</script>
+ 
+
+
+
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

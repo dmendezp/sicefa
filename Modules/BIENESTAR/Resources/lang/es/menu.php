@@ -41,6 +41,7 @@ return[
     'Quotas'=>'Cupos',
     'Edit Bus'=>'Editar Bus',
     'Enter the plate'=>'Ingrese la Placa',
+    'plate'=>'placa',
 
     //vista drivers
     'Add Drivers'=>'Agregar Conductores',
@@ -90,6 +91,8 @@ return[
     'save'=>'guardar',
     'Actions'=>'acciones',
     'Edit convocations'=>'editar convocatorias',
+    'quarter id'=>'trimestre',
+    
     
 ]
 

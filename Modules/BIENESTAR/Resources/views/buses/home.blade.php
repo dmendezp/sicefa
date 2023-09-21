@@ -66,50 +66,6 @@
                                         <button class="btn btn-sm btn-danger"type="submit"><i class="fa fa-trash-alt"></i></button>
                                         {!! Form::close() !!}                                       
                                     </div>
-                                    <div class="modal fade" id="modal-default-{{$b->id}}">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">{{ trans('bienestar::menu.Edit Bus')}}</h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    {!! Form::model($b, ['route' => ['cefa.bienestar.buses.update', $b->id], 'method' => 'PUT', 'role'=>'form'])!!}
-                                                    <div class="row p-4">
-                                                        <div class="col-md-12">
-                                                             <div class="form-group">
-                                                        <label for="plate">{{ trans('bienestar::menu.Plate')}}</label>
-                                                        <input type="text" name="plate" id="plate" class="form-control" placeholder="{{ trans('bienestar::menu.Enter the plate')}}" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
-                                                        <span id="plate-error" class="text-danger"></span>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <label for="bus_driver">{{ trans('bienestar::menu.Driver')}}</label>
-                                                            <div class="form-group">
-                                                                {!! Form::select('bus_driver', $busDrivers, null, ['class' => 'form-control','required', 'id' =>
-                                                                'bus_driver_select']) !!}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                        <label for="quota">{{ trans('bienestar::menu.Quotas')}}:</label>
-                                                        <div class="form-group">
-                                                        <input type="number" name="quota" id="quota" class="form-control" placeholder="Ingrese los cupos" required maxlength="2" oninput="validateQuota(this)" min="1" max="99">
-                                                        <span id="quota-error" class="text-danger"></span>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <div class="btns">
-                                                                {!! Form::submit(__('bienestar::menu.Save'),['class'=>'btn btn-success']) !!}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {!! Form::close() !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </td>
                             </tr>
                             @endforeach
@@ -135,26 +91,25 @@
                 </button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['url' => 'cefa.bienestar/buses/update/id', 'method' => 'PUT', 'role' =>
-                'form']) !!}
+                {!! Form::model('', ['route' => ['cefa.bienestar.buses.update', ''], 'method' => 'PUT', 'role' => 'form']) !!}
                 <div class="row p-4">
                 <div class="col-md-12">
             <div class="form-group">
-                <label for="plate">Placa:</label>
+                <label for="plate">{{ trans('bienestar::menu.plate')}}:</label>
                 <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6" oninput="this.value = this.value.toUpperCase(); validatePlate(this);">
                 <span id="plate-error" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <label for="bus_driver">Conductor:</label>
+            {!! Form::label('bus_driver',__('bienestar::menu.Driver')) !!}
                 {!! Form::select('bus_driver', $busDrivers, null, ['class' => 'form-control', 'required', 'id' => 'bus_driver_select']) !!}
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="form-group">
-                <label for="quota">Cupos:</label>
+                <label for="quota">{{ trans('bienestar::menu.Quotas')}}:</label>
                 {!! Form::number('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required', 'oninput' => 'this.value = this.value.replace(/^0+/g, \'\')', 'onblur' => 'validateQuota(this)']) !!}
             </div>
         </div>
