@@ -16,7 +16,7 @@
                         <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#crearModal">
                             Crear Entidad Aseguradora
                         </button>
-                        <table id="contractorype" class="table table-striped table-bordered shadow-lg mt-4"
+                        <table id="insurerentities" class="table table-striped table-bordered shadow-lg mt-4"
                             style="width:100%">
                             <thead class="bg-primary text-white">
                                 <tr>

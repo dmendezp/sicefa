@@ -1,5 +1,9 @@
 @extends('gth::layouts.master')
 
+@section('css')
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -12,13 +16,14 @@
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearModal">
                             Gestión de Posición
                         </button>
-                        <table class="table">
-                            <thead>
+                        <table id="position" class="table table-striped table-bordered shadow-lg mt-4"
+                            style="width:100%">
+                            <thead class="bg-primary text-white">
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Descripción</th>
-                                    <th>Acciones</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,24 +71,47 @@
                 <div class="modal-body">
                     <form action="{{ route('gth.positions.create') }}" method="POST" class="btnGuardar">
                         @csrf
-                        <div class="form-group">
-                            <label for="name">professional_denomination:</label>
-                            <input type="text" name="name" class="form-control" required>
+                        <div class="mb-3">
+                            <label for="professional_denomination" class="form-label">Denominación Profesional:</label>
+                            <select name="professional_denomination" id="professional_denomination"
+                                class="form-control @error('professional_denomination') is-invalid @enderror" required>
+                                <option value="-- Seleccione --"></option>
+                                <option value="Asesor">Asesor</option>
+                                <option value="Directivo">Directivo</option>
+                                <option value="Instructor">Instructor</option>
+                                <option value="Profesiona">Profesiona</option>
+                                <option value="Técnico">Técnico</option>
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <label for="description">Descripción de Posicion:</label>
-                            <input type="text" name="description" class="form-control" required>
+                        
+                        <div class="mb-3">
+                            <label for="grade" class="form-label">Calificaciones:</label>
+                            <select name="grade" id="grade"
+                                class="form-control @error('grade') is-invalid @enderror" required>
+                                <option value="-- Seleccione --"></option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                            </select>
                         </div>
-                        <!-- Agrega más campos de formulario según tus necesidades -->
-                        <div class="form-group text-center">
-                            <button type="submit" class="btn btn-success" id="Guardar">Guardar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+                        <!-- Resto del formulario -->
+                    <button type="submit" class="btn btn-primary"
+                        onclick="return confirmarCambios()">Guardar
+                        Cambios</button>
+                        
     <!-- Modal de Edición -->
     @foreach ($positions as $positio)
 
@@ -134,6 +162,10 @@
 @endsection
 
 @section('js')
+
+    <script>
+        new DataTable('#position');
+    </script>
     <script>
         function confirmarCambios() {
             Swal.fire({

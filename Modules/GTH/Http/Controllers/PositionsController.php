@@ -7,6 +7,8 @@ use Illuminate\Routing\Controller;
 
 use Modules\SICA\Entities\Position;
 
+
+
 class PositionsController extends Controller
 {
 
@@ -15,14 +17,15 @@ class PositionsController extends Controller
     {
         $positions = Position::all();
         return view('gth::position.position', compact('positions'));
+
     }
 
 
     public function postcreatepositions(Request $request)
     {
         $positions = new Position;
-        $positions->name = $request->input('name');
-        $positions->description = $request->input('description');
+        $positions->professional_denomination = $request->input('professional_denomination');
+        $positions->grade = $request->input('grade');
         $positions->save();
 
         return redirect()->route('gth.positions');
