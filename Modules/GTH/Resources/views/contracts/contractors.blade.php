@@ -1,5 +1,9 @@
 @extends('gth::layouts.master')
 
+@section('css')
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -7,15 +11,14 @@
                 <div class="card">
                     <div class="card-header">
                         <h1 class="card-title">Reportes de contratos</h1>
-                    </div>
-
-                    <table class="table">
-                        <thead>
+                    <table id="contractor" class="table table-striped table-bordered shadow-lg mt-4"
+                    style="width:100%">
+                    <thead class="bg-primary text-white">
                             <tr>
-                                <th>Id</th>
-                                <th>Tipo Documento</th>
-                                <th>Número Documento</th>
-                                <th>Nombre Completo</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Tipo Documento</th>
+                                <th scope="col">Número Documento</th>
+                                <th scope="col">Nombre Completo</th>
                                 <th style="width: 200px;">Acciones</th>
                             </tr>
                         </thead>
@@ -308,6 +311,11 @@
 @endsection
 
 @section('js')
+
+    <script>
+        new DataTable('#contractor');
+    </script>
+
     <script>
         function confirmarCambios() {
             Swal.fire({

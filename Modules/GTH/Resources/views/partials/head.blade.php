@@ -9,15 +9,16 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.all.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.2/dist/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0v8FqFjcJ6pajs/rfdfs3SO+kO7jg5z5F5flf1tI8F5fF5flf1tI8F5flF5flf1tI8F5flf1tI8F5fl" crossorigin="anonymous"></script>
 <!-- Agrega estas líneas en el encabezado de tu documento HTML -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
 <!-- Include Bootstrap  -->
 <script src=" asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')"></script>
@@ -28,4 +29,10 @@
 <script src=" asset('AdminLTE/plugins/bootstrap/js/bootstrap.js.map')"></script>
 <script src=" asset('AdminLTE/plugins/bootstrap/js/bootstrap.min.js')"></script>
 <script src=" asset('AdminLTE/plugins/bootstrap/js/bootstrap.min.js.map')"></script>
+<script src=" asset('libs/DataTables-1.13.4/datatables.min.css')"></script>
+<script src=" asset('libs/DataTables-1.13.4/datatables.min.js')"></script>
+
+
+
+
 

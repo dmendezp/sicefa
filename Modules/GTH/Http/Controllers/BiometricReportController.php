@@ -10,7 +10,7 @@ class BiometricReportController extends Controller
 {
     public function viewBiometricReports()
     {
-        $people = Person::take(50)->get(); // Cambia 50 por la cantidad de registros que deseas obtener
+        $people = Person::take(500)->get(); // Cambia 50 por la cantidad de registros que deseas obtener
 
         return view('gth::biometric_report.biometricreports', ['people' => $people]);
     }
