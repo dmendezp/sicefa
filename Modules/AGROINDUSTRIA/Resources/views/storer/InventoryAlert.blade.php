@@ -16,6 +16,7 @@
                 <tr>
                     <th>Id</th>
                     <th>{{trans('agroindustria::menu.Name')}}</th>
+                    <th>{{trans('agroindustria::menu.Category')}}</th>
                     <th>{{trans('agroindustria::menu.Amount stock')}}</th>
                     <th>{{trans('agroindustria::menu.Description')}}</th>
                 </tr>
@@ -25,6 +26,7 @@
                 <tr>
                     <td>{{$inventory->id}}</td>
                     <td>{{$inventory->element->name}}</td>
+                    <td>{{$inventory->element->category->name}}</td>
                     <td>{{$inventory->amount}}</td>
                     <td>{{$inventory->description}}</td>
                     </tr>

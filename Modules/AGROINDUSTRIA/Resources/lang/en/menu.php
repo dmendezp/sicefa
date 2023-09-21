@@ -96,6 +96,13 @@ return [
 
     //list inventory
     'Amount stock'=>'Amount stock',
+    'Expiration date' =>'Expiration date',
+    'Close'=>'Close',
+    'Save'=>'Save',
+    'Edit'=>'Edit',
+
+
+
    
 
 

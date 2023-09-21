@@ -114,6 +114,12 @@ return [
     'enter a price'=> 'ingrese un precio',
     'enter the quantity available'=>'ingrese la cantidad disponible',
     'enter a description'=> 'ingrese una descripción',
+    'Expiration date' =>'Fecha de expiracion',
+    'Close'=>'Cerrar',
+    'Save'=>'Guardar',
+    'Edit'=>'Editar',
+
+
     
 ]
 

@@ -3,16 +3,13 @@
     <div class="card" style="margin-left: 135px ;width: 1100px;">
         <div class="card-body">
             <h1 class="text-center">{{trans('agroindustria::menu.Inventory')}}</h1>
-            
-            @if (\Session::has('destroy'))
-            <div class="alert alert-danger">
-                <p>{{\Session::get('destroy')}}</p>
-            </div>
-            @endif
+            <select class="form-select" style="width: 115px; height: 35px;" aria-label="Default select example">
+                <option selected>Unidades</option>
+                <option value="1">One</option>
+              </select>
            <button class="btn btn-success float-end mb-2" style="width: 45px; height: 35px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="fa-solid fa-plus fa-sm"></i>
-            </button>
-            
+            </button> 
             <a href="{{route('cefa.agroindustria.storer.inventory.list')}}" class="btn btn-info float-end mb-2" style="margin-right: 10px; width: 45px; height: 35px;">
                 <i class="fa-solid fa-exclamation fa-sm"></i>
             </a>
@@ -55,7 +52,6 @@
                                 {!! Form::open(['route' => ['cefa.agroindustria.storer.show', $inventory->id], 'method' => 'POST', 'style' => 'display:inline;']) !!}
                                 @include('agroindustria::storer.edit')
                                 {!! Form::close() !!}     
-
                                 {!! Form::open(['route' => ['cefa.agroindustria.storer.inventory.delete', $inventory->id], 'method' => 'delete', 'class' => 'aa', 'style' => 'display:inline;']) !!}
                                 <button type="submit"  style="width: 45px; height: 35px;"  class="btn btn-danger"><i class="fa-solid fa-trash fa-sm"></i></button>                            
                                 {!! Form::close() !!}
