@@ -102,5 +102,8 @@ Route::middleware(['lang'])->group(function () {
 
 
         
+
+        //vista el listados apoyo alimenacion 
+        Route::get('/AssistancesFoods', 'AssistancesFoodsController@index')->name('cefa.bienestar.AssistancesFoods');
     });
 });
