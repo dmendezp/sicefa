@@ -2,45 +2,43 @@
 
 return [
     //PositionCompany
-    'Name' => 'Name',  // SENAEMPRESA,
-    'General Description' => 'General Description',
+    'Name' => 'Name',  // SENAEMPRESA, Vacant,
+    'General Description' => 'General Description',  // Vacant,
     'Status' => 'Status',  // Loan,
     'Active' => 'Active',
     'Save changes' => 'Save changes',
-    'Cancel' => 'Cancel',  // Loan, SENAEMPRESA, staff_senaempresa
-    'Requirements' => 'Requirements',
+    'Cancel' => 'Cancel',  // Loan, SENAEMPRESA, staff_senaempresa, Vacant
+    'Requirements' => 'Requirements',  // Vacant,
     'Select Status' => ' Select Status',
     'Inactive' => 'Inactive',
-    'Add' => 'Add',  // SENAEMPRESA, staff_senaempresa,
-    'Positions' => 'Positions',
-    'Id' => 'Id',  // Loan, staff_senaempresa,
+    'Add' => 'Add',  // SENAEMPRESA, staff_senaempresa, Vacant,
+    'Positions' => 'Positions',  // Aside,
+    'Id' => 'Id',  // Loan, staff_senaempresa, Vacant,
     'Description' => 'Description',  // SENAEMPRESA,
-    'Are you sure?' => 'Are you sure?',   // SENAEMPRESA, staff_senaempresa,
-    'It is an irreversible process.' => 'It is an irreversible process.',  // SENAEMPRESA, staff_senaempresa
-    'Yes, delete it' => 'Yes, delete it',  // SENAEMPRESA,
-
+    'Are you sure?' => 'Are you sure?',   // SENAEMPRESA, staff_senaempresa, Vacant,
+    'It is an irreversible process.' => 'It is an irreversible process.',  // SENAEMPRESA, staff_senaempresa, Vacant,
+    'Yes, delete it' => 'Yes, delete it',  // SENAEMPRESA, Vacant,
     'Position deleted!' => 'Position deleted!',
     'New Position' => 'New Position',
-    'Its not authorized' => 'Its not authorized',  // Loan, SENAEMPRESA,
+    'Its not authorized' => 'Its not authorized',  // Loan, SENAEMPRESA, Vacant,
     'Position successfully restored' => 'Position successfully restored',
     'The position already exists in the database' => 'The position already exists in the database',
     'Position successfully created' => 'Position successfully created',
     'Edit the position.' => 'Edit the position.',
     'Registration successfully updated.' => 'Registration successfully updated.',  // SENAEMPRESA, staff_senaempresa,
-
     'Position eliminated with success.' => 'Position eliminated with success.',
 	'Error in eliminating the position.' => 'Error in eliminating the position.',
 
     //Loan
 
-    'Loans' => 'Loans',
+    'Loans' => 'Loans',  // Aside,
     'People ID' => 'People ID',
     'Select Personal ID' => 'Select Personal ID',
     'Inventory ID' => 'Inventory ID',
     'Select Inventory ID' => 'Select Inventory ID',
     'Start date and time' => 'Start date and time',
     'End date and time' => 'End date and time',
-    'Save Changes' => 'Save Changes',  // SENAEMPRESA,
+    'Save Changes' => 'Save Changes',  // SENAEMPRESA, Vacant,
     'Filter by State'  => 'Filter by State',
     'All' => 'All',
     'Borrowed' => 'Borrowed',
@@ -56,18 +54,18 @@ return [
 
     // SENAEMPRESA
 
-    'Select a course:' => 'Select a course:',
+    'Select a course:' => 'Select a course:',  // Vacant,
     'Select a SenaEmpresa:' => 'Select a SenaEmpresa:',
     'Assign Course to SenaEmpresa' => 'Assign Course to SenaEmpresa',
-    'Course ID' => 'Course ID',
+    'Course ID' => 'Course ID',  // Vacant,
     'SenaEmpresa ID' => 'SenaEmpresa ID',
-    'No associated courses were found.' => 'No associated courses were found.',
-    'Association deleted!' => 'Association deleted!',
+    'No associated courses were found.' => 'No associated courses were found.',  // Vacant,
+    'Association deleted!' => 'Association deleted!',  // Vacant
     'ID Quarter' => 'ID Quarter',
     'SenaEmpresa already exists!' => 'SenaEmpresa already exists!',
     'Quarter' => 'Quarter',
     'SenaEmpresa deleted!' => 'SenaEmpresa deleted!',
-    'Home' => 'Home',
+    'Home' => 'Home',  // Aside, Navbar,
     'SenaEmpresa - Strategies' => 'SenaEmpresa - Strategies',
     'New SenaEmpresa' => 'New SenaEmpresa',
     'SenaEmpresa Successfully restored' => 'SenaEmpresa Successfully restored',
@@ -77,12 +75,12 @@ return [
     'Record not found.' => 'Record not found.',
     'Error updating registration.' => 'Error updating registration.',
     'Vacancy successfully eliminated' => 'Vacancy successfully eliminated',
-    'Error when deleting the vacancy' => 'Error when deleting the vacancy',
+    'Error when deleting the vacancy' => 'Error when deleting the vacancy',  // Vacant,
     'Assign Courses to SenaEmpresa' => 'Assign Courses to SenaEmpresa',
     'Course assigned to senaempresa successfully.' => 'Course assigned to senaempresa successfully.',
-    'Association already exists.' => 'Association already exists.',
-    'Association eliminated with success.' => 'Association eliminated with success.',
-    'Error deleting the association' => 'Error deleting the association',
+    'Association already exists.' => 'Association already exists.',  // Vacant,
+    'Association eliminated with success.' => 'Association eliminated with success.',  // Vacant,
+    'Error deleting the association' => 'Error deleting the association',  // Vacant,
 
     // staff_senaempresa
 
@@ -98,73 +96,76 @@ return [
     'Position' => 'Position',
     'Apprentice' => 'Apprentice',
     'Yes, remove it' => 'Yes, remove it',
-    'Staff' => 'Staff',
+    'Staff' => 'Staff',  // Aside,
     'Staff SenaEmpresa' => 'Staff SenaEmpresa',
     'Staff successfully created.' => 'Staff successfully created.',
     'Error in creating the staff.' => 'Error in creating the staff.',
     'Edit Personal' => 'Edit Personal',
     'Staff eliminated with success' => 'Staff eliminated with success',
     'Error while deleting the Personal' => 'Error while deleting the Personal',
+    'Staff eliminated!' => 'Staff eliminated!',
+
+    // Vacant
+
+    'Select a vacancy:' => 'Select a vacancy:',
+    'Assign Course to Vacant' => 'Assign Course to Vacant',
+    'Vacant ID' => 'Vacant ID',
+    'Close' => 'Close',
+    'Registration' => 'Registration',
+    'Presentation' => 'Presentation',
+    'Id Position' => 'Id Position',
+    'Select a position' => 'Select a position',
+    'Start Date and Time' => 'Start Date and Time',
+    'Date and Time End' => 'Date and Time End',
+    'Current Image' => 'Current Image',
+    'No registered image' => 'No registered image',
+    'Filter by course' => 'Filter by course',
+    'All courses' => 'All courses',
+    'There are no vacancies available for the selected course' => 'There are no vacancies available for the selected course',
+    'Vacancy deleted!' => 'Vacancy deleted!',
+    'Vacancies' => 'Vacancies',  // Aside
+    'New vacancy' => 'New vacancy',
+    'Vacancy Successfully Restored!' => 'Vacancy Successfully Restored!',
+    'Vacancy already exists in database' => 'Vacancy already exists in database',
+    'Vacant added with success' => 'Vacant added with success',
+    'Edit vacancy' => 'Edit vacancy',
+    'Vacancy successfully updated.' => 'Vacancy successfully updated.',
+    'Error updating the Vacancy.' => 'Error updating the Vacancy.',
+    'Vacancy eliminated with success' => 'Vacancy eliminated with success.',
+    'Assign Courses to Vacancies' => 'Assign Courses to Vacancies',
+    'Course assigned to the vacancy successfully.' => 'Course assigned to the vacancy successfully.',
+    'Show Associates' => 'Show Associates',
+
+    // Aside
+
+    'Welcome' => 'Welcome',
+    'We' => 'We',
+    'Strategies' => 'Strategies',
+    'Courses SenaEmpresa' => 'Courses SenaEmpresa',
+    'Availables' => 'Availables',
+    'Courses Vacancies' => 'Courses Vacancies',
+    'Postulates' => ' Postulates',
+    'Selected' => ' Selected',
+    'Registrants' => 'Registrants',
+
+    // Navbar
+
+    'Contact' => 'Contact',
 
 
 
 
 
-
-	'Administrator' => 'Administrator',
-	'Contact' => 'Contact',
-	'We' => 'We',
-	'Strategies' => 'Strategies',
-	'Courses SenaEmpresa' => 'Courses SenaEmpresa',
-	'Courses Vacancies' => 'Courses Vacancies',
-	'Selected' => ' Selected',
-	'Availables' => 'Availables',
-	'Postulates' => ' Postulates',
-	'Registrants' => 'Registrants',
+    'Administrator' => 'Administrator',
 	'New' => 'New',
-	'Welcome' => 'Welcome',
 	'Failed to create PositionCompany object.' => 'Failed to create PositionCompany object.',
 	'Error in creating the position.' => 'Error in creating the position.',
-	'Vacancies' => 'Vacancies',
-	'Presentation' => 'Presentation',
-	'Id Position' => 'Id Position',
-	'Start Date and Time' => 'Start Date and Time',
-	'Date and Time End' => 'Date and Time End',
-	'Registration' => 'Registration',
-	'Filter by course' => 'Filter by course',
-	'All courses' => 'All courses',
-	'Close' => 'Close',
-	'Select a position' => 'Select a position',
-	'New vacancy' => 'New vacancy',
-	'Edit vacancy' => 'Edit vacancy',
-	'Vacancy eliminated with success' => 'Vacancy eliminated with success.',
-	'Vacancy deleted!' => 'Vacancy deleted!',
-	'Vacancy Successfully Restored!' => 'Vacancy Successfully Restored!',
-	'Vacancy already exists in database' => 'Vacancy already exists in database',
-	'Current Image' => 'Current Image',
-	'No registered image' => 'No registered image',
-	'Assign Courses to Vacancies' => 'Assign Courses to Vacancies',
-	'Show Associates' => 'Show Associates',
 	'There are no courses related to vacancies' => 'There are no courses related to vacancies',
-	'There are no vacancies available for the selected course' => 'There are no vacancies available for the selected course',
 	'Notifications' => 'Notifications',
 	'General description' => 'General description',
 	'Registry successfully updated' => 'Registry successfully updated',
-
-	'Vacant added with success' => 'Vacant added with success',
-	'Vacancy successfully updated.' => 'Vacancy successfully updated.',
-	'Error updating the Vacancy.' => 'Error updating the Vacancy.',
-	'Course assigned to the vacancy successfully.' => 'Course assigned to the vacancy successfully.',
-	'Select a vacancy:' => 'Select a vacancy:',
-	'Assign Course to Vacant' => 'Assign Course to Vacant',
-	'Vacant ID' => 'Vacant ID',
 	'Associates Courses-Senaempresa' => 'Associates Courses-Senaempresa',
-
-
-
-	'We provide' => 'We provide',
 	'success' => 'success',
 	'mistake' => 'mistake',
-	'Staff eliminated!' => 'Staff eliminated!',
 
 ];
