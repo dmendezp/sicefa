@@ -11,15 +11,9 @@
             {!! Form::open(['route' => 'cefa.bienestar.buses.store', 'method' => 'POST', 'role' => 'form'])
                 !!}
                 <div class="row p-4">
-<<<<<<< Updated upstream
                    <div class="col-md-3">
                       <label for="plate">{{ trans('bienestar::menu.Plate')}}</label>
                         <input type="text" name="plate" id="plate" class="form-control" placeholder="{{ trans('bienestar::menu.Enter the plate')}}" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
-=======
-                    <div class="col-md-3">
-                        <label for="plate">Placa:</label>
-                        <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6">
->>>>>>> Stashed changes
                         <span id="plate-error" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
@@ -99,12 +93,19 @@
             <div class="modal-body">
                 {!! Form::model('', ['route' => ['cefa.bienestar.buses.update', ''], 'method' => 'PUT', 'role' => 'form']) !!}
                 <div class="row p-4">
-                    <div class="col-md-12">
-                        <label for="plate">placa:</label>
-                        <div class="form-group">
-                        {!! Form::text('plate', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la placa',
-                        'required']) !!}
-                </div>
+                <div class="col-md-12">
+            <div class="form-group">
+                <label for="plate">{{ trans('bienestar::menu.plate')}}:</label>
+                <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6" oninput="this.value = this.value.toUpperCase(); validatePlate(this);">
+                <span id="plate-error" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+            {!! Form::label('bus_driver',__('bienestar::menu.Driver')) !!}
+                {!! Form::select('bus_driver', $busDrivers, null, ['class' => 'form-control', 'required', 'id' => 'bus_driver_select']) !!}
+            </div>
+        </div>
 
         <div class="col-md-12">
             <div class="form-group">
