@@ -11,15 +11,9 @@
             {!! Form::open(['route' => 'cefa.bienestar.buses.store', 'method' => 'POST', 'role' => 'form'])
                 !!}
                 <div class="row p-4">
-<<<<<<< Updated upstream
-                   <div class="col-md-3">
-                      <label for="plate">{{ trans('bienestar::menu.Plate')}}</label>
-                        <input type="text" name="plate" id="plate" class="form-control" placeholder="{{ trans('bienestar::menu.Enter the plate')}}" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
-=======
                     <div class="col-md-3">
                         <label for="plate">Placa:</label>
                         <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6">
->>>>>>> Stashed changes
                         <span id="plate-error" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
