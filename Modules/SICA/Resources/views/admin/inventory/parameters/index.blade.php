@@ -126,7 +126,8 @@
                                         <tr>
                                             <th>Id</th>
                                             <th>Nombre</th>
-                                            <th>Medida unitaria minima</th>
+                                            <th>Abreviación</th>
+                                            <th>Medida mínima</th>
                                             <th>Factor de converción</th>
                                             <th>
                                                 <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.measurementUnit.create') }}')">
@@ -142,17 +143,17 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $m->name }}</td>
+                                                <td>{{ $m->abbreviation }}</td>
                                                 <td>{{ $m->minimum_unit_measure }}</td>
                                                 <td>{{ $m->conversion_factor }}</td>
                                                 <td>
                                                     <div class="opts">
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('
-                                                        /{{ $m->id }}')">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.measurementUnit.edit', $m->id)}}')">
                                                             <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                                                 <i class="fas fa-edit"></i>
                                                             </b>
                                                         </a>
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.measurementUnit.destroy') }}/{{ $m->id }}')">
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.inventory.parameters.measurementUnit.delete', $m->id)}}')">
                                                             <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </b>
