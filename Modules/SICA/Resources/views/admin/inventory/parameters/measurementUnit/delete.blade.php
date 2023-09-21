@@ -13,6 +13,8 @@
             <div class="row">
                 <div class="col-6 text-right"><b>Nombre: </b></div>
                 <div class="col">{{ $measurementUnit->name }}</div>
+                <div class="col-6 text-right"><b>Abreviación: </b></div>
+                <div class="col">{{ $measurementUnit->abbreviation }}</div>
                 <div class="col-6 text-right"><b>Medida unitaria minima: </b></div>
                 <div class="col">{{ $measurementUnit->minimum_unit_measure }}</div>
                 <div class="col-6 text-right"><b>Factor de converción: </b></div>
