@@ -15,7 +15,7 @@
             @if(isset($selectedUnitName))
                 <h1>Unidad Productiva {{ $selectedUnitName }}</h1>
             @else
-                <h1>No se ha seleccionado una unidad productiva.</h1>
+                {{-- <h1>No se ha seleccionado una unidad productiva.</h1> --}}
             @endif 
         </div>
     </section>

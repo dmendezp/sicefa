@@ -6,7 +6,6 @@
 <!----======== CSS ======== -->
 <link rel="stylesheet" href="{{ asset('agrocefa/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('agrocefa/css/estilos.css')}}">
-<link rel="stylesheet" href="{{ asset('agrocefa/css/footer.css') }}">
 <link rel="stylesheet" href="{{ asset('agrocefa/css/stilos.css') }}">
 <link rel="stylesheet" href="{{ asset('agrocefa/css/navbar.css') }}">
 <link rel="stylesheet" href="{{ asset('agrocefa/css/movements.css') }}">
@@ -14,6 +13,7 @@
 
 
 
+<link rel="stylesheet" href="{{ asset('agrocefa/css/usuario/usuario.css') }}">
 
 
 <!----===== Boxicons CSS ===== -->

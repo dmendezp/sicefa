@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ asset('agrocefa/css/footer.css') }}">
+
 <footer class="footer">
     <section class="footer_container container">
     <nav class="nav nav--footer">
