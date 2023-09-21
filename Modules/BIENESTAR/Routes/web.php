@@ -95,5 +95,12 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('cefa.bienestar.delete_question');
         Route::get('/addquestions', 'ConvocationsQuestionsController@add_question')->name('cefa.bienestar.add_question');
         Route::post('/addquestions/add', 'ConvocationsQuestionsController@addQuestion')->name('cefa.bienestar.add_question.add');
+       
+        // Vista De Consulta
+
+        Route::get('/callconsultation', 'CallConsultationController@index')->name('cefa.bienestar.callconsultation');
+
+
+        
     });
 });
