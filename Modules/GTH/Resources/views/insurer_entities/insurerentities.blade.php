@@ -1,5 +1,9 @@
 @extends('gth::layouts.master')
 
+@section('css')
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -9,16 +13,17 @@
                         <h1 class="card-title">Entidad Aseguradora</h1>
                     </div>
                     <div class="card-body">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearModal">
+                        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#crearModal">
                             Crear Entidad Aseguradora
                         </button>
-                        <table class="table">
-                            <thead>
+                        <table id="contractorype" class="table table-striped table-bordered shadow-lg mt-4"
+                            style="width:100%">
+                            <thead class="bg-primary text-white">
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Descripción</th>
-                                    <th>Acciones</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,17 +48,17 @@
                                                 </form>
                                             </div>
                                         </td>
-
                                     </tr>
                                 @endforeach
-                                <!-- Repite este bloque para cada tipo de contrato -->
                             </tbody>
+
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Modal de Creación -->
     <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -120,7 +125,8 @@
                                     @enderror
                                 </div>
                                 <!-- Resto del formulario -->
-                                <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">Guardar
+                                <button type="submit" class="btn btn-primary"
+                                    onclick="return confirmarCambios()">Guardar
                                     Cambios</button>
                             </form>
                         @endif
@@ -130,8 +136,13 @@
         </div>
     @endforeach
 @endsection
-
 @section('js')
+
+
+    <script>
+        new DataTable('#insurerentities');
+    </script>
+
     <script>
         function confirmarCambios() {
             Swal.fire({
