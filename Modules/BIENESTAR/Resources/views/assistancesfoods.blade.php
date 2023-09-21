@@ -8,12 +8,6 @@
         </div>
     </div>
 </div>
-
-
-
-      
-
-
 @endsection
 
 
