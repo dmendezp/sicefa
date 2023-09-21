@@ -93,6 +93,7 @@ return[
     'Edit convocations'=>'editar convocatorias',
     'quarter id'=>'trimestre',
     
+    
 ]
 
 ?>

@@ -97,6 +97,7 @@ return[
     'Actions'=>'Actions',
     'Edit convocations'=>'Edit convocations',
     'quarter id'=>'quarter id',
+
     
 ]
 
