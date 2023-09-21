@@ -98,6 +98,27 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-vr-cardboard"></i>
+                        <p>Asistencia
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.Nosotros') }}"
+                                class="nav-link {{ !Route::is('cefa.Nosotros') ?: 'active' }}">
+                                <i class="fas fa-users"></i>
+                                <p>
+                                    Asistencia
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item {{ !Route::is('senaempresa.*') ?: 'menu-is-opening menu-open' }}">
                     <a href="#" class="nav-link {{ !Route::is('senaempresa.*') ?: 'active' }}">
                         <i class="fas fa-chess-rook"></i>
