@@ -2,7 +2,6 @@
 
 namespace Modules\SICA\Entities;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -11,13 +10,13 @@ class MeasurementUnit extends Model implements Auditable
 {
 
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
-        SoftDeletes, // Borrado suave
-        HasFactory; // Generación de datos de prueba
+        SoftDeletes; // Borrado suave
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'name',
+        'abbreviation',
         'minimum_unit_measure',
-        'conversion_factor',
+        'conversion_factor'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
@@ -28,6 +27,9 @@ class MeasurementUnit extends Model implements Auditable
     ];
 
     // MUTADORES Y ACCESORES
+    public function setAbbreviatioAttribute($value){ // Convierte el primer carácter en mayúscula dato abbreviation (MUTADOR)
+        $this->attributes['abbreviation'] = ucfirst($value);
+    }
     public function setMinimumUnitMeasureAttribute($value){ // Convierte el primer carácter en mayúscula y el resto en minúsculas del dato minimum_unit_measure (MUTADOR)
         $this->attributes['minimum_unit_measure'] = ucfirst(strtolower($value));
     }
@@ -41,13 +43,6 @@ class MeasurementUnit extends Model implements Auditable
     }
     public function environmental_aspects(){ // Accede a todos los aspectos ambientales que pertenecen a esta unidad de medida
         return $this->hasMany(EnvironmentalAspect::class);
-    }
-
-
-    // Configuración de factory para la generación de datos de pruebas
-    protected static function newFactory()
-    {
-        return \Modules\SICA\Database\factories\MeasurementUnitFactory::new();
     }
 
 }
