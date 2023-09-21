@@ -42,8 +42,16 @@ Route::prefix('gth')->group(function () {
     Route::patch('/gth/insurerentities/update{id}', 'InsurerEntitiesController@updateinsurerentities')->name('gth.insurerentities.update');
     Route::get('gth/insurerentities/{id}', [InsurerEntitiesController::class, 'showInsurerEntities'])->name('gth.insurerentities.show');
 
+    // pension_entities
+    Route::get('/pensionentities', 'PensionEntitiesController@viewpensionentities')->name('gth.pensionentities.view'); //nombres de la vista
+    Route::post('/pensionentities/create', 'PensionEntitiesController@postcreatepensionentities')->name('gth.pensionentities.create');
+    Route::delete('/gth/pensionentities/{id}/delete', 'PensionEntitiesController@deletePensionEntities')->name('gth.pensionentities.delete');
+    Route::patch('/gth/pensionentities/update{id}', 'PensionEntitiesController@updatepensionentities')->name('gth.pensionentities.update');
+    Route::get('gth/pensionentities/{id}', [PensionEntitiesController::class, 'showPensionEntities'])->name('gth.pensionentities.show');
+
     // Biometric_report
     Route::get('/biometricreports', 'BiometricReportController@viewBiometricReports')->name('gth.biometricreports.view');
+    Route::get('datatable/users', 'BiometricReportController@user')->name('datatable.user');
     Route::post('/biometricreports/create/{id}', 'BiometricReportController@postcreateBiometricReport')->name('gth.biometricreports.create');
     Route::put('/gth/biometricreports/update{id}', 'BiometricReportController@updateBiometricReport')->name('gth.biometricreports.update');
     Route::get('/gth/biometricreports/{id}/showpersondetails', 'BiometricReportController@showPersonDetails')->name('gth.biometricreports.showpersondetails');
