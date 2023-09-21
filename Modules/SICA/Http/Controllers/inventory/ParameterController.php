@@ -88,6 +88,7 @@ class ParameterController extends Controller
     public function storeMeasurementUnit(Request $request){
         $m = new MeasurementUnit();
         $m->name = e($request->input('name'));
+        $m->abbreviation = e($request->input('abbreviation'));
         $m->minimum_unit_measure = e($request->input('minimum_unit_measure'));
         $m->conversion_factor = e($request->input('conversion_factor'));
         $card = 'card-measurementUnit';
@@ -109,6 +110,7 @@ class ParameterController extends Controller
     public function updateMeasurementUnit(Request $request){
         $measurementUnit = MeasurementUnit::findOrFail($request->input('id'));
         $measurementUnit->name = e($request->input('name'));
+        $measurementUnit->abbreviation = e($request->input('abbreviation'));
         $measurementUnit->minimum_unit_measure = e($request->input('minimum_unit_measure'));
         $measurementUnit->conversion_factor = e($request->input('conversion_factor'));
         $card = 'card-measurementUnit';
