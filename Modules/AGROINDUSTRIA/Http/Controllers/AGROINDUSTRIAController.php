@@ -28,16 +28,14 @@ class AGROINDUSTRIAController extends Controller
        if(Auth::check()){
             $user = Auth::user();
             if ($user->roles->contains('slug', 'agroindustria.admin') || $user->roles->contains('slug', 'agroindustria.instructor.vilmer') || $user->roles->contains('slug', 'agroindustria.instructor.chocolate')) {
-                $responsibilities = $user->roles->flatMap(function ($role) {
-                    return $role->responsibilities->pluck('activity_id');
+
+                $productiveUnits = $user->roles->flatMap(function ($role){
+                    return $role->productive_units->pluck('id');
+                     
                 });
 
-                 // Obtiene los IDs de las unidades productivas basadas en las actividades
-                $units = Activity::whereIn('id', $responsibilities)
-                ->pluck('productive_unit_id');
-
                 // Obtiene las unidades productivas a partir de los IDs obtenidos
-                $productiveUnits = ProductiveUnit::whereIn('id', $units)
+                $productiveUnits = ProductiveUnit::whereIn('id', $productiveUnits)
                 ->get();
 
                  // Retorna la vista 'homeproductive_units' con datos de unidades y la unidad seleccionada

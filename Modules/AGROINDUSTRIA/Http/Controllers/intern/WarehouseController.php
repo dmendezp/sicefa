@@ -200,14 +200,16 @@ class WarehouseController extends Controller
         return response()->json(['id' => $warehouse]);
     }
 
-    public function element ($id){
-        // Asegúrate de que $id sea un arreglo
-        if (!is_array($id)) {
-            $id = [$id];
-        }
+    public function element ($productiveUnitId, $warehouseId){
+
     
-        $warehouse = ProductiveUnitWarehouse::where('productive_unit_id', $id)->pluck('id');
-        $elementInventory = Inventory::with('element')->whereIn('productive_unit_warehouse_id', $warehouse)->get();
+        $warehouse = ProductiveUnitWarehouse::where('productive_unit_id', $productiveUnitId)
+        ->where('warehouse_id', $warehouseId)
+        ->pluck('id');
+
+        $elementInventory = Inventory::with('element')
+        ->whereIn('productive_unit_warehouse_id', $warehouse)
+        ->get();
         $element = $elementInventory->map(function ($e) {
             $id = $e->element->id;
             $name = $e->element->name;
@@ -221,28 +223,27 @@ class WarehouseController extends Controller
         return response()->json(['id' => $element]);
     }
     
-    public function dataElement($id){    
-        // Asegúrate de que $id sea un arreglo
-        if (!is_array($id)) {
-            $id = [$id];
-        }
-    
-        $inventoryElement = Inventory::with('element.measurement_unit')->where('element_id', $id)->get();
+    public function dataElement($productiveUnitId, $warehouseId, $elementId){    
+
+        $productiveUnitWarehouse = ProductiveUnitWarehouse::where('productive_unit_id', $productiveUnitId)
+        ->where('warehouse_id', $warehouseId)
+        ->pluck('id');
+
+        $inventoryElement = Inventory::with('element')->where('productive_unit_warehouse_id', $productiveUnitWarehouse)
+        ->where('element_id', $elementId)
+        ->get();
         $elementData = $inventoryElement->map(function ($e) {
-            $measurementUnit = $e->element->measurement_unit->name;
             $lote = $e->lot_number;
             $fVto = $e->expiration_date;
             $price = $e->price;
 
             return [
-                'measurementUnit' => $measurementUnit,
                 'lote' => $lote,
                 'fVto' => $fVto,
                 'price' => $price
             ];
         });
-        dd($elementData);
-    
+        
         return response()->json(['id' => $elementData]);
     }
 
@@ -301,8 +302,11 @@ class WarehouseController extends Controller
         //Consulta el elemento seleccionado
         $selectedElementId = $validatedData['element'];
 
-
-        $puw = json_decode($request->input('productiveUnitWarehouse'));
+        $productiveUnitId = $request->input('productive_unit');
+        $warehouseId = $request->input('warehouse');
+        $puw = ProductiveUnitWarehouse::where('productive_unit_id', $productiveUnitId)
+        ->where('warehouse_id', $warehouseId)
+        ->pluck('id');
         
         // Encontrar el inventario correspondiente a ese elemento
         $inventories = Inventory::whereIn('element_id', $selectedElementId)
@@ -346,11 +350,13 @@ class WarehouseController extends Controller
         $mr->save();
 
         //Registro del WarehouseMovement (entrega)
-        $wm = new WarehouseMovement;
-        $wm->warehouse_id = $request->input('warehouseId');
-        $wm->movement_id = $mo->id;
-        $wm->role = 'Entrega';
-        $wm->save();
+        foreach ($puw as $key => $p) {
+            $wm = new WarehouseMovement;
+            $wm->productive_unit_warehouse_id = $p;
+            $wm->movement_id = $mo->id;
+            $wm->role = 'Entrega';
+            $wm->save();
+        }
         if ($mo->state === 'Aprobado') {
             // Recorre los detalles del movimiento
             foreach ($mo->movement_details as $detail) {

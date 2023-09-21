@@ -39,11 +39,11 @@
                 <div class="elements_discharge">
                     <div class="form-group">
                         {!! Form::label('elementInventory' , trans('agroindustria::menu.Element')) !!}
-                        {!! Form::select('element[]', [], null, ['placeholder' => 'Seleccione un elemento', 'id' => 'element_discharge']) !!}
+                        {!! Form::select('element[]', [], null, ['placeholder' => 'Seleccione un elemento', 'id' => 'elementDischarge']) !!}
                         @if ($errors->has('element'))
                           <span class="text-danger">{{ $errors->first('element') }}</span>
                         @endif
-                      </div>
+                    </div>
                     <div class="form-group">
                         {!! Form::label('amount' , trans('agroindustria::menu.Amount')) !!}
                         {!! Form::number('amount[]', null, ['id' => 'amount']) !!}
@@ -55,14 +55,15 @@
                     <div class="form-group">
                         {!! Form::label('fVto' , trans('agroindustria::menu.Expiration Date')) !!}
                         {!! Form::text('fVto[]', null, ['id' => 'fVto', 'readonly'=> 'readonly']) !!}
+                        {!! Form::hidden('price[]', null, ['id' => 'price']) !!}
                     </div>
                         <button type="button" class="remove-element">{{trans('agroindustria::menu.Delete')}}</button>
                     </div>
                 </div>                           
             </div>
-            <div class="button_discharge">
-                {!! Form::submit(trans('agroindustria::menu.Register deregistration'),['class' => 'baja', 'name' => 'baja']) !!}
-            </div>
+        </div>
+        <div class="button_discharge">
+            {!! Form::submit(trans('agroindustria::menu.Register deregistration'),['class' => 'baja', 'name' => 'baja']) !!}
         </div>
         </div>
     </div>
@@ -78,128 +79,190 @@
 @section('script')
 @endsection
 <script>
-    $(document).ready(function() {    
-        // Aplicar Select2 al campo de selección con el id 'elementInventory'
-    
-        // Agregar un nuevo campo de producto
-        $("#add-product").click(function() {
-            var newProduct = '<div class="elements_discharge"><div class="form-group">{!! Form::label("elementDischarge" , trans("agroindustria::menu.Element")) !!}{!! Form::select("element[]", [], null, ["placeholder" => "Seleccione un elemento", "id" => "element_discharge"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", NULL, ["id" => "amount"]) !!}</div> <div class="form-group">{!! Form::label("lote" , trans("agroindustria::menu.Lote")) !!} {!! Form::number("lote[]", null, ["id" => "lote", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("fVto" , trans("agroindustria::menu.Expiration Date")) !!} {!! Form::text("fVto[]", null, ["id" => "fVto", "readonly" => "readonly"]) !!}{!! Form::hidden("price[]", null, ["id" => "price", "readonly"=> "readonly"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
-    
-            // Agregar el nuevo campo al DOM
-            $("#elements").append(newProduct);
-    
-            // Inicializar Select2 en los campos 'element' en el nuevo campo
-            $('.element-selected:last').select2();
-    
-        });
-    
-        // Escuchar el evento change en el elemento con ID 'products' (delegado)
-        $("#elements").on("change", "#element_discharge", function() {            
-            var elementoSeleccionado = $(this).val();
-            var parentElement = $(this).closest('.elements_discharge');
-            var measurementUnitField = parentElement.find('input#measurementUnit');
-            var loteField = parentElement.find('input#lote');
-            var fVtofield = parentElement.find('input#fVto');
-            var pricefield = parentElement.find('input#price');
-            
+$(document).ready(function() {
+    var ajaxResponse = null;
+    // Inicializar Select2 para el campo 'element_discharge'
+    $('#elementDischarge').select2();
+   
+    // Agregar un nuevo campo de producto
+    $("#add-product").click(function() {
+        var newProduct = '<div class="elements_discharge"><div class="form-group">{!! Form::label("elementDischarge" , trans("agroindustria::menu.Element")) !!}{!! Form::select("element[]", [], null, ["placeholder" => "Seleccione un elemento", "class" => "elementDischarge-select"]) !!}</div> <div class="form-group">{!! Form::label("amount" , trans("agroindustria::menu.Amount")) !!} {!! Form::number("amount[]", null, ["id" => "amount"]) !!}</div> <div class="form-group">{!! Form::label("lote" , trans("agroindustria::menu.Lote")) !!} {!! Form::text("lote[]", null, ["id" => "lote", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("fVto" , trans("agroindustria::menu.Expiration Date")) !!} {!! Form::text("fVto[]", null, ["id" => "fVto", "readonly" => "readonly"]) !!}{!! Form::hidden("price[]", null, ["id" => "price"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
+        
+        // Agregar el nuevo campo al DOM
+        $("#elements").append(newProduct);
 
-            console.log(elementoSeleccionado);
-    
-            // Realizar una petición AJAX para obtener la cantidad disponible
-            if (elementoSeleccionado) {
-                $.ajax({
-                    url: {!! json_encode(route('cefa.agroindustria.admin.discharge.elementData', ['id' => ':id'])) !!}.replace(':id', elementoSeleccionado.toString()),
-                    method: 'GET',
-                    success: function(response) {
-                        if (Array.isArray(response.id)) {
-                            // Si recibes un arreglo de IDs, puedes recorrerlos aquí
-                            response.id.forEach(function(value) {
-                                var lote = parseFloat(value.lote);  
-                                var fVto = new Date(value.fVto);
-                                var options = { day: 'numeric', month: 'numeric',  year: 'numeric'};
-                                var formattedFVto = fVto.toLocaleDateString(undefined, options);
-                                var price = parseFloat(value.price);  
+        // Obtener el último campo select dinámico
+        var newElementSelect = $('.elementDischarge-select:last');
 
-                                loteField.val(lote);
-                                fVtofield.val(formattedFVto);
-                                pricefield.val(price);
+        // Llenar el campo select dinámico con la respuesta almacenada
+        console.log(ajaxResponse);
+        if (ajaxResponse) {
+            var options = '<option value="">' + 'Seleccione un elemento' + '</option>';
+            $.each(ajaxResponse.id, function(index, warehouse) {
+                options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
+            });
+            newElementSelect.html(options);
+        }
+        
+        // Inicializar Select2 en el campo select dinámico
+        newElementSelect.select2();
+    });
 
-                            });
-                        } else {
-                            // Manejar el caso en que el valor no sea un número válido
-                            console.error('No se encontró la cantidad disponible válida.');
-                        }
-                    },
-                    error: function(error) {
-                        console.error('Error al obtener la cantidad disponible:', error);
+
+    // Eliminar un campo de producto
+    $("#elements").on("click", ".remove-element", function() {
+        $(this).parent(".elements_discharge").remove();
+    });
+
+    // Escuchar el evento change en el elemento con ID 'element_discharge' (delegado)
+    $("#elements").on("change", "#elementDischarge", function() {
+        var elementoSeleccionado = $(this).val();
+        var productiveUnit = $('#productive_unit').val();
+        var warehouse = $('#warehouse').val();
+
+        // Encontrar el elemento padre más cercano con la clase 'elements_discharge'
+        var parentElement = $(this).closest('.elements_discharge');
+
+        var loteField = parentElement.find('input#lote');
+        var priceField = parentElement.find('input#price');
+        var fVtoField = parentElement.find('input#fVto');
+
+
+        // Realizar una petición AJAX para obtener la cantidad disponible
+        if (elementoSeleccionado) {
+            $.ajax({
+                url: {!! json_encode(route('cefa.agroindustria.admin.discharge.elementData', ['productiveUnitId' => ':productiveUnitId', 'warehouseId' => ':warehouseId', 'elementId' => ':elementId'])) !!}.replace(':productiveUnitId', productiveUnit.toString()).replace(':warehouseId', warehouse.toString()).replace(':elementId', elementoSeleccionado.toString()),
+                method: 'GET',
+                success: function(response) {
+                    if (Array.isArray(response.id)) {
+                        // Si recibes un arreglo de IDs, puedes recorrerlos aquí
+                        response.id.forEach(function(value) {
+                            var lote = parseFloat(value.lote);  
+                            var price = parseFloat(value.price);
+                            var fVto = new Date(value.fVto);
+                            var options = { day: 'numeric', month: 'numeric',  year: 'numeric'};
+                            var formattedFVto = fVto.toLocaleDateString(undefined, options);
+                            loteField.val(lote);
+                            priceField.val(price);
+                            fVtoField.val(formattedFVto);
+                        });
+                    } else {
+                        // Manejar el caso en que el valor no sea un número válido
+                        console.error('No se encontró la cantidad disponible válida.');
                     }
+                },
+                error: function(error) {
+                    console.error('Error al obtener la cantidad disponible:', error);
+                }
+            });
+        } else {
+            // Si se selecciona la opción predeterminada, dejar el campo de cantidad disponible en blanco
+            loteField.val('');
+            priceField.val('');
+            fVtoField.val('');
+        }
+    });
+    $("#elements").on("change", ".elementDischarge-select", function() {
+        var elementoSeleccionado = $(this).val();
+        var productiveUnit = $('#productive_unit').val();
+        var warehouse = $('#warehouse').val();
+
+        // Encontrar el elemento padre más cercano con la clase 'elements_discharge'
+        var parentElement = $(this).closest('.elements_discharge');
+
+        var loteField = parentElement.find('input#lote');
+        var priceField = parentElement.find('input#price');
+        var fVtofield = parentElement.find('input#fVto');
+
+        var url = {!! json_encode(route('cefa.agroindustria.admin.discharge.elementData', ['productiveUnitId' => ':productiveUnitId', 'warehouseId' => ':warehouseId', 'elementId' => ':elementId'])) !!}.replace(':productiveUnitId', productiveUnit.toString()).replace(':warehouseId', warehouse.toString()).replace(':elementId', elementoSeleccionado.toString());
+        console.log(url);
+
+        // Realizar una petición AJAX para obtener la cantidad disponible
+        if (elementoSeleccionado) {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function(response) {
+                    if (Array.isArray(response.id)) {
+                        // Si recibes un arreglo de IDs, puedes recorrerlos aquí
+                        response.id.forEach(function(value) {
+                            var lote = parseFloat(value.lote);
+                            var price = parseFloat(value.price);  
+                            var fVto = new Date(value.fVto);
+                            var options = { day: 'numeric', month: 'numeric',  year: 'numeric'};
+                            var formattedFVto = fVto.toLocaleDateString(undefined, options);
+                            loteField.val(lote);
+                            priceField.val(price);
+                            fVtofield.val(formattedFVto);
+                        });
+                    } else {
+                        // Manejar el caso en que el valor no sea un número válido
+                        console.error('No se encontró la cantidad disponible válida.');
+                    }
+                },
+                error: function(error) {
+                    console.error('Error al obtener la cantidad disponible:', error);
+                }
+            });
+        } else {
+            // Si se selecciona la opción predeterminada, dejar el campo de cantidad disponible en blanco
+            loteField.val('');
+            priceField.val('');
+            fVtofield.val('');
+        }
+    });
+    // Detecta cambios en el primer campo de selección (Receiver)
+    $('#productive_unit').on('change', function() {
+        var selectedProductiveUnit = $(this).val();
+        var url = {!! json_encode(route('cefa.agroindustria.admin.discharge.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedProductiveUnit.toString());
+
+        // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(response) {
+                var options = '<option value="">' + '{{ trans("agroindustria::menu.Select a winery") }}' + '</option>';
+                $.each(response.id, function(index, warehouse) {
+                    options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
                 });
-            } else {
-                // Si se selecciona la opción predeterminada, dejar el campo de cantidad disponible en blanco
-                measurementUnitField.val('');
-                loteField.val('');
-                fVto.val('');
-                price.val('');
+
+                // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                $('#warehouse').html(options);
+            },
+            error: function(error) {
+                console.log(error);
             }
         });
-        $(document).ready(function() {
-            // Detecta cambios en el primer campo de selección (Receiver)
-            $('#productive_unit').on('change', function() {
-                var selectedProductiveUnit = $(this).val();
-
-                var url = {!! json_encode(route('cefa.agroindustria.admin.discharge.warehouse', ['id' => ':id'])) !!}.replace(':id', selectedProductiveUnit.toString());
-
-                // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    success: function(response) {
-                        var options = '<option value="">' + '{{ trans("agroindustria::menu.Select a winery") }}' + '</option>';
-                        $.each(response.id, function(index, warehouse) {
-                            options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
-                        });
-
-                        // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
-                        $('#warehouse').html(options);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-        });
-
-        $(document).ready(function() {
-            // Detecta cambios en el primer campo de selección (Receiver)
-            $('#productive_unit').on('change', function() {
-                var selectedWarehouse = $(this).val();
-
-                var url = {!! json_encode(route('cefa.agroindustria.admin.discharge.element', ['id' => ':id'])) !!}.replace(':id', selectedWarehouse.toString());
-
-                // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    success: function(response) {
-                        var options = '<option value="">' + 'Seleccione un elemento' + '</option>';
-                        $.each(response.id, function(index, warehouse) {
-                            options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
-                        });
-
-                        // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
-                        $('#element_discharge').html(options);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-        });
-        
-        // Eliminar un campo de producto
-        $("#elements").on("click", ".remove-element", function() {
-            $(this).parent(".elements_discharge").remove();
-        });
     });
+
+    // Detecta cambios en el segundo campo de selección (Warehouse)
+    $('#warehouse').on('change', function() {
+            var selectedWarehouse = $(this).val();
+            var productiveUnit = $('#productive_unit').val();
+            var url = {!! json_encode(route('cefa.agroindustria.admin.discharge.element', ['productiveUnitId' => ':productiveUnitId', 'warehouseId' => ':warehouseId'])) !!}.replace(':productiveUnitId', productiveUnit.toString()).replace(':warehouseId', selectedWarehouse.toString());
+            
+            // Realiza una solicitud AJAX para obtener los elementos disponibles en el almacén seleccionado
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    ajaxResponse = response; 
+                    var options = '<option value="">' + 'Seleccione un elemento' + '</option>';
+                    $.each(response.id, function(index, warehouse) {
+                        options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
+                    });
+                    // Actualiza las opciones en el campo select principal
+                    $('#elementDischarge').html(options);
+
+                    // Actualiza las opciones en los campos select dinámicos
+                    $('#element').html(options);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    
+});
 </script>
 @endsection

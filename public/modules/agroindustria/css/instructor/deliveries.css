@@ -122,9 +122,9 @@
 }
 
 .button_discharge{
-    position: relative;
-    top: 100px;
-    right: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .baja{

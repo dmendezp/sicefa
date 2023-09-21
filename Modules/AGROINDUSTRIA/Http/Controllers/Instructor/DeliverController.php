@@ -385,14 +385,6 @@ class DeliverController extends Controller
                 $inventory->amount -= $detail->amount;
                 $inventory->save();
 
-                $person = $detail->inventory->person;
-
-                // Verifica si la persona tiene una dirección de correo electrónico válida
-                if ($person && $person->personal_email) {
-                    // Envía el correo electrónico
-                    Mail::to($person->personal_email)->send(new MovementApproved($detail->inventory));
-                }
-
                 $receiveWarehouseMovement = $movement->warehouse_movements->first(function ($movement) {
                     return $movement->role === 'Recibe';
                 });

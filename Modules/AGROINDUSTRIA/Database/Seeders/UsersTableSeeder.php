@@ -43,12 +43,6 @@ class UsersTableSeeder extends Seeder
            'email' => 'jennifer@gmail.com',
        ]);
 
-       // Registrar o actualizar usuario para Dayana Marcela Valenzuela Erazo
-       $person = Person::where('document_number', 1007531693)->first(); // Consultar Persona
-       User::updateOrCreate(['nickname' => 'Chocolate'], [ // Actualizar o crear usuario
-           'person_id' => $person->id,
-           'email' => 'yaya@gmail.com',
-       ]);
     }
     
 }

@@ -20,7 +20,6 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin = []; // Permisos para Administrador
         $permission_storer = []; // Permisos para Almacenista
         $permission_instructor = []; // Permisos para Instrucor
-        $permission_visitor = []; // Permisos para Instrucor
 
         $app = App::where('name','AGROINDUSTRIA')->first();
         
@@ -62,16 +61,6 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $permission_instructor[] = $permission->id;
-
-        //Solicitud de insumos al centro
-        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.request'], [
-            'name' => 'Solicitar insumos al centro de formacion',
-            'description' => 'Puede solicitar insumos al centro de formacion',
-            'description_english' => 'You can request supplies from the storekeeper',
-            'app_id' => $app->id
-        ]);
-
-        $permission_admin[] = $permission->id;
 
         //Registro de ejecutores, equipos, herramientas, recursos involucrados en la labor
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.labor'], [
@@ -134,16 +123,6 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_storer[] = $permission->id;
 
-        //Visualizar formulas o recetas
-        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.visitor.view.recipe'], [
-            'name' => 'Visualizar recetas',
-            'description' => 'Puede ver las recetas de los productos',
-            'description_english' => 'You can see the recipes of the products',
-            'app_id' => $app->id
-        ]);
-
-        $permission_visitor[] = $permission->id;
-
         //Registrar actividades
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.activity'], [
             'name' => 'Registrar actividades',
@@ -197,6 +176,5 @@ class PermissionsTableSeeder extends Seeder
         $rol_instructor_vilmer->permissions()->syncWithoutDetaching($permission_instructor);
         $rol_instructor_chocolate->permissions()->syncWithoutDetaching($permission_instructor);
         $rol_storer->permissions()->syncWithoutDetaching($permission_storer);
-        $rol_visitor->permissions()->syncWithoutDetaching($permission_visitor);
     }
 }

@@ -198,32 +198,4 @@ $(document).ready(function() {
 });
 
 </script>
-
-<script>
-$(document).ready(function() {
-    $('#inventoryForm').submit(function(event) {
-        // Evita que el formulario se envíe automáticamente
-        event.preventDefault();
-
-        // Obtén la cantidad ingresada
-        var cantidadIngresada = parseInt($('#amount').val());
-
-        // Obtén la cantidad disponible desde la respuesta JSON (suponiendo que la respuesta es un objeto JSON con un campo 'id' que contiene la cantidad disponible)
-        var cantidadDisponible = parseInt($('#disponible').val());
-
-        // Realiza la validación
-        if (isNaN(cantidadIngresada)) {
-            alert('Por favor, ingresa una cantidad válida.');
-        } else if (cantidadIngresada <= 0) {
-            alert('La cantidad debe ser mayor que cero.');
-        } else if (cantidadIngresada > cantidadDisponible) {
-            alert('La cantidad ingresada es mayor que la cantidad disponible en el inventario.');
-        } else {
-            // Si la validación es exitosa, puedes enviar el formulario
-            this.submit();
-        }
-    });
-});
-
-</script>
 @endsection
