@@ -14,7 +14,7 @@ class AssistancesFoodsController extends Controller
      */
     public function index()
     {
-        return view('bienestar::index');
+        return view('bienestar::assistancesfoods');
     }
 
     /**

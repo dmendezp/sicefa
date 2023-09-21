@@ -143,7 +143,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                {!! Form::model($convocation, ['route' => ['cefa.bienestar.Convocations.update', $convocation->id], 'method' => 'PUT', 'role' => 'form']) !!}
+                {!! Form::model('', ['route' => ['cefa.bienestar.Convocations.update', ''], 'method' => 'PUT', 'role' => 'form']) !!}
                     <div class="row p-3">
                         <div class="col-md-12">
                             <div class="form-group">
