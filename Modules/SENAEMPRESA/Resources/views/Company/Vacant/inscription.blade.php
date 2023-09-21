@@ -21,7 +21,7 @@
                 </div>
                 <button type="button" class="btn btn-secondary"
                     data-bs-dismiss="modal">{{ trans('senaempresa::menu.Close') }}</button>
-                <a href="{{ route('inscription') }}"
+                <a href="{{ route('inscription') }}?vacancy_id={{ $vacancy->id }}&vacancy_name={{ $vacancy->name }}"
                     class="btn btn-primary">{{ trans('senaempresa::menu.Registration') }}</a>
             </div>
         </div>

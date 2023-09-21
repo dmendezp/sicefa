@@ -15,18 +15,16 @@ class CreatePostulatesTable extends Migration
     {
         Schema::create('postulates', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->foreignId('apprentice_id')->constrained()->onDelete('cascade');
             $table->foreignId('vacancy_id')->constrained()->onDelete('cascade');
             $table->enum('state', [
                 'activo',
                 'inactivo'
             ])->nullable();
-            $table->unsignedInteger('score_total');         
-
-            
-
-
+            $table->string('cv');
+            $table->string('personalities');
+            $table->string('proposal');
+            $table->unsignedInteger('score_total')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
