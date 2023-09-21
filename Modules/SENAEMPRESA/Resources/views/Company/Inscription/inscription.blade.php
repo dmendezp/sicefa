@@ -45,21 +45,5 @@
                 </div>
             </div>
         </div>
-    </div><br>
+    </div>
 @endsection
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const searchInput = document.getElementById("search-input");
-        const apprenticeSelect = document.getElementById("apprentice-select");
-
-        searchInput.addEventListener("input", function() {
-            const searchText = this.value.trim().toLowerCase();
-
-            for (let option of apprenticeSelect.options) {
-                const optionText = option.text.toLowerCase();
-                const isMatch = optionText.includes(searchText);
-                option.hidden = !isMatch;
-            }
-        });
-    });
-</script>

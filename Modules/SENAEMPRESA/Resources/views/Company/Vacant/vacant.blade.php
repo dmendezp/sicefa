@@ -3,19 +3,22 @@
 @section('content')
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
-        <form method="GET" action="{{ route('company.vacant.vacantes') }}">
-            <label for="cursoFilter">{{ trans('senaempresa::menu.Filter by course') }}:</label>
-            <select class="form-control" id="cursoFilter" name="cursoFilter" onchange="this.form.submit()">
-                <option value="">{{ trans('senaempresa::menu.All courses') }}</option>
-                @foreach ($courses as $course)
-                    <option value="{{ $course->id }}" {{ $selectedCourseId == $course->id ? 'selected' : '' }}>
-                        {{ $course->code }} {{ $course->program->name }}
-                    </option>
-                @endforeach
-            </select>
-        </form><br>
-
-
+        @if (Auth::check() &&
+                (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
+                    Auth::user()->roles[0]->name === 'Pasante Senaempresa'))
+            <form method="GET" action="{{ route('company.vacant.vacantes') }}">
+                <label for="cursoFilter">{{ trans('senaempresa::menu.Filter by course') }}:</label>
+                <select class="form-control" id="cursoFilter" name="cursoFilter" onchange="this.form.submit()">
+                    <option value="">{{ trans('senaempresa::menu.All courses') }}</option>
+                    @foreach ($courses as $course)
+                        <option value="{{ $course->id }}" {{ $selectedCourseId == $course->id ? 'selected' : '' }}>
+                            {{ $course->code }} {{ $course->program->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </form>
+        @endif
+        <br>
         <div class="col-md-12">
             <div class="card card-primary card-outline shadow">
                 <div class="card-body">

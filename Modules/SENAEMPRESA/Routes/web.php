@@ -95,6 +95,7 @@ Route::middleware(['lang'])->group(function () {
         //Inscripciones a vacantes
         Route::get('Vacantes/Inscripción/', 'PostulateController@inscription')->name('inscription');
 
+
         //Rutas de vacantes
         Route::get('Vacantes/', 'VacantController@vacantes')->name('company.vacant.vacantes');
         Route::get('Vacantes/Agregar_Vacante/', 'VacantController@agregar_vacante')->name('company.vacant.agregar_vacante');

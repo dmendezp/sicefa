@@ -27,4 +27,9 @@ class Vacancy extends Model implements Auditable
     {
         return $this->hasMany(Course::class);
     }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }

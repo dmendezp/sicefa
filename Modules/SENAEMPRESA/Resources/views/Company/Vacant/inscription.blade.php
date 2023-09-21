@@ -19,13 +19,12 @@
                         </ul>
                     </div>
                 </div>
-                <button type="button" class="btn btn-secondary"
-                    data-bs-dismiss="modal">{{ trans('senaempresa::menu.Close') }}</button>
-                <a href="{{ route('inscription') }}?vacancy_id={{ $vacancy->id }}&vacancy_name={{ $vacancy->name }}"
-                    class="btn btn-primary">{{ trans('senaempresa::menu.Registration') }}</a>
+                @if (!empty($vacancy))
+                    <a href="{{ route('inscription') }}?vacancy_id={{ $vacancy->id }}&vacancy_name={{ $vacancy->name }}"
+                        class="btn btn-primary">{{ trans('senaempresa::menu.Registration') }}</a>
+                @endif
             </div>
         </div>
     </div>
 </div>
-
 <!-- Modal inscripcion a vacante disponible -->
