@@ -62,4 +62,5 @@ class Environment extends Model implements Auditable
         return $this->belongsToMany(Crop::class);
     }
 
+
 }

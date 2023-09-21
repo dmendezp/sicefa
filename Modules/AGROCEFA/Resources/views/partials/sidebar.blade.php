@@ -45,7 +45,7 @@
                     @endif
                     @if (Auth::user()->havePermission('agrocefa.labormanagement.index'))
                         <li class="nav-link">
-                            <a href="{{ route('agrocefa.inventory') }}">
+                            <a href="{{ route('agrocefa.labormanagement.index') }}">
                                 <i class='bx bx-wrench icon'></i>
                                 <span class="text nav-text">{{ trans('agrocefa::universal.Labormanagement') }}</span>
                             </a>

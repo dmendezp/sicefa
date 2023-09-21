@@ -29,6 +29,7 @@ class Crop extends Model
     {
         return $this->belongsToMany(Environment::class);
     }
+
 }
 
 

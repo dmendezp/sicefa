@@ -16,7 +16,7 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/select-unit/{id}', 'AGROCEFAController@selectUnit')->name('agrocefa.select-unit');
         Route::get('/bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
         Route::get('/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.parameters');
-        Route::get('/user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
+        Route::get('/user', 'AGROCEFAControll er@vistauser')->name('agrocefa.user');
 
 
         //RUTAS DE INVENTARIO
@@ -98,6 +98,10 @@ Route::middleware(['lang'])->group(function() {
 
         //ruta para vista de bienvenida al usario
         Route::get('/usuario', 'usuarioController@index')->name('agrocefa.usuario.index');
+
+        //ruta para Gestion de labores
+        Route::get('/labormanagement', 'labormanagementController@index')->name('agrocefa.labormanagement.index');/* vista tarjetas de gestion de labores */
+        Route::get('labormanagement/culturalwork', 'LaborManagementController@culturalwork')->name('agrocefa.culturalwork');/* ruta para la vista labor cultural */
     });
 
 
