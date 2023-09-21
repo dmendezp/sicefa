@@ -98,10 +98,13 @@ Route::middleware(['lang'])->group(function () {
 
         Route::get('/callconsultation', 'CallConsultationController@index')->name('cefa.bienestar.callconsultation');
 
+        // Vista de Postulaciones
+        route::get('/postulations', 'postulationscontroller@index') ->name('cefa.bienestar.postulations');
+
 
         
 
-        //vista el listados apoyo alimenacion 
+        //vista el listados apoyo alimentacion 
         Route::get('/AssistancesFoods', 'AssistancesFoodsController@index')->name('cefa.bienestar.AssistancesFoods');
     });
 });

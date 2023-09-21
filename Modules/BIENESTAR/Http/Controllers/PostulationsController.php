@@ -18,6 +18,9 @@ use Illuminate\Http\JsonResponse;
 
 class PostulationsController extends Controller
 {
-    
+    public function index()
+    {
+        return view('bienestar::postulations');
+    }
 
 }
