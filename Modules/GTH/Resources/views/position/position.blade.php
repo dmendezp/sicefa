@@ -6,11 +6,11 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <h1 class="card-title">Entidad Aseguradora</h1>
+                        <h1 class="card-title">vista de posición</h1>
                     </div>
                     <div class="card-body">
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearModal">
-                            Crear Entidad Aseguradora
+                            Gestión de Posición
                         </button>
                         <table class="table">
                             <thead>
@@ -22,31 +22,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($insurerentities as $insurer)
+                                @foreach ($positions as $positio)
+
                                     <tr>
-                                        <td>{{ $insurer->id }}</td>
-                                        <td>{{ $insurer->name }}</td>
-                                        <td>{{ $insurer->description }}</td>
+                                        <td>{{ $positio->id }}</td> <!-- Cambiado a $positio -->
+                                        <td>{{ $positio->name }}</td> <!-- Cambiado a $positio -->
+                                        <td>{{ $positio->description }}</td> <!-- Cambiado a $positio -->
                                         <td>
                                             <div class="d-flex">
                                                 <a href="#" class="btn btn-warning editar-btn" data-bs-toggle="modal"
-                                                    data-bs-target="#editarModal_{{ $insurer->id }}"
-                                                    data-id="{{ $insurer->id }}" data-nombre="{{ $insurer->name }}"
-                                                    data-nombre="{{ $insurer->description }}">Editar</a>
+                                                    data-bs-target="#editarModal_{{ $positio->id }}"
+                                                    data-id="{{ $positio->id }}" data-nombre="{{ $positio->name }}"
+                                                    data-descripcion="{{ $positio->description }}">Editar</a> <!-- Cambiado a $positio -->
                                                 <div style="width: 10px;"></div>
-                                                <form action="{{ route('gth.insurerentities.delete', $insurer->id) }}"
+                                                <form action="{{ route('gth.positions.delete', $positio->id) }}"     
                                                     method="POST" class="btnEliminar ml-2" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger"
-                                                        data-id="{{ $insurer->id }}">Eliminar</button>
+                                                        data-id="{{ $positio->id }}">Eliminar</button> <!-- Cambiado a $positio -->
                                                 </form>
                                             </div>
                                         </td>
 
                                     </tr>
                                 @endforeach
-                                <!-- Repite este bloque para cada tipo de contrato -->
+                                <!--  -->
                             </tbody>
                         </table>
                     </div>
@@ -59,18 +60,18 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar Una Nueva Entidad Aseguradora</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Una Nueva Posicion</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('gth.insurerentities.create') }}" method="POST" class="btnGuardar">
+                    <form action="{{ route('gth.positions.create') }}" method="POST" class="btnGuardar">
                         @csrf
                         <div class="form-group">
-                            <label for="name">Entidad Aseguradora:</label>
+                            <label for="name">professional_denomination:</label>
                             <input type="text" name="name" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="description">Descripción Entidad Aseguradora:</label>
+                            <label for="description">Descripción de Posicion:</label>
                             <input type="text" name="description" class="form-control" required>
                         </div>
                         <!-- Agrega más campos de formulario según tus necesidades -->
@@ -84,28 +85,29 @@
     </div>
 
     <!-- Modal de Edición -->
-    @foreach ($insurerentities as $insurer)
-        <div class="modal fade" id="editarModal_{{ $insurer->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    @foreach ($positions as $positio)
+
+        <div class="modal fade" id="editarModal_{{ $positio->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar Entidad Aseguradora:</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Editar Posicion:</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        @if (isset($insurer))
-                            <!-- Cambiado a $insurer -->
+                        @if (isset($positio))
+                            <!-- Cambiado a $position-->
                             <form id="editForm" method="POST"
-                                action="{{ route('gth.insurerentities.update', ['id' => $insurer->id]) }}">
+                                action="{{ route('gth.positions.update', ['id' => $positio->id]) }}">
                                 @csrf
                                 @method('PATCH')
                                 <input type="hidden" name="id"
-                                    value="{{ $insurer->id }}"><!-- Cambiado a $insurer -->
+                                    value="{{ $positio->id }}"><!-- Cambiado a $posicion -->
                                 <div class="mb-3">
                                     <label for="editName" class="form-label">Nombre</label>
                                     <input type="text" class="form-control" id="editName" name="name"
-                                        value="{{ old('name', $insurer->name) }}"> <!-- Cambiado a $insurer -->
+                                        value="{{ old('name', $positio->name) }}"> <!-- Cambiado a $posicion -->
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -113,8 +115,8 @@
                                 <div class="mb-3">
                                     <label for="editName" class="form-label">Descripción</label>
                                     <input type="text" class="form-control" id="editDescription" name="description"
-                                        value="{{ old('description', $insurer->description) }}">
-                                    <!-- Cambiado a $insurer -->
+                                        value="{{ old('description', $positio->description) }}">
+                                    <!-- Cambiado a $positon -->
                                     @error('description')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -136,7 +138,7 @@
         function confirmarCambios() {
             Swal.fire({
                 title: 'Guardado exitoso',
-                text: 'Los datos se han guardado correctamente.',
+                text: 'Los datos se han guardado de Posicion.',
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             });
@@ -233,7 +235,7 @@
                 $('#editName').val(nombre);
 
                 // Obtener la ruta de actualización del formulario de edición
-                var updateRoute = '{{ route('gth.insurerentities.update', ['id' => ':id']) }}'.replace(
+                var updateRoute = '{{ route('gth.positions.update', ['id' => ':id']) }}'.replace(
                     ':id', id);
 
                 // Asignar la ruta de actualización al formulario de edición
