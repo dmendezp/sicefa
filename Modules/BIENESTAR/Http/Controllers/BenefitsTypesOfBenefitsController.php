@@ -46,7 +46,7 @@ class BenefitsTypesOfBenefitsController extends Controller
         if ($existingRecord->trashed()) {
             // Restaurar el registro si está eliminado
             $existingRecord->restore();
-            return response()->json(['mensaje' => 'Registro restaurado correctamente.'], 200);
+            return response()->json(['success' => 'Registro restaurado correctamente.'], 200);
         } else {
             // Mostrar un mensaje de error si el registro ya existe
             return response()->json(['error' => 'El registro ya existe.'], 400);
@@ -59,7 +59,7 @@ class BenefitsTypesOfBenefitsController extends Controller
         'type_of_benefit_id' => $request->type_of_benefit_id,
     ]);
 
-    return response()->json(['mensaje' => 'Registro creado correctamente.'], 200);
+    return response()->json(['success' => 'Registro creado correctamente.'], 200);
 }
 
 
@@ -93,7 +93,7 @@ public function update(Request $request, $id)
         $type->type_of_benefit_id = $request->type_of_benefit_id;
         $type->save();
 
-        return response()->json(['mensaje' => 'Registro actualizado correctamente.'], 200);
+        return response()->json(['success' => 'Registro actualizado correctamente.'], 200);
     } else {
         // Mostrar un mensaje de error si los valores son iguales
         return response()->json(['error' => 'Los nuevos valores son iguales a los valores actuales.'], 400);
@@ -108,9 +108,9 @@ public function update(Request $request, $id)
             $benefitstypeofbenefits = BenefitsTypesOfBenefits::findOrFail($id);
             $benefitstypeofbenefits->delete(); // Esto debería activar el Soft Delete
 
-            return response()->json(['mensaje' =>'Vacancy eliminated with success']);
+            return response()->json(['success' =>'Vacancy eliminated with success']);
         } catch (\Exception $e) {
-            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+            return response()->json(['error' =>'Error when deleting the vacancy'], 500);
         }
     }
 }

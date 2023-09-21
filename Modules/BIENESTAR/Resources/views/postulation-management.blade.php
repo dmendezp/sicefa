@@ -8,7 +8,7 @@
             <!-- Checkbox "Seleccionar Todas" fuera del modal -->
             <label>
             </label>
-            <form id="assignBenefitForm" action="{{ route('cefa.bienestar.postulations.assign-or-update-benefit') }}" method="POST">
+            <form id="assignBenefitForm" action="{{ route('cefa.bienestar.postulation-management.assign-or-update-benefit') }}" method="POST">
                 @csrf
                 <select id="benefit-select" class="form-control" name="benefit_id">
                     <option value="">Selecciona un beneficio</option>
@@ -16,23 +16,20 @@
                         <option value="{{ $benefit->id }}">{{ $benefit->name }}</option>
                     @endforeach
                 </select>
-                <button type="submit" class="btn btn-sm btn-primary" id="assign-benefit-btn">
+                <button type="button" class="btn btn-sm btn-primary" id="assign-benefit-btn">
                     Asignar Beneficio
                 </button>
-                <!-- Campos ocultos para el estado y el mensaje predeterminados -->
+                <!-- Campos ocultos para el estado y el mensaje predeterminados para las postulaciones -->
                 <input type="hidden" name="state" value="Beneficiado">
                 <input type="hidden" name="message" value="Felicidades, has sido aceptado para recibir el beneficio">
+                <!-- Campo oculto para las postulaciones seleccionadas (en formato JSON) -->
+                <input type="hidden" id="selectedPostulations" name="selectedPostulations" value="{{ json_encode($selectedPostulations) }}">
+                <!-- Campo oculto para las postulaciones no seleccionadas (en formato JSON) -->
+                <input type="hidden" id="unselectedPostulations" name="unselectedPostulations" value="{{ json_encode($unselectedPostulations) }}">
             </form>
-            <form id="mark-no-beneficiaries-form" action="{{ route('cefa.bienestar.postulations.mark-as-no-beneficiaries') }}" method="POST">
-                @csrf
-                <input type="hidden" id="selected-postulations-no-beneficiary" name="selected-postulations" value="">
-                <input type="hidden" name="benefit_id" value="{{ $benefit->id }}"> <!-- Cambia $benefit->id al valor adecuado -->
-                <input type="hidden" name="state" value="No Beneficiado">
-                <input type="hidden" name="message" value="Lamentamos decirle que no has sido aceptado para recibir el beneficio">
-                <button type="submit" class="btn btn-sm btn-danger" id="mark-no-beneficiaries-btn">
-                    Marcar Seleccionados como No Beneficiado
-                </button>
-            </form>
+            
+            
+            
             
             <table id="benefitsTable" class="table table-bordered table-striped">
                 <thead>
@@ -63,7 +60,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <form id="mark-beneficiaries-form" action="{{ route('cefa.bienestar.postulations.mark-as-beneficiaries') }}" method="POST">
+            <form id="mark-beneficiaries-form" action="{{ route('cefa.bienestar.postulation-management.mark-as-beneficiaries') }}" method="POST">
                 @csrf
                 <input type="hidden" id="selected-postulations" name="selected-postulations" value="">
                 <div class="container">
@@ -93,7 +90,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 <!-- Formulario que enviará la asignación de beneficios -->
-                <form id="benefit-assignment-form" action="{{ route('cefa.bienestar.postulations.assign-benefits') }}" method="POST">
+                <form id="benefit-assignment-form" action="{{ route('cefa.bienestar.postulation-management.assign-or-update-benefit') }}" method="POST">
                     @csrf
                     <input type="hidden" id="selected-postulations" name="selected-postulations" value="">
                     <input type="hidden" id="benefitId" name="benefit_id" value="1"> <!-- Cambia el valor según tu lógica -->
@@ -151,7 +148,7 @@
                 <p><strong>Total Score:</strong> <span id="total-score_{{ $postulation->id }}">{{ $postulation->total_score }}</span></p>
 
                 <div class="form-group">
-                    <form action="{{ route('cefa.bienestar.postulations.update-score', ['id' => $postulation->id]) }}"
+                    <form action="{{ route('cefa.bienestar.postulation-management.update-score', ['id' => $postulation->id]) }}"
                         method="POST">
                         @csrf
                         <div class="form-group">
@@ -162,7 +159,7 @@
                     </form>
                 </div>
                 <div class="form-group">
-                    <form action="{{ route('cefa.bienestar.postulations.update-state', ['id' => $postulation->id]) }}"
+                    <form action="{{ route('cefa.bienestar.postulation-management.update-state', ['id' => $postulation->id]) }}"
                         method="POST">
                         @csrf
                         @method('PUT') <!-- Cambia a 'PUT' -->
@@ -191,115 +188,92 @@
 @endforeach
 
 <script>
-    // Define la variable markNoBeneficiariesUrl con la ruta adecuada en tu módulo BIENESTAR
-    const markNoBeneficiariesUrl = '{{ route('cefa.bienestar.postulations.mark-as-no-beneficiaries') }}';
+document.addEventListener("DOMContentLoaded", function () {
+    const assignBenefitButton = document.getElementById('assign-benefit-btn');
 
-    document.addEventListener("DOMContentLoaded", function () {
-        // Script para asignar beneficio
-        const assignBenefitForm = document.getElementById('assignBenefitForm');
+    assignBenefitButton.addEventListener('click', function () {
+        const selectedBenefitId = document.getElementById('benefit-select').value;
 
-        assignBenefitForm.addEventListener('submit', function (e) {
-            e.preventDefault(); // Prevenir el envío predeterminado del formulario
-            
-            // Obtener el beneficio seleccionado
-            const selectedBenefitId = document.getElementById('benefit-select').value;
-
-            // Obtener el estado y el mensaje predeterminados desde los campos ocultos
-            const state = document.querySelector('input[name="state"]').value;
-            const message = document.querySelector('input[name="message"]').value;
-
-            // Obtener las postulaciones seleccionadas
-            const selectedPostulations = [...document.querySelectorAll('input[name="selected-postulations[]"]')]
-                .filter(checkbox => checkbox.checked)
-                .map(checkbox => checkbox.value);
-
-            if (selectedPostulations.length === 0) {
-                alert('Por favor, selecciona al menos una postulación.');
-                return;
-            }
-
-            if (!selectedBenefitId) {
-                alert('Por favor, selecciona un beneficio.');
-                return;
-            }
-
-            // Construir los datos a enviar al servidor
-            const formData = new FormData();
-            formData.append('benefit_id', selectedBenefitId);
-            formData.append('selectedPostulations', JSON.stringify(selectedPostulations));
-            formData.append('state', state); // Utiliza el estado predeterminado
-            formData.append('message', message); // Utiliza el mensaje predeterminado
-
-            // Enviar la solicitud al servidor para asignar beneficios
-            fetch('{{ route('cefa.bienestar.postulations.assign-or-update-benefit') }}', {
-                method: 'POST',
-                body: JSON.stringify({
-                    benefit_id: selectedBenefitId,
-                    selectedPostulations: selectedPostulations,
-                    state: state,
-                    message: message
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Manejar la respuesta del servidor aquí
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        // Recopila todas las checkboxes seleccionadas
+        const selectedPostulations = [];
+        const checkboxes = document.querySelectorAll('.select-postulations:checked');
+        checkboxes.forEach(function (checkbox) {
+            selectedPostulations.push(checkbox.value);
         });
 
-        // Script para marcar como "No Beneficiado"
-        const markNoBeneficiariesForm = document.getElementById('mark-no-beneficiaries-form');
+        if (selectedPostulations.length === 0) {
+            alert('Por favor, selecciona al menos una postulación.');
+            return;
+        }
 
-        markNoBeneficiariesForm.addEventListener('submit', function (e) {
-            e.preventDefault(); // Prevenir el envío predeterminado del formulario
+        if (!selectedBenefitId) {
+            alert('Por favor, selecciona un beneficio.');
+            return;
+        }
+        // Construir los datos a enviar al servidor para asignar beneficios a los seleccionados
+        const selectedData = {
+            benefit_id: selectedBenefitId,
+            selectedPostulations: selectedPostulations,
+            state: 'Beneficiado', // Utiliza el estado predeterminado
+            message: 'Felicidades, has sido aceptado para recibir el beneficio', // Utiliza el mensaje predeterminado
+        };
 
-            // Obtener el estado y el mensaje para "No Beneficiado"
-            const state = 'No Beneficiado';
-            const message = 'Lamentamos decirle que no has sido aceptado para recibir el beneficio';
+        // Construir los datos para actualizar las postulaciones no seleccionadas (No Beneficiados)
+        const unselectedData = {
+            benefit_id: selectedBenefitId,
+            selectedPostulations: unselectedPostulations,
+            state: 'No Beneficiado', // Establecer el estado para No Beneficiados
+            message: 'No ha sido aceptado para recibir el beneficio', // Establecer el mensaje para No Beneficiados
+        };
 
-            // Obtener las postulaciones seleccionadas
-            const selectedPostulations = [...document.querySelectorAll('input[name="selected-postulations[]"]')]
-                .filter(checkbox => checkbox.checked)
-                .map(checkbox => checkbox.value);
-
-            if (selectedPostulations.length === 0) {
-                alert('Por favor, selecciona al menos una postulación.');
-                return;
+        // Enviar la solicitud al servidor para asignar beneficios a los seleccionados
+        fetch('{{ route('cefa.bienestar.postulation-management.assign-or-update-benefit') }}', {
+            method: 'POST',
+            body: JSON.stringify(selectedData),
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json(); // Si la respuesta del servidor es exitosa, parsea la respuesta JSON
+            } else {
+                throw new Error('Error en la respuesta del servidor'); // Si la respuesta del servidor no es exitosa, lanza un error
             }
-
-            // Construir los datos a enviar al servidor para marcar como "No Beneficiado"
-            const formData = new FormData();
-            formData.append('selectedPostulations', JSON.stringify(selectedPostulations));
-            formData.append('state', state);
-            formData.append('message', message);
-
-            // Enviar la solicitud al servidor para marcar como "No Beneficiado"
-            fetch(markNoBeneficiariesUrl, { // Usa la variable JavaScript aquí
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Manejar la respuesta del servidor aquí
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        })
+        .then(data => {
+            // Manejar la respuesta del servidor para las postulaciones seleccionadas aquí
+            // Por ejemplo, mostrar un mensaje de éxito
+            alert('Beneficios asignados con éxito.');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+            alert('Se produjo un error al asignar beneficios.');
         });
 
-        // Resto de tu código JavaScript
-        // ...
+        // Enviar la solicitud al servidor para actualizar las postulaciones no seleccionadas (No Beneficiados)
+        fetch('{{ route('cefa.bienestar.postulation-management.assign-or-update-benefit') }}', {
+            method: 'POST',
+            body: JSON.stringify(unselectedData),
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Manejar la respuesta del servidor para las postulaciones no seleccionadas aquí
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     });
+});
 </script>
+
+
 
 </div>
 @endsection
