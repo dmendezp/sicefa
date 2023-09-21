@@ -25,6 +25,7 @@ class ElementsTableSeeder extends Seeder
         $category = Category::updateOrCreate(['name' => 'Lácteos'], ['kind_of_property' => 'Bodega']); // Registrar o registrar Categoría
         $kind_of_purchase = KindOfPurchase::updateOrCreate(['name' => 'Producción de centro'], ['description' => 'Elementos de consumo que provienen de producción de centro']); // Actualizar o registrar Tipo de compra
         $measurement_unit = MeasurementUnit::updateOrCreate(['name' => 'Unidad'], [ // Actualizar o crear Unidad de medida
+            'abbreviation' => 'Ud',
             'minimum_unit_measure' => 'Unidad',
             'conversion_factor' => 1
         ]);
@@ -34,7 +35,6 @@ class ElementsTableSeeder extends Seeder
             'kind_of_purchase_id' => $kind_of_purchase->id,
             'category_id' => $category->id,
             'price' => 2000,
-            //'image' => ElementFactory::new()->make()->image  // Generar imagen faker
         ]);
 
         Element::updateOrCreate(['name' => 'Dona de chocolate x 50gr'], [ // Actualizar o registrar Elemento
@@ -43,13 +43,11 @@ class ElementsTableSeeder extends Seeder
             'kind_of_purchase_id' => $kind_of_purchase->id,
             'category_id' => $category->id,
             'price' => 2500,
-            //'image' => ElementFactory::new()->make()->image // // Generar imagen faker
         ]);
 
         $this->createElements($number_elements); // Generar elementos de prueba de acuerdo a la cantidad requerida
 
     }
-
 
     /* Algoritmo para eliminar las imágenes guardadas que no existen en la base de datos */
     public function cleanImages()
