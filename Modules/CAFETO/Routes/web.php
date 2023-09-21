@@ -24,7 +24,7 @@ Route::middleware(['lang'])->group(function () {  // Middleware para la internza
             Route::get('admin', 'admin')->name('cafeto.admin.index'); // Vista principal del Administrador (Administrador)
             Route::get('cashier', 'cashier')->name('cafeto.cashier.index'); // Vista principal del Cajero (Cajero)
         });
-        
+
         // Rutas para Inventario
         Route::controller(InventoryController::class)->group(function () {
             Route::get('admin/inventory/index', 'index')->name('cafeto.admin.inventory.index'); // Inventario actual (Administrador)
@@ -36,22 +36,26 @@ Route::middleware(['lang'])->group(function () {  // Middleware para la internza
             Route::get('admin/inventory/low', 'low_create')->name('cafeto.admin.inventory.low'); // Formulario de registro de bajas de inventario (Administrador)
             Route::get('cashier/inventory/low', 'low_create')->name('cafeto.cashier.inventory.low'); // Formulario de registro de bajas de inventario (Cajero)
 
-
-            //Rutas para reportes de inventario
-            Route::get('admin/reports/index', 'reports')->name('ptventa.admin.reports.index'); // Vista principal de la sección de reportes (Administrador)
-            Route::get('cashier/reports/index', 'reports')->name('ptventa.cashier.reports.index'); // Vista principal de la sección de reportes (Cajero)
-
-
+            //--------------------Rutas para reportes--------------------
+            Route::get('admin/reports/index', 'reports')->name('cafeto.admin.reports.index'); // Vista principal de la sección de reportes (Administrador)
+            Route::get('cashier/reports/index', 'reports')->name('cafeto.cashier.reports.index'); // Vista principal de la sección de reportes (Cajero)
+            // Reportes de inventario
+            Route::post('admin/reports/inventory/generatepdf', 'generateInventoryPDF')->name('cafeto.admin.reports.inventory.generate.pdf'); // Generar PDF del inventario actual (Administrador)
+            Route::post('cashier/reports/inventory/generatepdf', 'generateInventoryPDF')->name('cafeto.cashier.reports.inventory.generate.pdf'); // Generar PDF del inventario actual (Cajero)
             // Reportes de entrada de inventario - Ruta para mostrar el formulario
-            Route::get('reports/inventory/entries', 'showInventoryEntriesForm')->name('cafeto.reports.inventory.entries'); // Vista de consulta de entradas de inventario por fecha
-            Route::post('reports/inventory/entries', 'generateInventoryEntries')->name('cafeto.reports.generate.inventory.entries'); // Realizar consulta de entradas de inventario por fechas recibidas 
-            Route::post('reports/inventory/entries/generatepdf', 'generateInventoryEntriesPDF')->name('cafeto.reports.generate.entries.pdf'); // Generar PDF de entradas de inventario
-
-
-            // Reportes de entrada de inventario - Ruta para mostrar el formulario
-            Route::get('reports/inventory/entries', 'showInventoryEntriesForm')->name('cafeto.reports.inventory.entries'); // Vista de consulta de entradas de inventario por fecha
-            Route::post('reports/inventory/entries', 'generateInventoryEntries')->name('cafeto.reports.generate.inventory.entries'); // Realizar consulta de entradas de inventario por fechas recibidas
-            Route::post('reports/inventory/entries/generatepdf', 'generateInventoryEntriesPDF')->name('cafeto.reports.generate.entries.pdf'); // Generar PDF de entradas de inventario
+            Route::get('admin/reports/inventory/entries', 'showInventoryEntriesForm')->name('cafeto.admin.reports.inventory.entries'); // Vista de consulta de entradas de inventario por fecha (Administrador)
+            Route::get('cashier/reports/inventory/entries', 'showInventoryEntriesForm')->name('cafeto.cashier.reports.inventory.entries'); // Vista de consulta de entradas de inventario por fecha (Cajero)
+            Route::post('admin/reports/inventory/entries', 'generateInventoryEntries')->name('cafeto.admin.reports.generate.inventory.entries'); // Realizar consulta de entradas de inventario por fechas recibidas (Administrador)
+            Route::post('cashier/reports/inventory/entries', 'generateInventoryEntries')->name('cafeto.cashier.reports.generate.inventory.entries'); // Realizar consulta de entradas de inventario por fechas recibidas (Cajero)
+            Route::post('admin/reports/inventory/entries/generatepdf', 'generateInventoryEntriesPDF')->name('cafeto.admin.reports.generate.entries.pdf'); // Generar PDF de entradas de inventario (Administrador)
+            Route::post('cashier/reports/inventory/entries/generatepdf', 'generateInventoryEntriesPDF')->name('cafeto.cashier.reports.generate.entries.pdf'); // Generar PDF de entradas de inventario (Cajero)
+            // Reportes de ventas
+            Route::get('admin/reports/sales', 'showSalesForm')->name('cafeto.admin.reports.sales'); // Vista de consulta de ventas realizadas por fechas (Administrador)
+            Route::get('cashier/reports/sales', 'showSalesForm')->name('cafeto.cashier.reports.sales'); // Vista de consulta de ventas realizadas por fechas (Cajero)
+            Route::post('admin/reports/sales', 'generateSales')->name('cafeto.admin.reports.generate.sales'); // Realizar consulta de ventas realizadas por fechas recibidas (Administrador)
+            Route::post('cashier/reports/sales', 'generateSales')->name('cafeto.cashier.reports.generate.sales'); // Realizar consulta de ventas realizadas por fechas recibidas (Cajero)
+            Route::post('admin/reports/sales/generatepdf', 'generateSalesPDF')->name('cafeto.admin.reports.generate.sales.pdf'); // Generar PDF de ventas realizadas (Administrador)
+            Route::post('cashier/reports/sales/generatepdf', 'generateSalesPDF')->name('cafeto.cashier.reports.generate.sales.pdf'); // Generar PDF de ventas realizadas (Cajero)
         });
 
         // Rutas para ventas
@@ -72,7 +76,7 @@ Route::middleware(['lang'])->group(function () {  // Middleware para la internza
         });
 
         // Rutas para Caja
-        Route::controller(CashController::class)->group(function(){
+        Route::controller(CashController::class)->group(function () {
             Route::get('admin/cash/index', 'index')->name('cafeto.admin.cash.index'); // Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)
             Route::get('cashier/cash/index', 'index')->name('cafeto.cashier.cash.index'); // Vista principal de sesión de caja activa e historico de sesiones de caja (Cajero)
             Route::post('admin/cash/store', 'store')->name('cafeto.admin.cash.store'); // Registrar caja cuando no hay ninguna activa (Administrador)

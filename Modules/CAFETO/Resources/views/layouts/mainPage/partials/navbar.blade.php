@@ -88,8 +88,8 @@
                                                 @endif
                                                 @if (Auth::user()->havePermission('cafeto.admin.reports.index'))
                                                     <li>
-                                                        <a href="#">
-                                                            <i class="fa-solid fa-shuffle"></i>Panel del reportes
+                                                        <a href="{{ route('cafeto.admin.reports.index') }}">
+                                                            <i class="fa-solid fa-chart-column"></i>Panel del reportes
                                                         </a>
                                                     </li>
                                                 @endif
@@ -172,8 +172,8 @@
                                                 @endif
                                                 @if (Auth::user()->havePermission('cafeto.cashier.reports.index'))
                                                     <li>
-                                                        <a href="#">
-                                                            <i class="fa-solid fa-shuffle"></i>Panel del reportes
+                                                        <a href="{{ route('cafeto.cashier.reports.index') }}">
+                                                            <i class="fa-solid fa-chart-column"></i>Panel del reportes
                                                         </a>
                                                     </li>
                                                 @endif

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    // -----CAFETOController - General-----
+	// -----CAFETOController - General-----
 	// Index
 	'CAFETO_index_title_page' => 'Página principal',
 	'CAFETO_index_title_view' => 'Página principal',
@@ -34,6 +34,15 @@ return [
 	// Low Create
 	'CAFETO_inventory_low_create_title_page' => 'Bajas de Inventario',
 	'CAFETO_inventory_low_create_title_view' => 'Bajas de Inventario',
+	// Reports
+	'CAFETO_inventory_reports_title_page' => 'Reportes',
+	'CAFETO_inventory_reports_title_view' => 'Panel de Reportes',
+	// Show Inventory Entries Form
+	'CAFETO_inventory_show_entries_title_page' => 'Reportes - Entradas de inventario',
+	'CAFETO_inventory_show_entries_title_view' => 'Reportes de Entradas de Inventario',
+	// Show Sales Form
+	'CAFETO_sales_title_page' => 'Reportes - Ventas',
+	'CAFETO_sales_title_view' => 'Reportes de Ventas',
 
 	// -----SaleController-----
 	// Index

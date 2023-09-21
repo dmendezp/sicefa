@@ -124,6 +124,150 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista principal de la sección de reportes (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de la sección de reportes (Administrador)',
+            'description' => 'Vista principal de la sección de reportes',
+            'description_english' => 'Main view of the reports section',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de la sección de reportes (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de la sección de reportes (Cajero)',
+            'description' => 'Vista principal de la sección de reportes',
+            'description_english' => 'Main view of the reports section',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar PDF del inventario actual (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.inventory.generate.pdf'], [ // Registro o actualización de permiso
+            'name' => 'Generar PDF del inventario actual (Administrador)',
+            'description' => 'Generar PDF del inventario actual',
+            'description_english' => 'Generate PDF of current inventory',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar PDF del inventario actual (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.inventory.generate.pdf'], [ // Registro o actualización de permiso
+            'name' => 'Generar PDF del inventario actual (Cajero)',
+            'description' => 'Generar PDF del inventario actual',
+            'description_english' => 'Generate PDF of current inventory',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de consulta de entradas de inventario por fecha (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.inventory.entries'], [ // Registro o actualización de permiso
+            'name' => 'Vista de consulta de entradas de inventario por fecha (Administrador)',
+            'description' => 'Vista de consulta de entradas de inventario por fecha',
+            'description_english' => 'Consult view of inventory entries by date',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de consulta de entradas de inventario por fecha (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.inventory.entries'], [ // Registro o actualización de permiso
+            'name' => 'Vista de consulta de entradas de inventario por fecha (Cajero)',
+            'description' => 'Vista de consulta de entradas de inventario por fecha',
+            'description_english' => 'Consult view of inventory entries by date',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Realizar consulta de entradas de inventario por fechas recibidas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.generate.inventory.entries'], [ // Registro o actualización de permiso
+            'name' => 'Realizar consulta de entradas de inventario por fechas recibidas (Administrador)',
+            'description' => 'Realizar consulta de entradas de inventario por fechas recibidas',
+            'description_english' => 'Perform inventory entries query by received dates',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Realizar consulta de entradas de inventario por fechas recibidas (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.generate.inventory.entries'], [ // Registro o actualización de permiso
+            'name' => 'Realizar consulta de entradas de inventario por fechas recibidas (Cajero)',
+            'description' => 'Realizar consulta de entradas de inventario por fechas recibidas',
+            'description_english' => 'Perform inventory entries query by received dates',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar PDF de entradas de inventario (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.generate.entries.pdf'], [ // Registro o actualización de permiso
+            'name' => 'Generar PDF de entradas de inventario (Administrador)',
+            'description' => 'Generar PDF de entradas de inventario',
+            'description_english' => 'Generate PDF of inventory entries',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar PDF de entradas de inventario (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.generate.entries.pdf'], [ // Registro o actualización de permiso
+            'name' => 'Generar PDF de entradas de inventario (Cajero)',
+            'description' => 'Generar PDF de entradas de inventario',
+            'description_english' => 'Generate PDF of inventory entries',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de consulta de ventas realizadas por fechas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.sales'], [ // Registro o actualización de permiso
+            'name' => 'Vista de consulta de ventas realizadas por fechas (Administrador)',
+            'description' => 'Vista de consulta de ventas realizadas por fechas',
+            'description_english' => 'Consult view of sales made by dates',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de consulta de ventas realizadas por fechas (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.sales'], [ // Registro o actualización de permiso
+            'name' => 'Vista de consulta de ventas realizadas por fechas (Cajero)',
+            'description' => 'Vista de consulta de ventas realizadas por fechas',
+            'description_english' => 'Consult view of sales made by dates',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Realizar consulta de ventas realizadas por fechas recibidas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.generate.sales'], [ // Registro o actualización de permiso
+            'name' => 'Realizar consulta de ventas realizadas por fechas recibidas (Administrador)',
+            'description' => 'Realizar consulta de ventas realizadas por fechas recibidas',
+            'description_english' => 'Perform sales made query by received dates',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Realizar consulta de ventas realizadas por fechas recibidas (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.generate.sales'], [ // Registro o actualización de permiso
+            'name' => 'Realizar consulta de ventas realizadas por fechas recibidas (Cajero)',
+            'description' => 'Realizar consulta de ventas realizadas por fechas recibidas',
+            'description_english' => 'Perform sales made query by received dates',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar PDF de ventas realizadas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.reports.generate.sales.pdf'], [ // Registro o actualización de permiso
+            'name' => 'Generar PDF de ventas realizadas (Administrador)',
+            'description' => 'Generar PDF de ventas realizadas',
+            'description_english' => 'Generate PDF of sales made',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar PDF de ventas realizadas (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.reports.generate.sales.pdf'], [ // Registro o actualización de permiso
+            'name' => 'Generar PDF de ventas realizadas (Cajero)',
+            'description' => 'Generar PDF de ventas realizadas',
+            'description_english' => 'Generate PDF of sales made',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
         // Vista principal de ventas realizadas en sesión de caja (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.sale.index'], [ // Registro o actualización de permiso
             'name' => 'Vista principal de ventas realizadas en sesión de caja (Administrador)',
@@ -215,8 +359,8 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-         // Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)
-         $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.cash.index'], [ // Registro o actualización de permiso
+        // Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.cash.index'], [ // Registro o actualización de permiso
             'name' => 'Vista principal de sesión de caja activa e historico de sesiones de caja (Administrador)',
             'description' => 'Vista principal de sesión de caja activa e historico de sesiones de caja',
             'description_english' => 'Main view of active cash session and cash session history',

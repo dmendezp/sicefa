@@ -134,9 +134,9 @@
                     @endif
                     @if(Auth::user()->havePermission('cafeto.admin.reports.index'))
                         <li class="nav-item">
-                            <a href="#"
+                            <a href="{{ route('cafeto.admin.reports.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.reports.*') ?: 'active' }}">
-                                <i class="nav-icon far fa-chart-bar"></i>
+                                <i class="nav-icon fa-solid fa-chart-column"></i>
                                 <p>Panel de Reportes</p>
                             </a>
                         </li>
@@ -144,7 +144,7 @@
                     @if(Auth::user()->havePermission('cafeto.admin.movements.index'))
                         <li class="nav-item">
                             <a href="#" class="nav-link text-light">
-                                <i class="nav-icon fa-solid fa-cash-register"></i>
+                                <i class="nav-icon fa-solid fa-shuffle"></i>
                                 <p>Histórico de Movimientos</p>
                             </a>
                         </li>
@@ -199,9 +199,9 @@
                     @endif
                     @if(Auth::user()->havePermission('cafeto.cashier.reports.index'))
                         <li class="nav-item">
-                            <a href="#"
+                            <a href="{{ route('cafeto.cashier.reports.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.reports.*') ?: 'active' }}">
-                                <i class="nav-icon far fa-chart-bar"></i>
+                                <i class="nav-icon fa-solid fa-chart-column"></i>
                                 <p>Panel de Reportes</p>
                             </a>
                         </li>
@@ -209,7 +209,7 @@
                     @if(Auth::user()->havePermission('cafeto.cashier.movements.index'))
                         <li class="nav-item">
                             <a href="#" class="nav-link text-light">
-                                <i class="nav-icon fa-solid fa-cash-register"></i>
+                                <i class="nav-icon fa-solid fa-shuffle"></i>
                                 <p>Histórico de Movimientos</p>
                             </a>
                         </li>
