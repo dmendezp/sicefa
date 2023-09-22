@@ -45,7 +45,9 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/amount/{id}', [RequestController::class, 'amount'])->name('cefa.agroindustria.units.instructor.amount');
             Route::post('/enviarsolicitud', [RequestController::class, 'create'])->name('cefa.agroindustria.units.instructor.enviarsolicitud');
 
-            Route::get('/labor', [LaborController::class, 'labor'])->name('cefa.agroindustria.units.instructor.labor');
+            Route::get('/labor', [LaborController::class, 'index'])->name('cefa.agroindustria.units.instructor.labor');
+            Route::get('/labor/form', [LaborController::class, 'form'])->name('cefa.agroindustria.units.instructor.labor.form');
+            Route::post('/labor/register', [LaborController::class, 'register_labor'])->name('cefa.agroindustria.units.instructor.labor.register');
             Route::get('/activity', [ActivityController::class, 'activity'])->name('cefa.agroindustria.units.instructor.activity');
             //Movimientos
             Route::get('/movements', [DeliverController::class, 'deliveries'])->name('cefa.agroindustria.units.instructor.movements');

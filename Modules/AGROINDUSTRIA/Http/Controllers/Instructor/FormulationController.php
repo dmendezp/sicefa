@@ -47,26 +47,27 @@ class FormulationController extends Controller
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
         }
         
-        $element = Element::pluck('name', 'id');
+        $elements = Element::get();
 
-        $result = app(AGROINDUSTRIAController::class)->unidd();
-        $pu = $result['units'];        
-        $productiveUnits = $pu->map(function ($p) {
-            $productiveUnitsId = $p->id;
-            $productiveUnitsName = $p->name;
+        $element = $elements->map(function ($e){
+            $id = $e->id;
+            $name = $e->name . ' ' . '(' . $e->measurement_unit->name . ')';
 
             return [
-                'id' => $productiveUnitsId,
-                'name' => $productiveUnitsName,
+                'id' => $id,
+                'name' => $name
             ];
-        })->prepend(['id' => null, 'name' => trans('agroindustria::formulations.Select a productive unit')])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => 'Seleccione un elemento'])->pluck('name', 'id');
+
+        $selectedUnit = session('viewing_unit');
+        $unitName = ProductiveUnit::findOrFail($selectedUnit);
 
         $registros = null;
 
         $this->dataAdd = [
             'title' => $title,
             'person' => $name,
-            'productiveUnits' => $productiveUnits,
+            'productiveUnits' => $unitName,
             'elements' => $element,
             'registros' => $registros
         ];
@@ -92,7 +93,6 @@ class FormulationController extends Controller
         $messages = [
             'proccess.required' => trans('agroindustria::formulations.You must register a process'),
             'amount.required' => trans('agroindustria::menu.You must enter an amount'),
-            'productive_unit_id.required' => trans('agroindustria::formulations.You must select a production unit'),
             'element_id.required' => trans('agroindustria::menu.You must select an item'),
         ];
 
@@ -101,7 +101,7 @@ class FormulationController extends Controller
             $f = new Formulation;
             $f->element_id = $validatedData['element_id'];
             $f->person_id = $idPersona;
-            $f->productive_unit_id = $validatedData['productive_unit_id'];
+            $f->productive_unit_id = $request->input('productive_unit_id');
             $f->proccess = $validatedData['proccess'];
             $f->amount=  $validatedData['amount'];
             $f->date = $request->input('date');
@@ -167,7 +167,7 @@ class FormulationController extends Controller
                $icon = 'error';
                $message_line = trans('agroindustria::formulations.Error creating the recipe');
             }
-            return redirect()->route('cefa.agroindustria.instructor.formulations')->with([
+            return redirect()->route('cefa.agroindustria.units.instructor.formulations')->with([
                 'icon' => $icon,
                 'message_line' => $message_line,
             ]); 
@@ -182,25 +182,15 @@ class FormulationController extends Controller
         }
         
         $element = Element::pluck('name', 'id');
-
-        $result = app(AGROINDUSTRIAController::class)->unidd();
-        $pu = $result['units'];        
-        $productiveUnits = $pu->map(function ($p) {
-            $productiveUnitsId = $p->id;
-            $productiveUnitsName = $p->name;
-
-            return [
-                'id' => $productiveUnitsId,
-                'name' => $productiveUnitsName,
-            ];
-        })->prepend(['id' => null, 'name' => 'Seleccione una unidad productiva'])->pluck('name', 'id');
+        $selectedUnit = session('viewing_unit');
+        $unitName = ProductiveUnit::findOrFail($selectedUnit);
         
         $registros = Formulation::with('person', 'element', 'utensils.element', 'ingredients.element')->findOrFail($id);
         
         $this->dataAdd = [
             'title' => $title,
             'person' => $name,
-            'productiveUnits' => $productiveUnits,
+            'productiveUnits' => $unitName,
             'registros' => $registros,
             'elements' => $element,
         ];
@@ -218,13 +208,11 @@ class FormulationController extends Controller
             'element_id' => 'required',
             'proccess' => 'required',
             'amount' => 'required',
-            'productive_unit_id' => 'required',
         ];
 
         $messages = [
             'proccess.required' => 'Debes registrar un proceso',
             'amount.required' => 'Debes ingresar una cantidad',
-            'productive_unit_id.required' => 'Debes seleccionar una unidad productiva',
             'element_id.required' => 'Debes seleccionar un elemento',
         ];
 
@@ -233,7 +221,7 @@ class FormulationController extends Controller
         $f = Formulation::findOrFail($request->input('id'));
         $f->element_id = $validatedData['element_id'];
         $f->person_id = $idPersona;
-        $f->productive_unit_id = $validatedData['productive_unit_id'];
+        $f->productive_unit_id = $request->input('productive_unit_id');
         $f->proccess = $validatedData['proccess'];
         $f->amount=  $validatedData['amount'];
         $f->date = $request->input('date');
@@ -281,7 +269,7 @@ class FormulationController extends Controller
            $message_line = 'Error al editar la formula';
         }
 
-        return redirect()->route('cefa.agroindustria.instructor.formulations')->with([
+        return redirect()->route('cefa.agroindustria.units.instructor.formulations')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]); 
@@ -298,7 +286,7 @@ class FormulationController extends Controller
                 $icon = 'error';
                 $message_line = trans('agroindustria::formularions.Error deleting the recipe');
             }
-        return redirect()->route('cefa.agroindustria.instructor.formulations')->with([
+        return redirect()->route('cefa.agroindustria.units.instructor.formulations')->with([
             'icon' => $icon,
             'message_line' => $message_line,
         ]); 

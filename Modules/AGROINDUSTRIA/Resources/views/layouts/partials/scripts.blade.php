@@ -167,6 +167,7 @@ window.onclick = function(event) {
     new DataTable('#example')  
     new DataTable('#discharge')
     new DataTable('#formulation')
+    new DataTable('#labors')
     $(document).ready(function() {
     $('#deliveries').DataTable({
         "order": [[0, "desc"]], // Ordenar por la primera columna (Fecha de Solicitud) en orden descendente

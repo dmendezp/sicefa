@@ -7,7 +7,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('cefa.agroindustria.instructor.formulations.delete', ['id' => $f->id]) }}" method="POST">
+            <form action="{{ route('cefa.agroindustria.units.instructor.formulations.delete', ['id' => $f->id]) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 {{ Form::hidden('id', $f->id)}}
