@@ -41,7 +41,7 @@ class TypesOfBenefitsController extends Controller
     if ($existingDeletedRecord) {
         // Restaurar el registro eliminado
         $existingDeletedRecord->restore();
-        return response()->json(['mensaje' => 'Tipo de beneficiario restaurado correctamente.'], 200);
+        return response()->json(['success' => 'Tipo de beneficiario restaurado correctamente.'], 200);
     }
 
     // Crear un nuevo registro
@@ -50,7 +50,7 @@ class TypesOfBenefitsController extends Controller
             'name' => $request->name,
         ]);
 
-        return response()->json(['mensaje' => 'Tipo de beneficiario creado correctamente.'], 200);
+        return response()->json(['success' => 'Tipo de beneficiario creado correctamente.'], 200);
     } catch (\Exception $e) {
         return response()->json(['error' => 'Ha ocurrido un error al intentar crear el tipo de beneficiario.'], 500);
     }
@@ -131,7 +131,7 @@ class TypesOfBenefitsController extends Controller
     $type->save();
 
     // Retornar una respuesta JSON para manejarla en el script de SweetAlert
-    return response()->json(['mensaje' => 'Tipo de beneficio actualizado correctamente.'], 200);
+    return response()->json(['success' => 'Tipo de beneficio actualizado correctamente.'], 200);
 }
 
 
@@ -148,9 +148,9 @@ class TypesOfBenefitsController extends Controller
             $typeofbenefits = TypesOfBenefits::findOrFail($id);
             $typeofbenefits->delete();
 
-            return response()->json(['mensaje' =>'Vacancy eliminated with success']);
+            return response()->json(['success' =>'Vacancy eliminated with success']);
         } catch (\Exception $e) {
-            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+            return response()->json(['error' =>'Error when deleting the vacancy'], 500);
         }
         
     }

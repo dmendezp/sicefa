@@ -30,11 +30,11 @@ class RoutesTransportations extends Model implements Auditable
     }
     
     public function transportationassistance(){// Accede a todas las asistencias de trasporte que pertenecen a esta ruta de trasporte
-    	return $this->hasMany(TransportationAssistances::class);
+    	return $this->hasMany(TransportationAssistances::class, 'route_transportation_id');
     }
 
     public function assingtransportroutes(){// Accede a todas las asignaciones de trasporte que pertenecen a esta ruta de trasporte
-    	return $this->hasMany(AssingTransportRoutes::class);
+    	return $this->hasMany(AssingTransportRoutes::class, 'route_transportation_id');
     }
 
 }

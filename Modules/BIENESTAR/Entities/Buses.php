@@ -29,11 +29,11 @@ class Buses extends Model implements Auditable
     }
 
     public function routes_trasportantion(){// Accede a todas las rutas que pertenecen a este Bus
-    	return $this->hasMany(RoutesTransportations::class);
+    	return $this->hasMany(RoutesTransportations::class, 'bus_id');
     }
 
     public function transportation_assistances(){// Accede a todas las asistencias que pertenecen a este Bus
-    	return $this->hasMany(TransportationAssistances::class);
+    	return $this->hasMany(TransportationAssistances::class, 'bus_id');
     }
 
    

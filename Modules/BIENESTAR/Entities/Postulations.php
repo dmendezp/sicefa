@@ -33,7 +33,7 @@ class Postulations extends Model implements Auditable
      //RELACIONES
 
      public function answers(){// Accede a los datos de la respuesta al que pertenece
-        return $this->hasMany(Answers::class);
+        return $this->hasMany(Answers::class, 'postulation_id');
     }
 
      public function apprentice(){// Accede a los datos del aprendiz al que pertenece
@@ -45,11 +45,11 @@ class Postulations extends Model implements Auditable
     }
 
     public function postulationBenefits(){// Accede a los datos del beneficio que tiene la postulacion al que pertenece
-        return $this->hasMany(PostulationsBenefits::class);
+        return $this->hasMany(PostulationsBenefits::class, 'postulation_id');
     }
 
     public function socioeconomicsupportfiles(){// Accede a los datos del archivo de soporte al que pertenece
-        return $this->hasMany(SocioEconomicSupportFiles::class);
+        return $this->hasMany(SocioEconomicSupportFiles::class, 'postulation_id');
     }
 
     public function typeOfBenefit(){// Accede a los datos del tipo de beneficiario al que pertenece

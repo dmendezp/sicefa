@@ -32,11 +32,11 @@ class Convocations extends Model implements Auditable
     //RELACIONES
 
     public function assingtransportroutes(){// Accede a todas las asignaciones de trasporte que pertenecen a esta ruta de trasporte
-    	return $this->hasMany(AssingTransportRoutes::class);
+    	return $this->hasMany(AssingTransportRoutes::class, 'convocation_id');
     }
 
     public function convocationsquestions(){// Accede a los datos de las preguntas de la convocatoria al que pertenece
-        return $this->hasMany(ConvocationQuestion::class);
+        return $this->hasMany(ConvocationQuestion::class, 'convocation_id');
     }
 
     public function postulation(){// Accede a los datos de la postulacion al que pertenece

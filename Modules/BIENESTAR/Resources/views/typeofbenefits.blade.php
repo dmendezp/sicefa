@@ -2,13 +2,14 @@
 
 @section('content')
 <div class="container-fluid">
+    <h1 class="mb-4">{{ trans('bienestar::menu.Beneficiary Type Management')}}</h1>
+
     <div class="row justify-content-md-center pt-4">
         <div class="card card-green card-outline shadow col-md-8">
+
             <div class="card-header">
-                <h3 class="card-title">{{ trans('bienestar::menu.Beneficiary Type Management')}}</h3>
             </div>
             <div class="card-body">
-                <h2>{{ trans('bienestar::menu.Enter New Beneficiary Type')}}</h2>
                 <form class="formCrear" action="{{ route('cefa.typeofbenefits.store') }}" method="post">
                     @csrf
                     <div class="form-group row">
@@ -25,7 +26,6 @@
                     </div>
                 </form>
                 <div class="mtop16">
-                    <h2>{{ trans('bienestar::menu.List of Beneficiary Type')}}</h2>
                     <table id="typesOfBenefitsTable" class="table table-bordered table-striped">
                         <thead>
                             <tr>
