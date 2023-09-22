@@ -14,12 +14,30 @@ return [
 	// Configuration
 	'CAFETO_configuration_title_page' => 'Configuración',
 	'CAFETO_configuration_title_view' => 'Configuración',
+
 	// Index - Admin
 	'CAFETO_admin_title_page' => 'Administrador',
 	'CAFETO_admin_title_view' => 'Página principal',
+
 	// Index - Cashier
 	'CAFETO_cashier_title_page' => 'Cajero',
 	'CAFETO_cashier_title_view' => 'Página principal',
+
+	// -----SaleController-----
+	// Index
+	'CAFETO_sale_index_title_page' => 'Ventas',
+	'CAFETO_sale_index_title_view' => 'Ventas realizadas hoy',
+	// Register
+	'CAFETO_sale_register_title_page' => 'Ventas',
+	'CAFETO_sale_register_title_view' => 'Registro de Ventas',
+	// Show
+	'CAFETO_sale_show_title_page' => 'Movimiento - Detalles',
+	'CAFETO_sale_show_title_view' => 'Detalles de Movimiento',
+
+	// -----MovementController-----
+	// Index
+	'CAFETO_movement_index_title_page' => 'Movimiento',
+	'CAFETO_movement_index_title_view' => 'Histórico de Movimientos',
 
 	// -----InventoryController-----
 	// Index
@@ -34,6 +52,12 @@ return [
 	// Low Create
 	'CAFETO_inventory_low_create_title_page' => 'Bajas de Inventario',
 	'CAFETO_inventory_low_create_title_view' => 'Bajas de Inventario',
+	// Show
+	'CAFETO_inventory_show_title_page' => 'Movimiento - Detalles',
+	'CAFETO_inventory_show_title_view' => 'Detalle - Entrada de inventario',
+	// Show Low
+	'CAFETO_inventory_show_low_title_page' => 'Movimiento - Detalles',
+	'CAFETO_inventory_show_low_title_view' => 'Detalles de Movimiento',
 	// Reports
 	'CAFETO_inventory_reports_title_page' => 'Reportes',
 	'CAFETO_inventory_reports_title_view' => 'Panel de Reportes',
@@ -43,14 +67,6 @@ return [
 	// Show Sales Form
 	'CAFETO_sales_title_page' => 'Reportes - Ventas',
 	'CAFETO_sales_title_view' => 'Reportes de Ventas',
-
-	// -----SaleController-----
-	// Index
-	'CAFETO_sale_index_title_page' => 'Ventas',
-	'CAFETO_sale_index_title_view' => 'Ventas realizadas hoy',
-	// Register
-	'CAFETO_sale_register_title_page' => 'Ventas',
-	'CAFETO_sale_register_title_view' => 'Registro de Ventas',
 
 	// -----ElementController-----
 	// Index

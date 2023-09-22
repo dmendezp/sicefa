@@ -56,6 +56,11 @@ Route::middleware(['lang'])->group(function () {  // Middleware para la internza
             Route::post('cashier/reports/sales', 'generateSales')->name('cafeto.cashier.reports.generate.sales'); // Realizar consulta de ventas realizadas por fechas recibidas (Cajero)
             Route::post('admin/reports/sales/generatepdf', 'generateSalesPDF')->name('cafeto.admin.reports.generate.sales.pdf'); // Generar PDF de ventas realizadas (Administrador)
             Route::post('cashier/reports/sales/generatepdf', 'generateSalesPDF')->name('cafeto.cashier.reports.generate.sales.pdf'); // Generar PDF de ventas realizadas (Cajero)
+            Route::get('admin/entries/show/{movement}', 'show_entry')->name('cafeto.admin.movements.entries.show'); // Ver detalle de movimiento interno (Administrador)
+            Route::get('cashier/entries/show/{movement}', 'show_entry')->name('cafeto.cashier.movements.entries.show'); // Ver detalle de movimiento interno (Cajero)
+            // Reportes de bajas
+            Route::get('admin/low/show/{movement}', 'showLow')->name('cafeto.admin.movements.low.show'); // Ver detalle de baja (Administrador)
+            Route::get('cashier/low/show/{movement}', 'showLow')->name('cafeto.cashier.movements.low.show'); // Ver detalle de baja (Cajero)
         });
 
         // Rutas para ventas
@@ -64,6 +69,9 @@ Route::middleware(['lang'])->group(function () {  // Middleware para la internza
             Route::get('cashier/sale/index', 'index')->name('cafeto.cashier.sale.index'); // Vista principal de ventas realizadas en sesión de caja (Cajero)
             Route::get('admin/sale/register', 'register')->name('cafeto.admin.sale.register'); // Formulario de registro de venta (Administrador)
             Route::get('cashier/sale/register', 'register')->name('cafeto.cashier.sale.register'); // Formulario de registro de venta (Cajero)
+            /* Registrar permiso (cafeto.admin-cashier.generate.sale); Registrar venta (Administrador y Cajero) <Función Livewire> */
+            Route::get('admin/sale/show/{movement}', 'show')->name('cafeto.admin.movements.sale.show'); // Ver detalle de venta (Administrador)
+            Route::get('cashier/sale/show/{movement}', 'show')->name('cafeto.cashier.movements.sale.show'); // Ver detalle de venta (Cajero)
         });
 
         // Rutas para Elementos
@@ -83,6 +91,14 @@ Route::middleware(['lang'])->group(function () {  // Middleware para la internza
             Route::post('cashier/cash/store', 'store')->name('cafeto.cashier.cash.store'); // Registrar caja cuando no hay ninguna activa (Cajero)
             Route::post('admin/cash/close', 'close')->name('cafeto.admin.cash.close'); // Cerrar sesión de caja (Administrador)
             Route::post('cashier/cash/close', 'close')->name('cafeto.cashier.cash.close'); // Cerrar sesión de caja (Cajero)
+        });
+
+        // Rutas para movements ó historico de cajas
+        Route::controller(MovementController::class)->group(function () {
+            Route::get('admin/movement/index', 'index')->name('cafeto.admin.movements.index'); // Vista principal de historico de movimientos (Administrador)
+            Route::get('cashier/movement/index', 'index')->name('cafeto.cashier.movements.index'); // Vista principal de historico de movimientos (Cajero)
+            Route::post('admin/movement/consult', 'consult')->name('cafeto.admin.movements.consult'); // Consultar movimientos por fecha y actor (Administrador)
+            Route::post('cashier/movement/consult', 'consult')->name('cafeto.cashier.movements.consult'); // Consultar movimientos por fecha y actor (Cajero)
         });
     });
 });

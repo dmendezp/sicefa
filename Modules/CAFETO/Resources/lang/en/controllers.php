@@ -14,12 +14,30 @@ return [
 	// Configuration
 	'CAFETO_configuration_title_page' => 'Configuration',
 	'CAFETO_configuration_title_view' => 'Configuration',
+
 	// Index - Admin
 	'CAFETO_admin_title_page' => 'Administrator',
 	'CAFETO_admin_title_view' => 'Homepage',
+	
 	// Index - Cashier
 	'CAFETO_cashier_title_page' => 'Cashier',
 	'CAFETO_cashier_title_view' => 'Homepage',
+
+	// -----SaleController-----
+	// Index
+	'CAFETO_sale_index_title_page' => 'Sales',
+	'CAFETO_sale_index_title_view' => 'Sales today',
+	// Register
+	'CAFETO_sale_register_title_page' => 'Sales',
+	'CAFETO_sale_register_title_view' => 'Register Sales',
+	// Show
+	'CAFETO_sale_show_title_page' => 'Movement - Details',
+	'CAFETO_sale_show_title_view' => 'Movement Details',
+
+	// -----MovementController-----
+	// Index
+	'CAFETO_movement_index_title_page' => 'Movement',
+	'CAFETO_movement_index_title_view' => 'Movement History',
 
 	// -----InventoryController-----
 	// Index
@@ -34,6 +52,12 @@ return [
 	// Low Create
 	'CAFETO_inventory_low_create_title_page' => 'Inventory Removals',
 	'CAFETO_inventory_low_create_title_view' => 'Inventory Removals',
+	// Show
+	'CAFETO_inventory_show_title_page' => 'Movement - Details',
+	'CAFETO_inventory_show_title_view' => 'Detail - Inventory entry',
+	// Show Low
+	'CAFETO_inventory_show_low_title_page' => 'Movement - Details',
+	'CAFETO_inventory_show_low_title_view' => 'Movement Details',
 	// Reports
 	'CAFETO_inventory_reports_title_page' => 'Reports',
 	'CAFETO_inventory_reports_title_view' => 'Reports Panel',
@@ -43,14 +67,6 @@ return [
 	// Show Sales Form
 	'CAFETO_sales_title_page' => 'Reports - Sales',
 	'CAFETO_sales_title_view' => 'Report Sales',
-
-	// -----SaleController-----
-	// Index
-	'CAFETO_sale_index_title_page' => 'Sales',
-	'CAFETO_sale_index_title_view' => 'Sales today',
-	// Register
-	'CAFETO_sale_register_title_page' => 'Sales',
-	'CAFETO_sale_register_title_view' => 'Register Sales',
 
 	// -----ElementController-----
 	// Index

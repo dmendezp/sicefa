@@ -95,7 +95,7 @@
                                                 @endif
                                                 @if (Auth::user()->havePermission('cafeto.admin.movements.index'))
                                                     <li>
-                                                        <a href="#">
+                                                        <a href="{{ route('cafeto.admin.movements.index') }}">
                                                             <i class="fa-solid fa-shuffle"></i>Histórico de Movimientos
                                                         </a>
                                                     </li>
@@ -179,7 +179,7 @@
                                                 @endif
                                                 @if (Auth::user()->havePermission('cafeto.cashier.movements.index'))
                                                     <li>
-                                                        <a href="#">
+                                                        <a href="{{ route('cafeto.cashier.movements.index') }}">
                                                             <i class="fa-solid fa-shuffle"></i>Histórico de Movimientos
                                                         </a>
                                                     </li>

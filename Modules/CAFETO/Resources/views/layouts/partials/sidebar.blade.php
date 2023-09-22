@@ -143,7 +143,7 @@
                     @endif
                     @if(Auth::user()->havePermission('cafeto.admin.movements.index'))
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-light">
+                            <a href="{{ route('cafeto.admin.movements.index') }}" class="nav-link text-light">
                                 <i class="nav-icon fa-solid fa-shuffle"></i>
                                 <p>Histórico de Movimientos</p>
                             </a>
@@ -208,7 +208,7 @@
                     @endif
                     @if(Auth::user()->havePermission('cafeto.cashier.movements.index'))
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-light">
+                            <a href="{{ route('cafeto.cashier.movements.index') }}" class="nav-link text-light">
                                 <i class="nav-icon fa-solid fa-shuffle"></i>
                                 <p>Histórico de Movimientos</p>
                             </a>

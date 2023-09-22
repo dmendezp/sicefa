@@ -13,13 +13,9 @@ use Modules\SICA\Entities\App;
 
 class InventoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    // Listado del inventario actual
     public function index()
     {
-
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_index_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_index_title_view')];
         $apps = App::get();
         $inventories = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
@@ -49,8 +45,9 @@ class InventoryController extends Controller
         return view('cafeto::inventory.index', compact('apps', 'view',  'groupedInventories'));
     }
 
+    // Formulario de registro (entrada) de inventario
     public function create()
-    { // Formulario de registro (entrada) de inventario
+    {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_create_title_view')];
         $apps = App::get();
         return view('cafeto::inventory.create', compact('view', 'apps'));
@@ -81,6 +78,22 @@ class InventoryController extends Controller
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_low_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_low_create_title_view')];
         $apps = App::get();
         return view('cafeto::inventory.low', compact('view', 'apps'));
+    }
+
+    /* Ver detalle de movimiento interno */
+    public function show_entry(Movement $movement)
+    {
+        $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_show_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_show_title_view')];
+        $apps = App::get();
+        return view('cafeto::inventory.show-entry', compact('apps', 'view', 'movement'));
+    }
+
+    /* Ver detalle de baja de inventario */
+    public function showLow(Movement $movement)
+    {
+        $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_show_low_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_show_low_title_view')];
+        $apps = App::get();
+        return view('cafeto::inventory.show-low', compact('apps', 'view', 'movement'));
     }
 
     //======================================== Funciones para reporte de inventario =========================================
@@ -199,18 +212,20 @@ class InventoryController extends Controller
     }
 
     // Método para mostrar la vista del formulario de entradas de inventario
-    public function showInventoryEntriesForm(){
+    public function showInventoryEntriesForm()
+    {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_show_entries_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_show_entries_title_view')];
         $apps = App::get();
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));
 
-        return view('cafeto::reports.inventory-entries-form', compact('apps' ,'view', 'start_date', 'end_date'));
+        return view('cafeto::reports.inventory-entries-form', compact('apps', 'view', 'start_date', 'end_date'));
     }
 
     // Método para realizar la consulta de entradas de inventario y redirigir a la vista
-    public function generateInventoryEntries(Request $request){
+    public function generateInventoryEntries(Request $request)
+    {
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
@@ -241,7 +256,8 @@ class InventoryController extends Controller
     }
 
     // Método para generar el reporte PDF de entradas de inventario
-    public function generateInventoryEntriesPDF(Request $request){
+    public function generateInventoryEntriesPDF(Request $request)
+    {
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
@@ -344,7 +360,8 @@ class InventoryController extends Controller
     }
 
     // Método para mostrar la vista del formulario de ventas
-    public function showSalesForm(){
+    public function showSalesForm()
+    {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_sales_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_sales_title_view')];
         $apps = App::get();
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
@@ -355,7 +372,8 @@ class InventoryController extends Controller
     }
 
     // Método para realizar la consulta de ventas y redirigir a la vista
-    public function generateSales(Request $request){
+    public function generateSales(Request $request)
+    {
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
@@ -386,7 +404,8 @@ class InventoryController extends Controller
     }
 
     // Método para generar el reporte PDF de ventas
-    public function generateSalesPDF(Request $request){
+    public function generateSalesPDF(Request $request)
+    {
         // Captura las fechas ingresadas en el formulario.
         $startDateInput = $request->input('start_date');
         $endDateInput = $request->input('end_date');
