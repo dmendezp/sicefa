@@ -5,17 +5,17 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars" style="color:aliceblue"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block mx-2">
-            <a href="{{ route('cefa.cafeto.index') }}" class="nav-link text-light @if(Route::is('cefa.cafeto.*')) active @endif">Inicio</a>
+            <a href="{{ route('cefa.cafeto.index') }}" class="nav-link text-light @if(Route::is('cefa.cafeto.*')) active @endif">{{ trans('cafeto::general.Home') }}</a>
         </li>
         @auth
             @if(checkRol('cafeto.admin'))
                 <li class="nav-item d-none d-sm-inline-block mx-2">
-                    <a href="{{ route('cafeto.admin.index') }}" class="nav-link text-light @if(Route::is('cafeto.admin*')) active @endif">Administrador</a>
+                    <a href="{{ route('cafeto.admin.index') }}" class="nav-link text-light @if(Route::is('cafeto.admin*')) active @endif">{{ trans('cafeto::general.admin') }}</a>
                 </li>
             @endif
             @if (checkRol('cafeto.cashier'))
                 <li class="nav-item d-none d-sm-inline-block mx-2">
-                    <a href="{{ route('cafeto.cashier.index') }}" class="nav-link text-light @if(Route::is('cafeto.cashier*')) active @endif">Cajero</a>
+                    <a href="{{ route('cafeto.cashier.index') }}" class="nav-link text-light @if(Route::is('cafeto.cashier*')) active @endif">{{ trans('cafeto::general.cashier') }}</a>
                 </li>
             @endif
         @endauth
@@ -27,7 +27,7 @@
             <div type="button" class="button-login">
                 @guest
                     <a href="{{ route('login') }}" class="text-decoration-none text-black">
-                        <span>Log In</span>
+                        <span>{{ trans('cafeto::general.Log In') }}</span>
                     </a>
                 @else
                     <span>{{ Auth::user()->person->fullname }}</span>
@@ -86,13 +86,13 @@
                     <li>
                         <a href="{{ url('lang', ['en']) }}" class="dropdown-item">
                             <img src="{{ asset('modules/cafeto/images/flags/estados-unidos.webp') }}" alt="" width="20px">
-                            Ingles
+                            {{ trans('cafeto::general.English') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('lang', ['es']) }}" class="dropdown-item">
                             <img src="{{ asset('modules/cafeto/images/flags/colombia.webp') }}" alt="" width="20px">
-                            Español
+                            {{ trans('cafeto::general.Spanish') }}
                         </a>
                     </li>
                 </ul>
@@ -100,13 +100,13 @@
         </li>
         <li class="nav-item mx-1">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip"
-                data-bs-placement="bottom" data-bs-title="Pantalla Completa">
+                data-bs-placement="bottom" data-bs-title="{{ trans('cafeto::general.Full Screen Mode') }}">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
         <li class="nav-item mx-1">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"
-                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Aplicaciones">
+                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ trans('cafeto::general.Apps') }}">
                 <i class="fa-solid fa-shapes"></i>
             </a>
         </li>

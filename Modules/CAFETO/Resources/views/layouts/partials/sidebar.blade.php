@@ -19,7 +19,7 @@
             </div>
             @guest
                 <div class="col info info-user">
-                    <a href="{{ route('login') }}" class="d-block custom-color" style="text-decoration: none">{{ trans('cafeto::general.Log In') }}</a>
+                    <a href="{{ route('login') }}" class="d-block custom-color" style="text-decoration: none">{{ trans('cafeto::general.Session') }}</a>
                 </div>
                 <div class="col-auto info float-right ">
                     <a href="{{ route('login') }}" class="d-block" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={{ trans('cafeto::general.InSession') }}>
@@ -52,7 +52,7 @@
                     <a href="{{ route('cefa.welcome') }}"
                         class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
                         <i class="nav-icon fas fa-puzzle-piece"></i>
-                        <p>Volver a SICEFA</p>
+                        <p>{{ trans('cafeto::general.Back to SICEFA') }}</p>
                     </a>
                 </li>
             </ul>
@@ -67,21 +67,21 @@
                         <a href="{{ route('cefa.cafeto.index') }}"
                             class="nav-link {{ !Route::is('cefa.cafeto.index*') ?: 'active' }} text-light">
                             <i class="nav-icon fas fa-home"></i>
-                            <p>Inicio</p>
+                            <p>{{ trans('cafeto::general.Home') }}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('cefa.cafeto.devs') }}"
                             class="nav-link {{ !Route::is('cefa.cafeto.devs*') ?: 'active' }} text-light">
                             <i class="nav-icon fa-solid fa-code"></i>
-                            <p>Desarrolladores</p>
+                            <p>{{ trans('cafeto::general.Developers') }}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('cefa.cafeto.info') }}"
                             class="nav-link {{ !Route::is('cefa.cafeto.info*') ?: 'active' }} text-light">
                             <i class="nav-icon fa-solid fa-info"></i>
-                            <p>Acerca de</p>
+                            <p>{{ trans('cafeto::general.About us') }}</p>
                         </a>
                     </li>
                 @endif
@@ -93,7 +93,7 @@
                             <a href="{{ route('cafeto.admin.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.admin.index') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-house-chimney"></i>
-                                <p>Inicio</p>
+                                <p>{{ trans('cafeto::general.dashboard') }}</p>
                             </a>
                         </li>
                     @endif
@@ -102,7 +102,7 @@
                             <a href="{{ route('cafeto.admin.inventory.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.admin.inventory.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fas fa-boxes"></i>
-                                <p>Inventario</p>
+                                <p>{{ trans('cafeto::general.Inventory') }}</p>
                             </a>
                         </li>
                     @endif
@@ -111,7 +111,7 @@
                             <a href="{{ route('cafeto.admin.sale.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.admin.sale.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fas fa-shopping-cart"></i>
-                                <p>Ventas</p>
+                                <p>{{ trans('cafeto::general.Sales') }}</p>
                             </a>
                         </li>
                     @endif
@@ -119,7 +119,7 @@
                         <li class="nav-item">
                             <a href="{{ route('cafeto.admin.cash.index') }}" class="nav-link {{ !Route::is('cafeto.admin.cash.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-cash-register"></i>
-                                <p>Control de Caja</p>
+                                <p>{{ trans('cafeto::general.Cash Control') }}</p>
                             </a>
                         </li>
                     @endif
@@ -128,7 +128,7 @@
                             <a href="{{ route('cafeto.admin.element.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.element.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fas fa-image"></i>
-                                <p>Adm. Elementos</p>
+                                <p>{{ trans('cafeto::general.Products') }}</p>
                             </a>
                         </li>
                     @endif
@@ -137,7 +137,7 @@
                             <a href="{{ route('cafeto.admin.reports.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.reports.*') ?: 'active' }}">
                                 <i class="nav-icon fa-solid fa-chart-column"></i>
-                                <p>Panel de Reportes</p>
+                                <p>{{ trans('cafeto::general.Reports Panel') }}</p>
                             </a>
                         </li>
                     @endif
@@ -145,7 +145,7 @@
                         <li class="nav-item">
                             <a href="{{ route('cafeto.admin.movements.index') }}" class="nav-link text-light">
                                 <i class="nav-icon fa-solid fa-shuffle"></i>
-                                <p>Histórico de Movimientos</p>
+                                <p>{{ trans('cafeto::general.Movement History') }}</p>
                             </a>
                         </li>
                     @endif
@@ -154,7 +154,7 @@
                             <a href="{{ route('cafeto.admin.configuration.index') }}" 
                                 class="nav-link {{ !Route::is('cefa.cafeto.configuration*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-gears"></i>
-                                <p>Configuración</p>
+                                <p>{{ trans('cafeto::general.Configuration') }}</p>
                             </a>
                         </li>
                     @endif
@@ -167,7 +167,7 @@
                             <a href="{{ route('cafeto.cashier.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.cashier.index') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-house-chimney"></i>
-                                <p>Inicio</p>
+                                <p>{{ trans('cafeto::general.dashboard') }}</p>
                             </a>
                         </li>
                     @endif
@@ -176,7 +176,7 @@
                             <a href="#"
                                 class="nav-link {{ !Route::is('cafeto.cashier.inventory.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fas fa-boxes"></i>
-                                <p>Inventario</p>
+                                <p>{{ trans('cafeto::general.Inventory') }}</p>
                             </a>
                         </li>
                     @endif
@@ -185,7 +185,7 @@
                             <a href="{{ route('cafeto.cashier.sale.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.cashier.sale.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fas fa-shopping-cart"></i>
-                                <p>Ventas</p>
+                                <p>{{ trans('cafeto::general.Sales') }}</p>
                             </a>
                         </li>
                     @endif
@@ -193,7 +193,7 @@
                         <li class="nav-item">
                             <a href="{{ route('cafeto.cashier.cash.index') }}" class="nav-link text-light">
                                 <i class="nav-icon fa-solid fa-cash-register"></i>
-                                <p>Control de Caja</p>
+                                <p>{{ trans('cafeto::general.Cash Control') }}</p>
                             </a>
                         </li>
                     @endif
@@ -202,7 +202,7 @@
                             <a href="{{ route('cafeto.cashier.reports.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.reports.*') ?: 'active' }}">
                                 <i class="nav-icon fa-solid fa-chart-column"></i>
-                                <p>Panel de Reportes</p>
+                                <p>{{ trans('cafeto::general.Reports Panel') }}</p>
                             </a>
                         </li>
                     @endif
@@ -210,7 +210,7 @@
                         <li class="nav-item">
                             <a href="{{ route('cafeto.cashier.movements.index') }}" class="nav-link text-light">
                                 <i class="nav-icon fa-solid fa-shuffle"></i>
-                                <p>Histórico de Movimientos</p>
+                                <p>{{ trans('cafeto::general.Movement History') }}</p>
                             </a>
                         </li>
                     @endif
@@ -219,7 +219,7 @@
                             <a href="{{ route('cafeto.cashier.configuration.index') }}" 
                                 class="nav-link {{ !Route::is('cefa.cafeto.configuration*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-gears"></i>
-                                <p>Configuración</p>
+                                <p>{{ trans('cafeto::general.Configuration') }}</p>
                             </a>
                         </li>
                     @endif
