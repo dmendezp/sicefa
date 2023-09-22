@@ -71,5 +71,12 @@ Route::prefix('gth')->group(function () {
     Route::patch('/gth/contractors/update{id}', 'ContractorsController@updatecontractor')->name('gth.contractor.update');
     Route::get('gth/contractors/{id}', [ContractorsController::class, 'showContractor'])->name('gth.contractor.show');
 
+    //Posicion
+    Route::get('/positions', 'PositionsController@viewpositions')->name('gth.position'); //nombres de la vista
+    Route::post('/positions/create', 'PositionsController@postcreatepositions')->name('gth.positions.create');
+    Route::delete('/gth/positions/{id}/delete', 'PositionsController@deletepositions')->name('gth.positions.delete');
+    Route::patch('/gth/positions/update{id}', 'PositionsController@updatepositions')->name('gth.positions.update');
+    Route::get('gth/positions/{id}', [PositionsController::class, 'showPositions'])->name('gth.positions.show');
+
 
 });

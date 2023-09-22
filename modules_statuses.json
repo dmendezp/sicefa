@@ -8,5 +8,6 @@
     "CPD": true,
     "PTVENTA": true,
     "SIGAC": true,
-    "GTH": true
+    "GTH": true,
+    "PositionsController": true
 }
