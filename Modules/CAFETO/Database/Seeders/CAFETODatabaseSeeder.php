@@ -26,9 +26,9 @@ class CAFETODatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de permisos para roles
 
         // Sección para pruebas de desarrollo
-/*         Category::factory()->count(5)->create(); //  Generar categorias de pruebas
+        /* Category::factory()->count(5)->create(); //  Generar categorias de pruebas
         $this->call(ElementsTableSeeder::class); // Ejecutar Seeder de elementos
-        $this->call(InventoriesTableSeeder::class);// Ejecutar el seeder de inventarios
+        $this->call(InventoriesTableSeeder::class); // Ejecutar el seeder de inventarios
         $this->call(WarehousesTableSeeder::class); // Ejecutar Seeder de bodegas
         Movement::factory()->count(500)->create(); //  Generar Movimientos de pruebas */
 

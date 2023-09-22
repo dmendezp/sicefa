@@ -22,7 +22,6 @@ use Modules\CAFETO\Http\Controllers\PUW;
 
 class RegisterEntry extends Component
 {
-
     public $puw; // Unidad productiva y bodega de la aplicación
     public $products; // Productos (elementos) disponibles
     public $destinations; // Destinos disponibles para inventario

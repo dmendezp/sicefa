@@ -17,10 +17,10 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         // Consultar aplicación SICA para registrar los roles
-        $app = App::where('name','CAFETO')->firstOrFail();
+        $app = App::where('name', 'CAFETO')->firstOrFail();
 
         // Consultar rol  de superadministrador
-        $rol_superadmin = Role::where('slug','superadmin')->firstOrFail();
+        $rol_superadmin = Role::where('slug', 'superadmin')->firstOrFail();
 
         // Registrar o actualizar rol de ADMINISTRADOR
         $rol_admin = Role::updateOrCreate(['slug' => 'cafeto.admin'], [
@@ -40,11 +40,10 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
 
-
         // Consulta de usuarios
-        $user_admin = User::where('nickname','LFHerre')->firstOrFail(); // Usuario Administrador (Lola Fernanda Herrera Hernandez)
-        $user_cashier = User::where('nickname','Resmerveilons')->firstOrFail(); // Usuario Cajero (Manuel Steven Ossa Lievano)
-        $user_superadmin = User::where('nickname','JDGM0331')->firstOrFail(); // Usuario Super Administrador (Jesús David Guevara Munar)
+        $user_admin = User::where('nickname', 'LFHerre')->firstOrFail(); // Usuario Administrador (Lola Fernanda Herrera Hernandez)
+        $user_cashier = User::where('nickname', 'Resmerveilons')->firstOrFail(); // Usuario Cajero (Manuel Steven Ossa Lievano)
+        $user_superadmin = User::where('nickname', 'JDGM0331')->firstOrFail(); // Usuario Super Administrador (Jesús David Guevara Munar)
 
         // Asignación de ROLES para los USUARIOS de la aplicación CAFETO (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $user_admin->roles()->syncWithoutDetaching([$rol_admin->id]);

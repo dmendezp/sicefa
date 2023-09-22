@@ -17,16 +17,16 @@ class CashController extends Controller
     public function index()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_cash_index_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_cash_index_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
-
         $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         $active_cash = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
-                                ->where('state', 'Abierta')
-                                ->first();
+            ->where('state', 'Abierta')
+            ->first();
         $cash_counts = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
-                                ->orderByDesc('id')
-                                ->get();
-        return view('cafeto::cash.index', compact('apps' ,'view', 'active_cash', 'cash_counts'));
+            ->orderByDesc('id')
+            ->get();
+        return view('cafeto::cash.index', compact('apps', 'view', 'active_cash', 'cash_counts'));
     }
 
     public function store(Request $request)
@@ -34,8 +34,8 @@ class CashController extends Controller
         $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         // Verificar si hay una caja abierta
         $open_cash_count = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
-                                    ->where('state', 'Abierta')
-                                    ->first();
+            ->where('state', 'Abierta')
+            ->first();
         if ($open_cash_count) {
             return redirect()->route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.cash.index')->with('error', ' ');
         }

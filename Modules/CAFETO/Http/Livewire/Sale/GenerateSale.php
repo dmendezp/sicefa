@@ -38,7 +38,6 @@ class GenerateSale extends Component
     public $customer_document_number = 987654321; // Número de documento del cliente (Estación de café)
     public $customer_document_type; // Tipo de documento del cliente
     public $customer_full_name; // Nombre completo del cliente
-
     public $document_types; // Tipos de documento para registro de persona
     public $person_document_type; // Tipo de  para registro de persona
     public $person_document_number; // Número de documento para registro de persona

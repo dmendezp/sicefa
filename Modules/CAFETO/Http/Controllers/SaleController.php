@@ -13,6 +13,7 @@ class SaleController extends Controller
 {
     public function index()
     {
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_sale_index_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_sale_index_title_view')];
         $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación

@@ -17,6 +17,7 @@ class ElementController extends Controller
     public function index()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_element_index_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_element_index_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         return view('cafeto::element.index', compact('apps', 'view'));
     }
@@ -24,6 +25,7 @@ class ElementController extends Controller
     public function create()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_element_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_element_create_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         $measurement_units = MeasurementUnit::orderBy('name', 'ASC')->get();
         $categories = Category::orderBy('name', 'ASC')->get();
@@ -83,6 +85,7 @@ class ElementController extends Controller
         $categories = Category::orderBy('name', 'ASC')->get();
         $kind_of_purchases = KindOfPurchase::orderBy('name', 'ASC')->get();
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_element_edit_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_element_edit_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         return view('cafeto::element.edit', compact('element', 'view', 'measurement_units', 'categories', 'kind_of_purchases', 'apps'));
     }

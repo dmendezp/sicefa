@@ -17,6 +17,7 @@ class InventoryController extends Controller
     public function index()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_index_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_index_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         $inventories = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
             ->where('amount', '<>', 0)
@@ -49,6 +50,7 @@ class InventoryController extends Controller
     public function create()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_create_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         return view('cafeto::inventory.create', compact('view', 'apps'));
     }
@@ -57,6 +59,7 @@ class InventoryController extends Controller
     public function status(Request $request)
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_status_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_status_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         $productosVencidos = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
             ->where('state', 'Disponible')
@@ -76,6 +79,7 @@ class InventoryController extends Controller
     public function low_create()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_low_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_low_create_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         return view('cafeto::inventory.low', compact('view', 'apps'));
     }
@@ -84,6 +88,7 @@ class InventoryController extends Controller
     public function show_entry(Movement $movement)
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_show_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_show_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         return view('cafeto::inventory.show-entry', compact('apps', 'view', 'movement'));
     }
@@ -92,6 +97,7 @@ class InventoryController extends Controller
     public function showLow(Movement $movement)
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_show_low_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_show_low_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         return view('cafeto::inventory.show-low', compact('apps', 'view', 'movement'));
     }
@@ -101,6 +107,7 @@ class InventoryController extends Controller
     public function reports()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_reports_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_reports_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         return view('cafeto::reports.index', compact('apps', 'view'));
     }
@@ -215,6 +222,7 @@ class InventoryController extends Controller
     public function showInventoryEntriesForm()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_show_entries_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_show_entries_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
@@ -363,6 +371,7 @@ class InventoryController extends Controller
     public function showSalesForm()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_sales_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_sales_title_view')];
+        // Lista de apps para el menu de acceso rapido
         $apps = App::get();
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
