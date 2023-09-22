@@ -16,6 +16,7 @@ class CreateLaborsTable extends Migration
         Schema::create('labors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('activity_id')->constrained()->onDelete('cascade');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->dateTime('planning_date');
             $table->dateTime('execution_date');
             $table->text('description');
