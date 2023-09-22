@@ -16,12 +16,15 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+
         // Definir arreglos de PERMISOS que van ser asignados a los ROLES
         $permissions_admin = []; // Permisos para Administrador
         $permissions_cashier = []; // Permisos para Cajero
 
+
         // Consultar aplicación SICA para registrar los roles
         $app = App::where('name', 'CAFETO')->first();
+        
 
         // ===================== Registro de todos los permisos de la aplicación CAFETO ==================
         // Vista principal del administrador
@@ -38,6 +41,42 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Vista principal del cajero',
             'description' => 'Pueder ver la vista principal del cajero',
             'description_english' => 'You can see the main view of the cashier',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de configuración (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.configuration.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista de configuración (Administrador)',
+            'description' => 'Configuración de parametros generales y testeo de impresión pos',
+            'description_english' => 'Configuration of general parameters and post printing test',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de configuración (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.configuration.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista de configuración (Cajero)',
+            'description' => 'Configuración de parametros generales y testeo de impresión pos',
+            'description_english' => 'Configuration of general parameters and post printing test',
+            'app_id' => $app->id
+        ]);
+        $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar impresión pos de prueba (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.admin.configuration.postprinting'], [ // Registro o actualización de permiso
+            'name' => 'Generar impresión pos de prueba (Administrador)',
+            'description' => 'Generar impresión pos de prueba',
+            'description_english' => 'Generate test post printing',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Generar impresión pos de prueba (Cajero)
+        $permission = Permission::updateOrCreate(['slug' => 'cafeto.cashier.configuration.postprinting'], [ // Registro o actualización de permiso
+            'name' => 'Generar impresión pos de prueba (Cajero)',
+            'description' => 'Generar impresión pos de prueba',
+            'description_english' => 'Generate test post printing',
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
@@ -502,6 +541,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_cashier[] = $permission->id; // Almacenar permiso para rol
+
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'cafeto.admin')->first(); // Rol Administrador

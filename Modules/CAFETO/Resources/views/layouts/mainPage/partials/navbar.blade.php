@@ -132,7 +132,7 @@
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.admin.configuration.index'))
                                                     <li>
-                                                        <a href="#">
+                                                        <a href="{{ route('cafeto.admin.configuration.index') }}">
                                                             <i class="fa-solid fa-print"></i>Impresora POS
                                                         </a>
                                                     </li>
@@ -216,7 +216,7 @@
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.cashier.configuration.index'))
                                                     <li>
-                                                        <a href="#">
+                                                        <a href="{{ route('cafeto.cashier.configuration.index') }}">
                                                             <i class="fa-solid fa-print"></i>Impresora POS
                                                         </a>
                                                     </li>

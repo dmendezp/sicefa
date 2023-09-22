@@ -151,7 +151,7 @@
                     @endif
                     @if(Auth::user()->havePermission('cafeto.admin.configuration.index'))
                         <li class="nav-item">
-                            <a href="#" 
+                            <a href="{{ route('cafeto.admin.configuration.index') }}" 
                                 class="nav-link {{ !Route::is('cefa.cafeto.configuration*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-gears"></i>
                                 <p>Configuración</p>
@@ -216,7 +216,7 @@
                     @endif
                     @if(Auth::user()->havePermission('cafeto.cashier.configuration.index'))
                         <li class="nav-item">
-                            <a href="#" 
+                            <a href="{{ route('cafeto.cashier.configuration.index') }}" 
                                 class="nav-link {{ !Route::is('cefa.cafeto.configuration*') ?: 'active' }} text-light">
                                 <i class="nav-icon fa-solid fa-gears"></i>
                                 <p>Configuración</p>
