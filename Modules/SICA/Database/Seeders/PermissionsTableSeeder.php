@@ -18,9 +18,9 @@ class PermissionsTableSeeder extends Seeder
     {
 
         // Definir arreglos de PERMISOS que van ser asignados a los ROLES
-        $permission_admin = []; // Permisos para Administrador
-        $permission_coordinator = []; // Permisos para Coordinador
-        $permission_attendance = []; // Permisos para Registro Asistencia
+        $permissions_admin = []; // Permisos para el Administrador
+        $permissions_academic_coordinator = []; // Permisos para el Coordinador académico
+        $permissions_attendance = []; // Permisos para el rol Asistencia
 
 
         // Consultar aplicación SICA para registrar los roles
@@ -29,15 +29,23 @@ class PermissionsTableSeeder extends Seeder
 
 
         // ===================== Registro de todos los permisos de la aplicación SICA ==================
-        // Dashboard de administrador
+        // Panel de control del administrador (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.dashboard'], [ // Registro o actualización de permiso
-            'name' => 'Admin Dashboard',
-            'description' => 'Puede ver el dashboard de administrador',
-            'description_english' => 'You can see the admin dashboard',
+            'name' => 'Panel de control del administrador (Administrador)',
+            'description' => 'Panel de control del administrador',
+            'description_english' => "Administrator's control panel",
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
-        $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Panel de control del coordinador académico (Coordinador acádemico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.dashboard'], [ // Registro o actualización de permiso
+            'name' => 'Panel de control del coordinador académico (Coordinador acádemico)',
+            'description' => 'Panel de control del coordinador académico',
+            'description_english' => "Academic coordinator's control panel",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
         // Panel de control de asistencias a eventos (Asistencia)
         $permission = Permission::updateOrCreate(['slug' => 'sica.attendance.dashboard'], [ // Registro o actualización de permiso
@@ -46,8 +54,27 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Event attendance control panel',
             'app_id' => $app->id
         ]);
-        $permission_attendance[] = $permission->id; // Almacenar permiso para rol
+        $permissions_attendance[] = $permission->id; // Almacenar permiso para rol
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
         // Vista principal de datos personales
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.index'], [ // Registro o actualización de permiso
             'name' => 'Vista principal de datos personales (Administrador)',
@@ -55,7 +82,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Main view of personal data',
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Panel de control de asistencias de eventos (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.events_attendance_dashboard'], [ // Registro o actualización de permiso
@@ -64,7 +91,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Events attendance control panel',
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Formulario de registro de asistencia a eventos (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.events_attendance.index'], [ // Registro o actualización de permiso
@@ -73,7 +100,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Event attendance registration form',
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Formulario de registro de asistencia a eventos (Asistencia)
         $permission = Permission::updateOrCreate(['slug' => 'sica.attendance.people.events_attendance.index'], [ // Registro o actualización de permiso
@@ -82,7 +109,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Event attendance registration form',
             'app_id' => $app->id
         ]);
-        $permission_attendance[] = $permission->id; // Almacenar permiso para rol
+        $permissions_attendance[] = $permission->id; // Almacenar permiso para rol
 
         // Buscar o registrar datos básicos de persona para registrar asistencia a evento (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.basic_data.search'], [ // Registro o actualización de permiso
@@ -91,7 +118,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => "Allows you to search for a person's data by document number to register their attendance",
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Buscar o registrar datos básicos de persona para registrar asistencia a evento (Asistencia)
         $permission = Permission::updateOrCreate(['slug' => 'sica.attendance.people.basic_data.search'], [ // Registro o actualización de permiso
@@ -100,7 +127,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => "Allows you to search for a person's data by document number to register their attendance",
             'app_id' => $app->id
         ]);
-        $permission_attendance[] = $permission->id; // Almacenar permiso para rol
+        $permissions_attendance[] = $permission->id; // Almacenar permiso para rol
 
         // Registrar datos básicos de personas y asistencia a evento (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.basic_data.store'], [ // Registro o actualización de permiso
@@ -109,7 +136,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Allows you to record basic personal data and event assistance',
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Registrar datos básicos de personas y asistencia a evento (Asistencia)
         $permission = Permission::updateOrCreate(['slug' => 'sica.attendance.people.basic_data.store'], [ // Registro o actualización de permiso
@@ -118,7 +145,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Allows you to record basic personal data and event assistance',
             'app_id' => $app->id
         ]);
-        $permission_attendance[] = $permission->id; // Almacenar permiso para rol
+        $permissions_attendance[] = $permission->id; // Almacenar permiso para rol
 
         // BVista principal para consultar aprendices por titulación (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.apprentices.index'], [ // Registro o actualización de permiso
@@ -127,7 +154,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can access the list of apprentices by program',
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Vista principal de instructores (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.instructors.index'], [ // Registro o actualización de permiso
@@ -136,7 +163,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can access the list of instructors',
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Vista principal de instructores (Coordinador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.coordinator.people.instructors.index'], [ // Registro o actualización de permiso
@@ -145,7 +172,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can access the list of instructors',
             'app_id' => $app->id
         ]);
-        $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
         // Vista principal de funcionarios (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.employees.index'], [ // Registro o actualización de permiso
@@ -154,7 +181,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can access the list of officers',
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Vista principal de funcionarios (Coordinador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.coordinator.people.employees.index'], [ // Registro o actualización de permiso
@@ -163,7 +190,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can access the list of officers',
             'app_id' => $app->id
         ]);
-        $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
         // Vista principal de contratistas (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.contractors.index'], [ // Registro o actualización de permiso
@@ -172,7 +199,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can access the list of contractors',
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Vista principal de contratistas (Coordinador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.coordinator.people.contractors.index'], [ // Registro o actualización de permiso
@@ -181,7 +208,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can access the list of contractors',
             'app_id' => $app->id
         ]);
-        $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
         // Listar Trimestres
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.quarters'], [ // Registro o actualización de permiso
@@ -190,8 +217,8 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can access the list of academic quarters',
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
-        $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
         // Listar Programas
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.curriculums'], [ // Registro o actualización de permiso
@@ -200,8 +227,8 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can access the list of training programs',
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
-        $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
         // Listar Cursos
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.courses'], [ // Registro o actualización de permiso
@@ -210,20 +237,19 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can access the list of Programs',
             'app_id' => $app->id
         ]);
-        $permission_admin[] = $permission->id; // Almacenar permiso para rol
-        $permission_coordinator[] = $permission->id; // Almacenar permiso para rol
-
-
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+        */
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'sica.admin')->first(); // Rol Administrador
-        $rol_coordinator = Role::where('slug', 'sica.coordinator')->first(); // Rol Coordinado Académico
+        $rol_coordinator = Role::where('slug', 'sica.academic_coordinator')->first(); // Rol Coordinado Académico
         $rol_attendance = Role::where('slug', 'sica.attendance')->first(); // Rol Registro Asistencia
 
         // Asignación de PERMISOS para los ROLES de la aplicación SICA (Sincronización de las relaciones sin eliminar las relaciones existentes)
-        $rol_admin->permissions()-> syncWithoutDetaching($permission_admin);
-        $rol_coordinator->permissions()->syncWithoutDetaching($permission_coordinator);
-        $rol_attendance->permissions()->syncWithoutDetaching($permission_attendance);
+        $rol_admin->permissions()-> syncWithoutDetaching($permissions_admin);
+        $rol_coordinator->permissions()->syncWithoutDetaching($permissions_academic_coordinator);
+        $rol_attendance->permissions()->syncWithoutDetaching($permissions_attendance);
 
     }
 }
