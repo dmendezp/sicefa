@@ -6,6 +6,22 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
+
+
+class TuControlador extends Controller
+{
+    public function procesarFormulario(Request $request)
+    {
+        // Obtén el número de documento enviado desde el formulario
+        $numeroDocumento = $request->input('numero_documento');
+
+        // Ahora puedes realizar acciones con el número de documento, como almacenarlo en una base de datos o realizar validaciones.
+
+        // Por ejemplo, puedes imprimirlo para verificar que se recibió correctamente:
+        echo "Número de Documento: " . $numeroDocumento;
+    }
+}
+
 class CallConsultationController extends Controller
 {
     /**

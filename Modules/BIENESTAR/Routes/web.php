@@ -97,6 +97,8 @@ Route::middleware(['lang'])->group(function () {
         // Vista De Consulta
 
         Route::get('/callconsultation', 'CallConsultationController@index')->name('cefa.bienestar.callconsultation');
+        Route::post('/procesar-formulario', 'TuControlador@procesarFormulario')->name('procesar.formulario');
+
 
         // Vista de Postulaciones
         route::get('/postulations', 'postulationscontroller@index') ->name('cefa.bienestar.postulations');
