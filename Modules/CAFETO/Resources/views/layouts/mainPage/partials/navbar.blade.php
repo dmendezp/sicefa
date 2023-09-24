@@ -47,7 +47,7 @@
                             data-hover="shop">{{ trans('cafeto::general.Information') }}</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="{{ route('cefa.cafeto.devs') }}">
+                                <a href="{{ route('cefa.cafeto.info') }}">
                                     <i class="fa-solid fa-info"></i> - {{ trans('cafeto::general.AboutUs') }}
                                 </a>
                             </li>
