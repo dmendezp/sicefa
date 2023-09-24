@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-5 col-md-12">
-                    <span>&copy; 2023 Fábrica de Software</span>
+                    <span>&copy; 2023 Fábrica de Software <i class="fa-solid fa-face-smile-wink"></i></span>
                 </div>
             </div>
         </div>

@@ -17,7 +17,7 @@
                 @if (Route::is('cefa.cafeto.*'))
                     <li class="has-dropdown mega-dropdown active">
                         <a href="{{ route('cefa.cafeto.index') }}" class="dropdown-toggle menu-item"><i
-                                class="fa-solid fa-house"></i> Inicio</a>
+                                class="fa-solid fa-house"></i> {{ trans('cafeto::general.MainPage') }}</a>
                     </li>
                 @endif
                 <!-- Home Administrador -->
@@ -25,7 +25,7 @@
                     @if (Auth::user()->havePermission('cafeto.admin.index'))
                         <li class="has-dropdown mega-dropdown active">
                             <a href="{{ route('cafeto.admin.index') }}" class="dropdown-toggle menu-item"><i
-                                    class="fa-solid fa-house"></i> Inicio</a>
+                                    class="fa-solid fa-house"></i> {{ trans('cafeto::general.MainPage') }}</a>
                         </li>
                     @endif
                 @endif
@@ -34,7 +34,7 @@
                     @if (Auth::user()->havePermission('cafeto.cashier.index'))
                         <li class="has-dropdown mega-dropdown active">
                             <a href="{{ route('cafeto.cashier.index') }}" class="dropdown-toggle menu-item"><i
-                                    class="fa-solid fa-house"></i> Inicio</a>
+                                    class="fa-solid fa-house"></i> {{ trans('cafeto::general.MainPage') }}</a>
                         </li>
                     @endif
                 @endif
@@ -44,16 +44,16 @@
                     <!-- Info and credits -->
                     <li class="has-dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item"
-                            data-hover="shop">Información</a>
+                            data-hover="shop">{{ trans('cafeto::general.Information') }}</a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="{{ route('cefa.cafeto.devs') }}">
-                                    Acerca de
+                                    <i class="fa-solid fa-info"></i> - {{ trans('cafeto::general.AboutUs') }}
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('cefa.cafeto.devs') }}">
-                                    Desarrolladores
+                                    <i class="fa-solid fa-code"></i> - {{ trans('cafeto::general.Developers') }}
                                 </a>
                             </li>
                         </ul>
@@ -63,40 +63,26 @@
                 @if (Route::is('cafeto.admin.*'))
                     <li class="has-dropdown mega-dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item"><i
-                                class="fa-solid fa-sitemap"></i> Administración</a>
+                                class="fa-solid fa-sitemap"></i> {{ trans('cafeto::general.Administration') }}</a>
                         <ul class="dropdown-menu mega-dropdown-menu">
                             <li>
                                 <div class="container">
                                     <div class="row">
                                         <!-- Column #1 -->
                                         <div class="col-md-3">
-                                            <a href="#">Inventario</a>
+                                            <a href="#">{{ trans('cafeto::general.Inventory') }}</a>
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.admin.inventory.index'))
                                                     <li>
                                                         <a href="{{ route('cafeto.admin.inventory.index') }}">
-                                                            <i class="fa-solid fa-boxes-stacked"></i>Inventario
+                                                            <i class="fa-solid fa-boxes-stacked"></i>{{ trans('cafeto::general.Inventory') }}
                                                         </a>
                                                     </li>
                                                 @endif
                                                 @if (Auth::user()->havePermission('cafeto.admin.element.index'))
                                                     <li>
                                                         <a href="{{ route('cafeto.admin.element.index') }}">
-                                                            <i class="fa-regular fa-image"></i>Adm. Elementos
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                                @if (Auth::user()->havePermission('cafeto.admin.reports.index'))
-                                                    <li>
-                                                        <a href="{{ route('cafeto.admin.reports.index') }}">
-                                                            <i class="fa-solid fa-chart-column"></i>Panel del reportes
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                                @if (Auth::user()->havePermission('cafeto.admin.movements.index'))
-                                                    <li>
-                                                        <a href="{{ route('cafeto.admin.movements.index') }}">
-                                                            <i class="fa-solid fa-shuffle"></i>Histórico de Movimientos
+                                                            <i class="fa-regular fa-image"></i>{{ trans('cafeto::general.Elements') }}
                                                         </a>
                                                     </li>
                                                 @endif
@@ -106,19 +92,19 @@
 
                                         <!-- Column #2 -->
                                         <div class="col-md-3">
-                                            <a href="#">Ventas</a>
+                                            <a href="#">{{ trans('cafeto::general.Sales') }}</a>
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.admin.sale.index'))
                                                     <li>
                                                         <a href="{{ route('cafeto.admin.sale.index') }}">
-                                                            <i class="fa-solid fa-cart-shopping"></i>Ventas
+                                                            <i class="fa-solid fa-cart-shopping"></i>{{ trans('cafeto::general.Sales') }}
                                                         </a>
                                                     </li>
                                                 @endif
                                                 @if (Auth::user()->havePermission('cafeto.admin.cash.index'))
                                                     <li>
                                                         <a href="{{ route('cafeto.admin.cash.index') }}">
-                                                            <i class="fa-solid fa-cash-register"></i>Control de caja
+                                                            <i class="fa-solid fa-cash-register"></i>{{ trans('cafeto::general.CashControl') }}
                                                         </a>
                                                     </li>
                                                 @endif
@@ -128,12 +114,34 @@
 
                                         <!-- Column #3 -->
                                         <div class="col-md-3">
-                                            <a href="#">Configuración</a>
+                                            <a href="#">{{ trans('cafeto::general.Control') }}</a>
+                                            <ul>
+                                                @if (Auth::user()->havePermission('cafeto.admin.reports.index'))
+                                                    <li>
+                                                        <a href="{{ route('cafeto.admin.reports.index') }}">
+                                                            <i class="fa-solid fa-chart-column"></i>{{ trans('cafeto::general.ReportsPanel') }}
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                                @if (Auth::user()->havePermission('cafeto.admin.movements.index'))
+                                                    <li>
+                                                        <a href="{{ route('cafeto.admin.movements.index') }}">
+                                                            <i class="fa-solid fa-shuffle"></i>{{ trans('cafeto::general.MovementHistory') }}
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                        <!-- .col-md-3 end -->
+
+                                        <!-- Column #4 -->
+                                        <div class="col-md-3">
+                                            <a href="#">{{ trans('cafeto::general.Configuration') }}</a>
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.admin.configuration.index'))
                                                     <li>
                                                         <a href="{{ route('cafeto.admin.configuration.index') }}">
-                                                            <i class="fa-solid fa-print"></i>Impresora POS
+                                                            <i class="fa-solid fa-print"></i>{{ trans('cafeto::general.PrintPOS') }}
                                                         </a>
                                                     </li>
                                                 @endif
@@ -154,33 +162,19 @@
                 @if (Route::is('cafeto.cashier.*'))
                     <li class="has-dropdown mega-dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item"><i
-                                class="fa-solid fa-sitemap"></i> Administración</a>
+                                class="fa-solid fa-sitemap"></i> {{ trans('cafeto::general.Administration') }}</a>
                         <ul class="dropdown-menu mega-dropdown-menu">
                             <li>
                                 <div class="container">
                                     <div class="row">
                                         <!-- Column #1 -->
                                         <div class="col-md-3">
-                                            <a href="#">Inventario</a>
+                                            <a href="#">{{ trans('cafeto::general.Inventory') }}</a>
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.cashier.inventory.index'))
                                                     <li>
                                                         <a href="{{ route('cafeto.cashier.inventory.index') }}">
-                                                            <i class="fa-solid fa-boxes-stacked"></i>Inventario
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                                @if (Auth::user()->havePermission('cafeto.cashier.reports.index'))
-                                                    <li>
-                                                        <a href="{{ route('cafeto.cashier.reports.index') }}">
-                                                            <i class="fa-solid fa-chart-column"></i>Panel del reportes
-                                                        </a>
-                                                    </li>
-                                                @endif
-                                                @if (Auth::user()->havePermission('cafeto.cashier.movements.index'))
-                                                    <li>
-                                                        <a href="{{ route('cafeto.cashier.movements.index') }}">
-                                                            <i class="fa-solid fa-shuffle"></i>Histórico de Movimientos
+                                                            <i class="fa-solid fa-boxes-stacked"></i>{{ trans('cafeto::general.Inventory') }}
                                                         </a>
                                                     </li>
                                                 @endif
@@ -190,19 +184,19 @@
 
                                         <!-- Column #2 -->
                                         <div class="col-md-3">
-                                            <a href="#">Ventas</a>
+                                            <a href="#">{{ trans('cafeto::general.Sales') }}</a>
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.cashier.sale.index'))
                                                     <li>
                                                         <a href="{{ route('cafeto.cashier.sale.index') }}">
-                                                            <i class="fa-solid fa-cart-shopping"></i>Ventas
+                                                            <i class="fa-solid fa-cart-shopping"></i>{{ trans('cafeto::general.Sales') }}
                                                         </a>
                                                     </li>
                                                 @endif
                                                 @if (Auth::user()->havePermission('cafeto.cashier.cash.index'))
                                                     <li>
                                                         <a href="{{ route('cafeto.cashier.cash.index') }}">
-                                                            <i class="fa-solid fa-cash-register"></i>Control de Caja
+                                                            <i class="fa-solid fa-cash-register"></i>{{ trans('cafeto::general.CashControl') }}
                                                         </a>
                                                     </li>
                                                 @endif
@@ -212,12 +206,34 @@
 
                                         <!-- Column #3 -->
                                         <div class="col-md-3">
-                                            <a href="#">Configuración</a>
+                                            <a href="#">{{ trans('cafeto::general.Control') }}</a>
+                                            <ul>
+                                                @if (Auth::user()->havePermission('cafeto.cashier.reports.index'))
+                                                    <li>
+                                                        <a href="{{ route('cafeto.cashier.reports.index') }}">
+                                                            <i class="fa-solid fa-chart-column"></i>{{ trans('cafeto::general.ReportsPanel') }}
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                                @if (Auth::user()->havePermission('cafeto.cashier.movements.index'))
+                                                    <li>
+                                                        <a href="{{ route('cafeto.cashier.movements.index') }}">
+                                                            <i class="fa-solid fa-shuffle"></i>{{ trans('cafeto::general.MovementHistory') }}
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                        <!-- .col-md-3 end -->
+
+                                        <!-- Column #4 -->
+                                        <div class="col-md-3">
+                                            <a href="#">{{ trans('cafeto::general.Configuration') }}</a>
                                             <ul>
                                                 @if (Auth::user()->havePermission('cafeto.cashier.configuration.index'))
                                                     <li>
                                                         <a href="{{ route('cafeto.cashier.configuration.index') }}">
-                                                            <i class="fa-solid fa-print"></i>Impresora POS
+                                                            <i class="fa-solid fa-print"></i>{{ trans('cafeto::general.PrintPOS') }}
                                                         </a>
                                                     </li>
                                                 @endif
@@ -239,14 +255,16 @@
                 @else
                     @auth
                         @if (checkRol('cafeto.admin'))
-                        <div class="module module-reservation pull-left">
-                            <a class="btn-popup btn-popup-theme">Modo: Administrador</a>
-                        </div>
+                            <div class="module module-reservation pull-left">
+                                <a href="{{ route('cafeto.admin.index') }}" class="btn-popup btn-popup-theme">
+                                    {{ trans('cafeto::general.ModeA') }}</a>
+                            </div>
                         @endif
                         @if (checkRol('cafeto.cashier'))
-                        <div class="module module-reservation pull-left">
-                            <a class="btn-popup btn-popup-theme">Modo: Cajero</a>
-                        </div>
+                            <div class="module module-reservation pull-left">
+                                <a href="{{ route('cafeto.cashier.index') }}" class="btn-popup btn-popup-theme">
+                                    {{ trans('cafeto::general.ModeC') }}</a>
+                            </div>
                         @endif
                     @endauth
                 @endguest
@@ -254,7 +272,7 @@
                 <!-- Menu Session-->
                 <li class="has-dropdown">
                     @guest
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item">Iniciar Sesion</a>
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item">{{ trans('cafeto::general.Log In') }}</a>
                     @else
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle menu-item">
                             {{ Auth::user()->person->fullname }} <i class="fa-solid fa-angles-down"></i>
@@ -264,34 +282,40 @@
                         @guest
                             <li>
                                 <a class="menu-item" href="{{ route('login') }}">
-                                    Iniciar Sesion <i class="fa-solid fa-right-to-bracket"></i>
+                                    <i class="fa-solid fa-right-to-bracket"></i> {{ trans('cafeto::general.Log In') }}
                                 </a>
                             </li>
                         @else
                             @auth
                                 @if (checkRol('cafeto.admin'))
                                     <li>
-                                        <a href="{{ route('cafeto.admin.index') }}" class="menu-item">Modo Administrador</a>
+                                        <a href="{{ route('cafeto.admin.index') }}" class="menu-item">
+                                            <i class="fa-solid fa-user-tie"></i> {{ trans('cafeto::general.ModeA') }}
+                                        </a>
                                     </li>
                                 @endif
                                 @if (checkRol('cafeto.cashier'))
                                     <li>
-                                        <a href="{{ route('cafeto.cashier.index') }}" class="menu-item">Modo Cajero</a>
+                                        <a href="{{ route('cafeto.cashier.index') }}" class="menu-item">
+                                            <i class="fa-solid fa-user"></i> {{ trans('cafeto::general.ModeC') }}
+                                        </a>
                                     </li>
                                 @endif
                                 <li>
-                                    <a href="{{ route('cefa.cafeto.index') }}" class="menu-item">Modo Usuario</a>
+                                    <a href="{{ route('cefa.cafeto.index') }}" class="menu-item">
+                                        <i class="fa-regular fa-user"></i> {{ trans('cafeto::general.ModeU') }}
+                                    </a>
                                 </li>
                             @endauth
                             <li>
                                 <a class="menu-item" href="{{ route('cefa.welcome') }}">
-                                    Volver a SICEFA <i class="nav-icon fas fa-puzzle-piece"></i>
+                                    <i class="nav-icon fas fa-puzzle-piece"></i> {{ trans('cafeto::general.Back to SICEFA') }}
                                 </a>
                             </li>
                             <li>
                                 <a class="menu-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Cerrar Sesion <i class="fa-solid fa-right-to-bracket"></i>
+                                    <i class="fa-solid fa-right-to-bracket"></i> {{ trans('cafeto::general.Logout') }} 
                                 </a>
                             </li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -309,14 +333,14 @@
                             <a href="{{ url('lang', ['en']) }}" class="menu-item">
                                 <img src="{{ asset('modules/cafeto/images/flags/estados-unidos.webp') }}"
                                     alt="" width="20px">
-                                Ingles
+                                    {{ trans('cafeto::general.English') }}
                             </a>
                         </li>
                         <li>
                             <a href="{{ url('lang', ['es']) }}" class="menu-item">
                                 <img src="{{ asset('modules/cafeto/images/flags/colombia.webp') }}" alt=""
                                     width="20px">
-                                Español
+                                    {{ trans('cafeto::general.Spanish') }}
                             </a>
                         </li>
                     </ul>

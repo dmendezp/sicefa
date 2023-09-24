@@ -12,6 +12,28 @@ return [
     'Apps'             => 'Aplicaciones',
     'Log In'           => 'Iniciar Sesión',
 
+    // Navbar MainPage
+    'ModeA'            => 'Modo: Administrador',
+    'ModeC'            => 'Modo: Cajero',
+    'ModeU'            => 'Modo: Usuario',
+    'MainPage'         => 'Inicio',
+    'Information'      => 'Información',
+    'AboutUs'          => 'Acerca de',
+    'Developers'       => 'Desarrolladores',
+    'Administration'   => 'Administración',
+    'Inventory'        => 'Inventario',
+    'Elements'         => 'Adm. Elementos',
+    'Sales'            => 'Ventas',
+    'CashControl'      => 'Control de Caja',
+    'Control'          => 'Control',
+    'ReportsPanel'     => 'Panel de Reportes',
+    'MovementHistory'  => 'Histórico de Movimientos',
+    'Configuration'    => 'Configuración',
+    'PrintPOS'         => 'Impresora POS',
+    'Logout'           => 'Cerrar Sesión',
+    'English'          => 'Inglés',
+    'Spanish'          => 'Español',
+
     //Siderbar
     'Sales Point'      => 'Punto de Venta',
     'Session'          => 'Iniciar Sesión',

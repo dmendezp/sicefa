@@ -11,6 +11,28 @@ return [
     'Full Screen Mode' => 'Full Screen Mode',
     'Apps'             => 'Apps',
     'Log In'           => 'Log In',
+    
+    // Navbar MainPage
+    'ModeA'            => 'Mode: Administrator',
+    'ModeC'            => 'Mode: Cashier',
+    'ModeU'            => 'Mode: User',
+    'MainPage'         => 'Main Page',
+    'Information'      => 'Information',
+    'AboutUs'          => 'About Us',
+    'Developers'       => 'Developers',
+    'Administration'   => 'Administration',
+    'Inventory'        => 'Inventory',
+    'Elements'         => 'Adm. Elements',
+    'Sales'            => 'Sales',
+    'CashControl'      => 'Cash Control',
+    'Control'          => 'Control',
+    'ReportsPanel'     => 'Reports Panel',
+    'MovementHistory'  => 'Movement History',
+    'Configuration'    => 'Configuration',
+    'PrintPOS'         => 'Print POS',
+    'Logout'           => 'Logout',
+    'English'          => 'English',
+    'Spanish'          => 'Spanish',
 
     //Sidebar
     'Sales Point'      => 'Point of Sale',
