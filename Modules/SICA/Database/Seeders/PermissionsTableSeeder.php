@@ -27,7 +27,6 @@ class PermissionsTableSeeder extends Seeder
         $app = App::where('name','SICA')->first();
 
 
-
         // ===================== Registro de todos los permisos de la aplicación SICA ==================
         // Panel de control del administrador (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.dashboard'], [ // Registro o actualización de permiso
@@ -56,16 +55,392 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_attendance[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista principal de parámetros para datos de personas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de parámetros para datos de personas (Administrador)',
+            'description' => 'Vista principal de parámetros para datos de personas',
+            'description_english' => 'Main parameter view for person data',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista principal de parámetros para datos de personas (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de parámetros para datos de personas (Coordinador académico)',
+            'description' => 'Vista principal de parámetros para datos de personas',
+            'description_english' => 'Main parameter view for person data',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
+        // Formulario de registro de EPS (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.eps.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de EPS (Administrador)',
+            'description' => 'Formulario de registro de EPS',
+            'description_english' => 'EPS registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Formulario de registro de EPS (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.eps.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de EPS (Coordiandor académico)',
+            'description' => 'Formulario de registro de EPS',
+            'description_english' => 'EPS registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
+        // Registrar EPS (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.eps.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar EPS (Administrador)',
+            'description' => 'Registrar EPS',
+            'description_english' => 'Register EPS',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Registrar EPS (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.eps.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar EPS (Coordiandor académico)',
+            'description' => 'Registrar EPS',
+            'description_english' => 'Register EPS',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
+        // Formulario de actualización de EPS (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.eps.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de EPS (Administrador)',
+            'description' => 'Formulario de actualización de EPS',
+            'description_english' => 'EPS Update Form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Formulario de actualización de EPS (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.eps.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de EPS (Coordiandor académico)',
+            'description' => 'Formulario de actualización de EPS',
+            'description_english' => 'EPS Update Form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
+        // Acutalizar EPS (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.eps.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar EPS (Administrador)',
+            'description' => 'Actualizar EPS',
+            'description_english' => 'Update EPS',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Acutalizar EPS (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.eps.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar EPS (Coordiandor académico)',
+            'description' => 'Actualizar EPS',
+            'description_english' => 'Update EPS',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
+        // Formulario de eliminación de EPS (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.eps.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de eliminación de EPS (Administrador)',
+            'description' => 'Formulario de eliminación de EPS',
+            'description_english' => 'EPS elimination form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de eliminación de EPS (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.eps.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de eliminación de EPS (Coordiandor académico)',
+            'description' => 'Formulario de eliminación de EPS',
+            'description_english' => 'EPS elimination form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar EPS (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.eps.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar EPS (Administrador)',
+            'description' => 'Eliminar EPS',
+            'description_english' => 'Eliminate EPS',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar EPS (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.eps.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar EPS (Coordiandor académico)',
+            'description' => 'Eliminar EPS',
+            'description_english' => 'Eliminate EPS',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de grupo poblacional (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.population.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de grupo poblacional (Administrador)',
+            'description' => 'Formulario de registro de grupo poblacional',
+            'description_english' => 'Population group registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de grupo poblacional (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.population.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de grupo poblacional (Coordiandor académico)',
+            'description' => 'Formulario de registro de grupo poblacional',
+            'description_english' => 'Population group registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar grupo poblacional (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.population.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar grupo poblacional (Administrador)',
+            'description' => 'Registrar grupo poblacional',
+            'description_english' => 'Register population group',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar grupo poblacional (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.population.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar grupo poblacional (Coordiandor académico)',
+            'description' => 'Registrar grupo poblacional',
+            'description_english' => 'Register population group',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de grupo poblacional (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.population.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de grupo poblacional (Administrador)',
+            'description' => 'Formulario de actualización de grupo poblacional',
+            'description_english' => 'Population group update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de grupo poblacional (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.population.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de grupo poblacional (Coordiandor académico)',
+            'description' => 'Formulario de actualización de grupo poblacional',
+            'description_english' => 'Population group update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar grupo poblacional (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.population.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar grupo poblacional (Administrador)',
+            'description' => 'Actualizar grupo poblacional',
+            'description_english' => 'Update population group',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar grupo poblacional (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.population.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar grupo poblacional (Coordiandor académico)',
+            'description' => 'Actualizar grupo poblacional',
+            'description_english' => 'Update population group',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario para eliminar grupo poblacional (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.population.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para eliminar grupo poblacional (Administrador)',
+            'description' => 'Formulario para eliminar grupo poblacional',
+            'description_english' => 'Form to eliminate population group',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario para eliminar grupo poblacional (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.population.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para eliminar grupo poblacional (Coordiandor académico)',
+            'description' => 'Formulario para eliminar grupo poblacional',
+            'description_english' => 'Form to eliminate population group',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar grupo poblacional (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.population.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar grupo poblacional (Administrador)',
+            'description' => 'Eliminar grupo poblacional',
+            'description_english' => 'Eliminate population group',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar grupo poblacional (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.population.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar grupo poblacional (Coordiandor académico)',
+            'description' => 'Eliminar grupo poblacional',
+            'description_english' => 'Eliminate population group',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de evento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.events.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de evento (Administrador)',
+            'description' => 'Formulario de registro de evento',
+            'description_english' => 'Event registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de evento (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.events.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de evento (Coordiandor académico)',
+            'description' => 'Formulario de registro de evento',
+            'description_english' => 'Event registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar evento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.events.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar evento (Administrador)',
+            'description' => 'Registrar evento',
+            'description_english' => 'Register event',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar evento (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.events.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar evento (Coordiandor académico)',
+            'description' => 'Registrar evento',
+            'description_english' => 'Register event',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de evento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.events.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de evento (Administrador)',
+            'description' => 'Formulario de actualización de evento',
+            'description_english' => 'Event update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de evento (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.events.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de evento (Coordiandor académico)',
+            'description' => 'Formulario de actualización de evento',
+            'description_english' => 'Event update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar evento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.events.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar evento (Administrador)',
+            'description' => 'Actualizar evento',
+            'description_english' => 'Update event',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar evento (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.events.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar evento (Coordiandor académico)',
+            'description' => 'Actualizar evento',
+            'description_english' => 'Update event',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario para eliminar evento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.events.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para eliminar evento (Administrador)',
+            'description' => 'Formulario para eliminar evento',
+            'description_english' => 'Form to eliminate event',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario para eliminar evento (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.events.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para eliminar evento (Coordiandor académico)',
+            'description' => 'Formulario para eliminar evento',
+            'description_english' => 'Form to eliminate event',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar evento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.events.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar evento (Administrador)',
+            'description' => 'Eliminar evento',
+            'description_english' => 'Delete event',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar evento (Coordiandor académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.events.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar evento (Coordiandor académico)',
+            'description' => 'Eliminar evento',
+            'description_english' => 'Delete event',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de datos personales (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de datos personales (Administrador)',
+            'description' => 'Vista principal de datos personales',
+            'description_english' => 'Main view of personal data',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Buscar datos personales por número de documento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.search'], [ // Registro o actualización de permiso
+            'name' => 'Buscar datos personales por número de documento (Administrador)',
+            'description' => 'Buscar datos personales por número de documento',
+            'description_english' => 'Search personal data by document number',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de datos personales (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de datos personales (Administrador)',
+            'description' => 'Formulario de registro de datos personales',
+            'description_english' => 'Personal data registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar datos personales (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar datos personales (Administrador)',
+            'description' => 'Registrar datos personales',
+            'description_english' => 'Register personal data',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de datos personales (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de datos personales (Administrador)',
+            'description' => 'Formulario de actualización de datos personales',
+            'description_english' => 'Personal data update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
 
 
@@ -75,14 +450,6 @@ class PermissionsTableSeeder extends Seeder
 
 
         /*
-        // Vista principal de datos personales
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista principal de datos personales (Administrador)',
-            'description' => 'Vista principal de datos personales',
-            'description_english' => 'Main view of personal data',
-            'app_id' => $app->id
-        ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Panel de control de asistencias de eventos (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.events_attendance_dashboard'], [ // Registro o actualización de permiso

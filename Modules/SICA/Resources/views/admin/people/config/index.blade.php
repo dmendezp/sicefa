@@ -1,3 +1,7 @@
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
+
 @extends('sica::layouts.master')
 
 @section('content')
@@ -17,11 +21,13 @@
                                             <th class="text-center">#</th>
                                             <th class="text-center">Nombre</th>
                                             <th class="text-center">
-                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.eps.create') }}')">
-                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar EPS">
-                                                        <i class="fas fa-plus-circle"></i>
-                                                    </b>
-                                                </a>
+                                                @if (Auth::user()->havePermission('sica.'.$role_name.'.people.config.eps.create'))
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.people.config.eps.create') }}')">
+                                                        <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar EPS">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </b>
+                                                    </a>
+                                                @endif
                                             </th>
                                         </tr>
                                     </thead>
@@ -32,16 +38,20 @@
                                                 <td class="text-center">{{ $eps->name }}</td>
                                                 <td class="text-center">
                                                     <div class="opts">
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.eps.edit', $eps->id) }}')">
-                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar EPS">
-                                                                <i class="fas fa-edit"></i>
-                                                            </b>
-                                                        </a>
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.eps.delete', $eps->id) }}')">
-                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar EPS">
-                                                                <i class="fas fa-trash-alt"></i>
-                                                            </b>
-                                                        </a>
+                                                        @if (Auth::user()->havePermission('sica.'.$role_name.'.people.config.eps.edit'))
+                                                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.people.config.eps.edit', $eps->id) }}')">
+                                                                <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar EPS">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </b>
+                                                            </a>
+                                                        @endif
+                                                        @if (Auth::user()->havePermission('sica.'.$role_name.'.people.config.eps.delete'))
+                                                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.people.config.eps.delete', $eps->id) }}')">
+                                                                <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar EPS">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </b>
+                                                            </a>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>
@@ -124,11 +134,13 @@
                                             <th class="text-center">Nombre</th>
                                             <th>Descripción</th>
                                             <th class="text-center">
-                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.population.create') }}')">
-                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar grupo poblacional">
-                                                        <i class="fas fa-plus-circle"></i>
-                                                    </b>
-                                                </a>
+                                                @if (Auth::user()->havePermission('sica.'.$role_name.'.people.config.population.create'))
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.people.config.population.create') }}')">
+                                                        <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar grupo poblacional">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </b>
+                                                    </a>
+                                                @endif
                                             </th>
                                         </tr>
                                     </thead>
@@ -140,16 +152,20 @@
                                                 <td>{{ $population->description }}</td>
                                                 <td class="text-center">
                                                     <div class="opts">
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.population.edit', $population->id) }}')">
-                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar grupo poblacional">
-                                                                <i class="fas fa-edit"></i>
-                                                            </b>
-                                                        </a>
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.population.delete', $population->id) }}')">
-                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar poblacional">
-                                                                <i class="fas fa-trash-alt"></i>
-                                                            </b>
-                                                        </a>
+                                                        @if (Auth::user()->havePermission('sica.'.$role_name.'.people.config.population.edit'))
+                                                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.people.config.population.edit', $population->id) }}')">
+                                                                <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar grupo poblacional">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </b>
+                                                            </a>
+                                                        @endif
+                                                        @if (Auth::user()->havePermission('sica.'.$role_name.'.people.config.population.delete'))
+                                                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.people.config.population.delete', $population->id) }}')">
+                                                                <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar poblacional">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </b>
+                                                            </a>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>
@@ -177,11 +193,13 @@
                                             <th class="text-center">Fecha de cierre</th>
                                             <th class="text-center">Estado</th>
                                             <th class="text-center">
-                                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.events.create') }}')">
-                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar evento">
-                                                        <i class="fas fa-plus-circle"></i>
-                                                    </b>
-                                                </a>
+                                                @if (Auth::user()->havePermission('sica.'.$role_name.'.people.config.events.create'))
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.people.config.events.create') }}')">
+                                                        <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar evento">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </b>
+                                                    </a>
+                                                @endif
                                             </th>
                                         </tr>
                                     </thead>
@@ -196,16 +214,20 @@
                                                 <td class="text-center">{{ $event->state }}</td>
                                                 <td class="text-center">
                                                     <div class="opts">
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.events.edit', $event->id) }}')">
-                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar evento">
-                                                                <i class="fas fa-edit"></i>
-                                                            </b>
-                                                        </a>
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.people.config.events.delete', $event->id) }}')">
-                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar evento">
-                                                                <i class="fas fa-trash-alt"></i>
-                                                            </b>
-                                                        </a>
+                                                        @if (Auth::user()->havePermission('sica.'.$role_name.'.people.config.events.edit'))
+                                                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.people.config.events.edit', $event->id) }}')">
+                                                                <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar evento">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </b>
+                                                            </a>
+                                                        @endif
+                                                        @if (Auth::user()->havePermission('sica.'.$role_name.'.people.config.events.delete'))
+                                                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.people.config.events.delete', $event->id) }}')">
+                                                                <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar evento">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </b>
+                                                            </a>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>
@@ -239,11 +261,23 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#eps_table').DataTable({});
-            $('#population_groups_table').DataTable({});
+            $('#eps_table').DataTable({
+                columnDefs: [
+                    { orderable: false, targets: 2 }
+                ]
+            });
+            $('#population_groups_table').DataTable({
+                columnDefs: [
+                    { orderable: false, targets: 3 }
+                ]
+            });
             $('#pensions_table').DataTable({});
             $('#insurancers_table').DataTable({});
-            $('#events_table').DataTable({});
+            $('#events_table').DataTable({
+                columnDefs: [
+                    { orderable: false, targets: 6 }
+                ]
+            });
         });
 
         @if (Session::get('message_config'))

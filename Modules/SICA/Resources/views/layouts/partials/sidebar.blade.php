@@ -439,12 +439,43 @@
 
                 <!-- MENU PARA COORDINACIÓN ACADÉMICA -->
                 @if (Route::is('sica.academic_coordinator.*'))
-                    <li class="nav-item">
-                        <a href="{{ route('sica.academic_coordinator.dashboard') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.dashboard') ?: 'active' }}">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <p> {{ trans('sica::menu.Dashboard') }}</p>
+                    @if (Auth::user()->havePermission('sica.academic_coordinator.dashboard'))
+                        <li class="nav-item">
+                            <a href="{{ route('sica.academic_coordinator.dashboard') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.dashboard') ?: 'active' }}">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <p> {{ trans('sica::menu.Dashboard') }}</p>
+                            </a>
+                        </li>
+                    @endif
+                    <!-- MENU PARA PERSONAS -->
+                    <li class="nav-item {{ !Route::is('sica.academic_coordinator.people.*') ?: 'menu-is-opening menu-open' }}">
+                        <a href="#" class="nav-link {{ !Route::is('sica.academic_coordinator.people.*') ?: 'active' }}">
+                            <i class="fas fa-users"></i>
+                            <p>
+                                {{ trans('sica::menu.People') }}
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            @if (Auth::user()->havePermission('sica.academic_coordinator.people.config.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.academic_coordinator.people.config.index') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.people.config*') ?: 'active' }}">
+                                        <i class="fas fa-cogs"></i>
+                                        <p>{{ trans('sica::menu.Config') }}</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.academic_coordinator.people.personal_data.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.academic_coordinator.people.personal_data.index') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.people.personal_data*') ?: 'active' }}">
+                                        <i class="fas fa-id-card"></i>
+                                        <p>{{ trans('sica::menu.Personal data') }}</p>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
                     </li>
+                    <!-- CIERRA MENU PARA PERSONAS -->
                 @endif
                 <!-- CIERRA MENU PARA COORDINACIÓN ACADÉMICA -->
 
