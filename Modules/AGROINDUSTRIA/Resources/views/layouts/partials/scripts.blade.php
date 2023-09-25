@@ -164,7 +164,6 @@ window.onclick = function(event) {
 </script>
 
 <script>
-    new DataTable('#example')  
     new DataTable('#discharge')
     new DataTable('#formulation')
     new DataTable('#labors')

@@ -47,8 +47,12 @@ Route::middleware(['lang'])->group(function(){
 
             Route::get('/labor', [LaborController::class, 'index'])->name('cefa.agroindustria.units.instructor.labor');
             Route::get('/labor/form', [LaborController::class, 'form'])->name('cefa.agroindustria.units.instructor.labor.form');
+            Route::get('/labor/{activityId}', [LaborController::class, 'responsibilites'])->name('cefa.agroindustria.units.instructor.labor.responsibilities');
             Route::post('/labor/register', [LaborController::class, 'register_labor'])->name('cefa.agroindustria.units.instructor.labor.register');
+            Route::post('/labor/cancelar/{id}', [LaborController::class, 'cancelLabor'])->name('cefa.agroindustria.units.instructor.labor.cancelar');
+            Route::post('/labor/realizar/{id}', [LaborController::class, 'approbedLabor'])->name('cefa.agroindustria.units.instructor.labor.realizar');
             Route::get('/activity', [ActivityController::class, 'activity'])->name('cefa.agroindustria.units.instructor.activity');
+
             //Movimientos
             Route::get('/movements', [DeliverController::class, 'deliveries'])->name('cefa.agroindustria.units.instructor.movements');
             Route::get('/movements/pending', [DeliverController::class, 'pending'])->name('cefa.agroindustria.units.instructor.movements.pending');

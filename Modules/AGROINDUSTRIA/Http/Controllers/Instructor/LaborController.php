@@ -8,6 +8,9 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\Labor;
+use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\Role;
+use Modules\SICA\Entities\Responsibility;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 
 class LaborController extends Controller
@@ -45,7 +48,7 @@ class LaborController extends Controller
                 'id' => $id,
                 'name' => $name
             ];
-        })->prepend(['id' => null, 'name' => 'Seleccione una actividad'])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectActivity')])->pluck('name', 'id');
 
         $destination = [
             'Formación' => 'Formación',
@@ -61,36 +64,67 @@ class LaborController extends Controller
                 'id' => $id,
                 'name' => $name
             ];
-        })->prepend(['id' => null, 'name' => 'Seleccione una receta'])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectRecipe')])->pluck('name', 'id');
         $data = [
             'title' => $title,
             'activity' => $activity,
             'recipe' => $recipe,
-            'destination' => $destination
+            'destination' => $destination,
         ];
         return view('agroindustria::instructor.labors.form', $data);
+    }
+
+    public function responsibilites ($activityId){
+
+        $responsabilities = Responsibility::where('activity_id', $activityId)->pluck('role_id');
+        
+        $roles = Role::with('users')->where('id', $responsabilities)->get();
+        
+        $id = $roles->flatMap(function ($r){
+            return $r->users->map(function ($u){
+                return [
+                    'personId' => $u->person_id,
+                ];
+            });
+        });
+        
+        $people = Person::where('id', $id)->get();
+        $person = $people->map(function ($p){
+            $personId = $p->id;
+            $personName = $p->first_name . ' ' . $p->first_last_name . ' ' . $p->second_last_name;
+
+            return [
+                'id' => $personId,
+                'name' => $personName
+            ];
+        });
+
+        return response()->json(['id' => $person]);
     }
 
     public function register_labor(Request $request){
         $rules = [
             'activities' => 'required',
+            'person' => 'required',
             'date_execution' => 'required',
             'description' => 'required',
             'destination' => 'required',
             'observations' => 'required'
         ];
         $messages = [
-            'activities.required' => 'Debe seleccionar una actividad',
-            'date_execution.required' => 'Debe ingresar una fecha',
-            'description.required' => 'Debe ingresar una descripción',
-            'destination.required' => 'Debe seleccionar un destino',
-            'observations.required' => 'Debe ingresar una obsevación'
+            'activities.required' => trans('agroindustria::labors.youMustSelectActivity'),
+            'person.required' => trans('agroindustria::labors.youMustSelectResponsible'),
+            'date_execution.required' => trans('agroindustria::labors.youMustEnterDate'),
+            'description.required' => trans('agroindustria::labors.youMustEnterDescription'),
+            'destination.required' => trans('agroindustria::labors.youMustSelectDestination'),
+            'observations.required' => trans('agroindustria::labors.youMustEnterRemark')
         ];
         $validatedData = $request->validate($rules, $messages);
     
         
         $l = new Labor;
         $l->activity_id = $validatedData['activities'];
+        $l->person_id = $validatedData['person'];
         $l->planning_date = $request->input('date_plannig');
         $l->execution_date = $validatedData['date_execution'];
         $l->description = $validatedData['description'];
@@ -101,14 +135,38 @@ class LaborController extends Controller
 
         if($l->save()){
             $icon = 'success';
-                $message_line = 'Labor guardada correctamente';
+                $message_line = trans('agroindustria::labors.laborSavedCorrectly');
          }else{
             $icon = 'error';
-            $message_line = 'Error al guardar la labor';
+            $message_line = trans('agroindustria::labors.errorWhenSavingWork');
          }
          return redirect()->route('cefa.agroindustria.units.instructor.labor')->with([
              'icon' => $icon,
              'message_line' => $message_line,
          ]); 
+    }
+    public function cancelLabor($id){
+        $labor = Labor::findOrFail($id);
+        $labor->status = 'Cancelado';
+        $labor->save();
+
+        // Puedes agregar cualquier lógica adicional que necesites aquí
+
+        return redirect()->back()->with([
+            'icon' => 'success',
+            'message_line' => trans('agroindustria::labors.laborCorrectlyCancelled'),
+        ]);
+    }
+    public function approbedLabor($id){
+        $labor = Labor::findOrFail($id);
+        $labor->status = 'Realizado';
+        $labor->save();
+    
+        // Puedes agregar cualquier lógica adicional que necesites aquí
+    
+        return redirect()->back()->with([
+            'icon' => 'success',
+            'message_line' => trans('agroindustria::labors.workPerformedCorrectly'),
+        ]);
     }
 }
