@@ -15,7 +15,7 @@
                     <div class="card-body">
                         {!! Form::open(['url' => route('sica.'.$role_name.'.people.personal_data.load.store'), 'files' => 'true', 'enctype' => 'multipart/form-data']) !!}
                             <div class="form_load" id="form_load">
-                                <div class="form-group">
+                                <div class="form-group"> 
                                     <div class="input-group">
                                         {{ Form::input('file', 'archivo', @$_REQUEST['archivo'], [
                                             'class' => 'form-control',

@@ -24,7 +24,7 @@ class TempTablesController extends Controller
 
     /* Formulario para carga de archivo con datos personales de personas */
     public function personal_data_load_create(){
-        $data = ['title'=>trans('sica::menu.Load people')];
+        $data = ['title'=>'Cargar personas'];
         return view('sica::admin.people.personal_data.load',$data);
     }
 

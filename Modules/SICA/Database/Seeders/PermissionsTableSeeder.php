@@ -406,6 +406,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista principal de datos personales (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.personal_data.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de datos personales (Coordinador académico)',
+            'description' => 'Vista principal de datos personales',
+            'description_english' => 'Main view of personal data',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
         // Buscar datos personales por número de documento (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.search'], [ // Registro o actualización de permiso
             'name' => 'Buscar datos personales por número de documento (Administrador)',
@@ -415,6 +424,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Buscar datos personales por número de documento (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.personal_data.search'], [ // Registro o actualización de permiso
+            'name' => 'Buscar datos personales por número de documento (Coordinador académico)',
+            'description' => 'Buscar datos personales por número de documento',
+            'description_english' => 'Search personal data by document number',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
         // Formulario de registro de datos personales (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.create'], [ // Registro o actualización de permiso
             'name' => 'Formulario de registro de datos personales (Administrador)',
@@ -423,6 +441,16 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de datos personales (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.personal_data.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de datos personales (Coordinador académico)',
+            'description' => 'Formulario de registro de datos personales',
+            'description_english' => 'Personal data registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
         // Registrar datos personales (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.store'], [ // Registro o actualización de permiso
@@ -433,6 +461,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Registrar datos personales (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.personal_data.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar datos personales (Coordinador académico)',
+            'description' => 'Registrar datos personales',
+            'description_english' => 'Register personal data',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
         // Formulario de actualización de datos personales (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.edit'], [ // Registro o actualización de permiso
             'name' => 'Formulario de actualización de datos personales (Administrador)',
@@ -442,15 +479,73 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Formulario de actualización de datos personales (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.personal_data.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de datos personales (Coordinador académico)',
+            'description' => 'Formulario de actualización de datos personales',
+            'description_english' => 'Personal data update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
+        // Actualizar datos personales (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar datos personales (Administrador)',
+            'description' => 'Actualizar datos personales',
+            'description_english' => 'Update personal data',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Actualizar datos personales (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.personal_data.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar datos personales (Coordinador académico)',
+            'description' => 'Actualizar datos personales',
+            'description_english' => 'Update personal data',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
+        // Formulario para carga de archivo con datos personales de personas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.load.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para carga de archivo con datos personales de personas (Administrador)',
+            'description' => 'Formulario para carga de archivo con datos personales de personas',
+            'description_english' => 'Update personal data',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario para carga de archivo con datos personales de personas (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.personal_data.load.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para carga de archivo con datos personales de personas (Coordinador académico)',
+            'description' => 'Formulario para carga de archivo con datos personales de personas',
+            'description_english' => 'Update personal data',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Registro de datos personales a partir de un archivo (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.personal_data.load.store'], [ // Registro o actualización de permiso
+            'name' => 'Registro de datos personales a partir de un archivo (Administrador)',
+            'description' => 'Registro de datos personales a partir de un archivo',
+            'description_english' => 'Recording of personal data from a file',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registro de datos personales a partir de un archivo (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.personal_data.load.store'], [ // Registro o actualización de permiso
+            'name' => 'Registro de datos personales a partir de un archivo (Coordinador académico)',
+            'description' => 'Registro de datos personales a partir de un archivo',
+            'description_english' => 'Recording of personal data from a file',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
 
 
 
         /*
-
         // Panel de control de asistencias de eventos (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.events_attendance_dashboard'], [ // Registro o actualización de permiso
             'name' => 'Panel de control de asistencias de eventos (Administrador)',
