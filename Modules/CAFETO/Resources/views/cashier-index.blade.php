@@ -14,7 +14,7 @@
                     <li data-transition="zoomin" data-slotamount="default" data-easein="Power4.easeInOut"
                         data-easeout="Power4.easeInOut" data-masterspeed="2000">
                         <!-- MAIN IMAGE Imagen de Negative-Space en Pixabay -->
-                        <img src="{{ asset('modules/cafeto/images/index/coffee.jpg') }}" alt="Slide Background Image"
+                        <img src="{{ asset('modules/cafeto/images/index/coffee.webp') }}" alt="Slide Background Image"
                             width="1920" height="1280" />
                         <!-- LAYER NR. 1 -->
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-130"
@@ -61,7 +61,7 @@
                     <li data-transition="slideoverdown" data-slotamount="default" data-easein="Power4.easeInOut"
                         data-easeout="Power4.easeInOut" data-masterspeed="2000">
                         <!-- MAIN IMAGE by: Imagen de StockSnap en Pixabay -->
-                        <img src="{{ asset('modules/cafeto/images/index/coffee-2.jpg') }}" alt="Slide Background Image"
+                        <img src="{{ asset('modules/cafeto/images/index/coffee-2.webp') }}" alt="Slide Background Image"
                             width="1920" height="1280" />
                         <!-- LAYER NR. 1 -->
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-130"
@@ -98,7 +98,7 @@
                     <li data-transition="zoomout" data-slotamount="default" data-easein="Power4.easeInOut"
                         data-easeout="Power4.easeInOut" data-masterspeed="2000">
                         <!-- MAIN IMAGE by: Imagen de StockSnap en Pixabay -->
-                        <img src="{{ asset('modules/cafeto/images/index/coffee-3.jpg') }}" alt="Slide Background Image"
+                        <img src="{{ asset('modules/cafeto/images/index/coffee-3.webp') }}" alt="Slide Background Image"
                             width="1920" height="1280" />
                         <!-- LAYER NR. 1 -->
                         <div class="tp-caption" data-x="center" data-hoffset="0" data-y="center" data-voffset="-65"
@@ -158,7 +158,7 @@
 
         <section id="divider5" class="section-divider3 bg-overlay bg-parallax bg-overlay-dark4">
             <div class="bg-section">
-                <img src="{{ asset('modules/cafeto/images/index/26.jpg') }}" alt="Background" />
+                <img src="{{ asset('modules/cafeto/images/index/26.webp') }}" alt="Background" />
             </div>
             <div class="container" id="espresso-section">
                 <div class="divider--shape-1up"></div>
@@ -210,7 +210,7 @@
                                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                                     <div class="dish--img">
                                                         <div class="divider--shape-left"></div>
-                                                        <img src="{{ asset('modules/cafeto/images/menu-board/9.jpg') }}"
+                                                        <img src="{{ asset('modules/cafeto/images/menu-board/9.webp') }}"
                                                             alt="dish img" />
                                                     </div>
                                                 </div>
@@ -233,7 +233,7 @@
                                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                                     <div class="dish--img">
                                                         <div class="divider--shape-left"></div>
-                                                        <img src="{{ asset('modules/cafeto/images/menu-board/10.jpg') }}"
+                                                        <img src="{{ asset('modules/cafeto/images/menu-board/10.webp') }}"
                                                             alt="dish img" />
                                                     </div>
                                                 </div>
@@ -246,7 +246,7 @@
                                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                                     <div class="dish--img">
                                                         <div class="divider--shape-right"></div>
-                                                        <img src="{{ asset('modules/cafeto/images/menu-board/11.jpg') }}"
+                                                        <img src="{{ asset('modules/cafeto/images/menu-board/11.webp') }}"
                                                             alt="dish img" />
                                                     </div>
                                                 </div>
@@ -269,7 +269,7 @@
                                                 <div class="col-xs-12 col-sm-6 col-md-6">
                                                     <div class="dish--img">
                                                         <div class="divider--shape-right"></div>
-                                                        <img src="{{ asset('modules/cafeto/images/menu-board/12.jpeg') }}"
+                                                        <img src="{{ asset('modules/cafeto/images/menu-board/12.webp') }}"
                                                             alt="dish img" />
                                                     </div>
                                                 </div>
