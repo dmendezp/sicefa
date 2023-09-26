@@ -14,8 +14,9 @@ return [
     'BacktoSICEFA' => 'Volver A SICEFA',
     'RegisterConsumption' => 'Registro de Consumo',
     'consumptionconsultation' => 'Consulta de Consumo',
-    'manageresources' => 'Administrar Recursos',
     'instructions' => 'Instrucciones',
+    'manageresources' => 'Administrar Recursos',
+    'calculatefootprint' => 'Calcula Tu Huella',
     
 
     // Indicador pagina Inicio

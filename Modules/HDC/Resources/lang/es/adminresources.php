@@ -8,17 +8,30 @@ return [
     'ct1' => 'Administrar Recursos',
 
     // Titulo label unidad productiva y aspecto ambiental
-    'label1' => 'Actividad:',
-    'label2' => 'Aspecto Ambiental:',
+    'label1' => 'Unidad Productiva',
+    'label2' => 'Actividad:',
 
     // Desplegables
     'select1' => '-- Seleccione --',
+
+    // Titulo Checklist
+    'title_checklist' => 'Aspectos Ambientales',
+
+    // nombres de los checklist
+    'water_consumption' => 'Consumo Agua',
+    'energy_consumption' => 'Consumo Energía',
+    'gas_consumption' => 'Consumo Gas',
+    'fuel_consumption' => 'Consumo Combustible',
+    'Solid_waste' => 'Residuo Solido',
+    'organic_waste' => 'Residuo Organico',
+
 
     // Boton Guardar
     'btn1' => 'Guardar',
 
      // Titulo De La Tabla
-     'th1' => 'Actividad',
-     'th2' => 'Apecto Ambiental',
-     'th3' => 'Acciones',
+     'th1' => 'Unidad Productiva',
+     'th2' => 'Actividad',
+     'th3' => 'Apecto Ambiental',
+     'th4' => 'Acciones',
 ];

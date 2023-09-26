@@ -6,9 +6,9 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Activity;
-use Modules\HDC\Entities\EnvironmentalAspect;
-use Modules\SICA\Entities\activity_environmental_aspects;
+use Modules\SICA\Entities\EnvironmentalAspect;
 
 class AdminresourcesController extends Controller
 {
@@ -17,11 +17,10 @@ class AdminresourcesController extends Controller
      * @return Renderable
      */
     public function adminresources() {
-        $activity_id = Activity::orderBy('name', 'ASC')->get();
-        $environmental_aspect_id = EnvironmentalAspect::orderBy('name', 'ASC')->get();
-        return view('hdc::Adminresources',['activity_id' => $activity_id, 'environmental_aspect_id' => $environmental_aspect_id]);
-
-        
+        $productive_unit = ProductiveUnit::get();
+        $activities = Activity::get();
+        $environmentalAspect = EnvironmentalAspect::get();
+        return view('hdc::Adminresources', ['productive_unit' => $productive_unit, 'activities' => $activities, 'environmentalAspect' => $environmentalAspect]);
     }
 
     /**
@@ -40,7 +39,7 @@ class AdminresourcesController extends Controller
      */
     public function store(Request $request)
     {
-        $request;
+        
     }
 
     /**
@@ -79,7 +78,7 @@ class AdminresourcesController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($productive_unit, $resource)
+    public function destroy()
     {
        //
             
