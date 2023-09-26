@@ -5,20 +5,75 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-
+use Illuminate\Support\Facades\DB;
 
 
 class TuControlador extends Controller
 {
     public function procesarFormulario(Request $request)
     {
+        // Validar que el campo 'numero_documento' esté presente en la solicitud
+        $request->validate([
+            'numero_documento' => 'required|numeric',
+        ]);
+
         // Obtén el número de documento enviado desde el formulario
         $numeroDocumento = $request->input('numero_documento');
 
-        // Ahora puedes realizar acciones con el número de documento, como almacenarlo en una base de datos o realizar validaciones.
+        // Realiza una consulta para obtener la información del aprendiz beneficiario de ambos apoyos
+        $aprendiz = DB::table('aprendices')
+            ->leftJoin('postulaciones as alimentacion', function ($join) {
+                $join->on('aprendices.id', '=', 'alimentacion.aprendiz_id')
+                    ->where('alimentacion.apoyo', 'alimentacion');
+            })
+            ->leftJoin('postulaciones as transporte', function ($join) {
+                $join->on('aprendices.id', '=', 'transporte.aprendiz_id')
+                    ->where('transporte.apoyo', 'transporte');
+            })
+            ->where('aprendices.numero_documento', $numeroDocumento)
+            ->select(
+                'aprendices.nombre as nombre_aprendiz',
+                'aprendices.numero_documento',
+                'alimentacion.porcentaje_descuento as porcentaje_descuento_alimentacion',
+                'transporte.numero_ruta as numero_ruta_transporte',
+                'transporte.nombre_ruta as nombre_ruta_transporte'
+            )
+            ->first();
 
-        // Por ejemplo, puedes imprimirlo para verificar que se recibió correctamente:
-        echo "Número de Documento: " . $numeroDocumento;
+        // Verifica si se encontró un aprendiz beneficiario de ambos apoyos
+        if ($aprendiz) {
+            // El número de documento existe y el aprendiz es beneficiario de ambos apoyos
+            return view('bienestar::tablaBeneficiarios')->with('aprendiz', $aprendiz);
+        } else {
+            // No se encontró un aprendiz beneficiario de ambos apoyos
+            // Realiza una consulta adicional para determinar el apoyo del cual es beneficiario
+            $aprendiz = DB::table('aprendices')
+                ->leftJoin('postulaciones as alimentacion', function ($join) {
+                    $join->on('aprendices.id', '=', 'alimentacion.aprendiz_id')
+                        ->where('alimentacion.apoyo', 'alimentacion');
+                })
+                ->leftJoin('postulaciones as transporte', function ($join) {
+                    $join->on('aprendices.id', '=', 'transporte.aprendiz_id')
+                        ->where('transporte.apoyo', 'transporte');
+                })
+                ->where('aprendices.numero_documento', $numeroDocumento)
+                ->select(
+                    'aprendices.nombre as nombre_aprendiz',
+                    'aprendices.numero_documento',
+                    'alimentacion.porcentaje_descuento as porcentaje_descuento_alimentacion',
+                    'transporte.numero_ruta as numero_ruta_transporte',
+                    'transporte.nombre_ruta as nombre_ruta_transporte'
+                )
+                ->first();
+
+            if ($aprendiz) {
+                // El número de documento existe y el aprendiz es beneficiario de uno de los apoyos
+                return view('bienestar::tablaBeneficiarioUnico')->with('aprendiz', $aprendiz);
+            } else {
+                // No se encontró un aprendiz beneficiario de ningún apoyo
+                return view('bienestar::error')->with('mensaje', 'No se encontró un aprendiz beneficiario de ningún apoyo.');
+            }
+        }
     }
 }
 
