@@ -2,35 +2,35 @@
 @section('content')
         <div class="container">
             <div class="form">
-                <div class="form-header">SOLICITUD DE BIENES</div>
+                <div class="form-header">{{trans('agroindustria::request.requestSupplies')}}</div>
                 <div class="form-body">
                     {!! Form::open(['url' => route('cefa.agroindustria.units.instructor.enviarsolicitud'),'method' => 'post']) !!}
                     <div class="row">
                         <div class="col-md-12">
-                            {!! Form::label('date', 'Fecha de Solicitud') !!}
+                            {!! Form::label('date', trans('agroindustria::request.dateApplication')) !!}
                             {!! Form::date('date', now(), ['class'=>'form-control', 'id'=>'readonly-bg-gray', 'readonly' => 'readonly']) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! Form::label('coordinator', 'Nombre de jefe de oficina o coordinador de área') !!}
+                            {!! Form::label('coordinator', trans('agroindustria::request.nameOfficeHeadAreaCoordinator')) !!}
                             {!! Form::select('coordinator', $coordinatorOptions, null, ['class' => 'form-control', 'id' => 'coordinator_select']) !!}
                             @error('coordinator')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            {!! Form::label('document_number_coordinator', 'Cédula') !!}
+                            {!! Form::label('document_number_coordinator', trans('agroindustria::request.documentNumber')) !!}
                             {!! Form::number('document_number_coordinator',null, ['class'=>'form-control', 'readonly' => 'readonly', 'id' => 'document_number_coordinator']) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! Form::label('receiver', 'Nombre de a quien se le asignara el bien') !!}
+                            {!! Form::label('receiver', trans('agroindustria::request.namePersonWhomPropertyWillAssigned')) !!}
                             {!! Form::text('receiver', $name, ['class' => 'form-control', 'id'=>'readonly-bg-gray', 'readonly' => 'readonly',]) !!}                        
                         </div>
                         <div class="col-md-6">
-                            {!! Form::label('document_number_person', 'Cédula') !!}
+                            {!! Form::label('document_number_person', trans('agroindustria::request.documentNumber')) !!}
                             {!! Form::number('document_number_person', $cedula, ['class'=>'form-control', 'id'=>'readonly-bg-gray', 'readonly' => 'readonly']) !!}    
                         </div>
                         <div class="col-md-12">
-                            {!! Form::label('course_id', 'Código de grupo o ficha de caracterización') !!}
+                            {!! Form::label('course_id', trans('agroindustria::request.groupCodeCharacterizationSheet')) !!}
                             {!! Form::select('course_id', $courses->pluck('text', 'value')->prepend('Seleccione la ficha del programa', ''), null, ['class'=>'form-control', 'id' => 'course']) !!}
                             @error('course_id')
                             <span class="text-danger">{{ $message }}</span>
@@ -38,22 +38,22 @@
                         </div>     
                         <div class="col-md-12">
                             <div id="products">
-                                <h3>Productos</h3>
+                                <h3>{{trans('agroindustria::request.products')}}</h3>
                                 <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                <button type="button" id="add-product" id="center_button">Agregar Producto</button>
+                                <button type="button" id="add-product" id="center_button">{{trans('agroindustria::request.addProduct')}}</button>
                                 <div class="product">
-                                    {!! Form::number('code_sena[]', null, ['placeholder' => 'Código SENA']) !!}
+                                    {!! Form::number('code_sena[]', null, ['placeholder' => trans('agroindustria::request.SENACode')]) !!}
                                     {!! Form::select('product_name[]', $element, null, ['id' => 'element']) !!}
                                     <span class="available-quantity"></span>
-                                    {!! Form::number('amount[]', null, ['placeholder' => 'Cantidad', 'class' => 'amount-input']) !!}
-                                    {!! Form::text('observations[]', null, ['placeholder' => 'Observaciones']) !!}
-                                    {!! Form::button('Eliminar', ['class'=>'remove-product']) !!}                                
+                                    {!! Form::number('amount[]', null, ['placeholder' => trans('agroindustria::request.amount'), 'class' => 'amount-input']) !!}
+                                    {!! Form::text('observations[]', null, ['placeholder' =>  trans('agroindustria::request.observations')]) !!}
+                                    {!! Form::button(trans('agroindustria::request.delete'), ['class'=>'remove-product']) !!}                                
                                 </div>                           
                             </div>
                         </div>
                         
                         <div class="button">
-                            {!! Form::submit('Enviar',['class' => 'enviar','name' => 'enviar']) !!}
+                            {!! Form::submit(trans('agroindustria::request.send'),['class' => 'enviar','name' => 'enviar']) !!}
                         </div>
                     </div>
                 </div>

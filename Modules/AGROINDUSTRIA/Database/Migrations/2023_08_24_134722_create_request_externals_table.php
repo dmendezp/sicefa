@@ -19,6 +19,7 @@ class CreateRequestExternalsTable extends Migration
             $table->foreignId('coordinator')->constrained('people')->onDelete('cascade');
             $table->foreignId('receiver')->constrained('people')->onDelete('cascade');
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->enum('status', ['Aprobado', 'Pendiente', 'Cancelado']);
             $table->softDeletes();
             $table->timestamps();
         });

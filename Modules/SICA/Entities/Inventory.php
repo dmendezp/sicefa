@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
+use Modules\AGROINDUSTRIA\Entities\Consumable;
+
 class Inventory extends Model implements Auditable
 {
 
@@ -47,6 +49,10 @@ class Inventory extends Model implements Auditable
     }
 
     // RELACIONES
+    
+    public function consumables(){ // Accede a todos los consumibles que pertenecen a este inventario
+        return $this->hasMany(Consumable::class);
+    }
     public function element(){ // Accede a la información de elemento al que pertenece
         return $this->belongsTo(Element::class);
     }

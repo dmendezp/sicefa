@@ -63,7 +63,6 @@ return [
     'Error when editing movement status' => 'Error when editing movement status',
     'Motion successfully cancelled' => 'Motion successfully cancelled',
     'Movement Cancel Error' => 'Movement Cancel Error',
-    'Cancel' => 'Cancel',
     'Required field' => 'Required field',
     'Return' => 'Return',
     'Movement successfully returned' => 'Movement successfully returned',

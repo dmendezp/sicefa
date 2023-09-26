@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
+use Modules\AGROINDUSTRIA\Entities\Consumable;
+
 class Labor extends Model implements Auditable
 {
 
@@ -33,6 +35,9 @@ class Labor extends Model implements Auditable
     // RELACIONES
     public function activity(){ // Accede a la información de la actividad al que pertenece
         return $this->belongsTo(Activity::class);
+    }
+    public function consumables(){ // Accede a todos los consumibles que pertenecen a esta labor
+        return $this->hasMany(Consumable::class);
     }
     public function environmental_aspect_labors(){ // Accede a todos los registros de la asociación entre aspectos ambientales y labores que pertenecen a esta labor
         return $this->hasMany(EnvironmentalAspectLabor::class);

@@ -64,7 +64,6 @@ return [
     'Error when editing movement status' => 'Error al editar estado del movimiento',
     'Motion successfully cancelled' => 'Movimiento anulado exitosamente',
     'Movement Cancel Error' => 'Error al anular el movimiento',
-    'Cancel' => 'Anular',
     'Required field' => 'Campo requerido',
     'Return' => 'Devolver',
     'Movement successfully returned' => 'Movimiento devuelto con éxito',

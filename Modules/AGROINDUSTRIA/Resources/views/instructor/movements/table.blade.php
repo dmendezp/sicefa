@@ -65,7 +65,7 @@
                                 @if ($responsibility->person_id === Auth::user()->person->id)
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#anular{{$movement->id}}">
                                   {{trans('agroindustria::menu.Cancel')}}
-                                    </button>                            
+                                </button>                            
                                 @endif
                               @endif
                         @endif

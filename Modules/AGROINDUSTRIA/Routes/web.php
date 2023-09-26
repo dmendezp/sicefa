@@ -41,9 +41,11 @@ Route::middleware(['lang'])->group(function(){
         Route::prefix('instructor')->group(function (){
             Route::get('/unidd', [UnitController::class, 'unidd'])->name('cefa.agroindustria.instructor.unidd');
             //Solicitudes
+            Route::get('/requests', [RequestController::class, 'table'])->name('cefa.agroindustria.units.instructor.requests');
             Route::get('/solicitud', [RequestController::class, 'solicitud'])->name('cefa.agroindustria.units.instructor.solicitud');
             Route::get('/amount/{id}', [RequestController::class, 'amount'])->name('cefa.agroindustria.units.instructor.amount');
             Route::post('/enviarsolicitud', [RequestController::class, 'create'])->name('cefa.agroindustria.units.instructor.enviarsolicitud');
+            Route::put('/requests/cancelled/{id}', [RequestController::class, 'cancel'])->name('cefa.agroindustria.units.instructor.requests.cancelled');
 
             Route::get('/labor', [LaborController::class, 'index'])->name('cefa.agroindustria.units.instructor.labor');
             Route::get('/labor/form', [LaborController::class, 'form'])->name('cefa.agroindustria.units.instructor.labor.form');
