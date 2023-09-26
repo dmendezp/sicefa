@@ -173,7 +173,7 @@
                     @endif
                     @if(Auth::user()->havePermission('cafeto.cashier.inventory.index'))
                         <li class="nav-item">
-                            <a href="#"
+                            <a href="{{ route('cafeto.cashier.inventory.index') }}"
                                 class="nav-link {{ !Route::is('cafeto.cashier.inventory.*') ?: 'active' }} text-light">
                                 <i class="nav-icon fas fa-boxes"></i>
                                 <p>{{ trans('cafeto::general.Inventory') }}</p>

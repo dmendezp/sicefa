@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-md-4 position-relative">
                             <div class="position-absolute start-0 top-0 bottom-0 bg-gradient-fade"></div>
-                            <img class="img-fluid" src="{{ asset('modules/cafeto/images/general/ticket.jpg') }}"
+                            <img class="img-fluid" src="{{ asset('modules/cafeto/images/configuration/ticket.webp') }}"
                                 alt="">
                         </div>
                     </div>
