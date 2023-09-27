@@ -7,3 +7,34 @@
     position: relative;
     left: 55px;
 }
+
+#show-form{
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
+.executors{
+    display: none;
+    margin-left: 200px;
+}
+
+
+#add-executor{
+    width: 743px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
+#executors{
+    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */
+}
+
+#executors-new{
+    background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */   
+}

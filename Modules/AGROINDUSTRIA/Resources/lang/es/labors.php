@@ -23,12 +23,24 @@
         'selectRecipe' => 'Seleccione una receta',
         'selectDestination' => 'Seleccione un destino',
 
+        //ejecutores
+        'openCollaboratorFormulatio' => 'Abrir formulatio de colaboradores',
+        'collaborators' => 'Colaboradores',
+        'addCollaborators' => 'Añadir Colaboradores',
+        'selectCollaborator' => 'Seleccione un colaborador',
+        'employeeType' => 'Tipo de empleado',
+        'hoursWorked' => 'Horas trabajadas',
+        'searchPerson' => 'Buscar persona',
+        'selectEmployeeType' => 'Seleccione un tipo de empleado',
+
         //validaciones
         'youMustSelectActivity' => 'Debe seleccionar una actividad',
         'youMustSelectResponsible' => 'Debe seleccionar una parte responsable',
         'youMustEnterDate' => 'Debe introducir una fecha',
         'youMustEnterDescription' => 'Debe introducir una descripción',
         'youMustSelectDestination' => 'Debe seleccionar un destino',
-        'youMustEnterRemark' => 'Debe introducir una observación'
+        'youMustEnterRemark' => 'Debe introducir una observación',
+        'youMustSelectEmployeeType' => 'Debe seleccionar un tipo de empleado',
+        'youMustEnterNumberHoursWorked' => 'Debe ingresar la cantidad de horas trabajadas',
     ]
 ?>

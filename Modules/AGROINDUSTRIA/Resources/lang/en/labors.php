@@ -23,6 +23,16 @@
         'selectRecipe' => 'Select a recipe',
         'selectDestination' => 'Select a destination',
 
+        //ejecutores
+        'openCollaboratorFormulatio' => 'Open collaborator formulatio',
+        'collaborators' => 'Collaborators',
+        'addCollaborators' => 'Add Collaborators',
+        'selectCollaborator' => 'Select a collaborator',
+        'employeeType' => 'Employee type',
+        'hoursWorked' => 'Hours worked',
+        'searchPerson' => 'Search person',
+        'selectEmployeeType' => 'Select an employee type',
+
         //validaciones
         'youMustSelectActivity' => 'You must select an activity',
         'youMustSelectResponsible' => 'You must select a responsible',
@@ -30,5 +40,7 @@
         'youMustEnterDescription' => 'You must enter a description',
         'youMustSelectDestination' => 'You must select a destination',
         'youMustEnterRemark' => 'You must enter a remark',
+        'youMustSelectEmployeeType' => 'You must select an employee type',
+        'youMustEnterNumberHoursWorked' => 'You must enter the number of hours worked',
     ]
 ?>

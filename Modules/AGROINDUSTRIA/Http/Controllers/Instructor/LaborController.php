@@ -11,7 +11,10 @@ use Modules\SICA\Entities\Labor;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Responsibility;
+use Modules\SICA\Entities\EmployeeType;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
+use Modules\AGROINDUSTRIA\Entities\Executor;
+use Modules\SICA\Entities\Contractor;
 
 class LaborController extends Controller
 {
@@ -65,11 +68,25 @@ class LaborController extends Controller
                 'name' => $name
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectRecipe')])->pluck('name', 'id');
+
+        $employee = EmployeeType::get();
+        $nameEmployee = $employee->map(function ($e){
+            $id = $e->id;
+            $name = $e->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectEmployeeType')])->pluck('name', 'id');
+
+
         $data = [
             'title' => $title,
             'activity' => $activity,
             'recipe' => $recipe,
             'destination' => $destination,
+            'employee' => $nameEmployee,
         ];
         return view('agroindustria::instructor.labors.form', $data);
     }
@@ -102,6 +119,20 @@ class LaborController extends Controller
         return response()->json(['id' => $person]);
     }
 
+    public function executors($document_number){
+        $people = Person::where('document_number', $document_number)->get();
+        $person = $people->map(function ($p){
+            $personId = $p->id;
+            $personName = $p->first_name . ' ' . $p->first_last_name . ' ' . $p->second_last_name;
+            
+            return [
+                'id' => $personId,
+                'name' => $personName
+            ];
+        });
+        return response()->json(['id' => $person]);
+    }
+
     public function register_labor(Request $request){
         $rules = [
             'activities' => 'required',
@@ -109,7 +140,9 @@ class LaborController extends Controller
             'date_execution' => 'required',
             'description' => 'required',
             'destination' => 'required',
-            'observations' => 'required'
+            'observations' => 'required',
+            'employee_type' => 'required',
+            'hours' => 'required',
         ];
         $messages = [
             'activities.required' => trans('agroindustria::labors.youMustSelectActivity'),
@@ -117,7 +150,9 @@ class LaborController extends Controller
             'date_execution.required' => trans('agroindustria::labors.youMustEnterDate'),
             'description.required' => trans('agroindustria::labors.youMustEnterDescription'),
             'destination.required' => trans('agroindustria::labors.youMustSelectDestination'),
-            'observations.required' => trans('agroindustria::labors.youMustEnterRemark')
+            'observations.required' => trans('agroindustria::labors.youMustEnterRemark'),
+            'employee_type.required' => trans('agroindustria::labors.youMustSelectEmployeeType'),
+            'hours.required' => trans('agroindustria::labors.youMustEnterNumberHoursWorked'),
         ];
         $validatedData = $request->validate($rules, $messages);
     
@@ -133,7 +168,23 @@ class LaborController extends Controller
         $l->destination =  $validatedData['destination'];
         $l->save();
 
-        if($l->save()){
+        $executors = $request->input('executors_id');
+        $employee_type = $validatedData['employee_type'];
+        $hours = $validatedData['hours'];
+        
+        $price = Contractor::where('employee_type_id', $employee_type)->value('assigment_value');
+
+        foreach ($executors as $key => $executor){   
+            $e = new Executor;
+            $e->labor_id = $l->id;
+            $e->person_id = $executor;
+            $e->employee_type_id = $employee_type[$key];
+            $e->amount = $hours[$key];
+            $e->price = $price;
+        }
+
+
+        if($e->save()){
             $icon = 'success';
                 $message_line = trans('agroindustria::labors.laborSavedCorrectly');
          }else{
