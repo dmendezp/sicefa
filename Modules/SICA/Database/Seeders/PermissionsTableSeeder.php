@@ -542,6 +542,60 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista principal para consultar aprendices por titulación (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.apprentices.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal para consultar aprendices por titulación (Administrador)',
+            'description' => 'Puede acceder a lista de aprendices por titulación',
+            'description_english' => 'You can access the list of apprentices by program',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal para consultar aprendices por titulación (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.apprentices.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal para consultar aprendices por titulación (Coordinador académico)',
+            'description' => 'Puede acceder a lista de aprendices por titulación',
+            'description_english' => 'You can access the list of apprentices by program',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar aprendices por titulación (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.apprentices.search'], [ // Registro o actualización de permiso
+            'name' => 'Consultar aprendices por titulación (Administrador)',
+            'description' => 'Consultar aprendices por titulación',
+            'description_english' => 'Consult apprentices by course',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Consultar aprendices por titulación (Coordinación académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.apprentices.search'], [ // Registro o actualización de permiso
+            'name' => 'Consultar aprendices por titulación (Coordinación académica)',
+            'description' => 'Consultar aprendices por titulación',
+            'description_english' => 'Consult apprentices by course',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario para carga de archivo con datos de aprendices (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.apprentices.load.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para carga de archivo con datos de aprendices (Administrador)',
+            'description' => 'Formulario para carga de archivo con datos de aprendices',
+            'description_english' => 'Form for uploading file with apprentices data',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario para carga de archivo con datos de aprendices (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.apprentices.load.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para carga de archivo con datos de aprendices (Coordinador académico)',
+            'description' => 'Formulario para carga de archivo con datos de aprendices',
+            'description_english' => 'Form for uploading file with apprentices data',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
 
 
 
@@ -608,15 +662,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_attendance[] = $permission->id; // Almacenar permiso para rol
-
-        // BVista principal para consultar aprendices por titulación (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.apprentices.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista principal para consultar aprendices por titulación (Administrador)',
-            'description' => 'Puede acceder a lista de aprendices por titulación',
-            'description_english' => 'You can access the list of apprentices by program',
-            'app_id' => $app->id
-        ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Vista principal de instructores (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.instructors.index'], [ // Registro o actualización de permiso

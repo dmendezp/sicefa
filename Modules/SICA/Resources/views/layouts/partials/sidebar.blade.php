@@ -473,6 +473,14 @@
                                     </a>
                                 </li>
                             @endif
+                            @if (Auth::user()->havePermission('sica.academic_coordinator.people.apprentices.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.academic_coordinator.people.apprentices.index') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.people.apprentices*') ?: 'active' }}">
+                                        <i class="fas fa-user-graduate"></i>
+                                        <p>{{ trans('sica::menu.Apprentices') }}</p>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                     <!-- CIERRA MENU PARA PERSONAS -->
