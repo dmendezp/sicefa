@@ -1,8 +1,8 @@
 @extends('bienestar::layouts.master')
 
 @section('content')
-<div class="container">
-    <div class="row">
+<div class="container-fluid" style="max-width:1200px">
+<div class="row justify-content-md-center pt-4">
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
@@ -10,7 +10,7 @@
                 </div>
                 <div class="box-body">
                     <!-- Contenido de la vista en un solo card -->
-                    <div class="card">
+                    <div class="card shadow col-md-12">
                         <div class="card-body text-center"> <!-- Centramos el contenido en el card verticalmente -->
                             <form>
                                 <div class="form-group">
@@ -34,6 +34,7 @@
                                         <th>Número de Ruta (Transporte)</th>
                                         <th>Nombre de Ruta (Transporte)</th>
                                         <th></th> <!-- Columna en blanco -->
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>

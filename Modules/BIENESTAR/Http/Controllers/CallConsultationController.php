@@ -77,7 +77,9 @@ class TuControlador extends Controller
     }
 }
 
+
 class CallConsultationController extends Controller
+
 {
     /**
      * Display a listing of the resource.
