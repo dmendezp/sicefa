@@ -59,7 +59,7 @@
             <div class="carousel-item">
                 <img src="{{ asset('modules/agroindustria/img/PhotoReal_Industria_de_alimentos_3.jpg') }}" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
-            <h5>N O S E Q P O N E R</h5>
+            <h5>t e s t</h5>
                     <br>
                     <br>
                     <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha 
@@ -92,7 +92,22 @@
             </section>
 
     <section>
-        
+    <body>
+    <a href="{{route('cefa.agroindustria.home.formulations.recipes')}}" class="cardimg">
+        <div class="image-container">
+        <img class="imgcards" src="{{ asset('modules/agroindustria/img/ProductosAG1.jpg') }}" alt="Imagen 1">
+        </div>
+        <div class="image-container">
+        <img class="imgcards" src="{{ asset('modules/agroindustria/img/ProductosAG2.jpg') }}" alt="Imagen 2">
+            <div class="image-text">Haz click en cualquiera de las tarjetas para conocer nuestros productos.</div>
+        </div>
+        <div class="image-container">
+        <img class="imgcards" src="{{ asset('modules/agroindustria/img/ProductosAG3.jpg') }}" alt="Imagen 3">
+        </div>
+    </a>
+
+</body>
+</html>
     </section>
            
            
