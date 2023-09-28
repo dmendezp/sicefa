@@ -98,7 +98,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Laravel v9.x</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://laravel.com/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>PHP</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://www.php.net/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Datatables</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://datatables.net/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -149,7 +149,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>AdminLTE3</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://adminlte.io/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>FontAwesome v.5.15.4</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://fontawesome.com/icons">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -184,7 +184,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Google Fonts - Quicksand</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://fonts.google.com/specimen/Quicksand?preview.text=Infinity%20Mellow&preview.text_type=custom&selection.family=Yellowtail&sidebar.open=true&query=quicksa">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Pixabay</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://pixabay.com/es/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -218,7 +218,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>SweetAlert2</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://sweetalert2.github.io/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -236,7 +236,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Javascript</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://developer.mozilla.org/es/docs/Web/JavaScript">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -253,7 +253,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Jquery</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://jquery.com/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -270,7 +270,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>CSS3</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://developer.mozilla.org/es/docs/Web/CSS">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -287,7 +287,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Bootstrap v5.3</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://getbootstrap.com/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -305,7 +305,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Toastr-Js</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://codeseven.github.io/toastr/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -322,7 +322,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Livewire</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://laravel-livewire.com/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -339,7 +339,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Laravel Collective</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://laravelcollective.com/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -356,7 +356,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>VSCode</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://code.visualstudio.com/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -375,7 +375,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Xampp</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://www.apachefriends.org/es/index.html">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -392,7 +392,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>SQLyog</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://webyog.com/product/sqlyog/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -409,7 +409,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Git Hub</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://github.com/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
@@ -426,7 +426,7 @@
                                     <div class="text-truncate" style="max-height: 40px;">
                                         <h6>Cleave.js</h6>
                                     </div>
-                                    <a class="btn btn-success btn-block w-100"
+                                    <a class="btn btn-dark btn-block w-100"
                                         href="https://nosir.github.io/cleave.js/">{{ trans('cafeto::devs.More Info') }}</a>
                                 </div>
                             </div>
