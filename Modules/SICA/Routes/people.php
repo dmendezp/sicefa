@@ -99,9 +99,7 @@ Route::middleware(['lang'])->group(function(){
         Route::get('academic_coordinator/people/contractors', [ContractorController::class, 'index'])->name('sica.academic_coordinator.people.contractors.index'); // Vista pricipal de contratistas (Coordinador académico)
 
         // --------------  Rutas de Asistencia a eventos ---------------------------------
-        // ============================================================================================================================================================================================================================================================================
         Route::get('admin/events_attendance_dashboard', [SICAController::class, 'attendance_dashboard'])->name('sica.admin.events_attendance_dashboard'); // Panel de control de asistencias a eventos (Administrador)
-        // ============================================================================================================================================================================================================================================================================
         Route::get('admin/people/events_attendance', [AttendanceController::class, 'index'])->name('sica.admin.people.events_attendance.index'); // Formulario de registro de asistencia a eventos (Administrador)
         Route::get('attendance/people/events_attendance', [AttendanceController::class, 'index'])->name('sica.attendance.people.events_attendance.index'); // Formulario de registro de asistencia a eventos (Asistencia)
         // Rutas de Datos Básicos para asistencia a eventos

@@ -668,14 +668,10 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
-
-
-
-        /*
         // Panel de control de asistencias de eventos (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.events_attendance_dashboard'], [ // Registro o actualización de permiso
             'name' => 'Panel de control de asistencias de eventos (Administrador)',
-            'description' => 'Panel de control de asistenciaa de eventos',j
+            'description' => 'Panel de control de asistenciaa de eventos',
             'description_english' => 'Events attendance control panel',
             'app_id' => $app->id
         ]);
@@ -734,6 +730,9 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_attendance[] = $permission->id; // Almacenar permiso para rol
+
+
+        /*
 
         // Listar Trimestres
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.quarters'], [ // Registro o actualización de permiso
