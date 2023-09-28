@@ -63,77 +63,102 @@
                             @error('person')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror   
-                        </div>                   
+                        </div>      
+                        <div class="col-md-12">
+                            <button type="button" id="toggle-form">{{ trans('agroindustria::labors.openCollaboratorFormulatio') }}</button>
+                            <div class="executors" id="form-container">
+                                <div id="form-executors">
+                                    <h3 id="title_executor">{{ trans('agroindustria::labors.collaborators') }}</h3>
+                                    <!-- Aquí se agregarán los campos de producto dinámicamente -->
+                                    <button type="button" id="add-executor">{{ trans('agroindustria::labors.addCollaborators') }}</button>
+                                    <div class="collaborators">
+                                        <div class="form-group">
+                                            {!! Form::label('personSearch', trans('agroindustria::labors.searchPerson')) !!}
+                                            {!! Form::text('search', null, ['class'=>'personSearch-select', 'style' => 'width: 185px']) !!}
+                                        </div>
+                                        <div class="form-group">
+                                            {!! Form::label('collaborator', trans('agroindustria::labors.collaborators')) !!}
+                                            {!! Form::hidden('executors_id[]', null, ['class' => 'executors_id']) !!}
+                                            {!! Form::text('executor', null, ['class'=>'form-control collaborator_executors', 'readonly' => 'readonly']) !!}
+                                        </div>   
+                                        <div class="form-group">
+                                            {!! Form::label('employement_type', trans('agroindustria::labors.employeeType')) !!}
+                                            {!! Form::select('employement_type[]', $employee, null, ['class'=>'form-control employement_type', 'style' => 'width: 200px']) !!}
+                                            {!! Form::hidden('price[]', null, ['class' => 'price']) !!}
+                                        </div>
+                                        <div class="form-group">  
+                                            {!! Form::label('hours', trans('agroindustria::labors.hoursWorked')) !!}
+                                            {!! Form::number('hours[]', null, ['class'=>'form-control hours']) !!}
+                                        </div>            
+                                        <button type="button" class="remove-executor">{{trans('agroindustria::menu.Delete')}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>             
                         <div class="button_receipe">{!! Form::submit(trans('agroindustria::formulations.Save'),['class' => 'save_receipe', 'name' => 'enviar']) !!}</div>
                     </div>
+                    {!! Form:: close() !!}     
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- Botón para mostrar el formulario -->
-<button type="button" id="show-form">{{ trans('agroindustria::labors.openCollaboratorFormulatio') }}</button>
-<div class="executors" id="form-container">
-    <div id="form-executors">
-        <h3>{{ trans('agroindustria::labors.collaborators') }}</h3>
-        <!-- Aquí se agregarán los campos de producto dinámicamente -->
-        <button type="button" id="add-executor">{{ trans('agroindustria::labors.addCollaborators') }}</button>
-        <div class="elements">
-            <div class="form-group">
-                {!! Form::label('personSearch', trans('agroindustria::labors.collaborators')) !!}
-                {!! Form::text('search', null, ['id'=>'personSearch', 'style' => 'width: 185px;']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::label('executor', trans('agroindustria::labors.selectCollaborator')) !!}
-                {!! Form::hidden('executors_id[]', null, ['id' => 'executors_id']) !!}
-                {!! Form::text('executor[]', null, ['class'=>'form-control', 'id'=>'executors', 'readonly' => 'readonly']) !!}
-            </div>   
-            <div class="form-group">
-                {!! Form::label('employee_type' , trans('agroindustria::labors.employeeType')) !!}
-                {!! Form::select('employee_type[]', $employee, null, ['class'=>'form-control', 'id' => 'employee_type', 'style' => 'width: 200px']) !!}
-            </div>
-            <div class="form-group">  
-                {!! Form::label('hours' ,trans('agroindustria::labors.hoursWorked')) !!}
-                {!! Form::number('hours[]', null, ['class'=>'form-control']) !!}
-            </div>  
-            <button type="button" class="remove-element">{{trans('agroindustria::menu.Delete')}}</button>
-        </div>
-    </div>
-</div>
-{!! Form:: close() !!}     
 
 @section('script')
 @endsection
 
 <script>
     $(document).ready(function() {
-        // Mostrar el formulario al hacer clic en el botón "Show Form"
-        $('#show-form').on('click', function() {
-            $('#form-container').show(); // Mostrar el formulario
-        })
+        // Inicialmente, oculta el formulario
+        $("#form-container").hide();
+
+        // Botón para abrir/cerrar el formulario
+        $("#toggle-form").click(function() {
+            // Alternar la visibilidad del formulario
+            $("#form-container").toggle();
+
+            // Cambiar el texto del botón en función del estado del formulario
+            var buttonText = $("#form-container").is(":visible")
+                ? "{{ trans('agroindustria::labors.closeCollaboratorsForm') }}"
+                : "{{ trans('agroindustria::labors.openCollaboratorFormulatio') }}";
+
+            // Actualizar el texto del botón
+            $(this).text(buttonText);
+
+            // Cambiar el color del botón a rojo cuando el formulario está abierto
+            if ($("#form-container").is(":visible")) {
+                $(this).css("background-color", "red");
+            } else {
+                // Restaurar el color original cuando el formulario se cierra
+                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
+            }
+        });
     });
 </script>
 
 <script>
     $(document).ready(function() {
-        // Agregar un nuevo campo de producto
-        $('#employee_type').select2();
-        $("#add-executor").click(function() {
-            var newProduct = '<div class="elements"><div class="form-group">{!! Form::label("personSearch" , trans("agroindustria::labors.collaborators")) !!} {!! Form::text("search", null, ["class"=>"personSearch-select"]) !!}</div> <div class="form-group">{!! Form::label("executor",trans("agroindustria::labors.selectCollaborator")) !!}{!! Form::hidden("executors_id[]", null, ["id" => "executors_id-new"]) !!}{!! Form::text("executor[]", null, ["class"=>"form-control", "id"=>"executors-new", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("employee_type" , trans("agroindustria::labors.employeeType")) !!}{!! Form::select("employee_type[]", $employee, null, ["class"=>"form-control", "id" => "employee_type-new", "style" => "width: 200px"]) !!}</div> <div class="form-group">{!! Form::label("hours" , trans("agroindustria::labors.hoursWorked")) !!}{!! Form::number("hours[]", null, ["class"=>"form-control"]) !!}</div> <button type="button" class="remove-element">{{trans("agroindustria::menu.Delete")}}</button></div>';
+        // Agregar un nuevo campo de colaborador
+        $('.employement_type').select2();
 
+        $("#add-executor").click(function() {
+            var newCollaborator = '<div class="collaborators"><div class="form-group">{!! Form::label("personSearch", trans("agroindustria::labors.searchPerson")) !!}{!! Form::text("search", null, ["id"=>"personSearch-select"]) !!}</div> <div class="form-group"> {!! Form::label("collaborator", trans("agroindustria::labors.collaborators")) !!}{!! Form::hidden("executors_id[]", null, ["id" => "executors_id"]) !!}{!! Form::text("executor", null, ["class"=>"form-control", "id" => "collaborator_executors", "readonly" => "readonly"]) !!}</div> <div class="form-group">{!! Form::label("employement_type", trans("agroindustria::labors.employeeType")) !!}{!! Form::select("employement_type[]", $employee, null, ["class"=>"form-control", "id" => "employement_type", "style" => "width: 200px"]) !!}{!! Form::hidden("price[]", null, ["id" => "price"]) !!}</div> <div class="form-group">{!! Form::label("hours", trans("agroindustria::labors.hoursWorked")) !!}{!! Form::number("hours[]", null, ["class"=>"form-control hours"]) !!}</div> <button type="button" class="remove-executor">{{trans("agroindustria::menu.Delete")}}</button></div>';
+    
             // Agregar el nuevo campo al DOM
-            $("#form-executors").append(newProduct);
-            $('#employee_type-new:last').select2();
+            $("#form-executors").append(newCollaborator);
+    
+            $('#employement_type:last').select2();
+       
             var baseUrl = '{{ route("cefa.agroindustria.units.instructor.labor.executors", ["document_number" => ":document_number"]) }}';
-            $('.personSearch-select:last').select2({
+            $('#personSearch-select:last').select2({
                 placeholder: '{{trans("agroindustria::labors.searchPerson")}}',
-                minimumInputLength: 0, // Habilita la búsqueda en tiempo real
+                minimumInputLength: 1, // Habilita la búsqueda en tiempo real
                 ajax: {
                     url: function(params) {
                         // Reemplaza el marcador de posición con el término de búsqueda
                         var searchUrl = baseUrl.replace(':document_number', params.term);
-
-
+    
                         return searchUrl; // Utiliza la URL actualizada con el término de búsqueda
                     },
                     dataType: 'json',
@@ -151,23 +176,44 @@
                     cache: true
                 }
             });
-                // Manejar la selección de una persona en el campo de búsqueda
-            $('.personSearch-select').on('select2:select', function(e) {
+
+            // Manejar la selección de una persona en el campo de búsqueda
+            $('#personSearch-select:last').on('select2:select', function(e) {
                 var selectedPerson = e.params.data;
                 // Actualizar el contenido de la etiqueta con el nombre de la persona seleccionada
-                $('#executors_id-new').val(selectedPerson.id);
-                $('#executors-new').val(selectedPerson.text);
+                $(this).closest('.collaborators').find('input#executors_id').val(selectedPerson.id);
+                $(this).closest('.collaborators').find('input#collaborator_executors').val(selectedPerson.text);
             });
-            // Inicializar Select2 en los campos 'element' en el nuevo campo
-
+            // Detecta cambios en el primer campo de selección (Receiver)
+            $('#employement_type').on('change', function() {
+                var selectedEmployement = $(this).val();
+                console.log(selectedEmployement);
+                var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.price', ['id' => ':id'])) !!}.replace(':id', selectedEmployement.toString());
+                // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {
+                        // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                        var price = response.price;
+                        $('#price').val(price);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
         });
-
-        // Eliminar un campo de producto
-        $("#form-executors").on("click", ".remove-element", function() {
-            $(this).parent(".elements").remove();
+        // Eliminar un campo de colaborador
+        $("#form-executors").on("click", ".remove-executor", function() {
+            $(this).closest('.collaborators').remove();
         });
-        // Detecta cambios en el primer campo de selección (Receiver)
-        $('#activity-selected').on('change', function() {
+    });
+</script>
+<script>
+    $(document).ready(function() {
+         // Detecta cambios en el primer campo de selección (Receiver)
+         $('#activity-selected').on('change', function() {
             var selectedActivity = $(this).val();
 
             var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
@@ -190,16 +236,41 @@
                 }
             });
         });
-    });
+    })
 </script>
+<script>
+    $(document).ready(function() {
+         // Detecta cambios en el primer campo de selección (Receiver)
+         $('.employement_type').on('change', function() {
+            var selectedEmployement = $(this).val();
+
+            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.price', ['id' => ':id'])) !!}.replace(':id', selectedEmployement.toString());
+
+            // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                    var price = response.price;
+                    $('.price').val(price);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    })
+</script>
+
 <script>
    $(document).ready(function() {
         var baseUrl = '{{ route("cefa.agroindustria.units.instructor.labor.executors", ["document_number" => ":document_number"]) }}';
 
         // Inicializa Select2 en el campo de búsqueda de personas
-        $('#personSearch').select2({
+        $('.personSearch-select').select2({
             placeholder: '{{trans("agroindustria::labors.searchPerson")}}',
-            minimumInputLength: 0, // Habilita la búsqueda en tiempo real
+            minimumInputLength: 1, // Habilita la búsqueda en tiempo real
             ajax: {
                 url: function(params) {
                     // Reemplaza el marcador de posición con el término de búsqueda
@@ -225,11 +296,11 @@
         });
 
         // Manejar la selección de una persona en el campo de búsqueda
-        $('#personSearch').on('select2:select', function(e) {
+        $('.personSearch-select').on('select2:select', function(e) {
             var selectedPerson = e.params.data;
             // Actualizar el contenido de la etiqueta con el nombre de la persona seleccionada
-            $('#executors_id').val(selectedPerson.id);
-            $('#executors').val(selectedPerson.text);
+            $('.executors_id').val(selectedPerson.id);
+            $('.collaborator_executors').val(selectedPerson.text);
         });
     });
 </script>

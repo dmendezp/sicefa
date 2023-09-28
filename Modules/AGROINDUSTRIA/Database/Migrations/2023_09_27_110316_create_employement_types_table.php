@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExecutorsTable extends Migration
+class CreateEmployementTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateExecutorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('executors', function (Blueprint $table) {
+        Schema::create('employement_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('labor_id')->constrained()->onDelete('cascade');
-            $table->foreignId('person_id')->constrained()->onDelete('cascade');
-            $table->foreignId('employement_type_id')->constrained()->onDelete('cascade');
-            $table->integer('amount');
+            $table->string('name');
             $table->integer('price');
             $table->softDeletes();
             $table->timestamps();
@@ -33,6 +30,6 @@ class CreateExecutorsTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('executors');
+        Schema::dropIfExists('employement_types');
     }
 }

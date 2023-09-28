@@ -6,7 +6,7 @@
         'executionDate' => 'Execution Date',
         'state' => 'State',
         'destination' => 'Destination',
-        'laborSavedCorrectly' => 'Labor guardada correctamente',
+        'laborSavedCorrectly' => 'Labor saved correctly',
         'errorWhenSavingWork' => 'Error when saving the work',
         'laborCorrectlyCancelled' => 'Labor correctly cancelled',
         'workPerformedCorrectly' => 'Work performed correctly',
@@ -25,9 +25,9 @@
 
         //ejecutores
         'openCollaboratorFormulatio' => 'Open collaborator formulatio',
+        'closeCollaboratorsForm' => 'Close collaborators form',
         'collaborators' => 'Collaborators',
         'addCollaborators' => 'Add Collaborators',
-        'selectCollaborator' => 'Select a collaborator',
         'employeeType' => 'Employee type',
         'hoursWorked' => 'Hours worked',
         'searchPerson' => 'Search person',

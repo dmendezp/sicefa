@@ -6,7 +6,7 @@
         'executionDate' => 'Fecha de Ejecución',
         'state' => 'Estado',
         'destination' => 'Destino',
-        'laborSavedCorrectly' => 'Labor saved correctly',
+        'laborSavedCorrectly' => 'Labor guardada correctamente',
         'errorWhenSavingWork' => 'Error al guardar la labor',
         'laborCorrectlyCancelled' => 'Labor cancelada correctamente',
         'workPerformedCorrectly' => 'Labor realizada correctamente',
@@ -24,10 +24,10 @@
         'selectDestination' => 'Seleccione un destino',
 
         //ejecutores
-        'openCollaboratorFormulatio' => 'Abrir formulatio de colaboradores',
+        'openCollaboratorFormulatio' => 'Abrir formulario de colaboradores',
+        'closeCollaboratorsForm' => 'Cerrar formulario de colaboradores',
         'collaborators' => 'Colaboradores',
         'addCollaborators' => 'Añadir Colaboradores',
-        'selectCollaborator' => 'Seleccione un colaborador',
         'employeeType' => 'Tipo de empleado',
         'hoursWorked' => 'Horas trabajadas',
         'searchPerson' => 'Buscar persona',

@@ -50,6 +50,7 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/labor', [LaborController::class, 'index'])->name('cefa.agroindustria.units.instructor.labor');
             Route::get('/labor/form', [LaborController::class, 'form'])->name('cefa.agroindustria.units.instructor.labor.form');
             Route::get('/labor/{activityId}', [LaborController::class, 'responsibilites'])->name('cefa.agroindustria.units.instructor.labor.responsibilities');
+            Route::get('/labor/price/{id}', [LaborController::class, 'price_employement'])->name('cefa.agroindustria.units.instructor.labor.price');
             Route::get('/labor/executors/{document_number}', [LaborController::class, 'executors'])->name('cefa.agroindustria.units.instructor.labor.executors');
             Route::post('/labor/register', [LaborController::class, 'register_labor'])->name('cefa.agroindustria.units.instructor.labor.register');
             Route::post('/labor/cancelar/{id}', [LaborController::class, 'cancelLabor'])->name('cefa.agroindustria.units.instructor.labor.cancelar');

@@ -11,10 +11,9 @@ use Modules\SICA\Entities\Labor;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Responsibility;
-use Modules\SICA\Entities\EmployeeType;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\Executor;
-use Modules\SICA\Entities\Contractor;
+use Modules\AGROINDUSTRIA\Entities\EmployementType;
 
 class LaborController extends Controller
 {
@@ -69,7 +68,7 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectRecipe')])->pluck('name', 'id');
 
-        $employee = EmployeeType::get();
+        $employee = EmployementType::get();
         $nameEmployee = $employee->map(function ($e){
             $id = $e->id;
             $name = $e->name;
@@ -119,6 +118,12 @@ class LaborController extends Controller
         return response()->json(['id' => $person]);
     }
 
+    public function price_employement($id){
+        $price = EmployementType::where('id', $id)->value('price');
+
+        return response()->json(['price' => $price]);
+    }
+
     public function executors($document_number){
         $people = Person::where('document_number', $document_number)->get();
         $person = $people->map(function ($p){
@@ -141,7 +146,7 @@ class LaborController extends Controller
             'description' => 'required',
             'destination' => 'required',
             'observations' => 'required',
-            'employee_type' => 'required',
+            'employement_type' => 'required',
             'hours' => 'required',
         ];
         $messages = [
@@ -151,7 +156,7 @@ class LaborController extends Controller
             'description.required' => trans('agroindustria::labors.youMustEnterDescription'),
             'destination.required' => trans('agroindustria::labors.youMustSelectDestination'),
             'observations.required' => trans('agroindustria::labors.youMustEnterRemark'),
-            'employee_type.required' => trans('agroindustria::labors.youMustSelectEmployeeType'),
+            'employement_type.required' => trans('agroindustria::labors.youMustSelectEmployeeType'),
             'hours.required' => trans('agroindustria::labors.youMustEnterNumberHoursWorked'),
         ];
         $validatedData = $request->validate($rules, $messages);
@@ -169,18 +174,19 @@ class LaborController extends Controller
         $l->save();
 
         $executors = $request->input('executors_id');
-        $employee_type = $validatedData['employee_type'];
+        $employement_type = $validatedData['employement_type'];
         $hours = $validatedData['hours'];
-        
-        $price = Contractor::where('employee_type_id', $employee_type)->value('assigment_value');
+        $price = $request->input('price');
+
 
         foreach ($executors as $key => $executor){   
             $e = new Executor;
             $e->labor_id = $l->id;
             $e->person_id = $executor;
-            $e->employee_type_id = $employee_type[$key];
+            $e->employement_type_id = $employement_type[$key];
             $e->amount = $hours[$key];
-            $e->price = $price;
+            $e->price = $price[$key];
+            $e->save();
         }
 
 
@@ -196,6 +202,7 @@ class LaborController extends Controller
              'message_line' => $message_line,
          ]); 
     }
+    
     public function cancelLabor($id){
         $labor = Labor::findOrFail($id);
         $labor->status = 'Cancelado';
