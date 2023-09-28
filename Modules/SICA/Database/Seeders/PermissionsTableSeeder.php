@@ -596,6 +596,78 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
+        // Registrar de aprendices a partir de un archivo (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.apprentices.load.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar de aprendices a partir de un archivo (Administrador)',
+            'description' => 'Registrar de aprendices a partir de un archivo',
+            'description_english' => 'Register of apprentices from a file',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar de aprendices a partir de un archivo (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.apprentices.load.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar de aprendices a partir de un archivo (Coordinador académico)',
+            'description' => 'Registrar de aprendices a partir de un archivo',
+            'description_english' => 'Register of apprentices from a file',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de instructores (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.instructors.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de instructores (Administrador)',
+            'description' => 'Puede acceder a lista de instructores',
+            'description_english' => 'You can access the list of instructors',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de instructores (Coordinador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.instructors.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de instructores (Administrador)',
+            'description' => 'Puede acceder a lista de instructores',
+            'description_english' => 'You can access the list of instructors',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de funcionarios (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.employees.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de funcionarios (Administrador)',
+            'description' => 'Puede acceder a lista de funcionarios',
+            'description_english' => 'You can access the list of officers',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de funcionarios (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.employees.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de funcionarios (Coordinador académico)',
+            'description' => 'Puede acceder a lista de funcionarios',
+            'description_english' => 'You can access the list of officers',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de contratistas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.contractors.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de contratistas (Administrador)',
+            'description' => 'Puede acceder a lista de contratistas',
+            'description_english' => 'You can access the list of contractors',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista principal de contratistas (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.contractors.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista principal de contratistas (Coordinador académico)',
+            'description' => 'Puede acceder a lista de contratistas',
+            'description_english' => 'You can access the list of contractors',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
 
 
 
@@ -603,7 +675,7 @@ class PermissionsTableSeeder extends Seeder
         // Panel de control de asistencias de eventos (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.events_attendance_dashboard'], [ // Registro o actualización de permiso
             'name' => 'Panel de control de asistencias de eventos (Administrador)',
-            'description' => 'Panel de control de asistenciaa de eventos',
+            'description' => 'Panel de control de asistenciaa de eventos',j
             'description_english' => 'Events attendance control panel',
             'app_id' => $app->id
         ]);
@@ -662,60 +734,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_attendance[] = $permission->id; // Almacenar permiso para rol
-
-        // Vista principal de instructores (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.instructors.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista principal de instructores (Administrador)',
-            'description' => 'Puede acceder a lista de instructores',
-            'description_english' => 'You can access the list of instructors',
-            'app_id' => $app->id
-        ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
-
-        // Vista principal de instructores (Coordinador)
-        $permission = Permission::updateOrCreate(['slug' => 'sica.coordinator.people.instructors.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista principal de instructores (Administrador)',
-            'description' => 'Puede acceder a lista de instructores',
-            'description_english' => 'You can access the list of instructors',
-            'app_id' => $app->id
-        ]);
-        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
-
-        // Vista principal de funcionarios (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.employees.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista principal de funcionarios (Administrador)',
-            'description' => 'Puede acceder a lista de funcionarios',
-            'description_english' => 'You can access the list of officers',
-            'app_id' => $app->id
-        ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
-
-        // Vista principal de funcionarios (Coordinador)
-        $permission = Permission::updateOrCreate(['slug' => 'sica.coordinator.people.employees.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista principal de funcionarios (Coordinador)',
-            'description' => 'Puede acceder a lista de funcionarios',
-            'description_english' => 'You can access the list of officers',
-            'app_id' => $app->id
-        ]);
-        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
-
-        // Vista principal de contratistas (Administrador)
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.contractors.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista principal de contratistas (Administrador)',
-            'description' => 'Puede acceder a lista de contratistas',
-            'description_english' => 'You can access the list of contractors',
-            'app_id' => $app->id
-        ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
-
-        // Vista principal de contratistas (Coordinador)
-        $permission = Permission::updateOrCreate(['slug' => 'sica.coordinator.people.contractors.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista principal de contratistas (Coordinador)',
-            'description' => 'Puede acceder a lista de contratistas',
-            'description_english' => 'You can access the list of contractors',
-            'app_id' => $app->id
-        ]);
-        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
         // Listar Trimestres
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.quarters'], [ // Registro o actualización de permiso

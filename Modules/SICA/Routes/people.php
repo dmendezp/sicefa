@@ -83,13 +83,25 @@ Route::middleware(['lang'])->group(function(){
         Route::post('academic_coordinator/people/apprentices/search', [ApprenticeController::class, 'search'])->name('sica.academic_coordinator.people.apprentices.search'); // Consultar aprendices por titulación (Coordinador académico)
         Route::get('admin/people/apprentice/load_create',[TempTablesController::class, 'apprentices_load_create'])->name('sica.admin.people.apprentices.load.create'); // Formulario para carga de archivo con datos de aprendices (Administrador)
         Route::get('academic_coordinator/people/apprentice/load_create',[TempTablesController::class, 'apprentices_load_create'])->name('sica.academic_coordinator.people.apprentices.load.create'); // Formulario para carga de archivo con datos de aprendices (Coordiandor académico)
-        // ============================================================================================================================================================================================================================================================================
-        Route::post('admin/people/apprentice/load_store',[TempTablesController::class, 'apprentices_load_store'])->name('sica.admin.people.apprentices.load.store'); // Registro de aprendices a partir de un archivo (Administrador)
-        // ============================================================================================================================================================================================================================================================================
-        Route::post('academic_coordinator/people/apprentice/load_store',[TempTablesController::class, 'apprentices_load_store'])->name('sica.academic_coordinator.people.apprentices.load.store'); // Registro de aprendices a partir de un archivo (Coordinador académico)
+        Route::post('admin/people/apprentice/load_store',[TempTablesController::class, 'apprentices_load_store'])->name('sica.admin.people.apprentices.load.store'); // Registrar aprendices a partir de un archivo (Administrador)
+        Route::post('academic_coordinator/people/apprentice/load_store',[TempTablesController::class, 'apprentices_load_store'])->name('sica.academic_coordinator.people.apprentices.load.store'); // Registrar aprendices a partir de un archivo (Coordinador académico)
+
+        // --------------  Rutas de Instructores ---------------------------------
+        Route::get('admin/people/instructors', [InstructorController::class, 'index'])->name('sica.admin.people.instructors.index'); // Vista principal de instructores (Administrador)
+        Route::get('coordinator/people/instructors', [InstructorController::class, 'index'])->name('sica.academic_coordinator.people.instructors.index'); // Vista principal de instructores (Coordinador académico)
+
+        // --------------  Rutas de Funcionarios ---------------------------------
+        Route::get('admin/people/employees', [EmployeeController::class, 'index'])->name('sica.admin.people.employees.index'); // Vista principal de funcionarios (Administrador)
+        Route::get('academic_coordinator/people/employees', [EmployeeController::class, 'index'])->name('sica.academic_coordinator.people.employees.index'); // Vista principal de funcionarios (Coordinador académico)
+
+        // --------------  Rutas de Contratistas ---------------------------------
+        Route::get('admin/people/contractors', [ContractorController::class, 'index'])->name('sica.admin.people.contractors.index'); // Vista pricipal de contratistas (Administrador)
+        Route::get('academic_coordinator/people/contractors', [ContractorController::class, 'index'])->name('sica.academic_coordinator.people.contractors.index'); // Vista pricipal de contratistas (Coordinador académico)
 
         // --------------  Rutas de Asistencia a eventos ---------------------------------
+        // ============================================================================================================================================================================================================================================================================
         Route::get('admin/events_attendance_dashboard', [SICAController::class, 'attendance_dashboard'])->name('sica.admin.events_attendance_dashboard'); // Panel de control de asistencias a eventos (Administrador)
+        // ============================================================================================================================================================================================================================================================================
         Route::get('admin/people/events_attendance', [AttendanceController::class, 'index'])->name('sica.admin.people.events_attendance.index'); // Formulario de registro de asistencia a eventos (Administrador)
         Route::get('attendance/people/events_attendance', [AttendanceController::class, 'index'])->name('sica.attendance.people.events_attendance.index'); // Formulario de registro de asistencia a eventos (Asistencia)
         // Rutas de Datos Básicos para asistencia a eventos
@@ -97,18 +109,6 @@ Route::middleware(['lang'])->group(function(){
         Route::get('attendance/people/basic_data/search', [BasicDataController::class, 'search'])->name('sica.attendance.people.basic_data.search'); // Buscar o registrar datos básicos de persona para registrar asistencia a evento (Asistencia)
         Route::post('admin/people/basic_data/store', [BasicDataController::class, 'store'])->name('sica.admin.people.basic_data.store'); // Registrar datos básicos de personas y asistencia a evento (Administrador)
         Route::post('attendance/people/basic_data/store', [BasicDataController::class, 'store'])->name('sica.attendance.people.basic_data.store'); // Registrar datos básicos de personas y asistencia a evento (Asistencia)
-
-        // --------------  Rutas de Instructors ---------------------------------
-        Route::get('admin/people/instructors', [InstructorController::class, 'index'])->name('sica.admin.people.instructors.index'); // Vista principal de instructores (Administrador)
-        Route::get('coordinator/people/instructors', [InstructorController::class, 'index'])->name('sica.coordinator.people.instructors.index'); // Vista principal de instructores (Coordinator)
-
-        // --------------  Rutas de Funcionarios ---------------------------------
-        Route::get('admin/people/employees', [EmployeeController::class, 'index'])->name('sica.admin.people.employees.index'); // Vista principal de funcionarios (Administrador)
-        Route::get('coordinator/people/employees', [EmployeeController::class, 'index'])->name('sica.coordinator.people.employees.index'); // Vista principal de funcionarios (Coordinador)
-
-        // --------------  Rutas de Contratistas ---------------------------------
-        Route::get('admin/people/contractors', [ContractorController::class, 'index'])->name('sica.admin.people.contractors.index'); // Vista pricipal de contratistas (Administrador)
-        Route::get('coordinator/people/contractors', [ContractorController::class, 'index'])->name('sica.coordinator.people.contractors.index'); // Vista pricipal de contratistas (Coordinador)
 
     });
 

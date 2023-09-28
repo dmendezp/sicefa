@@ -437,7 +437,7 @@
                 @endif
                 <!-- CIERRA MENU PARA ADMINISTRADOR -->
 
-                <!-- MENU PARA COORDINACIÓN ACADÉMICA -->
+                <!-- MENU PARA COORDINADOR ACADÉMICO -->
                 @if (Route::is('sica.academic_coordinator.*'))
                     @if (Auth::user()->havePermission('sica.academic_coordinator.dashboard'))
                         <li class="nav-item">
@@ -478,6 +478,30 @@
                                     <a href="{{ route('sica.academic_coordinator.people.apprentices.index') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.people.apprentices*') ?: 'active' }}">
                                         <i class="fas fa-user-graduate"></i>
                                         <p>{{ trans('sica::menu.Apprentices') }}</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.academic_coordinator.people.instructors.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.academic_coordinator.people.instructors.index') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.people.instructors.*') ?: 'active' }}">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                        <p>{{ trans('sica::menu.Instructors') }}</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.academic_coordinator.people.employees.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.academic_coordinator.people.employees.index') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.people.employees.*') ?: 'active' }}">
+                                        <i class="fas fa-id-card"></i>
+                                        <p>{{ trans('sica::menu.Officers') }}</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.academic_coordinator.people.contractors.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.academic_coordinator.people.contractors.index') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.people.contractors.*') ?: 'active' }}">
+                                        <i class="fa-solid fa-id-card-clip"></i>
+                                        <p>{{ trans('sica::menu.Contractors') }}</p>
                                     </a>
                                 </li>
                             @endif

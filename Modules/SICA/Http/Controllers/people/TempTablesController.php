@@ -83,7 +83,7 @@ class TempTablesController extends Controller
         return view('sica::admin.people.apprentices.load',$data);
     }
 
-    /* Registro de aprendices a partir de un archivo */
+    /* Registrar aprendices a partir de un archivo */
     public function apprentices_load_store(Request $request){
         ini_set('max_execution_time', 3000); // Ampliar el tiempo máximo de la ejecución del proceso en el servidor
         $validator = Validator::make($request->all(),
