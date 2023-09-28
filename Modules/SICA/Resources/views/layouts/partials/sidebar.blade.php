@@ -212,9 +212,9 @@
                                     </a>
                                 </li>
                             @endif
-                            @if (Auth::user()->havePermission('sica.admin.academy.programs'))
+                            @if (Auth::user()->havePermission('sica.admin.academy.programs.index'))
                                 <li class="nav-item">
-                                    <a href="{{ route('sica.admin.academy.programs') }}" class="nav-link {{ !Route::is('sica.admin.academy.programs*') ?: 'active' }}">
+                                    <a href="{{ route('sica.admin.academy.programs.index') }}" class="nav-link {{ !Route::is('sica.admin.academy.programs.*') ?: 'active' }}">
                                         <i class="fas fa-book"></i>
                                         <p>{{ trans('sica::menu.Programs') }}</p>
                                     </a>
@@ -508,6 +508,43 @@
                         </ul>
                     </li>
                     <!-- CIERRA MENU PARA PERSONAS -->
+                    <!-- MENU PARA ACADEMIA -->
+                    <li class="nav-item {{ !Route::is('sica.academic_coordinator.academy.*') ?: 'menu-is-opening menu-open' }}">
+                        <a href="#" class="nav-link {{ !Route::is('sica.academic_coordinator.academy.*') ?: 'active' }}">
+                            <i class="fas fa-school"></i>
+                            <p>
+                                {{ trans('sica::menu.Academy') }}
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (Auth::user()->havePermission('sica.academic_coordinator.academy.holidays.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.academic_coordinator.academy.holidays.index') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.academy.holidays.*') ?: 'active' }}">
+                                        <i class="fa-solid fa-umbrella-beach"></i>
+                                        <p>Festivos</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.academic_coordinator.academy.quarters.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.academic_coordinator.academy.quarters.index') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.academy.quarters.*') ?: 'active' }}">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <p>{{ trans('sica::menu.Quarters') }}</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.academic_coordinator.academy.programs.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.academic_coordinator.academy.programs.index') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.academy.programs.*') ?: 'active' }}">
+                                        <i class="fas fa-book"></i>
+                                        <p>{{ trans('sica::menu.Programs') }}</p>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                    <!-- CIERRA MENU PARA ACADEMIA -->
                 @endif
                 <!-- CIERRA MENU PARA COORDINACIÓN ACADÉMICA -->
 

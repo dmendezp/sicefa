@@ -11,10 +11,10 @@
                     <div class="card-header">
                         <h3 class="card-title">{{trans('sica::menu.Knowledge Networks')}}</h3>
                         <div class="btns">
-                            <a href="{{ route('sica.admin.academy.programs') }}" class="btn btn-info float-right ml-1"> 
+                            <a href="{{ route('sica.admin.academy.programs.index') }}" class="btn btn-info float-right ml-1">
                                 {{trans('sica::menu.Formation Programs')}} <i class="fa-solid fa-angles-right fa-beat-fade"></i>
                             </a>
-                            <a href="{{ route('sica.admin.academy.lines') }}" class="btn btn-info float-right ml-1">
+                            <a href="{{ route('sica.admin.academy.lines.index') }}" class="btn btn-info float-right ml-1">
                                 <i class="fa-solid fa-angles-left fa-beat-fade"></i> {{trans('sica::menu.Technological lines')}}
                             </a>
                         </div>
@@ -29,7 +29,7 @@
                                         <th>{{trans('sica::menu.Knowledge Networks')}}</th>
                                         <th>{{trans('sica::menu.Technological line')}}</th>
                                         <th>{{trans('sica::menu.Actions')}}
-                                            <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.network.create') }}')">
+                                            <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.networks.create') }}')">
                                                 <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
                                                     <i class="fas fa-plus-circle"></i>
                                                 </b>
@@ -45,12 +45,12 @@
                                             <td>{{ $n->line->name }}</td>
                                             <td>
                                                 <div class="opts">
-                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.network.edit', $n->id) }}')">
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.networks.edit', $n->id) }}')">
                                                         <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                                             <i class="fas fa-edit"></i>
                                                         </b>
                                                     </a>
-                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.network.destroy') }}/{{ $n->id }}')">
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.networks.destroy') }}/{{ $n->id }}')">
                                                         <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </b>

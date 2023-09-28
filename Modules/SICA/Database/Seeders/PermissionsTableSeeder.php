@@ -731,39 +731,258 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_attendance[] = $permission->id; // Almacenar permiso para rol
 
-
-        /*
-
-        // Listar Trimestres
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.quarters'], [ // Registro o actualización de permiso
-            'name' => 'Listar Trimestres',
-            'description' => 'Puede acceder a lista de trimestres académicos',
-            'description_english' => 'You can access the list of academic quarters',
+        // Listado de días festivos registrados (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.holidays.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de días festivos registrados (Administrador)',
+            'description' => 'Listado de días festivos registrados',
+            'description_english' => 'List of registered holidays',
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de días festivos registrados (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.holidays.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de días festivos registrados (Coordinador académico)',
+            'description' => 'Listado de días festivos registrados',
+            'description_english' => 'List of registered holidays',
+            'app_id' => $app->id
+        ]);
         $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
-        // Listar Programas
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.curriculums'], [ // Registro o actualización de permiso
-            'name' => 'Listar Programas',
-            'description' => 'Puede acceder a lista de Programas de formación',
-            'description_english' => 'You can access the list of training programs',
+        // Registrar día festivo (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.holidays.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar día festivo (Administrador)',
+            'description' => 'Registrar día festivo',
+            'description_english' => 'Register holiday',
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar día festivo (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.holidays.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar día festivo (Coordinador académico)',
+            'description' => 'Registrar día festivo',
+            'description_english' => 'Register holiday',
+            'app_id' => $app->id
+        ]);
         $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
-        // Listar Cursos
-        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.courses'], [ // Registro o actualización de permiso
-            'name' => 'Listar Cursos',
-            'description' => 'Puede acceder a lista de Titulaciones',
-            'description_english' => 'You can access the list of Programs',
+        // Formulario para actualizar día festivo (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.holidays.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para actualizar día festivo (Administrador)',
+            'description' => 'Formulario para actualizar día festivo',
+            'description_english' => 'Holiday update form',
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario para actualizar día festivo (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.holidays.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario para actualizar día festivo (Coordinador académico)',
+            'description' => 'Formulario para actualizar día festivo',
+            'description_english' => 'Holiday update form',
+            'app_id' => $app->id
+        ]);
         $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
-        */
+
+        // Actualizar día festivo (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.holidays.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar día festivo (Administrador)',
+            'description' => 'Actualizar día festivo',
+            'description_english' => 'Update holiday',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar día festivo (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.holidays.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar día festivo (Coordinador académico)',
+            'description' => 'Actualizar día festivo',
+            'description_english' => 'Update holiday',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar día festivo (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.holidays.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar día festivo (Administrador)',
+            'description' => 'Eliminar día festivo',
+            'description_english' => 'Eliminate holiday',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar día festivo (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.holidays.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar día festivo (Coordinador académico)',
+            'description' => 'Eliminar día festivo',
+            'description_english' => 'Eliminate holiday',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de trimestres registrados (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.quarters.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de trimestres registrados (Administrador)',
+            'description' => 'Listado de trimestres registrados',
+            'description_english' => 'List of registered quarters',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de trimestres registrados (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.quarters.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de trimestres registrados (Coordinador académico)',
+            'description' => 'Listado de trimestres registrados',
+            'description_english' => 'List of registered quarters',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de trimestre (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.quarters.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de trimestre (Administrador)',
+            'description' => 'Formulario de registro de trimestre',
+            'description_english' => 'Quarter registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de trimestre (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.quarters.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de trimestre (Coordinador académico)',
+            'description' => 'Formulario de registro de trimestre',
+            'description_english' => 'Quarter registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar trimestre (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.quarters.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar trimestre (Administrador)',
+            'description' => 'Registrar trimestre',
+            'description_english' => 'Registrer quarter',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar trimestre (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.quarters.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar trimestre (Coordinador académico)',
+            'description' => 'Registrar trimestre',
+            'description_english' => 'Registrer quarter',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de trimestre (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.quarters.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de trimestre (Administrador)',
+            'description' => 'Formulario de actualización de trimestre',
+            'description_english' => 'Quarter update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de trimestre (Coordinador acádemico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.quarters.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de trimestre (Coordinador acádemico)',
+            'description' => 'Formulario de actualización de trimestre',
+            'description_english' => 'Quarter update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar trimestre (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.quarters.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar trimestre (Administrador)',
+            'description' => 'Actualizar trimestre',
+            'description_english' => 'Update quarter',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar trimestre (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.quarters.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar trimestre (Coordinador académico)',
+            'description' => 'Actualizar trimestre',
+            'description_english' => 'Update quarter',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar trimestre (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.quarters.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar trimestre (Administrador)',
+            'description' => 'Eliminar trimestre',
+            'description_english' => 'Delete quarter',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar trimestre (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.quarters.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar trimestre (Coordinador académico)',
+            'description' => 'Eliminar trimestre',
+            'description_english' => 'Delete quarter',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de programas de formación registrados (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.programs.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de programas de formación registrados (Administrador)',
+            'description' => 'Listado de programas de formación registrados',
+            'description_english' => 'List of registered programs',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de programas de formación registrados (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.programs.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de programas de formación registrados (Coordinador académico)',
+            'description' => 'Listado de programas de formación registrados',
+            'description_english' => 'List of registered programs',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de programa de formación (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.programs.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de programa de formación (Administrador)',
+            'description' => 'Formulario de registro de programa de formación',
+            'description_english' => 'Program registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de programa de formación (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.programs.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de programa de formación (Coordinador académico)',
+            'description' => 'Formulario de registro de programa de formación',
+            'description_english' => 'Program registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar programa de formación (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.programs.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar programa de formación (Administrador)',
+            'description' => 'Registrar programa de formación',
+            'description_english' => 'Register program',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar programa de formación (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.programs.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar programa de formación (Coordinador académico)',
+            'description' => 'Registrar programa de formación',
+            'description_english' => 'Register program',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'sica.admin')->first(); // Rol Administrador

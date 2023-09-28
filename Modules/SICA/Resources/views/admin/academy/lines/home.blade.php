@@ -11,8 +11,8 @@
                     <div class="card-header">
                         <h3 class="card-title">{{ trans('sica::menu.Technological lines')}}</h3>
                         <div class="btns">
-                            <a href="{{ route('sica.admin.academy.programs') }}" class="btn btn-info float-right ml-1">{{ trans('sica::menu.Formation Programs')}} <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
-                            <a href="{{ route('sica.admin.academy.networks') }}" class="btn btn-info float-right ml-1"> {{ trans('sica::menu.Knowledge Networks')}} <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
+                            <a href="{{ route('sica.admin.academy.programs.index') }}" class="btn btn-info float-right ml-1">{{ trans('sica::menu.Formation Programs')}} <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
+                            <a href="{{ route('sica.admin.academy.networks.index') }}" class="btn btn-info float-right ml-1"> {{ trans('sica::menu.Knowledge Networks')}} <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -24,7 +24,7 @@
                                         <th>Id</th>
                                         <th>{{ trans('sica::menu.Name')}}</th>
                                         <th>{{ trans('sica::menu.Actions')}}
-                                            <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.line.create') }}')">
+                                            <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.lines.create') }}')">
                                                 <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
                                                     <i class="fas fa-plus-circle"></i>
                                                 </b>
@@ -39,12 +39,12 @@
                                             <td>{{ $l->name }}</td>
                                             <td>
                                                 <div class="opts">
-                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.line.edit', $l->id) }}')">
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.lines.edit', $l->id) }}')">
                                                         <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                                             <i class="fas fa-edit"></i>
                                                         </b>
                                                     </a>
-                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.line.destroy') }}/{{ $l->id }}')">
+                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.lines.destroy') }}/{{ $l->id }}')">
                                                         <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </b>

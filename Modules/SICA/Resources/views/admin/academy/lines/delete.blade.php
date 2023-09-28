@@ -7,7 +7,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {!! Form::open(['route'=>'sica.admin.academy.line.destroy', 'method'=>'POST', 'id'=>'form-config']) !!}
+    {!! Form::open(['route'=>'sica.admin.academy.lines.destroy', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-3" style="font-size: 20px;">
             {!! Form::hidden('id', $line->id) !!}
             <div class="row">

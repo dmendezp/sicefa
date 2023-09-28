@@ -7,7 +7,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {!! Form::open(['route'=>'sica.admin.academy.program.update', 'method'=>'POST', 'id'=>'form-config']) !!}
+    {!! Form::open(['route'=>'sica.admin.academy.programs.update', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-0">
                 @include('sica::admin.academy.programs.form')
         </div>
