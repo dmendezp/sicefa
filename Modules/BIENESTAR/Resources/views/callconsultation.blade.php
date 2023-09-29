@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid" style="max-width:1200px">
-<div class="row justify-content-md-center pt-4">
+    <div class="row justify-content-md-center pt-4">
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
@@ -34,7 +34,6 @@
                                         <th>Número de Ruta (Transporte)</th>
                                         <th>Nombre de Ruta (Transporte)</th>
                                         <th></th> <!-- Columna en blanco -->
-                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,6 +50,11 @@
                                     @endisset
                                 </tbody>
                             </table>
+
+                            <!-- Agregar el botón "Más info" debajo del título "Nombre de Ruta (Transporte)" -->
+                            <div class="text-center mt-3">
+                                                <button class="btn btn-primary" style="background-color: #00FF22; color: #000000;">Más info</button>
+                                            </div>
                         </div>
                     </div>
                     <!-- Fin del contenido en un solo card -->
