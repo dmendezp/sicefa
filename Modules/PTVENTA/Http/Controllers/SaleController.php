@@ -4,6 +4,7 @@ namespace Modules\PTVENTA\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
+use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
 use Modules\SICA\Entities\CashCount;
@@ -13,6 +14,8 @@ class SaleController extends Controller
 
     public function index(){
         $view = ['titlePage'=> trans('ptventa::controllers.PTVENTA_sale_index_title_page'), 'titleView'=> trans('ptventa::controllers.PTVENTA_sale_index_title_view')];
+        // Lista de apps para el menu de acceso rapido
+        $apps = App::get();
         $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         $cashCount = CashCount::where('productive_unit_warehouse_id',$app_puw->id)
                                 ->where('state','Abierta')
@@ -25,9 +28,9 @@ class SaleController extends Controller
                                 })->where('registration_date','>=',$cashCount->opening_date)
                                 ->orderBy('registration_date','DESC')
                                 ->get();
-            return view('ptventa::sale.index', compact('view','sales', 'cashCount'));
+            return view('ptventa::sale.index', compact('view', 'apps', 'sales', 'cashCount'));
         }else{
-            return view('ptventa::sale.index', compact('view', 'cashCount'));
+            return view('ptventa::sale.index', compact('view', 'apps','cashCount'));
         }
     }
 
@@ -42,14 +45,18 @@ class SaleController extends Controller
         }
         // Continuar con la vista de registro de venta si hay una caja abierta
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_sale_register_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_sale_register_title_view')];
-        return view('ptventa::sale.register', compact('view'));
+        // Lista de apps para el menu de acceso rapido
+        $apps = App::get();
+        return view('ptventa::sale.register', compact('view', 'apps'));
     }
 
     /* Ver detalle de venta */
     public function show($movement_id){
         $movement = Movement::with('movement_details.inventory.element.measurement_unit')->find($movement_id);
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_sale_show_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_sale_show_title_view')];
-        return view('ptventa::sale.show', compact('view', 'movement'));
+        // Lista de apps para el menu de acceso rapido
+        $apps = App::get();
+        return view('ptventa::sale.show', compact('view', 'apps', 'movement'));
     }
 
 }

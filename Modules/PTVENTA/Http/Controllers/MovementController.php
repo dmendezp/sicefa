@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\Person;
 
@@ -15,17 +16,21 @@ class MovementController extends Controller
     /* Vista principal de historico de movimientos */
     public function index(Request $request) {
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_movement_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_movement_index_title_view')];
+        // Lista de apps para el menu de acceso rapido
+        $apps = App::get();
         $start_date = Carbon::now()->startOfDay()->format('Y-m-d H:i:s'); // Fecha del actual con la primer hora del día
         $end_date = Carbon::now()->endOfDay()->format('Y-m-d H:i:s'); // Fecha del actual con la última hora del día
         $movements = Movement::whereBetween('registration_date', [$start_date, $end_date])
                                 ->orderBy('registration_date','DESC')
                                 ->get();
-        return view('ptventa::movements.index', compact('view', 'movements'));  
+        return view('ptventa::movements.index', compact('view', 'apps', 'movements'));  
     }
 
     /* Consultar movimientos por fecha y actor */
     public function consult(Request $request){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_movement_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_movement_index_title_view')];
+        // Lista de apps para el menu de acceso rapido
+        $apps = App::get();
         $start_date = Carbon::createFromFormat('Y-m-d', $request->input('start_date'))->startOfDay(); // Fecha inicial con la primer hora del día
         $end_date = Carbon::createFromFormat('Y-m-d', $request->input('end_date'))->endOfDay(); // Fecha final con la última hora del día
         $movements = Movement::whereBetween('registration_date', [$start_date, $end_date])
@@ -45,7 +50,7 @@ class MovementController extends Controller
                 $movements = [];
             }
         }
-        return view('ptventa::movements.index', compact('view', 'movements'));  
+        return view('ptventa::movements.index', compact('view', 'apps', 'movements'));  
     }
 
 }
