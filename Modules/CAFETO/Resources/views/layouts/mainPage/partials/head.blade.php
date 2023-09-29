@@ -1,7 +1,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<link href="assets/images/favicon/favicon.png" rel="icon" />
+<link rel="shortcut icon" href="{{ asset('modules/cafeto/images/icon/mug-hot-solid.ico') }}">
+
 <title>CAFETO | {{ $view['titlePage'] }}</title>
 
 <!--  Iconos de Font Awesome versión 6 -->
