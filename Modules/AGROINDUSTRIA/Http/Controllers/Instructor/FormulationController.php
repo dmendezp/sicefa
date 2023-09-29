@@ -39,6 +39,23 @@ class FormulationController extends Controller
         return view('agroindustria::instructor.formulations.table', $data);  
     }
 
+    public function details (){
+
+        $title = "Detalles";
+
+        $selectedUnit = session('viewing_unit');
+        $unitName = ProductiveUnit::findOrFail($selectedUnit);
+
+        $formulations = Formulation::with('utensils.element.measurement_unit', 'ingredients.element.measurement_unit')->where('productive_unit_id', $selectedUnit)->get();
+
+        $data = [
+            'title' => $title,
+            'formulations' => $formulations
+        ];
+
+        return view('agroindustria::instructor.formulations.details', $data);  
+    }
+
     public function form(){
         $title = 'Formulacion';
         $user = Auth::user();

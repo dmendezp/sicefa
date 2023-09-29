@@ -1,12 +1,6 @@
 @extends('agroindustria::layouts.master')
 @section('content')
-
-<center>
-<h1>{{trans('agroindustria::menu.List of Products')}}</h1>
-</center>
-
-
-
+    
 <div class="formulations-container">
     @foreach ($formulations as $formulation)
     <div class="formulationcard">
@@ -14,6 +8,8 @@
             <h2>{{ $formulation->element->name }}</h2>
         </div>
         <div class="formulations-card">
+            <p><strong>Fecha de creción:</strong> {{ $formulation->date }}</p>
+            <p><strong>Creador:</strong> {{ $formulation->person->first_name . ' ' . $formulation->person->first_last_name . ' ' . $formulation->person->second_last_name }}</p>
             <p><strong>{{trans('agroindustria::menu.Productive Unit')}}:</strong> {{ $formulation->productive_unit->name }}</p>
             <p><strong>{{trans('agroindustria::menu.Proccess')}}:</strong> {{ $formulation->proccess }}</p>
             <p><strong>{{trans('agroindustria::menu.Amount')}}:</strong> {{ $formulation->amount }}</p>
@@ -21,10 +17,8 @@
             <!-- Lista de ingredientes para esta formulación -->
             <p><strong>{{trans('agroindustria::menu.Ingredients')}}:</strong></p>
             <ul>
-                @foreach ($ingredients as $ingredient)
-                    @if ($ingredient->formulation_id === $formulation->id)
-                    <li>{{ $ingredient->element->name }}</li>
-                    @endif
+                @foreach ($formulation->ingredients as $ingredient)                 
+                {{ $ingredient->amount . '' .  $ingredient->element->measurement_unit->abbreviation . ' ' . $ingredient->element->name }} 
                 @endforeach
             </ul>
             <!-- Fin de la lista de ingredientes -->
@@ -32,10 +26,8 @@
             <!-- Lista de utensilios para esta formulación -->
             <p><strong>{{trans('agroindustria::menu.Utensils')}}:</strong></p>
             <ul>
-                @foreach ($utensils as $utensil)
-                    @if ($utensil->formulation_id === $formulation->id)
-                    <li>{{ $utensil->element->name }}</li>
-                    @endif
+                @foreach ($formulation->utensils as $utensil)
+                {{ $utensil->amount . '' .  $utensil->element->measurement_unit->abbreviation . ' ' . $utensil->element->name }}
                 @endforeach
             </ul>
             <!-- Fin de la lista de utensilios -->
@@ -45,10 +37,7 @@
 </div>
 
 
-
-
-
-
-
+@section('script')
+@endsection
 
 @endsection
