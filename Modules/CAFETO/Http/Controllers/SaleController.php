@@ -44,7 +44,7 @@ class SaleController extends Controller
             ->where('state', 'Abierta')
             ->first();
         if (!$open_cash_count) {
-            return redirect(route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.sale.index'))->with('error', 'Primero debes abrir una caja.');
+            return redirect(route('cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.sale.index'))->with('error', trans('cafeto::cash.TextFailedOpen'));
         }
         // Continuar con la vista de registro de venta si hay una caja abierta
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_sale_register_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_sale_register_title_view')];

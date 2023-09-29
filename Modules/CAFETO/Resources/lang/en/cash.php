@@ -61,4 +61,6 @@ return [
     'TitleAlert'             => 'Operation Declined!',
     'TextSuccess'            => 'Successfully closed cash.',
     'TextFailed'             => 'Failed to close cash count (possibly a value for the final balance has not been sent).',
+    // There is no open casing
+    'TextFailedOpen'         => 'First you must open a cash register.',
 ];

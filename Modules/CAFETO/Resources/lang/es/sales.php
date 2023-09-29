@@ -46,8 +46,9 @@ return [
 	'2T_Actions' => 'Acciones',
 	
 	// Tooltips
-	'Tooltip1' => 'Actualizar Producto',
-	'Tooltip2' => 'Eliminar Producto',
+	'Tooltip1'            => 'Actualizar Producto',
+	'Tooltip2'            => 'Eliminar Producto',
+	'TooltipRegisterSale' => 'Registrar Venta',
 	
 	// Section Sales Data
 	'Title_Sales_Data'    => 'Venta',

@@ -65,7 +65,7 @@
                 <div class="container-fluid">
                     @section('content') @show
                     @if(!Route::is('cefa.cafeto.*') && Auth::user()->havePermission('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.sale.register'))
-                        <a href="{{ Route('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.sale.register') }}" class="button-register-sale pt-2 pe-1" >
+                        <a href="{{ Route('cafeto.'.getRoleRouteName(Route::currentRouteName()).'.sale.register') }}" class="button-register-sale pt-2 pe-1" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="{{ trans('cafeto::sales.TooltipRegisterSale') }}">
                             <i class="fa-solid fa-cart-shopping fa-bounce"></i>
                         </a>
                     @endif

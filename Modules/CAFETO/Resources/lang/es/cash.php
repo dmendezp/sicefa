@@ -61,4 +61,6 @@ return [
     'TitleAlert'             => 'Operación Rechazada',
     'TextSuccess'            => 'Caja cerrada exitosamente.',
     'TextFailed'             => 'Fallo al cerrar la caja (posiblemente no se ha enviado un valor para el balance final).',
+    // There is no open casing
+    'TextFailedOpen'         => 'Primero debes abrir una caja.',
 ];
