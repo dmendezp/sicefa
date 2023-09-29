@@ -285,6 +285,11 @@
                                     <i class="fa-solid fa-right-to-bracket"></i> {{ trans('cafeto::general.Log In') }}
                                 </a>
                             </li>
+                            <li>
+                                <a class="menu-item" href="{{ route('cefa.welcome') }}">
+                                    <i class="nav-icon fas fa-puzzle-piece"></i> {{ trans('cafeto::general.Back to SICEFA') }}
+                                </a>
+                            </li>
                         @else
                             @auth
                                 @if (checkRol('cafeto.admin'))
