@@ -49,6 +49,10 @@ return [
     'Developers'       => 'Developers',
     'About us'         => 'About us',
 
+    // ControlSidebar
+    'Browse'           => 'Browse!',
+    'Clic'             => 'If you want to go to another app just click.',
+
     //Footer
     'All Rights Reserved.' => 'All Rights Reserved.',
 

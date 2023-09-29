@@ -1,8 +1,8 @@
 <aside id="mySidebar" class="control-sidebar control-sidebar-dark control-sidebar-overlap">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
-        <h5>Navega!</h5>
-        <p>Si quieres ir a otra app solo haz clic.</p>
+        <h5>{{ trans('cafeto::general.Browse') }}</h5>
+        <p>{{ trans('cafeto::general.Clic') }}</p>
         <!-- Seccion de acceso rapido de Apps -->
         <section class="services">
             <div class="container" data-aos="fade-up">
@@ -16,7 +16,7 @@
                         <div class="col-xl-6 col-md-3 d-flex align-items-stretch mt-2" data-aos="zoom-in"
                             data-aos-delay="100">
                             <div class="icon-box">
-                                <div class="icon">
+                                <div class="icon-img">
                                     <h4>
                                         <a class="colorapp{{ $app->id }}" href="{{ url($app->url) }}"
                                             style="text-decoration: none" data-bs-toggle="tooltip"

@@ -77,7 +77,7 @@
         <!-- /.content-wrapper -->
 
         <!-- Control Sidebar -->
-        @include('sigac::layouts.partials.controlSidebar')
+        @include('cafeto::layouts.partials.controlSidebar')
         <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
