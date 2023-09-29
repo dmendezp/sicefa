@@ -38,16 +38,20 @@ Route::middleware(['lang'])->group(function(){
         Route::get('admin/academy/programs/create', [AcademyController::class, 'programs_create'])->name('sica.admin.academy.programs.create'); // Formulario de registro de programa de formación (Administrador)
         Route::get('academic_coordinator/academy/programs/create', [AcademyController::class, 'programs_create'])->name('sica.academic_coordinator.academy.programs.create'); // Formulario de registro de programa de formación (Coordinador académico)
         Route::post('admin/academy/programs/store', [AcademyController::class, 'programs_store'])->name('sica.admin.academy.programs.store'); // Registrar programa de formación (Administrador)
-        // ===========================================================================================================================================================================================================
         Route::post('academic_coordinator/academy/programs/store', [AcademyController::class, 'programs_store'])->name('sica.academic_coordinator.academy.programs.store'); // Registrar programa de formación (Coordinador académico)
-        // ===========================================================================================================================================================================================================
-        Route::get('admin/academy/programs/edit/{id}', [AcademyController::class, 'programs_edit'])->name('sica.admin.academy.programs.edit');
-        Route::post('admin/academy/programs/update/', [AcademyController::class, 'programs_update'])->name('sica.admin.academy.programs.update');
-        Route::get('admin/academy/programs/delete/{id}', [AcademyController::class, 'programs_delete'])->name('sica.admin.academy.programs.delete');
-        Route::post('admin/academy/programs/delete/', [AcademyController::class, 'programs_destroy'])->name('sica.admin.academy.programs.destroy');
+        Route::get('admin/academy/programs/edit/{id}', [AcademyController::class, 'programs_edit'])->name('sica.admin.academy.programs.edit'); // Formulario para de actualización de formación (Administrador)
+        Route::get('academic_coordinator/academy/programs/edit/{id}', [AcademyController::class, 'programs_edit'])->name('sica.academic_coordinator.academy.programs.edit'); // Formulario para de actualización de formación (Coordinador académico)
+        Route::post('admin/academy/programs/update/', [AcademyController::class, 'programs_update'])->name('sica.admin.academy.programs.update'); // Actualizar programa de formación (Administrador)
+        Route::post('academic_coordinator/academy/programs/update/', [AcademyController::class, 'programs_update'])->name('sica.academic_coordinator.academy.programs.update'); // Actualizar programa de formación (Coordinador académico)
+        Route::get('admin/academy/programs/delete/{id}', [AcademyController::class, 'programs_delete'])->name('sica.admin.academy.programs.delete'); // Formulario de eliminación de programa de formación (Administrador)
+        Route::get('academic_coordinator/academy/programs/delete/{id}', [AcademyController::class, 'programs_delete'])->name('sica.academic_coordinator.academy.programs.delete'); // Formulario de eliminación de programa de formación (Coordinador académico)
+        Route::post('admin/academy/programs/delete/', [AcademyController::class, 'programs_destroy'])->name('sica.admin.academy.programs.destroy'); // Eliminar programa de formación (Administrador)
+        Route::post('academic_coordinator/academy/programs/delete/', [AcademyController::class, 'programs_destroy'])->name('sica.academic_coordinator.academy.programs.destroy'); // Eliminar programa de formación (Coordinador académico)
 
-        // ------------Rutas de lineas-----------
+        // ------------Rutas de Líneas tecnologicas-----------
+        // ===========================================================================================================================================================================================================
         Route::get('admin/academy/lines', [AcademyController::class, 'lines_index'])->name('sica.admin.academy.lines.index');
+        // ===========================================================================================================================================================================================================
         Route::get('admin/academy/lines/create', [AcademyController::class, 'lines_create'])->name('sica.admin.academy.lines.create');
         Route::post('admin/academy/lines/store', [AcademyController::class, 'lines_store'])->name('sica.admin.academy.lines.store');
         Route::get('admin/academy/lines/edit/{id}', [AcademyController::class, 'lines_edit'])->name('sica.admin.academy.lines.edit');

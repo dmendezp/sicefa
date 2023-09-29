@@ -1,3 +1,7 @@
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
+
 <div id="content-config">
     <div class="modal-header py-2">
         <h5 class="modal-title" id="exampleModalLabel">
@@ -7,13 +11,15 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    {!! Form::open(['route'=>'sica.admin.academy.programs.update', 'method'=>'POST', 'id'=>'form-config']) !!}
+    {!! Form::open(['route'=>'sica.'.$role_name.'.academy.programs.update', 'method'=>'POST', 'id'=>'form-config']) !!}
         <div class="modal-body px-4 pt-0">
-                @include('sica::admin.academy.programs.form')
+            @include('sica::admin.academy.programs.form')
         </div>
         <div class="modal-footer py-1">
-                <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">{{trans('sica::menu.Cancel')}}</button>
+            <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">{{trans('sica::menu.Cancel')}}</button>
+            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.update'))
                 {!! Form::submit(trans('sica::menu.Update'), ['class'=>'btn btn-success btn-md py-0']) !!}
+            @endif
         </div>
     {!! Form::close() !!}
 </div>

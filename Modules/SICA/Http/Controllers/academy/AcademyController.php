@@ -177,6 +177,7 @@ class AcademyController extends Controller
         return back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }
 
+    /* Formulario de actualización de programa de formación */
     public function programs_edit($id){
         $program = Program::find($id);
         $network = Network::orderBy('name', 'ASC')->pluck('name', 'id');
@@ -188,6 +189,7 @@ class AcademyController extends Controller
         return view('sica::admin.academy.programs.edit', $data);
     }
 
+    /* Actualizar programa de formación */
     public function programs_update(Request $request){
         $program = Program::find($request->input('id'));
         $program->sofia_code = e($request->input('sofia_code'));
@@ -204,12 +206,14 @@ class AcademyController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }
 
+    /* Formulario de eliminación de programa de formación */
     public function programs_delete($id){
         $program = Program::find($id);
         $data = [ 'title' => 'Eliminar programa de formación', 'program' => $program];
         return view('sica::admin.academy.programs.delete', $data);
     }
 
+    /* Eliminar programa de formación */
     public function programs_destroy(Request $request){
         $program = Program::findOrFail($request->input('id'));
         if($program->delete()){
@@ -222,10 +226,11 @@ class AcademyController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }
 
+    /* Listado líneas tecnoloógicas registradas */
     public function lines_index(){
         $line = Line::orderBy('updated_at','DESC')->get();
         $data = ['title'=>trans('sica::menu.Lines'),'lines'=>$line];
-        return view('sica::admin.academy.lines.home',$data);
+        return view('sica::admin.academy.lines.index', $data);
     }
 
     public function lines_create(){

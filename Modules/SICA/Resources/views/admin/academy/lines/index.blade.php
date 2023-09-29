@@ -1,8 +1,5 @@
 @extends('sica::layouts.master')
 
-@section('stylesheet')
-@endsection
-
 @section('content')
     <div class="content">
         <div class="container-fluid">
@@ -23,7 +20,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>{{ trans('sica::menu.Name')}}</th>
-                                        <th>{{ trans('sica::menu.Actions')}}
+                                        <th class="text-center">{{ trans('sica::menu.Actions')}}
                                             <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.lines.create') }}')">
                                                 <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
                                                     <i class="fas fa-plus-circle"></i>
@@ -37,7 +34,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $l->name }}</td>
-                                            <td>
+                                            <td class="text-center">
                                                 <div class="opts">
                                                     <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.lines.edit', $l->id) }}')">
                                                         <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
@@ -117,7 +114,10 @@
         $(document).ready(function() {
             /* Initialización of Datatables Lines */
             $('#tableLines').DataTable({
-                // opciones de configuración para la tabla 1
+                columnDefs: [{
+                    orderable: false,
+                    targets: 2
+                }]
             });
         });
     </script>

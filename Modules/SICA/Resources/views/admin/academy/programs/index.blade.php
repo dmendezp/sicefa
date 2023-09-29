@@ -12,16 +12,16 @@
                     <div class="card-header">
                         <h3 class="card-title">{{ trans('sica::menu.Formation Programs') }}</h3>
                         <div class="btns">
-                            @if (Auth::user()->havePermission('sica.' . $role_name . '.academy.networks.index'))
-                                <a href="{{ route('sica.' . $role_name . '.academy.networks.index') }}" class="btn btn-info float-right ml-1">
-                                    <i class="fa-solid fa-angles-left fa-beat-fade"></i>
-                                    {{ trans('sica::menu.Knowledge Networks') }}
+                            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.lines.index'))
+                                <a href="{{ route('sica.'.$role_name.'.academy.lines.index') }}"class="btn btn-info float-right ml-1">
+                                    <i class="fa-solid fa-angles-right fa-beat-fade"></i>
+                                    {{ trans('sica::menu.Technological lines') }}
                                 </a>
                             @endif
-                            @if (Auth::user()->havePermission('sica.' . $role_name . '.academy.lines.index'))
-                                <a href="{{ route('sica.' . $role_name . '.academy.lines.index') }}"class="btn btn-info float-right ml-1">
-                                    <i class="fa-solid fa-angles-left fa-beat-fade"></i>
-                                    {{ trans('sica::menu.Technological lines') }}
+                            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.networks.index'))
+                                <a href="{{ route('sica.'.$role_name.'.academy.networks.index') }}" class="btn btn-info float-right ml-1">
+                                    <i class="fa-solid fa-angles-right fa-beat-fade"></i>
+                                    {{ trans('sica::menu.Knowledge Networks') }}
                                 </a>
                             @endif
                         </div>
@@ -39,8 +39,8 @@
                                         <th>{{ trans('sica::menu.Name') }}</th>
                                         <th>{{ trans('sica::menu.Knowledge Network') }}</th>
                                         <th class="text-center">{{ trans('sica::menu.Actions') }}
-                                            @if (Auth::user()->havePermission('sica.' . $role_name . '.academy.programs.create'))
-                                                <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.' . $role_name . '.academy.programs.create') }}')">
+                                            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.create'))
+                                                <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.programs.create') }}')">
                                                     <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar programa de formación">
                                                         <i class="fas fa-plus-circle"></i>
                                                     </b>
@@ -59,15 +59,15 @@
                                             <td>{{ $p->network->name }}</td>
                                             <td class="text-center">
                                                 <div class="opts">
-                                                    @if (Auth::user()->havePermission('sica.' . $role_name . '.academy.programs.edit'))
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.' . $role_name . '.academy.programs.edit', $p->id) }}')">
+                                                    @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.edit'))
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.programs.edit', $p->id) }}')">
                                                             <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
                                                                 <i class="fas fa-edit"></i>
                                                             </b>
                                                         </a>
                                                     @endif
-                                                    @if (Auth::user()->havePermission('sica.' . $role_name . '.academy.programs.destroy'))
-                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.' . $role_name . '.academy.programs.destroy') }}/{{ $p->id }}')">
+                                                    @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.delete'))
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.programs.delete', $p->id) }}')">
                                                             <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </b>

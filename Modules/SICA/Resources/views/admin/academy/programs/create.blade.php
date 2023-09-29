@@ -17,7 +17,7 @@
         </div>
         <div class="modal-footer py-1">
             <button type="button" class="btn btn-secondary btn-md py-0" data-dismiss="modal">{{trans('sica::menu.Cancel')}}</button>
-            @if (Auth::user()->havePermission('sica.' . $role_name . '.academy.programs.store'))
+            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.store'))
                 {!! Form::submit(trans('sica::menu.Register'), ['class'=>'btn btn-primary btn-md py-0']) !!}
             @endif
         </div>

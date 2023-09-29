@@ -983,6 +983,78 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
+        // Formulario de actualización de programa de formación (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.programs.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de programa de formación (Administrador)',
+            'description' => 'Formulario de actualización de programa de formación',
+            'description_english' => 'Program update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de programa de formación (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.programs.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de programa de formación (Coordinador académico)',
+            'description' => 'Formulario de actualización de programa de formación',
+            'description_english' => 'Program update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar programa de formación (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.programs.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar programa de formación (Administrador)',
+            'description' => 'Actualizar programa de formación',
+            'description_english' => 'Update program',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar programa de formación (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.programs.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar programa de formación (Coordinador académico)',
+            'description' => 'Actualizar programa de formación',
+            'description_english' => 'Update program',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de eliminación de programa de formación (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.programs.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de eliminación de programa de formación (Administrador)',
+            'description' => 'Formulario de eliminación de programa de formación',
+            'description_english' => 'Program elimination form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de eliminación de programa de formación (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.programs.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de eliminación de programa de formación (Coordinador académico)',
+            'description' => 'Formulario de eliminación de programa de formación',
+            'description_english' => 'Program elimination form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar programa de formación (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.programs.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar programa de formación (Administrador)',
+            'description' => 'Eliminar programa de formación',
+            'description_english' => 'Delete program',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar programa de formación (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.programs.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar programa de formación (Coordinador académico)',
+            'description' => 'Eliminar programa de formación',
+            'description_english' => 'Delete program',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'sica.admin')->first(); // Rol Administrador
