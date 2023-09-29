@@ -4,6 +4,7 @@ namespace Modules\SIGAC\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\SICA\Entities\EPS;
+use Modules\SICA\Entities\PensionEntity;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\PopulationGroup;
 
@@ -19,6 +20,7 @@ class PeopleTableSeeder extends Seeder
 
         $population_group = PopulationGroup::firstOrCreate(['name' => 'NINGUNA']); // Consultar o registrar Grupo Poblacional
         $eps = EPS::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar EPS
+        $pension_entity = PensionEntity::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar Entidad de pensiones
 
         // Consulta o registro de datos para María Antonia Gonzáles Gonzáles
         Person::firstOrCreate(['document_number' => 36281368], [ // Consultar o registrar Persona
@@ -27,7 +29,8 @@ class PeopleTableSeeder extends Seeder
             'first_last_name' => 'GONZALES',
             'second_last_name' => 'GONZALES',
             'eps_id' => $eps->id,
-            'population_group_id' => $population_group->id
+            'population_group_id' => $population_group->id,
+            'pension_entity_id' => $pension_entity->id
         ]);
 
     }
