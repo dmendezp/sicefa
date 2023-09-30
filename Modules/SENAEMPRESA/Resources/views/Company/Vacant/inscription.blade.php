@@ -1,30 +1,26 @@
-<div class="modal" id="myModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="vacancyTitle"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-header">
-                            {{ trans('senaempresa::menu.General Description') }}:
-                        </div>
-                        <p id="vacancyDescription"></p>
-                        <div class="card-header">
-                            {{ trans('senaempresa::menu.Requirements') }}:
-                        </div>
-                        <ul id="vacancyRequirements" class="list-unstyled">
-                        </ul>
-                    </div>
+    <div class="modal" id="myModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="vacancyTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                @if (!empty($vacancy))
-                    <a href="{{ route('inscription') }}?vacancy_id={{ $vacancy->id }}&vacancy_name={{ $vacancy->name }}"
-                        class="btn btn-primary">{{ trans('senaempresa::menu.Registration') }}</a>
-                @endif
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-header">
+                                {{ trans('senaempresa::menu.General Description') }}:
+                            </div>
+                            <p id="vacancyDescription"></p>
+                            <div class="card-header">
+                                {{ trans('senaempresa::menu.Requirements') }}:
+                            </div>
+                            <ul id="vacancyRequirements" class="list-unstyled">
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary inscribirseBtn">Mas Información</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Modal inscripcion a vacante disponible -->

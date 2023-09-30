@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Vacancy;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
@@ -68,6 +69,8 @@ class VacantController extends Controller
         });
 
         $vacancies = $vacancies->get();
+        // Comprobar si el usuario actual es un aprendiz en la tabla 'apprentices'
+        
         $PositionCompany = PositionCompany::all();
 
         $data = [

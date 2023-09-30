@@ -31,7 +31,7 @@
                                 <th>{{ trans('senaempresa::menu.Id Position') }}</th>
                                 <th>{{ trans('senaempresa::menu.Start Date and Time') }}</th>
                                 <th>{{ trans('senaempresa::menu.Date and Time End') }}</th>
-                                <th class="text-center">{{ trans('senaempresa::menu.Registration') }}</th>
+                                <th class="text-center">Detalles</th>
 
                                 @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                     <th style="width: 100px;"><a href="{{ route('company.vacant.agregar_vacante') }}"
@@ -65,9 +65,8 @@
                                         <td>{{ $vacancy->start_datetime }}</td>
                                         <td>{{ $vacancy->end_datetime }}</td>
                                         <td class="text-center">
-                                            <a class="openModalBtn" title="Inscripción"
-                                                data-vacancy='@json($vacancy)' data-bs-toggle="modal"
-                                                data-bs-target="#myModal">
+                                            <a class="openModalBtn" title="Ver información" data-bs-toggle="modal"
+                                                data-bs-target="#myModal" data-vacancy='@json($vacancy)'>
                                                 <i class="fas fa-eye" style="color: #000000;"></i>
                                             </a>
                                         </td>

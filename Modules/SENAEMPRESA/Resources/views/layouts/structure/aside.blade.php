@@ -180,6 +180,15 @@
                                 <p>{{ trans('senaempresa::menu.Positions') }}</p>
                             </a>
                         </li>
+                        @if (auth()->user()->person->apprentices())
+                            <li class="nav-item">
+                                <a href="{{ route('inscription') }}"
+                                    class="nav-link {{ !Route::is('inscription') ?: 'active' }}">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <p>{{ trans('senaempresa::menu.Registration') }}</p>
+                                </a>
+                            </li>
+                        @endif
                         @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                             <li class="nav-item">
                                 <a href="{{ route('company.vacant.mostrar_asociados') }}"

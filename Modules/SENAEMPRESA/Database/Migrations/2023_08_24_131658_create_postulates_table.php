@@ -18,12 +18,13 @@ class CreatePostulatesTable extends Migration
             $table->foreignId('apprentice_id')->constrained()->onDelete('cascade');
             $table->foreignId('vacancy_id')->constrained()->onDelete('cascade');
             $table->enum('state', [
-                'activo',
-                'inactivo'
+                'Seleccionado',
+                'No Seleccionado',
+                'Inscrito'
             ])->nullable();
-            $table->string('cv');
-            $table->string('personalities');
-            $table->string('proposal');
+            $table->binary('cv');
+            $table->binary('personalities');
+            $table->binary('proposal');
             $table->unsignedInteger('score_total')->nullable();
             $table->timestamps();
             $table->softDeletes();

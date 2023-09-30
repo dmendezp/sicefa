@@ -15,7 +15,7 @@ class postulate extends Model implements Auditable
         SoftDeletes, // Borrado suave
         HasFactory;
 
-    protected $fillable = ['name', 'apprentice_id', 'vacancy_id', 'state', 'activo', 'inactivo'];
+    protected $fillable = ['name', 'person_id', 'vacancy_id', 'state', 'activo', 'inactivo'];
 
     protected static function newFactory()
     {
