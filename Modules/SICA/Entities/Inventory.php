@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
 use Modules\AGROINDUSTRIA\Entities\Consumable;
+use Modules\AGROINDUSTRIA\Entities\Tool;
 
 class Inventory extends Model implements Auditable
 {
@@ -64,6 +65,9 @@ class Inventory extends Model implements Auditable
     }
     public function productive_unit_warehouse(){ // Accede a la información de la unidad productiva y bodega al que pertenece
         return $this->belongsTo(ProductiveUnitWarehouse::class);
+    }
+    public function tool(){ // Accede a todas las herramientas que pertenecen a esta labor
+        return $this->hasMany(Tool::class);
     }
 
 

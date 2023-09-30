@@ -18,6 +18,16 @@
     color: white;
 }
 
+#toggle-form-tools{
+    margin-top: 10px;
+    margin-left: 2px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
 .red-button {
     background-color: red;
     color: white; /* Cambia el color del texto para que sea legible */
@@ -31,8 +41,21 @@
     margin-top: 5px;
 }
 
+#title_tools{
+    margin-top: 5px;
+}
+
 #add-executor{
     width: 970px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
+#add-tools{
+    width: 748px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
@@ -52,6 +75,20 @@
     border: none;
 }
 
+.remove-tools{
+    position: relative;
+    left: 2px;
+    padding: 10px 5px 10px 5px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+}
+
 #executors{
     background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */
 }
+
+

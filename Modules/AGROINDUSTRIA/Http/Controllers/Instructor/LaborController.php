@@ -11,9 +11,13 @@ use Modules\SICA\Entities\Labor;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Responsibility;
+use Modules\SICA\Entities\ProductiveUnitWarehouse;
+use Modules\SICA\Entities\Element;
+use Modules\SICA\Entities\Inventory;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\Executor;
 use Modules\AGROINDUSTRIA\Entities\EmployementType;
+use Modules\AGROINDUSTRIA\Entities\Tool;
 
 class LaborController extends Controller
 {
@@ -79,6 +83,19 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectEmployeeType')])->pluck('name', 'id');
 
+        $productive_unit_warehouse = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+        $elements = Element::where('category_id', 2)->pluck('id');
+
+        $tools = Inventory::where('productive_unit_warehouse_id', $productive_unit_warehouse)->whereIn('element_id', $elements)->get();
+        $tool = $tools->map(function ($t) {
+            $id = $t->id;
+            $name = $t->element->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione una herramienta'])->pluck('name', 'id');
 
         $data = [
             'title' => $title,
@@ -86,6 +103,7 @@ class LaborController extends Controller
             'recipe' => $recipe,
             'destination' => $destination,
             'employee' => $nameEmployee,
+            'tool' => $tool
         ];
         return view('agroindustria::instructor.labors.form', $data);
     }
@@ -120,6 +138,12 @@ class LaborController extends Controller
 
     public function price_employement($id){
         $price = EmployementType::where('id', $id)->value('price');
+
+        return response()->json(['price' => $price]);
+    }
+
+    public function price_tools($id){
+        $price = Inventory::where('id', $id)->value('price');
 
         return response()->json(['price' => $price]);
     }
@@ -189,8 +213,20 @@ class LaborController extends Controller
             $e->save();
         }
 
+        $tools = $request->input('tools');
+        $amount_tools = $request->input('amount_tools');
+        $price_tools = $request->input('price_tools');
 
-        if($e->save()){
+        foreach ($tools as $key => $tool){   
+            $t = new Tool;
+            $t->labor_id = $l->id;
+            $t->inventory_id = $tool;
+            $t->amount = $amount_tools[$key];
+            $t->price = $price_tools[$key];
+            $t->save();
+        }
+
+        if($t->save()){
             $icon = 'success';
                 $message_line = trans('agroindustria::labors.laborSavedCorrectly');
          }else{

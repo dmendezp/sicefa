@@ -66,6 +66,7 @@
                         </div>      
                         <div class="col-md-12">
                             <button type="button" id="toggle-form">{{ trans('agroindustria::labors.openCollaboratorFormulatio') }}</button>
+                            <button type="button" id="toggle-form-tools">Registro de herramientas</button>
                             <div class="executors" id="form-container">
                                 <div id="form-executors">
                                     <h3 id="title_executor">{{ trans('agroindustria::labors.collaborators') }}</h3>
@@ -94,7 +95,31 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>             
+                        </div>  
+                        <div class="col-md-12">
+                            <div class="tools" id="form-container-tools">
+                                <div id="form-tools">
+                                    <h3 id="title_tools">Herramientas</h3>
+                                    <!-- Aquí se agregarán los campos de producto dinámicamente -->
+                                    <button type="button" id="add-tools">Añadir herramientas</button>
+                                    <div class="tools">
+                                        <div class="form-group">
+                                            {!! Form::label('tools', 'Herramientas') !!}
+                                            {!! Form::select('tools[]', $tool, null, ['class' => 'tool_select', 'style' => 'width: 200px']) !!}
+                                        </div>
+                                        <div class="form-group">
+                                            {!! Form::label('amount', 'Cantidad') !!}
+                                            {!! Form::number('amount_tools[]', null, ['class'=>'form-control']) !!}
+                                        </div>   
+                                        <div class="form-group">  
+                                            {!! Form::label('price', 'Precio') !!}
+                                            {!! Form::number('price_tools[]', null, ['class'=>'form-control', 'id' => 'price_tool', 'readonly' => 'readonly']) !!}
+                                        </div>            
+                                        <button type="button" class="remove-tools">{{trans('agroindustria::menu.Delete')}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>            
                         <div class="button_receipe">{!! Form::submit(trans('agroindustria::formulations.Save'),['class' => 'save_receipe', 'name' => 'enviar']) !!}</div>
                     </div>
                     {!! Form:: close() !!}     
@@ -112,6 +137,7 @@
     $(document).ready(function() {
         // Inicialmente, oculta el formulario
         $("#form-container").hide();
+        $("#form-container-tools").hide();
 
         // Botón para abrir/cerrar el formulario
         $("#toggle-form").click(function() {
@@ -128,6 +154,28 @@
 
             // Cambiar el color del botón a rojo cuando el formulario está abierto
             if ($("#form-container").is(":visible")) {
+                $(this).css("background-color", "red");
+            } else {
+                // Restaurar el color original cuando el formulario se cierra
+                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
+            }
+        });
+
+        // Botón para abrir/cerrar el formulario
+        $("#toggle-form-tools").click(function() {
+            // Alternar la visibilidad del formulario
+            $("#form-container-tools").toggle();
+
+            // Cambiar el texto del botón en función del estado del formulario
+            var buttonText = $("#form-container").is(":visible")
+                ? "Cerrar formulario de herramientas"
+                : "Registro de herramientas";
+
+            // Actualizar el texto del botón
+            $(this).text(buttonText);
+
+            // Cambiar el color del botón a rojo cuando el formulario está abierto
+            if ($("#form-container-tools").is(":visible")) {
                 $(this).css("background-color", "red");
             } else {
                 // Restaurar el color original cuando el formulario se cierra
@@ -210,6 +258,54 @@
         });
     });
 </script>
+
+<script>
+     $(document).ready(function() {
+        // Agregar un nuevo campo de colaborador
+        $('.tool_select').select2();
+
+        $("#add-tools").click(function() {
+            var newTool = '<div class="tools"><div class="form-group">{!! Form::label("tools", "Herramientas") !!}{!! Form::select("tools[]", $tool, null, ["class" => "tool_select", "style" => "width: 200px"]) !!}</div><div class="form-group">{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_tools[]", null, ["class"=>"form-control"]) !!}</div><div class="form-group">{!! Form::label("price", "Precio") !!}{!! Form::number("price_tools[]", null, ["class"=>"form-control", "id" => "price_tool", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-tools">{{trans("agroindustria::menu.Delete")}}</button></div>';
+            
+            // Agregar el nuevo campo al DOM
+            $("#form-tools").append(newTool);
+
+            $('.tool_select:last').select2();
+
+        });
+
+       
+        $('#form-tools').on('change', '.tool_select', function() {
+            var selectedTool = $(this).val();
+            var parentElement = $(this).closest('.tools');
+            var priceField = parentElement.find('input#price_tool');
+
+            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.tools.price', ['id' => ':id'])) !!}.replace(':id', selectedTool.toString());
+            if (selectedTool) {
+            // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                    var price = response.price;
+                    priceField.val(price);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }else{
+            priceField.val('');
+        }
+        });
+
+         // Eliminar un campo de colaborador
+         $("#form-tools").on("click", ".remove-tools", function() {
+            $(this).closest('.tools').remove();
+        });
+    });
+</script>
 <script>
     $(document).ready(function() {
          // Detecta cambios en el primer campo de selección (Receiver)
@@ -219,6 +315,7 @@
             var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
 
             // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+            
             $.ajax({
                 url: url,
                 type: 'GET',
