@@ -39,7 +39,18 @@ class AdminresourcesController extends Controller
      */
     public function store(Request $request)
     {
-        
+        // Guardar Administracion
+        $rules = [
+            'productive_unit_id' => 'required',
+            'activity_id' => 'required',
+            'environmental_aspect_id' => 'required',
+        ];
+        $aea = new environmental_aspect(); 
+        $aea->productive_unit = $aea; // Nombre De La Unidad Productiva
+        $aea->activity_id = $request->input('name'); // Nombre De La Actividad
+        $aea->environmental_aspect_id = $request->input('name');
+        $aea->save();
+        return redirect()->route('hdc.adminresources')->with('success', 'Aspectos Asignados Exitosamente');
     }
 
     /**

@@ -9,6 +9,7 @@
         "alexusmai/laravel-file-manager": "^2.5",
         "barryvdh/laravel-dompdf": "^2.0",
         "barryvdh/laravel-snappy": "^1.0",
+        "chartisan/chartisan": "*",
         "elibyy/tcpdf-laravel": "^10.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
