@@ -163,6 +163,184 @@ window.onclick = function(event) {
     @endif
 </script>
 
+{{-- Oculta formularios de labor--}}
+<script>
+    $(document).ready(function() {
+        // Inicialmente, oculta el formulario
+        $("#form-container").hide();
+        $("#form-container-tools").hide();
+        $("#form-container-consumables").hide();
+
+        // Botón para abrir/cerrar el formulario
+        $("#toggle-form").click(function() {
+            // Alternar la visibilidad del formulario
+            $("#form-container").toggle();
+
+            // Cambiar el texto del botón en función del estado del formulario
+            var buttonText = $("#form-container").is(":visible")
+                ? "{{ trans('agroindustria::labors.closeCollaboratorsForm') }}"
+                : "{{ trans('agroindustria::labors.openCollaboratorFormulatio') }}";
+
+            // Actualizar el texto del botón
+            $(this).text(buttonText);
+
+            // Cambiar el color del botón a rojo cuando el formulario está abierto
+            if ($("#form-container").is(":visible")) {
+                $(this).css("background-color", "red");
+            } else {
+                // Restaurar el color original cuando el formulario se cierra
+                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
+            }
+        });
+        
+        // Botón para abrir/cerrar el formulario
+        $("#toggle-form-tools").click(function() {
+            // Alternar la visibilidad del formulario
+            $("#form-container-tools").toggle();
+
+            // Cambiar el texto del botón en función del estado del formulario
+            var buttonText = $("#form-container-tools").is(":visible")
+                ? "Cerrar formulario de herramientas"
+                : "Registro de herramientas";
+
+            // Actualizar el texto del botón
+            $(this).text(buttonText);
+
+            // Cambiar el color del botón a rojo cuando el formulario está abierto
+            if ($("#form-container-tools").is(":visible")) {
+                $(this).css("background-color", "red");
+            } else {
+                // Restaurar el color original cuando el formulario se cierra
+                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
+            }
+        });
+        // Botón para abrir/cerrar el formulario
+        $("#toggle-form-consumables").click(function() {
+            // Alternar la visibilidad del formulario
+            $("#form-container-consumables").toggle();
+
+            // Cambiar el texto del botón en función del estado del formulario
+            var buttonText = $("#form-container-consumables").is(":visible")
+                ? "Cerrar formulario de consumibles"
+                : "Registro de consumibles";
+
+            // Actualizar el texto del botón
+            $(this).text(buttonText);
+
+            // Cambiar el color del botón a rojo cuando el formulario está abierto
+            if ($("#form-container-consumables").is(":visible")) {
+                $(this).css("background-color", "red");
+            } else {
+                // Restaurar el color original cuando el formulario se cierra
+                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
+            }
+        });
+    });
+</script>
+
+
+
+{{-- Trae el responsable de la actividad seleccionada --}}
+<script>
+    $(document).ready(function() {
+         // Detecta cambios en el primer campo de selección (Receiver)
+         $('#activity-selected').on('change', function() {
+            var selectedActivity = $(this).val();
+
+            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
+
+            // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+            
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    var options = '<option value="">' + '{{ trans("agroindustria::labors.selectResponsiblePerson") }}' + '</option>';
+                    $.each(response.id, function(index, warehouse) {
+                        options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
+                    });
+
+                    // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                    $('#responsible').html(options);;
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    })
+</script>
+
+{{-- Trae el precio segun el tipo de empleado seleccionado --}}
+<script>
+    $(document).ready(function() {
+         // Detecta cambios en el primer campo de selección (Receiver)
+         $('.employement_type').on('change', function() {
+            var selectedEmployement = $(this).val();
+
+            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.price', ['id' => ':id'])) !!}.replace(':id', selectedEmployement.toString());
+
+            // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                    var price = response.price;
+                    $('.price').val(price);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    })
+</script>
+
+{{-- Busca personas segun el numero de documento --}}
+<script>
+    $(document).ready(function() {
+         var baseUrl = '{{ route("cefa.agroindustria.units.instructor.labor.executors", ["document_number" => ":document_number"]) }}';
+ 
+         // Inicializa Select2 en el campo de búsqueda de personas
+         $('.personSearch-select').select2({
+             placeholder: '{{trans("agroindustria::labors.searchPerson")}}',
+             minimumInputLength: 1, // Habilita la búsqueda en tiempo real
+             ajax: {
+                 url: function(params) {
+                     // Reemplaza el marcador de posición con el término de búsqueda
+                     var searchUrl = baseUrl.replace(':document_number', params.term);
+ 
+ 
+                     return searchUrl; // Utiliza la URL actualizada con el término de búsqueda
+                 },
+                 dataType: 'json',
+                 delay: 250, // Retardo antes de iniciar la búsqueda
+                 processResults: function(data) {
+                     return {
+                         results: data.id.map(function(person) {
+                             return {
+                                 id: person.id,
+                                 text: person.name,
+                             };
+                         })
+                     };
+                 },
+                 cache: true
+             }
+         });
+ 
+         // Manejar la selección de una persona en el campo de búsqueda
+         $('.personSearch-select').on('select2:select', function(e) {
+             var selectedPerson = e.params.data;
+             // Actualizar el contenido de la etiqueta con el nombre de la persona seleccionada
+             $('.executors_id').val(selectedPerson.id);
+             $('.collaborator_executors').val(selectedPerson.text);
+         });
+     });
+ </script>
+ 
+
 <script>
     new DataTable('#discharge')
     new DataTable('#formulation')

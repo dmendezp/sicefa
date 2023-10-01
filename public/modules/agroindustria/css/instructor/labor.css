@@ -28,6 +28,16 @@
     color: white;
 }
 
+#toggle-form-consumables{
+    margin-top: 10px;
+    margin-left: 2px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
 .red-button {
     background-color: red;
     color: white; /* Cambia el color del texto para que sea legible */
@@ -63,6 +73,15 @@
     color: white;
 }
 
+#add-consumables{
+    width: 802px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
 .remove-executor{
     position: relative;
     left: 2px;
@@ -91,4 +110,16 @@
     background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */
 }
 
+.quantity{
+    position: absolute;
+    color: #666; 
+    font-size: 14px; 
+    margin-top: 60px;
+}
 
+.form-group-consumables{
+    display: inline-block;
+    width: 200px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}

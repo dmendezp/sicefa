@@ -15,7 +15,9 @@ use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Element;
 use Modules\SICA\Entities\Inventory;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
+use Modules\AGROINDUSTRIA\Entities\Ingredient;
 use Modules\AGROINDUSTRIA\Entities\Executor;
+use Modules\AGROINDUSTRIA\Entities\Consumable;
 use Modules\AGROINDUSTRIA\Entities\EmployementType;
 use Modules\AGROINDUSTRIA\Entities\Tool;
 
@@ -97,13 +99,25 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione una herramienta'])->pluck('name', 'id');
 
+        $inventoryTools = Inventory::get();
+        $consumables = $inventoryTools->map(function ($t) {
+            $id = $t->id;
+            $name = $t->element->name;
+    
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un insumo'])->pluck('name', 'id');
+        
         $data = [
             'title' => $title,
             'activity' => $activity,
             'recipe' => $recipe,
             'destination' => $destination,
             'employee' => $nameEmployee,
-            'tool' => $tool
+            'tool' => $tool,
+            'consumables' => $consumables
         ];
         return view('agroindustria::instructor.labors.form', $data);
     }
@@ -146,6 +160,65 @@ class LaborController extends Controller
         $price = Inventory::where('id', $id)->value('price');
 
         return response()->json(['price' => $price]);
+    }
+
+    public function amount($consumables){
+        $elements = Inventory::where('id', $consumables)->get();
+        
+        $amountPrice = $elements->map(function ($e){
+            $amount = $e->amount;
+            $price = $e->price;
+
+            return [
+                'amount' => $amount,
+                'price' => $price
+            ];
+        });
+
+
+        return response()->json(['elements' => $amountPrice]);
+    }
+
+    public function search_element($name){
+        $elements = Element::where('name', $name)->pluck('id');
+        $elementInventory = Inventory::with('element.measurement_unit')->where('element_id', $elements)->get();
+
+        $element = $elementInventory->map(function ($e){
+            $id = $e->id;
+            $name = $e->element->name . ' (' . $e->element->measurement_unit->name . ')';
+            $amount = $e->amount;
+            $price = $e->price;
+
+            return [
+                'id' => $id,
+                'name' => $name,
+                'amount' => $amount,
+                'price' => $price
+            ];
+        });
+
+        return response()->json(['elements' => $element]);
+    }
+
+    public function consumables($id){
+        $ingredients = Ingredient::where('formulation_id', $id)->pluck('element_id');
+        $inventory = Inventory::with('element.measurement_unit')->whereIn('element_id', $ingredients)->get();
+
+        $consumables = $inventory->map(function ($i){
+            $id = $i->id;
+            $name = $i->element->name . ' (' . $i->element->measurement_unit->name . ')';
+            $amount = $i->amount;
+            $price = $i->price;
+
+            return [
+                'id' => $id,
+                'name' => $name,
+                'amount' => $amount,
+                'price' => $price
+            ];
+        });
+
+        return response()->json(['consumables' => $consumables]);
     }
 
     public function executors($document_number){
@@ -196,6 +269,20 @@ class LaborController extends Controller
         $l->observations = $validatedData['observations'];
         $l->destination =  $validatedData['destination'];
         $l->save();
+
+        $consumables = $request->input('consumables');
+        $amount_consumables = $request->input('amount_consumables');
+        $price_consumables = $request->input('price_consumables');
+
+        foreach ($consumables as $key => $consumable){   
+            $c = new Consumable;
+            $c->labor_id = $l->id;
+            $c->inventory_id = $consumable;
+            $c->amount = $amount_consumables[$key];
+            $c->price = $price_consumables[$key];
+            $c->save();
+        }
+
 
         $executors = $request->input('executors_id');
         $employement_type = $validatedData['employement_type'];

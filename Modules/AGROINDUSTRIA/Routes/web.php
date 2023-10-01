@@ -52,6 +52,9 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/labor/{activityId}', [LaborController::class, 'responsibilites'])->name('cefa.agroindustria.units.instructor.labor.responsibilities');
             Route::get('/labor/price/{id}', [LaborController::class, 'price_employement'])->name('cefa.agroindustria.units.instructor.labor.price');
             Route::get('/labor/tools/price/{id}', [LaborController::class, 'price_tools'])->name('cefa.agroindustria.units.instructor.labor.tools.price');
+            Route::get('/labor/consumables/{id}', [LaborController::class, 'consumables'])->name('cefa.agroindustria.units.instructor.labor.consumables');
+            Route::get('/labor/consumables/amount/{consumables}', [LaborController::class, 'amount'])->name('cefa.agroindustria.units.instructor.labor.consumables.amount');
+            Route::get('/labor/elements/{name}', [LaborController::class, 'search_element'])->name('cefa.agroindustria.units.instructor.labor.elements');
             Route::get('/labor/executors/{document_number}', [LaborController::class, 'executors'])->name('cefa.agroindustria.units.instructor.labor.executors');
             Route::post('/labor/register', [LaborController::class, 'register_labor'])->name('cefa.agroindustria.units.instructor.labor.register');
             Route::post('/labor/cancelar/{id}', [LaborController::class, 'cancelLabor'])->name('cefa.agroindustria.units.instructor.labor.cancelar');

@@ -17,7 +17,7 @@
                         </div>
                         <div class="col-md-6">
                             {!! Form::label('recipe', trans('agroindustria::labors.recipes')) !!}
-                            {!! Form::select('recipe', $recipe, old('recipe'), ['class' => 'form-control']) !!}   
+                            {!! Form::select('recipe', $recipe, old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select']) !!}   
                             @error('recipe')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror                       
@@ -65,8 +65,59 @@
                             @enderror   
                         </div>      
                         <div class="col-md-12">
-                            <button type="button" id="toggle-form">{{ trans('agroindustria::labors.openCollaboratorFormulatio') }}</button>
+                            <button type="button" id="toggle-form-consumables">Registro de consumibles</button>
                             <button type="button" id="toggle-form-tools">Registro de herramientas</button>
+                            <button type="button" id="toggle-form">{{ trans('agroindustria::labors.openCollaboratorFormulatio') }}</button>
+                            <div class="consumables" id="form-container-consumables">
+                                <div id="form-consumables">
+                                    <h3>{{trans('agroindustria::request.products')}}</h3>
+                                    <!-- Aquí se agregarán los campos de producto dinámicamente -->
+                                    <button type="button" id="add-consumables">{{trans('agroindustria::request.addProduct')}}</button>
+                                    <div class="consumable">
+                                        <div class="form-group-consumables">
+                                            {!! Form::label('consumables', 'Consumibles') !!}
+                                            {!! Form::select('consumables[]', $consumables, null, ['class' => 'element-select']) !!}
+                                        </div>
+                                        <div class="form-group-consumables"> 
+                                            <span class="quantity"></span>
+                                            {!! Form::label('amount_consumables', 'Cantidad') !!}
+                                            {!! Form::number('amount_consumables[]', null, ['class' => 'form-control', 'id' => 'amount_consumables']) !!}
+                                        </div>
+                                        <div class="form-group-consumables">   
+                                            {!! Form::label('price_consumables', 'Precio') !!} 
+                                            {!! Form::text('price_consumables[]', null, ['class' => 'form-control', 'id' => 'price_consumables', 'readonly' => 'readonly']) !!}
+                                        </div>
+                                        {!! Form::button(trans('agroindustria::request.delete'), ['class'=>'remove-consumables']) !!}                                
+                                    </div>                           
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="col-md-12">
+                            <div class="tools" id="form-container-tools">
+                                <div id="form-tools">
+                                    <h3 id="title_tools">Herramientas</h3>
+                                    <!-- Aquí se agregarán los campos de producto dinámicamente -->
+                                    <button type="button" id="add-tools">Añadir herramientas</button>
+                                    <div class="tools">
+                                        <div class="form-group">
+                                            {!! Form::label('tools', 'Herramientas') !!}
+                                            {!! Form::select('tools[]', $tool, null, ['class' => 'tool_select', 'style' => 'width: 200px']) !!}
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="quantity"></span>
+                                            {!! Form::label('amount', 'Cantidad') !!}
+                                            {!! Form::number('amount_tools[]', null, ['class'=>'form-control']) !!}
+                                        </div>   
+                                        <div class="form-group">  
+                                            {!! Form::label('price', 'Precio') !!}
+                                            {!! Form::number('price_tools[]', null, ['class'=>'form-control', 'id' => 'price_tool', 'readonly' => 'readonly']) !!}
+                                        </div>            
+                                        <button type="button" class="remove-tools">{{trans('agroindustria::menu.Delete')}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+                        <div class="col-md-12">
                             <div class="executors" id="form-container">
                                 <div id="form-executors">
                                     <h3 id="title_executor">{{ trans('agroindustria::labors.collaborators') }}</h3>
@@ -95,31 +146,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>  
-                        <div class="col-md-12">
-                            <div class="tools" id="form-container-tools">
-                                <div id="form-tools">
-                                    <h3 id="title_tools">Herramientas</h3>
-                                    <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                    <button type="button" id="add-tools">Añadir herramientas</button>
-                                    <div class="tools">
-                                        <div class="form-group">
-                                            {!! Form::label('tools', 'Herramientas') !!}
-                                            {!! Form::select('tools[]', $tool, null, ['class' => 'tool_select', 'style' => 'width: 200px']) !!}
-                                        </div>
-                                        <div class="form-group">
-                                            {!! Form::label('amount', 'Cantidad') !!}
-                                            {!! Form::number('amount_tools[]', null, ['class'=>'form-control']) !!}
-                                        </div>   
-                                        <div class="form-group">  
-                                            {!! Form::label('price', 'Precio') !!}
-                                            {!! Form::number('price_tools[]', null, ['class'=>'form-control', 'id' => 'price_tool', 'readonly' => 'readonly']) !!}
-                                        </div>            
-                                        <button type="button" class="remove-tools">{{trans('agroindustria::menu.Delete')}}</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>            
+                        </div>         
                         <div class="button_receipe">{!! Form::submit(trans('agroindustria::formulations.Save'),['class' => 'save_receipe', 'name' => 'enviar']) !!}</div>
                     </div>
                     {!! Form:: close() !!}     
@@ -128,63 +155,111 @@
         </div>
     </div>
 </div>
-<!-- Botón para mostrar el formulario -->
 
 @section('script')
 @endsection
 
 <script>
-    $(document).ready(function() {
-        // Inicialmente, oculta el formulario
-        $("#form-container").hide();
-        $("#form-container-tools").hide();
+    $(document).ready(function () {
 
-        // Botón para abrir/cerrar el formulario
-        $("#toggle-form").click(function() {
-            // Alternar la visibilidad del formulario
-            $("#form-container").toggle();
+        // Agregar un nuevo campo de consumibles
+        $('.element-select').select2();
 
-            // Cambiar el texto del botón en función del estado del formulario
-            var buttonText = $("#form-container").is(":visible")
-                ? "{{ trans('agroindustria::labors.closeCollaboratorsForm') }}"
-                : "{{ trans('agroindustria::labors.openCollaboratorFormulatio') }}";
+        $("#add-consumables").click(function() {
+            var newConsumable = '<div class="consumable"><div class="form-group-consumables">{!! Form::label("consumables", "Consumibles") !!}{!! Form::select("consumables[]", $consumables, null, ["class" => "element-select"]) !!}</div><div class="form-group-consumables"><span class="quantity"></span>{!! Form::label("amount_consumables", "Cantidad") !!}{!! Form::number("amount_consumables[]", null, ["class" => "form-control", "id" => "amount_consumables"]) !!}</div><div class="form-group-consumables">   {!! Form::label("price_consumables", "Precio") !!} {!! Form::text("price_consumables[]", null, ["class" => "form-control", "id" => "price_consumables", "readonly" => "readonly"]) !!}</div>{!! Form::button(trans("agroindustria::request.delete"), ["class"=>"remove-consumables"]) !!}</div> ';
+            
+            // Agregar el nuevo campo al DOM
+            $("#form-consumables").append(newConsumable);
 
-            // Actualizar el texto del botón
-            $(this).text(buttonText);
+            $('.element-select:last').select2();
 
-            // Cambiar el color del botón a rojo cuando el formulario está abierto
-            if ($("#form-container").is(":visible")) {
-                $(this).css("background-color", "red");
-            } else {
-                // Restaurar el color original cuando el formulario se cierra
-                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
-            }
         });
 
-        // Botón para abrir/cerrar el formulario
-        $("#toggle-form-tools").click(function() {
-            // Alternar la visibilidad del formulario
-            $("#form-container-tools").toggle();
+        // Eliminar un campo de consumibles
+        $("#form-consumables").on("click", ".remove-consumables", function() {
+            $(this).closest('.consumable').remove();
+        });
+        // Almacena las opciones originales en el campo de selección
 
-            // Cambiar el texto del botón en función del estado del formulario
-            var buttonText = $("#form-container").is(":visible")
-                ? "Cerrar formulario de herramientas"
-                : "Registro de herramientas";
+        // Cuando cambie la selección de recetas
+        $('#recipe-select').on('change', function () {
+            var selectedRecipeId = $(this).val();
 
-            // Actualizar el texto del botón
-            $(this).text(buttonText);
+            // Realiza una solicitud AJAX para obtener los ingredientes de la receta
+            $.ajax({
+                url: '{!! route('cefa.agroindustria.units.instructor.labor.consumables', ['id' => ':id']) !!}'.replace(':id', selectedRecipeId.toString()),
+                type: 'GET',
+                success: function (data) {
+                    // Limpia el contenedor de consumibles
+                    $('.consumable:first').empty();
+                    // Itera a través de los consumibles y agrega los campos de selección de consumibles
+                    $.each(data.consumables, function (index, consumable) {
+                        var counter = index + 1; // Incrementa el contador
+                        
+                        var newConsumableField = '<div class="consumable">' +
+                            '<div class="form-group-consumables">' +
+                            '<label for="consumables">Consumibles</label>' +
+                            '<input type="hidden" name="consumables[]" class="form-control" id="element-select-' + counter + '" value="' + consumable.id + '" readonly>' +
+                            '<input type="text" name="name_consumable" class="form-control" id="element_name-' + counter + '" value="' + consumable.name + '" readonly>' +
+                            '</div>' +
+                            '<div class="form-group-consumables">' +
+                            '<span class="quantity">Cantidad disponible: ' + consumable.amount + '</span>' +
+                            '<label for="amount_consumables">Cantidad</label>' +
+                            '<input type="number" name="amount_consumables[]" class="form-control">' +
+                            '</div>' +
+                            '<div class="form-group-consumables">' +
+                            '<label for="price_consumables">Precio</label>' +
+                            '<input type="text" name="price_consumables[]" class="form-control" value="' + consumable.price + '" readonly>' +
+                            '</div>' +
+                            '</div>';
 
-            // Cambiar el color del botón a rojo cuando el formulario está abierto
-            if ($("#form-container-tools").is(":visible")) {
-                $(this).css("background-color", "red");
-            } else {
-                // Restaurar el color original cuando el formulario se cierra
-                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
-            }
+                        $('.consumable:first').append(newConsumableField);
+
+                        // Inicializa los campos de selección de consumibles con Select2 dentro del contexto de esta iteración
+                        (function (currentCounter) {
+                            var urlElemets = '{{ route("cefa.agroindustria.units.instructor.labor.elements", ["name" => ":name"]) }}';
+                            $('#element-select-' + currentCounter).select2({
+                                placeholder: 'Buscar insumos',
+                                minimumInputLength: 1,
+                                ajax: {
+                                    url: function(params) {
+                                        var searchUrlElement = urlElemets.replace(':name', params.term);
+                                        return searchUrlElement;
+                                    },
+                                    dataType: 'json',
+                                    delay: 250,
+                                    processResults: function(data) {
+                                        return {
+                                            results: data.elements.map(function(element) {
+                                                return {
+                                                    id: element.id,
+                                                    text: element.name,
+                                                };
+                                            })
+                                        };
+                                    },
+                                    cache: true
+                                }
+                            });
+
+                            $('#element-select-' + currentCounter).on('select2:select', function(e) {
+                                var selectedElement = e.params.data;
+                                $(this).closest('.consumable').find('input#element-select-' + currentCounter).val(selectedElement.id);
+                                $(this).closest('.consumable').find('input#element_name-' + currentCounter).val(selectedElement.text);
+                            });
+                        })(counter); // Pasa el valor de counter al contexto de la función autoinvocada
+                    });
+     
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         });
     });
 </script>
 
+{{-- Agrega campos dinamicamente para formulario de ejecutores --}}
 <script>
     $(document).ready(function() {
         // Agregar un nuevo campo de colaborador
@@ -259,146 +334,90 @@
     });
 </script>
 
-<script>
-     $(document).ready(function() {
-        // Agregar un nuevo campo de colaborador
-        $('.tool_select').select2();
-
-        $("#add-tools").click(function() {
-            var newTool = '<div class="tools"><div class="form-group">{!! Form::label("tools", "Herramientas") !!}{!! Form::select("tools[]", $tool, null, ["class" => "tool_select", "style" => "width: 200px"]) !!}</div><div class="form-group">{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_tools[]", null, ["class"=>"form-control"]) !!}</div><div class="form-group">{!! Form::label("price", "Precio") !!}{!! Form::number("price_tools[]", null, ["class"=>"form-control", "id" => "price_tool", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-tools">{{trans("agroindustria::menu.Delete")}}</button></div>';
-            
-            // Agregar el nuevo campo al DOM
-            $("#form-tools").append(newTool);
-
-            $('.tool_select:last').select2();
-
-        });
-
-       
-        $('#form-tools').on('change', '.tool_select', function() {
-            var selectedTool = $(this).val();
-            var parentElement = $(this).closest('.tools');
-            var priceField = parentElement.find('input#price_tool');
-
-            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.tools.price', ['id' => ':id'])) !!}.replace(':id', selectedTool.toString());
-            if (selectedTool) {
-            // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(response) {
-                    // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
-                    var price = response.price;
-                    priceField.val(price);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        }else{
-            priceField.val('');
-        }
-        });
-
-         // Eliminar un campo de colaborador
-         $("#form-tools").on("click", ".remove-tools", function() {
-            $(this).closest('.tools').remove();
-        });
-    });
-</script>
+{{-- Agrega campos dinamicamente para formulario de herramientas --}}
 <script>
     $(document).ready(function() {
-         // Detecta cambios en el primer campo de selección (Receiver)
-         $('#activity-selected').on('change', function() {
-            var selectedActivity = $(this).val();
+       // Agregar un nuevo campo de colaborador
+       $('.tool_select').select2();
 
-            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
+       $("#add-tools").click(function() {
+           var newTool = '<div class="tools"><div class="form-group">{!! Form::label("tools", "Herramientas") !!}{!! Form::select("tools[]", $tool, null, ["class" => "tool_select", "style" => "width: 200px"]) !!}</div><div class="form-group">{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_tools[]", null, ["class"=>"form-control"]) !!}</div><div class="form-group">{!! Form::label("price", "Precio") !!}{!! Form::number("price_tools[]", null, ["class"=>"form-control", "id" => "price_tool", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-tools">{{trans("agroindustria::menu.Delete")}}</button></div>';
+           
+           // Agregar el nuevo campo al DOM
+           $("#form-tools").append(newTool);
 
-            // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
-            
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(response) {
-                    var options = '<option value="">' + '{{ trans("agroindustria::labors.selectResponsiblePerson") }}' + '</option>';
-                    $.each(response.id, function(index, warehouse) {
-                        options += '<option value="' + warehouse.id + '">' + warehouse.name + '</option>';
-                    });
+           $('.tool_select:last').select2();
 
-                    // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
-                    $('#responsible').html(options);;
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        });
-    })
+       });
+
+      
+       $('#form-tools').on('change', '.tool_select', function() {
+           var selectedTool = $(this).val();
+           var parentElement = $(this).closest('.tools');
+           var priceField = parentElement.find('input#price_tool');
+
+           var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.tools.price', ['id' => ':id'])) !!}.replace(':id', selectedTool.toString());
+           if (selectedTool) {
+                // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {
+                        // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
+                        var price = response.price;
+                        priceField.val(price);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }else{
+                priceField.val('');
+            }
+       });
+
+        // Eliminar un campo de colaborador
+        $("#form-tools").on("click", ".remove-tools", function() {
+           $(this).closest('.tools').remove();
+       });
+   });
 </script>
+
 <script>
     $(document).ready(function() {
-         // Detecta cambios en el primer campo de selección (Receiver)
-         $('.employement_type').on('change', function() {
-            var selectedEmployement = $(this).val();
-
-            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.price', ['id' => ':id'])) !!}.replace(':id', selectedEmployement.toString());
-
-            // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(response) {
-                    // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
-                    var price = response.price;
-                    $('.price').val(price);
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        });
-    })
-</script>
-
-<script>
-   $(document).ready(function() {
-        var baseUrl = '{{ route("cefa.agroindustria.units.instructor.labor.executors", ["document_number" => ":document_number"]) }}';
-
-        // Inicializa Select2 en el campo de búsqueda de personas
-        $('.personSearch-select').select2({
-            placeholder: '{{trans("agroindustria::labors.searchPerson")}}',
-            minimumInputLength: 1, // Habilita la búsqueda en tiempo real
-            ajax: {
-                url: function(params) {
-                    // Reemplaza el marcador de posición con el término de búsqueda
-                    var searchUrl = baseUrl.replace(':document_number', params.term);
-
-
-                    return searchUrl; // Utiliza la URL actualizada con el término de búsqueda
-                },
-                dataType: 'json',
-                delay: 250, // Retardo antes de iniciar la búsqueda
-                processResults: function(data) {
-                    return {
-                        results: data.id.map(function(person) {
-                            return {
-                                id: person.id,
-                                text: person.name,
-                            };
-                        })
-                    };
-                },
-                cache: true
+        $("#form-consumables").on("change", "select[name^='consumables']", function() {
+            var selectedElement = $(this).val();
+            var parentProduct = $(this).closest('.consumable');
+            var availableQuantity = parentProduct.find('.quantity');
+            var availablePrice = parentProduct.find('#price_consumables');
+            // Realizar una solicitud AJAX para obtener la cantidad disponible
+            if(selectedElement){
+                $.ajax({
+                    url: {!! json_encode(route('cefa.agroindustria.units.instructor.labor.consumables.amount', ['consumables' => ':consumables'])) !!}.replace(':consumables', selectedElement.toString()),
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.elements.length > 0) {
+                            var element = response.elements[0];
+                            var quantity = parseFloat(element.amount);
+                            var price = parseFloat(element.price);
+                            availableQuantity.text('Cantidad Disponible: ' + quantity);
+                            availablePrice.val(price);
+                        } else {
+                            availableQuantity.text(''); // Limpia el texto si no se encuentra la cantidad disponible
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error al obtener la cantidad disponible:', error);
+                        availableQuantity.text(''); // Limpia el texto en caso de error
+                        availablePrice.val('');
+                    }
+                });
+            }else{
+                availableQuantity.text(''); 
+                availablePrice.val('');
             }
         });
-
-        // Manejar la selección de una persona en el campo de búsqueda
-        $('.personSearch-select').on('select2:select', function(e) {
-            var selectedPerson = e.params.data;
-            // Actualizar el contenido de la etiqueta con el nombre de la persona seleccionada
-            $('.executors_id').val(selectedPerson.id);
-            $('.collaborator_executors').val(selectedPerson.text);
-        });
     });
 </script>
+
 @endsection

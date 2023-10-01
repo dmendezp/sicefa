@@ -24,7 +24,7 @@
         'selectDestination' => 'Seleccione un destino',
 
         //ejecutores
-        'openCollaboratorFormulatio' => 'Abrir formulario de colaboradores',
+        'openCollaboratorFormulatio' => 'Registrar colaboradores',
         'closeCollaboratorsForm' => 'Cerrar formulario de colaboradores',
         'collaborators' => 'Colaboradores',
         'addCollaborators' => 'Añadir Colaboradores',
