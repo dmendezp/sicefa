@@ -420,4 +420,58 @@
     });
 </script>
 
+<<<<<<< Updated upstream
+=======
+<!-- Botón para mostrar el formulario -->
+<button type="button" id="show-form">Abrir Formulario de Equipo</button>
+<div class="equipment" id="form-container">
+    <table id="equipment-table">
+        <thead>
+            <tr>
+                <th>Id De Inventario</th>
+                <th>Cantidad</th>
+                <th>Costo</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se agregarán las filas de equipos dinámicamente -->
+        </tbody>
+    </table>
+    <button type="button" id="add-equipment">Agregar Equipo</button>
+</div>
+
+@section('script')
+@endsection
+
+<script>
+    $(document).ready(function() {
+        // Ocultar el formulario al cargar la página
+        $('#form-container').hide();
+
+        // Mostrar u ocultar el formulario al hacer clic en el botón "Toggle Form"
+        $('#toggle-form').on('click', function() {
+            $('#form-container').toggle(); // Mostrar u ocultar el formulario
+        });
+
+        // Agregar una fila de equipo
+        $("#add-equipment").click(function() {
+            var newRow = '<tr>' +
+                '<td><input type="text" name="inventory_id[]" class="form-control"></td>' +
+                '<td><input type="number" name="amount[]" class="form-control"></td>' +
+                '<td><input type="number" name="price[]" class="form-control"></td>' +
+                '<td><button type="button" class="remove-equipment">{{trans("agroindustria::menu.Delete")}}</button></td>' +
+                '</tr>';
+
+            // Agregar la nueva fila a la tabla
+            $("#equipment-table tbody").append(newRow);
+        });
+
+        // Eliminar una fila de equipo
+        $("#equipment-table").on("click", ".remove-equipment", function() {
+            $(this).closest("tr").remove();
+        });
+    });
+</script>
+>>>>>>> Stashed changes
 @endsection
