@@ -33,9 +33,9 @@
                     <div class="col info info-user">
                         <div data-toggle="tooltip" data-placement="top"
                             title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
-                            {{ Auth::user()->nickname }}
+                            <div style="color:white">{{ Auth::user()->nickname }}</div>
                         </div>
-                        <div class="small">
+                        <div class="small" style="color:white">
                             <em> {{ Auth::user()->roles[0]->name }}</em>
                         </div>
                     </div>

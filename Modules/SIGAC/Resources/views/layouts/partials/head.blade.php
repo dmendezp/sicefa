@@ -10,6 +10,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('modules/sigac/css/stylesGeneral.css') }}">
+    <link rel="stylesheet" href="{{ asset('modules/sigac/css/customStyles.css') }}">
     <link rel="stylesheet" href="{{ asset('modules/sigac/css/googlefonts.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/Bootstrap-5.3.0-alpha/css/bootstrap.min.css') }}">
     <!-- DataTables -->

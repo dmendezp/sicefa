@@ -27,8 +27,20 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+
+        <button role="button" class="button-name"> 
+            @guest
+                <a href="{{ route('login') }}" class="text-decoration-none text-black">
+                    <span>{{ trans('sigac::general.Log In') }}</span>
+                </a>
+            @else
+                <span>{{ Auth::user()->person->fullname }}</span>
+            @endguest
+        </button>
+
         <li class="nav-item dropdown mx-1">
-            <a class="nav-link" data-toggle="dropdown" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title={{ trans('sigac::general.Internacionalization') }}>
+            <a class="nav-link" data-toggle="dropdown" href="#" data-bs-toggle="tooltip" data-bs-placement="left"
+                data-bs-title="{{ trans('sigac::general.Internacionalization') }}">
                 <i class="fas fa-globe-americas"></i> {{ session('lang') }}
             </a>
             <div class="dropdown-menu dropdown-menu-right p-0">
@@ -44,13 +56,15 @@
         </li>
 
         <li class="nav-item mx-1">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title={{ trans('sigac::general.Go') }}>
+            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ trans('sigac::general.Go') }}">
                 <i class="fas fa-shapes"></i>
             </a>
         </li>
 
         <li class="nav-item mx-1">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title={{ trans('sigac::general.FullScreen') }}>
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip"
+                data-bs-placement="bottom" data-bs-title="{{ trans('sigac::general.FullScreen') }}">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
