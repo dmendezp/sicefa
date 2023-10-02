@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\AGROCEFA\Entities\Tool;
+use Modules\AGROCEFA\Entities\Equipment;
+
 
 class Inventory extends Model implements Auditable
 {
@@ -62,7 +64,10 @@ class Inventory extends Model implements Auditable
     }
     public function tools(){
         return $this->hasMany(Tool::class);
-        }
+    }
+    public function equipment() {
+        return $this->hasMany(Equipment::class,);
+    }
 
 
     // configuración de fcoty para la generació de datos de pruebas

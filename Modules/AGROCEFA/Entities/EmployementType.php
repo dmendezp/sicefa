@@ -13,6 +13,6 @@ class EmployementType extends Model
     protected $fillable = [];
     
     public function executors(){
-        return $this->hasMany(Executor::class);
+        return $this->hasMany(Executor::class,);
     }
 }

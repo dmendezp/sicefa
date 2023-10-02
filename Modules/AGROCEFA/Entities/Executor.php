@@ -4,7 +4,7 @@ namespace Modules\AGROCEFA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\SICA\Entities\EmployementType;
+use Modules\AGROCEFA\Entities\EmployementType;
 use Modules\SICA\Entities\Labor;
 use Modules\SICA\Entities\Person;
 
@@ -19,8 +19,9 @@ class Executor extends Model
     public function labor(){
         return $this->belongsTo(Labor::class,);
     }
+
     public function person(){
-        return $this->belongsTo(Person::class,);
+        return $this->belongsTo(Person::class,); // Cambio a 'person_id'
     }
 
 

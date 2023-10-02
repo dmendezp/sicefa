@@ -9,6 +9,8 @@ use Modules\AGROCEFA\Entities\AgriculturalLabor;
 use Modules\AGROCEFA\Entities\Crop;
 use Modules\AGROCEFA\Entities\Tool;
 use Modules\AGROCEFA\Entities\Executor;
+use Modules\AGROCEFA\Entities\Equipment;
+
 
 class Labor extends Model implements Auditable
 {
@@ -57,7 +59,10 @@ class Labor extends Model implements Auditable
         return $this->belongsToMany(Crop::class);
     }
     public function executors(){
-        return $this->hasMany(Executor::class);
+        return $this->hasMany(Executor::class, 'labor_id');
+    }
+    public function equipment(){
+        return $this->hasMany(Equipment::class,);
     }
 
     

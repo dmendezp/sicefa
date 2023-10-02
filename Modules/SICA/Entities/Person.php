@@ -119,7 +119,7 @@ class Person extends Model implements Auditable
         return $this->belongsToMany(Event::class, 'event_attendances')->withTimestamps();
     }
     public function executors(){
-        return $this->hasMany(Executor::class);
+        return $this->hasMany(Executor::class,);
     }
     public function farms(){ // Accede a todas las granjas que lidera esta persona
         return $this->hasMany(Farm::class);
