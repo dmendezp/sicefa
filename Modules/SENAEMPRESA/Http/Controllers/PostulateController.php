@@ -100,11 +100,9 @@ class PostulateController extends Controller
     }
 
     public function postulates()
-{
-    $postulates = Postulate::with(['apprentice.person', 'vacancy'])->get();
-    $data = ['title' => 'Postulados', 'postulates' => $postulates];
-    return view('senaempresa::Company.Postulate.postulate', $data);
-}
-
-
+    {
+        $postulates = Postulate::with(['apprentice.person', 'vacancy'])->get();
+        $data = ['title' => 'Postulados', 'postulates' => $postulates];
+        return view('senaempresa::Company.Postulate.postulate', $data);
+    }
 }

@@ -19,7 +19,6 @@
                             </ul>
                         </div>
                     </div>
-                    <a href="#" class="btn btn-primary inscribirseBtn">Mas Información</a>
                 </div>
             </div>
         </div>

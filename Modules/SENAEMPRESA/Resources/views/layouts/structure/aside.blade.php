@@ -156,8 +156,6 @@
                         </li>
                     </ul>
                 </li>
-
-
                 <li class="nav-item {{ !Route::is('vacant.*') ?: 'menu-is-opening menu-open' }}">
                     <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
                         <i class="fas fa-id-card"></i>
@@ -173,13 +171,6 @@
                                 <p>{{ trans('senaempresa::menu.Availables') }}</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('company.position.cargos') }}"
-                                class="nav-link {{ !Route::is('company.position.cargos') ?: 'active' }}">
-                                <i class="fas fa-user-plus"></i>
-                                <p>{{ trans('senaempresa::menu.Positions') }}</p>
-                            </a>
-                        </li>
                         @if (auth()->user()->person->apprentices())
                             <li class="nav-item">
                                 <a href="{{ route('inscription') }}"
@@ -189,6 +180,14 @@
                                 </a>
                             </li>
                         @endif
+                        <li class="nav-item">
+                            <a href="{{ route('company.position.cargos') }}"
+                                class="nav-link {{ !Route::is('company.position.cargos') ?: 'active' }}">
+                                <i class="fas fa-user-plus"></i>
+                                <p>{{ trans('senaempresa::menu.Positions') }}</p>
+                            </a>
+                        </li>
+
                         @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                             <li class="nav-item">
                                 <a href="{{ route('company.vacant.mostrar_asociados') }}"
