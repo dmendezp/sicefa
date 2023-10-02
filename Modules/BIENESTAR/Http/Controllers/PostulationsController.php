@@ -22,5 +22,18 @@ class PostulationsController extends Controller
     {
         return view('bienestar::postulations');
     }
+    
+    public function buscar(Request $request)
+    {
+        // Obtener el término de búsqueda del formulario
+        $query = $request->input('q');
 
+        // Realizar la búsqueda en tu modelo
+        $resultados = TuModelo::where('campo_a_buscar', 'LIKE', '%' . $query . '%')->get();
+
+        // Puedes modificar el campo_a_buscar y TuModelo según tus necesidades
+
+        // Devolver los resultados a la vista
+        return view('vista_de_resultados', compact('resultados'));
+    }
 }

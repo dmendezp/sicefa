@@ -50,6 +50,22 @@
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">Opción 2</a>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="fas fa-pizza-slice"></i>
+                <p>{{ trans('bienestar::menu.Feeding')}} <i class="fas fa-angle-left right"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('cefa.bienestar.AssistancesFoods') }}" class="nav-link">Listados apoyo alimentacion </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Opción 2</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Opción 3</a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">Opción 3</a>

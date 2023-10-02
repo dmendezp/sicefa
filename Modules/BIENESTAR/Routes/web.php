@@ -103,10 +103,8 @@ Route::middleware(['lang'])->group(function () {
 
 
         // Vista de Postulaciones
-        route::get('/postulations', 'postulationscontroller@index') ->name('cefa.bienestar.postulations');
-
-
-        
+        route::get('/postulations', 'PostulationsController@index') ->name('cefa.bienestar.postulations');
+        Route::get('/busqueda', 'PostulationsController@buscar')->name('cefa.bienestar.busqueda');        
 
         //vista el listados apoyo alimentacion 
         Route::get('/AssistancesFoods', 'AssistancesFoodsController@index')->name('cefa.bienestar.AssistancesFoods');
