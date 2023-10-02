@@ -97,6 +97,10 @@ Route::middleware(['lang'])->group(function () {
         // Vista De Consulta
 
         Route::get('/callconsultation', 'CallConsultationController@index')->name('cefa.bienestar.callconsultation');
+        Route::post('/procesar-formulario', 'TuControlador@procesarFormulario')->name('cefa.bienestar.procesar.formulario');
+        Route::get('/consulta-de-resultados', 'CallConsultationController@index')->name('cefa.bienestar.consulta.resultados');
+
+
 
         // Vista de Postulaciones
         route::get('/postulations', 'PostulationsController@index') ->name('cefa.bienestar.postulations');
@@ -104,5 +108,6 @@ Route::middleware(['lang'])->group(function () {
 
         //vista el listados apoyo alimentacion 
         Route::get('/AssistancesFoods', 'AssistancesFoodsController@index')->name('cefa.bienestar.AssistancesFoods');
+        Route::post('/AssistancesFoods/store', 'AssistancesFoodsController@store')->name('cefa.bienestar.AssistancesFoods.store');
     });
 });
