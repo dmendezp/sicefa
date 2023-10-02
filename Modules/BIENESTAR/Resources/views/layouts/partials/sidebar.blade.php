@@ -113,9 +113,18 @@
                 </li>
               </ul>
             </li>
-          </ul><br>          
+              <!-- Nueva sección "Consulta" debajo de "Convocatorias" -->
+        <li class="nav-item has-treeview">
+          <a href="{{route('cefa.bienestar.callconsultation')}}" class="nav-link">
+            <i class="fas fa-search"></i>
+            <p>Consulta</p>
+          </a>
+        </li>
+        <!-- Fin de la nueva sección "Consulta" -->
+          </ul><br>      
         </nav>
         <!-- /.sidebar-menu -->
       </div>
       <!-- /.sidebar -->
     </aside>
+    
