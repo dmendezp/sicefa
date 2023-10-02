@@ -97,4 +97,11 @@ class PostulateController extends Controller
 
         return redirect()->route('company.vacant.vacantes', $data)->with('success', 'Inscripción realizada con exito!');
     }
+
+    public function postulates()
+    {
+        $postulates = Postulate::get();
+        $data = ['title' => 'Postulados', 'postulates' => $postulates];
+        return view('senaempresa::Company.Postulate.postulate', $data);
+    }
 }

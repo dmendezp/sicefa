@@ -59,7 +59,6 @@ Route::middleware(['lang'])->group(function () {
 
         //Rutas para company
         Route::get('Contactos/', 'CompanyController@contact')->name('company.contact');
-        Route::get('Postulados/', 'CompanyController@vacant')->name('senaempresa.Postulados');
         Route::get('Postulados/Seleccionados/', 'CompanyController@seleccionados')->name('cefa.seleccionados');
 
         //Rutas para senaempresa
@@ -95,6 +94,9 @@ Route::middleware(['lang'])->group(function () {
         //Inscripciones a vacantes
         Route::get('Vacantes/Inscripción/', 'PostulateController@inscription')->name('inscription');
         Route::post('Vacantes/Inscripción_Exitosa/', 'PostulateController@store')->name('company.postulate.store');
+
+        //Postulados
+        Route::get('Postulados/', 'PostulateController@postulates')->name('company.postulate');
 
 
 

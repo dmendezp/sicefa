@@ -8,27 +8,32 @@
             <div class="card card-primary card-outline shadow">
                 <div class="card-body">
                     <table id="datatable" class="table table-striped table-bordered">
-                        <thead class="bg-danger text-white">
+                        <thead>
                             <tr>
-                                <th>Documento</th>
-                                <th>Nombre</th>
-                                <th>Correo</th>
-                                <th>Telefono</th>
-                                <th>Fecha</th>
+                                <th>Id</th>
+                                <th>Aprentice ID</th>
+                                <th>Vacante ID</th>
+                                <th>Estado</th>
                                 <th>Hoja de vida</th>
-                                <th>Puntaje</th>
+                                <th>16 Personalidades</th>
+                                <th>Propuesta</th>
+                                <th>Puntaje Total</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Row 1 Data 1</td>
-                                <td>Row 1 Data 2</td>
-                                <td>Row 1 Data 3</td>
-                                <td>Row 1 Data 4</td>
-                                <td>Row 1 Data 5</td>
-                                <td>Row 1 Data 6</td>
-                                <td> <a href="a" class="btn btn-primary">Asignar</a></td>
-                            </tr>
+                            @foreach ($postulates as $postulate)
+                                <tr>
+                                    <td>{{ $postulate->id }}</td>
+                                    <td>{{ $postulate->apprentice_id }}</td>
+                                    <td>{{ $postulate->vacancy_id }}</td>
+                                    <td>{{ $postulate->state }}</td>
+                                    <td>{{ $postulate->cv }}</td>
+                                    <td>{{ $postulate->personalites }}</td>
+                                    <td>{{ $postulate->proposal }}</td>
+                                    <td>0</td>
+                                    <td> <a href="a" class="btn btn-primary">Asignar</a></td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

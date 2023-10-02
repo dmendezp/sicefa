@@ -211,8 +211,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('senaempresa.Postulados') }}"
-                                class="nav-link {{ !Route::is('senaempresa.Postulados') ?: 'active' }}">
+                            <a href="{{ route('company.postulate') }}"
+                                class="nav-link {{ !Route::is('company.postulate') ?: 'active' }}">
                                 <i class="fas fa-address-card"></i>
                                 <p>{{ trans('senaempresa::menu.Postulates') }}</p>
                             </a>
