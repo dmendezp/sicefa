@@ -1,0 +1,35 @@
+<?php
+
+return [
+    'Units' => 'Unidades',
+    'Name' => 'Nombre',
+    'Person in charge' => 'Persona Encargada',
+    'Of The' => 'De La',
+    'Unit' => 'Unidad',
+    'Description' => 'Descripcion',
+    'Add' => 'Agregar',
+    'Icon' => 'Icono',
+    'Farm' => 'Granja',
+    'Number' => 'Numero',
+    'Document' => 'Documento',
+    'Document notfound' => 'Numero de Documento no existe',
+    'AlertDocumentText' => 'No haz escrito ningun numero de Documento',
+    'AlertDocumentTitle' => 'Escribe tu numero de Documento',
+    /* Icon traduction */
+    'Hippo' => 'Hipopotamo',
+    'Otter' => 'Nutria',
+    'Dog' => 'Perro',
+    'Fish'=> 'Pescado',
+    'Cow'=> 'Vaca',
+    'Shrimp'=> 'Camarón',
+    'Horse'=> 'Caballo',
+    'Frog'=> 'Rana',
+    'Dove'=> 'Paloma',
+    'Cat'=> 'Gato',
+    'Piggy' => 'Cerdo',
+    'Lemon'=> 'Limon',
+    'Rice' => 'Arroz',
+    'Wheat Building' => 'Edificio de Trigo',
+    'Tree Mango' => 'Arbol de Mango',
+    'Coffee'=>'Cafe'
+];

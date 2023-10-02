@@ -1,0 +1,32 @@
+.navbar {
+    background-color: gray;
+    padding: 10px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Centra verticalmente en la ventana */
+}
+
+.card {
+  width: 200px;
+  height: 300px;
+  margin: 0 10px; /* Espaciado entre las tarjetas */
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease; /* Animación de transformación */
+}
+
+.blue-border {
+  border: 2px solid blue;
+}
+
+.red-border {
+  border: 2px solid red;
+}
+
+.card:hover {
+  transform: scale(1.1); /* Escala al 110% al hacer hover */
+} 
