@@ -214,15 +214,15 @@
                             @endif
                             @if (Auth::user()->havePermission('sica.admin.academy.programs.index'))
                                 <li class="nav-item">
-                                    <a href="{{ route('sica.admin.academy.programs.index') }}" class="nav-link {{ !Route::is('sica.admin.academy.programs.*') ?: 'active' }}">
+                                    <a href="{{ route('sica.admin.academy.programs.index') }}" class="nav-link {{ Route::is('sica.admin.academy.programs.*') || Route::is('sica.admin.academy.networks.*') || Route::is('sica.admin.academy.lines.*') ? 'active' : '' }}">
                                         <i class="fas fa-book"></i>
                                         <p>{{ trans('sica::menu.Programs') }}</p>
                                     </a>
                                 </li>
                             @endif
-                            @if (Auth::user()->havePermission('sica.admin.academy.courses'))
+                            @if (Auth::user()->havePermission('sica.admin.academy.courses.index'))
                                 <li class="nav-item">
-                                    <a href="{{ route('sica.admin.academy.courses') }}" class="nav-link {{ !Route::is('sica.admin.academy.courses*') ?: 'active' }}">
+                                    <a href="{{ route('sica.admin.academy.courses.index') }}" class="nav-link {{ !Route::is('sica.admin.academy.courses.*') ?: 'active' }}">
                                         <i class="fas fa-graduation-cap"></i>
                                         <p>{{ trans('sica::menu.Courses') }}</p>
                                     </a>
@@ -536,9 +536,17 @@
                             @endif
                             @if (Auth::user()->havePermission('sica.academic_coordinator.academy.programs.index'))
                                 <li class="nav-item">
-                                    <a href="{{ route('sica.academic_coordinator.academy.programs.index') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.academy.programs.*') ?: 'active' }}">
+                                    <a href="{{ route('sica.academic_coordinator.academy.programs.index') }}" class="nav-link {{ Route::is('sica.academic_coordinator.academy.programs.*') || Route::is('sica.academic_coordinator.academy.networks.*') || Route::is('sica.academic_coordinator.academy.lines.*') ? 'active' : '' }}">
                                         <i class="fas fa-book"></i>
                                         <p>{{ trans('sica::menu.Programs') }}</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.academic_coordinator.academy.courses.index'))
+                                <li class="nav-item">
+                                    <a href="{{ route('sica.academic_coordinator.academy.courses.index') }}" class="nav-link {{ !Route::is('sica.academic_coordinator.academy.courses.*') ?: 'active' }}">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <p>{{ trans('sica::menu.Courses') }}</p>
                                     </a>
                                 </li>
                             @endif

@@ -226,76 +226,20 @@ class AcademyController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_program'=>$message_program]);
     }
 
-    /* Listado líneas tecnoloógicas registradas */
-    public function lines_index(){
-        $line = Line::orderBy('updated_at','DESC')->get();
-        $data = ['title'=>trans('sica::menu.Lines'),'lines'=>$line];
-        return view('sica::admin.academy.lines.index', $data);
-    }
-
-    public function lines_create(){
-        return view('sica::admin.academy.lines.create');
-    }
-
-    public function lines_store(Request $request){
-        $line = new Line;
-        $line->name = e($request->input('name'));
-        if($line->save()){
-            $icon = 'success';
-            $message_line = trans('sica::menu.Technological line successfully added');
-        }else{
-            $icon = 'error';
-            $message_line = trans('sica::menu.Could not add technological line');
-        }
-        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
-    }
-
-    public function lines_edit($id){
-        $line = Line::find($id);
-        return view('sica::admin.academy.lines.edit',compact('line'));
-    }
-
-    public function lines_update(Request $request){
-        $line = Line::findOrFail($request->input('id'));
-        $line->name = e($request->input('name'));
-        if($line->save()){
-            $icon = 'success';
-            $message_line = trans('sica::menu.Technological line updated successfully');
-        }else{
-            $icon = 'error';
-            $message_line = trans('sica::menu.Could not update technological line');
-        }
-        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
-    }
-
-    public function lines_delete($id){
-        $line = Line::find($id);
-        return view('sica::admin.academy.lines.delete',compact('line'));
-    }
-
-    public function lines_destroy(Request $request){
-        $line = Line::findOrFail($request->input('id'));
-        if($line->delete()){
-            $icon = 'success';
-            $message_line = trans('sica::menu.Technological line successfully removed');
-        }else{
-            $icon = 'error';
-            $message_line = trans('sica::menu.Could not delete technological line');
-        }
-        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
-    }
-
+    /* Listado de redes de conocimiento registrados */
     public function networks_index(){
         $networks = Network::with('line')->orderBy('updated_at','DESC')->get();
         $data = ['title'=>trans('sica::menu.Knowledge Networks'),'networks'=>$networks];
-        return view('sica::admin.academy.networks.home',$data);
+        return view('sica::admin.academy.networks.index', $data);
     }
 
+    // Formulario de registro de red de conocimiento
     public function networks_create(){
         $lines = Line::orderBy('name', 'ASC')->pluck('name', 'id');
         return view('sica::admin.academy.networks.create', compact('lines'));
     }
 
+    /* Registrar red de conocimiento */
     public function networks_store(Request $request){
         $network = new Network();
         $network->name = e($request->input('name'));
@@ -310,6 +254,7 @@ class AcademyController extends Controller
         return back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
     }
 
+    /* Formulario de actualización de red de conocimiento */
     public function networks_edit($id){
         $network = Network::find($id);
         $lines = Line::orderBy('name', 'ASC')->pluck('name', 'id');
@@ -321,6 +266,7 @@ class AcademyController extends Controller
         return view('sica::admin.academy.networks.edit', $data);
     }
 
+    /* Actualizar red de conocimiento */
     public function networks_update(Request $request){
         $network = Network::find($request->input('id'));
         $network->name = e($request->input('name'));
@@ -335,12 +281,14 @@ class AcademyController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
     }
 
+    /* Formulario de eliminación de red de conocimiento */
     public function networks_delete($id){
         $network = Network::find($id);
         $data = [ 'title' => 'Eliminar Red de Conocimiento', 'network' => $network,];
         return view('sica::admin.academy.networks.delete', $data);
     }
 
+    /* Eliminar red de conocimiento */
     public function networks_destroy(Request $request){
         $network = Network::findOrFail($request->input('id'));
         if($network->delete()){
@@ -353,18 +301,86 @@ class AcademyController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_network'=>$message_network]);
     }
 
-    public function courses(){
-        $courses = Course::with('program')->orderBy('code','desc')->get();
-        $data = ['title'=>trans('sica::menu.Courses'),'courses'=>$courses];
-        return view('sica::admin.academy.courses.home',$data);
+    /* Listado de líneas tecnológicas registradas */
+    public function lines_index(){
+        $line = Line::orderBy('updated_at','DESC')->get();
+        $data = ['title'=>trans('sica::menu.Lines'),'lines'=>$line];
+        return view('sica::admin.academy.lines.index', $data);
     }
 
-    public function createCourse(){
+    /* Formulario de registro de línea tecnológica */
+    public function lines_create(){
+        return view('sica::admin.academy.lines.create');
+    }
+
+    /* Registrar línea tecnológica */
+    public function lines_store(Request $request){
+        $line = new Line;
+        $line->name = e($request->input('name'));
+        if($line->save()){
+            $icon = 'success';
+            $message_line = trans('sica::menu.Technological line successfully added');
+        }else{
+            $icon = 'error';
+            $message_line = trans('sica::menu.Could not add technological line');
+        }
+        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
+    }
+
+    /* Formulario de actualización de línea tecnológica */
+    public function lines_edit($id){
+        $line = Line::find($id);
+        return view('sica::admin.academy.lines.edit',compact('line'));
+    }
+
+    /* Actualizar línea tecnológica */
+    public function lines_update(Request $request){
+        $line = Line::findOrFail($request->input('id'));
+        $line->name = e($request->input('name'));
+        if($line->save()){
+            $icon = 'success';
+            $message_line = trans('sica::menu.Technological line updated successfully');
+        }else{
+            $icon = 'error';
+            $message_line = trans('sica::menu.Could not update technological line');
+        }
+        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
+    }
+
+    /* Formulario de eliminación de línea tecnológica */
+    public function lines_delete($id){
+        $line = Line::find($id);
+        return view('sica::admin.academy.lines.delete', compact('line'));
+    }
+
+    /* Eliminar línea tecnológica */
+    public function lines_destroy(Request $request){
+        $line = Line::findOrFail($request->input('id'));
+        if($line->delete()){
+            $icon = 'success';
+            $message_line = trans('sica::menu.Technological line successfully removed');
+        }else{
+            $icon = 'error';
+            $message_line = trans('sica::menu.Could not delete technological line');
+        }
+        return back()->with(['icon'=>$icon, 'message_line'=>$message_line]);
+    }
+
+    /* Listado de cursos registados */
+    public function courses_index(){
+        $courses = Course::with('program')->orderByDesc('updated_at')->get();
+        $data = ['title'=>trans('sica::menu.Courses'),'courses'=>$courses];
+        return view('sica::admin.academy.courses.index',$data);
+    }
+
+    /* Formulario de registro de curso */
+    public function courses_create(){
         $program = Program::orderBy('name', 'ASC')->pluck('name','id');
         return view('sica::admin.academy.courses.create', compact('program'));
     }
 
-    public function storeCourse(Request $request){
+    /* Registrar curso */
+    public function courses_store(Request $request){
         $course = new Course();
         $course->code = e($request->input('code'));
         $course->star_date = e($request->input('star_date'));
@@ -382,7 +398,8 @@ class AcademyController extends Controller
         return back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
     }
 
-    public function editCourse($id){
+    /* Formulario de actualización de curso */
+    public function courses_edit($id){
         $course = Course::find($id);
         $program = Program::orderBy('name', 'ASC')->pluck('name','id');
         $data = [
@@ -393,7 +410,7 @@ class AcademyController extends Controller
         return view('sica::admin.academy.courses.edit', $data);
     }
 
-    public function updateCourse(Request $request){
+    public function courses_update(Request $request){
         $course = Course::find($request->input('id'));
         $course->code = e($request->input('code'));
         $course->program_id = e($request->input('program_id'));
@@ -411,13 +428,13 @@ class AcademyController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
     }
 
-    public function deleteCourse($id){
+    public function courses_delete($id){
         $course = Course::find($id);
         $data = ['title' => 'Eliminar Titulada', 'course' => $course];
         return view('sica::admin.academy.courses.delete', $data);
     }
 
-    public function destroyCourse(Request $request){
+    public function course_destroy(Request $request){
         $course = Course::findOrFail($request->input('id'));
         if($course->delete()){
             $icon = 'success';

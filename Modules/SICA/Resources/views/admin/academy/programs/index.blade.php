@@ -61,14 +61,14 @@
                                                 <div class="opts">
                                                     @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.edit'))
                                                         <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.programs.edit', $p->id) }}')">
-                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar programa de formación">
                                                                 <i class="fas fa-edit"></i>
                                                             </b>
                                                         </a>
                                                     @endif
                                                     @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.delete'))
                                                         <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.programs.delete', $p->id) }}')">
-                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar programa de formación">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </b>
                                                         </a>

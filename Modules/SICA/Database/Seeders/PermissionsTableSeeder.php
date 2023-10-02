@@ -127,7 +127,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
-        // Acutalizar EPS (Administrador)
+        // Actualizar EPS (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'sica.admin.people.config.eps.update'], [ // Registro o actualización de permiso
             'name' => 'Actualizar EPS (Administrador)',
             'description' => 'Actualizar EPS',
@@ -136,7 +136,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Acutalizar EPS (Coordiandor académico)
+        // Actualizar EPS (Coordiandor académico)
         $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.people.config.eps.update'], [ // Registro o actualización de permiso
             'name' => 'Actualizar EPS (Coordiandor académico)',
             'description' => 'Actualizar EPS',
@@ -1054,6 +1054,332 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de redes de conocimiento registrados (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.networks.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de redes de conocimiento registrados (Administrador)',
+            'description' => 'Listado de redes de conocimiento registrados',
+            'description_english' => 'List of registered networks',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de redes de conocimiento registrados (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.networks.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de redes de conocimiento registrados (Coordinador académico)',
+            'description' => 'Listado de redes de conocimiento registrados',
+            'description_english' => 'List of registered networks',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de red de conocimiento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.networks.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de red de conocimiento (Administrador)',
+            'description' => 'Formulario de registro de red de conocimiento',
+            'description_english' => 'Network registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de red de conocimiento (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.networks.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de red de conocimiento (Coordinador académico)',
+            'description' => 'Formulario de registro de red de conocimiento',
+            'description_english' => 'Network registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar red de conocimiento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.networks.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar red de conocimiento (Administrador)',
+            'description' => 'Registrar red de conocimiento',
+            'description_english' => 'Register network',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar red de conocimiento (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.networks.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar red de conocimiento (Coordinador académico)',
+            'description' => 'Registrar red de conocimiento',
+            'description_english' => 'Register network',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de red de conocimiento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.networks.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de red de conocimiento (Administrador)',
+            'description' => 'Formulario de actualización de red de conocimiento',
+            'description_english' => 'Network update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de red de conocimiento (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.networks.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de red de conocimiento (Coordinador académico)',
+            'description' => 'Formulario de actualización de red de conocimiento',
+            'description_english' => 'Network update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar red de conocimiento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.networks.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar red de conocimiento (Administrador)',
+            'description' => 'Actualizar red de conocimiento',
+            'description_english' => 'Update network',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar red de conocimiento (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.networks.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar red de conocimiento (Coordinador académico)',
+            'description' => 'Actualizar red de conocimiento',
+            'description_english' => 'Update network',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de eliminación de red de conocimiento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.networks.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de eliminación de red de conocimiento (Administrador)',
+            'description' => 'Formulario de eliminación de red de conocimiento',
+            'description_english' => 'Network delete form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de eliminación de red de conocimiento (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.networks.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de eliminación de red de conocimiento (Coordinador académico)',
+            'description' => 'Formulario de eliminación de red de conocimiento',
+            'description_english' => 'Network delete form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar red de conocimiento (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.networks.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar red de conocimiento (Administrador)',
+            'description' => 'Eliminar red de conocimiento',
+            'description_english' => 'Delete network',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar red de conocimiento (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.networks.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar red de conocimiento (Coordinador académico)',
+            'description' => 'Eliminar red de conocimiento',
+            'description_english' => 'Delete network',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de líneas tecnológicas registradas (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.lines.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de líneas tecnológicas registradas (Administrador)',
+            'description' => 'Listado de líneas tecnológicas registradas',
+            'description_english' => 'List of registered lines',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de líneas tecnológicas registradas (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.lines.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de líneas tecnológicas registradas (Coordinador académico)',
+            'description' => 'Listado de líneas tecnológicas registradas',
+            'description_english' => 'List of registered lines',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de línea tecnológica (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.lines.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de línea tecnológica (Administrador)',
+            'description' => 'Formulario de registro de línea tecnológica',
+            'description_english' => 'Line registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de línea tecnológica (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.lines.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de línea tecnológica (Coordinador académico)',
+            'description' => 'Formulario de registro de línea tecnológica',
+            'description_english' => 'Line registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar línea tecnológica (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.lines.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar línea tecnológica (Administrador)',
+            'description' => 'Registrar línea tecnológica',
+            'description_english' => 'Register line',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar línea tecnológica (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.lines.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar línea tecnológica (Coordinador académico)',
+            'description' => 'Registrar línea tecnológica',
+            'description_english' => 'Register line',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de línea tecnológica (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.lines.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de línea tecnológica (Administrador)',
+            'description' => 'Formulario de actualización de línea tecnológica',
+            'description_english' => 'Line update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de línea tecnológica (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.lines.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de línea tecnológica (Coordinador académico)',
+            'description' => 'Formulario de actualización de línea tecnológica',
+            'description_english' => 'Line update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar línea tecnológica (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.lines.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar línea tecnológica (Administrador)',
+            'description' => 'Actualizar línea tecnológica',
+            'description_english' => 'Update line',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar línea tecnológica (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.lines.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar línea tecnológica (Coordinador académico)',
+            'description' => 'Actualizar línea tecnológica',
+            'description_english' => 'Update line',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de eliminación de línea tecnológica (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.lines.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de eliminación de línea tecnológica (Administrador)',
+            'description' => 'Formulario de eliminación de línea tecnológica',
+            'description_english' => 'Line elimination form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de eliminación de línea tecnológica (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.lines.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de eliminación de línea tecnológica (Coordinador académico)',
+            'description' => 'Formulario de eliminación de línea tecnológica',
+            'description_english' => 'Line elimination form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar línea tecnológica (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.lines.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar línea tecnológica (Administrador)',
+            'description' => 'Eliminar línea tecnológica',
+            'description_english' => 'Delete line',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar línea tecnológica (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.lines.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar línea tecnológica (Coordinador académico)',
+            'description' => 'Eliminar línea tecnológica',
+            'description_english' => 'Delete line',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de cursos registrados (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.courses.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de cursos registrados (Administrador)',
+            'description' => 'Listado de cursos registrados',
+            'description_english' => 'List of registered courses',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Listado de cursos registrados (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.courses.index'], [ // Registro o actualización de permiso
+            'name' => 'Listado de cursos registrados (Coordinador académico)',
+            'description' => 'Listado de cursos registrados',
+            'description_english' => 'List of registered courses',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de curso (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.courses.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de curso (Administrador)',
+            'description' => 'Formulario de registro de curso',
+            'description_english' => 'Course registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de registro de curso (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.courses.create'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de registro de curso (Coordinador académico)',
+            'description' => 'Formulario de registro de curso',
+            'description_english' => 'Course registration form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar curso (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.courses.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar curso (Administrador)',
+            'description' => 'Registrar curso',
+            'description_english' => 'Register course',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Registrar curso (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.courses.store'], [ // Registro o actualización de permiso
+            'name' => 'Registrar curso (Coordinador académico)',
+            'description' => 'Registrar curso',
+            'description_english' => 'Register course',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de curso (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.courses.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de curso (Administrador)',
+            'description' => 'Formulario de actualización de curso',
+            'description_english' => 'Course update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de actualización de curso (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.courses.edit'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de actualización de curso (Coordinador académico)',
+            'description' => 'Formulario de actualización de curso',
+            'description_english' => 'Course update form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+
 
 
         // Consulta de ROLES
