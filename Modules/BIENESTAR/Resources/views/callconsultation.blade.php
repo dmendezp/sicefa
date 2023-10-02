@@ -33,7 +33,6 @@
                                         <th>Porcentaje de Descuento (Alimentación)</th>
                                         <th>Número de Ruta (Transporte)</th>
                                         <th>Nombre de Ruta (Transporte)</th>
-                                        <th></th> <!-- Columna en blanco -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,39 +44,10 @@
                                         <td>{{ $aprendiz->porcentaje_descuento_alimentacion }}</td>
                                         <td>{{ $aprendiz->numero_ruta_transporte }}</td>
                                         <td>{{ $aprendiz->nombre_ruta_transporte }}</td>
-                                        <td></td> <!-- Puedes dejar esta columna en blanco o agregar contenido adicional -->
                                     </tr>
                                     @endisset
                                 </tbody>
-                            </table>
-
-                            <!-- Botón "Más info" debajo del título "Nombre de Ruta (Transporte)" -->
-<div class="text-center mt-3">
-    <button class="btn btn-primary" style="background-color: #00FF22; color: #000000;" data-toggle="modal" data-target="#infoModal">Más info</button>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="infoModalLabel">Información Adicional</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Contenido del modal -->
-                <p>Aquí puedes agregar la información adicional que deseas mostrar.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-                                            
+                            </table>        
                         </div>
                     </div>
                     <!-- Fin del contenido en un solo card -->
