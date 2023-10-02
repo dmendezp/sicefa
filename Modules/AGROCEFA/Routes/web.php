@@ -5,6 +5,7 @@ use Modules\AGROCEFA\Http\Controllers\SpecieController;
 use Modules\AGROCEFA\Http\Controllers\VarietyController; // Asegúrate de importar el controlador VarietyController si no está importado.
 use Modules\AGROCEFA\Http\Controllers\CropController;
 use Modules\AGROCEFA\Http\Controllers\UsuarioController;
+use Modules\AGROCEFA\Http\Controllers\LaborManagementController;
 
 
 Route::middleware(['lang'])->group(function() {
@@ -102,6 +103,9 @@ Route::middleware(['lang'])->group(function() {
         //ruta para Gestion de labores
         Route::get('/labormanagement', 'labormanagementController@index')->name('agrocefa.labormanagement.index');/* vista tarjetas de gestion de labores */
         Route::get('labormanagement/culturalwork', 'LaborManagementController@culturalwork')->name('agrocefa.culturalwork');/* ruta para la vista labor cultural */
+        Route::get('/labormanagement/culturalwork', 'LaborManagementController@create')->name('agrocefa.culturalwork');
+
+
     });
 
 

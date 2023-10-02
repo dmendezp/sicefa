@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\AGROCEFA\Entities\AgriculturalLabor;
+use Modules\AGROCEFA\Entities\Crop;
+use Modules\AGROCEFA\Entities\Tool;
 
 class Labor extends Model implements Auditable
 {
@@ -41,9 +43,20 @@ class Labor extends Model implements Auditable
     public function person(){ // Accede a la información de la persona responsable de la ejecución de la labor
         return $this->belongsTo(Person::class);
     }
-
     public function agricultural_labors(){ // Accede a todos los registros de recursos de labor que pertenecen a esta labor
         return $this->hasMany(AgriculturalLabor::class);
     }
+    public function crops(){
+        return $this->belongsToMany(Crop::class);//relacion de muchos a muchos entre labors y crops
+    }
+    public function tools(){
+    return $this->hasMany(Tool::class);
+    }
+    public function crop(){
+        return $this->belongsToMany(Crop::class);
+    }
+
+    
+    
 
 }

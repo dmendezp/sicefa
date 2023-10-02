@@ -1,92 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
-
-
-/*footer*/
-
-.footer {
-    background: linear-gradient(to right, #004916, #009688);
-    color: white; /* Color del texto */
-    padding: 10px; /* Añade espaciado interno para que se vea mejor */
+#footer {
+    background: linear-gradient(to right, #004916, #009688); /* Cambia los colores a tu preferencia */
+    padding: 10px 0; /* Reduciendo el relleno superior e inferior */
+    color: white; /* Ajusta el color del texto para que contraste adecuadamente */
 }
 
-
-.footer_title{
-    font-weight: 300;
-    font-size: 2rem;
-    margin-bottom: 30px;
-}
-
-.footer_title, .footer_newsletter{
-    color: #fff
-}
-
-.footer_container{
+#nav_footer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #fff;
-    padding-bottom: 60px;
+    flex-direction: row;
+    list-style: none;
+    padding: 0;
 }
 
-.nav--footer{
-    padding-bottom: 20px;
-    display: grid;
-    gap: 1em;
-    grid-auto-flow: row;
-    height: 100%;
-}
-
-.nav_link--footer{
-    display: flex;
-    margin: 0;
+#nav_footer li {
     margin-right: 20px;
-    flex-wrap: wrap;
 }
 
-.footer_inputs{
-    margin-top: 10px;
-    display: flex;
-    overflow: hidden;
+#nav_footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-.footer_input{
-    background-color: #fff;
-    height: 50px;
-    display: block;
-    padding-left: 10px;
-    border-radius: 6px;
-    font-size: 1rem;
-    outline: none;
-    border: none;
-    margin-right: 16px;
+#footer_newsletter {
+    font-size: 18px;
+    color: #ffffff;
+    margin-left: 10px; /* Ajustamos el margen izquierdo */
 }
 
-.footer_submit{
-    margin-left: auto;
-    display: inline-block;
-    height: 50px;
-    padding: 0 20px;
-    background-color: #2091F9;
-    border: none;
-    font-size: 1rem;
-    color: #fff;
-    border-radius: 6px;
-}
-
-.footer_copy{
-    --padding-container:30px 0;
-    text-align: center;
-    color: #fff;
-}
-
-.footer_copyright{
-    font-weight: 300;
-}
-
-.footer_icons{
+#footer_social {
     margin-bottom: 10px;
 }
 
-.footer_img{
-    width: 30px;
-    }
+#footer_social a {
+    margin-right: 10px;
+}
+
+#footer_social img {
+    width: 30px; /* Ajusta el tamaño según sea necesario */
+}
+
+#footer_copyright_text {
+    font-size: 14px;
+    color: #fffcfc;
+    text-align: center;
+}
+
+#nav_link_footer {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px; /* Reducimos el margen superior */
+}
+
+#nav_link_footer li {
+    display: inline-block;
+    margin-right: 10px; /* Ajustamos el margen entre elementos */
+}
+
+#nav_link_footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}

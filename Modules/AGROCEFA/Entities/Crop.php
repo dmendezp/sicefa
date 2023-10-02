@@ -4,8 +4,9 @@ namespace Modules\AGROCEFA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\AGROCEFA\Entities\Variety;
 use Modules\SICA\Entities\Environment;
+use Modules\AGROCEFA\Entities\Variety;
+use Modules\SICA\Entities\Labor;
 
 class Crop extends Model
 {
@@ -20,15 +21,20 @@ class Crop extends Model
         'finish_date',
     ];
 
-    public function variety()
-    {
+    public function variety(){
         return $this->belongsTo(Variety::class);
     }
 
-    public function environments()
-    {
+    public function environments(){
         return $this->belongsToMany(Environment::class);
     }
+    
+    public function labors(){
+        return $this->belongsToMany(Labor::class);
+    }
+    
+
+
 
 }
 

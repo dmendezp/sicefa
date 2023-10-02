@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\AGROCEFA\Entities\Tool;
 
 class Inventory extends Model implements Auditable
 {
@@ -59,6 +60,9 @@ class Inventory extends Model implements Auditable
     public function productive_unit_warehouse(){ // Accede a la información de la unidad productiva y bodega al que pertenece
         return $this->belongsTo(ProductiveUnitWarehouse::class);
     }
+    public function tools(){
+        return $this->hasMany(Tool::class);
+        }
 
 
     // configuración de fcoty para la generació de datos de pruebas
