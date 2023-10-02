@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\CashCount;
 
 class CashController extends Controller
@@ -16,6 +17,8 @@ class CashController extends Controller
     public function index()
     {
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_cash_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_cash_index_title_view')];
+        // Lista de apps para el menu de acceso rapido
+        $apps = App::get();
         $app_puw = PUW::getAppPuw(); // Obtner la unidad productiva y bodega de la aplicación
         $active_cash = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
                                         ->where('state', 'Abierta')
@@ -23,7 +26,7 @@ class CashController extends Controller
         $cash_counts = CashCount::where('productive_unit_warehouse_id', $app_puw->id)
                                 ->orderByDesc('id')
                                 ->get();
-        return view('ptventa::cash.index', compact('view', 'active_cash', 'cash_counts'));
+        return view('ptventa::cash.index', compact('view', 'apps','active_cash', 'cash_counts'));
     }
 
     public function store(Request $request)

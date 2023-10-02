@@ -16,7 +16,7 @@
                     <div class="container text-center">
                         <div class="row">
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/JDGM0331-Profile.jpg') }}" alt="JDGM0331" width="140" height="140">
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/JDGM0331-Profile.webp') }}" alt="JDGM0331" width="140" height="140">
                                 <h4>{{ trans('ptventa::devs.Description_Apprentice') }}</h4>
                                 <p>Jesús David Guevara Munar</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/jdgm0331/">
@@ -30,7 +30,7 @@
                                 </a>
                             </div>
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/SrManuel-1-Profile.jpg') }}" alt="JDGM0331" width="140" height="140">
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/SrManuel-1-Profile.webp') }}" alt="Sr-Manuel-1" width="140" height="140">
                                 <h4>{{ trans('ptventa::devs.Description_Apprentice') }}</h4>
                                 <p>Manuel Steven Ossa Lievano</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/manuel-steven-ossa-lievano-014b3b267/">
@@ -44,7 +44,7 @@
                                 </a>
                             </div>
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/Nelsy-Profile.jpg') }}" alt="JDGM0331" width="140" height="140">
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/Nelsy-Profile.webp') }}" alt="Nelsy" width="140" height="140">
                                 <h4>{{ trans('ptventa::devs.Description_Apprentice') }}</h4>
                                 <p>Nelsy Yulied Gomez Morales</p>
                                 <a class="btn btn-primary" href="www.linkedin.com/in/nelsy-yulied-gomez-morales-5b1b37267">
@@ -56,7 +56,7 @@
                                 
                             </div>
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/ANYI-Profile.jpg') }}" alt="AnyiProfile" width="140" height="140">
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/ptventa/images/developers/ANYI-Profile.webp') }}" alt="AnyiProfile" width="140" height="140">
                                 <h4>{{ trans('ptventa::devs.Description_Apprentice') }}</h4>
                                 <p>Anyi Katherine Rojas Arce</p>
                                 <a class="btn btn-primary" href="https://www.linkedin.com/in/anyi-rojas-25a003268/">
