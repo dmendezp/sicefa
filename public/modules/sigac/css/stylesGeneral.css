@@ -1,7 +1,7 @@
 /* ---- Personalizacion de estilos de cada boton del sidebar ---- */
 
 .content-wrapper {
-  background-image: url('/modules/sigac/images/books.webp');
+  background-image: url('/modules/sigac/images/backgrounds/books.webp');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;

@@ -80,7 +80,7 @@
                     <div class="col-md-4 col-12 d-flex justify-content-center">
                         <div class="card shadow-lg border-0" data-aos="fade-up" data-aos-duration="1000">
                             <div class="card-body text-center">
-                                <img src="{{ asset('modules/sigac/images/burbuja-de-dialogo.gif') }}"
+                                <img src="{{ asset('modules/sigac/images/gifs/burbuja-de-dialogo.gif') }}"
                                     class="card-img-top custom-img align-self-center" alt="...">
                                 <div class="card-body p-2">
                                     <h6>{{ trans('sigac::index.CardTitle1') }}</h6>
@@ -93,7 +93,7 @@
                         <div class="card shadow-lg border-0" data-aos="fade-up" data-aos-duration="2000">
                             <div class="row no-gutters">
                                 <div class="col-md-6 col-12 d-flex align-items-center justify-content-center">
-                                    <img src="{{ asset('modules/sigac/images/libros.gif') }}" class="card-img custom-img"
+                                    <img src="{{ asset('modules/sigac/images/gifs/libros.gif') }}" class="card-img custom-img"
                                         alt="...">
                                 </div>
                                 <div class="col-md-6 col-12">
@@ -107,7 +107,7 @@
                         <div class="card shadow-lg border-0 mt-3" data-aos="fade-up" data-aos-duration="3000">
                             <div class="row no-gutters">
                                 <div class="col-md-6 col-12 d-flex align-items-center justify-content-center">
-                                    <img src="{{ asset('modules/sigac/images/buscar.gif') }}" class="card-img custom-img"
+                                    <img src="{{ asset('modules/sigac/images/gifs/buscar.gif') }}" class="card-img custom-img"
                                         alt="...">
                                 </div>
                                 <div class="col-md-6 col-12">
