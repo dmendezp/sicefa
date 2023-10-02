@@ -8,6 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\AGROCEFA\Entities\AgriculturalLabor;
 use Modules\AGROCEFA\Entities\Crop;
 use Modules\AGROCEFA\Entities\Tool;
+use Modules\AGROCEFA\Entities\Executor;
 
 class Labor extends Model implements Auditable
 {
@@ -54,6 +55,9 @@ class Labor extends Model implements Auditable
     }
     public function crop(){
         return $this->belongsToMany(Crop::class);
+    }
+    public function executors(){
+        return $this->hasMany(Executor::class);
     }
 
     

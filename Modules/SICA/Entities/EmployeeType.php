@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
+
 class EmployeeType extends Model implements Auditable
 {
 
@@ -33,5 +34,6 @@ class EmployeeType extends Model implements Auditable
     public function employees(){ // Accede a todos los registros de empleados que le pertenecen a este tipo de empleado
         return $this->hasMany(Employee::class);
     }
+
 
 }

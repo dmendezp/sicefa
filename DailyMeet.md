@@ -119,6 +119,47 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Yuderly Sapuy** - *Avance vista usuario* - *Avance 80%* - *Dificultades* - *Acciones*
 ---
 
+#### Meet 19-Sep-2023
+* **Andres Almario** - *SENA SOFT - ** - ** - **
+* **Dayana Valenzuela**  - *SENA SOFT - ** - ** - **
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Creacion vista gestion de labores* - *Avance 10%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 20-Sep-2023
+* **Andres Almario** - *SENA SOFT - ** - ** - **
+* **Dayana Valenzuela**  - *SENA SOFT - ** - ** - **
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Creacion tarjetas y rutas gestión de labores, ruta de gestión de labores en el sidebar* - *Avance 40%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 21-Sep-2023
+* **Andres Almario** - *SENA SOFT - ** - ** - **
+* **Dayana Valenzuela**  - *SENA SOFT - ** - ** - **
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Rutas tarjetas gestión de labores* - *Avance 60%* - *Dificultades* - *Acciones*
+---
+
+#### Meet 22-Sep-2023
+* **Andres Almario** - *SENA SOFT - ** - ** - **
+* **Dayana Valenzuela**  - *SENA SOFT - ** - ** - **
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Creacion de vista de REGISTRO DE APLICACIÓN DE LABORES CULTURALES* - *Avance 30%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 23-Sep-2023
+* **Andres Almario** - *SENA SOFT - ** - ** - **
+* **Dayana Valenzuela**  - *SENA SOFT - ** - ** - **
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Creacion de rutas y controlador de REGISTRO DE APLICACIÓN DE LABORES CULTURALES* - *Avance 40%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 25-Sep-2023
+* **Andres Almario** - *SENA SOFT - ** - ** - **
+* **Dayana Valenzuela**  - *SENA SOFT - ** - ** - **
+* **Laura Vanessa** - ** - *Avance* - *Dificultades* - *Acciones*
+* **Yuderly Sapuy** - *Uso de las tablas activities y elements del modulo  SICA para el REGISTRO DE APLICACIÓN DE LABORES CULTURALES* - *Avance 55%* - *Complicacion en las relaciones de las tablas* - *Busquedas en internet y preguntar a compañeros del proyecto*
+---
 
 ## PUNTO DE VENTA 🛒
 
