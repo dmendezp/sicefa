@@ -10,14 +10,14 @@
                     <table id="datatable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Aprentice ID</th>
-                                <th>Vacante ID</th>
-                                <th>Estado</th>
-                                <th>Hoja de vida</th>
-                                <th>16 Personalidades</th>
-                                <th>Propuesta</th>
-                                <th>Puntaje Total</th>
+                                <th>{{ trans('senaempresa::menu.Id') }}</th>
+                                <th>{{ trans('senaempresa::menu.Apprentice ID') }}</th>
+                                <th>{{ trans('senaempresa::menu.Vacancy ID') }}</th>
+                                <th>{{ trans('senaempresa::menu.Status') }}</th>
+                                <th>{{ trans('senaempresa::menu.Currículum') }}</th>
+                                <th>{{ trans('senaempresa::menu.16 personalities') }}</th>
+                                <th>{{ trans('senaempresa::menu.Proposal') }}</th>
+                                <th>{{ trans('senaempresa::menu.Total score') }}</th>
                                 <th></th>
                             </tr>
                         </thead>

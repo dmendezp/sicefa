@@ -4,7 +4,7 @@ return [
     //PositionCompany
     'Name' => 'Name',  // SENAEMPRESA, Vacant,
     'General Description' => 'General Description',  // Vacant,
-    'Status' => 'Status',  // Loan,
+    'Status' => 'Status',  // Loan,Postulate
     'Active' => 'Active',
     'Save changes' => 'Save changes',
     'Cancel' => 'Cancel',  // Loan, SENAEMPRESA, staff_senaempresa, Vacant
@@ -13,7 +13,7 @@ return [
     'Inactive' => 'Inactive',
     'Add' => 'Add',  // SENAEMPRESA, staff_senaempresa, Vacant,
     'Positions' => 'Positions',  // Aside,
-    'Id' => 'Id',  // Loan, staff_senaempresa, Vacant,
+    'Id' => 'Id',  // Loan, staff_senaempresa, Vacant, Postulate
     'Description' => 'Description',  // SENAEMPRESA,
     'Are you sure?' => 'Are you sure?',   // SENAEMPRESA, staff_senaempresa, Vacant,
     'It is an irreversible process.' => 'It is an irreversible process.',  // SENAEMPRESA, staff_senaempresa, Vacant,
@@ -151,6 +151,19 @@ return [
     // Navbar
 
     'Contact' => 'Contact',
+
+    //Postulate
+
+    'Apprentice ID'=>'Apprentice ID',
+    'Vacancy ID'=>'Vacancy ID',
+    'Currículum'=>'Currículum',
+    '16 personalities'=>'16 personalities',
+    'Proposal'=>'Proposal',
+    'Total score'=>'Total score',
+
+
+
+
 
 
 

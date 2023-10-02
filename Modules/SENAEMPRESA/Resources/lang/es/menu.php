@@ -156,6 +156,16 @@ return [
     'Contact' => 'Contacto',
 
 
+    //Postulate
+
+    'Apprentice ID'=>'Aprendiz Id',
+    'Vacancy ID'=>'Vacate Id',
+    'Currículum'=>'Hoja de Vida',
+    '16 personalities'=>'16 Personalidades',
+    'Proposal'=>'Propuesta',
+    'Total score'=>'Puntaje total',
+
+
 
 
 
