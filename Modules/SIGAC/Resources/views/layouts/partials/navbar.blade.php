@@ -5,7 +5,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block mx-1">
-            <a href="#" class="nav-link">{{ trans('sigac::general.Home') }}</a>
+            <a href="{{ route('cefa.sigac.index') }}" class="nav-link">{{ trans('sigac::general.Home') }}</a>
         </li>
 
         <li class="nav-item d-none d-sm-inline-block mx-1">

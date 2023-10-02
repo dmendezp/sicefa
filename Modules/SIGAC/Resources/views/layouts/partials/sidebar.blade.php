@@ -70,6 +70,13 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                     <li class="nav-item">
+                        <a href="{{ route('cefa.sigac.index') }}" class="nav-link {{ !Route::is('cefa.sigac.index*') ?: 'active' }}">
+                            <i class="nav-icon fa-solid fa-school"></i>
+                            <p>{{ trans('sigac::general.Home') }}</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="{{ route('cefa.sigac.attendance.register') }}" class="nav-link {{ !Route::is('cefa.sigac.attendance.register*') ?: 'active' }}">
                             <i class="nav-icon fas fa-user-check"></i>
                             <p>{{ trans('sigac::general.Attendance Register') }}</p>
