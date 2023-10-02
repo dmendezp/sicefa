@@ -47,7 +47,8 @@ class PostulateController extends Controller
             'title' => 'Inscripción',
             'Postulates' => $Postulates,
             'ApprenticeId' => $ApprenticeId,
-            'vacancies' => $vacancies, // Solo las vacantes relacionadas con el curso
+            'vacancies' => $vacancies,
+            // Solo las vacantes relacionadas con el curso
             'vacancy_id' => $request->input('vacancy_id'),
             'vacancy_name' => $request->input('vacancy_name'),
         ];
@@ -99,9 +100,11 @@ class PostulateController extends Controller
     }
 
     public function postulates()
-    {
-        $postulates = Postulate::get();
-        $data = ['title' => 'Postulados', 'postulates' => $postulates];
-        return view('senaempresa::Company.Postulate.postulate', $data);
-    }
+{
+    $postulates = Postulate::with(['apprentice.person', 'vacancy'])->get();
+    $data = ['title' => 'Postulados', 'postulates' => $postulates];
+    return view('senaempresa::Company.Postulate.postulate', $data);
+}
+
+
 }

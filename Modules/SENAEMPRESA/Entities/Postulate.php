@@ -22,7 +22,11 @@ class postulate extends Model implements Auditable
         return \Modules\SENAEMPRESA\Database\factories\PostulateFactory::new();
     }
     public function Apprentice()
-    { // Accede a la información del aprendiz 
+    { // Accede a la información del aprendiz
         return $this->belongsTo(Apprentice::class);
+    }
+    public function vacancy()
+    { //Accede a los vacantes disponibles
+        return $this->belongsTo(Vacancy::class);
     }
 }

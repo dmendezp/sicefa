@@ -6,7 +6,7 @@
         <br>
         <div class="col-md-12">
             <div class="card card-primary card-outline shadow">
-                <div class="card-body">
+                <div class="table-responsive">
                     <table id="datatable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -24,11 +24,11 @@
                             @foreach ($postulates as $postulate)
                                 <tr>
                                     <td>{{ $postulate->id }}</td>
-                                    <td>{{ $postulate->apprentice_id }}</td>
-                                    <td>{{ $postulate->vacancy_id }}</td>
+                                    <td>{{ $postulate->apprentice->person->first_name }} {{ $postulate->apprentice->person->first_last_name }}</td>
+                                    <td>{{ $postulate->vacancy->name }}</td>
                                     <td>{{ $postulate->state }}</td>
                                     <td>{{ $postulate->cv }}</td>
-                                    <td>{{ $postulate->personalites }}</td>
+                                    <td>{{ $postulate->personalities }}</td>
                                     <td>{{ $postulate->proposal }}</td>
                                     <td>0</td>
                                     <td> <a href="a" class="btn btn-primary">Asignar</a></td>
