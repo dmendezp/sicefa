@@ -46,7 +46,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">Opción 1</a>
+                  <a href="{{ route('cefa.bienestar.AssistancesFoods') }}" class="nav-link">Listados apoyo alimentacion </a>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">Opción 2</a>

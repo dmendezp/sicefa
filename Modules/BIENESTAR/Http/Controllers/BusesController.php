@@ -58,14 +58,10 @@ class BusesController extends Controller
         if ($buses->save()) {
             // Redirige con un mensaje de éxito
             return redirect()->route('cefa.bienestar.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
-        }
-    
-        // Redirige con un mensaje de error si falla el guardado
-        if($buses->save()){
+        }else{
             return redirect()->route('cefa.bienestar.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
         }
 
-        return redirect()->route('cefa.bienestar.buses')->with('message', 'Se ha producido un error')->with('typealert', 'danger');
     }
     
 
@@ -88,11 +84,12 @@ class BusesController extends Controller
         $buses->quota = $request->input('quota');
         $buses->bus_driver_id = $request->input('bus_driver');
         $buses->save();
-        if($buses->save()){
-            return redirect()->route('cefa.bienestar.buses')->with('message', 'Bus actualizado correctamente.')->with('typealert', 'success');
+        if ($buses->save()) {
+            // Redirige con un mensaje de éxito
+            return redirect()->route('cefa.bienestar.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
+        }else{
+            return redirect()->route('cefa.bienestar.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
         }
-
-        return redirect()->route('cefa.bienestar.buses')->with('message', 'Se ha producido un error')->with('typealert', 'danger');
     }
 
     /**
