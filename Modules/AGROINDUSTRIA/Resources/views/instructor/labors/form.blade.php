@@ -63,7 +63,28 @@
                             @error('person')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror   
-                        </div>      
+                        </div>  
+                        <div class="col-md-4">
+                            {!! Form::label('date_experation', 'Fecha de expiración') !!}
+                            {!! Form::date('date_experation', null, ['class' => 'form-control']) !!}
+                            @error('date_experation')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror   
+                        </div>    
+                        <div class="col-md-4"> 
+                            {!! Form::label('lot', 'Lote') !!}
+                            {!! Form::number('lot', null, ['class' => 'form-control']) !!}
+                            @error('lot')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror 
+                        </div>
+                        <div class="col-md-4"> 
+                            {!! Form::label('amount_production', 'Cantidad') !!}
+                            {!! Form::number('amount_production', null, ['class' => 'form-control']) !!}
+                            @error('amount_production')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror 
+                        </div>
                         <div class="col-md-12">
                             <button type="button" id="toggle-form-consumables">Registro de consumibles</button>
                             <button type="button" id="toggle-form-tools">Registro de herramientas</button>

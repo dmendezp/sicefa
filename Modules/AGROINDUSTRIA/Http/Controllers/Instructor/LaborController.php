@@ -20,6 +20,7 @@ use Modules\AGROINDUSTRIA\Entities\Executor;
 use Modules\AGROINDUSTRIA\Entities\Consumable;
 use Modules\AGROINDUSTRIA\Entities\EmployementType;
 use Modules\AGROINDUSTRIA\Entities\Tool;
+use Modules\AGROINDUSTRIA\Entities\Production;
 
 class LaborController extends Controller
 {
@@ -245,6 +246,9 @@ class LaborController extends Controller
             'observations' => 'required',
             'employement_type' => 'required',
             'hours' => 'required',
+            'date_experation' => 'required',
+            'lot' => 'required',
+            'amount_production' => 'required'
         ];
         $messages = [
             'activities.required' => trans('agroindustria::labors.youMustSelectActivity'),
@@ -255,6 +259,9 @@ class LaborController extends Controller
             'observations.required' => trans('agroindustria::labors.youMustEnterRemark'),
             'employement_type.required' => trans('agroindustria::labors.youMustSelectEmployeeType'),
             'hours.required' => trans('agroindustria::labors.youMustEnterNumberHoursWorked'),
+            'date_experation.required' => 'Debes registrar una fecha de expiración',
+            'lot.required' => 'Debes registrar un lote',
+            'amount_production.required' => 'Debes registrar la cantidad de producción',
         ];
         $validatedData = $request->validate($rules, $messages);
     
@@ -313,7 +320,23 @@ class LaborController extends Controller
             $t->save();
         }
 
-        if($t->save()){
+        $recipeRequest = $request->input('recipe');
+        $recipe = Formulation::where('id', $recipeRequest)->get();
+        foreach($recipe as $r){
+            $element_id = $r->element_id;
+        }
+
+        $p = new Production;
+        $p->labor_id = $l->id;
+        $p->element_id = $element_id;
+        $p->amount = $validatedData['amount_production'];
+        $p->expiration_date = $validatedData['date_experation'];
+        $p->lot = $validatedData['lot'];
+        $p->save();
+
+
+
+        if($p->save()){
             $icon = 'success';
                 $message_line = trans('agroindustria::labors.laborSavedCorrectly');
          }else{

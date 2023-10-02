@@ -31,11 +31,11 @@
 
             @if(Route::is('*units.*'))
                 <!--Menú instructor-->
-                {{--@if(Auth::user()->havePermission('agroindustria.instructor.request'))
+                @if(Auth::user()->havePermission('agroindustria.instructor.production'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.requests')}}">{{trans('agroindustria::menu.Request for supplies')}}</a>
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.production')}}">Producción</a>
                 </li>
-                @endif--}}
+                @endif
                 @if(Auth::user()->havePermission('agroindustria.instructor.deliveries'))
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
@@ -61,9 +61,6 @@
                         <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
                     </li>
                 @endif
-                
-                 
-               
                {{-- Menu storer --}}
             @endif
             

@@ -6,6 +6,7 @@ use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\LaborController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ActivityController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\RequestController;
+use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ProductionController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\DeliverController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Unit\BakeryController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Unit\ChocolateriaController;
@@ -60,6 +61,9 @@ Route::middleware(['lang'])->group(function(){
             Route::post('/labor/cancelar/{id}', [LaborController::class, 'cancelLabor'])->name('cefa.agroindustria.units.instructor.labor.cancelar');
             Route::post('/labor/realizar/{id}', [LaborController::class, 'approbedLabor'])->name('cefa.agroindustria.units.instructor.labor.realizar');
             Route::get('/activity', [ActivityController::class, 'activity'])->name('cefa.agroindustria.units.instructor.activity');
+
+            //Producción
+            Route::get('/production', [ProductionController::class, 'index'])->name('cefa.agroindustria.units.instructor.production');
 
             //Movimientos
             Route::get('/movements', [DeliverController::class, 'deliveries'])->name('cefa.agroindustria.units.instructor.movements');

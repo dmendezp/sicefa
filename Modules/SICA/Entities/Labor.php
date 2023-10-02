@@ -9,6 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\AGROINDUSTRIA\Entities\Consumable;
 use Modules\AGROINDUSTRIA\Entities\Executor;
 use Modules\AGROINDUSTRIA\Entities\Tool;
+use Modules\AGROINDUSTRIA\Entities\Production;
 
 class Labor extends Model implements Auditable
 {
@@ -49,6 +50,9 @@ class Labor extends Model implements Auditable
     }
     public function person(){ // Accede a la información de la persona responsable de la ejecución de la labor
         return $this->belongsTo(Person::class);
+    }
+    public function productions(){ // Accede a todos los registros de producciones que le pertenecen a este elemento
+        return $this->hasMany(Production::class);
     }
     public function tool(){ // Accede a todas las herramientas que pertenecen a esta labor
         return $this->hasMany(Tool::class);

@@ -11,6 +11,7 @@ use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\Ingredient;
 use Modules\AGROINDUSTRIA\Entities\Supply;
 use Modules\AGROINDUSTRIA\Entities\Utensil;
+use Modules\AGROINDUSTRIA\Entities\Production;
 
 class Element extends Model implements Auditable
 {
@@ -73,6 +74,9 @@ class Element extends Model implements Auditable
     }
     public function measurement_unit(){ // Accede a la unidad de medida al que pertenece
         return $this->belongsTo(MeasurementUnit::class);
+    }
+    public function productions(){ // Accede a todos los registros de producciones que le pertenecen a este elemento
+        return $this->hasMany(Production::class);
     }
     public function supplys(){ // Accede a todos los registros de insumos que le pertenecen a este elemento
         return $this->hasMany(Supply::class);
