@@ -10,13 +10,15 @@ use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\MeasurementUnit;
 use Modules\SICA\Entities\KindOfPurchase;
 use Illuminate\Support\Facades\Validator;
-
+use Modules\SICA\Entities\App;
 
 class ElementController extends Controller
 {
     public function index(){ // Vista de galería de imágenes
         $view = ['titlePage'=> trans('ptventa::controllers.PTVENTA_element_index_title_page'), 'titleView'=> trans('ptventa::controllers.PTVENTA_element_index_title_view')];
-        return view('ptventa::element.index', compact('view'));
+        // Lista de apps para el menu de acceso rapido
+        $apps = App::get();
+        return view('ptventa::element.index', compact('view', 'apps'));
     }
 
     public function create()
@@ -25,7 +27,7 @@ class ElementController extends Controller
         $measurement_units = MeasurementUnit::orderBy('name','ASC')->get();
         $categories = Category::orderBy('name','ASC')->get();
         $kind_of_purchases = KindOfPurchase::orderBy('name','ASC')->get();
-        return view('ptventa::element.create', compact('view', 'measurement_units', 'categories', 'kind_of_purchases'));
+        return view('ptventa::element.create', compact('view', 'apps', 'measurement_units', 'categories', 'kind_of_purchases'));
     }
 
     public function store(Request $request){
@@ -78,7 +80,9 @@ class ElementController extends Controller
         $categories = Category::orderBy('name','ASC')->get();
         $kind_of_purchases = KindOfPurchase::orderBy('name','ASC')->get();
         $view = ['titlePage'=>trans('ptventa::controllers.PTVENTA_element_edit_title_page'), 'titleView'=> trans('ptventa::controllers.PTVENTA_element_edit_title_view')];
-        return view('ptventa::element.edit', compact('element', 'view', 'measurement_units', 'categories', 'kind_of_purchases'));
+        // Lista de apps para el menu de acceso rapido
+        $apps = App::get();
+        return view('ptventa::element.edit', compact('element', 'view', 'apps','measurement_units', 'categories', 'kind_of_purchases'));
     }
 
     public function update(Request $request, Element $element){ // Actualización de imagen de element
