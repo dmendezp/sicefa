@@ -11,11 +11,13 @@
                     <!-- Campo de búsqueda -->
                     <div class="row p-3">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Buscar..." id="search">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="searchButton"><i class="fas fa-search"></i></button>
-                            </div>
-                        </div>
+    <input type="text" class="form-control" placeholder="Buscar por número de documento..." id="search" name="document_number">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="searchButton"><i class="fas fa-search"></i></button>
+    </div>
+</div>
+
+    </div>
                     </div>
 
                     <!-- Cuadro con la tabla -->
@@ -28,12 +30,24 @@
                                     <th>Programa</th>
                                     <th>Ficha</th>
                                     <th>Porcentaje</th>
+                                    <th>Tipo de comida</th>
                                     <th>Hora</th>
                                 </tr>
                             </thead>
                             <tbody>
-                               
-                            </tbody>
+    @foreach ($AssistancesFoods as $AssistancesFood)
+    <tr>
+        <td>{{ $AssistancesFood->apprentice->person->first_name }}</td>
+        <td>{{ $AssistancesFood->postulationBenefit->benefit->name }}</td>
+        <td>{{ $AssistancesFood->apprentice->course->program->name }}</td>
+        <td>{{ $AssistancesFood->apprentice->course->code }}</td>
+        <td>{{ $AssistancesFood->porcentage }}</td>
+        <td>{{ $AssistancesFood->type_food }}</td>
+        <td>{{ $AssistancesFood->date_time }}</td>
+    </tr>
+    @endforeach
+</tbody>
+
                         </table>
                     </div>
                 </div>
