@@ -105,6 +105,13 @@ Route::middleware(['lang'])->group(function() {
         Route::get('labormanagement/culturalwork', 'LaborManagementController@culturalwork')->name('agrocefa.culturalwork');/* ruta para la vista labor cultural */
         Route::get('/labormanagement/culturalwork', 'LaborManagementController@create')->name('agrocefa.culturalwork');
 
+        
+        //ruta de fertilizante 
+        Route::get('labormanagement/fertilizers', 'LaborManagementController@fertilizers')->name('agrocefa.fertilizers');
+ 
+        //ruta de agroquimicos 
+        Route::get('labormanagement/agrochemicals', 'LaborManagementController@agrochemicals')->name('agrocefa.agrochemicals');
+
 
     });
 

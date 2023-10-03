@@ -33,5 +33,15 @@ class LaborManagementController extends Controller
     {
         return view('agrocefa::labormanagement.culturalwork');
     }
+    
+    public function agrochemicals()
+    {
+        return view('agrocefa::labormanagement.agrochemicals');
+    }
+
+    public function fertilizers()
+    {
+        return view('agrocefa::labormanagement.fertilizers');
+    }
 
 }

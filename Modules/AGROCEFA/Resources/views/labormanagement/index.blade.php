@@ -44,9 +44,10 @@
 
         {{-- tarjeta Agroquímicos --}}
         <div class="card wallet">
+            <div class="card wallet" onclick="redirectToAgrochemicals()">
+
             <div class="overlay"></div>
             <div class="circle">
-
 
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1"
                     viewBox="23 29 78 60" height="60px" width="78px">
@@ -78,13 +79,15 @@
             </div>
             <p>{{ trans('agrocefa::labor.Agrochemicals Application') }}</p>
         </div>
+        </div>
         {{-- fin Agroquímicos --}}
 
         {{-- tarjeta Fertilizantes --}}
         <div class="card wallet">
+            <div class="card wallet" onclick="redirectToFertilizers()">
+
             <div class="overlay"></div>
             <div class="circle">
-
 
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1"
                     viewBox="23 29 78 60" height="60px" width="78px">
@@ -114,7 +117,9 @@
                 </svg>
 
             </div>
+
             <p>{{ trans('agrocefa::labor.Fertilizers Application') }}</p>
+            </div>
         </div>
         {{-- fin Fertilizantes --}}
     </div>
@@ -123,5 +128,13 @@
 <script>
     function redirectToCulturalWork() {
         window.location.href = "{{ route('agrocefa.culturalwork') }}";
+    }
+
+    function redirectToAgrochemicals() { 
+        window.location.href = "{{ route('agrocefa.agrochemicals') }}";
+    }
+
+    function redirectToFertilizers() { 
+        window.location.href = "{{ route('agrocefa.fertilizers') }}";
     }
 </script>
