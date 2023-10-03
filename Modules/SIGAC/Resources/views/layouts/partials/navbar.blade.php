@@ -9,7 +9,7 @@
         </li>
 
         <li class="nav-item d-none d-sm-inline-block mx-1">
-            <a href="#" class="nav-link">Instructor</a>
+            <a href="{{ route('sigac.instructor.dashboard') }}" class="nav-link">Instructor</a>
         </li>
 
         <li class="nav-item d-none d-sm-inline-block mx-1">

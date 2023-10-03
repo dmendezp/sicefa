@@ -13,6 +13,7 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
         Route::controller(SIGACController::class)->group(function(){ // Agregar por única vez el controlodaar para posteriormente solo definir rutas con el formato (url, método_controlador)->name(nombre_de_ruta)
             Route::get('index', 'index')->name('cefa.sigac.index'); // Vista principal y pública de la aplicación.
             Route::get('information', 'info')->name('cefa.sigac.info');
+            Route::get('instructor', 'instructor_dashboard')->name('sigac.instructor.dashboard'); // Panel de control del instructor (Instructor)
         });
         
         Route::prefix('instructor')->group(function(){

@@ -16,32 +16,28 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-
         // Definir arreglos de PERMISOS que van ser asignados a los ROLES
-        $permissions_academic_coordinator = []; // Permisos para Coordinador Académico
-
+        $permissions_instructor = []; // Permisos para el Adminstrador
 
         // Consultar aplicación SICA para registrar los roles
-        $app = App::where('name','SIGAC')->first();
+        $app = App::where('name','SIGAC')->firstOrFail();
 
 
         // ===================== Registro de todos los permisos de la aplicación SIGAC ==================
-        // Registro de asistencia
-        $permission = Permission::updateOrCreate(['slug' => 'sigac.attendace.create'], [ // Registro o actualización de permiso
-            'name' => 'Registro de asistencia',
-            'description' => 'Acceder al formulario de registro de asistencia',
-            'description_english' => 'Access the attendance registration form',
+        // Panel de control del instructor (Instructor)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.instructor.dashboard'], [ // Registro o actualización de permiso
+            'name' => 'Panel de control del instructor (Instructor)',
+            'description' => 'Panel de control del instructor',
+            'description_english' => "Instructor's control panel",
             'app_id' => $app->id
         ]);
-        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
-
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
         // Consulta de ROLES
-        $rol_academic_coordinator = Role::where('slug', 'sica.coordinator')->first(); // Rol Coordinado Académico
+        $rol_instructor = Role::where('slug', 'sigac.instructor')->firstOrFail(); // Rol Coordinado Académico
 
-
-        // Asignación de PERMISOS para los ROLES de la aplicación SICA (Sincronización de las relaciones sin eliminar las relaciones existentes)
-        $rol_academic_coordinator->permissions()->syncWithoutDetaching($permissions_academic_coordinator);
+        // Asignación de PERMISOS para los ROLES de la aplicación SIGAC (Sincronización de las relaciones sin eliminar las relaciones existentes)
+        $rol_instructor->permissions()->syncWithoutDetaching($permissions_instructor);
 
     }
 }
