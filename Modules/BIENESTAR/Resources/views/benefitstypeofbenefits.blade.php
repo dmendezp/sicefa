@@ -32,8 +32,16 @@
                                                             ->first();
                                                         $isChecked = $record ? true : false;
                                                     @endphp
-                                                    <input type="checkbox" name="benefit_{{ $benefit->id }}_{{ $typeOfBenefit->id }}" value="1" data-record-id="{{ $record ? $record->id : '' }}" {{ $isChecked ? 'checked' : '' }}>
-                                                    {{ $benefit->name }}
+                                                    
+                                                    <label class="checkbox-container">
+                                                        <input id="checkbox" class="hidden" type="checkbox" name="benefit_{{ $benefit->id }}_{{ $typeOfBenefit->id }}" value="1" data-record-id="{{ $record ? $record->id : '' }}" {{ $isChecked ? 'checked' : '' }}>
+                                                        <span class="checkbox" for="checkbox"></span>
+                                                        
+                                                        {{ $benefit->name }}
+                                                    
+                                                        
+                                                    </label>
+                                              
                                                 </li>
                                             @endforeach
                                         </ul>
@@ -83,11 +91,13 @@
         });
 
         $('input[type="checkbox"]').on('change', function() {
+            console.log("Capturando evento");
             const checkboxName = $(this).attr('name');
             const [_, benefitId, typeId] = checkboxName.split('_');
             const isChecked = $(this).is(':checked');
-            const recordId = $(this).data('record-id'); // Obtener el ID del registro
+            //const recordId = $(this).data('record-id'); // Obtener el ID del registro
 
+            console.log("Beneficio("+benefitId+"), Tipo("+typeId+"), checkeado("+isChecked+")");
             $.ajax({
                 url: '{{ route('cefa.bienestar.benefitstypeofbenefits.updateInline') }}',
                 method: 'PUT',
@@ -98,13 +108,13 @@
                     benefit_id: benefitId,
                     type_of_benefit_id: typeId,
                     checked: isChecked,
-                    record_id: recordId // Pasar el ID del registro
+                    //record_id: recordId // Pasar el ID del registro
                 },
                 success: function(response) {
                     console.log(response);
 
                     // Verificar si se recibió un ID y el checkbox está desmarcado
-                    if (recordId && !isChecked) {
+                    /* if (recordId && !isChecked) {
                         // Actualizar deleted_at usando una solicitud AJAX
                         $.ajax({
                             url: '{{ route('cefa.bienestar.benefitstypeofbenefits.updateInline') }}', // Cambia a la ruta correcta si es diferente
@@ -125,7 +135,7 @@
                                 console.error(updateError);
                             }
                         });
-                    }
+                    } */
                 },
                 error: function(error) {
                     console.error(error);

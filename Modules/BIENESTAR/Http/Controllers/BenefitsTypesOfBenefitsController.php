@@ -67,9 +67,35 @@ class BenefitsTypesOfBenefitsController extends Controller
         $benefitId = $request->input('benefit_id');
         $typeId = $request->input('type_of_benefit_id');
         $isChecked = $request->input('checked');
-        $recordId = $request->input('record_id'); 
+        //$recordId = $request->input('record_id'); 
+        
+        
+        // Consultar registro 
+        $record = BenefitsTypesOfBenefits::withTrashed()
+                    ->where('benefit_id', $benefitId)
+                    ->where('type_of_benefit_id', $typeId)
+                    ->first();
+        
+        // Validar si existe
+        if($record){
+            if($isChecked == 'true'){
+                if($record->trashed()){
+                    $record->restore();
+                }
+            }else{
+                $record->delete();
+            }
+        }else{
+            // Realizar registro
+            BenefitsTypesOfBenefits::create([
+                'benefit_id' => $benefitId,
+                'type_of_benefit_id' => $typeId,
+            ]);
+        }
+
+
     
-        if ($isChecked) {
+        /* if ($isChecked) {
             // El checkbox está marcado, verificar si existe un registro
             $record = BenefitsTypesOfBenefits::withTrashed()
                 ->where('benefit_id', $benefitId)
@@ -98,10 +124,10 @@ class BenefitsTypesOfBenefitsController extends Controller
                 // Soft delete del registro utilizando el ID
                 BenefitsTypesOfBenefits::withTrashed()->where('id', $recordId)->update(['deleted_at' => null]);
             }
-        }
+        } */
     
         // Responder con una confirmación y el ID del registro (puede ser nulo si no se crea/elimina ningún registro)
-        return response()->json(['success' => 'Actualización en línea exitosa.', 'record_id' => $recordId], 200);   
+        return response()->json(['success' => 'Actualización en línea exitosa.', 'record' => $record], 200);   
     }
     
 
