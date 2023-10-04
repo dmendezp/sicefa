@@ -5,14 +5,14 @@
 @endpush
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('sigac::general.BTitle') }}</li>
+    <li class="breadcrumb-item active">{{ trans('sigac::index.Breadcrumb_Active_Main') }}</li>
 @endpush
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-md-8 col-12">
-                <h1>{{ trans('sigac::index.Title') }}</h1>
+                <h1>{{ trans('sigac::index.Title_General') }}</h1>
             </div>
         </div>
         <div class="row">
@@ -22,7 +22,7 @@
                         <div class="small-box bg-info">
                             <div class="inner">
                                 <h4>65</h4>
-                                <p>{{ trans('sigac::index.SmallBox1') }}</p>
+                                <p>{{ trans('sigac::index.SmallBox_Plant_Instructors') }}</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-school"></i>
@@ -33,7 +33,7 @@
                         <div class="small-box bg-info">
                             <div class="inner">
                                 <h4>65</h4>
-                                <p>{{ trans('sigac::index.SmallBox2') }}</p>
+                                <p>{{ trans('sigac::index.SmallBox_Contract_Instructors') }}</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-chalkboard-teacher"></i>
@@ -44,7 +44,7 @@
                         <div class="small-box bg-info">
                             <div class="inner">
                                 <h4>300</h4>
-                                <p>{{ trans('sigac::index.SmallBox3') }}</p>
+                                <p>{{ trans('sigac::index.SmallBox_Current_Apprentices') }}</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-user-graduate"></i>
@@ -55,7 +55,7 @@
                         <div class="small-box bg-info">
                             <div class="inner">
                                 <h4>44</h4>
-                                <p>{{ trans('sigac::index.SmallBox4') }}</p>
+                                <p>{{ trans('sigac::index.SmallBox_Tecnology_Stage') }}</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-book-open"></i>
@@ -66,7 +66,7 @@
                         <div class="small-box bg-info">
                             <div class="inner">
                                 <h4>10</h4>
-                                <p>{{ trans('sigac::index.SmallBox5') }}</p>
+                                <p>{{ trans('sigac::index.SmallBox_Practical_Technologists') }}</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-walking"></i>
@@ -83,8 +83,8 @@
                                 <img src="{{ asset('modules/sigac/images/gifs/burbuja-de-dialogo.gif') }}"
                                     class="card-img-top custom-img align-self-center" alt="...">
                                 <div class="card-body p-2">
-                                    <h6>{{ trans('sigac::index.CardTitle1') }}</h6>
-                                    <p class="card-text mb-0">{{ trans('sigac::index.CardDescription1') }}</p>
+                                    <h6>{{ trans('sigac::index.Card_Title_What_is_SIGAC') }}</h6>
+                                    <p class="card-text mb-0">{{ trans('sigac::index.Card_Description_What_is_SIGAC') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -98,8 +98,8 @@
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="card-body">
-                                        <h6>{{ trans('sigac::index.CardTitle2') }}</h6>
-                                        <span class="card-text">{{ trans('sigac::index.CardDescription2') }}</span>
+                                        <h6>{{ trans('sigac::index.Card_Title_Who_is_SIGAC') }}</h6>
+                                        <span class="card-text">{{ trans('sigac::index.Card_Description_Who_is_SIGAC') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -112,8 +112,8 @@
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="card-body">
-                                        <h6>{{ trans('sigac::index.CardTitle3') }}</h6>
-                                        <span class="card-text">{{ trans('sigac::index.CardDescription3') }}</span>
+                                        <h6>{{ trans('sigac::index.Card_Title_What_find') }}</h6>
+                                        <span class="card-text">{{ trans('sigac::index.Card_Description_What_find') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -132,26 +132,26 @@
     
     <hr>
 
-    <div class="card">
+    <div class="card" data-aos="fade-up">
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-md-4 d-flex justify-content-center align-items-center mb-3">
                     <div class="text-center">
-                        <h1>{{ trans('sigac::index.TitleCard') }}</h1>
-                        <span>Tercer trimestre del calendario 2023</span>
-                        <p>Del 20/04/2023 hasta el 20/07/2023</p>
+                        <h1>{{ trans('sigac::index.Card_Title_Current_Quarter') }}</h1>
+                        <h4>Tercer trimestre</h4>
+                        <p>{{ trans('sigac::index.Text_From') }} <strong>20/04/2023</strong> {{ trans('sigac::index.Text_Until') }} <strong>20/07/2023</strong></p>
                     </div>
                 </div>                
-                <div class="col-12 col-md-8" style="position: relative; background-image: url('/modules/sigac/images/backgrounds/background-time.webp'); background-size: cover; background-position: center;" data-aos="fade-up">
+                <div class="col-12 col-md-8" style="position: relative; background-image: url('/modules/sigac/images/backgrounds/background-time.webp'); background-size: cover; background-position: center;">
                     <div class="card" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1;">
                     </div>
                     <div class="card-body d-flex flex-column align-items-center text-white"
                         style="position: relative; z-index: 2;">
-                        <p class="mb-3">{{ trans('sigac::index.TextCard') }}</p>
-                        <div class="btn-group" role="group">
-                            <a href="#" class="btn btn-light mb-2 mx-2">Ambiente <i class="fa-solid fa-school fa-fw"></i></a>
-                            <a href="#" class="btn btn-light mb-2 mx-2">Instructor <i class="fa-solid fa-chalkboard-user fa-fw"></i></a>
-                            <a href="#" class="btn btn-light mb-2 mx-2">Titulación <i class="fa-solid fa-book fa-fw"></i></a>
+                        <h5 class="mb-3">{{ trans('sigac::index.Card_Title_Programming_Consult') }}</h5>
+                        <div>
+                            <a href="#" class="btn btn-info text-light">{{ trans('sigac::index.Card_Btn_Env') }} <i class="fa-solid fa-school fa-fw"></i></a>
+                            <a href="#" class="btn btn-info text-light">{{ trans('sigac::index.Card_Btn_Instructor') }} <i class="fa-solid fa-chalkboard-user fa-fw"></i></a>
+                            <a href="#" class="btn btn-info text-light">{{ trans('sigac::index.Card_Btn_Titled') }} <i class="fa-solid fa-book fa-fw"></i></a>
                         </div>
                     </div>
                 </div>           
