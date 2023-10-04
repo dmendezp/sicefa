@@ -9,13 +9,13 @@ class SIGACController extends Controller
 {
 
     public function index(){
-        $view = ['titlePage'=>trans('sigac::general.TitlePage'), 'titleView'=>trans('sigac::general.TitleView')];
+        $view = ['titlePage'=>trans('sigac::controllers.SIGAC_index_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_index_title_view')];
         $apps = App::get();
         return view('sigac::index', compact('apps', 'view'));
     }
 
     public function info(){
-        $view = ['titlePage'=>trans('sigac::about.About us'), 'titleView'=>trans('sigac::about.About us')];
+        $view = ['titlePage'=>trans('sigac::controllers.SIGAC_info_title_page'), 'titleView'=>trans('sigac::controllers.SICAC_info_title_view')];
         $apps = App::get();
         return view('sigac::information.index', compact('apps','view'));
     }

@@ -15,7 +15,8 @@
                         <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"class="img-circle elevation-2"
                             alt="User Image">
                     @else
-                        <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2"
+                            alt="User Image">
                     @endif
                 </div>
                 @guest
@@ -70,48 +71,11 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="{{ route('cefa.sigac.index') }}" class="nav-link {{ !Route::is('cefa.sigac.index*') ?: 'active' }}">
+                        <a href="{{ route('cefa.sigac.index') }}"
+                            class="nav-link {{ !Route::is('cefa.sigac.index*') ?: 'active' }}">
                             <i class="nav-icon fa-solid fa-school"></i>
-                            <p>{{ trans('sigac::general.Home') }}</p>
+                            <p>{{ trans('sigac::general.MainPage') }}</p>
                         </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('cefa.sigac.attendance.register') }}" class="nav-link {{ !Route::is('cefa.sigac.attendance.register*') ?: 'active' }}">
-                            <i class="nav-icon fas fa-user-check"></i>
-                            <p>{{ trans('sigac::general.Attendance Register') }}</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('cefa.sigac.instructor.index')}}" class="nav-link {{ !Route::is('cefa.sigac.instructor.index*') ?: 'active' }}">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <p>{{ trans('sigac::general.Instructor Management') }}</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa-solid fa-calendar-days"></i>
-                            <p>
-                                {{ trans('sigac::general.Schedules') }}
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview" style="display: none;">
-                            <li class="nav-item">
-                                <a href="{{ route('cefa.sigac.scheduleInstructor.index') }}" class="nav-link {{ !Route::is('cefa.sigac.scheduleInstructor.index*') ?: 'active' }}">
-                                    <i class="nav-icon fas fa-user-clock"></i>
-                                    <p>{{ trans('sigac::general.Schedule Instructor') }}</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('cefa.sigac.scheduleApprentice.index')}}" class="nav-link">
-                                    <i class="nav-icon fa-solid fa-user-graduate"></i>
-                                    <p>{{ trans('sigac::general.Schedule Apprentice') }}</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
 
                     <li class="nav-item">
@@ -124,15 +88,48 @@
                         </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
-                                <a href="{{ route('cefa.sigac.scheduleProgramInstructor.index') }}" class="nav-link {{ !Route::is('cefa.sigac.scheduleProgramInstructor.index*') ?: 'active' }}">
+                                <a href="{{ route('cefa.sigac.scheduleProgramInstructor.index') }}"
+                                    class="nav-link {{ !Route::is('cefa.sigac.scheduleProgramInstructor.index*') ?: 'active' }}">
                                     <i class="nav-icon far fa-calendar-alt"></i>
-                                    <p>{{ trans('sigac::general.Schedule Programming') }}</p>
+                                    <p>{{ trans('sigac::general.Scheduling') }}</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('cefa.sigac.scheduleProgramEnvironment.index') }}" class="nav-link {{ !Route::is('cefa.sigac.scheduleProgramEnvironment.index*') ?: 'active' }}">
+                                <a href="{{ route('cefa.sigac.scheduleProgramEnvironment.index') }}"
+                                    class="nav-link {{ !Route::is('cefa.sigac.scheduleProgramEnvironment.index*') ?: 'active' }}">
                                     <i class="nav-icon fas fa-chalkboard"></i>
-                                    <p>{{ trans('sigac::general.Environment Programming') }}</p>
+                                    <p>{{ trans('sigac::general.EnvironmentProgramming') }}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-solid fa-calendar-days"></i>
+                            <p>
+                                {{ trans('sigac::general.Schedules') }}
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item">
+                                <a href="{{ route('cefa.sigac.scheduleInstructor.index') }}"
+                                    class="nav-link {{ !Route::is('cefa.sigac.scheduleInstructor.index*') ?: 'active' }}">
+                                    <i class="nav-icon fas fa-user-clock"></i>
+                                    <p>{{ trans('sigac::general.InstructorSchd') }}</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('cefa.sigac.scheduleApprentice.index') }}" class="nav-link">
+                                    <i class="nav-icon fa-solid fa-user-graduate"></i>
+                                    <p>{{ trans('sigac::general.ApprenticeSchd') }}</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('cefa.sigac.scheduleApprentice.index') }}" class="nav-link">
+                                    <i class="nav-icon fa-solid fa-book"></i>
+                                    <p>{{ trans('sigac::general.TitledSchd') }}</p>
                                 </a>
                             </li>
                         </ul>
@@ -148,37 +145,67 @@
                         </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
-                                <a href="{{ route('cefa.sigac.attendance.consult') }}" class="nav-link {{ !Route::is('cefa.sigac.attendance.consult*') ?: 'active' }}">
+                                <a href="{{ route('cefa.sigac.attendance.consult') }}"
+                                    class="nav-link {{ !Route::is('cefa.sigac.attendance.consult*') ?: 'active' }}">
                                     <i class="nav-icon fa-solid fa-users-viewfinder"></i>
-                                    <p>{{ trans('sigac::general.Consult Apprentice') }}</p>
+                                    <p>{{ trans('sigac::general.ApprenticeConsult') }}</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon far fa-folder"></i>
-                                    <p>{{ trans('sigac::general.Consult Excuses') }}</p>
+                                    <p>{{ trans('sigac::general.ExcusesConsult') }}</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fa-solid fa-folder-tree"></i>
+                                    <p>{{ trans('sigac::general.AttendaceConsult') }}</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('cefa.sigac.attendanceReports.index') }}" class="nav-link" {{ !Route::is('cefa.sigac.attendanceReports.index*') ?: 'active' }}>
-                            <i class="nav-icon fa-solid fa-chart-line"></i>
-                            <p>{{ trans('sigac::general.Attendance Reports') }}</p>
+                        <a href="{{ route('cefa.sigac.attendance.register') }}"
+                            class="nav-link {{ !Route::is('cefa.sigac.attendance.register*') ?: 'active' }}">
+                            <i class="nav-icon fas fa-user-check"></i>
+                            <p>{{ trans('sigac::general.AttendanceRegister') }}</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('cefa.sigac.info') }}" class="nav-link {{ !Route::is('cefa.sigac.info*') ?: 'active' }}">
+                        <a href="{{ route('cefa.sigac.attendanceReports.index') }}" class="nav-link"
+                            {{ !Route::is('cefa.sigac.attendanceReports.index*') ?: 'active' }}>
+                            <i class="nav-icon fa-solid fa-chart-line"></i>
+                            <p>{{ trans('sigac::general.AttendanceReports') }}</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-solid fa-paper-plane"></i>
+                            <p>{{ trans('sigac::general.SendExcuses') }}</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('cefa.sigac.info') }}"
+                            class="nav-link {{ !Route::is('cefa.sigac.info*') ?: 'active' }}">
                             <i class="nav-icon fas fa-info"></i>
                             <p>{{ trans('sigac::general.About us') }}</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-solid fa-code"></i>
+                            <p>{{ trans('sigac::general.Developers') }}</p>
                         </a>
                     </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
         </div>
-        <!-- /.sidebar -->
     </aside>
 </div>

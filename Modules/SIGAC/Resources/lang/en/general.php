@@ -1,54 +1,56 @@
 <?php
 
 return [
-    //Section Controller
-	'TitlePage'            => 'Main Page',
-	'TitleView'            => 'Main Page',
-    
-    //Breadcrumbs
-	'BTitle'               => 'Principal',
-    
-    //Navbar
-	'Home'                 => 'Home',
+    // Navbar
+    'Home'                 => 'Home',
+	'AcademicCoordination' => 'Academic Coordination',
+	'Instructor'           => 'Instructor',
+	'Wellness'             => 'Wellness',
+	'Apprentice'           => 'Apprentice',
+    'Log In'               => 'Log In',
     'Internacionalization' => 'Internacionalization',
-    'LangEnglish'          => 'English',
-    'LangSpanish'          => 'Spanish',
-    'Go'                   => 'Go to applications',
-    'FullScreen'           => 'Full Screen Mode',
-    
-    //Sidebar
-    //Sesion
+    'English'              => 'English',
+    'Spanish'              => 'Spanish',
+    'Apps'                 => 'Apps',
+    'Full Screen Mode'     => 'Full Screen Mode',
+
+    // Sidebar
+    // Sesion
     'Session'                 => 'Sign in',
     'Back to SICEFA'          => 'Back to SICEFA',
-    //Attendance
-    'Attendance Register'     => 'Attendance Register',
-    //Instructor
-    'Instructor Management'   => 'Instructor Management',
-    //Schedule
-    'Schedules'               => 'Schedules',
-    'Schedule Instructor'     => 'Schedule Instructor',
-    'Schedule Apprentice'     => 'Schedule Apprentice',
-    //Program Schedule
-    'Programming'             => 'Programming',
-    'Schedule Programming'    => 'Schedule Programming',
-    'Environment Programming' => 'Environment Programming',
-    //Consult
-    'Consult'                 => 'Consult',
-    'Consult Apprentice'      => 'Consult Apprentice',
-    'Consult Excuses'         => 'Consult Excuses',
-    //Reports
-    'Attendance Reports'      => 'Attendance Reports',
-    //Info
+    // Public Functions
+    'MainPage'                => 'Main Page',
     'About us'                => 'About us',
+    'Developers'              => 'Developers',
+    // Programs Functions
+    'Programming'             => 'Programming',
+    'Scheduling'              => 'Scheduling',
+    'EnvironmentProgramming'  => 'Environment Programming',
+    // Schedule Functions
+    'Schedules'               => 'Schedules',
+    'InstructorSchd'          => 'Instructor Schd.',
+    'ApprenticeSchd'          => 'Apprentice Schd.',
+    'TitledSchd'              => 'Apprentice Schd.',
+    // Consult Functions
+    'Consult'                 => 'Consult',
+    'ApprenticeConsult'       => 'Apprentice Consult',
+    'ExcusesConsult'          => 'Excuses Consult',
+    'AttendaceConsult'        => 'Attendace Consult',
+    // Attendance Functions
+    'AttendanceRegister'      => 'Attendance Register',
+    // Reports Functions
+    'AttendanceReports'       => 'Attendance Reports',
+    // Excuses Functions
+    'SendExcuses'             => 'Send excuses',
 
-    //Control Sidebar
+    // Control Sidebar
     'TitleControl'         => 'Browse!',
     'DescriptionControl'   => 'If you want to go to another app just click.',
 
-    //Footer
+    // Footer
     'All Rights Reserved.' => 'All Rights Reserved.',
 
-    //Tooltips
+    // Tooltips
     'InSession'   => 'Sign in / Log in',
     'ExitSession' => 'Exit',
 ];

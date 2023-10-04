@@ -149,9 +149,9 @@
                         style="position: relative; z-index: 2;">
                         <p class="mb-3">{{ trans('sigac::index.TextCard') }}</p>
                         <div class="btn-group" role="group">
-                            <a href="#" class="btn btn-light mb-2 mx-2">{{ trans('sigac::index.BtnCard1') }} <i class="fa-solid fa-school fa-fw"></i></a>
-                            <a href="#" class="btn btn-light mb-2 mx-2">{{ trans('sigac::index.BtnCard2') }} <i class="fa-solid fa-chalkboard-user fa-fw"></i></a>
-                            <a href="#" class="btn btn-light mb-2 mx-2">{{ trans('sigac::index.BtnCard3') }} <i class="fa-solid fa-book fa-fw"></i></a>
+                            <a href="#" class="btn btn-light mb-2 mx-2">Ambiente <i class="fa-solid fa-school fa-fw"></i></a>
+                            <a href="#" class="btn btn-light mb-2 mx-2">Instructor <i class="fa-solid fa-chalkboard-user fa-fw"></i></a>
+                            <a href="#" class="btn btn-light mb-2 mx-2">Titulación <i class="fa-solid fa-book fa-fw"></i></a>
                         </div>
                     </div>
                 </div>           

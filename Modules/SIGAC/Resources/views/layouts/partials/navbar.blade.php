@@ -9,26 +9,26 @@
         </li>
 
         <li class="nav-item d-none d-sm-inline-block mx-1">
-            <a href="{{ route('sigac.instructor.dashboard') }}" class="nav-link">Instructor</a>
+            <a href="#" class="nav-link">{{ trans('sigac::general.AcademicCoordination') }}</a>
         </li>
 
         <li class="nav-item d-none d-sm-inline-block mx-1">
-            <a href="#" class="nav-link">Coordinación Académica</a>
+            <a href="{{ route('sigac.instructor.dashboard') }}" class="nav-link">{{ trans('sigac::general.Instructor') }}</a>
         </li>
 
         <li class="nav-item d-none d-sm-inline-block mx-1">
-            <a href="#" class="nav-link">Administrador</a>
+            <a href="#" class="nav-link">{{ trans('sigac::general.Wellness') }}</a>
         </li>
 
         <li class="nav-item d-none d-sm-inline-block mx-1">
-            <a href="#" class="nav-link">Bienestar</a>
+            <a href="#" class="nav-link">{{ trans('sigac::general.Apprentice') }}</a>
         </li>
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
 
-        <button role="button" class="button-name"> 
+        <button role="button" class="button-name">
             @guest
                 <a href="{{ route('login') }}" class="text-decoration-none text-black">
                     <span>{{ trans('sigac::general.Log In') }}</span>
@@ -46,25 +46,25 @@
             <div class="dropdown-menu dropdown-menu-right p-0">
                 <a href="{{ url('lang', ['en']) }}" class="dropdown-item">
                     <img src="{{ asset('modules/sigac/images/flags/estados-unidos.webp') }}" alt="">
-                    {{ trans('sigac::general.LangEnglish') }}
+                    {{ trans('sigac::general.English') }}
                 </a>
                 <a href="{{ url('lang', ['es']) }}" class="dropdown-item">
                     <img src="{{ asset('modules/sigac/images/flags/colombia.webp') }}" alt="">
-                    {{ trans('sigac::general.LangSpanish') }}
+                    {{ trans('sigac::general.Spanish') }}
                 </a>
             </div>
         </li>
 
         <li class="nav-item mx-1">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"
-                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ trans('sigac::general.Go') }}">
+                data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ trans('sigac::general.Apps') }}">
                 <i class="fas fa-shapes"></i>
             </a>
         </li>
 
         <li class="nav-item mx-1">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip"
-                data-bs-placement="bottom" data-bs-title="{{ trans('sigac::general.FullScreen') }}">
+                data-bs-placement="bottom" data-bs-title="{{ trans('sigac::general.Full Screen Mode') }}">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
