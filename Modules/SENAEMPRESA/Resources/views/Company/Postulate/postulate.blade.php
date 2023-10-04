@@ -11,7 +11,7 @@
                         <thead>
                             <tr>
                                 <th>{{ trans('senaempresa::menu.Id') }}</th>
-                                <th>{{ trans('senaempresa::menu.Apprentice ID') }}</th>
+                                <th>{{ trans('senaempresa::menu.Apprentice Id') }}</th>
                                 <th>{{ trans('senaempresa::menu.Vacancy ID') }}</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
                                 <th>{{ trans('senaempresa::menu.Currículum') }}</th>

@@ -94,7 +94,7 @@ return [
 	'Yes, remove it' => 'Sí, eliminarlo',
 	'Staff eliminated!' => 'Personal eliminado!',
 	'Position ID' => 'Cargo Id',
-	'Apprentice Id' => 'Id Aprendiz',
+	'Apprentice Id' => 'Id Aprendiz',  //Postulate
 	'Select an Apprentice' => 'Selecciona un Aprendiz',
 	'Current image' => 'Imagen Actual',
 	'There’s no registered image.' => 'No hay imagen registrada.',
@@ -114,7 +114,7 @@ return [
 	'Id Position' => 'Id Cargo',
 	'Start Date and Time' => 'Fecha Y Hora Inicio',
 	'Date and Time End' => 'Fecha Y Hora Fin',
-	'Registration' => 'Inscripción',
+	'Registration' => 'Inscripción', //Postulate
 	'Filter by course' => 'Filtrar por curso',
 	'All courses' => 'Todos los cursos',
 	'Close' => 'Cerrar',
@@ -158,12 +158,23 @@ return [
 
     //Postulate
 
-    'Apprentice ID'=>'Aprendiz Id',
-    'Vacancy ID'=>'Vacate Id',
-    'Currículum'=>'Hoja de Vida',
-    '16 personalities'=>'16 Personalidades',
-    'Proposal'=>'Propuesta',
+    'Vacancy ID'=>'Vacante Id',
+    'Currículum'=>'Hoja de Vida',  //Inscription
+    '16 personalities'=>'16 Personalidades',  //Inscription
+    'Proposal'=>'Propuesta',  //Inscription
     'Total score'=>'Puntaje total',
+    'You cannot make more than two entries.'=>'No puedes realizar más de dos inscripciones.',
+    'You’ve already applied for this position.'=>'Ya te has inscrito en esta vacante.',
+    'Registration made with success!'=>'Inscripción realizada con exito!',
+
+
+    //Inscription
+
+    'Select Vacant ID'=>'Selecciona Vacante ID',
+    'Register'=>'Inscribirse',
+    'You don’t have an associate apprentice.'=>'No tienes un aprendiz asociado.',
+
+
 
 
 

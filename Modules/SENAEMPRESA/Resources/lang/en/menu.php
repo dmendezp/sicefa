@@ -86,7 +86,7 @@ return [
 
     'Position ID' => 'Position ID',
     'Select a Position' => 'Select a Position',
-    'Apprentice Id' => 'Apprentice Id',
+    'Apprentice Id' => 'Apprentice Id',  //Postulate
     'Select an Apprentice' => 'Select an Apprentice',
     'self-image' => 'self-image',
     'Current image' => 'Current image',
@@ -94,7 +94,7 @@ return [
     'Update' => 'Update',
     'Search Apprentice by Document or Name' => 'Search Apprentice by Document or Name',
     'Position' => 'Position',
-    'Apprentice' => 'Apprentice',
+    'Apprentice' => 'Apprentice',  // Inscription
     'Yes, remove it' => 'Yes, remove it',
     'Staff' => 'Staff',  // Aside,
     'Staff SenaEmpresa' => 'Staff SenaEmpresa',
@@ -111,7 +111,7 @@ return [
     'Assign Course to Vacant' => 'Assign Course to Vacant',
     'Vacant ID' => 'Vacant ID',
     'Close' => 'Close',
-    'Registration' => 'Registration',
+    'Registration' => 'Registration', //Postulate
     'Presentation' => 'Presentation',
     'Id Position' => 'Id Position',
     'Select a position' => 'Select a position',
@@ -154,12 +154,22 @@ return [
 
     //Postulate
 
-    'Apprentice ID'=>'Apprentice ID',
-    'Vacancy ID'=>'Vacancy ID',
-    'Currículum'=>'Currículum',
-    '16 personalities'=>'16 personalities',
+    'Vacancy ID'=>'Vacancy ID',  //Inscription
+    'Currículum'=>'Currículum',  //Inscription
+    '16 personalities'=>'16 personalities',  //Inscription
     'Proposal'=>'Proposal',
     'Total score'=>'Total score',
+    'You don’t have an associate apprentice.'=>'You don’t have an associate apprentice.',
+    'You cannot make more than two entries.'=>'You cannot make more than two entries.',
+    'You’ve already applied for this position.'=>'You’ve already applied for this position.',
+    'Registration made with success!'=>'Registration made with success!',
+
+
+    //Inscription
+
+    'Select Vacant ID'=>'Select Vacant ID',
+    'Register'=>'Register',
+
 
 
 

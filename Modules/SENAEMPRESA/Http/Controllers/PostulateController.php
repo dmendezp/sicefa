@@ -28,7 +28,7 @@ class PostulateController extends Controller
         $Apprentice = auth()->user()->person->apprentices()->first();
 
         if (!$Apprentice) {
-            return redirect()->route('company.vacant.vacantes')->with('error', 'No tienes un aprendiz asociado.');
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
         }
 
         $ApprenticeId = $Apprentice->id;
@@ -44,7 +44,7 @@ class PostulateController extends Controller
 
         $Postulates = Postulate::with('Apprentice.Person')->get();
         $data = [
-            'title' => 'Inscripción',
+            'title' =>  trans('senaempresa::menu.Registration'),
             'Postulates' => $Postulates,
             'ApprenticeId' => $ApprenticeId,
             'vacancies' => $vacancies,
@@ -61,7 +61,7 @@ class PostulateController extends Controller
         $Apprentice = auth()->user()->person->apprentices()->first();
 
         if (!$Apprentice) {
-            return redirect()->route('company.vacant.vacantes')->with('error', 'No tienes un aprendiz asociado.');
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
         }
 
         $ApprenticeId = $Apprentice->id;
@@ -69,7 +69,7 @@ class PostulateController extends Controller
         $existingPostulatesCount = Postulate::where('apprentice_id', $ApprenticeId)->count();
 
         if ($existingPostulatesCount >= 2) {
-            return redirect()->route('company.vacant.vacantes')->with('error', 'No puedes realizar más de dos inscripciones.');
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You cannot make more than two entries.'));
         }
 
         $existingPostulate = Postulate::where('apprentice_id', $ApprenticeId)
@@ -77,7 +77,7 @@ class PostulateController extends Controller
             ->first();
 
         if ($existingPostulate) {
-            return redirect()->route('company.vacant.vacantes')->with('error', 'Ya te has inscrito en esta vacante.');
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You’ve already applied for this position.'));
         }
 
         $postulate = new Postulate();
@@ -96,7 +96,7 @@ class PostulateController extends Controller
             'ApprenticeId' => $ApprenticeId,
         ];
 
-        return redirect()->route('company.vacant.vacantes', $data)->with('success', 'Inscripción realizada con exito!');
+        return redirect()->route('company.vacant.vacantes', $data)->with('success', trans('senaempresa::menu.Registration made with success!'));
     }
 
     public function postulates()
