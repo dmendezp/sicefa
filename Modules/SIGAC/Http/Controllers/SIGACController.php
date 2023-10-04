@@ -40,4 +40,11 @@ class SIGACController extends Controller
         $apps = App::get();
         return view('sigac::index_wellness', compact('apps','view'));
     }
+
+    /* Panel de control de aprendiz */
+    public function apprentice_dashboard(){
+        $view = ['titlePage'=>trans('sigac::controllers.SIGAC_apprentice_dashboard_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_apprentice_dashboard_title_view')];
+        $apps = App::get();
+        return view('sigac::index_apprentice', compact('apps','view'));
+    }
 }

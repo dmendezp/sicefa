@@ -14,6 +14,9 @@ return [
 	// Index - Wellness
 	'SIGAC_wellness_dashboard_title_page' => 'Wellness',
 	'SIGAC_wellness_dashboard_title_view' => 'Homepage',
+	// Index - Apprentice
+	'SIGAC_apprentice_dashboard_title_page' => 'Apprentice',
+	'SIGAC_apprentice_dashboard_title_view' => 'Homepage',
 	// Info
 	'SIGAC_info_title_page' => 'Information',
 	'SIGAC_info_title_view' => 'Information',

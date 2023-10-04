@@ -20,6 +20,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_academic_coordination = []; // Permisos para Coordinación Académica
         $permissions_instructor = []; // Permisos para el Instructor
         $permissions_wellness = []; // Permisos para Bienestar
+        $permissions_apprentice = []; // Permisos para Aprendiz
 
         // Consultar aplicación SICA para registrar los roles
         $app = App::where('name','SIGAC')->firstOrFail();
@@ -53,15 +54,25 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_wellness[] = $permission->id; // Almacenar permiso para rol
 
+       // Panel de control de aprendiz (Aprendiz)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.apprentice.dashboard'], [ // Registro o actualización de permiso
+            'name' => 'Panel de control de aprendiz (Aprendiz)',
+            'description' => 'Panel de control de aprendiz',
+            'description_english' => "Apprentice control panel",
+            'app_id' => $app->id
+        ]);
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
+
         // Consulta de ROLES
         $rol_academic_coordination = Role::where('slug', 'sigac.academic_coordinator')->firstOrFail(); // Rol Coordinador Académico
         $rol_instructor = Role::where('slug', 'sigac.instructor')->firstOrFail(); // Rol Instructor
         $rol_wellness = Role::where('slug', 'sigac.wellness')->firstOrFail(); // Rol Bienestar
+        $rol_apprentice = Role::where('slug', 'sigac.apprentice')->firstOrFail(); // Rol Aprendiz
 
         // Asignación de PERMISOS para los ROLES de la aplicación SIGAC (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_academic_coordination->permissions()->syncWithoutDetaching($permissions_academic_coordination);
         $rol_instructor->permissions()->syncWithoutDetaching($permissions_instructor);
         $rol_wellness->permissions()->syncWithoutDetaching($permissions_wellness);
-
+        $rol_apprentice->permissions()->syncWithoutDetaching($permissions_apprentice);
     }
 }

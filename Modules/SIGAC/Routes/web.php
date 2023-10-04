@@ -16,6 +16,7 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
             Route::get('academic', 'academic_coordination_dashboard')->name('sigac.academic_coordination.dashboard'); // Panel de control de coordinación académica (Coordinación Académica)
             Route::get('instructor', 'instructor_dashboard')->name('sigac.instructor.dashboard'); // Panel de control del instructor (Instructor)
             Route::get('wellness', 'wellness_dashboard')->name('sigac.wellness.dashboard'); // Panel de control de bienestar (Bienestar)
+            Route::get('apprentice', 'apprentice_dashboard')->name('sigac.apprentice.dashboard'); // Panel de control de aprendiz (Aprendiz)
         });
         
         Route::prefix('instructor')->group(function(){

@@ -24,9 +24,9 @@
                     <a href="{{ route('sigac.wellness.dashboard') }}" class="nav-link @if(Route::is('sigac.wellness.*')) active @endif">{{ trans('sigac::general.Wellness') }}</a>
                 </li>
             @endif
-            @if (checkRol('sigac.wellness'))
+            @if (checkRol('sigac.apprentice'))
                 <li class="nav-item d-none d-sm-inline-block mx-1">
-                    <a href="#" class="nav-link">{{ trans('sigac::general.Apprentice') }}</a>
+                    <a href="{{ route('sigac.apprentice.dashboard') }}" class="nav-link @if(Route::is('sigac.apprentice.*')) active @endif">{{ trans('sigac::general.Apprentice') }}</a>
                 </li>
             @endif
         @endauth
