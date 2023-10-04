@@ -14,6 +14,7 @@ class Labor extends Model implements Auditable
 
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'activity_id',
+        'person_id',
         'planning_date',
         'execution_date',
         'description',
@@ -33,11 +34,11 @@ class Labor extends Model implements Auditable
     public function activity(){ // Accede a la información de la actividad al que pertenece
         return $this->belongsTo(Activity::class);
     }
-    public function activity_responsibilities(){ // Accede a todos los registros responsables de actividad que pertenecen a esta labor
-        return $this->hasMany(ActivityResponsibility::class);
-    }
     public function environmental_aspect_labors(){ // Accede a todos los registros de la asociación entre aspectos ambientales y labores que pertenecen a esta labor
         return $this->hasMany(EnvironmentalAspectLabor::class);
+    }
+    public function person(){ // Accede a la información de la persona responsable de la ejecución de la labor
+        return $this->belongsTo(Person::class);
     }
 
 }

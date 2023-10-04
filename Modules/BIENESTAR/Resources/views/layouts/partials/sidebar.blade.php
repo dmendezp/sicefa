@@ -46,7 +46,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">Opción 1</a>
+                  <a href="{{ route('cefa.bienestar.AssistancesFoods') }}" class="nav-link">Listados apoyo alimentacion </a>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">Opción 2</a>
@@ -113,9 +113,18 @@
                 </li>
               </ul>
             </li>
-          </ul><br>          
+              <!-- Nueva sección "Consulta" debajo de "Convocatorias" -->
+        <li class="nav-item has-treeview">
+          <a href="{{route('cefa.bienestar.callconsultation')}}" class="nav-link">
+            <i class="fas fa-search"></i>
+            <p>Consulta</p>
+          </a>
+        </li>
+        <!-- Fin de la nueva sección "Consulta" -->
+          </ul><br>      
         </nav>
         <!-- /.sidebar-menu -->
       </div>
       <!-- /.sidebar -->
     </aside>
+    
