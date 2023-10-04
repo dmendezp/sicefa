@@ -154,7 +154,7 @@ class ConfigController extends Controller
         return view('sica::admin.people.config.events.create');
     }
 
-    /* Regitstrar evento */
+    /* Registrar evento */
     public function events_store(Request $request){
         $ev = new Event;
         $ev->name = e($request->input('name'));

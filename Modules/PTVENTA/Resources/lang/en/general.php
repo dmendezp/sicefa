@@ -10,6 +10,7 @@ return [
     'Spanish'          => 'Spanish',
     'Full Screen Mode' => 'Full Screen Mode',
     'Log In'           => 'Log In',
+    'Apps'             => 'Apps',
 
     //Sidebar
     'Sales Point'      => 'Point of Sale',
@@ -25,6 +26,10 @@ return [
     'Configuration'    => 'Configuration',
     'Developers'       => 'Developers',
     'About us'         => 'About us',
+    
+    // ControlSidebar
+    'Browse'           => 'Browse!',
+    'Clic'             => 'If you want to go to another app just click.',
 
     //Footer
     'All Rights Reserved.' => 'All Rights Reserved.',
