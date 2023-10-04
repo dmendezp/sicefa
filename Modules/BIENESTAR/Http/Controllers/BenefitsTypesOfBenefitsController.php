@@ -26,7 +26,7 @@ class BenefitsTypesOfBenefitsController extends Controller
         return view('bienestar::benefitstypeofbenefits', compact('benefitstypeofbenefits', 'benefits', 'typeOfBenefits'));
     }
 
-    public function store(Request $request)
+    /*public function store(Request $request)
     {
         // Validar los datos del formulario
         $request->validate([
@@ -59,7 +59,7 @@ class BenefitsTypesOfBenefitsController extends Controller
         ]);
 
         return response()->json(['success' => 'Registro creado correctamente.'], 200);
-    }
+    }*/
 
     
     public function updateInline(Request $request)
