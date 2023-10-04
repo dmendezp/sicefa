@@ -97,6 +97,7 @@ Route::middleware(['lang'])->group(function () {
 
         //Postulados
         Route::get('Postulados/', 'PostulateController@postulates')->name('company.postulate');
+        Route::get('Postulados/Asignar_Puntaje', 'PostulateController@score')->name('company.postulate.score');
 
 
 

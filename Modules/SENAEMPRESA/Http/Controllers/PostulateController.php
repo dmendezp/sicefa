@@ -91,6 +91,7 @@ class PostulateController extends Controller
         $postulate->cv = $cvPath;
         $postulate->personalities = $personalitiesPath;
         $postulate->proposal = $proposalPath;
+        $postulate->score_total = '0';
         $postulate->save();
         $data = [
             'ApprenticeId' => $ApprenticeId,
@@ -103,6 +104,16 @@ class PostulateController extends Controller
     {
         $postulates = Postulate::with(['apprentice.person', 'vacancy'])->get();
         $data = ['title' => 'Postulados', 'postulates' => $postulates];
-        return view('senaempresa::Company.Postulate.postulate', $data);
+        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            return view('senaempresa::Company.Postulate.postulate', $data);
+        } else {
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
+        }
+    }
+    public function score()
+    {
+        $postulates = Postulate::with(['apprentice.person', 'vacancy'])->get();
+        $data = ['title' => 'Asignar Puntaje', 'postulates' => $postulates];
+        return view('senaempresa::Company.Postulate.score', $data);
     }
 }
