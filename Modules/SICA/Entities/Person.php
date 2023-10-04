@@ -10,6 +10,7 @@ use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
 use Modules\SICA\Entities\Event;
+use Modules\SIGAC\Entities\AcademicProgramming;
 
 class Person extends Model implements Auditable
 {
@@ -93,6 +94,9 @@ class Person extends Model implements Auditable
     }
 
     // RELACIONES
+    public function academic_programmings(){ // Accede a todos los registros de programaciones academicas asociadas a este persona designada como instructor
+        return $this->hasMany(AcademicProgramming::class, 'instructor_id');
+    }
     public function apprentices(){ // Accede a todos aprendices que han sido asociados con esta persona
         return $this->hasMany(Apprentice::class);
     }
