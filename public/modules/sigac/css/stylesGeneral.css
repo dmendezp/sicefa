@@ -14,7 +14,7 @@
 }
 
 /* Color de los iconos, botones o links que se agreguen a la barra de navegacion superior */
-.navbar-nav .nav-item .nav-link {
+.navbar-nav  .nav-link {
   color: #0a2472a0 !important;
 }
 

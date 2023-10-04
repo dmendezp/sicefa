@@ -5,24 +5,31 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block mx-1">
-            <a href="{{ route('cefa.sigac.index') }}" class="nav-link">{{ trans('sigac::general.Home') }}</a>
+            <a href="{{ route('cefa.sigac.index') }}" class="nav-link @if(Route::is('cefa.sigac.*')) active @endif">{{ trans('sigac::general.Home') }}</a>
         </li>
 
-        <li class="nav-item d-none d-sm-inline-block mx-1">
-            <a href="#" class="nav-link">{{ trans('sigac::general.AcademicCoordination') }}</a>
-        </li>
-
-        <li class="nav-item d-none d-sm-inline-block mx-1">
-            <a href="{{ route('sigac.instructor.dashboard') }}" class="nav-link">{{ trans('sigac::general.Instructor') }}</a>
-        </li>
-
-        <li class="nav-item d-none d-sm-inline-block mx-1">
-            <a href="#" class="nav-link">{{ trans('sigac::general.Wellness') }}</a>
-        </li>
-
-        <li class="nav-item d-none d-sm-inline-block mx-1">
-            <a href="#" class="nav-link">{{ trans('sigac::general.Apprentice') }}</a>
-        </li>
+        @auth
+            @if (checkRol('sigac.academic_coordinator'))
+                <li class="nav-item d-none d-sm-inline-block mx-1">
+                    <a href="{{ route('sigac.academic_coordination.dashboard') }}" class="nav-link @if(Route::is('sigac.academic_coordination.*')) active @endif">{{ trans('sigac::general.AcademicCoordination') }}</a>
+                </li>
+            @endif
+            @if (checkRol('sigac.instructor'))
+                <li class="nav-item d-none d-sm-inline-block mx-1">
+                    <a href="{{ route('sigac.instructor.dashboard') }}" class="nav-link @if(Route::is('sigac.instructor.*')) active @endif">{{ trans('sigac::general.Instructor') }}</a>
+                </li>
+            @endif
+            @if (checkRol('sigac.wellness'))
+                <li class="nav-item d-none d-sm-inline-block mx-1">
+                    <a href="{{ route('sigac.wellness.dashboard') }}" class="nav-link @if(Route::is('sigac.wellness.*')) active @endif">{{ trans('sigac::general.Wellness') }}</a>
+                </li>
+            @endif
+            @if (checkRol('sigac.wellness'))
+                <li class="nav-item d-none d-sm-inline-block mx-1">
+                    <a href="#" class="nav-link">{{ trans('sigac::general.Apprentice') }}</a>
+                </li>
+            @endif
+        @endauth
     </ul>
 
     <!-- Right navbar links -->

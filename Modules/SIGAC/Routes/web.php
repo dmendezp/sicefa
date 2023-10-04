@@ -12,8 +12,10 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
         // Rutas generales para el modulo SIGAC
         Route::controller(SIGACController::class)->group(function(){ // Agregar por única vez el controlodaar para posteriormente solo definir rutas con el formato (url, método_controlador)->name(nombre_de_ruta)
             Route::get('index', 'index')->name('cefa.sigac.index'); // Vista principal y pública de la aplicación.
-            Route::get('information', 'info')->name('cefa.sigac.info');
+            Route::get('information', 'info')->name('cefa.sigac.info'); // Vista mas info sobre SIGAC y pública de la aplicación (Pública)
+            Route::get('academic', 'academic_coordination_dashboard')->name('sigac.academic_coordination.dashboard'); // Panel de control de coordinación académica (Coordinación Académica)
             Route::get('instructor', 'instructor_dashboard')->name('sigac.instructor.dashboard'); // Panel de control del instructor (Instructor)
+            Route::get('wellness', 'wellness_dashboard')->name('sigac.wellness.dashboard'); // Panel de control de bienestar (Bienestar)
         });
         
         Route::prefix('instructor')->group(function(){
