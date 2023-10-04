@@ -94,14 +94,14 @@ class Person extends Model implements Auditable
     }
 
     // RELACIONES
-    public function activity_responsibilities(){ // Accede a todos los registros de responsables de actividad que pertenecen a esta persona
-        return $this->hasMany(ActivityResponsibility::class);
-    }
     public function apprentices(){ // Accede a todos aprendices que han sido asociados con esta persona
         return $this->hasMany(Apprentice::class);
     }
     public function authorizeds(){ // Accede a todas los registros de las personas que han sido autorizados para votar
         return $this->hasMany(Authorized::class);
+    }
+    public function cash_counts(){ // Accede a todas las sesiones de caja asociados a esta persona
+        return $this->hasMany(CashCount::class);
     }
     public function contractors(){ // Accede a todos los registros de contratistas que le pertenecen a esta persona
         return $this->hasMany(Contractor::class);
@@ -129,6 +129,9 @@ class Person extends Model implements Auditable
     }
     public function juries(){ // Accede a todos los jurados que están registrados con esta persona
         return $this->hasMany(Jury::class);
+    }
+    public function labors(){ // Accede a todas las labores que han sido asignados a esta persona
+        return $this->hasMany(Labor::class);
     }
     public function movement_responsibilities(){ // Accede a todos los registros de responsables de movimiento que ha sido participe esta persona
         return $this->hasMany(MovementResponsibility::class);

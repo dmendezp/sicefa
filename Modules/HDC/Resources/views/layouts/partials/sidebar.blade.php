@@ -132,7 +132,7 @@
                             <a href="{{ route('carbonfootprint.persona')}}" class="nav-link">
                                 <i class="nav-icon fas fa-shoe-prints"></i>
                                     <p>
-                                        Calcula Tu Huella
+                                        {{ trans('hdc::hdcgeneral.calculatefootprint')}}
                                     </p>
                                 </li>
                             </a>
