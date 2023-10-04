@@ -19,16 +19,12 @@
 </head>
 
 <body>
-    <div id="container-fluid">
-        @if(Route::currentRouteName() !== 'cefa.dicsena.menu')
-        @endif
-        @if(Route::currentRouteName() !== 'cefa.dicsena.guidepost.index')
-        @endif
-        @section('content')
-        @show
-        {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/dicsena.js') }}"></script> --}}
+    <div class="container">
+        @yield('content')
     </div>
+    @show
+    {{-- Laravel Mix - JS File --}}
+    {{-- <script src="{{ mix('js/dicsena.js') }}"></script> --}}
 </body>
 
 </html>

@@ -46,7 +46,7 @@ class GuidepostsController extends Controller
 
         $file = $request->file('url');
         $fileName = $file->getClientOriginalName();
-        $file->storeAs('guidepost_files', $fileName);
+        $file->storeAs('Dicsena.guidepost_files', $fileName);
 
         $guidepost = Guidepost::create([
             'title' => $validatedData['title'],

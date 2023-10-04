@@ -1,38 +1,62 @@
+/* Estilos para la barra de navegación roja */
+.navbar-rojo {
+  background-color: #B22234; /* Color de fondo rojo */
+  color: white; /* Color del texto blanco */
+}
+
+.navbar-rojo .navbar-brand {
+  color: white; /* Color del texto blanco para el logo */
+}
+
+.navbar-rojo .nav-link {
+  color: white; /* Color del texto blanco para los enlaces */
+}
+
+.navbar-rojo .nav-link:hover {
+  color: #F8F8F8; /* Color del texto blanco al hacer hover */
+
+  /* Efecto de iluminación */
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Estilos para la barra de navegación azul */
 .navbar-azul {
   background-color: blue; /* Color de fondo azul */
+  color: white; /* Color del texto blanco */
 }
 
+.navbar-azul .navbar-brand {
+  color: white; /* Color del texto blanco para el logo */
+}
+
+.navbar-azul .nav-link {
+  color: white; /* Color del texto blanco para los enlaces */
+}
+
+.navbar-azul .nav-link:hover {
+  color: #F8F8F8; /* Color del texto blanco al hacer hover */
+
+  /* Efecto de iluminación */
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Estilos para la barra de navegación gris */
 .navbar-gris {
   background-color: gray; /* Color de fondo gris */
-}
-.navbar-rojo {
-    background-color: #B22234; 
-    color: white; 
-  }
-  
-  .navbar-rojo .navbar-brand {
-    color: white;
-  }
-  
-  .navbar-rojo .nav-link {
-    color: white; 
-  }
-  
-  .navbar-rojo .nav-link:hover {
-    color: #F8F8F8;
-  }
-  /**/
-  body {
-    margin: 0;
-    overflow: hidden;
+  color: white; /* Color del texto blanco */
 }
 
-.stars {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(transparent 50%, rgba(169, 169, 169, 0.2) 50%), linear-gradient(90deg, transparent 50%, rgba(169, 169, 169, 0.2) 50%);
-    background-size:10px 10px;
+.navbar-gris .navbar-brand {
+  color: white; /* Color del texto blanco para el logo */
+}
+
+.navbar-gris .nav-link {
+  color: white; /* Color del texto blanco para los enlaces */
+}
+
+.navbar-gris .nav-link:hover {
+  color: #F8F8F8; /* Color del texto blanco al hacer hover */
+
+  /* Efecto de iluminación */
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
