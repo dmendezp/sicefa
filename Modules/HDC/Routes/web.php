@@ -20,6 +20,9 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/Formulario', 'FormularioController@formulario')->name('cefa.hdc.formulario');
         Route::post('/get_activities', 'FormularioController@getActivities')->name('hdc.activities');
         Route::post('/get_aspects', 'FormularioController@getAspects')->name('hdc.aspects');
+        Route::post('/guardar/valores', 'FormularioController@guardarValores')->name('hdc.guardar.valores');
+        /* Ruta del CRUD */
+        Route::get('/tabla', 'FormularioController@table')->name('admin.hdc.table');
 
 
         /* Ruta Para Administrar Recursos */

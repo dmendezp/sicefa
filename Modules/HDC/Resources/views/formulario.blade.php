@@ -35,6 +35,7 @@
                     <div class="card card-success card-outline shadow mt-2">
                         <div class="card-body">
                             <h5>{{ trans('hdc::ConsumptionRegistry.Title_Card_results') }}:</h5>
+                            <p>{{ $errors }}</p>
                             <div class="mt-2" id="div-tabla"></div>
                         </div>
                     </div>

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\EnvironmentalAspectLabor;
+use Modules\SICA\Entities\Labor;
 
 
 class FormularioController extends Controller
@@ -24,10 +26,6 @@ class FormularioController extends Controller
         $productive_unit = ProductiveUnit::orderBy('name', 'ASC')->get();
         return view('hdc::formulario', compact('productive_unit'));
     }
-    public function formulariolabor()
-    {
-        return view('hdc::formulariolabor');
-    }
 
     public function getActivities()
     {
@@ -42,19 +40,81 @@ class FormularioController extends Controller
     {
 
         $data = json_decode($_POST['data']);
-
-        $aspects = Activity::with('environmental_aspects')->where('id', $data->activity_id)->get();
-        
-        $as = $aspects->flatMap(function ($aspect){
-            return $aspect->environmental_aspects->map(function ($relation){
-                return [
-                    'name' => $relation->name
-                ];
-            });
-        });
-
-        return view('hdc::tablaaspectosambientales', compact('as'));
+        $aspects = Activity::with('environmental_aspects.measurement_unit')->where('id', $data->activity_id)->get();
+        $activity_id = $data->activity_id;
+        return view('hdc::tablaaspectosambientales', compact('aspects', 'activity_id'));
     }
+
+    public function guardarValores(Request $request)
+    {
+        // Valida los datos del formulario
+        $request->validate([
+            'aspecto.*.amount' => 'required|numeric',
+            'activity_id' => 'required|exists:activities,id',
+        ]);
+
+
+
+        $labor = Labor::create([
+            'activity_id' => $request->input('activity_id'),
+            'planning_date' => now(),
+            'execution_date' => now(),
+            'description' => 'Descripción de la labor',
+            'status' => 'Realizado',
+            'observations' => 'Observaciones de la labor',
+            'destination' => 'Formacion',
+        ]);
+
+
+
+
+        foreach ($request->input('aspecto') as $aspectoData) {
+
+            EnvironmentalAspectLabor::create([
+                'environmental_aspect_id' => $aspectoData['id'],
+                'labor_id' => $labor->id,
+                'amount' => $aspectoData['amount'],
+                'price' => 0,
+            ]);
+        }
+
+        // Redirige al usuario o proporciona una respuesta de éxito
+        return redirect()->route('cefa.hdc.formulario')->with('success', 'Valores guardados correctamente');
+    }
+
+    public function table()
+{
+    $datos = EnvironmentalAspectLabor::with('environmental_aspect', 'labor')->get();
+    $productive_units = ProductiveUnit::orderBy('name', 'ASC')->get();
+    $activities = Activity::with('productive_unit')->get();
+
+    $formattedData = [];
+
+    foreach ($datos as $dato) {
+        $unit = $dato->labor->activity->productive_unit;
+        $activi = $dato->labor->activity;
+
+        $formattedData[] = [
+            'id' => $dato->id,
+            'unit_name' => $unit->name,
+            'activity_name' => $activi->name,
+            'aspect_name' => $dato->environmental_aspect->name,
+            'amount' => $dato->amount,
+        ];
+    }
+
+    return view('hdc::resultform', compact('formattedData'));
+}
+
+
+
+
+
+
+
+
+
+
     /**
      * Show the form for creating a new resource
      * @return Renderable

@@ -4,7 +4,7 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\HDC\Entities\EnvironmentalAspect;
+use Modules\SICA\Entities\EnvironmentalAspect;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Activity extends Model implements Auditable
