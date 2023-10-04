@@ -22,7 +22,7 @@
 
                     <!-- Cuadro con la tabla -->
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table id="datatable" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Aprendiz</th>
