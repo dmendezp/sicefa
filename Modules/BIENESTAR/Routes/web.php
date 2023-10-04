@@ -46,9 +46,9 @@ Route::middleware(['lang'])->group(function () {
         // Vista CRUD Pivota
         Route::get('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@benefitstypeofbenefits')->name('cefa.bienestar.benefitstypeofbenefits');
         Route::post('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@store')->name('cefa.bienestar.benefitstypeofbenefits.store');
-        Route::put('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@update')->name('cefa.bienestar.benefitstypeofbenefits.update');
-        Route::delete('/benefitstypeofbenefits/{id}', 'BenefitsTypesOfBenefitsController@destroy')->name('cefa.bienestar.benefitstypeofbenefits.destroy');
         Route::put('/benefitstypeofbenefits/updateInline', 'BenefitsTypesOfBenefitsController@updateInline')->name('cefa.bienestar.benefitstypeofbenefits.updateInline');
+        Route::get('/benefitstypeofbenefits/getCurrentState', 'BenefitsTypesOfBenefitsController@getCurrentState')->name('cefa.bienestar.benefitstypeofbenefits.getCurrentState');
+        Route::put('/benefitstypeofbenefits/softDelete', 'BenefitsTypesOfBenefitsController@softDelete')->name('cefa.bienestar.benefitstypeofbenefits.softDelete');
 
         // Rutas para la vista PostulationsBenefits
         Route::get('/postulation-management', 'PostulationsBenefitsController@index')->name('cefa.bienestar.postulation-management.index');
