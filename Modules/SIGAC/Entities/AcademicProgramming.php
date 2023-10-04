@@ -3,6 +3,7 @@
 namespace Modules\SIGAC\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Course;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\Person;
@@ -24,6 +25,9 @@ class AcademicProgramming extends Model
     ];
 
     // RELACIONES
+    public function apprentices(){ // Accede a los aprendices asociados a esta programación académica
+        return $this->belongsToMany(Apprentice::class)->withTimestamps()->withPivot('attendance_type');
+    }
     public function course(){ // Accede al curso al que pertenece
         return $this->belongsTo(Course::class);
     }
