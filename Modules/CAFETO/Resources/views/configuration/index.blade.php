@@ -14,12 +14,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8">
-                            <h4>{{ trans('cafeto::Configuration.Title_Card_Ticket') }}</h4>
-                            <p>{{ trans('cafeto::Configuration.Text_Card_Ticket') }}</p>
+                            <h4>{{ trans('cafeto::configuration.Title_Card_Ticket') }}</h4>
+                            <p>{{ trans('cafeto::configuration.Text_Card_Ticket') }}</p>
                             @if (Auth::user()->havePermission(
                                     'cafeto.' . getRoleRouteName(Route::currentRouteName()) . '.configuration.postprinting'))
                                 <button class="btn btn-success"
-                                    id="imprimirBtn">{{ trans('cafeto::Configuration.Btn_Generate_Ticket') }}
+                                    id="imprimirBtn">{{ trans('cafeto::configuration.Btn_Generate_Ticket') }}
                                     <i class="fa-solid fa-ticket"></i>
                                 </button>
                             @endif

@@ -44,7 +44,7 @@
                                 </a>
                             </div>
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/cafeto/images/developers/Nelsy-Profile.webp') }}" alt="NelsyProfile" width="140" height="140">
+                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/cafeto/images/developers/Nelsy-Profile.webp') }}" alt="Nelsy" width="140" height="140">
                                 <h4>{{ trans('cafeto::devs.Description_Apprentice') }}</h4>
                                 <p>Nelsy Yulied Gomez Morales</p>
                                 <a class="btn btn-primary" href="www.linkedin.com/in/nelsy-yulied-gomez-morales-5b1b37267">
@@ -350,7 +350,7 @@
                                 style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/cafeto/images/sponsor/visual_Studio_Code.webp') }}"
+                                        <img src="{{ asset('modules/cafeto/images/sponsor/Visual_Studio_Code.webp') }}"
                                             alt="VSCode-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
