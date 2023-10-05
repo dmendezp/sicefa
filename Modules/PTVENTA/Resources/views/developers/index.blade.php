@@ -350,7 +350,7 @@
                                 style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/ptventa/images/sponsor/visual_Studio_Code.webp') }}"
+                                        <img src="{{ asset('modules/ptventa/images/sponsor/Visual_Studio_Code.webp') }}"
                                             alt="VSCode-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
