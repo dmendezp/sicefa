@@ -28,7 +28,7 @@ class ContractorsController extends Controller
         $contractor->name = $request->input('name');
         $contractor->save();
 
-        return redirect()->route('gth.contractors.view');
+        return redirect()->route('cefa.gth.contractors.view');
     }
 
 
@@ -58,7 +58,7 @@ class ContractorsController extends Controller
         $contractor->state = $request->input('state');
 
         if ($contractor->save()) {
-            return redirect()->route('gth.contractors.view')->with('success', 'El Contrato ha actualizado exitosamente.');
+            return redirect()->route('cefa.gth.contractors.view')->with('success', 'El Contrato ha actualizado exitosamente.');
         } else {
             return redirect()->black()->with('error', 'Error al actualizar vacante');
         }
@@ -80,9 +80,9 @@ class ContractorsController extends Controller
             $contractor = Contractor::findOrFail($id);
             $contractor->delete();
 
-            return redirect()->route('gth.contractors.view')->with('success', 'Tipo de contratista eliminado correctamente.');
+            return redirect()->route('cefa.gth.contractors.view')->with('success', 'Tipo de contratista eliminado correctamente.');
         } catch (\Exception $e) {
-            return redirect()->route('gth.contractors.view')->with('error', 'No se pudo eliminar el tipo de contratista.');
+            return redirect()->route('cefa.gth.contractors.view')->with('error', 'No se pudo eliminar el tipo de contratista.');
         }
     }
 }

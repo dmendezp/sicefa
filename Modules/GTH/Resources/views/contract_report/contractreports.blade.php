@@ -7,7 +7,7 @@
                 <h1>Registro de Contrato Laboral</h1>
             </div>
             <div class="card-body">
-                <form method="POST"  action="{{ route('gth.contractreports.store') }}">
+                <form method="POST"  action="{{ route('cefa.gth.contractreports.store') }}">
                     @csrf
 
 
@@ -427,7 +427,7 @@
 
             // Realiza una solicitud AJAX para obtener los datos de la persona
             $.ajax({
-                url: '{{ route('gth.getPersonData') }}', // Utiliza la ruta configurada en web.php
+                url: '{{ route('cefa.gth.getPersonData') }}', // Utiliza la ruta configurada en web.php
                 method: 'GET',
                 data: {
                     document_number: numeroDocumento

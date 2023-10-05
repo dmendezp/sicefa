@@ -30,7 +30,7 @@
                                     <td>{{ $contract->person->document_number }}</td>
                                     <td>{{ $contract->person->first_name }} {{ $contract->person->first_last_name }}
                                         {{ $contract->person->second_last_name }}</td>
-                                    <form action="{{ route('gth.contractor.delete', $contract->id) }}" method="POST"
+                                    <form action="{{ route('cefa.gth.contractor.delete', $contract->id) }}" method="POST"
                                         class="btnEliminar" class="d-inline">
                                         @csrf
                                         @method('DELETE')
@@ -86,7 +86,7 @@
                         @if (isset($contract))
                             <!-- Cambiado a $contract -->
                             <form id="editForm" method="POST"
-                                action="{{ route('gth.contractor.update', ['id' => $contract->id]) }}">
+                                action="{{ route('cefa.gth.contractor.update', ['id' => $contract->id]) }}">
                                 @csrf
                                 @method('PATCH')
                                 <input type="hidden" name="id"
@@ -418,7 +418,7 @@
                 $('#editName').val(nombre);
 
                 // Obtener la ruta de actualización del formulario de edición
-                var updateRoute = '{{ route('gth.contractor.update', ['id' => ':id']) }}'.replace(
+                var updateRoute = '{{ route('cefa.gth.contractor.update', ['id' => ':id']) }}'.replace(
                     ':id', id);
 
                 // Asignar la ruta de actualización al formulario de edición

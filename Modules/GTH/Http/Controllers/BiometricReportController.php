@@ -27,7 +27,7 @@ class BiometricReportController extends Controller
         $people->biometric_code = $request->input('biometric_code');
         $people->save();
 
-        return redirect()->route('gth.biometricreports.view');
+        return redirect()->route('cefa.gth.biometricreports.view');
     }
 
     public function updateBiometricReport(Request $request, $id)
@@ -48,7 +48,7 @@ class BiometricReportController extends Controller
         $people->save();
 
         // Redirigir a donde quieras después de la actualización
-        return redirect()->route('gth.biometricreports.view')->with('success', 'Codigo Biometrico actualizado exitosamente.');
+        return redirect()->route('cefa.gth.biometricreports.view')->with('success', 'Codigo Biometrico actualizado exitosamente.');
     }
 
     public function showcontractortypes($id)

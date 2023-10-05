@@ -22,7 +22,7 @@ class PensionEntitiesController extends Controller
         $pensionEntities->description = $request->input('description');
         $pensionEntities->save();
 
-        return redirect()->route('gth.pensionentities.view');
+        return redirect()->route('cefa.gth.pensionentities.view');
     }
 
 
@@ -44,7 +44,7 @@ class PensionEntitiesController extends Controller
         $pensionEntities->save();
 
         // Redirigir a donde quieras después de la actualización
-        return redirect()->route('gth.pensionentities.view')->with('success', 'Entidad Pension actualizado exitosamente.');
+        return redirect()->route('cefa.gth.pensionentities.view')->with('success', 'Entidad Pension actualizado exitosamente.');
     }
 
     public function showPensionEntities($id)
@@ -60,9 +60,9 @@ class PensionEntitiesController extends Controller
             $pensionEntities = PensionEntity::findOrFail($id);
             $pensionEntities->delete();
 
-            return redirect()->route('gth.pensionentities.view')->with('success', 'La Entidad Pension ha sido eliminado correctamente.');
+            return redirect()->route('cefa.gth.pensionentities.view')->with('success', 'La Entidad Pension ha sido eliminado correctamente.');
         } catch (\Exception $e) {
-            return redirect()->route('gth.pensionentities.view')->with('error', 'No se pudo eliminar La Entidad Pension.');
+            return redirect()->route('cefa.gth.pensionentities.view')->with('error', 'No se pudo eliminar La Entidad Pension.');
         }
     }
 

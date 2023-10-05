@@ -2,6 +2,12 @@
 
 @section('css')
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 @endsection
 
 @section('content')
@@ -16,36 +22,34 @@
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearModal">
                             Gestión de Posición
                         </button>
-                        <table id="position" class="table table-striped table-bordered shadow-lg mt-4"
-                            style="width:100%">
+                        <table id="position" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
                             <thead class="bg-primary text-white">
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Denominación Profesional</th>
+                                    <th scope="col">Calificaciones</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($positions as $positio)
-
                                     <tr>
                                         <td>{{ $positio->id }}</td> <!-- Cambiado a $positio -->
-                                        <td>{{ $positio->name }}</td> <!-- Cambiado a $positio -->
-                                        <td>{{ $positio->description }}</td> <!-- Cambiado a $positio -->
+                                        <td>{{ $positio->professional_denomination }}</td> <!-- Cambiado a $positio -->
+                                        <td>{{ $positio->grade }}</td> <!-- Cambiado a $positio -->
                                         <td>
+
                                             <div class="d-flex">
-                                                <a href="#" class="btn btn-warning editar-btn" data-bs-toggle="modal"
-                                                    data-bs-target="#editarModal_{{ $positio->id }}"
-                                                    data-id="{{ $positio->id }}" data-nombre="{{ $positio->name }}"
-                                                    data-descripcion="{{ $positio->description }}">Editar</a> <!-- Cambiado a $positio -->
+                                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                                    data-bs-target="#editar">Editar</button>
                                                 <div style="width: 10px;"></div>
-                                                <form action="{{ route('gth.positions.delete', $positio->id) }}"     
+                                                <form action="{{ route('cefa.gth.positions.delete', $positio->id) }}"
                                                     method="POST" class="btnEliminar ml-2" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger"
-                                                        data-id="{{ $positio->id }}">Eliminar</button> <!-- Cambiado a $positio -->
+                                                        data-id="{{ $positio->id }}">Eliminar</button>
+                                                    <!-- Cambiado a $positio -->
                                                 </form>
                                             </div>
                                         </td>
@@ -69,7 +73,67 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('gth.positions.create') }}" method="POST" class="btnGuardar">
+                    <form action="{{ route('cefa.gth.positions.create') }}" method="POST" class="btnGuardar">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="professional_denomination" class="form-label">Denominación Profesional:</label>
+                            <select name="professional_denomination" id="professional_denomination"
+                                class="form-control @error('professional_denomination') is-invalid @enderror" required>
+                                <option value="-- Seleccione --">-- Seleccione --</option>
+                                <option value="Asesor">Asesor</option>
+                                <option value="Directivo">Directivo</option>
+                                <option value="Instructor">Instructor</option>
+                                <option value="Profesiona">Profesiona</option>
+                                <option value="Técnico">Técnico</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="grade" class="form-label">Calificaciones:</label>
+                            <select name="grade" id="grade" class="form-control @error('grade') is-invalid @enderror"
+                                required>
+                                <option value="-- Seleccione --">-- Seleccione --</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                            </select>
+                        </div>
+                        <!-- Resto del formulario -->
+                        <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">Guardar
+                            Cambios</button>
+
+                       
+                          
+                    </form>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de editar -->
+
+    <div class="modal fade" id="editar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Posicion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('cefa.gth.positions.create') }}" method="POST" class="btnGuardar">
                         @csrf
                         <div class="mb-3">
                             <label for="professional_denomination" class="form-label">Denominación Profesional:</label>
@@ -83,11 +147,11 @@
                                 <option value="Técnico">Técnico</option>
                             </select>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="grade" class="form-label">Calificaciones:</label>
-                            <select name="grade" id="grade"
-                                class="form-control @error('grade') is-invalid @enderror" required>
+                            <select name="grade" id="grade" class="form-control @error('grade') is-invalid @enderror"
+                                required>
                                 <option value="-- Seleccione --"></option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -108,61 +172,22 @@
                             </select>
                         </div>
                         <!-- Resto del formulario -->
-                    <button type="submit" class="btn btn-primary"
-                        onclick="return confirmarCambios()">Guardar
-                        Cambios</button>
-                        
-    <!-- Modal de Edición -->
-    @foreach ($positions as $positio)
+                        <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">Guardar
+                            Cambios</button>
 
-        <div class="modal fade" id="editarModal_{{ $positio->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar Posicion:</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        @if (isset($positio))
-                            <!-- Cambiado a $position-->
-                            <form id="editForm" method="POST"
-                                action="{{ route('gth.positions.update', ['id' => $positio->id]) }}">
-                                @csrf
-                                @method('PATCH')
-                                <input type="hidden" name="id"
-                                    value="{{ $positio->id }}"><!-- Cambiado a $posicion -->
-                                <div class="mb-3">
-                                    <label for="editName" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="editName" name="name"
-                                        value="{{ old('name', $positio->name) }}"> <!-- Cambiado a $posicion -->
-                                    @error('name')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="editName" class="form-label">Descripción</label>
-                                    <input type="text" class="form-control" id="editDescription" name="description"
-                                        value="{{ old('description', $positio->description) }}">
-                                    <!-- Cambiado a $positon -->
-                                    @error('description')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <!-- Resto del formulario -->
-                                <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">Guardar
-                                    Cambios</button>
-                            </form>
-                        @endif
-                    </div>
+                       
+                          
+                    </form>
+                   
                 </div>
             </div>
         </div>
-    @endforeach
+    </div>
+
+    
 @endsection
 
 @section('js')
-
     <script>
         new DataTable('#position');
     </script>
@@ -261,13 +286,13 @@
         $(document).ready(function() {
             $('.editar-btn').click(function() {
                 var id = $(this).data('id');
-                var nombre = $(this).data('nombre');
+                var Denominación_Profesional = $(this).data('Denominación_Profesional');
 
                 $('#editId').val(id);
-                $('#editName').val(nombre);
+                $('#editDenominación_Profesional').val(Denominación_Profesional);
 
                 // Obtener la ruta de actualización del formulario de edición
-                var updateRoute = '{{ route('gth.positions.update', ['id' => ':id']) }}'.replace(
+                var updateRoute = '{{ route('cefa.gth.positions.update', ['id' => ':id']) }}'.replace(
                     ':id', id);
 
                 // Asignar la ruta de actualización al formulario de edición

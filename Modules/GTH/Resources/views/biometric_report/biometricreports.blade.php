@@ -51,7 +51,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('gth.biometricreports.create', ['id' => $person->id]) }}" method="POST">
+                    <form action="{{ route('cefa.gth.biometricreports.create', ['id' => $person->id]) }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="biometric_code">Registro Biometrico:</label>

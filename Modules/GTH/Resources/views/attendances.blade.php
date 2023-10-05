@@ -61,7 +61,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('attendance.view') }}" method="POST">
+                <form action="{{ route('cefa.attendance.view') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>

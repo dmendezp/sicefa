@@ -39,7 +39,7 @@
                                                     data-id="{{ $insurer->id }}" data-nombre="{{ $insurer->name }}"
                                                     data-nombre="{{ $insurer->description }}">Editar</a>
                                                 <div style="width: 10px;"></div>
-                                                <form action="{{ route('gth.insurerentities.delete', $insurer->id) }}"
+                                                <form action="{{ route('cefa.gth.insurerentities.delete', $insurer->id) }}"
                                                     method="POST" class="btnEliminar ml-2" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
@@ -68,7 +68,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('gth.insurerentities.create') }}" method="POST" class="btnGuardar">
+                    <form action="{{ route('cefa.gth.insurerentities.create') }}" method="POST" class="btnGuardar">
                         @csrf
                         <div class="form-group">
                             <label for="name">Entidad Aseguradora:</label>
@@ -102,7 +102,7 @@
                         @if (isset($insurer))
                             <!-- Cambiado a $insurer -->
                             <form id="editForm" method="POST"
-                                action="{{ route('gth.insurerentities.update', ['id' => $insurer->id]) }}">
+                                action="{{ route('cefa.gth.insurerentities.update', ['id' => $insurer->id]) }}">
                                 @csrf
                                 @method('PATCH')
                                 <input type="hidden" name="id"
