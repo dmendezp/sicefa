@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\SIGAC\Http\Controllers\AttendanceController;
-use Modules\SIGAC\Http\Controllers\InstructorController;
-use Modules\SIGAC\Http\Controllers\ScheduleController;
 
 Route::middleware(['lang'])->group(function(){ //Middleware que permite la internacionalizacion
 
@@ -18,7 +15,12 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
             Route::get('wellness', 'wellness_dashboard')->name('sigac.wellness.dashboard'); // Panel de control de bienestar (Bienestar)
             Route::get('apprentice', 'apprentice_dashboard')->name('sigac.apprentice.dashboard'); // Panel de control de aprendiz (Aprendiz)
         });
-        
+
+        Route::controller(ProgrammeController::class)->group(function(){
+            Route::get('/program', 'programming_schedules')->name('sigac.academic_coordination.programming_schedules'); // Programación de horarios (Coordinación Académica)
+            Route::get('/events', 'event_programming')->name('sigac.academic_coordination.event_programming'); // Programación de eventos (Coordinación Académica)
+        });
+
         Route::prefix('instructor')->group(function(){
             Route::get('/index', [InstructorController::class, 'index'])->name('cefa.sigac.instructor.index'); // Vista principal.
         });
@@ -31,8 +33,7 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
         Route::prefix('schedule')->group(function(){
             Route::get('/instructor', [ScheduleController::class, 'scheduleInstructor'])->name('cefa.sigac.scheduleInstructor.index'); // Vista principal.
             Route::get('/apprentice', [ScheduleController::class, 'scheduleApprentice'])->name('cefa.sigac.scheduleApprentice.index'); // Vista principal.
-            Route::get('/program', [ScheduleController::class, 'scheduleProgramInstructor'])->name('cefa.sigac.scheduleProgramInstructor.index'); // Vista principal.
-            Route::get('/environment', [ScheduleController::class, 'scheduleProgramEnvironment'])->name('cefa.sigac.scheduleProgramEnvironment.index'); // Vista principal.
+            
         });
 
         Route::prefix('reports')->group(function(){

@@ -23,7 +23,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_apprentice = []; // Permisos para Aprendiz
 
         // Consultar aplicación SICA para registrar los roles
-        $app = App::where('name','SIGAC')->firstOrFail();
+        $app = App::where('name', 'SIGAC')->firstOrFail();
 
 
         // ===================== Registro de todos los permisos de la aplicación SIGAC ==================
@@ -45,7 +45,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
-       // Panel de control de bienestar (Bienestar)
+        // Panel de control de bienestar (Bienestar)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.welness.dashboard'], [ // Registro o actualización de permiso
             'name' => 'Panel de control de bienestar (Bienestar)',
             'description' => 'Panel de control de bienestar',
@@ -54,7 +54,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_wellness[] = $permission->id; // Almacenar permiso para rol
 
-       // Panel de control de aprendiz (Aprendiz)
+        // Panel de control de aprendiz (Aprendiz)
         $permission = Permission::updateOrCreate(['slug' => 'sigac.apprentice.dashboard'], [ // Registro o actualización de permiso
             'name' => 'Panel de control de aprendiz (Aprendiz)',
             'description' => 'Panel de control de aprendiz',
@@ -62,6 +62,24 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
+
+        // Programación de horarios (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.programming_schedules'], [ // Registro o actualización de permiso
+            'name' => 'Programación de horarios (Coordinación Académica)',
+            'description' => 'Programación de horarios',
+            'description_english' => "Programming schedules",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
+
+        // Programación de eventos (Coordinación Académica)
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.event_programming'], [ // Registro o actualización de permiso
+            'name' => 'Programación de eventos (Coordinación Académica)',
+            'description' => 'Programación de eventos',
+            'description_english' => "Event Programming",
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordination[] = $permission->id; // Almacenar permiso para rol
 
         // Consulta de ROLES
         $rol_academic_coordination = Role::where('slug', 'sigac.academic_coordinator')->firstOrFail(); // Rol Coordinador Académico

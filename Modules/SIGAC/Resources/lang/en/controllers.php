@@ -20,4 +20,12 @@ return [
 	// Info
 	'SIGAC_info_title_page' => 'Information',
 	'SIGAC_info_title_view' => 'Information',
+
+	// -----ProgrammeController------
+	// Index
+	'SIGAC_programming_schedules_title_page' => 'Programming Schedules',
+	'SIGAC_programming_schedules_title_view' => 'Programming Schedules',
+	// Event Programming
+	'SIGAC_event_programming_title_page' => 'Event Programming',
+	'SIGAC_event_programming_title_view' => 'Event Programming',
 ];

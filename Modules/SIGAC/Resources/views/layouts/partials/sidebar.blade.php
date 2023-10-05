@@ -69,41 +69,64 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                    <li class="nav-item">
-                        <a href="{{ route('cefa.sigac.index') }}"
-                            class="nav-link {{ !Route::is('cefa.sigac.index*') ?: 'active' }}">
-                            <i class="nav-icon fa-solid fa-school"></i>
-                            <p>{{ trans('sigac::general.MainPage') }}</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa-solid fa-clock"></i>
-                            <p>
-                                {{ trans('sigac::general.Programming') }}
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview" style="display: none;">
-                            <li class="nav-item">
-                                <a href="{{ route('cefa.sigac.scheduleProgramInstructor.index') }}"
-                                    class="nav-link {{ !Route::is('cefa.sigac.scheduleProgramInstructor.index*') ?: 'active' }}">
-                                    <i class="nav-icon far fa-calendar-alt"></i>
-                                    <p>{{ trans('sigac::general.Scheduling') }}</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('cefa.sigac.scheduleProgramEnvironment.index') }}"
-                                    class="nav-link {{ !Route::is('cefa.sigac.scheduleProgramEnvironment.index*') ?: 'active' }}">
-                                    <i class="nav-icon fas fa-chalkboard"></i>
-                                    <p>{{ trans('sigac::general.EnvironmentProgramming') }}</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
+                    <!-- Menú de opciones públicas -->
+                    @if (Route::is('cefa.sigac.*'))
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.sigac.index') }}"
+                                class="nav-link {{ !Route::is('cefa.sigac.index*') ?: 'active' }}">
+                                <i class="nav-icon fa-solid fa-school"></i>
+                                <p>{{ trans('sigac::general.MainPage') }}</p>
+                            </a>
+                        </li>   
+                        
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.sigac.info') }}"
+                                class="nav-link {{ !Route::is('cefa.sigac.info*') ?: 'active' }}">
+                                <i class="nav-icon fas fa-info"></i>
+                                <p>{{ trans('sigac::general.About us') }}</p>
+                            </a>
+                        </li>
+    
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-code"></i>
+                                <p>{{ trans('sigac::general.Developers') }}</p>
+                            </a>
+                        </li>
+                    @endif
+                    
+                    <!-- Menú de opciones públicas -->
+                    @if(Route::is('sigac.academic_coordination.*'))
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-clock"></i>
+                                <p>
+                                    {{ trans('sigac::general.Programming') }}
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="display: none;">
+                                @if(Auth::user()->havePermission('sigac.academic_coordination.programming_schedules'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.academic_coordination.programming_schedules') }}"
+                                            class="nav-link {{ !Route::is('sigac.academic_coordination.programming_schedules.*') ?: 'active' }}">
+                                            <i class="nav-icon far fa-calendar-alt"></i>
+                                            <p>{{ trans('sigac::general.Scheduling') }}</p>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if(Auth::user()->havePermission('sigac.academic_coordination.event_programming'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('sigac.academic_coordination.event_programming') }}"
+                                            class="nav-link {{ !Route::is('sigac.academic_coordination.event_programming.*') ?: 'active' }}">
+                                            <i class="nav-icon fas fa-chalkboard"></i>
+                                            <p>{{ trans('sigac::general.EnvironmentProgramming') }}</p>
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa-solid fa-calendar-days"></i>
@@ -189,20 +212,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('cefa.sigac.info') }}"
-                            class="nav-link {{ !Route::is('cefa.sigac.info*') ?: 'active' }}">
-                            <i class="nav-icon fas fa-info"></i>
-                            <p>{{ trans('sigac::general.About us') }}</p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa-solid fa-code"></i>
-                            <p>{{ trans('sigac::general.Developers') }}</p>
-                        </a>
-                    </li>
+                    
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
