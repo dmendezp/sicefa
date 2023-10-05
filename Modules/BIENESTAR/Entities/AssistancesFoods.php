@@ -5,6 +5,7 @@ namespace Modules\BIENESTAR\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\BIENESTAR\Entities\PostulationsBenefits;
 
 class AssistancesFoods extends Model implements Auditable
 {
@@ -36,7 +37,7 @@ class AssistancesFoods extends Model implements Auditable
         return $this->belongsTo(\Modules\SICA\Entities\Apprentice::class, 'apprentice_id');
     }
 
-    public function postulationBenefits(){// Accede a los datos del beneficio que tiene la postulacion al que pertenece
+    public function postulationBenefit(){// Accede a los datos del beneficio que tiene la postulacion al que pertenece
         return $this->belongsTo(PostulationsBenefits::class, 'postulation_benefit_id');
     }
 

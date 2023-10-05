@@ -1,5 +1,6 @@
 @extends('bienestar::layouts.master')
 
+
 @section('content')
 <!-- Main content -->
 <div class="container-fluid">
@@ -85,13 +86,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">{{ trans('bienestar::menu.Edit bus')}}</h4>
+                <h4 class="modal-title">Editar bus</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                {!! Form::model('', ['route' => ['cefa.bienestar.buses.update', ''], 'method' => 'PUT', 'role' => 'form']) !!}
+                {!! Form::open( ['route' => ['cefa.bienestar.buses.update', ''], 'method' => 'PUT', 'role' => 'form']) !!}
                 <div class="row p-4">
                 <div class="col-md-12">
             <div class="form-group">
@@ -114,7 +115,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div class="form-group">
+            <div class="btns">
                 {!! Form::submit('Actualizar', ['class' => 'btn btn-success']) !!}
             </div>
         </div>
@@ -136,8 +137,10 @@
 
             var modal = $(this);
             modal.find('[name="plate"]').val(plate);
-            modal.find('[name="bus_driver"]').val(busDriver.id);
             modal.find('[name="quota"]').val(quota);
+
+            // Establece la opción seleccionada en el select
+            modal.find('#bus_driver_select').val(busDriver.id);
 
             // Poner el ID del bus en la URL del formulario
             var form = modal.find('form');
