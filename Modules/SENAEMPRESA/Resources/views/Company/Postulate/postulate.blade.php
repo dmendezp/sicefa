@@ -8,27 +8,58 @@
             <div class="card card-primary card-outline shadow">
                 <div class="card-body">
                     <table id="datatable" class="table table-striped table-bordered">
-                        <thead class="bg-danger text-white">
+                        <thead>
                             <tr>
-                                <th>Documento</th>
-                                <th>Nombre</th>
-                                <th>Correo</th>
-                                <th>Telefono</th>
-                                <th>Fecha</th>
-                                <th>Hoja de vida</th>
-                                <th>Puntaje</th>
+                                <th>{{ trans('senaempresa::menu.Id') }}</th>
+                                <th>{{ trans('senaempresa::menu.Apprentice Id') }}</th>
+                                <th>{{ trans('senaempresa::menu.Vacancy ID') }}</th>
+                                <th>{{ trans('senaempresa::menu.Status') }}</th>
+                                <th>{{ trans('senaempresa::menu.Currículum') }}</th>
+                                <th>{{ trans('senaempresa::menu.16 personalities') }}</th>
+                                <th>{{ trans('senaempresa::menu.Proposal') }}</th>
+                                <th>{{ trans('senaempresa::menu.Total score') }}</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Row 1 Data 1</td>
-                                <td>Row 1 Data 2</td>
-                                <td>Row 1 Data 3</td>
-                                <td>Row 1 Data 4</td>
-                                <td>Row 1 Data 5</td>
-                                <td>Row 1 Data 6</td>
-                                <td> <a href="a" class="btn btn-primary">Asignar</a></td>
-                            </tr>
+                            @foreach ($postulates as $postulate)
+                                <tr>
+                                    <td>{{ $postulate->id }}</td>
+                                    <td>{{ $postulate->apprentice->person->first_name }}
+                                        {{ $postulate->apprentice->person->first_last_name }}</td>
+                                    <td>{{ $postulate->vacancy->name }}</td>
+                                    <td>{{ $postulate->state }}</td>
+                                    <td>
+                                        <a href="{{ asset('storage/' . $postulate->cv) }}" class="btn btn-primary btn-sm"
+                                            download>
+                                            <i class="fas fa-download fa-sm"></i> CV
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ asset('storage/' . $postulate->personalities) }}"
+                                            class="btn btn-primary btn-sm" download>
+                                            <i class="fas fa-download fa-sm"></i> Personalidades
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ asset('storage/' . $postulate->proposal) }}"
+                                            class="btn btn-primary btn-sm" download>
+                                            <i class="fas fa-download fa-sm"></i> Propuesta
+                                        </a>
+                                    </td>
+
+                                    <td>{{ $postulate->score_total }}</td>
+                                    @if ($postulate->state === 'Inscrito')
+                                        <td>
+                                            <a href="{{ route('company.postulate.score') }}"
+                                                class="btn btn-primary btn-sm">Asignar</a>
+                                        </td>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                </tr>
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>

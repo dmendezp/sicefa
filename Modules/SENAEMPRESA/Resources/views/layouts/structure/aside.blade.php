@@ -156,8 +156,6 @@
                         </li>
                     </ul>
                 </li>
-
-
                 <li class="nav-item {{ !Route::is('vacant.*') ?: 'menu-is-opening menu-open' }}">
                     <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
                         <i class="fas fa-id-card"></i>
@@ -173,6 +171,15 @@
                                 <p>{{ trans('senaempresa::menu.Availables') }}</p>
                             </a>
                         </li>
+                        @if (auth()->user()->person->apprentices())
+                            <li class="nav-item">
+                                <a href="{{ route('inscription') }}"
+                                    class="nav-link {{ !Route::is('inscription') ?: 'active' }}">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <p>{{ trans('senaempresa::menu.Registration') }}</p>
+                                </a>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <a href="{{ route('company.position.cargos') }}"
                                 class="nav-link {{ !Route::is('company.position.cargos') ?: 'active' }}">
@@ -180,6 +187,7 @@
                                 <p>{{ trans('senaempresa::menu.Positions') }}</p>
                             </a>
                         </li>
+
                         @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                             <li class="nav-item">
                                 <a href="{{ route('company.vacant.mostrar_asociados') }}"
@@ -202,8 +210,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('senaempresa.Postulados') }}"
-                                class="nav-link {{ !Route::is('senaempresa.Postulados') ?: 'active' }}">
+                            <a href="{{ route('company.postulate') }}"
+                                class="nav-link {{ !Route::is('company.postulate') ?: 'active' }}">
                                 <i class="fas fa-address-card"></i>
                                 <p>{{ trans('senaempresa::menu.Postulates') }}</p>
                             </a>

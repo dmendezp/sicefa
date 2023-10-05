@@ -3,19 +3,22 @@
 @section('content')
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
-        <form method="GET" action="{{ route('company.vacant.vacantes') }}">
-            <label for="cursoFilter">{{ trans('senaempresa::menu.Filter by course') }}:</label>
-            <select class="form-control" id="cursoFilter" name="cursoFilter" onchange="this.form.submit()">
-                <option value="">{{ trans('senaempresa::menu.All courses') }}</option>
-                @foreach ($courses as $course)
-                    <option value="{{ $course->id }}" {{ $selectedCourseId == $course->id ? 'selected' : '' }}>
-                        {{ $course->code }} {{ $course->program->name }}
-                    </option>
-                @endforeach
-            </select>
-        </form><br>
-
-
+        @if (Auth::check() &&
+                (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
+                    Auth::user()->roles[0]->name === 'Pasante Senaempresa'))
+            <form method="GET" action="{{ route('company.vacant.vacantes') }}">
+                <label for="cursoFilter">{{ trans('senaempresa::menu.Filter by course') }}:</label>
+                <select class="form-control" id="cursoFilter" name="cursoFilter" onchange="this.form.submit()">
+                    <option value="">{{ trans('senaempresa::menu.All courses') }}</option>
+                    @foreach ($courses as $course)
+                        <option value="{{ $course->id }}" {{ $selectedCourseId == $course->id ? 'selected' : '' }}>
+                            {{ $course->code }} {{ $course->program->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </form>
+        @endif
+        <br>
         <div class="col-md-12">
             <div class="card card-primary card-outline shadow">
                 <div class="card-body">
@@ -28,7 +31,7 @@
                                 <th>{{ trans('senaempresa::menu.Id Position') }}</th>
                                 <th>{{ trans('senaempresa::menu.Start Date and Time') }}</th>
                                 <th>{{ trans('senaempresa::menu.Date and Time End') }}</th>
-                                <th class="text-center">{{ trans('senaempresa::menu.Registration') }}</th>
+                                <th class="text-center">Detalles</th>
 
                                 @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                     <th style="width: 100px;"><a href="{{ route('company.vacant.agregar_vacante') }}"
@@ -62,9 +65,8 @@
                                         <td>{{ $vacancy->start_datetime }}</td>
                                         <td>{{ $vacancy->end_datetime }}</td>
                                         <td class="text-center">
-                                            <a class="openModalBtn" title="Inscripción"
-                                                data-vacancy='@json($vacancy)' data-bs-toggle="modal"
-                                                data-bs-target="#myModal">
+                                            <a class="openModalBtn" title="Ver información" data-bs-toggle="modal"
+                                                data-bs-target="#myModal" data-vacancy='@json($vacancy)'>
                                                 <i class="fas fa-eye" style="color: #000000;"></i>
                                             </a>
                                         </td>

@@ -23,11 +23,6 @@ class CompanyController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function vacant()
-    {
-        $data = ['title' => 'Postulados'];
-        return view('senaempresa::Company.Postulate.postulate', $data);
-    }
     public function seleccionados()
     {
         $data = ['title' => 'Seleccionados'];

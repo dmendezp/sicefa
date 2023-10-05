@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Vacancy;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
@@ -18,35 +19,68 @@ class VacantController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
+    public function getVacancyDetails($id)
+    {
+        $vacancy = Vacancy::find($id);
+        return response()->json($vacancy);
+    }
     public function vacantes(Request $request)
     {
-        // Obtén la lista de todos los cursos
-        $courses = Course::with('program')->get();
-
-        // Inicializa la variable $selectedCourseId a null
         $selectedCourseId = null;
-
-        // Obtén el ID del curso seleccionado del formulario si está presente
-        if ($request->has('cursoFilter')) {
-            $selectedCourseId = $request->input('cursoFilter');
-        }
-
-        // Obtén las vacantes relacionadas con el curso seleccionado (si se ha seleccionado uno)
         $vacancies = Vacancy::query();
 
-        if (!is_null($selectedCourseId)) {
-            $vacancies->whereExists(function ($query) use ($selectedCourseId) {
-                $query->select(DB::raw(1))
-                    ->from('course_vacancy')
-                    ->whereRaw('course_vacancy.vacancy_id = vacancies.id')
-                    ->where('course_vacancy.course_id', $selectedCourseId);
-            });
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            if ($user->roles[0]->name === 'Usuario Senaempresa') {
+                // User is of role 'Usuario Senaempresa'
+                if ($user->courses && $user->courses->count() > 0) {
+                    $cursoUsuario = $user->courses->first(); // Obtener el curso del usuario
+                    $selectedCourseId = $cursoUsuario->id;
+
+                    $vacancies->whereExists(function ($query) use ($selectedCourseId) {
+                        $query->select(DB::raw(1))
+                            ->from('course_vacancy')
+                            ->whereRaw('course_vacancy.vacancy_id = vacancies.id')
+                            ->where('course_vacancy.course_id', $selectedCourseId);
+                    });
+                }
+            } elseif ($user->roles[0]->name === 'Administrador Senaempresa') {
+                // User is of role 'Administrador Senaempresa'
+                $courses = Course::with('program')->get();
+
+                if ($request->has('cursoFilter')) {
+                    $selectedCourseId = $request->input('cursoFilter');
+                    $vacancies->whereExists(function ($query) use ($selectedCourseId) {
+                        $query->select(DB::raw(1))
+                            ->from('course_vacancy')
+                            ->whereRaw('course_vacancy.vacancy_id = vacancies.id')
+                            ->where('course_vacancy.course_id', $selectedCourseId);
+                    });
+                }
+            }
         }
 
-        $vacancies = $vacancies->get();
+        // Add a condition to check for vacancies associated with at least one course through the pivot table
+        $vacancies->whereExists(function ($query) {
+            $query->select(DB::raw(1))
+                ->from('course_vacancy')
+                ->whereRaw('course_vacancy.vacancy_id = vacancies.id');
+        });
 
+        $vacancies = $vacancies->get();
+        // Comprobar si el usuario actual es un aprendiz en la tabla 'apprentices'
+        
         $PositionCompany = PositionCompany::all();
-        $data = ['title' => trans('senaempresa::menu.Vacancies'), 'courses' => $courses, 'vacancies' => $vacancies, 'PositionCompany' => $PositionCompany, 'selectedCourseId' => $selectedCourseId];
+
+        $data = [
+            'title' => trans('senaempresa::menu.Vacancies'),
+            'courses' => $courses ?? [],
+            'vacancies' => $vacancies,
+            'PositionCompany' => $PositionCompany,
+            'selectedCourseId' => $selectedCourseId,
+        ];
+
         return view('senaempresa::Company.Vacant.vacant', $data);
     }
 
@@ -99,13 +133,6 @@ class VacantController extends Controller
             }
         }
     }
-
-    public function getVacancyDetails($id)
-    {
-        $vacancy = Vacancy::find($id);
-        return response()->json($vacancy);
-    }
-
     public function edit($id)
     {
         $vacancy = Vacancy::findOrFail($id);

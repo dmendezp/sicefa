@@ -8,53 +8,50 @@
                     <div class="card-header">{{ $title }}</div>
 
                     <div class="card-body">
-                        {!! Form::open(['url' => route('inscription')]) !!}
-                        <div class="mb-6">
-                            <label for="document_number" class="form-label">Documento</label>
-                            {!! Form::text('', null, ['class' => 'form-control']) !!}
-                            <br>
-                        </div>
-                        <div class="mb-6">
-                            <label for="document_number" class="form-label">Nombre</label>
-                            {!! Form::text('document_number', null, ['class' => 'form-control']) !!}
-                            <br>
-                        </div>
-                        <div class="mb-6">
-                            <label for="document_number" class="form-label">Correo</label>
-                            {!! Form::text('document_number', null, ['class' => 'form-control']) !!}
-                            <br>
-                        </div>
-                        <div class="mb-6">
-                            <label for="document_number" class="form-label">Telefono</label>
-                            {!! Form::number('document_number', null, ['class' => 'form-control']) !!}
-                            <br>
-                        </div>
-                        <div class="mb-6">
-                            <label for="document_number" class="form-label">Fecha</label>
-                            {!! Form::date('document_number', null, ['class' => 'form-control']) !!}
-                            <br>
-                        </div>
-                        <div class="mb-6">
-                            <label for="document_number" class="form-label">Id Vacante</label>
-                            {!! Form::select('document_number', $optionsArray, null, ['class' => 'form-control']) !!}
-                            <br>
-                        </div>
-                        <div class="mb-6">
-                            <label for="document_number" class="form-label">Hoja de vida</label><br>
-                            {!! Form::file('document_number', null, ['class' => 'form-control']) !!}<br>
-                            <label for="document_number" class="form-label">Hoja de vida</label><br>
-                            {!! Form::file('document_number', null, ['class' => 'form-control']) !!}
-                            <br><br>
-                        </div>
-                        {!! Form::submit('Incribirse', ['class' => 'btn btn-success', 'name' => 'inscribirse']) !!}
-                        <a href="{{ route('vacantes') }}">
-                            {!! Form::button('Cancelar', ['class' => 'btn btn-danger', 'name' => 'cancelar']) !!}
-                        </a>
+                        <form action="{{ route('company.postulate.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="apprentice_info" class="form-label">{{ trans('senaempresa::menu.Apprentice') }}</label>
+                                <input type="text" class="form-control" id="apprentice_info" name="apprentice_info"
+                                    value="{{ $ApprenticeId }} - {{ auth()->user()->person->first_name }} {{ auth()->user()->person->first_last_name }} {{ auth()->user()->person->second_last_name }}"
+                                    readonly>
+                            </div>
+                            <input type="hidden" id="apprentice_id" name="apprentice_id" value="{{ $ApprenticeId }}"
+                                readonly>
+                            <div class="mb-3">
+                                <label for="vacancy_id" class="form-label">{{ trans('senaempresa::menu.Vacancy ID') }}</label>
+                                <select class="form-control" name="vacancy_id" aria-label="{{ trans('senaempresa::menu.Select Vacant ID') }}" required>
+                                    <option value="" selected>{{ trans('senaempresa::menu.Select Vacant ID') }}
+                                    </option>
+                                    @foreach ($vacancies as $vacancy)
+                                        <option value="{{ $vacancy->id }}">
+                                            {{ $vacancy->id }}
+                                            {{ $vacancy->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cv" class="form-label">{{ trans('senaempresa::menu.Currículum') }}</label><br>
+                                <input type="file" id="cv" name="cv" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="personalities" class="form-label">{{ trans('senaempresa::menu.16 personalities') }}</label><br>
+                                <input type="file" id="personalities" name="personalities" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="proposal" class="form-label">{{ trans('senaempresa::menu.Proposal') }}</label><br>
+                                <input type="file" id="proposal" name="proposal" required>
+                            </div>
 
-                        {!! Form::close() !!}
+                            <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.Register') }}</button>
+                            <a href="{{ route('company.vacant.vacantes') }}">
+                                {!! Form::button('Cancelar', ['class' => 'btn btn-danger', 'name' => 'cancelar']) !!}
+                            </a>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div><br>
+    </div>
 @endsection
