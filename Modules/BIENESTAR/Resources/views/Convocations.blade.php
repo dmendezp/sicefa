@@ -239,6 +239,9 @@
 
             // Set the form action URL to include the record ID for editing
             $("#modal-default form").attr("action", "{{ route('cefa.bienestar.Convocations.update', '') }}/" + id);
+
+            // Show the modal
+            $("#modal-default").modal("show");
         });
     });
 </script>
