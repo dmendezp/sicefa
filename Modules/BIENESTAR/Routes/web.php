@@ -95,10 +95,11 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/addquestions/add', 'ConvocationsQuestionsController@addQuestion')->name('cefa.bienestar.add_question.add');
        
         // Vista De Consulta
-
         Route::get('/callconsultation', 'CallConsultationController@index')->name('cefa.bienestar.callconsultation');
-        Route::post('/procesar-formulario', 'TuControlador@procesarFormulario')->name('cefa.bienestar.procesar.formulario');
-        Route::get('/consulta-de-resultados', 'CallConsultationController@index')->name('cefa.bienestar.consulta.resultados');
+        Route::post('/busqueda', 'CallConsultationController@buscar')->name('cefa.bienestar.busqueda');
+        Route::post('/search', 'CallConsultationController@searchByDocumentNumber')->name('cefa.bienestar.search.by.document');
+        Route::post('/procesar-formulario', 'CallConsultationController@procesarFormulario')->name('cefa.bienestar.procesar.formulario');
+        Route::get('/consulta/{documentNumber}', 'CallConsultationController@consultarBeneficios')->name('cefa.bienestar.consulta.resultados');
 
 
 

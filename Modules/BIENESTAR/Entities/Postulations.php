@@ -4,6 +4,7 @@ namespace Modules\BIENESTAR\Entities;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\SICA\Entities\Apprentice;
 
 class Postulations extends Model implements Auditable
 {
@@ -37,7 +38,7 @@ class Postulations extends Model implements Auditable
     }
 
      public function apprentice(){// Accede a los datos del aprendiz al que pertenece
-        return $this->belongsTo(\Modules\SICA\Entities\Apprentice::class, 'apprentice_id');
+        return $this->belongsTo(Apprentice::class);
     }
 
     public function convocation(){// Accede a los datos de la Convocatoria al que pertenece
@@ -45,7 +46,7 @@ class Postulations extends Model implements Auditable
     }
 
     public function postulationBenefits(){// Accede a los datos del beneficio que tiene la postulacion al que pertenece
-        return $this->hasMany(PostulationsBenefits::class, 'postulation_id');
+        return $this->hasMany(PostulationsBenefits::class);
     }
 
     public function socioeconomicsupportfiles(){// Accede a los datos del archivo de soporte al que pertenece

@@ -12,20 +12,12 @@
                     <!-- Contenido de la vista en un solo card -->
                     <div class="card shadow col-md-12">
                         <div class="card-body text-center"> <!-- Centramos el contenido en el card verticalmente -->
-                            <form>
-                                <div class="form-group">
-                                    <div class="input-group col-md-6 mx-auto"> <!-- Centramos el campo numérico horizontalmente -->
-                                        <input type="number" class="form-control" id="numero_documento" name="numero_documento" placeholder="Documento Identidad">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Otros campos y botones de formulario si es necesario -->
-                            </form>
 
-                            <!-- Tabla con 5 columnas y estilo -->
-                            <table class="table table-bordered table-striped">
+                            <!-- Otros campos y botones de formulario si es necesario -->
+
+                            <!-- Tabla con 7 columnas y estilo -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="resultados_table">
                                 <thead>
                                     <tr>
                                         <th>Nombre del Aprendiz</th>
@@ -36,18 +28,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Aquí puedes agregar filas de datos si es necesario -->
-                                    @isset($aprendiz)
-                                    <tr>
-                                        <td>{{ $aprendiz->nombre_aprendiz }}</td>
-                                        <td>{{ $aprendiz->numero_documento }}</td>
-                                        <td>{{ $aprendiz->porcentaje_descuento_alimentacion }}</td>
-                                        <td>{{ $aprendiz->numero_ruta_transporte }}</td>
-                                        <td>{{ $aprendiz->nombre_ruta_transporte }}</td>
-                                    </tr>
-                                    @endisset
+                                    <!-- Aquí se agregarán las filas con los datos -->
                                 </tbody>
-                            </table>        
+                            </table>
+                        </div>
+
                         </div>
                     </div>
                     <!-- Fin del contenido en un solo card -->
