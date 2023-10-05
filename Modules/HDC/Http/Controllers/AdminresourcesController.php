@@ -17,10 +17,10 @@ class AdminresourcesController extends Controller
      * @return Renderable
      */
     public function adminresources() {
-        $productive_unit = ProductiveUnit::get();
-        $activities = Activity::get();
+        $productive_unit = ProductiveUnit::all();
+        $activities = Activity::all();
         $environmentalAspect = EnvironmentalAspect::get();
-        return view('hdc::Adminresources', ['productive_unit' => $productive_unit, 'activities' => $activities, 'environmentalAspect' => $environmentalAspect]);
+        return view('hdc::Adminresources', compact('productive_unit' , 'activities', 'environmentalAspect'));
     }
 
     /**
@@ -39,19 +39,48 @@ class AdminresourcesController extends Controller
      */
     public function store(Request $request)
     {
-        // Guardar Administracion
-        $rules = [
-            'productive_unit_id' => 'required',
-            'activity_id' => 'required',
-            'environmental_aspect_id' => 'required',
-        ];
-        $aea = new environmental_aspect(); 
-        $aea->productive_unit = $aea; // Nombre De La Unidad Productiva
-        $aea->activity_id = $request->input('name'); // Nombre De La Actividad
-        $aea->environmental_aspect_id = $request->input('name');
-        $aea->save();
-        return redirect()->route('hdc.adminresources')->with('success', 'Aspectos Asignados Exitosamente');
+        return($request);
+        // Validar los datos del formulario
+        $validatedData = $request->validate([
+            'activity_id' => 'required|array',
+            'Environmental_Aspect' => 'required', // Validar que actividades sea un arreglo
+            'checklist_data' => 'required', // Validar que checklist_data sea un arreglo
+        ]);
+    
+        $activity_id = $request->input('activity_id');
+        $ea = $request->input('Environmental_Aspect');
+        $checklistData = $request->input('Environmental_Aspect');
+        
+    
+        // Verificar si existe un registro de EnvironmentalAspect con el activity_id y Environmental_Aspect dados
+        $aea = EnvironmentalAspect::where('activity_id', $activity_id)
+            ->where('Environmental_Aspect', $ea)
+            ->first();
+    
+        if (!$aea) {
+            // Si el registro no existe, crear uno nuevo
+            $aea = EnvironmentalAspect::create([
+                'activity_id' => $activity_id,
+                'Environmental_Aspect' => $ea,
+            ]);
+        }
+    
+        // Usar syncWithoutDetaching para asociar actividades con EnvironmentalAspect
+        $aea->activities()->syncWithoutDetaching($activities);
+    
+        // Crear un nuevo registro de ChecklistResponse y asociarlo con EnvironmentalAspect
+        $checklistResponse = new ChecklistResponse();
+        $checklistResponse->fill($checklistData); // Asumiendo que los datos del formulario se almacenan en ChecklistResponse
+        $checklistResponse->save();
+    
+        // Asociar el ChecklistResponse con EnvironmentalAspect usando syncWithoutDetaching
+        $aea->checklistResponses()->syncWithoutDetaching([$checklistResponse->name]);
+    
+        // Redirigir de nuevo a la página del formulario después de guardar con un mensaje de éxito
+        return redirect()->route('hdc.adminresources.index')->with('success', 'Asignación y formulario guardados con éxito');
     }
+    
+
 
     /**
      * Show the specified resource.
@@ -92,7 +121,5 @@ class AdminresourcesController extends Controller
     public function destroy()
     {
        //
-            
     }
-
 }

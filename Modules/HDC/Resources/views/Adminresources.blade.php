@@ -4,7 +4,6 @@
 @endpush
 
 @section('content')
-
         <div class="">
             <div class="card card-green card-outline shadow col-12">
                 <div class="card-header">
@@ -18,7 +17,7 @@
                                 <div class="col-6">
                                 <div class="form-group">
                                     <label>{{ trans('hdc::adminresources.label1') }}</label>
-                                    <select name="activity_id" class="form-control" required>
+                                    <select name="productive_unit_id" class="form-control" required>
                                         <option value="">{{ trans('hdc::adminresources.select1') }}</option>
                                         @foreach ($productive_unit as $pro) {{-- Consulta las actividades de las unidades productivas de SICEFA --}}
                                             <option value="{{ $pro->id }}">{{ $pro->name }}</option>
@@ -27,10 +26,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label>{{ trans('hdc::adminresources.label2') }}</label>
-                                    <select name="Environmental Aspect" class="form-control" required>
+                                    <select name="activity_id" class="form-control" required>
                                         <option value="">{{ trans('hdc::adminresources.select1') }}</option>
                                         @foreach($activities as $a)
-                                            <option value="{{ $a->name }}">{{ $a->name }}</option>
+                                            <option value="{{ $a->id }}">{{ $a->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -93,25 +92,25 @@
                                 </thead>
                                 <tbody>
                                     @foreach($productive_unit as $pro)
-                                    @foreach ($activities as $a)
-                                        @foreach ($environmentalAspect as $ea )
-                                            <tr>
-                                                <td >
-                                                {{ $pro->name}}
-                                                </td>
-                                                <td>{{ $a->name }}</td>
-                                                <td>{{ $ea->name }}</td>
-                                                <td class="text-center">
-                                                    <a href="hdc.adminresources.update" data-toogle='tooltip' data-placement="top" title="Editar"
-                                                        onclick="return confirm('¿Estas Seguro Que Deseas Modificar La Asociación De La Actividad {{ $pro->name }} Y El Aspecto Ambiental {{ $a->name }} Y El Aspecto Ambiental {{ $ea->name }}?')">
-                                                        <i class="far fa-edit"></i>
-                                                    </a>
-                                                    <a href="hdc.adminresources.delete" data-toogle='tooltip' data-placement="top" title="Eliminar"
-                                                        onclick="return confirm('¿Estas Seguro Que Deseas Eliminar La Asociación De La Actividad {{ $pro->name }} Y El Aspecto Ambiental {{ $a->name }} Y El Aspecto Ambiental {{ $ea->name }}?')">
-                                                        <i class="fas fa-trash-alt text-danger"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                        @foreach ($activities as $a)
+                                            @foreach ($environmentalAspect as $ea )
+                                                <tr>
+                                                    <td >
+                                                    {{ $pro->name}}
+                                                    </td>
+                                                    <td>{{ $a->name }}</td>
+                                                    <td>{{ $ea->name}}</td>
+                                                    <td class="text-center">
+                                                        <a href="hdc.adminresources.update" data-toogle='tooltip' data-placement="top" title="Editar"
+                                                            onclick="return confirm('¿Estas Seguro Que Deseas Modificar La Asociación De La Actividad {{ $pro->name }} Y El Aspecto Ambiental {{ $a->name }} Y El Aspecto Ambiental {{ $ea->name }}?')">
+                                                            <i class="far fa-edit"></i>
+                                                        </a>
+                                                        <a href="hdc.adminresources.delete" data-toogle='tooltip' data-placement="top" title="Eliminar"
+                                                            onclick="return confirm('¿Estas Seguro Que Deseas Eliminar La Asociación De La Actividad {{ $pro->name }} Y El Aspecto Ambiental {{ $a->name }} Y El Aspecto Ambiental {{ $ea->name }}?')">
+                                                            <i class="fas fa-trash-alt text-danger"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         @endforeach
                                     @endforeach
