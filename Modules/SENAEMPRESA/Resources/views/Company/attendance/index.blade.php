@@ -18,6 +18,11 @@
                 <label for="document_number">Número de Documento:</label>
                 <input type="text" name="document_number" class="form-control" required>
             </div>
+            <div class="form-group">
+                <label for="person_name">Nombre de la Persona:</label>
+                <input type="text" name="person_name" class="form-control" readonly>
+            </div>
+            <input type="hidden" name="person_id" id="person_id" value="">
             <input type="hidden" name="person_id" id="person_id" value="">
             <button type="submit" class="btn btn-primary">Registrar Asistencia</button>
         </form>
@@ -67,6 +72,9 @@
                             // Obtiene el ID de la persona del objeto response
                             var personId = response.id;
                             var name = response.full_name;
+
+                            // Actualiza el valor del campo de nombre de persona
+                            $('input[name="person_name"]').val(name);
 
                             // Aquí puedes manipular el ID como desees
                             console.log("ID de la persona: " + personId);
