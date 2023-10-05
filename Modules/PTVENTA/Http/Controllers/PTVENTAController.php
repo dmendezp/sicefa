@@ -4,7 +4,6 @@ namespace Modules\PTVENTA\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\CashCount;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
@@ -18,40 +17,30 @@ class PTVENTAController extends Controller
     public function index()
     {
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_index_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('ptventa::index', compact('view', 'apps'));
+        return view('ptventa::index', compact('view'));
     }
 
     public function devs()
     {
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_devs_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_devs_title_page')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('ptventa::developers.index', compact('view', 'apps'));
+        return view('ptventa::developers.index', compact('view'));
     }
 
     public function info()
     {
-        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_info_title_page'), 'titleView' => trans('ptventa::Controllers.PTVENTA_info_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('ptventa::information.index', compact('view', 'apps'));
+        $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_info_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_info_title_view')];
+        return view('ptventa::information.index', compact('view'));
     }
 
     public function configuration()
     {
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_configuration_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_configuration_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('ptventa::configuration.index', compact('view', 'apps'));
+        return view('ptventa::configuration.index', compact('view'));
     }
 
     public function admin()
     {
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_admin_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_admin_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
         $movement_type = MovementType::where('name', 'Venta')->firstOrFail();
 
         $app_puw = PUW::getAppPuw(); // Obtener la unidad productiva y bodega de la aplicación
@@ -133,14 +122,12 @@ class PTVENTAController extends Controller
         $recentlyAddedInventory = Inventory::where('productive_unit_warehouse_id', $app_puw->id)
                                             ->orderBy('created_at', 'desc')->take(6)->get();
 
-        return view('ptventa::admin-index', compact('view', 'apps', 'months', 'salesTotals', 'maxSalesMonth', 'percentageChange', 'totalProductiveUnits', 'totalWarehouses', 'closedCashCounts', 'totalInventory', 'recentlyAddedInventory'));
+        return view('ptventa::admin-index', compact('view', 'months', 'salesTotals', 'maxSalesMonth', 'percentageChange', 'totalProductiveUnits', 'totalWarehouses', 'closedCashCounts', 'totalInventory', 'recentlyAddedInventory'));
     }
 
     public function cashier()
     {
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_cashier_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_cashier_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('ptventa::cashier-index', compact('view', 'apps'));
+        return view('ptventa::cashier-index', compact('view'));
     }
 }

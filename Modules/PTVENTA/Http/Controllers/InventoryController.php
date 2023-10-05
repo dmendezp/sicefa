@@ -5,7 +5,6 @@ namespace Modules\PTVENTA\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
-use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
@@ -40,24 +39,18 @@ class InventoryController extends Controller
             $groupedInventories->push($group);
         }
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_index_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_index_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('ptventa::inventory.index', compact('view', 'apps', 'groupedInventories'));
+        return view('ptventa::inventory.index', compact('view', 'groupedInventories'));
     }
 
     // Formulario de registro (entrada) de inventario
     public function create(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_create_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_create_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('ptventa::inventory.create', compact('view', 'apps'));
+        return view('ptventa::inventory.create', compact('view'));
     }
 
     // Lista de productos vencidos y por vencer
     public function status(Request $request) {
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_status_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_status_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
         $productosVencidos = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
                                         ->where('state', 'Disponible')
                                         ->where('expiration_date', '<', now())
@@ -69,40 +62,32 @@ class InventoryController extends Controller
                                         ->where('expiration_date', '<=', now()->addDays(3))
                                         ->orderBy('expiration_date')
                                         ->get();
-        return view('ptventa::inventory.status', compact('view', 'apps', 'productosVencidos', 'productosPorVencer'));
+        return view('ptventa::inventory.status', compact('view', 'productosVencidos', 'productosPorVencer'));
     }
 
     /* Ingresar a registro de bajas de inventario */
     public function low_create(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_low_create_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_low_create_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('ptventa::inventory.low', compact('view', 'apps'));
+        return view('ptventa::inventory.low', compact('view'));
     }
 
     /* Ver detalle de movimiento interno */
     public function show_entry(Movement $movement){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_show_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_show_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('ptventa::inventory.show-entry', compact('view', 'apps', 'movement'));
+        return view('ptventa::inventory.show-entry', compact('view', 'movement'));
     }
 
     /* Ver detalle de baja de inventario */
     public function showLow(Movement $movement){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_show_low_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_show_low_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('ptventa::inventory.show-low', compact('view', 'apps', 'movement'));
+        return view('ptventa::inventory.show-low', compact('view', 'movement'));
     }
 
     //======================================== Funciones para reporte de inventario =========================================
     //Vista principal del panel de reportes
     public function reports(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_reports_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_reports_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('ptventa::reports.index', compact('view', 'apps'));
+        return view('ptventa::reports.index', compact('view'));
     }
 
     // Método para generar el reporte PDF de inventario actual
@@ -213,13 +198,11 @@ class InventoryController extends Controller
     // Método para mostrar la vista del formulario de entradas de inventario
     public function showInventoryEntriesForm(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_show_entries_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_show_entries_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));
 
-        return view('ptventa::reports.inventory-entries-form', compact('view', 'apps','start_date', 'end_date'));
+        return view('ptventa::reports.inventory-entries-form', compact('view', 'start_date', 'end_date'));
     }
 
     // Método para realizar la consulta de entradas de inventario y redirigir a la vista
@@ -359,13 +342,11 @@ class InventoryController extends Controller
     // Método para mostrar la vista del formulario de ventas
     public function showSalesForm(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_sales_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_sales_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));
 
-        return view('ptventa::reports.sales-form', compact('view', 'apps', 'start_date', 'end_date'));
+        return view('ptventa::reports.sales-form', compact('view', 'start_date', 'end_date'));
     }
 
     // Método para realizar la consulta de ventas y redirigir a la vista
