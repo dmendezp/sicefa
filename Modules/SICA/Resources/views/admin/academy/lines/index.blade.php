@@ -1,7 +1,8 @@
-@extends('sica::layouts.master')
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
 
-@section('stylesheet')
-@endsection
+@extends('sica::layouts.master')
 
 @section('content')
     <div class="content">
@@ -11,8 +12,18 @@
                     <div class="card-header">
                         <h3 class="card-title">{{ trans('sica::menu.Technological lines')}}</h3>
                         <div class="btns">
-                            <a href="{{ route('sica.admin.academy.programs') }}" class="btn btn-info float-right ml-1">{{ trans('sica::menu.Formation Programs')}} <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
-                            <a href="{{ route('sica.admin.academy.networks') }}" class="btn btn-info float-right ml-1"> {{ trans('sica::menu.Knowledge Networks')}} <i class="fa-regular fa-angles-right fa-beat-fade"></i></a>
+                            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.networks.index'))
+                                <a href="{{ route('sica.'.$role_name.'.academy.networks.index') }}" class="btn btn-info float-right ml-1">
+                                    <i class="fa-regular fa-angles-left fa-beat-fade"></i>
+                                    {{ trans('sica::menu.Knowledge Networks')}}
+                                </a>
+                            @endif
+                            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.programs.index'))
+                                <a href="{{ route('sica.'.$role_name.'.academy.programs.index') }}" class="btn btn-info float-right ml-1">
+                                    <i class="fa-regular fa-angles-left fa-beat-fade"></i>
+                                    {{ trans('sica::menu.Formation Programs')}}
+                                </a>
+                            @endif
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -23,12 +34,14 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>{{ trans('sica::menu.Name')}}</th>
-                                        <th>{{ trans('sica::menu.Actions')}}
-                                            <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.line.create') }}')">
-                                                <b class="text-success" data-toggle="tooltip" data-placement="top" title="Agregar">
-                                                    <i class="fas fa-plus-circle"></i>
-                                                </b>
-                                            </a>
+                                        <th class="text-center">{{ trans('sica::menu.Actions')}}
+                                            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.lines.create'))
+                                                <a class="mx-3" data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.lines.create') }}')">
+                                                    <b class="text-success" data-toggle="tooltip" data-placement="top" title="Registrar línea tecnológica">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                    </b>
+                                                </a>
+                                            @endif
                                         </th>
                                     </tr>
                                 </thead>
@@ -37,18 +50,22 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $l->name }}</td>
-                                            <td>
+                                            <td class="text-center">
                                                 <div class="opts">
-                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.line.edit', $l->id) }}')">
-                                                        <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
-                                                            <i class="fas fa-edit"></i>
-                                                        </b>
-                                                    </a>
-                                                    <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.line.destroy') }}/{{ $l->id }}')">
-                                                        <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </b>
-                                                    </a>
+                                                    @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.lines.edit'))
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.lines.edit', $l->id) }}')">
+                                                            <b class="text-info" data-toggle="tooltip" data-placement="top" title="Actualizar línea tecnológica">
+                                                                <i class="fas fa-edit"></i>
+                                                            </b>
+                                                        </a>
+                                                    @endif
+                                                    @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.lines.delete'))
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.lines.delete', $l->id) }}')">
+                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar línea tecnológica">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </b>
+                                                        </a>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>
@@ -59,7 +76,6 @@
                     </div>
                     <!-- /.card-body -->
                 </div>
-
             </div>
         </div>
     </div>
@@ -117,7 +133,10 @@
         $(document).ready(function() {
             /* Initialización of Datatables Lines */
             $('#tableLines').DataTable({
-                // opciones de configuración para la tabla 1
+                columnDefs: [{
+                    orderable: false,
+                    targets: 2
+                }]
             });
         });
     </script>

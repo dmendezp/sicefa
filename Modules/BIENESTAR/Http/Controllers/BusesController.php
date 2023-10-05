@@ -58,14 +58,10 @@ class BusesController extends Controller
         if ($buses->save()) {
             // Redirige con un mensaje de éxito
             return redirect()->route('cefa.bienestar.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
-        }
-    
-        // Redirige con un mensaje de error si falla el guardado
-        if($buses->save()){
-            return redirect()->route('cefa.bienestar.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
+        }else{
+            return redirect()->route('cefa.bienestar.buses')->with('message', 'Se Ha Producido Un Error.')->with('typealert', 'danger');
         }
 
-        return redirect()->route('cefa.bienestar.buses')->with('message', 'Se ha producido un error')->with('typealert', 'danger');
     }
     
 
@@ -76,24 +72,27 @@ class BusesController extends Controller
      * @return Renderable
      */
     public function update(Request $request, $id)
-    {
-        /* $request->validate([
-            'plate' => 'required|regex:/^[A-Za-z]{1,5}\d{1,3}$/|unique:buses,plate', // Añade la regla unique
-            'quota' => 'required|numeric',
-            'bus_driver' => 'required|exists:bus_drivers,id', // Asegura que bus_driver exista en la tabla bus_drivers
-        ]); */
-         
-        $buses = Buses::findOrFail($id);
-        $buses->plate = $request->input('plate');
-        $buses->quota = $request->input('quota');
-        $buses->bus_driver_id = $request->input('bus_driver');
-        $buses->save();
-        if($buses->save()){
-            return redirect()->route('cefa.bienestar.buses')->with('message', 'Bus actualizado correctamente.')->with('typealert', 'success');
-        }
+{
+    // Validación de datos aquí
+    $request->validate([
+        'plate' => 'required|regex:/^[A-Za-z]{1,5}\d{1,3}$/|unique:buses,plate', // Añade la regla unique
+        'quota' => 'required|numeric',
+        'bus_driver_id' => 'required|exists:bus_drivers,id', // Asegura que bus_driver exista en la tabla bus_drivers
+    ]); 
 
+    $buses = Buses::findOrFail($id);
+    $buses->plate = $request->input('plate');
+    $buses->quota = $request->input('quota');
+    $buses->bus_driver_id = $request->input('bus_driver_id');
+    // Actualiza otros campos aquí
+
+    if ($buses->save()) {
+        return redirect()->route('cefa.bienestar.buses')->with('message', 'Bus actualizado correctamente.')->with('typealert', 'success');
+    } else {
         return redirect()->route('cefa.bienestar.buses')->with('message', 'Se ha producido un error')->with('typealert', 'danger');
     }
+}
+
 
     /**
      * Remove the specified resource from storage.
