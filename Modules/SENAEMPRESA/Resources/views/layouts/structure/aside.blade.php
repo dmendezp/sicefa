@@ -108,8 +108,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('cefa.Nosotros') }}"
-                                class="nav-link {{ !Route::is('cefa.Nosotros') ?: 'active' }}">
+                            <a href="{{ route('company.asistencia') }}"
+                                class="nav-link {{ !Route::is('company.asistencia') ?: 'active' }}">
                                 <i class="fas fa-users"></i>
                                 <p>
                                     Asistencia

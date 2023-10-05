@@ -118,5 +118,31 @@ Route::middleware(['lang'])->group(function () {
         Route::get('Cargos/{id}/editar', 'PositionCompanyController@edit')->name('company.position.editar_cargo');
         Route::post('Cargos/{id}/actualizar', 'PositionCompanyController@update')->name('company.position.cargo_editado');
         Route::delete('cargos/delete/{id}', 'PositionCompanyController@destroy')->name('company.position.eliminar_cargo');
+
+        
+        Route::get('/registrar-asistencia', 'AttendanceController@showAttendanceList')->name('company.asistencia');
+
+        // Ruta para procesar el registro de asistencia
+        Route::post('/registrar-asistencia', 'AttendanceController@registerAttendance')->name('attendance.register');
+
+        // Ruta para mostrar la lista de asistencias
+        Route::get('/asistencias', 'AttendanceController@showAttendanceList')->name('attendance.list');
+        Route::post('/obtener-datos-de-persona', 'AttendanceController@getPersonData')->name('getPersonData');
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+        
+
     });
 });

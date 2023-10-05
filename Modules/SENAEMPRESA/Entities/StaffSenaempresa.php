@@ -23,7 +23,7 @@ class StaffSenaempresa extends Model implements Auditable
         return \Modules\SENAEMPRESA\Database\factories\StaffSenaempresaFactory::new();
     }
 
-    public function Apprentice()
+    public function apprentice()
     { // Accede a la información del aprendiz 
         return $this->belongsTo(Apprentice::class);
     }
