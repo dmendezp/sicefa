@@ -9,7 +9,6 @@ use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Movement;
 use Modules\SICA\Entities\MovementType;
 use TCPDF;
-use Modules\SICA\Entities\App;
 
 class InventoryController extends Controller
 {
@@ -17,8 +16,6 @@ class InventoryController extends Controller
     public function index()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_index_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_index_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
         $inventories = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
             ->where('amount', '<>', 0)
             ->orderBy('updated_at', 'DESC')
@@ -43,24 +40,20 @@ class InventoryController extends Controller
         foreach ($groups as $group) {
             $groupedInventories->push($group);
         }
-        return view('cafeto::inventory.index', compact('apps', 'view',  'groupedInventories'));
+        return view('cafeto::inventory.index', compact('view', 'groupedInventories'));
     }
 
     // Formulario de registro (entrada) de inventario
     public function create()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_create_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('cafeto::inventory.create', compact('view', 'apps'));
+        return view('cafeto::inventory.create', compact('view'));
     }
 
     // Lista de productos vencidos y por vencer
     public function status(Request $request)
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_status_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_status_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
         $productosVencidos = Inventory::where('productive_unit_warehouse_id', PUW::getAppPuw()->id)
             ->where('state', 'Disponible')
             ->where('expiration_date', '<', now())
@@ -72,34 +65,28 @@ class InventoryController extends Controller
             ->where('expiration_date', '<=', now()->addDays(3))
             ->orderBy('expiration_date')
             ->get();
-        return view('cafeto::inventory.status', compact('view', 'apps', 'productosVencidos', 'productosPorVencer'));
+        return view('cafeto::inventory.status', compact('view', 'productosVencidos', 'productosPorVencer'));
     }
 
     /* Ingresar a registro de bajas de inventario */
     public function low_create()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_low_create_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_low_create_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('cafeto::inventory.low', compact('view', 'apps'));
+        return view('cafeto::inventory.low', compact('view'));
     }
 
     /* Ver detalle de movimiento interno */
     public function show_entry(Movement $movement)
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_show_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_show_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('cafeto::inventory.show-entry', compact('apps', 'view', 'movement'));
+        return view('cafeto::inventory.show-entry', compact('view', 'movement'));
     }
 
     /* Ver detalle de baja de inventario */
     public function showLow(Movement $movement)
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_show_low_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_show_low_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('cafeto::inventory.show-low', compact('apps', 'view', 'movement'));
+        return view('cafeto::inventory.show-low', compact('view', 'movement'));
     }
 
     //======================================== Funciones para reporte de inventario =========================================
@@ -107,9 +94,7 @@ class InventoryController extends Controller
     public function reports()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_reports_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_reports_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
-        return view('cafeto::reports.index', compact('apps', 'view'));
+        return view('cafeto::reports.index', compact('view'));
     }
 
     // Método para generar el reporte PDF de inventario actual
@@ -222,13 +207,11 @@ class InventoryController extends Controller
     public function showInventoryEntriesForm()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_inventory_show_entries_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_inventory_show_entries_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));
 
-        return view('cafeto::reports.inventory-entries-form', compact('apps', 'view', 'start_date', 'end_date'));
+        return view('cafeto::reports.inventory-entries-form', compact('view', 'start_date', 'end_date'));
     }
 
     // Método para realizar la consulta de entradas de inventario y redirigir a la vista
@@ -371,13 +354,11 @@ class InventoryController extends Controller
     public function showSalesForm()
     {
         $view = ['titlePage' => trans('cafeto::controllers.CAFETO_sales_title_page'), 'titleView' => trans('cafeto::controllers.CAFETO_sales_title_view')];
-        // Lista de apps para el menu de acceso rapido
-        $apps = App::get();
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));
 
-        return view('cafeto::reports.sales-form', compact('apps', 'view', 'start_date', 'end_date'));
+        return view('cafeto::reports.sales-form', compact('view', 'start_date', 'end_date'));
     }
 
     // Método para realizar la consulta de ventas y redirigir a la vista

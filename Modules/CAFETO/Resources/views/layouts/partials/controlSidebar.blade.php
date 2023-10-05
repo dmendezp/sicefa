@@ -7,7 +7,7 @@
         <section class="services">
             <div class="container" data-aos="fade-up">
                 <div class="row">
-                    @foreach ($apps as $app)
+                    @foreach (getApps() as $app)
                         <style type="text/css">
                             .services .icon-box:hover .colorapp{{ $app->id }} {
                                 color: {{ $app->color }} !important;
