@@ -10,7 +10,7 @@ class EmployeeController extends Controller
     /* Vista principal de funcionarios */
     public function index(){
         $data = ['title'=>trans('sica::menu.Officers')];
-        return view('sica::admin.people.employees.index',$data);
+        return view('sica::admin.people.employees.index', $data);
     }
 
 }

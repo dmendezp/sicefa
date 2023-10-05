@@ -1,7 +1,8 @@
-@extends('sica::layouts.master')
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
 
-@section('stylesheet')
-@endsection
+@extends('sica::layouts.master')
 
 @section('content')
     <div class="content">
@@ -9,30 +10,30 @@
             <div class="d-flex justify-content-center">
                 <div class="card card-orange card-outline shadow col-md-12">
                     <div class="card-header">
-                        <h3 class="card-title">{{trans('sica::menu.Courses')}}</h3>
+                        <h3 class="card-title">{{ trans('sica::menu.Courses') }}</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="btns">
-                            <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.course.create') }}')" class="btn btn-primary">
-                              <b data-toggle="tooltip" data-placement="top" title="Agregar">
-                                <i class="fa-solid fa-file-circle-plus"></i>
-                                {{trans('sica::menu.Add Course')}}
-                              </b>
-                            </a>
+                            @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.courses.create'))
+                                <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.courses.create') }}')" class="btn btn-primary">
+                                    <i class="fa-solid fa-file-circle-plus"></i>
+                                    {{ trans('sica::menu.Add Course') }}
+                                </a>
+                            @endif
                         </div>
                         <div class="mtop16">
                             <table id="tableCourses" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>{{trans('sica::menu.Fiche')}}</th>
-                                        <th>{{trans('sica::menu.Name')}}</th>
-                                        <th>{{trans('sica::menu.Start Date')}}</th>
-                                        <th>{{trans('sica::menu.End Date')}}</th>
-                                        <th>{{trans('sica::menu.Status')}}</th>
-                                        <th>{{trans('sica::menu.Deschooling')}}</th>
-                                        <th>{{trans('sica::menu.Actions')}}</th>
+                                        <th>{{ trans('sica::menu.Fiche') }}</th>
+                                        <th>{{ trans('sica::menu.Name') }}</th>
+                                        <th>{{ trans('sica::menu.Start Date') }}</th>
+                                        <th>{{ trans('sica::menu.End Date') }}</th>
+                                        <th>{{ trans('sica::menu.Status') }}</th>
+                                        <th>{{ trans('sica::menu.Deschooling') }}</th>
+                                        <th class="text-center">{{ trans('sica::menu.Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,18 +46,22 @@
                                             <td>{{ $c->end_date }}</td>
                                             <td>{{ $c->status }}</td>
                                             <td>{{ $c->deschooling }}</td>
-                                            <td>
+                                            <td class="text-center">
                                                 <div class="opts">
-                                                  <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.course.edit', $c->id) }}')">
-                                                    <b class="text-info" data-toggle="tooltip" data-placement="top" title="Editar">
-                                                        <i class="fas fa-edit"></i>
-                                                    </b>
-                                                  </a>
-                                                  <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.admin.academy.course.destroy') }}/{{ $c->id }}')">
-                                                    <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </b>
-                                                  </a>
+                                                    @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.courses.edit'))
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.courses.edit', $c->id) }}')">
+                                                            <b class="text-success" data-toggle="tooltip" data-placement="top" title="Actualizar titulada">
+                                                                <i class="fas fa-edit"></i>
+                                                            </b>
+                                                        </a>
+                                                    @endif
+                                                    @if (Auth::user()->havePermission('sica.'.$role_name.'.academy.courses.delete'))
+                                                        <a data-toggle="modal" data-target="#generalModal" onclick="ajaxAction('{{ route('sica.'.$role_name.'.academy.courses.delete', $c->id) }}')">
+                                                            <b class="text-danger" data-toggle="tooltip" data-placement="top" title="Eliminar titulada">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </b>
+                                                        </a>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>
@@ -107,13 +112,13 @@
                 }
             });
             $.ajax({
-                    method: "get",
-                    url: route,
-                    data: {}
-                })
-                .done(function(html) {
-                    $("#modal-content").html(html);
-                });
+                method: "get",
+                url: route,
+                data: {}
+            })
+            .done(function(html) {
+                $("#modal-content").html(html);
+            });
         }
 
         // Vaciar el contenido del modal cuando sea cerrado
@@ -125,8 +130,10 @@
         $(document).ready(function() {
             /* Initialización of Datatables Lines */
             $('#tableCourses').DataTable({
-                "responsive": true,
-                "autoWidth": false,
+                columnDefs: [{
+                    orderable: false,
+                    targets: 7
+                }]
             });
         });
     </script>
