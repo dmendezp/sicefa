@@ -24,6 +24,8 @@ Route::middleware(['lang'])->group(function () {
 
         //Vista Crud Beneficio
         Route::get('/benefits', 'BenefitsController@benefitsView')->name('cefa.bienestar.benefits');
+        Route::get('/benefits', 'BenefitsController@benefitsView')->name('cefa.bienestar.benefits');
+
         Route::delete('/benefits/delete/{id}', 'BenefitsController@destroy')->name('cefa.bienestar.benefits.delete');
         Route::post('/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('cefa.bienestar.benefits.add');
         Route::put('/benefits/update/{id}', 'BenefitsController@update')->name('cefa.bienestar.benefits.update');

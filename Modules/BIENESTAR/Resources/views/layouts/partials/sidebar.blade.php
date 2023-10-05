@@ -10,9 +10,54 @@
       </a><br>
     
       <!-- Sidebar -->
-      <div class="sidebar" style="background: #28b463;">
+      <div class="sidebar" >
+        
        <!-- Línea separadora -->
        <hr class="sidebar-divider">
+       <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-1 pb-1 mb-1 d-flex">
+            <div class="row col-md-12">
+                <div class="image mt-2 mb-2">
+                    @if (isset(Auth::user()->person->avatar))
+                        <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}"
+                            class="img-circle elevation-2" alt="User Image">
+                    @else
+                        <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2"
+                            alt="User Image">
+                    @endif
+                </div>
+                @guest
+                    <div class="col info info-user">
+                        <div>{{ trans('menu.Welcome') }}</div>
+                        <div><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
+
+                    </div>
+                    <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right"
+                        title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block"><i
+                                class="fas fa-sign-in-alt"></i></a>
+                    </div>
+                @else
+                    <div class="col info info-user">
+                        <div data-toggle="tooltip" data-placement="top"
+                            title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">
+                            {{ Auth::user()->nickname }}
+                        </div>
+                        <div class="small">
+                            <em> {{ Auth::user()->roles->count() > 0 ? Auth::user()->roles[0]->name : 'Sin rol asignado' }} </em>
+                        </div>
+                    </div>
+                    <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Logout') }}">
+                        <a href="{{ route('logout') }}" class="d-block"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i
+                                class="fas fa-sign-out-alt"></i></a>
+                    </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                @endguest
+            </div>
+        </div>
       <!-- Enlace "Volver a Sicefa" -->
       <div class="user-panel ">
             <nav class="">
@@ -46,16 +91,16 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">Opción 1</a>
+                  <a href="#" class="nav-link"><p>Opción 1</p></a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">Opción 2</a>
+                  <a href="#" class="nav-link"><p>Opción 2</p></a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">Opción 3</a>
+                  <a href="#" class="nav-link"><p>Opción 3</p></a>
                 </li>
               </ul>
-            </li>
+            </li>    
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="fas fa-bus"></i>
@@ -82,9 +127,11 @@
                 <p>{{ trans('bienestar::menu.Benefits')}} <i class="fas fa-angle-left right"></i></p>
               </a>
               <ul class="nav nav-treeview">
+              @if(Auth::user()->havePermission('bienestar.admin.crud.benefits'))
               <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.benefits') }}" class="nav-link">Tipos de Beneficios</a>
                 </li>
+                @endif
                 <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
                 </li>

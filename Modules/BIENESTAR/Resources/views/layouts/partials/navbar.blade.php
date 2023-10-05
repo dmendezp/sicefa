@@ -6,7 +6,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ route('cefa.bienestar.home') }}" class="nav-link">{{ trans('bienestar::menu.Home')}}</a>
+        <a href="{{ route('cefa.bienestar.home') }}" class="nav-link"><i class="fas fa-home"></i>{{ trans('bienestar::menu.Home')}}</a>
       </li>
     </ul>
 
@@ -31,10 +31,7 @@
           <i class="fas fa-user"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right">
-          <!-- Contenido del menú desplegable de usuario -->
-          <a href="#" class="dropdown-item">{{ trans('bienestar::menu.Profile')}}</a>
-          <a href="#" class="dropdown-item">{{ trans('bienestar::menu.Configuration')}}</a>
-          <div class="dropdown-divider"></div>
+          <!-- Contenido del menú desplegable de usuario -->     
           <a href="#" class="dropdown-item">{{ trans('bienestar::menu.Log Out')}}</a>
         </div>
       </li>
