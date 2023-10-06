@@ -86,9 +86,9 @@ class PostulateController extends Controller
         $postulate->vacancy_id = $request->input('vacancy_id');
         $postulate->state = 'Inscrito';
         $postulate->score_total = null;
-        $cvPath = $request->file('cv')->store('public/cv');
-        $personalitiesPath = $request->file('personalities')->store('public/personalities');
-        $proposalPath = $request->file('proposal')->store('public/proposal');
+        $cvPath = $request->file('cv')->store('modules/senaempresa/files/cv', 'public');
+        $personalitiesPath = $request->file('personalities')->store('modules/senaempresa/files/personalities', 'public');
+        $proposalPath = $request->file('proposal')->store('modules/senaempresa/files/proposal', 'public');
         $postulate->cv = $cvPath;
         $postulate->personalities = $personalitiesPath;
         $postulate->proposal = $proposalPath;

@@ -40,7 +40,7 @@ class StaffSenaempresaController extends Controller
 
     public function personal_nuevo(Request $request)
     {
-        $imagePath = $request->file('image')->store('images', 'public');
+        $imagePath = $request->file('image')->store('modules/senaempresa/images/staff', 'public');
 
         $staffSenaempresa = new StaffSenaempresa();
         $staffSenaempresa->position_company_id = $request->input('position_company_id');
@@ -76,7 +76,7 @@ class StaffSenaempresaController extends Controller
         $staffSenaempresa = StaffSenaempresa::find($id);
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
+            $imagePath = $request->file('image')->store('modules/senaempresa/images/staff', 'public');
             $staffSenaempresa->image = $imagePath;
         }
         $staffSenaempresa->position_company_id = $request->input('position_company_id');
@@ -96,6 +96,4 @@ class StaffSenaempresaController extends Controller
             return response()->json(['mensaje' => trans('senaempresa::menu.Error while deleting the Personal')], 500);
         }
     }
-
-    
 }

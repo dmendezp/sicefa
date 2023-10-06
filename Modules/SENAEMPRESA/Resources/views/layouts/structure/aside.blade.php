@@ -100,23 +100,13 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-vr-cardboard"></i>
-                        <p>Asistencia
-                            <i class="right fas fa-angle-left"></i>
+                    <a href="{{ route('company.asistencia') }}"
+                        class="nav-link {{ !Route::is('company.asistencia') ?: 'active' }}">
+                        <i class="fas fa-users-cog"></i>
+                        <p>
+                            Asistencia
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('company.asistencia') }}"
-                                class="nav-link {{ !Route::is('company.asistencia') ?: 'active' }}">
-                                <i class="fas fa-users"></i>
-                                <p>
-                                    Asistencia
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
 
                 <li class="nav-item {{ !Route::is('senaempresa.*') ?: 'menu-is-opening menu-open' }}">
@@ -226,21 +216,11 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-tags"></i>
-                        <p>{{ trans('senaempresa::menu.Loans') }}
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
+                    <a href="{{ route('company.loan.prestamos') }}"
+                        class="nav-link {{ !Route::is('company.loan.prestamos') ?: 'active' }}">
+                        <i class="fas fa-poll"></i>
+                        <p>{{ trans('senaempresa::menu.Loans') }}</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('company.loan.prestamos') }}"
-                                class="nav-link {{ !Route::is('company.loan.prestamos') ?: 'active' }}">
-                                <i class="fas fa-poll"></i>
-                                <p>{{ trans('senaempresa::menu.Registrants') }}</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link ">

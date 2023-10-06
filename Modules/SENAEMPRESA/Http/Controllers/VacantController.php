@@ -70,7 +70,7 @@ class VacantController extends Controller
 
         $vacancies = $vacancies->get();
         // Comprobar si el usuario actual es un aprendiz en la tabla 'apprentices'
-        
+
         $PositionCompany = PositionCompany::all();
 
         $data = [
@@ -101,7 +101,8 @@ class VacantController extends Controller
 
     public function store(Request $request)
     {
-        $imagePath = $request->file('image')->store('images', 'public');
+        $image = $request->file('image');
+        $imagePath = $image->store('modules/senaempresa/images/vacantes', 'public');
 
         // Verificar si ya existe una vacante con el mismo nombre (ignorando eliminaciones suaves)
         $existingVacancy = Vacancy::withTrashed()->where('name', $request->input('name'))->first();
@@ -154,7 +155,8 @@ class VacantController extends Controller
         $vacancy = Vacancy::findOrFail($id);
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
+            $image = $request->file('image');
+            $imagePath = $image->store('modules/senaempresa/images/vacantes', 'public');
             $vacancy->image = $imagePath;
         }
 
