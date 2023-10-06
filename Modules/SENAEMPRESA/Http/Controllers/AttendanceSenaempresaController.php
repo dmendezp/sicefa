@@ -48,8 +48,11 @@ class AttendanceSenaempresaController extends Controller
                 return redirect()->route('attendance.list')->with('success', 'Hora de salida registrada exitosamente.');
             }
         } else {
-            // No existe un registro de asistencia para esta persona en el mismo día, crea uno nuevo
-            $staffsenaempresaid = StaffSenaempresa::where('apprentice_id', $personid)->pluck('id')->first();
+            $personid = $request->input('person_id');
+
+            $apprenticeid = Apprentice::where('person_id', $personid)->pluck('id')->first();
+
+            $staffsenaempresaid = StaffSenaempresa::where('apprentice_id', $apprenticeid)->pluck('id')->first();
 
             // Registra la asistencia en la tabla attendances
             $attendance = new AttendanceSenaempresa();
