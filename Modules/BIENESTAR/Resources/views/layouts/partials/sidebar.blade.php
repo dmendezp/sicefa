@@ -127,11 +127,9 @@
                 <p>{{ trans('bienestar::menu.Benefits')}} <i class="fas fa-angle-left right"></i></p>
               </a>
               <ul class="nav nav-treeview">
-              @if(Auth::user()->havePermission('bienestar.admin.crud.benefits'))
               <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.benefits') }}" class="nav-link">Tipos de Beneficios</a>
                 </li>
-                @endif
                 <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
                 </li>
