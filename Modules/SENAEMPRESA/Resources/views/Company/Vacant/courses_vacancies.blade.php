@@ -11,8 +11,12 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="course_id">{{ trans('senaempresa::menu.Select a course:') }}</label>
-                                <select class="form-control" name="course_id" id="course_id">
+                                <label for="course_id"
+                                    class="form-label">{{ trans('senaempresa::menu.Select a course:') }}</label>
+                                <input type="text" class="form-control" id="search-input" name="search-input"
+                                    placeholder="Ingresar ficha o curso">
+                                <select class="form-control" name="course_id" aria-label="Selecciona un curso"
+                                    id="course-select" multiple="multiple" required>
                                     @foreach ($courses as $course)
                                         <option value="{{ $course->id }}">{{ $course->code }}
                                             {{ $course->program->name }}
@@ -20,7 +24,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
                             <div class="form-group">
                                 <label for="vacancy_id">{{ trans('senaempresa::menu.Select a vacancy:') }}</label>
                                 <select class="form-control" name="vacancy_id" id="vacancy_id">
@@ -136,5 +139,20 @@
                     });
                 });
             });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById("search-input");
+            const courseSelect = document.getElementById("course-select");
+
+            searchInput.addEventListener("input", function() {
+                const searchText = this.value.trim().toLowerCase();
+
+                for (let option of courseSelect.options) {
+                    const optionText = option.text.toLowerCase();
+                    const isMatch = optionText.includes(searchText);
+                    option.hidden = !isMatch;
+                }
+            });
+        });
     </script>
 @endsection
