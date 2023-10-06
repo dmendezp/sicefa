@@ -28,7 +28,7 @@ class PositionsController extends Controller
         $positions->grade = $request->input('grade');
         $positions->save();
 
-        return redirect()->route('gth.positions');
+        return redirect()->route('gth.position');
     }
 
 
@@ -50,13 +50,13 @@ class PositionsController extends Controller
         $positions->save();
 
         // Redirigir a donde quieras después de la actualización
-        return redirect()->route('gth.positions')->with('success', ' actualizado exitosamente de posicion.');
+        return redirect()->route('gth.position')->with('success', ' actualizado exitosamente de posicion.');
     }
 
     public function showPositions($id)
     {
         $positions = Position::find($id);
-        return view('positions.positions', ['positions' => $positions]);
+        return view('positions.position', ['positions' => $positions]);
     }
 
 
@@ -66,9 +66,9 @@ class PositionsController extends Controller
             $positions = position::findOrFail($id);
             $positions->delete();
 
-            return redirect()->route('gth.positions')->with('success', 'ha sido eliminado correctamente.');
+            return redirect()->route('gth.position')->with('success', 'ha sido eliminado correctamente.');
         } catch (\Exception $e) {
-            return redirect()->route('gth.positions')->with('error', 'No se pudo eliminar La Posicion.');
+            return redirect()->route('gth.position')->with('error', 'No se pudo eliminar La Posicion.');
         }
     }
 }

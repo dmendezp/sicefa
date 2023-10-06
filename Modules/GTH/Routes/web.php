@@ -51,7 +51,6 @@ Route::prefix('gth')->group(function () {
 
     // Biometric_report
     Route::get('/biometricreports', 'BiometricReportController@viewBiometricReports')->name('gth.biometricreports.view');
-    Route::get('datatable/users', 'BiometricReportController@user')->name('datatable.user');
     Route::post('/biometricreports/create/{id}', 'BiometricReportController@postcreateBiometricReport')->name('gth.biometricreports.create');
     Route::put('/gth/biometricreports/update{id}', 'BiometricReportController@updateBiometricReport')->name('gth.biometricreports.update');
     Route::get('/gth/biometricreports/{id}/showpersondetails', 'BiometricReportController@showPersonDetails')->name('gth.biometricreports.showpersondetails');

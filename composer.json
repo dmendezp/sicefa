@@ -28,7 +28,7 @@
         "owen-it/laravel-auditing": "^13.0",
         "tecnickcom/tcpdf": "^6.6",
         "unisharp/laravel-filemanager": "^2.4",
-        "yajra/laravel-datatables-oracle": "*"
+        "yajra/laravel-datatables-oracle": "^9.21"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

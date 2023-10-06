@@ -19,6 +19,9 @@ class GTHDatabaseSeeder extends Seeder
         // $this->call("OthersTableSeeder");
         DB::beginTransaction(); // Iniciar transacción
             $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
+            $this->call(UsersTableSeeder::class); // Ejecutar Seeder de aplicación
+            $this->call(RolesTableSeeder::class); // Ejecutar Seeder de aplicación
+            $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de aplicación
         DB::commit(); // Finalizar transacción
     }
 }
