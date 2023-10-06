@@ -3,6 +3,7 @@
 namespace Modules\HDC\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Activity;
@@ -148,38 +149,39 @@ class FormularioController extends Controller
     public function edit($id)
     {
 
-        return view('hdc::registration_form.editform', compact('aspects', 'ennnviroment_aspect','productive_unit','activities'));
+        // Obtener el registro que se va a editar
+        $aspectLabor = EnvironmentalAspectLabor::findOrFail($id);
+
+        // Puedes cargar datos adicionales si es necesario
+        $productive_units = ProductiveUnit::orderBy('name', 'ASC')->get();
+        $activities = Activity::with('productive_unit')->get();
+
+        // Retornar la vista de edición con los datos
+        return view('hdc::registration_form.editform', compact('aspectLabor', 'productive_units', 'activities'));
     }
-   // funcion de editar
 
-   public function editForm($id)
-{
-    // Obtener los datos que se van a editar
-    $data = EnvironmentalAspectLabor::findOrFail($id);
-    $productive_units = ProductiveUnit::orderBy('name', 'ASC')->get();
-    $activities = Activity::with('productive_unit')->get();
+    public function update(Request $request, $id): JsonResponse
+    {
+        return($request);
+        // Validar los datos del formulario de edición
+        $request->validate([
+            'amount' => 'required|numeric',
+            // Agrega otras reglas de validación según sea necesario
+        ]);
 
-    return view('hdc::registration_form.editform', compact('data', 'productive_units', 'activities'));
-}
+        // Obtener el registro que se va a actualizar
+        $record = EnvironmentalAspectLabor::findOrFail($id);
 
-public function update(Request $request, $id)
-{
-    // Validar los datos del formulario de edición
-    $request->validate([
-        // Agrega las reglas de validación necesarias para tus campos de actualización
-    ]);
+        // Actualizar el campo 'amount' según los datos enviados en el formulario
+        $record->update([
+            'amount' => $request->input('amount'),
+            // Puedes agregar otros campos que quieras actualizar aquí
+        ]);
 
-    // Obtener el registro que se va a actualizar
-    $record = EnvironmentalAspectLabor::findOrFail($id);
+        // Obtén los datos actualizados con las relaciones cargadas
+        $updatedData = EnvironmentalAspectLabor::with('environmental_aspect', 'labor')->find($id);
 
-    // Actualizar los campos según los datos enviados en el formulario
-    $record->update([
-        // Actualiza los campos correspondientes según tus necesidades
-    ]);
-
-    // Redirige al usuario o proporciona una respuesta de éxito
-    return redirect()->route('cefa.hdc.table')->with('success', 'Registro actualizado correctamente');
-}
-
-
+        // Devuelve una respuesta JSON con los datos actualizados
+        return response()->json(['success' => true, 'data' => $updatedData]);
+    }
 }

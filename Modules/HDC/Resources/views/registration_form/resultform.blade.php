@@ -23,16 +23,16 @@
                                 <th>Aspecto Ambiental</th>
                                 <th>Cantidad</th>
                                 <th>Acciones</th>
-
                             </tr>
                         </thead>
                         <tbody>
+                            @php $globalIteration = 1; @endphp
                             @foreach ($formattedData as $unitData)
                                 @foreach ($unitData['activities'] as $index => $activityData)
                                     <tr>
                                         @if ($index === 0)
                                             <td rowspan="{{ $unitData['unit_name']['rowspan'] }}" class="center-text">
-                                                {{ $activityData['id'] }}
+                                                {{ $globalIteration++ }}
                                             </td>
                                             <td rowspan="{{ $unitData['unit_name']['rowspan'] }}" class="center-text">
                                                 {{ $unitData['unit_name']['name'] }}
@@ -41,20 +41,17 @@
                                                 class="center-text">
                                                 {{ $activityData['activity_name']['name'] }}
                                             </td>
-                                            <td rowspan="{{ $unitData['unit_name']['rowspan'] }}" class="center-text">
-                                                {{ $activityData['labor_planning'] }}
-                                            </td>
-
                                         @endif
-                                        {{--     <td class="center-text">{{ $activityData['activity_name']['name'] }}</td>  --}}
+                                        <td class="center-text"> {{ $activityData['labor_planning'] }} </td>
                                         <td class="center-text">{{ $activityData['aspect_name'] }}</td>
                                         <td class="center-text">{{ $activityData['amount'] }}</td>
                                         <td>
                                             {{-- Boton de editar --}}
-                                            <a href="{{ route('hdc.admin.resultform.edit', ['id' => $activityData['id']]) }}"
-                                                class="btn btn-primary">
+                                            <button class="btn btn-primary ml-2 btnEditar" type="button"
+                                                data-id="{{ $activityData['amount'] }}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
-                                            </a>
+                                            </button>
+                                            {{-- Boton Eliminar --}}
                                             <form action="{{ route('cefa.hdc.delete', ['id' => $activityData['id']]) }}"
                                                 method="POST" class="formEliminar">
                                                 @csrf
@@ -64,15 +61,11 @@
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </form>
-                                            {{-- Boton Eliminar --}}
                                         </td>
                                     </tr>
                                 @endforeach
                             @endforeach
                         </tbody>
-
-
-
                     </table>
                 </div>
             </div>
