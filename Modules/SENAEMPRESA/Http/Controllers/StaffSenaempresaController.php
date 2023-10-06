@@ -96,4 +96,6 @@ class StaffSenaempresaController extends Controller
             return response()->json(['mensaje' => trans('senaempresa::menu.Error while deleting the Personal')], 500);
         }
     }
+
+    
 }
