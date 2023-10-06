@@ -77,34 +77,39 @@
             </table>
         </div>
     </div>
-    <!-- Modal de Creación -->
-    @foreach ($people as $person)
-        <div class="modal fade" id="crearModal_{{ $person->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Crear Nuevo Registro Biometrico</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('gth.biometricreports.create', ['id' => $person->id]) }}" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label for="biometric_code">Registro Biometrico:</label>
-                                <input type="text" name="biometric_code" class="form-control"
-                                    value="{{ $person->biometric_code }}" required>
-                            </div>
-                            <!-- Agrega más campos de formulario según tus necesidades -->
-                            <div class="form-group text-center">
-                                <button type="submit" class="btn btn-success" id="Guardar">Guardar</button>
-                            </div>
-                        </form>
-                    </div>
+@section('js')
+    new DataTable('#biometric', {
+    ajax: '../ajax/data/arrays.txt'
+    });
+@endsection
+<!-- Modal de Creación -->
+@foreach ($people as $person)
+    <div class="modal fade" id="crearModal_{{ $person->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Crear Nuevo Registro Biometrico</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('cefa.gth.biometricreports.create', ['id' => $person->id]) }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="biometric_code">Registro Biometrico:</label>
+                            <input type="text" name="biometric_code" class="form-control"
+                                value="{{ $person->biometric_code }}" required>
+                        </div>
+                        <!-- Agrega más campos de formulario según tus necesidades -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success" id="Guardar">Guardar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    @endforeach
+    </div>
+@endforeach
 
 <!-- Modal de Ver detalles -->
 <div class="modal fade" id="detallesModal" tabindex="-1" role="dialog" aria-labelledby="detallesModalLabel" aria-hidden="true">

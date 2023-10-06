@@ -82,13 +82,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Daniel Guzman** - *Implementación de auditoria (Monitoriar los movimientos)* - *86 %* - *Ninguna* - *Ninguna*
 * **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 #### Meet 14-septiembre -2023
-* **Daniel Guzman** - *Implementación de auditoria (Monitoriar los movimientos)* - *86 %* - *Ninguna* - *Ninguna*
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %*- *Ninguna* - *Ninguna*
 * **Mayerli Castañeda** - *vista de reporte de contracto* - *50* - *Dificultades* - *Acciones*
 #### Meet 15-septiembre-2023
-* **Daniel Guzman** - *Implementación de auditoria (Monitoriar los movimientos)* - *86 %* - *Ninguna* - *Ninguna*
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Ninguna* - *Ninguna*
 * **Mayerli Castañeda** - * Alerta y modal de editar* - *80 %* - *Tengo dificultades en la funcionaliada de las alerta y con la base de datos * - *Acciones*
 #### Meet 16-septiembre-2023
-* **Daniel Guzman** - *Implementación de auditoria (Monitoriar los movimientos)* - *86 %* - *Ninguna* - *Ninguna*
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Ninguna* - *Ninguna*
 * **Mayerli Castañeda** - * organizar el modal de editar* - *80 %* - *Dificultades* - *Acciones*
 
 ---
@@ -103,9 +103,13 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ---
 #### Meet 20-Sep-2023
 * **Daniel Guzman** - *CRUD terminado* - *100 %* - *Dificultades->Ninguna* - *Acciones->Ninguna*
-* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Vista de Posicion * - *30%* - *Dificultades* - *Acciones*
 ---
 
+#### Meet 21-Sep-2023
+* **Daniel Guzman** - Actividades realizadas* - *Avance % - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mayerli Castañeda** - *Vista de Posicion * - *30%* - *Dificultades* - *Acciones*
+---
 
 
 ## CEFAMAPS 📌

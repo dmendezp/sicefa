@@ -38,7 +38,7 @@
                                                     data-id="{{ $employee->id }}"
                                                     data-nombre="{{ $employee->name }}">Editar</a>
                                                 <div style="width: 10px;"></div>
-                                                <form action="{{ route('gth.employeetypes.delete', $employee->id) }}"
+                                                <form action="{{ route('cefa.gth.employeetypes.delete', $employee->id) }}"
                                                     method="POST" class="btnEliminar" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
@@ -66,7 +66,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('gth.employeetypes.create') }}" method="POST" class="btnGuardar">
+                    <form action="{{ route('cefa.gth.employeetypes.create') }}" method="POST" class="btnGuardar">
                         @csrf
                         <div class="form-group">
                             <label for="name">Tipo de Empleado:</label>
@@ -96,7 +96,7 @@
                         @if (isset($employee))
                             <!-- Cambiado a $employee -->
                             <form id="editForm" method="POST"
-                                action="{{ route('gth.employeetypes.update', ['id' => $employee->id]) }}">
+                                action="{{ route('cefa.gth.employeetypes.update', ['id' => $employee->id]) }}">
                                 @csrf
                                 @method('PATCH')
                                 <input type="hidden" name="id"
@@ -230,7 +230,7 @@
                 $('#editName').val(nombre);
 
                 // Obtener la ruta de actualización del formulario de edición
-                var updateRoute = '{{ route('gth.employeetypes.update', ['id' => ':id']) }}'.replace(
+                var updateRoute = '{{ route('cefa.gth.employeetypes.update', ['id' => ':id']) }}'.replace(
                     ':id', id);
 
                 // Asignar la ruta de actualización al formulario de edición

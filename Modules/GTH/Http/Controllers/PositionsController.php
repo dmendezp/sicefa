@@ -28,7 +28,7 @@ class PositionsController extends Controller
         $positions->grade = $request->input('grade');
         $positions->save();
 
-        return redirect()->route('gth.position');
+        return redirect()->route('cefa.gth.position');
     }
 
 
@@ -42,15 +42,15 @@ class PositionsController extends Controller
         $positions = Position::findOrFail($id);
 
         // Actualizar los campos necesarios
-        $positions->name = $request->input('name');
-        $positions->description = $request->input('description');
+        $positions->professional_denomination = $request->input('professional_denomination');
+        $positions->grade = $request->input('grade');
 
         // Actualiza otros campos si es necesario
 
         $positions->save();
 
         // Redirigir a donde quieras después de la actualización
-        return redirect()->route('gth.position')->with('success', ' actualizado exitosamente de posicion.');
+        return redirect()->route('cefa.gth.position')->with('success', ' actualizado exitosamente de posicion.');
     }
 
     public function showPositions($id)
@@ -66,9 +66,9 @@ class PositionsController extends Controller
             $positions = position::findOrFail($id);
             $positions->delete();
 
-            return redirect()->route('gth.position')->with('success', 'ha sido eliminado correctamente.');
+            return redirect()->route('cefa.gth.position')->with('success', 'ha sido eliminado correctamente.');
         } catch (\Exception $e) {
-            return redirect()->route('gth.position')->with('error', 'No se pudo eliminar La Posicion.');
+            return redirect()->route('cefa.gth.position')->with('error', 'No se pudo eliminar La Posicion.');
         }
     }
 }
