@@ -4,50 +4,64 @@
 
 @section('content')
     <div class="container">
-        <h1>Registrar Asistencia</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card card-primary card-outline shadow">
+                    <div class="card-header">Registrar Asistencia</div>
+                    <div class="card-body">
+                        <form action="{{ route('attendance.register') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="document_number" class="form-label">Número de Documento:</label>
+                                <input type="text" name="document_number" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="person_name">Nombre de la Persona:</label>
+                                <input type="text" name="person_name" class="form-control" readonly>
+                            </div>
+                            <input type="hidden" name="person_id" id="person_id" value="">
+                            <input type="hidden" name="person_id" id="person_id" value="">
+                            <button type="submit" class="btn btn-primary">Registrar Asistencia</button>
+                            <button type="button" class="btn btn-success" id="show-hide-table-button">Asistencias
+                                Registradas</button>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+                        </form>
+                    </div>
+                </div>
             </div>
-        @endif
-
-        <form action="{{ route('attendance.register') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="document_number">Número de Documento:</label>
-                <input type="text" name="document_number" class="form-control" required>
+        </div>
+        <div class="container" id="attendance-table-container" style="display: none;">
+            <h1 class="text-center"><strong><em><span>Asistencia Registradas</span></em></strong></h1>
+            <div class="col-md-12">
+                <div class="card card-primary card-outline shadow">
+                    <div class="card-body">
+                        <table id="attendance-table" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Documento</th>
+                                    <th>Fecha y Hora de Entrada</th>
+                                    <th>Fecha y Hora de Salida</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($attendances as $attendance)
+                                    <tr>
+                                        <td>{{ $attendance->staffSenaempresa->apprentice->person->first_name }}
+                                            {{ $attendance->staffSenaempresa->apprentice->person->first_last_name }}
+                                            {{ $attendance->staffSenaempresa->apprentice->person->second_last_name }}</td>
+                                        <td>{{ $attendance->staffSenaempresa->apprentice->person->document_number }}
+                                        </td>
+                                        <td>{{ $attendance->start_datetime }}</td>
+                                        <td>{{ $attendance->end_datetime }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="person_name">Nombre de la Persona:</label>
-                <input type="text" name="person_name" class="form-control" readonly>
-            </div>
-            <input type="hidden" name="person_id" id="person_id" value="">
-            <input type="hidden" name="person_id" id="person_id" value="">
-            <button type="submit" class="btn btn-primary">Registrar Asistencia</button>
-        </form>
-
-        <h2>Asistencia Registrada</h2>
-        <table id="attendance-table" class="table">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Documento</th>
-                    <th>Fecha y Hora de Entrada</th>
-                    <th>Fecha y Hora de Salida</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($attendances as $attendance)
-                    <tr>
-                        <td>{{ $attendance->staffSenaempresa->apprentice->person->first_name }}</td>
-                        <td>{{ $attendance->staffSenaempresa->apprentice->person->document_number }}</td>
-                        <td>{{ $attendance->start_datetime }}</td>
-                        <td>{{ $attendance->end_datetime }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
@@ -89,6 +103,24 @@
                     },
 
                 });
+            });
+        });
+
+        $(document).ready(function() {
+            $('#attendance-table').DataTable();
+
+            // Agregar un evento clic al botón "Asistencias Registradas"
+            $('#show-hide-table-button').on('click', function() {
+                // Obtener el contenedor de la tabla
+                var tableContainer = $('#attendance-table-container');
+
+                // Toggle (mostrar/ocultar) la tabla
+                tableContainer.toggle();
+
+                // Si la tabla se muestra, inicializa el DataTable
+                if (tableContainer.is(':visible')) {
+                    $('#attendance-table').DataTable().draw();
+                }
             });
         });
     </script>

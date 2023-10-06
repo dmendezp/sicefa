@@ -90,7 +90,7 @@
             title: 'Exito!',
             text: '{{ session('success') }}',
             showConfirmButton: false,
-            timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
+            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
         });
     </script>
 @endif
@@ -102,7 +102,7 @@
             title: 'Error',
             text: '{{ session('error') }}',
             showConfirmButton: false,
-            timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
+            timer: 4000 // Tiempo en milisegundos (2 segundos en este caso)
         });
     </script>
 @endif
