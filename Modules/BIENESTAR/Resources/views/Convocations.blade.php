@@ -146,11 +146,11 @@
                     <div class="modal-body">
                     {!! Form::model('', ['route' => ['cefa.bienestar.Convocations.update', ''], 'method' => 'PUT', 'role' => 'form']) !!}
                         <div class="row p-3">
+                        <input type="hidden" name="convocation_id" id="convocation_id">
                             <div class="col-md-12">
                                 <div class="form-group">
                                    <label for="name-{{ $convocation->id }}" class="form-label">{{ trans('bienestar::menu.title convocation')}}</label>
-                                <input type="text" class="form-control" id="name-{{ $convocation->id }}"
-                                name="name" value="{{ old('name', $convocation->name) }}">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $convocation->name) }}">
                             </div>
                             </div>
 
@@ -222,34 +222,35 @@
 
 <script>
     $(document).ready(function() {
-        // Add a click event handler to the edit button
-        $(".edit-button").click(function() {
-            // Get the data attributes from the button
-            var id = $(this).data("id");
-            var name = $(this).data("name");
-            var description = $(this).data("description");
-            var food_quotas = $(this).data("food_quotas");
-            var transport_quotas = $(this).data("transport_quotas");
-            var start_date = $(this).data("start-date");
-            var end_date = $(this).data("end-date");
-            var quarter_id = $(this).data("quarter_id");
+    // Add a click event handler to the edit button
+    $(".edit-button").click(function() {
+        // Get the data attributes from the button
+        var id = $(this).data("id");
+        var name = $(this).data("name"); // Obtener el nombre del botón
+        var description = $(this).data("description");
+        var food_quotas = $(this).data("food_quotas");
+        var transport_quotas = $(this).data("transport_quotas");
+        var start_date = $(this).data("start-date");
+        var end_date = $(this).data("end-date");
+        var quarter_id = $(this).data("quarter_id");
 
-            // Populate the form fields with the data
-            $("#modal-default #name").val(name);
-            $("#modal-default #description").val(description);
-            $("#modal-default #food_quotas").val(food_quotas);
-            $("#modal-default #transport_quotas").val(transport_quotas);
-            $("#modal-default #start_date").val(start_date);
-            $("#modal-default #end_date").val(end_date);
-            $("#modal-default select[name='quarter_id']").val(quarter_id);
+        // Populate the form fields with the data
+        $("#modal-default #convocation_id").val(id); // Establecer el id en el campo oculto
+        $("#modal-default #name").val(name); // Actualizar el campo de nombre con el nombre obtenido
+        $("#modal-default #description").val(description);
+        $("#modal-default #food_quotas").val(food_quotas);
+        $("#modal-default #transport_quotas").val(transport_quotas);
+        $("#modal-default #start_date").val(start_date);
+        $("#modal-default #end_date").val(end_date);
+        $("#modal-default select[name='quarter_id']").val(quarter_id);
 
-            // Set the form action URL to include the record ID for editing
-            $("#modal-default form").attr("action", "{{ route('cefa.bienestar.Convocations.update', '') }}/" + id);
+        // Set the form action URL to include the record ID for editing
+        $("#modal-default form").attr("action", "{{ route('cefa.bienestar.Convocations.update', '') }}/" + id);
 
-            // Show the modal
-            $("#modal-default").modal("show");
-        });
+        // Show the modal
+        $("#modal-default").modal("show");
     });
+});
 </script>
 
 
