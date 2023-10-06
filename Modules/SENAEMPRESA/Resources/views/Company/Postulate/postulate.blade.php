@@ -49,14 +49,14 @@
                                     </td>
 
                                     <td>{{ $postulate->score_total }}</td>
-                                    @if ($postulate->state === 'Inscrito')
-                                        <td>
-                                            <a href="{{ route('company.postulate.score') }}"
-                                                class="btn btn-primary btn-sm">Asignar</a>
-                                        </td>
-                                    @else
-                                        <td></td>
-                                    @endif
+                                    <td>
+                                        @if ($postulate->state === 'Inscrito')
+                                            <a href="#" class="btn btn-primary btn-sm assign-button"
+                                                data-apprentice-id="{{ $postulate->apprentice->id }}">Asignar</a>
+                                        @endif
+                                    </td>
+
+
                                 </tr>
                             @endforeach
 
@@ -66,4 +66,20 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.assign-button').click(function(e) {
+                e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
+
+                var apprenticeId = $(this).data('apprentice-id');
+                var redirectUrl =
+                    "{{ route('company.postulate.score', ['apprenticeId' => ':apprenticeId']) }}";
+                redirectUrl = redirectUrl.replace(':apprenticeId', apprenticeId);
+
+                window.location.href = redirectUrl;
+            });
+        });
+    </script>
 @endsection

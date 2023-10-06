@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Modules\SENAEMPRESA\Entities\file_senaempresa;
 use Modules\SENAEMPRESA\Entities\Postulate;
 use Modules\SENAEMPRESA\Entities\Vacancy;
 use Modules\SICA\Entities\Apprentice;
@@ -110,10 +111,35 @@ class PostulateController extends Controller
             return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
-    public function score()
+    public function score($apprenticeId)
     {
-        $postulates = Postulate::with(['apprentice.person', 'vacancy'])->get();
-        $data = ['title' => 'Asignar Puntaje', 'postulates' => $postulates];
+        $postulate = Postulate::where('apprentice_id', $apprenticeId)->first();
+        $data = ['title' => 'Asignar Puntaje', 'postulate' => $postulate];
         return view('senaempresa::Company.Postulate.score', $data);
+    }
+
+
+    public function score_save(Request $request)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'postulate_id' => 'required|integer', // Asegúrate de definir las reglas de validación adecuadas
+            'cv_score' => 'required|integer',
+            'personalities_score' => 'required|integer',
+            'proposal_score' => 'required|integer',
+        ]);
+
+        // Crear una nueva instancia del modelo FileSenaempresa
+        $fileSenaempresa = new file_senaempresa;
+        $fileSenaempresa->postulate_id = $request->postulate_id;
+        $fileSenaempresa->cv_score = $request->cv_score;
+        $fileSenaempresa->personalities_score = $request->personalities_score;
+        $fileSenaempresa->proposal_score = $request->proposal_score;
+
+        // Guardar los puntajes en la base de datos
+        $fileSenaempresa->save();
+
+        // Redirigir a la página de origen o a donde lo desees
+        return redirect()->route('company.postulate')->with('success', 'Puntajes asignados correctamente');
     }
 }
