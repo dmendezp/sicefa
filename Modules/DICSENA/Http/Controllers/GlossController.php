@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\DICSENA\Entities\Glossary;
+use Modules\SICA\Entities\Program;
 
 class GlossController extends Controller
 {
@@ -79,16 +80,17 @@ class GlossController extends Controller
     }
     public function search(Request $request)
     {
-        $search = $request->input('search');
-        $glossaries = Glossary::where('word', 'like', "%$search%")
-            ->orWhere('traduction', 'like', "%$search%")
-            ->orWhere('meaning', 'like', "%$search%")
-            ->orWhereHas('program', function ($query) use ($search) {
-                $query->where('name', 'like', "%$search%");
-            })
-            ->orderBy('word')
-            ->paginate(10);
+        $programId = $request->input('program_id'); // Obtenemos el ID del programa desde el formulario
 
-        return view('dicsena::gloss', compact('glossaries'));
+        // Obtén todas las palabras relacionadas con el programa seleccionado
+        $program = Program::find($programId);
+
+        if (!$program) {
+            return redirect()->route('cefa.dicsena.glossary.index')->with('error', 'Programa no encontrado');
+        }
+
+        $glossaries = $program->glossaries()->paginate(10);
+
+        return view('cefa.dicsena.gloss', compact('glossaries', 'program'));
     }
 }

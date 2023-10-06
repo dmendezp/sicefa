@@ -58,4 +58,5 @@
     </table>
     {{ $glossaries->links() }}
 </div>
+
 @endsection

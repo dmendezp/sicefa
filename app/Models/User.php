@@ -46,25 +46,22 @@ class User extends Authenticatable implements Auditable
     ];
 
     // RELACIONES
-    public function person(){ // Accede a la información de la persona asociada a este usuario
+    public function person()
+    { // Accede a la información de la persona asociada a este usuario
         return $this->belongsTo(Person::class);
     }
-    public function roles(){ // Accede a todos los roles que pertenecen a este usuario (PIVOTE)
+    public function roles()
+    { // Accede a todos los roles que pertenecen a este usuario (PIVOTE)
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
     // User.php
-    public function glossaries()
-    {
-    return $this->hasMany(Glossary::class);
-    }
-
 
     // CONFIGURACIONES PREESTABLECIDAS PARA MÉTODOS ELOQUENT
     /**
      * The "booting" method of the model.
      *
      * @return void
-    */
+     */
     protected static function boot()
     {
         parent::boot();
@@ -76,13 +73,12 @@ class User extends Authenticatable implements Auditable
                     ucfirst( // Convertir el primer caracter en mayúscula
                         strtolower( // Convertir todo en minúsculas
                             substr($first_name, 0, 2) // Extraer los dos primeros caracteres del nombre
-                            .substr($first_last_name, 0, 2) // Extraer los dos primeros caracteres del primer apellido
-                            .substr($user->person->document_number, -4) // Extraer los cuatro últimos caracteres del número de documento
+                                . substr($first_last_name, 0, 2) // Extraer los dos primeros caracteres del primer apellido
+                                . substr($user->person->document_number, -4) // Extraer los cuatro últimos caracteres del número de documento
                         )
                     )
                 );
             }
         });
     }
-
 }

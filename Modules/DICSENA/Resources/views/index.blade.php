@@ -46,7 +46,7 @@
             </li>
         </ul>
     </div>
-    <button>Translate Text</button>
+    <button class="btn">Translate Text</button>
 </div>
 
 <script src="{{ asset('modules/dicsena/js/countries.js') }}"></script>

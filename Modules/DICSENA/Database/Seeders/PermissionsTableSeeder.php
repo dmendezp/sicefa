@@ -3,7 +3,9 @@
 namespace Modules\DICSENA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
+use Modules\SICA\Entities\App;
+use Modules\SICA\Entities\Permission;
+use Modules\SICA\Entities\Role;
 
 class PermissionsTableSeeder extends Seeder
 {
@@ -14,8 +16,9 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        $permission_instructor = []; // Permisos para Instrucor
 
+        $app = App::where('name', 'DICSENA')->first();
         // $this->call("OthersTableSeeder");
     }
 }

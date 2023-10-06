@@ -13,7 +13,7 @@
 }
 
 .navbar-rojo .nav-link:hover {
-  color: #F8F8F8; /* Color del texto blanco al hacer hover */
+  color: #00b7ff; /* Color del texto blanco al hacer hover */
 
   /* Efecto de iluminación */
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);

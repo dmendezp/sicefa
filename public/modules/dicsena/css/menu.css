@@ -1,22 +1,23 @@
 .navbar {
-    background-color: gray;
-    padding: 10px;
+  background-color: gray; /* Fondo gris */
+  color: white; /* Texto blanco */
+  padding: 10px; /* Espaciado exterior */
 }
 
 .card-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Centra verticalmente en la ventana */
+  height: 100vh;
 }
 
 .card {
   width: 200px;
   height: 300px;
-  margin: 0 10px; /* Espaciado entre las tarjetas */
+  margin: 0 10px; 
   text-align: center;
   cursor: pointer;
-  transition: transform 0.2s ease; /* Animación de transformación */
+  transition: transform 0.2s ease; 
 }
 
 .blue-border {
@@ -28,5 +29,5 @@
 }
 
 .card:hover {
-  transform: scale(1.1); /* Escala al 110% al hacer hover */
+  transform: scale(1.1); 
 } 

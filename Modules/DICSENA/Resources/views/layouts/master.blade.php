@@ -5,8 +5,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ asset('modules/dicsena/css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('modules/dicsena/css/pro.css') }}">
     <link rel="stylesheet" href="{{ asset('modules/dicsena/css/menu.css') }}">
     <title>Module DICSENA</title>
     <!--boostrap import-->
@@ -21,8 +19,6 @@
 <body>
     <div id="container-fluid">
         @if(Route::currentRouteName() !== 'cefa.dicsena.menu')
-        @endif
-        @if(Route::currentRouteName() !== 'cefa.dicsena.guidepost.index')
         @endif
         @section('content')
         @show
