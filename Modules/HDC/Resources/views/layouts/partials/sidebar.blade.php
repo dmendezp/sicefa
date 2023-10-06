@@ -97,18 +97,10 @@
                           @endif
                       @endforeach
                         <li class="nav-item">
-                            <a href="{{ Route('cefa.hdc.formulario') }}" class="nav-link">
+                            <a href="{{ Route('admin.hdc.table') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-pen-to-square"></i>
                                 <p>
                                 {{ trans('hdc::hdcgeneral.RegisterConsumption') }}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fa-solid fa-magnifying-glass"></i>
-                                <p>
-                                {{ trans('hdc::hdcgeneral.consumptionconsultation')}}
                                 </p>
                             </a>
                         </li>

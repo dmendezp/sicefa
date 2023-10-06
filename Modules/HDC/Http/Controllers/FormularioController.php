@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\EnvironmentalAspectLabor;
+use Modules\SICA\Entities\EnvironmentalAspect;
 use Modules\SICA\Entities\Labor;
 
 
@@ -24,7 +25,7 @@ class FormularioController extends Controller
     public function formulario()
     {
         $productive_unit = ProductiveUnit::orderBy('name', 'ASC')->get();
-        return view('hdc::formulario', compact('productive_unit'));
+        return view('hdc::registration_form.formulario', compact('productive_unit'));
     }
 
     public function getActivities()
@@ -32,7 +33,7 @@ class FormularioController extends Controller
         $datap = json_decode(($_POST['data']));
         // Obtener las actividades relacionadas con la unidad productiva
         $activities = ProductiveUnit::findOrFail($datap->productive_unit_id)->activities;
-        return view('hdc::activity', compact('activities'));
+        return view('hdc::registration_form.activity', compact('activities'));
     }
 
 
@@ -42,7 +43,7 @@ class FormularioController extends Controller
         $data = json_decode($_POST['data']);
         $aspects = Activity::with('environmental_aspects.measurement_unit')->where('id', $data->activity_id)->get();
         $activity_id = $data->activity_id;
-        return view('hdc::tablaaspectosambientales', compact('aspects', 'activity_id'));
+        return view('hdc::registration_form.tablaaspectosambientales', compact('aspects', 'activity_id'));
     }
 
     public function guardarValores(Request $request)
@@ -79,7 +80,7 @@ class FormularioController extends Controller
         }
 
         // Redirige al usuario o proporciona una respuesta de éxito
-        return redirect()->route('cefa.hdc.formulario')->with('success', 'Valores guardados correctamente');
+        return redirect()->route('admin.hdc.table')->with('success', 'Valores guardados correctamente');
     }
 
     public function table()
@@ -94,84 +95,91 @@ class FormularioController extends Controller
         $unit = $dato->labor->activity->productive_unit;
         $activi = $dato->labor->activity;
 
-        $formattedData[] = [
+        if (!isset($formattedData[$unit->id])) {
+            $formattedData[$unit->id] = [
+                'unit_name' => [
+                    'name' => $unit->name,
+                    'rowspan' => 0,
+                ],
+                'activities' => [],
+            ];
+        }
+
+        $formattedData[$unit->id]['activities'][] = [
             'id' => $dato->id,
-            'unit_name' => $unit->name,
-            'activity_name' => $activi->name,
+            'activity_name' => [
+                'name' => $activi->name,
+                'rowspan' => 0,
+            ],
             'aspect_name' => $dato->environmental_aspect->name,
             'amount' => $dato->amount,
+            'labor_planning' => $dato->labor->planning_date, // Agregamos el nombre de la labor
         ];
     }
 
-    return view('hdc::resultform', compact('formattedData'));
+    // Calcular el rowspan para la unidad productiva y las actividades
+    foreach ($formattedData as &$unitData) {
+        $unitData['unit_name']['rowspan'] = count($unitData['activities']);
+
+        foreach ($unitData['activities'] as &$activityData) {
+            $activityData['activity_name']['rowspan'] = $unitData['unit_name']['rowspan'];
+        }
+    }
+
+    return view('hdc::registration_form.resultform', compact('formattedData'));
 }
 
 
-
-
-
-
-
-
-
-
-    /**
-     * Show the form for creating a new resource
-     * @return Renderable
-     */
-    public function create()
+    public function delete($id)
     {
-        return view('hdc::create');
+        try {
+            // Realiza la eliminación real
+            $ambient = EnvironmentalAspectLabor::findOrFail($id);
+            $ambient->delete();
+
+            return redirect()->back()->with('success', 'Eliminado satisfactoriamente');
+        } catch (\Exception $e) {
+            $message = $e->getMessage(); // Puedes personalizar este mensaje según tus necesidades
+
+            return redirect()->back()->with('error', $message);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('hdc::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function edit($id)
     {
-        return view('hdc::edit');
-    }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return view('hdc::registration_form.editform', compact('aspects', 'ennnviroment_aspect','productive_unit','activities'));
     }
+   // funcion de editar
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   public function editForm($id)
+{
+    // Obtener los datos que se van a editar
+    $data = EnvironmentalAspectLabor::findOrFail($id);
+    $productive_units = ProductiveUnit::orderBy('name', 'ASC')->get();
+    $activities = Activity::with('productive_unit')->get();
+
+    return view('hdc::registration_form.editform', compact('data', 'productive_units', 'activities'));
+}
+
+public function update(Request $request, $id)
+{
+    // Validar los datos del formulario de edición
+    $request->validate([
+        // Agrega las reglas de validación necesarias para tus campos de actualización
+    ]);
+
+    // Obtener el registro que se va a actualizar
+    $record = EnvironmentalAspectLabor::findOrFail($id);
+
+    // Actualizar los campos según los datos enviados en el formulario
+    $record->update([
+        // Actualiza los campos correspondientes según tus necesidades
+    ]);
+
+    // Redirige al usuario o proporciona una respuesta de éxito
+    return redirect()->route('cefa.hdc.table')->with('success', 'Registro actualizado correctamente');
+}
+
+
 }

@@ -23,6 +23,9 @@ Route::middleware(['lang'])->group(function() {
         Route::post('/guardar/valores', 'FormularioController@guardarValores')->name('hdc.guardar.valores');
         /* Ruta del CRUD */
         Route::get('/tabla', 'FormularioController@table')->name('admin.hdc.table');
+        Route::delete('/resulform/delete/{id}', 'FormularioController@delete')->name('cefa.hdc.delete');
+        Route::get('/admin/resulform', 'FormularioController@edit')->name('hdc.admin.resultform.edit');
+
 
 
         /* Ruta Para Administrar Recursos */
