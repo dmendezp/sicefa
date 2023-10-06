@@ -25,7 +25,7 @@ class SaleController extends Controller
                                 })->where('registration_date','>=',$cashCount->opening_date)
                                 ->orderBy('registration_date','DESC')
                                 ->get();
-            return view('ptventa::sale.index', compact('view','sales', 'cashCount'));
+            return view('ptventa::sale.index', compact('view', 'sales', 'cashCount'));
         }else{
             return view('ptventa::sale.index', compact('view', 'cashCount'));
         }

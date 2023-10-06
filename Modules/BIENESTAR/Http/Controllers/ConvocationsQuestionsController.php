@@ -110,28 +110,35 @@ class ConvocationsQuestionsController extends Controller
             'convocatoria_id' => 'required|exists:convocations,id',
             'selected_question_ids' => 'required|string',
         ]);
-    
+
         try {
             // Obtener el ID de la convocatoria y los IDs de las preguntas seleccionadas
             $convocatoriaId = $request->input('convocatoria_id');
             $selectedQuestionIds = explode(',', $request->input('selected_question_ids'));
-    
-            // Recorre los IDs de las preguntas seleccionadas y guárdalos en la base de datos
+
+            // Recorre los IDs de las preguntas seleccionadas
             foreach ($selectedQuestionIds as $questionId) {
-                // Aquí puedes guardar $convocatoriaId y $questionId en tu base de datos
-                $pregunta = new ConvocationsQuestions();
-                $pregunta->convocation_id = $convocatoriaId;
-                $pregunta->questions_id = $questionId;
-                $pregunta->save();
+                // Verifica si ya existe una relación para este convocatoria_id y question_id
+                $existingRelation = ConvocationsQuestions::where('convocation_id', $convocatoriaId)
+                    ->where('questions_id', $questionId)
+                    ->first();
+
+                // Si no existe la relación, crea una nueva
+                if (!$existingRelation) {
+                    $pregunta = new ConvocationsQuestions();
+                    $pregunta->convocation_id = $convocatoriaId;
+                    $pregunta->questions_id = $questionId;
+                    $pregunta->save();
+                }else {
+                    return redirect()->route('cefa.bienestar.editform')->with('error', 'Error al guardar, El registro ya existe');
+                }
             }
-    
-            // Devolver una respuesta JSON exitosa
-            return redirect()->route('cefa.bienestar.editform')->with('success','Se ha guardado con exito');
+
+            // Devolver una respuesta de éxito
+            return redirect()->route('cefa.bienestar.editform')->with('success', 'Se ha guardado con éxito');
         } catch (\Exception $e) {
-            // En caso de error, manejar el error y devolver una respuesta JSON con un mensaje de error
-            return redirect()->route('cefa.bienestar.editform')->with('error','Error al guardar');
+            // En caso de error, manejar el error y devolver una respuesta con un mensaje de error
+            return redirect()->route('cefa.bienestar.editform')->with('error', 'Error al guardar');
         }
     }
-    
-    
 }

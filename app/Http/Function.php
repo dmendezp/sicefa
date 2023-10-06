@@ -3,6 +3,12 @@
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Modules\SICA\Entities\App;
+
+/* Obetner las aplicaicones disponibles en SICEFA */
+function getApps(){
+	return App::orderBy('name')->get();
+}
 
 // Obtener las opciones en un arreglo de una columna enum de una tabla
 function getEnumValues($table, $column){

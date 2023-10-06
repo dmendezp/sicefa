@@ -4,7 +4,7 @@
 @endpush
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('ptventa::configuration.Breadcrumb_Active_Configuration') }}</li>
+    <li class="breadcrumb-item active">{{ trans('ptventa::configuration.Breadcrumb_Active_configuration') }}</li>
 @endpush
 
 @section('content')
@@ -14,12 +14,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8">
-                            <h4>{{ trans('ptventa::Configuration.Title_Card_Ticket') }}</h4>
-                            <p>{{ trans('ptventa::Configuration.Text_Card_Ticket') }}</p>
+                            <h4>{{ trans('ptventa::configuration.Title_Card_Ticket') }}</h4>
+                            <p>{{ trans('ptventa::configuration.Text_Card_Ticket') }}</p>
                             @if (Auth::user()->havePermission(
                                     'ptventa.' . getRoleRouteName(Route::currentRouteName()) . '.configuration.postprinting'))
                                 <button class="btn btn-success"
-                                    id="imprimirBtn">{{ trans('ptventa::Configuration.Btn_Generate_Ticket') }}
+                                    id="imprimirBtn">{{ trans('ptventa::configuration.Btn_Generate_Ticket') }}
                                     <i class="fa-solid fa-ticket"></i>
                                 </button>
                             @endif
