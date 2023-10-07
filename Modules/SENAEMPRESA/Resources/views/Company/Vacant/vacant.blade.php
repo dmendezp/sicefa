@@ -51,10 +51,8 @@
                                     <tr>
                                         <td>{{ $vacancy->id }}</td>
                                         <td>{{ $vacancy->name }}</td>
-                                        <td>
-                                            <img src="{{ asset('storage/' . $vacancy->image) }}"
-                                                alt="{{ $vacancy->name }}">
-                                        </td>
+                                        <td><img src="{{ asset($vacancy->image) }}" alt="{{ $vacancy->name }}"
+                                                width="100"></td>
                                         <td>
                                             @foreach ($PositionCompany as $position)
                                                 @if ($position->id == $vacancy->position_company_id)
