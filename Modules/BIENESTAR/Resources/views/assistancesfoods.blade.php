@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1>Listado de Aprendices Afiliados <i class="fas fa-pizza-slice"></i></h1>
+        <h1>{{ trans('bienestar::menu.List of affiliated trainees')}} <i class="fas fa-pizza-slice"></i></h1>
         <div class="row justify-content-md-center pt-4">
             <div class="card shadow col-md-8">
                 <div class="card-body">
@@ -12,14 +12,14 @@
                         <table id="datatable" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Aprendiz</th>
-                                    <th>Numero documento</th>
-                                    <th>Beneficiario</th>
-                                    <th>Programa</th>
-                                    <th>Ficha</th>
-                                    <th>Porcentaje</th>
-                                    <th>Tipo de comida</th>
-                                    <th>Hora</th>
+                                    <th>{{ trans('bienestar::menu.Apprentice')}}</th>
+                                    <th>{{ trans('bienestar::menu.Number Document')}}</th>
+                                    <th>{{ trans('bienestar::menu.Beneficiary')}}</th>
+                                    <th>{{ trans('bienestar::menu.Program')}}</th>
+                                    <th>{{ trans('bienestar::menu.code')}}</th>
+                                    <th>{{ trans('bienestar::menu.percentage')}}</th>
+                                    <th>{{ trans('bienestar::menu.Type Food')}}</th>
+                                    <th>{{ trans('bienestar::menu.time and date')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
