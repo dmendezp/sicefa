@@ -23,7 +23,7 @@
                 @auth
                     @if (Auth::user()->havePermission('agrocefa.parameters.index'))
                         <li class="nav-link">
-                            <a href="{{ route('agrocefa.parameters') }}">
+                            <a href="{{ route('agrocefa.parameters.index') }}">
                                 <i class='bx bx-hive icon'></i>
                                 <span class="text nav-text">{{ trans('agrocefa::universal.Parameters') }}</span>
                             </a>
@@ -122,7 +122,7 @@
                     </a>
                 </li>
             @endguest
-            @if (Auth::check() && (Auth::user()->roles[0]->name === 'Administrador' || Auth::user()->roles[0]->name === 'Pasante'))
+            @if (Auth::check())
                 <li class="" style="margin-top: 180px">
                     <a href="{{ route('cefa.welcome') }}">
                         <i class='bx bx-log-out icon'></i>

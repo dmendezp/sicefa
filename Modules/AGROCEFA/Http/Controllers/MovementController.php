@@ -2,8 +2,6 @@
 
 namespace Modules\AGROCEFA\Http\Controllers;
 
-use Illuminate\Support\Facades\Mail;
-use Modules\AGROCEFA\Emails\Responsibility as Email;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth; 
 use Carbon\Carbon;

@@ -15,10 +15,10 @@ class CreateProductionsTable extends Migration
     {
         Schema::create('productions', function (Blueprint $table) {
             $table->id();
-            $table->integer('amount');
-            $table->date('expiration_date');
             $table->foreignId('labor_id')->constrained()->onDelete('cascade');
             $table->foreignId('element_id')->constrained()->onDelete('cascade');
+            $table->integer('amount');
+            $table->date('expiration_date');
             $table->timestamps();
         });
     }

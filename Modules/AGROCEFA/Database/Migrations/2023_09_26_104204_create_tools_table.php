@@ -17,8 +17,8 @@ class CreateToolsTable extends Migration
             $table->id();
             $table->foreignId('labor_id')->constrained()->onDelete('cascade');
             $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
-            $table->decimal('hours');
-            $table->decimal('rental_price');
+            $table->integer('amount');
+            $table->integer('price');
             $table->timestamps();
         });
     }

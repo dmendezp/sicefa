@@ -1,30 +1,30 @@
 @extends('agrocefa::layouts.master')
 <link rel="stylesheet" href="{{ asset('agrocefa/css/movements.css') }}">
 @section('content')
-@if (session('success'))
-<script>
-    Swal.fire({
-    position: 'top-end',
-    icon: 'success',
-    title: 'Registro Exitoso',
-    showConfirmButton: false,
-    timer: 1500,
-    customClass: {
-        popup: 'my-custom-popup-class', 
-    },
-    onOpen: () => {
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Registro Exitoso',
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                    popup: 'my-custom-popup-class',
+                },
+                onOpen: () => {
 
-        const popup = document.querySelector('.my-custom-popup-class');
-        if (popup) {
-        popup.style.display = 'flex';
-        popup.style.alignItems = 'center';
-        popup.style.justifyContent = 'center';
-        }
-    },
-    });
-</script>
-@endif
-@if (session('error'))
+                    const popup = document.querySelector('.my-custom-popup-class');
+                    if (popup) {
+                        popup.style.display = 'flex';
+                        popup.style.alignItems = 'center';
+                        popup.style.justifyContent = 'center';
+                    }
+                },
+            });
+        </script>
+    @endif
+    @if (session('error'))
         <script>
             Swal.fire({
                 position: 'top-end',
@@ -33,10 +33,10 @@
                 showConfirmButton: false,
                 timer: 15000,
                 customClass: {
-                    popup: 'my-custom-popup-class', 
+                    popup: 'my-custom-popup-class',
                 },
                 onOpen: () => {
-                    
+
                     const popup = document.querySelector('.my-custom-popup-class');
                     if (popup) {
                         popup.style.display = 'flex';
@@ -50,6 +50,8 @@
     <h2>{{ trans('agrocefa::movements.Exit_Form') }}</h2>
 
     <div class="container" id="containermovements">
+        <!-- Div para mostrar notificaciones -->
+        <div id="notification" class="alert alert-danger" style="display: none;"></div>
         <div class="card">
             <div class="card-body">
                 {!! Form::open(['route' => 'agrocefa.registerexit', 'method' => 'POST']) !!}
@@ -168,7 +170,10 @@
                 </div>
 
                 <br>
-                {!! Form::submit(trans('agrocefa::movements.Btn_Register_Exit'), ['class' => 'btn btn-primary', 'id' => 'registerButton']) !!}
+                {!! Form::submit(trans('agrocefa::movements.Btn_Register_Exit'), [
+                    'class' => 'btn btn-primary',
+                    'id' => 'registerButton',
+                ]) !!}
                 {!! Form::close() !!}
             </div>
         </div>
@@ -222,14 +227,15 @@
 
                             // Asignar el nombre del responsable al campo de solo lectura "responsibilityNameDisplay"
                             $('#responsibilityNameDisplay').val(responsibleName);
-                            
-                        
-                        
+
+
+
 
                             // Actualizar el campo "Bodega Recibe" con las opciones recibidas
                             var receivewarehouseSelect = $('#receivewarehouse');
                             receivewarehouseSelect.empty(); // Vaciar las opciones actuales
-                            receivewarehouseSelect.append(new Option('Seleccione la bodega', ''));
+                            receivewarehouseSelect.append(new Option('Seleccione la bodega',
+                                ''));
 
                             // Agregar las nuevas opciones desde el objeto de bodegas en la respuesta JSON
                             $.each(response.warehouses, function(id, name) {
@@ -252,7 +258,8 @@
             // Función para agregar una nueva fila de producto
             function addProductRow() {
                 newRow = $('<tr class="product-row">');
-                newRow.html('<td><input type="hidden" id="product-name" class="product-name" name="product-name[]"><input type="hidden" id="product-lot" class="product-lot" name="product-lot[]"></td>' +
+                newRow.html(
+                    '<td><input type="hidden" id="product-name" class="product-name" name="product-name[]"><input type="hidden" id="product-lot" class="product-lot" name="product-lot[]"></td>' +
                     '<td class="col-2"><select id="product-id" class="form-control product-id" name="product-id[]" required></select></td>' +
                     '<td><input type="text" id="product-measurement-unit" class="form-control product-measurement-unit" name="product-measurement-unit[]" readonly><input type="hidden" id="product-stock" class="product-stock" name="product-stock[]"></td>' +
                     '<td class="col-2"><input type="number" id="product-quantity" class="form-control product-quantity" name="product-quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
@@ -265,7 +272,7 @@
                 // Agregar la fila a la tabla
                 productTable.append(newRow);
 
-                
+
             }
 
             // Manejador de eventos para el cambio en la bodega
@@ -289,25 +296,31 @@
                         // Obtener el campo de selección de productos de la última fila
                         var productNameSelect = $('.product-id:last');
                         var productName = $('.product-name');
-                        
+
                         productNameSelect.empty(); // Vaciar las opciones actuales
 
                         // Agregar la opción predeterminada "Seleccione el elemento"
                         productNameSelect.append(new Option('Seleccione el elemento', ''));
-                        
+
                         // Iterar sobre la respuesta JSON y agregar las opciones al campo de selección
                         $.each(response, function(index, element) {
                             // Agregar una nueva opción con el atributo "value" como el ID del elemento y "name" como texto
                             console.log(element.name);
-                            productNameSelect.append(new Option(element.name, element.id));
+                            productNameSelect.append(new Option(element.name, element
+                                .id));
                             productName.val(element.name || '');
                             // Actualizar los atributos "name" de otros campos según sea necesario
-                            var currentRow = productNameSelect.closest('tr.product-row');
+                            var currentRow = productNameSelect.closest(
+                                'tr.product-row');
 
-                            currentRow.find('.product-measurement-unit').attr('name', 'product-measurement-unit[]');
-                            currentRow.find('.product-price').attr('name', 'product-price[]');
-                            currentRow.find('.product-category').attr('name', 'product-category[]');
-                            currentRow.find('.product-destination').attr('name', 'product-destination[]');
+                            currentRow.find('.product-measurement-unit').attr('name',
+                                'product-measurement-unit[]');
+                            currentRow.find('.product-price').attr('name',
+                                'product-price[]');
+                            currentRow.find('.product-category').attr('name',
+                                'product-category[]');
+                            currentRow.find('.product-destination').attr('name',
+                                'product-destination[]');
                         });
                     },
                     error: function() {
@@ -321,14 +334,17 @@
             $('#addProduct').click(function() {
                 var lastRow = productTable.find('tr.product-row:last');
 
-                if (lastRow.find('#product-id').val() && lastRow.find('#product-measurement-unit').val() && lastRow.find('#product-quantity').val() && lastRow.find('#product-price').val() && lastRow.find('#product-category').val() && lastRow.find('#product-destination').val()) {
+                if (lastRow.find('#product-id').val() && lastRow.find('#product-measurement-unit').val() &&
+                    lastRow.find('#product-quantity').val() && lastRow.find('#product-price').val() &&
+                    lastRow.find('#product-category').val() && lastRow.find('#product-destination').val()) {
                     addProductRow();
 
                     // Obtener el elemento seleccionado en la fila anterior
                     var selectedElementId = selectedElements[lastRow.index()];
 
                     // Llenar el campo de selección de productos de esta fila con los elementos previamente obtenidos
-                    var productNameSelect = newRow.find('.product-id'); // Acceder a newRow en lugar de lastRow
+                    var productNameSelect = newRow.find(
+                        '.product-id'); // Acceder a newRow en lugar de lastRow
                     productNameSelect.append(new Option('Seleccione el elemento', ''));
                     $.each(elements, function(index, element) {
                         productNameSelect.append(new Option(element.name, element.id));
@@ -337,7 +353,8 @@
                     // Asignar el elemento seleccionado al registro correspondiente
                     selectedElements[newRow.index()] = selectedElementId;
                 } else {
-                    alert('Por favor, complete todos los campos de la fila actual antes de agregar otra.');
+                    showNotification("Por favor, complete todos los campos de la fila actual antes de agregar otra.", true);
+
                 }
             });
 
@@ -407,14 +424,16 @@
                         currentRow.find('#product-stock').val(response.stock || '');
 
                         var quantityMessage = currentRow.find('.quantity-message');
-                        
+
                         var amount = response.amount;
                         if (amount !== null) {
-                            quantityMessage.text('Cantidad Disponible: ' + amount).removeClass('error-message');
+                            quantityMessage.text('Cantidad Disponible: ' + amount).removeClass(
+                                'error-message');
                         } else {
-                            quantityMessage.text('Cantidad no disponible').addClass('error-message');
+                            quantityMessage.text('Cantidad no disponible').addClass(
+                                'error-message');
                         }
-                        
+
                     },
                     error: function() {
                         var priceField = currentRow.find('#product-price');
@@ -429,7 +448,9 @@
                         destinationField.val('');
 
                         // Actualiza el contenido del span con un mensaje de error y aplica la clase CSS
-                        quantityMessage.text('Cantidad Disponible: Error al obtener la cantidad').addClass('error-message');
+                        quantityMessage.text(
+                            'Cantidad Disponible: Error al obtener la cantidad').addClass(
+                            'error-message');
                     }
                 });
             });
@@ -437,8 +458,10 @@
             // Manejador de eventos para cambiar la cantidad y habilitar/deshabilitar el botón de registro
             productTable.on('change', 'input[name="product-quantity[]"]', function() {
                 var currentRow = $(this).closest('tr');
-                var selectedElementId = currentRow.find('select[name="product-id[]"]').val(); // Obtener el valor seleccionado
-                var enteredQuantity = parseInt($(this).val()); // Obtener la cantidad ingresada como número entero
+                var selectedElementId = currentRow.find('select[name="product-id[]"]')
+                    .val(); // Obtener el valor seleccionado
+                var enteredQuantity = parseInt($(this)
+                    .val()); // Obtener la cantidad ingresada como número entero
 
                 if (!isNaN(enteredQuantity)) {
                     $.ajax({
@@ -455,24 +478,49 @@
                             var quantityMessage = currentRow.find('.quantity-message');
 
                             if (enteredQuantity <= availableQuantity) {
-                                quantityMessage.text('Cantidad Disponible: ' + availableQuantity).removeClass('error-message');
-                                $('#registerButton').prop('disabled', false); // Habilitar el botón
+                                quantityMessage.text('Cantidad Disponible: ' +
+                                    availableQuantity).removeClass('error-message');
+                                $('#registerButton').prop('disabled',
+                                    false); // Habilitar el botón
                             } else {
-                                quantityMessage.text('La cantidad que desea enviar es mayor a la disponible : ' + availableQuantity).addClass('error-message');
-                                $('#registerButton').prop('disabled', true); // Deshabilitar el botón
+                                quantityMessage.text(
+                                    'La cantidad que desea enviar es mayor a la disponible : ' +
+                                    availableQuantity).addClass('error-message');
+                                $('#registerButton').prop('disabled',
+                                    true); // Deshabilitar el botón
                             }
                         },
                         error: function() {
                             var quantityMessage = currentRow.find('.quantity-message');
-                            quantityMessage.text('Error al obtener la cantidad disponible').addClass('error-message');
+                            quantityMessage.text('Error al obtener la cantidad disponible')
+                                .addClass('error-message');
                             $('#registerButton').prop('disabled', true);
                         }
                     });
                 }
             });
 
+            // Funcion para mostrar las alertas
+            function showNotification(message, isError = false) {
+                const notificationElement = document.getElementById("notification");
+                notificationElement.textContent = message;
+
+                if (isError) {
+                    notificationElement.classList.add("alert-danger");
+                } else {
+                    notificationElement.classList.remove("alert-danger");
+                }
+
+                notificationElement.style.display = "block";
+
+                // Desaparecer después de 3 segundos (puedes ajustar este tiempo)
+                setTimeout(function() {
+                    notificationElement.style.display = "none";
+                }, 3000);
+            }
+
+
 
         });
-
     </script>
 @endsection

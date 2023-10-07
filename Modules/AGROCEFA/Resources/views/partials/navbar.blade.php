@@ -1,6 +1,6 @@
 <body style="background-color: #e4e9f7 ">
 <div class="navbar">
-  @if (Auth::check() && (Auth::user()->roles[0]->name === 'Administrador' || Auth::user()->roles[0]->name === 'Pasante'))
+  @if (Auth::check() )
   <ul>
       <li style="margin-left: 40px; margin-right: 130px">
           <a href="#" id="an">

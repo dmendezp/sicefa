@@ -51,6 +51,8 @@
 <h2>{{trans('agrocefa::movements.Entry_Form')}}</h2>
 
 <div class="container" style="margin-left: 5px">
+    <!-- Div para mostrar notificaciones -->
+    <div id="notification" class="alert alert-danger" style="display: none;"></div>
     <div class="card" style="width: 105%">
         <div class="card-body">
             {!! Form::open(['route' => 'agrocefa.registerentrance', 'method' => 'POST']) !!}
@@ -194,7 +196,7 @@
             if (lastRow.find('#product-name').val() && lastRow.find('#product-measurement-unit').val() && lastRow.find('#product-quantity').val() && lastRow.find('#product-price').val() && lastRow.find('#product-category').val() && lastRow.find('#product-destination').val()) {
                 addProductRow();
             } else {
-                alert('Por favor, complete todos los campos de la fila actual antes de agregar otra.');
+                showNotification("Por favor, complete todos los campos de la fila actual antes de agregar otra.", true|);
             }
         });
 
@@ -242,6 +244,25 @@
                 }
             });
         });
+
+        // Funcion para mostrar las alertas
+        function showNotification(message, isError = false) {
+                const notificationElement = document.getElementById("notification");
+                notificationElement.textContent = message;
+
+                if (isError) {
+                    notificationElement.classList.add("alert-danger");
+                } else {
+                    notificationElement.classList.remove("alert-danger");
+                }
+
+                notificationElement.style.display = "block";
+
+                // Desaparecer después de 3 segundos (puedes ajustar este tiempo)
+                setTimeout(function() {
+                    notificationElement.style.display = "none";
+                }, 3000);
+            }
     });
 </script>
 

@@ -16,7 +16,7 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/home', 'AGROCEFAController@home')->name('agrocefa.home');
         Route::get('/select-unit/{id}', 'AGROCEFAController@selectUnit')->name('agrocefa.select-unit');
         Route::get('/bodegas', 'AGROCEFAController@bodega')->name('agrocefa.bodegas');
-        Route::get('/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.parameters');
+        Route::get('/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.parameters.index');
         Route::get('/user', 'AGROCEFAControll er@vistauser')->name('agrocefa.user');
 
 
@@ -44,6 +44,15 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/obtener_element', 'MovementController@obtenerelement')->name('agrocefa.obtenerelement');
         Route::get('/obtener_price', 'MovementController@getprice')->name('agrocefa.getprice');
         Route::get('/obtener_datoselementoseleccionado', 'MovementController@obtenerDatosElemento')->name('agrocefa.obtenerdatos');
+
+
+        // RUTAS PARA GESTION DE LABORES
+
+        Route::get('/labormanagement', 'labormanagementController@index')->name('agrocefa.labormanagement.index');
+        Route::get('/labormanagement/culturalwork', 'LaborManagementController@culturalwork')->name('agrocefa.culturalwork');
+        Route::get('/obtener_responsability', 'LaborManagementController@obteneresponsability')->name('agrocefa.obteneresponsability');
+        Route::get('/obtener_crop', 'LaborManagementController@obtenerecrop')->name('agrocefa.obtenerecrop');
+
         
         // RUTAS PARA REPORTES
 
@@ -100,10 +109,7 @@ Route::middleware(['lang'])->group(function() {
         //ruta para vista de bienvenida al usario
         Route::get('/usuario', 'usuarioController@index')->name('agrocefa.usuario.index');
 
-        //ruta para Gestion de labores
-        Route::get('/labormanagement', 'labormanagementController@index')->name('agrocefa.labormanagement.index');/* vista tarjetas de gestion de labores */
-        Route::get('labormanagement/culturalwork', 'LaborManagementController@culturalwork')->name('agrocefa.culturalwork');/* ruta para la vista labor cultural */
-        Route::get('/labormanagement/culturalwork', 'LaborManagementController@create')->name('agrocefa.culturalwork');
+        
 
         
         //ruta de fertilizante 

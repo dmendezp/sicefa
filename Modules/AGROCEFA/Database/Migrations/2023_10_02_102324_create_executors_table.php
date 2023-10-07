@@ -13,7 +13,7 @@ class ExecutorsTable extends Migration
             $table->foreignId('labor_id')->constrained()->onDelete('cascade');
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->foreignId('employement_type_id')->constrained()->onDelete('cascade');
-            $table->decimal('amount', 8, 2);  
+            $table->integer('amount');  
             $table->integer('price');  
             $table->softDeletes();
             $table->timestamps();

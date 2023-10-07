@@ -58,7 +58,7 @@ class Environment extends Model implements Auditable
     public function pages(){ // Accede a la información del page al que pertenece
         return $this->hasMany(Page::class);
     }
-    public function crop(){
+    public function crops(){
         return $this->belongsToMany(Crop::class);
     }
 
