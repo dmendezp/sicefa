@@ -5,6 +5,12 @@ return [
 	// Index
 	'SIGAC_index_title_page' => 'Página principal',
 	'SIGAC_index_title_view' => 'Página principal',
+	// Info
+	'SIGAC_info_title_page' => 'Información',
+	'SIGAC_info_title_view' => 'Información',
+	// Developers and Credits
+	'SIGAC_devs_title_page' => 'Desarrolladores',
+	'SIGAC_devs_title_view' => 'Desarrolladores y Créditos',
 	// Index - Academic Coordination
 	'SIGAC_academic_coordination_dashboard_title_page' => 'Coordinación Académica',
 	'SIGAC_academic_coordination_dashboard_title_view' => 'Página principal',
@@ -17,9 +23,6 @@ return [
 	// Index - Apprentice
 	'SIGAC_apprentice_dashboard_title_page' => 'Aprendiz',
 	'SIGAC_apprentice_dashboard_title_view' => 'Página principal',
-	// Info
-	'SIGAC_info_title_page' => 'Información',
-	'SIGAC_info_title_view' => 'Información',
 
 	// -----ProgrammeController------
 	// Programming Schedules

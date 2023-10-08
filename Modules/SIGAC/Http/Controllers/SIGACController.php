@@ -20,6 +20,12 @@ class SIGACController extends Controller
         return view('sigac::information.index', compact('apps','view'));
     }
 
+    public function devs(){
+        $view = ['titlePage'=>trans('sigac::controllers.SIGAC_devs_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_devs_title_view')];
+        $apps = App::get();
+        return view('sigac::developers.index', compact('apps','view'));
+    }
+
     /* Panel de control de coordinación académica */
     public function academic_coordination_dashboard(){
         $view = ['titlePage'=>trans('sigac::controllers.SIGAC_academic_coordination_dashboard_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_academic_coordination_dashboard_title_view')];

@@ -88,14 +88,15 @@
                         </li>
     
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('cefa.sigac.devs') }}" 
+                                class="nav-link {{ !Route::is('cefa.sigac.devs*') ?: 'active' }}">
                                 <i class="nav-icon fa-solid fa-code"></i>
                                 <p>{{ trans('sigac::general.Developers') }}</p>
                             </a>
                         </li>
                     @endif
                     
-                    <!-- Menú de opciones públicas -->
+                    <!-- Menú de opciones para coordinación académica -->
                     @if(Route::is('sigac.academic_coordination.*'))
                         <li class="nav-item">
                             <a href="#" class="nav-link">
