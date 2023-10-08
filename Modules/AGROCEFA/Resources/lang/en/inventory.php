@@ -34,6 +34,13 @@ return [
     'SelectMeasurement' => 'Select Unit of Measurement',
     'PurchaseType' => 'Purchase Type',
     'SelectPurchaseType' => 'Select Purchase Type',
+    'Productiondate' =>'Production Date',
+    'lotnumber' => 'Lot Number',
+    'expirationdate' => 'Expiration Date',
+    'state' => 'State',
+    'mark' => 'Mark',
+    'inventorycode' => 'Inventory Code',
+    
 
 
 

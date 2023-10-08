@@ -10,12 +10,18 @@
                         <th>ID</th>
                         <th>{{ trans('agrocefa::inventory.Warehouse') }}</th>
                         <th>{{ trans('agrocefa::inventory.Element') }}</th>
+                        <th>{{ trans('agrocefa::inventory.Category') }}</th>
                         <th>{{ trans('agrocefa::inventory.Destination') }}</th>
                         <th>{{ trans('agrocefa::inventory.Description') }}</th>
-                        <th>{{ trans('agrocefa::inventory.Category') }}</th>
                         <th>{{ trans('agrocefa::inventory.Price') }}</th>
                         <th>{{ trans('agrocefa::inventory.Amount') }}</th>
                         <th>Stock</th>
+                        <th>{{ trans('agrocefa::inventory.Productiondate') }}</th>
+                        <th>{{ trans('agrocefa::inventory.lotnumber') }}</th>
+                        <th>{{ trans('agrocefa::inventory.expirationdate') }}</th>
+                        <th>{{ trans('agrocefa::inventory.state') }}</th>
+                        <th>{{ trans('agrocefa::inventory.mark') }}</th>
+                        <th>{{ trans('agrocefa::inventory.inventorycode') }}</th>
                         @auth
                             @if (Auth::user()->havePermission('agrocefa.admin.inventory.manage'))
                                 <th>{{ trans('agrocefa::inventory.Actions') }}</th>
@@ -29,12 +35,19 @@
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->productive_unit_warehouse->warehouse->name }}</td>
                             <td>{{ $item->element->name }}</td>
+                            <td>{{ $item->element->category->name }}</td>
                             <td>{{ $item->destination }}</td>
                             <td>{{ $item->description }}</td>
-                            <td>{{ $item->element->category->name }}</td>
                             <td>{{ $item->price }}</td>
                             <td>{{ $item->amount }}</td>
                             <td>{{ $item->stock }}</td>
+                            <td>{{ $item->production_date }}</td>
+                            <td>{{ $item->lot_number }}</td>
+                            <td>{{ $item->expiration_date }}</td>
+                            <td>{{ $item->state }}</td>
+                            <td>{{ $item->mark }}</td>
+                            <td>{{ $item->inventory_code }}</td>
+
                             @auth
                                 @if (Auth::user()->havePermission('agrocefa.admin.inventory.manage'))
                                     <td>

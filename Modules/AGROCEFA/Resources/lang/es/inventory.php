@@ -34,6 +34,13 @@ return [
     'SelectMeasurement' => 'Seleccionar Unidad de Medida',
     'PurchaseType' => 'Tipo de Compra',
     'SelectPurchaseType' => 'Seleccionar Tipo de Compra',
+    'Productiondate' =>'Fecha de produccion',
+    'lotnumber' => 'Numero de lote',
+    'expirationdate' => 'Fecha de expiracion',
+    'state' => 'Estado',
+    'mark' => 'Marca',
+    'inventorycode' => 'Codigo de inventario',
+
 
 
 

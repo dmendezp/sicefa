@@ -49,6 +49,9 @@ class ParameterAgroController extends Controller
     /* Funcion crear especie */
     public function store(Request $request)
     {
+         // Obtén el ID de la unidad seleccionada
+        $selectedUnitId = Session::get('selectedUnitId');
+
         // Validación de los datos enviados desde el formulario
         $validatedData = $request->validate([
             'name' => 'required|max:255',
@@ -60,6 +63,7 @@ class ParameterAgroController extends Controller
         $specie = new Specie();
         $specie->name = $validatedData['name'];
         $specie->lifecycle = $validatedData['lifecycle'];
+        $specie->productive_unit_id = $selectedUnitId;
         // Asigna más valores si hay más campos en el formulario
 
         // Intenta guardar el nuevo registro en la base de datos

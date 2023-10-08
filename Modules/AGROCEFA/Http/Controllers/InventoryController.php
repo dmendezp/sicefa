@@ -139,6 +139,13 @@ class InventoryController extends Controller
             'price' => 'required',
             'amount' => 'required',
             'stock' => 'required',
+            'production_date' => 'required',
+            'lot_number' => 'required',
+            'expiration_date' => 'required',
+            'state' => 'required|in:Disponible,No disponible',
+            'mark' => 'required',
+            'inventory_code' => 'required',
+
 
             // Agrega más reglas de validación según tus campos
         ]);
@@ -153,6 +160,13 @@ class InventoryController extends Controller
         $inventory->price = $request->input('price');
         $inventory->amount = $request->input('amount');
         $inventory->stock = $request->input('stock');
+        $inventory->production_date = $request->input('production_date');
+        $inventory->lot_number = $request->input('lot_number');
+        $inventory->expiration_date = $request->input('expiration_date');
+        $inventory->state = $request->input('state');
+        $inventory->mark = $request->input('mark');
+        $inventory->inventory_code = $request->input('inventory_code');
+
 
         // Guardar el nuevo registro en la base de datos
         $inventory->save();
@@ -181,6 +195,12 @@ class InventoryController extends Controller
             'price' => 'required',
             'amount' => 'required',
             'stock' => 'required',
+            'production_date' => 'required',
+            'lot_number' => 'required',
+            'expiration_date' => 'required',
+            'state' => 'required|in:Disponible,No disponible',
+            'mark' => 'required',
+            'inventory_code' => 'required',
         ]);
 
         // Encontrar el registro a actualizar
@@ -194,6 +214,12 @@ class InventoryController extends Controller
         $inventory->price = $request->input('price');
         $inventory->amount = $request->input('amount');
         $inventory->stock = $request->input('stock');
+        $inventory->production_date = $request->input('production_date');
+        $inventory->lot_number = $request->input('lot_number');
+        $inventory->expiration_date = $request->input('expiration_date');
+        $inventory->state = $request->input('state');
+        $inventory->mark = $request->input('mark');
+        $inventory->inventory_code = $request->input('inventory_code');
 
         $inventory->save();
 

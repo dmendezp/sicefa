@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Activity;
 use Spatie\Permission\Models\Role;
@@ -26,7 +26,6 @@ class AGROCEFAController extends Controller
     // Verifica si el usuario está autenticado
     public function index()
     {
-
         // Limpiar la variable 'selectedUnitName'
         Session::forget('selectedUnitName');
 
@@ -39,7 +38,10 @@ class AGROCEFAController extends Controller
             $user = Auth::user();
 
             // Obtén el ID del rol del usuario
-            $productive_units_role = $user->roles()->with('productive_units')->get();
+            $productive_units_role = $user
+                ->roles()
+                ->with('productive_units')
+                ->get();
 
             // Recorre la colección de roles
             foreach ($productive_units_role as $role) {
@@ -54,8 +56,6 @@ class AGROCEFAController extends Controller
 
             $productiveUnits = ProductiveUnit::whereIn('id', $unitIds)->get();
 
-
-
             return view('agrocefa::homeproductive_units', [
                 'units' => $productiveUnits,
             ]);
@@ -63,18 +63,16 @@ class AGROCEFAController extends Controller
 
         // Si el usuario no está autenticado, muestra la vista 'homeproductive_units' sin datos especiales
         return view('agrocefa::home');
-        
     }
-
 
     public function selectUnit($id)
     {
-
-
         // Actualiza la variable de sesión con el nuevo ID de unidad seleccionado
         Session::put('selectedUnitId', $id);
 
-        $units = ProductiveUnit::with('roles')->where('id', $id)->get();
+        $units = ProductiveUnit::with('roles')
+            ->where('id', $id)
+            ->get();
 
         // Recorre la colección de roles
         foreach ($units as $unit) {
@@ -90,13 +88,14 @@ class AGROCEFAController extends Controller
             }
         }
 
-
         // Verifica si se encontró la unidad
         if (!$unitId) {
             // Maneja la situación en la que no se encuentra la unidad
-            return redirect()->route('agrocefa.home')->with('error', 'La unidad productiva no se encontró');
+            return redirect()
+                ->route('agrocefa.home')
+                ->with('error', 'La unidad productiva no se encontró');
         }
-    
+
         Session::put('selectedUnitName', $unitName);
 
         Session::put('selectedRole', $roleName);
@@ -104,7 +103,6 @@ class AGROCEFAController extends Controller
         // Redirige a la vista de inicio con el ID de unidad seleccionado
         return redirect()->route('agrocefa.home');
     }
-
 
     public function home()
     {
@@ -115,42 +113,50 @@ class AGROCEFAController extends Controller
         // Obtener el nombre de la unidad a través del modelo ProductiveUnit
         $selectedUnitName = ProductiveUnit::where('id', $this->selectedUnitId)->value('name');
 
-         // Inicializa un array para almacenar la información de las bodegas
-         $warehouseData = [];
+        // Inicializa un array para almacenar la información de las bodegas
+        $warehouseData = [];
 
-         // Verifica si hay registros en la tabla productive_unit_warehouses para esta unidad
-         if ($selectedUnit) {
-             $warehouses = $selectedUnit->productive_unit_warehouses;
- 
-             // Mapea las bodegas y agrega su información al array
-             $warehouseData = $warehouses->map(function ($warehouseRelation) {
-                 $warehouse = $warehouseRelation->warehouse;
-                 return [
-                     'id' => $warehouse->id,
-                     'name' => $warehouse->name,
-                 ];
-             });
-         }
-         
-         
-         $warehousereceive = $warehouseData->first()['id'];
- 
-         $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehousereceive)->where('productive_unit_id', $this->selectedUnitId)->first();
-         $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
- 
-         $warehousemovementid = WarehouseMovement::where('productive_unit_warehouse_id', $productiveWarehousereceiveId)->where('role', '=', 'Recibe')->get()->pluck('movement_id');
- 
-         $movements = Movement::whereIn('id', $warehousemovementid)->where('state','=','Solicitado')->with('movement_type', 'movement_responsibilities.person', 'movement_details.inventory.element', 'warehouse_movements.productive_unit_warehouse.productive_unit', 'warehouse_movements.productive_unit_warehouse.warehouse')->get()->toArray();
-         $datas = [];
+        // Verifica si hay registros en la tabla productive_unit_warehouses para esta unidad
+        if ($selectedUnit) {
+            $warehouses = $selectedUnit->productive_unit_warehouses;
 
-         foreach ($movements as $movement) {
+            // Mapea las bodegas y agrega su información al array
+            $warehouseData = $warehouses->map(function ($warehouseRelation) {
+                $warehouse = $warehouseRelation->warehouse;
+                return [
+                    'id' => $warehouse->id,
+                    'name' => $warehouse->name,
+                ];
+            });
+        }
+
+        $warehousereceive = $warehouseData->first()['id'];
+
+        $receiveproductive_warehouse = ProductiveUnitWarehouse::where('warehouse_id', $warehousereceive)
+            ->where('productive_unit_id', $this->selectedUnitId)
+            ->first();
+        $productiveWarehousereceiveId = $receiveproductive_warehouse->id;
+
+        $warehousemovementid = WarehouseMovement::where('productive_unit_warehouse_id', $productiveWarehousereceiveId)
+            ->where('role', '=', 'Recibe')
+            ->get()
+            ->pluck('movement_id');
+
+        $movements = Movement::whereIn('id', $warehousemovementid)
+            ->where('state', '=', 'Solicitado')
+            ->with('movement_type', 'movement_responsibilities.person', 'movement_details.inventory.element', 'warehouse_movements.productive_unit_warehouse.productive_unit', 'warehouse_movements.productive_unit_warehouse.warehouse')
+            ->get()
+            ->toArray();
+        $datas = [];
+
+        foreach ($movements as $movement) {
             $id = $movement['id'];
             $date = $movement['registration_date'];
             $person_id = $movement['movement_responsibilities'][0]['person_id'];
             $respnsibility = $movement['movement_responsibilities'][0]['person']['first_name'];
             $productiveunit = $movement['warehouse_movements'][0]['productive_unit_warehouse']['productive_unit']['name'];
             $warehouse = $movement['warehouse_movements'][0]['productive_unit_warehouse']['warehouse']['name'];
-            
+
             // Verificar si hay elementos en movement_details
             if (isset($movement['movement_details']) && is_array($movement['movement_details']) && count($movement['movement_details']) > 0) {
                 // Iterar a través de los elementos en movement_details
@@ -185,11 +191,11 @@ class AGROCEFAController extends Controller
                 }
             }
         }
- 
-         // Contar el número de registros después de obtener los datos
-         $movementsCount = count($datas);
 
-         Session::put('notification', $movementsCount);
+        // Contar el número de registros después de obtener los datos
+        $movementsCount = count($datas);
+
+        Session::put('notification', $movementsCount);
         // Retornar la vista deseada
         return view('agrocefa::home', [
             'selectedUnitName' => $selectedUnitName,
@@ -197,43 +203,36 @@ class AGROCEFAController extends Controller
         ]);
     }
 
-
     public function movements()
-    {   
+    {
         return view('agrocefa::movements');
     }
-
 
     public function insumos()
     {
         return view('agrocefa::insumos');
     }
 
-
     public function bodega()
     {
         return view('agrocefa::formulariocultivo');
     }
-
 
     public function inventory()
     {
         return view('agrocefa::inventory');
     }
 
-
     public function parameters()
     {
         return view('agrocefa::parameters');
     }
-
 
     public function vistaaprendiz()
     {
         return view('agrocefa::index');
     }
 
-    
     public function vistauser()
     {
         return view('agrocefa::index');
@@ -243,8 +242,4 @@ class AGROCEFAController extends Controller
     {
         return view('agrocefa::crop');
     }
-
-
-
-
 }
