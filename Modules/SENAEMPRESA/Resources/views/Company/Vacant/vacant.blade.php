@@ -9,13 +9,13 @@
             <form method="GET" action="{{ route('company.vacant.vacantes') }}">
                 <label for="cursoFilter">{{ trans('senaempresa::menu.Filter by course') }}:</label>
                 <select class="form-control" id="cursoFilter" name="cursoFilter" onchange="this.form.submit()">
-                    <option value="">{{ trans('senaempresa::menu.All courses') }}</option>
                     @foreach ($courses as $course)
                         <option value="{{ $course->id }}" {{ $selectedCourseId == $course->id ? 'selected' : '' }}>
                             {{ $course->code }} {{ $course->program->name }}
                         </option>
                     @endforeach
                 </select>
+
             </form>
         @endif
         <br>
@@ -31,8 +31,8 @@
                                 <th>{{ trans('senaempresa::menu.Id Position') }}</th>
                                 <th>{{ trans('senaempresa::menu.Start Date and Time') }}</th>
                                 <th>{{ trans('senaempresa::menu.Date and Time End') }}</th>
+                                <th>{{ trans('senaempresa::menu.Status') }}</th>
                                 <th class="text-center">Detalles</th>
-
                                 @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                     <th style="width: 100px;"><a href="{{ route('company.vacant.agregar_vacante') }}"
                                             class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
@@ -52,7 +52,7 @@
                                         <td>{{ $vacancy->id }}</td>
                                         <td>{{ $vacancy->name }}</td>
                                         <td><img src="{{ asset($vacancy->image) }}" alt="{{ $vacancy->name }}"
-                                                width="100"></td>
+                                                width="200"></td>
                                         <td>
                                             @foreach ($PositionCompany as $position)
                                                 @if ($position->id == $vacancy->position_company_id)
@@ -62,12 +62,14 @@
                                         </td>
                                         <td>{{ $vacancy->start_datetime }}</td>
                                         <td>{{ $vacancy->end_datetime }}</td>
+                                        <td>{{ $vacancy->state }}</td>
                                         <td class="text-center">
                                             <a class="openModalBtn" title="Ver información" data-bs-toggle="modal"
                                                 data-bs-target="#myModal" data-vacancy='@json($vacancy)'>
                                                 <i class="fas fa-eye" style="color: #000000;"></i>
                                             </a>
                                         </td>
+
                                         @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                             <form class="formEliminar"
                                                 action="{{ route('company.vacant.eliminar_vacante', $vacancy->id) }}"

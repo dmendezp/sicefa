@@ -5,12 +5,12 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Modules\SENAEMPRESA\Entities\file_senaempresa;
 use Modules\SENAEMPRESA\Entities\Postulate;
 use Modules\SENAEMPRESA\Entities\Vacancy;
-use Modules\SICA\Entities\Apprentice;
 
 class PostulateController extends Controller
 {
@@ -23,7 +23,6 @@ class PostulateController extends Controller
         $vacancy = Vacancy::find($id);
         return response()->json($vacancy);
     }
-
     public function inscription(Request $request)
     {
         $Apprentice = auth()->user()->person->apprentices()->first();
@@ -37,10 +36,12 @@ class PostulateController extends Controller
         // Obtén el curso del aprendiz logueado
         $course = $Apprentice->course;
 
-        // Obtén las vacantes relacionadas con ese curso
+        // Obtén las vacantes relacionadas con ese curso que aún están vigentes
+        $currentDate = Carbon::now();
         $vacancies = DB::table('course_vacancy')
             ->join('vacancies', 'course_vacancy.vacancy_id', '=', 'vacancies.id')
             ->where('course_vacancy.course_id', '=', $course->id)
+            ->where('vacancies.end_datetime', '>', $currentDate) // Solo las vacantes cuya fecha de fin sea posterior a la fecha actual
             ->get();
 
         $Postulates = Postulate::with('Apprentice.Person')->get();
@@ -49,9 +50,6 @@ class PostulateController extends Controller
             'Postulates' => $Postulates,
             'ApprenticeId' => $ApprenticeId,
             'vacancies' => $vacancies,
-            // Solo las vacantes relacionadas con el curso
-            'vacancy_id' => $request->input('vacancy_id'),
-            'vacancy_name' => $request->input('vacancy_name'),
         ];
 
         return view('senaempresa::Company.Inscription.inscription', $data);
