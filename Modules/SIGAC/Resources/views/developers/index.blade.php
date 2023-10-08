@@ -14,63 +14,42 @@
                 <h3 class="text-center mt-2">{{ trans('sigac::devs.Title_Developers') }}</h3>
                 <div class="card-body">
                     <div class="container text-center">
-                        <div class="row">
+                        <div class="row justify-content-center align-items-center">
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sigac/images/developers/JDGM0331-Profile.webp') }}" alt="JDGM0331" width="140" height="140">
-                                <h4>{{ trans('sigac::devs.Description_Apprentice') }}</h4>
-                                <p>Jesús David Guevara Munar</p>
-                                <a class="btn btn-primary" href="https://www.linkedin.com/in/jdgm0331/">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a class="btn btn-dark" href="https://github.com/JDGM0331">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a class="btn btn-primary" href="https://www.facebook.com/JDGM0331">
-                                    <i class="fab fa-facebook"></i>
-                                </a>
+                                <div class="mx-auto">
+                                    <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sigac/images/developers/JDGM0331-Profile.webp') }}" alt="JDGM0331" width="140" height="140">
+                                    <h4>{{ trans('sigac::devs.Description_Apprentice') }}</h4>
+                                    <p>Jesús David Guevara Munar</p>
+                                    <a class="btn btn-primary" href="https://www.linkedin.com/in/jdgm0331/">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                    <a class="btn btn-dark" href="https://github.com/JDGM0331">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a class="btn btn-primary" href="https://www.facebook.com/JDGM0331">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                </div>
                             </div>
                             <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sigac/images/developers/SrManuel-1-Profile.webp') }}" alt="Sr-Manuel-1" width="140" height="140">
-                                <h4>{{ trans('sigac::devs.Description_Apprentice') }}</h4>
-                                <p>Manuel Steven Ossa Lievano</p>
-                                <a class="btn btn-primary" href="https://www.linkedin.com/in/manuel-steven-ossa-lievano-014b3b267/">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a class="btn btn-dark" href="https://github.com/SrManuel-1">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a class="btn btn-info custom-instagram-btn" href="https://www.instagram.com/st._.manuel07/">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sigac/images/developers/Nelsy-Profile.webp') }}" alt="Nelsy" width="140" height="140">
-                                <h4>{{ trans('sigac::devs.Description_Apprentice') }}</h4>
-                                <p>Nelsy Yulied Gomez Morales</p>
-                                <a class="btn btn-primary" href="www.linkedin.com/in/nelsy-yulied-gomez-morales-5b1b37267">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a class="btn btn-dark" href="https://github.com/nelsygomez11">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                
-                            </div>
-                            <div class="col-lg-3 mb-4" data-aos="zoom-in">
-                                <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sigac/images/developers/ANYI-Profile.webp') }}" alt="AnyiProfile" width="140" height="140">
-                                <h4>{{ trans('sigac::devs.Description_Apprentice') }}</h4>
-                                <p>Anyi Katherine Rojas Arce</p>
-                                <a class="btn btn-primary" href="https://www.linkedin.com/in/anyi-rojas-25a003268/">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a class="btn btn-dark" href="https://github.com/anyi-rojas">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a class="btn btn-info custom-twitter-btn" href="https://twitter.com/AnyiRojas0">
-                                    <i class="fa-brands fa-twitter"></i>
-                                </a>
+                                <div class="mx-auto">
+                                    <img class="bd-placeholder-img rounded-circle" src="{{ asset('modules/sigac/images/developers/SrManuel-1-Profile.webp') }}" alt="Sr-Manuel-1" width="140" height="140">
+                                    <h4>{{ trans('sigac::devs.Description_Apprentice') }}</h4>
+                                    <p>Manuel Steven Ossa Lievano</p>
+                                    <a class="btn btn-primary" href="https://www.linkedin.com/in/manuel-steven-ossa-lievano-014b3b267/">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                    <a class="btn btn-dark" href="https://github.com/SrManuel-1">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a class="btn btn-info custom-instagram-btn" href="https://www.instagram.com/st._.manuel07/">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                                        
                     <br>
                     <div class="d-flex justify-content-center">
                         <a class="btn" id="scrollButton">
