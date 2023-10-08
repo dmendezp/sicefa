@@ -57,7 +57,7 @@ class RolesTableSeeder extends Seeder
 
         // Consulta de usuarios
         $user_academic_coordinator = User::where('nickname', 'mgonzalezg')->first(); // Usuario Coordinador Académico (María Antonia Gonzáles Gonzáles)
-        $user_instructor = User::where('nickname', 'damendez')->first(); // Usuario Instructor (Diego Andrés Mendez Pastrana)
+        $user_instructor = User::where('nickname', 'rudelgadoc')->first(); // Usuario Instructor (Diego Andrés Mendez Pastrana)
         $user_wellness = User::where('nickname', 'epascuasp')->first(); // Usuario Bienestar (Esperanza Pascuas Perdomo)
         $user_apprentice = User::where('nickname', 'JDGM0331')->first(); // Usuario Aprendiz (Jesús David Guevara Munar)
         $user_superadmin = User::where('nickname', 'Resmerveilons')->first(); // Usuario Super Administrador (Manuel Steven Ossa Lievano)

@@ -22,11 +22,11 @@ class UsersTableSeeder extends Seeder
             'email' => 'mgonzalezg@sena.edu.co',
         ]);
 
-        // Registrar o actualizar usuario para Diego Andrés Méndez Pastrana 
-        $person = Person::where('document_number', 7713344)->first(); // Consultar Persona
-        User::updateOrCreate(['nickname' => 'damendez'], [ // Actualizar o crear usuario
+        // Registrar o actualizar usuario para Ruben Dario Delgado Cruz 
+        $person = Person::where('document_number', 4433177)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'rudelgadoc'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
-            'email' => 'ing.diego.mendez@gmail.com',
+            'email' => 'rudelgadoc@sena.edu.co',
         ]);
 
         // Registrar o actualizar usuario para Esperanza Pascuas Perdomo 

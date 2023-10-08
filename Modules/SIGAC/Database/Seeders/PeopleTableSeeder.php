@@ -33,12 +33,12 @@ class PeopleTableSeeder extends Seeder
             'pension_entity_id' => $pension_entity->id
         ]);
 
-        // Consulta o registro de datos para Diego Andrés Méndez Pastrana (Instructor)
-        Person::firstOrCreate(['document_number' => 7713344],[ // Consultar o registrar Persona
+        // Consulta o registro de datos para Rúben Dario Delgado Cruz (Instructor)
+        Person::firstOrCreate(['document_number' => 4433177],[ // Consultar o registrar Persona
             'document_type' => 'Cédula de ciudadanía',
-            'first_name' => 'DIEGO ANDRÉS',
-            'first_last_name' => 'MÉNDEZ',
-            'second_last_name' => 'PASTRANA',
+            'first_name' => 'RÚBEN DARIO',
+            'first_last_name' => 'DELGADO',
+            'second_last_name' => 'CRUZ',
             'eps_id' => $eps->id,
             'population_group_id' => $population_group->id,
             'pension_entity_id' => $pension_entity->id
