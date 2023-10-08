@@ -49,19 +49,14 @@ Route::middleware(['lang'])->group(function () {
         Route::put('/benefitstypeofbenefits/updateInline', 'BenefitsTypesOfBenefitsController@updateInline')->name('cefa.bienestar.benefitstypeofbenefits.updateInline');
         Route::get('/benefitstypeofbenefits/getCurrentState', 'BenefitsTypesOfBenefitsController@getCurrentState')->name('cefa.bienestar.benefitstypeofbenefits.getCurrentState');
 
-        // Rutas para la vista PostulationsBenefits
+        // Rutas para la vista postulation-management
         Route::get('/postulation-management', 'PostulationsBenefitsController@index')->name('cefa.bienestar.postulation-management.index');
-        Route::get('/postulation-management/create', 'PostulationsBenefitsController@create')->name('cefa.bienestar.postulation-management.create');
-        Route::post('/postulation-management', 'PostulationsBenefitsController@store')->name('cefa.bienestar.postulation-management.store');
         Route::get('/postulation-management/{id}', 'PostulationsBenefitsController@show')->name('cefa.bienestar.postulation-management.show');
         Route::put('/postulation-management/{id}/update-score', 'PostulationsBenefitsController@updateScore')->name('cefa.bienestar.postulation-management.update-score');
-        Route::post('/postulation-management/assign-or-update-benefit', 'PostulationsBenefitsController@assignOrUpdateBenefit')->name('cefa.bienestar.postulation-management.assign-or-update-benefit');
-        Route::post('/postulation-management/mark-as-beneficiaries', 'PostulationsBenefitsController@markAsBeneficiaries')->name('cefa.bienestar.postulation-management.mark-as-beneficiaries');
-        Route::post('/postulation-management/mark-as-no-beneficiaries', 'PostulationsBenefitsController@markAsNoBeneficiaries')->name('cefa.bienestar.postulation-management.mark-as-no-beneficiaries');
-        Route::post('/postulation-management/{id}/update-score', 'PostulationsBenefitsController@updateScore')->name('cefa.bienestar.postulation-management.update-score');
-        Route::put('/postulation-management/{id}/update-state', 'PostulationsBenefitsController@updateState')->name('cefa.bienestar.postulation-management.update-state');
+        Route::put('/postulation-management/update-state', 'PostulationsBenefitsController@updateState')->name('cefa.bienestar.postulation-management.update-state');
+        Route::post('/postulation-management/update-benefits', 'PostulationsBenefitsController@updateBenefits')->name('cefa.bienestar.postulation-management.update-benefits');
+        Route::post('/postulation-management/assign-benefits', 'PostulationsBenefitsController@assignBenefitsToPostulations')->name('cefa.bienestar.postulation-management.assign-benefits');
         
-
 
         //Vistas Rutas de transporte
         Route::get('/transportroutes', 'RoutesTransportationsController@index')->name('cefa.bienestar.transportroutes');
@@ -108,5 +103,12 @@ Route::middleware(['lang'])->group(function () {
         //vista el listados apoyo alimentacion 
         Route::get('/AssistancesFoods', 'AssistancesFoodsController@index')->name('cefa.bienestar.AssistancesFoods');
         Route::post('/AssistancesFoods/store', 'AssistancesFoodsController@store')->name('cefa.bienestar.AssistancesFoods.store');
+
+        //Vistas Rutas de transporte
+        Route::get('/assign-transportation-routes', 'AssingTransportRoutesController@mostrarAsignaciones')->name('cefa.bienestar.assign-transportation-routes');
+        Route::get('/assign-transportation-routes/{apprenticeId}', 'AssingTransportRoutesController@showAssignmentForm')->name('cefa.bienestar.assign-transportation-routes');
+
+
+
     });
 });
