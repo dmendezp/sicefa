@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\Postulations;
 use Modules\BIENESTAR\Entities\Convocations;
 use Modules\SICA\Entities\Apprentice;
+use Modules\SICA\Entities\Person;
 use Modules\BIENESTAR\Entities\TypesOfBenefits;
 use Modules\BIENESTAR\Entities\Questions;
 use Modules\BIENESTAR\Entities\Benefits;
@@ -18,22 +19,29 @@ use Illuminate\Http\JsonResponse;
 
 class PostulationsController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         return view('bienestar::postulations');
     }
     
     public function buscar(Request $request)
-    {
-        // Obtener el término de búsqueda del formulario
-        $query = $request->input('q');
+{
+    // Obtén el número de documento ingresado en el formulario
+    $numeroDocumento = $request->input('busqueda');
 
-        // Realizar la búsqueda en tu modelo
-        $resultados = TuModelo::where('campo_a_buscar', 'LIKE', '%' . $query . '%')->get();
+    // Realiza la búsqueda en la base de datos usando tu modelo Person
+    $resultados = Person::where('document_number', $numeroDocumento)->first();
 
-        // Puedes modificar el campo_a_buscar y TuModelo según tus necesidades
-
-        // Devolver los resultados a la vista
-        return view('vista_de_resultados', compact('resultados'));
+    if (!$resultados) {
+        // No se encontraron resultados, establece la variable de sesión
+        session()->flash('no_resultados', true);
+    } else {
+        // Si se encontraron resultados, busca las postulaciones del aprendiz
+        $apprendices = Apprentice::where("person_id", $resultados->id)->pluck("id");
+        $postulations = Postulations::whereIn("apprentice_id", $apprendices)->get();
     }
+
+    // Devuelve la vista con los resultados de la búsqueda
+    return view('bienestar::postulations', compact('resultados', 'postulations'));
+}
+
 }

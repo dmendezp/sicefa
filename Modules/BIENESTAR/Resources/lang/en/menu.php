@@ -98,6 +98,18 @@ return[
     'Edit convocations'=>'Edit convocations',
     'quarter id'=>'quarter id',
 
+    //vita assistancesfoods
+    'List of affiliated trainees'=>'List of affiliated trainees',
+    'Apprentice'=>'Apprentice',
+    'Number Document'=>'Number Document',
+    'Beneficiary'=>'Beneficiary',
+    'Program'=>'Program',
+    'code'=>'code',
+    'percentage'=>'percentage',
+    'Type Food'=>'Type Food',
+    'time and date'=>'time and date',
+   
+  
     
 ]
 

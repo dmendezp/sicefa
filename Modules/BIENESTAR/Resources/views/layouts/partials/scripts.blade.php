@@ -18,6 +18,21 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+    <!-- DataTables  & Plugins -->
+ {{-- //estos datos se sacaron de public/libs/AdminLTE/tables/data.html --}}
+ <script src="{{ asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+ <script src="{{ asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+ <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+ <script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+ <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+ <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+ <script src="{{ asset('AdminLTE/plugins/jszip/jszip.min.js') }}"></script>
+ <script src="{{ asset('AdminLTE/plugins/pdfmake/pdfmake.min.js') }}"></script>
+ <script src="{{ asset('AdminLTE/plugins/pdfmake/vfs_fonts.js') }}"></script>
+ <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+ <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+ <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
     <!-- Page specific script -->
 
     @section('script')
@@ -154,3 +169,28 @@
         });
     </script>
 @endif
+
+<!-- Datatable postulados -->
+<script>
+    $(document).ready(function() {
+        $('#datatable').DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": true,
+            "buttons": [{
+                    extend: 'pdfHtml5',
+                    text: 'PDF',
+                    customize: function(doc) {
+                        doc.styles.tableHeader = {
+                            fillColor: '#000000',
+                            color: '#FAFAFA',
+                            fontSize: 12
+                        };
+                        doc.content[1].alignment = 'center';
+                    }
+                },
+                 "excel"
+            ]
+        }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+    });
+</script>

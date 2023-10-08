@@ -198,7 +198,6 @@ class InventoryController extends Controller
     // Método para mostrar la vista del formulario de entradas de inventario
     public function showInventoryEntriesForm(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_inventory_show_entries_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_inventory_show_entries_title_view')];
-
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));
@@ -343,7 +342,6 @@ class InventoryController extends Controller
     // Método para mostrar la vista del formulario de ventas
     public function showSalesForm(){
         $view = ['titlePage' => trans('ptventa::controllers.PTVENTA_sales_title_page'), 'titleView' => trans('ptventa::controllers.PTVENTA_sales_title_view')];
-
         // Establecer valores predeterminados para $start_date y $end_date si no están presentes en el request
         $start_date = request()->input('start_date', now()->format('Y-m-d'));
         $end_date = request()->input('end_date', now()->format('Y-m-d'));

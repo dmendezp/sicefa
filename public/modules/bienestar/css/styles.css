@@ -27,14 +27,28 @@ li {
 /* Estilo de los íconos del menú */
 .nav-sidebar .nav-link i {
   margin-right: 25px; /* Espacio a la derecha de los íconos */
+}/* Cambiar color al pasar el ratón por encima del botón del menú */
+
+.nav-sidebar .nav-item:hover .nav-link {
+  background-color: #1a9850; /* Cambiar a color gris al pasar el ratón */
+  color: white; /* Cambiar el color del texto a blanco al pasar el ratón */
 }
+
+/* Estilo del menú desplegable */
+.nav-sidebar .nav-item.has-treeview .nav-link {
+  padding-right: 30px; /* Agregar espacio a la derecha para el ícono de flecha */
+}
+
+/* Estilo del menú desplegable activo */
+.nav-sidebar .nav-item.has-treeview.active:hover .nav-link p{
+  background-color: #1a9850; /* Color de fondo del menú desplegable activo al pasar el ratón */
+  color: #ffffff; /* Color del texto del menú desplegable activo al pasar el ratón */
+}
+
 /* Estilo de los elementos de menú activos (cuando están seleccionados) */
-.nav-sidebar .nav-link.active {
-  background-color: #212121; /* Color de fondo del elemento activo */
-  color: #ffffff; /* Color del texto del elemento activo */
+.nav-sidebar .nav-item.has-treeview.active:hover .nav-link p{
+  background-color: #333; /* Color de fondo del menú desplegable activo al pasar el ratón */
 }
-/* Estilo del menú 
-To change the color of the sidebar buttons from blue to gray when you mouse over them, you can use the following CSS code:
 
 /* Estilo del menú desplegable */
 .custom-dropdown .nav-link i.right {
@@ -47,11 +61,6 @@ To change the color of the sidebar buttons from blue to gray when you mouse over
   transform: rotate(90deg); /* Gira la flecha hacia abajo cuando está activo */
 }
 
-/* Estilo de los elementos de menú cuando el mouse está encima */
-.nav-sidebar .nav-item:hover .nav-link {
-  background-color: #1a9850; /* Mantiene el color de fondo */
-  color: white; /* Cambia el color del texto a gris oscuro */
-}
 
 h1{
   font-weight: bold; /* Grosor de la fuente */
@@ -82,6 +91,7 @@ h2, h3, h4, h5, h6 {
 .btn.btn-success {
   font-weight: bold;
 }
+
 label {
   font-weight: bold;
 }

@@ -14,19 +14,15 @@
                     <i class="fas fa-user-graduate"></i> Aprendices
                 </a>
                 <a class="btn btn-app  btn-app-2">
-                    <span class="badge bg-info">{{ number_format($event, 0, ',', '.') }}</span>
-                    <i class="fa-regular fa-calendar-check"></i> Eventos
+                    <span class="badge bg-info">{{ number_format($events, 0, ',', '.') }}</span>
+                    <i class="fas fa-calendar-check"></i> Eventos
                 </a>
                 <a class="btn btn-app btn-app-2">
-                    <span class="badge bg-info">0</span>
-                    <i class="fas fa-user-tie"></i> Administrativos
-                </a>
-                <a class="btn btn-app btn-app-2">
-                    <span class="badge bg-info"></span>
+                    <span class="badge bg-info">{{ number_format($courses, 0, ',', '.') }}</span>
                     <i class="fas fa-graduation-cap"></i> Cursos
                 </a>
                 <a class="btn btn-app btn-app-2">
-                    <span class="badge bg-info">0</span>
+                    <span class="badge bg-info">{{ number_format($environments, 0, ',', '.') }}</span>
                     <i class="fas fa-map-marked-alt"></i> Ambientes
                 </a>
             </div>

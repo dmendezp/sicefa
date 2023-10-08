@@ -24,6 +24,8 @@ Route::middleware(['lang'])->group(function () {
 
         //Vista Crud Beneficio
         Route::get('/benefits', 'BenefitsController@benefitsView')->name('cefa.bienestar.benefits');
+        Route::get('/benefits', 'BenefitsController@benefitsView')->name('cefa.bienestar.benefits');
+
         Route::delete('/benefits/delete/{id}', 'BenefitsController@destroy')->name('cefa.bienestar.benefits.delete');
         Route::post('/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('cefa.bienestar.benefits.add');
         Route::put('/benefits/update/{id}', 'BenefitsController@update')->name('cefa.bienestar.benefits.update');
@@ -31,8 +33,9 @@ Route::middleware(['lang'])->group(function () {
         //Vista CRUD Buses
         Route::get('/buses', 'BusesController@index')->name('cefa.bienestar.buses');
         Route::post('/buses/store', 'BusesController@store')->name('cefa.bienestar.buses.store');
+        Route::put('/buses/update/{id} ', 'BusesController@update')->name('cefa.bienestar.buses.update');
         Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('cefa.bienestar.buses.destroy');
-        Route::put('/buses/update/{id}', 'BusesController@update')->name('cefa.bienestar.buses.update');
+        
 
         // Vista CRUD tipo de beneficios
         Route::get('/typeofbenefits', 'TypesOfBenefitsController@typeofbenefits')->name('cefa.bienestar.typeofbenefits');
