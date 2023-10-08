@@ -17,7 +17,7 @@
                         <img src="{{ asset('storage/' . Auth::user()->person->avatar) }}" class="img-circle elevation-2"
                             alt="User Image">
                     @else
-                        <img src="{{ asset('sica/images/blanco.png') }}" class="img-circle elevation-2"
+                        <img src="{{ asset('modules/sica/images/blanco.png') }}" class="img-circle elevation-2"
                             alt="User Image">
                     @endif
                 </div>

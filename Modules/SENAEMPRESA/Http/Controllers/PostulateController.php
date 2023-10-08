@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Modules\SENAEMPRESA\Entities\file_senaempresa;
 use Modules\SENAEMPRESA\Entities\Postulate;
 use Modules\SENAEMPRESA\Entities\Vacancy;
@@ -35,13 +36,10 @@ class PostulateController extends Controller
 
         // Obtén el curso del aprendiz logueado
         $course = $Apprentice->course;
-
-        // Obtén las vacantes relacionadas con ese curso que aún están vigentes
-        $currentDate = Carbon::now();
         $vacancies = DB::table('course_vacancy')
             ->join('vacancies', 'course_vacancy.vacancy_id', '=', 'vacancies.id')
             ->where('course_vacancy.course_id', '=', $course->id)
-            ->where('vacancies.end_datetime', '>', $currentDate) // Solo las vacantes cuya fecha de fin sea posterior a la fecha actual
+            ->where('vacancies.state', '=', 'Disponible')
             ->get();
 
         $Postulates = Postulate::with('Apprentice.Person')->get();
@@ -83,14 +81,29 @@ class PostulateController extends Controller
         $postulate->apprentice_id = $ApprenticeId;
         $postulate->vacancy_id = $request->input('vacancy_id');
         $postulate->state = 'Inscrito';
-        $postulate->score_total = null;
-        $cvPath = $request->file('cv')->store('modules/senaempresa/files/cv', 'public');
-        $personalitiesPath = $request->file('personalities')->store('modules/senaempresa/files/personalities', 'public');
-        $proposalPath = $request->file('proposal')->store('modules/senaempresa/files/proposal', 'public');
-        $postulate->cv = $cvPath;
-        $postulate->personalities = $personalitiesPath;
-        $postulate->proposal = $proposalPath;
-        $postulate->score_total = '0';
+        $postulate->score_total = 0; // Initialize score_total to 0
+
+        // Save CV file
+        if ($cvFile = $request->file('cv')) {
+            $cvFileName = Str::slug($ApprenticeId) . 'cv_' . time() . '.' . $cvFile->getClientOriginalExtension();
+            $cvFile->move(public_path('modules/senaempresa/files/cv/'), $cvFileName);
+            $postulate->cv = 'modules/senaempresa/files/cv/' . $cvFileName;
+        }
+
+        // Save personalities file
+        if ($personalitiesFile = $request->file('personalities')) {
+            $personalitiesFileName = Str::slug($ApprenticeId) . 'personalities_' . time() . '.' . $personalitiesFile->getClientOriginalExtension();
+            $personalitiesFile->move(public_path('modules/senaempresa/files/personalities/'), $personalitiesFileName);
+            $postulate->personalities = 'modules/senaempresa/files/personalities/' . $personalitiesFileName;
+        }
+
+        // Save proposal file
+        if ($proposalFile = $request->file('proposal')) { // Correct the file input name
+            $proposalFileName = Str::slug($ApprenticeId) . 'proposal_' . time() . '.' . $proposalFile->getClientOriginalExtension();
+            $proposalFile->move(public_path('modules/senaempresa/files/proposal/'), $proposalFileName);
+            $postulate->proposal = 'modules/senaempresa/files/proposal/' . $proposalFileName;
+        }
+
         $postulate->save();
         $data = [
             'ApprenticeId' => $ApprenticeId,
@@ -98,7 +111,6 @@ class PostulateController extends Controller
 
         return redirect()->route('company.vacant.vacantes', $data)->with('success', trans('senaempresa::menu.Registration made with success!'));
     }
-
     public function postulates()
     {
         $postulates = Postulate::with(['apprentice.person', 'vacancy'])->get();
@@ -109,6 +121,7 @@ class PostulateController extends Controller
             return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
+
     public function score($apprenticeId)
     {
         $postulate = Postulate::where('apprentice_id', $apprenticeId)->first();
