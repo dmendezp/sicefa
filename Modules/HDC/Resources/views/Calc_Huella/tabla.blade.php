@@ -7,7 +7,7 @@
                     <h3 class="card-title">Registros de CO2 de {{ $persona->full_name }}</h3>
                 </div>
                 <div class="card-body">
-                    <a href="" class="btn btn-success mb-2"><i class="fa-solid fa-plus"></i></a>
+                    <a href="{{ route('Carbonfootprint.form.calculates') }}" class="btn btn-success mb-2"><i class="fa-solid fa-plus"></i></a>
                     <div class="mtop16">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
@@ -33,7 +33,7 @@
                                     <a href="#" class="btn btn-warning"><i class="fa-solid fa-pencil"></i></a>
                                     <a href="" class= "btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </td>
-                              
+
                                </tr>
                             </tbody>
                         </table>

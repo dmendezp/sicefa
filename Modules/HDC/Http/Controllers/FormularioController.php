@@ -83,59 +83,50 @@ class FormularioController extends Controller
         // Redirige al usuario o proporciona una respuesta de éxito
         return redirect()->route('admin.hdc.table')->with('success', 'Valores guardados correctamente');
     }
-
     public function table()
-{
-    $datos = EnvironmentalAspectLabor::with('environmental_aspect', 'labor')->get();
-    $productive_units = ProductiveUnit::orderBy('name', 'ASC')->get();
-    $activities = Activity::with('productive_unit')->get();
+    {
+        $datos = EnvironmentalAspectLabor::with('environmental_aspect', 'labor', 'labor.activity.productive_unit')->get();
 
-    $formattedData = [];
+        $formattedData = [];
 
-    foreach ($datos as $dato) {
-        $unit = $dato->labor->activity->productive_unit;
-        $activi = $dato->labor->activity;
+        foreach ($datos as $dato) {
+            $unit = $dato->labor->activity->productive_unit;
+            $activi = $dato->labor->activity;
 
-        if (!isset($formattedData[$unit->id])) {
-            $formattedData[$unit->id] = [
-                'unit_name' => [
-                    'name' => $unit->name,
-                    'rowspan' => 0,
-                ],
-                'activities' => [],
+            if (!isset($formattedData[$unit->id][$activi->id])) {
+                $formattedData[$unit->id][$activi->id] = [
+                    'unit_name' => $unit->name,
+                    'activity_name' => $activi->name,
+                    'aspect_data' => [],
+                ];
+            }
+
+            $formattedData[$unit->id][$activi->id]['aspect_data'][] = [
+                'id' => $dato->id,
+                'aspect_name' => $dato->environmental_aspect->name,
+                'amount' => $dato->amount,
+                'labor_planning' => $dato->labor->planning_date,
             ];
         }
 
-        $formattedData[$unit->id]['activities'][] = [
-            'id' => $dato->id,
-            'activity_name' => [
-                'name' => $activi->name,
-                'rowspan' => 0,
-            ],
-            'aspect_name' => $dato->environmental_aspect->name,
-            'amount' => $dato->amount,
-            'labor_planning' => $dato->labor->planning_date, // Agregamos el nombre de la labor
-        ];
+        return view('hdc::registration_form.resultform', compact('formattedData'));
     }
 
-    // Calcular el rowspan para la unidad productiva y las actividades
-    foreach ($formattedData as &$unitData) {
-        $unitData['unit_name']['rowspan'] = count($unitData['activities']);
 
-        foreach ($unitData['activities'] as &$activityData) {
-            $activityData['activity_name']['rowspan'] = $unitData['unit_name']['rowspan'];
-        }
-    }
-
-    return view('hdc::registration_form.resultform', compact('formattedData'));
-}
 
 
     public function delete($id)
     {
         try {
-            // Realiza la eliminación real
-            $ambient = EnvironmentalAspectLabor::findOrFail($id);
+            // Intenta encontrar el registro
+            $ambient = EnvironmentalAspectLabor::find($id);
+
+            // Verifica si el registro existe
+            if (!$ambient) {
+                return redirect()->back()->with('error', 'Registro no encontrado');
+            }
+
+            // Elimina el registro
             $ambient->delete();
 
             return redirect()->back()->with('success', 'Eliminado satisfactoriamente');
@@ -145,6 +136,7 @@ class FormularioController extends Controller
             return redirect()->back()->with('error', $message);
         }
     }
+
 
     public function edit($id)
     {
@@ -162,7 +154,7 @@ class FormularioController extends Controller
 
     public function update(Request $request, $id): JsonResponse
     {
-        return($request);
+        return ($request);
         // Validar los datos del formulario de edición
         $request->validate([
             'amount' => 'required|numeric',

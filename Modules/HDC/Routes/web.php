@@ -12,8 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware(['lang'])->group(function() {
-    Route::prefix('hdc')->group(function() {
+
+Route::middleware(['lang'])->group(function () {
+    Route::prefix('hdc')->group(function () {
         Route::get('/index', 'HDCController@index')->name('cefa.hdc.index');
 
         /* Ruta del Formulario */
@@ -31,16 +32,17 @@ Route::middleware(['lang'])->group(function() {
 
         /* Ruta Para Administrar Recursos */
         Route::get('/AdminstrarRecursos', 'AdminresourcesController@adminresources')->name('cefa.hdc.adminresources');
-        Route::post('/guardar','AdminresourcesController@store')->name('hdc.adminresources.store');
+        Route::post('/guardar', 'AdminresourcesController@store')->name('hdc.adminresources.store');
 
         /* Rutas de Calcula tu Huella */
-        Route::get('persona', 'CarbonfootprintController@persona')-> name('carbonfootprint.persona');
-        Route::get('/calculos/persona/{documento}', 'CarbonfootprintController@calculosPersona')-> name('carbonfootprint.calculos.persona');
+        Route::get('persona', 'CarbonfootprintController@persona')->name('carbonfootprint.persona');
+        Route::get('/calculos/persona/{documento}', 'CarbonfootprintController@verificarUsuario')->name('carbonfootprint.calculos.persona');
+        /* Rutas de Formulario de Calcula tu Huella */
+        Route::get('/form/calculates/footprint', 'CarbonfootprintController@formcalculates')->name('Carbonfootprint.form.calculates');
+        // Ruta para procesar el formulario (guardar los datos)
+        Route::post('/form/calculates/footprint/save', 'CarbonfootprintController@saveConsumption')->name('Carbonfootprint.save_consumption');
 
         /* Ruta de Graficas */
         Route::get('/Graficas', 'GraficasController@Graficas')->name('cefa.hdc.Graficas');
-
-
     });
 });
-

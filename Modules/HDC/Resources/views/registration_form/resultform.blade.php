@@ -28,46 +28,46 @@
                         <tbody>
                             @php $globalIteration = 1; @endphp
                             @foreach ($formattedData as $unitData)
-                                @foreach ($unitData['activities'] as $index => $activityData)
-                                    <tr>
-                                        @if ($index === 0)
-                                            <td rowspan="{{ $unitData['unit_name']['rowspan'] }}" class="center-text">
-                                                {{ $globalIteration++ }}
+                                @foreach ($unitData as $activityData)
+                                    @foreach ($activityData['aspect_data'] as $index => $aspectData)
+                                        <tr>
+                                            @if ($index === 0)
+                                                <td rowspan="{{ count($activityData['aspect_data']) }}" class="center-text">
+                                                    {{ $globalIteration++ }}
+                                                </td>
+                                                <td rowspan="{{ count($activityData['aspect_data']) }}" class="center-text">
+                                                    {{ $activityData['unit_name'] }}
+                                                </td>
+                                                <td rowspan="{{ count($activityData['aspect_data']) }}" class="center-text">
+                                                    {{ $activityData['activity_name'] }}
+                                                </td>
+                                            @endif
+
+                                            @if ($index === 0)
+                                                <td rowspan="{{ count($activityData['aspect_data']) }}" class="center-text">
+                                                    {{ $aspectData['labor_planning'] }}
+                                                </td>
+                                            @endif
+
+                                            <td class="center-text">{{ $aspectData['aspect_name'] }}</td>
+                                            <td class="center-text">{{ $aspectdData['amount'] }}</td>
+                                            <td>  {{-- Boton Eliminar --}}
+                                                <form action="{{ route('cefa.hdc.delete', ['id' => $aspectData['id']]) }}" method="POST" class="formEliminar">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger ml-2 btnEliminar" type="submit" data-id="{{ $aspectData['id']}}">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
                                             </td>
-                                            <td rowspan="{{ $unitData['unit_name']['rowspan'] }}" class="center-text">
-                                                {{ $unitData['unit_name']['name'] }}
-                                            </td>
-                                            <td rowspan="{{ $activityData['activity_name']['rowspan'] }}"
-                                                class="center-text">
-                                                {{ $activityData['activity_name']['name'] }}
-                                            </td>
-                                        @endif
-                                        <td class="center-text"> {{ $activityData['labor_planning'] }} </td>
-                                        <td class="center-text">{{ $activityData['aspect_name'] }}</td>
-                                        <td class="center-text">{{ $activityData['amount'] }}</td>
-                                        <td>
-                                            {{-- Boton de editar --}}
-                                            <button class="btn btn-primary ml-2 btnEditar" type="button"
-                                                data-id="{{ $activityData['amount'] }}">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            {{-- Boton Eliminar --}}
-                                            <form action="{{ route('cefa.hdc.delete', ['id' => $activityData['id']]) }}"
-                                                method="POST" class="formEliminar">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger ml-2 btnEliminar" type="button"
-                                                    data-id="{{ $activityData['id'] }}">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                        </tr>
+                                    @endforeach
                                 @endforeach
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
