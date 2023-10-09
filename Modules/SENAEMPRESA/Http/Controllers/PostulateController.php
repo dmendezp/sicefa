@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Modules\SENAEMPRESA\Entities\file_senaempresa;
 use Modules\SENAEMPRESA\Entities\Postulate;
 use Modules\SENAEMPRESA\Entities\Vacancy;
+use Modules\SICA\Entities\Apprentice;
 
 class PostulateController extends Controller
 {

@@ -64,11 +64,6 @@ class AttendanceSenaempresaController extends Controller
             return redirect()->route('attendance.list')->with('success', 'Asistencia registrada exitosamente.');
         }
     }
-
-
-
-
-
     public function getPersonData(Request $request)
     {
         $documentNumber = $request->input('document_number');
