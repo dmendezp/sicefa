@@ -33,7 +33,6 @@ return [
     'TitledSchd'              => 'Hr. de Tituladas',
     // Consult Functions
     'Consult'                 => 'Consultas',
-    'ApprenticeConsult'       => 'Consultar Aprendiz',
     'ExcusesConsult'          => 'Consultar Excusas',
     'AttendanceConsult'       => 'Consultar Asistencias',
     // Attendance Functions

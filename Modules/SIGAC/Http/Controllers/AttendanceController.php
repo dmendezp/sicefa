@@ -11,95 +11,36 @@ use Modules\SICA\Entities\Program;
 
 class AttendanceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    /* Consultar Excusas de Aprendiz */
+    public function consult_excuses()
+    {
+        $view = ['titlePage'=>trans('sigac::consult.Consultation'), 'titleView'=>trans('sigac::consult.Attendance Consultation')];
+        $apps = App::get();
+        return view('sigac::attendance.excuses', compact('apps', 'view'));
+    }
+
+    /* Consultar Asistencia de Aprendiz o Titulada */
+    public function consult_attendance()
+    {
+        $view = ['titlePage'=>trans('sigac::consult.Consultation'), 'titleView'=>trans('sigac::consult.Attendance Consultation')];
+        $apps = App::get();
+        return view('sigac::attendance.index', compact('apps', 'view'));
+    }
+
+    /* Registrar asistencia de aprendiz por titulada */
     public function index()
     {
         $view = ['titlePage'=>trans('sigac::attendance.Attendance'), 'titleView'=>trans('sigac::attendance.Attendance Registration')];
         $apps = App::get();
-
-        // Obtener la lista de ambientes disponibles
-        $environments = Environment::orderBy('name','ASC');
-
-        // Obtener la lista de cursos concatenados
-        $programs = Program::orderBy('name','ASC')->get();
-
-        return view('sigac::attendance.register', compact('apps', 'view', 'environments', 'programs'));
+        return view('sigac::attendance.register', compact('apps', 'view'));
     }
     
-    public function consultAttendance()
-    {
-        $view = ['titlePage'=>trans('sigac::consult.Consultation'), 'titleView'=>trans('sigac::consult.Attendance Consultation')];
-        $apps = App::get();
-        return view('sigac::attendance.consult', compact('apps', 'view'));
-    }
 
-    public function reportsAttendance()
+    public function reports_attendance()
     {
         $view = ['titlePage'=>trans('sigac::reports.TitlePage'), 'titleView'=>trans('sigac::reports.TitleView')];
         $apps = App::get();
         return view('sigac::reports.index', compact('apps', 'view'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('sigac::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('sigac::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('sigac::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

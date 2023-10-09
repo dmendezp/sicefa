@@ -34,7 +34,7 @@ class SIGACController extends Controller
     }
 
     /* Panel de control del instructor */
-    public function instructor_dashboard(){
+    public function instructor_dashboards(){
         $view = ['titlePage'=>trans('sigac::controllers.SIGAC_instructor_dashboard_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_instructor_dashboard_title_view')];
         $apps = App::get();
         return view('sigac::index_instructor', compact('apps','view'));

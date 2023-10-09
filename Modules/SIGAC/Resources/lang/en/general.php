@@ -33,9 +33,8 @@ return [
     'TitledSchd'              => 'Apprentice Schd.',
     // Consult Functions
     'Consult'                 => 'Consult',
-    'ApprenticeConsult'       => 'Apprentice Consult',
     'ExcusesConsult'          => 'Excuses Consult',
-    'AttendaceConsult'        => 'Attendace Consult',
+    'AttendanceConsult'       => 'Attendace Consult',
     // Attendance Functions
     'AttendanceRegister'      => 'Attendance Register',
     // Reports Functions

@@ -18,7 +18,7 @@ return [
     'Card_Title_What_is_SIGAC'       => '¿Qué es SIGAC?',
     'Card_Description_What_is_SIGAC' => 'El sistema integrado de gestión académica es un aplicativo que permite la administración de ambientes, instrcutores y programas del centro de formación agroindustrial "La Angostura".',
     'Card_Title_Who_is_SIGAC'        => '¿Para quién es SIGAC?',
-    'CardDescription_Who_is_SIGAC'   => 'Es para uso de coordinación académica, instructores y aprendices.',
+    'Card_Description_Who_is_SIGAC'   => 'Es para uso de coordinación académica, instructores y aprendices.',
     'Card_Title_What_find'           => '¿Qué encontrarás?',
     'Card_Description_What_find'     => 'Aquí encontrarás todo lo relacionado con la programación de actividades académicas y resgistro de asistencia.',
 
