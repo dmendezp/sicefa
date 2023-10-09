@@ -12,42 +12,30 @@
                     <!-- Contenido de la vista en un solo card -->
                     <div class="card shadow col-md-12">
                         <div class="card-body text-center"> <!-- Centramos el contenido en el card verticalmente -->
-                            <form>
-                                <div class="form-group">
-                                    <div class="input-group col-md-6 mx-auto"> <!-- Centramos el campo numérico horizontalmente -->
-                                        <input type="number" class="form-control" id="numero_documento" name="numero_documento" placeholder="Documento Identidad">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Otros campos y botones de formulario si es necesario -->
-                            </form>
+                            
+                            <!-- Barra de búsqueda de documentos -->
+                            <div class="form-group d-flex justify-content-center align-items-center">
+                                <input type="text" class="form-control col-md-4" id="documento_search" placeholder="Buscar documento">
+                                
+                            </div>
+                            
+                            <!-- Otros campos y botones de formulario si es necesario -->
 
-                            <!-- Tabla con 5 columnas y estilo -->
-                            <table class="table table-bordered table-striped">
+                            <!-- Tabla con 7 columnas y estilo -->
+                            <table class="table table-bordered table-striped" id="resultados_table">
                                 <thead>
                                     <tr>
-                                        <th>Nombre del Aprendiz</th>
-                                        <th>Número de Documento</th>
-                                        <th>Porcentaje de Descuento (Alimentación)</th>
-                                        <th>Número de Ruta (Transporte)</th>
-                                        <th>Nombre de Ruta (Transporte)</th>
+                                        <th>Aprendiz</th>
+                                        <th>Numero de Documento</th>
+                                        <th>Programa</th>
+                                        <th>Ficha</th>
+                                        <th>Apoyo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Aquí puedes agregar filas de datos si es necesario -->
-                                    @isset($aprendiz)
-                                    <tr>
-                                        <td>{{ $aprendiz->nombre_aprendiz }}</td>
-                                        <td>{{ $aprendiz->numero_documento }}</td>
-                                        <td>{{ $aprendiz->porcentaje_descuento_alimentacion }}</td>
-                                        <td>{{ $aprendiz->numero_ruta_transporte }}</td>
-                                        <td>{{ $aprendiz->nombre_ruta_transporte }}</td>
-                                    </tr>
-                                    @endisset
                                 </tbody>
-                            </table>        
+                            </table>
+
                         </div>
                     </div>
                     <!-- Fin del contenido en un solo card -->
@@ -56,4 +44,77 @@
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $('#resultados_table').DataTable();
+
+    // Agrega un evento input al campo document_number
+    $('#documento_search').on('input', function() {
+        var documentNumber = $(this).val();
+
+        // Realiza la petición AJAX
+        $.ajax({
+            url: '{{ route('cefa.bienestar.search') }}',
+            method: 'GET',
+            data: {
+                _token: '{{ csrf_token() }}',
+                document_number: documentNumber
+            },
+            success: function(response) {
+                console.log(response);
+                // Limpia el cuerpo de la tabla
+                $('#resultados_table tbody').empty();
+
+                // Verifica si se encontró una persona
+                if (response) {
+                    // Recorre todos los aprendices y sus postulaciones
+                    for (var i = 0; i < response.apprentices.length; i++) {
+                        var apprentice = response.apprentices[i];
+                        
+                        // Agrega los datos de la persona a la tabla
+                        var row = '<tr>' +
+                            '<td>' + response.first_name + ' ' + response.first_last_name + ' ' + response.second_last_name + '</td>' +
+                            '<td>' + response.document_number + '</td>' +
+                            '<td>' + apprentice.course.program.name + '</td>' +
+                            '<td>' + apprentice.course.code + '</td>';
+                            '<td>' + apprentice.postulations + '</td>';
+                        // Verifica si hay postulaciones
+                        if (response && response.apprentices && response.apprentices.length > 0) {
+                            // Recorre las postulaciones del aprendiz
+                            
+                            var benefits = '';
+                            for (var j = 0; j < apprentice.postulations.length; j++) {
+                                // Obtiene el nombre del beneficio de cada postulación
+                                var benefitName = apprentice.postulations[j].postulationBenefits[0].benefit.name;
+                                benefits += benefitName + ', ';
+                            }
+                            // Elimina la última coma y espacio
+                            benefits = benefits.slice(0, -2);
+                            row += '<td>' + benefits + '</td>';
+                        } else {
+                            // Si no hay postulaciones, muestra un mensaje
+                            row += '<td>Sin postulaciones</td>';
+                        }
+
+                        row += '</tr>';
+
+                        $('#resultados_table tbody').append(row);
+                    }
+                } else {
+                    // Si no se encontró una persona, puedes mostrar un mensaje de error o realizar otras acciones
+                    $('#resultados_table tbody').html('<tr><td colspan="5">No se encontraron resultados</td></tr>');
+                }
+            },
+            error: function() {
+                // Maneja los errores de la petición AJAX
+                $('#resultados_table tbody').html('<tr><td colspan="5">Error en la búsqueda</td></tr>');
+            }
+        });
+    });
+});
+
+
+</script>
 @endsection

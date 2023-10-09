@@ -7,46 +7,30 @@
         <div style="border: 1px solid #707070; padding: 20px; background-color: white; border-radius: 10px;">
             <!-- Checkbox "Seleccionar Todas" fuera del modal -->
             <label>
+                <!-- Agregar un botón "Seleccionar Todas" -->
+                <input type="checkbox" id="select-all-checkbox"> Seleccionar Todas
             </label>
-            <form id="assignBenefitForm" action="{{ route('cefa.bienestar.postulation-management.assign-or-update-benefit') }}" method="POST">
+
+            
+            
+            <form id="update-benefit-status-form" action="{{ route('cefa.bienestar.postulation-management.update-benefits') }}" method="POST">
                 @csrf
-                <select id="benefit-select" class="form-control" name="benefit_id">
-                    <option value="">Selecciona un beneficio</option>
-                    @foreach($benefits as $benefit)
-                        <option value="{{ $benefit->id }}">{{ $benefit->name }}</option>
-                    @endforeach
-                </select>
-                <button type="button" class="btn btn-sm btn-primary" id="assign-benefit-btn">
-                    Asignar Beneficio
-                </button>
-                <!-- Campos ocultos para el estado y el mensaje predeterminados para las postulaciones -->
-                <input type="hidden" name="state" value="Beneficiado">
-                <input type="hidden" name="message" value="Felicidades, has sido aceptado para recibir el beneficio">
-                <!-- Campo oculto para las postulaciones seleccionadas (en formato JSON) -->
-                <input type="hidden" id="selectedPostulations" name="selectedPostulations" value="{{ json_encode($selectedPostulations) }}">
-                <!-- Campo oculto para las postulaciones no seleccionadas (en formato JSON) -->
-                <input type="hidden" id="unselectedPostulations" name="unselectedPostulations" value="{{ json_encode($unselectedPostulations) }}">
-            </form>
-            
-            
-            
-            
             <table id="benefitsTable" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Seleccionar</th>
                         <th>Apprentice Name</th>
                         <th>Convocation</th>
                         <th>Type of Benefit</th>
                         <th>Acciones</th>
+                        <th>Seleccionar</th> <!-- Agregamos una columna para los checkboxes -->
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($postulations as $postulation)
+                    <input type="hidden" name="postulation_ids[]" value="{{ $postulation->id }}">
                     <tr>
-                        <td>{{ $postulation->id }}</td>
-                        <td><input type="checkbox" name="selected-postulations[]" class="select-postulations" data-postulations-id="{{ $postulation->id }}" data-learner-name="{{ $postulation->learner ? $postulation->learner->name : '' }}" value="{{ $postulation->id }}"></td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $postulation->apprentice->person->full_name }}</td>
                         <td>{{ $postulation->convocation->name }}</td>
                         <td>{{ $postulation->typeOfBenefit->name }}</td>
@@ -56,61 +40,29 @@
                                 Ver Detalles
                             </button>
                         </td>
+                        <td>
+                            <!-- Agregamos el checkbox con los atributos necesarios -->
+                            <input type="checkbox" name="selected_postulations[]" value="{{ $postulation->id }}" {{-- class="select-postulations" data-postulations-id="{{ $postulation->id }}" data-learner-name="{{ $postulation->learner ? $postulation->learner->name : '' }}" --}}>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-            <form id="mark-beneficiaries-form" action="{{ route('cefa.bienestar.postulation-management.mark-as-beneficiaries') }}" method="POST">
-                @csrf
-                <input type="hidden" id="selected-postulations" name="selected-postulations" value="">
-                <div class="container">
-                
-
-                
-
-
-
-                <!-- Modal de confirmación -->
-<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmationModalLabel">Confirmar acción</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p id="confirmationMessage">¿Estás seguro de que deseas marcar a los seleccionados como "Beneficiarios"?</p>
-                <!-- Lista de aprendices seleccionados -->
-                <ul id="selected-learners-list">
-                    <!-- Aquí se mostrarán los nombres de los aprendices seleccionados -->
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <!-- Formulario que enviará la asignación de beneficios -->
-                <form id="benefit-assignment-form" action="{{ route('cefa.bienestar.postulation-management.assign-or-update-benefit') }}" method="POST">
-                    @csrf
-                    <input type="hidden" id="selected-postulations" name="selected-postulations" value="">
-                    <input type="hidden" id="benefitId" name="benefit_id" value="1"> <!-- Cambia el valor según tu lógica -->
-                    <input type="hidden" id="state" name="state" value="Beneficiado"> <!-- Cambia el valor según tu lógica -->
-                    <input type="hidden" id="message" name="message" value="Felicidades, Has sido aceptado al Beneficio solicitado"> <!-- Cambia el mensaje según tu lógica -->
-                    <button type="submit" class="btn btn-primary" id="confirmActionBtn">Confirmar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-                
+                {{-- <input type="hidden" id="selected-beneficiado" name="selectedBeneficiado" value="">
+                <input type="hidden" id="selected-no-beneficiado" name="selectedNoBeneficiado" value=""> --}}
+                <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
+
+            <div id="response-message" style="display: none;">
+                <p>Estado actualizado:</p>
+                <p>Beneficiado: <span id="beneficiado-count">0</span></p>
+                <p>No Beneficiado: <span id="no-beneficiado-count">0</span></p>
+            </div>
         </div>
     </div>
 </div>
-
 
 @foreach($postulations as $postulation)
-
 <!-- Modal de detalles de postulación -->
 <div class="modal fade" id="modal_{{ $postulation->id }}" tabindex="-1" role="dialog"
     aria-labelledby="modalLabel_{{ $postulation->id }}" aria-hidden="true">
@@ -131,7 +83,7 @@
                 <ul>
                     @foreach($questions as $question)
                     <li>
-                        <strong>Question:</strong> {{ $question->name }}<br>
+                        <strong>Question:</strong> {{ $question->question }}<br>
                         <strong>Answer:</strong>
                         @php
                         $answer = $postulation->answers->where('questions_id', $question->id)->first();
@@ -149,7 +101,7 @@
 
                 <div class="form-group">
                     <form action="{{ route('cefa.bienestar.postulation-management.update-score', ['id' => $postulation->id]) }}"
-                        method="POST">
+                        method="PUT">
                         @csrf
                         <div class="form-group">
                             <label for="new-score">Nueva Puntuación:</label>
@@ -158,122 +110,98 @@
                         <button type="submit" class="btn btn-primary">Guardar Puntuación</button>
                     </form>
                 </div>
-                <div class="form-group">
-                    <form action="{{ route('cefa.bienestar.postulation-management.update-state', ['id' => $postulation->id]) }}"
-                        method="POST">
-                        @csrf
-                        @method('PUT') <!-- Cambia a 'PUT' -->
-                        <input type="hidden" name="postulation_id" value="{{ $postulation->id }}">
-                        <div class="form-group">
-                            <label for="state">Nuevo Estado:</label>
-                            <select class="form-control" name="state" id="state">
-                                <option value="Beneficiado"
-                                    {{ $postulation->postulationBenefits->first()->state == 'Beneficiado' ? 'selected' : '' }}>
-                                    Beneficiado</option>
-                                <option value="No Beneficiado"
-                                    {{ $postulation->postulationBenefits->first()->state == 'No Beneficiado' ? 'selected' : '' }}>
-                                    No Beneficiado</option>
-                                <option value="Postulado"
-                                    {{ $postulation->postulationBenefits->first()->state == 'Postulado' ? 'selected' : '' }}>
-                                    Postulado</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Guardar Estado</button>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
 </div>
 @endforeach
 
+@endsection
+
+@section('scripts')
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const assignBenefitButton = document.getElementById('assign-benefit-btn');
-
-    assignBenefitButton.addEventListener('click', function () {
-        const selectedBenefitId = document.getElementById('benefit-select').value;
-
-        // Recopila todas las checkboxes seleccionadas
-        const selectedPostulations = [];
-        const checkboxes = document.querySelectorAll('.select-postulations:checked');
-        checkboxes.forEach(function (checkbox) {
-            selectedPostulations.push(checkbox.value);
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectAllCheckbox = document.getElementById('select-all-checkbox');
+    
+        selectAllCheckbox.addEventListener('change', function () {
+            const checkboxes = document.querySelectorAll('.select-postulations');
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
         });
+    });
+    </script>
+    <script>
+        // Script JavaScript para manejar los checkboxes y enviar la solicitud AJAX
+$(document).ready(function () {
+    const csrfToken = '{{ csrf_token() }}';
+    const postulationStatus = {};
 
-        if (selectedPostulations.length === 0) {
-            alert('Por favor, selecciona al menos una postulación.');
-            return;
-        }
+    // Al hacer clic en un checkbox
+    $('input[type="checkbox"]').on('change', function () {
+        const checkboxName = $(this).attr('name');
+        const [_, postulationId] = checkboxName.split('_');
+        const isChecked = $(this).is(':checked');
 
-        if (!selectedBenefitId) {
-            alert('Por favor, selecciona un beneficio.');
-            return;
-        }
-        // Construir los datos a enviar al servidor para asignar beneficios a los seleccionados
-        const selectedData = {
-            benefit_id: selectedBenefitId,
-            selectedPostulations: selectedPostulations,
-            state: 'Beneficiado', // Utiliza el estado predeterminado
-            message: 'Felicidades, has sido aceptado para recibir el beneficio', // Utiliza el mensaje predeterminado
-        };
+        postulationStatus[postulationId] = isChecked;
+    });
 
-        // Construir los datos para actualizar las postulaciones no seleccionadas (No Beneficiados)
-        const unselectedData = {
-            benefit_id: selectedBenefitId,
-            selectedPostulations: unselectedPostulations,
-            state: 'No Beneficiado', // Establecer el estado para No Beneficiados
-            message: 'No ha sido aceptado para recibir el beneficio', // Establecer el mensaje para No Beneficiados
-        };
-
-        // Enviar la solicitud al servidor para asignar beneficios a los seleccionados
-        fetch('{{ route('cefa.bienestar.postulation-management.assign-or-update-benefit') }}', {
-            method: 'POST',
-            body: JSON.stringify(selectedData),
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            },
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json(); // Si la respuesta del servidor es exitosa, parsea la respuesta JSON
-            } else {
-                throw new Error('Error en la respuesta del servidor'); // Si la respuesta del servidor no es exitosa, lanza un error
+    // Al hacer clic en el botón "Guardar"
+    $('#guardarBtn').on('click', function () {
+        const dataToSend = [];
+        for (const postulationId in postulationStatus) {
+            if (postulationStatus.hasOwnProperty(postulationId)) {
+                const isChecked = postulationStatus[postulationId];
+                dataToSend.push({
+                    postulation_id: postulationId,
+                    state: isChecked ? 'Beneficiado' : 'No Beneficiado',
+                    message: isChecked ? 'Felicidades' : 'Mala suerte'
+                });
             }
-        })
-        .then(data => {
-            // Manejar la respuesta del servidor para las postulaciones seleccionadas aquí
-            // Por ejemplo, mostrar un mensaje de éxito
-            alert('Beneficios asignados con éxito.');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
-            alert('Se produjo un error al asignar beneficios.');
-        });
+        }
 
-        // Enviar la solicitud al servidor para actualizar las postulaciones no seleccionadas (No Beneficiados)
-        fetch('{{ route('cefa.bienestar.postulation-management.assign-or-update-benefit') }}', {
+        // Enviar la solicitud AJAX al servidor
+        $.ajax({
+            url: '{{ route('cefa.bienestar.postulation-management.update-benefits') }}',
             method: 'POST',
-            body: JSON.stringify(unselectedData),
             headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-CSRF-TOKEN': csrfToken
             },
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Manejar la respuesta del servidor para las postulaciones no seleccionadas aquí
-        })
-        .catch(error => {
-            console.error('Error:', error);
+            data: {
+                postulations: dataToSend
+            },
+            success: function (response) {
+                console.log(response);
+                // Actualizar la vista según sea necesario
+            },
+            error: function (error) {
+                console.error(error);
+                // Manejar errores si es necesario
+            }
         });
     });
 });
-</script>
 
-
-
-</div>
-@endsection
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#assign-benefits-button').click(function () {
+                    $.ajax({
+                        url: "{{ route('cefa.bienestar.postulation-management.assign-benefits') }}",
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (response) {
+                            // Procesa la respuesta del servidor, por ejemplo, muestra un mensaje de éxito
+                            console.log(response.message);
+                        },
+                        error: function (error) {
+                            // Maneja errores, por ejemplo, muestra un mensaje de error
+                            console.error(error);
+                        }
+                    });
+                });
+            });
+            </script>
+    @endsection

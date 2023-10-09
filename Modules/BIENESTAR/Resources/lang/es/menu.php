@@ -92,6 +92,18 @@ return[
     'Actions'=>'acciones',
     'Edit convocations'=>'editar convocatorias',
     'quarter id'=>'trimestre',
+
+    //vita assistancesfoods
+    'List of affiliated trainees'=>'Lista de aprendices afiliados',
+    'Apprentice'=>'Aprendiz',
+    'Number Document'=>'Numero de Documento',
+    'Beneficiary'=>'Beneficiario',
+    'Program'=>'Programa',
+    'code'=>'ficha',
+    'percentage'=>'porcentaje',
+    'Type Food'=>'Tipo de Comida',
+    'time and date'=>'Hora y fecha',
+   
     
     
 ]

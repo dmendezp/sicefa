@@ -9,13 +9,16 @@ use Modules\BIENESTAR\Entities\RouteTransportation;
 use Modules\BIENESTAR\Entities\BusDriver;
 use Modules\BIENESTAR\Entities\Bus;
 
-class RoutesTransportationsController extends Controller
+class RoutesTransportationController extends Controller
 
 {
 
     public function index()
     {
         // Obtén los datos de buses con sus conductores relacionados
+        $buses = Bus::with('bus_driver')->whereHas('bus_driver')->get();
+        $busDrivers = BusDriver::all();
+        $routestransportations = RouteTransportation::with('bus.bus_driver')->get();
         $buses = Bus::with('bus_driver')->whereHas('bus_driver')->get();
         $busDrivers = BusDriver::all();
         $routestransportations = RouteTransportation::with('bus.bus_driver')->get();

@@ -177,7 +177,8 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": true,
-            "buttons": [{
+            "buttons": [
+                {
                     extend: 'pdfHtml5',
                     text: 'PDF',
                     customize: function(doc) {
@@ -187,10 +188,27 @@
                             fontSize: 12
                         };
                         doc.content[1].alignment = 'center';
-                    }
+                    },
+                    className: 'pdf-button' // Clase CSS personalizada para el botón PDF
                 },
-                 "excel"
+                {
+                    extend: 'excel',
+                    text: 'Excel',
+                    className: 'excel-button' // Clase CSS personalizada para el botón Excel
+                }
             ]
         }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+
+        // Establece los estilos CSS para el botón PDF (rojo) y el botón Excel (verde)
+        $('.pdf-button').css({
+            'background-color': 'red',
+            'color': 'white' // Color del texto en el botón PDF
+        });
+
+        $('.excel-button').css({
+            'background-color': 'green',
+            'color': 'white' // Color del texto en el botón Excel
+        });
     });
 </script>
+
