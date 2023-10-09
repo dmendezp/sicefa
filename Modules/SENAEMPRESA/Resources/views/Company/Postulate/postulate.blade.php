@@ -49,6 +49,8 @@
                                     </td>
 
                                     <td>{{ $postulate->score_total }}</td>
+
+
                                     <td>
                                         @if ($postulate->state === 'Inscrito')
                                             <a href="#" class="btn btn-primary btn-sm assign-button"

@@ -13,7 +13,7 @@ class file_senaempresa extends Model
     SoftDeletes, // Borrado suave
     HasFactory; 
 
-    protected $fillable = ['document', 'cv_score', 'personalities_score', 'improvement_proposal_score' ];
+    protected $fillable = ['document', 'cv_score', 'personalities_score', 'proposal_score' ];
     protected static function newFactory()
     {
         return \Modules\SENAEMPRESA\Database\factories\FileSenaempresaFactory::new();

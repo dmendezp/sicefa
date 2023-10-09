@@ -20,7 +20,6 @@
                                 <input type="text" name="person_name" class="form-control" readonly>
                             </div>
                             <input type="hidden" name="person_id" id="person_id" value="">
-                            <input type="hidden" name="person_id" id="person_id" value="">
                             <button type="submit" class="btn btn-primary">Registrar Asistencia</button>
                             <button type="button" class="btn btn-success" id="show-hide-table-button">Asistencias
                                 Registradas</button>

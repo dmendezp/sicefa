@@ -98,7 +98,9 @@ Route::middleware(['lang'])->group(function () {
         //Postulados
         Route::get('Postulados/', 'PostulateController@postulates')->name('company.postulate');
         Route::get('Postulados/Score/{apprenticeId}', 'PostulateController@score')->name('company.postulate.score');
-        Route::post('Postulados/Score/Puntaje_Asignado', 'PostulateController@score')->name('company.postulate.score.asignado');
+        Route::post('Postulados/Score/Puntaje_Asignado', 'PostulateController@assignScore')->name('company.postulate.score.asignado');
+       
+
 
 
 
@@ -135,5 +137,10 @@ Route::middleware(['lang'])->group(function () {
         // Ruta para mostrar la lista de asistencias
         Route::get('/asistencias', 'AttendanceSenaempresaController@showAttendanceList')->name('attendance.list');
         Route::post('/obtener-datos-de-persona', 'AttendanceSenaempresaController@getPersonData')->name('getPersonData');
+
+        Route::get('/score/{postulateId}', 'PostulateController@score_save');
+      
+
+
     });
 });
