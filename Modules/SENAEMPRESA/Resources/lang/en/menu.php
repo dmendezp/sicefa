@@ -175,11 +175,11 @@ return [
     'document number:'=>'document number:',
     'Name of individual:'=>'Name of individual:',
     'Register Attendance'=>'Register Attendance',
-    'Recorded Assists'=>'Recorded Assists',
     'Registered Attendance'=>'Registered Attendance',
-    'document'=>'document',
+    'Document'=>'Document',
     'Date and Time of Entry'=>'Date and Time of Entry',
     'Date and time of departure'=>'Date and time of departure',
+    'Attendance'=>'Attendance',
 
     
    

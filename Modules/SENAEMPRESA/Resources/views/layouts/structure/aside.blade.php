@@ -104,7 +104,7 @@
                         class="nav-link {{ !Route::is('company.asistencia') ?: 'active' }}">
                         <i class="fas fa-users-cog"></i>
                         <p>
-                            Asistencia
+                            {{ trans('senaempresa::menu.Attendance') }}
                         </p>
                     </a>
                 </li>

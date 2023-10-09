@@ -22,9 +22,9 @@
                             </div>
                             <input type="hidden" name="person_id" id="person_id" value="">
                             <button type="submit"
-                                class="btn btn-primary">{{ trans('senaempresa::menu.Register Attendance') }}</button>
+                                class="btn btn-primary">{{ trans('senaempresa::menu.Register attendance') }}</button>
                             <button type="button" class="btn btn-success"
-                                id="show-hide-table-button">{{ trans('senaempresa::menu.Recorded Assists') }}</button>
+                                id="show-hide-table-button">{{ trans('senaempresa::menu.Registered Attendance') }}</button>
 
                         </form>
                     </div>
@@ -42,7 +42,7 @@
                             <thead>
                                 <tr>
                                     <th>{{ trans('senaempresa::menu.Name') }}</th>
-                                    <th>{{ trans('senaempresa::menu.document') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Document') }}</th>
                                     <th>{{ trans('senaempresa::menu.Date and Time of Entry') }}</th>
                                     <th>{{ trans('senaempresa::menu.Date and time of departure') }}</th>
                                 </tr>
