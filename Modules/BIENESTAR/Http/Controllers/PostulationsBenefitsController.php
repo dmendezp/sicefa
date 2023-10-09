@@ -5,13 +5,13 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\Postulations;
-use Modules\BIENESTAR\Entities\Convocations;
+use Modules\BIENESTAR\Entities\Postulation;
+use Modules\BIENESTAR\Entities\Convocation;
 use Modules\SICA\Entities\Apprentice;
 use Modules\BIENESTAR\Entities\TypesOfBenefits;
-use Modules\BIENESTAR\Entities\Questions;
-use Modules\BIENESTAR\Entities\Benefits;
-use Modules\BIENESTAR\Entities\PostulationsBenefits;
+use Modules\BIENESTAR\Entities\Question;
+use Modules\BIENESTAR\Entities\Benefit;
+use Modules\BIENESTAR\Entities\PostulationBenefit;
 use Modules\BIENESTAR\Entities\Answers;
 use Illuminate\Http\JsonResponse;
 
@@ -19,25 +19,25 @@ class PostulationsBenefitsController extends Controller
 {
     public function index(Request $request)
 {
-    $benefits = Benefits::all();
-    $postulations = Postulations::with(['apprentice', 'convocation', 'typeOfBenefit'])->get();
-    $questions = Questions::all(); // Obtener todas las preguntas disponibles
+    $benefits = Benefit::all();
+    $postulations = Postulation::with(['apprentice', 'convocation', 'typeOfBenefit'])->get();
+    $questions = Question::all(); // Obtener todas las preguntas disponibles
 
     // Obtener las postulaciones seleccionadas desde el formulario
     $selectedPostulations = $request->input('selected-postulations', []);
 
     // Obtener las postulaciones no seleccionadas
-    $allPostulations = Postulations::all();
+    $allPostulations = Postulation::all();
     $unselectedPostulations = $allPostulations->filter(function ($postulation) use ($selectedPostulations) {
         return !in_array($postulation->id, $selectedPostulations);
     });
 
-    $postulationBenefits = PostulationsBenefits::all();
+    $postulationBenefits = PostulationBenefit::all();
 
     return view('bienestar::postulation-management', compact('postulations', 'benefits', 'questions', 'postulationBenefits', 'selectedPostulations', 'unselectedPostulations'));
 }
 public function show($id) {
-    $postulation = Postulations::with('convocation', 'apprentice', 'typeOfBenefit', 'answers', 'postulationBenefits', 'socioEconomicSupportFiles', 'typeOfBenefit')->findOrFail($id);
+    $postulation = Postulation::with('convocation', 'apprentice', 'typeOfBenefit', 'answers', 'postulationBenefits', 'socioEconomicSupportFiles', 'typeOfBenefit')->findOrFail($id);
     return view('bienestar::postulation-management.show', compact('postulation'));
 }
 
@@ -48,12 +48,12 @@ public function show($id) {
 
     public function showModal($id)
 {
-    $postulation = Postulations::with(['convocation', 'apprentice', 'typeOfBenefit', 'answers' => function ($query) use ($id) {
+    $postulation = Postulation::with(['convocation', 'apprentice', 'typeOfBenefit', 'answers' => function ($query) use ($id) {
         $query->where('postulation_id', $id);
     }])->findOrFail($id);
     
     // Obtener todas las preguntas disponibles
-    $questions = Questions::all();
+    $questions = Question::all();
     
     return view('bienestar::postulation-management.modal', compact('postulation', 'questions'));
 }
@@ -66,7 +66,7 @@ public function show($id) {
 {
     try {
         // Buscar la postulación por ID
-        $postulation = Postulations::findOrFail($id);
+        $postulation = Postulation::findOrFail($id);
         
         // Validar el valor del nuevo puntaje (puede agregar más validaciones según sus necesidades)
         $request->validate([
@@ -108,7 +108,7 @@ public function assignOrUpdateBenefit(Request $request)
         // Realizar la lógica para asignar beneficios a las postulaciones seleccionadas
         foreach ($selectedPostulations as $postulationId) {
             // Verificar si ya existe un registro en postulation_benefits para esta postulación
-            $existingBenefit = PostulationsBenefits::where('postulation_id', $postulationId)->first();
+            $existingBenefit = PostulationBenefit::where('postulation_id', $postulationId)->first();
 
             if ($existingBenefit) {
                 // Si existe, actualiza los datos necesarios
@@ -118,7 +118,7 @@ public function assignOrUpdateBenefit(Request $request)
                 $existingBenefit->save();
             } else {
                 // Si no existe, crea un nuevo registro
-                $newBenefit = new PostulationsBenefits();
+                $newBenefit = new PostulationBenefit();
                 $newBenefit->postulation_id = $postulationId;
                 $newBenefit->benefit_id = $benefitId;
                 $newBenefit->state = $state;
@@ -146,7 +146,7 @@ public function updateState(Request $request)
         $postulationId = $request->input('postulation_id');
 
         // Buscar la postulación por ID 
-        $postulation = Postulations::findOrFail($postulationId);
+        $postulation = Postulation::findOrFail($postulationId);
 
         // Validar y actualizar el estado
         $request->validate([
@@ -190,7 +190,7 @@ public function updateState(Request $request)
         }
 
         // Validar si ya se ha seleccionado "Internado"
-        $existingPostulation = PostulationsBenefits::where('postulation_id', auth()->user()->id)
+        $existingPostulation = PostulationBenefit::where('postulation_id', auth()->user()->id)
             ->where('benefit_id', 3) // Debes ajustar el ID correspondiente a "Internado" en tu base de datos
             ->first();
 
@@ -199,7 +199,7 @@ public function updateState(Request $request)
         }
 
         // Crear la nueva postulación
-        $postulation = new Postulations([
+        $postulation = new Postulation([
             'apprentice_id' => auth()->user()->id, // O ajusta el ID del aprendiz según tu lógica
             'convocation_id' => $request->input('convocation_id'),
             'total_score' => 0, // Ajusta según tus necesidades
@@ -209,7 +209,7 @@ public function updateState(Request $request)
 
         // Registrar los beneficios seleccionados en postulations_benefits
         foreach ($selectedBenefits as $benefit) {
-            PostulationsBenefits::create([
+            PostulationBenefit::create([
                 'postulation_id' => $postulation->id,
                 'benefit_id' => $benefitId,
                 'state' => 'Postulado',
@@ -255,10 +255,10 @@ public function markAsBeneficiaries(Request $request)
         // Actualizar el estado y el beneficio de las postulaciones seleccionadas
         foreach ($selectedPostulations as $postulationId) {
             // Obtener la postulación por ID
-            $postulation = Postulations::findOrFail($postulationId);
+            $postulation = Postulation::findOrFail($postulationId);
 
             // Actualizar el estado y el beneficio de la postulación
-            PostulationsBenefits::create([
+            PostulationBenefit::create([
                 'postulation_id' => $postulation->id,
                 'benefit_id' => $benefitId,
                 'state' => $state,
@@ -296,10 +296,10 @@ public function markAsNoBeneficiaries(Request $request)
         // Actualizar el estado y el beneficio de las postulaciones seleccionadas
         foreach ($selectedPostulations as $postulationId) {
             // Obtener la postulación por ID
-            $postulation = Postulations::findOrFail($postulationId);
+            $postulation = Postulation::findOrFail($postulationId);
 
             // Actualizar el estado y el beneficio de la postulación
-            PostulationsBenefits::create([
+            PostulationBenefit::create([
                 'postulation_id' => $postulation->id,
                 'benefit_id' => $benefitId,
                 'state' => $state,
@@ -361,7 +361,7 @@ public function updateBenefits(Request $request)
         $message = $request->input('message');
 
         // Actualiza los registros de acuerdo con los ID de las postulaciones seleccionadas
-        PostulationsBenefits::whereIn('postulation_id', $selectedPostulations)->update([
+        PostulationBenefit::whereIn('postulation_id', $selectedPostulations)->update([
             'benefit_id' => $benefitId,
             'state' => $state,
             'message' => $message,

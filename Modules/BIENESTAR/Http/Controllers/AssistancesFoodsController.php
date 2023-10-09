@@ -5,7 +5,7 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\AssistancesFoods;
+use Modules\BIENESTAR\Entities\AssistanceFood;
 
 class AssistancesFoodsController extends Controller
 {
@@ -15,7 +15,7 @@ class AssistancesFoodsController extends Controller
      */
     public function index()
     {
-        $AssistancesFoods = AssistancesFoods::with(['postulationBenefit.benefit', 'apprentice.course.program'])->get();
+        $AssistancesFoods = AssistanceFood::with(['postulationBenefit.benefit', 'apprentice.course.program'])->get();
         $data = ['AssistancesFoods' => $AssistancesFoods];
         return view('bienestar::assistancesfoods', $data);
     }

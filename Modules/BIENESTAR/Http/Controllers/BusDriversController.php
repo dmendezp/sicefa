@@ -4,13 +4,13 @@ namespace Modules\BIENESTAR\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\BusDrivers;
+use Modules\BIENESTAR\Entities\BusDriver;
 
 class BusDriversController extends Controller
 {
     public function drivers()
     {   
-        $busdrivers = BusDrivers::all();
+        $busdrivers = BusDriver::all();
         return view('bienestar::drivers', ['busdrivers' => $busdrivers]);
     }
 
@@ -22,7 +22,7 @@ class BusDriversController extends Controller
             'phone' => 'required|numeric|digits:10',
         ]);
 
-        BusDrivers::create([
+        BusDriver::create([
             'name' => $request->input('namedriver'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
@@ -39,7 +39,7 @@ class BusDriversController extends Controller
             'phone' => 'required|numeric|digits:10',
         ]);
 
-        $busdriver = BusDrivers::find($id);
+        $busdriver = BusDriver::find($id);
 
         if (!$busdriver) {
             return redirect()->route('cefa.bienestar.drivers')->with('error', 'El conductor no existe.');
@@ -57,7 +57,7 @@ class BusDriversController extends Controller
     {
         
     try {
-        $busdriver = BusDrivers::find($id);
+        $busdriver = BusDriver::find($id);
         $busdriver->delete();
 
         return response()->json(['mensaje' =>'Vacancy eliminated with success']);

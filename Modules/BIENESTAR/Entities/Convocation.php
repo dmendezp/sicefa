@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Quarter;
 
-class Convocations extends Model implements Auditable
+class Convocation extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable,
     SoftDeletes;

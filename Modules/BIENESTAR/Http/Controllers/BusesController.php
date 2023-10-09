@@ -5,8 +5,8 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\BusDrivers;
-use Modules\BIENESTAR\Entities\Buses;
+use Modules\BIENESTAR\Entities\BusDriver;
+use Modules\BIENESTAR\Entities\Bus;
 
 class BusesController extends Controller
 {
@@ -18,8 +18,8 @@ class BusesController extends Controller
     public function index()
     {
         //obtenemos el listado de buses
-        $buses = Buses::with('bus_driver')->get();
-        $busDrivers = BusDrivers::pluck('name','id');
+        $buses = Bus::with('bus_driver')->get();
+        $busDrivers = BusDriver::pluck('name','id');
         return view('bienestar::buses.home',['buses'=>$buses,'busDrivers'=>$busDrivers]);
     }
 
@@ -37,7 +37,7 @@ class BusesController extends Controller
                 'regex:/^[A-Za-z]{1,5}\d{1,3}$/',
                 function ($attribute, $value, $fail) {
                     // Verifica si existe un registro con la misma placa
-                    $existingBus = Buses::where('plate', $value)->first();
+                    $existingBus = Bus::where('plate', $value)->first();
     
                     if ($existingBus) {
                         $fail("Ya existe un bus con esta placa en la base de datos.");
@@ -50,7 +50,7 @@ class BusesController extends Controller
 
     
         // Create and save a new bus
-        $buses = new Buses;
+        $buses = new Bus;
         $buses->plate = $request->input('plate');
         $buses->quota = $request->input('quota');
         $buses->bus_driver_id = $request->input('bus_driver');
@@ -80,7 +80,7 @@ class BusesController extends Controller
         'bus_driver_id' => 'required|exists:bus_drivers,id', // Asegura que bus_driver exista en la tabla bus_drivers
     ]); 
 
-    $buses = Buses::findOrFail($id);
+    $buses = Bus::findOrFail($id);
     $buses->plate = $request->input('plate');
     $buses->quota = $request->input('quota');
     $buses->bus_driver_id = $request->input('bus_driver_id');
@@ -102,7 +102,7 @@ class BusesController extends Controller
     public function destroy($id)
     {
        try{
-          $bus = Buses::findOrFail($id);
+          $bus = Bus::findOrFail($id);
           $bus->delete();
           return response()->json(['mensaje' => 'eliminado with success']);      
         }  catch (\Exception $e) {

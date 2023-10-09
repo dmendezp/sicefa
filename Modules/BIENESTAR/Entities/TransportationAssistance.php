@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class TransportationAssistances extends Model implements Auditable
+class TransportationAssistance extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable,
     SoftDeletes;

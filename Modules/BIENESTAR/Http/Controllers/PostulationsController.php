@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\BIENESTAR\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -19,21 +20,33 @@ use Illuminate\Http\JsonResponse;
 class PostulationsController extends Controller
 {
     public function index()
-    {
+    {      
         return view('bienestar::postulations');
     }
-    
-    public function buscar(Request $request)
+
+    public function search(Request $request)
     {
-        // Obtener el término de búsqueda del formulario
-        $query = $request->input('q');
+        $documentNumber = $request->input('search');
 
-        // Realizar la búsqueda en tu modelo
-        $resultados = TuModelo::where('campo_a_buscar', 'LIKE', '%' . $query . '%')->get();
+        // Realizar la consulta
+        $resultados = DB::table('apprentices')
+            ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->join('courses', 'apprentices.course_id', '=', 'courses.id')
+            ->join('programs', 'courses.program_id', '=', 'programs.id')
+            ->select(
+                'people.document_number',
+                'people.first_name',
+                'people.first_last_name',
+                'people.second_last_name',
+                'courses.code',
+                'programs.name',
+                'people.personal_email',
+                'people.population_group_id'
+            )
+            ->where('people.document_number', $documentNumber)
+            ->get();
 
-        // Puedes modificar el campo_a_buscar y TuModelo según tus necesidades
 
-        // Devolver los resultados a la vista
-        return view('vista_de_resultados', compact('resultados'));
+        return view('bienestar::postulations', compact('resultados'));
     }
 }

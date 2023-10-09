@@ -5,10 +5,10 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\ConvocationsQuestions;
-use Modules\BIENESTAR\Entities\Questions;
-use Modules\BIENESTAR\Entities\AnswersQuestions;
-use Modules\BIENESTAR\Entities\Convocations;
+use Modules\BIENESTAR\Entities\ConvocationQuestion;
+use Modules\BIENESTAR\Entities\Question;
+use Modules\BIENESTAR\Entities\AnswersQuestion;
+use Modules\BIENESTAR\Entities\Convocation;
 
 class ConvocationsQuestionsController extends Controller
 {
@@ -18,16 +18,16 @@ class ConvocationsQuestionsController extends Controller
      */
     public function add_question()
     {
-        $questions = Questions::all();
+        $questions = Question::all();
         return view('bienestar::add_question', ['questions' => $questions]);
     }
 
 
     public function editform()
     {
-        $convocations = Convocations::all();
-        $questions = Questions::all();
-        $answers = AnswersQuestions::all();
+        $convocations = Convocation::all();
+        $questions = Question::all();
+        $answers = ConvocationQuestion::all();
 
         return view('bienestar::editform', ['questions' => $questions, 'answers' => $answers, 'convocations' => $convocations]);
     }
@@ -35,7 +35,7 @@ class ConvocationsQuestionsController extends Controller
     public function deleteQuestion($id)
     {
         // Primero, obtenemos la pregunta por su ID
-        $question = Questions::find($id);
+        $question = Question::find($id);
 
         // Si la pregunta no existe, redirigimos o mostramos un mensaje de error
         if (!$question) {
@@ -43,7 +43,7 @@ class ConvocationsQuestionsController extends Controller
         }
 
         // Eliminamos las respuestas asociadas a esta pregunta
-        AnswersQuestions::where('question_id', $id)->delete();
+        AnswersQuestion::where('question_id', $id)->delete();
 
         // Eliminamos la pregunta
         $question->delete();
@@ -55,7 +55,7 @@ class ConvocationsQuestionsController extends Controller
     public function addQuestion(Request $request)
     {
         // Crear una nueva pregunta
-        $pregunta = new Questions();
+        $pregunta = new Question();
         $pregunta->question = $request->input('text_question');
         $pregunta->question_category = $request->input('question_category');
         $pregunta->save();
@@ -63,7 +63,7 @@ class ConvocationsQuestionsController extends Controller
         // Guardar las respuestas relacionadas con la pregunta
         foreach ($request->input('respuestas') as $respuestaText) {
             if (!empty($respuestaText)) {
-                $respuesta = new AnswersQuestions();
+                $respuesta = new AnswersQuestion();
                 $respuesta->answer = $respuestaText;
                 $respuesta->question_id = $pregunta->id; // Asignar la pregunta_id
                 $respuesta->save();
@@ -77,7 +77,7 @@ class ConvocationsQuestionsController extends Controller
     public function updateQuestion(Request $request, $id)
     {
         // Encuentra la pregunta por su ID
-        $pregunta = Questions::findOrFail($id);
+        $pregunta = Question::findOrFail($id);
 
         // Actualiza la pregunta con los nuevos valores
         $pregunta->update([
@@ -88,7 +88,7 @@ class ConvocationsQuestionsController extends Controller
 
         if (!empty($respuestas)) {
             foreach ($respuestas as $respuestaId => $respuestaText) {
-                $respuesta = AnswersQuestions::findOrFail($respuestaId); // Encuentra la respuesta por su ID
+                $respuesta = AnswersQuestion::findOrFail($respuestaId); // Encuentra la respuesta por su ID
                 $respuesta->update([
                     'answer' => $respuestaText,
                 ]);
@@ -119,13 +119,13 @@ class ConvocationsQuestionsController extends Controller
             // Recorre los IDs de las preguntas seleccionadas
             foreach ($selectedQuestionIds as $questionId) {
                 // Verifica si ya existe una relación para este convocatoria_id y question_id
-                $existingRelation = ConvocationsQuestions::where('convocation_id', $convocatoriaId)
+                $existingRelation = ConvocationQuestion::where('convocation_id', $convocatoriaId)
                     ->where('questions_id', $questionId)
                     ->first();
 
                 // Si no existe la relación, crea una nueva
                 if (!$existingRelation) {
-                    $pregunta = new ConvocationsQuestions();
+                    $pregunta = new ConvocationQuestion();
                     $pregunta->convocation_id = $convocatoriaId;
                     $pregunta->questions_id = $questionId;
                     $pregunta->save();

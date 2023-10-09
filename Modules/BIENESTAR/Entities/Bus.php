@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
 
-class Buses extends Model implements Auditable
+class Bus extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable,
     SoftDeletes;
