@@ -3,7 +3,9 @@
     <h3 class="text-center" id="spaceh3">GTH</h3>
 
     <ul>
+        @if (Auth::user()->havePermission('cefa.gth.contractors.view'))
       <li><a href="{{route('cefa.gth.contractors.view')}}"><i class="bi bi-file-earmark-medical-fill icon"></i>Contratistas</a></li>
+      @endif
       <li><a href="{{route('cefa.gth.contractreports.view')}}"><i class='bx bxs-report icon'></i>Reporte Contratos</a></li>
       <li><a href="{{route('cefa.gth.contractortypes.view')}}"><i class='bx bxs-report icon'></i>Tipo de Contratos</a></li>
       <li><a href="{{route('cefa.gth.employeetypes.view')}}"><i class='bx bxs-report icon'></i>Tipo de Empleados</a></li>
