@@ -88,7 +88,7 @@ class GlossController extends Controller
         $programs = Program::find($programId);
 
         if (!$programs) {
-            return redirect()->route('cefa.dicsena.glossary.index')->with('error', 'Programa no encontrado');
+            return redirect()->route('cefa.dicsena.gloss')->with('error', 'Programa no encontrado');
         }
 
         $glossaries = $programs->glossaries()->paginate(10);

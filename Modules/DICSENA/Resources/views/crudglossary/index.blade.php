@@ -1,6 +1,16 @@
 @extends('dicsena::layouts.master')
-
+@section('css')
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+@endsection
 @section('content')
+<div class="navbar">
+    <a class="navbar-brand" href="#">
+        <i class="fas fa-globe"></i> DICSENA
+    </a>
+    <span class="title">Panel de Glosario</span>
+    <a class="button" href="{{ route('cefa.dicsena.menu') }}">
+        <i class="fa fa-arrow-left"></i>Regresar
+</div>
 <div class="container">
     <h1 align="center">Glosarios</h1>
     <div class="d-flex align-items-center mb-3">
@@ -22,13 +32,13 @@
         </form>
     </div>
     <table id="index" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
-        <thead>
+        <thead class="bg-primary text-white">
             <tr>
-                <th>Palabra</th>
-                <th>Traducción</th>
-                <th>Significado</th>
-                <th>Programa</th>
-                <th>Acciones</th>
+                <th scope="col">Palabra</th>
+                <th scope="col">Traducción</th>
+                <th scope="col">Significado</th>
+                <th scope="col">Programa</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>

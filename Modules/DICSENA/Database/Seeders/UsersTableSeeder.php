@@ -4,9 +4,7 @@ namespace Modules\DICSENA\Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
-use Modules\SICA\Entities\Person;;
+use Modules\SICA\Entities\Person;
 
 class UsersTableSeeder extends Seeder
 {
@@ -21,7 +19,6 @@ class UsersTableSeeder extends Seeder
         User::updateOrCreate(['nickname' => 'Instructor'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
             'email' => 'tifrankxd@gmail.com',
-            'password' => Hash::make('123456789')
         ]);
 
         // $this->call("OthersTableSeeder");

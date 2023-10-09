@@ -8,11 +8,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 150vh;
 }
 
 .card {
-  width: 200px;
+  width: 400px;
   height: 300px;
   margin: 0 10px; 
   text-align: center;

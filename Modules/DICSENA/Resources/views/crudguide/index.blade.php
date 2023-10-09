@@ -1,6 +1,14 @@
 @extends('dicsena::layouts.master')
 
 @section('content')
+<div class="navbar">
+    <a class="navbar-brand" href="#">
+        <i class="fas fa-globe"></i> DICSENA
+    </a>
+    <span class="title">Panel de Guias</span>
+    <a class="button" href="{{ route('cefa.dicsena.menu') }}">
+        <i class="fa fa-arrow-left"></i>Regresar
+</div>
 <h1>Guideposts</h1>
 
 @if (session('success'))
@@ -39,4 +47,8 @@
         @endforeach
     </tbody>
 </table>
+<footer style="background-color: #3C3B6E; color: white; padding: 20px;">
+    <p style="text-align: center;">Use exclusive for apprentices of SENA</p>
+    <p style="text-align: center;">&copy; 2023</p>
+</footer>
 @endsection

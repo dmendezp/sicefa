@@ -22,7 +22,8 @@ class RolesTableSeeder extends Seeder
         $rol_instructor = Role::updateOrCreate(['slug' => 'dicsena.menu'], [
             'name' => '',
             'description' => 'Rol administrador de DICSENA',
-            'description_english' => 'Role inst of DICSENA',
+            'description_english' => 'Role training of DICSENA',
+            'full_access' => 'no',
             'app_id' => $app->id
         ]);
 
