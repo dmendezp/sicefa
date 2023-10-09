@@ -8,7 +8,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Modules\BIENESTAR\Entities\Benefit;
 use Modules\BIENESTAR\Entities\Postulation;
 
-class PostulationsBenefit extends Model implements Auditable
+class PostulationBenefit extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable,
     SoftDeletes;

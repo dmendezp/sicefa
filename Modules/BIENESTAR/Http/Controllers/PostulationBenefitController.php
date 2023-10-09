@@ -11,11 +11,11 @@ use Modules\SICA\Entities\Apprentice;
 use Modules\BIENESTAR\Entities\TypesOfBenefits;
 use Modules\BIENESTAR\Entities\Questions;
 use Modules\BIENESTAR\Entities\Benefits;
-use Modules\BIENESTAR\Entities\PostulationsBenefits;
+use Modules\BIENESTAR\Entities\PostulationBenefit;
 use Modules\BIENESTAR\Entities\Answers;
 use Illuminate\Http\JsonResponse;
 
-class PostulationsBenefitsController extends Controller
+class PostulationBenefitController extends Controller
 {
     public function index(Request $request)
 {
@@ -32,7 +32,7 @@ class PostulationsBenefitsController extends Controller
         return !in_array($postulation->id, $selectedPostulations);
     });
 
-    $postulationBenefits = PostulationsBenefits::all();
+    $postulationBenefits = PostulationBenefit::all();
 
     return view('bienestar::postulation-management', compact('postulations', 'benefits', 'questions', 'postulationBenefits', 'selectedPostulations', 'unselectedPostulations'));
 }
@@ -122,7 +122,7 @@ public function updateBenefits(Request $request)
                 $message = $postulationData['message'];
 
                 // Buscar el registro existente en postulations_benefits
-                $postulationBenefit = PostulationsBenefits::where('postulation_id', $postulationId)->first();
+                $postulationBenefit = PostulationBenefit::where('postulation_id', $postulationId)->first();
 
                 if ($postulationBenefit) {
                     // Actualizar el registro si existe
@@ -132,7 +132,7 @@ public function updateBenefits(Request $request)
                     ]);
                 } else {
                     // Crear un nuevo registro si no existe
-                    PostulationsBenefits::create([
+                    PostulationBenefit::create([
                         'postulation_id' => $postulationId,
                         'state' => $state,
                         'message' => $message,

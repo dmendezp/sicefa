@@ -11,7 +11,7 @@ use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Course;
 use Modules\BIENESTAR\Entities\Postulation;
-use Modules\BIENESTAR\Entities\PostulationsBenefit;
+use Modules\BIENESTAR\Entities\PostulationBenefit;
 use Modules\BIENESTAR\Entities\Benefit;
 
 class CallConsultationController extends Controller
@@ -20,7 +20,7 @@ class CallConsultationController extends Controller
     public function index()
     {
         // Obtenemos Listado Convocatoria
-       $CallConsultations=PostulationsBenefit::all(); 
+       $CallConsultations=PostulationBenefit::all(); 
        $people=Person::all(); 
        
        return view('bienestar::callconsultation',['CallConsultations' => $CallConsultations,'people'=>$people]);
