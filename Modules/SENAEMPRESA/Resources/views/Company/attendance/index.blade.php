@@ -7,22 +7,24 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card card-primary card-outline shadow">
-                    <div class="card-header">Registrar Asistencia</div>
+                    <div class="card-header">{{ trans('senaempresa::menu.Register attendance') }}</div>
                     <div class="card-body">
                         <form action="{{ route('attendance.register') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label for="document_number" class="form-label">Número de Documento:</label>
+                                <label for="document_number"
+                                    class="form-label">{{ trans('senaempresa::menu.document number:') }}</label>
                                 <input type="text" name="document_number" class="form-control" required>
                             </div>
                             <div class="mb-3">
-                                <label for="person_name">Nombre de la Persona:</label>
+                                <label for="person_name">{{ trans('senaempresa::menu.Name of individual:') }}</label>
                                 <input type="text" name="person_name" class="form-control" readonly>
                             </div>
                             <input type="hidden" name="person_id" id="person_id" value="">
-                            <button type="submit" class="btn btn-primary">Registrar Asistencia</button>
-                            <button type="button" class="btn btn-success" id="show-hide-table-button">Asistencias
-                                Registradas</button>
+                            <button type="submit"
+                                class="btn btn-primary">{{ trans('senaempresa::menu.Register Attendance') }}</button>
+                            <button type="button" class="btn btn-success"
+                                id="show-hide-table-button">{{ trans('senaempresa::menu.Recorded Assists') }}</button>
 
                         </form>
                     </div>
@@ -30,17 +32,19 @@
             </div>
         </div>
         <div class="container" id="attendance-table-container" style="display: none;">
-            <h1 class="text-center"><strong><em><span>Asistencia Registradas</span></em></strong></h1>
+            <h1 class="text-center">
+                <strong><em><span>{{ trans('senaempresa::menu.Registered Attendance') }}</span></em></strong>
+            </h1>
             <div class="col-md-12">
                 <div class="card card-primary card-outline shadow">
                     <div class="card-body">
                         <table id="attendance-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Documento</th>
-                                    <th>Fecha y Hora de Entrada</th>
-                                    <th>Fecha y Hora de Salida</th>
+                                    <th>{{ trans('senaempresa::menu.Name') }}</th>
+                                    <th>{{ trans('senaempresa::menu.document') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Date and Time of Entry') }}</th>
+                                    <th>{{ trans('senaempresa::menu.Date and time of departure') }}</th>
                                 </tr>
                             </thead>
                             <tbody>

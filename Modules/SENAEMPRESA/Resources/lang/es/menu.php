@@ -175,6 +175,20 @@ return [
     'You don’t have an associate apprentice.'=>'No tienes un aprendiz asociado.',
 
 
+	 //attendance
+	 'Register attendance'=>'Registrar Asistencia',
+	 'document number:'=>'numero de documento:',
+	 'Name of individual:'=>'Nombre de la Persona:',
+	 'Recorded Assists'=>'Registrar Asistencia',
+	 'Registered Attendance'=>'Asistencia Registradas',
+	 'document'=>'Documento',
+	 'Date and Time of Entry'=>'Fecha y Hora de Entrada',
+	 'Date and time of departure'=>'Fecha y Hora de Salida',
+
+   
+
+
+
 
 
 
