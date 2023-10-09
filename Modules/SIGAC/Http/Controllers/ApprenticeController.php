@@ -3,7 +3,6 @@
 namespace Modules\SIGAC\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\App;
 
 class ApprenticeController extends Controller
 {
@@ -11,7 +10,6 @@ class ApprenticeController extends Controller
     public function send_excuses()
     {
         $view = ['titlePage'=>trans('sigac::consult.Excuses'), 'titleView'=>trans('sigac::consult.Excuses')];
-        $apps = App::get();
-        return view('sigac::apprentice.send_excuses',compact('view', 'apps'));
+        return view('sigac::apprentice.send_excuses',compact('view'));
     }
 }
