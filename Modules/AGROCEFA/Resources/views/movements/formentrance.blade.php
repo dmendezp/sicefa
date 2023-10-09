@@ -196,7 +196,7 @@
             if (lastRow.find('#product-name').val() && lastRow.find('#product-measurement-unit').val() && lastRow.find('#product-quantity').val() && lastRow.find('#product-price').val() && lastRow.find('#product-category').val() && lastRow.find('#product-destination').val()) {
                 addProductRow();
             } else {
-                showNotification("Por favor, complete todos los campos de la fila actual antes de agregar otra.", true|);
+                showNotification("Por favor, complete todos los campos de la fila actual antes de agregar otra.", true);
             }
         });
 

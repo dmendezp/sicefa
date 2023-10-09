@@ -272,6 +272,68 @@ class LaborManagementController extends Controller
     }
 }
 
+public function obtenerDatosElemento(Request $request)
+    {
+        try {
+            $elementId = $request->input('element');
+            
+            // Realiza la lógica para obtener los datos del elemento en una sola consulta
+            $elementData = Element::whereHas('inventories', function ($query) use ($elementId) {
+                $query->where('id', $elementId);
+            })->first();
+            
+            if ($elementData) {
+                $unidadMedida = $elementData->measurement_unit->name;
+                $categoria = $elementData->category->name;
+                $name = $elementData->name;
+
+
+                return response()->json([
+                    'unidad_medida' => $unidadMedida,
+                    'categoria' => $categoria,
+                    'name' => $name,
+
+                ]);
+            } else {
+                return response()->json(['error' => 'Elemento no encontrado'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error interno del servidor'], 500);
+        }
+    }
+
+/* Obtener datos del elemento */
+    public function getprice(Request $request)
+    {
+        try {
+            $elementId = $request->input('element');
+
+            // Realiza la lógica para obtener los datos del elemento en una sola consulta
+            $dataelement = Inventory::where('id', $elementId)->first();
+            
+            if ($dataelement) {
+                $destination = $dataelement->destination;
+                $price = $dataelement->price;
+                $amount = $dataelement->amount;
+                $lote = $dataelement->lot_number;
+                $stock = $dataelement->stock;
+
+                return response()->json([
+                    'price' => $price,
+                    'amount' => $amount,
+                    'destination' => $destination,
+                    'lote' => $lote,
+                    'stock' => $stock,
+
+                ]);
+            } else {
+                return response()->json(['error' => 'Precio no encontrado'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error interno del servidor'], 500);
+        }
+    }
+
 
 
 

@@ -50,8 +50,10 @@ Route::middleware(['lang'])->group(function() {
 
         Route::get('/labormanagement', 'labormanagementController@index')->name('agrocefa.labormanagement.index');
         Route::get('/labormanagement/culturalwork', 'LaborManagementController@culturalwork')->name('agrocefa.culturalwork');
-        Route::get('/obtener_responsability', 'LaborManagementController@obteneresponsability')->name('agrocefa.obteneresponsability');
-        Route::get('/obtener_crop', 'LaborManagementController@obtenerecrop')->name('agrocefa.obtenerecrop');
+        Route::get('/labormanagement/obtener_responsability', 'LaborManagementController@obteneresponsability')->name('agrocefa.obteneresponsability');
+        Route::get('/labormanagement/obtener_crop', 'LaborManagementController@obtenerecrop')->name('agrocefa.obtenerecrop');
+        Route::get('/labormanagement/obtener_datoselementoseleccionado', 'LaborManagementController@obtenerDatosElemento')->name('agrocefa.labormanagement.obtenerdatos');
+        Route::get('/labormanagement/obtener_price', 'LaborManagementController@getprice')->name('agrocefa.labormanagement.getprice');
 
         
         // RUTAS PARA REPORTES

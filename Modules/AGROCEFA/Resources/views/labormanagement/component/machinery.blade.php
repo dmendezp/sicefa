@@ -100,7 +100,7 @@
 
             // Realizar una solicitud AJAX para obtener los datos del elemento
             $.ajax({
-                url: '{{ route('agrocefa.obtenerdatos') }}',
+                url: '{{ route('agrocefa.labormanagement.obtenerdatos') }}',
                 method: 'GET',
                 data: {
                     element: selectedElementId
@@ -138,7 +138,7 @@
 
             // Realizar una solicitud AJAX para obtener los datos del elemento
             $.ajax({
-                url: '{{ route('agrocefa.getprice') }}',
+                url: '{{ route('agrocefa.labormanagement.getprice') }}',
                 method: 'GET',
                 data: {
                     element: selectedElementId
