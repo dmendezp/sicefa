@@ -31,7 +31,7 @@ return [
     'title4' => 'Graph Of Year',
     // Titulo ¿Cual Es Su Objetivo?
     'title5' => '¿What Is Your Objective?',
-   
+
     // Subtitulo
     'option1' => '-- Select --',
 
@@ -44,4 +44,5 @@ return [
     'text2' => 'To calculate said footprint, the consumption data (Activity) is multiplied by its corresponding coefficient or emission factor depending on the type of resource used (Energy, fuel, Water or Waste) in said activity.',
     // Texto ¿Cual Es Su Objetivo?
     'text3' => 'The objective of measuring the carbon footprint is to evaluate and quantify the total amount of greenhouse gases emitted directly or indirectly by an activity, product or individual. It helps to understand and reduce the contribution to climate change, identifying areas where measures can be taken to reduce emissions and promote more sustainable practices.',
+    'Title_label_'
 ];

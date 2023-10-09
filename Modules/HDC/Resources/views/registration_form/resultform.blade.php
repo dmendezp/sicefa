@@ -19,51 +19,51 @@
                                 <th>ID</th>
                                 <th>Unidad Productiva</th>
                                 <th>Actividades</th>
-                                <th>Labor</th> <!-- Nueva columna -->
+                                <th>Fecha</th>
                                 <th>Aspecto Ambiental</th>
                                 <th>Cantidad</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @php $globalIteration = 1; @endphp
-                            @foreach ($formattedData as $unitData)
-                                @foreach ($unitData as $activityData)
-                                    @foreach ($activityData['aspect_data'] as $index => $aspectData)
-                                        <tr>
-                                            @if ($index === 0)
-                                                <td rowspan="{{ count($activityData['aspect_data']) }}" class="center-text">
-                                                    {{ $globalIteration++ }}
-                                                </td>
-                                                <td rowspan="{{ count($activityData['aspect_data']) }}" class="center-text">
-                                                    {{ $activityData['unit_name'] }}
-                                                </td>
-                                                <td rowspan="{{ count($activityData['aspect_data']) }}" class="center-text">
-                                                    {{ $activityData['activity_name'] }}
-                                                </td>
-                                            @endif
-
-                                            @if ($index === 0)
-                                                <td rowspan="{{ count($activityData['aspect_data']) }}" class="center-text">
-                                                    {{ $aspectData['labor_planning'] }}
-                                                </td>
-                                            @endif
-
-                                            <td class="center-text">{{ $aspectData['aspect_name'] }}</td>
-                                            <td class="center-text">{{ $aspectdData['amount'] }}</td>
-                                            <td>  {{-- Boton Eliminar --}}
-                                                <form action="{{ route('cefa.hdc.delete', ['id' => $aspectData['id']]) }}" method="POST" class="formEliminar">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-danger ml-2 btnEliminar" type="submit" data-id="{{ $aspectData['id']}}">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
+                            @foreach ($datos as $dato)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $dato->activity->productive_unit->name }}</td>
+                                    <td>{{ $dato->activity->name }}</td>
+                                    <td>{{ $dato->execution_date }}</td>
+                                    <td>
+                                        <ul>
+                                        @foreach ($dato->environmental_aspect_labors as $envasp)
+                                            <li>{{ $envasp->environmental_aspect->name }}</li>
+                                        @endforeach
+                                        <ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            @foreach ($dato->environmental_aspect_labors as $envasp)
+                                                <li>{{ $envasp->amount }}</li>
+                                            @endforeach
+                                        <ul>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('cefa.hdc.delete', $dato->id) }}" method="post" id="formEliminar{{ $loop->iteration }}">
+                                            @csrf
+                                            @method('DELETE')
+                                    
+                                            <button class="btn btn-danger btnEliminar" type="button" data-form-id="formEliminar{{ $loop->iteration }}">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                        <a href="{{ route('cefa.hdc.edit', $dato) }}" class="btn btn-primary btnUpdat">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                    </td>
+                                    
+                                </tr>
                             @endforeach
+
+
                         </tbody>
                     </table>
                 </div>
@@ -71,27 +71,19 @@
             </div>
         </div>
     </div>
-
-    <style>
-        .center-text {
-            text-align: center;
-            vertical-align: middle !important;
-            /* Importante para que sobrescriba cualquier otro estilo vertical-align */
-        }
-    </style>
 @endsection
 
 @push('scripts')
     <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const deleteForms = document.querySelectorAll('.formEliminar');
+            const deleteButtons = document.querySelectorAll('.btnEliminar');
 
-            deleteForms.forEach((form) => {
-                const deleteButton = form.querySelector('.btnEliminar');
-                const activityId = deleteButton.getAttribute('data-id');
-
+            deleteButtons.forEach((deleteButton) => {
                 deleteButton.addEventListener('click', () => {
+                    const formId = deleteButton.dataset.formId;
+                    const form = document.getElementById(formId);
+
                     Swal.fire({
                         title: '¿Estás seguro?',
                         text: 'Esta acción no se puede deshacer',
@@ -101,28 +93,14 @@
                         cancelButtonText: 'Cancelar'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            // Aquí puedes enviar el formulario o realizar la acción de eliminación directamente
+                            // Envía el formulario de manera convencional
                             form.submit();
-                            // O puedes hacer una solicitud AJAX para eliminar el elemento
-                            // fetch(`/cefa/hdc/delete/${activityId}`, { method: 'DELETE' });
                         } else {
                             Swal.fire('Cancelado', 'La acción ha sido cancelada', 'info');
                         }
                     });
                 });
             });
-
-            // Verificar si hay mensajes de éxito o error desde el servidor
-            const successMessage = "{{ session('success') }}";
-            const errorMessage = "{{ session('error') }}";
-
-            if (successMessage) {
-                Swal.fire('Éxito', successMessage, 'success');
-            }
-
-            if (errorMessage) {
-                Swal.fire('Error', errorMessage, 'error');
-            }
         });
     </script>
 @endpush

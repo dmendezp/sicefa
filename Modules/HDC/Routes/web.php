@@ -25,8 +25,8 @@ Route::middleware(['lang'])->group(function () {
         /* Ruta del CRUD */
         Route::get('/tabla', 'FormularioController@table')->name('admin.hdc.table');
         Route::delete('/resulform/delete/{id}', 'FormularioController@delete')->name('cefa.hdc.delete');
-        Route::get('/cefa/hdc/edit/{id}', 'FormularioController@edit')->name('cefa.hdc.edit');
-        Route::put('/cefa/hdc/update/{id}', 'FormularioController@update')->name('cefa.hdc.update');
+        Route::get('/cefa/hdc/edit/{labor}', 'FormularioController@edit')->name('cefa.hdc.edit');
+        Route::post('/cefa/hdc/update/{labor}', 'FormularioController@update')->name('cefa.hdc.update');
 
 
 

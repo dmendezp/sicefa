@@ -3,7 +3,6 @@
 namespace Modules\HDC\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Activity;
@@ -85,31 +84,11 @@ class FormularioController extends Controller
     }
     public function table()
     {
-        $datos = EnvironmentalAspectLabor::with('environmental_aspect', 'labor', 'labor.activity.productive_unit')->get();
 
-        $formattedData = [];
+        $datos = Labor::has('environmental_aspect_labors')->with('environmental_aspect_labors.environmental_aspect')->with('activity.productive_unit')->get();
 
-        foreach ($datos as $dato) {
-            $unit = $dato->labor->activity->productive_unit;
-            $activi = $dato->labor->activity;
 
-            if (!isset($formattedData[$unit->id][$activi->id])) {
-                $formattedData[$unit->id][$activi->id] = [
-                    'unit_name' => $unit->name,
-                    'activity_name' => $activi->name,
-                    'aspect_data' => [],
-                ];
-            }
-
-            $formattedData[$unit->id][$activi->id]['aspect_data'][] = [
-                'id' => $dato->id,
-                'aspect_name' => $dato->environmental_aspect->name,
-                'amount' => $dato->amount,
-                'labor_planning' => $dato->labor->planning_date,
-            ];
-        }
-
-        return view('hdc::registration_form.resultform', compact('formattedData'));
+        return view('hdc::registration_form.resultform', compact('datos'));
     }
 
 
@@ -117,18 +96,14 @@ class FormularioController extends Controller
 
     public function delete($id)
     {
-        try {
-            // Intenta encontrar el registro
-            $ambient = EnvironmentalAspectLabor::find($id);
 
-            // Verifica si el registro existe
-            if (!$ambient) {
-                return redirect()->back()->with('error', 'Registro no encontrado');
-            }
+        // Intenta encontrar el registro
+        try {
+            // Encuentra el registro por su ID
+            $labor = Labor::findOrFail($id);
 
             // Elimina el registro
-            $ambient->delete();
-
+            $labor->delete();
             return redirect()->back()->with('success', 'Eliminado satisfactoriamente');
         } catch (\Exception $e) {
             $message = $e->getMessage(); // Puedes personalizar este mensaje según tus necesidades
@@ -138,42 +113,27 @@ class FormularioController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit(Labor $labor)
     {
-
-        // Obtener el registro que se va a editar
-        $aspectLabor = EnvironmentalAspectLabor::findOrFail($id);
-
-        // Puedes cargar datos adicionales si es necesario
-        $productive_units = ProductiveUnit::orderBy('name', 'ASC')->get();
-        $activities = Activity::with('productive_unit')->get();
-
         // Retornar la vista de edición con los datos
-        return view('hdc::registration_form.editform', compact('aspectLabor', 'productive_units', 'activities'));
+        return view('hdc::registration_form.editform', compact('labor'));
     }
 
-    public function update(Request $request, $id): JsonResponse
+    public function update(Request $request, Labor $labor)
     {
-        return ($request);
-        // Validar los datos del formulario de edición
         $request->validate([
-            'amount' => 'required|numeric',
-            // Agrega otras reglas de validación según sea necesario
+            'amounts.*' => 'numeric', 
         ]);
 
-        // Obtener el registro que se va a actualizar
-        $record = EnvironmentalAspectLabor::findOrFail($id);
+        // Actualizar los valores de amounts en los aspectos ambientales
+        foreach ($labor->environmental_aspect_labors as $key => $envasp) {
+            $envasp->update(['amount' => $request->input('amounts.' . $key)]);
+        }
 
-        // Actualizar el campo 'amount' según los datos enviados en el formulario
-        $record->update([
-            'amount' => $request->input('amount'),
-            // Puedes agregar otros campos que quieras actualizar aquí
-        ]);
-
-        // Obtén los datos actualizados con las relaciones cargadas
-        $updatedData = EnvironmentalAspectLabor::with('environmental_aspect', 'labor')->find($id);
-
-        // Devuelve una respuesta JSON con los datos actualizados
-        return response()->json(['success' => true, 'data' => $updatedData]);
+        // Redireccionar a la vista de edición o a donde necesites
+        return redirect()->route('admin.hdc.table', ['labor' => $labor])
+            ->with('success', 'Datos actualizados correctamente');
     }
+
+
 }
