@@ -6,9 +6,11 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SICA\Entities\Apprentice;
+use Illuminate\Support\Facades\File;
 
 
 
@@ -40,12 +42,18 @@ class StaffSenaempresaController extends Controller
 
     public function personal_nuevo(Request $request)
     {
-        $imagePath = $request->file('image')->store('modules/senaempresa/images/staff', 'public');
+        // Obtener el archivo de imagen del formulario
+        if ($image = $request->file('image')) {
+            $extension = $image->getClientOriginalExtension();
+            $nameWithoutExtension = Str::slug($request->input('apprentice_id'));
+            $name_image = $nameWithoutExtension . '_' . time() . '.' . $extension;
+            $image->move(public_path('modules/senaempresa/images/staff/'), $name_image);
+        }
 
         $staffSenaempresa = new StaffSenaempresa();
         $staffSenaempresa->position_company_id = $request->input('position_company_id');
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
-        $staffSenaempresa->image = $imagePath;
+        $staffSenaempresa->image = 'modules/senaempresa/images/staff/' . $name_image;
 
         // Guarda la instancia en la base de datos
         if ($staffSenaempresa->save()) {
@@ -74,10 +82,19 @@ class StaffSenaempresaController extends Controller
     public function personal_editado(Request $request, $id)
     {
         $staffSenaempresa = StaffSenaempresa::find($id);
-
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('modules/senaempresa/images/staff', 'public');
-            $staffSenaempresa->image = $imagePath;
+            // Elimina la imagen existente si existe
+            if (File::exists(public_path($staffSenaempresa->image))) {
+                File::delete(public_path($staffSenaempresa->image));
+            }
+
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $nameWithoutExtension = Str::slug($request->input('apprentice_id'));
+            $name_image = $nameWithoutExtension . '_' . time() . '.' . $extension;
+            $image->move(public_path('modules/senaempresa/images/staff/'), $name_image);
+
+            $staffSenaempresa->image = 'modules/senaempresa/images/staff/' . $name_image;
         }
         $staffSenaempresa->position_company_id = $request->input('position_company_id');
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
