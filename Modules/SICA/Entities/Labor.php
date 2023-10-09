@@ -54,8 +54,11 @@ class Labor extends Model implements Auditable
     public function productions(){ // Accede a todos los registros de producciones que le pertenecen a este elemento
         return $this->hasMany(Production::class);
     }
-    public function tool(){ // Accede a todas las herramientas que pertenecen a esta labor
+    public function tools(){ // Accede a todas las herramientas que pertenecen a esta labor
         return $this->hasMany(Tool::class);
+    }
+    public function equipments(){ // 
+        return $this->hasMany(Equipment::class);
     }
 
 }

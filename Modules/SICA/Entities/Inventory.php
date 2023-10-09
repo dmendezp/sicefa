@@ -66,8 +66,11 @@ class Inventory extends Model implements Auditable
     public function productive_unit_warehouse(){ // Accede a la información de la unidad productiva y bodega al que pertenece
         return $this->belongsTo(ProductiveUnitWarehouse::class);
     }
-    public function tool(){ // Accede a todas las herramientas que pertenecen a esta labor
+    public function tools(){ // Accede a todas las herramientas que pertenecen a esta labor
         return $this->hasMany(Tool::class);
+    }
+    public function equipments(){ // 
+        return $this->hasMany(Equipment::class);
     }
 
 

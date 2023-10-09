@@ -18,6 +18,7 @@
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/activity.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/labor.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/deliveries.css')}}">
+       <link rel="stylesheet" href="{{asset('modules/agroindustria/css/instructor/equipment.css')}}">
        <link rel="stylesheet" href="{{asset('modules/agroindustria/css/storer/inventory.css')}}">
        <meta name="csrf-token" content="{{ csrf_token() }}">
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">

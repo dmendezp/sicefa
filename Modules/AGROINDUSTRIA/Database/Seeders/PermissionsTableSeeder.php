@@ -72,6 +72,16 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_instructor[] = $permission->id;
 
+        //Registro de equipos relacionados con la labor
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.equipment'], [
+            'name' => 'Registrar de los equipos usados en la labor',
+            'description' => 'Puede registrar todos los equipos que se usaran en la labor',
+            'description_english' => 'You can register all the equipment to be used in the work.',
+            'app_id' => $app->id
+        ]);
+
+        $permission_instructor[] = $permission->id;
+
         //Registro de produccion
         $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.production'], [
             'name' => 'Registrar produccion',

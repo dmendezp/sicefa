@@ -21,6 +21,7 @@ use Modules\AGROINDUSTRIA\Entities\Consumable;
 use Modules\AGROINDUSTRIA\Entities\EmployementType;
 use Modules\AGROINDUSTRIA\Entities\Tool;
 use Modules\AGROINDUSTRIA\Entities\Production;
+use Modules\AGROINDUSTRIA\Entities\Equipment;
 
 class LaborController extends Controller
 {
@@ -373,4 +374,48 @@ class LaborController extends Controller
             'message_line' => trans('agroindustria::labors.workPerformedCorrectly'),
         ]);
     }
+
+    public function create_equipment() {
+        $title = 'Equipos';
+    
+        // Recupera la información de la base de datos
+        $laborInformation = Equipment::all(); // Reemplaza 'LaborModel' con el nombre real de tu modelo de labor
+        $inventoryInformation = Equipment::all(); // Reemplaza 'InventoryModel' con el nombre real de tu modelo de inventario
+        $equipmentInformation = Equipment::with('inventory')->get();
+    
+        $data = [
+            'title' => $title,
+            'laborInformation' => $laborInformation,
+            'inventoryInformation' => $inventoryInformation,
+            'equipmentInformation' => $equipmentInformation,
+        ];
+    
+        return view('agroindustria::instructor.labors.equipment', $data);
+    }
+
+public function store_equipment(Request $request){
+    $data = $request->validate([
+        'labor_id' => 'required|integer',
+        'inventory_id' => 'required|integer',
+        'amount' => 'required|integer',
+        'price' => 'required|numeric',
+    ]);
+
+    // Comprobar si ya existe un registro
+    $existingEquipment = Equipment::where('labor_id', $data['labor_id'])
+                                   ->where('inventory_id', $data['inventory_id'])
+                                   ->first();
+
+    if ($existingEquipment) {
+        // Actualizar el registro existente con los nuevos datos
+        $existingEquipment->update($data);
+    } else {
+        // Si no existe, crear un nuevo registro
+        Equipment::create($data);
+    }
+
+    return redirect()->route('equipment.create')->with('success', 'Equipo registrado con éxito.');
+}
+
+
 }

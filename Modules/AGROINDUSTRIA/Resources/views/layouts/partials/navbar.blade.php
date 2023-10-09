@@ -46,6 +46,11 @@
                     <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
                 </li>
                 @endif
+                @if(Auth::user()->havePermission('agroindustria.instructor.equipment'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.equipment')}}">{{trans('agroindustria::menu.Equipment')}}</a>
+                </li>
+                @endif
                 @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.activity')}}">{{trans('agroindustria::menu.Activities')}}</a>

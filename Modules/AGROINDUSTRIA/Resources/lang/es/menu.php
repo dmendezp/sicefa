@@ -3,6 +3,7 @@
 return [
     'Home' => 'Inicio',
     'Task' => 'Labor',
+    'Equipment' => 'Equipos',
     'Activities' => 'Actividades',
     'List of Activities' => 'Lista de Actividades',
     'Movements' => 'Movimientos',
