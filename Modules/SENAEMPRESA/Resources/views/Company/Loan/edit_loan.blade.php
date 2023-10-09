@@ -17,8 +17,6 @@
                                     class="form-label">{{ trans('senaempresa::menu.People ID') }}</label>
                                 <select class="form-control" name="staff_senaempresa_id"
                                     aria-label="Selecciona Personal ID">
-                                    <option value="" selected>{{ trans('senaempresa::menu.Select Personal ID') }}
-                                    </option>
                                     @foreach ($staff_senaempresas as $staff_senaempresa)
                                         <option value="{{ $staff_senaempresa->id }}"
                                             {{ $loan->staff_senaempresa_id == $staff_senaempresa->id ? 'selected' : '' }}>
@@ -32,8 +30,6 @@
                                 <label for="inventory_id"
                                     class="form-label">{{ trans('senaempresa::menu.Inventory ID') }}</label>
                                 <select class="form-control" name="inventory_id" aria-label="Selecciona Inventario ID">
-                                    <option value="" selected>
-                                        {{ trans('senaempresa::menu.Select Inventory ID') }}</option>
                                     @foreach ($inventories as $inventory)
                                         <option value="{{ $inventory->id }}"
                                             {{ $loan->inventory_id == $inventory->id ? 'selected' : '' }}>

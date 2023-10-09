@@ -62,16 +62,22 @@ class LoanController extends Controller
     {
         $loans = Loan::get();
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
-        // Filtra los inventarios con estado "Disponible"
-        $inventories = Inventory::with('Element')
+
+        // Filtra los inventarios con estado "Disponible" y que tengan elementos de categoría "SENAEMPRESA_EPP"
+        $inventories = Inventory::with(['Element.Category'])
             ->where('state', 'Disponible')
+            ->whereHas('Element.Category', function ($query) {
+                $query->where('name', 'SENAEMPRESA_EPP');
+            })
             ->get();
+
         $data = [
             'title' => 'Prestamos Registrados',
             'loans' => $loans,
             'staff_senaempresas' => $staff_senaempresas,
             'inventories' => $inventories,
         ];
+
         if (
             Auth::check() &&
             (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
@@ -82,6 +88,7 @@ class LoanController extends Controller
             return redirect()->route('company.loan.prestamos')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
+
     public function prestamo_nuevo(Request $request)
     {
         $inventory = Inventory::find($request->input('inventory_id'));
@@ -112,7 +119,12 @@ class LoanController extends Controller
     {
         $loan = Loan::find($id);
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
-        $inventories = Inventory::with('Element')->where('state', 'Disponible')->get();
+        $inventories = Inventory::with(['Element.Category'])
+            ->where('state', 'Disponible')
+            ->whereHas('Element.Category', function ($query) {
+                $query->where('name', 'SENAEMPRESA_EPP');
+            })
+            ->get();
 
         if (!$loan) {
             return redirect()->route('company.loan.prestamos')->with('error', trans('senaempresa::menu.Loan not found.'));

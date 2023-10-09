@@ -36,6 +36,7 @@ class VacanciesTableSeeder extends Seeder
                 'position_company_id' => $positionCompanyId,
                 'start_datetime' => $faker->dateTimeBetween('-30 days', '+30 days')->format('Y-m-d H:i:s'),
                 'end_datetime' => $faker->dateTimeBetween('+31 days', '+60 days')->format('Y-m-d H:i:s'),
+                'state' => 'Disponible',
             ]);
         }
     }
