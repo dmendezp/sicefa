@@ -79,7 +79,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/positions', 'PositionsController@viewpositions')->name('cefa.gth.position'); //nombres de la vista
         Route::post('/positions/create', 'PositionsController@postcreatepositions')->name('cefa.gth.positions.create');
         Route::delete('/gth/positions/{id}/delete', 'PositionsController@deletepositions')->name('cefa.gth.positions.delete');
-        Route::patch('/gth/positions/update{id}', 'PositionsController@updatepositions')->name('cefa.gth.positions.update');
+        Route::patch('/gth/positions/update/{id}', 'PositionsController@updatepositions')->name('cefa.gth.positions.update');
         Route::get('gth/positions/{id}', [PositionsController::class, 'showPositions'])->name('cefa.gth.positions.show');
     });
 });

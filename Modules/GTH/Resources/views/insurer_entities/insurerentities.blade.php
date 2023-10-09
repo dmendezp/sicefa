@@ -244,7 +244,7 @@
                 $('#editName').val(nombre);
 
                 // Obtener la ruta de actualización del formulario de edición
-                var updateRoute = '{{ route('gth.insurerentities.update', ['id' => ':id']) }}'.replace(
+                var updateRoute = '{{ route('cefa.gth.insurerentities.update', ['id' => ':id']) }}'.replace(
                     ':id', id);
 
                 // Asignar la ruta de actualización al formulario de edición

@@ -34,13 +34,7 @@ class PositionsController extends Controller
 
     public function updatepositions(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|max:255', // Agrega más reglas según tus necesidades
-            // Agrega más campos y reglas según tus necesidades
-        ]);
-
         $positions = Position::findOrFail($id);
-
         // Actualizar los campos necesarios
         $positions->professional_denomination = $request->input('professional_denomination');
         $positions->grade = $request->input('grade');

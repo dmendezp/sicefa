@@ -11,7 +11,7 @@
       <li><a href="{{route('cefa.gth.employeetypes.view')}}"><i class='bx bxs-report icon'></i>Tipo de Empleados</a></li>
       <li><a href="{{route('cefa.gth.insurerentities.view')}}"><i class='bx bxs-report icon'></i>Entidad Aseguradora</a></li>
       <li><a href="{{route('cefa.gth.pensionentities.view')}}"><i class='bx bxs-report icon'></i>Entidad Pensión</a></li>
-      <li><a href="{{route('cefa.gth.position')}}"><i class='bx bxs-report icon'></i>Gestion de Posicion</a></li>
+      <li><a href="{{route('cefa.gth.position')}}"><i class='bx bxs-report icon'></i>Grados</a></li>
       <li><a href="{{route('cefa.officials.view')}}"><i class='bx bx-street-view icon'></i>Funcionarios</i></a></li>
       <li><a href="{{route('cefa.contractualcertificates.view')}}" style="margin-bottom: 90px"><i class='bx bxs-receipt icon'></i>Certificado Contractual</a></li>
       <li id="space"><a href="{{ route('cefa.welcome')}}"><i class='bx bx-exit icon icon'></i>Sicefa</a></li>

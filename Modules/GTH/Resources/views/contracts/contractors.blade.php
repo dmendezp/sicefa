@@ -10,16 +10,16 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <h1 class="card-title">Reportes de contratos</h1>
+                        <h1 class="card-title">{{ trans('gth::menu.Contract reports') }}</h1>
                     <table id="contractor" class="table table-striped table-bordered shadow-lg mt-4"
                     style="width:100%">
                     <thead class="bg-primary text-white">
                             <tr>
                                 <th scope="col">Id</th>
-                                <th scope="col">Tipo Documento</th>
-                                <th scope="col">Número Documento</th>
-                                <th scope="col">Nombre Completo</th>
-                                <th style="width: 200px;">Acciones</th>
+                                <th scope="col">{{ trans('gth::menu.Document type') }}</th>
+                                <th scope="col">{{ trans('gth::menu.Document number') }}</th>
+                                <th scope="col">{{ trans('gth::menu.Full name') }}</th>
+                                <th style="width: 200px;">{{ trans('gth::menu.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,9 +57,9 @@
                                                 data-policy-effective-date="{{ $contract->policy_effective_date }}"
                                                 data-policy-expiration-date="{{ $contract->policy_expiration_date }}"
                                                 data-risk-type="{{ $contract->risk_type }}"
-                                                data-state="{{ $contract->state }}">Editar</a>
+                                                data-state="{{ $contract->state }}">{{ trans('gth::menu.Edit') }}</a>
                                             <button type="submit" class="btn btn-danger"
-                                                data-id="{{ $contract->id }}">Eliminar</button>
+                                                data-id="{{ $contract->id }}">{{ trans('gth::menu.Delete') }}</button>
                                         </td>
                                     </form>
                                 </tr>
