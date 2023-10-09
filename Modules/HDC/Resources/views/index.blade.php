@@ -53,6 +53,9 @@
             <div class="card">
                 <div class="card-body">
                     <h3>{{ trans('hdc::hdcgeneral.title4') }}</h3>
+                    <div>
+                        <canvas id="myChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,3 +70,33 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('AdminLTE/plugins/chart.js/Chart.min.js') }}"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['{{ trans('hdc::Graficas.Environmental') }}', '{{ trans('hdc::Graficas.Livestock') }}','{{ trans('hdc::Graficas.Agricultural') }}','{{ trans('hdc::Graficas.Agroindustry') }}'],
+            datasets: [{
+              label: 'Huella total anual',
+              backgroundColor: 'rgba(42, 157, 143, 0.7)',
+              borderColor: 'rgba(42, 157, 143, 1)',
+              pointBackgroundColor: 'rgba(204, 255, 51, 1)',
+              data: [12, 19, 3, 5],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+@endpush
