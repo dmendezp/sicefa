@@ -22,7 +22,10 @@ class CreateVacanciesTable extends Migration
             $table->foreignId('position_company_id')->constrained()->onDelete('cascade');
             $table->dateTime('start_datetime');
             $table->dateTime('end_datetime');
-
+            $table->enum('state', [
+                'Disponible',
+                'No Disponible'
+            ])->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

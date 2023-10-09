@@ -11,11 +11,16 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="course_id">{{ trans('senaempresa::menu.Select a course:') }}</label>
-                                <select class="form-control" name="course_id" id="course_id">
+                                <label for="course_id"
+                                    class="form-label">{{ trans('senaempresa::menu.Select a course:') }}</label>
+                                <input type="text" class="form-control" id="search-input" name="search-input"
+                                    placeholder="Ingresar ficha o curso">
+                                <select class="form-control" name="course_id" aria-label="Selecciona un curso"
+                                    id="course-select" multiple="multiple" required>
                                     @foreach ($courses as $course)
                                         <option value="{{ $course->id }}">{{ $course->code }}
-                                            {{ $course->program->name }}</option>
+                                            {{ $course->program->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -37,7 +42,7 @@
             </div>
             <div class="row justify-content-center mt-5">
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card card-primary card-outline shadow">
                         <div class="card-header">{{ $title }}</div>
                         <div class="card-body">
                             <table id="datatable" class="table table-striped table-bordered">
@@ -136,5 +141,21 @@
                     });
                 });
             });
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById("search-input");
+            const courseSelect = document.getElementById("course-select");
+
+            searchInput.addEventListener("input", function() {
+                const searchText = this.value.trim().toLowerCase();
+
+                for (let option of courseSelect.options) {
+                    const optionText = option.text.toLowerCase();
+                    const isMatch = optionText.includes(searchText);
+                    option.hidden = !isMatch;
+                }
+            });
+        });
     </script>
 @endsection

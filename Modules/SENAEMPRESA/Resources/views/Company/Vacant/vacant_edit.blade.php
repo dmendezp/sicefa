@@ -25,8 +25,7 @@
                                 <label for="current_image"
                                     class="form-label">{{ trans('senaempresa::menu.Current Image') }}</label><br>
                                 @if ($vacancy->image)
-                                    <img src="{{ asset('storage/' . $vacancy->image) }}" alt="Imagen de la vacante"
-                                        style="max-width: 300px;">
+                                    <img src="{{ asset($vacancy->image) }}" alt="{{ $vacancy->name }}" width="100">
                                 @else
                                     <p>{{ trans('senaempresa::menu.No registered image') }}.</p>
                                 @endif

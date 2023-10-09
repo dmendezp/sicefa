@@ -5,13 +5,15 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Vacancy;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
-
+use Illuminate\Support\Str;
 
 class VacantController extends Controller
 {
@@ -37,13 +39,6 @@ class VacantController extends Controller
                 if ($user->courses && $user->courses->count() > 0) {
                     $cursoUsuario = $user->courses->first(); // Obtener el curso del usuario
                     $selectedCourseId = $cursoUsuario->id;
-
-                    $vacancies->whereExists(function ($query) use ($selectedCourseId) {
-                        $query->select(DB::raw(1))
-                            ->from('course_vacancy')
-                            ->whereRaw('course_vacancy.vacancy_id = vacancies.id')
-                            ->where('course_vacancy.course_id', $selectedCourseId);
-                    });
                 }
             } elseif ($user->roles[0]->name === 'Administrador Senaempresa') {
                 // User is of role 'Administrador Senaempresa'
@@ -51,14 +46,18 @@ class VacantController extends Controller
 
                 if ($request->has('cursoFilter')) {
                     $selectedCourseId = $request->input('cursoFilter');
-                    $vacancies->whereExists(function ($query) use ($selectedCourseId) {
-                        $query->select(DB::raw(1))
-                            ->from('course_vacancy')
-                            ->whereRaw('course_vacancy.vacancy_id = vacancies.id')
-                            ->where('course_vacancy.course_id', $selectedCourseId);
-                    });
                 }
             }
+        }
+
+        // Filtrar las vacantes según el curso seleccionado o mostrar todas si no hay filtro
+        if ($selectedCourseId) {
+            $vacancies->whereExists(function ($query) use ($selectedCourseId) {
+                $query->select(DB::raw(1))
+                    ->from('course_vacancy')
+                    ->whereRaw('course_vacancy.vacancy_id = vacancies.id')
+                    ->where('course_vacancy.course_id', $selectedCourseId);
+            });
         }
 
         // Add a condition to check for vacancies associated with at least one course through the pivot table
@@ -68,15 +67,30 @@ class VacantController extends Controller
                 ->whereRaw('course_vacancy.vacancy_id = vacancies.id');
         });
 
-        $vacancies = $vacancies->get();
-        // Comprobar si el usuario actual es un aprendiz en la tabla 'apprentices'
-        
+        $currentDateTime = now(); // Esto incluirá la fecha y la hora actual
+
+        foreach ($vacancies as $vacancy) {
+            // Comparar la fecha y hora de finalización con la fecha y hora actual
+            $endDatetime = Carbon::parse($vacancy->end_datetime);
+
+            if ($currentDateTime > $endDatetime && $vacancy->state === 'Disponible') {
+                $vacancy->state = 'No Disponible';
+                $vacancy->save();
+            } elseif ($currentDateTime <= $endDatetime && $vacancy->state === 'No Disponible') {
+                $vacancy->state = 'Disponible';
+                $vacancy->save();
+            }
+        }
+
+
+
+
         $PositionCompany = PositionCompany::all();
 
         $data = [
             'title' => trans('senaempresa::menu.Vacancies'),
             'courses' => $courses ?? [],
-            'vacancies' => $vacancies,
+            'vacancies' => $vacancies->get(),
             'PositionCompany' => $PositionCompany,
             'selectedCourseId' => $selectedCourseId,
         ];
@@ -101,38 +115,38 @@ class VacantController extends Controller
 
     public function store(Request $request)
     {
-        $imagePath = $request->file('image')->store('images', 'public');
+        // Obtener el archivo de imagen del formulario
+        if ($image = $request->file('image')) {
+            $extension = $image->getClientOriginalExtension(); // Obtener la extensión del archivo
+            $nameWithoutExtension = Str::slug($request->input('name')); // Generar un nombre sin espacios y en minúsculas
+            $name_image = $nameWithoutExtension . '_' . time() . '.' . $extension; // Agregar una marca de tiempo para evitar conflictos de nombre
+            $image->move(public_path('modules/senaempresa/images/vacancies/'), $name_image); // Mover la imagen a la ubicación deseada
+        }
 
-        // Verificar si ya existe una vacante con el mismo nombre (ignorando eliminaciones suaves)
-        $existingVacancy = Vacancy::withTrashed()->where('name', $request->input('name'))->first();
+        $vacancy = new Vacancy();
+        $vacancy->name = $request->input('name');
+        $vacancy->image = 'modules/senaempresa/images/vacancies/' . $name_image;
+        $vacancy->description_general = $request->input('description_general');
+        $vacancy->requirement = $request->input('requirement');
+        $vacancy->position_company_id = $request->input('position_company_id');
+        $vacancy->start_datetime = $request->input('start_datetime');
+        $vacancy->end_datetime = $request->input('end_datetime');
 
-        if ($existingVacancy) {
-            // Si existe una vacante con el mismo nombre, verifica si está eliminada
-            if ($existingVacancy->trashed()) {
-                // Restaura la vacante eliminada suavemente
-                $existingVacancy->restore();
-                return redirect()->route('company.vacant.vacantes')->with('success', trans('senaempresa::menu.Vacancy Successfully Restored!'));
-            } else {
-                // Si la vacante no está eliminada, muestra una alerta
-                return redirect()->back()->with('error', trans('senaempresa::menu.Vacancy already exists in database'));
-            }
+        // Comprobar si la fecha y hora de finalización ya ha pasado
+        if (now() > $vacancy->end_datetime) {
+            $vacancy->state = 'No Disponible';
         } else {
-            // Si no existe una vacante con el mismo nombre, crea una nueva
-            $vacancy = new Vacancy();
-            $vacancy->name = $request->input('name');
-            $vacancy->image = $imagePath;
-            $vacancy->description_general = $request->input('description_general');
-            $vacancy->requirement = $request->input('requirement');
-            $vacancy->position_company_id = $request->input('position_company_id');
-            $vacancy->start_datetime = $request->input('start_datetime');
-            $vacancy->end_datetime = $request->input('end_datetime');
+            $vacancy->state = 'Disponible';
+        }
 
-            if ($vacancy->save()) {
-                $data = ['title' => 'Nueva Vacante', 'vacancy' => $vacancy];
-                return redirect()->route('company.vacant.vacantes', $data)->with('success', trans('senaempresa::menu.Vacant added with success'));
-            }
+        if ($vacancy->save()) {
+            $data = ['title' => 'Nueva Vacante', 'vacancy' => $vacancy];
+            return redirect()->route('company.vacant.vacantes', $data)->with('success', trans('senaempresa::menu.Vacant added with success'));
         }
     }
+
+
+
     public function edit($id)
     {
         $vacancy = Vacancy::findOrFail($id);
@@ -153,11 +167,25 @@ class VacantController extends Controller
     {
         $vacancy = Vacancy::findOrFail($id);
 
+        // Verifica si se ha cargado una nueva imagen
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            $vacancy->image = $imagePath;
+            // Elimina la imagen existente si existe
+            if (File::exists(public_path($vacancy->image))) {
+                File::delete(public_path($vacancy->image));
+            }
+
+            // Procesa la nueva imagen
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $nameWithoutExtension = Str::slug($request->input('name'));
+            $name_image = $nameWithoutExtension . '_' . time() . '.' . $extension;
+            $image->move(public_path('modules/senaempresa/images/vacancies/'), $name_image);
+
+            // Actualiza la propiedad 'image' de la vacante con la nueva ruta de la imagen
+            $vacancy->image = 'modules/senaempresa/images/vacancies/' . $name_image;
         }
 
+        // Actualiza los otros campos de la vacante
         $vacancy->name = $request->input('name');
         $vacancy->description_general = $request->input('description_general');
         $vacancy->requirement = $request->input('requirement');
@@ -165,16 +193,19 @@ class VacantController extends Controller
         $vacancy->start_datetime = $request->input('start_datetime');
         $vacancy->end_datetime = $request->input('end_datetime');
 
+        // Comprobar si la fecha y hora de finalización ya ha pasado
+        if (now() > $vacancy->end_datetime) {
+            $vacancy->state = 'No Disponible';
+        } else {
+            $vacancy->state = 'Disponible';
+        }
+
         if ($vacancy->save()) {
             return redirect()->route('company.vacant.vacantes')->with('success', trans('senaempresa::menu.Vacancy successfully updated.'));
         } else {
             return redirect()->back()->with('error', trans('senaempresa::menu.Error updating the Vacancy.'));
         }
     }
-
-
-
-
     public function destroy($id)
     {
         try {
@@ -226,7 +257,6 @@ class VacantController extends Controller
             return redirect()->back()->with('error', trans('senaempresa::menu.Association already exists.'));
         }
     }
-
     public function mostrar_asociados()
     {
         $vacancies = Vacancy::get();

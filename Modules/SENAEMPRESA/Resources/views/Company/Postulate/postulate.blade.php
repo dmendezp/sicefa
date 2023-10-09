@@ -30,24 +30,22 @@
                                     <td>{{ $postulate->vacancy->name }}</td>
                                     <td>{{ $postulate->state }}</td>
                                     <td>
-                                        <a href="{{ asset('storage/' . $postulate->cv) }}" class="btn btn-primary btn-sm"
-                                            download>
+                                        <a href="{{ asset($postulate->cv) }}" class="btn btn-primary btn-sm" download>
                                             <i class="fas fa-download fa-sm"></i> CV
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{ asset('storage/' . $postulate->personalities) }}"
-                                            class="btn btn-primary btn-sm" download>
+                                        <a href="{{ asset($postulate->personalities) }}" class="btn btn-primary btn-sm"
+                                            download>
                                             <i class="fas fa-download fa-sm"></i> Personalidades
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{ asset('storage/' . $postulate->proposal) }}"
-                                            class="btn btn-primary btn-sm" download>
+                                        <a href="{{ asset($postulate->proposal) }}" class="btn btn-primary btn-sm"
+                                            download>
                                             <i class="fas fa-download fa-sm"></i> Propuesta
                                         </a>
                                     </td>
-
                                     <td>{{ $postulate->score_total }}</td>
 
 
