@@ -87,6 +87,84 @@ class LaborManagementController extends Controller
             }); 
         }
 
+        // ---------------- Filtro para las Elementos -----------------------
+
+        // Obtener el ID de la unidad productiva seleccionada (asumiendo que lo tienes en sesión)
+        $selectedUnitId = Session::get('selectedUnitId');
+
+
+        // Obtén los registros de productive_unit_warehouse que coinciden con la unidad productiva seleccionada
+        $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->get();
+
+        // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
+        $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
+
+        // Obtener los registros de inventario que coinciden con las bodegas relacionadas
+
+        // Herramientas
+        $toolsData = Inventory::with('element.category')
+        ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
+        ->whereHas('element.category', function ($query) {
+            $query->where('name', 'Herramienta');
+        })
+        ->get();
+
+        $toolOptions = [];
+
+        foreach ($toolsData as $inventory) {
+            $inventoryId = $inventory->id;
+            $elementName = $inventory->element->name;
+            $toolOptions[$inventoryId] = $elementName;
+        }
+
+        // Maquinaria
+        $machineryData = Inventory::with('element.category')
+        ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
+        ->whereHas('element.category', function ($query) {
+            $query->where('name', 'Maquinaria');
+        })
+        ->get();
+
+        $machineryOptions = [];
+
+        foreach ($machineryData as $inventory) {
+            $inventoryId = $inventory->id;
+            $elementName = $inventory->element->name;
+            $machineryOptions[$inventoryId] = $elementName;
+        }
+
+        // Fertilizante
+        $fertilizersData = Inventory::with('element.category')
+        ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
+        ->whereHas('element.category', function ($query) {
+            $query->where('name', 'Fertilizante');
+        })
+        ->get();
+
+        $fertilizerOptions = [];
+
+        foreach ($fertilizersData as $inventory) {
+            $inventoryId = $inventory->id;
+            $elementName = $inventory->element->name;
+            $fertilizerOptions[$inventoryId] = $elementName;
+        }
+
+        // Agroquimico
+        $agrochemicalsData = Inventory::with('element.category')
+        ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
+        ->whereHas('element.category', function ($query) {
+            $query->where('name', 'Agroquimico');
+        })
+        ->get();
+
+        $agrochemicalOptions = [];
+
+        foreach ($agrochemicalsData as $inventory) {
+            $inventoryId = $inventory->id;
+            $elementName = $inventory->element->name;
+            $agrochemicalOptions[$inventoryId] = $elementName;
+        }
+
 
     
         // ---------------- Retorno a vista y funciones -----------------------
@@ -95,6 +173,10 @@ class LaborManagementController extends Controller
             'date' => $date,
             'activitysData' => $activitysData,
             'environmentData' => $environmentData,
+            'toolOptions' => $toolOptions,
+            'machineryOptions' => $machineryOptions,
+            'fertilizerOptions' => $fertilizerOptions,
+            'agrochemicalOptions' => $agrochemicalOptions,
 
         ]);
     }

@@ -456,7 +456,7 @@
             });
 
             // Manejador de eventos para cambiar la cantidad y habilitar/deshabilitar el botón de registro
-            productTable.on('change', 'input[name="product-quantity[]"]', function() {
+            productTable.on('input', 'input[name="product-quantity[]"]', function() {
                 var currentRow = $(this).closest('tr');
                 var selectedElementId = currentRow.find('select[name="product-id[]"]')
                     .val(); // Obtener el valor seleccionado
