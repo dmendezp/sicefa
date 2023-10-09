@@ -2,12 +2,8 @@
 
 namespace Modules\SIGAC\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\App;
-use Modules\SICA\Entities\Environment;
-use Modules\SICA\Entities\Program;
 
 class AttendanceController extends Controller
 {
@@ -35,7 +31,7 @@ class AttendanceController extends Controller
         return view('sigac::attendance.register', compact('apps', 'view'));
     }
     
-
+    /* Vista principal para la sección de reportes de asistencia */
     public function reports_attendance()
     {
         $view = ['titlePage'=>trans('sigac::reports.TitlePage'), 'titleView'=>trans('sigac::reports.TitleView')];

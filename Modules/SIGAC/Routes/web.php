@@ -41,25 +41,6 @@ Route::middleware(['lang'])->group(function(){ //Middleware que permite la inter
         Route::controller(ApprenticeController::class)->group(function(){
             Route::get('apprentice/excuses', 'send_excuses')->name('sigac.apprentice.excuses.send'); // Enviar excusa para justificación de inasistencia (Aprendiz)
         });
-
-        Route::prefix('instructor')->group(function(){
-            Route::get('/index', [InstructorController::class, 'index'])->name('cefa.sigac.instructor.index'); // Vista principal.
-        });
-
-        Route::prefix('schedule')->group(function(){
-            
-        });
-
-        Route::prefix('reports')->group(function(){
-            
-        });
-    
-        // Rutas para ....
-        //Route::prefix('\Coloca el nombre del grupo\')->group(function(){
-            //Route::get('ruta en el navegador', 'metódo del controlador')->name('sigac.element. ...'); // Descripción de la ruta (debes tener en encuenta registrar el permiso en los seeders y sincronizarlos con el rol desde lo seeders)
-        //});
-    
     });
-
 });
 
