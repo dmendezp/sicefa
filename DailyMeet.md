@@ -107,9 +107,30 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ---
 
 #### Meet 21-Sep-2023
-* **Daniel Guzman** - Actividades realizadas* - *Avance % - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Daniel Guzman** - CRUD listo realizadas* - *100 % - *Dificultades->Ninguna* - *Acciones->Ninguna*
 * **Mayerli Castañeda** - *Vista de Posicion * - *30%* - *Dificultades* - *Acciones*
 ---
+#### Meet 22-Sep-2023
+* **Daniel Guzman** - CRUD listo realizadas* - *100 % - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 23-Sep-2023
+* **Daniel Guzman** - Roles y permiso* - *10 % - *Asignar roles* - *Creacion de seeders*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 24-Sep-2023
+* **Daniel Guzman** - Listo los seeders de permisos, roles y usuarios* - *40 % - *Crear permisos* - *Ninguna*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 25-Sep-2023
+* **Daniel Guzman** - Roles y permisos* - *70 % - ** - *Asignar roles y usuarios a las vistas*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 26-Sep-2023
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+
 
 
 ## CEFAMAPS 📌
