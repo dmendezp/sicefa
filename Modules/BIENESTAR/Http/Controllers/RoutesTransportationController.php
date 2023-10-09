@@ -5,11 +5,11 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\RoutesTransportations;
+use Modules\BIENESTAR\Entities\RoutesTransportation;
 use Modules\BIENESTAR\Entities\BusDrivers;
 use Modules\BIENESTAR\Entities\Buses;
 
-class RoutesTransportationsController extends Controller
+class RoutesTransportationController extends Controller
 
 {
 
@@ -18,7 +18,7 @@ class RoutesTransportationsController extends Controller
         // Obtén los datos de buses con sus conductores relacionados
         $buses = Buses::with('bus_driver')->whereHas('bus_driver')->get();
         $busDrivers = BusDrivers::all();
-        $routestransportations = RoutesTransportations::with('bus.bus_driver')->get();
+        $routestransportations = RoutesTransportation::with('bus.bus_driver')->get();
 
         return view('bienestar::transportroutes', ['buses' => $buses, 'busDrivers' => $busDrivers, 'routestransportations' => $routestransportations]);
     }
@@ -36,7 +36,7 @@ class RoutesTransportationsController extends Controller
         ]);
 
         // Crea una nueva instancia del modelo TransportRoute y asigna los valores
-        $transportRoute = new RoutesTransportations();
+        $transportRoute = new RoutesTransportation();
         $transportRoute->route_number = $request->input('route_number');
         $transportRoute->stop_bus = $request->input('stop_bus');
         $transportRoute->name_route = $request->input('name_route');
@@ -52,7 +52,7 @@ class RoutesTransportationsController extends Controller
     }
 
     public function edit($id){
-        $idTransport = RoutesTransportations::findOrFail($id);
+        $idTransport = RoutesTransportation::findOrFail($id);
         return redirect()->route('cefa.bienestar.transportroutes', compact('idTransport'));
     }
 
@@ -69,7 +69,7 @@ class RoutesTransportationsController extends Controller
         ]);
 
         // Busca el registro existente por su ID
-        $transportRoute = RoutesTransportations::findOrFail($request->input('id_transport'));
+        $transportRoute = RoutesTransportation::findOrFail($request->input('id_transport'));
         
         
         // Actualiza los campos del registro con los datos del formulario
@@ -90,7 +90,7 @@ class RoutesTransportationsController extends Controller
     public function destroy($id)
     {
         try {
-            $beneficio = RoutesTransportations::findOrFail($id);
+            $beneficio = RoutesTransportation::findOrFail($id);
             $beneficio->delete();
 
             return response()->json(['mensaje' =>'Vacancy eliminated with success']);

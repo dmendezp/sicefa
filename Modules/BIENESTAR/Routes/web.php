@@ -67,11 +67,11 @@ Route::middleware(['lang'])->group(function () {
 
 
         //Vistas Rutas de transporte
-        Route::get('/transportroutes', 'RoutesTransportationsController@index')->name('cefa.bienestar.transportroutes');
-        Route::post('/transportroutes/add', 'RoutesTransportationsController@store')->name('cefa.bienestar.transportroutes.add');
-        Route::delete('/transportroutes/delete/{id}', 'RoutesTransportationsController@destroy')->name('cefa.bienestar.transportroutes.destroy');
-        Route::get('/transportroutes/{id}', 'RoutesTransportationsController@edit')->name('cefa.bienestar.transportroutes.edit');
-        Route::post('/transportroutes/update', 'RoutesTransportationsController@update')->name('cefa.bienestar.transportroutes.update');
+        Route::get('/transportroutes', 'RoutesTransportationController@index')->name('cefa.bienestar.transportroutes');
+        Route::post('/transportroutes/add', 'RoutesTransportationController@store')->name('cefa.bienestar.transportroutes.add');
+        Route::delete('/transportroutes/delete/{id}', 'RoutesTransportationController@destroy')->name('cefa.bienestar.transportroutes.destroy');
+        Route::get('/transportroutes/{id}', 'RoutesTransportationController@edit')->name('cefa.bienestar.transportroutes.edit');
+        Route::post('/transportroutes/update', 'RoutesTransportationController@update')->name('cefa.bienestar.transportroutes.update');
 
 
         // vista de conductores
@@ -98,7 +98,7 @@ Route::middleware(['lang'])->group(function () {
        
         // Vista De Consulta
         Route::get('/callconsultation', 'CallConsultationController@index')->name('cefa.bienestar.callconsultation');
-        Route::post('/busqueda', 'CallConsultationController@buscar')->name('cefa.bienestar.busqueda');
+        Route::get('/busqueda/document', 'CallConsultationController@search')->name('cefa.bienestar.search');
         Route::post('/search', 'CallConsultationController@searchByDocumentNumber')->name('cefa.bienestar.search.by.document');
         Route::post('/procesar-formulario', 'CallConsultationController@procesarFormulario')->name('cefa.bienestar.procesar.formulario');
         Route::get('/consulta/{documentNumber}', 'CallConsultationController@consultarBeneficios')->name('cefa.bienestar.consulta.resultados');
@@ -107,7 +107,7 @@ Route::middleware(['lang'])->group(function () {
 
         // Vista de Postulaciones
         route::get('/postulations', 'PostulationsController@index') ->name('cefa.bienestar.postulations');
-        Route::get('/busqueda', 'PostulationsController@buscar')->name('cefa.bienestar.busqueda');        
+        Route::get('/busquedas', 'PostulationsController@buscar')->name('cefa.bienestar.busqueda');        
 
         //vista el listados apoyo alimentacion 
         Route::get('/AssistancesFoods', 'AssistancesFoodsController@index')->name('cefa.bienestar.AssistancesFoods');

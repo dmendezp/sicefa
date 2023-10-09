@@ -1,12 +1,14 @@
 <?php
 
 namespace Modules\BIENESTAR\Entities;
+
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\Apprentice;
+use Modules\BIENESTAR\Entities\PostulationsBenefit;
 
-class Postulations extends Model implements Auditable
+class Postulation extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable,
     SoftDeletes;
@@ -14,7 +16,7 @@ class Postulations extends Model implements Auditable
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];
 
-    protected $table = 'postulations';
+    
 
     protected $fillable = [
         'apprentice_id',
@@ -46,7 +48,7 @@ class Postulations extends Model implements Auditable
     }
 
     public function postulationBenefits(){// Accede a los datos del beneficio que tiene la postulacion al que pertenece
-        return $this->hasMany(PostulationsBenefits::class);
+        return $this->hasMany(PostulationsBenefit::class);
     }
 
     public function socioeconomicsupportfiles(){// Accede a los datos del archivo de soporte al que pertenece
