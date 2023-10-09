@@ -4,6 +4,7 @@ namespace Modules\DICSENA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Program;
 
 class Guidepost extends Model
@@ -15,5 +16,9 @@ class Guidepost extends Model
     public function program()
     {
         return $this->belongsTo(Program::class);
+    }
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
     }
 }

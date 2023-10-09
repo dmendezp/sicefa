@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Network;
 use Modules\SICA\Entities\Course;
+use Modules\DICSENA\Entities\Glossary;
 
 class Program extends Model implements Auditable
 {
@@ -31,16 +32,23 @@ class Program extends Model implements Auditable
     ];
 
     // MUTADORES Y ACCESORES
-    public function setNameAttribute($value){ // Convierte todos los carácteres en mayúsculas del dato name (MUTADOR)
+    public function setNameAttribute($value)
+    { // Convierte todos los carácteres en mayúsculas del dato name (MUTADOR)
         $this->attributes['name'] = mb_strtoupper($value);
     }
 
     // RELACIONES
-    public function courses(){ // Accede a todos los cursos asociados a este programa de formación
+    public function courses()
+    { // Accede a todos los cursos asociados a este programa de formación
         return $this->hasMany(Course::class);
     }
-    public function network(){ // Accede a la red de conocimiento al que pertenece
+    public function network()
+    { // Accede a la red de conocimiento al que pertenece
         return $this->belongsTo(Network::class);
+    }
+    public function glossaries()
+    {
+        return $this->hasMany(Glossary::class);
     }
 
 
@@ -49,5 +57,4 @@ class Program extends Model implements Auditable
     {
         return \Modules\SICA\Database\factories\ProgramFactory::new();
     }
-
 }

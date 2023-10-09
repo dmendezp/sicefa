@@ -115,12 +115,13 @@ body{
   padding: 14px;
   outline: none;
   border: none;
-  color: #ededed;
+  color: #ffffff;
   cursor: pointer;
   margin-top: 10px;
   font-size: 17px;
   border-radius: 5px;
   background: #5372F0;
+  padding: 8px 12px;
 }
 
 @media (max-width: 660px){

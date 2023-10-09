@@ -21,7 +21,7 @@
             </div>
         </form>
     </div>
-    <table class="table mt-4">
+    <table id="index" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
         <thead>
             <tr>
                 <th>Palabra</th>
@@ -58,5 +58,8 @@
     </table>
     {{ $glossaries->links() }}
 </div>
-
+<footer style="background-color: #3C3B6E; color: white; padding: 20px;">
+    <p style="text-align: center;">Use exclusive for apprentices of SENA</p>
+    <p style="text-align: center;">&copy; 2023</p>
+</footer>
 @endsection

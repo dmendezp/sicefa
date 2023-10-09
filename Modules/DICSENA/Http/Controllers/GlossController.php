@@ -16,7 +16,9 @@ class GlossController extends Controller
      */
     public function index()
     {
-        return view('dicsena::gloss');
+        $programs = Program::all();
+
+        return view('dicsena::gloss', compact('programs'));
     }
 
     /**
@@ -83,14 +85,14 @@ class GlossController extends Controller
         $programId = $request->input('program_id'); // Obtenemos el ID del programa desde el formulario
 
         // Obtén todas las palabras relacionadas con el programa seleccionado
-        $program = Program::find($programId);
+        $programs = Program::find($programId);
 
-        if (!$program) {
+        if (!$programs) {
             return redirect()->route('cefa.dicsena.glossary.index')->with('error', 'Programa no encontrado');
         }
 
-        $glossaries = $program->glossaries()->paginate(10);
+        $glossaries = $programs->glossaries()->paginate(10);
 
-        return view('cefa.dicsena.gloss', compact('glossaries', 'program'));
+        return view('cefa.dicsena.gloss', compact('glossaries', 'programs'));
     }
 }
