@@ -44,19 +44,19 @@ class Postulation extends Model implements Auditable
     }
 
     public function convocation(){// Accede a los datos de la Convocatoria al que pertenece
-        return $this->belongsTo(Convocations::class, 'convocation_id');
+        return $this->belongsTo(Convocation::class, 'convocation_id');
     }
 
     public function postulationBenefits(){// Accede a los datos del beneficio que tiene la postulacion al que pertenece
-        return $this->hasMany(PostulationsBenefit::class);
+        return $this->hasMany(PostulationBenefit::class);
     }
 
     public function socioeconomicsupportfiles(){// Accede a los datos del archivo de soporte al que pertenece
-        return $this->hasMany(SocioEconomicSupportFiles::class, 'postulation_id');
+        return $this->hasMany(SocioEconomicSupportFile::class, 'postulation_id');
     }
 
     public function typeOfBenefit(){// Accede a los datos del tipo de beneficiario al que pertenece
-        return $this->belongsTo(TypesOfBenefits::class, 'type_of_benefit_id');
+        return $this->belongsTo(TypeOfBenefit::class, 'type_of_benefit_id');
     }
 
     

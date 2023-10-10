@@ -5,12 +5,12 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\Postulations;
-use Modules\BIENESTAR\Entities\Convocations;
+use Modules\BIENESTAR\Entities\Postulation;
+use Modules\BIENESTAR\Entities\Convocation;
 use Modules\SICA\Entities\Apprentice;
-use Modules\BIENESTAR\Entities\TypesOfBenefits;
-use Modules\BIENESTAR\Entities\Questions;
-use Modules\BIENESTAR\Entities\Benefits;
+use Modules\BIENESTAR\Entities\TypeOfBenefit;
+use Modules\BIENESTAR\Entities\Question;
+use Modules\BIENESTAR\Entities\Benefit;
 use Modules\BIENESTAR\Entities\PostulationBenefit;
 use Modules\BIENESTAR\Entities\Answers;
 use Illuminate\Http\JsonResponse;
@@ -19,15 +19,15 @@ class PostulationBenefitController extends Controller
 {
     public function index(Request $request)
 {
-    $benefits = Benefits::all();
-    $postulations = Postulations::with(['apprentice', 'convocation', 'typeOfBenefit'])->get();
-    $questions = Questions::all(); // Obtener todas las preguntas disponibles
+    $benefits = Benefit::all();
+    $postulations = Postulation::with(['apprentice', 'convocation', 'typeOfBenefit'])->get();
+    $questions = Question::all(); // Obtener todas las preguntas disponibles
 
     // Obtener las postulaciones seleccionadas desde el formulario
     $selectedPostulations = $request->input('selected-postulations', []);
 
     // Obtener las postulaciones no seleccionadas
-    $allPostulations = Postulations::all();
+    $allPostulations = Postulation::all();
     $unselectedPostulations = $allPostulations->filter(function ($postulation) use ($selectedPostulations) {
         return !in_array($postulation->id, $selectedPostulations);
     });
@@ -37,7 +37,7 @@ class PostulationBenefitController extends Controller
     return view('bienestar::postulation-management', compact('postulations', 'benefits', 'questions', 'postulationBenefits', 'selectedPostulations', 'unselectedPostulations'));
 }
 public function show($id) {
-    $postulation = Postulations::with('convocation', 'apprentice', 'typeOfBenefit', 'answers', 'postulationBenefits', 'socioEconomicSupportFiles', 'typeOfBenefit')->findOrFail($id);
+    $postulation = Postulation::with('convocation', 'apprentice', 'typeOfBenefit', 'answers', 'postulationBenefits', 'socioEconomicSupportFiles', 'typeOfBenefit')->findOrFail($id);
     return view('bienestar::postulation-management.show', compact('postulation'));
 }
 
@@ -45,12 +45,12 @@ public function show($id) {
 
     public function showModal($id)
 {
-    $postulation = Postulations::with(['convocation', 'apprentice', 'typeOfBenefit', 'answers' => function ($query) use ($id) {
+    $postulation = Postulation::with(['convocation', 'apprentice', 'typeOfBenefit', 'answers' => function ($query) use ($id) {
         $query->where('postulation_id', $id);
     }])->findOrFail($id);
     
     // Obtener todas las preguntas disponibles
-    $questions = Questions::all();
+    $questions = Question::all();
     
     return view('bienestar::postulation-management.modal', compact('postulation', 'questions'));
 }
@@ -60,7 +60,7 @@ public function show($id) {
 {
     try {
         // Buscar la postulación por ID
-        $postulation = Postulations::findOrFail($id);
+        $postulation = Postulation::findOrFail($id);
         
         // Validar el valor del nuevo puntaje (puede agregar más validaciones según sus necesidades)
         $request->validate([
@@ -90,7 +90,7 @@ public function updateState(Request $request)
         $postulationId = $request->input('postulation_id');
 
         // Buscar la postulación por ID 
-        $postulation = Postulations::findOrFail($postulationId);
+        $postulation = Postulation::findOrFail($postulationId);
 
         // Validar y actualizar el estado
         $request->validate([
@@ -112,7 +112,7 @@ public function updateState(Request $request)
 
 public function updateBenefits(Request $request)
     {
-        return Postulations::find($request->input('postulation_ids')[0])->answers;
+        return Postulation::find($request->input('postulation_ids')[0])->answers;
         try {
             $postulationsData = $request->input('postulations', []);
 
@@ -150,7 +150,7 @@ public function updateBenefits(Request $request)
 {
     try {
         // Obtener todas las postulaciones
-        $postulations = Postulations::all();
+        $postulations = Postulation::all();
 
         foreach ($postulations as $postulation) {
             // Obtener las respuestas de la postulación
@@ -164,7 +164,7 @@ public function updateBenefits(Request $request)
                 $answerContent = strtolower($answer->answer);
 
                 // Consultar la tabla de beneficios por nombre
-                $benefit = Benefits::where('name', $answerContent)->first();
+                $benefit = Benefit::where('name', $answerContent)->first();
 
                 if ($benefit) {
                     // Agregar el beneficio encontrado al arreglo de beneficios

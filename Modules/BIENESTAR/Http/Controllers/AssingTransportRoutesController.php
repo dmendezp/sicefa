@@ -5,14 +5,14 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\AssingTransportRoutes;
+use Modules\BIENESTAR\Entities\AssignTransportRoute;
 use Modules\SICA\Entities\Apprentice;
 
 class AssingTransportRoutesController extends Controller
 {
     public function mostrarAsignaciones()
 {
-    $asignaciones = AssingTransportRoutes::all();
+    $asignaciones = AssignTransportRoute::all();
 
     return view('bienestar::assign-transportation-routes', ['asignaciones' => $asignaciones]);
 }

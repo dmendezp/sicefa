@@ -20,11 +20,12 @@
             </div>
         </div>
     </div>
+    @if (isset($resultados))
     <div class="container-fluid">
         <div class="row justify-content-md-center pt-4">
             <div class="card shadow col-md-8">
                 <div class="container">
-                    @foreach ($resultados as $resultado)
+                @foreach ($resultados as $resultado)
                         <h1>Resultado de la búsqueda:</h1>
                         <ul>
                             <label for="">Documento:</label>
@@ -45,11 +46,10 @@
                             <input type="text" value="{{ $resultado->population_group_id }}" class="form-control" readonly>
                         </ul>
                     @endforeach
-                    <!-- Resto de tu contenido -->
                 </div>
             </div>
         </div>
     </div>
-
+    @endif
 </div>
 @endsection

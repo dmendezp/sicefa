@@ -34,11 +34,11 @@ class AssignTransportRoute extends Model implements Auditable
     }
 
     public function convocations(){// Accede a todas las convocatorias que pertenecen a esta asignacion            
-    	return $this->belongsTo(Convocations::class, 'convocation_id');
+    	return $this->belongsTo(Convocation::class, 'convocation_id');
     }
 
     public function routes_trasportantion(){// Accede a todas las rutas que pertenecen a esta asignacion            
-    	return $this->belongsTo(RoutesTransportations::class, 'route_transportation_id');
+    	return $this->belongsTo(RoutesTransportation::class, 'route_transportation_id');
     }
 
     
