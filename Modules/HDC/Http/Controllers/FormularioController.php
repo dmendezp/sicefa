@@ -57,6 +57,7 @@ class FormularioController extends Controller
 
 
         $labor = Labor::create([
+            'person_id' => auth()->user()->id,
             'activity_id' => $request->input('activity_id'),
             'planning_date' => now(),
             'execution_date' => now(),
@@ -85,7 +86,7 @@ class FormularioController extends Controller
     public function table()
     {
 
-        $datos = Labor::has('environmental_aspect_labors')->with('environmental_aspect_labors.environmental_aspect')->with('activity.productive_unit')->get();
+        $datos = Labor::has('environmental_aspect_labors')->with('environmental_aspect_labors.environmental_aspect.measurement_unit')->with('activity.productive_unit')->get();
 
 
         return view('hdc::registration_form.resultform', compact('datos'));

@@ -19,4 +19,20 @@ return[
 
      //Boton dentro de la card de resultados
     'Btn_Save' => 'Guardar',
+    //Boton dentro de la card de resultados editar
+    'Btn_Update'=> 'Actualizar',
+
+    //Nombres de la tabla del crud de registros guardados 
+    'Title_Card_Records_Saver' => 'Registros Guardados',
+
+    'Title_Header_Table_Column_productive_unit'      =>  'Unidad Productiva',
+    'Title_Header_Table_Column_Activities'           =>  'Actividades',
+    'Title_Header_Table_Column_Date'                 =>  'Fecha',
+    'Title_Header_Table_Column_Environmental_Aspect' =>  'Aspecto Ambiental',
+    'Title_Header_Table_Column_Quantity'             =>  'Cantidad',
+    'Title_Header_Table_Column_Unit_Measurement'     =>  'Unidad de Medida',
+    'Title_Header_Table_Column_Action'               =>  'Acciones'
+
+
+
 ];

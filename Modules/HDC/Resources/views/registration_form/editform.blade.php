@@ -74,7 +74,7 @@
                                         <div class="d-flex justify-content-around">
                                             <!-- Botón de guardar -->
                                             <button type="submit"
-                                                class="btn btn-success">{{ trans('hdc::ConsumptionRegistry.Btn_Save') }}</button>
+                                                class="btn btn-success">{{ trans('hdc::ConsumptionRegistry.Btn_Update') }}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -86,9 +86,3 @@
         </div>
     </div>
 @endsection
-
-{{--  Vista:
-{{ $labor }}
-<hr>
-Actividad: {{ $labor->activity->name }}
-{{--  Aspecto: {{  }}  --}}  

@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card card-success card-outline shadow mt-2">
             <div class="card-header">
-                <h2 class="card-title"><strong>Registros guardados</strong></h2>
+                <h2 class="card-title"><strong>{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }}</strong></h2>
             </div>
 
             <div class="card-body">
@@ -17,12 +17,13 @@
                         <thead class="table-dark">
                             <tr>
                                 <th>ID</th>
-                                <th>Unidad Productiva</th>
-                                <th>Actividades</th>
-                                <th>Fecha</th>
-                                <th>Aspecto Ambiental</th>
-                                <th>Cantidad</th>
-                                <th>Acciones</th>
+                                <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_productive_unit')}}</th>
+                                <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Activities')}}</th>
+                                <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Date')}}</th>
+                                <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Environmental_Aspect')}}</th>
+                                <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Quantity')}}</th>
+                                <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Unit_Measurement')}}</th>
+                                <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Action')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,6 +47,14 @@
                                             @endforeach
                                         <ul>
                                     </td>
+                                    <td>
+                                        <ul>
+                                            @foreach ($dato->environmental_aspect_labors as $envasp)
+                                                <li>{{ $envasp->environmental_aspect->measurement_unit->abbreviation }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                    
                                     <td>
                                         <form action="{{ route('cefa.hdc.delete', $dato->id) }}" method="post" id="formEliminar{{ $loop->iteration }}">
                                             @csrf
