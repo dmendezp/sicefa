@@ -17,8 +17,9 @@ class CreateVacanciesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
-            $table->string('description_general', 255);
+            $table->text('description_general');
             $table->string('requirement');
+            $table->foreignId('senaempresa_id')->constrained()->onDelete('cascade');
             $table->foreignId('position_company_id')->constrained()->onDelete('cascade');
             $table->dateTime('start_datetime');
             $table->dateTime('end_datetime');

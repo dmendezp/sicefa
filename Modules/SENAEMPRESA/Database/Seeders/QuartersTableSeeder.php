@@ -18,13 +18,17 @@ class QuartersTableSeeder extends Seeder
     {
         $faker = Faker::create('es_ES');
 
-        // Define la cantidad de registros que deseas crear
-        $numQuarters = 10;
+        // Define el año para el que deseas crear los trimestres
+        $year = date('Y');
 
-        for ($i = 0; $i < $numQuarters; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $name = 'Trimestre ' . ($i + 1);
-            $startDate = $faker->dateTimeBetween('-60 days', '+60 days')->format('Y-m-d');
-            $endDate = $faker->dateTimeBetween($startDate, '+90 days')->format('Y-m-d');
+
+            // Calcula las fechas de inicio y fin del trimestre
+            $startMonth = ($i * 3) + 1;
+            $endMonth = $startMonth + 2;
+            $startDate = $year . '-' . str_pad($startMonth, 2, '0', STR_PAD_LEFT) . '-01';
+            $endDate = $year . '-' . str_pad($endMonth, 2, '0', STR_PAD_LEFT) . '-01';
 
             Quarter::firstOrCreate(
                 ['name' => $name], // Verifica si ya existe un trimestre con el mismo nombre
