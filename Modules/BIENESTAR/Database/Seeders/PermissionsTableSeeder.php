@@ -41,7 +41,6 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
         $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
-        //________________________________________________________________________________________________________________________________________________________________ //
 
         // Vista Crud Beneficios (ADMINISTRADOR)//
         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.crud.benefits'], [ // Registro o actualización de permiso
@@ -315,8 +314,225 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
 
-        //*-----Permisos Vista Tipo de Beneficiarios-----*//
+        //*-----Permisos Buses-----*//
+        // Vista Crud Buses (ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.crud.buses'], [ // Registro o actualización de permiso
+            'name' => 'CRUD de Buses',
+            'description' => 'Puede ver la vista del CRUD de buses',
+            'description_english' => 'You can see the CRUD view of buses',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista Crud Buses (LIDER BENEFICIO DE ALIMENTACION)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.crud.buses'], [ // Registro o actualización de permiso
+            'name' => 'CRUD de Buses',
+            'description' => 'Puede ver la vista del CRUD de buses',
+            'description_english' => 'You can see the CRUD view of buses',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Crud Buses (LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.crud.buses'], [ // Registro o actualización de permiso
+            'name' => 'CRUD de Buses',
+            'description' => 'Puede ver la vista del CRUD de buses',
+            'description_english' => 'You can see the CRUD view of buses',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
+
+         // Ruta Fromulario Guardar Buses(ADMINISTRADOR)//
+         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.save.buses'], [ // Registro o actualización de permiso
+            'name' => 'Guardar Buses',
+            'description' => 'Puede guardar los buses',
+            'description_english' => 'You can save the buses',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Fromulario Guardar Buses(LIDER BENEFICIO DE ALIMENTACION)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.save.buses'], [ // Registro o actualización de permiso
+            'name' => 'Guardar Buses',
+            'description' => 'Puede guardar los buses',
+            'description_english' => 'You can save the buses',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Fromulario Guardar Buses(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.save.buses'], [ // Registro o actualización de permiso
+            'name' => 'Guardar Buses',
+            'description' => 'Puede guardar los buses',
+            'description_english' => 'You can save the buses',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Fromulario Editar Buses(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.edit.buses'], [ // Registro o actualización de permiso
+            'name' => 'Editar Buses',
+            'description' => 'Puede editar los buses',
+            'description_english' => 'You can edit the buses',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Fromulario Editar Buses(LIDER BENEFICIO DE ALIMENTACION)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.edit.buses'], [ // Registro o actualización de permiso
+            'name' => 'Editar Buses',
+            'description' => 'Puede Editar los buses',
+            'description_english' => 'You can edit the buses',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Fromulario Editar Buses(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.edit.buses'], [ // Registro o actualización de permiso
+            'name' => 'Editar Buses',
+            'description' => 'Puede Editar los buses',
+            'description_english' => 'You can edit the buses',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Fromulario Eliminar Buses(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.delete.buses'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Buses',
+            'description' => 'Puede eliminar los Buses',
+            'description_english' => 'You can eliminate the Buses',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Fromulario Eliminar Buses(LIDER BENEFICIO DE ALIMENTACION)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.delete.buses'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Buses',
+            'description' => 'Puede eliminar los Buses',
+            'description_english' => 'You can eliminate the Buses',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Fromulario Eliminar Buses(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.delete.buses'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Buses',
+            'description' => 'Puede eliminar los Buses',
+            'description_english' => 'You can eliminate the Buses',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rols
+
+        // Botones de la vista CRUD Buses (ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.buttons.buses'], [ // Registro o actualización de permiso
+            'name' => 'Botones Del CRUD Buses',
+            'description' => 'Restricción a los botones de los Buses',
+            'description_english' => 'Restriction to the buttons of the Buses',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Botones de la vista CRUD Buses (LIDER BENEFICIO DE ALIMENTACION)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.buttons.buses'], [ // Registro o actualización de permiso
+            'name' => 'Botones Del CRUD Buses',
+            'description' => 'Restricción a los botones de los Buses',
+            'description_english' => 'Restriction to the buttons of the Buses',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Botones de la vista CRUD Buses (LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.buttons.buses'], [ // Registro o actualización de permiso
+            'name' => 'Botones Del CRUD Buses',
+            'description' => 'Restricción a los botones de los Buses',
+            'description_english' => 'Restriction to the buttons of the Buses',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
+
+        //*-----Permisos Pivote Benefits Types Of Benefits-----*//
+        // Vista Pivote Benefits Types Of Benefits (ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.view.benefitstypeofbenefits'], [ // Registro o actualización de permiso
+            'name' => 'Pivote Beneficios y Tipo de beneficiarios',
+            'description' => 'Puede ver la vista Pivote de Beneficios y tipos de beneficiario',
+            'description_english' => 'You can view the Benefits Pivot view and types of beneficiaries.',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Pivote Benefits Types Of Benefits (LIDER BENEFICIO DE ALIMENTACION)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.view.benefitstypeofbenefits'], [ // Registro o actualización de permiso
+            'name' => 'Pivote Beneficios y Tipo de beneficiarios',
+            'description' => 'Puede ver la vista Pivote de Beneficios y tipos de beneficiario',
+            'description_english' => 'You can view the Benefits Pivot view and types of beneficiaries.',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Pivote Benefits Types Of Benefits (LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.view.benefitstypeofbenefits'], [ // Registro o actualización de permiso
+            'name' => 'Pivote Beneficios y Tipo de beneficiarios',
+            'description' => 'Puede ver la vista Pivote de Beneficios y tipos de beneficiario',
+            'description_english' => 'You can view the Benefits Pivot view and types of beneficiaries.',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol 
+        
+        // Ruta Actualizar Estado Check(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.updateInline.benefitstypeofbenefits'], [ // Registro o actualización de permiso
+            'name' => 'Actualiza Estado Check',
+            'description' => 'Puede Actualizar el Estado Check',
+            'description_english' => 'You can update the Check Status',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Actualizar Estado Check(LIDER BENEFICIO DE ALIMENTACION)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.updateInline.benefitstypeofbenefits'], [ // Registro o actualización de permiso
+            'name' => 'Actualiza Estado Check',
+            'description' => 'Puede Actualizar el Estado Check',
+            'description_english' => 'You can update the Check Status',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Actualizar Estado Check(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.updateInline.benefitstypeofbenefits'], [ // Registro o actualización de permiso
+            'name' => 'Actualiza Estado Check',
+            'description' => 'Puede Actualizar el Estado Check',
+            'description_english' => 'You can update the Check Status',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rols
+
+         // Ruta Obtener Estado Check(ADMINISTRADOR)//
+         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.getCurrentState.benefitstypeofbenefits'], [ // Registro o actualización de permiso
+            'name' => 'Obtiene Estado Check',
+            'description' => 'Puede Obtener el Estado Check',
+            'description_english' => 'You can obtain the Check Status',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Obtener Estado Check(LIDER BENEFICIO DE ALIMENTACION)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.getCurrentState.benefitstypeofbenefits'], [ // Registro o actualización de permiso
+            'name' => 'Obtiene Estado Check',
+            'description' => 'Puede Obtener el Estado Check',
+            'description_english' => 'You can obtain the Check Status',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta Obtener Estado Check(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.getCurrentState.benefitstypeofbenefits'], [ // Registro o actualización de permiso
+            'name' => 'Obtiene Estado Check',
+            'description' => 'Puede Obtener el Estado Check',
+            'description_english' => 'You can obtain the Check Status',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rols
+
+        //*-----Permisos Postulations Management-----*//
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'bienestar.admin')->first(); // Rol Administrador
