@@ -34,7 +34,7 @@ class PostulationBenefit extends Model implements Auditable
     //RELACIONES
     
      public function assistancesfoods(){// Accede a todas las asistencias de alimentacion que pertenecen 
-    	return $this->hasMany(AssistancesFoods::class, 'postulation_benefit_id');
+    	return $this->hasMany(AssistanceFood::class, 'postulation_benefit_id');
     }
 
     public function benefit()
@@ -47,7 +47,7 @@ class PostulationBenefit extends Model implements Auditable
     }
 
     public function transportationassistances(){// Accede a todas las asistencias que pertenecen 
-    	return $this->hasMany(TransportationAssistances::class, 'postulation_benefit_id');
+    	return $this->hasMany(TransportationAssistance::class, 'postulation_benefit_id');
     }
    
 

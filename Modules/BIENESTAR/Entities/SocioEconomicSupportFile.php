@@ -31,7 +31,7 @@ class SocioEconomicSupportFile extends Model implements Auditable
     //RELACIONES
 
     public function postulation(){// Accede a todas las postulaciones que pertenecen 
-        return $this->belongsTo(Postulations::class, 'postulation_id');
+        return $this->belongsTo(Postulation::class, 'postulation_id');
     }
 
     
