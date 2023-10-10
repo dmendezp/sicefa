@@ -11,8 +11,6 @@ return [
     'CardSelect1'             => 'Selecciona un tecnológo',
     'CardLabel2'              => 'Nombre del aprendiz',
     'CardSelect2'             => 'Selecciona un aprendiz',
-    'CardLabel3'              => 'Asignatura',
-    'CardSelect3'             => 'Selecciona la asignatura',
     'CardLabel4'              => 'Code',
     'CardSelect4'             => 'Selecciona la ficha',
     'CardLabel5'              => 'Fecha de inicio',
