@@ -18,9 +18,7 @@ class UsersTableSeeder extends Seeder
         $person = Person::where('document_number', 1006506716)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'Instructor'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
-            'email' => 'tifrankxd@gmail.com',
+            'email' => 'tifrankxd@gmail.com', //Frcu6716
         ]);
-
-        // $this->call("OthersTableSeeder");
     }
 }

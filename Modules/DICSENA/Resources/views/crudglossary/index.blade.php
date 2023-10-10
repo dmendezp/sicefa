@@ -1,16 +1,8 @@
 @extends('dicsena::layouts.master')
 @section('css')
-<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
 @endsection
 @section('content')
-<div class="navbar">
-    <a class="navbar-brand" href="#">
-        <i class="fas fa-globe"></i> DICSENA
-    </a>
-    <span class="title">Panel de Glosario</span>
-    <a class="button" href="{{ route('cefa.dicsena.menu') }}">
-        <i class="fa fa-arrow-left"></i>Regresar
-</div>
 <div class="container">
     <h1 align="center">Glosarios</h1>
     <div class="d-flex align-items-center mb-3">
@@ -20,18 +12,8 @@
             {{ session('success') }}
         </div>
         @endif
-        <form action="{{ route('cefa.dicsena.glossary.search') }}" method="GET" class="ml-auto">
-            <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="Buscar por tec">
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
     </div>
-    <table id="index" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
+    <table id="tblglossary" class="table table-striped table-bordered shadow-lg mt-4" style="width: 100%;">
         <thead class="bg-primary text-white">
             <tr>
                 <th scope="col">Palabra</th>
@@ -53,6 +35,7 @@
                         <a href="{{ route('cefa.dicsena.glossary.edit', $glossary->id) }}" class="btn btn-sm btn-primary mr-2">
                             <i class="fas fa-edit"></i>
                         </a>
+                        <div style="width: 10px;"></div>
                         <form action="{{ route('cefa.dicsena.destroy', $glossary->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
@@ -66,10 +49,10 @@
             @endforeach
         </tbody>
     </table>
-    {{ $glossaries->links() }}
 </div>
-<footer style="background-color: #3C3B6E; color: white; padding: 20px;">
-    <p style="text-align: center;">Use exclusive for apprentices of SENA</p>
-    <p style="text-align: center;">&copy; 2023</p>
-</footer>
+<script src="{{ asset('libs/jquery-3.6.4.min.js') }}"></script>
+<script src="{{ asset('Datatables-1.13.4/datatables.js') }}"></script>
+<script>
+    new DataTable('#tblglossary');
+</script>
 @endsection

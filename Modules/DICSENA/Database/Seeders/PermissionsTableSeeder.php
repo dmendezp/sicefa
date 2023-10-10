@@ -28,10 +28,10 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You will have access to manage guides and glossaries.',
             'app_id' => $app->id
         ]);
-        $permissions_brigadista[] = $permission->id; // Almacenar permiso para rol
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
         // Consulta de ROLES
-        $rol_instructor = Role::where('slug', 'gth.instructor')->first();
+        $rol_instructor = Role::where('slug', 'dicsena.instructor')->first();
 
         // Asignación de permisos para roles
         $rol_instructor->permissions()->syncWithoutDetaching($permissions_instructor);

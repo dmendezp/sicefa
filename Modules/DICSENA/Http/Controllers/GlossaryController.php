@@ -17,7 +17,7 @@ class GlossaryController extends Controller
      */
     public function index()
     {
-        $glossaries = Glossary::paginate(10);
+        $glossaries = Glossary::get();
         return view('dicsena::crudglossary.index', compact('glossaries'));
     }
 

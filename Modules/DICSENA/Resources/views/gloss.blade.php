@@ -1,12 +1,15 @@
 @extends('dicsena::layouts.userview')
 
 @section('content')
-<nav class="navbar navbar-expand-lg navbar-gris">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">
         <i class="fas fa-globe"></i> Dicsena
     </a>
-    <div class="collapse navbar-collapse justify-content-center">
-        <ul class="navbar-nav">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav justify-content-center">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('cefa.dicsena.home.index') }}">Traductor</a>
             </li>
@@ -19,9 +22,10 @@
         </ul>
     </div>
     <a class="navbar-brand" href="{{ route('cefa.dicsena.menu')}}">
-        <i class="fas fa-user"></i>Login
+        <i class="fas fa-user"></i> Login
     </a>
 </nav>
+
 <form action="{{ route('cefa.dicsena.glossary.search') }}" method="GET">
     <div class="form-group">
         <label for="program_id">Selecciona un programa:</label>

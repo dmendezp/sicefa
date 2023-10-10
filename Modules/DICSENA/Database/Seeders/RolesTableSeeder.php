@@ -19,10 +19,10 @@ class RolesTableSeeder extends Seeder
         $app = App::where('name', 'DICSENA')->first();
 
         // Registrar o actualizar rol de instructor
-        $rol_instructor = Role::updateOrCreate(['slug' => 'dicsena.menu'], [
+        $rol_instructor = Role::updateOrCreate(['slug' => 'dicsena.instructor'], [
             'name' => '',
-            'description' => 'Rol administrador de DICSENA',
-            'description_english' => 'Role training of DICSENA',
+            'description' => 'Rol instructor de DICSENA',
+            'description_english' => 'Role instructor of DICSENA',
             'full_access' => 'no',
             'app_id' => $app->id
         ]);

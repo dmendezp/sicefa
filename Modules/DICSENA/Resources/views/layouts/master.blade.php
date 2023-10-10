@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ asset('modules/dicsena/css/menu.css') }}">
+
     <title>Module DICSENA</title>
     <!--boostrap import-->
     @yield('css')
@@ -16,17 +16,44 @@
     {{-- <link rel="stylesheet" href="{{ mix('css/dicsena.css') }}"> --}}
     <!--fontawesome import-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="{{ asset('Datatables-1.13.4/datatables.css') }}" rel="stylesheet">
 </head>
 
 <body>
-    <div id="container-fluid">
-        @if(Route::currentRouteName() !== 'cefa.dicsena.menu')
-        @endif
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="fas fa-globe"></i> DICSENA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ route('cefa.dicsena.menu')}}">Panel</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    <a class="button" href="{{ route ('cefa.dicsena.home.index')}}">Logout</a>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+
+    <div id="wraper">
         @section('content')
         @show
         {{-- Laravel Mix - JS File --}}
         {{-- <script src="{{ mix('js/dicsena.js') }}"></script> --}}
+
+        <footer class="main-footer" style="background-color: #3C3B6E; color: white; ">
+            <p style="text-align: center;">Use exclusive for apprentices of SENA</p>
+            <p style="text-align: center;">&copy; 2023</p>
+        </footer>
+
     </div>
+
+
 </body>
 
 </html>
