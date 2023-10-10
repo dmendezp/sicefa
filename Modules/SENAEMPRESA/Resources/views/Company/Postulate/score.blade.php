@@ -8,37 +8,32 @@
                     <div class="card-header">Puntaje</div>
 
                     <div class="card-body">
-                        <form action="{{ route('company.postulate.score.asignado') }}" method="POST"
+                        <form action="{{ route('company.postulate.score_asignado') }}" method="POST"
                             enctype="multipart/form-data">
+
                             @csrf
+                            <input type="hidden" name="postulate_id" value="{{ $postulate->id }}">
                             <div class="mb-3">
                                 <label for="postulate_info" class="form-label">ID Postulado</label>
                                 <input type="text" class="form-control" id="postulate_info" name="postulate_info"
                                     value="{{ $postulate->id }} - {{ $postulate->apprentice->person->first_name }}{{ $postulate->apprentice->person->first_last_name }}"
                                     readonly>
-                                <div class="mb-3">
-                                    <label for="cv_score" class="form-label">Puntaje - Hoja de vida</label><br>
-                                    <input type="number" class="form-control" id="cv_score" name="cv_score" required
-                                        max="100">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="personalities_score" class="form-label">Puntaje - 16
-                                        Personalidades</label><br>
-                                    <input type="number" class="form-control" id="personalities_score"
-                                        name="personalities_score" required max="100">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="proposal_score" class="form-label">Puntaje - Propuesta</label><br>
-                                    <input type="number" class="form-control" id="proposal_score" name="proposal_score"
-                                        required max="100">
-                                </div>
-
-                                <div class="mb-3">
-                                    <input type="hidden" class="form-control" id="average_score" name="average_score"
-                                        readonly>
-                                </div>
-
-
+                            </div>
+                            <div class="mb-3">
+                                <label for="cv_score" class="form-label">Puntaje - Hoja de vida</label><br>
+                                <input type="number" class="form-control" id="cv_score" name="cv_score" value="0"
+                                    required max="100">
+                            </div>
+                            <div class="mb-3">
+                                <label for="personalities_score" class="form-label">Puntaje - 16
+                                    Personalidades</label><br>
+                                <input type="number" class="form-control" id="personalities_score"
+                                    name="personalities_score" value="0" required max="100">
+                            </div>
+                            <div class="mb-3">
+                                <label for="proposal_score" class="form-label">Puntaje - Propuesta</label><br>
+                                <input type="number" class="form-control" id="proposal_score" name="proposal_score"
+                                    value="0" required max="100">
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-success">Asignar</button>

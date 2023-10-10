@@ -31,6 +31,7 @@ class CreatePostulatesTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *

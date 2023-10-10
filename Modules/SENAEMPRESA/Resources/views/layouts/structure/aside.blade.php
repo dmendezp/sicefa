@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
 
     <!-- Brand Logo -->
     <a href="{{ route('senamepresa.index') }}" class="brand-link">
@@ -10,7 +10,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-1 pb-1 mb-1 d-flex">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="row col-md-12">
                 <div class="image mt-2 mb-2">
                     @if (isset(Auth::user()->person->avatar))
@@ -66,7 +66,6 @@
             </nav>
         </div>
 
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
@@ -109,7 +108,8 @@
                     </a>
                 </li>
 
-                <li class="nav-item {{ !Route::is('senaempresa.*') ?: 'menu-is-opening menu-open' }}">
+                <li
+                    class="nav-item {{ Route::is('company.senaempresa', 'company.senaempresa.mostrar_asociados_senaempresa', 'company.senaempresa.personal') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link {{ !Route::is('senaempresa.*') ?: 'active' }}">
                         <i class="fas fa-chess-rook"></i>
                         <p>SenaEmpresa
@@ -146,7 +146,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item {{ !Route::is('vacant.*') ?: 'menu-is-opening menu-open' }}">
+                <li
+                    class="nav-item {{ Route::is('company.vacant.vacantes', 'inscription', 'company.position.cargos', 'company.vacant.mostrar_asociados') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
                         <i class="fas fa-id-card"></i>
                         <p>{{ trans('senaempresa::menu.Vacancies') }}
@@ -161,12 +162,12 @@
                                 <p>{{ trans('senaempresa::menu.Availables') }}</p>
                             </a>
                         </li>
-                        @if (auth()->user()->person->apprentices())
+                        @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                             <li class="nav-item">
-                                <a href="{{ route('inscription') }}"
-                                    class="nav-link {{ !Route::is('inscription') ?: 'active' }}">
-                                    <i class="fas fa-chalkboard-teacher"></i>
-                                    <p>{{ trans('senaempresa::menu.Registration') }}</p>
+                                <a href="{{ route('company.vacant.mostrar_asociados') }}"
+                                    class="nav-link {{ Route::is('company.vacant.mostrar_asociados') ? 'active' : '' }}">
+                                    <i class="fas fa-file-invoice"></i>
+                                    <p>{{ trans('senaempresa::menu.Courses Vacancies') }}</p>
                                 </a>
                             </li>
                         @endif
@@ -177,18 +178,15 @@
                                 <p>{{ trans('senaempresa::menu.Positions') }}</p>
                             </a>
                         </li>
-
-                        @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
+                        @if (auth()->user()->person->apprentices())
                             <li class="nav-item">
-                                <a href="{{ route('company.vacant.mostrar_asociados') }}"
-                                    class="nav-link {{ Route::is('company.vacant.mostrar_asociados') ? 'active' : '' }}">
-                                    <i class="fas fa-file-invoice"></i>
-                                    <p>{{ trans('senaempresa::menu.Courses Vacancies') }}</p>
+                                <a href="{{ route('inscription') }}"
+                                    class="nav-link {{ !Route::is('inscription') ?: 'active' }}">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <p>{{ trans('senaempresa::menu.Registration') }}</p>
                                 </a>
                             </li>
                         @endif
-
-
                     </ul>
                 </li>
                 <li class="nav-item {{ !Route::is('entrevistas.*') ?: 'menu-is-opening menu-open' }}">

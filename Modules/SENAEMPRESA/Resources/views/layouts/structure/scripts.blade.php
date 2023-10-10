@@ -19,6 +19,9 @@
 <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
+<!-- overlayScrollbars -->
+<script src="{{ asset('AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+
 
 <!--Sweetalert2 online para utilizar en la plantilla-->
 <!--<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
