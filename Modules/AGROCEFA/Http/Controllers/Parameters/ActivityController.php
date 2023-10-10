@@ -45,7 +45,7 @@ class ActivityController extends Controller
 
     $activity->save();
 
-    return redirect()->route('agrocefa.parameters')->with('success', 'Actividad registrada exitosamente.');
+    return redirect()->route('agrocefa.parameters.index')->with('success', 'Actividad registrada exitosamente.');
     }
 
     // Funcion Editar Actividad
@@ -68,7 +68,7 @@ class ActivityController extends Controller
         $activity->period = $request->input('period');
         $activity->save();
 
-        return redirect()->route('agrocefa.parameters');
+        return redirect()->route('agrocefa.parameters.index');
     }
     // Funcion Eliminar Actividad
     public function deleteActivity($id)
@@ -79,6 +79,6 @@ class ActivityController extends Controller
     // Realizar la eliminación
     $activity->delete();
 
-    return redirect()->route('agrocefa.parameters')->with('error', 'La actividad ha sido eliminada exitosamente.');
+    return redirect()->route('agrocefa.parameters.index')->with('error', 'La actividad ha sido eliminada exitosamente.');
     }
 }

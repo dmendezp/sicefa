@@ -13,7 +13,7 @@ class CropController extends Controller
 {
     public function index(){
         $crop= Crop::all();
-        return view('agrocefa::crop.index', compact('crops'));
+        return view('agrocefa::crop', compact('crops'));
     }
     
     public function createCrop(Request $request){
@@ -30,7 +30,7 @@ class CropController extends Controller
     $selectedEnvironmentId = $request->input('environment_id'); // Obtén el ambiente seleccionado desde el formulario
     $crop->environments()->attach($selectedEnvironmentId);
 
-    return redirect()->route('agrocefa.parameters')->with('success', 'Cultivo registrado exitosamente.');
+    return redirect()->route('agrocefa.parameters.index')->with('success', 'Cultivo registrado exitosamente.');
     }
 
 
@@ -58,7 +58,7 @@ class CropController extends Controller
     $crop->save();
 
     // Redirigir al usuario a la vista de edición con un mensaje de éxito
-    return redirect()->route('agrocefa.parameters')->with('success', 'Cultivo ha sido editado exitosamente.');
+    return redirect()->route('agrocefa.parameters.index')->with('success', 'Cultivo ha sido editado exitosamente.');
     }
 
     
@@ -68,7 +68,7 @@ class CropController extends Controller
     $crop = Crop::findOrFail($id);
     $crop->delete();
 
-    return redirect()->route('agrocefa.parameters')->with('error', 'El Cultivo ha sido eliminada exitosamente.');
+    return redirect()->route('agrocefa.parameters.index')->with('error', 'El Cultivo ha sido eliminada exitosamente.');
     }
 
     

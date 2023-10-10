@@ -17,9 +17,8 @@ return [
     /* TRADUCCIONES DEL MODAL AGREGAR CULTIVO */
     'Add Crop' => 'Agregar Cultivo',
     'Crop Name' => 'Nombre del Cultivo',
-    'Example: 3.5 m²' => 'Ejemplo: 3,5 m²',
     'Plant Density' => 'Densidad de Plantas',
-    'Example: 5 floors/m²' => 'Ejemplo: 5 plantas/m²',
+    'Example: 5' => 'Ejemplo: 5',
     'Select Environment' => 'Seleccionar Ambiente',
     'Select Variety' => 'Seleccionar Variedad',
     'Register Crop' => 'Registrar Cultivo',

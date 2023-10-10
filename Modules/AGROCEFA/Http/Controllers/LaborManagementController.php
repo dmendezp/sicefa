@@ -354,11 +354,14 @@ class LaborManagementController extends Controller
             $dataelement = Inventory::where('id', $elementId)->first();
             
             if ($dataelement) {
+                
+                $measurement_unit = $dataelement->element->measurement_unit->conversion_factor;
                 $destination = $dataelement->destination;
                 $price = $dataelement->price;
-                $amount = $dataelement->amount;
+                $amount = $dataelement->amount/$measurement_unit . ' ' . $dataelement->element->measurement_unit->abbreviation;
                 $lote = $dataelement->lot_number;
                 $stock = $dataelement->stock;
+                
 
                 return response()->json([
                     'price' => $price,

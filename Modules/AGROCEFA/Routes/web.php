@@ -112,14 +112,8 @@ Route::middleware(['lang'])->group(function() {
         //ruta para vista de bienvenida al usario
         Route::get('/usuario', 'usuarioController@index')->name('agrocefa.usuario.index');
 
-        
 
-        
-        //ruta de fertilizante 
-        Route::get('labormanagement/fertilizers', 'LaborManagementController@fertilizers')->name('agrocefa.fertilizers');
- 
-        //ruta de agroquimicos 
-        Route::get('labormanagement/agrochemicals', 'LaborManagementController@agrochemicals')->name('agrocefa.agrochemicals');
+
 
 
     });

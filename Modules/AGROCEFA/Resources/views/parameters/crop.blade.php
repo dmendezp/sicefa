@@ -19,7 +19,7 @@
                     <th>{{ trans('agrocefa::cultivo.Sown area') }}</th>
                     <th>{{ trans('agrocefa::cultivo.Seedtime') }}</th>
                     <th>{{ trans('agrocefa::cultivo.Plant Density') }}</th>
-                    <th>{{ trans('agrocefa::cultivo.Environment') }}</th>
+                    <th>{{ trans('agrocefa::movements.1T_Lot') }}</th>
                     <th>{{ trans('agrocefa::cultivo.Variety') }}</th>
                     <th>{{ trans('agrocefa::cultivo.End date') }}</th>
                     @auth
@@ -41,7 +41,7 @@
                             @if ($crop->environments->isNotEmpty())
                                 {{ $crop->environments->first()->name }}
                             @else
-                                Sin ambiente asociado
+                                Sin lote asociado
                             @endif
                         </td>
                         <td>{{ $crop->variety->name }}</td>
@@ -82,8 +82,8 @@
                     </div>
                     <div class="form-group">
                         <label for="sown_area">{{ trans('agrocefa::cultivo.Sown area') }}</label>
-                        <input type="text" name="sown_area" id="sown_area" class="form-control"
-                            placeholder="{{ trans('agrocefa::cultivo.Example: 3.5 m²') }}" required>
+                        <input type="number" name="sown_area" id="sown_area" class="form-control"
+                            placeholder="{{ trans('agrocefa::cultivo.Example: 5') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="seed_time">{{ trans('agrocefa::cultivo.Seedtime') }}</label>
@@ -91,11 +91,11 @@
                     </div>
                     <div class="form-group">
                         <label for="density">{{ trans('agrocefa::cultivo.Plant Density') }}</label>
-                        <input type="text" name="density" id="density" class="form-control"
-                            placeholder="{{ trans('agrocefa::cultivo.Example: 5 floors/m²') }}" required>
+                        <input type="number" name="density" id="density" class="form-control"
+                            placeholder="{{ trans('agrocefa::cultivo.Example: 5') }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="environment_id">{{ trans('agrocefa::cultivo.Environment') }}</label>
+                        <label for="environment_id">{{ trans('agrocefa::movements.1T_Lot') }}</label>
                         <select name="environment_id" id="environment_id" class="form-control">
                             <option value="">{{ trans('agrocefa::cultivo.Select Environment') }}</option>
                             @foreach ($environments as $environment)
@@ -174,7 +174,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {!! Form::label('environment_id', trans('agrocefa::cultivo.Environment')) !!}
+                        {!! Form::label('environment_id', trans('agrocefa::movements.1T_Lot')) !!}
                         {!! Form::select('environment_id', $environments->pluck('name', 'id'), $crop->environment_id, [
                             'class' => 'form-control',
                         ]) !!}

@@ -153,6 +153,11 @@
                     </button>
                 </div>
                 <br>
+                <div class="row">
+                    <button type="button" id="buttonfertilizer" class="btn btn-primary buttonlabor">Fertilizante</button>
+                    <div style="width: 20px;"></div>
+                    <button type="button" id="buttonagrochemical" class="btn btn-primary buttonlabor">Agroquímico</button>
+                </div>
             </div>
             <br>
             @include('agrocefa::labormanagement.component.supplies')

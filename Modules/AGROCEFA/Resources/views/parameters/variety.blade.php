@@ -133,7 +133,7 @@
                     </div>
                     <div class="form-group">
                         <label for="specie_id">Especie</label>
-                        {!! Form::select('specie_id', $species->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
+                        {!! Form::select('specie_id', collect($species)->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
                     </div>                    
                     <!-- Agrega más campos según tus necesidades -->
                     <br>
