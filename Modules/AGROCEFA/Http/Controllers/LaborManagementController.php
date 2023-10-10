@@ -20,6 +20,7 @@ use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\EnvironmentProductiveUnit;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Person;
+use Modules\SICA\Entities\Category;
 use Modules\AGROCEFA\Entities\Tool;
 use Modules\AGROCEFA\Entities\Crop;
 use Modules\AGROCEFA\Entities\Variety;
@@ -46,7 +47,7 @@ class LaborManagementController extends Controller
         // Obtén el ID de la unidad productiva seleccionada de la sesión
          $this->selectedUnitId= Session::get('selectedUnitId');
         
-        // ---------------- Filtro para las Actividades de esa unidad -----------------------
+        // ---------------- Filtro para los Lotes de esa Unidad -----------------------
 
         $lotData = EnvironmentProductiveUnit::where('productive_unit_id', $this->selectedUnitId)->with('environment')->get();
 
@@ -86,6 +87,11 @@ class LaborManagementController extends Controller
                 ];
             }); 
         }
+
+        // ---------------- Filtro para las Categorias -----------------------
+
+        $categories = Category::whereIn('name', ['Insumo', 'Fertilizante', 'Agroquimico'])->get();
+
 
         // ---------------- Filtro para las Elementos -----------------------
 
@@ -176,21 +182,12 @@ class LaborManagementController extends Controller
             'toolOptions' => $toolOptions,
             'machineryOptions' => $machineryOptions,
             'fertilizerOptions' => $fertilizerOptions,
-            'agrochemicalOptions' => $agrochemicalOptions,
+            'categories' => $categories,
 
         ]);
     }
     
-    public function agrochemicals()
-    {
-        return view('agrocefa::labormanagement.agrochemicals');
-    }
-
-    public function fertilizers()
-    {
-        return view('agrocefa::labormanagement.fertilizers');
-    }
-
+    
     public function obteneresponsability(Request $request)
     {
         try {
@@ -235,74 +232,119 @@ class LaborManagementController extends Controller
     }
 
     public function obtenerecrop(Request $request)
-{
-    try {
-        // Obtén el ID de la unidad productiva seleccionada de la sesión
-        $this->selectedUnitId = Session::get('selectedUnitId');
-
-        $lotid = $request->input('lot');
-
-        // Carga la unidad productiva con las relaciones necesarias
-        $lots = Environment::with('crops')
-            ->where('id', $lotid)
-            ->first();
-        
-        $cropData = []; // Array para almacenar los datos de las personas
-
-        if ($lots) {
-            foreach ($lots->crops as $crop) {
-                // Agregar los datos de la persona al array si existe
-                if ($crop) {
-                    $cropData[] = [
-                        'id' => $crop->id,
-                        'name' => $crop->name,
-                    ];
-                }
-            }
-        }
-        // Combinar la información de los IDs y first_name de las personas en un solo arreglo
-        $response = [
-            'crop_data' => $cropData,
-        ];
-  
-        return response()->json($response);
-    } catch (\Exception $e) {
-        \Log::error('Error en la solicitud AJAX: ' . $e->getMessage());
-        return response()->json(['error' => 'Error interno del servidor'], 500);
-    }
-}
-
-public function obtenerDatosElemento(Request $request)
     {
         try {
-            $elementId = $request->input('element');
+            // Obtén el ID de la unidad productiva seleccionada de la sesión
+            $this->selectedUnitId = Session::get('selectedUnitId');
+
+            $lotid = $request->input('lot');
+
+            // Carga la unidad productiva con las relaciones necesarias
+            $lots = Environment::with('crops')
+                ->where('id', $lotid)
+                ->first();
             
-            // Realiza la lógica para obtener los datos del elemento en una sola consulta
-            $elementData = Element::whereHas('inventories', function ($query) use ($elementId) {
-                $query->where('id', $elementId);
-            })->first();
-            
-            if ($elementData) {
-                $unidadMedida = $elementData->measurement_unit->name;
-                $categoria = $elementData->category->name;
-                $name = $elementData->name;
+            $cropData = []; // Array para almacenar los datos de las personas
 
-
-                return response()->json([
-                    'unidad_medida' => $unidadMedida,
-                    'categoria' => $categoria,
-                    'name' => $name,
-
-                ]);
-            } else {
-                return response()->json(['error' => 'Elemento no encontrado'], 404);
+            if ($lots) {
+                foreach ($lots->crops as $crop) {
+                    // Agregar los datos de la persona al array si existe
+                    if ($crop) {
+                        $cropData[] = [
+                            'id' => $crop->id,
+                            'name' => $crop->name,
+                        ];
+                    }
+                }
             }
+            // Combinar la información de los IDs y first_name de las personas en un solo arreglo
+            $response = [
+                'crop_data' => $cropData,
+            ];
+    
+            return response()->json($response);
         } catch (\Exception $e) {
+            \Log::error('Error en la solicitud AJAX: ' . $e->getMessage());
             return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
 
-/* Obtener datos del elemento */
+    public function getsupplies(Request $request) 
+{
+    try {
+        $categoryId = $request->input('category');
+        
+        // Obtener las IDs de las bodegas relacionadas con la unidad productiva seleccionada
+        $warehouseIds = ProductiveUnitWarehouse::where('productive_unit_id', Session::get('selectedUnitId'))->pluck('id');
+        
+        // Registrar un mensaje de información con los IDs de las bodegas
+        \Log::info('Bodega IDs:', $warehouseIds->toArray());
+
+        // Obtener los elementos de las bodegas
+        $inventory = Inventory::whereIn('productive_unit_warehouse_id', $warehouseIds)->whereHas('element.category', function ($query) use ($categoryId) {
+            $query->where('id', $categoryId);
+        })->get();
+
+        if ($inventory) {
+            // Mapear los datos para incluir ID y nombre del elemento
+            $elementsData = $inventory->map(function ($item) {
+                return [
+                    'id' => $item->element->id,
+                    'name' => $item->element->name,
+                    'price' => $item->element->price,
+                    'amount' => $item->element->amount,
+                    // Agrega otros atributos relacionados con el elemento si es necesario
+                ];
+            });
+
+            // Devuelve la respuesta JSON con los IDs y nombres de los elementos
+            return response()->json($elementsData);
+        } else {
+            // Registra un mensaje de error
+            \Log::error('Elemento no encontrado');
+
+            return response()->json(['error' => 'Elemento no encontrado'], 404);
+        }
+    } catch (\Exception $e) {
+        // Registra un mensaje de error interno del servidor
+        \Log::error('Error interno del servidor: ' . $e->getMessage());
+
+        return response()->json(['error' => 'Error interno del servidor'], 500);
+    }
+}
+
+
+    public function obtenerDatosElemento(Request $request)
+        {
+            try {
+                $elementId = $request->input('element');
+                
+                // Realiza la lógica para obtener los datos del elemento en una sola consulta
+                $elementData = Element::whereHas('inventories', function ($query) use ($elementId) {
+                    $query->where('id', $elementId);
+                })->first();
+                
+                if ($elementData) {
+                    $unidadMedida = $elementData->measurement_unit->name;
+                    $categoria = $elementData->category->name;
+                    $name = $elementData->name;
+
+
+                    return response()->json([
+                        'unidad_medida' => $unidadMedida,
+                        'categoria' => $categoria,
+                        'name' => $name,
+
+                    ]);
+                } else {
+                    return response()->json(['error' => 'Elemento no encontrado'], 404);
+                }
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Error interno del servidor'], 500);
+            }
+        }
+
+    /* Obtener datos del elemento */
     public function getprice(Request $request)
     {
         try {

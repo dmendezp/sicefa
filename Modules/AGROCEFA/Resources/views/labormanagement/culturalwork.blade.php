@@ -125,152 +125,174 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button type="button" id="buttontool" class="btn btn-primary buttonlabor">Herramienta
-                        Utilizada</button>
+                    <button type="button" id="buttonsupplie"
+                        class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                        <span>Insumos</span>
+                        <span id="arrowsupplies" class="fas fa-chevron-down ml-auto"></span>
+                    </button>
                     <div style="width: 20px;"></div>
-                    <button type="button" id="buttonexecutor" class="btn btn-primary buttonlabor">Personal
-                        Contratado</button>
+                    <button type="button" id="buttontool"
+                        class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                        <span>Herramienta Utilizada</span>
+                        <span id="arrowtool" class="fas fa-chevron-down ml-auto"></span>
+                    </button>
+                    
                 </div>
                 <br>
                 <div class="row">
-                    <center>
-                        <button type="button" id="buttonmachinery" class="btn btn-primary buttonlabor">Maquinaria</button>
-                    </center>
+                    <button type="button" id="buttonmachinery"
+                        class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                        <span>Maquinaria</span>
+                        <span id="arrowmachinery" class="fas fa-chevron-down ml-auto"></span>
+                    </button>
+                    <div style="width: 20px;"></div>
+                    <button type="button" id="buttonexecutor"
+                        class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                        <span>Personal Contratado</span>
+                        <span id="arrowexecutor" class="fas fa-chevron-down ml-auto"></span>
+                    </button>
                 </div>
                 <br>
-                <div class="row">
-                    <button type="button" id="buttonfertilizer" class="btn btn-primary buttonlabor">Fertilizante</button>
-                    <div style="width: 20px;"></div>
-                    <button type="button" id="buttonagrochemical" class="btn btn-primary buttonlabor">Agroquimico</button>
-                </div>
             </div>
             <br>
-            @include('agrocefa::labormanagement.component.agrochemical')
+            @include('agrocefa::labormanagement.component.supplies')
             @include('agrocefa::labormanagement.component.executor')
             @include('agrocefa::labormanagement.component.fertilizer')
             @include('agrocefa::labormanagement.component.machinery')
             @include('agrocefa::labormanagement.component.tool')
         </div>
     </div>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script>
-                console.log("Contenido de  elements:");
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Manejar el evento de clic en el botón "Herramienta Utilizada"
+            $('#buttontool').on('click', function() {
+                $('#formtool').toggle(); // Mostrar u ocultar el formulario
+                $('#arrowtool').toggleClass('fa-chevron-down fa-chevron-up'); // Cambiar la clase del icono
+            });
 
-                // Manejar el evento de clic en el botón para desplegar/cerrar la información herramienta
-                $('#buttontool').on('click', function() {
-                    $('#formtool').toggle();
+            // Manejar el evento de clic en el botón "Personal Contratado"
+            $('#buttonexecutor').on('click', function() {
+                $('#formexecutor').toggle(); // Mostrar u ocultar el formulario
+                $('#arrowexecutor').toggleClass(
+                    'fa-chevron-down fa-chevron-up'); // Cambiar la clase del icono
+            });
+
+            // Manejar el evento de clic en el botón "Maquinaria"
+            $('#buttonmachinery').on('click', function() {
+                $('#formmachinery').toggle(); // Mostrar u ocultar el formulario
+                $('#arrowmachinery').toggleClass(
+                    'fa-chevron-down fa-chevron-up'); // Cambiar la clase del icono
+            });
+
+            // Manejar el evento de clic en el botón "Fertilizante"
+            $('#buttonfertilizer').on('click', function() {
+                $('#formfertilizer').toggle(); // Mostrar u ocultar el formulario
+                $('#arrowfertilizer').toggleClass(
+                    'fa-chevron-down fa-chevron-up'); // Cambiar la clase del icono
+            });
+
+            // Manejar el evento de clic en el botón "Insumos"
+            $('#buttonsupplie').on('click', function() {
+                $('#formsupplies').toggle(); // Mostrar u ocultar el formulario
+                $('#arrowsupplies').toggleClass(
+                    'fa-chevron-down fa-chevron-up'); // Cambiar la clase del icono
+            });
+        });
+    </script>
+    <style>
+        /* Agrega esta regla CSS para ocultar la columna */
+        #productTable th:nth-child(1),
+        #productTable td:nth-child(1) {
+            display: none;
+        }
+    </style>
+
+
+    <script>
+        $(document).ready(function() {
+            var productTable = $('#productTable tbody');
+
+            // Manejador de eventos para el cambio en el campo "Actividad"
+            $('#activitySelect').on('change', function() {
+                var selectedActivityId = $(this).val(); // Obtener el ID de la actividad seleccionada
+
+                // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
+                $.ajax({
+                    url: '{{ route('agrocefa.obteneresponsability') }}',
+                    method: 'GET',
+                    data: {
+                        activity: selectedActivityId
+                    },
+                    success: function(response) {
+                        // Manejar la respuesta de la solicitud AJAX aquí
+                        console.log('Respuesta de la solicitud AJAX:', response);
+
+                        // Verificar si hay responsables en la respuesta
+                        if (response.people_data.length > 0) {
+                            // Actualizar el campo de selección de responsables con las opciones recibidas
+                            var responsabilitySelect = $('#responsability');
+                            responsabilitySelect.empty(); // Vaciar las opciones actuales
+                            responsabilitySelect.append(new Option('Seleccione el responsable',
+                                ''));
+
+                            // Agregar las nuevas opciones desde el objeto de personas en la respuesta JSON
+                            $.each(response.people_data, function(index, person) {
+                                responsabilitySelect.append(new Option(person
+                                    .first_name, person.id));
+                            });
+                        } else {
+                            // Mostrar un campo de selección vacío y limpiar el campo "Receptor Responsable"
+                            $('#responsability').val('');
+                        }
+                    },
+                    error: function() {
+                        // Manejar errores si la solicitud AJAX falla
+                        console.error('Error en la solicitud AJAX');
+                    }
                 });
+            });
 
-                // Manejar el evento de clic en el botón para desplegar/cerrar la informacion personal
-                $('#buttonexecutor').on('click', function() {
-                    $('#formexecutor').toggle();
+            // Manejador de eventos para el cambio en el campo "Actividad"
+            $('#lotSelect').on('change', function() {
+                var selectedlotId = $(this).val(); // Obtener el ID de la actividad seleccionada
+
+                // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
+                $.ajax({
+                    url: '{{ route('agrocefa.obtenerecrop') }}',
+                    method: 'GET',
+                    data: {
+                        lot: selectedlotId
+                    },
+                    success: function(response) {
+                        // Manejar la respuesta de la solicitud AJAX aquí
+                        console.log('Respuesta de la solicitud AJAX:', response);
+
+                        // Verificar si hay responsables en la respuesta
+                        if (response.crop_data.length > 0) {
+                            // Actualizar el campo de selección de responsables con las opciones recibidas
+                            var cropSelect = $('#cropSelect');
+                            cropSelect.empty(); // Vaciar las opciones actuales
+                            cropSelect.append(new Option('Seleccione el Cultivo',
+                                ''));
+
+                            // Agregar las nuevas opciones desde el objeto de personas en la respuesta JSON
+                            $.each(response.crop_data, function(index, crop) {
+                                cropSelect.append(new Option(crop
+                                    .name, crop.id));
+                            });
+                        } else {
+                            // Mostrar un campo de selección vacío y limpiar el campo "Receptor Responsable"
+                            $('#cropSelect').val('');
+                        }
+                    },
+                    error: function() {
+                        // Manejar errores si la solicitud AJAX falla
+                        console.error('Error en la solicitud AJAX');
+                    }
                 });
-                // Manejar el evento de clic en el botón para desplegar/cerrar la informacion personal
-                $('#buttonmachinery').on('click', function() {
-                    $('#formmachinery').toggle();
-                });
-                // Manejar el evento de clic en el botón para desplegar/cerrar la informacion personal
-                $('#buttonfertilizer').on('click', function() {
-                    $('#formfertilizer').toggle();
-                });
-                // Manejar el evento de clic en el botón para desplegar/cerrar la informacion personal
-                $('#buttonagrochemical').on('click', function() {
-                    $('#formagrochemical').toggle();
-                });
-            </script>
-            <style>
-                /* Agrega esta regla CSS para ocultar la columna */
-                #productTable th:nth-child(1),
-                #productTable td:nth-child(1) {
-                    display: none;
-                }
-            </style>
+            });
 
-
-            <script>
-                $(document).ready(function() {
-                    var productTable = $('#productTable tbody');
-
-                    // Manejador de eventos para el cambio en el campo "Actividad"
-                    $('#activitySelect').on('change', function() {
-                        var selectedActivityId = $(this).val(); // Obtener el ID de la actividad seleccionada
-
-                        // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
-                        $.ajax({
-                            url: '{{ route('agrocefa.obteneresponsability') }}',
-                            method: 'GET',
-                            data: {
-                                activity: selectedActivityId
-                            },
-                            success: function(response) {
-                                // Manejar la respuesta de la solicitud AJAX aquí
-                                console.log('Respuesta de la solicitud AJAX:', response);
-
-                                // Verificar si hay responsables en la respuesta
-                                if (response.people_data.length > 0) {
-                                    // Actualizar el campo de selección de responsables con las opciones recibidas
-                                    var responsabilitySelect = $('#responsability');
-                                    responsabilitySelect.empty(); // Vaciar las opciones actuales
-                                    responsabilitySelect.append(new Option('Seleccione el responsable',
-                                        ''));
-
-                                    // Agregar las nuevas opciones desde el objeto de personas en la respuesta JSON
-                                    $.each(response.people_data, function(index, person) {
-                                        responsabilitySelect.append(new Option(person
-                                            .first_name, person.id));
-                                    });
-                                } else {
-                                    // Mostrar un campo de selección vacío y limpiar el campo "Receptor Responsable"
-                                    $('#responsability').val('');
-                                }
-                            },
-                            error: function() {
-                                // Manejar errores si la solicitud AJAX falla
-                                console.error('Error en la solicitud AJAX');
-                            }
-                        });
-                    });
-
-                    // Manejador de eventos para el cambio en el campo "Actividad"
-                    $('#lotSelect').on('change', function() {
-                        var selectedlotId = $(this).val(); // Obtener el ID de la actividad seleccionada
-
-                        // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
-                        $.ajax({
-                            url: '{{ route('agrocefa.obtenerecrop') }}',
-                            method: 'GET',
-                            data: {
-                                lot: selectedlotId
-                            },
-                            success: function(response) {
-                                // Manejar la respuesta de la solicitud AJAX aquí
-                                console.log('Respuesta de la solicitud AJAX:', response);
-
-                                // Verificar si hay responsables en la respuesta
-                                if (response.crop_data.length > 0) {
-                                    // Actualizar el campo de selección de responsables con las opciones recibidas
-                                    var cropSelect = $('#cropSelect');
-                                    cropSelect.empty(); // Vaciar las opciones actuales
-                                    cropSelect.append(new Option('Seleccione el Cultivo',
-                                        ''));
-
-                                    // Agregar las nuevas opciones desde el objeto de personas en la respuesta JSON
-                                    $.each(response.crop_data, function(index, crop) {
-                                        cropSelect.append(new Option(crop
-                                            .name, crop.id));
-                                    });
-                                } else {
-                                    // Mostrar un campo de selección vacío y limpiar el campo "Receptor Responsable"
-                                    $('#cropSelect').val('');
-                                }
-                            },
-                            error: function() {
-                                // Manejar errores si la solicitud AJAX falla
-                                console.error('Error en la solicitud AJAX');
-                            }
-                        });
-                    });
-
-                });
-            </script>
-        @endsection
+        });
+    </script>
+@endsection

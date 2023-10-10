@@ -45,7 +45,7 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/obtener_price', 'MovementController@getprice')->name('agrocefa.getprice');
         Route::get('/obtener_datoselementoseleccionado', 'MovementController@obtenerDatosElemento')->name('agrocefa.obtenerdatos');
 
-
+        
         // RUTAS PARA GESTION DE LABORES
 
         Route::get('/labormanagement', 'labormanagementController@index')->name('agrocefa.labormanagement.index');
@@ -54,8 +54,9 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/labormanagement/obtener_crop', 'LaborManagementController@obtenerecrop')->name('agrocefa.obtenerecrop');
         Route::get('/labormanagement/obtener_datoselementoseleccionado', 'LaborManagementController@obtenerDatosElemento')->name('agrocefa.labormanagement.obtenerdatos');
         Route::get('/labormanagement/obtener_price', 'LaborManagementController@getprice')->name('agrocefa.labormanagement.getprice');
+        Route::get('/labormanagement/getsupplies', 'LaborManagementController@getsupplies')->name('agrocefa.labormanagement.getsupplies');
 
-        
+
         // RUTAS PARA REPORTES
 
         // Consumos

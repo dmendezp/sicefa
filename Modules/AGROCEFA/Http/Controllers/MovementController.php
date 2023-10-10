@@ -135,7 +135,8 @@ class MovementController extends Controller
     public function confirmation(Request $request, $id)
     {
         // Obtener el movimiento que se va a confirmar
-        $movement = Movement::find($id);
+        $movement = Movement::with('warehouse_movements')->find($id);
+        
 
         if (!$movement) {
             // Manejar el caso en que el movimiento no se encuentre
@@ -156,11 +157,12 @@ class MovementController extends Controller
             $destination = $detail->inventory->destination;
             $amount = $detail->amount;
             $price = $detail->price;
-
+        
+            dd($amount);
             // Obtener el inventario existente o crear uno nuevo
 
             $inventory = Inventory::where([
-                'productive_unit_warehouse_id' => $detail->movement->warehouse_movements[0]->productive_unit_warehouse_id,
+                'productive_unit_warehouse_id' => $movement->warehouse_movements[1]->productive_unit_warehouse_id,
                 'element_id' => $elementId,
                 'lot_number' => $lot,
             ])->first();
@@ -174,7 +176,7 @@ class MovementController extends Controller
                 // Crear un nuevo registro de inventario
                 $inventory = new Inventory([
                     'person_id' => $personid,
-                    'productive_unit_warehouse_id' => $detail->movement->warehouse_movements[0]->productive_unit_warehouse_id,
+                    'productive_unit_warehouse_id' => $detail->movement->warehouse_movements[1]->productive_unit_warehouse_id,
                     'element_id' => $elementId,
                     'destination' => $destination,
                     'price' => $price,
