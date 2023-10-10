@@ -36,6 +36,7 @@ class RoutesTransportationController extends Controller
             'stop_bus' => 'required|string',
             'arrival_time' => 'required',
             'departure_time' => 'required',
+            
         ]);
 
         // Crea una nueva instancia del modelo TransportRoute y asigna los valores
