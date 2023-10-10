@@ -410,6 +410,7 @@ class AcademyController extends Controller
         return view('sica::admin.academy.courses.edit', $data);
     }
 
+    /* Actualizar curso */
     public function courses_update(Request $request){
         $course = Course::find($request->input('id'));
         $course->code = e($request->input('code'));
@@ -428,12 +429,14 @@ class AcademyController extends Controller
         return redirect()->back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
     }
 
+    /* Formulario de eliminación de curso */
     public function courses_delete($id){
         $course = Course::find($id);
         $data = ['title' => 'Eliminar Titulada', 'course' => $course];
         return view('sica::admin.academy.courses.delete', $data);
     }
 
+    /* Eliminar curso */
     public function course_destroy(Request $request){
         $course = Course::findOrFail($request->input('id'));
         if($course->delete()){
@@ -445,4 +448,5 @@ class AcademyController extends Controller
         }
         return redirect()->back()->with(['icon'=>$icon, 'message_course'=>$message_course]);
     }
+
 }
