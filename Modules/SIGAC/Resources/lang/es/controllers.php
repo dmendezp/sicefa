@@ -24,6 +24,17 @@ return [
 	'SIGAC_apprentice_dashboard_title_page' => 'Aprendiz',
 	'SIGAC_apprentice_dashboard_title_view' => 'Página principal',
 
+	// -----ScheduleController------
+	// Schedule Instructor
+	'SIGAC_schedule_instructor_title_page' => 'Horario de Instructor',
+	'SIGAC_schedule_instructor_title_view' => 'Horario de Instructor',
+	// Schedule Titled
+	'SIGAC_schedule_titled_title_page' => 'Horario de Titulada',
+	'SIGAC_schedule_titled_title_view' => 'Horario de Titulada',
+	// Schedule Apprentice
+	'SIGAC_schedule_apprentice_title_page' => 'Horario de Aprendiz',
+	'SIGAC_schedule_apprentice_title_view' => 'Horario de Aprendiz',
+
 	// -----ProgrammeController------
 	// Programming Schedules
 	'SIGAC_programming_schedules_title_page' => 'Programación de Horarios',

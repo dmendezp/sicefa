@@ -24,8 +24,19 @@ return [
 	'SIGAC_apprentice_dashboard_title_page' => 'Apprentice',
 	'SIGAC_apprentice_dashboard_title_view' => 'Homepage',
 
+	// -----ScheduleController------
+	// Schedule Instructor
+	'SIGAC_schedule_instructor_title_page' => 'Instructor Schedule',
+	'SIGAC_schedule_instructor_title_view' => 'Instructor Schedule',
+	// Schedule Titled
+	'SIGAC_schedule_titled_title_page' => 'Titled Schedule',
+	'SIGAC_schedule_titled_title_view' => 'Titled Schedule',
+	// Schedule Apprentice
+	'SIGAC_schedule_apprentice_title_page' => 'Apprentice Schedule',
+	'SIGAC_schedule_apprentice_title_view' => 'Apprentice Schedule',
+
 	// -----ProgrammeController------
-	// Index
+	// Programming Schedules
 	'SIGAC_programming_schedules_title_page' => 'Programming Schedules',
 	'SIGAC_programming_schedules_title_view' => 'Programming Schedules',
 	// Event Programming
