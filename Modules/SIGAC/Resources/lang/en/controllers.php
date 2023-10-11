@@ -23,6 +23,33 @@ return [
 	// Index - Apprentice
 	'SIGAC_apprentice_dashboard_title_page' => 'Apprentice',
 	'SIGAC_apprentice_dashboard_title_view' => 'Homepage',
+	
+	// ------ApprenticeController------
+	// Send Excuses
+	'SIGAC_send_excuses_title_page' => 'Excuses',
+	'SIGAC_send_excuses_title_view' => 'Send Excuses',
+
+	// ------AttendanceController------
+	// Consult Excuses
+	'SIGAC_consult_excuses_title_page' => 'Excuses',
+	'SIGAC_consult_excuses_title_view' => 'Consult Excuses',
+	// Consult Attendance
+	'SIGAC_consult_attendance_title_page' => 'Attendance',
+	'SIGAC_consult_attendance_title_view' => 'Consult Attendance',
+	// Register Attendance
+	'SIGAC_register_attendance_title_page' => 'Attendance',
+	'SIGAC_register_attendance_title_view' => 'Register Attendance',
+	// Reports Attendance
+	'SIGAC_reports_attendance_title_page' => 'Attendance',
+	'SIGAC_reports_attendance_title_view' => 'Attendance Reports',
+
+	// -----ProgrammeController------
+	// Programming Schedules
+	'SIGAC_programming_schedules_title_page' => 'Programming Schedules',
+	'SIGAC_programming_schedules_title_view' => 'Programming Schedules',
+	// Event Programming
+	'SIGAC_event_programming_title_page' => 'Event Programming',
+	'SIGAC_event_programming_title_view' => 'Event Programming',
 
 	// -----ScheduleController------
 	// Schedule Instructor
@@ -34,12 +61,4 @@ return [
 	// Schedule Apprentice
 	'SIGAC_schedule_apprentice_title_page' => 'Apprentice Schedule',
 	'SIGAC_schedule_apprentice_title_view' => 'Apprentice Schedule',
-
-	// -----ProgrammeController------
-	// Programming Schedules
-	'SIGAC_programming_schedules_title_page' => 'Programming Schedules',
-	'SIGAC_programming_schedules_title_view' => 'Programming Schedules',
-	// Event Programming
-	'SIGAC_event_programming_title_page' => 'Event Programming',
-	'SIGAC_event_programming_title_view' => 'Event Programming',
 ];
