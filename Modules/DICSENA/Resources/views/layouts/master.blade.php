@@ -40,7 +40,7 @@
     </nav>
 
 
-    <div id="wraper">
+    <div id="wrapper">
         @section('content')
         @show
         {{-- Laravel Mix - JS File --}}

@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="wrapper">
         @section('content')
         @show
         {{-- Laravel Mix - JS File --}}
