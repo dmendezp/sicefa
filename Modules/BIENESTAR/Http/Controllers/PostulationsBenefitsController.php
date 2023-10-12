@@ -14,6 +14,7 @@ use Modules\BIENESTAR\Entities\Benefits;
 use Modules\BIENESTAR\Entities\PostulationsBenefits;
 use Modules\BIENESTAR\Entities\Answers;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class PostulationsBenefitsController extends Controller
 {
@@ -84,110 +85,93 @@ public function show($id) {
 
 
 
-public function updateState(Request $request)
-{
-    try {
-        $postulationId = $request->input('postulation_id');
-
-        // Buscar la postulación por ID 
-        $postulation = Postulations::findOrFail($postulationId);
-
-        // Validar y actualizar el estado
-        $request->validate([
-            'state' => 'required|in:Beneficiado,No Beneficiado,Postulado',
-        ]);
-
-        // Actualizar el estado de la postulación
-        $postulation->postulationBenefits->first()->state = $request->input('state');
-        $postulation->postulationBenefits->first()->save();
-
-        // Redirigir de vuelta a la página anterior con un mensaje de éxito
-        return redirect()->back()->with('success', 'Estado actualizado con éxito');
-    } catch (\Exception $e) {
-        // Capturar y manejar errores, puedes personalizar esto según tus necesidades
-        return redirect()->back()->with('error', 'Error al actualizar el estado: ' . $e->getMessage());
-    }
-}
-
 
 public function updateBenefits(Request $request)
-    {
-        return Postulations::find($request->input('postulation_ids')[0])->answers;
-        try {
-            $postulationsData = $request->input('postulations', []);
-
-            foreach ($postulationsData as $postulationData) {
-                $postulationId = $postulationData['postulation_id'];
-                $state = $postulationData['state'];
-                $message = $postulationData['message'];
-
-                // Buscar el registro existente en postulations_benefits
-                $postulationBenefit = PostulationsBenefits::where('postulation_id', $postulationId)->first();
-
-                if ($postulationBenefit) {
-                    // Actualizar el registro si existe
-                    $postulationBenefit->update([
-                        'state' => $state,
-                        'message' => $message,
-                    ]);
-                } else {
-                    // Crear un nuevo registro si no existe
-                    PostulationsBenefits::create([
-                        'postulation_id' => $postulationId,
-                        'state' => $state,
-                        'message' => $message,
-                    ]);
-                }
-            }
-
-            return response()->json(['message' => 'Registros actualizados con éxito.'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Error al actualizar los registros: ' . $e->getMessage()], 500);
-        }
-    }
-    
-    public function assignBenefitsToPostulations()
 {
+    
     try {
-        // Obtener todas las postulaciones
-        $postulations = Postulations::all();
+        $selectedPostulations = $request->input('selected_postulations', []);
+        $question_id = Questions::where('question', 'Apoyo al que se postula')->first()->id;
 
-        foreach ($postulations as $postulation) {
-            // Obtener las respuestas de la postulación
-            $answers = $postulation->answers;
+        // Obtener todos los beneficios posibles (puedes ajustar esto según tus necesidades)
+        $benefits = Benefits::all();
 
-            // Variables para almacenar los beneficios encontrados en las respuestas
-            $benefitsFound = [];
+        foreach ($selectedPostulations as $postulationId) {
+            $benefit_name = Postulations::find($postulationId)->answers->where('questions_id', $question_id)->first()->answer;
+            $benefit_id = $benefits->where('name', $benefit_name)->first()->id;
 
-            foreach ($answers as $answer) {
-                // Verificar si la respuesta corresponde a algún beneficio
-                $answerContent = strtolower($answer->answer);
+            // Buscar el registro existente en postulations_benefits
+            $postulationBenefit = PostulationsBenefits::where('postulation_id', $postulationId)->first();
 
-                // Consultar la tabla de beneficios por nombre
-                $benefit = Benefits::where('name', $answerContent)->first();
-
-                if ($benefit) {
-                    // Agregar el beneficio encontrado al arreglo de beneficios
-                    $benefitsFound[] = $benefit;
-                }
-            }
-
-            // Asignar el beneficio correspondiente a la postulación
-            if (!empty($benefitsFound)) {
-                // Tomar el primer beneficio encontrado (puedes ajustar la lógica aquí)
-                $selectedBenefit = $benefitsFound[0];
-
-                // Establecer el "benefit_id" en la postulación
-                $postulation->benefit_id = $selectedBenefit->id;
-                $postulation->save();
+            if ($postulationBenefit) {
+                // Actualizar el registro si existe
+                $postulationBenefit->update([
+                    'benefit_id' => $benefit_id,
+                    'state' => 'Beneficiado',
+                    'message' => 'Felicidades',
+                ]);
+            } else {
+                // Crear un nuevo registro si no existe
+                PostulationsBenefits::create([
+                    'postulation_id' => $postulationId,
+                    'benefit_id' => $benefit_id,
+                    'state' => 'Beneficiado',
+                    'message' => 'Felicidades',
+                ]);
             }
         }
 
-        return response()->json(['message' => 'Beneficios asignados correctamente'], 200);
+        // Ahora, para los no marcados (los que están marcados en $allPostulations pero no en $selectedPostulations)
+        $allPostulations = Postulations::all();
+        $unselectedPostulations = $allPostulations->filter(function ($postulation) use ($selectedPostulations) {
+            return !in_array($postulation->id, $selectedPostulations);
+        });
+
+        foreach ($unselectedPostulations as $postulation) {
+            // Obtener el beneficio correspondiente
+            $benefit_name = Postulations::find($postulation->id)->answers->where('questions_id', $question_id)->first()->answer;
+            $benefit_id = $benefits->where('name', $benefit_name)->first()->id;
+
+            // Buscar el registro existente en postulations_benefits
+            $postulationBenefit = PostulationsBenefits::where('postulation_id', $postulation->id)->first();
+
+            if ($postulationBenefit) {
+                // Actualizar el registro si existe
+                $postulationBenefit->update([
+                    'benefit_id' => $benefit_id,
+                    'state' => 'No Beneficiado',
+                    'message' => 'Mala suerte',
+                ]);
+            } else {
+                // Crear un nuevo registro si no existe
+                PostulationsBenefits::create([
+                    'postulation_id' => $postulation->id,
+                    'benefit_id' => $benefit_id,
+                    'state' => 'No Beneficiado',
+                    'message' => 'Mala suerte',
+                ]);
+            }
+        }
+
+        // Devolver una respuesta JSON con los datos actualizados (opcional)
+        return response()->json([
+            'message' => 'Registros actualizados con éxito.',
+            'updated_data' => [
+                'postulation_ids' => $selectedPostulations,
+                'benefit_id' => $benefit_id,
+                'state' => 'Beneficiado',
+                'message' => 'Felicidades',
+            ],
+        ], 200);
     } catch (\Exception $e) {
-        return response()->json(['error' => 'Error al asignar beneficios: ' . $e->getMessage()], 500);
+        // Manejar errores si es necesario
+        return response()->json(['error' => 'Error al actualizar los registros: ' . $e->getMessage()], 500);
     }
 }
+
+
+
+    
 
 }
 

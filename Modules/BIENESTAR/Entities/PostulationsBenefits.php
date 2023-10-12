@@ -42,7 +42,7 @@ class PostulationsBenefits extends Model implements Auditable
     }
     
     public function postulation(){// Accede a los datos de la postulacion al que pertenece
-        return $this->belongsToMany(Postulations::class, 'postulation_id');
+        return $this->belongsTo(Postulations::class, 'postulation_id');
     }
 
     public function transportationassistances(){// Accede a todas las asistencias que pertenecen 

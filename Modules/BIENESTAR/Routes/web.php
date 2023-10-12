@@ -59,7 +59,8 @@ Route::middleware(['lang'])->group(function () {
         Route::put('/postulation-management/update-state', 'PostulationsBenefitsController@updateState')->name('cefa.bienestar.postulation-management.update-state');
         Route::post('/postulation-management/update-benefits', 'PostulationsBenefitsController@updateBenefits')->name('cefa.bienestar.postulation-management.update-benefits');
         Route::post('/postulation-management/assign-benefits', 'PostulationsBenefitsController@assignBenefitsToPostulations')->name('cefa.bienestar.postulation-management.assign-benefits');
-        
+        Route::get('/get-updated-table', 'PostulationsBenefitsController@getUpdatedTable')->name('cefa.bienestar.postulation-management.get-updated-table');
+
 
         //Vistas Rutas de transporte
         Route::get('/transportroutes', 'RoutesTransportationsController@index')->name('cefa.bienestar.transportroutes');
@@ -110,6 +111,12 @@ Route::middleware(['lang'])->group(function () {
         //Vistas Rutas de transporte
         Route::get('/assign-transportation-routes', 'AssingTransportRoutesController@mostrarAsignaciones')->name('cefa.bienestar.assign-transportation-routes');
         Route::get('/assign-transportation-routes/{apprenticeId}', 'AssingTransportRoutesController@showAssignmentForm')->name('cefa.bienestar.assign-transportation-routes');
+
+        //Vista de Formulario de asignacion de rutas de transporte
+        Route::get('/assing-form-transportation-routes/index', 'AssingFormTransporRoutesController@index')->name('cefa.bienestar.assing-form-transportation-routes.index');
+        Route::get('/assing-form-transportation-routes/store', 'AssingFormTransporRoutesController@create')->name('cefa.bienestar.assing-form-transportation-routes.store');
+        Route::put('/assing-form-transportation-routes/updateInline', 'AssingFormTransporRoutesController@updateInline')->name('cefa.bienestar.assing-form-transportation-routes.updateInline');
+        
 
 
 
