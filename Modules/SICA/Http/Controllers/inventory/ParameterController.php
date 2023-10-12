@@ -13,6 +13,7 @@ use Modules\SICA\Entities\MovementType;
 class ParameterController extends Controller
 {
 
+    /* Vista principal de parámetros para inventario */
     public function index(){ // Carga de vista de parametros con la tabla de categorías
         $categories = Category::orderBy('updated_at', 'DESC')->get(); // Consultar categorías de manera descende por el dato updated_at
         $measurementUnit = MeasurementUnit::orderBy('updated_at', 'DESC')->get(); // Consultar measurementUnit de manera descende por el dato updated_at
