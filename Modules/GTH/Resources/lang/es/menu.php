@@ -52,10 +52,44 @@ return [
 	'Status:' => 'Estado:',
 	'Contract Object:' => 'Objeto del Contrato:',
 	'Contract Obligations:' => 'Obligaciones del Contrato:',
-	'Save Contract' => 'Guardar Contrato'
+	'Save Contract' => 'Guardar Contrato',
 
 	//contractype
-	
+	'Types of Contracts' => 'Tipos de Contratos',
+	'Create Contract Type' => 'Crear Tipo de Contrato',
+	'ID' => 'ID',
+	'Name' => 'Nombre',
+	'actions' => 'Acciones',
+	'Edit' => 'Editar',
+	'Delete' => 'Eliminar',
+	'Add New Contract Type' => 'Agregar Nuevo Tipo de Contrato',
+	'Type of contract:' => 'Tipo de Contrato:',
+	'Save' => 'Guardar',
+	'Edit Contract Type' => 'Editar Tipo de Contrato:',
+	'Name' => 'Nombre',
+	'Save Changes' => 'Guarda Cambios',
+
+	//insurerentities
+	'Insuring Entity' => 'Entidad Aseguradora',
+	'Create Insurance Company' => 'Crear Entidad Aseguradora',
+	'ID' => 'ID',
+	'Name' => 'Nombre',
+	'Description' => 'Descripción',
+	'actions' => 'Acciones',
+	'Edit' => 'Editar', 
+	'Delete' => 'Eliminar',
+	'Add a New Insurance Company' => 'Agregar Una Nueva Entidad Aseguradora',
+	'Insuring Entity:' => 'Entidad Aseguradora:',
+	'Description of Insurance Company:' => 'Descripción Entidad Aseguradora:',
+	'Save' => 'Guardar',
+	'Edit Insurance Company:' => 'Editar Entidad Aseguradora:',
+	'Name' => 'Nombre',
+	'Description' => 'Descripción',
+	'Save Changes' => 'Guarda Cambios',
+
+	//employeetype
+
+
 
 
 

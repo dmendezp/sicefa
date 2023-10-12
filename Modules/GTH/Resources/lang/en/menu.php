@@ -52,7 +52,39 @@ return [
 	'Status:' => 'Status:',
 	'Contract Object:' => 'Contract Object:',
 	'Contract Obligations:' => 'Contract Obligations:',
-	'Save Contract' => 'Save Contract'
+	'Save Contract' => 'Save Contract',
+
+	//contractype
+	'Types of Contracts' => 'Types of Contracts',
+	'Create Contract Type' => 'Create Contract Type',
+	'ID' => 'ID',
+	'Name' => 'Name',
+	'actions' => 'actions',
+	'Edit' => 'Edit',
+	'Delete' => 'Delete',
+	'Add New Contract Type' => 'Add New Contract Type',
+	'Type of contract:' => 'Type of contract:',
+	'Save' => 'Save',
+	'Edit Contract Type' => 'Edit Contract Type',
+	'Name' => 'Name',
+	'Save Changes' => 'Save Changes',
+
+	//insurerentities
+	'Insuring Entity' => 'Insuring Entity',
+	'Create Insurance Company' => 'Create Insurance Company',
+	'ID' => 'ID',
+	'Name' => 'Name',
+	'Description' => 'Description',
+	'actions' => 'actions',
+	'Edit' => 'Edit',
+	'Delete' => 'Delete',
+	'Add a New Insurance Company' => 'Add a New Insurance Company',
+	'Insuring Entity:' => 'Insuring Entity:',
+	'Description of Insurance Company:' => 'Description of Insurance Company:',
+	'Save' => 'Save',
+	'Edit Insurance Company:' => 'Edit Insurance Company:',
+
+
 
 
 
