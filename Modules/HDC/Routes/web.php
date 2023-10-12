@@ -37,10 +37,14 @@ Route::middleware(['lang'])->group(function () {
         /* Rutas de Calcula tu Huella */
         Route::get('persona', 'CarbonfootprintController@persona')->name('carbonfootprint.persona');
         Route::get('/calculos/persona/{documento}', 'CarbonfootprintController@verificarUsuario')->name('carbonfootprint.calculos.persona');
+
         /* Rutas de Formulario de Calcula tu Huella */
-        Route::get('/form/calculates/footprint', 'CarbonfootprintController@formcalculates')->name('Carbonfootprint.form.calculates');
+        Route::get('/form/calculates/footprin/{person}', 'CarbonfootprintController@formcalculates')->name('Carbonfootprint.form.calculates');
         // Ruta para procesar el formulario (guardar los datos)
         Route::post('/form/calculates/footprint/save', 'CarbonfootprintController@saveConsumption')->name('Carbonfootprint.save_consumption');
+
+        /* Rutas del CRUD */
+        Route::get('/carbonfootprints/{personaId}', 'TuControlador@showCarbonFootprints')->name('carbonfootprints.show');
 
         /* Ruta de Graficas */
         Route::get('/Graficas', 'GraficasController@Graficas')->name('cefa.hdc.Graficas');

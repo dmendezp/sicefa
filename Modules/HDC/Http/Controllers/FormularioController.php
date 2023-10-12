@@ -48,16 +48,22 @@ class FormularioController extends Controller
 
     public function guardarValores(Request $request)
     {
-        // Valida los datos del formulario
         $request->validate([
+            'aspecto.*.id' => 'required|exists:environmental_aspects,id',
             'aspecto.*.amount' => 'required|numeric',
             'activity_id' => 'required|exists:activities,id',
+        ], [
+            // Mensajes de error personalizados
+            'aspecto.*.amount.required' => 'Por favor, complete todos los campos.',
+            'aspecto.*.amount.numeric' => 'El campo debe ser un valor numérico.',
         ]);
+
+       /*  dd('Validation Passed'); */
 
 
 
         $labor = Labor::create([
-            'person_id' => auth()->user()->id,
+            'person_id' => auth()->user()->person->id,
             'activity_id' => $request->input('activity_id'),
             'planning_date' => now(),
             'execution_date' => now(),
@@ -123,7 +129,7 @@ class FormularioController extends Controller
     public function update(Request $request, Labor $labor)
     {
         $request->validate([
-            'amounts.*' => 'numeric', 
+            'amounts.*' => 'numeric',
         ]);
 
         // Actualizar los valores de amounts en los aspectos ambientales

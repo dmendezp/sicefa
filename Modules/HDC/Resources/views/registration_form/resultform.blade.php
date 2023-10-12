@@ -1,4 +1,8 @@
 @extends('hdc::layouts.master')
+@push('breadcrumbs')
+<li class="breadcrumb-item active"><a href="{{ route('admin.hdc.table') }}">{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }}</a></li>
+
+@endpush
 
 @section('content')
     <div class="col-md-12">
@@ -22,7 +26,6 @@
                                 <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Date')}}</th>
                                 <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Environmental_Aspect')}}</th>
                                 <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Quantity')}}</th>
-                                <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Unit_Measurement')}}</th>
                                 <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Action')}}</th>
                             </tr>
                         </thead>
@@ -43,23 +46,16 @@
                                     <td>
                                         <ul>
                                             @foreach ($dato->environmental_aspect_labors as $envasp)
-                                                <li>{{ $envasp->amount }}</li>
+                                                <li>{{ $envasp->amount }} {{ $envasp->environmental_aspect->measurement_unit->abbreviation }}</li>
                                             @endforeach
                                         <ul>
                                     </td>
-                                    <td>
-                                        <ul>
-                                            @foreach ($dato->environmental_aspect_labors as $envasp)
-                                                <li>{{ $envasp->environmental_aspect->measurement_unit->abbreviation }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </td>
-                                    
+
                                     <td>
                                         <form action="{{ route('cefa.hdc.delete', $dato->id) }}" method="post" id="formEliminar{{ $loop->iteration }}">
                                             @csrf
                                             @method('DELETE')
-                                    
+
                                             <button class="btn btn-danger btnEliminar" type="button" data-form-id="formEliminar{{ $loop->iteration }}">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
@@ -68,7 +64,7 @@
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                     </td>
-                                    
+
                                 </tr>
                             @endforeach
 

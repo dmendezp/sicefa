@@ -11,16 +11,18 @@ use Modules\SICA\Entities\Person;
 
 class CarbonfootprintController extends Controller
 {
-  public function persona()
+    public function persona()
     {
         return view('hdc::Calc_Huella.ingresoConsulta');
     }
 
-    public function formcalculates(){
+    public function formcalculates(Person $person)
+    {
         $environmentalAspects = EnvironmentalAspect::where('personal', 1)
             ->pluck('name', 'id');
 
-        return view('hdc::Calc_Huella.formcalculatefootprint')->with('environmentalAspects', $environmentalAspects);
+
+        return view('hdc::Calc_Huella.formcalculatefootprint')->with('environmentalAspects', $environmentalAspects)->with('person', $person);
     }
 
     public function verificarUsuario($documento)
@@ -41,30 +43,45 @@ class CarbonfootprintController extends Controller
     {
         // Validar y procesar los datos del formulario
         $data = $request->validate([
-            'aspecto.*' => 'required|numeric',
             'aspecto.*.id_aspecto' => 'required|numeric',
+            'aspecto.*.valor_consumo' => 'required|numeric',
         ]);
 
-        // Obtener el número de documento de la solicitud
-        $documento = $request->input('documento');
+        $personId = $request->input('person_id');
+        $person = Person::findOrFail($personId);
 
 
-        $persona = Person::where('document_number', $documento)->first();
 
+        // Crear el modelo FamilyPersonFootprint
+        $personFootprint = new FamilyPersonFootprint([
+            'carbon_print' => 0,
+            // Otros campos necesarios
+        ]);
 
-        if (!$persona) {
+        // Asignar el person_id
+        $personFootprint->person_id = $person->id;
 
-            return response()->json(['mensaje' => 'Persona No Encontrada']);
-        }
+        // Guardar el modelo FamilyPersonFootprint
+        $personFootprint->save();
 
         foreach ($data['aspecto'] as $values) {
+            // Asociar con el modelo FamilyPersonFootprint
             PersonEnvironmentalAspect::create([
                 'environmental_aspect_id' => $values['id_aspecto'],
-                'family_person_footprint_id' => $values['id_familypersonfootprint'],
-                'valor_consumo' => $values['valor_consumo'],
+                'family_person_footprint_id' => $personFootprint->id,
+                'consumption_value' => $values['valor_consumo'],
             ]);
         }
 
-        return redirect()->route('carbonfootprint.calculos.persona')->with('success', 'Valores guardados correctamente');
+        return redirect()->route('carbonfootprint.calculos.persona', $person->document_number)->with('success', 'Valores guardados correctamente');
+
+
     }
+   /*  public function showCarbonFootprints($personaId)
+    {
+        $person = Person::findOrFail($personaId);
+        $carbonFootprints = FamilyPersonFootprint::with('aspecto')->where('person_id', $person->id)->get();
+
+        return view('hdc::Calc_Huella.tabla', compact('person', 'carbonFootprints'));
+    } */
 }

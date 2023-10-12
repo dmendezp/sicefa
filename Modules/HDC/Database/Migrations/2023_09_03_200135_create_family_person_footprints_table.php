@@ -19,7 +19,7 @@ class CreateFamilyPersonFootprintsTable extends Migration
             $table->integer('carbon_print');
             $table->softDeletes();
             $table->timestamps();
-            $table->unique(['person_id'], 'unique_family_person_footprint_person');
+           
 
         });
     }

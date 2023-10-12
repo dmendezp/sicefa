@@ -4,13 +4,18 @@
     <div class="col-md-12">
         <div class="card card-success card-outline shadow mt-2">
             <div class="card-header">
-                <h2 class="card-title"><strong>Registre los aspectos ambientales generados mensualmente en su casa</strong></h2>
+                <h2 class="card-title"><strong> {{ $person->full_name }} Registre los aspectos ambientales generados mensualmente en su casa </strong>
+                </h2>
+               {{--   <h1>{{ $person }}</h1>  --}}
             </div>
             <br>
             <div class="container">
                 <div class="table-responsive">
                     <form method="post" action="{{ route('Carbonfootprint.save_consumption') }}">
+
                         @csrf
+                        <input type="hidden" name="person_id" value="{{ $person->id }}">
+
                         <table class="table table-bordered table-hover" id="myTableform">
                             <thead class="table-dark">
                                 <tr>
@@ -22,7 +27,8 @@
                                 @foreach ($environmentalAspects as $aspectId => $aspectName)
                                     <tr>
                                         <td>
-                                            <input type="hidden" name="aspecto[{{ $aspectId }}][id_aspecto]" value="{{ $aspectId }}">
+                                            <input type="hidden" name="aspecto[{{ $aspectId }}][id_aspecto]"
+                                                value="{{ $aspectId }}">
                                             {{ $aspectName }}
                                         </td>
                                         <td>
@@ -34,7 +40,8 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-around">
-                            <button type="submit" class="btn btn-success">{{ trans('hdc::ConsumptionRegistry.Btn_Save') }}</button>
+                            <button type="submit"
+                                class="btn btn-success">{{ trans('hdc::ConsumptionRegistry.Btn_Save') }}</button>
                         </div>
                         <br>
                     </form>
@@ -43,3 +50,6 @@
         </div>
     </div>
 @endsection
+
+
+

@@ -21,7 +21,7 @@ return [
     'Btn_Save'  => 'Save',
     //Boton dentro de la card de resultados editar
     'Btn_Update'  => 'Update',
-    //Nombres de la tabla del crud de registros guardados 
+    //Nombres de la tabla del crud de registros guardados
     'Title_Card_Records_Saver' => 'Saved Record',
 
     'Title_Header_Table_Column_productive_unit'      =>  'Productive Unit',
@@ -30,5 +30,11 @@ return [
     'Title_Header_Table_Column_Environmental_Aspect' =>  'Environmental_Aspect',
     'Title_Header_Table_Column_Quantity'             =>  'Quantity',
     'Title_Header_Table_Column_Unit_Measurement'     =>  'Unit of measurement',
-    'Title_Header_Table_Column_Action'               =>  'Action'
+    'Title_Header_Table_Column_Action'               =>  'Action',
+
+    //Indicador del formulario registro de Consumo
+    'indicator_form_results' => 'results',
+
+     //Indicador del formulario registro de Consumo/ editar
+     'indicator_form_results_update' => 'Update',
 ];

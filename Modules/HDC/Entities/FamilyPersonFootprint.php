@@ -9,7 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class FamilyPersonFootprint extends Model implements Auditable
 {
-    
+
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
     SoftDeletes; // Borrado suave
 

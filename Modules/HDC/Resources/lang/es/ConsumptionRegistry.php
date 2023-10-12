@@ -3,7 +3,7 @@
 return[
      //Indicador del formulario registro de Consumo
      'indicator_form' => 'Formulario',
-     
+
     // Card del formulario de la unidad productiva
     'Title_Card_Productive_Unit' => 'Unidad Productiva',
     'Select_Productive_Unit'     => 'Seleccione',
@@ -22,7 +22,7 @@ return[
     //Boton dentro de la card de resultados editar
     'Btn_Update'=> 'Actualizar',
 
-    //Nombres de la tabla del crud de registros guardados 
+    //Nombres de la tabla del crud de registros guardados
     'Title_Card_Records_Saver' => 'Registros Guardados',
 
     'Title_Header_Table_Column_productive_unit'      =>  'Unidad Productiva',
@@ -31,7 +31,12 @@ return[
     'Title_Header_Table_Column_Environmental_Aspect' =>  'Aspecto Ambiental',
     'Title_Header_Table_Column_Quantity'             =>  'Cantidad',
     'Title_Header_Table_Column_Unit_Measurement'     =>  'Unidad de Medida',
-    'Title_Header_Table_Column_Action'               =>  'Acciones'
+    'Title_Header_Table_Column_Action'               =>  'Acciones',
+
+    //Indicador del formulario registro de Consumo
+    'indicator_form_results' => 'Resultados',
+    //Indicador del formulario registro de Consumo/ editar
+    'indicator_form_results_update' => 'Actualizar',
 
 
 

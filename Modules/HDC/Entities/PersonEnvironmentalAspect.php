@@ -4,7 +4,6 @@ namespace Modules\HDC\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\SICA\Entities\Resource;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\HDC\Entities\FamilyPersonFootprint;
 
@@ -18,7 +17,7 @@ class PersonEnvironmentalAspect extends Model implements Auditable
     protected $fillable = [ // Atributos modificables (asignación masiva)
         'environmental_aspect_id',
         'family_person_footprint_id',
-        'valor_consumo'
+        'consumption_value'
     ];
 
     protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
