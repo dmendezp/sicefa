@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class ConvocationsQuestions extends Model implements Auditable
+class ConvocationQuestion extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable,
     SoftDeletes;
@@ -28,11 +28,11 @@ class ConvocationsQuestions extends Model implements Auditable
 
     //RELACIONES
     public function convocation(){// Accede a los datos de la convocatoria al que pertenece
-        return $this->belongsToMany(Convocations::class, 'convocation_id');
+        return $this->belongsToMany(Convocation::class, 'convocation_id');
     }
 
     public function question(){// Accede a los datos de la pregunta al que pertenece
-        return $this->belongsToMany(Questions::class, 'questions_id');
+        return $this->belongsToMany(Question::class, 'questions_id');
     }
 
     

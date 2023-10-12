@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Questions extends Model implements Auditable
+class Question extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable,
     SoftDeletes;
@@ -17,7 +17,7 @@ class Questions extends Model implements Auditable
     protected $table = 'questions';
 
     protected $fillable = [
-        'name',
+        'question',
         'type_question',
         'score',
     ];
@@ -32,11 +32,11 @@ class Questions extends Model implements Auditable
     //RELACIONES
 
     public function answers(){// Accede a los datos de la respuesta al que pertenece
-        return $this->hasMany(Answers::class,'questions_id');
+        return $this->hasMany(Answer::class,'questions_id');
     }
 
     public function answersquestions(){// Accede a los datos de la respuesta a la pregunta al que pertenece
-        return $this->hasMany(AnswersQuestions::class,'questions_id');
+        return $this->hasMany(AnswersQuestion::class,'questions_id');
     }
 
     public function convocationsquestions(){// Accede a los datos de la pregunta a la convocatoria al que pertenece

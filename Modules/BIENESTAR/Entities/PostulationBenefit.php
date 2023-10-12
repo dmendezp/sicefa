@@ -5,9 +5,10 @@ namespace Modules\BIENESTAR\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
-use Modules\BIENESTAR\Entities\Benefits;
+use Modules\BIENESTAR\Entities\Benefit;
+use Modules\BIENESTAR\Entities\Postulation;
 
-class PostulationsBenefits extends Model implements Auditable
+class PostulationBenefit extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable,
     SoftDeletes;
@@ -33,20 +34,20 @@ class PostulationsBenefits extends Model implements Auditable
     //RELACIONES
     
      public function assistancesfoods(){// Accede a todas las asistencias de alimentacion que pertenecen 
-    	return $this->hasMany(AssistancesFoods::class, 'postulation_benefit_id');
+    	return $this->hasMany(AssistanceFood::class, 'postulation_benefit_id');
     }
 
     public function benefit()
     {
-        return $this->belongsTo(Benefits::class, 'benefit_id');
+        return $this->belongsTo(Benefit::class);
     }
     
     public function postulation(){// Accede a los datos de la postulacion al que pertenece
-        return $this->belongsTo(Postulations::class, 'postulation_id');
+        return $this->belongsToMany(Postulation::class);
     }
 
     public function transportationassistances(){// Accede a todas las asistencias que pertenecen 
-    	return $this->hasMany(TransportationAssistances::class, 'postulation_benefit_id');
+    	return $this->hasMany(TransportationAssistance::class, 'postulation_benefit_id');
     }
    
 

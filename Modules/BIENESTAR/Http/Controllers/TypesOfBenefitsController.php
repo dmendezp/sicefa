@@ -5,7 +5,7 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\TypesOfBenefits;
+use Modules\BIENESTAR\Entities\TypeOfBenefit;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Response;
 
@@ -18,7 +18,7 @@ class TypesOfBenefitsController extends Controller
 
      public function typeofbenefits()
      {
-         $typeofbenefits = TypesOfBenefits::all();
+         $typeofbenefits = TypeOfBenefit::all();
          return view('bienestar::typeofbenefits', compact('typeofbenefits'));
      }
  
@@ -34,7 +34,7 @@ class TypesOfBenefitsController extends Controller
     ]);
 
     // Buscar un registro eliminado con el mismo nombre
-    $existingDeletedRecord = TypesOfBenefits::onlyTrashed()
+    $existingDeletedRecord = TypeOfBenefit::onlyTrashed()
         ->where('name', $request->name)
         ->first();
 
@@ -46,7 +46,7 @@ class TypesOfBenefitsController extends Controller
 
     // Crear un nuevo registro
     try {
-        TypesOfBenefits::create([
+        TypeOfBenefit::create([
             'name' => $request->name,
         ]);
 
@@ -109,7 +109,7 @@ class TypesOfBenefitsController extends Controller
     ]);
 
     // Buscar el tipo de beneficio por su ID
-    $type = TypesOfBenefits::findOrFail($id);
+    $type = TypeOfBenefit::findOrFail($id);
 
     if (!$type) {
         // Manejar el error con un mensaje de error y un código de estado 404
@@ -117,7 +117,7 @@ class TypesOfBenefitsController extends Controller
     }
 
     // Verificar si el nuevo valor del campo 'name' ya existe en otros registros
-    $existingRecord = TypesOfBenefits::where('name', $request->name)
+    $existingRecord = TypeOfBenefit::where('name', $request->name)
         ->where('id', '!=', $type->id) // Excluye el registro actual de la comprobación
         ->first();
 
@@ -145,7 +145,7 @@ class TypesOfBenefitsController extends Controller
     public function destroy($id)
     {
         try {
-            $typeofbenefits = TypesOfBenefits::findOrFail($id);
+            $typeofbenefits = TypeOfBenefit::findOrFail($id);
             $typeofbenefits->delete();
 
             return response()->json(['success' =>'Vacancy eliminated with success']);

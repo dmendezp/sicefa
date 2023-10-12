@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class AnswersQuestions extends Model implements Auditable
+class AnswersQuestion extends Model implements Auditable
 {
     use SoftDeletes;
     use \OwenIt\Auditing\Auditable,
@@ -31,6 +31,6 @@ class AnswersQuestions extends Model implements Auditable
     //RELACIONES
 
     public function question(){// Accede a todas las preguntas que pertenecen a esta respuesta de la pregunta
-        return $this->belongsTo(Questions::class, 'question_id');
+        return $this->belongsTo(Question::class, 'question_id');
     }
 }

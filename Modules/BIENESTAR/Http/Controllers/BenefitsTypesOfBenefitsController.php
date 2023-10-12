@@ -5,9 +5,9 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\BenefitsTypesOfBenefits;
-use Modules\BIENESTAR\Entities\TypesOfBenefits;
-use Modules\BIENESTAR\Entities\Benefits;
+use Modules\BIENESTAR\Entities\BenefitTypeOfBenefit;
+use Modules\BIENESTAR\Entities\TypeOfBenefit;
+use Modules\BIENESTAR\Entities\Benefit;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
 
@@ -19,9 +19,9 @@ class BenefitsTypesOfBenefitsController extends Controller
      */
     public function benefitstypeofbenefits()
     {
-        $benefitstypeofbenefits = BenefitsTypesOfBenefits::all();
-        $benefits = Benefits::all();
-        $typeOfBenefits = TypesOfBenefits::all();
+        $benefitstypeofbenefits = BenefitTypeOfBenefit::all();
+        $benefits = Benefit::all();
+        $typeOfBenefits = TypeOfBenefit::all();
 
         return view('bienestar::benefitstypeofbenefits', compact('benefitstypeofbenefits', 'benefits', 'typeOfBenefits'));
     }
@@ -38,7 +38,7 @@ class BenefitsTypesOfBenefitsController extends Controller
         
         
         // Consultar registro 
-        $record = BenefitsTypesOfBenefits::withTrashed()
+        $record = BenefitTypeOfBenefit::withTrashed()
                     ->where('benefit_id', $benefitId)
                     ->where('type_of_benefit_id', $typeId)
                     ->first();
@@ -54,7 +54,7 @@ class BenefitsTypesOfBenefitsController extends Controller
             }
         }else{
             // Realizar registro
-            BenefitsTypesOfBenefits::create([
+            BenefitTypeOfBenefit::create([
                 'benefit_id' => $benefitId,
                 'type_of_benefit_id' => $typeId,
             ]);

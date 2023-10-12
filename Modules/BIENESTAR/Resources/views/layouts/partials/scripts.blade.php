@@ -60,51 +60,172 @@
     </script>
 <script>
     'use strict';//Boton de eliminar
-    // Selecciona todos los formularios con la clase "formEliminar"
-    var forms = document.querySelectorAll('.formEliminar');
+   // Define una función reutilizable para mostrar los SweetAlerts
+function showSweetAlert(icon, title, text, timer) {
+    Swal.fire({
+        icon: icon,
+        title: title,
+        text: text,
+        showConfirmButton: false,
+        timer: timer
+    }).then(function() {
+        // Recargar la página después del SweetAlert
+        location.reload();
+    });
+}
 
-    Array.prototype.slice.call(forms)
-        .forEach(function(form) {
-            form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Evita que el formulario se envíe de inmediato
+// Boton de eliminar
+var forms = document.querySelectorAll('.formEliminar');
 
-                Swal.fire({
-                    title: "Are you sure?'",
-                    text: "It is an irreversible process.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: "Yes, delete it'",
-                    cancelButtonText: "Cancel" // Cambiar el texto del botón "Cancelar"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Enviar el formulario usando AJAX
-                        axios.post(form.action, new FormData(form))
-                            .then(function(response) {
-                                // Manejar la respuesta JSON del servidor
-                                if (response.data && response.data.mensaje) {
-                                    Swal.fire({
-                                        title: 'Vacancy deleted!',
-                                        text: response.data.mensaje,
-                                        icon: 'success'
-                                    }).then(() => {
-                                        // Recargar la página u otra acción según sea necesario
-                                        location
-                                            .reload(); // Recargar la página después de eliminar
-                                    });
-                                }
-                            })
-                            .catch(function(error) {
-                                // Manejar errores si es necesario
-                                console.error(error);
-                            });
-                    }
-                });
+Array.prototype.slice.call(forms)
+    .forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita que el formulario se envíe de inmediato
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "It is an irreversible process.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: "Yes, delete it",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Enviar el formulario usando AJAX
+                    axios.post(form.action, new FormData(form))
+                        .then(function(response) {
+                            // Manejar la respuesta JSON del servidor
+                            if (response.data && response.data.mensaje) {
+                                showSweetAlert('success', 'Vacancy deleted!', response.data.mensaje, 1500);
+                            } else {
+                                showSweetAlert('error', 'Error', 'An error occurred while trying to delete the vacancy.');
+                            }
+                        })
+                        .catch(function(error) {
+                            showSweetAlert('error', 'Error', 'Ha ocurrido un error a eliminar.');
+                            console.error(error);
+                        });
+                }
             });
         });
-</script>
+    });
 
+</script>
+<script>
+    // Define una función para mostrar el SweetAlert
+function showSweetAlert(icon, title, text, timer) {
+    Swal.fire({
+        icon: icon,
+        title: title,
+        text: text,
+        showConfirmButton: false,
+        timer: timer
+    }).then(function() {
+        // Recargar la página después del SweetAlert
+        location.reload();
+    });
+}
+
+// Botón de eliminar
+var deleteButtons = document.querySelectorAll('.formEliminar[data-method="delete"]');
+
+Array.prototype.slice.call(deleteButtons)
+    .forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This action is irreversible.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: "Yes, delete it",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var url = button.getAttribute('href');
+                    axios.delete(url)
+                        .then(function(response) {
+                            if (response.data && response.data.mensaje) {
+                                Swal.fire({
+                                    title: 'Question deleted!',
+                                    text: response.data.mensaje,
+                                    icon: 'success'
+                                }).then(() => {
+                                    // Utiliza la función showSweetAlert para recargar la página
+                                    showSweetAlert('success', 'Success', response.data.mensaje, 1500);
+                                });
+                            }
+                        })
+                        .catch(function(error) {
+                            // Mostrar SweetAlert de error
+                            showSweetAlert('error', 'Error', 'An error occurred.', 1500);
+                            console.error(error);
+                        });
+                }
+            });
+        });
+    });
+// Define una función para mostrar el SweetAlert
+// Define una función para mostrar el SweetAlert
+function showSweetAlert(icon, title, text, timer) {
+    Swal.fire({
+        icon: icon,
+        title: title,
+        text: text,
+        showConfirmButton: false,
+        timer: timer
+    }).then(function() {
+        // Recargar la página después del SweetAlert
+        location.reload();
+    });
+}
+
+// Botón de eliminar
+var deleteButtons = document.querySelectorAll('.formEliminar2[data-method="delete"]');
+
+Array.prototype.slice.call(deleteButtons)
+    .forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This action is irreversible.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: "Yes, delete it",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var url = button.getAttribute('href');
+                    axios.delete(url)
+                        .then(function(response) {
+                            if (response.data && response.data.mensaje) {
+                                // Verificar si la respuesta del servidor contiene un mensaje de éxito
+                                showSweetAlert('success', 'Success', response.data.mensaje, 1500);
+                            } else {
+                                // Mostrar SweetAlert de error en caso de problemas
+                                showSweetAlert('error', 'Error', 'An error occurred1.', 1500);
+                            }
+                        })
+                        .catch(function(error) {
+                            // Mostrar SweetAlert de error en caso de problemas con la solicitud
+                            showSweetAlert('error', 'Error', 'An error occurred2.', 1500);
+                            console.error(error);
+                        });
+                }
+            });
+        });
+    });
+
+</script>
 <script>
     // Define una función reutilizable para mostrar los SweetAlerts
     function showSweetAlert(icon, title, text, timer) {
@@ -177,7 +298,8 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": true,
-            "buttons": [{
+            "buttons": [
+                {
                     extend: 'pdfHtml5',
                     text: 'PDF',
                     customize: function(doc) {
@@ -187,10 +309,29 @@
                             fontSize: 12
                         };
                         doc.content[1].alignment = 'center';
-                    }
+                    },
+                    className: 'pdf-button' // Clase CSS personalizada para el botón PDF
                 },
-                 "excel"
+                {
+                    extend: 'excel',
+                    text: 'Excel',
+                    className: 'excel-button' // Clase CSS personalizada para el botón Excel
+                }
             ]
         }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+
+        // Establece los estilos CSS para el botón PDF (rojo) y el botón Excel (verde)
+        $('.pdf-button').css({
+            'background-color': 'red',
+            'color': 'white', // Color del texto en el botón PDF
+            'margin-right': '10px' // Margen derecho para separar los botones
+        });
+
+        $('.excel-button').css({
+            'background-color': 'green',
+            'color': 'white' // Color del texto en el botón Excel
+        });
     });
 </script>
+
+

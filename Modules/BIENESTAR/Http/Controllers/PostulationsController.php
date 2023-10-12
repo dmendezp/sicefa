@@ -2,13 +2,14 @@
 
 namespace Modules\BIENESTAR\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\Postulations;
 use Modules\BIENESTAR\Entities\Convocations;
 use Modules\SICA\Entities\Apprentice;
-use Modules\SICA\Entities\Person;
 use Modules\BIENESTAR\Entities\TypesOfBenefits;
 use Modules\BIENESTAR\Entities\Questions;
 use Modules\BIENESTAR\Entities\Benefits;
@@ -19,29 +20,35 @@ use Illuminate\Http\JsonResponse;
 
 class PostulationsController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('bienestar::postulations');
     }
-    
-    public function buscar(Request $request)
-{
-    // Obtén el número de documento ingresado en el formulario
-    $numeroDocumento = $request->input('busqueda');
 
-    // Realiza la búsqueda en la base de datos usando tu modelo Person
-    $resultados = Person::where('document_number', $numeroDocumento)->first();
+    public function search(Request $request)
+    {
+        $documentNumber = $request->input('search');
 
-    if (!$resultados) {
-        // No se encontraron resultados, establece la variable de sesión
-        session()->flash('no_resultados', true);
-    } else {
-        // Si se encontraron resultados, busca las postulaciones del aprendiz
-        $apprendices = Apprentice::where("person_id", $resultados->id)->pluck("id");
-        $postulations = Postulations::whereIn("apprentice_id", $apprendices)->get();
+        // Realizar la consulta
+        $resultados = DB::table('apprentices')
+            ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->join('courses', 'apprentices.course_id', '=', 'courses.id')
+            ->join('programs', 'courses.program_id', '=', 'programs.id')
+            ->select(
+                'people.document_number',
+                'people.first_name',
+                'people.first_last_name',
+                'people.second_last_name',
+                'courses.code',
+                'programs.name',
+                'people.socioeconomical_status',
+                'people.sisben_level',
+                'people.personal_email',
+                'people.population_group_id'
+            )
+            ->where('people.document_number', $documentNumber)
+            ->get();
+
+        return view('bienestar::postulations', compact('resultados'));
     }
-
-    // Devuelve la vista con los resultados de la búsqueda
-    return view('bienestar::postulations', compact('resultados', 'postulations'));
-}
-
 }

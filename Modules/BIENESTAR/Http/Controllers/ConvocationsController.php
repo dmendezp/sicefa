@@ -5,7 +5,7 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\Convocations;
+use Modules\BIENESTAR\Entities\Convocation;
 use Modules\SICA\Entities\Quarter;
 
 
@@ -26,9 +26,9 @@ class ConvocationsController extends Controller
     public function index()
     {
         // Obtenemos Listado Convocatoria
-       $convocations=Convocations::all(); 
+       $convocations=Convocation::all(); 
        //obtenemos el listado de buses
-       $convocations = Convocations::with('quarters')->get();
+       $convocations = Convocation::with('quarters')->get();
        $quarters = Quarter::pluck('name','id','start_date','end_date');
        $quarters= Quarter::all(); 
        return view('bienestar::convocations',['convocations'=>$convocations,'quarters'=>$quarters]);
@@ -45,7 +45,7 @@ class ConvocationsController extends Controller
     {
         
         // Define las reglas de validación
-        $convocations = new Convocations;
+        $convocations = new Convocation;
         $convocations->name = $request->input('title');
         $convocations->description = $request->input('description');
         $convocations->food_quotas = $request->input('food_quotas');
@@ -80,7 +80,7 @@ class ConvocationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $convocations = Convocations::findOrFail($id);
+        $convocations = Convocation::findOrFail($id);
         $convocations->name = $request->input('name');
         $convocations->description = $request->input('description');
         $convocations->food_quotas = $request->input('food_quotas');
@@ -103,7 +103,7 @@ class ConvocationsController extends Controller
     public function destroy($id)
     {
         try{
-            $convocations = Convocations::findOrFail($id);
+            $convocations = Convocation::findOrFail($id);
             $convocations->delete();
             return response()->json(['mensaje' => 'eliminado with success']);      
           }  catch (\Exception $e) {

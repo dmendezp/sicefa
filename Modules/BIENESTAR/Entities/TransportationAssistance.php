@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class TransportationAssistances extends Model implements Auditable
+class TransportationAssistance extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable,
     SoftDeletes;
@@ -42,20 +42,20 @@ class TransportationAssistances extends Model implements Auditable
     }
 
     public function buses(){// Accede a todos los buses que pertenecen a esta asistencia
-    	return $this->belongsTo(Buses::class, 'bus_id');
+    	return $this->belongsTo(Bus::class, 'bus_id');
     }
 
     public function bus_driver(){// Accede a todos los conductores que pertenecen a esta asistencia
-    	return $this->belongsTo(BusDrivers::class, 'bus_driver_id');
+    	return $this->belongsTo(BusDriver::class, 'bus_driver_id');
     }
 
     public function postulationBenefits(){// Accede a los datos del beneficio que tiene la postulacion al que pertenece
-        return $this->belongsTo(PostulationsBenefits::class, 'postulation_benefit_id');
+        return $this->belongsTo(PostulationBenefit::class, 'postulation_benefit_id');
     }
 
 
     public function routes_trasportantion(){// Accede a todas las rutas que pertenecen a esta asistencia
-    	return $this->belongsTo(RoutesTransportations::class, 'route_transportation_id');
+    	return $this->belongsTo(RoutesTransportation::class, 'route_transportation_id');
     }
 
     

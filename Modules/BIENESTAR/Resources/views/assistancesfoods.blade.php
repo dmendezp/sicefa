@@ -9,7 +9,7 @@
 
                     <!-- Cuadro con la tabla -->
                     <div class="table-responsive">
-                        <table id="datatable" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
+                       <table id="datatable" class="table mt-4" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>{{ trans('bienestar::menu.Apprentice')}}</th>

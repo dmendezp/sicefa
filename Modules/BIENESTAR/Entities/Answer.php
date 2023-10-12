@@ -6,7 +6,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Answers extends Model implements Auditable
+class Answer extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable,
     SoftDeletes;
@@ -35,12 +35,12 @@ class Answers extends Model implements Auditable
     // RELACIONES
     
     public function postulation(){// Accede a todas las postulaciones que pertenecen a esta respuesta
-    return $this->belongsTo(Postulations::class, 'postulation_id');
+    return $this->belongsTo(Postulation::class, 'postulation_id');
 }
     
     
     public function question(){// Accede a todas las preguntas que pertenecen a esta respuesta
-        return $this->belongsTo(Questions::class, 'questions_id');
+        return $this->belongsTo(Question::class, 'questions_id');
     }
 
     
