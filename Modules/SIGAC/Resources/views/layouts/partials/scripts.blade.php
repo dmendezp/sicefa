@@ -25,3 +25,7 @@
     AOS.init();
 </script>
 <!-- End Sript Animate On Scroll  -->
+
+<!-- Script de Fullcalendar  -->
+<script src='{{ asset('libs/fullcalendar-6.1.8/dist/index.global.min.js') }}'></script>
+

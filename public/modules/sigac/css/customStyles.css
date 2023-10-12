@@ -100,3 +100,13 @@
 #instagram i {
     color: #E4405F;
 }
+
+/* Estilos personalizados para los eventos de fullcalendar */
+
+.fc-event {
+    background-color: #007BFF; /* Color de fondo */
+    color: #FFFFFF; /* Color del texto */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    margin: 5px 0; /* Espacio entre eventos */
+    padding: 5px; /* Espacio interno */
+}
