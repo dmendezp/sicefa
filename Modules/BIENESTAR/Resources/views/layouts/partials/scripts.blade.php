@@ -323,7 +323,8 @@ Array.prototype.slice.call(deleteButtons)
         // Establece los estilos CSS para el botón PDF (rojo) y el botón Excel (verde)
         $('.pdf-button').css({
             'background-color': 'red',
-            'color': 'white' // Color del texto en el botón PDF
+            'color': 'white', // Color del texto en el botón PDF
+            'margin-right': '10px' // Margen derecho para separar los botones
         });
 
         $('.excel-button').css({
@@ -332,4 +333,5 @@ Array.prototype.slice.call(deleteButtons)
         });
     });
 </script>
+
 

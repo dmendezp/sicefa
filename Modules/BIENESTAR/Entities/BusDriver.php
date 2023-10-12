@@ -5,6 +5,8 @@ namespace Modules\BIENESTAR\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\BIENESTAR\Entities\Bus;
+use Modules\BIENESTAR\Entities\TransportationAssistance;
 
 class BusDriver extends Model implements Auditable
 {

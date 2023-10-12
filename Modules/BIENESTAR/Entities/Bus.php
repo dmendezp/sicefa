@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\BIENESTAR\Entities\BusDriver;
+use Modules\BIENESTAR\Entities\TransportationAssistance;
+use Modules\BIENESTAR\Entities\RoutesTransportation;
+
 
 
 class Bus extends Model implements Auditable
