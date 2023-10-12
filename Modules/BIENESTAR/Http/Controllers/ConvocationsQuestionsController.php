@@ -27,7 +27,7 @@ class ConvocationsQuestionsController extends Controller
     {
         $convocations = Convocation::all();
         $questions = Question::all();
-        $answers = ConvocationQuestion::all();
+        $answers = AnswersQuestion::all();
 
         return view('bienestar::editform', ['questions' => $questions, 'answers' => $answers, 'convocations' => $convocations]);
     }
@@ -36,23 +36,24 @@ class ConvocationsQuestionsController extends Controller
     {
         // Primero, obtenemos la pregunta por su ID
         $question = Question::find($id);
-
-        // Si la pregunta no existe, redirigimos o mostramos un mensaje de error
+    
+        // Si la pregunta no existe, enviamos una respuesta JSON con un mensaje de error
         if (!$question) {
-            return redirect()->route('cefa.bienestar.editform')->with('error', 'La pregunta no existe.');
+            return response()->json(['mensaje' => 'La pregunta no existe.'], 400);
         }
-
+    
         // Eliminamos las respuestas asociadas a esta pregunta
         AnswersQuestion::where('question_id', $id)->delete();
-
+    
         // Eliminamos la pregunta
         $question->delete();
-
-        // Redirigimos o mostramos un mensaje de éxito después de la eliminación
-        return redirect()->route('cefa.bienestar.editform')->with('success', 'La pregunta y sus respuestas han sido eliminadas con éxito.');
+    
+        // Enviamos una respuesta JSON con un mensaje de éxito
+        return response()->json(['mensaje' => 'La pregunta y sus respuestas han sido eliminadas con éxito.'], 200);
     }
+    
 
-    public function addQuestion(Request $request)
+    public function add_answer(Request $request)
     {
         // Crear una nueva pregunta
         $pregunta = new Question();
@@ -76,12 +77,18 @@ class ConvocationsQuestionsController extends Controller
 
     public function updateQuestion(Request $request, $id)
     {
+
         // Encuentra la pregunta por su ID
-        $pregunta = Question::findOrFail($id);
+        $pregunta = Question::find($id);
+
+        if (!$pregunta) {
+            // Si la pregunta no se encuentra, muestra un mensaje y redirige
+            return redirect()->back()->with('error', 'Pregunta no encontrada o ID inválido.');
+        }
 
         // Actualiza la pregunta con los nuevos valores
         $pregunta->update([
-            'question' => $request->input('name'), // Cambiar a 'name' para la pregunta
+            'question' => $request->input('question'), // Accede directamente al campo 'question'
         ]);
 
         $respuestas = $request->input('respuestas', []);
@@ -95,10 +102,12 @@ class ConvocationsQuestionsController extends Controller
             }
         }
 
-
         // Redirige de nuevo con un mensaje de éxito
         return redirect()->back()->with('success', 'Pregunta y respuestas actualizadas con éxito.');
     }
+
+
+
 
     /**
      * @method('POST')
@@ -116,28 +125,19 @@ class ConvocationsQuestionsController extends Controller
             $convocatoriaId = $request->input('convocatoria_id');
             $selectedQuestionIds = explode(',', $request->input('selected_question_ids'));
 
-            // Recorre los IDs de las preguntas seleccionadas
+            // Recorre los IDs de las preguntas seleccionadas y guárdalos en la base de datos
             foreach ($selectedQuestionIds as $questionId) {
-                // Verifica si ya existe una relación para este convocatoria_id y question_id
-                $existingRelation = ConvocationQuestion::where('convocation_id', $convocatoriaId)
-                    ->where('questions_id', $questionId)
-                    ->first();
-
-                // Si no existe la relación, crea una nueva
-                if (!$existingRelation) {
-                    $pregunta = new ConvocationQuestion();
-                    $pregunta->convocation_id = $convocatoriaId;
-                    $pregunta->questions_id = $questionId;
-                    $pregunta->save();
-                }else {
-                    return redirect()->route('cefa.bienestar.editform')->with('error', 'Error al guardar, El registro ya existe');
-                }
+                // Aquí puedes guardar $convocatoriaId y $questionId en tu base de datos
+                $pregunta = new ConvocationQuestion();
+                $pregunta->convocation_id = $convocatoriaId;
+                $pregunta->questions_id = $questionId;
+                $pregunta->save();
             }
 
-            // Devolver una respuesta de éxito
-            return redirect()->route('cefa.bienestar.editform')->with('success', 'Se ha guardado con éxito');
+            // Devolver una respuesta JSON exitosa
+            return redirect()->route('cefa.bienestar.editform')->with('success', 'Se ha guardado con exito');
         } catch (\Exception $e) {
-            // En caso de error, manejar el error y devolver una respuesta con un mensaje de error
+            // En caso de error, manejar el error y devolver una respuesta JSON con un mensaje de error
             return redirect()->route('cefa.bienestar.editform')->with('error', 'Error al guardar');
         }
     }

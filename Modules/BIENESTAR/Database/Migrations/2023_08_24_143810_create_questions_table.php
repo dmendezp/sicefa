@@ -19,9 +19,9 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->string('question');  
             $table->string('question_category');
-            $table->SoftDeletes();
             $table->enum('type_question_benefit', ['General','Alimentacion', 'Transporte']);  
-            $table->timestamps();
+            $table->SoftDeletes();
+            $table->timestamps();            
         });
     }
 

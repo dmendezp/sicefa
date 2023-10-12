@@ -26,7 +26,7 @@ class RouteTransportation extends Model implements Auditable
     ];
 
     public function bus(){// Accede a todos los buses que pertenecen a esta ruta de transporte
-    	return $this->belongsTo(Buses::class, 'bus_id');
+    	return $this->belongsTo(Bus::class, 'bus_id');
     }
     
     public function transportationassistance(){// Accede a todas las asistencias de trasporte que pertenecen a esta ruta de trasporte

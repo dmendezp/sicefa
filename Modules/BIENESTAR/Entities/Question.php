@@ -17,7 +17,7 @@ class Question extends Model implements Auditable
     protected $table = 'questions';
 
     protected $fillable = [
-        'name',
+        'question',
         'type_question',
         'score',
     ];

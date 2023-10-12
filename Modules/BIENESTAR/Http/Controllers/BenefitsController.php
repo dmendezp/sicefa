@@ -68,7 +68,7 @@ class BenefitsController extends Controller
             $beneficio = Benefit::findOrFail($id);
             $beneficio->delete();
 
-            return response()->json(['mensaje' =>'Vacancy eliminated with success']);
+            return response()->json(['mensaje' =>'Beneficio eliminado Correctamente']);
         } catch (\Exception $e) {
             return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
         }

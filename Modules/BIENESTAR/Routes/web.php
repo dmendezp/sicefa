@@ -88,7 +88,7 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('cefa.bienestar.editform.update');
         Route::delete('/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('cefa.bienestar.delete_question');
         Route::get('/addquestions', 'ConvocationsQuestionsController@add_question')->name('cefa.bienestar.add_question');
-        Route::post('/addquestions/add', 'ConvocationsQuestionsController@addQuestion')->name('cefa.bienestar.add_question.add');
+        Route::post('/addquestions/add_answer', 'ConvocationsQuestionsController@add_answer')->name('cefa.bienestar.add_question.add');
        
         // Vista De Consulta
         Route::get('/callconsultation', 'CallConsultationController@index')->name('cefa.bienestar.callconsultation');
@@ -96,8 +96,6 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/search', 'CallConsultationController@searchByDocumentNumber')->name('cefa.bienestar.search.by.document');
         Route::post('/procesar-formulario', 'CallConsultationController@procesarFormulario')->name('cefa.bienestar.procesar.formulario');
         Route::get('/consulta/{documentNumber}', 'CallConsultationController@consultarBeneficios')->name('cefa.bienestar.consulta.resultados');
-
-
 
         // Vista de Postulaciones
         route::get('/postulations', 'PostulationsController@index') ->name('cefa.bienestar.postulations');
