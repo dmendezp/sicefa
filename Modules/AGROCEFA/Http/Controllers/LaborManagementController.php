@@ -334,7 +334,7 @@ class LaborManagementController extends Controller
             $elementData = Element::whereHas('inventories', function ($query) use ($elementId) {
                 $query->where('id', $elementId);
             })->first();
-
+            
             if ($elementData) {
                 $unidadMedida = $elementData->measurement_unit->name;
                 $categoria = $elementData->category->name;
@@ -417,7 +417,7 @@ class LaborManagementController extends Controller
             $elementId = $request->input('element');
 
             // Realiza la lógica para obtener los datos del elemento en una sola consulta
-            $dataelement = Inventory::where('id', $elementId)->first();
+            $dataelement = Inventory::where('element_id', $elementId)->first();
 
             if ($dataelement) {
                 $measurement_unit = $dataelement->element->measurement_unit->conversion_factor;
@@ -441,7 +441,6 @@ class LaborManagementController extends Controller
             return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
-
 
 
 }
