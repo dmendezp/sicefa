@@ -10,10 +10,8 @@
                             <th></th>
                             <th>Categoria</th>
                             <th>Insumos</th>
-                            <th>{{ trans('agrocefa::movements.1T_Measurement_Unit') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Amount') }}</th>
-                            <th>{{ trans('agrocefa::movements.1T_Price') }}</th>
-                            <th>Lote</th>
+                            <th>Dosis*HA: Lt-Kg</th>
+                            <th>Precio U.Elemento</th>
                             <th>Precio Total</th>
                             <!-- Agregar la columna de Destino -->
                             <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
@@ -48,10 +46,8 @@
                     '<td><input type="hidden" id="product-name" class="product-name" name="product-name[]"></td>' +
                     '<td class="col-2"><select id="category-id" class="form-control" name="category-id[]" required><option value="">Seleccione la Categoria</option>@foreach ($categories as $category)<option value="{{ $category->id }}">{{ $category->name }}</option>@endforeach</select></td>' +
                     '<td class="col-2"><select id="product-id1" class="form-control product-id1" name="product-id1[]" required></select></td>' +
-                    '<td><input type="text" id="product-measurement-unit" class="form-control product-measurement-unit" name="product-measurement-unit[]" readonly><input type="hidden" id="product-stock" class="product-stock" name="product-stock[]"></td>' +
                     '<td class="col-2"><input type="number" id="product-quantity" class="form-control product-quantity" name="product-quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
                     '<td><input type="text" id="product-price" class="form-control product-price" name="product-price[]" readonly></td>' +
-                    '<td><input type="text" id="product-lot" class="form-control product-lot" name="product-lot[]" readonly></td>' +
                     '<td><input type="text" id="price-total" class="form-control price-total" name="price-total[]" readonly></td>' +
                     '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>'
                 );
@@ -244,23 +240,29 @@
                             element: selectedElementId
                         },
                         success: function(response) {
-                            console.log(response);
+                            console.log(response.amount);
 
-                            var availableQuantity = response.amount;
+                            // Verifica si response.amount es válido y es un número
+                            if (response.amount !== null) {
+                                var availableQuantity = parseInt(response.amount);
+                                var quantityMessage = currentRow.find('.quantity-message');
 
-                            var quantityMessage = currentRow.find('.quantity-message');
-
-                            if (enteredQuantity <= availableQuantity) {
-                                quantityMessage.text('Cantidad Disponible: ' +
-                                    availableQuantity).removeClass('error-message');
-                                $('#registerButton').prop('disabled',
-                                    false); // Habilitar el botón
+                                if (enteredQuantity <= availableQuantity) {
+                                    quantityMessage.text('Cantidad Disponible: ' +
+                                        availableQuantity).removeClass('error-message');
+                                    $('#registerButton').prop('disabled', false);
+                                } else {
+                                    // Si la cantidad ingresada es mayor que la disponible
+                                    quantityMessage.text('La cantidad ingresada (' +
+                                        enteredQuantity + ') es mayor a la disponible (' +
+                                        availableQuantity + ')').addClass('error-message');
+                                    $('#registerButton').prop('disabled', true);
+                                }
                             } else {
-                                quantityMessage.text(
-                                    'La cantidad que desea enviar es mayor a la disponible : ' +
-                                    availableQuantity).addClass('error-message');
-                                $('#registerButton').prop('disabled',
-                                    true); // Deshabilitar el botón
+                                var quantityMessage = currentRow.find('.quantity-message');
+                                quantityMessage.text('Error: Cantidad disponible no válida')
+                                    .addClass('error-message');
+                                $('#registerButton').prop('disabled', true);
                             }
                         },
                         error: function() {

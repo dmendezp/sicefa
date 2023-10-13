@@ -3,7 +3,7 @@
 namespace Modules\AGROCEFA\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
@@ -31,8 +31,6 @@ use App\Models\User;
 
 class LaborManagementController extends Controller
 {
-
-
     //rutas de la vista de las tarjetas y la de labores culturales
     public function index()
     {
@@ -41,17 +39,17 @@ class LaborManagementController extends Controller
 
     public function culturalwork()
     {
-
         // Fecha actual
         $date = Carbon::now();
 
-
         // Obtén el ID de la unidad productiva seleccionada de la sesión
-         $this->selectedUnitId= Session::get('selectedUnitId');
-        
+        $this->selectedUnitId = Session::get('selectedUnitId');
+
         // ---------------- Filtro para los Lotes de esa Unidad -----------------------
 
-        $lotData = EnvironmentProductiveUnit::where('productive_unit_id', $this->selectedUnitId)->with('environment')->get();
+        $lotData = EnvironmentProductiveUnit::where('productive_unit_id', $this->selectedUnitId)
+            ->with('environment')
+            ->get();
 
         // Inicializa un array para almacenar los nombres y IDs de los ambientes
         $environmentData = [];
@@ -60,7 +58,7 @@ class LaborManagementController extends Controller
         foreach ($lotData as $item) {
             $environmentId = $item->environment->id;
             $environmentName = $item->environment->name;
-            
+
             // Agrega un array asociativo con el ID y el nombre del ambiente al array de datos
             $environmentData[] = [
                 'id' => $environmentId,
@@ -68,12 +66,10 @@ class LaborManagementController extends Controller
             ];
         }
 
-
         // ---------------- Filtro para las Actividades de esa unidad -----------------------
 
         // Intenta encontrar la unidad productiva por su ID y verifica si se encuentra
         $activitys = Activity::where('productive_unit_id', $this->selectedUnitId)->get();
-
 
         // Inicializa un array para almacenar la información de las bodegas
         $activitysData = [];
@@ -82,12 +78,11 @@ class LaborManagementController extends Controller
         if ($activitys) {
             // Mapea las bodegas y agrega su información al array
             $activitysData = $activitys->map(function ($activity) {
-
                 return [
                     'id' => $activity->id,
                     'name' => $activity->name,
                 ];
-            }); 
+            });
         }
 
         // ---------------- Filtro para las Categorias -----------------------
@@ -99,12 +94,10 @@ class LaborManagementController extends Controller
 
         $employes = EmployementType::get();
 
-
         // ---------------- Filtro para las Elementos -----------------------
 
         // Obtener el ID de la unidad productiva seleccionada (asumiendo que lo tienes en sesión)
         $selectedUnitId = Session::get('selectedUnitId');
-
 
         // Obtén los registros de productive_unit_warehouse que coinciden con la unidad productiva seleccionada
         $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->get();
@@ -116,11 +109,11 @@ class LaborManagementController extends Controller
 
         // Herramientas
         $toolsData = Inventory::with('element.category')
-        ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
-        ->whereHas('element.category', function ($query) {
-            $query->where('name', 'Herramienta');
-        })
-        ->get();
+            ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
+            ->whereHas('element.category', function ($query) {
+                $query->where('name', 'Herramienta');
+            })
+            ->get();
 
         $toolOptions = [];
 
@@ -132,11 +125,11 @@ class LaborManagementController extends Controller
 
         // Maquinaria
         $machineryData = Inventory::with('element.category')
-        ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
-        ->whereHas('element.category', function ($query) {
-            $query->where('name', 'Maquinaria');
-        })
-        ->get();
+            ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
+            ->whereHas('element.category', function ($query) {
+                $query->where('name', 'Maquinaria');
+            })
+            ->get();
 
         $machineryOptions = [];
 
@@ -159,11 +152,11 @@ class LaborManagementController extends Controller
 
         // Agroquimico
         $agrochemicalsData = Inventory::with('element.category')
-        ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
-        ->whereHas('element.category', function ($query) {
-            $query->where('name', 'Agroquimico');
-        })
-        ->get();
+            ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
+            ->whereHas('element.category', function ($query) {
+                $query->where('name', 'Agroquimico');
+            })
+            ->get();
 
         $agrochemicalOptions = [];
 
@@ -173,8 +166,6 @@ class LaborManagementController extends Controller
             $agrochemicalOptions[$inventoryId] = $elementName;
         }
 
-
-    
         // ---------------- Retorno a vista y funciones -----------------------
 
         return view('agrocefa::labormanagement.culturalwork', [
@@ -188,8 +179,7 @@ class LaborManagementController extends Controller
 
         ]);
     }
-    
-    
+
     public function obteneresponsability(Request $request)
     {
         try {
@@ -200,7 +190,8 @@ class LaborManagementController extends Controller
 
             // Carga la unidad productiva con las relaciones necesarias
             $activities = Activity::with('responsibilities.role.users.person')
-                ->where('productive_unit_id', $this->selectedUnitId)->where('id',$activityid)
+                ->where('productive_unit_id', $this->selectedUnitId)
+                ->where('id', $activityid)
                 ->first();
 
             $peopleData = []; // Array para almacenar los datos de las personas
@@ -209,7 +200,7 @@ class LaborManagementController extends Controller
                 foreach ($activities->responsibilities as $responsibility) {
                     foreach ($responsibility->role->users as $user) {
                         $person = $user->person;
-            
+
                         // Agregar los datos de la persona al array si existe
                         if ($person) {
                             $peopleData[] = [
@@ -261,7 +252,7 @@ class LaborManagementController extends Controller
             $lots = Environment::with('crops')
                 ->where('id', $lotid)
                 ->first();
-            
+
             $cropData = []; // Array para almacenar los datos de las personas
 
             if ($lots) {
@@ -271,6 +262,7 @@ class LaborManagementController extends Controller
                         $cropData[] = [
                             'id' => $crop->id,
                             'name' => $crop->name,
+                            'sown_area' => $crop->sown_area, // Agrega el sown_area al arreglo
                         ];
                     }
                 }
@@ -279,7 +271,7 @@ class LaborManagementController extends Controller
             $response = [
                 'crop_data' => $cropData,
             ];
-    
+
             return response()->json($response);
         } catch (\Exception $e) {
             \Log::error('Error en la solicitud AJAX: ' . $e->getMessage());
@@ -287,80 +279,79 @@ class LaborManagementController extends Controller
         }
     }
 
-    public function getsupplies(Request $request) 
-{
-    try {
-        $categoryId = $request->input('category');
-        
-        // Obtener las IDs de las bodegas relacionadas con la unidad productiva seleccionada
-        $warehouseIds = ProductiveUnitWarehouse::where('productive_unit_id', Session::get('selectedUnitId'))->pluck('id');
-        
-        // Registrar un mensaje de información con los IDs de las bodegas
-        \Log::info('Bodega IDs:', $warehouseIds->toArray());
+    public function getsupplies(Request $request)
+    {
+        try {
+            $categoryId = $request->input('category');
 
-        // Obtener los elementos de las bodegas
-        $inventory = Inventory::whereIn('productive_unit_warehouse_id', $warehouseIds)->whereHas('element.category', function ($query) use ($categoryId) {
-            $query->where('id', $categoryId);
-        })->get();
+            // Obtener las IDs de las bodegas relacionadas con la unidad productiva seleccionada
+            $warehouseIds = ProductiveUnitWarehouse::where('productive_unit_id', Session::get('selectedUnitId'))->pluck('id');
 
-        if ($inventory) {
-            // Mapear los datos para incluir ID y nombre del elemento
-            $elementsData = $inventory->map(function ($item) {
-                return [
-                    'id' => $item->element->id,
-                    'name' => $item->element->name,
-                    'price' => $item->element->price,
-                    'amount' => $item->element->amount,
-                    // Agrega otros atributos relacionados con el elemento si es necesario
-                ];
-            });
+            // Registrar un mensaje de información con los IDs de las bodegas
+            \Log::info('Bodega IDs:', $warehouseIds->toArray());
 
-            // Devuelve la respuesta JSON con los IDs y nombres de los elementos
-            return response()->json($elementsData);
-        } else {
-            // Registra un mensaje de error
-            \Log::error('Elemento no encontrado');
+            // Obtener los elementos de las bodegas
+            $inventory = Inventory::whereIn('productive_unit_warehouse_id', $warehouseIds)
+                ->whereHas('element.category', function ($query) use ($categoryId) {
+                    $query->where('id', $categoryId);
+                })
+                ->get();
 
-            return response()->json(['error' => 'Elemento no encontrado'], 404);
+            if ($inventory) {
+                // Mapear los datos para incluir ID y nombre del elemento
+                $elementsData = $inventory->map(function ($item) {
+                    return [
+                        'id' => $item->element->id,
+                        'name' => $item->element->name,
+                        'price' => $item->element->price,
+                        'amount' => $item->element->amount,
+                        // Agrega otros atributos relacionados con el elemento si es necesario
+                    ];
+                });
+
+                // Devuelve la respuesta JSON con los IDs y nombres de los elementos
+                return response()->json($elementsData);
+            } else {
+                // Registra un mensaje de error
+                \Log::error('Elemento no encontrado');
+
+                return response()->json(['error' => 'Elemento no encontrado'], 404);
+            }
+        } catch (\Exception $e) {
+            // Registra un mensaje de error interno del servidor
+            \Log::error('Error interno del servidor: ' . $e->getMessage());
+
+            return response()->json(['error' => 'Error interno del servidor'], 500);
         }
-    } catch (\Exception $e) {
-        // Registra un mensaje de error interno del servidor
-        \Log::error('Error interno del servidor: ' . $e->getMessage());
-
-        return response()->json(['error' => 'Error interno del servidor'], 500);
     }
-}
-
 
     public function obtenerDatosElemento(Request $request)
-        {
-            try {
-                $elementId = $request->input('element');
-                
-                // Realiza la lógica para obtener los datos del elemento en una sola consulta
-                $elementData = Element::whereHas('inventories', function ($query) use ($elementId) {
-                    $query->where('id', $elementId);
-                })->first();
-                
-                if ($elementData) {
-                    $unidadMedida = $elementData->measurement_unit->name;
-                    $categoria = $elementData->category->name;
-                    $name = $elementData->name;
+    {
+        try {
+            $elementId = $request->input('element');
 
+            // Realiza la lógica para obtener los datos del elemento en una sola consulta
+            $elementData = Element::whereHas('inventories', function ($query) use ($elementId) {
+                $query->where('id', $elementId);
+            })->first();
 
-                    return response()->json([
-                        'unidad_medida' => $unidadMedida,
-                        'categoria' => $categoria,
-                        'name' => $name,
+            if ($elementData) {
+                $unidadMedida = $elementData->measurement_unit->name;
+                $categoria = $elementData->category->name;
+                $name = $elementData->name;
 
-                    ]);
-                } else {
-                    return response()->json(['error' => 'Elemento no encontrado'], 404);
-                }
-            } catch (\Exception $e) {
-                return response()->json(['error' => 'Error interno del servidor'], 500);
+                return response()->json([
+                    'unidad_medida' => $unidadMedida,
+                    'categoria' => $categoria,
+                    'name' => $name,
+                ]);
+            } else {
+                return response()->json(['error' => 'Elemento no encontrado'], 404);
             }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error interno del servidor'], 500);
         }
+    }
 
         public function getcropinformation(Request $request)
         {
@@ -427,16 +418,14 @@ class LaborManagementController extends Controller
 
             // Realiza la lógica para obtener los datos del elemento en una sola consulta
             $dataelement = Inventory::where('id', $elementId)->first();
-            
+
             if ($dataelement) {
-                
                 $measurement_unit = $dataelement->element->measurement_unit->conversion_factor;
                 $destination = $dataelement->destination;
                 $price = $dataelement->price;
-                $amount = $dataelement->amount/$measurement_unit . ' ' . $dataelement->element->measurement_unit->abbreviation;
+                $amount = $dataelement->amount / $measurement_unit . ' ' . $dataelement->element->measurement_unit->abbreviation;
                 $lote = $dataelement->lot_number;
                 $stock = $dataelement->stock;
-                
 
                 return response()->json([
                     'price' => $price,
@@ -444,7 +433,6 @@ class LaborManagementController extends Controller
                     'destination' => $destination,
                     'lote' => $lote,
                     'stock' => $stock,
-
                 ]);
             } else {
                 return response()->json(['error' => 'Precio no encontrado'], 404);
