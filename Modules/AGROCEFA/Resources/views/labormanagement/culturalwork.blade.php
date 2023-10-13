@@ -102,15 +102,6 @@
                         </div>
                         <br>
                         <div class="form-group">
-                            {!! Form::label('responsability', 'Responsable Labor') !!}
-                            {!! Form::select('responsability', [], old('responsability'), [
-                                'class' => 'form-control',
-                                'required',
-                                'id' => 'responsability',
-                            ]) !!}
-                        </div>
-                        <br>
-                        <div class="form-group">
                             {!! Form::label('activity', 'Actividad') !!}
                             {!! Form::select(
                                 'activity',
@@ -120,6 +111,14 @@
                             ) !!}
                         </div>
                         <br>
+                        <div class="form-group">
+                            {!! Form::label('responsability', 'Responsable Labor') !!}
+                            {!! Form::select('responsability', [], old('responsability'), [
+                                'class' => 'form-control',
+                                'required',
+                                'id' => 'responsability',
+                            ]) !!}
+                        </div>
                         <!-- Agregar un botón para desplegar/cerrar la información adicional -->
 
                     </div>
@@ -153,21 +152,15 @@
                     </button>
                 </div>
                 <br>
-                <div class="row">
-                    <button type="button" id="buttonfertilizer" class="btn btn-primary buttonlabor">Fertilizante</button>
-                    <div style="width: 20px;"></div>
-                    <button type="button" id="buttonagrochemical" class="btn btn-primary buttonlabor">Agroquímico</button>
-                </div>
             </div>
             <br>
-            @include('agrocefa::labormanagement.component.supplies')
             @include('agrocefa::labormanagement.component.executor')
-            @include('agrocefa::labormanagement.component.fertilizer')
+            @include('agrocefa::labormanagement.component.supplies')
             @include('agrocefa::labormanagement.component.machinery')
             @include('agrocefa::labormanagement.component.tool')
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script>
         $(document).ready(function() {
             // Manejar el evento de clic en el botón "Herramienta Utilizada"
@@ -187,13 +180,6 @@
             $('#buttonmachinery').on('click', function() {
                 $('#formmachinery').toggle(); // Mostrar u ocultar el formulario
                 $('#arrowmachinery').toggleClass(
-                    'fa-chevron-down fa-chevron-up'); // Cambiar la clase del icono
-            });
-
-            // Manejar el evento de clic en el botón "Fertilizante"
-            $('#buttonfertilizer').on('click', function() {
-                $('#formfertilizer').toggle(); // Mostrar u ocultar el formulario
-                $('#arrowfertilizer').toggleClass(
                     'fa-chevron-down fa-chevron-up'); // Cambiar la clase del icono
             });
 

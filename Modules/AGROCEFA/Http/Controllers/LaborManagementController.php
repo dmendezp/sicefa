@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\Element;
+use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Warehouse;
@@ -21,6 +22,7 @@ use Modules\SICA\Entities\EnvironmentProductiveUnit;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Category;
+use Modules\AGROCEFA\Entities\EmployementType;
 use Modules\AGROCEFA\Entities\Tool;
 use Modules\AGROCEFA\Entities\Crop;
 use Modules\AGROCEFA\Entities\Variety;
@@ -91,6 +93,11 @@ class LaborManagementController extends Controller
         // ---------------- Filtro para las Categorias -----------------------
 
         $categories = Category::whereIn('name', ['Insumo', 'Fertilizante', 'Agroquimico'])->get();
+        
+        
+        // ---------------- Filtro para los tipos de empleado -----------------------
+
+        $employes = EmployementType::get();
 
 
         // ---------------- Filtro para las Elementos -----------------------
@@ -139,20 +146,15 @@ class LaborManagementController extends Controller
             $machineryOptions[$inventoryId] = $elementName;
         }
 
-        // Fertilizante
-        $fertilizersData = Inventory::with('element.category')
-        ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
-        ->whereHas('element.category', function ($query) {
-            $query->where('name', 'Fertilizante');
-        })
-        ->get();
+        // Personal
+        $peopleData = Apprentice::with('person')->get();
 
-        $fertilizerOptions = [];
+        $peopleOptions = [];
 
-        foreach ($fertilizersData as $inventory) {
-            $inventoryId = $inventory->id;
-            $elementName = $inventory->element->name;
-            $fertilizerOptions[$inventoryId] = $elementName;
+        foreach ($peopleOptions as $apprentice) {
+            $personId = $apprentice->id;
+            $fullname = $apprentice->person->first_name . $apprentice->person->first_last_name;
+            $peopleOptions[$personId] = $fullname;
         }
 
         // Agroquimico
@@ -181,8 +183,8 @@ class LaborManagementController extends Controller
             'environmentData' => $environmentData,
             'toolOptions' => $toolOptions,
             'machineryOptions' => $machineryOptions,
-            'fertilizerOptions' => $fertilizerOptions,
             'categories' => $categories,
+            'employes' => $employes,
 
         ]);
     }
@@ -231,6 +233,22 @@ class LaborManagementController extends Controller
         }
     }
 
+    public function searchperson(Request $request) {
+        $term = $request->input('q');
+    
+        $persons = Person::where('document_number', 'like', '%' . $term . '%')->get();
+    
+        $results = [];
+        foreach ($persons as $person) {
+            $results[] = [
+                'id' => $person->id,
+                'text' => $person->first_name . ' ' .  $person->first_last_name,
+            ];
+        }
+    
+        return response()->json($results);
+    }
+    
     public function obtenerecrop(Request $request)
     {
         try {
@@ -345,6 +363,31 @@ class LaborManagementController extends Controller
         }
 
     /* Obtener datos del elemento */
+    public function getpriceemploye(Request $request)
+    {
+        try {
+            $employee = $request->input('employee');
+
+            // Realiza la lógica para obtener los datos del elemento en una sola consulta
+            $employeData = EmployementType::where('id', $employee)->first();
+            
+            if ($employeData) {
+                $price = $employeData->price;
+
+
+                return response()->json([
+                    'price' => $price
+
+                ]);
+            } else {
+                return response()->json(['error' => 'Precio no encontrado'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error interno del servidor'], 500);
+        }
+    }
+
+    /* Obtener datos del elemento */
     public function getprice(Request $request)
     {
         try {
@@ -378,8 +421,6 @@ class LaborManagementController extends Controller
             return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
-
-
 
 
 

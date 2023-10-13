@@ -50,5 +50,4 @@
     function redirectToCulturalWork() {
         window.location.href = "{{ route('agrocefa.culturalwork') }}";
     }
-
 </script>
