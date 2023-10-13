@@ -24,7 +24,7 @@
                     <th>{{ trans('agrocefa::cultivo.End date') }}</th>
                     @auth
                         @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
-                            <th>Acciones</th>
+                            <th>{{ trans('agrocefa::specie.Actions') }}</th>
                         @endif
                     @endauth
                 </tr>
@@ -164,7 +164,7 @@
                         {!! Form::text('seed_time', $crop->seed_time, ['class' => 'form-control', 'required']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('density', 'Densidad de Plantas') !!}
+                        {!! Form::label('density', trans('agrocefa::cultivo.Plant Density')) !!}
                         <div class="input-group">
                             {!! Form::text('density', $crop->density, [
                                 'class' => 'form-control',

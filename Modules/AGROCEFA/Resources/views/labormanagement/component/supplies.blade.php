@@ -116,7 +116,7 @@
             $('#addProduct1').click(function() {
                 var lastRow = suppliesTable.find('tr.product-row:last');
 
-                if (lastRow.find('#product-id1').val() && lastRow.find('#product-measurement-unit').val() &&
+                if (lastRow.find('#product-id1').val() &&
                     lastRow.find('#product-quantity').val() && lastRow.find('#product-price').val() &&
                     lastRow.find('#price-total').val()) {
                     addProductRow();
@@ -275,19 +275,32 @@
                 }
             });
 
-            // Cambiar el evento 'change' a 'input' para el campo de cantidad
+            // Función para recalcular el precio total
+            function calculateTotal() {
+                var sownArea = parseFloat($('#sownArea').val()) || 0; // Obtener el valor del área sembrada
+                console.log(sownArea);
+                suppliesTable.find('tr.product-row').each(function() {
+                    var currentRow = $(this);
+                    var priceField = currentRow.find('.product-price');
+                    var quantityField = currentRow.find('.product-quantity');
+                    var priceTotalField = currentRow.find('.price-total');
+
+                    var price = parseFloat(priceField.val()) || 0;
+                    var quantity = parseInt(quantityField.val()) || 0;
+                    if (price > 0 && quantity > 0) {
+                        var total = price * quantity * sownArea; // Multiplica por el área sembrada
+                        
+
+                        priceTotalField.val(total.toFixed(0));
+                    } else {
+                        priceTotalField.val(''); // Deja el campo en blanco si falta información
+                    }
+                });
+            }
+
+            // Manejador de eventos para el cambio en el campo de cantidad y precio
             suppliesTable.on('input', 'input[name="product-quantity[]"]', function() {
-                var currentRow = $(this).closest('tr');
-                var priceField = currentRow.find('#product-price');
-                var quantityField = currentRow.find('#product-quantity');
-                var priceTotalField = currentRow.find('#price-total');
-
-                var price = parseFloat(priceField.val()) || 0;
-                var quantity = parseInt(quantityField.val()) || 0;
-
-                var total = price * quantity;
-
-                priceTotalField.val(total.toFixed(0));
+                calculateTotal();
             });
 
 

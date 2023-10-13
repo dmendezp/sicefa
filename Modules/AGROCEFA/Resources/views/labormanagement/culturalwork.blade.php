@@ -342,6 +342,25 @@
                     if (selectedCropId) {
                         // Mostrar el botón de detalles del cultivo si se selecciona un cultivo
                         $('.cultivo-details-button').show();
+                        $.ajax({
+                            url: '{{ route('agrocefa.labormanagement.getcropinformation') }}',
+                            method: 'GET',
+                            data: {
+                                id: selectedCropId
+                            },
+                            success: function(response) {
+                                var areaSembrada = response
+                                .sown_area; // Aquí obtienes el valor del área sembrada
+
+                                // Establece el valor en el campo oculto
+                                $('#sownArea').val(areaSembrada);
+                                console.log(response);
+                            },
+                            error: function() {
+                                // Manejar errores si la solicitud AJAX falla
+                                console.error('Error en la solicitud AJAX');
+                            }
+                        });
 
                         // Obtener el nombre del cultivo seleccionado y actualizar el <span>
                         var selectedCropName = $('#cropSelect option:selected').text();
@@ -369,6 +388,7 @@
 
                                 // Establece el valor en el campo oculto
                                 $('#sownArea').val(areaSembrada);
+                                console.log(response);
                                 // Mostrar los detalles del cultivo en el modal
                                 $('#cultivoInfo').html(
                                     '<p><strong>Nombre:</strong> ' + response.name + '</p>' +
