@@ -362,6 +362,38 @@ class LaborManagementController extends Controller
             }
         }
 
+        public function getcropinformation(Request $request)
+        {
+            try {
+                $cropId = $request->input('id');
+                
+                // Realiza la lógica para obtener los datos del elemento en una sola consulta
+                $cropData = Crop::where('id', $cropId)->first();
+
+                if ($cropData) {
+                    $name = $cropData->name;
+                    $sown_area = $cropData->sown_area;
+                    $seed_time = $cropData->seed_time;
+                    $density = $cropData->density;
+                    
+
+
+                    return response()->json([
+                        'name' => $name,
+                        'sown_area' => $sown_area,
+                        'seed_time' => $seed_time,
+                        'density' => $density,
+                        
+
+                    ]);
+                } else {
+                    return response()->json(['error' => 'Cultivo no encontrado'], 404);
+                }
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Error interno del servidor'], 500);
+            }
+        }
+        
     /* Obtener datos del elemento */
     public function getpriceemploye(Request $request)
     {
