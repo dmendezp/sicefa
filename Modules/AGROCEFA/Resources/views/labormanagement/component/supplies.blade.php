@@ -116,7 +116,7 @@
             $('#addProduct1').click(function() {
                 var lastRow = suppliesTable.find('tr.product-row:last');
 
-                if (lastRow.find('#product-id1').val() && lastRow.find('#product-measurement-unit').val() &&
+                if (lastRow.find('#product-id1').val() &&
                     lastRow.find('#product-quantity').val() && lastRow.find('#product-price').val() &&
                     lastRow.find('#price-total').val()) {
                     addProductRow();
