@@ -15,8 +15,17 @@
                             
                             <!-- Barra de búsqueda de documentos -->
                             <div class="form-group d-flex justify-content-center align-items-center">
-                                <input type="text" class="form-control col-md-4" id="documento_search" placeholder="Buscar documento">
-                                
+                                <form action="{{route('cefa.bienestar.search1')}}" method="POST">
+                                    @csrf
+                                    <div class="row bg-white rounded p-2"> <!-- Cambiamos el color a blanco y añadimos bordes redondeados y relleno -->
+                                        <div class="col-8"> <!-- Cambiamos de "col-md-8" a "col-8" para hacerlo más ancho y adaptativo -->
+                                            <input type="number" name="document_number" class="form-control" id="documento_search" placeholder="Buscar documento" required>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="submit" value="Consultar" class="btn btn-primary"> <!-- Añadimos estilos de botón -->
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             
                             <!-- Otros campos y botones de formulario si es necesario -->
@@ -33,6 +42,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if(isset($person))
+                                        @foreach($person->apprentices as $apprentice)
+                                            <tr>
+                                                <td>{{$person->full_name}}</td>
+                                                <td>{{$person->document_number}}</td>
+                                                <td>{{$apprentice->course->program->name}}</td>
+                                                <td>{{$apprentice->course->code}}</td>
+                                                <td>1</td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="5" class="text-center">No se ha encontrado resultados</td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
 
@@ -46,14 +70,12 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
+{{-- <script>
     $(document).ready(function() {
     $('#resultados_table').DataTable();
-
     // Agrega un evento input al campo document_number
     $('#documento_search').on('input', function() {
         var documentNumber = $(this).val();
-
         // Realiza la petición AJAX
         $.ajax({
             url: '{{ route('cefa.bienestar.search') }}',
@@ -66,7 +88,6 @@
                 console.log(response);
                 // Limpia el cuerpo de la tabla
                 $('#resultados_table tbody').empty();
-
                 // Verifica si se encontró una persona
                 if (response) {
                     // Recorre todos los aprendices y sus postulaciones
@@ -97,9 +118,7 @@
                             // Si no hay postulaciones, muestra un mensaje
                             row += '<td>Sin postulaciones</td>';
                         }
-
                         row += '</tr>';
-
                         $('#resultados_table tbody').append(row);
                     }
                 } else {
@@ -114,7 +133,5 @@
         });
     });
 });
-
-
-</script>
+</script> --}}
 @endsection
