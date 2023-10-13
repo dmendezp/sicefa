@@ -243,14 +243,12 @@ window.onclick = function(event) {
 {{-- Trae el responsable de la actividad seleccionada --}}
 <script>
     $(document).ready(function() {
-         // Detecta cambios en el primer campo de selección (Receiver)
-         $('#activity-selected').on('change', function() {
+        // Detecta cambios en el primer campo de selección (Receiver)
+        $('#activity-selected').on('change', function() {
             var selectedActivity = $(this).val();
-
             var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
-
             // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
-            
+            console.log(url);
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -261,14 +259,37 @@ window.onclick = function(event) {
                     });
 
                     // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
-                    $('#responsible').html(options);;
+                    $('#responsible').html(options);
+
+                    // Añade aquí el código para consultar el tipo de actividad
+                    var activityType = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.type', ['type' => ':type'])) !!}.replace(':type', selectedActivity.toString());
+                    $.ajax({
+                        url: activityType,
+                        type: 'GET',
+                        success: function(typeResponse) {
+                            if (typeResponse.type.length > 0) {
+                                $('#recipe-field').show();
+                                $('#date-expiration-field').show();
+                                $('#lot-field').show();
+                                $('#amount-production-field').show();
+                            } else {
+                                $('#recipe-field').hide();
+                                $('#date-expiration-field').hide();
+                                $('#lot-field').hide();
+                                $('#amount-production-field').hide();
+                            }
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
                 },
                 error: function(error) {
                     console.log(error);
                 }
             });
         });
-    })
+    });
 </script>
 
 {{-- Trae el precio segun el tipo de empleado seleccionado --}}

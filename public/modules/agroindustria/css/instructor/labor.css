@@ -106,6 +106,18 @@
     border: none;
 }
 
+.remove-consumables{
+    position: relative;
+    left: 2px;
+    padding: 10px 5px 10px 5px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+}
+
 #executors{
     background-color: #f0f0f0; /* Cambia este valor al color de fondo que desees */
 }

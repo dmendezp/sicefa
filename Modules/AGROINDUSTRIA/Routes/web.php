@@ -48,9 +48,11 @@ Route::middleware(['lang'])->group(function(){
             Route::post('/enviarsolicitud', [RequestController::class, 'create'])->name('cefa.agroindustria.units.instructor.enviarsolicitud');
             Route::put('/requests/cancelled/{id}', [RequestController::class, 'cancel'])->name('cefa.agroindustria.units.instructor.requests.cancelled');
 
+            //Labor
             Route::get('/labor', [LaborController::class, 'index'])->name('cefa.agroindustria.units.instructor.labor');
             Route::get('/labor/form', [LaborController::class, 'form'])->name('cefa.agroindustria.units.instructor.labor.form');
             Route::get('/labor/{activityId}', [LaborController::class, 'responsibilites'])->name('cefa.agroindustria.units.instructor.labor.responsibilities');
+            Route::get('/labor/type/{type}', [LaborController::class, 'activity_type'])->name('cefa.agroindustria.units.instructor.labor.type');
             Route::get('/labor/price/{id}', [LaborController::class, 'price_employement'])->name('cefa.agroindustria.units.instructor.labor.price');
             Route::get('/labor/tools/price/{id}', [LaborController::class, 'price_tools'])->name('cefa.agroindustria.units.instructor.labor.tools.price');
             Route::get('/labor/consumables/{id}', [LaborController::class, 'consumables'])->name('cefa.agroindustria.units.instructor.labor.consumables');
@@ -62,6 +64,7 @@ Route::middleware(['lang'])->group(function(){
             Route::post('/labor/realizar/{id}', [LaborController::class, 'approbedLabor'])->name('cefa.agroindustria.units.instructor.labor.realizar');
             Route::get('/equipment/register', [LaborController::class, 'create_equipment'])->name('cefa.agroindustria.units.instructor.equipment');
             Route::post('/equipment/register', [LaborController::class, 'store_equipment'])->name('cefa.agroindustria.units.instructor.equipment');
+            Route::put('/labor/realizar/movement/{id}', [LaborController::class, 'movement'])->name('cefa.agroindustria.units.instructor.labor.realizar.movement');
             Route::get('/activity', [ActivityController::class, 'activity'])->name('cefa.agroindustria.units.instructor.activity');
 
             //Producción

@@ -15,12 +15,12 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror                      
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="recipe-field" style="display: none;">
                             {!! Form::label('recipe', trans('agroindustria::labors.recipes')) !!}
-                            {!! Form::select('recipe', $recipe, old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select']) !!}   
+                            {!! Form::select('recipe', $recipe, old('recipe'), ['class' => 'form-control', 'id' => 'recipe-select']) !!}
                             @error('recipe')
                                 <span class="text-danger">{{ $message }}</span>
-                            @enderror                       
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             {!! Form::label('date_plannig', trans('agroindustria::labors.planningDate')) !!}
@@ -64,26 +64,26 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror   
                         </div>  
-                        <div class="col-md-4">
+                        <div class="col-md-4" id="date-expiration-field" style="display: none;">
                             {!! Form::label('date_experation', 'Fecha de expiración') !!}
                             {!! Form::date('date_experation', null, ['class' => 'form-control']) !!}
                             @error('date_experation')
                                 <span class="text-danger">{{ $message }}</span>
-                            @enderror   
-                        </div>    
-                        <div class="col-md-4"> 
+                            @enderror
+                        </div>
+                        <div class="col-md-4" id="lot-field" style="display: none;">
                             {!! Form::label('lot', 'Lote') !!}
                             {!! Form::number('lot', null, ['class' => 'form-control']) !!}
                             @error('lot')
                                 <span class="text-danger">{{ $message }}</span>
-                            @enderror 
+                            @enderror
                         </div>
-                        <div class="col-md-4"> 
+                        <div class="col-md-4" id="amount-production-field" style="display: none;">
                             {!! Form::label('amount_production', 'Cantidad') !!}
-                            {!! Form::number('amount_production', null, ['class' => 'form-control']) !!}
+                            {!! Form::number('amount_production', null, ['class' => 'form-control', 'id' => 'amount_production']) !!}
                             @error('amount_production')
                                 <span class="text-danger">{{ $message }}</span>
-                            @enderror 
+                            @enderror
                         </div>
                         <div class="col-md-12">
                             <button type="button" id="toggle-form-consumables">Registro de consumibles</button>
@@ -102,11 +102,7 @@
                                         <div class="form-group-consumables"> 
                                             <span class="quantity"></span>
                                             {!! Form::label('amount_consumables', 'Cantidad') !!}
-                                            {!! Form::number('amount_consumables[]', null, ['class' => 'form-control', 'id' => 'amount_consumables']) !!}
-                                        </div>
-                                        <div class="form-group-consumables">   
-                                            {!! Form::label('price_consumables', 'Precio') !!} 
-                                            {!! Form::text('price_consumables[]', null, ['class' => 'form-control', 'id' => 'price_consumables', 'readonly' => 'readonly']) !!}
+                                            {!! Form::number('amount_consumables[]', null, ['class' => 'form-control', 'id' => 'amount_consumables', 'step' => '0.01']) !!}
                                         </div>
                                         {!! Form::button(trans('agroindustria::request.delete'), ['class'=>'remove-consumables']) !!}                                
                                     </div>                           
@@ -182,56 +178,72 @@
 
 <script>
     $(document).ready(function () {
-
         // Agregar un nuevo campo de consumibles
         $('.element-select').select2();
 
-        $("#add-consumables").click(function() {
-            var newConsumable = '<div class="consumable"><div class="form-group-consumables">{!! Form::label("consumables", "Consumibles") !!}{!! Form::select("consumables[]", $consumables, null, ["class" => "element-select"]) !!}</div><div class="form-group-consumables"><span class="quantity"></span>{!! Form::label("amount_consumables", "Cantidad") !!}{!! Form::number("amount_consumables[]", null, ["class" => "form-control", "id" => "amount_consumables"]) !!}</div><div class="form-group-consumables">   {!! Form::label("price_consumables", "Precio") !!} {!! Form::text("price_consumables[]", null, ["class" => "form-control", "id" => "price_consumables", "readonly" => "readonly"]) !!}</div>{!! Form::button(trans("agroindustria::request.delete"), ["class"=>"remove-consumables"]) !!}</div> ';
-            
+        $("#add-consumables").click(function () {
+            var newConsumable = '<div class="consumable"><div class="form-group-consumables">{!! Form::label("consumables", "Consumibles") !!}{!! Form::select("consumables[]", $consumables, null, ["class" => "element-select"]) !!}</div><div class="form-group-consumables"><span class="quantity"></span>{!! Form::label("amount_consumables", "Cantidad") !!}{!! Form::number("amount_consumables[]", null, ["class" => "form-control", "id" => "amount_consumables"]) !!}</div>{!! Form::button(trans("agroindustria::request.delete"), ["class"=>"remove-consumables"]) !!}</div> ';
+
             // Agregar el nuevo campo al DOM
             $("#form-consumables").append(newConsumable);
 
             $('.element-select:last').select2();
-
         });
 
         // Eliminar un campo de consumibles
-        $("#form-consumables").on("click", ".remove-consumables", function() {
+        $("#form-consumables").on("click", ".remove-consumables", function () {
             $(this).closest('.consumable').remove();
         });
-        // Almacena las opciones originales en el campo de selección
 
         // Cuando cambie la selección de recetas
         $('#recipe-select').on('change', function () {
-            var selectedRecipeId = $(this).val();
+            updateConsumables();
+        });
+
+        // Cuando cambie la cantidad inicial
+        $('#amount_production').on('input', function () {
+            updateConsumables();
+        });
+
+        function updateConsumables() {
+            var cantidad = $('#amount_production').val(); // Obtener la cantidad actual en tiempo real
 
             // Realiza una solicitud AJAX para obtener los ingredientes de la receta
             $.ajax({
-                url: '{!! route('cefa.agroindustria.units.instructor.labor.consumables', ['id' => ':id']) !!}'.replace(':id', selectedRecipeId.toString()),
+                url: '{!! route('cefa.agroindustria.units.instructor.labor.consumables', ['id' => ':id']) !!}'.replace(':id', $('#recipe-select').val().toString()),
                 type: 'GET',
                 success: function (data) {
                     // Limpia el contenedor de consumibles
                     $('.consumable:first').empty();
+
                     // Itera a través de los consumibles y agrega los campos de selección de consumibles
                     $.each(data.consumables, function (index, consumable) {
                         var counter = index + 1; // Incrementa el contador
+                        var amountFormulation = data.amountFormulation[0].amountFormulation;
+                        console.log('Cantidad formula:' + amountFormulation);
+
+                        var amountPerFormulation = consumable.amountIngredient / amountFormulation;
+
+                        console.log('Ingredientes por formulacion:' + amountPerFormulation);
+
+                        var totalAmount = amountPerFormulation * cantidad; // Calcular la cantidad total
+
                         
                         var newConsumableField = '<div class="consumable">' +
                             '<div class="form-group-consumables">' +
+                            '<label for="consumables">Buscar Consumibles</label>' +
+                            '<input type="hidden" name="consumables[]" class="form-control" id="element-select-' + counter + '" value="' + consumable.id + '" style="width: 200px;" readonly>' +
+                            '</div>' +
+                            '<div class="form-group-consumables">' +
                             '<label for="consumables">Consumibles</label>' +
-                            '<input type="hidden" name="consumables[]" class="form-control" id="element-select-' + counter + '" value="' + consumable.id + '" readonly>' +
                             '<input type="text" name="name_consumable" class="form-control" id="element_name-' + counter + '" value="' + consumable.name + '" readonly>' +
                             '</div>' +
                             '<div class="form-group-consumables">' +
                             '<span class="quantity">Cantidad disponible: ' + consumable.amount + '</span>' +
                             '<label for="amount_consumables">Cantidad</label>' +
-                            '<input type="number" name="amount_consumables[]" class="form-control">' +
+                            '<input type="number" name="amount_consumables[]" class="form-control" value="' + totalAmount + '" readonly>' +
                             '</div>' +
-                            '<div class="form-group-consumables">' +
-                            '<label for="price_consumables">Precio</label>' +
-                            '<input type="text" name="price_consumables[]" class="form-control" value="' + consumable.price + '" readonly>' +
-                            '</div>' +
+                            '<button type="button" class="remove-consumables">{{trans("agroindustria::request.delete")}}</button>'
                             '</div>';
 
                         $('.consumable:first').append(newConsumableField);
@@ -243,15 +255,15 @@
                                 placeholder: 'Buscar insumos',
                                 minimumInputLength: 1,
                                 ajax: {
-                                    url: function(params) {
+                                    url: function (params) {
                                         var searchUrlElement = urlElemets.replace(':name', params.term);
                                         return searchUrlElement;
                                     },
                                     dataType: 'json',
                                     delay: 250,
-                                    processResults: function(data) {
+                                    processResults: function (data) {
                                         return {
-                                            results: data.elements.map(function(element) {
+                                            results: data.elements.map(function (element) {
                                                 return {
                                                     id: element.id,
                                                     text: element.name,
@@ -263,20 +275,22 @@
                                 }
                             });
 
-                            $('#element-select-' + currentCounter).on('select2:select', function(e) {
+                            $('#element-select-' + currentCounter).on('select2:select', function (e) {
                                 var selectedElement = e.params.data;
                                 $(this).closest('.consumable').find('input#element-select-' + currentCounter).val(selectedElement.id);
                                 $(this).closest('.consumable').find('input#element_name-' + currentCounter).val(selectedElement.text);
                             });
                         })(counter); // Pasa el valor de counter al contexto de la función autoinvocada
                     });
-     
                 },
                 error: function (error) {
                     console.log(error);
                 }
             });
-        });
+        }
+
+        // Llamar a updateConsumables al cargar la página
+        updateConsumables();
     });
 </script>
 
@@ -331,7 +345,6 @@
             // Detecta cambios en el primer campo de selección (Receiver)
             $('#employement_type').on('change', function() {
                 var selectedEmployement = $(this).val();
-                console.log(selectedEmployement);
                 var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.price', ['id' => ':id'])) !!}.replace(':id', selectedEmployement.toString());
                 // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
                 $.ajax({
