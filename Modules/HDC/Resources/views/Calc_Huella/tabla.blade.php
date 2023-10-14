@@ -10,37 +10,47 @@
                     <a href="{{ route('Carbonfootprint.form.calculates', $persona->id) }}" class="btn btn-success mb-2"><i
                             class="fa-solid fa-plus"></i></a>
                     <div class="mtop16">
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>N°</th>
-                                    <th>Aspecto Ambiental</th>
-                                    <th>Cantidad</th>
-                                    <th>CO2 (%)</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                               {{--   @foreach ($carbonFootprints as $index => $carbonFootprint)
+                        @if($environmeaspect->isNotEmpty())
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $carbonFootprint->aspecto->nombre }}</td>
-                                        <td>{{ $carbonFootprint->consumption_value }}</td>
-                                        <td>{{ $carbonFootprint->carbon_print }}%</td>
-                                        <td>
-                                            <a href="#" class="btn btn-warning"><i
-                                                    class="fa-solid fa-pencil"></i></a>
-                                            <a href="#" class= "btn btn-danger"><i class="fas fa-trash"></i></a>
-                                        </td>
+                                        <th>N°</th>
+                                        <th>Aspecto Ambiental</th>
+                                        <th>Cantidad</th>
+                                        <th>CO2 (%)</th>
+                                        <th>Acciones</th>
                                     </tr>
-                                @endforeach  --}}
-                            </tbody>
-                        </table>
-
+                                </thead>
+                                <tbody>
+                                    @foreach ($environmeaspect as $index => $aspect)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>
+                                                <ul>
+                                                    @foreach($aspect->personenvironmentalaspects as $personAspect)
+                                                        <li>{{ $personAspect->environmental_aspect->name }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    @foreach($aspect->personenvironmentalaspects as $personAspect)
+                                                        <li>{{ $personAspect->consumption_value }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
+                                            <td>Na</td>
+                                            <td>{{-- Agrega enlaces de acciones aquí --}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p>No hay datos disponibles.</p>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>

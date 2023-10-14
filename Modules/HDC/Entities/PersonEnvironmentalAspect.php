@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\HDC\Entities\FamilyPersonFootprint;
+use Modules\SICA\Entities\EnvironmentalAspect;
 
 
 class PersonEnvironmentalAspect extends Model implements Auditable
@@ -29,7 +30,11 @@ class PersonEnvironmentalAspect extends Model implements Auditable
 
     // RELACIONES
     public function familypersonfootprints(){ // Accede a la unidad Huella familiar al que pertenece
-        return $this->hasMany(FamilyPersonFootprint::class);
+        return $this->belongsTo(FamilyPersonFootprint::class);
+    }
+
+    public function environmental_aspect(){ // Accede a la unidad Huella familiar al que pertenece
+        return $this->belongsTo(EnvironmentalAspect::class);
     }
 
 }

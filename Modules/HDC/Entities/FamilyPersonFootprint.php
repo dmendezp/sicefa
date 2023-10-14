@@ -5,6 +5,7 @@ namespace Modules\HDC\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\Person;
+
 use OwenIt\Auditing\Contracts\Auditable;
 
 class FamilyPersonFootprint extends Model implements Auditable

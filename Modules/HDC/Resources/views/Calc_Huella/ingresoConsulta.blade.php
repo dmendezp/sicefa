@@ -83,6 +83,7 @@
                         // Actualizar el contenido con los datos de la persona
                         $("#respuesta").html(response);
                         $('#documento').val('');
+                        console.log(response);
                     }
                 }
             });

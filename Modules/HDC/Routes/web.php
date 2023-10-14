@@ -44,7 +44,7 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/form/calculates/footprint/save', 'CarbonfootprintController@saveConsumption')->name('Carbonfootprint.save_consumption');
 
         /* Rutas del CRUD */
-        Route::get('/carbonfootprints/{personaId}', 'TuControlador@showCarbonFootprints')->name('carbonfootprints.show');
+      
 
         /* Ruta de Graficas */
         Route::get('/Graficas', 'GraficasController@Graficas')->name('cefa.hdc.Graficas');

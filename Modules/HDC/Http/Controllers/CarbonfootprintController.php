@@ -28,14 +28,17 @@ class CarbonfootprintController extends Controller
     public function verificarUsuario($documento)
     {
         // Buscar la persona en la base de datos
+        $personaid = Person::where('document_number', $documento)->pluck('id')->first();
         $persona = Person::where('document_number', $documento)->first();
-
         if (is_null($persona)) {
             // Retorna una respuesta JSON con un mensaje de error si no se encuentra la persona
             return response()->json(['mensaje' => 'Persona No Encontrada']);
         } else {
+
+            $environmeaspect = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')->where('person_id' ,$personaid)->get();
+            
             // Retorna una vista con los datos de la persona si se encuentra
-            return view('hdc::Calc_Huella.tabla', ['persona' => $persona]);
+            return view('hdc::Calc_Huella.tabla', ['persona' => $persona, 'environmeaspect' => $environmeaspect]);
         }
     }
 
@@ -64,24 +67,24 @@ class CarbonfootprintController extends Controller
         // Guardar el modelo FamilyPersonFootprint
         $personFootprint->save();
 
+        $total = 0; 
         foreach ($data['aspecto'] as $values) {
             // Asociar con el modelo FamilyPersonFootprint
-            PersonEnvironmentalAspect::create([
+            $pea = PersonEnvironmentalAspect::create([
                 'environmental_aspect_id' => $values['id_aspecto'],
                 'family_person_footprint_id' => $personFootprint->id,
                 'consumption_value' => $values['valor_consumo'],
             ]);
-        }
 
-        return redirect()->route('carbonfootprint.calculos.persona', $person->document_number)->with('success', 'Valores guardados correctamente');
+            $total += $pea->consumption_value; 
+
+
+        }
+        $personFootprint->update(['carbon_print'=>$total]);
+
+        return redirect()->route('carbonfootprint.persona')->with('success', 'Valores guardados correctamente');
 
 
     }
-   /*  public function showCarbonFootprints($personaId)
-    {
-        $person = Person::findOrFail($personaId);
-        $carbonFootprints = FamilyPersonFootprint::with('aspecto')->where('person_id', $person->id)->get();
 
-        return view('hdc::Calc_Huella.tabla', compact('person', 'carbonFootprints'));
-    } */
 }

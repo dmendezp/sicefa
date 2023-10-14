@@ -4,6 +4,7 @@ namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\HDC\Entities\PersonEnvironmentalAspect;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Activity;
 
@@ -47,6 +48,10 @@ class EnvironmentalAspect extends Model implements Auditable
     }
     public function measurement_unit(){ // Accede a la unidad de medida al que pertenece
         return $this->belongsTo(MeasurementUnit::class);
+    }
+
+    public function personenvironmentalaspects(){ // Accede a la unidad de medida al que pertenece
+        return $this->hasMany(PersonEnvironmentalAspect::class);
     }
 
 }

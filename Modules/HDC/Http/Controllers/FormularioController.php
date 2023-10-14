@@ -10,6 +10,7 @@ use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\EnvironmentalAspectLabor;
 use Modules\SICA\Entities\EnvironmentalAspect;
 use Modules\SICA\Entities\Labor;
+use Illuminate\Support\Facades\Validator;
 
 
 class FormularioController extends Controller
@@ -48,20 +49,17 @@ class FormularioController extends Controller
 
     public function guardarValores(Request $request)
     {
-        $request->validate([
+        $validator = $request->validate([
             'aspecto.*.id' => 'required|exists:environmental_aspects,id',
             'aspecto.*.amount' => 'required|numeric',
             'activity_id' => 'required|exists:activities,id',
         ], [
-            // Mensajes de error personalizados
             'aspecto.*.amount.required' => 'Por favor, complete todos los campos.',
             'aspecto.*.amount.numeric' => 'El campo debe ser un valor numérico.',
         ]);
 
-       /*  dd('Validation Passed'); */
 
-
-
+        // Crear la labor y los aspectos ambientales asociados
         $labor = Labor::create([
             'person_id' => auth()->user()->person->id,
             'activity_id' => $request->input('activity_id'),
@@ -73,11 +71,7 @@ class FormularioController extends Controller
             'destination' => 'Formacion',
         ]);
 
-
-
-
         foreach ($request->input('aspecto') as $aspectoData) {
-
             EnvironmentalAspectLabor::create([
                 'environmental_aspect_id' => $aspectoData['id'],
                 'labor_id' => $labor->id,
@@ -89,6 +83,9 @@ class FormularioController extends Controller
         // Redirige al usuario o proporciona una respuesta de éxito
         return redirect()->route('admin.hdc.table')->with('success', 'Valores guardados correctamente');
     }
+
+
+
     public function table()
     {
 
@@ -113,8 +110,7 @@ class FormularioController extends Controller
             $labor->delete();
             return redirect()->back()->with('success', 'Eliminado satisfactoriamente');
         } catch (\Exception $e) {
-            $message = $e->getMessage(); // Puedes personalizar este mensaje según tus necesidades
-
+            $message = $e->getMessage();
             return redirect()->back()->with('error', $message);
         }
     }
