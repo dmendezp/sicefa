@@ -125,7 +125,6 @@ class FormulationController extends Controller
             $idPersona = $user->person->id;
         }
 
-
         $rules = [
             'element_id' => 'required',
             'proccess' => 'required',
@@ -139,8 +138,15 @@ class FormulationController extends Controller
             'element_id.required' => trans('agroindustria::menu.You must select an item'),
         ];
 
-            $validatedData = $request->validate($rules, $messages);
-
+        $validatedData = $request->validate($rules, $messages);
+        
+        $formulationExisting = Formulation::where('element_id', $validatedData['element_id'])->first();
+        if($formulationExisting){
+            return back()
+                ->withInput()
+                ->with('icon', 'error')
+                ->with('message_line', 'Ya existe una receta para este producto');
+        }else{
             $f = new Formulation;
             $f->element_id = $validatedData['element_id'];
             $f->person_id = $idPersona;
@@ -149,7 +155,7 @@ class FormulationController extends Controller
             $f->amount=  $validatedData['amount'];
             $f->date = $request->input('date');
             $f->save();
-
+    
             // Obtener los datos de ingredientes del formulario
             $nameIngredients = $request->input('element_ingredients');
             $amountIngredients = $request->input('amount_ingredients');
@@ -157,8 +163,7 @@ class FormulationController extends Controller
             // Obtener los datos de ingredientes del formulario
             $nameUtencils = $request->input('element_utencils');
             $amountUtencils = $request->input('amount_utencils');
-
-
+    
             // Recorrer los datos de productos y guardarlos en Supply
             foreach ($nameIngredients as $key => $ingredient) {
                 $i = new Ingredient;
@@ -180,7 +185,6 @@ class FormulationController extends Controller
                     ->with('message_line', trans('agroindustria::menu.You must enter an amount'));
                 }
                 $i->save();
-
                 $u = new Utensil;
                 if(isset($nameUtencils[$key])){
                     $u->element_id = $nameUtencils[$key];
@@ -201,19 +205,21 @@ class FormulationController extends Controller
                 }
                 $u->save();
             }
+        }    
+        
+        
 
-
-            if($u->save()){
-               $icon = 'success';
-                   $message_line = trans('agroindustria::formulations.Successfully created recipe');
-            }else{
-               $icon = 'error';
-               $message_line = trans('agroindustria::formulations.Error creating the recipe');
-            }
-            return redirect()->route('cefa.agroindustria.units.instructor.formulations')->with([
-                'icon' => $icon,
-                'message_line' => $message_line,
-            ]); 
+        if($u->save()){
+           $icon = 'success';
+               $message_line = trans('agroindustria::formulations.Successfully created recipe');
+        }else{
+           $icon = 'error';
+           $message_line = trans('agroindustria::formulations.Error creating the recipe');
+        }
+        return redirect()->route('cefa.agroindustria.units.instructor.formulations')->with([
+            'icon' => $icon,
+            'message_line' => $message_line,
+        ]); 
     }   
 
     public function edit($id){
