@@ -104,6 +104,14 @@
                                             {!! Form::label('amount_consumables', 'Cantidad') !!}
                                             {!! Form::number('amount_consumables[]', null, ['class' => 'form-control', 'id' => 'amount_consumables', 'step' => '0.01']) !!}
                                         </div>
+                                        <div class="form-group-consumables">
+                                            {!! Form::label('price_consumable', 'Valor unitario') !!}
+                                            {!! Form::number('price_unit_consumable', null, ['class'=>'form-control', 'id' => 'price_unit_consumable', 'readonly' => 'readonly']) !!}
+                                        </div>
+                                        <div class="form-group-consumables">
+                                            {!! Form::label('price_consumable_total', 'Total') !!}
+                                            {!! Form::number('price_unit_consumable_total', null, ['class'=>'form-control', 'id' => 'price_unit_consumable_total', 'readonly' => 'readonly']) !!}
+                                        </div>
                                         {!! Form::button(trans('agroindustria::request.delete'), ['class'=>'remove-consumables']) !!}                                
                                     </div>                           
                                 </div>
@@ -123,10 +131,14 @@
                                         <div class="form-group">
                                             <span class="quantity"></span>
                                             {!! Form::label('amount', 'Cantidad') !!}
-                                            {!! Form::number('amount_tools[]', null, ['class'=>'form-control']) !!}
+                                            {!! Form::number('amount_tools[]', null, ['class'=>'form-control', 'id' => 'amount_tools']) !!}
                                         </div>   
                                         <div class="form-group">  
-                                            {!! Form::label('price', 'Precio') !!}
+                                            {!! Form::label('price', 'Valor unitario') !!}
+                                            {!! Form::number('price_unit_tool', null, ['class'=>'form-control', 'id' => 'price_unit_tool', 'readonly' => 'readonly']) !!}
+                                        </div> 
+                                        <div class="form-group">  
+                                            {!! Form::label('price', 'Total') !!}
                                             {!! Form::number('price_tools[]', null, ['class'=>'form-control', 'id' => 'price_tool', 'readonly' => 'readonly']) !!}
                                         </div>            
                                         <button type="button" class="remove-tools">{{trans('agroindustria::menu.Delete')}}</button>
@@ -182,7 +194,7 @@
         $('.element-select').select2();
 
         $("#add-consumables").click(function () {
-            var newConsumable = '<div class="consumable"><div class="form-group-consumables">{!! Form::label("consumables", "Consumibles") !!}{!! Form::select("consumables[]", $consumables, null, ["class" => "element-select"]) !!}</div><div class="form-group-consumables"><span class="quantity"></span>{!! Form::label("amount_consumables", "Cantidad") !!}{!! Form::number("amount_consumables[]", null, ["class" => "form-control", "id" => "amount_consumables"]) !!}</div>{!! Form::button(trans("agroindustria::request.delete"), ["class"=>"remove-consumables"]) !!}</div> ';
+            var newConsumable = '<div class="consumable"><div class="form-group-consumables">{!! Form::label("consumables", "Consumibles") !!}{!! Form::select("consumables[]", $consumables, null, ["class" => "element-select"]) !!}</div><div class="form-group-consumables"><span class="quantity"></span>{!! Form::label("amount_consumables", "Cantidad") !!}{!! Form::number("amount_consumables[]", null, ["class" => "form-control", "id" => "amount_consumables"]) !!}</div><div class="form-group-consumables">{!! Form::label("price_consumable", "Valor unitario") !!}{!! Form::number("price_unit_consumable", null, ["class"=>"form-control", "id" => "price_unit_consumable", "readonly" => "readonly"]) !!}</div><div class="form-group-consumables">{!! Form::label("price_consumable_total", "Total") !!}{!! Form::number("price_unit_consumable_total", null, ["class"=>"form-control", "id" => "price_unit_consumable_total", "readonly" => "readonly"]) !!}</div>{!! Form::button(trans("agroindustria::request.delete"), ["class"=>"remove-consumables"]) !!}</div>';
 
             // Agregar el nuevo campo al DOM
             $("#form-consumables").append(newConsumable);
@@ -206,7 +218,9 @@
         });
 
         function updateConsumables() {
-            var cantidad = $('#amount_production').val(); // Obtener la cantidad actual en tiempo real
+            var amount = $('#amount_production').val(); // Obtener la cantidad actual en tiempo real
+            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.consumables', ['id' => ':id'])) !!}.replace(':id', $('#recipe-select').val().toString());
+            console.log(url);
 
             // Realiza una solicitud AJAX para obtener los ingredientes de la receta
             $.ajax({
@@ -220,15 +234,15 @@
                     $.each(data.consumables, function (index, consumable) {
                         var counter = index + 1; // Incrementa el contador
                         var amountFormulation = data.amountFormulation[0].amountFormulation;
-                        console.log('Cantidad formula:' + amountFormulation);
+                        console.log('amountFormulation: ' + amountFormulation);
+                        var amountIngredient = data.amountIngredient[index].amountIngredient;
+                        console.log('amountIngredient: ' + amountIngredient);
+                        var amountPerFormulation = amountIngredient / amountFormulation;
 
-                        var amountPerFormulation = consumable.amountIngredient / amountFormulation;
+                        var totalAmount = amountPerFormulation * amount; // Calcular la cantidad total
 
-                        console.log('Ingredientes por formulacion:' + amountPerFormulation);
+                        var totalPrice = totalAmount * consumable.price;
 
-                        var totalAmount = amountPerFormulation * cantidad; // Calcular la cantidad total
-
-                        
                         var newConsumableField = '<div class="consumable">' +
                             '<div class="form-group-consumables">' +
                             '<label for="consumables">Buscar Consumibles</label>' +
@@ -241,7 +255,12 @@
                             '<div class="form-group-consumables">' +
                             '<span class="quantity">Cantidad disponible: ' + consumable.amount + '</span>' +
                             '<label for="amount_consumables">Cantidad</label>' +
-                            '<input type="number" name="amount_consumables[]" class="form-control" value="' + totalAmount + '" readonly>' +
+                            '<input type="number" name="amount_consumables[]" id="amount_consumables_formulation" class="form-control" value="' + totalAmount + '" readonly>' +
+                            '</div>' +
+                            '<div class="form-group-consumables">' +
+                            '<span class="price_unit">Valor unitario: ' + consumable.price + '</span>' +
+                            '<label for="amount_consumables">Total</label>' +
+                            '<input type="number" name="total_price_consumable" id="total_price_consumable" class="form-control" value="' + totalPrice + '" readonly>' +
                             '</div>' +
                             '<button type="button" class="remove-consumables">{{trans("agroindustria::request.delete")}}</button>'
                             '</div>';
@@ -375,7 +394,7 @@
        $('.tool_select').select2();
 
        $("#add-tools").click(function() {
-           var newTool = '<div class="tools"><div class="form-group">{!! Form::label("tools", "Herramientas") !!}{!! Form::select("tools[]", $tool, null, ["class" => "tool_select", "style" => "width: 200px"]) !!}</div><div class="form-group">{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_tools[]", null, ["class"=>"form-control"]) !!}</div><div class="form-group">{!! Form::label("price", "Precio") !!}{!! Form::number("price_tools[]", null, ["class"=>"form-control", "id" => "price_tool", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-tools">{{trans("agroindustria::menu.Delete")}}</button></div>';
+           var newTool = '<div class="tools"><div class="form-group">{!! Form::label("tools", "Herramientas") !!}{!! Form::select("tools[]", $tool, null, ["class" => "tool_select", "style" => "width: 200px"]) !!}</div><div class="form-group">{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_tools[]", null, ["class"=>"form-control", "id" => "amount_tools"]) !!}</div><div class="form-group">{!! Form::label("price", "Valor Unitario") !!}{!! Form::number("price_unit_tool", null, ["class"=>"form-control", "id" => "price_unit_tool", "readonly" => "readonly"]) !!}</div><div class="form-group">{!! Form::label("price", "Total") !!}{!! Form::number("price_tools[]", null, ["class"=>"form-control", "id" => "price_tool", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-tools">{{trans("agroindustria::menu.Delete")}}</button></div>';
            
            // Agregar el nuevo campo al DOM
            $("#form-tools").append(newTool);
@@ -386,29 +405,61 @@
 
       
        $('#form-tools').on('change', '.tool_select', function() {
-           var selectedTool = $(this).val();
-           var parentElement = $(this).closest('.tools');
-           var priceField = parentElement.find('input#price_tool');
+            var selectedTool = $(this).val();
+            var parentElement = $(this).closest('.tools');
+            var priceField = parentElement.find('input#price_unit_tool');
+            var quantityField = parentElement.find('.quantity');
 
-           var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.tools.price', ['id' => ':id'])) !!}.replace(':id', selectedTool.toString());
-           if (selectedTool) {
-                // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
+            if (selectedTool) {
+                // Realiza una solicitud AJAX para obtener el precio de la herramienta seleccionada
+                var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.tools.price', ['id' => ':id'])) !!}.replace(':id', selectedTool.toString());
+
                 $.ajax({
                     url: url,
                     type: 'GET',
                     success: function(response) {
-                        // Actualiza las opciones del segundo campo de selección (Warehouse that Receives)
-                        var price = response.price;
-                        priceField.val(price);
+                        console.log(response);
+                        if(response.data.length > 0){
+                            var data = response.data[0];
+                            var quantity = parseFloat(data.amount);
+                            var price = parseFloat(data.price);
+                            
+                            console.log(quantity);
+                            console.log(price);
+
+                            quantityField.text('Cantidad Disponible: ' + quantity);
+                            priceField.val(price);
+                            updateTotalPrice(); // Actualizar el precio total cuando se selecciona la herramienta
+                        }else{
+                            quantityField.text('');
+                        }
                     },
                     error: function(error) {
                         console.log(error);
                     }
                 });
-            }else{
-                priceField.val('');
+            } else {
+                priceField.data('price', 0);
+                updateTotalPrice(); // Actualizar el precio total cuando no se selecciona una herramienta
             }
-       });
+        });
+
+        $('#form-tools').on('input', 'input#amount_tools', function() {
+            updateTotalPrice(); // Actualizar el precio total cuando se modifica la cantidad
+        });
+
+        function updateTotalPrice() {
+            var totalPrice = 0;
+            $('.tools').each(function() {
+                var priceField = $('input#price_unit_tool').val();
+                var amountField = $('input#amount_tools').val();
+                var amount = parseInt(amountField) || 0;
+                var totalField = $(this).find('input#price_tool');
+                var totalPrice = priceField * amount;
+                totalField.val(totalPrice);
+            });
+        }
+
 
         // Eliminar un campo de colaborador
         $("#form-tools").on("click", ".remove-tools", function() {
@@ -422,8 +473,10 @@
         $("#form-consumables").on("change", "select[name^='consumables']", function() {
             var selectedElement = $(this).val();
             var parentProduct = $(this).closest('.consumable');
+            var availablePriceUnit = parentProduct.find('input#price_unit_consumable');
             var availableQuantity = parentProduct.find('.quantity');
-            var availablePrice = parentProduct.find('#price_consumables');
+
+            
             // Realizar una solicitud AJAX para obtener la cantidad disponible
             if(selectedElement){
                 $.ajax({
@@ -432,10 +485,13 @@
                     success: function(response) {
                         if (response.elements.length > 0) {
                             var element = response.elements[0];
-                            var quantity = parseFloat(element.amount);
                             var price = parseFloat(element.price);
+                            var quantity = parseFloat(element.amount);
+
                             availableQuantity.text('Cantidad Disponible: ' + quantity);
-                            availablePrice.val(price);
+                            availablePriceUnit.val(price);
+
+                            updateTotalPrice();
                         } else {
                             availableQuantity.text(''); // Limpia el texto si no se encuentra la cantidad disponible
                         }
@@ -448,9 +504,26 @@
                 });
             }else{
                 availableQuantity.text(''); 
-                availablePrice.val('');
+                priceField.data('price', 0);
+                updateTotalPrice(); // Actualizar el precio total cuando no se selecciona una herramienta
             }
         });
+
+        $('#form-consumables').on('input', 'input#amount_consumables', function() {
+            updateTotalPrice(); // Actualizar el precio total cuando se modifica la cantidad
+        });
+
+        function updateTotalPrice() {
+            var totalPrice = 0;
+            $('.consumable').each(function() {
+                var availableTotal = $(this).find('input#price_unit_consumable_total');
+                var availableAmount = $('input#amount_consumables').val();
+                var priceField = $('input#price_unit_consumable').val();
+                var amount = parseInt(availableAmount) || 0;
+                var totalPrice = priceField * amount;
+                availableTotal.val(totalPrice);
+            });
+        }
     });
 </script>
 @endsection

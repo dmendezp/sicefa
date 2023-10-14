@@ -96,9 +96,12 @@ class LaborController extends Controller
         $productive_unit_warehouse = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
         $elements = Element::where('category_id', 2)->pluck('id');
 
-        $tools = Inventory::where('productive_unit_warehouse_id', $productive_unit_warehouse)->whereIn('element_id', $elements)->get();
+        $tools = Inventory::where('productive_unit_warehouse_id', $productive_unit_warehouse)->whereIn('element_id', $elements)
+        ->groupBy('element_id')
+        ->select('element_id', \DB::raw('(SELECT MIN(id) FROM inventories AS subinventory WHERE subinventory.element_id = inventories.element_id AND subinventory.amount > 0) as id'))
+        ->get();
         $tool = $tools->map(function ($t) {
-            $id = $t->id;
+            $id = $t->element->id;
             $name = $t->element->name;
 
             return [
@@ -176,9 +179,21 @@ class LaborController extends Controller
     }
 
     public function price_tools($id){
-        $price = Inventory::where('id', $id)->value('price');
+        $selectedUnit = session('viewing_unit');
+        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+        $tools = Inventory::where('element_id', $id)->where('productive_unit_warehouse_id', $productiveUnit)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
 
-        return response()->json(['price' => $price]);
+        $data = $tools->map(function ($t){
+            $amount = $t->totalAmount;
+            $price = $t->prices;
+
+            return [
+                'amount' => $amount,
+                'price' => $price
+            ];
+        });
+
+        return response()->json(['data' => $data]);
     }
 
     public function amount($consumables){
@@ -231,14 +246,25 @@ class LaborController extends Controller
         $selectedUnit = session('viewing_unit');
         $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
         $ingredients = Ingredient::where('formulation_id', $firstFormulationId)->pluck('element_id');
+        $amountIngredients = Ingredient::where('formulation_id', $firstFormulationId)->get();
+
+        $amountIngredient = $amountIngredients->map(function ($i) {
+            $amounts = $i->amount;
+
+            return [
+                'amountIngredient' => $amounts
+            ];
+        });
+        
+
         $inventory = Inventory::with(['element.measurement_unit', 'element.ingredients'])
         ->whereIn('element_id', $ingredients)
         ->where('productive_unit_warehouse_id', $productiveUnit)
-        ->select('element_id', \DB::raw('MAX(id) as inventory_id'), \DB::raw('SUM(amount) as totalAmount'))
+        ->select('element_id', \DB::raw('MAX(id) as inventory_id'), \DB::raw('SUM(amount) as totalAmount'), \DB::raw('MAX(price) as price'))
         ->groupBy('element_id')
         ->get();
 
-        $formulation = $formulations->map(function ($f){
+            $formulation = $formulations->map(function ($f){
             $amountFormulation = $f->amount;
 
             return [
@@ -252,18 +278,20 @@ class LaborController extends Controller
             $name = $i->element->name . ' (' . $i->element->measurement_unit->name . ')';
             $conversion = $i->totalAmount/$measurement_unit;
             $amountInventory = $conversion;
-            $amountIngredient = $i->element->ingredients->first()->amount;
+            $price = $i->price;
             return [
                 'id' => $id,
                 'name' => $name,
                 'amount' => $amountInventory,
-                'amountIngredient' => $amountIngredient,
+                'price' => $price
             ];
         });
 
+
         return response()->json([
             'consumables' => $consumables,
-            'amountFormulation' => $formulation
+            'amountFormulation' => $formulation,
+            'amountIngredient' => $amountIngredient
         ]);
     }
 
@@ -362,8 +390,18 @@ class LaborController extends Controller
             }
         }
 
+        $tools = $request->input('tools');
+        $amount_tools = $request->input('amount_tools');
+        $price_tools = $request->input('price_tools');
 
-
+        foreach ($tools as $key => $tool){ 
+            $t = new Tool;
+            $t->labor_id = $l->id;
+            $t->inventory_id = $tool;
+            $t->amount = $amount_tools[$key];
+            $t->price = $price_tools[$key];
+            $t->save();
+        }
 
         $executors = $request->input('executors_id');
         $employement_type = $validatedData['employement_type'];
@@ -379,19 +417,6 @@ class LaborController extends Controller
             $e->amount = $hours[$key];
             $e->price = $price[$key];
             $e->save();
-        }
-
-        $tools = $request->input('tools');
-        $amount_tools = $request->input('amount_tools');
-        $price_tools = $request->input('price_tools');
-
-        foreach ($tools as $key => $tool){   
-            $t = new Tool;
-            $t->labor_id = $l->id;
-            $t->inventory_id = $tool;
-            $t->amount = $amount_tools[$key];
-            $t->price = $price_tools[$key];
-            $t->save();
         }
 
         $recipeRequest = $request->input('recipe');
@@ -589,6 +614,16 @@ class LaborController extends Controller
         $wm->role = 'Recibe';
         $wm->save();
         
+        $consumables = Consumable::where('labor_id', $id)->get();
+        foreach($consumables as $c){
+            $idConsumable = $c->inventory_id;
+            $amounts = $c->amount;
+
+            $inventories = Inventory::findOrFail($idConsumable);
+            $inventories->amount -= $amounts;
+            $inventories->save();
+        }   
+
         return redirect()->back()->with([
             'icon' => 'success',
             'message_line' => trans('agroindustria::labors.workPerformedCorrectly'),

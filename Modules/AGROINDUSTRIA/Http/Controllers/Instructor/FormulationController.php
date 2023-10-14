@@ -63,10 +63,22 @@ class FormulationController extends Controller
             $idPersona = $user->person->id;
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
         }
-        
-        $elements = Element::get();
 
-        $element = $elements->map(function ($e){
+        $elements = Element::where('category_id', 3)->get();
+
+        $product = $elements->map(function ($e){
+            $id = $e->id;
+            $name = $e->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un Producto'])->pluck('name', 'id');
+        
+        $consumables = Element::where('category_id', 1)->get();
+
+        $ingredient = $consumables->map(function ($e){
             $id = $e->id;
             $name = $e->name . ' ' . '(' . $e->measurement_unit->name . ')';
 
@@ -74,7 +86,19 @@ class FormulationController extends Controller
                 'id' => $id,
                 'name' => $name
             ];
-        })->prepend(['id' => null, 'name' => 'Seleccione un elemento'])->pluck('name', 'id');
+        })->prepend(['id' => null, 'name' => 'Seleccione un Ingrediente'])->pluck('name', 'id');
+
+        $utencils = Element::where('category_id', 2)->get();
+
+        $utencil = $utencils->map(function ($e){
+            $id = $e->id;
+            $name = $e->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione un Utencilio'])->pluck('name', 'id');
 
         $selectedUnit = session('viewing_unit');
         $unitName = ProductiveUnit::findOrFail($selectedUnit);
@@ -85,7 +109,9 @@ class FormulationController extends Controller
             'title' => $title,
             'person' => $name,
             'productiveUnits' => $unitName,
-            'elements' => $element,
+            'elements' => $product,
+            'ingredients' => $ingredient,
+            'utencils' => $utencil,
             'registros' => $registros
         ];
 

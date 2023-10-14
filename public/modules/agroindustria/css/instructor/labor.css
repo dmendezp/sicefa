@@ -65,7 +65,7 @@
 }
 
 #add-tools{
-    width: 748px;
+    width: 970px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
@@ -74,7 +74,7 @@
 }
 
 #add-consumables{
-    width: 802px;
+    width: 970px;
     padding: 5px 0px 5px 0px;
     border: none;
     border-radius: 4px;
@@ -123,6 +123,13 @@
 }
 
 .quantity{
+    position: absolute;
+    color: #666; 
+    font-size: 14px; 
+    margin-top: 60px;
+}
+
+.price_unit{
     position: absolute;
     color: #666; 
     font-size: 14px; 

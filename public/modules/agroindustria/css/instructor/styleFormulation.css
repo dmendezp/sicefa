@@ -5,6 +5,12 @@
     margin-top: 30px;
 }
 
+.form-formulation{
+    width: 1200px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 4px;
+}
+
 #proccess{
     height: 0px;
 }
@@ -29,6 +35,26 @@ p{
     font-size: large
 }
 
+#add-ingredients-formulation{
+    width: 545px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    font-weight: bold;
+    color: white;
+}
+
+#add-utencils-formulation{
+    width: 545px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    font-weight: bold;
+    color: white;
+}
+
 .remove-ingredient{
     padding: 10px 10px 10px 10px;
     color: white;
@@ -38,8 +64,7 @@ p{
     border-radius: 4px;
     border: none;
     position: relative;
-    left: 415px;
-    bottom: 65px;
+    left: 15px;
 }
 
 .remove-utencils{
@@ -51,6 +76,5 @@ p{
     border-radius: 4px;
     border: none;
     position: relative;
-    left: 415px;
-    bottom: 65px;
+    left: 15px;
 }
