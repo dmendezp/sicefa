@@ -24,6 +24,7 @@ return [
     'fuel_consumption' => 'Fuel Consumption',
     'Solid_waste' => 'Solid Waste',
     'organic_waste' => 'Organic Waste',
+    'mesenteric_gases' => 'Mesenteric Gases',
 
     // Boton Guardar
     'btn1' => 'Save',

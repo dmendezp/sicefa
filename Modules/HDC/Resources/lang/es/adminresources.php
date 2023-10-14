@@ -24,6 +24,7 @@ return [
     'fuel_consumption' => 'Consumo Combustible',
     'Solid_waste' => 'Residuo Solido',
     'organic_waste' => 'Residuo Organico',
+    'mesenteric_gases' => 'Gases Mesentericos',
 
 
     // Boton Guardar

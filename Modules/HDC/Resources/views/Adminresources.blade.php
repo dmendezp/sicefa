@@ -46,33 +46,39 @@
                                 </div>
                                 <div class="col-6">
                                     <h2>{{ trans('hdc::adminresources.title_checklist') }}</h2>
-                                    <div class="checklist">
+                                    <div name="Environmetal_Aspect" class="checkbox" @required(true)>
                                             <label for="Aspecto1">
-                                                <input type="checkbox" name="actividades[]" id="Aspecto1"  value="Aspecto 1">
+                                                <input type="checkbox" name="Environmental_Aspect[]" id="Aspecto1"  value="Aspecto 1">
                                                 {{ trans('hdc::adminresources.water_consumption') }}
                                             </label>
                                             <label for="Aspecto2">
-                                                <input type="checkbox" name="actividades[]" id="Aspecto2" value="Aspecto 2">
+                                                <input type="checkbox" name="Environmental_Aspect[]" id="Aspecto2" value="Aspecto 2">
                                                 {{ trans('hdc::adminresources.energy_consumption') }}
                                             </label>
                                             <label for="Aspecto3">
-                                                <input type="checkbox" name="actividades[]" id="Aspecto3" value="Aspecto 3">
+                                                <input type="checkbox" name="Environmental_Aspect[]" id="Aspecto3" value="Aspecto 3">
                                                 {{ trans('hdc::adminresources.gas_consumption') }}
                                             </label>
                                             <label for="Aspecto4">
-                                                <input type="checkbox" name="actividades[]" id="Aspecto4" value="Aspecto 4">
+                                                <input type="checkbox" name="Environmental_Aspect[]" id="Aspecto4" value="Aspecto 4">
                                                 {{ trans('hdc::adminresources.fuel_consumption') }}
                                             </label>
                                             <label for="Aspecto5">
-                                                <input type="checkbox" name="actividades[]" id="Aspecto5" value="Aspecto 5">
+                                                <input type="checkbox" name="Environmental_Aspect[]" id="Aspecto5" value="Aspecto 5">
                                                 {{ trans('hdc::adminresources.Solid_waste') }}
                                             </label>
                                             <label for="Aspecto6">
-                                                <input type="checkbox" name="actividades[]" id="Aspecto6" value="Aspecto 6">
+                                                <input type="checkbox" name="Environmental_Aspect[]" id="Aspecto6" value="Aspecto 6">
                                                 {{ trans('hdc::adminresources.organic_waste') }}
+                                            </label><label for="Aspecto6">
+                                                <input type="checkbox" name="Environmental_Aspect[]" id="Aspecto7" value="Aspecto 7">
+                                                {{ trans('hdc::adminresources.mesenteric_gases') }}
                                             </label>
                                     </div>
                                 </div>
+                                @if ($errors->has('Environmental_Aspect'))
+                                    <span class="text-danger">{{ $errors->first('Environmental_Aspect') }}</span>
+                                @endif
                                 <div class="col-md-12 text-center">
                                     <button type="submit" class="btn btn-success" background-color="green">{{ trans('hdc::adminresources.btn1') }}</button>
                                 </div>
@@ -93,24 +99,22 @@
                                 <tbody>
                                     @foreach($productive_unit as $pro)
                                         @foreach ($activities as $a)
-                                            @foreach ($environmentalAspect as $ea )
-                                                <tr>
-                                                    <td >
-                                                    {{ $pro->name}}
-                                                    </td>
-                                                    <td>{{ $a->name }}</td>
-                                                    <td>{{ $ea->name}}</td>
-                                                    <td class="text-center">
-                                                        <a href="hdc.adminresources.update" data-toogle='tooltip' data-placement="top" title="Editar"
-                                                            onclick="return confirm('¿Estas Seguro Que Deseas Modificar La Asociación De La Actividad {{ $pro->name }} Y El Aspecto Ambiental {{ $a->name }} Y El Aspecto Ambiental {{ $ea->name }}?')">
-                                                            <i class="far fa-edit"></i>
-                                                        </a>
-                                                        <a href="hdc.adminresources.delete" data-toogle='tooltip' data-placement="top" title="Eliminar"
-                                                            onclick="return confirm('¿Estas Seguro Que Deseas Eliminar La Asociación De La Actividad {{ $pro->name }} Y El Aspecto Ambiental {{ $a->name }} Y El Aspecto Ambiental {{ $ea->name }}?')">
-                                                            <i class="fas fa-trash-alt text-danger"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                            @foreach ($environmentalAspect as $ea)
+                                                    <tr>
+                                                        <td>{{ $pro->name}}</td>
+                                                        <td>{{ $a->name }}</td>
+                                                        <td>{{ $ea->name}}</td>
+                                                        <td class="text-center">
+                                                            <a href="hdc.adminresources.update" data-toogle='tooltip' data-placement="top" title="Editar"
+                                                                onclick="return confirm('¿Estas Seguro Que Deseas Modificar La Asociación De La Actividad {{ $pro->name }} Y El Aspecto Ambiental {{ $a->name }} Y El Aspecto Ambiental {{ $ea->name }}?')">
+                                                                <i class="far fa-edit"></i>
+                                                            </a>
+                                                            <a href="hdc.adminresources.delete" data-toogle='tooltip' data-placement="top" title="Eliminar"
+                                                                onclick="return confirm('¿Estas Seguro Que Deseas Eliminar La Asociación De La Actividad {{ $pro->name }} Y El Aspecto Ambiental {{ $a->name }} Y El Aspecto Ambiental {{ $ea->name }}?')">
+                                                                <i class="fas fa-trash-alt text-danger"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
                                             @endforeach
                                         @endforeach
                                     @endforeach

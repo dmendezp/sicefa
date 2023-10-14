@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\EnvironmentalAspect;
@@ -40,44 +41,28 @@ class AdminresourcesController extends Controller
     public function store(Request $request)
     {
         return($request);
-        // Validar los datos del formulario
-        $validatedData = $request->validate([
+        $rules = [
+            'productive_unit_id' => 'required|array',
             'activity_id' => 'required|array',
-            'Environmental_Aspect' => 'required', // Validar que actividades sea un arreglo
-            'checklist_data' => 'required', // Validar que checklist_data sea un arreglo
+            'Environmental_Aspect' => 'required|array|min:1',
+        ];
+        $validator = Validator::make($request->all(), $rules, [
+            'Environmental_Aspect.required' => 'Selecciona al menos un aspecto ambiental.',
         ]);
-    
-        $activity_id = $request->input('activity_id');
-        $ea = $request->input('Environmental_Aspect');
-        $checklistData = $request->input('Environmental_Aspect');
-        
-    
-        // Verificar si existe un registro de EnvironmentalAspect con el activity_id y Environmental_Aspect dados
-        $aea = EnvironmentalAspect::where('activity_id', $activity_id)
-            ->where('Environmental_Aspect', $ea)
-            ->first();
-    
-        if (!$aea) {
-            // Si el registro no existe, crear uno nuevo
-            $aea = EnvironmentalAspect::create([
-                'activity_id' => $activity_id,
-                'Environmental_Aspect' => $ea,
-            ]);
+
+        if($validator->fails()){
+            return back()->withErrors($validator)->withInput('message','Ocurrio Un Error Con El Formulario')->with('typealert','danger');
+        }else {
+            $activity = new Activity;
+            $activity->name = e($request->select('productive_unit_id'));
+            $activity->name = e($request->select('activity_id'));
+            $activity->name = e($request->checkbox('Environmental_Aspect'));
+            $activity->save(); // Registrar Administracion del recurso
+            dd("Registro Exitoso");
+            // $activity->Activity()->syncWithoutDetaching($activity);
+            // $message = ['message'=>'Se Registro Exitosamente La Asignacion del recurso', 'typealert'=>'success'];
         }
-    
-        // Usar syncWithoutDetaching para asociar actividades con EnvironmentalAspect
-        $aea->activities()->syncWithoutDetaching($activities);
-    
-        // Crear un nuevo registro de ChecklistResponse y asociarlo con EnvironmentalAspect
-        $checklistResponse = new ChecklistResponse();
-        $checklistResponse->fill($checklistData); // Asumiendo que los datos del formulario se almacenan en ChecklistResponse
-        $checklistResponse->save();
-    
-        // Asociar el ChecklistResponse con EnvironmentalAspect usando syncWithoutDetaching
-        $aea->checklistResponses()->syncWithoutDetaching([$checklistResponse->name]);
-    
-        // Redirigir de nuevo a la página del formulario después de guardar con un mensaje de éxito
-        return redirect()->route('hdc.adminresources.index')->with('success', 'Asignación y formulario guardados con éxito');
+        return redirect(route('hdc.adminresources'))->with($message);
     }
     
 
