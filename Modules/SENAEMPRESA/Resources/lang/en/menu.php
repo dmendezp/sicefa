@@ -27,7 +27,7 @@ return [
     'Edit the position.' => 'Edit the position.',
     'Registration successfully updated.' => 'Registration successfully updated.',  // SENAEMPRESA, staff_senaempresa,
     'Position eliminated with success.' => 'Position eliminated with success.',
-	'Error in eliminating the position.' => 'Error in eliminating the position.',
+    'Error in eliminating the position.' => 'Error in eliminating the position.',
 
     //Loan
 
@@ -135,6 +135,9 @@ return [
     'Assign Courses to Vacancies' => 'Assign Courses to Vacancies',
     'Course assigned to the vacancy successfully.' => 'Course assigned to the vacancy successfully.',
     'Show Associates' => 'Show Associates',
+    'Details' => 'Details',
+    'All Senaempresas' => 'All Senaempresas',
+    'Filter by senaempresa' => 'Filter by senaempresa',
 
     // Aside
 
@@ -144,6 +147,7 @@ return [
     'Courses SenaEmpresa' => 'Courses SenaEmpresa',
     'Availables' => 'Availables',
     'Courses Vacancies' => 'Courses Vacancies',
+    'Courses' => 'Courses',
     'Postulates' => ' Postulates',
     'Selected' => ' Selected',
     'Registrants' => 'Registrants',
@@ -154,35 +158,35 @@ return [
 
     //Postulate
 
-    'Vacancy ID'=>'Vacancy ID',  //Inscription
-    'Currículum'=>'Currículum',  //Inscription
-    '16 personalities'=>'16 personalities',  //Inscription
-    'Proposal'=>'Proposal',
-    'Total score'=>'Total score',
-    'You don’t have an associate apprentice.'=>'You don’t have an associate apprentice.',
-    'You cannot make more than two entries.'=>'You cannot make more than two entries.',
-    'You’ve already applied for this position.'=>'You’ve already applied for this position.',
-    'Registration made with success!'=>'Registration made with success!',
+    'Vacancy ID' => 'Vacancy ID',  //Inscription
+    'Currículum' => 'Currículum',  //Inscription
+    '16 personalities' => '16 personalities',  //Inscription
+    'Proposal' => 'Proposal',
+    'Total score' => 'Total score',
+    'You don’t have an associate apprentice.' => 'You don’t have an associate apprentice.',
+    'You cannot make more than two entries.' => 'You cannot make more than two entries.',
+    'You’ve already applied for this position.' => 'You’ve already applied for this position.',
+    'Registration made with success!' => 'Registration made with success!',
 
 
     //Inscription
 
-    'Select Vacant ID'=>'Select Vacant ID',
-    'Register'=>'Register',
+    'Select Vacant ID' => 'Select Vacant ID',
+    'Register' => 'Register',
 
     //attendance
-    'Register attendance'=>'Register attendance',
-    'document number:'=>'document number:',
-    'Name of individual:'=>'Name of individual:',
-    'Register Attendance'=>'Register Attendance',
-    'Registered Attendance'=>'Registered Attendance',
-    'Document'=>'Document',
-    'Date and Time of Entry'=>'Date and Time of Entry',
-    'Date and time of departure'=>'Date and time of departure',
-    'Attendance'=>'Attendance',
+    'Register attendance' => 'Register attendance',
+    'document number:' => 'document number:',
+    'Name of individual:' => 'Name of individual:',
+    'Register Attendance' => 'Register Attendance',
+    'Registered Attendance' => 'Registered Attendance',
+    'Document' => 'Document',
+    'Date and Time of Entry' => 'Date and Time of Entry',
+    'Date and time of departure' => 'Date and time of departure',
+    'Attendance' => 'Attendance',
 
-    
-   
+
+
 
 
 
@@ -194,15 +198,15 @@ return [
 
 
     'Administrator' => 'Administrator',
-	'New' => 'New',
-	'Failed to create PositionCompany object.' => 'Failed to create PositionCompany object.',
-	'Error in creating the position.' => 'Error in creating the position.',
-	'There are no courses related to vacancies' => 'There are no courses related to vacancies',
-	'Notifications' => 'Notifications',
-	'General description' => 'General description',
-	'Registry successfully updated' => 'Registry successfully updated',
-	'Associates Courses-Senaempresa' => 'Associates Courses-Senaempresa',
-	'success' => 'success',
-	'mistake' => 'mistake',
+    'New' => 'New',
+    'Failed to create PositionCompany object.' => 'Failed to create PositionCompany object.',
+    'Error in creating the position.' => 'Error in creating the position.',
+    'There are no courses related to vacancies' => 'There are no courses related to vacancies',
+    'Notifications' => 'Notifications',
+    'General description' => 'General description',
+    'Registry successfully updated' => 'Registry successfully updated',
+    'Associates Courses-Senaempresa' => 'Associates Courses-Senaempresa',
+    'success' => 'success',
+    'mistake' => 'mistake',
 
 ];

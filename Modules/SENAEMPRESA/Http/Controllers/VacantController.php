@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Modules\SENAEMPRESA\Entities\CourseVacancy;
 use Modules\SENAEMPRESA\Entities\senaempresa;
 use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Course;
@@ -76,8 +77,6 @@ class VacantController extends Controller
 
         return view('senaempresa::Company.Vacant.vacant', $data);
     }
-
-
 
     public function agregar_vacante(Request $request)
     {
@@ -230,72 +229,70 @@ class VacantController extends Controller
     }
 
     //Asociar cursos a vacantes
-    public function asociar_curso()
-    {
-        $vacancies = Vacancy::get();
-        $courses = Course::with('program')->get();
-        $data = ['title' => trans('senaempresa::menu.Assign Courses to Vacancies'), 'courses' => $courses, 'vacancies' => $vacancies];
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.Vacant.courses_vacancies', $data);
-        } else {
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
-    }
-
     public function curso_asociado(Request $request)
     {
-        // Valida los datos del formulario
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'vacancy_id' => 'required|exists:vacancies,id',
-        ]);
+        try {
+            $courseId = $request->input('course_id');
+            $vacancyId = $request->input('vacancy_id');
+            $isChecked = $request->input('checked');
 
-        // Obtén los IDs de los cursos y las vacantes
-        $courseId = $request->input('course_id');
-        $vacancyId = $request->input('vacancy_id');
+            // Buscar el registro en la tabla pivote
+            $record = CourseVacancy::where('course_id', $courseId)
+                ->where('vacancy_id', $vacancyId)
+                ->first();
 
-        // Encuentra los modelos correspondientes
-        $course = Course::findOrFail($courseId);
-        $vacancy = Vacancy::findOrFail($vacancyId);
+            if ($isChecked == 'true') {
+                if (!$record) {
+                    // Si no existe el registro, crearlo
+                    CourseVacancy::create([
+                        'course_id' => $courseId,
+                        'vacancy_id' => $vacancyId,
+                    ]);
+                }
+            } elseif ($record) {
+                // Si el registro existe y el checkbox está desmarcado, eliminarlo
+                $record->delete();
+            }
 
-        // Verifica si la asociación ya existe
-        if (!$course->vacancy()->wherePivot('course_id', $courseId)->wherePivot('vacancy_id', $vacancyId)->exists()) {
-            // Asigna el curso a la vacante
-            $course->vacancy()->attach($vacancy);
-            return redirect()->back()->with('success', trans('senaempresa::menu.Course assigned to the vacancy successfully.'));
-        } else {
-            //Alerta de que esa asociación ya existe
-            return redirect()->back()->with('error', trans('senaempresa::menu.Association already exists.'));
+            return response()->json(['success' => 'Actualización en línea exitosa.'], 200);
+        } catch (\Exception $e) {
+            // Manejar la excepción y devolver una respuesta de error JSON
+            return response()->json(['error' => 'Ocurrió un error. Detalles: ' . $e->getMessage()], 500);
         }
     }
+
+
+
+
     public function mostrar_asociados()
     {
         $vacancies = Vacancy::get();
-        $courses = Course::with('vacancy')->get();
-        $data = ['title' => trans('senaempresa::menu.Show Associates'), 'courses' => $courses, 'vacancies' => $vacancies];
+        $courses = Course::with('program')->get();
+        // Retrieve the pivot data for courses and vacancies
+        $courseofvacancy = CourseVacancy::whereIn('course_id', $courses->pluck('id')->toArray())->whereNull('deleted_at')->get();
+
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            $data = [
+                'title' => trans('senaempresa::menu.Assign Courses to Vacancies'),
+                'courses' => $courses,
+                'vacancies' => $vacancies,
+                'courseofvacancy' => $courseofvacancy,
+            ];
+
             return view('senaempresa::Company.Vacant.courses_vacancies', $data);
         } else {
             return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
-    public function eliminarAsociacion(Request $request)
+
+    public function getAssociations(Request $request)
     {
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'vacancy_id' => 'required|exists:vacancies,id',
-        ]);
+        $courseId = $request->query('course_id');
+        $course = Course::findOrFail($courseId);
 
-        $courseId = $request->input('course_id');
-        $vacancyId = $request->input('vacancy_id');
+        // Obtén las vacantes asociadas al curso
+        $associations = $course->vacancy->pluck('id')->toArray();
 
-        try {
-            $course = Course::findOrFail($courseId);
-            // Eliminar Asociación Especifica
-            $course->vacancy()->wherePivot('course_id', $courseId)->wherePivot('vacancy_id', $vacancyId)->detach();
-            return response()->json(['mensaje' => trans('senaempresa::menu.Association eliminated with success.')]);
-        } catch (\Exception $e) {
-            return response()->json(['mensaje' => trans('senaempresa::menu.Error deleting the association')], 500);
-        }
+        return response()->json(['associations' => $associations]);
     }
 }

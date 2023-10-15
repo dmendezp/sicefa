@@ -34,7 +34,7 @@
                                 <th>{{ trans('senaempresa::menu.Start Date and Time') }}</th>
                                 <th>{{ trans('senaempresa::menu.Date and Time End') }}</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
-                                <th class="text-center">Detalles</th>
+                                <th class="text-center">{{ trans('senaempresa::menu.Details') }}</th>
                                 @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                     <th style="width: 100px;"><a href="{{ route('company.vacant.agregar_vacante') }}"
                                             class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
