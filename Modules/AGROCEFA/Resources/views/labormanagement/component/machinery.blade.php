@@ -7,10 +7,9 @@
                 <table id="machineryTable" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>Maquinaria</th>
-                            <th>Jornales</th>
                             <th>Valor (HA)</th>
+                            <th>Jornales</th>
                             <th>Precio Total</th>
                             <!-- Agregar la columna de Destino -->
                             <th>{{ trans('agrocefa::movements.1T_Actions') }}</th>
@@ -43,11 +42,11 @@
             function addProductRow() {
                 newRow = $('<tr class="product-row">');
                 newRow.html(
-                    '<td><input type="hidden" id="product-name" class="product-name" name="product-name[]"></td>' +
-                    '<td class="col-2"><select id="machinery-id" class="form-control machinery-id" name="machinery-id[]" required><option value="">Seleccione la Herramienta</option>@foreach ($machineryOptions as $machineryId => $machineryName)<option value="{{ $machineryId }}">{{ $machineryName }}</option>@endforeach</select></td>' +
-                    '<td class="col-2"><input type="number" id="wage-quantity" class="form-control wage-quantity" name="wage-quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
-                    '<td><input type="text" id="price" class="form-control price" name="price[]" placeholder="Precio"></td>' +
-                    '<td><input type="text" id="price-total" class="form-control price-total" name="price-total[]" readonly></td>' +
+    
+                    '<td class="col-2"><select id="machinery-id" class="form-control machinery-id" name="machinery-id[]" ><option value="">Seleccione la Herramienta</option>@foreach ($machineryOptions as $machineryId => $machineryName)<option value="{{ $machineryId }}">{{ $machineryName }}</option>@endforeach</select></td>' +
+                    '<td><input type="text" id="machinery_price" class="form-control machinery_price" name="machinery_price[]" placeholder="Precio"></td>' +
+                    '<td class="col-2"><input type="number" id="machinery_wage" class="form-control machinery_wage" name="machinery_wage[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
+                    '<td><input type="text" id="machinery_price-total" class="form-control machinery_price-total" name="machinery_price-total[]" readonly></td>' +
                     '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>'
                 );
 
@@ -62,8 +61,8 @@
                 var lastRow = machineryTable.find('tr.product-row:last');
 
                 if (lastRow.find('#machinery-id').val() &&
-                    lastRow.find('#wage-quantity').val() && lastRow.find('#price').val() &&
-                    lastRow.find('#price-total').val()) {
+                    lastRow.find('#machinery_wage').val() && lastRow.find('#machinery_price').val() &&
+                    lastRow.find('#machinery_price-total').val()) {
                     addProductRow();
 
                     // Obtener el elemento seleccionado en la fila anterior
@@ -87,22 +86,28 @@
                 }
             });
 
+            // Manejador de eventos para eliminar productos
+            machineryTable.on('click', '.removeProduct', function() {
+                $(this).closest('tr').remove();
+                
+            });
+
             // Función para recalcular el precio total
             function calculateTotal() {
                 var sownArea = parseFloat($('#sownArea').val()) || 0; // Obtener el valor del área sembrada
                 console.log(sownArea);
                 machineryTable.find('tr.product-row').each(function() {
                     var currentRow = $(this);
-                    var priceField = currentRow.find('.price');
-                    var quantityField = currentRow.find('.wage-quantity');
-                    var priceTotalField = currentRow.find('.price-total');
+                    var priceField = currentRow.find('.machinery_price');
+                    var quantityField = currentRow.find('.machinery_wage');
+                    var priceTotalField = currentRow.find('.machinery_price-total');
 
                     var price = parseFloat(priceField.val()) || 0;
                     var quantity = parseInt(quantityField.val()) || 0;
 
                     if (price > 0 && quantity > 0) {
                         var total = price * quantity * sownArea; // Multiplica por el área sembrada
-                        
+
 
                         priceTotalField.val(total.toFixed(0));
                     } else {
@@ -112,7 +117,7 @@
             }
 
             // Manejador de eventos para el cambio en el campo de cantidad y precio
-            machineryTable.on('input', 'input[name="wage-quantity[]"], input[name="price[]"]', function() {
+            machineryTable.on('input', 'input[name="machinery_wage[]"], input[name="price[]"]', function() {
                 calculateTotal();
             });
 

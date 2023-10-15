@@ -12,6 +12,13 @@ class Executor extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'labor_id',
+        'person_id',
+        'employement_type_id',
+        'amount',
+        'price'
+    ];
 
     public function employementType(){
         return $this->belongsTo(EmployementType::class,);

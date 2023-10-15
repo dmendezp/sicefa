@@ -158,7 +158,7 @@ class MovementController extends Controller
             $amount = $detail->amount;
             $price = $detail->price;
         
-            dd($amount);
+            
             // Obtener el inventario existente o crear uno nuevo
 
             $inventory = Inventory::where([
@@ -166,17 +166,18 @@ class MovementController extends Controller
                 'element_id' => $elementId,
                 'lot_number' => $lot,
             ])->first();
-
+            
             if ($inventory) {
                 // Actualizar el inventario existente
                 $inventory->amount += $amount;
                 $inventory->price = $price; // Puedes actualizar el precio si es necesario
                 $inventory->save();
             } else {
+                
                 // Crear un nuevo registro de inventario
                 $inventory = new Inventory([
                     'person_id' => $personid,
-                    'productive_unit_warehouse_id' => $detail->movement->warehouse_movements[1]->productive_unit_warehouse_id,
+                    'productive_unit_warehouse_id' => $movement->warehouse_movements[1]->productive_unit_warehouse_id,
                     'element_id' => $elementId,
                     'destination' => $destination,
                     'price' => $price,
@@ -188,7 +189,7 @@ class MovementController extends Controller
                 $inventory->save();
             }
             $inventoryexist = Inventory::where([
-                'productive_unit_warehouse_id' => $detail->movement->warehouse_movements[1]->productive_unit_warehouse_id,
+                'productive_unit_warehouse_id' => $movement->warehouse_movements[0]->productive_unit_warehouse_id,
                 'element_id' => $elementId,
                 'lot_number' => $lot,
             ])->first();    
@@ -389,18 +390,19 @@ class MovementController extends Controller
                 
                     // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
                     $existingInventory = Inventory::where([
-                        'productive_unit_warehouse_id' => $productiveWarehousedeliveryId,
+                        'productive_unit_warehouse_id' => $productiveWarehousereceiveId,
                         'element_id' => $productElementId,
                         'lot_number' => $lot,
+                        
                     ])->first();
-
+     
 
                     if ($existingInventory) {
                         // Si el elemento existe, actualiza el precio y la cantidad
                         $existingInventory->price = $price;
                         $existingInventory->amount += $quantity;
                         $existingInventory->save();
-                        $inventoryIds[] = $existingInventory->id;
+                        $existingInventoryId = $existingInventory->id;
                         
                     } else {
                         // Si el elemento no existe, crea un nuevo registro en 'inventories'
@@ -417,7 +419,7 @@ class MovementController extends Controller
                         ]);
 
                         $newInventory->save();
-                        $existingInventoryId = $newInventory->id;
+                        $$existingInventoryId = $newInventory->id;
                         
                     }
 

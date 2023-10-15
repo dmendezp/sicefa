@@ -9,3 +9,8 @@ button.buttonlabor
     margin-left: 5px;
 }
 
+#registerButton
+{
+    width: 300px;
+    margin-left: 20px;
+}
