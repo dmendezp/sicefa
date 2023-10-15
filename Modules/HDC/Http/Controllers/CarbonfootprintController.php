@@ -35,8 +35,8 @@ class CarbonfootprintController extends Controller
             return response()->json(['mensaje' => 'Persona No Encontrada']);
         } else {
 
-            $environmeaspect = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')->where('person_id' ,$personaid)->get();
-            
+            $environmeaspect = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')->where('person_id', $personaid)->get();
+
             // Retorna una vista con los datos de la persona si se encuentra
             return view('hdc::Calc_Huella.tabla', ['persona' => $persona, 'environmeaspect' => $environmeaspect]);
         }
@@ -67,7 +67,7 @@ class CarbonfootprintController extends Controller
         // Guardar el modelo FamilyPersonFootprint
         $personFootprint->save();
 
-        $total = 0; 
+        $total = 0;
         foreach ($data['aspecto'] as $values) {
             // Asociar con el modelo FamilyPersonFootprint
             $pea = PersonEnvironmentalAspect::create([
@@ -76,15 +76,62 @@ class CarbonfootprintController extends Controller
                 'consumption_value' => $values['valor_consumo'],
             ]);
 
-            $total += $pea->consumption_value; 
-
-
+            $total += $pea->consumption_value;
         }
-        $personFootprint->update(['carbon_print'=>$total]);
+        $personFootprint->update(['carbon_print' => $total]);
 
         return redirect()->route('carbonfootprint.persona')->with('success', 'Valores guardados correctamente');
-
-
     }
 
+    public function editConsumption($id)
+    {
+        $personEnvironmentalAspect = PersonEnvironmentalAspect::findOrFail($id);
+        /* $person = $personEnvironmentalAspect->family_person_footprint->person;
+ */
+        return view('hdc::Calc_Huella.edit_consumption', compact('personEnvironmentalAspect', /* 'person' */));
+    }
+
+
+
+    public function updateConsumption(Request $request, $id)
+    {
+        $data = $request->validate([
+            'consumption_value' => 'required|numeric',
+        ]);
+
+        $personEnvironmentalAspect = PersonEnvironmentalAspect::findOrFail($id);
+        $personEnvironmentalAspect->update($data);
+
+        return redirect()->route('carbonfootprint.persona')->with('success', 'Valor actualizado correctamente');
+    }
+
+
+
+
+
+    public function eliminarConsumo($id)
+{
+    // Buscar el registro de PersonEnvironmentalAspect por ID
+    $personAspect = PersonEnvironmentalAspect::findOrFail($id);
+
+    // Obtener el ID del FamilyPersonFootprint asociado
+    $familyPersonFootprintId = $personAspect->family_person_footprint_id;
+
+    // Eliminar todos los registros PersonEnvironmentalAspect asociados al FamilyPersonFootprint
+    PersonEnvironmentalAspect::where('family_person_footprint_id', $familyPersonFootprintId)->delete();
+
+    // Recalcular el total en FamilyPersonFootprint después de eliminar todos los registros
+    $total = PersonEnvironmentalAspect::where('family_person_footprint_id', $familyPersonFootprintId)->sum('consumption_value');
+
+    // Actualizar el campo carbon_print en FamilyPersonFootprint
+    FamilyPersonFootprint::where('id', $familyPersonFootprintId)->update(['carbon_print' => $total]);
+
+    // Puedes redirigir a la vista que necesites después de eliminar
+    return redirect()->route('carbonfootprint.persona')->with('success', 'Registros eliminados correctamente');
 }
+
+
+}
+
+
+

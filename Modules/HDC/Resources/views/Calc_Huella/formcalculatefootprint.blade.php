@@ -6,7 +6,6 @@
             <div class="card-header">
                 <h2 class="card-title"><strong> {{ $person->full_name }} Registre los aspectos ambientales generados mensualmente en su casa </strong>
                 </h2>
-               {{--   <h1>{{ $person }}</h1>  --}}
             </div>
             <br>
             <div class="container">

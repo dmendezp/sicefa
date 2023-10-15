@@ -10,7 +10,7 @@
                     <a href="{{ route('Carbonfootprint.form.calculates', $persona->id) }}" class="btn btn-success mb-2"><i
                             class="fa-solid fa-plus"></i></a>
                     <div class="mtop16">
-                        @if($environmeaspect->isNotEmpty())
+                        @if ($environmeaspect->isNotEmpty())
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -27,22 +27,39 @@
                                             <td>{{ $index + 1 }}</td>
                                             <td>
                                                 <ul>
-                                                    @foreach($aspect->personenvironmentalaspects as $personAspect)
-                                                        <li>{{ $personAspect->environmental_aspect->name }}</li>
+                                                    @foreach ($aspect->personenvironmentalaspects as $innerPersonAspect)
+                                                        <li>{{ $innerPersonAspect->environmental_aspect->name }}</li>
                                                     @endforeach
                                                 </ul>
                                             </td>
                                             <td>
                                                 <ul>
-                                                    @foreach($aspect->personenvironmentalaspects as $personAspect)
-                                                        <li>{{ $personAspect->consumption_value }}</li>
+                                                    @foreach ($aspect->personenvironmentalaspects as $innerPersonAspect)
+                                                        <li>{{ $innerPersonAspect->consumption_value }}</li>
                                                     @endforeach
                                                 </ul>
                                             </td>
-                                            <td>Na</td>
+                                            <td></td>
+                                            <td>
+                                                @if ($aspect->personenvironmentalaspects->isNotEmpty())
+                                                    <a href="{{ route('carbonfootprint.edit_consumption', $aspect->personenvironmentalaspects->first()->id) }}"
+                                                        class="btn btn-primary">Editar</a>
+                                                    <form
+                                                        action="{{ route('carbonfootprint.eliminar', ['id' => $aspect->personenvironmentalaspects->first()->id]) }}"
+                                                        method="POST" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger"
+                                                            onclick="return confirm('¿Estás seguro de que quieres eliminar este registro?')">Eliminar</button>
+                                                    </form>
+                                                @endif
+                                            </td>
                                             <td>{{-- Agrega enlaces de acciones aquí --}}</td>
                                         </tr>
                                     @endforeach
+
+
+
                                 </tbody>
                             </table>
                         @else

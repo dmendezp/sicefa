@@ -44,7 +44,14 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/form/calculates/footprint/save', 'CarbonfootprintController@saveConsumption')->name('Carbonfootprint.save_consumption');
 
         /* Rutas del CRUD */
-      
+        Route::get('/carbonfootprint/edit/{id}', 'CarbonfootprintController@editConsumption')->name('carbonfootprint.edit_consumption');
+        Route::patch('/carbonfootprint/update_consumption/{id}', 'CarbonfootprintController@updateConsumption')->name('Carbonfootprint.update_consumption');
+        Route::delete('/carbonfootprint/eliminar/{id}', 'CarbonfootprintController@eliminarConsumo')->name('carbonfootprint.eliminar');
+
+
+
+
+
 
         /* Ruta de Graficas */
         Route::get('/Graficas', 'GraficasController@Graficas')->name('cefa.hdc.Graficas');
