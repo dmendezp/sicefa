@@ -144,17 +144,17 @@
                 <p>{{ trans('bienestar::menu.Convoctions')}} <i class="fas fa-angle-left right"></i></p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{ route('cefa.bienestar.editform') }}" class="nav-link">Formularios</a>
-                </li>
-                <li class="nav-item">
+              <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.Convocations')}}" class="nav-link">Convocatorias</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('cefa.bienestar.typeofbenefits')}}" class="nav-link">Configurar Convocatoria</a>
+                  <a href="{{ route('cefa.bienestar.editform') }}" class="nav-link">Formularios</a>
+                </li>                
+                <li class="nav-item">
+                  <a href="" class="nav-link">Configurar Convocatoria</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('cefa.bienestar.benefitstypeofbenefits')}}" class="nav-link">Postulaciones </a>
+                  <a href="{{ route('cefa.bienestar.postulations')}}" class="nav-link">Postulaciones </a>
                 </li>
               </ul>
             </li>

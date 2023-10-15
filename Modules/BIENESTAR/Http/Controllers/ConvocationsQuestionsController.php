@@ -58,7 +58,7 @@ class ConvocationsQuestionsController extends Controller
         // Crear una nueva pregunta
         $pregunta = new Question();
         $pregunta->question = $request->input('text_question');
-        $pregunta->question_category = $request->input('question_category');
+        $pregunta->type_question_benefit = $request->input('question_category');
         $pregunta->save();
 
         // Guardar las respuestas relacionadas con la pregunta
@@ -91,7 +91,7 @@ class ConvocationsQuestionsController extends Controller
             'question' => $request->input('question'), // Accede directamente al campo 'question'
         ]);
 
-        $respuestas = $request->input('respuestas', []);
+        $respuestas = $request->input('answer', []);
 
         if (!empty($respuestas)) {
             foreach ($respuestas as $respuestaId => $respuestaText) {
@@ -103,7 +103,7 @@ class ConvocationsQuestionsController extends Controller
         }
 
         // Redirige de nuevo con un mensaje de éxito
-        return redirect()->back()->with('success', 'Pregunta y respuestas actualizadas con éxito.');
+        return redirect()->route('cefa.bienestar.editform')->with('success', 'Pregunta y respuestas actualizadas con éxito.');
     }
 
 
