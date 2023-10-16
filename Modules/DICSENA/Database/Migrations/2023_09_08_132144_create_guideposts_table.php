@@ -18,7 +18,7 @@ class CreateGuidepostsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('url');
-            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->foreignId('program_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

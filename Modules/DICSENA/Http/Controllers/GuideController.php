@@ -5,6 +5,7 @@ namespace Modules\DICSENA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\DICSENA\Entities\Guidepost;
 
 class GuideController extends Controller
 {
@@ -14,6 +15,7 @@ class GuideController extends Controller
      */
     public function index()
     {
+        $guideposts = Guidepost::all();
         return view('dicsena::guide');
     }
 

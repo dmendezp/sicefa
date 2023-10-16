@@ -22,8 +22,16 @@
         <i class="fas fa-user"></i>Login
     </a>
 </nav>
-<h1>Guidepost</h1>
-<p>Esta es la vista guidepost.</p>
+<div class="container">
+    <h1>Guidepost Details</h1>
+    <h2>Title: {{ $guidepost->title }}</h2>
+    <p>Description: {{ $guidepost->description }}</p>
+    <p>Program: {{ $guidepost->program->name }}</p>
+
+    <div>
+        <a href="{{ asset('guidepost_file/' . $guidepost->url) }}" download>Download PDF</a>
+    </div>
+</div>
 <footer style="background-color: #3C3B6E; color: white; padding: 20px;">
     <p style="text-align: center;">Use exclusive for apprentices of SENA</p>
     <p style="text-align: center;">&copy; 2023</p>

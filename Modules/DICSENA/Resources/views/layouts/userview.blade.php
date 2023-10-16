@@ -18,12 +18,12 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        @section('content')
-        @show
-        {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/dicsena.js') }}"></script> --}}
+    <div class="container">
+        @yield('content')
     </div>
+    @show
+    {{-- Laravel Mix - JS File --}}
+    {{-- <script src="{{ mix('js/dicsena.js') }}"></script> --}}
 </body>
 
 </html>

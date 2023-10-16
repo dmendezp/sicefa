@@ -24,4 +24,8 @@ class Glossary extends Model
     {
         return $this->belongsTo(Program::class);
     }
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
 }

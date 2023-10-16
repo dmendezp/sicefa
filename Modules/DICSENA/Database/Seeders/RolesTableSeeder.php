@@ -28,6 +28,8 @@ class RolesTableSeeder extends Seeder
         ]);
 
         $user_instructor = User::where('nickname', 'Instructor')->first();
+
+        $user_instructor->roles()->syncWithoutDetaching([$rol_instructor->id]);
         // $this->call("OthersTableSeeder");
     }
 }

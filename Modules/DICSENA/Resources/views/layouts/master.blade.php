@@ -17,6 +17,11 @@
     <!--fontawesome import-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link href="{{ asset('Datatables-1.13.4/datatables.css') }}" rel="stylesheet">
+
+    <!-- Loading the v6 core styles and the Solid and Brands styles -->
+    <link href="{{ asset('fontawesome6/css/fontawesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('fontawesome6/css/brands.css') }}" rel="stylesheet">
+    <link href="{{ asset('fontawesome6/css/solid.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -45,6 +50,10 @@
         @show
         {{-- Laravel Mix - JS File --}}
         {{-- <script src="{{ mix('js/dicsena.js') }}"></script> --}}
+        <script>
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        </script>
 
         <footer class="main-footer" style="background-color: #3C3B6E; color: white; ">
             <p style="text-align: center;">Use exclusive for apprentices of SENA</p>

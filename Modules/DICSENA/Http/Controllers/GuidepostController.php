@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\Program;
+use Modules\SICA\Entities\Person;
 use Modules\DICSENA\Entities\Guidepost;
 
-class GuidepostsController extends Controller
+class GuidepostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,7 +47,7 @@ class GuidepostsController extends Controller
 
         $file = $request->file('url');
         $fileName = $file->getClientOriginalName();
-        $file->storeAs('Dicsena.guidepost_files', $fileName);
+        $file->storeAs('guidepost_file', $fileName);
 
         $guidepost = Guidepost::create([
             'title' => $validatedData['title'],
@@ -77,7 +78,7 @@ class GuidepostsController extends Controller
     {
         $guidepost = Guidepost::findOrFail($id);
         $programs = Program::all();
-        return view('dicsena::crudguide.edit', compact('guidepost', 'programs'));
+        return view('cefa.dicsena.guidepost.edit', compact('guidepost', 'programs'));
     }
 
     /**
@@ -99,7 +100,7 @@ class GuidepostsController extends Controller
         if ($request->hasFile('url')) {
             $file = $request->file('url');
             $fileName = $file->getClientOriginalName();
-            $file->storeAs('guidepost_files', $fileName);
+            $file->storeAs('guideposts_file', $fileName);
             $guidepost->url = $fileName;
         }
 
