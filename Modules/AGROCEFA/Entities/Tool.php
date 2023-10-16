@@ -9,7 +9,18 @@ use Modules\SICA\Entities\Inventory;
 
 
 class Tool extends Model
+
 {
+
+    protected $fillable = [
+        'labor_id',
+        'inventory_id',
+        'amount',
+        'price'
+    ];
+
+
+
     public function labor(){
         return $this->belongsTo(Labor::class);
     }

@@ -15,11 +15,9 @@ class AgriculturalLabor extends Model implements Auditable
     use HasFactory;
 
     protected $fillable = [
-       
         'labor_id',
         'application_method',
         'objective',
-
     ];
     
     protected static function newFactory()

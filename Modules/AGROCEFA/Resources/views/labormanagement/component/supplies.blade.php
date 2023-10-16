@@ -24,8 +24,8 @@
                     id="addProduct1">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
             </div>
         </div>
-    </div>  
-    
+    </div>
+
     <script>
         $(document).ready(function() {
             var suppliesTable = $('#suppliesTable tbody');
@@ -42,8 +42,7 @@
             function addProductRow() {
                 newRow = $('<tr class="product-row">');
                 newRow.html(
-  
-                    '<td class="col-2"><select id="category-id" class="form-control" name="category-id[]" ><option value="">Seleccione la Categoria</option>@foreach ($categories as $category)<option value="{{ $category->id }}">{{ $category->name }}</option>@endforeach</select></td>' +
+                    '<td class="col-2"><select id="category-id" class="form-control" name="category-id[]"><option value="">Seleccione la Categoria</option>@foreach ($categories as $category)<option value="{{ $category->name }}">{{ $category->name }}</option>@endforeach</select></td>' +
                     '<td class="col-2"><select id="supplies-id" class="form-control supplies-id" name="supplies-id[]" ></select></td>' +
                     '<td class="col-2"><input type="number" id="supplies_quantity" class="form-control supplies_quantity" name="supplies_quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
                     '<td><input type="text" id="supplies_price" class="form-control supplies_price" name="supplies_price[]" readonly></td>' +
@@ -54,7 +53,63 @@
                 // Agregar la fila a la tabla
                 suppliesTable.append(newRow);
 
+                // Agregar los campos adicionales debajo de la fila
+                newRow.after(
+                    '<tr class="additional-fields" style="display: none;">' +
+                    '<td>Método de Aplicación: <input type="text" class="form-control supplies_application-method" name="application-method[]" /></td>' +
+                    '<td>Objetivo: <input type="text" class="form-control supplies_objective" name="objective[]" /></td>' +
+                    '</tr>'
+                );
             }
+
+            // Manejador de eventos para el cambio en la categoría
+            $('#suppliesTable').on('change', 'select[name="category-id[]"]', function() {
+                var selectedCategory = $(this).val();
+                var additionalFieldsRow = $(this).closest('tr').next('.additional-fields');
+
+                if (selectedCategory === 'Agroquimico' || selectedCategory === 'Fertilizante') {
+                    additionalFieldsRow.show();
+                } else {
+                    additionalFieldsRow.hide();
+                }
+                console.log('Categoría seleccionada:', selectedCategory);
+                console.log('Elemento de campos adicionales:', additionalFieldsRow);
+
+
+                // Aquí puedes agregar más lógica para mostrar u ocultar campos adicionales según sea necesario.
+            });
+
+            // Escuchar el evento "input" en los campos "Método de Aplicación" y "Objetivo"
+            suppliesTable.on('input', 'input[name="application-method[]"], input[name="objective[]"]', function() {
+                var currentRow = $(this).closest('tr');
+                var fieldName = $(this).attr('name'); // Nombre del campo
+
+                // Obtener el valor introducido por el usuario
+                var enteredValue = $(this).val();
+
+                // Guardar el valor en el localStorage
+                localStorage.setItem(fieldName, enteredValue);
+            });
+
+            // Mostrar sugerencias basadas en el localStorage cuando el usuario comience a escribir
+            suppliesTable.on('input', 'input[name="application-method[]"], input[name="objective[]"]', function() {
+                var fieldName = $(this).attr('name'); // Nombre del campo
+
+                // Obtener el valor introducido por el usuario
+                var enteredValue = $(this).val();
+
+                // Obtener el valor almacenado en el localStorage
+                var savedValue = localStorage.getItem(fieldName);
+
+                if (savedValue !== null) {
+                    // Comprobar si el valor introducido coincide con el valor almacenado
+                    if (enteredValue === savedValue.substring(0, enteredValue.length)) {
+                        // Establecer el valor completo como sugerencia
+                        $(this).val(savedValue);
+                    }
+                }
+            });
+
 
             // Manejador de eventos para el cambio en la categoria
             $('#suppliesTable').on('change', 'select[name="category-id[]"]', function() {
@@ -134,10 +189,10 @@
                 }
             });
 
-             // Manejador de eventos para eliminar productos
-             suppliesTable.on('click', '.removeProduct', function() {
+            // Manejador de eventos para eliminar productos
+            suppliesTable.on('click', '.removeProduct', function() {
                 $(this).closest('tr').remove();
-                
+
             });
 
             // Manejador de eventos para cambiar la unidad de medida, la cantidad y el precio al seleccionar un elemento
@@ -292,7 +347,7 @@
                     var quantity = parseInt(quantityField.val()) || 0;
                     if (price > 0 && quantity > 0) {
                         var total = price * quantity * sownArea; // Multiplica por el área sembrada
-                        
+
 
                         priceTotalField.val(total.toFixed(0));
                     } else {

@@ -24,6 +24,8 @@ use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\Labor;
 use Modules\AGROCEFA\Entities\Executor;
+use Modules\AGROCEFA\Entities\AgriculturalLabor;
+use Modules\AGROCEFA\Entities\Consumable;
 use Modules\AGROCEFA\Entities\EmployementType;
 use Modules\AGROCEFA\Entities\Tool;
 use Modules\AGROCEFA\Entities\Crop;
@@ -275,7 +277,7 @@ class LaborManagementController extends Controller
             // Obtener los elementos de las bodegas
             $inventory = Inventory::whereIn('productive_unit_warehouse_id', $warehouseIds)
                 ->whereHas('element.category', function ($query) use ($categoryId) {
-                    $query->where('id', $categoryId);
+                    $query->where('name', $categoryId);
                 })
                 ->get();
 
@@ -424,7 +426,7 @@ class LaborManagementController extends Controller
 
     public function registerlabor(Request $request)
     {
-        
+
         // Obten los datos generales de la labor
         $lot = $request->input('lot');
         $date = $request->input('date');
@@ -442,6 +444,17 @@ class LaborManagementController extends Controller
         $executorQuantities = $request->input('executor_quantityhours');
         $executorPrices = $request->input('executor_priceemploye');
 
+        // Datos de Herramientas
+        $toolIds = $request->input('tool-id');
+        $toolQuantities = $request->input('tool_quantity');
+        $toolPrices = $request->input('tool_price');
+
+        // Datos de Insumos
+        $suppliesIds = $request->input('supplies-id');
+        $suppliesQuantities = $request->input('supplies_quantity');
+        $suppliesPrices = $request->input('supplies_price');
+        $suppliesAplications = $request->input('application-method');
+        $suppliesObjectives = $request->input('objective');
         // Inicia una transacción de base de datos
         DB::beginTransaction();
 
@@ -470,27 +483,103 @@ class LaborManagementController extends Controller
                 
             ]);
             
+            if (!empty($executorIds) && is_array($executorIds) && count(array_filter($executorIds)) > 0) {
+    
+                foreach ($executorIds as $index => $executorId) {
+                    // Accede a los datos de cada elemento de la tabla
+                    $executorEmployment = $employmentIds[$index];
+                    $executorQuantityhours = $executorQuantities[$index];
+                    $executorPrice = $executorPrices[$index];
 
-            foreach ($executorIds as $index => $executorId) {
-                // Accede a los datos de cada elemento de la tabla
-                $executorEmployment = $employmentIds[$index];
-                $executorQuantityhours = $executorQuantities[$index];
-                $executorPrice = $executorPrices[$index];
+                
+                    // Registra la labor con el precio total calculado
+                    $executor = new Executor([
+                        'labor_id' => $laborId,
+                        'person_id' => $executorId,
+                        'employement_type_id' => $executorEmployment,
+                        'amount' => $executorQuantityhours,
+                        'price' => $executorPrice,
+                    ]);
+
+                    // Guarda el nuevo registro en la base de datos
+                    $executor->save();
+                    $executorId = $executor->id;
+                }
+            }
+            
+            if (!empty($toolIds) && is_array($toolIds) && count(array_filter($toolIds)) > 0) {
+
+                foreach ($toolIds as $index => $toolId) {
+                    // Accede a los datos de cada elemento de la tabla
+                    $toolQuantitie = $toolQuantities[$index];
+                    $toolPrice = $toolPrices[$index];
+
+                
+                    // Registra la labor con el precio total calculado
+                    $tool = new Tool([
+                        'labor_id' => $laborId,
+                        'inventory_id' => $toolId,
+                        'amount' => $toolQuantitie,
+                        'price' => $toolPrice,
+                    ]);
+
+                    // Guarda el nuevo registro en la base de datos
+                    $tool->save();
+                    $toolId = $tool->id;
+                }
+            }
+           
+
+            if (!empty($suppliesIds) && is_array($suppliesIds) && count(array_filter($suppliesIds)) > 0) {
+
+                foreach ($suppliesIds as $index => $suppliesId) {
+                    // Accede a los datos de cada elemento de la tabla
+                    $suppliesQuantitie = $suppliesQuantities[$index];
+                    $suppliesPrice = $suppliesPrices[$index];
+                    $suppliesAplication = $suppliesAplications[$index];
+                    $suppliesObjective = $suppliesObjectives[$index];
+
+                    if (!empty($suppliesAplications) && !empty($suppliesObjectives) && is_array($suppliesAplications) && is_array($suppliesObjectives) && count(array_filter($suppliesAplications)) > 0 && count(array_filter($suppliesObjectives)) > 0) {
+
+                            // Registra la labor con el precio total calculado
+                            $supplies = new Consumable([
+                                'labor_id' => $laborId,
+                                'inventory_id' => $suppliesId,
+                                'amount' => $suppliesQuantitie,
+                                'price' => $suppliesPrice,
+                            ]);
+
+                            // Guarda el nuevo registro en la base de datos
+                            $supplies->save();
+                            $suppliesId = $supplies->id;
+
+                            $aplicationsupplies = new AgriculturalLabor([
+                                'labor_id' => $laborId,
+                                'application_method' => $suppliesAplication,
+                                'objective' => $suppliesObjective,
+                            ]);
+
+                            // Guarda el nuevo registro en la base de datos
+                            $aplicationsupplies->save();
+                            $aplicationsuppliesId = $aplicationsupplies->id;
+
+                        } else {
+                            // Registra la labor con el precio total calculado
+                            $supplies = new Consumable([
+                                'labor_id' => $laborId,
+                                'inventory_id' => $suppliesId,
+                                'amount' => $suppliesQuantitie,
+                                'price' => $suppliesPrice,
+                            ]);
+
+                            // Guarda el nuevo registro en la base de datos
+                            $supplies->save();
+                            $suppliesId = $supplies->id;
+                    }
+                }
+            }
 
             
-                // Registra la labor con el precio total calculado
-                $executor = new Executor([
-                    'labor_id' => $laborId,
-                    'person_id' => $executorId,
-                    'employement_type_id' => $executorEmployment,
-                    'amount' => $executorQuantityhours,
-                    'price' => $executorPrice,
-                ]);
-
-                // Guarda el nuevo registro en la base de datos
-                $executor->save();
-                $executorId = $executor->id;
-            }
 
             // Si todo está correcto, realiza un commit de la transacción
             DB::commit();
