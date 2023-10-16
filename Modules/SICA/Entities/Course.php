@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Apprentice;
+use Modules\SIGAC\Entities\AcademicProgramming;
 
 class Course extends Model implements Auditable
 {
@@ -38,6 +39,9 @@ class Course extends Model implements Auditable
     }
 
     // RELACIONES
+    public function academic_programmings(){ // Accede a todos los registros de programaciones academicas asociadas a este curso
+        return $this->hasMany(AcademicProgramming::class);
+    }
     public function apprentices(){ // Accede a todos los aprendices de este curso formativo
         return $this->hasMany(Apprentice::class);
     }

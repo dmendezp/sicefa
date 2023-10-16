@@ -17,6 +17,7 @@ class SIGACDatabaseSeeder extends Seeder
 
         DB::beginTransaction(); // Iniciar transacción
 
+        // Sección de lanzamiento para producción
         $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
         $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
         $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios

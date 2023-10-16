@@ -17,23 +17,56 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         // Consultar aplicación SIGAC para registrar los roles
-        $app = App::where('name','SIGAC')->first();
+        $app = App::where('name', 'SIGAC')->first();
 
+        // Consultar rol  de superadministrador
+        $rol_superadmin = Role::where('slug', 'superadmin')->firstOrFail();
 
         // Registrar o actualizar rol de Coordinador Académico
         $rol_academic_coordinator = Role::firstOrCreate(['slug' => 'sigac.academic_coordinator'], [
-            'name' => 'Coordinador Academico',
-            'description' => 'Rol Coordinador Académio de la aplicación SIGAC',
+            'name' => 'Coordinador Académico',
+            'description' => 'Rol Coordinador Académico de la aplicación SIGAC',
             'description_english' => 'Role Academic Coordinator of the SIGAC application',
+            'app_id' => $app->id
+        ]);
+
+        // Registrar o actualizar rol de Instructor
+        $rol_instructor = Role::firstOrCreate(['slug' => 'sigac.instructor'], [
+            'name' => 'Instructor',
+            'description' => 'Rol Instructor de la aplicación SIGAC',
+            'description_english' => 'Role Instructor of the SIGAC application',
+            'app_id' => $app->id
+        ]);
+
+        // Registrar o actualizar rol de Bienestar
+        $rol_wellness = Role::firstOrCreate(['slug' => 'sigac.wellness'], [
+            'name' => 'Bienestar',
+            'description' => 'Rol Bienestar de la aplicación SIGAC',
+            'description_english' => 'Role Wellness of the SIGAC application',
+            'app_id' => $app->id
+        ]);
+
+        // Registrar o actualizar rol de Aprendiz
+        $rol_apprentice = Role::firstOrCreate(['slug' => 'sigac.apprentice'], [
+            'name' => 'Aprendiz',
+            'description' => 'Rol Aprendiz de la aplicación SIGAC',
+            'description_english' => 'Role Apprentice of the SIGAC application',
             'app_id' => $app->id
         ]);
 
 
         // Consulta de usuarios
-        $user_academic_coordinator = User::where('nickname','mgonzalezg')->first(); // Usuario Coordinador Académico (María Antonia Gonzáles Gonzáles)
-
+        $user_academic_coordinator = User::where('nickname', 'mgonzalezg')->first(); // Usuario Coordinador Académico (María Antonia Gonzáles Gonzáles)
+        $user_instructor = User::where('nickname', 'rudelgadoc')->first(); // Usuario Instructor (Diego Andrés Mendez Pastrana)
+        $user_wellness = User::where('nickname', 'epascuasp')->first(); // Usuario Bienestar (Esperanza Pascuas Perdomo)
+        $user_apprentice = User::where('nickname', 'JDGM0331')->first(); // Usuario Aprendiz (Jesús David Guevara Munar)
+        $user_superadmin = User::where('nickname', 'Resmerveilons')->first(); // Usuario Super Administrador (Manuel Steven Ossa Lievano)
 
         // Asignación de ROLES para los USUARIOS de la aplicación SIGAC (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $user_academic_coordinator->roles()->syncWithoutDetaching([$rol_academic_coordinator->id]);
+        $user_instructor->roles()->syncWithoutDetaching([$rol_instructor->id]);
+        $user_wellness->roles()->syncWithoutDetaching([$rol_wellness->id]);
+        $user_apprentice->roles()->syncWithoutDetaching([$rol_apprentice->id]);
+        $user_superadmin->roles()->syncWithoutDetaching([$rol_superadmin->id]);
     }
 }
