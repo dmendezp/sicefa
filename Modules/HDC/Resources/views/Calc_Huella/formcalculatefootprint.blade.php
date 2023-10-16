@@ -32,7 +32,7 @@
                                         </td>
                                         <td>
                                             <input name="aspecto[{{ $aspectId }}][valor_consumo]" class="form-control"
-                                                type="number" placeholder="Ingrese el valor de consumo">
+                                                type="number" placeholder="Ingrese el valor de consumo" required>
                                         </td>
                                     </tr>
                                 @endforeach

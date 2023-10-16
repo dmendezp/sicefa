@@ -5,32 +5,42 @@ namespace Modules\HDC\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\SICA\Entities\Person;
-
 use OwenIt\Auditing\Contracts\Auditable;
 
 class FamilyPersonFootprint extends Model implements Auditable
 {
-
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
-    SoftDeletes; // Borrado suave
+        SoftDeletes; // Borrado suave
 
-    protected $fillable = [ // Atributos modificables (asignación masiva)
+    protected $fillable = [
         'carbon_print'
     ];
 
-    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
+    protected $dates = ['deleted_at'];
 
-    protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
+    protected $hidden = [
         'created_at',
         'updated_at'
     ];
 
     // RELACIONES
-    public function person(){ // Accede a la persona al que pertenece
+    public function person()
+    {
         return $this->belongsTo(Person::class);
     }
-    public function personenvironmentalaspects(){ // Accede a todas los registros de aspectos ambientales y actividades que pertenecen a esta actividad
-        return $this->hasMany(PersonEnvironmentalAspect::class);
+
+    public function personenvironmentalaspects()
+    {
+        return $this->hasMany(PersonEnvironmentalAspect::class, 'family_person_footprint_id');
     }
 
+    // ELIMINACIÓN EN CASCADA
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($familyPersonFootprint) {
+            $familyPersonFootprint->personenvironmentalaspects()->delete();
+        });
+    }
 }

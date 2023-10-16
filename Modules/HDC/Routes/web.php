@@ -45,8 +45,9 @@ Route::middleware(['lang'])->group(function () {
 
         /* Rutas del CRUD */
         Route::get('/carbonfootprint/edit/{id}', 'CarbonfootprintController@editConsumption')->name('carbonfootprint.edit_consumption');
-        Route::patch('/carbonfootprint/update_consumption/{id}', 'CarbonfootprintController@updateConsumption')->name('Carbonfootprint.update_consumption');
+        Route::post('/carbonfootprint/update_consumption/{id}', 'CarbonfootprintController@updateConsumption')->name('carbonfootprint.update_consumption');
         Route::delete('/carbonfootprint/eliminar/{id}', 'CarbonfootprintController@eliminarConsumo')->name('carbonfootprint.eliminar');
+
 
 
 

@@ -24,7 +24,7 @@
                                 <tbody>
                                     @foreach ($environmeaspect as $index => $aspect)
                                         <tr>
-                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>
                                                 <ul>
                                                     @foreach ($aspect->personenvironmentalaspects as $innerPersonAspect)
@@ -50,11 +50,10 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger"
-                                                            onclick="return confirm('¿Estás seguro de que quieres eliminar este registro?')">Eliminar</button>
+                                                            onclick="return confirm('¿Estás seguro de que quieres eliminar este registro?')"><i class="fas fa-trash-alt"></i></button>
                                                     </form>
                                                 @endif
                                             </td>
-                                            <td>{{-- Agrega enlaces de acciones aquí --}}</td>
                                         </tr>
                                     @endforeach
 
