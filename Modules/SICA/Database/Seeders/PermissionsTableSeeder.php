@@ -1379,6 +1379,60 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
 
+        // Actualizar curso (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.courses.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar curso (Administrador)',
+            'description' => 'Actualizar curso',
+            'description_english' => 'Update course',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar curso (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.courses.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar curso (Coordinador académico)',
+            'description' => 'Actualizar curso',
+            'description_english' => 'Update course',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de eliminación de curso (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.courses.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de eliminación de curso (Administrador)',
+            'description' => 'Formulario de eliminación de curso',
+            'description_english' => 'Course elimination form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario de eliminación de curso (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.courses.delete'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de eliminación de curso (Coordinador académico)',
+            'description' => 'Formulario de eliminación de curso',
+            'description_english' => 'Course elimination form',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar curso (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.admin.academy.courses.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar curso (Administrador)',
+            'description' => 'Eliminar curso',
+            'description_english' => 'Delete course',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Eliminar curso (Coordinador académico)
+        $permission = Permission::updateOrCreate(['slug' => 'sica.academic_coordinator.academy.courses.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar curso (Coordinador académico)',
+            'description' => 'Eliminar curso',
+            'description_english' => 'Delete course',
+            'app_id' => $app->id
+        ]);
+        $permissions_academic_coordinator[] = $permission->id; // Almacenar permiso para rol
+
 
 
 

@@ -89,12 +89,12 @@ Route::middleware(['lang'])->group(function(){
         Route::post('academic_coordinator/academy/course/store', [AcademyController::class, 'courses_store'])->name('sica.academic_coordinator.academy.courses.store'); // Registrar curso (Coordinador académico)
         Route::get('admin/academy/course/edit/{id}', [AcademyController::class, 'courses_edit'])->name('sica.admin.academy.courses.edit'); // Formulario de actualización de curso (Administrador)
         Route::get('academic_coordinator/academy/course/edit/{id}', [AcademyController::class, 'courses_edit'])->name('sica.academic_coordinator.academy.courses.edit'); // Formulario de actualización de curso (Coordinador académico)
-        // ===========================================================================================================================================================================================================
-        // ===========================================================================================================================================================================================================
-        Route::post('admin/academy/course/update/', [AcademyController::class, 'courses_update'])->name('sica.admin.academy.courses.update');
-        Route::post('academic_coordinator/academy/course/update/', [AcademyController::class, 'courses_update'])->name('sica.academic_coordinator.academy.courses.update');
-        Route::get('admin/academy/course/delete/{id}', [AcademyController::class, 'courses_delete'])->name('sica.admin.academy.courses.delete');
-        Route::post('admin/academy/course/delete/', [AcademyController::class, 'course_destroy'])->name('sica.admin.academy.courses.destroy');
+        Route::post('admin/academy/course/update/', [AcademyController::class, 'courses_update'])->name('sica.admin.academy.courses.update'); // Actualizar curso (Administrador)
+        Route::post('academic_coordinator/academy/course/update/', [AcademyController::class, 'courses_update'])->name('sica.academic_coordinator.academy.courses.update'); // Actualizar curso (Coordinador académico)
+        Route::get('admin/academy/course/delete/{id}', [AcademyController::class, 'courses_delete'])->name('sica.admin.academy.courses.delete'); // Formulario de eliminación de curso (Administrador)
+        Route::get('academic_coordinator/academy/course/delete/{id}', [AcademyController::class, 'courses_delete'])->name('sica.academic_coordinator.academy.courses.delete'); // Formulario de eliminación de curso (Coordinador académico)
+        Route::post('admin/academy/course/delete/', [AcademyController::class, 'course_destroy'])->name('sica.admin.academy.courses.destroy'); // Eliminar curso (Administrador)
+        Route::post('academic_coordinator/academy/course/delete/', [AcademyController::class, 'course_destroy'])->name('sica.academic_coordinator.academy.courses.destroy'); // Eliminar curso (Coordinador académico)
 
     });
 
