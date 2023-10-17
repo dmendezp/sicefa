@@ -1,24 +1,20 @@
 <?php
 
 return [
-    //Breadcrumb
-    'Attendance'              => 'Asistencia',
-    'Consultation'            => 'Consulta',
-    'Attendance Consultation' => 'Consulta de Asistencia',
+    // Breadcrumbs
+	'Breadcrumb_Active_Attendance' => 'Asistencia',
+	'Breadcrumb_Consult_Excuses'   => 'Consultar Excusas',
 
-    //CardForm
-    'CardLabel1'              => 'Tecnológo',
-    'CardSelect1'             => 'Selecciona un tecnológo',
-    'CardLabel2'              => 'Nombre del aprendiz',
-    'CardSelect2'             => 'Selecciona un aprendiz',
-    'CardLabel4'              => 'Code',
-    'CardSelect4'             => 'Selecciona la ficha',
-    'CardLabel5'              => 'Fecha de inicio',
-    'CardLabel6'              => 'Fecha fin',
+    // Card Form Consult
+    'Card_Title_Technologist'    => 'Tecnológo',
+    'Card_Title_Apprentice'      => 'Nombre del aprendiz',
+    'Card_Title_Start_Date'      => 'Fecha de inicio',
+    'Card_Title_End_Date'        => 'Fecha fin',
+    'Card_Select'                => 'Selecciona...',
     
-    //CardCalendar
-    'AprenticeAttendance'    => 'Asistencia del aprendiz:',
+    // Card Calendar
+    'Title_Aprentice_Attendance' => 'Asistencia del aprendiz:',
 
     //Buttons
-    'Consult' => 'Consultar',
+    'Btn_Consult' => 'Consultar',
 ];
