@@ -9,7 +9,7 @@ class ApprenticeController extends Controller
     /* Enviar Excusas */
     public function send_excuses()
     {
-        $view = ['titlePage'=>trans('sigac::consult.Excuses'), 'titleView'=>trans('sigac::consult.Excuses')];
+        $view = ['titlePage'=>trans('sigac::controllers.SIGAC_send_excuses_title_page'), 'titleView'=>trans('sigac::controllers.SIGAC_send_excuses_title_view')];
         return view('sigac::apprentice.send_excuses',compact('view'));
     }
 }

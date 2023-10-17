@@ -120,8 +120,8 @@
                                     <li class="nav-item">
                                         <a href="{{ route('sigac.academic_coordination.event_programming.index') }}"
                                             class="nav-link {{ !Route::is('sigac.academic_coordination.event_programming.*') ?: 'active' }}">
-                                            <i class="nav-icon fas fa-chalkboard"></i>
-                                            <p>{{ trans('sigac::general.EnvironmentProgramming') }}</p>
+                                            <i class="nav-icon fa-solid fa-calendar-day"></i>
+                                            <p>{{ trans('sigac::general.EventProgramming') }}</p>
                                         </a>
                                     </li>
                                 @endif
@@ -261,7 +261,7 @@
                                         <a href="{{ route('sigac.apprentice.schedule_apprentice.index') }}"
                                             class="nav-link {{ !Route::is('sigac.apprentice.schedule_apprentice.index.*') ?: 'active' }}">
                                             <i class="nav-icon fa-solid fa-book"></i>
-                                            <p>Hrs. Aprendiz</p>
+                                            <p>{{ trans('sigac::general.ApprenticeSchd') }}</p>
                                         </a>
                                     </li>
                                 @endif
