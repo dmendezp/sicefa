@@ -24,8 +24,8 @@ return [
     'Developers'              => 'Desarrolladores',
     // Programs Functions
     'Programming'             => 'Programación',
-    'Scheduling'              => 'Prog. Horarios',
-    'EnvironmentProgramming'  => 'Prog. Ambientes',
+    'Scheduling'              => 'Horarios',
+    'EventProgramming'        => 'Eventos',
     // Schedule Functions
     'Schedules'               => 'Horarios',
     'InstructorSchd'          => 'Hr. de Instructor',

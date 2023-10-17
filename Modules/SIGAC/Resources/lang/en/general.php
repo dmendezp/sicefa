@@ -25,7 +25,7 @@ return [
     // Programs Functions
     'Programming'             => 'Programming',
     'Scheduling'              => 'Scheduling',
-    'EnvironmentProgramming'  => 'Environment Programming',
+    'EventProgramming'        => 'Events',
     // Schedule Functions
     'Schedules'               => 'Schedules',
     'InstructorSchd'          => 'Instructor Schd.',
