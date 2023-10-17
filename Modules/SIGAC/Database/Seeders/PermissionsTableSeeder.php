@@ -46,7 +46,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
         // Panel de control de bienestar (Bienestar)
-        $permission = Permission::updateOrCreate(['slug' => 'sigac.welness.dashboard'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'sigac.wellness.dashboard'], [ // Registro o actualización de permiso
             'name' => 'Panel de control de bienestar (Bienestar)',
             'description' => 'Panel de control de bienestar',
             'description_english' => "Wellness control panel",

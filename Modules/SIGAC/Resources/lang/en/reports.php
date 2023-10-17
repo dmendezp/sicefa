@@ -1,27 +1,25 @@
 <?php
 
 return [
-    //Section Controller
-    'TitlePage' => 'Reports',
-    'TitleView' => 'Reports Panel',
-
-    //Breadcrumb
-    'Reports'   => 'Reports',
-    'Principal' => 'Principal',
+    // Breadcrumbs
+	'Breadcrumb_Active_Reports'     => 'Reports',
+	'Breadcrumb_Reports_Attendance' => 'Principal Panel',
     
-    //Card
-    'TextCard1'  => 'Selects the technologist to generate the quarterly attendance report.',
-    'TitleCard1' => 'Techologist',
-    'Select'     => 'Select...',
+    // Card Consult and generate reports
+    'Text_Card_Select'         => 'Selects the technologist to generate the quarterly attendance report.',
+    'Title_Select_Techologist' => 'Techologist',
+    'Select'                   => 'Select...',
     
     //Btns
-    'Btn1'       => 'Generate PDF',
-    'Btn2'       => 'Generate Excel',
+    'Btn_PDF'   => 'Generate PDF',
+    'Btn_Excel' => 'Generate Excel',
 
-    //Card results
-    'TitleCard2'    => 'Technologist details:',
-    'TitleCardBox1' => 'Apprentices in the Latest Training',
-    'TitleCardBox2' => 'Registered Apprentices',
-    'TitleCardBox3' => 'Retired Apprentices',
-    
+    // Card results
+    'Title_Card_Results'                => 'Technologist details:',
+    'Title_Card_Latest_Training'        => 'Apprentices in the Latest Training',
+    'Title_Card_Registered_Apprentices' => 'Registered Apprentices',
+    'Title_Card_Retired_Apprentices'    => 'Retired Apprentices',
+    'Title_Card_Name'                   => 'Name of technologist',
+    'Text_Card_Description'             => 'Description',
+    'Text_Card_Lead_Instructor'         => 'Lead Instructor',
 ];

@@ -17,10 +17,16 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         // Consultar aplicación SIGAC para registrar los roles
-        $app = App::where('name', 'SIGAC')->first();
+        $app = App::where('name', 'SIGAC')->firstOrFail();
 
-        // Consultar rol  de superadministrador
-        $rol_superadmin = Role::where('slug', 'superadmin')->firstOrFail();
+        // Registrar o actualizar rol de SUPERADMINISTRADOR
+        $role_super_admin = Role::firstOrCreate(['slug' => 'superadmin'], [
+            'name' => 'Super Administrador',
+            'description' => 'Rol Superadministrador de SICEFA',
+            'description_english' => 'Role Super administrator of SICEFA',
+            'full_access' => 'Si',
+            'app_id' => $app->id
+        ]);
 
         // Registrar o actualizar rol de Coordinador Académico
         $rol_academic_coordinator = Role::firstOrCreate(['slug' => 'sigac.academic_coordinator'], [
@@ -67,6 +73,6 @@ class RolesTableSeeder extends Seeder
         $user_instructor->roles()->syncWithoutDetaching([$rol_instructor->id]);
         $user_wellness->roles()->syncWithoutDetaching([$rol_wellness->id]);
         $user_apprentice->roles()->syncWithoutDetaching([$rol_apprentice->id]);
-        $user_superadmin->roles()->syncWithoutDetaching([$rol_superadmin->id]);
+        $user_superadmin->roles()->syncWithoutDetaching([$role_super_admin->id]);
     }
 }

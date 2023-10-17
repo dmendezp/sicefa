@@ -153,22 +153,22 @@
                         </div>
 
                         <div class="col-sm-6 col-md-3">
-                            <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="600"
+                            <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="800"
                                 style="height: 200px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/sigac/images/sponsor/googlefonts.webp') }}"
-                                            alt="GoogleFonts-logo" style="width: 100px; height: 100px;">
+                                        <img src="{{ asset('modules/sigac/images/sponsor/github_logotipo.webp') }}"
+                                            alt="GitHub-logo" style="width: 100px; height: 100px;">
                                     </div>
                                     <div class="text-truncate" style="max-height: 40px;">
-                                        <h6>Google Fonts - Quicksand</h6>
+                                        <h6>Git Hub</h6>
                                     </div>
                                     <a class="btn btn-info btn-block w-100"
-                                        href="https://fonts.google.com/specimen/Quicksand?preview.text=Infinity%20Mellow&preview.text_type=custom&selection.family=Yellowtail&sidebar.open=true&query=quicksa">{{ trans('sigac::devs.More Info') }}</a>
+                                        href="https://github.com/">{{ trans('sigac::devs.More Info') }}</a>
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="col-sm-6 col-md-3">
                             <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="700"
                                 style="height: 200px;">
@@ -377,39 +377,9 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6 col-md-3">
-                            <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="800"
-                                style="height: 200px;">
-                                <div class="card-body d-flex flex-column justify-content-between">
-                                    <div class="align-self-center">
-                                        <img src="{{ asset('modules/sigac/images/sponsor/github_logotipo.webp') }}"
-                                            alt="GitHub-logo" style="width: 100px; height: 100px;">
-                                    </div>
-                                    <div class="text-truncate" style="max-height: 40px;">
-                                        <h6>Git Hub</h6>
-                                    </div>
-                                    <a class="btn btn-info btn-block w-100"
-                                        href="https://github.com/">{{ trans('sigac::devs.More Info') }}</a>
-                                </div>
-                            </div>
-                        </div>
+                        
 
-                        <div class="col-sm-6 col-md-3">
-                            <div class="card text-center" data-aos="zoom-in-up" data-aos-duration="800"
-                                style="height: 200px;">
-                                <div class="card-body d-flex flex-column justify-content-between">
-                                    <div class="align-self-center">
-                                        <img src="{{ asset('modules/sigac/images/sponsor/cleavejs_logo.webp') }}"
-                                            alt="Cleave.js-logo" style="width: 100px; height: 100px;">
-                                    </div>
-                                    <div class="text-truncate" style="max-height: 40px;">
-                                        <h6>Cleave.js</h6>
-                                    </div>
-                                    <a class="btn btn-info btn-block w-100"
-                                        href="https://nosir.github.io/cleave.js/">{{ trans('sigac::devs.More Info') }}</a>
-                                </div>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </div>

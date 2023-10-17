@@ -1,27 +1,25 @@
 <?php
 
 return [
-    //Section Controller
-    'TitlePage' => 'Reportes',
-    'TitleView' => 'Panel de Reportes',
-
-    //Breadcrumb
-    'Reports'   => 'Reportes',
-    'Principal' => 'Principal',
+    // Breadcrumbs
+	'Breadcrumb_Active_Reports'     => 'Reportes',
+	'Breadcrumb_Reports_Attendance' => 'Panel Principal',
     
-    //Card
-    'TextCard1'  => 'Selecciona el tecnólogo para generar el reporte de asistencia trimestral.',
-    'TitleCard1' => 'Tecnólogo',
-    'Select'     => 'Selecciona...',
+    // Card consult and generate reports
+    'Text_Card_Select'         => 'Selecciona el tecnólogo para generar el reporte de asistencia trimestral.',
+    'Title_Select_Techologist' => 'Tecnólogo',
+    'Select'                   => 'Selecciona...',
     
     //Btns
-    'Btn1'       => 'Generar PDF',
-    'Btn2'       => 'Generar Excel',
+    'Btn_PDF'   => 'Generar PDF',
+    'Btn_Excel' => 'Generar Excel',
     
     //Card results
-    'TitleCard2'    => 'Detalles del tecnólogo:',
-    'TitleCardBox1' => 'Aprendices en la última formación',
-    'TitleCardBox2' => 'Aprendices Inscritos',
-    'TitleCardBox3' => 'Aprendices Retirados',
-
+    'Title_Card_Results'                => 'Detalles del tecnólogo:',
+    'Title_Card_Latest_Training'        => 'Aprendices en la última formación',
+    'Title_Card_Registered_Apprentices' => 'Aprendices Inscritos',
+    'Title_Card_Retired_Apprentices'    => 'Aprendices Retirados',
+    'Title_Card_Name'                   => 'Nombre del tecnólogo',
+    'Text_Card_Description'             => 'Descripción',
+    'Text_Card_Lead_Instructor'         => 'Instructor Líder',
 ];
