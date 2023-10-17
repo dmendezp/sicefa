@@ -5,7 +5,7 @@
 @endpush
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">Programación de horarios</li>
+    <li class="breadcrumb-item active">{{ trans('sigac::programming.Breadcrumb_Active_Programming') }}</li>
 @endpush
 
 @section('content')
@@ -13,29 +13,29 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4">
-                    <h4>Selecciona el tipo de Programación</h4>
+                    <h4>{{ trans('sigac::programming.Select_Programming') }}</h4>
                     <select class="form-select form-select-sm" aria-label="Small select example">
-                        <option selected>Selecciona...</option>
+                        <option selected>{{ trans('sigac::programming.Select') }}</option>
                         <option value="1">Instructor</option>
                         <option value="2">Titulada</option>
                     </select>
                     <br>
-                    <h4>Selecciona el tecnologo</h4>
+                    <h4>{{ trans('sigac::programming.Select_Technologist') }}</h4>
                     <select class="form-select form-select-sm" aria-label="Small select example">
-                        <option selected>Selecciona el tecnologo disponible</option>
+                        <option selected>{{ trans('sigac::programming.Select') }}</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </select>
                     <br>
-                    <h4>Selecciona el tipo de horario</h4>
+                    <h4>{{ trans('sigac::programming.Select_Schedule') }}</h4>
                     <select class="form-select form-select-sm" aria-label="Small select example">
-                        <option selected>Selecciona...</option>
+                        <option selected>{{ trans('sigac::programming.Select') }}</option>
                         <option value="1">Lectiva</option>
                         <option value="2">Electiva</option>
                     </select>
                     <br>
-                    <h4>Selecciona la Programación</h4>
+                    <h4>{{ trans('sigac::programming.Drag_Programming') }}</h4>
                     <div id="external-events">
                         <div class="fc-event">Evento 1</div>
                         <div class="fc-event">Evento 2</div>
