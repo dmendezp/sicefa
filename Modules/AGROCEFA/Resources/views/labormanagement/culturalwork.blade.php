@@ -66,7 +66,7 @@
 
 
                 <div class="card-body">
-                    {!! Form::open(['route' => 'agrocefa.registerexit', 'method' => 'POST']) !!}
+                    {!! Form::open(['route' => 'agrocefa.labormanagement.registerlabor', 'method' => 'POST']) !!}
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -99,6 +99,14 @@
                                 {!! Form::textarea('observation', old('observation'), [
                                     'class' => 'form-control',
                                     'style' => 'max-height: 100px;',
+                                ]) !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::label('destination', 'Destino') !!}
+                                {!! Form::select('destination', $destinationOptions, old('destination'), [
+                                    'class' => 'form-control',
+                                    'required',
+                                    'id' => 'destination',
                                 ]) !!}
                             </div>
                             <br>
@@ -137,35 +145,44 @@
 
                         </div>
                     </div>
-                    <div class="row">
-                        <button type="button" id="buttonsupplie"
-                            class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
-                            <span>Insumos</span>
-                            <span id="arrowsupplies" class="fas fa-chevron-down ml-auto"></span>
-                        </button>
-                        <div style="width: 20px;"></div>
-                        <button type="button" id="buttontool"
-                            class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
-                            <span>Herramienta Utilizada</span>
-                            <span id="arrowtool" class="fas fa-chevron-down ml-auto"></span>
-                        </button>
+                    <div id="botonContainer" style="display: none">
+                        <div class="row">
+                            <button type="button" id="buttonsupplie"
+                                class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                                <span>Insumos</span>
+                                <span id="arrowsupplies" class="fas fa-chevron-down ml-auto"></span>
+                            </button>
+                            <div style="width: 20px;"></div>
+                            <button type="button" id="buttontool"
+                                class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                                <span>Herramienta Utilizada</span>
+                                <span id="arrowtool" class="fas fa-chevron-down ml-auto"></span>
+                            </button>
 
+                        </div>
+                        <br>
+                        <div class="row">
+                            <button type="button" id="buttonmachinery"
+                                class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                                <span>Maquinaria</span>
+                                <span id="arrowmachinery" class="fas fa-chevron-down ml-auto"></span>
+                            </button>
+                            <div style="width: 20px;"></div>
+                            <button type="button" id="buttonexecutor"
+                                class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                                <span>Personal Contratado</span>
+                                <span id="arrowexecutor" class="fas fa-chevron-down ml-auto"></span>
+                            </button>
+                        </div>
+                        <br>
                     </div>
-                    <br>
-                    <div class="row">
-                        <button type="button" id="buttonmachinery"
-                            class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
-                            <span>Maquinaria</span>
-                            <span id="arrowmachinery" class="fas fa-chevron-down ml-auto"></span>
-                        </button>
-                        <div style="width: 20px;"></div>
-                        <button type="button" id="buttonexecutor"
-                            class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
-                            <span>Personal Contratado</span>
-                            <span id="arrowexecutor" class="fas fa-chevron-down ml-auto"></span>
-                        </button>
-                    </div>
-                    <br>
+                
+                <div id="showbutton" style="display: none">
+                {!! Form::submit(trans('agrocefa::movements.Btn_Register_Exit'), [
+                    'class' => 'btn btn-primary',
+                    'id' => 'registerButton',
+                ]) !!}
+                
                 </div>
                 <br>
                 @include('agrocefa::labormanagement.component.executor')
@@ -173,6 +190,8 @@
                 @include('agrocefa::labormanagement.component.machinery')
                 @include('agrocefa::labormanagement.component.tool')
             </div>
+            {!! Form::close() !!}
+        </div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -195,8 +214,6 @@
                 </div>
             </div>
         </div>
-
-
         <script>
             $(document).ready(function() {
                 // Agrega un evento de clic al botón de la esquina de la tarjeta
@@ -204,11 +221,7 @@
                     // Abre el modal con los detalles del cultivo
                     $('#myModal').modal('show'); // Reemplaza 'myModal' con el ID de tu modal
                 });
-
-                
             });
-
-            
         </script>
         <script>
             $(document).ready(function() {
@@ -247,8 +260,6 @@
                 display: none;
             }
         </style>
-
-
         <script>
             $(document).ready(function() {
                 var productTable = $('#productTable tbody');
@@ -340,6 +351,10 @@
                 $('#cropSelect').on('change', function() {
                     var selectedCropId = $(this).val();
                     if (selectedCropId) {
+                        // Mostrar el contenedor de botones si se selecciona un cultivo
+                        
+                        $('#showbutton').show();
+                        $('#botonContainer').show();
                         // Mostrar el botón de detalles del cultivo si se selecciona un cultivo
                         $('.cultivo-details-button').show();
                         $.ajax({
@@ -350,7 +365,7 @@
                             },
                             success: function(response) {
                                 var areaSembrada = response
-                                .sown_area; // Aquí obtienes el valor del área sembrada
+                                    .sown_area; // Aquí obtienes el valor del área sembrada
 
                                 // Establece el valor en el campo oculto
                                 $('#sownArea').val(areaSembrada);
@@ -367,6 +382,8 @@
                         $('#cultivoNameSpan').text(selectedCropName);
                     } else {
                         // Ocultar el botón de detalles del cultivo si no hay cultivo seleccionado
+                        $('#showbutton').hide();
+                        $('#botonContainer').hide();
                         $('.cultivo-details-button').hide();
                         $('#cultivoNameSpan').empty();
                     }
@@ -384,7 +401,7 @@
                             },
                             success: function(response) {
                                 var areaSembrada = response
-                                .sown_area; // Aquí obtienes el valor del área sembrada
+                                    .sown_area; // Aquí obtienes el valor del área sembrada
 
                                 // Establece el valor en el campo oculto
                                 $('#sownArea').val(areaSembrada);
@@ -410,8 +427,6 @@
                         });
                     }
                 });
-                
-
             });
         </script>
     @endsection

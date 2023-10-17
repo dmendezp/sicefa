@@ -58,6 +58,7 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/labormanagement/searchperson', 'LaborManagementController@searchperson')->name('agrocefa.labormanagement.searchperson');
         Route::get('/labormanagement/getpriceemploye', 'LaborManagementController@getpriceemploye')->name('agrocefa.labormanagement.getpriceemploye');
         Route::get('/labormanagement/getcropinformation', 'LaborManagementController@getcropinformation')->name('agrocefa.labormanagement.getcropinformation');
+        Route::post('/labormanagement/registerlabor', 'LaborManagementController@registerlabor')->name('agrocefa.labormanagement.registerlabor');
 
         
 

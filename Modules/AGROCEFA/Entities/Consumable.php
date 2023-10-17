@@ -11,7 +11,12 @@ class Consumable extends Model
 {
 
 
-    protected $fillable = [];
+    protected $fillable = [
+        'labor_id',
+        'inventory_id',
+        'amount',
+        'price'
+    ];
     
     protected static function newFactory()
     {

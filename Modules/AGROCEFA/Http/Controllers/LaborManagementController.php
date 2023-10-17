@@ -22,6 +22,10 @@ use Modules\SICA\Entities\EnvironmentProductiveUnit;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Category;
+use Modules\SICA\Entities\Labor;
+use Modules\AGROCEFA\Entities\Executor;
+use Modules\AGROCEFA\Entities\AgriculturalLabor;
+use Modules\AGROCEFA\Entities\Consumable;
 use Modules\AGROCEFA\Entities\EmployementType;
 use Modules\AGROCEFA\Entities\Tool;
 use Modules\AGROCEFA\Entities\Crop;
@@ -106,7 +110,6 @@ class LaborManagementController extends Controller
         $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
 
         // Obtener los registros de inventario que coinciden con las bodegas relacionadas
-
         // Herramientas
         $toolsData = Inventory::with('element.category')
             ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
@@ -139,33 +142,12 @@ class LaborManagementController extends Controller
             $machineryOptions[$inventoryId] = $elementName;
         }
 
-        // Personal
-        $peopleData = Apprentice::with('person')->get();
-
-        $peopleOptions = [];
-
-        foreach ($peopleOptions as $apprentice) {
-            $personId = $apprentice->id;
-            $fullname = $apprentice->person->first_name . $apprentice->person->first_last_name;
-            $peopleOptions[$personId] = $fullname;
-        }
-
-        // Agroquimico
-        $agrochemicalsData = Inventory::with('element.category')
-            ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
-            ->whereHas('element.category', function ($query) {
-                $query->where('name', 'Agroquimico');
-            })
-            ->get();
-
-        $agrochemicalOptions = [];
-
-        foreach ($agrochemicalsData as $inventory) {
-            $inventoryId = $inventory->id;
-            $elementName = $inventory->element->name;
-            $agrochemicalOptions[$inventoryId] = $elementName;
-        }
-
+        $destinationOptions = [
+            'Formación' => 'Formación',
+            'Producción' => 'Producción',
+           
+            // Agrega más opciones según sea necesario
+        ];
         // ---------------- Retorno a vista y funciones -----------------------
 
         return view('agrocefa::labormanagement.culturalwork', [
@@ -176,6 +158,7 @@ class LaborManagementController extends Controller
             'machineryOptions' => $machineryOptions,
             'categories' => $categories,
             'employes' => $employes,
+            'destinationOptions' => $destinationOptions,
 
         ]);
     }
@@ -224,7 +207,8 @@ class LaborManagementController extends Controller
         }
     }
 
-    public function searchperson(Request $request) {
+    public function searchperson(Request $request) 
+    {
         $term = $request->input('q');
     
         $persons = Person::where('document_number', 'like', '%' . $term . '%')->get();
@@ -293,7 +277,7 @@ class LaborManagementController extends Controller
             // Obtener los elementos de las bodegas
             $inventory = Inventory::whereIn('productive_unit_warehouse_id', $warehouseIds)
                 ->whereHas('element.category', function ($query) use ($categoryId) {
-                    $query->where('id', $categoryId);
+                    $query->where('name', $categoryId);
                 })
                 ->get();
 
@@ -353,39 +337,38 @@ class LaborManagementController extends Controller
         }
     }
 
-        public function getcropinformation(Request $request)
-        {
-            try {
-                $cropId = $request->input('id');
-                
-                // Realiza la lógica para obtener los datos del elemento en una sola consulta
-                $cropData = Crop::where('id', $cropId)->first();
+    public function getcropinformation(Request $request)
+    {
+        try {
+            $cropId = $request->input('id');
+            
+            // Realiza la lógica para obtener los datos del elemento en una sola consulta
+            $cropData = Crop::where('id', $cropId)->first();
 
-                if ($cropData) {
-                    $name = $cropData->name;
-                    $sown_area = $cropData->sown_area;
-                    $seed_time = $cropData->seed_time;
-                    $density = $cropData->density;
+            if ($cropData) {
+                $name = $cropData->name;
+                $sown_area = $cropData->sown_area;
+                $seed_time = $cropData->seed_time;
+                $density = $cropData->density;
+                
+
+
+                return response()->json([
+                    'name' => $name,
+                    'sown_area' => $sown_area,
+                    'seed_time' => $seed_time,
+                    'density' => $density,
                     
 
-
-                    return response()->json([
-                        'name' => $name,
-                        'sown_area' => $sown_area,
-                        'seed_time' => $seed_time,
-                        'density' => $density,
-                        
-
-                    ]);
-                } else {
-                    return response()->json(['error' => 'Cultivo no encontrado'], 404);
-                }
-            } catch (\Exception $e) {
-                return response()->json(['error' => 'Error interno del servidor'], 500);
+                ]);
+            } else {
+                return response()->json(['error' => 'Cultivo no encontrado'], 404);
             }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error interno del servidor'], 500);
         }
-        
-    /* Obtener datos del elemento */
+    }
+         
     public function getpriceemploye(Request $request)
     {
         try {
@@ -410,7 +393,6 @@ class LaborManagementController extends Controller
         }
     }
 
-    /* Obtener datos del elemento */
     public function getprice(Request $request)
     {
         try {
@@ -439,6 +421,177 @@ class LaborManagementController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error interno del servidor'], 500);
+        }
+    }
+
+    public function registerlabor(Request $request)
+    {
+
+        // Obten los datos generales de la labor
+        $lot = $request->input('lot');
+        $date = $request->input('date');
+        $productiveUnit = $request->input('productive_unit');
+        $observation = $request->input('observation');
+        $crop = $request->input('crop');
+        $activity = $request->input('activity');
+        $responsibility = $request->input('responsability');
+        $sownArea = $request->input('sown_area');
+        $destination = $request->input('destination');
+
+        // Datos de ejecutores
+        $executorIds = $request->input('executor-id');
+        $employmentIds = $request->input('executor_employement-id');
+        $executorQuantities = $request->input('executor_quantityhours');
+        $executorPrices = $request->input('executor_priceemploye');
+
+        // Datos de Herramientas
+        $toolIds = $request->input('tool-id');
+        $toolQuantities = $request->input('tool_quantity');
+        $toolPrices = $request->input('tool_price');
+
+        // Datos de Insumos
+        $suppliesIds = $request->input('supplies-id');
+        $suppliesQuantities = $request->input('supplies_quantity');
+        $suppliesPrices = $request->input('supplies_price');
+        $suppliesAplications = $request->input('application-method');
+        $suppliesObjectives = $request->input('objective');
+        // Inicia una transacción de base de datos
+        DB::beginTransaction();
+
+        try {
+            $laborId = null; 
+
+            // Registra la labor con el precio total calculado
+            $labor = new Labor([
+                'activity_id' => $activity,
+                'person_id' => $responsibility,
+                'planning_date' => $date,
+                'execution_date' => $date,
+                'description' => $observation,
+                'status' => 'Realizado',
+                'observations' => $observation,
+                'destination' => $destination,
+            ]);
+
+            // Guarda el nuevo registro en la base de datos
+            $labor->save();
+            $laborId = $labor->id;
+
+            DB::table('crop_labor')->insert([
+                'crop_id' => $crop,
+                'labor_id' => $laborId,
+                
+            ]);
+            
+            if (!empty($executorIds) && is_array($executorIds) && count(array_filter($executorIds)) > 0) {
+    
+                foreach ($executorIds as $index => $executorId) {
+                    // Accede a los datos de cada elemento de la tabla
+                    $executorEmployment = $employmentIds[$index];
+                    $executorQuantityhours = $executorQuantities[$index];
+                    $executorPrice = $executorPrices[$index];
+
+                
+                    // Registra la labor con el precio total calculado
+                    $executor = new Executor([
+                        'labor_id' => $laborId,
+                        'person_id' => $executorId,
+                        'employement_type_id' => $executorEmployment,
+                        'amount' => $executorQuantityhours,
+                        'price' => $executorPrice,
+                    ]);
+
+                    // Guarda el nuevo registro en la base de datos
+                    $executor->save();
+                    $executorId = $executor->id;
+                }
+            }
+            
+            if (!empty($toolIds) && is_array($toolIds) && count(array_filter($toolIds)) > 0) {
+
+                foreach ($toolIds as $index => $toolId) {
+                    // Accede a los datos de cada elemento de la tabla
+                    $toolQuantitie = $toolQuantities[$index];
+                    $toolPrice = $toolPrices[$index];
+
+                
+                    // Registra la labor con el precio total calculado
+                    $tool = new Tool([
+                        'labor_id' => $laborId,
+                        'inventory_id' => $toolId,
+                        'amount' => $toolQuantitie,
+                        'price' => $toolPrice,
+                    ]);
+
+                    // Guarda el nuevo registro en la base de datos
+                    $tool->save();
+                    $toolId = $tool->id;
+                }
+            }
+           
+
+            if (!empty($suppliesIds) && is_array($suppliesIds) && count(array_filter($suppliesIds)) > 0) {
+
+                foreach ($suppliesIds as $index => $suppliesId) {
+                    // Accede a los datos de cada elemento de la tabla
+                    $suppliesQuantitie = $suppliesQuantities[$index];
+                    $suppliesPrice = $suppliesPrices[$index];
+                    $suppliesAplication = $suppliesAplications[$index];
+                    $suppliesObjective = $suppliesObjectives[$index];
+
+                    if (!empty($suppliesAplications) && !empty($suppliesObjectives) && is_array($suppliesAplications) && is_array($suppliesObjectives) && count(array_filter($suppliesAplications)) > 0 && count(array_filter($suppliesObjectives)) > 0) {
+
+                            // Registra la labor con el precio total calculado
+                            $supplies = new Consumable([
+                                'labor_id' => $laborId,
+                                'inventory_id' => $suppliesId,
+                                'amount' => $suppliesQuantitie,
+                                'price' => $suppliesPrice,
+                            ]);
+
+                            // Guarda el nuevo registro en la base de datos
+                            $supplies->save();
+                            $suppliesId = $supplies->id;
+
+                            $aplicationsupplies = new AgriculturalLabor([
+                                'labor_id' => $laborId,
+                                'application_method' => $suppliesAplication,
+                                'objective' => $suppliesObjective,
+                            ]);
+
+                            // Guarda el nuevo registro en la base de datos
+                            $aplicationsupplies->save();
+                            $aplicationsuppliesId = $aplicationsupplies->id;
+
+                        } else {
+                            // Registra la labor con el precio total calculado
+                            $supplies = new Consumable([
+                                'labor_id' => $laborId,
+                                'inventory_id' => $suppliesId,
+                                'amount' => $suppliesQuantitie,
+                                'price' => $suppliesPrice,
+                            ]);
+
+                            // Guarda el nuevo registro en la base de datos
+                            $supplies->save();
+                            $suppliesId = $supplies->id;
+                    }
+                }
+            }
+
+            
+
+            // Si todo está correcto, realiza un commit de la transacción
+            DB::commit();
+
+            // Después de realizar la operación de registro con éxito
+            return redirect()->route('agrocefa.culturalwork')->with('success', 'El registro se ha completado con éxito.');
+
+        } catch (\Exception $e) {
+            // En caso de error, realiza un rollback de la transacción y maneja el error
+            DB::rollBack();
+
+            \Log::error('Error en el registro: ' . $e->getMessage());
         }
     }
 

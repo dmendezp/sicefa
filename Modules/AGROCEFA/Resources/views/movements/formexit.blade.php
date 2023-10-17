@@ -353,12 +353,18 @@
                     // Asignar el elemento seleccionado al registro correspondiente
                     selectedElements[newRow.index()] = selectedElementId;
                 } else {
-                    showNotification("Por favor, complete todos los campos de la fila actual antes de agregar otra.", true);
+                    showNotification(
+                        "Por favor, complete todos los campos de la fila actual antes de agregar otra.",
+                        true);
 
                 }
             });
 
-
+            // Manejador de eventos para eliminar productos
+            productTable.on('click', '.removeProduct', function() {
+                $(this).closest('tr').remove();
+                updateProductsData();
+            });
 
             // Manejador de eventos para cambiar la unidad de medida, la categoría, la cantidad y el precio al seleccionar un elemento
             productTable.on('change', 'select[name="product-id[]"]:last', function() {

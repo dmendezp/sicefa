@@ -7,7 +7,6 @@
                     <table id="executorTable" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th></th>
                                 <th>Persona</th>
                                 <th>Tipo de Empleado</th>
                                 <th>Horas trabajadas</th>
@@ -44,12 +43,11 @@
                 function addProductRow() {
                     newRow = $('<tr class="person-row">');
                     newRow.html(
-                        '<td><input type="hidden" id="product-name" class="product-name" name="product-name[]"></td>' +
-                        '<td class="col-2"><select class="form-control person-id" id="select2" name="person-id[]" required><option value=""></option></select></td>' +
-                        '<td class="col-2"><select id="employement-id" class="form-control" name="employement-id[]" required><option value="">Seleccione Tipo de Empleado</option>@foreach ($employes as $employe)<option value="{{ $employe->id }}">{{ $employe->name }}</option>@endforeach</select></td>' +
-                        '<td class="col-2"><input type="number" id="quantityhours" class="form-control quantityhours" name="quantityhours[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
-                        '<td><input type="text" id="priceemploye" class="form-control priceemploye" name="priceemploye[]" readonly></td>' +
-                        '<td><input type="text" id="price-total" class="form-control price-total" name="price-total[]" readonly></td>' +
+                        '<td class="col-2"><select class="form-control executor-id" id="select2" name="executor-id[]" ><option value=""></option></select></td>' +
+                        '<td class="col-2"><select id="executor_employement-id" class="form-control" name="executor_employement-id[]" ><option value="">Seleccione Tipo de Empleado</option>@foreach ($employes as $employe)<option value="{{ $employe->id }}">{{ $employe->name }}</option>@endforeach</select></td>' +
+                        '<td class="col-2"><input type="number" id="executor_quantityhours" class="form-control executor_quantityhours" name="executor_quantityhours[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
+                        '<td><input type="text" id="executor_priceemploye" class="form-control executor_priceemploye" name="executor_priceemploye[]" readonly></td>' +
+                        '<td><input type="text" id="executor_price-total" class="form-control executor_price-total" name="executor_price-total[]" readonly></td>' +
                         '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>'
                     );
 
@@ -57,37 +55,37 @@
                     executorTable.append(newRow);
 
                     // Inicializar Select2 en campos de selección de personas
-                $('select[name="person-id[]"]:last').select2({
-                    placeholder: 'Seleccione una persona',
-                    minimumInputLength: 3,
-                    ajax: {
-                        url: '{{ route('agrocefa.labormanagement.searchperson') }}',
-                        dataType: 'json',
-                        delay: 250,
-                        data: function(params) {
-                            return {
-                                q: params.term,
-                            };
-                        },
-                        processResults: function(data) {
-                            var results = data.map(function(item) {
+                    $('select[name="executor-id[]"]:last').select2({
+                        placeholder: 'Seleccione una persona',
+                        minimumInputLength: 3,
+                        ajax: {
+                            url: '{{ route('agrocefa.labormanagement.searchperson') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
                                 return {
-                                    id: item.id,
-                                    text: item.text
+                                    q: params.term,
                                 };
-                            });
+                            },
+                            processResults: function(data) {
+                                var results = data.map(function(item) {
+                                    return {
+                                        id: item.id,
+                                        text: item.text
+                                    };
+                                });
 
-                            return {
-                                results: results
-                            };
-                        },
-                        cache: true
-                    }
-                });
+                                return {
+                                    results: results
+                                };
+                            },
+                            cache: true
+                        }
+                    });
 
                 }
 
-                
+
 
 
 
@@ -95,16 +93,16 @@
                 $('#addEmploye').click(function() {
                     var lastRow = executorTable.find('tr.person-row:last');
 
-                    if (!lastRow.find('.person-id').val()) {
-                        showNotification("El campo 'person-id' está vacío.", true);
-                    } else if (!lastRow.find('#employement-id').val()) {
-                        showNotification("El campo 'employement-id' está vacío.", true);
-                    } else if (!lastRow.find('#quantityhours').val()) {
-                        showNotification("El campo 'quantityhours' está vacío.", true);
-                    } else if (!lastRow.find('#priceemploye').val()) {
-                        showNotification("El campo 'priceemploye' está vacío.", true);
-                    } else if (!lastRow.find('#price-total').val()) {
-                        showNotification("El campo 'price-total' está vacío.", true);
+                    if (!lastRow.find('.executor-id').val()) {
+                        showNotification("El campo 'executor-id' está vacío.", true);
+                    } else if (!lastRow.find('#executor_employement-id').val()) {
+                        showNotification("El campo 'executor_employement-id' está vacío.", true);
+                    } else if (!lastRow.find('#executor_quantityhours').val()) {
+                        showNotification("El campo 'executor_quantityhours' está vacío.", true);
+                    } else if (!lastRow.find('#executor_priceemploye').val()) {
+                        showNotification("El campo 'executor_priceemploye' está vacío.", true);
+                    } else if (!lastRow.find('#executor_price-total').val()) {
+                        showNotification("El campo 'executor_price-total' está vacío.", true);
                     } else {
                         addProductRow();
 
@@ -113,7 +111,7 @@
 
                         // Llenar el campo de selección de productos de esta fila con los elementos previamente obtenidos
                         var productNameSelect = newRow.find(
-                        '.person-id'); // Acceder a newRow en lugar de lastRow
+                            '.executor-id'); // Acceder a newRow en lugar de lastRow
 
                         $.each(elements, function(index, element) {
                             productNameSelect.append(new Option(element.name, element.id));
@@ -124,12 +122,14 @@
                     }
                 });
 
+                // Manejador de eventos para eliminar productos
+                executorTable.on('click', '.removeProduct', function() {
+                    $(this).closest('tr').remove();
 
-
-
+                });
 
                 // Manejador de eventos para cambiar la unidad de medida, la cantidad y el precio al seleccionar un elemento
-                executorTable.on('change', 'select[name="employement-id[]"]:last', function() {
+                executorTable.on('change', 'select[name="executor_employement-id[]"]:last', function() {
                     var currentRow = $(this).closest('tr');
                     var selectedEmploye = $(this).val(); // Usar .val() para obtener el valor seleccionado
 
@@ -143,13 +143,13 @@
                         success: function(response) {
                             console.log(response);
 
-                            var priceemployeField = currentRow.find('#priceemploye');
+                            var priceemployeField = currentRow.find('#executor_priceemploye');
 
                             priceemployeField.val(response.price ||
                                 'Precio no encontrada');
                         },
                         error: function() {
-                            var priceemployeField = currentRow.find('#priceemploye');
+                            var priceemployeField = currentRow.find('#executor_priceemploye');
 
                             priceemployeField.val('Error al obtener la unidad de medida');
 
@@ -161,11 +161,11 @@
 
 
                 // Cambiar el evento 'change' a 'input' para el campo de cantidad
-                executorTable.on('input', 'input[name="quantityhours[]"]', function() {
+                executorTable.on('input', 'input[name="executor_quantityhours[]"]', function() {
                     var currentRow = $(this).closest('tr');
-                    var priceField = currentRow.find('#priceemploye');
-                    var quantityField = currentRow.find('#quantityhours');
-                    var priceTotalField = currentRow.find('#price-total');
+                    var priceField = currentRow.find('#executor_priceemploye');
+                    var quantityField = currentRow.find('#executor_quantityhours');
+                    var priceTotalField = currentRow.find('#executor_price-total');
 
                     var price = parseFloat(priceField.val()) || 0;
                     var quantity = parseInt(quantityField.val()) || 0;

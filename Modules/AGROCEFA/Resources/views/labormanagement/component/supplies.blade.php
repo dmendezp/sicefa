@@ -7,7 +7,6 @@
                 <table id="suppliesTable" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>Categoria</th>
                             <th>Insumos</th>
                             <th>Dosis*HA: Lt-Kg</th>
@@ -27,7 +26,6 @@
             </div>
         </div>
     </div>
-    
     <script>
         $(document).ready(function() {
             var suppliesTable = $('#suppliesTable tbody');
@@ -44,12 +42,11 @@
             function addProductRow() {
                 newRow = $('<tr class="product-row">');
                 newRow.html(
-                    '<td><input type="hidden" id="product-name" class="product-name" name="product-name[]"></td>' +
-                    '<td class="col-2"><select id="category-id" class="form-control" name="category-id[]" required><option value="">Seleccione la Categoria</option>@foreach ($categories as $category)<option value="{{ $category->id }}">{{ $category->name }}</option>@endforeach</select></td>' +
-                    '<td class="col-2"><select id="product-id1" class="form-control product-id1" name="product-id1[]" required></select></td>' +
-                    '<td class="col-2"><input type="number" id="product-quantity" class="form-control product-quantity" name="product-quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
-                    '<td><input type="text" id="product-price" class="form-control product-price" name="product-price[]" readonly></td>' +
-                    '<td><input type="text" id="price-total" class="form-control price-total" name="price-total[]" readonly></td>' +
+                    '<td class="col-2"><select id="category-id" class="form-control" name="category-id[]"><option value="">Seleccione la Categoria</option>@foreach ($categories as $category)<option value="{{ $category->name }}">{{ $category->name }}</option>@endforeach</select></td>' +
+                    '<td class="col-2"><select id="supplies-id" class="form-control supplies-id" name="supplies-id[]" ></select></td>' +
+                    '<td class="col-2"><input type="number" id="supplies_quantity" class="form-control supplies_quantity" name="supplies_quantity[]" placeholder="Cantidad"><span class="quantity-message"></span></td>' +
+                    '<td><input type="text" id="supplies_price" class="form-control supplies_price" name="supplies_price[]" readonly></td>' +
+                    '<td><input type="text" id="supplies_price-total" class="form-control supplies_price-total" name="supplies_price-total[]" readonly></td>' +
                     '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>'
                         
                 );
@@ -57,7 +54,63 @@
                 // Agregar la fila a la tabla
                 suppliesTable.append(newRow);
 
+                // Agregar los campos adicionales debajo de la fila
+                newRow.after(
+                    '<tr class="additional-fields" style="display: none;">' +
+                    '<td>Método de Aplicación: <input type="text" class="form-control supplies_application-method" name="application-method[]" /></td>' +
+                    '<td>Objetivo: <input type="text" class="form-control supplies_objective" name="objective[]" /></td>' +
+                    '</tr>'
+                );
             }
+
+            // Manejador de eventos para el cambio en la categoría
+            $('#suppliesTable').on('change', 'select[name="category-id[]"]', function() {
+                var selectedCategory = $(this).val();
+                var additionalFieldsRow = $(this).closest('tr').next('.additional-fields');
+
+                if (selectedCategory === 'Agroquimico' || selectedCategory === 'Fertilizante') {
+                    additionalFieldsRow.show();
+                } else {
+                    additionalFieldsRow.hide();
+                }
+                console.log('Categoría seleccionada:', selectedCategory);
+                console.log('Elemento de campos adicionales:', additionalFieldsRow);
+
+
+                // Aquí puedes agregar más lógica para mostrar u ocultar campos adicionales según sea necesario.
+            });
+
+            // Escuchar el evento "input" en los campos "Método de Aplicación" y "Objetivo"
+            suppliesTable.on('input', 'input[name="application-method[]"], input[name="objective[]"]', function() {
+                var currentRow = $(this).closest('tr');
+                var fieldName = $(this).attr('name'); // Nombre del campo
+
+                // Obtener el valor introducido por el usuario
+                var enteredValue = $(this).val();
+
+                // Guardar el valor en el localStorage
+                localStorage.setItem(fieldName, enteredValue);
+            });
+
+            // Mostrar sugerencias basadas en el localStorage cuando el usuario comience a escribir
+            suppliesTable.on('input', 'input[name="application-method[]"], input[name="objective[]"]', function() {
+                var fieldName = $(this).attr('name'); // Nombre del campo
+
+                // Obtener el valor introducido por el usuario
+                var enteredValue = $(this).val();
+
+                // Obtener el valor almacenado en el localStorage
+                var savedValue = localStorage.getItem(fieldName);
+
+                if (savedValue !== null) {
+                    // Comprobar si el valor introducido coincide con el valor almacenado
+                    if (enteredValue === savedValue.substring(0, enteredValue.length)) {
+                        // Establecer el valor completo como sugerencia
+                        $(this).val(savedValue);
+                    }
+                }
+            });
+
 
             // Manejador de eventos para el cambio en la categoria
             $('#suppliesTable').on('change', 'select[name="category-id[]"]', function() {
@@ -78,7 +131,7 @@
                         elements = response;
 
                         // Obtener el campo de selección de productos de la última fila
-                        var productNameSelect = newRow.find('.product-id1');
+                        var productNameSelect = newRow.find('.supplies-id');
                         var productName = $('.product-name');
 
                         productNameSelect.empty(); // Vaciar las opciones actuales
@@ -99,8 +152,8 @@
 
                             currentRow.find('.product-measurement-unit').attr('name',
                                 'product-measurement-unit[]');
-                            currentRow.find('.product-price').attr('name',
-                                'product-price[]');
+                            currentRow.find('.supplies_price').attr('name',
+                                'supplies_price[]');
                             currentRow.find('.product-category').attr('name',
                                 'product-category[]');
                             currentRow.find('.product-destination').attr('name',
@@ -118,9 +171,9 @@
             $('#addProduct1').click(function() {
                 var lastRow = suppliesTable.find('tr.product-row:last');
 
-                if (lastRow.find('#product-id1').val() &&
-                    lastRow.find('#product-quantity').val() && lastRow.find('#product-price').val() &&
-                    lastRow.find('#price-total').val()) {
+                if (lastRow.find('#supplies-id').val() &&
+                    lastRow.find('#supplies_quantity').val() && lastRow.find('#supplies_price').val() &&
+                    lastRow.find('#supplies_price-total').val()) {
                     addProductRow();
                     console.log('paso');
                     // Obtener el elemento seleccionado en la fila anterior
@@ -137,10 +190,14 @@
                 }
             });
 
+            // Manejador de eventos para eliminar productos
+            suppliesTable.on('click', '.removeProduct', function() {
+                $(this).closest('tr').remove();
 
+            });
 
             // Manejador de eventos para cambiar la unidad de medida, la cantidad y el precio al seleccionar un elemento
-            suppliesTable.on('change', 'select[name="product-id1[]"]:last', function() {
+            suppliesTable.on('change', 'select[name="supplies-id[]"]:last', function() {
                 var currentRow = $(this).closest('tr');
                 var selectedElementId = $(this).val(); // Usar .val() para obtener el valor seleccionado
 
@@ -178,7 +235,7 @@
 
 
             // Manejador de eventos para cambiar el precio y mostrar cantidad al seleccionar un elemento
-            suppliesTable.on('change', 'select[name="product-id1[]"]', function() {
+            suppliesTable.on('change', 'select[name="supplies-id[]"]', function() {
                 var currentRow = $(this).closest('tr');
                 var selectedElementId = $(this).val(); // Obtener el valor seleccionado
 
@@ -192,7 +249,7 @@
                     success: function(response) {
                         console.log(response);
                         // Actualizar los campos de precio, cantidad y destino
-                        currentRow.find('#product-price').val(response.price || '');
+                        currentRow.find('#supplies_price').val(response.price || '');
                         currentRow.find('#product-lot').val(response.lote || '');
                         currentRow.find('#product-stock').val(response.stock || '');
 
@@ -209,8 +266,8 @@
 
                     },
                     error: function() {
-                        var priceField = currentRow.find('#product-price');
-                        var quantityField = currentRow.find('#product-quantity');
+                        var priceField = currentRow.find('#supplies_price');
+                        var quantityField = currentRow.find('#supplies_quantity');
                         var lotField = currentRow.find('#product-lot');
                         var quantityMessage = currentRow.find('.quantity-message');
 
@@ -227,9 +284,9 @@
             });
 
             // Manejador de eventos para cambiar la cantidad y habilitar/deshabilitar el botón de registro
-            suppliesTable.on('input', 'input[name="product-quantity[]"]', function() {
+            suppliesTable.on('input', 'input[name="supplies_quantity[]"]', function() {
                 var currentRow = $(this).closest('tr');
-                var selectedElementId = currentRow.find('select[name="product-id1[]"]')
+                var selectedElementId = currentRow.find('select[name="supplies-id[]"]')
                     .val(); // Obtener el valor seleccionado
                 var enteredQuantity = parseInt($(this)
                     .val()); // Obtener la cantidad ingresada como número entero
@@ -283,15 +340,15 @@
                 console.log(sownArea);
                 suppliesTable.find('tr.product-row').each(function() {
                     var currentRow = $(this);
-                    var priceField = currentRow.find('.product-price');
-                    var quantityField = currentRow.find('.product-quantity');
-                    var priceTotalField = currentRow.find('.price-total');
+                    var priceField = currentRow.find('.supplies_price');
+                    var quantityField = currentRow.find('.supplies_quantity');
+                    var priceTotalField = currentRow.find('.supplies_price-total');
 
                     var price = parseFloat(priceField.val()) || 0;
                     var quantity = parseInt(quantityField.val()) || 0;
                     if (price > 0 && quantity > 0) {
                         var total = price * quantity * sownArea; // Multiplica por el área sembrada
-                        
+
 
                         priceTotalField.val(total.toFixed(0));
                     } else {
@@ -301,7 +358,7 @@
             }
 
             // Manejador de eventos para el cambio en el campo de cantidad y precio
-            suppliesTable.on('input', 'input[name="product-quantity[]"]', function() {
+            suppliesTable.on('input', 'input[name="supplies_quantity[]"]', function() {
                 calculateTotal();
             });
 
