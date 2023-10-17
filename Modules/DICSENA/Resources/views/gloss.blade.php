@@ -31,7 +31,7 @@
         <label for="program_id">Selecciona un programa:</label>
         <select name="program_id" id="program_id" class="form-control">
             @foreach ($programs as $program)
-            <option value="{{ $program->id }}">{{ $program->name }}</option>
+            <option value="{{ $program->id }}" @if($program->id == request('program_id')) selected @endif>{{ $program->name }}</option>
             @endforeach
         </select>
     </div>

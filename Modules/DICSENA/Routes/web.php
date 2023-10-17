@@ -32,4 +32,15 @@ Route::middleware(['lang'])->group(function () {
         Route::put('/guidepost/update/{id}', 'GuidepostController@update')->name('cefa.dicsena.guidepost.update');
         Route::delete('/guidepost/destroy/{id}', 'GuidepostController@destroy')->name('cefa.dicsena.guidepost.destroy');
     });
+    Route::middleware(['auth', 'role:instructor'])->group(function () {
+        // Rutas protegidas para instructores
+        Route::get('/guidepost', 'GuidepostController@index')->name('cefa.dicsena.guidepost.index');
+        Route::get('/guidepost/create', 'GuidepostController@create')->name('cefa.dicsena.guidepost.create');
+        Route::post('/guidepost/store', 'GuidepostController@store')->name('cefa.dicsena.guidepost.store');
+        Route::get('/guidepost/{id}/edit', 'GuidepostController@edit')->name('cefa.dicsena.guidepost.edit');
+        Route::put('/guidepost/update/{id}', 'GuidepostController@update')->name('cefa.dicsena.guidepost.update');
+        Route::delete('/guidepost/destroy/{id}', 'GuidepostController@destroy')->name('cefa.dicsena.guidepost.destroy');
+
+        // Otras rutas protegidas para instructores
+    });
 });
