@@ -21,11 +21,12 @@
                         <!-- Filas de la tabla se agregarán dinámicamente aquí -->
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-primary"
-                    id="addProduct1">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>
+
+                <br>   
+                <button type="button" class="btn btn-primary" id="addProduct1">{{ trans('agrocefa::movements.Btn_Add_Element') }}</button>    
             </div>
         </div>
-    </div>  
+    </div>
     
     <script>
         $(document).ready(function() {
@@ -50,6 +51,7 @@
                     '<td><input type="text" id="product-price" class="form-control product-price" name="product-price[]" readonly></td>' +
                     '<td><input type="text" id="price-total" class="form-control price-total" name="price-total[]" readonly></td>' +
                     '<td class="col-1"><button type="button" id="button" class="btn btn-danger removeProduct"><i class="fa fa-trash"></i></button>'
+                        
                 );
 
                 // Agregar la fila a la tabla
