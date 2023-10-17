@@ -65,7 +65,7 @@
                                                     <tr>
                                                         <td>{{ $envasp->environmental_aspect->name }}</td>
                                                         <td>
-                                                            <input type="text" name="amounts[]" value="{{ $envasp->amount }}">
+                                                            <input type="number" name="amounts[]" value="{{ $envasp->amount }}" required>
                                                         </td>
                                                     </tr>
                                                 @endforeach

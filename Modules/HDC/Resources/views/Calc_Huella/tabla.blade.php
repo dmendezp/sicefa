@@ -12,7 +12,7 @@
                     <div class="mtop16">
                         @if ($environmeaspect->isNotEmpty())
                             <table id="example1" class="table table-bordered table-striped">
-                                <thead>
+                                <thead class="table-dark">
                                     <tr>
                                         <th>N°</th>
                                         <th>Aspecto Ambiental</th>
@@ -43,7 +43,7 @@
                                             <td>
                                                 @if ($aspect->personenvironmentalaspects->isNotEmpty())
                                                     <a href="{{ route('carbonfootprint.edit_consumption', $aspect->personenvironmentalaspects->first()->id) }}"
-                                                        class="btn btn-primary">Editar</a>
+                                                        class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                                                     <form
                                                         action="{{ route('carbonfootprint.eliminar', ['id' => $aspect->personenvironmentalaspects->first()->id]) }}"
                                                         method="POST" style="display: inline;">
@@ -56,9 +56,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
-
-
                                 </tbody>
                             </table>
                         @else

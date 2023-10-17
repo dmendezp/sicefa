@@ -34,7 +34,7 @@ class PersonEnvironmentalAspect extends Model implements Auditable
     }
 
     public function environmental_aspect(){ // Accede a la unidad Huella familiar al que pertenece
-        return $this->belongsTo(EnvironmentalAspect::class);
+        return $this->belongsTo(EnvironmentalAspect::class );
     }
 
 }

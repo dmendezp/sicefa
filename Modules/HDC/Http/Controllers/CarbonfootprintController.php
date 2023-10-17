@@ -84,69 +84,56 @@ class CarbonfootprintController extends Controller
     }
 
     public function editConsumption($id)
-{
-    // Buscar el registro de PersonEnvironmentalAspect por ID
-    $personEnvironmentalAspect = PersonEnvironmentalAspect::findOrFail($id);
+    {
+        // Buscar el registro de PersonEnvironmentalAspect por ID
+        $personEnvironmentalAspect = PersonEnvironmentalAspect::findOrFail($id);
 
-    // Obtener todos los aspectos ambientales y sus valores
-    $allAspects = EnvironmentalAspect::where('personal', 1)->get();
+        // Obtener todos los aspectos ambientales y sus valores
+        $allAspects = EnvironmentalAspect::where('personal', 1)->get();
 
-    // Retornar la vista de edición con los datos necesarios
-    return view('hdc::Calc_Huella.edit_consumption', compact('personEnvironmentalAspect', 'allAspects'));
-}
-
-
-
-
-
-
-public function updateConsumption(Request $request, $id)
-{
-    $data = $request->validate([
-        'aspecto.*.valor_consumo' => 'required|numeric',
-    ]);
-
-    $personEnvironmentalAspect = PersonEnvironmentalAspect::findOrFail($id);
-
-    foreach ($data['aspecto'] as $aspectId => $values) {
-        // Verificar si el aspecto actual coincide con el aspecto que estás actualizando
-        if ($aspectId == $personEnvironmentalAspect->environmental_aspect_id) {
-            $personEnvironmentalAspect->update([
-                'consumption_value' => $values['valor_consumo'],
-            ]);
-            break; // Terminar el bucle una vez que se haya actualizado el aspecto actual
-        }
+        // Retornar la vista de edición con los datos necesarios
+        return view('hdc::Calc_Huella.edit_consumption', compact('personEnvironmentalAspect', 'allAspects'));
     }
 
-    return redirect()->route('carbonfootprint.persona')->with('success', 'Valor actualizado correctamente');
-}
+
+    public function updateConsumption(Request $request, $id)
+    {
+        $data = $request->validate([
+            'aspecto.*.valor_consumo' => 'required|numeric',
+        ]);
+
+        $personEnvironmentalAspect = PersonEnvironmentalAspect::findOrFail($id);
+
+        foreach ($data['aspecto'] as $aspectId => $values) {
+            // Verificar si el aspecto actual coincide con el aspecto que estás actualizando
+            if ($aspectId == $personEnvironmentalAspect->environmental_aspect_id) {
+                $personEnvironmentalAspect->update([
+                    'consumption_value' => $values['valor_consumo'][0],
+                ]);
+                break; // Terminar el bucle una vez que se haya actualizado el aspecto actual
+            }
+        }
+
+        return redirect()->route('carbonfootprint.persona')->with('success', 'Valor actualizado correctamente');
+    }
 
 
-
-
-
+    /* Funcion de boton eliminar  */
     public function eliminarConsumo($id)
-{
-    // Buscar el registro de PersonEnvironmentalAspect por ID
-    $personAspect = PersonEnvironmentalAspect::findOrFail($id);
+    {
+        // Buscar el registro de PersonEnvironmentalAspect por ID
+        $personAspect = PersonEnvironmentalAspect::findOrFail($id);
 
-    // Obtener el ID del FamilyPersonFootprint asociado
-    $familyPersonFootprintId = $personAspect->family_person_footprint_id;
+        // Obtener el ID del FamilyPersonFootprint asociado
+        $familyPersonFootprintId = $personAspect->family_person_footprint_id;
 
-    // Eliminar todos los registros relacionados en PersonEnvironmentalAspect
-    PersonEnvironmentalAspect::where('family_person_footprint_id', $familyPersonFootprintId)->delete();
+        // Eliminar todos los registros relacionados en PersonEnvironmentalAspect
+        PersonEnvironmentalAspect::where('family_person_footprint_id', $familyPersonFootprintId)->delete();
 
-    // Eliminar el registro específico en FamilyPersonFootprint
-    FamilyPersonFootprint::where('id', $familyPersonFootprintId)->delete();
+        // Eliminar el registro específico en FamilyPersonFootprint
+        FamilyPersonFootprint::where('id', $familyPersonFootprintId)->delete();
 
-    // Puedes redirigir a la vista que necesites después de eliminar
-    return redirect()->route('carbonfootprint.persona')->with('success', 'Registros eliminados correctamente');
+        // Puedes redirigir a la vista que necesites después de eliminar
+        return redirect()->route('carbonfootprint.persona')->with('success', 'Registros eliminados correctamente');
+    }
 }
-
-
-
-
-}
-
-
-

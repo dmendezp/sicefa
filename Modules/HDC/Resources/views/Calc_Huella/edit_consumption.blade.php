@@ -10,7 +10,8 @@
             <br>
             <div class="container">
                 <div class="table-responsive">
-                    <form method="post" action="{{ route('carbonfootprint.update_consumption', ['id' => $personEnvironmentalAspect->id]) }}">
+                    <form method="post"
+                        action="{{ route('carbonfootprint.update_consumption', ['id' => $personEnvironmentalAspect->id]) }}">
                         @csrf
                         @method('POST')
 
@@ -25,12 +26,14 @@
                                 @foreach ($allAspects as $aspect)
                                     <tr>
                                         <td>
-                                            <input type="hidden" name="aspecto[{{ $aspect->id }}][id_aspecto]" value="{{ $aspect->id }}">
+                                            <input type="hidden" name="aspecto[{{ $aspect->id }}][id_aspecto]"
+                                                value="{{ $aspect->id }}">
                                             {{ $aspect->name }}
                                         </td>
                                         <td>
-                                            <input name="aspecto[{{ $aspect->id }}][valor_consumo]" class="form-control" type="number" value="{{ $personEnvironmentalAspect->consumption_value }}" placeholder="Ingrese el valor de consumo" required>
-
+                                            <input name="aspecto[{{ $aspect->id }}][valor_consumo][]" class="form-control"
+                                                type="number" value="{{ $personEnvironmentalAspect->consumption_value }}"
+                                                placeholder="Ingrese el valor de consumo" required>
                                         </td>
                                     </tr>
                                 @endforeach
