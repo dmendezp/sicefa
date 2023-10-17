@@ -25,7 +25,6 @@
     <a class="navbar-brand" href="{{ route('cefa.dicsena.menu')}}">
         <i class="fas fa-user"></i> Panel
     </a>
-
 </nav>
 <div class="container">
     <div class="wrapper">
