@@ -2,9 +2,10 @@
 
 return [
     //Breadcrumb
-    'Attendance'              => 'Asistencia',
-    'Register'                => 'Registro',
-    'Attendance Registration' => 'Registro de Asistencia',
+	'Breadcrumb_Active_Attendance'       => 'Asistencia',
+	'Breadcrumb_Register'                => 'Registro',
+    'Breadcrumb_Attendance_Registration' => 'Registro de Asistencia',
+    'Breadcrumb_Attendance_Consult'      => 'Attendance Consult',
 
     //Card
     'CardSubtitle1'            => 'Selecciona el ambiente',
@@ -30,6 +31,11 @@ return [
     'Legend'                      => 'Leyenda',
     'Type'                        => 'Tipo',
     'Quantity'                    => 'Cantidad',
+
+    // Attendance Consult
+    'Title_Card_Consult'    => 'Consulta la asistencia haciendo clic en:',
+    'Title_Card_Apprentice' => 'Aprendiz',
+    'Title_Card_Titled'     => 'Titulada',
 
     //Buttons
     'Accept' => 'Aceptar',

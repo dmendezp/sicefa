@@ -2,9 +2,10 @@
 
 return [
     //Breadcrumb
-    'Attendance'              => 'Attendance',
-    'Register'                => 'Register',
-    'Attendance Registration' => 'Attendance Registration',
+    'Breadcrumb_Active_Attendance'       => 'Attendance',
+    'Breadcrumb_Register'                => 'Register',
+    'Breadcrumb_Attendance_Registration' => 'Attendance Registration',
+    'Breadcrumb_Attendance_Consult'      => 'Attendance Consult',
 
     //Card
     'CardSubtitle1'            => 'Choose the environment',
@@ -30,6 +31,11 @@ return [
     'Legend'                      => 'Legend',
     'Type'                        => 'Type',
     'Quantity'                    => 'Quantity',
+    
+    // Attendance Consult
+    'Title_Card_Consult'    => 'Check the attendance by clicking on:',
+    'Title_Card_Apprentice' => 'Apprentice',
+    'Title_Card_Titled'     => 'Titled',
     
     //Buttons
     'Accept' => 'Accept',
