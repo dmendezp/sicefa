@@ -261,7 +261,7 @@
                                         <a href="{{ route('sigac.apprentice.schedule_apprentice.index') }}"
                                             class="nav-link {{ !Route::is('sigac.apprentice.schedule_apprentice.index.*') ?: 'active' }}">
                                             <i class="nav-icon fa-solid fa-book"></i>
-                                            <p>Hrs. Aprendiz</p>
+                                            <p>{{ trans('sigac::general.ApprenticeSchd') }}</p>
                                         </a>
                                     </li>
                                 @endif

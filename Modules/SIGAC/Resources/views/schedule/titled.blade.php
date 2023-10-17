@@ -5,9 +5,9 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="#" class="text-decoration-none">{{ trans('sigac::sInstructor.Schedule') }}</a>
+        <a href="#" class="text-decoration-none">{{ trans('sigac::schedule.Breadcrumb_Active_Schedule') }}</a>
     </li>
-    <li class="breadcrumb-item active breadcrumb-color">{{ trans('sigac::sInstructor.Schedule Instructor') }}</li>
+    <li class="breadcrumb-item active breadcrumb-color">{{ trans('sigac::schedule.Breadcrumb_Schedule_Titled') }}</li>
 @endpush
 
 @section('content')

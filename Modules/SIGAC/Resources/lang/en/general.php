@@ -30,7 +30,7 @@ return [
     'Schedules'               => 'Schedules',
     'InstructorSchd'          => 'Instructor Schd.',
     'ApprenticeSchd'          => 'Apprentice Schd.',
-    'TitledSchd'              => 'Apprentice Schd.',
+    'TitledSchd'              => 'Titled Schd.',
     // Consult Functions
     'Consult'                 => 'Consult',
     'ExcusesConsult'          => 'Excuses Consult',
