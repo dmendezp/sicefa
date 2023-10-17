@@ -13,7 +13,15 @@ class Equipment extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $table = 'equipments';
+
+
+    protected $fillable = [
+        'labor_id',
+        'inventory_id',
+        'amount',
+        'price'
+    ];
     
     public function labor() {
         return $this->belongsTo(Labor::class,);

@@ -178,18 +178,18 @@
                     </div>
                 
                 <div id="showbutton" style="display: none">
-                {!! Form::submit(trans('agrocefa::movements.Btn_Register_Exit'), [
-                    'class' => 'btn btn-primary',
-                    'id' => 'registerButton',
-                ]) !!}
-                
                 </div>
                 <br>
                 @include('agrocefa::labormanagement.component.executor')
                 @include('agrocefa::labormanagement.component.supplies')
                 @include('agrocefa::labormanagement.component.machinery')
                 @include('agrocefa::labormanagement.component.tool')
+                {!! Form::submit(trans('agrocefa::movements.Btn_Register_Exit'), [
+                    'class' => 'btn btn-primary',
+                    'id' => 'registerButton',
+                ]) !!}
             </div>
+            
             {!! Form::close() !!}
         </div>
         </div>

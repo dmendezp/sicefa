@@ -249,7 +249,6 @@
                         console.log(response);
                         // Actualizar los campos de precio, cantidad y destino
                         currentRow.find('#supplies_price').val(response.price || '');
-                        currentRow.find('#product-lot').val(response.lote || '');
                         currentRow.find('#product-stock').val(response.stock || '');
 
                         var quantityMessage = currentRow.find('.quantity-message');
