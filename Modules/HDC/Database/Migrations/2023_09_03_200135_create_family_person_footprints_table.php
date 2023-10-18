@@ -16,10 +16,10 @@ class CreateFamilyPersonFootprintsTable extends Migration
         Schema::create('family_person_footprints', function (Blueprint $table) {
             $table->id();
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
-            $table->integer('carbon_print');
+            $table->decimal('carbon_print');
             $table->softDeletes();
             $table->timestamps();
-           
+
 
         });
     }

@@ -4,7 +4,9 @@
     <div class="col-md-12">
         <div class="card card-success card-outline shadow mt-2">
             <div class="card-header">
-                <h2 class="card-title"><strong> {{ $person->full_name }} Registre los aspectos ambientales generados mensualmente en su casa </strong>
+                <h2 class="card-title">
+                    <strong>{{ $person->full_name }} Registre los aspectos ambientales generados mensualmente en su casa
+                    </strong>
                 </h2>
             </div>
             <br>
@@ -33,14 +35,16 @@
                                         <td>
                                             <input name="aspecto[{{ $aspectId }}][valor_consumo]" class="form-control"
                                                 type="number" placeholder="Ingrese el valor de consumo" required>
+                                            @if($errors->has("aspecto.$aspectId.valor_consumo"))
+                                                <span class="text-danger">{{ $errors->first("aspecto.$aspectId.valor_consumo") }}required></span>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-around">
-                            <button type="submit"
-                                class="btn btn-success">{{ trans('hdc::ConsumptionRegistry.Btn_Save') }}</button>
+                            <button type="submit" class="btn btn-success" id="submitBtn">{{ trans('hdc::ConsumptionRegistry.Btn_Save') }}</button>
                         </div>
                         <br>
                     </form>
@@ -48,7 +52,48 @@
             </div>
         </div>
     </div>
+
+  @push('scripts')
+  <!-- Agrega el script aquí -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          $('#submitBtn').click(function (event) {
+              var valid = true;
+
+              // Iterar sobre los campos de valor_consumo
+              $('[name^="aspecto["][name$="[valor_consumo]"]').each(function () {
+                  var valorConsumo = $(this).val();
+
+                  // Validar que el valor sea numérico y positivo
+                  if (!$.isNumeric(valorConsumo) || parseFloat(valorConsumo) <= 0) {
+                      valid = false;
+                      // Puedes personalizar el mensaje de error según tus necesidades
+                      alert('Ingrese un valor numérico y positivo para todos los aspectos.');
+                      return false; // Detener la iteración
+                  }
+              });
+
+              // Verificar que todos los campos estén completos
+              $('[name^="aspecto["][name$="[valor_consumo]"]').each(function () {
+                  if ($(this).val() === '') {
+                      valid = false;
+                      // Puedes personalizar el mensaje de error según tus necesidades
+                      alert('Complete todos los campos de valor de consumo antes de enviar el formulario.');
+                      return false; // Detener la iteración
+                  }
+              });
+
+              // Si la validación no es exitosa, detener el envío del formulario y mostrar la alerta correspondiente
+              if (!valid) {
+                  event.preventDefault();
+              } else {
+                  // Aquí puedes agregar la lógica para enviar el formulario si la validación es exitosa
+                  alert('Formulario enviado exitosamente.');
+              }
+          });
+      });
+  </script>
+
+    @endpush
 @endsection
-
-
-

@@ -4,14 +4,14 @@
     <div class="col-md-12">
         <div class="card card-success card-outline shadow mt-2">
             <div class="card-header">
-                <h2 class="card-title"><strong> Editar Consumo de {{--  {{ $personEnvironmentalAspect->family_person_footprint->person->full_name }}  --}} </strong>
+                <h2 class="card-title"><strong> Editar Consumo de {{ $fpf->person->full_name }} </strong>
                 </h2>
             </div>
             <br>
             <div class="container">
                 <div class="table-responsive">
-                    <form method="post"
-                        action="{{ route('carbonfootprint.update_consumption', ['id' => $personEnvironmentalAspect->id]) }}">
+                    <form method="post" action="{{ route('carbonfootprint.update_consumption', ['id' => $fpf->id]) }}">
+
                         @csrf
                         @method('POST')
 
@@ -23,16 +23,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($allAspects as $aspect)
+                                @foreach ($fpf->personenvironmentalaspects as $pea)
                                     <tr>
                                         <td>
-                                            <input type="hidden" name="aspecto[{{ $aspect->id }}][id_aspecto]"
-                                                value="{{ $aspect->id }}">
-                                            {{ $aspect->name }}
+                                            {{--  <input type="hidden" name="aspecto[{{ $pea->id }}][id_aspecto]"
+                                                value="{{ $pea->id }}">  --}}
+                                            {{ $pea->environmental_aspect->name }}
                                         </td>
                                         <td>
-                                            <input name="aspecto[{{ $aspect->id }}][valor_consumo][]" class="form-control"
-                                                type="number" value="{{ $personEnvironmentalAspect->consumption_value }}"
+                                            <input name="aspecto[{{ $pea->id }}][valor_consumo][]" class="form-control"
+                                                type="number" value="{{ $pea->consumption_value }}"
                                                 placeholder="Ingrese el valor de consumo" required>
                                         </td>
                                     </tr>

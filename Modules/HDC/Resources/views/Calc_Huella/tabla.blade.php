@@ -11,7 +11,7 @@
                             class="fa-solid fa-plus"></i></a>
                     <div class="mtop16">
                         @if ($environmeaspect->isNotEmpty())
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="example1" class="table table-bordered">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>N°</th>
@@ -22,6 +22,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php $total = 0; @endphp
                                     @foreach ($environmeaspect as $index => $aspect)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
@@ -39,10 +40,18 @@
                                                     @endforeach
                                                 </ul>
                                             </td>
-                                            <td></td>
+                                            <td>
+                                                @foreach ($aspect->personenvironmentalaspects as $innerPersonAspect)
+                                                    @php
+                                                        $total += $innerPersonAspect->consumption_value * $innerPersonAspect->environmental_aspect->conversion_factor;
+                                                    @endphp
+                                                @endforeach
+                                                {{ $total }} {{-- Mostrar el total en la columna CO2 (%) --}}
+                                                @php $total = 0; @endphp {{-- Reiniciar el total para la próxima iteración --}}
+                                            </td>
                                             <td>
                                                 @if ($aspect->personenvironmentalaspects->isNotEmpty())
-                                                    <a href="{{ route('carbonfootprint.edit_consumption', $aspect->personenvironmentalaspects->first()->id) }}"
+                                                    <a href="{{ route('carbonfootprint.edit_consumption', $aspect->id) }}"
                                                         class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                                                     <form
                                                         action="{{ route('carbonfootprint.eliminar', ['id' => $aspect->personenvironmentalaspects->first()->id]) }}"

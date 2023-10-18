@@ -8,6 +8,7 @@ use Modules\HDC\Entities\FamilyPersonFootprint;
 use Modules\HDC\Entities\PersonEnvironmentalAspect;
 use Modules\SICA\Entities\EnvironmentalAspect;
 use Modules\SICA\Entities\Person;
+use Illuminate\Support\Facades\Validator;
 
 class CarbonfootprintController extends Controller
 {
@@ -44,7 +45,7 @@ class CarbonfootprintController extends Controller
 
     public function saveConsumption(Request $request)
     {
-        // Validar y procesar los datos del formulario
+
         $data = $request->validate([
             'aspecto.*.id_aspecto' => 'required|numeric',
             'aspecto.*.valor_consumo' => 'required|numeric',
@@ -76,7 +77,12 @@ class CarbonfootprintController extends Controller
                 'consumption_value' => $values['valor_consumo'],
             ]);
 
-            $total += $pea->consumption_value;
+            // Obtén el modelo EnvironmentalAspect asociado a $pea
+            $environmentalAspect = $pea->environmental_aspect;
+            $resultado = $pea->consumption_value * $environmentalAspect->conversion_factor;
+
+
+            $total += $resultado;
         }
         $personFootprint->update(['carbon_print' => $total]);
 
@@ -86,36 +92,38 @@ class CarbonfootprintController extends Controller
     public function editConsumption($id)
     {
         // Buscar el registro de PersonEnvironmentalAspect por ID
-        $personEnvironmentalAspect = PersonEnvironmentalAspect::findOrFail($id);
-
-        // Obtener todos los aspectos ambientales y sus valores
-        $allAspects = EnvironmentalAspect::where('personal', 1)->get();
+        $fpf = FamilyPersonFootprint::findOrFail($id);
 
         // Retornar la vista de edición con los datos necesarios
-        return view('hdc::Calc_Huella.edit_consumption', compact('personEnvironmentalAspect', 'allAspects'));
+        return view('hdc::Calc_Huella.edit_consumption', compact('fpf'));
     }
 
 
     public function updateConsumption(Request $request, $id)
     {
-        $data = $request->validate([
-            'aspecto.*.valor_consumo' => 'required|numeric',
+        // Validar los datos del formulario si es necesario
+        $request->validate([
+            'aspecto.*.valor_consumo.*' => 'required|numeric',
         ]);
 
-        $personEnvironmentalAspect = PersonEnvironmentalAspect::findOrFail($id);
+        // Buscar el registro de FamilyPersonFootprint por ID
+        $fpf = FamilyPersonFootprint::findOrFail($id);
 
-        foreach ($data['aspecto'] as $aspectId => $values) {
-            // Verificar si el aspecto actual coincide con el aspecto que estás actualizando
-            if ($aspectId == $personEnvironmentalAspect->environmental_aspect_id) {
-                $personEnvironmentalAspect->update([
-                    'consumption_value' => $values['valor_consumo'][0],
-                ]);
-                break; // Terminar el bucle una vez que se haya actualizado el aspecto actual
+        // Actualizar los valores de consumo en la tabla intermedia
+        foreach ($request->aspecto as $peaId => $data) {
+            foreach ($data['valor_consumo'] as $key => $value) {
+                $fpf->personenvironmentalaspects()
+                    ->where('id', $peaId)
+                    ->update(['consumption_value' => $value]);
             }
         }
 
-        return redirect()->route('carbonfootprint.persona')->with('success', 'Valor actualizado correctamente');
+        // Redirigir a la vista de edición con un mensaje de éxito
+        return redirect()->route('carbonfootprint.persona', ['id' => $fpf->id])
+            ->with('success', 'Consumo actualizado exitosamente');
     }
+
+
 
 
     /* Funcion de boton eliminar  */

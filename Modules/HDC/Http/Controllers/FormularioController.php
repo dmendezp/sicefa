@@ -133,7 +133,7 @@ class FormularioController extends Controller
             $envasp->update(['amount' => $request->input('amounts.' . $key)]);
         }
 
-        // Redireccionar a la vista de edición o a donde necesites
+       
         return redirect()->route('admin.hdc.table', ['labor' => $labor])
             ->with('success', 'Datos actualizados correctamente');
     }
