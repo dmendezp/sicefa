@@ -10,20 +10,20 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <h1 class="card-title">Tipos de Empleados</h1>
+                        <h1 class="card-title">{{ trans('gth::menu.Types of Employees') }}</h1>
                     </div>
                     <div class="card-body">
                         <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal"
                             data-bs-target="#crearModal">
-                            Crear Tipo de Empleados
+                            {{ trans('gth::menu.Create Employee Type') }}
                         </button>
                         <table id="employeetype" class="table table-striped table-bordered shadow-lg mt-4"
                             style="width:100%">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Acciones</th>
+                                    <th scope="col">{{ trans('gth::menu.ID') }}</th>
+                                    <th scope="col">{{ trans('gth::menu.Name') }}</th>
+                                    <th scope="col">{{ trans('gth::menu.actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,14 +36,14 @@
                                                 <a href="#" class="btn btn-warning editar-btn" data-bs-toggle="modal"
                                                     data-bs-target="#editarModal_{{ $employee->id }}"
                                                     data-id="{{ $employee->id }}"
-                                                    data-nombre="{{ $employee->name }}">Editar</a>
+                                                    data-nombre="{{ $employee->name }}">{{ trans('gth::menu.Edit') }}</a>
                                                 <div style="width: 10px;"></div>
                                                 <form action="{{ route('cefa.gth.employeetypes.delete', $employee->id) }}"
                                                     method="POST" class="btnEliminar" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger"
-                                                        data-id="{{ $employee->id }}">Eliminar</button>
+                                                        data-id="{{ $employee->id }}">{{ trans('gth::menu.Delete') }}</button>
                                                 </form>
                                             </div>
                                         </td>
@@ -62,19 +62,19 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar Nuevo Tipo de Empleado</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ trans('gth::menu.Add New Employee Type') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('cefa.gth.employeetypes.create') }}" method="POST" class="btnGuardar">
                         @csrf
                         <div class="form-group">
-                            <label for="name">Tipo de Empleado:</label>
+                            <label for="name">{{ trans('gth::menu.Employee Type:') }}</label>
                             <input type="text" name="name" class="form-control" required>
                         </div>
                         <!-- Agrega más campos de formulario según tus necesidades -->
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-success" id="Guardar">Guardar</button>
+                            <button type="submit" class="btn btn-success" id="Guardar">{{ trans('gth::menu.Save') }}</button>
                         </div>
                     </form>
                 </div>
@@ -89,7 +89,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar Tipo de Empleado:</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{ trans('gth::menu.Edit Employee Type:') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -102,7 +102,7 @@
                                 <input type="hidden" name="id"
                                     value="{{ $employee->id }}"><!-- Cambiado a $employee -->
                                 <div class="mb-3">
-                                    <label for="editName" class="form-label">Nombre</label>
+                                    <label for="editName" class="form-label">{{ trans('gth::menu.Name') }}</label>
                                     <input type="text" class="form-control" id="editName" name="name"
                                         value="{{ old('name', $employee->name) }}"> <!-- Cambiado a $employee -->
                                     @error('name')
@@ -110,8 +110,7 @@
                                     @enderror
                                 </div>
                                 <!-- Resto del formulario -->
-                                <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">Guardar
-                                    Cambios</button>
+                                <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">{{ trans('gth::menu.Save Changes') }}</button>
 
                             </form>
                         @endif

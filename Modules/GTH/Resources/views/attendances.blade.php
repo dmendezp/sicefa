@@ -4,24 +4,24 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="mb-4">Vista Asistencia</h1>
-            <p class="lead">Bienvenido a la página de asistencia. Aquí podrás ver y gestionar la asistencia de los empleados.</p>
+            <h1 class="mb-4">{{ trans('gth::menu.Attendance View') }}</h1>
+            <p class="lead">{{ trans('gth::menu.Welcome to the attendance page. Here you can view and manage employee attendance.') }}</p>
 
             <div class="card">
                 <div class="card-header">
-                    Lista de Asistencia
+                    {{ trans('gth::menu.List of Attendance') }}
                 </div>
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#agregarAsistenciaModal">Agregar Asistencia</button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#agregarAsistenciaModal">{{ trans('gth::menu.Add Attendance') }}</button>
 
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>id</th>
-                                <th>Nombre</th>
-                                <th>Fecha</th>
-                                <th>Estado</th>
-                                <th>Acciones</th> <!-- Agregamos esta columna para las acciones -->
+                                <th>{{ trans('gth::menu.ID') }}</th>
+                                <th>{{ trans('gth::menu.Name') }}</th>
+                                <th>{{ trans('gth::menu.Date') }}</th>
+                                <th>{{ trans('gth::menu.Status') }}</th>
+                                <th>{{ trans('gth::menu.actions') }}</th> <!-- Agregamos esta columna para las acciones -->
                             </tr>
                         </thead>
                         <tbody>
@@ -31,8 +31,8 @@
                                 <td>2023-08-12</td>
                                 <td><span class="badge bg-success">Presente</span></td>
                                 <td>
-                                    <a href="#" class="btn btn-primary btn-sm">Editar</a>
-                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarAsistenciaModal">Eliminar</button>
+                                    <a href="#" class="btn btn-primary btn-sm">{{ trans('gth::menu.Edit') }}</a>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarAsistenciaModal">{{ trans('gth::menu.Delete') }}</button>
                                 </td>
                             </tr>
                             <tr>
@@ -41,8 +41,8 @@
                                 <td>2023-08-12</td>
                                 <td><span class="badge bg-warning text-dark">Ausente</span></td>
                                             <td>
-                                                <a href="#" class="btn btn-primary btn-sm">Editar</a>
-                                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarAsistenciaModal">Eliminar</button>
+                                                <a href="#" class="btn btn-primary btn-sm">{{ trans('gth::menu.Edit') }}</a>
+                                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#eliminarAsistenciaModal">{{ trans('gth::menu.Delete') }}</button>
                                             </td>
                             </tr>
                             <!-- Agrega más filas de datos aquí -->
@@ -57,28 +57,28 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="agregarAsistenciaModalLabel">Agregar Asistencia</h5>
+                <h5 class="modal-title" id="agregarAsistenciaModalLabel">{{ trans('gth::menu.Add Attendance') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="{{ route('cefa.attendance.view') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre</label>
+                        <label for="nombre" class="form-label">{{ trans('gth::menu.Name') }}</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" required>
                     </div>
                     <div class="mb-3">
-                        <label for="fecha" class="form-label">Fecha</label>
+                        <label for="fecha" class="form-label">{{ trans('gth::menu.Date') }}</label>
                         <input type="date" class="form-control" id="fecha" name="fecha" required>
                     </div>
                     <div class="mb-3">
-                        <label for="estado" class="form-label">Estado</label>
+                        <label for="estado" class="form-label">{{ trans('gth::menu.Status') }}</label>
                         <select class="form-select" id="estado" name="estado" required>
                             <option value="presente">Presente</option>
                             <option value="ausente">Ausente</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary">{{ trans('gth::menu.Save') }}</button>
                 </form>
             </div>
         </div>
@@ -91,18 +91,18 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="eliminarAsistenciaModalLabel">Confirmar Eliminación</h5>
+                <h5 class="modal-title" id="eliminarAsistenciaModalLabel">{{ trans('gth::menu.Confirm Deletion') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>¿Estás seguro de que deseas eliminar esta asistencia?</p>
+                <p>{{ trans('gth::menu.¿Are you sure you want to delete this attendance?') }}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trans('gth::menu.Cancel') }}</button>
                 <form action="#" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <button type="submit" class="btn btn-danger">{{ trans('gth::menu.Delete') }}</button>
                 </form>
             </div>
         </div>
@@ -114,7 +114,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editarAsistenciaModalLabel">Editar Asistencia</h5>
+                <h5 class="modal-title" id="editarAsistenciaModalLabel">{{ trans('gth::menu.Edit Attendance') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -122,21 +122,21 @@
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre</label>
+                        <label for="nombre" class="form-label">{{ trans('gth::menu.Name') }}</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" value="Juan Pérez">
                     </div>
                     <div class="mb-3">
-                        <label for="fecha" class="form-label">Fecha</label>
+                        <label for="fecha" class="form-label">{{ trans('gth::menu.Date') }}</label>
                         <input type="date" class="form-control" id="fecha" name="fecha" value="2023-08-12">
                     </div>
                     <div class="mb-3">
-                        <label for="estado" class="form-label">Estado</label>
+                        <label for="estado" class="form-label">{{ trans('gth::menu.Status') }}</label>
                         <select class="form-select" id="estado" name="estado">
                             <option value="presente">Presente</option>
                             <option value="ausente">Ausente</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <button type="submit" class="btn btn-primary">{{ trans('gth::menu.Save Changes') }}</button>
                 </form>
             </div>
         </div>

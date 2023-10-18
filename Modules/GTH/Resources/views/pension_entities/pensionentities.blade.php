@@ -10,20 +10,20 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <h1 class="card-title">Entidad Pension</h1>
+                        <h1 class="card-title">{{ trans('gth::menu.Pension Entity') }}</h1>
                     </div>
                     <div class="card-body">
                         <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#crearModal">
-                            Crear Entidad Pension
+                            {{ trans('gth::menu.Create Pension Entity') }}
                         </button>
                         <table id="pensionentities" class="table table-striped table-bordered shadow-lg mt-4"
                             style="width:100%">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Descripción</th>
-                                    <th scope="col">Acciones</th>
+                                    <th scope="col">{{ trans('gth::menu.ID') }}</th>
+                                    <th scope="col">{{ trans('gth::menu.Name') }}</th>
+                                    <th scope="col">{{ trans('gth::menu.Description') }}</th>
+                                    <th scope="col">{{ trans('gth::menu.actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -37,14 +37,14 @@
                                                 <a href="#" class="btn btn-warning editar-btn" data-bs-toggle="modal"
                                                     data-bs-target="#editarModal_{{ $pension->id }}"
                                                     data-id="{{ $pension->id }}" data-nombre="{{ $pension->name }}"
-                                                    data-nombre="{{ $pension->description }}">Editar</a>
+                                                    data-nombre="{{ $pension->description }}">{{ trans('gth::menu.Edit') }}</a>
                                                 <div style="width: 10px;"></div>
                                                 <form action="{{ route('cefa.gth.pensionentities.delete', $pension->id) }}"
                                                     method="POST" class="btnEliminar ml-2" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger"
-                                                        data-id="{{ $pension->id }}">Eliminar</button>
+                                                        data-id="{{ $pension->id }}">{{ trans('gth::menu.Delete') }}</button>
                                                 </form>
                                             </div>
                                         </td>
@@ -64,23 +64,23 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar Una Nueva Entidad Pension</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ trans('gth::menu.Add A New Pension Entity') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('cefa.gth.pensionentities.create') }}" method="POST" class="btnGuardar">
                         @csrf
                         <div class="form-group">
-                            <label for="name">Entidad Pensión:</label>
+                            <label for="name">{{ trans('gth::menu.Pension Entity:') }}</label>
                             <input type="text" name="name" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="description">Descripción Entidad Pensión:</label>
+                            <label for="description">{{ trans('gth::menu.Pension Entity Description:') }}</label>
                             <input type="text" name="description" class="form-control" required>
                         </div>
                         <!-- Agrega más campos de formulario según tus necesidades -->
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-success" id="Guardar">Guardar</button>
+                            <button type="submit" class="btn btn-success" id="Guardar">{{ trans('gth::menu.Save') }}</button>
                         </div>
                     </form>
                 </div>
@@ -95,7 +95,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar Entidad Aseguradora:</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{ trans('gth::menu.Edit Insurance Company:') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -108,7 +108,7 @@
                                 <input type="hidden" name="id"
                                     value="{{ $pension->id }}"><!-- Cambiado a $pension -->
                                 <div class="mb-3">
-                                    <label for="editName" class="form-label">Nombre</label>
+                                    <label for="editName" class="form-label">{{ trans('gth::menu.Name') }}</label>
                                     <input type="text" class="form-control" id="editName" name="name"
                                         value="{{ old('name', $pension->name) }}"> <!-- Cambiado a $pension -->
                                     @error('name')
@@ -116,7 +116,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="editName" class="form-label">Descripción</label>
+                                    <label for="editName" class="form-label">{{ trans('gth::menu.Description') }}</label>
                                     <input type="text" class="form-control" id="editDescription" name="description"
                                         value="{{ old('description', $pension->description) }}">
                                     <!-- Cambiado a $pension -->
@@ -126,8 +126,7 @@
                                 </div>
                                 <!-- Resto del formulario -->
                                 <button type="submit" class="btn btn-primary"
-                                    onclick="return confirmarCambios()">Guardar
-                                    Cambios</button>
+                                    onclick="return confirmarCambios()">{{ trans('gth::menu.Save Changes') }}</button>
                             </form>
                         @endif
                     </div>

@@ -16,19 +16,19 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <h1 class="card-title">vista de posición</h1>
+                        <h1 class="card-title">{{ trans('gth::menu.View of Position') }}</h1>
                     </div>
                     <div class="card-body">
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearModal">
-                            Gestión de Posición
+                            {{ trans('gth::menu.Management of Position') }}
                         </button>
                         <table id="position" class="table table-striped table-bordered shadow-lg mt-4" style="width:100%">
                             <thead class="bg-primary text-white">
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Denominación Profesional</th>
-                                    <th scope="col">Calificaciones</th>
-                                    <th scope="col">Acciones</th>
+                                    <th scope="col">{{ trans('gth::menu.ID') }}</th>
+                                    <th scope="col">{{ trans('gth::menu.Professional Title') }}</th>
+                                    <th scope="col">{{ trans('gth::menu.Qualifications') }}</th>
+                                    <th scope="col">{{ trans('gth::menu.actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,14 +44,14 @@
                                                     data-bs-target="#editar{{ $positio->id }}"
                                                     data-id="{{ $positio->id }}" data-nenominación
                                                     Profesional="{{ $positio->nenominación_Profesional }}" data-nenominación
-                                                    Profesional="{{ $positio->professional_denomination }}">Editar</a>
+                                                    Profesional="{{ $positio->professional_denomination }}">{{ trans('gth::menu.Edit') }}</a>
                                                 <div style="width: 10px;"></div>
                                                 <form action="{{ route('cefa.gth.positions.delete', $positio->id) }}"
                                                     method="POST" class="btnEliminar ml-2" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger"
-                                                        data-id="{{ $positio->id }}">Eliminar</button>
+                                                        data-id="{{ $positio->id }}">{{ trans('gth::menu.Delete') }}</button>
                                                     <!-- Cambiado a $positio -->
                                                 </form>
                                             </div>
@@ -72,30 +72,30 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar Una Nueva Posicion</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ trans('gth::menu.Add a New Position') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('cefa.gth.positions.create') }}" method="POST" class="btnGuardar">
                         @csrf
                         <div class="mb-3">
-                            <label for="professional_denomination" class="form-label">Denominación Profesional:</label>
+                            <label for="professional_denomination" class="form-label">{{ trans('gth::menu.Professional Designation:') }}</label>
                             <select name="professional_denomination" id="professional_denomination"
                                 class="form-control @error('professional_denomination') is-invalid @enderror" required>
-                                <option value="-- Seleccione --">-- Seleccione --</option>
-                                <option value="Asesor">Asesor</option>
-                                <option value="Directivo">Directivo</option>
-                                <option value="Instructor">Instructor</option>
-                                <option value="Profesiona">Profesiona</option>
-                                <option value="Técnico">Técnico</option>
+                                <option value="-- Seleccione --">{{ trans('gth::menu.-- Select --') }}</option>
+                                <option value="Asesor">{{ trans('gth::menu.Advisor') }}</option>
+                                <option value="Directivo">{{ trans('gth::menu.Executive') }}</option>
+                                <option value="Instructor">{{ trans('gth::menu.Instructor') }}</option>
+                                <option value="Profesiona">{{ trans('gth::menu.Professional') }}</option>
+                                <option value="Técnico">{{ trans('gth::menu.Technician') }}</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
-                            <label for="grade" class="form-label">Calificaciones:</label>
+                            <label for="grade" class="form-label">{{ trans('gth::menu.Qualifications:') }}</label>
                             <select name="grade" id="grade" class="form-control @error('grade') is-invalid @enderror"
                                 required>
-                                <option value="-- Seleccione --">-- Seleccione --</option>
+                                <option value="-- Seleccione --">{{ trans('gth::menu.-- Select --') }}</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -119,7 +119,7 @@
                             </select>
                         </div>
                         <!-- Resto del formulario -->
-                        <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">Guardar</button>
+                        <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">{{ trans('gth::menu.Save') }}</button>
 
 
 
@@ -136,7 +136,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar Gestion de Posicion:</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{ trans('gth::menu.Edit Position Management:') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -149,24 +149,23 @@
                                 <input type="hidden" name="id"
                                     value="{{ $positio->id }}"><!-- Cambiado a $positio -->
                                 <div class="mb-3">
-                                    <label for="editprofessional_denomination" class="form-label">Denominación
-                                        Profesional</label>
+                                    <label for="editprofessional_denomination" class="form-label">{{ trans('gth::menu.Professional Designation:') }}</label>
                                     <select class="form-control" id="editprofessional_denomination"
                                         name="professional_denomination">
                                         <option value="{{ old('professional_denomination', $positio->professional_denomination) }}">{{ old('professional_denomination', $positio->professional_denomination) }}</option>
-                                        <option value="Asesor">Asesor</option>
-                                        <option value="Asistencial">Asistencial</option>
-                                        <option value="Directivo">Directivo</option>
-                                        <option value="Instructor">Instructor</option>
-                                        <option value="Profesional">Profesional</option>
-                                        <option value="Técnico">Técnico</option>
+                                        <option value="Asesor">{{ trans('gth::menu.Advisor') }}<</option>
+                                        <option value="Asistencial">{{ trans('gth::menu.Assistant') }}</option>
+                                        <option value="Directivo">{{ trans('gth::menu.Executive') }}</option>
+                                        <option value="Instructor">{{ trans('gth::menu.Instructor') }}</option>
+                                        <option value="Profesional">{{ trans('gth::menu.Technician') }}</option>
+                                        <option value="Técnico">{{ trans('gth::menu.Executive') }}</option>
                                     </select> <!-- Cambiado a $positio -->
                                     @error('professional_denomination')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="editName" class="form-label">Calificaciones</label>
+                                    <label for="editName" class="form-label">{{ trans('gth::menu.Qualifications:') }}</label>
                                     <select class="form-control" id="editgrade" name="grade">
                                         <option value="{{ old('grade', $positio->grade) }}">{{ old('grade', $positio->grade) }}</option>
                                         <option value="1">1</option>
@@ -197,8 +196,7 @@
                                 </div>
                                 <!-- Resto del formulario -->
                                 <button type="submit" class="btn btn-primary"
-                                    onclick="return confirmarCambios()">Guardar
-                                    Cambios</button>
+                                    onclick="return confirmarCambios()">{{ trans('gth::menu.Save Changes') }}</button>
                             </form>
                         @endif
                     </div>
