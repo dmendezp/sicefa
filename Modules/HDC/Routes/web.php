@@ -32,7 +32,10 @@ Route::middleware(['lang'])->group(function () {
 
         /* Ruta Para Administrar Recursos */
         Route::get('/AdminstrarRecursos', 'AdminresourcesController@adminresources')->name('cefa.hdc.adminresources');
+        Route::get('/get-environmental-aspects/{activityId}', 'AdminresourcesController@getEnvironmentalAspects')->name('cefa.hdc.getEnvironmentalAspects');
         Route::post('/guardar', 'AdminresourcesController@store')->name('hdc.adminresources.store');
+        Route::post('/update-environmental-aspects', 'AdminresourcesController@updateEnvironmentalAspects')->name('cefa.hdc.updateEnvironmentalAspects');
+
 
         /* Rutas de Calcula tu Huella */
         Route::get('persona', 'CarbonfootprintController@persona')->name('carbonfootprint.persona');

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\EnvironmentalAspect;
@@ -33,78 +34,47 @@ class AdminresourcesController extends Controller
         return view('hdc::create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
-        return($request);
-        $rules = [
-            'productive_unit_id' => 'required|array',
-            'activity_id' => 'required|array',
-            'Environmental_Aspect' => 'required|array|min:1',
-        ];
-        $validator = Validator::make($request->all(), $rules, [
-            'Environmental_Aspect.required' => 'Selecciona al menos un aspecto ambiental.',
-        ]);
+        
+        // Obtén la actividad seleccionada
+        $activity = Activity::find($request->activity_id);
 
-        if($validator->fails()){
-            return back()->withErrors($validator)->withInput('message','Ocurrio Un Error Con El Formulario')->with('typealert','danger');
-        }else {
-            $activity = new Activity;
-            $activity->name = e($request->select('productive_unit_id'));
-            $activity->name = e($request->select('activity_id'));
-            $activity->name = e($request->checkbox('Environmental_Aspect'));
-            $activity->save(); // Registrar Administracion del recurso
-            dd("Registro Exitoso");
-            // $activity->Activity()->syncWithoutDetaching($activity);
-            // $message = ['message'=>'Se Registro Exitosamente La Asignacion del recurso', 'typealert'=>'success'];
+        // Obtén los IDs de los aspectos ambientales seleccionados
+        $selectedEnvironmentalAspects = $request->input('Environmental_Aspect', []);
+
+        // Recorre los aspectos ambientales seleccionados y crea una entrada en la tabla pivote
+        foreach ($selectedEnvironmentalAspects as $environmentalAspectId) {
+            $activity->environmental_aspects()->attach($environmentalAspectId);
         }
-        return redirect(route('hdc.adminresources'))->with($message);
+
+        return redirect(route('cefa.hdc.adminresources'));
     }
     
 
+    public function getEnvironmentalAspects($activityId)
+{
+    $activity = Activity::find($activityId);
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('hdc::show');
-    }
+    // Obtén los aspectos ambientales asociados a la actividad
+    $associatedEnvironmentalAspects = $activity->environmental_aspects()->pluck('environmental_aspects.id')->toArray();
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('hdc::edit');
-    }
+    return response()->json($associatedEnvironmentalAspects);
+}
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+public function updateEnvironmentalAspects(Request $request)
+{
+    $activity = Activity::find($request->activity_id);
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy()
-    {
-       //
-    }
+    // Obtén los IDs de los aspectos ambientales seleccionados
+    $selectedEnvironmentalAspects = $request->input('Environmental_Aspect', []);
+
+    // Sincroniza los aspectos ambientales en la tabla pivote
+    $activity->environmental_aspects()->sync($selectedEnvironmentalAspects);
+
+    return redirect(route('cefa.hdc.adminresources'));
+}
+
+
+    
 }
