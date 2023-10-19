@@ -51,6 +51,12 @@ return [
     'There is not enough in the inventory to make the loan.' => 'There is not enough in the inventory to make the loan.',
     'Loan not found.' => 'Loan not found.',
     'Loan updated successfully.' => 'Loan updated successfully.',
+    'Registered Loans'=> 'Registered Loans',
+    'Postulated'=> 'Postulated',
+    'Select Course'=> 'Select Course',
+    'Select a course'=> 'Select a course',
+
+
 
     // SENAEMPRESA
 

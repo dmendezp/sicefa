@@ -72,7 +72,8 @@ class VacantController extends Controller
             'PositionCompany' => $PositionCompany,
             'selectedCourseId' => $selectedCourseId,
             'selectedSenaempresaId' => $selectedSenaempresaId,
-            'senaempresas' => $senaempresas, // Pasa las Senaempresas a la vista
+            'senaempresas' => $senaempresas,
+            // Pasa las Senaempresas a la vista
         ];
 
         return view('senaempresa::Company.Vacant.vacant', $data);
@@ -112,7 +113,8 @@ class VacantController extends Controller
             'PositionCompany' => $activePositions,
             'currentQuarterId' => $currentQuarter->id,
             'currentSenaempresaId' => $currentSenaempresa->id,
-            'currentSenaempresaName' => $currentSenaempresaName, // Pasar el nombre de la empresa a la vista
+            'currentSenaempresaName' => $currentSenaempresaName,
+            // Pasar el nombre de la empresa a la vista
         ];
 
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
@@ -234,33 +236,30 @@ class VacantController extends Controller
         try {
             $courseId = $request->input('course_id');
             $vacancyId = $request->input('vacancy_id');
-            $isChecked = $request->input('checked');
+            $isChecked = $request->input('checked') === 'true';
 
-            // Buscar el registro en la tabla pivote
-            $record = CourseVacancy::where('course_id', $courseId)
-                ->where('vacancy_id', $vacancyId)
-                ->first();
+            if ($isChecked) {
+                // If the checkbox is checked, create a new relationship
+                CourseVacancy::create([
+                    'course_id' => $courseId,
+                    'vacancy_id' => $vacancyId,
+                ]);
 
-            if ($isChecked == 'true') {
-                if (!$record) {
-                    // Si no existe el registro, crearlo
-                    CourseVacancy::create([
-                        'course_id' => $courseId,
-                        'vacancy_id' => $vacancyId,
-                    ]);
-                }
-            } elseif ($record) {
-                // Si el registro existe y el checkbox está desmarcado, eliminarlo
-                $record->delete();
+                $message = 'Relación creada correctamente.';
+            } else {
+                // If the checkbox is unchecked, delete the existing relationship if it exists
+                CourseVacancy::where('course_id', $courseId)
+                    ->where('vacancy_id', $vacancyId)
+                    ->delete();
+
+                $message = 'Relación eliminada correctamente.';
             }
 
-            return response()->json(['success' => 'Actualización en línea exitosa.'], 200);
+            return response()->json(['success' => $message], 200);
         } catch (\Exception $e) {
-            // Manejar la excepción y devolver una respuesta de error JSON
             return response()->json(['error' => 'Ocurrió un error. Detalles: ' . $e->getMessage()], 500);
         }
     }
-
 
 
 

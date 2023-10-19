@@ -53,6 +53,7 @@ return [
 	'Returned' => 'Devuelto',
 	'Loan not found.' => 'Préstamo no encontrado.',
 	'Loan updated successfully.' => 'Préstamo actualizado exitosamente.',
+    'Registered Loans'=> 'Prestamos Registrados',
 
 	// SENAEMPRESA
 
@@ -141,6 +142,8 @@ return [
 	'Details' => 'Detalles',
 	'All Senaempresas' => 'Todos los Senaempresas',
 	'Filter by senaempresa' => 'Filtrar por Senaempresa',
+    'Select Course'=> 'Seleccione curso',
+    'Select a course'=> 'Seleccione un curso',
 
 
 	// Aside
@@ -170,6 +173,7 @@ return [
 	'You cannot make more than two entries.' => 'No puedes realizar más de dos inscripciones.',
 	'You’ve already applied for this position.' => 'Ya te has inscrito en esta vacante.',
 	'Registration made with success!' => 'Inscripción realizada con exito!',
+    'Postulated'=> 'Postulados',
 
 
 	//Inscription

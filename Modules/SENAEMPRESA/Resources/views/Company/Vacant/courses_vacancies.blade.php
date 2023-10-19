@@ -1,13 +1,22 @@
 @extends('senaempresa::layouts.master')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row justify-content-md-center pt-4">
-            <div class="card card-primary card-outline shadow col-md-8">
-                <div class="card-header">
-                    <h3 class="card-title">{{ $title }}</h3>
+<div class="container-fluid">
+    <div class="row justify-content-md-center pt-4">
+        <div class="card card-primary card-outline shadow col-md-8">
+            <div class="card-header">
+                <h3 class="card-title">{{ $title }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="course_id">{{ trans('senaempresa::menu.Select Course') }}</label>
+                    <select id="course_id" class="form-control">
+                        <option value="" selected disabled>{{ trans('senaempresa::menu.Select a course') }}</option>
+                        @foreach ($courses as $course)
+                            <option value="{{ $course->id }}">{{ $course->code }} {{ $course->program->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
-                <div class="card-body">
                     <table id="pivote" class="table table-bordered">
                         <thead>
                             <tr>
@@ -62,9 +71,7 @@
 @endsection
 
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"
-        integrity="sha512-F636MAkMAhtTplahL9F6KmTfxTmYcAcjcCkyu0f0voT3N/6vzAuJ4Num55a0gEJ+hRLHhdz3vDvZpf6kqgEa5w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
     <script>
         $(function() {
@@ -79,11 +86,10 @@
             });
 
         });
+
         $(document).ready(function() {
-            // Obtener el token CSRF desde la etiqueta meta en tu vista Blade
             const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-            // Manejar el evento change de los checkboxes
             $('input[type="checkbox"]').on('change', function() {
                 const checkbox = $(this);
                 const checkboxName = checkbox.attr('name');
@@ -99,13 +105,15 @@
                     data: {
                         course_id: courseId,
                         vacancy_id: vacancyId,
-                        checked: isChecked,
+                        checked: isChecked ? 'true' : 'false',
                     },
                     success: function(response) {
                         console.log(response);
+                        alert(response.success); // Display success message
                     },
                     error: function(error) {
                         console.error(error);
+                        alert('Ocurrió un error al procesar la solicitud.');
                     }
                 });
             });
