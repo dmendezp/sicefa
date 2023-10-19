@@ -51,12 +51,6 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/carbonfootprint/update_consumption/{id}', 'CarbonfootprintController@updateConsumption')->name('carbonfootprint.update_consumption');
         Route::delete('/carbonfootprint/eliminar/{id}', 'CarbonfootprintController@eliminarConsumo')->name('carbonfootprint.eliminar');
 
-
-
-
-
-
-
         /* Ruta de Graficas */
         Route::get('/Graficas', 'GraficasController@Graficas')->name('cefa.hdc.Graficas');
     });
