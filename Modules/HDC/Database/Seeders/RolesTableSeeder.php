@@ -2,6 +2,7 @@
 
 namespace Modules\HDC\Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Modules\SICA\Entities\App;
@@ -53,5 +54,16 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
 
         ]);
+
+        //Consulta de usuarios
+        $user_admin = User::where('nickname', 'aldavi')->first(); //usuario para Mary Luz Aldana Vidarte
+        $user_charge = User::where('nickname', 'jitaco')->first(); //usuario para Magaly Jimena Tafur Campos
+        $user_userHDC = User::where('nickname', 'HDCUser')->first(); // usuario para Usuario Calcula tu huella
+
+        // Asignación de ROLES para los USUARIOS de la aplicación HDC (Sincronización de las relaciones sin eliminar las relaciones existentes)
+        $user_admin->roles()->syncWithoutDetaching([$role_admin->id]);
+        $user_charge->roles()->syncWithoutDetaching([$role_charge->id]);
+        $user_userHDC->roles()->syncWithoutDetaching([$role_userHDC->id]);
+
     }
 }
