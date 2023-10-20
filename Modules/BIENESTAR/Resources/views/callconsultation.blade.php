@@ -27,39 +27,80 @@
                                     </div>
                                 </form>
                             </div>
-                            
-                            <!-- Otros campos y botones de formulario si es necesario -->
-
-                            <!-- Tabla con 7 columnas y estilo -->
+                            @if(isset($person))
                             <table class="table table-bordered table-striped" id="resultados_table">
                                 <thead>
                                     <tr>
                                         <th>Aprendiz</th>
-                                        <th>Numero de Documento</th>
+                                        <th>Número de Documento</th>
                                         <th>Programa</th>
                                         <th>Ficha</th>
-                                        <th>Apoyo</th>
+                                        <th>Beneficios Asociados</th>
+                                        <th>Estado de postulacion</th>
+                                        <th>Convocatoria</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(isset($person))
-                                        @foreach($person->apprentices as $apprentice)
-                                            <tr>
-                                                <td>{{$person->full_name}}</td>
-                                                <td>{{$person->document_number}}</td>
-                                                <td>{{$apprentice->course->program->name}}</td>
-                                                <td>{{$apprentice->course->code}}</td>
-                                                <td>1</td>
-                                            </tr>
-                                        @endforeach
-                                    @else
+                                    @foreach($person->apprentices as $apprentice)
                                         <tr>
-                                            <td colspan="5" class="text-center">No se ha encontrado resultados</td>
+                                            <td>{{ $person->full_name }}</td>
+                                            <td>{{ $person->document_number }}</td>
+                                            <td>{{ $apprentice->course->program->name }}</td>
+                                            <td>{{ $apprentice->course->code }}</td>
+                                            <td>
+                                                @if($apprentice->postulations->isNotEmpty())
+                                                    @foreach($apprentice->postulations as $postulation)
+                                                        @if($postulation->postulationBenefits->isNotEmpty())
+                                                            <ul>
+                                                                @foreach($postulation->postulationBenefits as $postulationBenefit)
+                                                                    <li>{{ $postulationBenefit->benefit->name }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        @else
+                                                            Sin beneficios asociados
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    Sin postulaciones
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($apprentice->postulations->isNotEmpty())
+                                                    @foreach($apprentice->postulations as $postulation)
+                                                        @if($postulation->postulationBenefits->isNotEmpty())
+                                                            <ul>
+                                                                @foreach($postulation->postulationBenefits as $postulationBenefit)
+                                                                    <li>{{ $postulationBenefit->state }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        @else
+                                                            Sin beneficios asociados
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    Sin postulaciones
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($apprentice->postulations->isNotEmpty())
+                                                    @foreach($apprentice->postulations as $postulation)
+                                                        @if($postulation->convocation)
+                                                             {{ $postulation->convocation->name }} 
+                                                        @else
+                                                            Sin convocatoria asociada
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    Sin postulaciones
+                                                @endif
+                                            </td>
                                         </tr>
-                                    @endif
+                                    @endforeach
                                 </tbody>
                             </table>
-
+                            @else
+                            <div class="text-center">No se ha encontrado resultados</div>
+                            @endif
                         </div>
                     </div>
                     <!-- Fin del contenido en un solo card -->

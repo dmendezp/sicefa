@@ -29,11 +29,11 @@ class CallConsultationController extends Controller
     public function search(Request $request)
     {
         $documentNumber = $request->input('document_number');
-        
-        // Realiza una consulta para obtener los datos de la persona con el número de documento
-        $person = Person::with('apprentices.course.program', 'apprentices.postulations.postulationBenefits.benefit')
-        ->where('document_number', $documentNumber)
-        ->first();
+    
+        $person = Person::with('apprentices.course.program', 'apprentices.postulations.postulationBenefits.benefit', 'apprentices.postulations.convocation') // Cargar la relación de convocatoria
+            ->where('document_number', $documentNumber)
+            ->first();
+    
         return view('bienestar::callconsultation', ['person' => $person]);
     }
     
