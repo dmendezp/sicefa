@@ -24,13 +24,13 @@ use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\Labor;
 use Modules\AGROCEFA\Entities\Executor;
+use Modules\AGROCEFA\Entities\Equipment;
 use Modules\AGROCEFA\Entities\AgriculturalLabor;
 use Modules\AGROCEFA\Entities\Consumable;
 use Modules\AGROCEFA\Entities\EmployementType;
 use Modules\AGROCEFA\Entities\Tool;
 use Modules\AGROCEFA\Entities\Crop;
 use Modules\AGROCEFA\Entities\Variety;
-
 use App\Models\User;
 
 class LaborManagementController extends Controller
@@ -109,6 +109,7 @@ class LaborManagementController extends Controller
         // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
         $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnitId)->pluck('id');
 
+        Session::put('productiveunitwarehouseid', $ProductiveUnitWarehouses);
         // Obtener los registros de inventario que coinciden con las bodegas relacionadas
         // Herramientas
         $toolsData = Inventory::with('element.category')
@@ -130,7 +131,7 @@ class LaborManagementController extends Controller
         $machineryData = Inventory::with('element.category')
             ->whereIn('productive_unit_warehouse_id', $unitWarehouses)
             ->whereHas('element.category', function ($query) {
-                $query->where('name', 'Maquinaria');
+                $query->where('name', ['Maquinaria', 'Equipo']);
             })
             ->get();
 
@@ -426,7 +427,12 @@ class LaborManagementController extends Controller
 
     public function registerlabor(Request $request)
     {
+        
+        $ProductiveUnitWarehouses = Session::get('productiveunitwarehouseid');
 
+        foreach ($ProductiveUnitWarehouses as $ProductiveUnitWarehouse) {
+            $ProductiveUnitWarehousesId = $ProductiveUnitWarehouse->id;
+        }
         // Obten los datos generales de la labor
         $lot = $request->input('lot');
         $date = $request->input('date');
@@ -455,6 +461,11 @@ class LaborManagementController extends Controller
         $suppliesPrices = $request->input('supplies_price');
         $suppliesAplications = $request->input('application-method');
         $suppliesObjectives = $request->input('objective');
+
+        // Datos de Maquinaria o Equipos
+        $machineryIds = $request->input('machinery-id');
+        $machineryWages = $request->input('machinery_wage');
+        $machineryPrices = $request->input('machinery_price');
         // Inicia una transacción de base de datos
         DB::beginTransaction();
 
@@ -551,7 +562,7 @@ class LaborManagementController extends Controller
 
                             // Guarda el nuevo registro en la base de datos
                             $supplies->save();
-                            $suppliesId = $supplies->id;
+                            $supplieId = $supplies->id;
 
                             $aplicationsupplies = new AgriculturalLabor([
                                 'labor_id' => $laborId,
@@ -574,8 +585,48 @@ class LaborManagementController extends Controller
 
                             // Guarda el nuevo registro en la base de datos
                             $supplies->save();
-                            $suppliesId = $supplies->id;
+                            $supplieId = $supplies->id;
                     }
+                   
+                    // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
+                    $existingInventory = Inventory::where([
+                        'productive_unit_warehouse_id' => $ProductiveUnitWarehousesId,
+                        'id' => $suppliesId,
+                    ])->first();
+                    
+                    foreach ($existingInventory as $Inventory) {
+                        $factor = $existingInventory->element->measurement_unit->conversion_factor;
+                    }
+                    $amountentero = $suppliesQuantitie * (int)$factor;
+                    if ($existingInventory) {
+                        // Restar la cantidad solicitada del inventario existente
+                        $existingInventory->amount -= $amountentero;
+                        $existingInventory->save();
+                        $existingInventoryId = $existingInventory->id;
+
+                    }
+                }
+            }
+            
+            if (!empty($machineryIds) && is_array($machineryIds) && count(array_filter($machineryIds)) > 0) {
+    
+                foreach ($machineryIds as $index => $machineryId) {
+                    // Accede a los datos de cada elemento de la tabla
+                    $machineryWage = $machineryWages[$index];
+                    $machineryPrice = $machineryPrices[$index];
+
+                
+                    // Registra la labor con el precio total calculado
+                    $machinery = new Equipment([
+                        'labor_id' => $laborId,
+                        'inventory_id' => $machineryId,
+                        'amount' => $machineryWage,
+                        'price' => $machineryPrice,
+                    ]);
+
+                    // Guarda el nuevo registro en la base de datos
+                    $machinery->save();
+                    $machineryId = $machinery->id;
                 }
             }
 
