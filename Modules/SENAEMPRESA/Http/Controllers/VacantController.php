@@ -238,42 +238,50 @@ class VacantController extends Controller
             $courseId = $request->input('course_id');
             $vacancyId = $request->input('vacancy_id');
             $isChecked = $request->input('checked') === 'true';
-
+    
             if ($isChecked) {
                 // Si el checkbox está marcado, crea una nueva relación
                 CourseVacancy::create([
                     'course_id' => $courseId,
                     'vacancy_id' => $vacancyId,
                 ]);
-
+    
                 $message = 'Relación creada correctamente.';
             } else {
                 // Si el checkbox no está marcado, elimina la relación existente si existe
                 CourseVacancy::where('course_id', $courseId)
                     ->where('vacancy_id', $vacancyId)
                     ->delete();
-
+    
+                // Marca todas las relaciones existentes como eliminadas
+                CourseVacancy::where('course_id', $courseId)
+                    ->whereNull('deleted_at')
+                    ->update(['deleted_at' => now()]);
+    
                 $message = 'Relación eliminada correctamente.';
             }
-
+    
             return response()->json(['success' => $message], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Ocurrió un error. Detalles: ' . $e->getMessage()], 500);
         }
     }
+    
 
 
     public function getAssociations(Request $request)
-    {
-        $courseId = $request->query('course_id');
-        $course = Course::findOrFail($courseId);
-    
-        // Obtén las vacantes asociadas al curso
-        $associations = $course->vacancy->pluck('id')->toArray();
-    
-        return response()->json(['associations' => $associations], 200);
-    }
-    
+{
+    $courseId = $request->query('course_id');
+    $course = Course::findOrFail($courseId);
+
+    // Obtén todas las relaciones, incluidas las marcadas como eliminadas
+    $associations = CourseVacancy::where('course_id', $courseId)
+        ->pluck('vacancy_id')
+        ->toArray();
+
+    return response()->json(['associations' => $associations], 200);
+}
+
 
     public function mostrar_asociados()
     {
