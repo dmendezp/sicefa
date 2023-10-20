@@ -240,7 +240,7 @@ class VacantController extends Controller
             $isChecked = $request->input('checked') === 'true';
 
             if ($isChecked) {
-                // If the checkbox is checked, create a new relationship
+                // Si el checkbox está marcado, crea una nueva relación
                 CourseVacancy::create([
                     'course_id' => $courseId,
                     'vacancy_id' => $vacancyId,
@@ -248,7 +248,7 @@ class VacantController extends Controller
 
                 $message = 'Relación creada correctamente.';
             } else {
-                // If the checkbox is unchecked, delete the existing relationship if it exists
+                // Si el checkbox no está marcado, elimina la relación existente si existe
                 CourseVacancy::where('course_id', $courseId)
                     ->where('vacancy_id', $vacancyId)
                     ->delete();
@@ -262,21 +262,25 @@ class VacantController extends Controller
         }
     }
 
+
     public function getAssociations(Request $request)
     {
         $courseId = $request->query('course_id');
         $course = Course::findOrFail($courseId);
-
+    
         // Obtén las vacantes asociadas al curso
         $associations = $course->vacancy->pluck('id')->toArray();
+    
+        return response()->json(['associations' => $associations], 200);
     }
+    
 
     public function mostrar_asociados()
     {
         $vacancies = Vacancy::get();
         $courses = Course::where('status', 'Activo')->with('vacancy')->get();
         $courseofvacancy = CourseVacancy::all();
-
+    
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
             $data = [
                 'title' => trans('senaempresa::menu.Assign Courses to Vacancies'),
@@ -284,10 +288,11 @@ class VacantController extends Controller
                 'vacancies' => $vacancies,
                 'courseofvacancy' => $courseofvacancy,
             ];
-
+    
             return view('senaempresa::Company.Vacant.courses_vacancies', $data);
         } else {
             return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
+    
 }
