@@ -2,10 +2,10 @@
 
 return [
     //indicador de pagina Administrar Recursos
-    'Indicator_manageresources' => 'Administrar Recursos',
+    'Indicator_assign_environmental_aspects' => 'Asignar Aspectos Ambientales',
 
     // Titulo card Aministrar Recursos
-    'ct1' => 'Administrar Recursos',
+    'ct1' => 'Asignar Aspectos Ambientales',
 
     // Titulo label unidad productiva y aspecto ambiental
     'label1' => 'Unidad Productiva',

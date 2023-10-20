@@ -12,17 +12,17 @@ use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\EnvironmentalAspect;
 
-class AdminresourcesController extends Controller
+class assign_environmental_aspectsController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function adminresources() {
+    public function assign_environmental_aspects() {
         $productive_unit = ProductiveUnit::all();
         $activities = Activity::all();
         $environmentalAspect = EnvironmentalAspect::get();
-        return view('hdc::Adminresources', compact('productive_unit' , 'activities', 'environmentalAspect'));
+        return view('hdc::Asignar.assign_environmental_aspects', compact('productive_unit' , 'activities', 'environmentalAspect'));
     }
 
     /**
@@ -48,7 +48,7 @@ class AdminresourcesController extends Controller
             $activity->environmental_aspects()->attach($environmentalAspectId);
         }
 
-        return redirect(route('cefa.hdc.adminresources'));
+        return redirect(route('cefa.hdc.assign_environmental_aspects'));
     }
     
 
@@ -72,7 +72,7 @@ public function updateEnvironmentalAspects(Request $request)
     // Sincroniza los aspectos ambientales en la tabla pivote
     $activity->environmental_aspects()->sync($selectedEnvironmentalAspects);
 
-    return redirect(route('cefa.hdc.adminresources'));
+    return redirect(route('cefa.hdc.assign_environmental_aspects'));
 }
 
 

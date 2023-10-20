@@ -15,7 +15,7 @@ return [
     'RegisterConsumption' => 'Register Consumption',
     'consumptionconsultation' => 'Consumption Consultation',
     'instructions' => 'instructions',
-    'manageresources' => 'Manage Resources',
+    'assign_environmental_aspects' => 'Assign Environmental Aspects',
     'calculatefootprint' => 'Calculate Your Footprint',
 
     // Indicador pagina Inicio
