@@ -228,48 +228,45 @@ class VacantController extends Controller
         }
     }
 
+
     //Asociar cursos a vacantes
     public function curso_asociado(Request $request)
     {
-        try {
-            $courseId = $request->input('course_id');
-            $vacancyId = $request->input('vacancy_id');
-            $isChecked = $request->input('checked');
+        // Valida los datos del formulario
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'vacancies' => 'array', // Cambia la validación a un array
+        ]);
 
-            // Buscar el registro en la tabla pivote
-            $record = CourseVacancy::where('course_id', $courseId)
-                ->where('vacancy_id', $vacancyId)
-                ->first();
+        // Obtén el ID del curso y las vacantes seleccionadas
+        $courseId = $request->input('course_id');
+        $vacancies = $request->input('vacancies');
 
-            if ($isChecked == 'true') {
-                if (!$record) {
-                    // Si no existe el registro, crearlo
-                    CourseVacancy::create([
-                        'course_id' => $courseId,
-                        'vacancy_id' => $vacancyId,
-                    ]);
-                }
-            } elseif ($record) {
-                // Si el registro existe y el checkbox está desmarcado, eliminarlo
-                $record->delete();
-            }
+        // Encuentra el modelo del curso
+        $course = Course::findOrFail($courseId);
 
-            return response()->json(['success' => 'Actualización en línea exitosa.'], 200);
-        } catch (\Exception $e) {
-            // Manejar la excepción y devolver una respuesta de error JSON
-            return response()->json(['error' => 'Ocurrió un error. Detalles: ' . $e->getMessage()], 500);
-        }
+        // Asigna las vacantes al curso
+        $course->vacancy()->sync($vacancies);
+
+        return response()->json(['mensaje' => 'Vacantes asignadas con éxito.']);
     }
 
+    public function getAssociations(Request $request)
+    {
+        $courseId = $request->query('course_id');
+        $course = Course::findOrFail($courseId);
 
+        // Obtén las vacantes asociadas al curso
+        $associations = $course->vacancy->pluck('id')->toArray();
 
+        return response()->json(['associations' => $associations]);
+    }
 
     public function mostrar_asociados()
     {
         $vacancies = Vacancy::get();
-        $courses = Course::with('program')->get();
-        // Retrieve the pivot data for courses and vacancies
-        $courseofvacancy = CourseVacancy::whereIn('course_id', $courses->pluck('id')->toArray())->whereNull('deleted_at')->get();
+        $courses = Course::where('status', 'Activo')->with('vacancy')->get();
+        $courseofvacancy = CourseVacancy::all();
 
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
             $data = [
@@ -283,16 +280,5 @@ class VacantController extends Controller
         } else {
             return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
-    }
-
-    public function getAssociations(Request $request)
-    {
-        $courseId = $request->query('course_id');
-        $course = Course::findOrFail($courseId);
-
-        // Obtén las vacantes asociadas al curso
-        $associations = $course->vacancy->pluck('id')->toArray();
-
-        return response()->json(['associations' => $associations]);
     }
 }

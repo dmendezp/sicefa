@@ -1,6 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SENA EMPRESA | {{ $title }}</title>
 
     <link rel="icon" href="{{ asset('AdminLTE/dist/img/logo P SENA.png') }}">
@@ -46,6 +47,9 @@
         integrity="sha384-KyZXEAg3QhqLMpG8r+ld9m9/dDZDlMTgzyaWmPgQF3U7o6z5qI0nE5ss1f2Gh0b5" crossorigin="anonymous">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
 
 
     <link href="{{ asset('modules/senaempresa/css/style.css') }}" rel="stylesheet">

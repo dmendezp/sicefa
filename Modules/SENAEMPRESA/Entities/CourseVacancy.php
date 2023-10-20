@@ -17,13 +17,13 @@ class CourseVacancy extends Model implements Auditable
 
     protected $fillable = ['course_id', 'vacancy_id'];
     protected $dates = ['deleted_at'];
+    protected $hidden = ['created_at', 'update_at'];
+    protected $table = 'course_vacancy';
     protected static function newFactory()
     {
         return \Modules\SENAEMPRESA\Database\factories\CourseVacancyFactory::new();
     }
-    protected $table = 'course_vacancy';
 
-    public $timestamps = true;
 
     public function course()
     {
