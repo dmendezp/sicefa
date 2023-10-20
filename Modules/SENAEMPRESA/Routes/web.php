@@ -114,7 +114,7 @@ Route::middleware(['lang'])->group(function () {
 
         //Asociar curso a vacante
         Route::get('Vacantes/Mostrar_Curso', 'VacantController@mostrar_asociados')->name('company.vacant.mostrar_asociados');
-        Route::put('Vacantes/Curso_Asociado', 'VacantController@curso_asociado')->name('company.vacant.curso_asociado');
+        Route::post('Vacantes/Curso_Asociado', 'VacantController@curso_asociado')->name('company.vacant.curso_asociado');
         Route::get('/company/vacant/get_associations', 'VacantController@getAssociations')->name('company.vacant.get_associations');
 
 

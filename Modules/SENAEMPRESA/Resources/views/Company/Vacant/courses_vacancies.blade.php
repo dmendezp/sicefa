@@ -13,6 +13,8 @@
                             <div class="form-group">
                                 <label for="course_id">{{ trans('senaempresa::menu.Select a course:') }}</label>
                                 <select class="form-control" name="course_id" id="course_id">
+                                    <option value="">{{ trans('senaempresa::menu.Select a course:') }}
+                                    </option>
                                     @foreach ($courses as $course)
                                         <option value="{{ $course->id }}">{{ $course->code }} {{ $course->program->name }}
                                         </option>
@@ -23,20 +25,20 @@
                             @foreach ($vacancies as $vacancy)
                             <li>
                                 @php
-                                // Verificar si existe una relación sin deleted_at para este beneficio y beneficiario
+                                // Verificar si existe una relación sin deleted_at para este curso y vacante
                                 $record = $courseofvacancy
-                                    ->where('course_id', $course->id)
+                                    ->where('course_id', $course->id) // Cambia $course por $course_id
                                     ->where('vacancy_id', $vacancy->id)
                                     ->whereNull('deleted_at')
                                     ->first();
                                 $isChecked = $record ? true : false;
                                 @endphp
-                            
+                        
                                 <label class="checkbox-container">
                                     <input class="association-checkbox" type="checkbox" data-vacancy-id="{{ $vacancy->id }}" value="1"
                                         data-record-id="{{ $record ? $record->id : '' }}" {{ $isChecked ? 'checked' : '' }}>
                                     <span class="checkbox" for="checkbox"></span>
-                            
+                        
                                     {{ $vacancy->name }}
                                 </label>
                             </li>
@@ -52,56 +54,56 @@
 @endsection
 
 @section('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Obtén el curso seleccionado y las relaciones asociadas (vacantes)
-            $('#course_id').change(function() {
-                var courseId = $(this).val();
+       $(document).ready(function() {
+        // Obtén el curso seleccionado y las relaciones asociadas (vacantes)
+        $('#course_id').change(function() {
+            var courseId = $(this).val();
 
-                // Realiza una llamada Ajax para obtener las asociaciones
-                $.ajax({
-                    url: '{{ route('company.vacant.get_associations') }}',
-                    method: 'GET',
-                    data: {
-                        course_id: courseId
-                    },
-                    success: function(data) {
-                        // Marca los checkboxes según las asociaciones obtenidas
-                        $('.association-checkbox').each(function() {
-                            var vacancyId = $(this).data('vacancy-id');
-                            $(this).prop('checked', data.associations.includes(
-                                vacancyId));
-                        });
-                    },
-                    error: function(error) {
-                        // Maneja errores, puedes mostrar mensajes de error si lo deseas.
-                    }
-                });
-            });
-
-            // Maneja los cambios en los checkboxes
-            $('.association-checkbox').change(function() {
-                var courseId = $('#course_id').val();
-                var vacancyId = $(this).data('vacancy-id');
-                var isChecked = $(this).prop('checked');
-
-                $.ajax({
-                    url: '{{ route('company.vacant.curso_asociado') }}',
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        course_id: courseId,
-                        vacancy_id: vacancyId,
-                        checked: isChecked
-                    },
-                    success: function(data) {
-                        // Maneja la respuesta del servidor, puedes mostrar mensajes si lo deseas.
-                    },
-                    error: function(error) {
-                        // Maneja errores, puedes mostrar mensajes de error si lo deseas.
-                    }
-                });
+            // Realiza una llamada Ajax para obtener las asociaciones
+            $.ajax({
+                url: '{{ route('company.vacant.get_associations') }}',
+                method: 'GET',
+                data: {
+                    course_id: courseId
+                },
+                success: function(data) {
+                    // Marca los checkboxes según las asociaciones obtenidas
+                    $('.association-checkbox').each(function() {
+                        var vacancyId = $(this).data('vacancy-id');
+                        $(this).prop('checked', data.associations.includes(vacancyId));
+                    });
+                },
+                error: function(error) {
+                    // Maneja errores, puedes mostrar mensajes de error si lo deseas.
+                }
             });
         });
+
+        // Maneja los cambios en los checkboxes
+        $('.association-checkbox').change(function() {
+            var courseId = $('#course_id').val();
+            var vacancyId = $(this).data('vacancy-id');
+            var isChecked = $(this).prop('checked');
+
+            $.ajax({
+                url: '{{ route('company.vacant.curso_asociado') }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    course_id: courseId,
+                    vacancy_id: vacancyId,
+                    checked: isChecked
+                },
+                success: function(data) {
+                    // Maneja la respuesta del servidor, puedes mostrar mensajes si lo deseas.
+                },
+                error: function(error) {
+                    // Maneja errores, puedes mostrar mensajes de error si lo deseas.
+                }
+            });
+        });
+    });
     </script>
 @endsection
