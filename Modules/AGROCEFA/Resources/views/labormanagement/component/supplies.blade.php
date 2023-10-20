@@ -191,9 +191,14 @@
 
             // Manejador de eventos para eliminar productos
             suppliesTable.on('click', '.removeProduct', function() {
-                $(this).closest('tr').remove();
+                // Elimina la fila y la siguiente fila de campos adicionales
+                var currentRow = $(this).closest('tr');
+                currentRow.next('.additional-fields').remove(); // Elimina los campos adicionales
+                currentRow.remove(); // Elimina la fila del producto
+
 
             });
+
 
             // Manejador de eventos para cambiar la unidad de medida, la cantidad y el precio al seleccionar un elemento
             suppliesTable.on('change', 'select[name="supplies-id[]"]:last', function() {
