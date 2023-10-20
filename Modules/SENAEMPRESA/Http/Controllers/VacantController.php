@@ -72,7 +72,8 @@ class VacantController extends Controller
             'PositionCompany' => $PositionCompany,
             'selectedCourseId' => $selectedCourseId,
             'selectedSenaempresaId' => $selectedSenaempresaId,
-            'senaempresas' => $senaempresas, // Pasa las Senaempresas a la vista
+            'senaempresas' => $senaempresas,
+            // Pasa las Senaempresas a la vista
         ];
 
         return view('senaempresa::Company.Vacant.vacant', $data);
@@ -112,7 +113,8 @@ class VacantController extends Controller
             'PositionCompany' => $activePositions,
             'currentQuarterId' => $currentQuarter->id,
             'currentSenaempresaId' => $currentSenaempresa->id,
-            'currentSenaempresaName' => $currentSenaempresaName, // Pasar el nombre de la empresa a la vista
+            'currentSenaempresaName' => $currentSenaempresaName,
+            // Pasar el nombre de la empresa a la vista
         ];
 
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
@@ -232,23 +234,32 @@ class VacantController extends Controller
     //Asociar cursos a vacantes
     public function curso_asociado(Request $request)
     {
-        // Valida los datos del formulario
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'vacancies' => 'array', // Cambia la validación a un array
-        ]);
+        try {
+            $courseId = $request->input('course_id');
+            $vacancyId = $request->input('vacancy_id');
+            $isChecked = $request->input('checked') === 'true';
 
-        // Obtén el ID del curso y las vacantes seleccionadas
-        $courseId = $request->input('course_id');
-        $vacancies = $request->input('vacancies');
+            if ($isChecked) {
+                // If the checkbox is checked, create a new relationship
+                CourseVacancy::create([
+                    'course_id' => $courseId,
+                    'vacancy_id' => $vacancyId,
+                ]);
 
-        // Encuentra el modelo del curso
-        $course = Course::findOrFail($courseId);
+                $message = 'Relación creada correctamente.';
+            } else {
+                // If the checkbox is unchecked, delete the existing relationship if it exists
+                CourseVacancy::where('course_id', $courseId)
+                    ->where('vacancy_id', $vacancyId)
+                    ->delete();
 
-        // Asigna las vacantes al curso
-        $course->vacancy()->sync($vacancies);
+                $message = 'Relación eliminada correctamente.';
+            }
 
-        return response()->json(['mensaje' => 'Vacantes asignadas con éxito.']);
+            return response()->json(['success' => $message], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Ocurrió un error. Detalles: ' . $e->getMessage()], 500);
+        }
     }
 
     public function getAssociations(Request $request)
@@ -258,8 +269,6 @@ class VacantController extends Controller
 
         // Obtén las vacantes asociadas al curso
         $associations = $course->vacancy->pluck('id')->toArray();
-
-        return response()->json(['associations' => $associations]);
     }
 
     public function mostrar_asociados()
