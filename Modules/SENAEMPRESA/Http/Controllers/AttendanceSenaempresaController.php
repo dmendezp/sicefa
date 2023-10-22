@@ -27,14 +27,14 @@ class AttendanceSenaempresaController extends Controller
         // Valida los datos del formulario aquí, si es necesario
         $personid = $request->input('person_id');
         $currentDate = now()->format('Y-m-d'); // Obtener la fecha actual en formato YYYY-MM-DD
-
+    
         // Busca un registro de asistencia existente para la persona y fecha actual
         $existingAttendance = AttendanceSenaempresa::whereHas('staffSenaempresa.apprentice.person', function ($query) use ($personid) {
             $query->where('id', $personid);
         })
             ->whereDate('start_datetime', $currentDate)
             ->first();
-
+    
         if ($existingAttendance) {
             // Ya existe un registro de asistencia para esta persona en el mismo día
             if ($existingAttendance->end_datetime) {
@@ -48,39 +48,58 @@ class AttendanceSenaempresaController extends Controller
                 return redirect()->route('attendance.list')->with('success', 'Hora de salida registrada exitosamente.');
             }
         } else {
+            // No existe un registro de asistencia existente, crea uno nuevo
             $personid = $request->input('person_id');
-
+    
             $apprenticeid = Apprentice::where('person_id', $personid)->pluck('id')->first();
-
+    
             $staffsenaempresaid = StaffSenaempresa::where('apprentice_id', $apprenticeid)->pluck('id')->first();
-
-            // Registra la asistencia en la tabla attendances
-            $attendance = new AttendanceSenaempresa();
-            $attendance->staff_senaempresa_id = $staffsenaempresaid;
-            $attendance->start_datetime = now();
-            $attendance->save();
-
-            // Redirige a la lista de asistencias o muestra un mensaje de éxito
-            return redirect()->route('attendance.list')->with('success', 'Asistencia registrada exitosamente.');
+    
+            // Verifica si $staffsenaempresaid es válido antes de crear el registro
+            if ($staffsenaempresaid) {
+                // Registra la asistencia en la tabla attendances
+                $attendance = new AttendanceSenaempresa();
+                $attendance->staff_senaempresa_id = $staffsenaempresaid;
+                $attendance->start_datetime = now();
+                $attendance->save();
+                
+                // Redirige a la lista de asistencias o muestra un mensaje de éxito
+                return redirect()->route('attendance.list')->with('success', 'Asistencia registrada exitosamente.');
+            } else {
+                // Maneja el caso en el que $staffsenaempresaid no es válido, por ejemplo, mostrando un mensaje de error
+                return redirect()->route('attendance.list')->with('error', 'No se pudo registrar la asistencia porque el aprendiz no esta en el personal');
+            }
         }
     }
-    public function getPersonData(Request $request)
-    {
-        $documentNumber = $request->input('document_number');
+    
+    // Dentro del controlador AttendanceSenaempresaController
+// Dentro del controlador AttendanceSenaempresaController
+public function getPersonData(Request $request)
+{
+    $documentNumber = $request->input('document_number');
 
-        // Realiza una consulta para obtener los datos de la persona con el número de documento
-        $personData = Person::where('document_number', $documentNumber)->first();
+    // Realiza una consulta para obtener los datos de la persona con el número de documento
+    $personData = Person::where('document_number', $documentNumber)->first();
 
-        if ($personData) {
-            // Si se encontró una persona, devuelve los datos junto con el ID
-            return response()->json([
-                'id' => $personData->id,
-                'full_name' => $personData->first_name,
-                // Agrega otros campos que desees devolver
-            ]);
-        } else {
-            // Si no se encontró una persona, devuelve una respuesta vacía
-            return response()->json(null);
+    // Verifica si la persona está registrada en StaffSenaempresa
+    $isRegisteredInStaff = false;
+    if ($personData) {
+        $personId = $personData->id;
+        $apprentice = Apprentice::where('person_id', $personId)->first();
+        if ($apprentice) {
+            $isRegisteredInStaff = StaffSenaempresa::where('apprentice_id', $apprentice->id)->exists();
         }
     }
+
+    if ($personData && $isRegisteredInStaff) {
+        // Si se encontró una persona registrada en StaffSenaempresa, devuelve los datos junto con el indicador
+        return response()->json([
+            'id' => $personData->id,
+            'full_name' => $personData->first_name,
+            'is_registered' => $isRegisteredInStaff, // Indicador de registro en StaffSenaempresa
+        ]);
+    } 
+}
+
+
 }

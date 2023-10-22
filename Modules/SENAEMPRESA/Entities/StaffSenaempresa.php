@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Inventory;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\SICA\Entities\Quarter;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -16,7 +17,7 @@ class StaffSenaempresa extends Model implements Auditable
         SoftDeletes, // Borrado suave
         HasFactory;
 
-    protected $fillable = ['position_company_id', 'apprentice_id', 'image'];
+    protected $fillable = ['position_company_id', 'apprentice_id', 'image', 'quarter_id'];
 
     protected static function newFactory()
     {
@@ -30,5 +31,9 @@ class StaffSenaempresa extends Model implements Auditable
     public function Invetory()
     { // Accede a la información del inventario 
         return $this->belongsTo(Inventory::class);
+    }
+    public function quarter()
+    {
+        return $this->belongsTo(Quarter::class);
     }
 }
