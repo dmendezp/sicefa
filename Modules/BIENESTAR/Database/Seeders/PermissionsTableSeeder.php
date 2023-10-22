@@ -31,7 +31,7 @@ class PermissionsTableSeeder extends Seeder
 
 
         // ===================== Registro de todos los permisos de la aplicación BIENESTAR ==================
-        // Dashboard de administrador
+        // Dashboard de administrador//
         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.dashboard'], [ // Registro o actualización de permiso
             'name' => 'Admin Dashboard',
             'description' => 'Puede ver el dashboard de administrador',

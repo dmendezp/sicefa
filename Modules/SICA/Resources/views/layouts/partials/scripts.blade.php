@@ -24,7 +24,7 @@
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('AdminLTE/plugins/toastr/toastr.min.js') }}"></script>
 
-<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script> 
 
 <!-- Highcharts -->
 <script src="{{ asset('Highcharts/code/highcharts.js') }}"></script>

@@ -23,8 +23,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/home', 'BIENESTARController@home')->name('cefa.bienestar.home');
 
         //Vista Crud Beneficio
-        Route::get('/benefits', 'BenefitsController@benefitsView')->name('cefa.bienestar.benefits');
-        Route::get('/benefits', 'BenefitsController@benefitsView')->name('cefa.bienestar.benefits');
+        Route::get('/benefits', 'BenefitsController@benefitsView')->name('bienestar.admin.crud.benefits');
 
         Route::delete('/benefits/delete/{id}', 'BenefitsController@destroy')->name('cefa.bienestar.benefits.delete');
         Route::post('/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('cefa.bienestar.benefits.add');
@@ -101,8 +100,11 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/procesar-formulario', 'CallConsultationController@procesarFormulario')->name('cefa.bienestar.procesar.formulario');
         Route::get('/consulta/{documentNumber}', 'CallConsultationController@consultarBeneficios')->name('cefa.bienestar.consulta.resultados');
         // Vista de Postulaciones
-        route::get('/postulations', 'PostulationsController@index') ->name('cefa.bienestar.postulations');
-        Route::get('/postulations/search', 'PostulationsController@search')->name('cefa.bienestar.search');        
+        Route::get('/postulations', 'PostulationsController@index') ->name('cefa.bienestar.postulations');
+        Route::get('/postulations/search', 'PostulationsController@search')->name('cefa.bienestar.search'); 
+        Route::get('/postulations/search/getbenefits', 'PostulationsController@getBenefits')->name('cefa.bienestar.search_questions'); 
+
+
 
         //vista el listados apoyo alimentacion 
         Route::get('/AssistancesFoods', 'AssistancesFoodsController@index')->name('cefa.bienestar.AssistancesFoods');

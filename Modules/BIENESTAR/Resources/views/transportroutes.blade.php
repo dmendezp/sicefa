@@ -8,6 +8,7 @@
            
             <!-- /.card-header -->
             <div class="card-body">
+            @if (Auth::user()->havePermission('bienestar.admin.save.benefits'))
                 @if (Auth::user()->havePermission('bienestar.admin.save.benefits'))
                 <form action="{{ route('cefa.bienestar.transportroutes.add') }}" method="POST" role="form">
                     @csrf
