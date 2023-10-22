@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PTVENTA\Database\Seeders;
+namespace Modules\BIENESTAR\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\SICA\Entities\EPS;
