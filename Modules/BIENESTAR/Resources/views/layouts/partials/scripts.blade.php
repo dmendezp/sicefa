@@ -250,11 +250,14 @@ Array.prototype.slice.call(deleteButtons)
             // Realizar una solicitud AJAX para enviar el formulario de edición
             axios.post(editForm.action, new FormData(editForm))
                 .then(function (response) {
-                    if (response.status === 200 && response.data.mensaje) {
+                    if (response.status === 200 && response.data.success) {
                         // Mostrar el SweetAlert de éxito
-                        showSweetAlert('success', 'Éxito', response.data.mensaje, 1500);
+                        showSweetAlert('success', 'Éxito', response.data.success, 1500);
+                    } else if (response.status === 409 && response.data.error) {
+                        // Mostrar el SweetAlert de conflicto
+                        showSweetAlert('error', 'Error', response.data.error, 1500);
                     } else {
-                        // Mostrar el SweetAlert de error en caso de problemas
+                        // Mostrar el SweetAlert de error en caso de problemas inesperados
                         showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
                     }
                 })
@@ -265,31 +268,6 @@ Array.prototype.slice.call(deleteButtons)
         });
     });
 </script>
-
-<!-- Alerta para guardar y editar -->
-@if (session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Exito!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
-        });
-    </script>
-@endif
-
-@if (session('error'))
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: '{{ session('error') }}',
-            showConfirmButton: false,
-            timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
-        });
-    </script>
-@endif
 
 <!-- Datatable postulados -->
 <script>
@@ -334,4 +312,122 @@ Array.prototype.slice.call(deleteButtons)
     });
 </script>
 
+<script>
+    // Define una función reutilizable para mostrar los SweetAlerts
+    function showSweetAlert(icon, title, text, timer) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: text,
+            showConfirmButton: false,
+            timer: timer
+        }).then(function () {
+            // Recargar la página después del SweetAlert
+            location.reload();
+        });
+    }
 
+    // Configura el evento para el formulario de edición
+    document.querySelectorAll('.formEditar').forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Evitar que el formulario se envíe de inmediato
+            var editForm = this;
+
+            // Realizar una solicitud AJAX para enviar el formulario de edición
+            axios.post(editForm.action, new FormData(editForm))
+                .then(function (response) {
+                    // Manejar la respuesta JSON del servidor
+                    if (response.status === 200) {
+                        // Éxito: Mostrar SweetAlert de éxito
+                        showSweetAlert('success', 'Éxito', response.data.success, 1500);
+                    } else if (response.status === 409) {
+                        // Error de conflicto: Mostrar SweetAlert de error
+                        showSweetAlert('error', 'Error', response.data.error);
+                    } else {
+                        // Otra respuesta: Mostrar SweetAlert de error
+                        showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
+                    }
+                })
+                .catch(function (error) {
+                    // Error de servidor: Mostrar SweetAlert de error
+                    showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
+                    console.error(error);
+                });
+        });
+    });
+
+    // Configura el evento para el formulario de guardar
+    document.querySelectorAll('.formGuardar').forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Evitar que el formulario se envíe de inmediato
+            var createForm = this;
+
+            // Realizar una solicitud AJAX para enviar el formulario de creación
+            axios.post(createForm.action, new FormData(createForm))
+                .then(function (response) {
+                    // Manejar la respuesta JSON del servidor
+                    if (response.status === 200) {
+                        // Éxito: Mostrar SweetAlert de éxito
+                        showSweetAlert('success', 'Éxito', response.data.success, 1500);
+                    } else if (response.status === 409) {
+                        // Error de conflicto: Mostrar SweetAlert de error
+                        showSweetAlert('error', 'Error', response.data.error);
+                    } else {
+                        // Otra respuesta: Mostrar SweetAlert de error
+                        showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar crear el tipo de beneficiario.');
+                    }
+                })
+                .catch(function (error) {
+                    // Error de servidor: Mostrar SweetAlert de error
+                    showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar crear el tipo de beneficiario.');
+                    console.error(error);
+                });
+        });
+    });
+</script>
+
+<script>
+    // Define una función reutilizable para mostrar los SweetAlerts
+    function showSweetAlert(icon, title, text, timer) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: text,
+            showConfirmButton: false,
+            timer: timer
+        }).then(function () {
+            // Recargar la página después del SweetAlert
+            location.reload();
+        });
+    }
+
+    // Configura el evento para el formulario de edición
+    document.querySelectorAll('#update-benefit-status-form').forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Evitar que el formulario se envíe de inmediato
+            var editForm = this;
+
+            // Realizar una solicitud AJAX para enviar el formulario de edición
+            axios.post(editForm.action, new FormData(editForm))
+            .then(function (response) {
+    if (response.status === 200 && response.data.success) {
+        // Mostrar el SweetAlert de éxito
+        showSweetAlert('success', 'Éxito', response.data.success, 1500);
+    } else if (response.status === 409 && response.data.error) {
+        // Mostrar el SweetAlert de conflicto
+        showSweetAlert('error', 'Error', response.data.error, 1500);
+    } else if (response.status === 200 && response.data.warning) {
+        // Mostrar el SweetAlert de advertencia si hay un mensaje de advertencia
+        showSweetAlert('warning', 'Advertencia', response.data.warning, 2000);
+    } else {
+        // Mostrar el SweetAlert de error en caso de problemas inesperados
+        showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar guardar registros.');
+    }
+})
+                .catch(function (error) {
+                    // Mostrar el SweetAlert de error en caso de problemas
+                    showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar guardar registros.');
+                });
+        });
+    });
+</script>
