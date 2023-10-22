@@ -9,6 +9,7 @@
             </div>
             <div class="card-body">
                 <div class="mtop16">
+                    @if (Auth::user()->havePermission('bienestar.admin.updateInline.benefitstypeofbenefits'))
                     <table id="benefitsTable" class="table table-bordered">
                         <thead>
                             <tr>
@@ -50,6 +51,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    @endif
                 </div>
             </div>
         </div>

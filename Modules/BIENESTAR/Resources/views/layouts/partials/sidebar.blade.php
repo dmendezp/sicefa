@@ -138,9 +138,11 @@
                 <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
                 </li>
+                @if(Auth::user()->havePermission('bienestar.admin.view.benefitstypeofbenefits'))
                 <li class="nav-item">
-                  <a href="{{ route('cefa.bienestar.benefitstypeofbenefits')}}" class="nav-link">Configurar Beneficios</a>
+                  <a href="{{ route('bienestar.admin.view.benefitstypeofbenefits')}}" class="nav-link">Configurar Beneficios</a>
                 </li>
+                @endif
               </ul>
             </li>
             <li class="nav-item has-treeview">

@@ -83,12 +83,11 @@ public function show($id) {
         $postulation->save();
 
         // Redirigir de vuelta a la página anterior con un mensaje de éxito (puede personalizar esto)
-        return redirect()->back()->with('success', 'Puntuación actualizada con éxito');
+        return response()->json(['success' => 'Registros actualizados con éxito.',], 200);    
     } catch (\Exception $e) {
         // Capturar y manejar errores, puedes personalizar esto según tus necesidades
-        return redirect()->back()->with('error', 'Error al actualizar la puntuación: ' . $e->getMessage());
+        return response()->json(['error' => 'Error al actualizar los registros: ' . $e->getMessage()], 500);    }
     }
-}
 
 
 
@@ -135,6 +134,17 @@ public function updateBenefits(Request $request)
 
         // Validar si se están registrando postulaciones para Transporte
         $isRegisteringForTransport = in_array('Transporte', $benefits->pluck('name')->toArray());
+
+        // Manejo de advertencias enviadas desde JavaScript
+        if ($request->has('message')) {
+            $message = $request->input('message');
+            $responseType = $request->input('type', 'warning'); // Tipo predeterminado si no se especifica
+
+            // Responde con un mensaje JSON de advertencia
+            return response()->json([
+                'warning' => $message,
+            ], 200);
+        }
 
         foreach ($selectedPostulations as $postulationId) {
             $postulation = Postulation::findOrFail($postulationId);
@@ -206,17 +216,6 @@ public function updateBenefits(Request $request)
         }
         $convocation->save();
 
-        // Maneja y responde a un mensaje de advertencia enviado desde JavaScript
-        if ($request->has('message')) {
-            $message = $request->input('message');
-            $responseType = $request->input('type', 'warning'); // Tipo predeterminado si no se especifica
-
-            // Responde con un mensaje JSON
-            return response()->json([
-                'warning' => 'Se ha superado el límite de cuotas seleccionadas',
-            ], 200);
-        }
-
         // Devuelve una respuesta JSON con los datos actualizados en caso de éxito
         return response()->json([
             'success' => 'Registros actualizados con éxito.',
@@ -226,6 +225,7 @@ public function updateBenefits(Request $request)
         return response()->json(['error' => 'Error al actualizar los registros: ' . $e->getMessage()], 500);
     }
 }
+
 
 }
 
