@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="card card-success card-outline shadow mt-3">
                 <div class="card-header">
-                    <h3 class="card-title">Registros de CO2 de {{ $persona->full_name }}</h3>
+                    <h3 class="card-title">{{ trans('hdc::calculatefootprint.Title_Card_Carbon_Footprint_Table')}} {{ $persona->full_name }}</h3>
                 </div>
                 <div class="card-body">
                     <a href="{{ route('Carbonfootprint.form.calculates', $persona->id) }}" class="btn btn-success mb-2"><i
@@ -15,10 +15,10 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <th>N°</th>
-                                        <th>Aspecto Ambiental</th>
-                                        <th>Cantidad</th>
+                                        <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Environmental_Aspect')}}</th>
+                                        <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Quantity')}}</th>
                                         <th>CO2 (%)</th>
-                                        <th>Acciones</th>
+                                        <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Action')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -5,7 +5,7 @@
         <div class="card card-success card-outline shadow mt-2">
             <div class="card-header">
                 <h2 class="card-title">
-                    <strong>{{ $person->full_name }} Registre los aspectos ambientales generados mensualmente en su casa
+                    <strong>{{ $person->full_name }} {{ trans('hdc::calculatefootprint.Title_Card_Registration_Personal_Aspect')}}
                     </strong>
                 </h2>
             </div>

@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card card-success card-outline shadow mt-2">
             <div class="card-header">
-                <h2 class="card-title"><strong> Editar Consumo de {{ $fpf->person->full_name }} </strong></h2>
+                <h2 class="card-title"><strong> {{ trans('hdc::calculatefootprint.Title_Card_Carbon_Footprint_Table_Edit')}} {{ $fpf->person->full_name }} </strong></h2>
             </div>
             <br>
             <div class="container">
@@ -34,7 +34,7 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-around">
-                            <button type="submit" class="btn btn-primary" id="updateBtn">Actualizar</button>
+                            <button type="submit" class="btn btn-primary" id="updateBtn">{{ trans('hdc::calculatefootprint.Update_Fingerprint_Button')}}</button>
                         </div>
                         <br>
                     </form>
