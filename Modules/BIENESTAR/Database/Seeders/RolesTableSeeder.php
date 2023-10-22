@@ -28,7 +28,6 @@ class RolesTableSeeder extends Seeder
             'name' => 'Administrador',
             'description' => 'Rol administrador de la aplicación BIENESTAR',
             'description_english' => 'BIENESTAR application administrator role',
-            'full_access' => 'No',
             'app_id' => $app->id
         ]);
 
@@ -37,7 +36,6 @@ class RolesTableSeeder extends Seeder
             'name' => 'Líder de Beneficio Transporte',
             'description' => 'Rol Líder de Beneficio Transportes de la aplicación BIENESTAR',
             'description_english' => 'BIENESTAR application Transportation Benefits Leader role',
-            'full_access' => 'No',
             'app_id' => $app->id
         ]);
 

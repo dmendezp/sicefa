@@ -27,7 +27,7 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="preguntas_seleccionadas[]" id="pregunta{{ $question->id }}">
+                                    <input type="checkbox" class="form-check-input" name="selected_questions[]" id="pregunta{{ $question->id }}">
                                     <label class="form-check-label" for="pregunta{{ $question->id }}">{{ trans('bienestar::menu.Select Question')}}</label>
                                 </div>
                             </div>
@@ -129,7 +129,7 @@
                 event.preventDefault();
 
                 // Obtiene todos los checkboxes seleccionados
-                var selectedCheckboxes = $("input[name='preguntas_seleccionadas[]']:checked");
+                var selectedCheckboxes = $("input[name='selected_questions[]']:checked");
 
                 // Verifica si al menos un checkbox está seleccionado
                 if (selectedCheckboxes.length === 0) {
