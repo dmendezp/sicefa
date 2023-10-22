@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\EnvironmentalAspect;
@@ -72,8 +71,8 @@ public function updateEnvironmentalAspects(Request $request)
     // Sincroniza los aspectos ambientales en la tabla pivote
     $activity->environmental_aspects()->sync($selectedEnvironmentalAspects);
 
-    return redirect(route('cefa.hdc.assign_environmental_aspects'));
-}
+        return redirect(route('cefa.hdc.assign_environmental_aspects'));
+    }
 
 
     

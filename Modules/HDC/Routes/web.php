@@ -37,7 +37,7 @@ Route::middleware(['lang'])->group(function () {
             Route::post('/cefa/hdc/update/{labor}', 'update')->name('cefa.hdc.update');
 
         });
-         /* Ruta Para Administrar Recursos */
+         /* Ruta Para Asignar recursos */
         Route::controller(assign_environmental_aspectsController::class)->group(function(){
             Route::get('/AsignarAspectosAmbientales', 'assign_environmental_aspects')->name('cefa.hdc.assign_environmental_aspects');
             Route::get('/get-environmental-aspects/{activityId}', 'getEnvironmentalAspects')->name('cefa.hdc.getEnvironmentalAspects');
