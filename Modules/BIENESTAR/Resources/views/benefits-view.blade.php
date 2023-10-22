@@ -10,7 +10,7 @@
         <div class="card shadow col-md-8">
             <div class="card-body">
                 @if (Auth::user()->havePermission('bienestar.admin.save.benefits'))
-                <form action="{{ route('cefa.bienestar.benefits.add')}}" method="post" onsubmit="return validarFormulario()" class="formGuardar">
+                <form action="{{ route('bienestar.admin.save.benefits')}}" method="post" onsubmit="return validarFormulario()" class="formGuardar">
                     @csrf
                     <div class="row align-items-center p-4">
                         <div class="col-md-3">
@@ -64,7 +64,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         @if (Auth::user()->havePermission('bienestar.admin.edit.benefits'))
-                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('cefa.bienestar.benefits.update', ['id' => $benefit->id]) }}" method="post">
+                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('bienestar.admin.edit.benefits', ['id' => $benefit->id]) }}" method="post">
                                                             @csrf
                                                             @method('PUT')
                                                             <!-- Campos de edición aquí -->
@@ -89,7 +89,7 @@
                                             </div>
                                         </div>
                                         @if (Auth::user()->havePermission('bienestar.admin.delete.benefits'))
-                                        <form action="{{ route('cefa.bienestar.benefits.delete', ['id' => $benefit->id]) }}" method="POST" class="formEliminar">
+                                        <form action="{{ route('bienestar.admin.delete.benefits', ['id' => $benefit->id]) }}" method="POST" class="formEliminar">
                                             @csrf
                                             @method("DELETE")
                                             <!-- Botón para abrir el modal de eliminación -->

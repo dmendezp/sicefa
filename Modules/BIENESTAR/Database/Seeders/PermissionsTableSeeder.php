@@ -39,8 +39,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
-        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
-        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
 
         // Vista Crud Beneficios (ADMINISTRADOR)//
         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.crud.benefits'], [ // Registro o actualización de permiso
@@ -995,7 +993,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
 
         // Botones de la vista CRUD Formularios (LIDER BENEFICIO DE TRANSPORTE)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.buttons.editform'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.buttons.editform'], [ // Registro o actualización de permiso
             'name' => 'Botones Del CRUD de los Formularios',
             'description' => 'Restricion a los botones del formularios',
             'description_english' => 'Restriction on form buttons',
@@ -1051,12 +1049,12 @@ class PermissionsTableSeeder extends Seeder
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'bienestar.admin')->first(); // Rol Administrador
-        $rol_transportation_benefits_leader = Role::where('slug', 'bienestar.transportation.benefits.beneficiaries_food')->first(); // Rol Coordinado Académico
-        $rol_food_benefits_leader = Role::where('slug', 'bienestar.food.benefits.leader')->first(); // Rol Registro Asistencia
-        $rol_feeding_assistant = Role::where('slug', 'bienestar.feeding.assistant')->first(); // Rol Registro Asistencia
-        $rol_route_leader = Role::where('slug', 'bienestar.route.leader')->first(); // Rol Registro Asistencia
+        $rol_transportation_benefits_leader = Role::where('slug', 'bienestar.transportation_benefits_leader')->first(); // Rol Lider Beneficio Transporte
+        $rol_food_benefits_leader = Role::where('slug', 'bienestar.food_benefits_leader')->first(); // Rol Lider Beneficio Alimentacion
+        $rol_feeding_assistant = Role::where('slug', 'bienestar.feeding_assistant')->first(); // Rol Registro Asistencia Alimentacion
+        $rol_route_leader = Role::where('slug', 'bienestar.route_leader')->first(); // Rol Registro Asistencia Ruta
 
-        // Asignación de PERMISOS para los ROLES de la aplicación SICA (Sincronización de las relaciones sin eliminar las relaciones existentes)
+        // Asignación de PERMISOS para los ROLES de la aplicación BIENESTAR (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()->syncWithoutDetaching($permission_admin);
         $rol_transportation_benefits_leader->permissions()->syncWithoutDetaching($permission_transportation_benefits_leader);
         $rol_food_benefits_leader->permissions()->syncWithoutDetaching($permission_food_benefits_leaders);

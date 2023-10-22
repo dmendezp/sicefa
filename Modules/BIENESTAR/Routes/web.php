@@ -22,12 +22,11 @@ Route::middleware(['lang'])->group(function () {
         //vista home
         Route::get('/home', 'BIENESTARController@home')->name('cefa.bienestar.home');
 
-        //Vista Crud Beneficio
+        //Vista Crud Beneficio(ADMIN)
         Route::get('/benefits', 'BenefitsController@benefitsView')->name('bienestar.admin.crud.benefits');
-
-        Route::delete('/benefits/delete/{id}', 'BenefitsController@destroy')->name('cefa.bienestar.benefits.delete');
-        Route::post('/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('cefa.bienestar.benefits.add');
-        Route::put('/benefits/update/{id}', 'BenefitsController@update')->name('cefa.bienestar.benefits.update');
+        Route::post('/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('bienestar.admin.save.benefits');
+        Route::put('/benefits/update/{id}', 'BenefitsController@update')->name('bienestar.admin.edit.benefits');
+        Route::delete('/benefits/delete/{id}', 'BenefitsController@destroy')->name('bienestar.admin.delete.benefits');
 
         //Vista CRUD Buses
         Route::get('/buses', 'BusesController@index')->name('cefa.bienestar.buses');
