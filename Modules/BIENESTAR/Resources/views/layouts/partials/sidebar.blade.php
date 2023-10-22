@@ -58,6 +58,7 @@
                 @endguest
             </div>
         </div>
+        
       <!-- Enlace "Volver a Sicefa" -->
       <div class="user-panel ">
             <nav class="">
@@ -113,9 +114,11 @@
                 <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.drivers') }}" class="nav-link">Conductores</a>
                 </li>
+                @if(Auth::user()->havePermission('bienestar.admin.crud.transportroutes'))
                 <li class="nav-item">
-                  <a href="{{ route('cefa.bienestar.transportroutes') }}" class="nav-link">Rutas</a>
+                  <a href="{{ route('bienestar.admin.crud.transportroutes') }}" class="nav-link">Rutas</a>
                 </li>
+                @endif
                 <li class="nav-item">
                   <a href="#" class="nav-link">Asignar Rutas</a>
                 </li>
@@ -127,9 +130,11 @@
                 <p>{{ trans('bienestar::menu.Benefits')}} <i class="fas fa-angle-left right"></i></p>
               </a>
               <ul class="nav nav-treeview">
+              @if(Auth::user()->havePermission('bienestar.admin.crud.benefits'))
               <li class="nav-item">
-                  <a href="{{ route('cefa.bienestar.benefits') }}" class="nav-link">Tipos de Beneficios</a>
+                  <a href="{{ route('bienestar.admin.crud.benefits') }}" class="nav-link">Tipos de Beneficios</a>
                 </li>
+                @endif
                 <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
                 </li>
@@ -153,9 +158,11 @@
                 <li class="nav-item">
                   <a href="" class="nav-link">Configurar Convocatoria</a>
                 </li>
+                @if(Route::is('cefa.bienestar.*'))
                 <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.postulations')}}" class="nav-link">Postulaciones </a>
                 </li>
+                @endif
               </ul>
             </li>
               <!-- Nueva sección "Consulta" debajo de "Convocatorias" -->

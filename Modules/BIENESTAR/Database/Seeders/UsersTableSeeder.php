@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         // Registrar o actualizar usuario para Juan David Rico Cerquera
-        $person = Person::where('document_number',1079904275)->first(); // Consultar Persona
+        $person = Person::where('document_number',1076904275)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'Morricito'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
             'email' => 'morricito.cerquera@gmail.com '

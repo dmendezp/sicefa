@@ -9,7 +9,8 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-8">
             <div class="card-body">
-                <form action="{{ route('cefa.bienestar.benefits.add')}}" method="post" onsubmit="return validarFormulario()" class="formGuardar">
+                @if (Auth::user()->havePermission('bienestar.admin.save.benefits'))
+                <form action="{{ route('bienestar.admin.save.benefits')}}" method="post" onsubmit="return validarFormulario()" class="formGuardar">
                     @csrf
                     <div class="row align-items-center p-4">
                         <div class="col-md-3">
@@ -27,6 +28,7 @@
                         </div>
                     </div>
                 </form>
+                @endif
                 <div class="mtop16">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
@@ -44,6 +46,7 @@
                                 <td>{{ $benefit->name }}</td>
                                 <td>{{ $benefit->porcentege }}</td>
                                 <td>
+                                    @if (Auth::user()->havePermission('bienestar.admin.buttons.benefits'))
                                     <div class="d-flex">
                                         <!-- Botones de acciones CRUD (Editar, Eliminar, etc.) -->
                                         <button class="btn btn-primary editButton mr-2" data-id="{{ $benefit->id }}" data-name="{{ $benefit->name }}" data-porcentege="{{ $benefit->porcentege }}" data-toggle="modal" data-target="#editModal-{{ $benefit->id }}"><i class="fas fa-edit"></i></button>
@@ -60,7 +63,8 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('cefa.bienestar.benefits.update', ['id' => $benefit->id]) }}" method="post">
+                                                        @if (Auth::user()->havePermission('bienestar.admin.edit.benefits'))
+                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('bienestar.admin.edit.benefits', ['id' => $benefit->id]) }}" method="post">
                                                             @csrf
                                                             @method('PUT')
                                                             <!-- Campos de edición aquí -->
@@ -79,23 +83,27 @@
                                                             </div>
                                                             <!-- Botón para guardar cambios -->
                                                         </form>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <form action="{{ route('cefa.bienestar.benefits.delete', ['id' => $benefit->id]) }}" method="POST" class="formEliminar">
+                                        @if (Auth::user()->havePermission('bienestar.admin.delete.benefits'))
+                                        <form action="{{ route('bienestar.admin.delete.benefits', ['id' => $benefit->id]) }}" method="POST" class="formEliminar">
                                             @csrf
                                             @method("DELETE")
                                             <!-- Botón para abrir el modal de eliminación -->
                                             <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
                                         </form>
+                                        @endif
                                     </div>
+                                    @endif
                                 </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                </tr>
-                @endforeach
-                </tbody>
-                </table>
             </div>
         </div>
         <!-- /.card-body -->
@@ -141,7 +149,7 @@
 
             if (porcentaje < 0 || porcentaje > 100) {
                 alert('El campo Porcentaje debe ser un número entre 0 y 100');
-            // Borra cualquier número fuera de rango
+                // Borra cualquier número fuera de rango
             }
 
             // Limita la longitud del campo a 3 caracteres

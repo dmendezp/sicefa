@@ -104,7 +104,32 @@ return[
     'Type Food'=>'Tipo de Comida',
     'time and date'=>'Hora y fecha',
    
-    
+    //vita postulations-management
+
+    'Application Management' => 'Gestión de Postulaciones',
+    'Transportation Quotas' => 'Cupos de Transporte',
+    'Food Quotas' => 'Cupos de Alimentación',
+    'Select' => 'Seleccionar',
+    'Apprentice Name' => 'Nombre del Aprendiz',
+    'Convocation' => 'Convocatoria',
+    'Benefit to which you are applying' => 'Beneficio al que se Postula',
+    'Application Status' => 'Estado de la Postulación',
+    'Application Score' => 'Puntuación de Postulación',
+    'Not available' => 'No disponible',
+    'View Details' => 'Ver Detalles',
+    'Save Records' => 'Guardar Registros',
+    'Application Details' => 'Detalles de Postulación',
+    'Beneficiary Type' => 'Tipo de Beneficiario',
+    'Form Responded' => 'Formulario Respondido',
+    'Not Answered' => 'No ha sido Respondida',
+    'Total Score' => 'Puntaje Total',
+    'New Score' => 'Nueva Puntuación',
+    'Save Score' => 'Guardar Puntuación',
+
+
+
+
+
     
 ]
 

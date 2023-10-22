@@ -30,7 +30,7 @@
             <tbody>
                 @foreach ($asignaciones as $asignacion)
                     <tr>
-                        <td>{{ $asignacion->id }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>
                             @if ($apprentice = \Modules\SICA\Entities\Apprentice::with('person')->find($asignacion->apprentice_id))
                                 {{ $apprentice->person->full_name }}

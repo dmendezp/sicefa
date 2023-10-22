@@ -19,9 +19,13 @@ class Convocation extends Model implements Auditable
 
 
     protected $fillable = [
-        'title',
+        'name',
+        'description',
+        'food_quotas',
+        'transport_quotas',
         'start_date',
         'end_date',
+        'quarter_id',
     ];
     
     

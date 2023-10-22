@@ -11,11 +11,7 @@ use Illuminate\Http\Response;
 
 class TypesOfBenefitsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-
+   
      public function typeofbenefits()
      {
          $typeofbenefits = TypeOfBenefit::all();
@@ -42,6 +38,7 @@ class TypesOfBenefitsController extends Controller
         // Restaurar el registro eliminado
         $existingDeletedRecord->restore();
         return response()->json(['success' => 'Tipo de beneficiario restaurado correctamente.'], 200);
+        
     }
 
     // Crear un nuevo registro
@@ -57,50 +54,6 @@ class TypesOfBenefitsController extends Controller
 }
 
 
-
-    
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('bienestar::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('bienestar::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('bienestar::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
     public function update(Request $request, $id)
 {
     // Validar los datos del formulario
@@ -114,7 +67,8 @@ class TypesOfBenefitsController extends Controller
     if (!$type) {
         // Manejar el error con un mensaje de error y un código de estado 404
         return response()->json(['error' => 'Tipo de beneficio no encontrado.'], 404);
-    }
+    
+        }
 
     // Verificar si el nuevo valor del campo 'name' ya existe en otros registros
     $existingRecord = TypeOfBenefit::where('name', $request->name)
@@ -134,13 +88,6 @@ class TypesOfBenefitsController extends Controller
     return response()->json(['success' => 'Tipo de beneficio actualizado correctamente.'], 200);
 }
 
-
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     
     public function destroy($id)
     {
@@ -148,10 +95,11 @@ class TypesOfBenefitsController extends Controller
             $typeofbenefits = TypeOfBenefit::findOrFail($id);
             $typeofbenefits->delete();
 
-            return response()->json(['success' =>'Vacancy eliminated with success']);
+            return response()->json(['mensaje' =>'Beneficio eliminado Correctamente'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' =>'Error when deleting the vacancy'], 500);
+            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
         }
+        
         
     }
 }
