@@ -133,7 +133,7 @@
                 <p><strong>{{ trans('bienestar::menu.Total Score')}}:</strong> <span id="total-score_{{ $postulation->id }}">{{ $postulation->total_score }}</span></p>
 
                 <div class="form-group">
-                    <form action="{{ route('cefa.bienestar.postulation-management.update-score', ['id' => $postulation->id]) }}" method="POST">
+                    <form id="update-benefit-status-form" action="{{ route('cefa.bienestar.postulation-management.update-score', ['id' => $postulation->id]) }}" method="POST">
                         @csrf
                         @method('PUT') <!-- Agrega esta línea para enviar una solicitud PUT -->
                         <div class="form-group">
