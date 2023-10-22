@@ -8,13 +8,20 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('cefa.hdc.index') }}"class="nav-link">{{ trans('hdc::hdcgeneral.Home')}}</a>
         </li>
+         @auth
+            @if (checkRol('hdc.admin'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('hdc.admin.index') }}" class="nav-link ">{{ trans('hdc::hdcgeneral.administrator')}}</a>
+                </li>
+            @endif
 
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link ">{{ trans('hdc::hdcgeneral.administrator')}}</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link ">{{ trans('hdc::hdcgeneral.user')}}</a>
-        </li>
+            @if (checkRol('hdc.charge'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{--  {{ route('hdc.charge.index') }  --}}}" class="nav-link ">{{ trans('hdc::hdcgeneral.user')}}</a>
+                </li>
+            @endif
+
+         @endauth
     </ul>
 
     <!-- Right navbar links -->

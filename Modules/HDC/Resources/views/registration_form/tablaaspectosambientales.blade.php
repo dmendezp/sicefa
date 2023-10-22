@@ -1,3 +1,4 @@
+
 <form method="POST" id="form-result" action="{{ route('hdc.guardar.valores') }}">
     @csrf
     <input name="activity_id" class="form-control" type="hidden" value="{{ $activity_id }}">
@@ -8,6 +9,7 @@
                 <tr>
                     <th>{{ trans('hdc::ConsumptionRegistry.Title_Heading_Table_Column1') }}</th>
                     <th>{{ trans('hdc::ConsumptionRegistry.Title_Heading_Table_Column2') }}</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach ($aspects[0]['environmental_aspects'] as $aspecto)
@@ -25,55 +27,62 @@
         </table>
         <div class="d-flex justify-content-around">
             <!-- Botón de guardar -->
-            <button type="submit" id="btn-enviar"
-                class="btn btn-success">{{ trans('hdc::ConsumptionRegistry.Btn_Save') }}</button>
+            <button type="submit" id="btn-enviar" class="btn btn-success">{{ trans('hdc::ConsumptionRegistry.Btn_Save') }}</button>
         </div>
     </div>
 </form>
 
 @push('scripts')
-    <script>
-        const btn = document.querySelector("#btn-enviar");
-        const form = document.querySelector("#form-result");
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    $(document).ready(function() {
+        // ...
 
-        btn.addEventListener("click", (e) => {
-            e.preventDefault();
-            const datos = new FormData(form);
+        $('#btn-enviar').click(function(event) {
+            var valid = true;
 
-            fetch('/guardar/valores', {
-                    method: 'post',
-                    body: datos
-                })
-                .then(response => response.json())
-                .then(result => {
-                    console.log(result);
+            $('input[name^="aspecto[{{ $aspecto['id'] }}][amount]"]').each(function() {
+                var amount = $(this).val();
 
-                    if (result.alerta == "danger") {
-                        let amount = document.querySelector(".errors-amount");
-                        amount.textContent = result.amount[0];
+                // ... Validación de aspectos ...
 
-                        // Mostrar el badge de error
-                        let badge = document.querySelectorAll(".badge");
-                        badge.forEach(span => {
-                            span.style.display = "block";
-                            span.style.textAlign = "left";
-                        });
+                if (!$.isNumeric(amount) || parseFloat(amount) <= 0) {
+                    valid = false;
+                    showAlert('Error', 'Ingrese un valor numérico y positivo para este aspecto.');
+                    event.preventDefault();
+                    return false;
+                }
 
-                        // Ocultar el badge después de 3 segundos
-                        setTimeout(() => {
-                            badge.forEach(span => {
-                                span.style.display = "none";
-                            });
-                        }, 3000);
-                    }
+                // ... Verificación de campos completos ...
+            });
 
-                    if (result.alerta == "success") {
-                        const success = document.querySelector(".alert");
-                        success.textContent = "El formulario se validó correctamente";
-                        success.style.display = "block";
-                    }
-                })
-                .catch(error => console.error('Error en la solicitud AJAX:', error));
+            if (!valid) {
+                showAlert('Error', 'Complete todos los campos de valor de consumo antes de enviar el formulario.');
+                event.preventDefault();
+            } else {
+                // Lógica para enviar el formulario si la validación es exitosa
+                showAlert('success', 'Formulario enviado exitosamente.');
+            }
         });
-    </script>
+
+        $('[name^="aspecto["][name$="[amount]"]').on('input', function() {
+            var amount = $(this).val();
+
+            if (!$.isNumeric(amount) || parseFloat(amount) <= 0) {
+                showAlert('Error', 'Ingrese un valor numérico y positivo para este aspecto.');
+            }
+        });
+
+        // Función para mostrar alertas SweetAlert
+        function showAlert(icon, title, text) {
+            Swal.fire({
+                icon: icon,
+                title: title,
+                text: text
+            });
+        }
+    });
+
+</script>
 @endpush

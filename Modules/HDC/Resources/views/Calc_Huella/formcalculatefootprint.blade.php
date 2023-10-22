@@ -53,47 +53,74 @@
         </div>
     </div>
 
-  @push('scripts')
-  <!-- Agrega el script aquí -->
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script>
-      $(document).ready(function () {
-          $('#submitBtn').click(function (event) {
-              var valid = true;
+    @push('scripts')
+    <!-- Agrega el script aquí -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function () {
+            $('#submitBtn').click(function (event) {
+                var valid = true;
 
-              // Iterar sobre los campos de valor_consumo
-              $('[name^="aspecto["][name$="[valor_consumo]"]').each(function () {
-                  var valorConsumo = $(this).val();
+                // Iterar sobre los campos de valor_consumo
+                $('[name^="aspecto["][name$="[valor_consumo]"]').each(function () {
+                    var valorConsumo = $(this).val();
 
-                  // Validar que el valor sea numérico y positivo
-                  if (!$.isNumeric(valorConsumo) || parseFloat(valorConsumo) <= 0) {
-                      valid = false;
-                      // Puedes personalizar el mensaje de error según tus necesidades
-                      alert('Ingrese un valor numérico y positivo para todos los aspectos.');
-                      return false; // Detener la iteración
-                  }
-              });
+                    // Validar que el valor sea numérico y positivo
+                    if (!$.isNumeric(valorConsumo) || parseFloat(valorConsumo) <= 0) {
+                        valid = false;
+                        // Utiliza SweetAlert para mostrar el mensaje de error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Ingrese un valor numérico y positivo para todos los aspectos.'
+                        });
+                        return false; // Detener la iteración
+                    }
+                });
 
-              // Verificar que todos los campos estén completos
-              $('[name^="aspecto["][name$="[valor_consumo]"]').each(function () {
-                  if ($(this).val() === '') {
-                      valid = false;
-                      // Puedes personalizar el mensaje de error según tus necesidades
-                      alert('Complete todos los campos de valor de consumo antes de enviar el formulario.');
-                      return false; // Detener la iteración
-                  }
-              });
+                // Verificar que todos los campos estén completos
+                $('[name^="aspecto["][name$="[valor_consumo]"]').each(function () {
+                    if ($(this).val() === '') {
+                        valid = false;
+                        // Utiliza SweetAlert para mostrar el mensaje de error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Complete todos los campos de valor de consumo antes de enviar el formulario.'
+                        });
+                        return false; // Detener la iteración
+                    }
+                });
 
-              // Si la validación no es exitosa, detener el envío del formulario y mostrar la alerta correspondiente
-              if (!valid) {
-                  event.preventDefault();
-              } else {
-                  // Aquí puedes agregar la lógica para enviar el formulario si la validación es exitosa
-                  alert('Formulario enviado exitosamente.');
-              }
-          });
-      });
-  </script>
+                // Si la validación no es exitosa, detener el envío del formulario y mostrar la alerta correspondiente
+                if (!valid) {
+                    event.preventDefault();
+                } else {
+                    // Aquí puedes agregar la lógica para enviar el formulario si la validación es exitosa
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: 'Formulario enviado exitosamente.'
+                    });
+                }
+            });
 
+            // Agregar validación específica para campo numérico
+            $('[name^="aspecto["][name$="[valor_consumo]"]').on('input', function () {
+                var valorConsumo = $(this).val();
+
+                // Validar que el valor sea numérico y positivo
+                if (!$.isNumeric(valorConsumo) || parseFloat(valorConsumo) <= 0) {
+                    // Utiliza SweetAlert para mostrar el mensaje de error
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ingrese un valor numérico y positivo para este aspecto.'
+                    });
+                }
+            });
+        });
+    </script>
     @endpush
 @endsection

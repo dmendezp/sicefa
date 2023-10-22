@@ -22,16 +22,33 @@ class PermissionsTableSeeder extends Seeder
 
 
         // Consultar aplicación SICA para registrar los roles
-        $app = App::where('name', 'SIGAC')->firstOrFail();
+        $app = App::where('name', 'HDC')->firstOrFail();
 
          // ===================== Registro de todos los permisos de la aplicación SIGAC ==================
         // Panel de control de coordinación académica (Coordinación Académica)
-        $permission = Permission::updateOrCreate(['slug' => 'sigac.academic_coordination.dashboard'], [ // Registro o actualización de permiso
-            'name' => 'Panel de control de coordinación académica (Coordinación Académica)',
-            'description' => 'Panel de control de coordinación académica',
-            'description_english' => "Academic coordination control panel",
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.index'], [ // Registro o actualización de permiso
+            'name' => 'Panel de control del administrador(Administrador)',
+            'description' => 'Panel de control del administrador de HDC',
+            'description_english' => "HDC Administrator Control Panel",
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Panel de control de Encargado (Encargado)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.index'], [ // Registro o actualización de permiso
+            'name' => 'Panel de control del Encargado (Encargado)',
+            'description' => 'Panel de control del encargado',
+            'description_english' => "Manager's control panel",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+        // Panel de control de user de calcula tu huella (userHDC)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.UserHDC.index'], [ // Registro o actualización de permiso
+            'name' => 'Panel de control del usuario de calcula tu huella (userHDC)',
+            'description' => 'Panel de control del usuario de calcula tu huella',
+            'description_english' => "Calculate your footprint user control panel",
+            'app_id' => $app->id
+        ]);
+        $permissions_userHDC[] = $permission->id; // Almacenar permiso para rol
     }
 }
