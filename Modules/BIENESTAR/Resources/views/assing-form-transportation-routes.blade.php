@@ -27,7 +27,7 @@
                                 @foreach ($postulationsBenefits as $postulationBenefit)
                                     @if ($postulationBenefit->state == 'Beneficiado')
                                         <tr class="benefit-row">
-                                            <td>{{ $postulationBenefit->id }}</td>
+                                            <td>{{ $loop->iteration}}</td>
                                             <td>{{ $postulationBenefit->benefit->name }}</td>
                                             <td>
                                                 @if ($postulationBenefit->postulation && $postulationBenefit->postulation->convocation)

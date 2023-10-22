@@ -19,7 +19,7 @@
             <tbody>
                 @foreach ($asignaciones as $asignacion)
                     <tr>
-                        <td>{{ $asignacion->id }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>
                             @php
                                 $apprentice = \Modules\SICA\Entities\Apprentice::with('person')->find($asignacion->apprentice_id);

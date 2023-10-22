@@ -10,7 +10,7 @@
             <div class="card-header">
             </div>
             <div class="card-body">
-                <form class="formCrear" action="{{ route('cefa.typeofbenefits.store') }}" method="post">
+                <form class="formGuardar" action="{{ route('cefa.bienestar.typeofbenefits.store') }}" method="post">
                     @csrf
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label text-md-right">{{ trans('bienestar::menu.Beneficiary Type Name')}}:</label>
@@ -22,7 +22,8 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-success" style="background-color: #00FF22;">{{ trans('bienestar::menu.Save')}}</button>                        </div>
+                            <button class="btn btn-success btn-block" type="submit">{{ trans('bienestar::menu.Save')}}</button>
+                        </div>
                     </div>
                 </form>
                 <div class="mtop16">
@@ -37,18 +38,19 @@
                         <tbody>
                             @foreach($typeofbenefits as $type)
                                 <tr>
-                                    <td>{{ $type->id }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $type->name }}</td>
                                     <td style="display: flex; justify-content: center;">
                                         <button class="btn btn-primary edit-button" data-id="{{ $type->id }}" data-toggle="modal" data-target="#editModal_{{ $type->id }}">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <form action="{{ route('cefa.typeofbenefits.destroy', $type->id) }}" method="POST" class="formEliminar">
+                                        <form action="{{ route('cefa.bienestar.typeofbenefits.delete', ['id' => $type->id]) }}" method="POST" class="formEliminar">
                                             @csrf
                                             @method("DELETE")
                                             <!-- Botón para abrir el modal de eliminación -->
-                                            <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-danger delete-button" type="submit" data-id="{{ $type->id }}"><i class="fas fa-trash-alt"></i></button>
                                         </form>
+                                        
                                     </td>
                                 </tr>
                             @endforeach
@@ -58,6 +60,7 @@
             </div>
         </div>
     </div>
+</div>
 
     @foreach($typeofbenefits as $type)
         <!-- Modal de edición -->
@@ -95,26 +98,10 @@
        
                         
     @endforeach
-
-    <!-- Modal de error -->
-    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="errorModalLabel">Error al Registrar</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>{{ session('error') }}</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>  
+    
+    
+@endsection
+@section('script')
 
     <script>
         $(document).ready(function() {
@@ -180,5 +167,5 @@
             });
         });
     </script>
-</div>
+
 @endsection
