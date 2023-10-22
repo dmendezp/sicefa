@@ -18,7 +18,6 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->string('question');  
-            $table->string('question_category');
             $table->enum('type_question_benefit', ['General','Alimentacion', 'Transporte']);  
             $table->SoftDeletes();
             $table->timestamps();            

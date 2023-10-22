@@ -49,6 +49,31 @@ class PostulationsController extends Controller
             ->where('people.document_number', $documentNumber)
             ->get();
 
+        if ($resultados->isEmpty()) {
+            return redirect()->route('cefa.bienestar.postulations')->with('error', 'No se encontraron resultados para el número de documento proporcionado.');
+        }
+
         return view('bienestar::postulations', compact('resultados'));
+    }
+
+    public function consulta(Request $request)
+    {
+        $selectedBenefits = $request->input('benefits'); // Obtiene los beneficios seleccionados
+
+        if (is_array($selectedBenefits) && count($selectedBenefits) > 0) {
+            // Si se seleccionaron beneficios, construye la consulta
+            $query = DB::table('answers_questions')
+                ->join('questions', 'answers_questions.question_id', '=', 'questions.id')
+                ->whereIn('questions.type_question_benefit', $selectedBenefits)
+                ->select('questions.question', 'questions.type_question_benefit', 'answers_questions.answer')
+                ->get();
+
+            // Procesa los resultados de la consulta
+
+            return view('bienestar::postulations', compact('query'));
+        } else {
+            // No se seleccionaron beneficios, puedes redirigir a otra vista o mostrar un mensaje de error
+            return view('bienestar::postulations');
+        }
     }
 }

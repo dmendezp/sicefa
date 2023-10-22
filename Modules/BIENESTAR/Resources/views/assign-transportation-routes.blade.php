@@ -4,7 +4,8 @@
     <div class="container">
         <h1>Lista de Asignaciones de Rutas de Transporte</h1>
 
-        <table class="table">
+        <table id= "datatable" class="table table-bordered">
+            
             <thead>
                 <tr>
                     <th>ID</th>

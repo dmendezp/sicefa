@@ -3,11 +3,13 @@
 @section('content')
 <!-- Main content -->
 <div class="container-fluid">
-<h1 class="mb-4">{{ trans('bienestar::menu.Benefits')}}  
-              <i class="fas fa-handshake"></i> </h1>
+    <h1 class="mb-4">{{ trans('bienestar::menu.Benefits')}}
+        <i class="fas fa-handshake"></i>
+    </h1>
     <div class="row justify-content-md-center pt-4">
-        <div class="card shadow col-md-8">            
+        <div class="card shadow col-md-8">
             <div class="card-body">
+                @if (Auth::user()->havePermission('bienestar.admin.save.benefits'))
                 <form action="{{ route('cefa.bienestar.benefits.add')}}" method="post" onsubmit="return validarFormulario()" class="formGuardar">
                     @csrf
                     <div class="row align-items-center p-4">
@@ -17,7 +19,7 @@
                         </div>
                         <div class="col-md-3">
                             <label for="number1">{{ trans('bienestar::menu.Porcentege')}}</label>
-                            <input type="number" class="form-control" id="porcentaje" min="0" max="100" placeholder="Ej: 75" name="porcentege" required>                           
+                            <input type="number" class="form-control" id="porcentaje" min="0" max="100" placeholder="Ej: 75" name="porcentege" required>
                         </div>
                         <div class="col-md-2 align-self-end">
                             <div class="btns mt-3">
@@ -26,6 +28,7 @@
                         </div>
                     </div>
                 </form>
+                @endif
                 <div class="mtop16">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
@@ -43,6 +46,7 @@
                                 <td>{{ $benefit->name }}</td>
                                 <td>{{ $benefit->porcentege }}</td>
                                 <td>
+                                    @if (Auth::user()->havePermission('bienestar.admin.buttons.benefits'))
                                     <div class="d-flex">
                                         <!-- Botones de acciones CRUD (Editar, Eliminar, etc.) -->
                                         <button class="btn btn-primary editButton mr-2" data-id="{{ $benefit->id }}" data-name="{{ $benefit->name }}" data-porcentege="{{ $benefit->porcentege }}" data-toggle="modal" data-target="#editModal-{{ $benefit->id }}"><i class="fas fa-edit"></i></button>
@@ -59,6 +63,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
+                                                        @if (Auth::user()->havePermission('bienestar.admin.edit.benefits'))
                                                         <form id="editForm-{{ $benefit->id }}" action="{{ route('cefa.bienestar.benefits.update', ['id' => $benefit->id]) }}" method="post">
                                                             @csrf
                                                             @method('PUT')
@@ -78,24 +83,27 @@
                                                             </div>
                                                             <!-- Botón para guardar cambios -->
                                                         </form>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
+                                        @if (Auth::user()->havePermission('bienestar.admin.delete.benefits'))
                                         <form action="{{ route('cefa.bienestar.benefits.delete', ['id' => $benefit->id]) }}" method="POST" class="formEliminar">
                                             @csrf
                                             @method("DELETE")
                                             <!-- Botón para abrir el modal de eliminación -->
                                             <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
                                         </form>
+                                        @endif
                                     </div>
+                                    @endif
                                 </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                </tr>
-                @endforeach
-                </tbody>
-                </table>
             </div>
         </div>
         <!-- /.card-body -->
@@ -130,8 +138,7 @@
                     text: 'El campo Nombre solo debe contener letras',
                     icon: 'warning',
                     confirmButtonText: 'Ok'
-                });
-                $(this).val(''); // Borra cualquier carácter no válido
+                }); // Borra cualquier carácter no válido
             }
         });
 
@@ -142,7 +149,7 @@
 
             if (porcentaje < 0 || porcentaje > 100) {
                 alert('El campo Porcentaje debe ser un número entre 0 y 100');
-                $(this).val(''); // Borra cualquier número fuera de rango
+                // Borra cualquier número fuera de rango
             }
 
             // Limita la longitud del campo a 3 caracteres
