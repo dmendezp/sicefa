@@ -9,11 +9,14 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Modules\SENAEMPRESA\Entities\CourseVacancy;
+use Modules\SENAEMPRESA\Entities\senaempresa;
 use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Vacancy;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Illuminate\Support\Str;
+use Modules\SICA\Entities\Quarter;
 
 class VacantController extends Controller
 {
@@ -29,6 +32,8 @@ class VacantController extends Controller
     public function vacantes(Request $request)
     {
         $selectedCourseId = null;
+        $selectedSenaempresaId = $request->input('senaempresaFilter', null);
+
         $vacancies = Vacancy::query();
 
         if (Auth::check()) {
@@ -50,64 +55,70 @@ class VacantController extends Controller
             }
         }
 
-        // Filtrar las vacantes según el curso seleccionado o mostrar todas si no hay filtro
-        if ($selectedCourseId) {
-            $vacancies->whereExists(function ($query) use ($selectedCourseId) {
-                $query->select(DB::raw(1))
-                    ->from('course_vacancy')
-                    ->whereRaw('course_vacancy.vacancy_id = vacancies.id')
-                    ->where('course_vacancy.course_id', $selectedCourseId);
-            });
+        // Add a condition to filter by senaempresa_id in the vacancies table
+        if ($selectedSenaempresaId !== null) {
+            $vacancies->where('senaempresa_id', $selectedSenaempresaId);
         }
 
-        // Add a condition to check for vacancies associated with at least one course through the pivot table
-        $vacancies->whereExists(function ($query) {
-            $query->select(DB::raw(1))
-                ->from('course_vacancy')
-                ->whereRaw('course_vacancy.vacancy_id = vacancies.id');
-        });
-
-        $currentDateTime = now(); // Esto incluirá la fecha y la hora actual
-
-        foreach ($vacancies as $vacancy) {
-            // Comparar la fecha y hora de finalización con la fecha y hora actual
-            $endDatetime = Carbon::parse($vacancy->end_datetime);
-
-            if ($currentDateTime > $endDatetime && $vacancy->state === 'Disponible') {
-                $vacancy->state = 'No Disponible';
-                $vacancy->save();
-            } elseif ($currentDateTime <= $endDatetime && $vacancy->state === 'No Disponible') {
-                $vacancy->state = 'Disponible';
-                $vacancy->save();
-            }
-        }
-
-
-
-
+        $senaempresas = Senaempresa::all(); // Obtén todas las Senaempresas
         $PositionCompany = PositionCompany::all();
+
+        $vacancies = $vacancies->get(); // Execute the query and get the results
 
         $data = [
             'title' => trans('senaempresa::menu.Vacancies'),
             'courses' => $courses ?? [],
-            'vacancies' => $vacancies->get(),
+            'vacancies' => $vacancies,
             'PositionCompany' => $PositionCompany,
             'selectedCourseId' => $selectedCourseId,
+            'selectedSenaempresaId' => $selectedSenaempresaId,
+            'senaempresas' => $senaempresas,
+            // Pasa las Senaempresas a la vista
         ];
 
         return view('senaempresa::Company.Vacant.vacant', $data);
     }
 
-    public function agregar_vacante()
+    public function agregar_vacante(Request $request)
     {
         // Obtén solo los cargos activos
         $activePositions = PositionCompany::where('state', 'activo')->get();
 
+        // Obtén el trimestre actual en base a la fecha actual
+        $currentDate = Carbon::now();
+        $currentQuarter = Quarter::where('start_date', '<=', $currentDate)
+            ->where('end_date', '>=', $currentDate)
+            ->first();
+
+        if (!$currentQuarter) {
+            // Manejar el caso en que no se encuentre un trimestre actual
+            // Puedes lanzar una excepción o tomar otra acción apropiada aquí.
+        }
+
+        // Obtén la empresa asociada al trimestre actual
+        $currentSenaempresa = Senaempresa::where('quarter_id', $currentQuarter->id)->first();
+
+        if (!$currentSenaempresa) {
+            // Manejar el caso en que no se encuentre una empresa asociada al trimestre actual
+            // Puedes lanzar una excepción o tomar otra acción apropiada aquí.
+        }
+
+        // Obtén el nombre de la empresa
+        $currentSenaempresaName = $currentSenaempresa->name;
+
         $vacancies = Vacancy::get();
-        $data = ['title' => trans('senaempresa::menu.New vacancy'), 'vacancies' => $vacancies, 'PositionCompany' => $activePositions];
+        $data = [
+            'title' => trans('senaempresa::menu.New vacancy'),
+            'vacancies' => $vacancies,
+            'PositionCompany' => $activePositions,
+            'currentQuarterId' => $currentQuarter->id,
+            'currentSenaempresaId' => $currentSenaempresa->id,
+            'currentSenaempresaName' => $currentSenaempresaName,
+            // Pasar el nombre de la empresa a la vista
+        ];
 
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.Vacant.registration', $data);
+            return view('senaempresa::Company.Vacant.new_vacant', $data);
         } else {
             return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
@@ -128,6 +139,7 @@ class VacantController extends Controller
         $vacancy->image = 'modules/senaempresa/images/vacancies/' . $name_image;
         $vacancy->description_general = $request->input('description_general');
         $vacancy->requirement = $request->input('requirement');
+        $vacancy->senaempresa_id = $request->input('senaempresa_id');
         $vacancy->position_company_id = $request->input('position_company_id');
         $vacancy->start_datetime = $request->input('start_datetime');
         $vacancy->end_datetime = $request->input('end_datetime');
@@ -218,73 +230,77 @@ class VacantController extends Controller
         }
     }
 
-    //Asociar cursos a vacantes
-    public function asociar_curso()
-    {
-        $vacancies = Vacancy::get();
-        $courses = Course::with('program')->get();
-        $data = ['title' => trans('senaempresa::menu.Assign Courses to Vacancies'), 'courses' => $courses, 'vacancies' => $vacancies];
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.Vacant.courses_vacancies', $data);
-        } else {
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
-    }
 
+    //Asociar cursos a vacantes
     public function curso_asociado(Request $request)
     {
-        // Valida los datos del formulario
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'vacancy_id' => 'required|exists:vacancies,id',
-        ]);
-
-        // Obtén los IDs de los cursos y las vacantes
-        $courseId = $request->input('course_id');
-        $vacancyId = $request->input('vacancy_id');
-
-        // Encuentra los modelos correspondientes
-        $course = Course::findOrFail($courseId);
-        $vacancy = Vacancy::findOrFail($vacancyId);
-
-        // Verifica si la asociación ya existe
-        if (!$course->vacancy()->wherePivot('course_id', $courseId)->wherePivot('vacancy_id', $vacancyId)->exists()) {
-            // Asigna el curso a la vacante
-            $course->vacancy()->attach($vacancy);
-            return redirect()->back()->with('success', trans('senaempresa::menu.Course assigned to the vacancy successfully.'));
-        } else {
-            //Alerta de que esa asociación ya existe
-            return redirect()->back()->with('error', trans('senaempresa::menu.Association already exists.'));
+        try {
+            $courseId = $request->input('course_id');
+            $vacancyId = $request->input('vacancy_id');
+            $isChecked = $request->input('checked') === 'true';
+    
+            if ($isChecked) {
+                // Si el checkbox está marcado, crea una nueva relación
+                CourseVacancy::create([
+                    'course_id' => $courseId,
+                    'vacancy_id' => $vacancyId,
+                ]);
+    
+                $message = 'Relación creada correctamente.';
+            } else {
+                // Si el checkbox no está marcado, elimina la relación existente si existe
+                CourseVacancy::where('course_id', $courseId)
+                    ->where('vacancy_id', $vacancyId)
+                    ->delete();
+    
+                // Marca todas las relaciones existentes como eliminadas
+                CourseVacancy::where('course_id', $courseId)
+                    ->whereNull('deleted_at')
+                    ->update(['deleted_at' => now()]);
+    
+                $message = 'Relación eliminada correctamente.';
+            }
+    
+            return response()->json(['success' => $message], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Ocurrió un error. Detalles: ' . $e->getMessage()], 500);
         }
     }
+    
+
+
+    public function getAssociations(Request $request)
+{
+    $courseId = $request->query('course_id');
+    $course = Course::findOrFail($courseId);
+
+    // Obtén todas las relaciones, incluidas las marcadas como eliminadas
+    $associations = CourseVacancy::where('course_id', $courseId)
+        ->pluck('vacancy_id')
+        ->toArray();
+
+    return response()->json(['associations' => $associations], 200);
+}
+
+
     public function mostrar_asociados()
     {
         $vacancies = Vacancy::get();
-        $courses = Course::with('vacancy')->get();
-        $data = ['title' => trans('senaempresa::menu.Show Associates'), 'courses' => $courses, 'vacancies' => $vacancies];
+        $courses = Course::where('status', 'Activo')->with('vacancy')->get();
+        $courseofvacancy = CourseVacancy::all();
+    
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            $data = [
+                'title' => trans('senaempresa::menu.Assign Courses to Vacancies'),
+                'courses' => $courses,
+                'vacancies' => $vacancies,
+                'courseofvacancy' => $courseofvacancy,
+            ];
+    
             return view('senaempresa::Company.Vacant.courses_vacancies', $data);
         } else {
             return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
-    public function eliminarAsociacion(Request $request)
-    {
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'vacancy_id' => 'required|exists:vacancies,id',
-        ]);
-
-        $courseId = $request->input('course_id');
-        $vacancyId = $request->input('vacancy_id');
-
-        try {
-            $course = Course::findOrFail($courseId);
-            // Eliminar Asociación Especifica
-            $course->vacancy()->wherePivot('course_id', $courseId)->wherePivot('vacancy_id', $vacancyId)->detach();
-            return response()->json(['mensaje' => trans('senaempresa::menu.Association eliminated with success.')]);
-        } catch (\Exception $e) {
-            return response()->json(['mensaje' => trans('senaempresa::menu.Error deleting the association')], 500);
-        }
-    }
+    
 }

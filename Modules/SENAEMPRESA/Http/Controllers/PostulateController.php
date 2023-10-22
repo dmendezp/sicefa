@@ -115,7 +115,7 @@ class PostulateController extends Controller
     public function postulates()
     {
         $postulates = Postulate::with(['apprentice.person', 'vacancy'])->get();
-        $data = ['title' => 'Postulados', 'postulates' => $postulates];
+        $data = ['title' => trans('senaempresa::menu.Postulated'), 'postulates' => $postulates];
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
             return view('senaempresa::Company.Postulate.postulate', $data);
         } else {

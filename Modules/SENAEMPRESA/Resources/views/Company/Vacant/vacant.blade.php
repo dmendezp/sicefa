@@ -7,15 +7,17 @@
                 (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
                     Auth::user()->roles[0]->name === 'Pasante Senaempresa'))
             <form method="GET" action="{{ route('company.vacant.vacantes') }}">
-                <label for="cursoFilter">{{ trans('senaempresa::menu.Filter by course') }}:</label>
-                <select class="form-control" id="cursoFilter" name="cursoFilter" onchange="this.form.submit()">
-                    @foreach ($courses as $course)
-                        <option value="{{ $course->id }}" {{ $selectedCourseId == $course->id ? 'selected' : '' }}>
-                            {{ $course->code }} {{ $course->program->name }}
+                <label for="senaempresaFilter">{{ trans('senaempresa::menu.Filter by senaempresa') }}:</label>
+                <select class="form-control" id="senaempresaFilter" name="senaempresaFilter" onchange="this.form.submit()">
+                    <option value="" {{ !$selectedSenaempresaId ? 'selected' : '' }}>
+                        {{ trans('senaempresa::menu.All Senaempresas') }}</option>
+                    @foreach ($senaempresas as $senaempresa)
+                        <option value="{{ $senaempresa->id }}"
+                            {{ $selectedSenaempresaId == $senaempresa->id ? 'selected' : '' }}>
+                            {{ $senaempresa->id }} {{ $senaempresa->name }}
                         </option>
                     @endforeach
                 </select>
-
             </form>
         @endif
         <br>
@@ -32,7 +34,7 @@
                                 <th>{{ trans('senaempresa::menu.Start Date and Time') }}</th>
                                 <th>{{ trans('senaempresa::menu.Date and Time End') }}</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
-                                <th class="text-center">Detalles</th>
+                                <th class="text-center">{{ trans('senaempresa::menu.Details') }}</th>
                                 @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                     <th style="width: 100px;"><a href="{{ route('company.vacant.agregar_vacante') }}"
                                             class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
@@ -44,7 +46,7 @@
                             <!-- Verificar si no hay vacantes disponibles para el curso seleccionado -->
                             @if ($vacancies->isEmpty())
                                 <div class="alert alert-info" role="alert">
-                                    {{ trans('senaempresa::menu.There are no vacancies available for the selected course') }}
+                                    {{ trans('senaempresa::menu.There are no vacancies available for the selected Senaempresa') }}
                                 </div><br>
                             @else
                                 @foreach ($vacancies as $vacancy)

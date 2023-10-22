@@ -27,7 +27,7 @@ class LoanController extends Controller
             ->get();
 
         $data = [
-            'title' => 'Prestamos Registrados',
+            'title' => trans('senaempresa::menu.Registered Loans'),
             'loans' => $loans,
             'staff_senaempresas' => $staff_senaempresas,
             'inventories' => $inventories,

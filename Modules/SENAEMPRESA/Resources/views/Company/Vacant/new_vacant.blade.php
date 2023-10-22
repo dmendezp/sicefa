@@ -33,6 +33,13 @@
                                     placeholder="{{ trans('senaempresa::menu.Requirements') }}" required>
                             </div>
                             <div class="mb-3">
+                                <label for="current_senaempresa_id" class="form-label">Senaempresa ID</label>
+                                <input type="hidden" class="form-control" id="senaempresa_id" name="senaempresa_id"
+                                    value="{{ $currentSenaempresaId }}" readonly>
+                                <input type="text" class="form-control" id="current_senaempresa_name"
+                                    name="current_senaempresa_name" value="{{ $currentSenaempresaName }}" readonly>
+                            </div>
+                            <div class="mb-3">
                                 <label for="position_company_id"
                                     class="form-label">{{ trans('senaempresa::menu.Id Position') }}</label>
                                 <select class="form-control" name="position_company_id"

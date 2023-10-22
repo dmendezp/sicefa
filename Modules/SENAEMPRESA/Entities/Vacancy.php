@@ -15,7 +15,7 @@ class Vacancy extends Model implements Auditable
         SoftDeletes, // Borrado suave
         HasFactory;
 
-    protected $fillable = ['name', 'image', 'description_general', 'requirement', 'position_company_id', 'start_datetime', 'end_datetime'];
+    protected $fillable = ['name', 'image', 'description_general', 'requirement', 'senaempresa_id', 'position_company_id', 'start_datetime', 'end_datetime'];
 
     protected static function newFactory()
     {
@@ -31,5 +31,10 @@ class Vacancy extends Model implements Auditable
     public function courses()
     {
         return $this->hasMany(Course::class);
+    }
+
+    public function senaempresa()
+    { //Accede a senaempresa registrados
+        return $this->belongsToMany(senaempresa::class);
     }
 }
