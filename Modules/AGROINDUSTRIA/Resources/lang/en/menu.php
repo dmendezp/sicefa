@@ -2,7 +2,6 @@
 return [
     'Home' => 'Home',
     'Task' => 'Task',
-    'Equipment' => 'Equipment',
     'Activities' => 'Activities',
     'List of Activities' => 'List of Activities',
     'Movements' => 'Movements',

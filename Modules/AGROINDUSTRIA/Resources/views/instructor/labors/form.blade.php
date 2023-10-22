@@ -89,6 +89,7 @@
                             <button type="button" id="toggle-form-consumables">Registro de consumibles</button>
                             <button type="button" id="toggle-form-tools">Registro de herramientas</button>
                             <button type="button" id="toggle-form">{{ trans('agroindustria::labors.openCollaboratorFormulatio') }}</button>
+                            <button type="button" id="toggle-form-equipment">Registro de Equipos</button>
                             <div class="consumables" id="form-container-consumables">
                                 <div id="form-consumables">
                                     <h3>{{trans('agroindustria::request.products')}}</h3>
@@ -175,7 +176,32 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>         
+                        </div>
+                        <div class="col-md-12">
+                            <div class="tools" id="form-container-equipments">
+                                <div id="form-equipments">
+                                    <h3 id="equipments">Equipos</h3>
+                                    <!-- Aquí se agregarán los campos de producto dinámicamente -->
+                                    <button type="button" id="add-equipments">Añadir Equipos</button>
+                                    <div class="equipment">
+                                        <div class="form-group">
+                                            {!! Form::label('inventories', 'Equipos') !!}
+                                            {!! Form::select('inventories[]', $equipment, null, ['class' => 'inventory_select', 'style' => 'width: 200px']) !!}
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="quantity"></span>
+                                            {!! Form::label('amount', 'Cantidad') !!}
+                                            {!! Form::number('amount_inventories[]', null, ['class'=>'form-control', 'id' => 'amount_inventories']) !!}
+                                        </div>   
+                                        <div class="form-group">  
+                                            {!! Form::label('price', 'Total') !!}
+                                            {!! Form::number('price_inventories[]', null, ['class'=>'form-control', 'id' => 'price_inventory', 'readonly' => 'readonly']) !!}
+                                        </div>        
+                                        <button type="button" class="remove-tools">{{trans('agroindustria::menu.Delete')}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>            
                         <div class="button_receipe">{!! Form::submit(trans('agroindustria::formulations.Save'),['class' => 'save_receipe', 'name' => 'enviar']) !!}</div>
                     </div>
                     {!! Form:: close() !!}     
@@ -523,6 +549,45 @@
                 var totalPrice = priceField * amount;
                 availableTotal.val(totalPrice);
             });
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Ocultar el formulario de equipos al cargar la página
+        $("#form-container-equipments").hide();
+
+        // Mostrar el formulario al hacer clic en el botón "Registro de Equipos"
+        $("#toggle-form-equipment").click(function() {
+            var formContainer = $("#form-container-equipments");
+            formContainer.slideToggle(); // Esto mostrará u ocultará el formulario con una animación
+        });
+
+        // Agregar un nuevo campo de equipos al hacer clic en el botón "Añadir Equipos"
+        $("#add-equipments").click(function() {
+            var newEquipment = $(".equipment:first").clone();
+            newEquipment.find("select, input").val(''); // Limpia los valores de los campos clonados
+            $("#form-equipments").append(newEquipment);
+        });
+
+        // Eliminar un campo de equipos al hacer clic en el botón "Eliminar Equipo"
+        $("#form-equipments").on("click", ".remove-tools", function() {
+            $(this).closest(".equipment").remove();
+            
+            // Verificar si no quedan campos de equipos y agregar uno si es necesario
+            checkAndAddField();
+        });
+
+        // Verificar si no quedan campos de equipos y agregar uno si es necesario
+        function checkAndAddField() {
+            var equipmentCount = $(".equipment").length;
+
+            if (equipmentCount === 0) {
+                var newEquipment = $(".equipment:first").clone();
+                newEquipment.find("select, input").val(''); // Limpia los valores de los campos clonados
+                $("#form-equipments").append(newEquipment);
+            }
         }
     });
 </script>

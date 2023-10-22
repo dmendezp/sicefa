@@ -110,6 +110,22 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => 'Seleccione una herramienta'])->pluck('name', 'id');
 
+        $elementEquipment = Element::where('category_id', 1)->pluck('id');
+
+        $equipments = Inventory::where('productive_unit_warehouse_id', $productive_unit_warehouse)->whereIn('element_id', $elementEquipment)
+        ->groupBy('element_id')
+        ->select('element_id', \DB::raw('(SELECT MIN(id) FROM inventories AS subinventory WHERE subinventory.element_id = inventories.element_id AND subinventory.amount > 0) as id'))
+        ->get();
+        $equipment = $equipments->map(function ($eq) {
+            $id = $eq->element->id;
+            $name = $eq->element->name;
+
+            return [
+                'id' => $id,
+                'name' => $name
+            ];
+        })->prepend(['id' => null, 'name' => 'Seleccione una herramienta'])->pluck('name', 'id');
+
         $selectedUnit = session('viewing_unit');
         $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
         $elementConsumable = Element::where('category_id', 1)->pluck('id');
@@ -136,7 +152,8 @@ class LaborController extends Controller
             'destination' => $destination,
             'employee' => $nameEmployee,
             'tool' => $tool,
-            'consumables' => $consumables
+            'consumables' => $consumables,
+            'equipment' => $equipment,
         ];
         return view('agroindustria::instructor.labors.form', $data);
     }
@@ -182,6 +199,24 @@ class LaborController extends Controller
         $selectedUnit = session('viewing_unit');
         $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
         $tools = Inventory::where('element_id', $id)->where('productive_unit_warehouse_id', $productiveUnit)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
+
+        $data = $tools->map(function ($t){
+            $amount = $t->totalAmount;
+            $price = $t->prices;
+
+            return [
+                'amount' => $amount,
+                'price' => $price
+            ];
+        });
+
+        return response()->json(['data' => $data]);
+    }
+
+    public function price_equipment($id){
+        $selectedUnit = session('viewing_unit');
+        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+        $equipments = Inventory::where('element_id', $id)->where('productive_unit_warehouse_id', $productiveUnit)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
 
         $data = $tools->map(function ($t){
             $amount = $t->totalAmount;
@@ -401,6 +436,19 @@ class LaborController extends Controller
             $t->amount = $amount_tools[$key];
             $t->price = $price_tools[$key];
             $t->save();
+        }
+
+        $inventories = $request->input('inventories');
+        $amount_inventories = $request->input('amount_inventories');
+        $price_inventories = $request->input('price_inventories');
+
+        foreach ($inventories as $key => $inventory){ 
+            $i = new Tool;
+            $i->labor_id = $l->id;
+            $i->inventory_id = $equipment;
+            $i->amount = $amount_equipments[$key];
+            $i->price = $price_equipments[$key];
+            $i->save();
         }
 
         $executors = $request->input('executors_id');
@@ -629,48 +677,4 @@ class LaborController extends Controller
             'message_line' => trans('agroindustria::labors.workPerformedCorrectly'),
         ]);
     }
-
-    public function create_equipment() {
-        $title = 'Equipos';
-    
-        // Recupera la información de la base de datos
-        $laborInformation = Equipment::all(); // Reemplaza 'LaborModel' con el nombre real de tu modelo de labor
-        $inventoryInformation = Equipment::all(); // Reemplaza 'InventoryModel' con el nombre real de tu modelo de inventario
-        $equipmentInformation = Equipment::with('inventory')->get();
-    
-        $data = [
-            'title' => $title,
-            'laborInformation' => $laborInformation,
-            'inventoryInformation' => $inventoryInformation,
-            'equipmentInformation' => $equipmentInformation,
-        ];
-    
-        return view('agroindustria::instructor.labors.equipment', $data);
-    }
-
-public function store_equipment(Request $request){
-    $data = $request->validate([
-        'labor_id' => 'required|integer',
-        'inventory_id' => 'required|integer',
-        'amount' => 'required|integer',
-        'price' => 'required|numeric',
-    ]);
-
-    // Comprobar si ya existe un registro
-    $existingEquipment = Equipment::where('labor_id', $data['labor_id'])
-                                   ->where('inventory_id', $data['inventory_id'])
-                                   ->first();
-
-    if ($existingEquipment) {
-        // Actualizar el registro existente con los nuevos datos
-        $existingEquipment->update($data);
-    } else {
-        // Si no existe, crear un nuevo registro
-        Equipment::create($data);
-    }
-
-    return redirect()->route('equipment.create')->with('success', 'Equipo registrado con éxito.');
-}
-
-
 }
