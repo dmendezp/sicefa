@@ -113,10 +113,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('cefa.hdc.adminresources')}}" class="nav-link">
+                            <a href="{{ route('cefa.hdc.assign_environmental_aspects')}}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-folder-open"></i>
                                 <p>
-                                    {{ trans('hdc::hdcgeneral.manageresources')}}
+                                    {{ trans('hdc::hdcgeneral.assign_environmental_aspects')}}
                                 </p>
                             </a>
                         </li>

@@ -15,7 +15,7 @@ return [
     'RegisterConsumption' => 'Registro de Consumo',
     'consumptionconsultation' => 'Consulta de Consumo',
     'instructions' => 'Instrucciones',
-    'manageresources' => 'Administrar Recursos',
+    'assign_environmental_aspects' => 'Asignar Aspectos Ambientales',
     'calculatefootprint' => 'Calcula Tu Huella',
     
 

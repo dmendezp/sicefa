@@ -1,11 +1,11 @@
 <?php
 
 return [
-    //indicador de pagina Administrar Recursos
-    'Indicator_manageresources' => 'Manage Resources',
+    //indicador de pagina Asignar Aspectos Ambientales
+    'Indicator_manageresources' => 'Assign Environmental Aspects',
 
-    // Titulo card Administrar Recursos
-    'ct1' => 'Manage Resources',
+    // Titulo card Asignar Aspectos Ambientales
+    'ct1' => 'Assign Environmental Aspects',
 
     // Titulo label unidad productiva
     'label1' => 'Productive Unit',

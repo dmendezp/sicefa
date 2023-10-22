@@ -1,13 +1,13 @@
 @extends('hdc::layouts.master')
 @push('breadcrumbs')
-<li class="breadcrumb-item active">{{ trans('hdc::adminresources.Indicator_manageresources')}}</li>
+<li class="breadcrumb-item active">{{ trans('hdc::assign_environmental_aspects.Indicator_assign_environmental_aspects')}}</li>
 @endpush
 
 @section('content')
 <div class="">
     <div class="card card-green card-outline shadow col-12">
         <div class="card-header">
-            <h3 class="card-title">{{ trans('hdc::adminresources.ct1') }}</h3>
+            <h3 class="card-title">{{ trans('hdc::assign_environmental_aspects.ct1') }}</h3>
         </div>
         <div class="card-body">
             <form action="{{ route('cefa.hdc.updateEnvironmentalAspects') }}" method="post"> {{-- Cambio de ruta a 'updateEnvironmentalAspects' --}}
@@ -15,18 +15,18 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            <label>{{ trans('hdc::adminresources.label1') }}</label>
+                            <label>{{ trans('hdc::assign_environmental_aspects.label1') }}</label>
                             <select name="productive_unit_id" class="form-control" required>
-                                <option value="">{{ trans('hdc::adminresources.select1') }}</option>
+                                <option value="">{{ trans('hdc::assign_environmental_aspects.select1') }}</option>
                                 @foreach ($productive_unit as $pro)
                                 <option value="{{ $pro->id }}">{{ $pro->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>{{ trans('hdc::adminresources.label2') }}</label>
+                            <label>{{ trans('hdc::assign_environmental_aspects.label2') }}</label>
                             <select name="activity_id" class="form-control" required>
-                                <option value="">{{ trans('hdc::adminresources.select1') }}</option>
+                                <option value="">{{ trans('hdc::assign_environmental_aspects.select1') }}</option>
                                 @foreach($activities as $a)
                                 <option value="{{ $a->id }}">{{ $a->name }}</option>
                                 @endforeach
@@ -44,7 +44,7 @@
                         </style>
                     </div>
                     <div class="col-6">
-                        <h2>{{ trans('hdc::adminresources.title_checklist') }}</h2>
+                        <h2>{{ trans('hdc::assign_environmental_aspects.title_checklist') }}</h2>
                         <div name="Environmetal_Aspect" class="checkbox" required="true">
                             @foreach ($environmentalAspect as $key => $ea)
                             <label for="Aspecto{{ $ea->id }}">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-md-12 text-center">
                         <button type="submit" class="btn btn-success" background-color="green">{{
-                            trans('hdc::adminresources.btn1') }}</button>
+                            trans('hdc::assign_environmental_aspects.btn1') }}</button>
                     </div>
                 </div><br>
             </form>

@@ -40,11 +40,11 @@ Route::middleware(['lang'])->group(function () {
             Route::post('/cefa/hdc/update/{labor}', 'update')->name('cefa.hdc.update');
 
         });
-         /* Ruta Para Administrar Recursos */
-        Route::controller(AdminresourcesController::class)->group(function(){
-            Route::get('/AdminstrarRecursos', 'adminresources')->name('cefa.hdc.adminresources');
+         /* Ruta Para Asignar recursos */
+        Route::controller(assign_environmental_aspectsController::class)->group(function(){
+            Route::get('/AsignarAspectosAmbientales', 'assign_environmental_aspects')->name('cefa.hdc.assign_environmental_aspects');
             Route::get('/get-environmental-aspects/{activityId}', 'getEnvironmentalAspects')->name('cefa.hdc.getEnvironmentalAspects');
-            Route::post('/guardar', 'store')->name('hdc.adminresources.store');
+            Route::post('/guardar', 'store')->name('hdc.assign_environmental_aspects.store');
             Route::post('/update-environmental-aspects', 'updateEnvironmentalAspects')->name('cefa.hdc.updateEnvironmentalAspects');
         });
 
