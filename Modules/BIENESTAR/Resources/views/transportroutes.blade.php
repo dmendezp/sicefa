@@ -8,6 +8,7 @@
            
             <!-- /.card-header -->
             <div class="card-body">
+                @if (Auth::user()->havePermission('bienestar.admin.save.benefits'))
                 <form action="{{ route('cefa.bienestar.transportroutes.add') }}" method="POST" role="form">
                     @csrf
                     <div class="row p-4">
@@ -63,6 +64,7 @@
                         </div>
                     </div>
                 </form>
+                @endif
                 <div class="mtop16">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
