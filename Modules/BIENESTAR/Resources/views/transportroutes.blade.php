@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="container-fluid" style="max-width:1200px">
-<h1>{{ trans('bienestar::menu.Insert Routes')}}  <i class="fas fa-bus"></i></h1>
+    <h1>{{ trans('bienestar::menu.Insert Routes')}} <i class="fas fa-bus"></i></h1>
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-12">
-           
+
             <!-- /.card-header -->
             <div class="card-body">
-            @if (Auth::user()->havePermission('bienestar.admin.save.benefits'))
+                @if (Auth::user()->havePermission('bienestar.admin.save.benefits'))
                 <form action="{{ route('cefa.bienestar.transportroutes.add') }}" method="POST" role="form">
                     @csrf
                     <div class="row p-4">
@@ -26,10 +26,10 @@
                                 <option value="8">8</option>
                             </select>
                         </div>
-                            <div class="col-md-3">
-                                <label for="name_route">{{ trans('bienestar::menu.Route Name')}}</label>
-                                <input type="text" name="name_route" id="name_route" class="form-control" placeholder="{{ trans('bienestar::menu.Route Name')}}" required>
-                            </div>
+                        <div class="col-md-3">
+                            <label for="name_route">{{ trans('bienestar::menu.Route Name')}}</label>
+                            <input type="text" name="name_route" id="name_route" class="form-control" placeholder="{{ trans('bienestar::menu.Route Name')}}" required>
+                        </div>
                         <div class="col-md-3">
                             <label for="bus">{{ trans('bienestar::menu.Bus')}}</label>
                             <select name="bus" id="bus" class="form-control" required>
@@ -80,7 +80,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ( $routestransportations as $transport)
+                            @foreach ( $routestransportations as $transport)
                             <tr>
                                 <td>{{ $transport->id}}</td>
                                 <td>{{ $transport->route_number}}</td>
@@ -89,15 +89,21 @@
                                 <td>{{ $transport->arrival_time}}</td>
                                 <td>{{ $transport->departure_time}}</td>
                                 <td>{{ $transport->bus->plate}}</td>
-                                <td><div class="d-flex">
-                                    <button class="btn btn-primary editButton mr-2" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal{{$transport->id}}"><i class="fas fa-edit"></i></button>
-                                    <form action="{{ route('cefa.bienestar.transportroutes.destroy', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
-                                        @csrf
-                                        @method("DELETE")
-                                        <!-- Botón para abrir el modal de eliminación -->
-                                        <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                </div></td>
+                                <td>
+                                @if (Auth::user()->havePermission('bienestar.admin.buttons.transportroutes'))
+                                    <div class="d-flex">
+                                        <button class="btn btn-primary editButton mr-2" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal{{$transport->id}}"><i class="fas fa-edit"></i></button>
+                                        @if (Auth::user()->havePermission('bienestar.admin.delete.transportroutes'))
+                                        <form action="{{ route('cefa.bienestar.transportroutes.destroy', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
+                                            @csrf
+                                            @method("DELETE")
+                                            <!-- Botón para abrir el modal de eliminación -->
+                                            <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                        @endif
+                                    </div>
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -122,67 +128,66 @@
             </div>
             <div class="modal-body">
                 <!-- Formulario de edición con validación -->
-<!-- Formulario de edición con validación -->
-<form id="editForm{{ $transport->id }}" action="{{ route('cefa.bienestar.transportroutes.update') }}" method="post" onsubmit="return validateForm{{ $transport->id }}()">
+                <!-- Formulario de edición con validación -->
+                @if (Auth::user()->havePermission('bienestar.admin.edit.transportroutes'))
+                <form id="editForm{{ $transport->id }}" action="{{ route('cefa.bienestar.transportroutes.update') }}" method="post" onsubmit="return validateForm{{ $transport->id }}()">
+                    @csrf
+                    <div class="form-group">
+                        <input type="hidden" name="id_transport" value="{{$transport->id}}">
+                        <label for="route_number{{ $transport->id }}">Número De Ruta:</label>
+                        <select name="new_route_number" id="route_number{{ $transport->id }}" class="form-control" required>
+                            <option value="">Selecciona un número de ruta</option>
+                            @for ($i = 1; $i <= 8; $i++) <option value="{{ $i }}" @if ($i==$transport->route_number) selected @endif>{{ $i }}</option>
+                                @endfor
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name_route{{ $transport->id }}">Nombre De La Ruta:</label>
+                        <input type="text" name="new_name_route" id="name_route{{ $transport->id }}" class="form-control" placeholder="Nombre Ruta" required value="{{ $transport->name_route }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="bus{{ $transport->id }}">Bus:</label>
+                        <select name="new_bus" id="bus{{ $transport->id }}" class="form-control" required onchange="updateDriverName{{ $transport->id }}()">
+                            <option value="">Selecciona un bus</option>
+                            <!-- Aquí puedes agregar opciones dinámicamente con tu backend -->
+                            <option value="1" data-bus-driver="Conductor 1" @if ($transport->bus_id == 1) selected @endif>Bus 1</option>
+                            <option value="2" data-bus-driver="Conductor 2" @if ($transport->bus_id == 2) selected @endif>Bus 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bus_driver{{ $transport->id }}">Nombre del Conductor:</label>
+                        <input id="bus_driver{{ $transport->id }}" name="new_driver_name" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly" value="{{ $transport->bus->bus_driver->name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="stop_bus{{ $transport->id }}">Parada:</label>
+                        <input id="stop_bus{{ $transport->id }}" name="new_stop_bus" type="text" class="form-control" placeholder="Ej: Juncal" value="{{ $transport->stop_bus }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="arrival_time{{ $transport->id }}">Hora Llegada:</label>
+                        <input type="time" name="new_arrival_time" id="arrival_time{{ $transport->id }}" class="form-control" required value="{{ $transport->arrival_time }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="departure_time{{ $transport->id }}">Hora Salida:</label>
+                        <input type="time" name="new_departure_time" id="departure_time{{ $transport->id }}" class="form-control" required value="{{ $transport->departure_time }}">
+                    </div>
 
-@csrf
-    <div class="form-group">
-        <input type="hidden" name="id_transport" value="{{$transport->id}}">
-        <label for="route_number{{ $transport->id }}">Número De Ruta:</label>
-        <select name="new_route_number" id="route_number{{ $transport->id }}" class="form-control" required>
-            <option value="">Selecciona un número de ruta</option>
-            @for ($i = 1; $i <= 8; $i++)
-                <option value="{{ $i }}" @if ($i == $transport->route_number) selected @endif>{{ $i }}</option>
-            @endfor
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="name_route{{ $transport->id }}">Nombre De La Ruta:</label>
-        <input type="text" name="new_name_route" id="name_route{{ $transport->id }}" class="form-control" placeholder="Nombre Ruta" required value="{{ $transport->name_route }}">
-    </div>
-    <div class="form-group">
-        <label for="bus{{ $transport->id }}">Bus:</label>
-        <select name="new_bus" id="bus{{ $transport->id }}" class="form-control" required onchange="updateDriverName{{ $transport->id }}()">
-            <option value="">Selecciona un bus</option>
-            <!-- Aquí puedes agregar opciones dinámicamente con tu backend -->
-            <option value="1" data-bus-driver="Conductor 1" @if ($transport->bus_id == 1) selected @endif>Bus 1</option>
-            <option value="2" data-bus-driver="Conductor 2" @if ($transport->bus_id == 2) selected @endif>Bus 2</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="bus_driver{{ $transport->id }}">Nombre del Conductor:</label>
-        <input id="bus_driver{{ $transport->id }}" name="new_driver_name" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly" value="{{ $transport->bus->bus_driver->name }}">
-    </div>
-    <div class="form-group">
-        <label for="stop_bus{{ $transport->id }}">Parada:</label>
-        <input id="stop_bus{{ $transport->id }}" name="new_stop_bus" type="text" class="form-control" placeholder="Ej: Juncal" value="{{ $transport->stop_bus }}">
-    </div>
-    <div class="form-group">
-        <label for="arrival_time{{ $transport->id }}">Hora Llegada:</label>
-        <input type="time" name="new_arrival_time" id="arrival_time{{ $transport->id }}" class="form-control" required value="{{ $transport->arrival_time }}">
-    </div>
-    <div class="form-group">
-        <label for="departure_time{{ $transport->id }}">Hora Salida:</label>
-        <input type="time" name="new_departure_time" id="departure_time{{ $transport->id }}" class="form-control" required value="{{ $transport->departure_time }}">
-    </div>
-
-    <button type="submit" class="btn btn-success">Guardar</button>
-</form>
-
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </form>
+                @endif
             </div>
         </div>
     </div>
 </div>
 @endforeach
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.card-body -->
-    </div>
+</tbody>
+</table>
+</div>
+</div>
+<!-- /.card -->
+</div>
+<!-- /.card-body -->
+</div>
 </div>
 
 <script>
@@ -190,10 +195,10 @@
     $('#bus').change(function() {
         // Obtener el valor seleccionado en el campo de selección "Bus"
         var selectedBusId = $(this).val();
-        
+
         // Encontrar la opción seleccionada y obtener el atributo "data-bus-driver"
         var selectedBusDriver = $('option:selected', this).data('bus-driver');
-        
+
         // Actualizar el campo de entrada "Nombre del Conductor" con el nombre del conductor
         $('#bus_driver').val(selectedBusDriver);
     });

@@ -32,7 +32,7 @@ class RolesTableSeeder extends Seeder
         ]);
 
         // Registrar o actualizar rol de Líder de Beneficio Transporte
-        $rol_transportation_benefits_leader = Role::updateOrCreate(['slug' => 'bienestar.transportation.benefits.leader'], [
+        $rol_transportation_benefits_leader = Role::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader'], [
             'name' => 'Líder de Beneficio Transporte',
             'description' => 'Rol Líder de Beneficio Transportes de la aplicación BIENESTAR',
             'description_english' => 'BIENESTAR application Transportation Benefits Leader role',
@@ -40,7 +40,7 @@ class RolesTableSeeder extends Seeder
         ]);
 
         // Registrar o actualizar rol de Líder de Beneficio Alimentación
-        $rol_food_benefits_leader = Role::updateOrCreate(['slug' => 'bienestar.food.benefits.leader'], [
+        $rol_food_benefits_leader = Role::updateOrCreate(['slug' => 'bienestar.food_benefits_leader'], [
             'name' => 'Lider de Beneficio Alimentación',
             'description' => 'Rol Líder de Beneficio Alimentación de la aplicación BIENESTAR',
             'description_english' => 'BIENESTAR application Food Benefits Leader role',
@@ -49,7 +49,7 @@ class RolesTableSeeder extends Seeder
         ]);
 
         // Registrar o actualizar rol de Asistente de Alimentación
-        $rol_feeding_assistant = Role::updateOrCreate(['slug' => 'bienestar.feeding.assistant'], [
+        $rol_feeding_assistant = Role::updateOrCreate(['slug' => 'bienestar.feeding_assistant'], [
             'name' => 'Asistente de alimentación',
             'description' => 'Rol Asistente de alimentación de la aplicación BIENESTAR',
             'description_english' => 'BIENESTAR application feeding assistant',
@@ -59,7 +59,7 @@ class RolesTableSeeder extends Seeder
 
 
          // Registrar o actualizar rol de Lider de Ruta  
-         $rol_route_leader = Role::updateOrCreate(['slug' => 'bienestar.route.leader'], [
+         $rol_route_leader = Role::updateOrCreate(['slug' => 'bienestar.route_leader'], [
             'name' => 'Lider de Ruta',
             'description' => 'Rol Líder de rutas de la aplicación BIENESTAR',
             'description_english' => 'BIENESTAR application apprentice role',
