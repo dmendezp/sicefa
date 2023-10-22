@@ -4,9 +4,9 @@ namespace Modules\BIENESTAR\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\PostulationsBenefits;
+use Modules\BIENESTAR\Entities\PostulationBenefit;
 use Modules\BIENESTAR\Entities\RoutesTransportations;
-use Modules\BIENESTAR\Entities\AssingTransportRoutes;
+use Modules\BIENESTAR\Entities\AssignTransportRoute;
 use Illuminate\Database\QueryException;
 
 class AssingFormTransporRoutesController extends Controller
@@ -15,13 +15,13 @@ class AssingFormTransporRoutesController extends Controller
     public function index()
 {
     // Obtener los registros de RoutesTransportations
-    $routesTransportations = RoutesTransportations::all();
+    $routesTransportations = AssignTransportRoute::all();
     
     // Obtener los registros de asignaciones de rutas de transporte
-    $assignments = AssingTransportRoutes::all();
+    $assignments = AssignTransportRoute::all();
     
     // Filtrar los registros de PostulationsBenefits por benefit_id igual a "Transporte"
-    $postulationsBenefits = PostulationsBenefits::whereHas('benefit', function ($query) {
+    $postulationsBenefits = PostulationBenefit::whereHas('benefit', function ($query) {
         $query->where('name', 'Transporte');
     })->get();
 
@@ -42,13 +42,13 @@ public function updateInline(Request $request)
         foreach ($routesData as $postulationId => $routeIds) {
             foreach ($routeIds as $routeId) {
                 // Buscar la asignación existente o crear una nueva si no existe
-                $assignment = AssingTransportRoutes::where('apprentice_id', $postulationBenefit->postulation->apprentice->apprentice_id)
+                $assignment = AssignTransportRoute::where('apprentice_id', $postulationBenefit->postulation->apprentice->apprentice_id)
                     ->where('route_transportation_id', $routeId)
                     ->where('convocation_id', $postulationBenefit->postulation->convocation_id)
                     ->first();
 
                 if (!$assignment) {
-                    $assignment = new AssingTransportRoutes();
+                    $assignment = new AssignTransportRoute();
                     $assignment->apprentice_id = $postulationBenefit->postulation->apprentice->apprentice_id;
                     $assignment->route_transportation_id = $routeId;
                     $assignment->convocation_id = $postulationBenefit->postulation->convocation_id;
