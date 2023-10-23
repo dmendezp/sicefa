@@ -130,8 +130,10 @@
               </a>
               <ul class="nav nav-treeview">
               <li class="nav-item">
-                  <a href="{{ route('cefa.bienestar.Convocations')}}" class="nav-link">Convocatorias</a>
+                @if(Auth::user()->havePermission('bienestar.admin.crud.convocations'))
+                  <a href="{{ route('bienestar.admin.crud.convocations')}}" class="nav-link">Convocatorias</a>
                 </li>
+                @endif
                 <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.editform') }}" class="nav-link">Formularios</a>
                 </li>                
@@ -155,7 +157,6 @@
             <li class="nav-item">
               <a href="#" class="nav-link">Asignar Rutas</a>
             </li>
-            @endif
 
           </ul>
         </li>
