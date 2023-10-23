@@ -70,10 +70,10 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('Estrategias/delete/{id}', 'SENAEMPRESAController@destroy')->name('company.senaempresa.eliminar_senaempresa');
 
         //Rutas para asociar cursos a senaempresa estrategias
-        Route::get('Estrategias/Asociar_Curso/', 'SENAEMPRESAController@cursos_senamepresa')->name('company.senaempresa.cursos_senaempresa');
-        Route::post('Estrategias/Curso_Asociado/', 'SENAEMPRESAController@curso_asociado_senaempresa')->name('company.senaempresa.curso_asociado_senaempresa');
+
         Route::get('Estrategias/Mostrar_Curso/', 'SENAEMPRESAController@mostrar_asociado')->name('company.senaempresa.mostrar_asociados_senaempresa');
-        Route::delete('Estrategias/eliminar_asociacion', 'SENAEMPRESAController@eliminar_asociacion_empresa')->name('company.senaempresa.eliminar_asociacion_empresa');
+        Route::post('Estrategias/Curso_Asociado/', 'SENAEMPRESAController@curso_asociado_senaempresa')->name('company.senaempresa.curso_asociado_senaempresa');
+        Route::get('/company/senaempresa/get_associations', 'SENAEMPRESAController@getAssociation')->name('company.senaempresa.get_associations');
 
         //rutas de personal de senaempresa
         Route::get('Personal/', 'StaffSenaempresaController@mostrar_personal')->name('company.senaempresa.personal');
