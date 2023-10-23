@@ -29,14 +29,14 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('/benefits/delete/{id}', 'BenefitsController@destroy')->name('bienestar.admin.delete.benefits');
 
         //Vista CRUD Buses
-        Route::get('/buses', 'BusesController@index')->name('cefa.bienestar.buses');
+        Route::get('/buses', 'BusesController@index')->name('bienestar.admin.crud.buses');
         Route::post('/buses/store', 'BusesController@store')->name('cefa.bienestar.buses.store');
         Route::put('/buses/update/{id} ', 'BusesController@update')->name('cefa.bienestar.buses.update');
         Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('cefa.bienestar.buses.destroy');
         
 
         // Vista CRUD tipo de beneficios
-        Route::get('/typeofbenefits', 'TypesOfBenefitsController@typeofbenefits')->name('cefa.bienestar.typeofbenefits');
+        Route::get('/typeofbenefits', 'TypesOfBenefitsController@typeofbenefits')->name('bienestar.admin.buttons.benefits');
         Route::post('/typeofbenefits/store', 'TypesOfBenefitsController@store')->name('cefa.bienestar.typeofbenefits.store');
         Route::delete('/typeofbenefits/{id}', 'TypesOfBenefitsController@destroy')->name('cefa.bienestar.typeofbenefits.delete');
         Route::put('/typeofbenefits/{id}', 'TypesOfBenefitsController@update')->name('cefa.typeofbenefits.update');
@@ -81,12 +81,12 @@ Route::middleware(['lang'])->group(function () {
 
 
         //Vista crud formularios
-        Route::get('/editforms', 'ConvocationsQuestionsController@editform')->name('cefa.bienestar.editform');
+        Route::get('/editforms', 'ConvocationsQuestionsController@editform')->name('bienestar.admin.crud.editform');
         Route::post('/saveform', 'ConvocationsQuestionsController@saveform')->name('cefa.bienestar.saveform');
-        Route::post('/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('cefa.bienestar.editform.update');
-        Route::delete('/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('cefa.bienestar.delete_question');
-        Route::get('/addquestions', 'ConvocationsQuestionsController@add_question')->name('cefa.bienestar.add_question');
-        Route::post('/addquestions/add_answer', 'ConvocationsQuestionsController@add_answer')->name('cefa.bienestar.add_question.add');
+        Route::post('/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('bienestar.admin.edit.editform');
+        Route::delete('/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('bienestar.admin.delete.editform');
+        Route::get('/addquestions', 'ConvocationsQuestionsController@add_question')->name('bienestar.admin.add_question.editform');
+        Route::post('/addquestions/add_answer', 'ConvocationsQuestionsController@add_answer')->name('bienestar.admin.save.editform');
        
         // Vista De Consulta
             Route::get('/callconsultation', 'CallConsultationController@index')->name('cefa.bienestar.callconsultation');
@@ -103,7 +103,7 @@ Route::middleware(['lang'])->group(function () {
 
 
         //vista el listados apoyo alimentacion 
-        Route::get('/AssistancesFoods', 'AssistancesFoodsController@index')->name('cefa.bienestar.AssistancesFoods');
+        Route::get('/AssistancesFoods', 'AssistancesFoodsController@index')->name('bienestar.admin.crud.beneficiaries_food');
         Route::post('/AssistancesFoods/store', 'AssistancesFoodsController@store')->name('cefa.bienestar.AssistancesFoods.store');
 
         //Vistas Rutas de transporte
