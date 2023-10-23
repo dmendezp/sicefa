@@ -90,15 +90,21 @@
                                 <td>{{ $transport->arrival_time}}</td>
                                 <td>{{ $transport->departure_time}}</td>
                                 <td>{{ $transport->bus->plate}}</td>
-                                <td><div class="d-flex">
+                                <td>
+                                    @if (Auth::user()->havePermission('bienestar.admin.buttons.transportroutes'))
+                                    <div class="d-flex">
                                     <button class="btn btn-primary editButton mr-2" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal{{$transport->id}}"><i class="fas fa-edit"></i></button>
+                                    @if (Auth::user()->havePermission('bienestar.admin.delete.transportroutes'))
                                     <form action="{{ route('cefa.bienestar.transportroutes.destroy', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
                                         @csrf
                                         @method("DELETE")
                                         <!-- Botón para abrir el modal de eliminación -->
                                         <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
                                     </form>
-                                </div></td>
+                                    @endif
+                                </div>
+                            @endif
+                            </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -125,7 +131,7 @@
                 <!-- Formulario de edición con validación -->
 <!-- Formulario de edición con validación -->
 <form id="editForm{{ $transport->id }}" action="{{ route('cefa.bienestar.transportroutes.update') }}" method="post" onsubmit="return validateForm{{ $transport->id }}()">
-
+    @if (Auth::user()->havePermission('bienestar.admin.edit.transportroutes'))
 @csrf
     <div class="form-group">
         <input type="hidden" name="id_transport" value="{{$transport->id}}">
@@ -169,6 +175,7 @@
 
     <button type="submit" class="btn btn-success">Guardar</button>
 </form>
+@endif
 
             </div>
         </div>

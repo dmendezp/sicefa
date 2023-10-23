@@ -111,9 +111,11 @@
             <li class="nav-item">
               <a href="{{ route('cefa.bienestar.drivers') }}" class="nav-link">Conductores</a>
             </li>
+            @if (Auth::user()->havePermission('bienestar.admin.crud.transportroutes'))
             <li class="nav-item">
-              <a href="{{ route('cefa.bienestar.transportroutes') }}" class="nav-link">Rutas</a>
+              <a href="{{ route('bienestar.admin.crud.transportroutes') }}" class="nav-link">Rutas</a>
             </li>
+            @endif
             <li class="nav-item">
               <a href="#" class="nav-link">Asignar Rutas</a>
             </li>
