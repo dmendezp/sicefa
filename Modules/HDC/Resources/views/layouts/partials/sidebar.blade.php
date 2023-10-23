@@ -3,7 +3,7 @@
           <!-- Bran Logo: Aqui se realiza el ajuste del logo y titulo que esta en el sidebar-->
           <a href="{{ route('cefa.hdc.index') }}" class="brand-link text-decoration-none">
               <img src="{{ asset('modules/HDC/img/logo.png') }}" class="brand-image" alt="HDC-Logo">{{-- Icono de huella de carbono --}}
-              <span class="brand-text font-weight-bold">{{ trans('hdc::hdcgeneral.carbonfootprint')}}</span>
+              <span class="brand-text font-weight-bold">{{ trans('hdc::hdcgeneral.carbonfootprint') }}</span>
           </a>
 
           <!-- Sidebar -->
@@ -22,7 +22,7 @@
                       <div class="col info info-user">
                           <div>{{ trans('menu.Welcome') }}</div>
                           <div>
-                              <a href="{{ route('login') }}" class="d-block">{{ trans('hdc::hdcgeneral.login')}}</a>
+                              <a href="{{ route('login') }}" class="d-block">{{ trans('hdc::hdcgeneral.login') }}</a>
                           </div>
                       </div>
                       <div class="col-auto info float-right mt-2" data-toggle="tooltip" data-placement="right"
@@ -60,7 +60,7 @@
                           <a href="{{ route('cefa.welcome') }}"
                               class="nav-link {{ !Route::is('cefa.contact.maps') ?: 'active' }}">
                               <i class="nav-icon fas fa-puzzle-piece"></i>
-                              <p>{{trans('hdc::hdcgeneral.BacktoSICEFA')}}</p>
+                              <p>{{ trans('hdc::hdcgeneral.BacktoSICEFA') }}</p>
                           </a>
                       </li>
                   </ul>
@@ -70,6 +70,8 @@
               <nav class="mt-2">
                   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                       data-accordion="false">
+                      <!-- Menú de opciones públicas -->
+
                       @foreach (getSectorsOrderedByName() as $sector)
                           {{--  Arreglo de Objetos  --}}
                           @if ($sector->productive_units->count() > 0)
@@ -96,39 +98,44 @@
                               </li>
                           @endif
                       @endforeach
-                        <li class="nav-item">
-                            <a href="{{ Route('admin.hdc.table') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-pen-to-square"></i>
-                                <p>
-                                {{ trans('hdc::hdcgeneral.RegisterConsumption') }}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fa-solid fa-book"></i>
-                                <p>
-                                  {{ trans('hdc::hdcgeneral.instructions')}}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('cefa.hdc.assign_environmental_aspects')}}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-folder-open"></i>
-                                <p>
-                                    {{ trans('hdc::hdcgeneral.assign_environmental_aspects')}}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('carbonfootprint.persona')}}" class="nav-link">
-                                <i class="nav-icon fas fa-shoe-prints"></i>
-                                    <p>
-                                        {{ trans('hdc::hdcgeneral.calculatefootprint')}}
-                                    </p>
-                                </li>
-                            </a>
-                        </li>
+                      <!-- Menú de opciones para administrador -->
+
+                      @if (Auth::user()->havePermission('hdc.admin.table'))
+                          <li class="nav-item">
+                              <a href="{{ Route('hdc.admin.table') }}" class="nav-link">
+                                  <i class="nav-icon fa-solid fa-pen-to-square"></i>
+                                  <p>
+                                      {{ trans('hdc::hdcgeneral.RegisterConsumption') }}
+                                  </p>
+                              </a>
+                          </li>
+                      @endif
+
+                     {{--   <li class="nav-item">
+                          <a href="#" class="nav-link">
+                              <i class="nav-icon fa-solid fa-book"></i>
+                              <p>
+                                  {{ trans('hdc::hdcgeneral.instructions') }}
+                              </p>
+                          </a>
+                      </li>  --}}
+                      <li class="nav-item">
+                          <a href="{{ route('cefa.hdc.assign_environmental_aspects') }}" class="nav-link">
+                              <i class="nav-icon fa-solid fa-folder-open"></i>
+                              <p>
+                                  {{ trans('hdc::hdcgeneral.assign_environmental_aspects') }}
+                              </p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="{{ route('carbonfootprint.persona') }}" class="nav-link">
+                              <i class="nav-icon fas fa-shoe-prints"></i>
+                              <p>
+                                  {{ trans('hdc::hdcgeneral.calculatefootprint') }}
+                              </p>
+                      </li>
+                      </a>
+                      </li>
                   </ul>
               </nav>
               <!-- /.sidebar-menu -->

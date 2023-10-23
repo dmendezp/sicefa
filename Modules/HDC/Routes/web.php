@@ -21,8 +21,8 @@ Route::middleware(['lang'])->group(function () {
         Route::controller(HDCController::class)->group(function(){
             Route::get('/index', 'index')->name('cefa.hdc.index');
             Route::get('admin/index', 'index')->name('hdc.admin.index');// Ruta pagina principal del administrador
-            Route::get('charge/index', 'index')->name('hdc.charge.index');// Ruta pagina principal del administrador
-            Route::get('charge/index', 'index')->name('hdc.userHDC.index');// Ruta pagina principal del Encargado
+            Route::get('charge/index', 'index')->name('hdc.charge.index');// Ruta pagina principal del Encargado
+            Route::get('userHDC/index', 'index')->name('hdc.userHDC.index');// Ruta pagina principal del Usuario Calcula tu Huella
 
 
 
@@ -34,7 +34,7 @@ Route::middleware(['lang'])->group(function () {
             Route::post('/get_aspects', 'getAspects')->name('hdc.aspects');
             Route::post('/guardar/valores', 'guardarValores')->name('hdc.guardar.valores');
              /* Ruta del CRUD del formulario de registro*/
-            Route::get('/tabla', 'FormularioController@table')->name('admin.hdc.table');
+            Route::get('/admin/tabla', 'FormularioController@table')->name('hdc.admin.table');
             Route::delete('/resulform/delete/{id}', 'delete')->name('cefa.hdc.delete');
             Route::get('/cefa/hdc/edit/{labor}', 'edit')->name('cefa.hdc.edit');
             Route::post('/cefa/hdc/update/{labor}', 'update')->name('cefa.hdc.update');

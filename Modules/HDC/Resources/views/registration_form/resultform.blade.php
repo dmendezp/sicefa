@@ -1,6 +1,6 @@
 @extends('hdc::layouts.master')
 @push('breadcrumbs')
-<li class="breadcrumb-item active"><a href="{{ route('admin.hdc.table') }}">{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }}</a></li>
+<li class="breadcrumb-item active"><a href="{{ route('hdc.admin.table') }}">{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }}</a></li>
 
 @endpush
 

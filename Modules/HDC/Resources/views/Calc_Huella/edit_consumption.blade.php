@@ -4,7 +4,8 @@
     <div class="col-md-12">
         <div class="card card-success card-outline shadow mt-2">
             <div class="card-header">
-                <h2 class="card-title"><strong> {{ trans('hdc::calculatefootprint.Title_Card_Carbon_Footprint_Table_Edit')}} {{ $fpf->person->full_name }} </strong></h2>
+                <h2 class="card-title"><strong> {{ trans('hdc::calculatefootprint.Title_Card_Carbon_Footprint_Table_Edit') }}
+                        {{ $fpf->person->full_name }} </strong></h2>
             </div>
             <br>
             <div class="container">
@@ -27,14 +28,17 @@
                                             {{ $pea->environmental_aspect->name }}
                                         </td>
                                         <td>
-                                            <input name="aspecto[{{ $pea->id }}][valor_consumo][]" class="form-control" type="number" value="{{ $pea->consumption_value }}" placeholder="Ingrese el valor de consumo" required>
+                                            <input name="aspecto[{{ $pea->id }}][valor_consumo][]" class="form-control"
+                                                type="number" value="{{ $pea->consumption_value }}"
+                                                placeholder="Ingrese el valor de consumo" required>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-around">
-                            <button type="submit" class="btn btn-primary" id="updateBtn">{{ trans('hdc::calculatefootprint.Update_Fingerprint_Button')}}</button>
+                            <button type="submit" class="btn btn-primary"
+                                id="updateBtn">{{ trans('hdc::calculatefootprint.Update_Fingerprint_Button') }}</button>
                         </div>
                         <br>
                     </form>
@@ -43,22 +47,19 @@
         </div>
     </div>
     @push('scripts')
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
-        $(document).ready(function() {
-            $('#updateBtn').click(function(event) {
+        <script>
+            $(document).on("click", "#updateBtn", function(event) {
                 var valid = true;
 
                 // Iterar sobre los campos de valor_consumo
-                $('input[name^="aspecto["][name$="[valor_consumo][]"]').each(function () {
+                $('input[name^="aspecto["][name$="[valor_consumo][]"]').each(function() {
                     console.log($('input[name^="aspecto["][name$="[valor_consumo][]"]'));
 
 
                     var valorConsumo = $(this).val();
 
                     // Validar que el valor sea numérico y positivo
-                    if (!$.isNumeric(valorConsumo) || parseFloat(valorConsumo) <= 0) {
+                    if (!$.isNumeric(valorConsumo) || parseFloat(valorConsumo) < 0) {
                         valid = false;
                         Swal.fire({
                             icon: 'error',
@@ -71,7 +72,7 @@
                 });
 
                 // Verificar que todos los campos estén completos
-                $('input[name^="aspecto["][name$="[valor_consumo][]"]').each(function () {
+                $('input[name^="aspecto["][name$="[valor_consumo][]"]').each(function() {
                     if ($(this).val() === '') {
                         valid = false;
                         // Utiliza SweetAlert para mostrar el mensaje de error
@@ -96,8 +97,6 @@
                     });
                 }
             });
-        });
-
-    </script>
+        </script>
     @endpush
 @endsection

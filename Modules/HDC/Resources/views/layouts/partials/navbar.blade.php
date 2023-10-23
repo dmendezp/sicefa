@@ -9,7 +9,7 @@
             <a href="{{ route('cefa.hdc.index') }}"class="nav-link">{{ trans('hdc::hdcgeneral.Home')}}</a>
         </li>
          @auth
-            @if (checkRol('hdc.admin'))
+            @if (Auth::user()->havePermission('hdc.admin.index'))
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('hdc.admin.index') }}" class="nav-link ">{{ trans('hdc::hdcgeneral.administrator')}}</a>
                 </li>
@@ -26,6 +26,12 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fa-solid fa-book"></i>
+            </a>
+        </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="nav-icon fa-solid fa-globe"></i>

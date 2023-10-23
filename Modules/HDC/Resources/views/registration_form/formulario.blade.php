@@ -1,7 +1,7 @@
 @extends('hdc::layouts.master')
 
 @push('breadcrumbs')
-<li class="breadcrumb-item active"><a style="text-decoration: none" href="{{ route('admin.hdc.table') }}">{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }} </a> /{{ trans('hdc::ConsumptionRegistry.indicator_form') }}</li>
+<li class="breadcrumb-item active"><a style="text-decoration: none" href="{{ route('hdc.admin.table') }}">{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }} </a> /{{ trans('hdc::ConsumptionRegistry.indicator_form') }}</li>
 
 @endpush
 
@@ -76,6 +76,50 @@
             }
         });
 
+        $(document).on("click", "#btn-enviar", function(event) {
+            var valid = true;
+
+
+            $('[name^="aspecto["][name$="[amount]"]').each(function() {
+                var amount = $(this).val();
+
+                // ... Validación de aspectos ...
+
+                if (!$.isNumeric(amount) || parseFloat(amount) < 0) {
+                    valid = false;
+                    showAlert('Error', 'Ingrese un valor numérico y positivo para este aspecto.');
+                    event.preventDefault();
+                    return false;
+                }
+
+                // ... Verificación de campos completos ...
+            });
+
+            if (!valid) {
+                showAlert('Error', 'Complete todos los campos de valor de consumo antes de enviar el formulario.');
+                event.preventDefault();
+            } else {
+               //validación es exitosa
+                showAlert('success', 'Formulario enviado exitosamente.');
+            }
+        });
+
+        $('[name^="aspecto["][name$="[amount]"]').on('input', function() {
+            var amount = $(this).val();
+
+            if (!$.isNumeric(amount) || parseFloat(amount) <= 0) {
+                showAlert('Error', 'Ingrese un valor numérico y positivo para este aspecto.');
+            }
+        });
+
+        // Función para mostrar alertas SweetAlert
+        function showAlert(icon, title, text) {
+            Swal.fire({
+                icon: icon,
+                title: title,
+                text: text
+            });
+        }
 
     </script>
 

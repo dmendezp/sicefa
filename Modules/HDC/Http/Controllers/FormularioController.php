@@ -81,7 +81,7 @@ class FormularioController extends Controller
         }
 
         // Redirige al usuario o proporciona una respuesta de éxito
-        return redirect()->route('admin.hdc.table')->with('success', 'Valores guardados correctamente');
+        return redirect()->route('hdc.admin.table')->with('success', 'Valores guardados correctamente');
     }
 
 
@@ -134,7 +134,7 @@ class FormularioController extends Controller
         }
 
        
-        return redirect()->route('admin.hdc.table', ['labor' => $labor])
+        return redirect()->route('hdc.admin.table', ['labor' => $labor])
             ->with('success', 'Datos actualizados correctamente');
     }
 
