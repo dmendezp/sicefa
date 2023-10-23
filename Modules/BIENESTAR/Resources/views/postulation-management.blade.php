@@ -17,8 +17,8 @@
         </div>
         
         <div style="border: 1px solid #707070; padding: 20px; background-color: white; border-radius: 10px;">
-            @if(Auth::user()->havePermission('bienestar.admin.update-benefits.postulation-management'))
-            <form id="update-benefit-status-form" action="{{ route('bienestar.admin.update-benefits.postulation-management') }}" method="POST">
+            @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management'))
+            <form id="update-benefit-status-form" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management') }}" method="POST">
                 @csrf
                 <table id="benefitsTable" class="table table-bordered table-striped">
                     <thead>
@@ -96,7 +96,7 @@
 </div>
 @foreach($postulations as $postulation)
 <!-- Modal de detalles de postulación -->
-@if(Auth::user()->havePermission('bienestar.admin.show.postulation-management'))
+@if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.show.postulation-management'))
 <div class="modal fade" id="modal_{{ $postulation->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel_{{ $postulation->id }}" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -136,8 +136,8 @@
                 <p><strong>{{ trans('bienestar::menu.Total Score')}}:</strong> <span id="total-score_{{ $postulation->id }}">{{ $postulation->total_score }}</span></p>
 
                 <div class="form-group">
-                    @if(Auth::user()->havePermission('bienestar.admin.update-score.postulation-management'))
-                    <form id="update-benefit-status-form" action="{{ route('bienestar.admin.update-score.postulation-management', ['id' => $postulation->id]) }}" method="POST">
+                    @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-score.postulation-management'))
+                    <form id="update-benefit-status-form" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-score.postulation-management', ['id' => $postulation->id]) }}" method="POST">
                         @csrf
                         @method('PUT') <!-- Agrega esta línea para enviar una solicitud PUT -->
                         <div class="form-group">
@@ -308,7 +308,8 @@ guardarBtn.addEventListener('click', function () {
         };
 
         // Realiza una solicitud AJAX para enviar los datos al controlador
-        axios.post('{{ route('bienestar.admin.update-benefits.postulation-management') }}', warningData)
+
+        axios.post('{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management') }}', warningData)
             .then(function (response) {
                 // Verifica la respuesta del controlador y realiza acciones adicionales si es necesario
                 if (response.data.warning) {
