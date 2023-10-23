@@ -19,7 +19,7 @@ class CreateToolsTable extends Migration
             $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
             $table->integer('amount');
             $table->integer('price');
-            $table->sofDeletes();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

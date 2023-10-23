@@ -1,17 +1,21 @@
 <?php
 
-namespace Modules\SICA\Entities;
+namespace Modules\AGROINDUSTRIA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class Consumable extends Model implements Auditable
+use Modules\SICA\Entities\Labor;
+use Modules\SICA\Entities\Element;
+
+class Tool extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
-    SoftDeletes; // Borrado suave
+        SoftDeletes; // Borrado suave
 
-    protected $fillable = [ // Atributos modificables (asginación masivaa)
+    protected $fillable = [ // Atributos modificables (asignación masivaa)
         'labor_id',
         'inventory_id',
         'amount',
@@ -26,10 +30,11 @@ class Consumable extends Model implements Auditable
     ];
 
     //RELACIONES
-    public function inventory(){ // Accede a la información del inventario al que pertenece
-        return $this->belongsTo(Inventory::class);
+    public function element(){ // Accede a la información de la solicitud externa al que pertenece
+        return $this->belongsTo(Element::class);
     }
     public function labor(){ // Accede a la información de la labor a la que pertenece
         return $this->belongsTo(Labor::class);
     }
+
 }

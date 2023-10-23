@@ -19,7 +19,8 @@ class CreateProductionsTable extends Migration
             $table->foreignId('element_id')->constrained()->onDelete('cascade');
             $table->integer('amount');
             $table->date('expiration_date');
-            $table->sofDeletes();
+            $table->integer('lot_number');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

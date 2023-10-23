@@ -16,12 +16,15 @@ use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Role;
+use Modules\SICA\Entities\Production;
 
 class SICAController extends Controller
 {
 
     /* Página principal de la aplicación SICA */
     public function index(){
+        $consumable = Production::with('element', 'labor')->get();
+        dd($consumable);
         $data = [
             'title' => trans('sica::menu.Home'),
             'people' => Person::count(),

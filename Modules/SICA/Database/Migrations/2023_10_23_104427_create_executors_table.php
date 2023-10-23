@@ -17,10 +17,10 @@ class CreateExecutorsTable extends Migration
             $table->id();
             $table->foreignId('labor_id')->constrained()->onDelete('cascade');
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
-            $table->foreignId('employement_type_id')->constrained()->onDelete('cascade');
+            $table->foreignId('employee_type_id')->constrained()->onDelete('cascade');
             $table->integer('amount');
             $table->integer('price');
-            $table->sofDeletes();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

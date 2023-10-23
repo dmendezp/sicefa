@@ -3,16 +3,33 @@
 namespace Modules\SICA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-class Production extends Model
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
+class Production extends Model implements Auditable
 {
-    use HasFactory;
+    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
+    SoftDeletes; // Borrado suave
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
-    {
-        return \Modules\SICA\Database\factories\ProductionFactory::new();
+    protected $fillable = [ // Atributos modificables (asginación masivaa)
+        'labor_id',
+        'element_id',
+        'amount',
+        'expiration_date',
+        'lot',
+    ];
+
+    protected $dates = ['deleted_at']; // Atributos que deben ser tratados como objetos Carbon
+
+    protected $hidden = [ // Atributos ocultos para no representarlos en las salidas con formato JSON
+        'created_at',
+        'updated_at'
+    ];
+
+    //RELACIONES
+    public function labor(){ // Accede a la información de la labor a la que pertenece
+        return $this->belongsTo(Labor::class);
+    }
+    public function element(){ // Accede a la información de los elementos al que pertenece
+        return $this->belongsTo(Element::class);
     }
 }

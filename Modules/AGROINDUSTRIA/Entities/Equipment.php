@@ -1,16 +1,13 @@
 <?php
 
-namespace Modules\SICA\Entities;
+namespace Modules\AGROINDUSTRIA\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use OwenIt\Auditing\Contracts\Auditable;
-class Equipment extends Model implements Auditable
-{
-    use \OwenIt\Auditing\Auditable, // Seguimientos de cambios realizados en BD
-    SoftDeletes; // Borrado suave
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-    protected $table = 'equipments';
+class Equipment extends Model
+{
+    use HasFactory;
 
     protected $fillable = [
         'labor_id',
@@ -18,7 +15,7 @@ class Equipment extends Model implements Auditable
         'amount',
         'price',
     ];
-
+    
     //RELACIONES
     public function labor(){ // Accede a la información de la labor a la que pertenece
         return $this->belongsTo(Labor::class);
