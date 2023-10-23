@@ -84,8 +84,8 @@
                         document_number: documentNumber
                     },
                     success: function(response) {
-                        // Verifica si se encontró una persona
-                        if (response) {
+                        // Verifica si se encontró una persona y si está registrada en StaffSenaempresa
+                        if (response && response.is_registered) {
                             // Obtiene el ID de la persona del objeto response
                             var personId = response.id;
                             var name = response.full_name;
@@ -99,15 +99,13 @@
 
                             // Por ejemplo, si quieres asignar el ID a un campo oculto en el formulario
                             $('input[name="person_id"]').val(personId);
-                        } else {
-                            // Si no se encontró una persona, puedes mostrar un mensaje de error o realizar otras acciones
-                            console.log("Persona no encontrada");
                         }
                     },
 
                 });
             });
         });
+
 
         $(document).ready(function() {
             $('#attendance-table').DataTable();

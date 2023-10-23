@@ -11,6 +11,7 @@ use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SICA\Entities\Apprentice;
 use Illuminate\Support\Facades\File;
+use Modules\SICA\Entities\Quarter;
 
 
 
@@ -23,16 +24,18 @@ class StaffSenaempresaController extends Controller
     public function mostrar_personal()
     {
         $PositionCompany = PositionCompany::all();
+        $staff = StaffSenaempresa::with('Quarter')->get();
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
-        $data = ['title' => trans('senaempresa::menu.Staff'), 'staff_senaempresas' => $staff_senaempresas, 'PositionCompany' => $PositionCompany];
+        $data = ['title' => trans('senaempresa::menu.Staff'), 'staff_senaempresas' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'staff' => $staff];
         return view('senaempresa::Company.staff_senaempresa.staff', $data);
     }
     public function nuevo_personal()
     {
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
         $PositionCompany = PositionCompany::all();
+        $quarter = Quarter::all();
         $Apprentices = Apprentice::all();
-        $data = ['title' => trans('senaempresa::menu.Staff SenaEmpresa'), 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices];
+        $data = ['title' => trans('senaempresa::menu.Staff SenaEmpresa'), 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices, 'quarter' => $quarter];
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
             return view('senaempresa::Company.staff_senaempresa.staff_registration', $data);
         } else {
@@ -52,6 +55,7 @@ class StaffSenaempresaController extends Controller
 
         $staffSenaempresa = new StaffSenaempresa();
         $staffSenaempresa->position_company_id = $request->input('position_company_id');
+        $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
         $staffSenaempresa->image = 'modules/senaempresa/images/staff/' . $name_image;
 

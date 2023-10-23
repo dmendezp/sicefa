@@ -1,122 +1,128 @@
 @extends('senaempresa::layouts.master')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row justify-content-md-center pt-4">
-        <div class="card card-primary card-outline shadow col-md-8">
-            <div class="card-header">
-                <h3 class="card-title">{{ $title }}</h3>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="course_id">{{ trans('senaempresa::menu.Select Course') }}</label>
-                    <select id="course_id" class="form-control">
-                        <option value="" selected disabled>{{ trans('senaempresa::menu.Select a course') }}</option>
-                        @foreach ($courses as $course)
-                            <option value="{{ $course->id }}">{{ $course->code }} {{ $course->program->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                    <table id="pivote" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>{{ trans('senaempresa::menu.Courses') }}</th>
-                                <th>{{ trans('senaempresa::menu.Vacancies') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($courses as $course)
-                                @if ($course->status === 'Activo')
-                                    <tr>
-                                        <td style="width:30px;">{{ $course->code }} {{ $course->program->name }}</td>
-                                        <td>
-                                            <ul>
-                                                @foreach ($vacancies as $vacancy)
-                                                    <li>
-                                                        @php
-                                                            // Verificar si existe un registro sin deleted_at para este beneficio y beneficiario
-                                                            $record = $courseofvacancy
-                                                                ->where('course_id', $course->id)
-                                                                ->where('vacancy_id', $vacancy->id)
-                                                                ->whereNull('deleted_at')
-                                                                ->first();
-                                                            $isChecked = $record ? true : false;
-                                                        @endphp
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card card-primary card-outline shadow">
+                    <div class="card-header">{{ $title }}</div>
+                    <div class="card-body">
+                        <form id="association-form">
+                            @csrf
 
-                                                        <label class="checkbox-container">
-                                                            <input id="checkbox" class="hidden" type="checkbox"
-                                                                name="vacancy_{{ $course->id }}_{{ $vacancy->id }}"
-                                                                value="1"
-                                                                data-record-id="{{ $record ? $record->id : '' }}"
-                                                                {{ $isChecked ? 'checked' : '' }}>
-                                                            <span class="checkbox" for="checkbox"></span>
+                            <div class="form-group">
+                                <label for="course_id">{{ trans('senaempresa::menu.Select a course:') }}</label>
+                                <select class="form-control" name="course_id" id="course_id">
+                                    <option value="">{{ trans('senaempresa::menu.Select a course:') }}
+                                    </option>
+                                    @foreach ($courses as $course)
+                                        <option value="{{ $course->id }}">{{ $course->code }} {{ $course->program->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-                                                            {{ $vacancy->name }}
-                                                        </label>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                @endif
+                            @foreach ($vacancies as $vacancy)
+                            <li>
+                                @php
+                                // Verificar si existe una relación sin deleted_at para este curso y vacante
+                                $record = $courseofvacancy
+                                    ->where('course_id', $course->id) // Cambia $course por $course_id
+                                    ->where('vacancy_id', $vacancy->id)
+                                    ->whereNull('deleted_at')
+                                    ->first();
+                                $isChecked = $record ? true : false;
+                                @endphp
+                        
+                                <label class="checkbox-container">
+                                    <input class="association-checkbox" type="checkbox" data-vacancy-id="{{ $vacancy->id }}" value="1"
+                                        data-record-id="{{ $record ? $record->id : '' }}" {{ $isChecked ? 'checked' : '' }}>
+                                    <span class="checkbox" for="checkbox"></span>
+                        
+                                    {{ $vacancy->name }}
+                                </label>
+                            </li>
                             @endforeach
+                            
 
-                        </tbody>
-                    </table>
-
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 
-@section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
+@section('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(function() {
-            $("#pivote").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-                language: {
-                    "search": "Buscar:",
-                    "Show": "Mostrar",
-                    "entries": "Registros",
-                }
-            });
+      $(document).ready(function() {
+    // Variable para almacenar el estado inicial de los checkboxes
+    var initialCheckboxState = {};
 
-        });
+    // Obtén el curso seleccionado y las relaciones asociadas (vacantes)
+    $('#course_id').change(function() {
+        var courseId = $(this).val();
 
-        $(document).ready(function() {
-            const csrfToken = $('meta[name="csrf-token"]').attr('content');
+        // Realiza una llamada Ajax para obtener las asociaciones
+        $.ajax({
+            url: '{{ route('company.vacant.get_associations') }}',
+            method: 'GET',
+            data: {
+                course_id: courseId
+            },
+            success: function(data) {
+                // Almacena el estado inicial de los checkboxes
+                $('.association-checkbox').each(function() {
+                    var vacancyId = $(this).data('vacancy-id');
+                    initialCheckboxState[vacancyId] = $(this).prop('checked');
+                });
 
-            $('input[type="checkbox"]').on('change', function() {
-                const checkbox = $(this);
-                const checkboxName = checkbox.attr('name');
-                const [_, courseId, vacancyId] = checkboxName.split('_');
-                const isChecked = checkbox.is(':checked');
-
-                $.ajax({
-                    url: '{{ route('company.vacant.curso_asociado') }}',
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    data: {
-                        course_id: courseId,
-                        vacancy_id: vacancyId,
-                        checked: isChecked ? 'true' : 'false',
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        alert(response.success); // Display success message
-                    },
-                    error: function(error) {
-                        console.error(error);
-                        alert('Ocurrió un error al procesar la solicitud.');
+                // Marca los checkboxes según las asociaciones obtenidas
+                $('.association-checkbox').each(function() {
+                    var vacancyId = $(this).data('vacancy-id');
+                    var isChecked = data.associations.includes(vacancyId);
+                    
+                    // Marca el checkbox si está asociado y en su estado inicial estaba marcado
+                    if (isChecked && initialCheckboxState[vacancyId]) {
+                        $(this).prop('checked', true);
+                    } else {
+                        $(this).prop('checked', isChecked);
                     }
                 });
-            });
+            },
+            error: function(error) {
+                // Maneja errores, puedes mostrar mensajes de error si lo deseas.
+            }
         });
+    });
+
+    // Maneja los cambios en los checkboxes
+    $('.association-checkbox').change(function() {
+        var courseId = $('#course_id').val();
+        var vacancyId = $(this).data('vacancy-id');
+        var isChecked = $(this).prop('checked');
+
+        $.ajax({
+            url: '{{ route('company.vacant.curso_asociado') }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                course_id: courseId,
+                vacancy_id: vacancyId,
+                checked: isChecked
+            },
+            success: function(data) {
+                // Maneja la respuesta del servidor, puedes mostrar mensajes si lo deseas.
+            },
+            error: function(error) {
+                // Maneja errores, puedes mostrar mensajes de error si lo deseas.
+                // Vuelve a restaurar el estado inicial del checkbox en caso de error
+                $(this).prop('checked', !isChecked);
+            }
+        });
+    });
+});
+
     </script>
 @endsection
