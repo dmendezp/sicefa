@@ -20,6 +20,9 @@ Route::middleware(['lang'])->group(function () {
 
         Route::controller(HDCController::class)->group(function(){
             Route::get('/index', 'index')->name('cefa.hdc.index');
+            Route::get('admin/index', 'index')->name('hdc.admin.index');// Ruta pagina principal del administrador
+            Route::get('charge/index', 'index')->name('hdc.charge.index');// Ruta pagina principal del administrador
+            Route::get('charge/index', 'index')->name('hdc.userHDC.index');// Ruta pagina principal del Encargado
 
 
 
