@@ -170,6 +170,7 @@ window.onclick = function(event) {
         $("#form-container").hide();
         $("#form-container-tools").hide();
         $("#form-container-consumables").hide();
+        $("#form-container-equipments").hide();
 
         // Botón para abrir/cerrar el formulario
         $("#toggle-form").click(function() {
@@ -229,6 +230,28 @@ window.onclick = function(event) {
 
             // Cambiar el color del botón a rojo cuando el formulario está abierto
             if ($("#form-container-consumables").is(":visible")) {
+                $(this).css("background-color", "red");
+            } else {
+                // Restaurar el color original cuando el formulario se cierra
+                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
+            }
+        });
+
+        // Botón para abrir/cerrar el formulario
+        $("#toggle-form-equipment").click(function() {
+            // Alternar la visibilidad del formulario
+            $("#form-container-equipments").toggle();
+
+            // Cambiar el texto del botón en función del estado del formulario
+            var buttonText = $("#form-container-equipments").is(":visible")
+                ? "Cerrar formulario de equipos"
+                : "Registro de equipos";
+
+            // Actualizar el texto del botón
+            $(this).text(buttonText);
+
+            // Cambiar el color del botón a rojo cuando el formulario está abierto
+            if ($("#form-container-equipments").is(":visible")) {
                 $(this).css("background-color", "red");
             } else {
                 // Restaurar el color original cuando el formulario se cierra
