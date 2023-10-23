@@ -213,24 +213,6 @@ class LaborController extends Controller
         return response()->json(['data' => $data]);
     }
 
-    public function price_equipment($id){
-        $selectedUnit = session('viewing_unit');
-        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
-        $equipments = Inventory::where('element_id', $id)->where('productive_unit_warehouse_id', $productiveUnit)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
-
-        $data = $tools->map(function ($t){
-            $amount = $t->totalAmount;
-            $price = $t->prices;
-
-            return [
-                'amount' => $amount,
-                'price' => $price
-            ];
-        });
-
-        return response()->json(['data' => $data]);
-    }
-
     public function amount($consumables){
         $selectedUnit = session('viewing_unit');
         $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
@@ -239,6 +221,24 @@ class LaborController extends Controller
             $measurement_unit = $e->element->measurement_unit->conversion_factor;
             $conversion = $e->totalAmount/$measurement_unit;
             $amount = $conversion;
+            $price = $e->prices;
+            
+            return [
+                'amount' => $amount,
+                'price' => $price
+            ];
+        });
+
+
+        return response()->json(['elements' => $amountPrice]);
+    }
+
+    public function amounteq($equipments){
+        $selectedUnit = session('viewing_unit');
+        $productiveUnit = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->pluck('id');
+        $elements = Inventory::with('element.measurement_unit')->where('productive_unit_warehouse_id', $productiveUnit)->where('element_id', $equipments)->groupBy('element_id')->select('element_id', \DB::raw('SUM(amount) as totalAmount'), \DB::raw('GROUP_CONCAT(price) as prices'))->get();
+        $amountPrice = $elements->map(function ($e){
+            $amount = $e->totalAmount;
             $price = $e->prices;
             
             return [
@@ -443,7 +443,7 @@ class LaborController extends Controller
         $price_inventories = $request->input('price_inventories');
 
         foreach ($inventories as $key => $inventory){ 
-            $i = new Tool;
+            $i = new Equipment;
             $i->labor_id = $l->id;
             $i->inventory_id = $equipment;
             $i->amount = $amount_equipments[$key];

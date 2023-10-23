@@ -28,6 +28,16 @@
     color: white;
 }
 
+#toggle-form-equipment{
+    margin-top: 10px;
+    margin-left: 2px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
 #toggle-form-consumables{
     margin-top: 10px;
     margin-left: 2px;
@@ -73,6 +83,15 @@
     color: white;
 }
 
+#add-equipments{
+    width: 970px;
+    padding: 5px 0px 5px 0px;
+    border: none;
+    border-radius: 4px;
+    background-color: green;
+    color: white;
+}
+
 #add-consumables{
     width: 970px;
     padding: 5px 0px 5px 0px;
@@ -95,6 +114,18 @@
 }
 
 .remove-tools{
+    position: relative;
+    left: 2px;
+    padding: 10px 5px 10px 5px;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 4px;
+    border: none;
+}
+
+.remove-equipments{
     position: relative;
     left: 2px;
     padding: 10px 5px 10px 5px;

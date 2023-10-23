@@ -189,14 +189,18 @@
                                             {!! Form::select('inventories[]', $equipment, null, ['class' => 'inventory_select', 'style' => 'width: 200px']) !!}
                                         </div>
                                         <div class="form-group">
-                                            <span class="quantity"></span>
+                                            <span class="quantity-equipment"></span>
                                             {!! Form::label('amount', 'Cantidad') !!}
-                                            {!! Form::number('amount_inventories[]', null, ['class'=>'form-control', 'id' => 'amount_inventories']) !!}
+                                            {!! Form::number('amount_equipments[]', null, ['class'=>'form-control', 'id' => 'amount_equipments']) !!}
                                         </div>   
                                         <div class="form-group">  
+                                            {!! Form::label('price', 'Valor unitario') !!}
+                                            {!! Form::number('price_unit_equipment', null, ['class'=>'form-control', 'id' => 'price_unit_equipment', 'readonly' => 'readonly']) !!}
+                                        </div> 
+                                        <div class="form-group">  
                                             {!! Form::label('price', 'Total') !!}
-                                            {!! Form::number('price_inventories[]', null, ['class'=>'form-control', 'id' => 'price_inventory', 'readonly' => 'readonly']) !!}
-                                        </div>        
+                                            {!! Form::number('price_equipments[]', null, ['class'=>'form-control', 'id' => 'price_equipment', 'readonly' => 'readonly']) !!}
+                                        </div>           
                                         <button type="button" class="remove-equipments">{{trans('agroindustria::menu.Delete')}}</button>
                                     </div>
                                 </div>
@@ -556,11 +560,68 @@
 <script>
     $(document).ready(function() {
         $("#add-equipments").click(function() {
-           var newEquipment = '<div class="equipment"><div class="form-group">{!! Form::label("inventories", "Equipos") !!}{!! Form::select("inventories[]", $equipment, null, ["class" => "inventory_select", "style" => "width: 200px"]) !!}</div><div class="form-group"><span class="quantity"></span>{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_inventories[]", null, ["class"=>"form-control", "id" => "amount_inventories"]) !!}</div>   <div class="form-group">  {!! Form::label("price", "Total") !!}{!! Form::number("price_inventories[]", null, ["class"=>"form-control", "id" => "price_inventory", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-equipments">{{trans("agroindustria::menu.Delete")}}</button></div>';
+           var newEquipment = '<div class="equipment"><div class="form-group">{!! Form::label("inventories", "Equipos") !!}{!! Form::select("inventories[]", $equipment, null, ["class" => "inventory_select", "style" => "width: 200px"]) !!}</div><div class="form-group"><span class="quantity"></span>{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_inventories[]", null, ["class"=>"form-control", "id" => "amount_inventories"]) !!}</div><div class="form-group">{!! Form::label("price", "Valor Unitario") !!}{!! Form::number("price_unit_equipment", null, ["class"=>"form-control", "id" => "price_unit_equipment", "readonly" => "readonly"]) !!}</div><div class="form-group">{!! Form::label("price", "Total") !!}{!! Form::number("price_equipments[]", null, ["class"=>"form-control", "id" => "price_equipment", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-equipments">{{trans("agroindustria::menu.Delete")}}</button></div>';
            
            // Agregar el nuevo campo al DOM
            $("#form-equipments").append(newEquipment);
        });
+
+       $('#form-equipments').on('change', '.inventory_select', function() {
+            var selectedEquipment = $(this).val();
+            var parentElement = $(this).closest('.equipments');
+            var priceField = parentElement.find('input#price_unit_equipment');
+            var quantityField = parentElement.find('.quantity-equipment');
+            console.log(selectedEquipment);
+            if (selectedEquipment) {
+                // Realiza una solicitud AJAX para obtener el precio de la herramienta seleccionada
+                var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.equipments.amounteq', ['equipments' => ':equipments'])) !!}.replace(':equipments', selectedEquipment.toString());
+                console.log(url);
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {
+                        if(response.elements.length > 0){
+                            var data = response.elements[0];
+                            var quantity = parseFloat(data.amount);
+                            var price = parseFloat(data.price);
+                            
+                            console.log(quantity);
+                            console.log(price);
+
+                            quantityField.text('Cantidad Disponible: ' + quantity);
+                            priceField.val(price);
+                            updateTotalPrice(); // Actualizar el precio total cuando se selecciona la herramienta
+                        }else{
+                            quantityField.text('');
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            } else {
+                priceField.data('price', 0);
+                updateTotalPrice(); // Actualizar el precio total cuando no se selecciona una herramienta
+            }
+        });
+
+
+        $('#form-equipments').on('input', 'input#amount_equipments', function() {
+            updateTotalPrice(); // Actualizar el precio total cuando se modifica la cantidad
+        });
+
+        function updateTotalPrice() {
+            var totalPrice = 0;
+            $('.equipment').each(function() {
+                var priceField = $('input#price_unit_equipment').val();
+                var amountField = $('input#amount_equipments').val();
+                var amount = parseInt(amountField) || 0;
+                var totalField = $(this).find('input#price_equipment');
+                var totalPrice = priceField * amount;
+                totalField.val(totalPrice);
+            });
+        }
+
        // Eliminar un campo de colaborador
        $("#form-equipments").on("click", ".remove-equipments", function() {
            $(this).closest('.equipment').remove();
