@@ -17,7 +17,8 @@
         </div>
         
         <div style="border: 1px solid #707070; padding: 20px; background-color: white; border-radius: 10px;">
-            <form id="update-benefit-status-form" action="{{ route('cefa.bienestar.postulation-management.update-benefits') }}" method="POST">
+            @if(Auth::user()->havePermission('bienestar.admin.update-benefits.postulation-management'))
+            <form id="update-benefit-status-form" action="{{ route('bienestar.admin.update-benefits.postulation-management') }}" method="POST">
                 @csrf
                 <table id="benefitsTable" class="table table-bordered table-striped">
                     <thead>
@@ -59,16 +60,16 @@
                             <td>{{ $postulation->typeOfBenefit->name }}</td>
                             <td>
                                 @php
-                                    $beneficioAlQueSePostula = null;
-                                    $pregunta = $postulation->answers->where('question.question', 'Apoyo al que se postula')->first();
-                                    if ($pregunta) {
-                                        $beneficioAlQueSePostula = $pregunta->answer;
-                                    }
+                                    $preguntas = $postulation->answers->where('question.question', 'Apoyo al que se postula');
                                 @endphp
-                                @if ($beneficioAlQueSePostula)
-                                    {{ $beneficioAlQueSePostula }}
+                                @if ($preguntas->isNotEmpty())
+                                    <ul>
+                                        @foreach ($preguntas as $pregunta)
+                                            <li>{{ $pregunta->answer }}</li>
+                                        @endforeach
+                                    </ul>
                                 @else
-                                {{ trans('bienestar::menu.Not available')}}
+                                    {{ trans('bienestar::menu.Not available') }}
                                 @endif
                             </td>
                             <td>
@@ -89,11 +90,13 @@
                 </table>
                 <button type="submit" id="guardarBtn" class="btn btn-primary">{{ trans('bienestar::menu.Save Records')}}</button>
             </form>
+            @endif
         </div>
     </div>
 </div>
 @foreach($postulations as $postulation)
 <!-- Modal de detalles de postulación -->
+@if(Auth::user()->havePermission('bienestar.admin.show.postulation-management'))
 <div class="modal fade" id="modal_{{ $postulation->id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel_{{ $postulation->id }}" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -133,7 +136,8 @@
                 <p><strong>{{ trans('bienestar::menu.Total Score')}}:</strong> <span id="total-score_{{ $postulation->id }}">{{ $postulation->total_score }}</span></p>
 
                 <div class="form-group">
-                    <form id="update-benefit-status-form" action="{{ route('cefa.bienestar.postulation-management.update-score', ['id' => $postulation->id]) }}" method="POST">
+                    @if(Auth::user()->havePermission('bienestar.admin.update-score.postulation-management'))
+                    <form id="update-benefit-status-form" action="{{ route('bienestar.admin.update-score.postulation-management', ['id' => $postulation->id]) }}" method="POST">
                         @csrf
                         @method('PUT') <!-- Agrega esta línea para enviar una solicitud PUT -->
                         <div class="form-group">
@@ -142,11 +146,13 @@
                         </div>
                         <button type="submit" class="btn btn-primary">{{ trans('bienestar::menu.Save Score')}}</button>
                     </form>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endif
 @endforeach
 @endsection
 
@@ -302,7 +308,7 @@ guardarBtn.addEventListener('click', function () {
         };
 
         // Realiza una solicitud AJAX para enviar los datos al controlador
-        axios.post('{{ route('cefa.bienestar.postulation-management.update-benefits') }}', warningData)
+        axios.post('{{ route('bienestar.admin.update-benefits.postulation-management') }}', warningData)
             .then(function (response) {
                 // Verifica la respuesta del controlador y realiza acciones adicionales si es necesario
                 if (response.data.warning) {

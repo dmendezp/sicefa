@@ -10,7 +10,8 @@
             <div class="card-header">
             </div>
             <div class="card-body">
-                <form class="formGuardar" action="{{ route('cefa.bienestar.typeofbenefits.store') }}" method="post">
+                @if(Auth::user()->havePermission('bienestar.admin.save.typeofbenefits'))
+                <form class="formGuardar" action="{{ route('bienestar.admin.save.typeofbenefits') }}" method="post">
                     @csrf
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label text-md-right">{{ trans('bienestar::menu.Beneficiary Type Name')}}:</label>
@@ -26,6 +27,7 @@
                         </div>
                     </div>
                 </form>
+                @endif
                 <div class="mtop16">
                     <table id="typesOfBenefitsTable" class="table table-bordered table-striped">
                         <thead>
@@ -44,13 +46,14 @@
                                         <button class="btn btn-primary edit-button" data-id="{{ $type->id }}" data-toggle="modal" data-target="#editModal_{{ $type->id }}">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <form action="{{ route('cefa.bienestar.typeofbenefits.delete', ['id' => $type->id]) }}" method="POST" class="formEliminar">
+                                        @if(Auth::user()->havePermission('bienestar.admin.delete.typeofbenefits'))
+                                        <form action="{{ route('bienestar.admin.delete.typeofbenefits', ['id' => $type->id]) }}" method="POST" class="formEliminar">
                                             @csrf
                                             @method("DELETE")
                                             <!-- Botón para abrir el modal de eliminación -->
                                             <button class="btn btn-danger delete-button" type="submit" data-id="{{ $type->id }}"><i class="fas fa-trash-alt"></i></button>
                                         </form>
-                                        
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -74,8 +77,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        
-                        <form action="{{ route('cefa.typeofbenefits.update', $type->id) }}" method="POST" class="formEditar">
+                        @if(Auth::user()->havePermission('bienestar.admin.edit.typeofbenefits'))
+                        <form action="{{ route('bienestar.admin.edit.typeofbenefits', $type->id) }}" method="POST" class="formEditar">
                             @csrf
                             @method('PUT') <!-- Usar el método PUT para la actualización -->
                             <div class="form-group">
@@ -87,6 +90,7 @@
                                 <button type="submit" class="btn btn-primary">{{ trans('bienestar::menu.Save Changes') }}</button>
                             </div>
                         </form>
+                        @endif
                         
                     </div>
                 </div>
