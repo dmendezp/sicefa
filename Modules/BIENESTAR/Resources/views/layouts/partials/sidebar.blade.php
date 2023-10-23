@@ -135,7 +135,7 @@
                 </li>
                 @endif
                 <li class="nav-item">
-                  <a href="{{ route('cefa.bienestar.editform') }}" class="nav-link">Formularios</a>
+                  <a href="{{ route('bienestar.admin.crud.editform') }}" class="nav-link">Formularios</a>
                 </li>                
                 <li class="nav-item">
                   <a href="" class="nav-link">Configurar Convocatoria</a>
@@ -171,9 +171,9 @@
               <a href="{{ route('bienestar.admin.crud.benefits') }}" class="nav-link">Tipos de Beneficios</a>
             </li>
             @endif
-            @if(Auth::user()->havePermission('bienestar.admin.buttons.benefits'))
+            @if(Auth::user()->havePermission('bienestar.admin.crud.typeofbenefits'))
             <li class="nav-item">
-              <a href="{{ route('bienestar.admin.buttons.benefits')}}" class="nav-link">Tipo de Beneficiario</a>
+              <a href="{{ route('bienestar.admin.crud.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
             </li>
             @endif
             @if(Auth::user()->havePermission('bienestar.admin.view.benefitstypeofbenefits'))
@@ -190,7 +190,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ route('cefa.bienestar.Convocations')}}" class="nav-link">Convocatorias</a>
+              <a href="{{ route('bienestar.admin.crud.convocations')}}" class="nav-link">Convocatorias</a>
             </li>
             @if(Auth::user()->havePermission('bienestar.admin.crud.editform'))
             <li class="nav-item">
