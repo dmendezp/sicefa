@@ -10,8 +10,8 @@
             <div class="card-header">
             </div>
             <div class="card-body">
-                @if(Auth::user()->havePermission('bienestar.admin.save.typeofbenefits'))
-                <form class="formGuardar" action="{{ route('bienestar.admin.save.typeofbenefits') }}" method="post">
+                @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.typeofbenefits'))
+                <form class="formGuardar" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.typeofbenefits') }}" method="post">
                     @csrf
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label text-md-right">{{ trans('bienestar::menu.Beneficiary Type Name')}}:</label>
@@ -46,8 +46,8 @@
                                         <button class="btn btn-primary edit-button" data-id="{{ $type->id }}" data-toggle="modal" data-target="#editModal_{{ $type->id }}">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        @if(Auth::user()->havePermission('bienestar.admin.delete.typeofbenefits'))
-                                        <form action="{{ route('bienestar.admin.delete.typeofbenefits', ['id' => $type->id]) }}" method="POST" class="formEliminar">
+                                        @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.typeofbenefits'))
+                                        <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.typeofbenefits', ['id' => $type->id]) }}" method="POST" class="formEliminar">
                                             @csrf
                                             @method("DELETE")
                                             <!-- Botón para abrir el modal de eliminación -->
@@ -77,8 +77,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        @if(Auth::user()->havePermission('bienestar.admin.edit.typeofbenefits'))
-                        <form action="{{ route('bienestar.admin.edit.typeofbenefits', $type->id) }}" method="POST" class="formEditar">
+                        @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.typeofbenefits'))
+                        <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.typeofbenefits', $type->id) }}" method="POST" class="formEditar">
                             @csrf
                             @method('PUT') <!-- Usar el método PUT para la actualización -->
                             <div class="form-group">

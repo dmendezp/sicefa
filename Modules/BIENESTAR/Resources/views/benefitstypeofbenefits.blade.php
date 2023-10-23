@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
                 <div class="mtop16">
-                    @if (Auth::user()->havePermission('bienestar.admin.updateInline.benefitstypeofbenefits'))
+                    @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.benefitstypeofbenefits'))
                     <table id="benefitsTable" class="table table-bordered">
                         <thead>
                             <tr>
@@ -69,7 +69,7 @@
 
         // Realizar una solicitud AJAX para obtener el estado actual de los registros
         $.ajax({
-            url: '{{ route('bienestar.admin.getCurrentState.benefitstypeofbenefits') }}',
+            url: '{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.getCurrentState.benefitstypeofbenefits') }}',
             method: 'GET',
             headers: {
                 'X-CSRF-TOKEN': csrfToken
@@ -101,7 +101,7 @@
 
             console.log("Beneficio("+benefitId+"), Tipo("+typeId+"), checkeado("+isChecked+")");
             $.ajax({
-                url: '{{ route('bienestar.admin.updateInline.benefitstypeofbenefits') }}',
+                url: '{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.benefitstypeofbenefits') }}',
                 method: 'PUT',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
