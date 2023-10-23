@@ -17,9 +17,11 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <a href="{{ route('cefa.bienestar.add_question') }}" class="btn btn-success mb-3">
+                @if(Auth::user()->havePermission('bienestar.admin.add_question.editform'))
+                <a href="{{ route('bienestar.admin.add_question.editform') }}" class="btn btn-success mb-3">
                     <i class="fas fa-plus-circle"></i> {{ trans('bienestar::menu.Add Question')}}
                 </a>
+                @endif
                 <!-- Lista de preguntas -->
                 @foreach ($questions as $question)
                 <div class="card mb-4">
@@ -31,14 +33,16 @@
                                     <label class="form-check-label" for="pregunta{{ $question->id }}">{{ trans('bienestar::menu.Select Question')}}</label>
                                 </div>
                             </div>
+                            @if(Auth::user()->havePermission('bienestar.admin.buttons.editform'))
                             <div class="d-flex">
                                 <a class="btn btn-primary mr-2 editQuestion" data-question-id="{{ $question->id }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{{ route('cefa.bienestar.delete_question', ['id' => $question->id]) }}" class="btn btn-danger formEliminar2" data-method="delete">
+                                <a href="{{ route('bienestar.admin.delete.editform', ['id' => $question->id]) }}" class="btn btn-danger formEliminar2" data-method="delete">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>
+                            @endif
                         </div>
                         <div class="form-group">
                             <label for="nombre">{{ trans('bienestar::menu.Question')}}</label>
@@ -77,7 +81,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editForm{{ $question->id }}" action="{{ route('cefa.bienestar.editform.update', ['id' => $question->id]) }}" method="POST">
+            @if(Auth::user()->havePermission('bienestar.admin.edit.editform'))
+                <form id="editForm{{ $question->id }}" action="{{ route('bienestar.admin.edit.editform', ['id' => $question->id]) }}" method="POST">
                     @csrf
                     <!-- Campos de edición aquí -->
                     <div class="form-group">
@@ -96,6 +101,7 @@
                         <button type="submit" form="editForm{{$question->id}}" class="btn btn-success">{{ trans('bienestar::menu.Save')}}</button>
                     </div>
                 </form>
+                @endif
             </div>
         </div>
     </div>
@@ -107,7 +113,7 @@
         // Abre el modal para editar una pregunta
         $(".editQuestion").on("click", function() {
             var questionId = $(this).data("question-id");
-            var editFormAction = "{{ route('cefa.bienestar.editform.update', ':id') }}".replace(':id', questionId);
+            var editFormAction = "{{ route('bienestar.admin.edit.editform', ':id') }}".replace(':id', questionId);
             var editedQuestionText = $(this).closest("div.card-body").find("input#nombre").val().trim();
 
             // Configura el formulario de edición del modal
@@ -122,33 +128,33 @@
     });
 </script>
 <script>
-        $(document).ready(function() {
-            // Manejador de evento para el envío del formulario
-            $("#mainForm").submit(function(event) {
-                // Evita que el formulario se envíe automáticamente
-                event.preventDefault();
+    $(document).ready(function() {
+        // Manejador de evento para el envío del formulario
+        $("#mainForm").submit(function(event) {
+            // Evita que el formulario se envíe automáticamente
+            event.preventDefault();
 
-                // Obtiene todos los checkboxes seleccionados
-                var selectedCheckboxes = $("input[name='selected_questions[]']:checked");
+            // Obtiene todos los checkboxes seleccionados
+            var selectedCheckboxes = $("input[name='selected_questions[]']:checked");
 
-                // Verifica si al menos un checkbox está seleccionado
-                if (selectedCheckboxes.length === 0) {
-                    alert("Debes seleccionar al menos una pregunta.");
-                    return;
-                }
+            // Verifica si al menos un checkbox está seleccionado
+            if (selectedCheckboxes.length === 0) {
+                alert("Debes seleccionar al menos una pregunta.");
+                return;
+            }
 
-                // Prepara un arreglo para almacenar los IDs de las preguntas seleccionadas
-                var selectedQuestionIds = [];
-                selectedCheckboxes.each(function() {
-                    selectedQuestionIds.push($(this).attr("id").replace("pregunta", ""));
-                });
-
-                // Agrega los IDs de las preguntas seleccionadas como un campo oculto en el formulario
-                $("#mainForm").append('<input type="hidden" name="selected_question_ids" value="' + selectedQuestionIds.join(",") + '">');
-
-                // Ahora, puedes enviar el formulario con los IDs de las preguntas seleccionadas
-                this.submit();
+            // Prepara un arreglo para almacenar los IDs de las preguntas seleccionadas
+            var selectedQuestionIds = [];
+            selectedCheckboxes.each(function() {
+                selectedQuestionIds.push($(this).attr("id").replace("pregunta", ""));
             });
+
+            // Agrega los IDs de las preguntas seleccionadas como un campo oculto en el formulario
+            $("#mainForm").append('<input type="hidden" name="selected_question_ids" value="' + selectedQuestionIds.join(",") + '">');
+
+            // Ahora, puedes enviar el formulario con los IDs de las preguntas seleccionadas
+            this.submit();
         });
-    </script>
+    });
+</script>
 @endsection

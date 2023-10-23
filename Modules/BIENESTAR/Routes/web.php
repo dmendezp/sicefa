@@ -105,12 +105,12 @@ Route::middleware(['lang'])->group(function () {
 
 
         //Vista crud formularios
-        Route::get('/editforms', 'ConvocationsQuestionsController@editform')->name('cefa.bienestar.editform');
+        Route::get('/editforms', 'ConvocationsQuestionsController@editform')->name('bienestar.admin.crud.editform');
         Route::post('/saveform', 'ConvocationsQuestionsController@saveform')->name('cefa.bienestar.saveform');
-        Route::post('/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('cefa.bienestar.editform.update');
-        Route::delete('/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('cefa.bienestar.delete_question');
-        Route::get('/addquestions', 'ConvocationsQuestionsController@add_question')->name('cefa.bienestar.add_question');
-        Route::post('/addquestions/add_answer', 'ConvocationsQuestionsController@add_answer')->name('cefa.bienestar.add_question.add');
+        Route::post('/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('bienestar.admin.edit.editform');
+        Route::delete('/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('bienestar.admin.delete.editform');
+        Route::get('/addquestions', 'ConvocationsQuestionsController@add_question')->name('bienestar.admin.add_question.editform');
+        Route::post('/addquestions/add_answer', 'ConvocationsQuestionsController@add_answer')->name('bienestar.admin.save.editform');
        
         // Vista De Consulta
             Route::get('/callconsultation', 'CallConsultationController@index')->name('cefa.bienestar.callconsultation');
