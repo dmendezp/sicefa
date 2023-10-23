@@ -31,9 +31,9 @@ Route::middleware(['lang'])->group(function () {
 
         //Vista CRUD Buses
         Route::get('/buses', 'BusesController@index')->name('bienestar.admin.crud.buses');
-        Route::post('/buses/store', 'BusesController@store')->name('cefa.bienestar.buses.store');
-        Route::put('/buses/update/{id} ', 'BusesController@update')->name('cefa.bienestar.buses.update');
-        Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('cefa.bienestar.buses.destroy');
+        Route::post('/buses/store', 'BusesController@store')->name('bienestar.admin.save.buses');
+        Route::put('/buses/update/{id} ', 'BusesController@update')->name('bienestar.admin.edit.buses');
+        Route::delete('/buses/delete/{id}', 'BusesController@destroy')->name('bienestar.admin.delete.buses');
         
 
         // Vista CRUD tipo de beneficios rol admin

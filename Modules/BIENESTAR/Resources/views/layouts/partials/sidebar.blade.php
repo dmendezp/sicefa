@@ -108,6 +108,7 @@
                 <p>{{ trans('bienestar::menu.Transportation')}} <i class="fas fa-angle-left right"></i></p>
               </a>
               <ul class="nav nav-treeview">
+                @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) '.save.buses'))
                 <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.buses') }}" class="nav-link">Buses</a>
                 </li>

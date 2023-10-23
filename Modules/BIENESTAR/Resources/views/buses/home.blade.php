@@ -9,7 +9,8 @@
         <div class="card shadow col-md-8">
             <!-- /.card-header -->
             <div class="card-body">
-            {!! Form::open(['route' => 'cefa.bienestar.buses.store', 'method' => 'POST', 'role' => 'form'])
+            @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) '.save.buses'))
+            {!! Form::open(['route' => 'bienestar.' . getRoleRouteName(Route::currentRouteName()) '.save.buses', 'method' => 'POST', 'role' => 'form'])
                 !!}
                 <div class="row p-4">
                    <div class="col-md-3">
@@ -35,6 +36,7 @@
                     </div>
                 </div>
                 {!! Form::close() !!}
+                @endif
                 <div class="mtop16">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
@@ -61,11 +63,12 @@
                                             data-quota="{{ $b->quota }}"><i class="fa fa-edit"></i>
                                         </button>
 
-
-                                        {!! Form::open(['route' => ['cefa.bienestar.buses.destroy', $b->id],
+                                        @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) '.delete.buses'))
+                                        {!! Form::open(['route' => ['bienestar.' . getRoleRouteName(Route::currentRouteName()) '.delete.buses', $b->id],
                                         'method' => 'DELETE','class' => 'formEliminar', 'style' => 'display: inline;']) !!}
                                         <button class="btn btn-sm btn-danger"type="submit"><i class="fa fa-trash-alt"></i></button>
-                                        {!! Form::close() !!}                                       
+                                        {!! Form::close() !!}
+                                        @endif                                       
                                     </div>
                                 </td>
                             </tr>
@@ -92,7 +95,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                {!! Form::open( ['route' => ['cefa.bienestar.buses.update', ''], 'method' => 'PUT', 'role' => 'form']) !!}
+                @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) '.edit.buses'))
+                {!! Form::open( ['route' => ['bienestar.' . getRoleRouteName(Route::currentRouteName()) '.edit.buses', ''], 'method' => 'PUT', 'role' => 'form']) !!}
                 <div class="row p-4">
                 <div class="col-md-12">
             <div class="form-group">
@@ -121,11 +125,13 @@
         </div>
     </div>
     {!! Form::close() !!}
+    @endif
             </div>
         </div>
     </div>
 </div>
-
+@endsection
+@section('scripts')
 <script>
     $(document).ready(function() {
         $('#modal-default').on('show.bs.modal', function(event) {
@@ -297,8 +303,6 @@
 </script>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
 @endsection
