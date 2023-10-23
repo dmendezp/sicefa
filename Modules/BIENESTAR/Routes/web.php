@@ -74,9 +74,6 @@ Route::middleware(['lang'])->group(function () {
 
         //Vistas Rutas de transporte
         Route::get('/transportroutes', 'RoutesTransportationController@index')->name('bienestar.admin.crud.transportroutes');
-        /*Route::get('/transportroutes', 'RoutesTransportationController@index')->name('bienestar.transportation_benefits_leader.crud.transportroutes');*/
-
-
         Route::post('/transportroutes/add', 'RoutesTransportationController@store')->name('cefa.bienestar.transportroutes.add');
         Route::delete('/transportroutes/delete/{id}', 'RoutesTransportationController@destroy')->name('cefa.bienestar.transportroutes.destroy');
         Route::get('/transportroutes/{id}', 'RoutesTransportationController@edit')->name('cefa.bienestar.transportroutes.edit');
@@ -84,7 +81,7 @@ Route::middleware(['lang'])->group(function () {
 
 
         // vista de conductores
-        Route::get('/drivers', 'BusDriversController@drivers')->name('cefa.bienestar.drivers');
+        Route::get('/drivers', 'BusDriversController@drivers')->name('bienestar.admin.crud.drivers');
         Route::post('/drivers/add', 'BusDriversController@driversAdd')->name('cefa.bienestar.drivers.add');
         Route::put('/drivers/update/{id}', 'BusDriversController@driversUp')->name('cefa.bienestar.drivers.update');
         Route::delete('/drivers/delete/{id}', 'BusDriversController@delete')->name('cefa.bienestar.drivers.delete');
