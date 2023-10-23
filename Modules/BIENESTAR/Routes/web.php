@@ -22,11 +22,12 @@ Route::middleware(['lang'])->group(function () {
         //vista home
         Route::get('/home', 'BIENESTARController@home')->name('cefa.bienestar.home');
 
-        //Vista Crud Beneficio(ADMIN)
+        //Vista Crud Beneficio
         Route::get('/benefits', 'BenefitsController@benefitsView')->name('bienestar.admin.crud.benefits');
-        Route::post('/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('bienestar.admin.save.benefits');
-        Route::put('/benefits/update/{id}', 'BenefitsController@update')->name('bienestar.admin.edit.benefits');
-        Route::delete('/benefits/delete/{id}', 'BenefitsController@destroy')->name('bienestar.admin.delete.benefits');
+
+        Route::delete('/benefits/delete/{id}', 'BenefitsController@destroy')->name('cefa.bienestar.benefits.delete');
+        Route::post('/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('cefa.bienestar.benefits.add');
+        Route::put('/benefits/update/{id}', 'BenefitsController@update')->name('cefa.bienestar.benefits.update');
 
         //Vista CRUD Buses
         Route::get('/buses', 'BusesController@index')->name('cefa.bienestar.buses');
@@ -48,7 +49,7 @@ Route::middleware(['lang'])->group(function () {
         Route::put('/benefitstypeofbenefits/updateInline', 'BenefitsTypesOfBenefitsController@updateInline')->name('bienestar.admin.updateInline.benefitstypeofbenefits');
         Route::get('/benefitstypeofbenefits/getCurrentState', 'BenefitsTypesOfBenefitsController@getCurrentState')->name('bienestar.admin.getCurrentState.benefitstypeofbenefits');
         
-        // Vista CRUD Pivota rol lider de alimentacion
+        /*// Vista CRUD Pivota rol lider de alimentacion
         Route::get('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@benefitstypeofbenefits')->name('bienestar.food_benefits_leaders.view.benefitstypeofbenefits');
         Route::put('/benefitstypeofbenefits/updateInline', 'BenefitsTypesOfBenefitsController@updateInline')->name('bienestar.food_benefits_leaders.updateInline.benefitstypeofbenefits');
         Route::get('/benefitstypeofbenefits/getCurrentState', 'BenefitsTypesOfBenefitsController@getCurrentState')->name('bienestar.food_benefits_leaders.getCurrentState.benefitstypeofbenefits');
@@ -56,7 +57,7 @@ Route::middleware(['lang'])->group(function () {
         // Vista CRUD Pivota rol lider de rutas
         Route::get('/benefitstypeofbenefits', 'BenefitsTypesOfBenefitsController@benefitstypeofbenefits')->name('bienestar.transportation_benefits_leader.view.benefitstypeofbenefits');
         Route::put('/benefitstypeofbenefits/updateInline', 'BenefitsTypesOfBenefitsController@updateInline')->name('bienestar.transportation_benefits_leader.updateInline.benefitstypeofbenefits');
-        Route::get('/benefitstypeofbenefits/getCurrentState', 'BenefitsTypesOfBenefitsController@getCurrentState')->name('bienestar.transportation_benefits_leader.getCurrentState.benefitstypeofbenefits');
+        Route::get('/benefitstypeofbenefits/getCurrentState', 'BenefitsTypesOfBenefitsController@getCurrentState')->name('bienestar.transportation_benefits_leader.getCurrentState.benefitstypeofbenefits');*/
 
 
 
@@ -73,7 +74,7 @@ Route::middleware(['lang'])->group(function () {
 
         //Vistas Rutas de transporte
         Route::get('/transportroutes', 'RoutesTransportationController@index')->name('bienestar.admin.crud.transportroutes');
-        Route::get('/transportroutes', 'RoutesTransportationController@index')->name('bienestar.transportation_benefits_leader.crud.transportroutes');
+        /*Route::get('/transportroutes', 'RoutesTransportationController@index')->name('bienestar.transportation_benefits_leader.crud.transportroutes');*/
 
 
         Route::post('/transportroutes/add', 'RoutesTransportationController@store')->name('cefa.bienestar.transportroutes.add');
@@ -83,10 +84,7 @@ Route::middleware(['lang'])->group(function () {
 
 
         // vista de conductores
-        Route::get('/drivers', 'BusDriversController@drivers')->name('bienestar.admin.crud.drivers');
-        Route::get('/drivers', 'BusDriversController@drivers')->name('bienestar.transportation_benefits_leader.crud.drivers');
-
-
+        Route::get('/drivers', 'BusDriversController@drivers')->name('cefa.bienestar.drivers');
         Route::post('/drivers/add', 'BusDriversController@driversAdd')->name('cefa.bienestar.drivers.add');
         Route::put('/drivers/update/{id}', 'BusDriversController@driversUp')->name('cefa.bienestar.drivers.update');
         Route::delete('/drivers/delete/{id}', 'BusDriversController@delete')->name('cefa.bienestar.drivers.delete');
