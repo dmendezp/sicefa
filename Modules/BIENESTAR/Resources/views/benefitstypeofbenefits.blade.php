@@ -9,6 +9,7 @@
             </div>
             <div class="card-body">
                 <div class="mtop16">
+                    @if (Auth::user()->havePermission('bienestar.admin.updateInline.benefitstypeofbenefits'))
                     <table id="benefitsTable" class="table table-bordered">
                         <thead>
                             <tr>
@@ -50,6 +51,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    @endif
                 </div>
             </div>
         </div>
@@ -113,29 +115,7 @@
                 success: function(response) {
                     console.log(response);
 
-                    // Verificar si se recibió un ID y el checkbox está desmarcado
-                    /* if (recordId && !isChecked) {
-                        // Actualizar deleted_at usando una solicitud AJAX
-                        $.ajax({
-                            url: '{{ route('cefa.bienestar.benefitstypeofbenefits.updateInline') }}', // Cambia a la ruta correcta si es diferente
-                            method: 'PUT',
-                            headers: {
-                                'X-CSRF-TOKEN': csrfToken
-                            },
-                            data: {
-                                benefit_id: benefitId,
-                                type_of_benefit_id: typeId,
-                                checked: false,
-                                record_id: recordId // Pasar el ID del registro
-                            },
-                            success: function(updateResponse) {
-                                console.log(updateResponse);
-                            },
-                            error: function(updateError) {
-                                console.error(updateError);
-                            }
-                        });
-                    } */
+                    
                 },
                 error: function(error) {
                     console.error(error);

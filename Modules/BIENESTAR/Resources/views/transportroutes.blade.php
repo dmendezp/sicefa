@@ -2,13 +2,12 @@
 
 @section('content')
 <div class="container-fluid" style="max-width:1200px">
-<h1>{{ trans('bienestar::menu.Insert Routes')}}  <i class="fas fa-bus"></i></h1>
+    <h1>{{ trans('bienestar::menu.Insert Routes')}} <i class="fas fa-bus"></i></h1>
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-12">
-           
+
             <!-- /.card-header -->
             <div class="card-body">
-            @if (Auth::user()->havePermission('bienestar.admin.save.benefits'))
                 @if (Auth::user()->havePermission('bienestar.admin.save.benefits'))
                 <form action="{{ route('cefa.bienestar.transportroutes.add') }}" method="POST" role="form">
                     @csrf
@@ -27,10 +26,10 @@
                                 <option value="8">8</option>
                             </select>
                         </div>
-                            <div class="col-md-3">
-                                <label for="name_route">{{ trans('bienestar::menu.Route Name')}}</label>
-                                <input type="text" name="name_route" id="name_route" class="form-control" placeholder="{{ trans('bienestar::menu.Route Name')}}" required>
-                            </div>
+                        <div class="col-md-3">
+                            <label for="name_route">{{ trans('bienestar::menu.Route Name')}}</label>
+                            <input type="text" name="name_route" id="name_route" class="form-control" placeholder="{{ trans('bienestar::menu.Route Name')}}" required>
+                        </div>
                         <div class="col-md-3">
                             <label for="bus">{{ trans('bienestar::menu.Bus')}}</label>
                             <select name="bus" id="bus" class="form-control" required>
@@ -81,7 +80,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ( $routestransportations as $transport)
+                            @foreach ( $routestransportations as $transport)
                             <tr>
                                 <td>{{ $transport->id}}</td>
                                 <td>{{ $transport->route_number}}</td>
@@ -91,20 +90,20 @@
                                 <td>{{ $transport->departure_time}}</td>
                                 <td>{{ $transport->bus->plate}}</td>
                                 <td>
-                                    @if (Auth::user()->havePermission('bienestar.admin.buttons.transportroutes'))
+                                @if (Auth::user()->havePermission('bienestar.admin.buttons.transportroutes'))
                                     <div class="d-flex">
-                                    <button class="btn btn-primary editButton mr-2" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal{{$transport->id}}"><i class="fas fa-edit"></i></button>
-                                    @if (Auth::user()->havePermission('bienestar.admin.delete.transportroutes'))
-                                    <form action="{{ route('cefa.bienestar.transportroutes.destroy', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
-                                        @csrf
-                                        @method("DELETE")
-                                        <!-- Botón para abrir el modal de eliminación -->
-                                        <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
+                                        <button class="btn btn-primary editButton mr-2" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal{{$transport->id}}"><i class="fas fa-edit"></i></button>
+                                        @if (Auth::user()->havePermission('bienestar.admin.delete.transportroutes'))
+                                        <form action="{{ route('cefa.bienestar.transportroutes.destroy', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
+                                            @csrf
+                                            @method("DELETE")
+                                            <!-- Botón para abrir el modal de eliminación -->
+                                            <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                        @endif
+                                    </div>
                                     @endif
-                                </div>
-                            @endif
-                            </td>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -131,7 +130,7 @@
                 <!-- Formulario de edición con validación -->
 <!-- Formulario de edición con validación -->
 <form id="editForm{{ $transport->id }}" action="{{ route('cefa.bienestar.transportroutes.update') }}" method="post" onsubmit="return validateForm{{ $transport->id }}()">
-    @if (Auth::user()->havePermission('bienestar.admin.edit.transportroutes'))
+
 @csrf
     <div class="form-group">
         <input type="hidden" name="id_transport" value="{{$transport->id}}">
@@ -175,7 +174,6 @@
 
     <button type="submit" class="btn btn-success">Guardar</button>
 </form>
-@endif
 
             </div>
         </div>
@@ -183,14 +181,14 @@
 </div>
 @endforeach
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.card-body -->
-    </div>
+</tbody>
+</table>
+</div>
+</div>
+<!-- /.card -->
+</div>
+<!-- /.card-body -->
+</div>
 </div>
 
 <script>
@@ -198,10 +196,10 @@
     $('#bus').change(function() {
         // Obtener el valor seleccionado en el campo de selección "Bus"
         var selectedBusId = $(this).val();
-        
+
         // Encontrar la opción seleccionada y obtener el atributo "data-bus-driver"
         var selectedBusDriver = $('option:selected', this).data('bus-driver');
-        
+
         // Actualizar el campo de entrada "Nombre del Conductor" con el nombre del conductor
         $('#bus_driver').val(selectedBusDriver);
     });

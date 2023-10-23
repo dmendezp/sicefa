@@ -141,3 +141,123 @@ label {
 .hidden {
   display: none !important;
 }
+
+/*Estilos para el cuadro de quotas de postulations-management*/
+.quota-box {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  width: 250px;
+  text-align: center;
+  margin: 15px;
+  
+}
+
+.quota-info {
+  font-size: 15px;
+  font-weight: bold;
+  
+}
+
+
+.quota-number {
+  -webkit-text-stroke: 1px black; /* Para navegadores basados en WebKit, como Chrome y Safari */
+  color: transparent;
+  font-size: 1px; /* Ajusta el tamaño de fuente según tus preferencias */
+  padding: 2px 4px; /* Añade relleno para separar el borde del texto (ajusta según sea necesario) */
+}
+.green, .orange, .red {
+  display: inline-block; /* Para aplicar estilos a los números */
+  font-size: 20px; /* Tamaño de fuente */
+  font-weight: bold; /* Texto en negrita */
+  padding: 5px; /* Espaciado interno */
+  border-radius: 5px; /* Borde redondeado */
+}
+
+.green {
+  color: #33ff00;
+}
+
+.orange {
+  color: #ffbb00;
+}
+
+.red {
+  color: #ff0019;
+}
+
+/* Estilo CSS para aplicar diseño y animación a todos los checkbox de postulations_management */
+
+/* Hide the default checkbox */
+.container_management input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.container_management {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+}
+
+/* Create a custom checkbox */
+.checkmark_management {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 1.3em;
+  width: 1.3em;
+  background-color: #e5e5e5;
+  border-radius: 50%;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container_management input:checked ~ .checkmark_management {
+  background-color: seagreen;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark_management:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container_management input:checked ~ .checkmark_management:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container_management .checkmark_management:after {
+  left: 0.45em;
+  top: 0.25em;
+  width: 0.25em;
+  height: 0.5em;
+  border: solid white;
+  border-width: 0 0.15em 0.15em 0;
+  transform: rotate(45deg);
+}
+
+/* Estilos para el modal detalles de postulacion */
+
+.answer-container {
+  display: flex; /* Utiliza un contenedor flexible para ocupar el espacio horizontal máximo */
+  align-items: center; /* Centra verticalmente el contenido en el contenedor */
+  margin-top: 5px; /* Añade un margen superior para separar las respuestas */
+}
+
+.answer {
+  flex: 1; /* Hace que este contenedor ocupe el espacio máximo disponible horizontalmente */
+  background-color: #f2f2f2; /* Puedes personalizar el color de fondo */
+  border: 1px solid #ccc; /* Puedes personalizar el borde */
+  border-radius: 5px; /* Puedes personalizar el radio del borde */
+  padding: 10px; /* Ajusta el relleno según lo desees */
+  text-align: left; /* Ajusta la alineación del texto según lo desees */
+}

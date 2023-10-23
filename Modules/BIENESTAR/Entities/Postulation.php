@@ -36,7 +36,7 @@ class Postulation extends Model implements Auditable
      //RELACIONES
 
      public function answers(){// Accede a los datos de la respuesta al que pertenece
-        return $this->hasMany(Answers::class, 'postulation_id');
+        return $this->hasMany(Answer::class, 'postulation_id');
     }
 
      public function apprentice(){// Accede a los datos del aprendiz al que pertenece

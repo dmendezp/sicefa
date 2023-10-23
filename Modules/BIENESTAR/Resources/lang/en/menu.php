@@ -108,7 +108,29 @@ return[
     'percentage'=>'percentage',
     'Type Food'=>'Type Food',
     'time and date'=>'time and date',
-   
+    
+    
+//vita postulations-management
+
+'Application Management' => 'Application Management',
+'Transportation Quotas' => 'Transportation Quotas',
+'Food Quotas' => 'Food Quotas',
+'Select' => 'Select',
+'Apprentice Name' => 'Apprentice Name',
+'Convocation' => 'Convocation',
+'Benefit to which you are applying' => 'Benefit to which you are applying',
+'Application Status' => 'Application Status',
+'Application Score' => 'Application Score',
+'Not available' => 'Not available',
+'View Details' => 'View Details',
+'Save Records' => 'Save Records',
+'Application Details' => 'Application Details',
+'Beneficiary Type' => 'Beneficiary Type',
+'Form Responded' => 'Form Responded',
+'Not Answered' => 'Not Answered',
+'Total Score' => 'Total Score',
+'New Score' => 'New Score',
+'Save Score' => 'Save Score',
   
     
 ]

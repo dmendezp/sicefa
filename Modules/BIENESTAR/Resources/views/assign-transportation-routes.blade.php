@@ -4,47 +4,50 @@
     <div class="container">
         <h1>Lista de Asignaciones de Rutas de Transporte</h1>
 
-        <table id= "datatable" class="table table-bordered">
-            
+        <!-- Agregar un select para filtrar-->
+        <div class="form-group">
+            <label for="filtroRutas">Filtrar por Ruta de Transporte:</label>
+            <select id="filtroRutas" class="form-control form-control-sm">
+                <option value="">Todas las rutas</option>
+                @foreach ($rutas as $ruta)
+                    <option value="{{ $ruta->id }}">{{ $ruta->name_route }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <table id="datatable" class="table table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Aprendiz</th>
-                    <th>Numero de Docuemnto</th>
+                    <th>Numero de Documento</th>
                     <th>Ruta de Transporte</th>
                     <th>Convocatoria</th>
-                    <th>Descripcion de la convocatoria</th>
+                    <th>Descripción de la Convocatoria</th>
                     <!-- Agrega más encabezados según tus campos -->
                 </tr>
             </thead>
             <tbody>
                 @foreach ($asignaciones as $asignacion)
                     <tr>
-                        <td>{{ $asignacion->id }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>
-                            @php
-                                $apprentice = \Modules\SICA\Entities\Apprentice::with('person')->find($asignacion->apprentice_id);
-                                if ($apprentice) {
-                                    echo $apprentice->person->first_name . ' ' . $apprentice->person->first_last_name . ' ' . $apprentice->person->second_last_name;
-                                } else {
-                                    echo 'Aprendiz no encontrado';
-                                }
-                            @endphp
+                            @if ($apprentice = \Modules\SICA\Entities\Apprentice::with('person')->find($asignacion->apprentice_id))
+                                {{ $apprentice->person->full_name }}
+                            @else
+                                Aprendiz no encontrado
+                            @endif
                         </td>
                         <td>
-                            @php
-                                $apprentice = \Modules\SICA\Entities\Apprentice::with('person')->find($asignacion->apprentice_id);
-                                if ($apprentice) {
-                                    echo $apprentice->person->document_number;
-                                } else {
-                                    echo 'Aprendiz no encontrado';
-                                }
-                            @endphp
+                            @if ($apprentice)
+                                {{ $apprentice->person->document_number }}
+                            @else
+                                Aprendiz no encontrado
+                            @endif
                         </td>
-                        <td>{{ $asignacion->routes_trasportantion->name_route }}</td>
+                        <td>{{ $asignacion->routes_trasportation->name_route }}</td>
                         <td>{{ $asignacion->convocations->name }}</td>
                         <td>{{ $asignacion->convocations->description }}</td>
-
                         <!-- Agrega más columnas según tus campos -->
                     </tr>
                 @endforeach
