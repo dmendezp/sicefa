@@ -83,7 +83,7 @@
             <p>{{ trans('bienestar::menu.Feeding')}} <i class="fas fa-angle-left right"></i></p>
           </a>
           <ul class="nav nav-treeview">
-          @if(Auth::user()->havePermission('bienestar.admin.crud.beneficiaries_food'))
+            @if(Auth::user()->havePermission('bienestar.admin.crud.beneficiaries_food'))
             <li class="nav-item">
               <a href="{{ route('bienestar.admin.crud.beneficiaries_food') }}" class="nav-link">Listados apoyo alimentacion </a>
             </li>
@@ -96,64 +96,19 @@
             <p>{{ trans('bienestar::menu.Transportation')}} <i class="fas fa-angle-left right"></i></p>
           </a>
           <ul class="nav nav-treeview">
-          @if(Auth::user()->havePermission('bienestar.admin.crud.buses'))
+            @if(Auth::user()->havePermission('bienestar.admin.crud.buses'))
             <li class="nav-item">
               <a href="{{ route('bienestar.admin.crud.buses') }}" class="nav-link">Buses</a>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-              <i class="fas fa-handshake"></i>
-                <p>{{ trans('bienestar::menu.Benefits')}} <i class="fas fa-angle-left right"></i></p>
-              </a>
-              <ul class="nav nav-treeview">
-              @if(Auth::user()->havePermission('bienestar.admin.crud.benefits'))
-              <li class="nav-item">
-                  <a href="{{ route('bienestar.admin.crud.benefits') }}" class="nav-link">Tipos de Beneficios</a>
-                </li>
-                @endif
-                @if(Auth::user()->havePermission('bienestar.admin.crud.typeofbenefits'))
-                <li class="nav-item">
-                  <a href="{{ route('bienestar.admin.crud.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
-                </li>
-                @endif
-                @if(Auth::user()->havePermission('bienestar.admin.view.benefitstypeofbenefits'))
-                <li class="nav-item">
-                  <a href="{{ route('bienestar.admin.view.benefitstypeofbenefits')}}" class="nav-link">Configurar Beneficios</a>
-                </li>
-                @endif
-              </ul>
+            @endif
+            <li class="nav-item">
+              <a href="#" class="nav-link">Conductores</a>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="fas fa-clipboard-list"></i>
-                <p>{{ trans('bienestar::menu.Convoctions')}} <i class="fas fa-angle-left right"></i></p>
-              </a>
-              <ul class="nav nav-treeview">
-              <li class="nav-item">
-                @if(Auth::user()->havePermission('bienestar.admin.crud.convocations'))
-                  <a href="{{ route('bienestar.admin.crud.convocations')}}" class="nav-link">Convocatorias</a>
-                </li>
-                @endif
-                <li class="nav-item">
-                  <a href="{{ route('bienestar.admin.crud.editform') }}" class="nav-link">Formularios</a>
-                </li>                
-                <li class="nav-item">
-                  <a href="" class="nav-link">Configurar Convocatoria</a>
-                </li>
-                @if(Route::is('cefa.bienestar.*'))
-                <li class="nav-item">
-                  <a href="{{ route('cefa.bienestar.postulations')}}" class="nav-link">Postulaciones </a>
-                </li>
-                @endif
-                @if(Auth::user()->havePermission('bienestar.admin.view.postulation-management'))
-                <li class="nav-item">
-                  <a href="{{ route('bienestar.admin.view.postulation-management')}}" class="nav-link">Gestionar Postulaciones</a>
-                </li>
-                @endif
-              </ul>
+            @if(Auth::user()->havePermission('bienestar.admin.crud.transportroutes'))
+            <li class="nav-item">
+              <a href="{{ route('bienestar.admin.crud.transportroutes') }}" class="nav-link">Rutas</a>
             </li>
             @endif
-
             <li class="nav-item">
               <a href="#" class="nav-link">Asignar Rutas</a>
             </li>
