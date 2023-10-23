@@ -73,12 +73,4 @@ public function updateEnvironmentalAspects(Request $request)
 
         return redirect(route('cefa.hdc.assign_environmental_aspects'));
     }
-
-    public function table()
-{
-    $datos = activity::has('activity_environmental_aspect')->with('activity_environmental_aspect.environmental_aspect')->with('activity.productive_unit')->get();
-    return view('hdc::Asignar.resultformaspects', compact('datos'));
-}
-
-    
 }
