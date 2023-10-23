@@ -5,6 +5,7 @@ namespace Modules\SICA\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
+use Modules\AGROCEFA\Entities\Specie;
 
 class ProductiveUnit extends Model implements Auditable
 {
@@ -55,11 +56,14 @@ class ProductiveUnit extends Model implements Auditable
     public function productive_unit_warehouses(){ // Accede a todos los registros de unidad productiva y bodega que pertenecen a esta unidad productiva
         return $this->hasMany(ProductiveUnitWarehouse::class);
     }
+    public function roles(){ // Accede a todos los roles que pertenecen a esta unidad productiva (PIVOTE)
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
     public function sector(){ // Accede a la información del sector al que pertenece
         return $this->belongsTo(Sector::class);
     }
-    public function roles(){ // Accede a todos los roles que pertenecen a esta unidad productiva (PIVOTE)
-        return $this->belongsToMany(Role::class)->withTimestamps();
+    public function species(){ // Accede a la informacion de la especie a la que pertenece
+        return $this->hasMany(Specie::class);
     }
 
 }

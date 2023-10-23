@@ -1,0 +1,63 @@
+#footer {
+    background: linear-gradient(to right, #004916, #009688); /* Cambia los colores a tu preferencia */
+    padding: 10px 0; /* Reduciendo el relleno superior e inferior */
+    color: white; /* Ajusta el color del texto para que contraste adecuadamente */
+}
+
+#nav_footer {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 0;
+}
+
+#nav_footer li {
+    margin-right: 20px;
+}
+
+#nav_footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#footer_newsletter {
+    font-size: 18px;
+    color: #ffffff;
+    margin-left: 10px; /* Ajustamos el margen izquierdo */
+}
+
+#footer_social {
+    margin-bottom: 10px;
+}
+
+#footer_social a {
+    margin-right: 10px;
+}
+
+#footer_social img {
+    width: 30px; /* Ajusta el tamaño según sea necesario */
+}
+
+#footer_copyright_text {
+    font-size: 14px;
+    color: #fffcfc;
+    text-align: center;
+}
+
+#nav_link_footer {
+    list-style: none;
+    padding: 0;
+    margin-top: 5px; /* Reducimos el margen superior */
+}
+
+#nav_link_footer li {
+    display: inline-block;
+    margin-right: 10px; /* Ajustamos el margen entre elementos */
+}
+
+#nav_link_footer a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
