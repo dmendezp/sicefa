@@ -46,6 +46,8 @@ Route::middleware(['lang'])->group(function () {
             Route::get('/get-environmental-aspects/{activityId}', 'getEnvironmentalAspects')->name('cefa.hdc.getEnvironmentalAspects');
             Route::post('/guardar', 'store')->name('hdc.assign_environmental_aspects.store');
             Route::post('/update-environmental-aspects', 'updateEnvironmentalAspects')->name('cefa.hdc.updateEnvironmentalAspects');
+            /* Ruta CRUD Del Formulario De Registro*/
+            Route::get('/tabla', 'assign_environmental_aspectsController@table')->name('hdc::Asignar.resultformaspects');
         });
 
         Route::controller(CarbonfootprintController::class)->group(function(){
