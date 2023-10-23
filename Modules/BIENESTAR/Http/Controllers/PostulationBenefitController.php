@@ -90,37 +90,11 @@ public function show($id) {
     }
 
 
-
-public function updateState(Request $request)
-{
-    try {
-        $postulationId = $request->input('postulation_id');
-
-        // Buscar la postulación por ID 
-        $postulation = Postulation::findOrFail($postulationId);
-
-        // Validar y actualizar el estado
-        $request->validate([
-            'state' => 'required|in:Beneficiado,No Beneficiado,Postulado',
-        ]);
-
-        // Actualizar el estado de la postulación
-        $postulation->postulationBenefits->first()->state = $request->input('state');
-        $postulation->postulationBenefits->first()->save();
-
-        // Redirigir de vuelta a la página anterior con un mensaje de éxito
-        return redirect()->back()->with('success', 'Estado actualizado con éxito');
-    } catch (\Exception $e) {
-        // Capturar y manejar errores, puedes personalizar esto según tus necesidades
-        return redirect()->back()->with('error', 'Error al actualizar el estado: ' . $e->getMessage());
-    }
-}
-
 public function updateBenefits(Request $request)
 {
     try {
         $selectedPostulations = $request->input('selected_postulations', []);
-        $question_id = Question::where('question', 'Apoyo al que se postula')->first()->id;
+        $question = Question::where('question', 'Apoyo al que se postula')->first();
         $convocation = Convocation::where('start_date', '<=', now())
             ->where('end_date', '>=', now())
             ->first(); // Obtén la convocatoria activa basada en la fecha actual
@@ -135,53 +109,54 @@ public function updateBenefits(Request $request)
         // Validar si se están registrando postulaciones para Transporte
         $isRegisteringForTransport = in_array('Transporte', $benefits->pluck('name')->toArray());
 
-        // Manejo de advertencias enviadas desde JavaScript
-        if ($request->has('message')) {
-            $message = $request->input('message');
-            $responseType = $request->input('type', 'warning'); // Tipo predeterminado si no se especifica
-
-            // Responde con un mensaje JSON de advertencia
-            return response()->json([
-                'warning' => $message,
-            ], 200);
-        }
-
         foreach ($selectedPostulations as $postulationId) {
             $postulation = Postulation::findOrFail($postulationId);
-            $postulationBenefit = PostulationBenefit::where('postulation_id', $postulationId)->first();
-            $benefit = null;
-
-            if ($postulationBenefit) {
-                $benefit = $postulationBenefit->benefit->name;
-            }
-
-            if ($postulationBenefit && $postulationBenefit->state !== 'Beneficiado') {
+            $benefit_names = $postulation->answers->where('questions_id', $question->id)->pluck('answer');
+            
+            foreach ($benefit_names as $benefit_name) {
                 // Verifica si el estado de la postulación no es "Beneficiado"
-                $benefit_name = $postulation->answers->where('questions_id', $question_id)->first()->answer;
                 $benefit_id = $benefits->where('name', $benefit_name)->first()->id;
+                $postulationBenefit = PostulationBenefit::where('postulation_id', $postulationId)
+                    ->where('benefit_id', $benefit_id)
+                    ->first();
 
-                if ($benefit === 'Transporte') {
-                    if ($isRegisteringForTransport) {
-                        // Validar si todavía hay cuotas disponibles para Transporte
-                        if ($transportQuotas > 0) {
+                if ($postulationBenefit) {
+                    if ($postulationBenefit->state !== 'Beneficiado') {
+                        // Validar si todavía hay cuotas disponibles para el beneficio
+                        $availableQuotas = ($benefit_name === 'Transporte') ? $transportQuotas : $foodQuotas;
+                        
+                        if ($availableQuotas > 0) {
                             $postulationBenefit->update([
-                                'benefit_id' => $benefit_id,
                                 'state' => 'Beneficiado',
                                 'message' => 'Felicidades, has sido aceptado para recibir el beneficio solicitado',
                             ]);
 
-                            $transportQuotas--;
+                            // Reduce la cantidad de cuotas disponibles
+                            if ($benefit_name === 'Transporte') {
+                                $transportQuotas--;
+                            } else {
+                                $foodQuotas--;
+                            }
                         }
                     }
                 } else {
-                    // Validar si todavía hay cuotas disponibles para Alimentación
-                    if ($foodQuotas > 0) {
-                        $postulationBenefit->update([
+                    // El registro no existe, crea uno si todavía hay cuotas disponibles
+                    $availableQuotas = ($benefit_name === 'Transporte') ? $transportQuotas : $foodQuotas;
+                    
+                    if ($availableQuotas > 0) {
+                        PostulationBenefit::create([
+                            'postulation_id' => $postulationId,
                             'benefit_id' => $benefit_id,
                             'state' => 'Beneficiado',
                             'message' => 'Felicidades, has sido aceptado para recibir el beneficio solicitado',
                         ]);
-                        $foodQuotas--;
+
+                        // Reduce la cantidad de cuotas disponibles
+                        if ($benefit_name === 'Transporte') {
+                            $transportQuotas--;
+                        } else {
+                            $foodQuotas--;
+                        }
                     }
                 }
             }
@@ -194,18 +169,34 @@ public function updateBenefits(Request $request)
         });
 
         foreach ($unselectedPostulations as $postulation) {
-            $benefit_name = $postulation->answers->where('questions_id', $question_id)->first()->answer;
-            $benefit_id = $benefits->where('name', $benefit_name)->first()->id;
-            $postulationBenefit = PostulationBenefit::where('postulation_id', $postulation->id)->first();
+            $benefit_names = $postulation->answers->where('questions_id', $question->id)->pluck('answer');
+            
+            foreach ($benefit_names as $benefit_name) {
+                $benefit_id = $benefits->where('name', $benefit_name)->first()->id;
+                $postulationBenefit = PostulationBenefit::where('postulation_id', $postulation->id)
+                    ->where('benefit_id', $benefit_id)
+                    ->first();
 
-            if (!$postulationBenefit) {
-                // Crear un nuevo registro si no existe
-                PostulationBenefit::create([
-                    'postulation_id' => $postulation->id,
-                    'benefit_id' => $benefit_id,
-                    'state' => 'No Beneficiado',
-                    'message' => 'Lo sentimos, no cumples con los requisitos necesarios y no has sido aceptado',
-                ]);
+                if (!$postulationBenefit) {
+                    // El registro no existe, crea uno si todavía hay cuotas disponibles
+                    $availableQuotas = ($benefit_name === 'Transporte') ? $transportQuotas : $foodQuotas;
+
+                    if ($availableQuotas > 0) {
+                        PostulationBenefit::create([
+                            'postulation_id' => $postulation->id,
+                            'benefit_id' => $benefit_id,
+                            'state' => 'No Beneficiado',
+                            'message' => 'Lo sentimos, no cumples con los requisitos necesarios y no has sido aceptado',
+                        ]);
+
+                        // Reduce la cantidad de cuotas disponibles
+                        if ($benefit_name === 'Transporte') {
+                            $transportQuotas--;
+                        } else {
+                            $foodQuotas--;
+                        }
+                    }
+                }
             }
         }
 
@@ -215,6 +206,17 @@ public function updateBenefits(Request $request)
             $convocation->transport_quotas = $transportQuotas;
         }
         $convocation->save();
+
+        // Maneja y responde a un mensaje de advertencia enviado desde JavaScript
+        if ($request->has('message')) {
+            $message = $request->input('message');
+            $responseType = $request->input('type', 'warning'); // Tipo predeterminado si no se especifica
+
+            // Responde con un mensaje JSON
+            return response()->json([
+                'warning' => 'Se ha superado el límite de cuotas seleccionadas',
+            ], 200);
+        }
 
         // Devuelve una respuesta JSON con los datos actualizados en caso de éxito
         return response()->json([

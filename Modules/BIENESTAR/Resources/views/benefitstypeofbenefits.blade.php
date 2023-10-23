@@ -69,7 +69,7 @@
 
         // Realizar una solicitud AJAX para obtener el estado actual de los registros
         $.ajax({
-            url: '{{ route('cefa.bienestar.benefitstypeofbenefits.getCurrentState') }}',
+            url: '{{ route('bienestar.admin.getCurrentState.benefitstypeofbenefits') }}',
             method: 'GET',
             headers: {
                 'X-CSRF-TOKEN': csrfToken
@@ -101,7 +101,7 @@
 
             console.log("Beneficio("+benefitId+"), Tipo("+typeId+"), checkeado("+isChecked+")");
             $.ajax({
-                url: '{{ route('cefa.bienestar.benefitstypeofbenefits.updateInline') }}',
+                url: '{{ route('bienestar.admin.updateInline.benefitstypeofbenefits') }}',
                 method: 'PUT',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
