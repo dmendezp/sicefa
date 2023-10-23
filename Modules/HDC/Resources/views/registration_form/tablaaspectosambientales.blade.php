@@ -18,7 +18,7 @@
                         <td>
                             <input name="aspecto[{{ $aspecto['id'] }}][id]" type="hidden" value="{{ $aspecto['id'] }}">
                             <input name="aspecto[{{ $aspecto['id'] }}][amount]" class="form-control" type="number"
-                                placeholder="{{ $aspecto['measurement_unit']['name'] }}" required><span
+                                placeholder="{{ $aspecto['measurement_unit']['name'] }}" ><span
                                 class="badge text-danger errors-amount"></span>
                         </td>
                     </tr>
@@ -33,55 +33,12 @@
 </form>
 
 @push('scripts')
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     $(document).ready(function() {
-        // ...
+        // ... 
+        alert('Hola');
 
-        $('#btn-enviar').click(function(event) {
-            var valid = true;
 
-            $('input[name^="aspecto[{{ $aspecto['id'] }}][amount]"]').each(function() {
-                var amount = $(this).val();
-
-                // ... Validación de aspectos ...
-
-                if (!$.isNumeric(amount) || parseFloat(amount) <= 0) {
-                    valid = false;
-                    showAlert('Error', 'Ingrese un valor numérico y positivo para este aspecto.');
-                    event.preventDefault();
-                    return false;
-                }
-
-                // ... Verificación de campos completos ...
-            });
-
-            if (!valid) {
-                showAlert('Error', 'Complete todos los campos de valor de consumo antes de enviar el formulario.');
-                event.preventDefault();
-            } else {
-                // Lógica para enviar el formulario si la validación es exitosa
-                showAlert('success', 'Formulario enviado exitosamente.');
-            }
-        });
-
-        $('[name^="aspecto["][name$="[amount]"]').on('input', function() {
-            var amount = $(this).val();
-
-            if (!$.isNumeric(amount) || parseFloat(amount) <= 0) {
-                showAlert('Error', 'Ingrese un valor numérico y positivo para este aspecto.');
-            }
-        });
-
-        // Función para mostrar alertas SweetAlert
-        function showAlert(icon, title, text) {
-            Swal.fire({
-                icon: icon,
-                title: title,
-                text: text
-            });
-        }
     });
 
 </script>

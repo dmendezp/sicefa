@@ -48,8 +48,8 @@ class RolesTableSeeder extends Seeder
         ]);
         // Registrar o actualizar rol de administrador
         $role_userHDC = Role::firstOrCreate(['slug' => 'hdc.userHDC'], [
-            'name' => 'Usuario público',
-            'description' => 'Rol Usuario público de HDC',
+            'name' => 'Usuario registrado',
+            'description' => 'Rol Usuario registrado de HDC',
             'description_english' => 'Role userd public of HDC',
             'app_id' => $app->id
 
@@ -58,12 +58,13 @@ class RolesTableSeeder extends Seeder
         //Consulta de usuarios
         $user_admin = User::where('nickname', 'aldavi')->first(); //usuario para Mary Luz Aldana Vidarte
         $user_charge = User::where('nickname', 'jitaco')->first(); //usuario para Magaly Jimena Tafur Campos
-        $user_userHDC = User::where('nickname', 'HDCUser')->first(); // usuario para Usuario Calcula tu huella
+
 
         // Asignación de ROLES para los USUARIOS de la aplicación HDC (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $user_admin->roles()->syncWithoutDetaching([$role_admin->id]);
+        $user_admin->roles()->syncWithoutDetaching([$role_userHDC->id]);
         $user_charge->roles()->syncWithoutDetaching([$role_charge->id]);
-        $user_userHDC->roles()->syncWithoutDetaching([$role_userHDC->id]);
+        $user_charge->roles()->syncWithoutDetaching([$role_userHDC->id]);
 
     }
 }

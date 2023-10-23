@@ -48,17 +48,6 @@ class PeopleTableSeeder extends Seeder
 
         ]);
 
-        /* Consulta o registro de datos para Usuario Calcula tu huella () */
-        Person::firstOrCreate(['document_number' =>1234567890 ], [ // Consultar o registrar Persona
-            'document_type' => 'Cédula de ciudadanía',
-            'first_name' => 'USER',
-            'first_last_name' => 'HUELLA',
-            'second_last_name' => 'CARBONO',
-            'eps_id' => $eps->id,
-            'population_group_id' => $population_group->id,
-            'pension_entity_id' => $pension_entity->id,
 
-
-        ]);
     }
 }

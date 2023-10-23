@@ -4,6 +4,7 @@ namespace Modules\HDC\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\HDC\Entities\FamilyPersonFootprint;
 use Modules\HDC\Entities\PersonEnvironmentalAspect;
 use Modules\SICA\Entities\EnvironmentalAspect;
@@ -14,7 +15,14 @@ class CarbonfootprintController extends Controller
 {
     public function persona()
     {
-        return view('hdc::Calc_Huella.ingresoConsulta');
+        $personaid = Auth::user()->person->id;
+
+
+            $environmeaspect = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')->where('person_id', $personaid)->get();
+
+            // Retorna una vista con los datos de la persona si se encuentra
+            return view('hdc::Calc_Huella.tabla', ['environmeaspect' => $environmeaspect]);
+        //return view('hdc::Calc_Huella.ingresoConsulta');
     }
 
     public function formcalculates(Person $person)

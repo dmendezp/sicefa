@@ -1,11 +1,16 @@
 @extends('hdc::layouts.master')
 
+@push('breadcrumbs')
+    <li class="breadcrumb-item active">{{ trans('hdc::calculatefootprint.Indicator_Calculate_Your_Footprint') }} </li>
+@endpush
+
 @section('content')
     <div class="col-md-12">
         <div class="card card-success card-outline shadow mt-2">
             <div class="card-header">
                 <h2 class="card-title">
-                    <strong>{{ $person->full_name }} {{ trans('hdc::calculatefootprint.Title_Card_Registration_Personal_Aspect')}}
+                    <strong>{{ $person->full_name }}
+                        {{ trans('hdc::calculatefootprint.Title_Card_Registration_Personal_Aspect') }}
                     </strong>
                 </h2>
             </div>
@@ -35,8 +40,9 @@
                                         <td>
                                             <input name="aspecto[{{ $aspectId }}][valor_consumo]" class="form-control"
                                                 type="number" placeholder="Ingrese el valor de consumo" required>
-                                            @if($errors->has("aspecto.$aspectId.valor_consumo"))
-                                                <span class="text-danger">{{ $errors->first("aspecto.$aspectId.valor_consumo") }}required></span>
+                                            @if ($errors->has("aspecto.$aspectId.valor_consumo"))
+                                                <span
+                                                    class="text-danger">{{ $errors->first("aspecto.$aspectId.valor_consumo") }}required></span>
                                             @endif
                                         </td>
                                     </tr>
@@ -44,7 +50,8 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-around">
-                            <button type="submit" class="btn btn-success" id="submitBtn">{{ trans('hdc::ConsumptionRegistry.Btn_Save') }}</button>
+                            <button type="submit" class="btn btn-success"
+                                id="submitBtn">{{ trans('hdc::ConsumptionRegistry.Btn_Save') }}</button>
                         </div>
                         <br>
                     </form>
@@ -54,20 +61,17 @@
     </div>
 
     @push('scripts')
-    <!-- Agrega el script aquí -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
-        $(document).ready(function () {
-            $('#submitBtn').click(function (event) {
+        <script>
+            $(document).on("click", "#submitBtn", function(event) {
+
                 var valid = true;
 
                 // Iterar sobre los campos de valor_consumo
-                $('[name^="aspecto["][name$="[valor_consumo]"]').each(function () {
+                $('[name^="aspecto["][name$="[valor_consumo]"]').each(function() {
                     var valorConsumo = $(this).val();
 
                     // Validar que el valor sea numérico y positivo
-                    if (!$.isNumeric(valorConsumo) || parseFloat(valorConsumo) <= 0) {
+                    if (!$.isNumeric(valorConsumo) || parseFloat(valorConsumo) < 0) {
                         valid = false;
                         // Utiliza SweetAlert para mostrar el mensaje de error
                         Swal.fire({
@@ -80,7 +84,7 @@
                 });
 
                 // Verificar que todos los campos estén completos
-                $('[name^="aspecto["][name$="[valor_consumo]"]').each(function () {
+                $('[name^="aspecto["][name$="[valor_consumo]"]').each(function() {
                     if ($(this).val() === '') {
                         valid = false;
                         // Utiliza SweetAlert para mostrar el mensaje de error
@@ -97,7 +101,7 @@
                 if (!valid) {
                     event.preventDefault();
                 } else {
-                    // Aquí puedes agregar la lógica para enviar el formulario si la validación es exitosa
+                    // validación es exitosa
                     Swal.fire({
                         icon: 'success',
                         title: 'Éxito',
@@ -107,11 +111,11 @@
             });
 
             // Agregar validación específica para campo numérico
-            $('[name^="aspecto["][name$="[valor_consumo]"]').on('input', function () {
+            $('[name^="aspecto["][name$="[valor_consumo]"]').on('input', function() {
                 var valorConsumo = $(this).val();
 
                 // Validar que el valor sea numérico y positivo
-                if (!$.isNumeric(valorConsumo) || parseFloat(valorConsumo) <= 0) {
+                if (!$.isNumeric(valorConsumo) || parseFloat(valorConsumo) < 0) {
                     // Utiliza SweetAlert para mostrar el mensaje de error
                     Swal.fire({
                         icon: 'error',
@@ -120,7 +124,6 @@
                     });
                 }
             });
-        });
-    </script>
+        </script>
     @endpush
 @endsection

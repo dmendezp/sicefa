@@ -5,6 +5,7 @@ namespace Modules\HDC\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Permission;
+use Modules\SICA\Entities\Role;
 
 class PermissionsTableSeeder extends Seeder
 {
@@ -50,5 +51,13 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_userHDC[] = $permission->id; // Almacenar permiso para rol
+
+        $rol_admin = Role::where('slug', 'hdc.admin')->first();
+        $rol_charge = Role::where('slug', 'hdc.charge')->first();
+
+        $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
+        $rol_admin->permissions()->syncWithoutDetaching($permissions_userHDC);
+        $rol_charge->permissions()->syncWithoutDetaching($permissions_charge);
+        $rol_charge->permissions()->syncWithoutDetaching($permissions_userHDC);
     }
 }

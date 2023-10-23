@@ -2,7 +2,7 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item active"><a
-            href="{{ route('admin.hdc.table') }}">{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }} </a>
+            href="{{ route('hdc.admin.table') }}">{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }} </a>
         /{{ trans('hdc::ConsumptionRegistry.indicator_form_results_update') }}</li>
 @endpush
 
@@ -95,71 +95,65 @@
         </div>
     </div>
     @push('scripts')
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script>
-            $(document).ready(function() {
-                $('#submitBtn').click(function(event) {
-                    var valid = true;
+            $(document).on("click", "#submitBtn", function(event) {
+                var valid = true;
 
-                    // Iterar sobre los campos de amounts
-                    $('[name="amounts[]"]').each(function() {
-                        var amount = $(this).val();
-
-                        // Validar que el valor sea numérico y positivo
-                        if (!$.isNumeric(amount) || parseFloat(amount) <= 0) {
-                            valid = false;
-                            // Utiliza SweetAlert para mostrar el mensaje de error
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'Ingrese un valor numérico y positivo para este aspecto.'
-                            });
-                            event.preventDefault(); // Detener el envío del formulario
-                            return false; // Detener la iteración
-                        }
-
-                        // Verificar que todos los campos estén completos
-                        if ($(this).val() === '') {
-                            valid = false;
-                        }
-                    });
-
-                    // Utiliza SweetAlert para mostrar el mensaje de error si no todos los campos están completos
-                    if (!valid) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Complete todos los campos de valor de consumo antes de enviar el formulario.'
-                        });
-                        event.preventDefault(); // Detener el envío del formulario
-                    } else {
-                        // Aquí puedes agregar la lógica para enviar el formulario si la validación es exitosa
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Éxito',
-                            text: 'Formulario enviado exitosamente.'
-                        });
-                    }
-                });
-
-                // Agregar validación específica para campo numérico
-                $('[name="amounts[]"]').on('input', function() {
+                // Iterar sobre los campos de amounts
+                $('[name="amounts[]"]').each(function() {
                     var amount = $(this).val();
 
                     // Validar que el valor sea numérico y positivo
-                    if (!$.isNumeric(amount) || parseFloat(amount) <= 0) {
+                    if (!$.isNumeric(amount) || parseFloat(amount) < 0) {
+                        valid = false;
                         // Utiliza SweetAlert para mostrar el mensaje de error
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
                             text: 'Ingrese un valor numérico y positivo para este aspecto.'
                         });
+                        event.preventDefault(); // Detener el envío del formulario
+                        return false; // Detener la iteración
+                    }
+
+                    // Verificar que todos los campos estén completos
+                    if ($(this).val() === '') {
+                        valid = false;
                     }
                 });
+
+                // Utiliza SweetAlert para mostrar el mensaje de error si no todos los campos están completos
+                if (!valid) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Complete todos los campos de valor de consumo antes de enviar el formulario.'
+                    });
+                    event.preventDefault(); // Detener el envío del formulario
+                } else {
+                    // Aquí puedes agregar la lógica para enviar el formulario si la validación es exitosa
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: 'Formulario enviado exitosamente.'
+                    });
+                }
             });
 
+            // Agregar validación específica para campo numérico
+            $('[name="amounts[]"]').on('input', function() {
+                var amount = $(this).val();
 
+                // Validar que el valor sea numérico y positivo
+                if (!$.isNumeric(amount) || parseFloat(amount) < 0) {
+                    // Utiliza SweetAlert para mostrar el mensaje de error
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ingrese un valor numérico y positivo para este aspecto.'
+                    });
+                }
+            });
         </script>
     @endpush
 @endsection

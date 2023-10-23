@@ -30,11 +30,5 @@ class UsersTableSeeder extends Seeder
             'email' => 'mtafur@sena.edu.co'
         ]);
 
-        /* Registrar o actualizar usuario para Usuario Calcula tu huella*/
-        $person = Person::where('document_number', 1234567890)->first(); /* Consulta Persona */
-        User::updateOrCreate(['nickname' => 'HDCUser'], [  /* Actualizar o crear usuario */
-            'person_id' => $person->id,
-            'email' => 'userhuellacarbono.sena.edu.co'
-        ]);
     }
 }
