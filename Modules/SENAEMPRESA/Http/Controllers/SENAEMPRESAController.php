@@ -135,19 +135,6 @@ class SENAEMPRESAController extends Controller
 
 
 
-    //Asociar cursos a vacantes
-    public function cursos_senamepresa()
-    {
-        $senaempresas = senaempresa::get();
-        $courses = Course::with('program')->get();
-        $data = ['title' => trans('senaempresa::menu.Assign Courses to SenaEmpresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
-        } else {
-            return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
-    }
-
     public function curso_asociado_senaempresa(Request $request)
     {
         // Valida los datos del formulario
