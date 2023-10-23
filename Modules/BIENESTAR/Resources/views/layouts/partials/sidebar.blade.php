@@ -133,9 +133,11 @@
                   <a href="{{ route('bienestar.admin.crud.benefits') }}" class="nav-link">Tipos de Beneficios</a>
                 </li>
                 @endif
+                @if(Auth::user()->havePermission('bienestar.admin.crud.typeofbenefits'))
                 <li class="nav-item">
-                  <a href="{{ route('cefa.bienestar.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
+                  <a href="{{ route('bienestar.admin.crud.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
                 </li>
+                @endif
                 @if(Auth::user()->havePermission('bienestar.admin.view.benefitstypeofbenefits'))
                 <li class="nav-item">
                   <a href="{{ route('bienestar.admin.view.benefitstypeofbenefits')}}" class="nav-link">Configurar Beneficios</a>
@@ -161,6 +163,11 @@
                 @if(Route::is('cefa.bienestar.*'))
                 <li class="nav-item">
                   <a href="{{ route('cefa.bienestar.postulations')}}" class="nav-link">Postulaciones </a>
+                </li>
+                @endif
+                @if(Auth::user()->havePermission('bienestar.admin.view.postulation-management'))
+                <li class="nav-item">
+                  <a href="{{ route('bienestar.admin.view.postulation-management')}}" class="nav-link">Gestionar Postulaciones</a>
                 </li>
                 @endif
               </ul>

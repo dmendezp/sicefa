@@ -177,7 +177,7 @@ class PermissionsTableSeeder extends Seeder
 
         //*-----Permisos Vista Tipo de Beneficiarios-----*//
         // Vista Crud Tipo de Beneficiarios (ADMINISTRADOR)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.crud.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.crud.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'CRUD Tipo de Beneficiarios',
             'description' => 'Puede ver la vista del CRUD de tipos de beneficiario',
             'description_english' => 'You can see the CRUD view of types of beneficiaries',
@@ -186,7 +186,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Vista Crud Tipo de Beneficiarios (LIDER BENEFICIO DE ALIMENTACION)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.crud.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.crud.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'CRUD Tipo de Beneficiarios',
             'description' => 'Puede ver la vista del CRUD de tipos de beneficiario',
             'description_english' => 'You can see the CRUD view of types of beneficiaries',
@@ -195,7 +195,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
 
         // Vista Crud Tipo de Beneficiarios (LIDER BENEFICIO DE TRANSPORTE)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.crud.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.crud.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'CRUD Tipo de Beneficiarios',
             'description' => 'Puede ver la vista del CRUD de tipos de beneficiario',
             'description_english' => 'You can see the CRUD view of types of beneficiaries',
@@ -204,7 +204,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Guardar Tipo de Beneficiarios(ADMINISTRADOR)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.save.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.save.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'Guardar Beneficios',
             'description' => 'Puede guardar los Tipos de beneficiariosos',
             'description_english' => 'You can save the benefits',
@@ -213,7 +213,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Guardar Tipo de Beneficiarios(LIDER BENEFICIO DE ALIMENTACION)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.save.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.save.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'Guardar Beneficios',
             'description' => 'Puede guardar los Tipos de beneficiariosos',
             'description_english' => 'You can save the benefits',
@@ -222,7 +222,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Guardar Tipo de Beneficiarios(LIDER BENEFICIO DE TRANSPORTE)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.save.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.save.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'Guardar Beneficios',
             'description' => 'Puede guardar los Tipos de beneficiariosos',
             'description_english' => 'You can save the benefits',
@@ -231,7 +231,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Editar Tipo de Beneficiarios(ADMINISTRADOR)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.edit.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.edit.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'Guardar Tipos de Beneficiarios',
             'description' => 'Puede editar los Tipos de beneficiariosos',
             'description_english' => 'You can edit the Beneficiary Types',
@@ -240,7 +240,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Editar Tipo de Beneficiarios(LIDER BENEFICIO DE ALIMENTACION)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.edit.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.edit.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'Editar Tipos de beneficiarios',
             'description' => 'Puede Editar los Tipos de beneficiarios',
             'description_english' => 'You can edit the Beneficiary Types',
@@ -249,7 +249,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Editar Tipo de Beneficiarios(LIDER BENEFICIO DE TRANSPORTE)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.edit.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.edit.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'Editar Tipos de Beneficiarios',
             'description' => 'Puede Editar los Tipos de beneficiarios',
             'description_english' => 'You can edit the Beneficiary Types',
@@ -258,7 +258,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Eliminar Tipo de Beneficiarios(ADMINISTRADOR)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.delete.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.delete.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'Eliminar Beneficios',
             'description' => 'Puede eliminar los benefios',
             'description_english' => 'You can eliminate the benefits',
@@ -267,7 +267,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Eliminar Tipo de Beneficiarios(LIDER BENEFICIO DE ALIMENTACION)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.delete.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.delete.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'Eliminar Beneficios',
             'description' => 'Puede eliminar los benefios',
             'description_english' => 'You can eliminate the benefits',
@@ -276,7 +276,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Eliminar Tipo de Beneficiarios(LIDER BENEFICIO DE TRANSPORTE)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.delete.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.delete.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'Eliminar Beneficios',
             'description' => 'Puede eliminar los benefios',
             'description_english' => 'You can eliminate the benefits',
@@ -285,7 +285,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rols
 
         // Botones de la vista CRUD Tipo de Beneficiarios (ADMINISTRADOR)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.buttons.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.buttons.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'Botones Del CRUD Beneficios',
             'description' => 'Restricción a los botones de los tipos de beneficiarios',
             'description_english' => 'Restriction to the buttons of the types of beneficiaries',
@@ -294,7 +294,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Botones de la vista CRUD Tipo de Beneficiarios (LIDER BENEFICIO DE ALIMENTACION)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.buttons.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.food_benefits_leaders.buttons.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'Botones Del CRUD Beneficios',
             'description' => 'Restricción a los botones de los tipos de beneficiarios',
             'description_english' => 'Restriction to the buttons of the types of beneficiaries',
@@ -303,7 +303,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
 
         // Botones de la vista CRUD Tipo de Beneficiarios (LIDER BENEFICIO DE TRANSPORTE)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.buttons.typeofbenefitss'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.buttons.typeofbenefits'], [ // Registro o actualización de permiso
             'name' => 'Botones Del CRUD Beneficios',
             'description' => 'Restricción a los botones de los tipos de beneficiarios',
             'description_english' => 'Restriction to the buttons of the types of beneficiaries',
@@ -486,7 +486,43 @@ class PermissionsTableSeeder extends Seeder
 
         //*-----Permisos Postulations Management-----*//
 
+        // Vista Crud Rutas de Trasporte (ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.view.postulation-management'], [ // Registro o actualización de permiso
+            'name' => 'CRUD vista gestion de postulaciones',
+            'description' => 'Puede ver la vista de gestion de postulaciones',
+            'description_english' => 'You can view the postulations management view',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista Crud Rutas de Trasporte (ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.show.postulation-management'], [ // Registro o actualización de permiso
+            'name' => 'Modal de detalles de Postulacion',
+            'description' => 'Puede ver el modal de detalles de Postulacion',
+            'description_english' => 'You can view the postulations Details Modal',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Crud Rutas de Trasporte (ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.update-score.postulation-management'], [ // Registro o actualización de permiso
+            'name' => 'Actualizacion de puntaje total de Postulacion',
+            'description' => 'Puede Actualizar el puntaje total de una Postulacion',
+            'description_english' => 'You can update the total score of an postulation.',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Crud Rutas de Trasporte (ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.update-benefits.postulation-management'], [ // Registro o actualización de permiso
+            'name' => 'Asignacion de Beneficios a Postulaciones',
+            'description' => 'Puede asignar Beneficios estados y mensjae a una o varias postulaciones',
+            'description_english' => 'You can assign Benefits statuses and messages to one or several postulations',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+      
 
         //*-----Permisos Transport Routes-----*//
 
