@@ -17,12 +17,13 @@ class CarbonfootprintController extends Controller
     {
         $personaid = Auth::user()->person->id;
 
-
-            $environmeaspect = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')->where('person_id', $personaid)->get();
-
+        $environmeaspect = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')
+        ->select('id', 'carbon_print', 'created_at')
+        ->where('person_id', $personaid)
+        ->orderBy('created_at', 'desc') // Agrega esta línea para ordenar de forma descendente
+        ->get();
             // Retorna una vista con los datos de la persona si se encuentra
             return view('hdc::Calc_Huella.tabla', ['environmeaspect' => $environmeaspect]);
-        //return view('hdc::Calc_Huella.ingresoConsulta');
     }
 
     public function formcalculates(Person $person)
@@ -32,23 +33,6 @@ class CarbonfootprintController extends Controller
 
 
         return view('hdc::Calc_Huella.formcalculatefootprint')->with('environmentalAspects', $environmentalAspects)->with('person', $person);
-    }
-
-    public function verificarUsuario($documento)
-    {
-        // Buscar la persona en la base de datos
-        $personaid = Person::where('document_number', $documento)->pluck('id')->first();
-        $persona = Person::where('document_number', $documento)->first();
-        if (is_null($persona)) {
-            // Retorna una respuesta JSON con un mensaje de error si no se encuentra la persona
-            return response()->json(['mensaje' => 'Persona No Encontrada']);
-        } else {
-
-            $environmeaspect = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')->where('person_id', $personaid)->get();
-
-            // Retorna una vista con los datos de la persona si se encuentra
-            return view('hdc::Calc_Huella.tabla', ['persona' => $persona, 'environmeaspect' => $environmeaspect]);
-        }
     }
 
     public function saveConsumption(Request $request)

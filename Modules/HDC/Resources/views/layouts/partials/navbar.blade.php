@@ -46,7 +46,7 @@
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
-        <li class="nav-item">
+       {{--   <li class="nav-item">
             <div type="button" class="btn btn-success">
                 @guest
                     <a href="{{ route('login') }}" class="text-decoration-none text-black">
@@ -62,6 +62,6 @@
       @csrf
       <button type="submit" class="btn btn-outline nav-link"><i class="fas fa-sign-out-alt" ></i></button>
       </form> -->
-        </li>
+        </li>  --}}
     </ul>
 </nav>

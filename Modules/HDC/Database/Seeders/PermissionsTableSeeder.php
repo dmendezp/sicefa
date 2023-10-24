@@ -51,6 +51,23 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_userHDC[] = $permission->id; // Almacenar permiso para rol
+        //Vista donde se almacenan los datos del registro de consumo (ADMINISTRADOR)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.table'], [ // Registro o actualización de permiso
+            'name' => 'Registro de Consumo(Administrador)',
+            'description' => 'Registro de consumo de los aspectos ambientales generados en el centro de formación',
+            'description_english' => "HDC Administrator Control Panel",
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+           //Vista donde se almacenan los datos del registro de consumo (ENCARGADO)
+           $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.table'], [ // Registro o actualización de permiso
+            'name' => 'Registro de Consumo(Encargado)',
+            'description' => 'Registro de consumo de los aspectos ambientales generados en el centro de formación',
+            'description_english' => "HDC Administrator Control Panel",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
         $rol_admin = Role::where('slug', 'hdc.admin')->first();
         $rol_charge = Role::where('slug', 'hdc.charge')->first();

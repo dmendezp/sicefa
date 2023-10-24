@@ -50,7 +50,7 @@ class RolesTableSeeder extends Seeder
         $role_userHDC = Role::firstOrCreate(['slug' => 'hdc.userHDC'], [
             'name' => 'Usuario registrado',
             'description' => 'Rol Usuario registrado de HDC',
-            'description_english' => 'Role userd public of HDC',
+            'description_english' => 'Role userd register  of HDC',
             'app_id' => $app->id
 
         ]);

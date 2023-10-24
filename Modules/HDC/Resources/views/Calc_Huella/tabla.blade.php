@@ -1,5 +1,9 @@
 @extends('hdc::layouts.master')
 
+@push('breadcrumbs')
+    <li class="breadcrumb-item active">{{ trans('hdc::calculatefootprint.Indicator_Calculate_Your_Footprint') }} </li>
+@endpush
+
 @section('content')
 <div class="row justify-content-center">
     <!-- card -->
@@ -18,6 +22,7 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <th>N°</th>
+                                        <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Date')}}</th>
                                         <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Environmental_Aspect')}}</th>
                                         <th>{{ trans('hdc::ConsumptionRegistry.Title_Header_Table_Column_Quantity')}}</th>
                                         <th>CO2 (%)</th>
@@ -29,6 +34,8 @@
                                     @foreach ($environmeaspect as $index => $aspect)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $aspect->created_at->format('Y-m-d') }}</td>
+
                                             <td>
                                                 <ul>
                                                     @foreach ($aspect->personenvironmentalaspects as $innerPersonAspect)

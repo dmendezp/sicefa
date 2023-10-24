@@ -111,14 +111,6 @@
                           </li>
                       @endif
 
-                     {{--   <li class="nav-item">
-                          <a href="#" class="nav-link">
-                              <i class="nav-icon fa-solid fa-book"></i>
-                              <p>
-                                  {{ trans('hdc::hdcgeneral.instructions') }}
-                              </p>
-                          </a>
-                      </li>  --}}
                       <li class="nav-item">
                           <a href="{{ route('cefa.hdc.assign_environmental_aspects') }}" class="nav-link">
                               <i class="nav-icon fa-solid fa-folder-open"></i>
