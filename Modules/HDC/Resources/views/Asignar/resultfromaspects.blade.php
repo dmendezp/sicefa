@@ -1,6 +1,6 @@
 @extends('hdc::layouts.master')
 @push('breadcrumbs')
-    <li class="breadcrumb-item active"><a href="{{ route('cefa.hdc.table') }}">{{ trans('hdc::assign_environmental_aspects.title_card_records-saver') }}</a></li>
+    <li class="breadcrumb-item active"><a href="{{ route('hdc.Asignar.resultfromaspects') }}">{{ trans('hdc::assign_environmental_aspects.title_card_records-saver') }}</a></li>
 @endpush
 
 @section('content')
@@ -20,7 +20,10 @@
                         <thead class="table-dark">
                             <tr>
                                 <th>ID</th>
-                                <th></th>
+                                <th>{{ trans('hdc::assign_environmental_aspects.th1') }}</th>
+                                <th>{{ trans('hdc::assign_environmental_aspects.th2') }}</th>
+                                <th>{{ trans('hdc::assign_environmental_aspects.th3') }}</th>
+                                <th>{{ trans('hdc::assign_environmental_aspects.th4') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,7 +32,17 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $d->activity->productive_unit->name }}</td>
                                     <td>{{ $d->activity->name }}</td>
-                                    <td></td>
+                                    <td>{{ $d->execution_date }}</td>
+                                    <td>
+                                        <ul>
+                                            @foreach($d->activity_environmental_aspect as $enac)
+                                                <li>{{ $enac->environmental_aspect->name}}</li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('cefa.hdc.destroy', ['assignEnvironmentalAspect' => $d]) }
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

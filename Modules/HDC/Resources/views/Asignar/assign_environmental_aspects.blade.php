@@ -1,6 +1,6 @@
 @extends('hdc::layouts.master')
 @push('breadcrumbs')
-<li class="breadcrumb-item active">{{ trans('hdc::assign_environmental_aspects.Indicator_assign_environmental_aspects')}}</li>
+<li class="breadcrumb-item active"><a href="{{ route('hdc.Asignar.resultfromaspects') }}"></a>{{ trans('hdc::assign_environmental_aspects.Indicator_assign_environmental_aspects')}}</li>
 @endpush
 
 @section('content')
@@ -65,12 +65,12 @@
     </div>
 </div>
 @push('scripts')
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
             var activitySelect = $('select[name="activity_id"]');
-            activitySelect.on('change', function() {
-                var selectedActivityId = $(this).val();
-                
+                activitySelect.on('change', function() {
+                    var selectedActivityId = $(this).val();
+                    
                 if (selectedActivityId) {
                     // Utiliza el nombre de la ruta para obtener la URL
                     var url = "{{ route('cefa.hdc.getEnvironmentalAspects', ':id') }}";
@@ -87,6 +87,6 @@
                 }
             });
         });
-</script>
+    </script>
 @endpush
 @endsection
