@@ -50,12 +50,14 @@ class Inventory extends Model implements Auditable
     }
 
     // RELACIONES
-    
     public function consumables(){ // Accede a todos los consumibles que pertenecen a este inventario
         return $this->hasMany(Consumable::class);
     }
     public function element(){ // Accede a la información de elemento al que pertenece
         return $this->belongsTo(Element::class);
+    }
+    public function equipments(){ // Accede a todos los equipos que pertenecen a este inventario
+        return $this->hasMany(Equipment::class);
     }
     public function movement_details(){ // Accede a todos los detalles de movimiento que pertenecen a este inventario
         return $this->hasMany(MovementDetail::class);
@@ -66,11 +68,8 @@ class Inventory extends Model implements Auditable
     public function productive_unit_warehouse(){ // Accede a la información de la unidad productiva y bodega al que pertenece
         return $this->belongsTo(ProductiveUnitWarehouse::class);
     }
-    public function tools(){ // Accede a todas las herramientas que pertenecen a esta labor
+    public function tools(){ // Accede a todas las herramientas que pertenecen a este inventario
         return $this->hasMany(Tool::class);
-    }
-    public function equipments(){ // 
-        return $this->hasMany(Equipment::class);
     }
 
 
