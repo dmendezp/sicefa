@@ -9,6 +9,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        
                         <form class="form-inline d-flex align-items-center justify-content-center">
                             <div class="form-group">
                                 <input type="number" class="form-control" id="search" placeholder="Buscar" pattern="[0-9]*">
