@@ -1,6 +1,6 @@
 @extends('hdc::layouts.master')
 @push('breadcrumbs')
-<li class="breadcrumb-item active"><a href="{{ route('hdc.Asignar.resultfromaspects') }}"></a>{{ trans('hdc::assign_environmental_aspects.Indicator_assign_environmental_aspects')}}</li>
+<li class="breadcrumb-item active"><a href=""></a>{{ trans('hdc::assign_environmental_aspects.Indicator_assign_environmental_aspects')}}</li>
 @endpush
 
 @section('content')

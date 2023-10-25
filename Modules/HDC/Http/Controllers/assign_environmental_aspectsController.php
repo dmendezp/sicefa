@@ -24,6 +24,11 @@ class assign_environmental_aspectsController extends Controller
         return view('hdc::Asignar.assign_environmental_aspects', compact('productive_unit' , 'activities', 'environmentalAspect'));
     }
 
+    public function aspectlist() {
+        $productive_unit = ProductiveUnit::all();
+        return view('hdc::Asignar.resultfromaspects', compact('productive_unit'));
+    }
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -47,9 +52,20 @@ class assign_environmental_aspectsController extends Controller
             $activity->environmental_aspects()->attach($environmentalAspectId);
         }
 
-        return redirect(route('cefa.hdc.assign_environmental_aspects'));
+        return redirect(route('cefa.hdc.resultfromaspects'));
     }
     
+
+    public function mostrarResultados(Request $request)
+    {
+        $unidadProductivaId = $request->input('productive_unit_id');
+
+        // Realiza una consulta para obtener los resultados según la unidad productiva seleccionada
+        $resultados = Activity::with('environmental_aspects')->where('productive_unit_id', $unidadProductivaId)->get();
+    
+        return view('hdc::Asignar.tablaresult', compact('resultados'));
+    }
+
 
     public function getEnvironmentalAspects($activityId)
 {
@@ -71,6 +87,6 @@ public function updateEnvironmentalAspects(Request $request)
     // Sincroniza los aspectos ambientales en la tabla pivote
     $activity->environmental_aspects()->sync($selectedEnvironmentalAspects);
 
-        return redirect(route('cefa.hdc.assign_environmental_aspects'));
+        return redirect(route('cefa.hdc.resultfromaspects'));
     }
 }
