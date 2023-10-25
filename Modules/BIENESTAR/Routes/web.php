@@ -92,9 +92,9 @@ Route::middleware(['lang'])->group(function () {
 
         // vista de conductores
         Route::get('/drivers', 'BusDriversController@drivers')->name('bienestar.admin.crud.drivers');
-        Route::post('/drivers/add', 'BusDriversController@driversAdd')->name('cefa.bienestar.drivers.add');
-        Route::put('/drivers/update/{id}', 'BusDriversController@driversUp')->name('cefa.bienestar.drivers.update');
-        Route::delete('/drivers/delete/{id}', 'BusDriversController@delete')->name('cefa.bienestar.drivers.delete');
+        Route::post('/drivers/add', 'BusDriversController@driversAdd')->name('bienestar.admin.save.drivers');
+        Route::put('/drivers/update/{id}', 'BusDriversController@driversUp')->name('bienestar.admin.edit.drivers');
+        Route::delete('/drivers/delete/{id}', 'BusDriversController@delete')->name('bienestar.admin.delete.drivers');
 
 
         // vista de gestiones de convocatorias
@@ -138,6 +138,9 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/assing-form-transportation-routes/index', 'AssingFormTransporRoutesController@index')->name('cefa.bienestar.assing-form-transportation-routes.index');
         Route::get('/assing-form-transportation-routes/store', 'AssingFormTransporRoutesController@create')->name('cefa.bienestar.assing-form-transportation-routes.store');
         Route::put('/assing-form-transportation-routes/updateInline', 'AssingFormTransporRoutesController@updateInline')->name('cefa.bienestar.assing-form-transportation-routes.updateInline');
+
+        //vista de listado lista de asistencia de transporte
+        route::get('/transportation_assistance_list', 'TransportationAssistancesController@index')->name('cefa.bienestar.transportation_assitance_list.index');
         
 
 

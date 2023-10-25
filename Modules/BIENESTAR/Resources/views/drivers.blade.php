@@ -35,7 +35,7 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                     @if (Auth::user()->havePermission('bienestar.admin.save.drivers'))
-                        <form action="{{ route('cefa.bienestar.drivers.add') }}" method="POST" onsubmit="return validarFormulario()">
+                        <form action="{{ route('bienestar.admin.save.drivers') }}" method="POST" onsubmit="return validarFormulario()">
                             @csrf
                             <div class="form-row">
                                 <div class="col-md-3 mb-2">
@@ -84,7 +84,7 @@
                                 <td>
                                     <div class="d-flex">
                                         <button class="btn btn-info mr-2" data-toggle="modal" data-target="#modal-edit-{{ $busdriver->id }}"><i class="fas fa-edit"></i></button>
-                                        <form action="{{ route('cefa.bienestar.drivers.delete', ['id' => $busdriver->id]) }}" method="POST" class="formEliminar">
+                                        <form action="{{ route('bienestar.admin.delete.drivers', ['id' => $busdriver->id]) }}" method="POST" class="formEliminar">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
@@ -105,7 +105,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <!-- Formulario de edición para el conductor -->
-                                            <form action="{{ route('cefa.bienestar.drivers.update', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar('{{ $busdriver->id }}')">
+                                            <form action="{{ route('bienestar.admin.edit.drivers', ['id' => $busdriver->id]) }}" method="POST" onsubmit="return validarFormularioEditar('{{ $busdriver->id }}')">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="form-group">
