@@ -114,7 +114,6 @@
             </li>
             <li class="nav-item has-treeview">
           <a href="{{route('cefa.bienestar.transportation_assitance_list.index')}}" class="nav-link">
-            <i class="fas fa-search"></i>
             <p>Asistencia De Ruta</p>
           </a>
         </li>
