@@ -29,9 +29,12 @@ Route::middleware(['lang'])->group(function () {
         });
 
         Route::controller(FormularioController::class)->group(function(){
-            Route::get('/Formulario', 'formulario')->name('cefa.hdc.formulario');
-            Route::post('/get_activities', 'getActivities')->name('hdc.activities');
-            Route::post('/get_aspects', 'getAspects')->name('hdc.aspects');
+            Route::get('/admin/Formulario', 'formulario')->name('hdc.admin.formulario'); //Ruta del formualario de agregar registros de aspectos ambientales administrador
+            Route::get('/charge/Formulario', 'formulario')->name('hdc.charge.formulario');//Ruta del formualario de agregar registros de aspectos ambientales Encargado
+            Route::post('/admin/get_activities', 'getActivities')->name('hdc.admin.activities');// Ruta del formulario agregar que trae con ajax las actividades administrador
+            Route::post('/charge/get_activities', 'getActivities')->name('hdc.charge.activities');// Ruta del formulario agregar que trae con ajax las actividades Encargado
+            Route::post('/admin/get_aspects', 'getAspects')->name('hdc.admin.aspects');// Ruta del formulario agregar que trae con ajax los aspectos ambientales Administrador
+            Route::post('/charge/get_aspects', 'getAspects')->name('hdc.charge.aspects');// Ruta del formulario agregar que trae con ajax los aspectos ambientales Encargado
             Route::post('/guardar/valores', 'guardarValores')->name('hdc.guardar.valores');
              /* Ruta del CRUD del formulario de registro*/
             Route::get('/admin/tabla', 'FormularioController@table')->name('hdc.admin.table');
