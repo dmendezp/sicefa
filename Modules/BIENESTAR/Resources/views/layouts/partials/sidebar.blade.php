@@ -112,6 +112,11 @@
             <li class="nav-item">
               <a href="#" class="nav-link">Asignar Rutas</a>
             </li>
+            <li class="nav-item has-treeview">
+          <a href="{{route('cefa.bienestar.transportation_assitance_list.index')}}" class="nav-link">
+            <p>Asistencia De Ruta</p>
+          </a>
+        </li>
 
           </ul>
         </li>
