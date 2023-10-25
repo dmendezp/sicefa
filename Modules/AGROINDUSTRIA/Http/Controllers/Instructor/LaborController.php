@@ -23,12 +23,12 @@ use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\WarehouseMovement;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\Ingredient;
-use Modules\AGROINDUSTRIA\Entities\Executor;
-use Modules\AGROINDUSTRIA\Entities\Consumable;
-use Modules\AGROINDUSTRIA\Entities\EmployementType;
-use Modules\AGROINDUSTRIA\Entities\Tool;
-use Modules\AGROINDUSTRIA\Entities\Production;
-use Modules\AGROINDUSTRIA\Entities\Equipment;
+use Modules\SICA\Entities\Executor;
+use Modules\SICA\Entities\Consumable;
+use Modules\SICA\Entities\EmployeeType;
+use Modules\SICA\Entities\Tool;
+use Modules\SICA\Entities\Production;
+use Modules\SICA\Entities\Equipment;
 
 class LaborController extends Controller
 {

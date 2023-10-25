@@ -10,7 +10,7 @@ use Modules\SICA\Entities\Labor;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Inventory;
-use Modules\AGROINDUSTRIA\Entities\Production;
+use Modules\SICA\Entities\Production;
 
 class ProductionController extends Controller
 {
