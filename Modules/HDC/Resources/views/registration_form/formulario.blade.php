@@ -1,3 +1,7 @@
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
+
 @extends('hdc::layouts.master')
 
 @push('breadcrumbs')
@@ -58,7 +62,7 @@
                     var myObjet = new Object();
                     myObjet.activity_id = $('#activity_id').val();
                     var myString = JSON.stringify(myObjet);
-                    ajaxReplace("div-tabla", '/hdc/get_aspects', myString);
+                    ajaxReplace("div-tabla", '/hdc/{{ $role_name }}/get_aspects', myString);
                 }
             });
         // Cuando se cambia la unidad productiva seleccionada
@@ -70,7 +74,7 @@
                 var myObjet = new Object();
                 myObjet.productive_unit_id = $('#productive_unit_id').val();
                 var myString = JSON.stringify(myObjet);
-                ajaxReplace("div-actividades", '/hdc/get_activities', myString);
+                ajaxReplace("div-actividades", '/hdc/{{ $role_name }}/get_activities', myString);
 
 
             }

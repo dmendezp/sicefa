@@ -41,7 +41,7 @@ return [
     // Texto ¿que es Huella de Carbono?
     'text1' => 'Carbon footprint is a term used to measure the amount of greenhouse gas (GHG) emissions, mainly carbon dioxide (CO2) that are released into the atmosphere due to human activities, such as burning fossil fuels, deforestation and industrial production.',
     // Texto ¿Como se calcula La Huella?
-    'text2' => 'To calculate said footprint, the consumption data (Activity) is multiplied by its corresponding coefficient or emission factor depending on the type of resource used (Energy, fuel, Water or Waste) in said activity.',
+    'text2' => 'To calculate footprint, the consumption data (Activity) is multiplied by its corresponding coefficient or emission factor depending on the type of resource used (Energy, fuel, Water or Waste) in an activity.',
     // Texto ¿Cual Es Su Objetivo?
     'text3' => 'The objective of measuring the carbon footprint is to evaluate and quantify the total amount of greenhouse gases emitted directly or indirectly by an activity, product or individual. It helps to understand and reduce the contribution to climate change, identifying areas where measures can be taken to reduce emissions and promote more sustainable practices.',
     'Title_label_'

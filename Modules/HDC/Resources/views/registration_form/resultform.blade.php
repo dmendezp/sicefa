@@ -12,7 +12,7 @@
             </div>
 
             <div class="card-body">
-                <a href="{{ route('cefa.hdc.formulario') }}" class="btn btn-success mb-2">
+                <a href="{{ route('hdc.admin.formulario') }}" class="btn btn-success mb-2">
                     <i class="fa-solid fa-plus"></i>
                 </a>
 

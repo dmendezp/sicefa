@@ -26,7 +26,7 @@ class PermissionsTableSeeder extends Seeder
         $app = App::where('name', 'HDC')->firstOrFail();
 
          // ===================== Registro de todos los permisos de la aplicación SIGAC ==================
-        // Panel de control de coordinación académica (Coordinación Académica)
+        // PANEL DE CONTROL DEL ADMINISTRADOR (Aministrador)
         $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.index'], [ // Registro o actualización de permiso
             'name' => 'Panel de control del administrador(Administrador)',
             'description' => 'Panel de control del administrador de HDC',
@@ -35,24 +35,8 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Panel de control de Encargado (Encargado)
-        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.index'], [ // Registro o actualización de permiso
-            'name' => 'Panel de control del Encargado (Encargado)',
-            'description' => 'Panel de control del encargado',
-            'description_english' => "Manager's control panel",
-            'app_id' => $app->id
-        ]);
-        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
-        // Panel de control de user de calcula tu huella (userHDC)
-        $permission = Permission::updateOrCreate(['slug' => 'hdc.UserHDC.index'], [ // Registro o actualización de permiso
-            'name' => 'Panel de control del usuario de calcula tu huella (userHDC)',
-            'description' => 'Panel de control del usuario de calcula tu huella',
-            'description_english' => "Calculate your footprint user control panel",
-            'app_id' => $app->id
-        ]);
-        $permissions_userHDC[] = $permission->id; // Almacenar permiso para rol
         //Vista donde se almacenan los datos del registro de consumo (ADMINISTRADOR)
-        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.table'], [ // Registro o actualización de permiso
+         $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.table'], [ // Registro o actualización de permiso
             'name' => 'Registro de Consumo(Administrador)',
             'description' => 'Registro de consumo de los aspectos ambientales generados en el centro de formación',
             'description_english' => "HDC Administrator Control Panel",
@@ -60,11 +44,39 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Ruta Fromulario Agregar valor del aspecto ambiental (ADMINISTRADOR)//
+         $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.formulario'], [ // Registro o actualización de permiso
+            'name' => 'Guardar Beneficios',
+            'description' => 'Puede acceder a formulario registro de aspectos ambientales',
+            'description_english' => 'You can access the environmental aspects register form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+
+        // PANEL DE CONTROL DEL ENCARGADO (Encargado)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.index'], [ // Registro o actualización de permiso
+            'name' => 'Panel de control del Encargado (Encargado)',
+            'description' => 'Panel de control del encargado',
+            'description_english' => "Manager's control panel",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
            //Vista donde se almacenan los datos del registro de consumo (ENCARGADO)
            $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.table'], [ // Registro o actualización de permiso
             'name' => 'Registro de Consumo(Encargado)',
             'description' => 'Registro de consumo de los aspectos ambientales generados en el centro de formación',
-            'description_english' => "HDC Administrator Control Panel",
+            'description_english' => "HDC Consumption register of environmental aspects generated in the training center.",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+         // Ruta Fromulario Agregar valor del aspecto ambiental (ENCARGADO)//
+         $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.formulario'], [ // Registro o actualización de permiso
+            'name' => 'Guardar Beneficios',
+            'description' => 'Puede acceder a formulario registro de aspectos ambientales',
+            'description_english' => 'You can access the environmental aspects register form',
             'app_id' => $app->id
         ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
