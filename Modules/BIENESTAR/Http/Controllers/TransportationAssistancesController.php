@@ -14,7 +14,7 @@ class TransportationAssistancesController extends Controller
      */
     public function index()
     {
-        return view('bienestar::index');
+        return view('bienestar::transportation_assistance_list');
     }
 
     /**
