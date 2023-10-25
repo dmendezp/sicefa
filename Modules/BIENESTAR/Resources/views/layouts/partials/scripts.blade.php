@@ -269,7 +269,7 @@ Array.prototype.slice.call(deleteButtons)
     });
 </script>
 
-<!-- Datatable postulados -->
+<!-- Datatable postulados  de alimentacion-->
 <script>
     $(document).ready(function() {
         $('#datatable').DataTable({

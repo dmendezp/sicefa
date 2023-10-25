@@ -1,3 +1,4 @@
+
 @extends('bienestar::layouts.master')
 
 @section('content')
@@ -6,6 +7,7 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-8">
             <div class="card-body">
+            
 
                 <!-- Cuadro con la tabla -->
                 <div class="table-responsive">

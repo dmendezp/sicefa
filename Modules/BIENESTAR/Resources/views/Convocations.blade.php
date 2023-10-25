@@ -8,7 +8,8 @@
         <div class="card shadow col-md-8">
             <!-- /.card-header -->
             <div class="card-body">
-                {!! Form::open(['url' => route('cefa.bienestar.Convocations.store'), 'method' => 'POST']) !!}
+                @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.convocations'))
+                {!! Form::open(['url' => route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.convocations'), 'method' => 'POST']) !!}
                 @csrf
                 <div class="row p-3">
                     <div class="col-md-12">
@@ -72,6 +73,7 @@
                      </div>
                      
                     {!! Form::close() !!}
+                    @endif
                     <div class="mtop16">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
@@ -102,23 +104,25 @@
                                     <td>
 
                                     <div class="btn-group">
-    <button class="btn btn-sm btn-info edit-button mr-1" data-toggle="modal"
-        data-target="#modal-default" data-id="{{ $convocation->id }}"
-        data-name="{{ $convocation->name }}"
-        data-description="{{ $convocation->description }}"
-        data-food_quotas="{{ $convocation->food_quotas }}"
-        data-transport_quotas="{{ $convocation->transport_quotas}}"
-        data-start-date="{{ $convocation->start_date }}"
-        data-end-date="{{ $convocation->end_date }}"
-        data-quarter_id="{{ $convocation->quarter_id }}">
-        <i class="fa fa-edit"></i>
-    </button>
+                                    <button class="btn btn-sm btn-info edit-button mr-1" data-toggle="modal"
+                                    data-target="#modal-default" data-id="{{ $convocation->id }}"
+                                    data-name="{{ $convocation->name }}"
+                                    data-description="{{ $convocation->description }}"
+                                    data-food_quotas="{{ $convocation->food_quotas }}"
+                                    data-transport_quotas="{{ $convocation->transport_quotas}}"
+                                    data-start-date="{{ $convocation->start_date }}"
+                                    data-end-date="{{ $convocation->end_date }}"
+                                    data-quarter_id="{{ $convocation->quarter_id }}">
+                                    <i class="fa fa-edit"></i>
+                                    </button>
 
                                          <!-- Botón para eliminar -->
-                                         {!! Form::open(['route' => ['cefa.bienestar.Convocations.destroy', $convocation->id],
+                                         @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.convocations'))
+                                         {!! Form::open(['route' => ['bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.convocations', $convocation->id],
                                         'method' => 'DELETE', 'class' => 'formEliminar', 'style'=> 'display: inline;']) !!}
                                         <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash-alt"></i></button>
                                         {!! Form::close() !!}
+                                        @endif
                                     </div>
                                  </tr>
                                 @endforeach
@@ -144,7 +148,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                    {!! Form::model('', ['route' => ['cefa.bienestar.Convocations.update', ''], 'method' => 'PUT', 'role' => 'form']) !!}
+                     @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.convocations'))
+                    {!! Form::model('', ['route' => ['bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.convocations', ''], 'method' => 'PUT', 'role' => 'form']) !!}
                         <div class="row p-3">
                         <input type="hidden" name="convocation_id" id="convocation_id">
                             <div class="col-md-12">
@@ -213,13 +218,15 @@
                             </div>
                         </div>
                         {!! Form::close() !!}
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endforeach
-
+@endsection
+@section('scripts')
 <script>
     $(document).ready(function() {
     // Add a click event handler to the edit button
@@ -245,7 +252,7 @@
         $("#modal-default select[name='quarter_id']").val(quarter_id);
 
         // Set the form action URL to include the record ID for editing
-        $("#modal-default form").attr("action", "{{ route('cefa.bienestar.Convocations.update', '') }}/" + id);
+        $("#modal-default form").attr("action", "{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.convocations', '') }}/" + id);
 
         // Show the modal
         $("#modal-default").modal("show");
@@ -343,14 +350,4 @@
 </script>
 
 
- 
-
-
-
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 @endsection

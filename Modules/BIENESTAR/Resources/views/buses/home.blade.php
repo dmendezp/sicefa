@@ -14,6 +14,7 @@
                 !!}
                 <div class="row p-4">
                    <div class="col-md-3">
+                   
                       <label for="plate">{{ trans('bienestar::menu.Plate')}}</label>
                         <input type="text" name="plate" id="plate" class="form-control" placeholder="{{ trans('bienestar::menu.Enter the plate')}}" required maxlength="6" oninput="this.value = this.value.toUpperCase()">
                         <span id="plate-error" class="text-danger"></span>
