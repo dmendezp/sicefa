@@ -52,12 +52,12 @@ class RoutesTransportationController extends Controller
         $transportRoute->save();
 
     // Puedes agregar un mensaje de éxito
-        return redirect()->route('cefa.bienestar.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
+        return redirect()->route('bienestar.admin.crud.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
     }
 
     public function edit($id){
         $idTransport = RouteTransportation::findOrFail($id);
-        return redirect()->route('cefa.bienestar.transportroutes', compact('idTransport'));
+        return redirect()->route('bienestar.admin.crud.transportroutes', compact('idTransport'));
     }
 
     public function update(Request $request)
@@ -88,7 +88,7 @@ class RoutesTransportationController extends Controller
         $transportRoute->save();
 
         // Puedes agregar un mensaje de éxito
-        return redirect()->route('cefa.bienestar.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
+        return redirect()->route('bienestar.admin.crud.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
     }
 
     public function destroy($id)

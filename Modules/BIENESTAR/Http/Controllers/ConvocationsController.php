@@ -56,9 +56,9 @@ class ConvocationsController extends Controller
         $convocations->save();
         
         if($convocations->save()){
-            return redirect()->route('cefa.bienestar.Convocations')->with('message', 'Convocatoria registrada Correctamente')->with('typealert', 'success');
+            return redirect()->route('bienestar.admin.crud.convocations')->with('message', 'Convocatoria registrada Correctamente')->with('typealert', 'success');
         }else{
-            return redirect()->route('cefa.bienestar.Convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
+            return redirect()->route('bienestar.admin.crud.convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
         }
     }
 
@@ -90,9 +90,9 @@ class ConvocationsController extends Controller
         $convocations->quarter_id= $request->input('quarter_id');
          
         if($convocations->save()){
-            return redirect()->route('cefa.bienestar.Convocations')->with('message', 'Registro Actualizado Correctamente')->with('typealert', 'success');
+            return redirect()->route('bienestar.admin.crud.convocations')->with('message', 'Registro Actualizado Correctamente')->with('typealert', 'success');
         }
-        return redirect()->route('cefa.bienestar.Convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
+        return redirect()->route('bienestar.admin.crud.convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
     }
 
     /**
