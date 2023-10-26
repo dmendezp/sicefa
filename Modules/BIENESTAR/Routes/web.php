@@ -141,7 +141,7 @@ Route::middleware(['lang'])->group(function () {
 
         //vista de listado lista de asistencia de transporte
         route::get('/transportation_assistance_list', 'TransportationAssistancesController@index')->name('cefa.bienestar.transportation_assitance_list.index');
-        
+        Route::post('/busqueda/documentos', 'TransportationAssistancesController@search')->name('cefa.bienestar.searchattendancetransport');
 
 
 
