@@ -14,7 +14,7 @@
                             <table id="datatable" class="table table-bordered">
                                 <thead>
                                     <tr>
-                                    <th>id</th>
+                                    <th>Id</th>
                                         <th>Aprendiz</th>
                                         <th>ruta de transporte</th>
                                         <th>Convocatoria</th>
