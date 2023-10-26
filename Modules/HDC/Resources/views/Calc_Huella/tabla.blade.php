@@ -14,7 +14,7 @@
                     <h3 class="card-title">{{ trans('hdc::calculatefootprint.Title_Card_Carbon_Footprint_Table')}} {{ Auth::user()->person->full_name }}</h3>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('Carbonfootprint.form.calculates', Auth::user()->person->id) }}" class="btn btn-success mb-2"><i
+                    <a href="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.Carbonfootprint.form.calculates', Auth::user()->person->id) }}" class="btn btn-success mb-2"><i
                             class="fa-solid fa-plus"></i></a>
                     <div class="mtop16">
                         @if ($environmeaspect->isNotEmpty())

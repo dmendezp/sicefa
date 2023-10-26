@@ -22,7 +22,7 @@ Route::middleware(['lang'])->group(function () {
             Route::get('/index', 'index')->name('cefa.hdc.index');
             Route::get('admin/index', 'index')->name('hdc.admin.index');// Ruta pagina principal del administrador
             Route::get('charge/index', 'index')->name('hdc.charge.index');// Ruta pagina principal del Encargado
-            Route::get('userHDC/index', 'index')->name('hdc.userHDC.index');// Ruta pagina principal del Usuario Calcula tu Huella
+
 
 
 
@@ -35,12 +35,17 @@ Route::middleware(['lang'])->group(function () {
             Route::post('/charge/get_activities', 'getActivities')->name('hdc.charge.activities');// Ruta del formulario agregar que trae con ajax las actividades Encargado
             Route::post('/admin/get_aspects', 'getAspects')->name('hdc.admin.aspects');// Ruta del formulario agregar que trae con ajax los aspectos ambientales Administrador
             Route::post('/charge/get_aspects', 'getAspects')->name('hdc.charge.aspects');// Ruta del formulario agregar que trae con ajax los aspectos ambientales Encargado
-            Route::post('/guardar/valores', 'guardarValores')->name('hdc.guardar.valores');
+            Route::post('admin/guardar/valores', 'guardarValores')->name('hdc.admin.guardar.valores');
+            Route::post('charge/guardar/valores', 'guardarValores')->name('hdc.charge.guardar.valores');
              /* Ruta del CRUD del formulario de registro*/
-            Route::get('/admin/tabla', 'FormularioController@table')->name('hdc.admin.table');
-            Route::delete('/resulform/delete/{id}', 'delete')->name('cefa.hdc.delete');
-            Route::get('/cefa/hdc/edit/{labor}', 'edit')->name('cefa.hdc.edit');
-            Route::post('/cefa/hdc/update/{labor}', 'update')->name('cefa.hdc.update');
+            Route::get('/admin/tabla', 'table')->name('hdc.admin.table');
+            Route::get('/charge/tabla', 'table')->name('hdc.charge.table');
+            Route::delete('admin/resulform/delete/{id}', 'delete')->name('hdc.admin.delete');
+            Route::delete('charge/resulform/delete/{id}', 'delete')->name('hdc.charge.delete');
+            Route::get('/admin/hdc/edit/{labor}', 'edit')->name('hdc.admin.edit');
+            Route::get('/charge/hdc/edit/{labor}', 'edit')->name('hdc.charge.edit');
+            Route::post('/admin/hdc/update/{labor}', 'update')->name('hdc.admin.update');
+            Route::post('/charge/hdc/update/{labor}', 'update')->name('hdc.charge.update');
 
         });
          /* Ruta Para Asignar recursos */
@@ -54,12 +59,14 @@ Route::middleware(['lang'])->group(function () {
 
         Route::controller(CarbonfootprintController::class)->group(function(){
             /* Rutas de Calcula tu Huella */
-            Route::get('persona', 'persona')->name('carbonfootprint.persona');
-            Route::get('/calculos/persona/{documento}', 'verificarUsuario')->name('carbonfootprint.calculos.persona');
+            Route::get('/admin/persona', 'persona')->name('hdc.admin.carbonfootprint.persona');
+            Route::get('/charge/persona', 'persona')->name('hdc.charge.carbonfootprint.persona');
              /* Rutas de Formulario de Calcula tu Huella */
-            Route::get('/form/calculates/footprin/{person}', 'formcalculates')->name('Carbonfootprint.form.calculates');
+            Route::get('/admin/form/calculates/footprin/{person}', 'formcalculates')->name('hdc.admin.Carbonfootprint.form.calculates');
+            Route::get('/charge/form/calculates/footprin/{person}', 'formcalculates')->name('hdc.charge.Carbonfootprint.form.calculates');
             // Ruta para procesar el formulario (guardar los datos)
-            Route::post('/form/calculates/footprint/save', 'saveConsumption')->name('Carbonfootprint.save_consumption');
+            Route::post('/admin/form/calculates/footprint/save', 'saveConsumption')->name('hdc.admin.Carbonfootprint.save_consumption');
+            Route::post('/charge/form/calculates/footprint/save', 'saveConsumption')->name('hdc.charge.Carbonfootprint.save_consumption');
 
             /* Rutas del CRUD */
             Route::get('/carbonfootprint/edit/{id}', 'editConsumption')->name('carbonfootprint.edit_consumption');

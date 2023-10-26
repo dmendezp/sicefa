@@ -1,5 +1,5 @@
 
-<form method="POST" id="form-result" action="{{ route('hdc.guardar.valores') }}">
+<form method="POST" id="form-result" action="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.guardar.valores') }}">
     @csrf
     <input name="activity_id" class="form-control" type="hidden" value="{{ $activity_id }}">
 

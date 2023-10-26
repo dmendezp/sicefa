@@ -12,7 +12,7 @@
             </div>
 
             <div class="card-body">
-                <a href="{{ route('hdc.admin.formulario') }}" class="btn btn-success mb-2">
+                <a href="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.formulario') }}" class="btn btn-success mb-2">
                     <i class="fa-solid fa-plus"></i>
                 </a>
 
@@ -52,7 +52,7 @@
                                     </td>
 
                                     <td>
-                                        <form action="{{ route('cefa.hdc.delete', $dato->id) }}" method="post" id="formEliminar{{ $loop->iteration }}">
+                                        <form action="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.delete', $dato->id) }}" method="post" id="formEliminar{{ $loop->iteration }}">
                                             @csrf
                                             @method('DELETE')
 
@@ -60,7 +60,7 @@
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
-                                        <a href="{{ route('cefa.hdc.edit', $dato) }}" class="btn btn-primary btnUpdat">
+                                        <a href="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.edit', $dato) }}" class="btn btn-primary btnUpdat">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                     </td>

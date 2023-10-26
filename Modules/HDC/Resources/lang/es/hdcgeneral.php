@@ -4,7 +4,7 @@ return [
     // Titulos Del Nabvar
     'Home' => 'Inicio',
     'administrator' => 'Administrador',
-    'user' => 'Usuario',
+    'charge' => 'Encargado',
     'English' => 'Ingles',
     'Spanish' => 'Español',
 

@@ -5,7 +5,7 @@
 @extends('hdc::layouts.master')
 
 @push('breadcrumbs')
-<li class="breadcrumb-item active"><a style="text-decoration: none" href="{{ route('hdc.admin.table') }}">{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }} </a> /{{ trans('hdc::ConsumptionRegistry.indicator_form') }}</li>
+<li class="breadcrumb-item active"><a style="text-decoration: none" href="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.table') }}">{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }} </a> /{{ trans('hdc::ConsumptionRegistry.indicator_form') }}</li>
 
 @endpush
 

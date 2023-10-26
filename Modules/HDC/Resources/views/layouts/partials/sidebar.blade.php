@@ -98,18 +98,55 @@
                               </li>
                           @endif
                       @endforeach
-                      <!-- Menú de opciones para administrador -->
 
-                      @if (Auth::user()->havePermission('hdc.admin.table'))
+
+
+                      <!-- Menú de opciones para administrador -->
+                      @if (Route::is('hdc.admin.*'))
+                          @if (Auth::user()->havePermission('hdc.admin.table'))
+                              <li class="nav-item">
+                                  <a href="{{ Route('hdc.admin.table') }}" class="nav-link">
+                                      <i class="nav-icon fa-solid fa-pen-to-square"></i>
+                                      <p>
+                                          {{ trans('hdc::hdcgeneral.RegisterConsumption') }}
+                                      </p>
+                                  </a>
+                              </li>
+                          @endif
+
                           <li class="nav-item">
-                              <a href="{{ Route('hdc.admin.table') }}" class="nav-link">
-                                  <i class="nav-icon fa-solid fa-pen-to-square"></i>
-                                  <p>
-                                      {{ trans('hdc::hdcgeneral.RegisterConsumption') }}
-                                  </p>
-                              </a>
-                          </li>
+                            <a href="{{ route('hdc.admin.carbonfootprint.persona') }}" class="nav-link">
+                                <i class="nav-icon fas fa-shoe-prints"></i>
+                                <p>
+                                    {{ trans('hdc::hdcgeneral.calculatefootprint') }}
+                                </p>
+                            </a>
+                        </li>
                       @endif
+
+                      <!-- Menú de opciones para Encargado -->
+                      @if (Route::is('hdc.charge.*'))
+                          @if (Auth::user()->havePermission('hdc.charge.table'))
+                              <li class="nav-item">
+                                  <a href="{{ Route('hdc.charge.table') }}" class="nav-link">
+                                      <i class="nav-icon fa-solid fa-pen-to-square"></i>
+                                      <p>
+                                          {{ trans('hdc::hdcgeneral.RegisterConsumption') }}
+                                      </p>
+                                  </a>
+                              </li>
+                          @endif
+
+                          <li class="nav-item">
+                            <a href="{{ route('hdc.charge.carbonfootprint.persona') }}" class="nav-link">
+                                <i class="nav-icon fas fa-shoe-prints"></i>
+                                <p>
+                                    {{ trans('hdc::hdcgeneral.calculatefootprint') }}
+                                </p>
+                            </a>
+                        </li>
+                      @endif
+
 
                       <li class="nav-item">
                           <a href="{{ route('cefa.hdc.assign_environmental_aspects') }}" class="nav-link">
@@ -119,15 +156,9 @@
                               </p>
                           </a>
                       </li>
-                      <li class="nav-item">
-                          <a href="{{ route('carbonfootprint.persona') }}" class="nav-link">
-                              <i class="nav-icon fas fa-shoe-prints"></i>
-                              <p>
-                                  {{ trans('hdc::hdcgeneral.calculatefootprint') }}
-                              </p>
-                      </li>
-                      </a>
-                      </li>
+
+
+
                   </ul>
               </nav>
               <!-- /.sidebar-menu -->

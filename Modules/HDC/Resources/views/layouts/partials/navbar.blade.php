@@ -17,7 +17,7 @@
 
             @if (checkRol('hdc.charge'))
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{--  {{ route('hdc.charge.index') }  --}}}" class="nav-link ">{{ trans('hdc::hdcgeneral.user')}}</a>
+                    <a href="{{ route('hdc.charge.index') }}" class="nav-link ">{{ trans('hdc::hdcgeneral.charge')}}</a>
                 </li>
             @endif
 

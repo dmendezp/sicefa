@@ -4,7 +4,6 @@ namespace Modules\HDC\Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Role;
 

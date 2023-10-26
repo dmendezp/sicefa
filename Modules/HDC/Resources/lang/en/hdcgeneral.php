@@ -4,7 +4,7 @@ return [
     // Titlos Del Nabvar
     'Home' => 'Home',
     'administrator' => 'Administrator',
-    'user' => 'User',
+    'charge' => 'charge',
     'English' => 'English',
     'Spanish' => 'Spanish',
 

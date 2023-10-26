@@ -25,7 +25,7 @@ class PermissionsTableSeeder extends Seeder
         // Consultar aplicación SICA para registrar los roles
         $app = App::where('name', 'HDC')->firstOrFail();
 
-         // ===================== Registro de todos los permisos de la aplicación SIGAC ==================
+        // ===================== Registro de todos los permisos de la aplicación SIGAC ==================
         // PANEL DE CONTROL DEL ADMINISTRADOR (Aministrador)
         $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.index'], [ // Registro o actualización de permiso
             'name' => 'Panel de control del administrador(Administrador)',
@@ -36,7 +36,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         //Vista donde se almacenan los datos del registro de consumo (ADMINISTRADOR)
-         $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.table'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.table'], [ // Registro o actualización de permiso
             'name' => 'Registro de Consumo(Administrador)',
             'description' => 'Registro de consumo de los aspectos ambientales generados en el centro de formación',
             'description_english' => "HDC Administrator Control Panel",
@@ -44,17 +44,73 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Ruta Fromulario Agregar valor del aspecto ambiental (ADMINISTRADOR)//
-         $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.formulario'], [ // Registro o actualización de permiso
-            'name' => 'Guardar Beneficios',
+        // Ruta Formulario Agregar valor del aspecto ambiental (ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.formulario'], [ // Registro o actualización de permiso
+            'name' => 'Formulario registro aspectos ambientales',
             'description' => 'Puede acceder a formulario registro de aspectos ambientales',
             'description_english' => 'You can access the environmental aspects register form',
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Ruta del formulario agregar ajax que llama a las actividades relacionadas con la unidad productiva (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.activities'], [ // Registro o actualización de permiso
+            'name' => 'Consultar actividades (Administrador)',
+            'description' => 'Consultar actividades a las que pertenecen a una unidad productiva',
+            'description_english' => 'Consult activities that belong to a productive unit',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta del formulario agregar ajax que llama a los aspectos ambientales relacionadas con la actividad (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.aspects'], [ // Registro o actualización de permiso
+            'name' => 'Consultar los aspectos ambientales (Administrador)',
+            'description' => 'Consultar los aspectos ambientales que generan una actividad',
+            'description_english' => 'Consult the environmental aspects that generate an activity',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+       // Boton guardar del formulario agregar (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.guardar.valores'], [ // Registro o actualización de permiso
+            'name' => 'Guardar los aspectos ambientales (Administrador)',
+            'description' => 'Guardar registros de los aspectos ambientales',
+            'description_english' => 'keeping records of environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta del CRUD eliminar registros de aspectos ambientales (ADMINISTRADOR)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.delete'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar los registros aspectos ambientales (Administrador)',
+            'description' => 'Eliminar los registros de los aspectos ambientales',
+            'description_english' => 'Delete records of environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta del CRUD editar registros de aspectos ambientales (ADMINISTRADOR)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.edit'], [ // Registro o actualización de permiso
+            'name' => 'Editar los registros aspectos ambientales (Administrador)',
+            'description' => 'Editar los registros de los aspectos ambientales',
+            'description_english' => 'Edit records of environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+
+        // Ruta del CRUD Actualizar registros de aspectos ambientales (ADMINISTRADOR)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar los registros aspectos ambientales (Administrador)',
+            'description' => 'Actualizar los registros de los aspectos ambientales',
+            'description_english' => 'Update records of environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
 
         // PANEL DE CONTROL DEL ENCARGADO (Encargado)
+
         $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.index'], [ // Registro o actualización de permiso
             'name' => 'Panel de control del Encargado (Encargado)',
             'description' => 'Panel de control del encargado',
@@ -63,8 +119,8 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
-           //Vista donde se almacenan los datos del registro de consumo (ENCARGADO)
-           $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.table'], [ // Registro o actualización de permiso
+        //Vista donde se almacenan los datos del registro de consumo (ENCARGADO)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.table'], [ // Registro o actualización de permiso
             'name' => 'Registro de Consumo(Encargado)',
             'description' => 'Registro de consumo de los aspectos ambientales generados en el centro de formación',
             'description_english' => "HDC Consumption register of environmental aspects generated in the training center.",
@@ -72,14 +128,125 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
-         // Ruta Fromulario Agregar valor del aspecto ambiental (ENCARGADO)//
-         $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.formulario'], [ // Registro o actualización de permiso
-            'name' => 'Guardar Beneficios',
+        // Ruta Fromulario Agregar valor del aspecto ambiental (ENCARGADO)//
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.formulario'], [ // Registro o actualización de permiso
+            'name' => 'Formulario registro aspectos ambientales',
             'description' => 'Puede acceder a formulario registro de aspectos ambientales',
             'description_english' => 'You can access the environmental aspects register form',
             'app_id' => $app->id
         ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+         // Ruta del formulario agregar ajax que llama a las actividades relacionadas con la unidad productiva (ENCARGADO)
+         $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.activities'], [ // Registro o actualización de permiso
+            'name' => 'Consultar actividades (Encargado)',
+            'description' => 'Consultar actividades a las que pertenecen a una unidad productiva',
+            'description_english' => 'Consult activities that belong to a productive unit',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta del formulario agregar ajax que llama a los aspectos ambientales relacionadas con la actividad (ENCARGADO)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.aspects'], [ // Registro o actualización de permiso
+            'name' => 'Consultar los aspectos ambientales (Encargado)',
+            'description' => 'Consultar los aspectos ambientales que generan una actividad',
+            'description_english' => 'Consult the environmental aspects that generate an activity',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+       // Boton guardar del formulario agregar (ENCARGADO)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.guardar.valores'], [ // Registro o actualización de permiso
+            'name' => 'Guardar los aspectos ambientales (Encargado)',
+            'description' => 'Guardar registros de los aspectos ambientales',
+            'description_english' => 'keeping records of environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta del CRUD eliminar registros de aspectos ambientales (ENCARGADO)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.delete'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar los registros aspectos ambientales (Encargado)',
+            'description' => 'Eliminar los registros de los aspectos ambientales',
+            'description_english' => 'Delete records of environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta del CRUD editar registros de aspectos ambientales (ENCARGADO)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.edit'], [ // Registro o actualización de permiso
+            'name' => 'Editar los registros aspectos ambientales (Encargado)',
+            'description' => 'Editar los registros de los aspectos ambientales',
+            'description_english' => 'Edit records of environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+
+        // Ruta del CRUD Actualizar registros de aspectos ambientales (ENCARGADO)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar los registros aspectos ambientales (Encargado)',
+            'description' => 'Actualizar los registros de los aspectos ambientales',
+            'description_english' => 'Update records of environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        //PERMISOS DE CALCULA TU HUELLA
+        // Ruta de la vista calcula tu huella (ADMINISTRADOR)
+         $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.carbonfootprint.persona'], [ // Registro o actualización de permiso
+            'name' => 'Vista Calcula tu huella (administrador)',
+            'description' => 'Abre la vista de calcula tu huella',
+            'description_english' => 'Open the calculate your footprint view',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+         // Boton guardar del formulario agregar de calcula tu huella  (ENCARGADO)
+         $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.Carbonfootprint.save_consumption'], [ // Registro o actualización de permiso
+            'name' => 'Guardar los aspectos ambientales de calcula tu huella (Administrador)',
+            'description' => 'Guardar registros de los aspectos ambientales de calcula tu huella',
+            'description_english' => 'keeping records of environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+          // Ruta Fromulario Agregar valor del aspecto ambiental Calcula tu huella (ENCARGADO)//
+          $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.Carbonfootprint.form.calculates'], [ // Registro o actualización de permiso
+            'name' => 'Formulario registro aspectos ambientales',
+            'description' => 'Puede acceder a formulario registro de aspectos ambientales',
+            'description_english' => 'You can access the environmental aspects register form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+
+         // Ruta de la vista calcula tu huella (ADMINISTRADOR)
+         $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.carbonfootprint.persona'], [ // Registro o actualización de permiso
+            'name' => 'Vista Calcula tu huella (administrador)',
+            'description' => 'Abre la vista de calcula tu huella',
+            'description_english' => 'Open the calculate your footprint view',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+         // Boton guardar del formulario agregar de calcula tu huella (ENCARGADO)
+         $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.Carbonfootprint.save_consumption'], [ // Registro o actualización de permiso
+            'name' => 'Guardar los aspectos ambientales de calcula tu huella (Encargado)',
+            'description' => 'Guardar registros de los aspectos ambientales de calcula tu huella',
+            'description_english' => 'keeping records of environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+          // Ruta Fromulario Agregar valor del aspecto ambiental Calcula tu huella (ENCARGADO)//
+          $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.Carbonfootprint.form.calculates'], [ // Registro o actualización de permiso
+            'name' => 'Formulario registro aspectos ambientales',
+            'description' => 'Puede acceder a formulario registro de aspectos ambientales',
+            'description_english' => 'You can access the environmental aspects register form',
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
 
         $rol_admin = Role::where('slug', 'hdc.admin')->first();
         $rol_charge = Role::where('slug', 'hdc.charge')->first();

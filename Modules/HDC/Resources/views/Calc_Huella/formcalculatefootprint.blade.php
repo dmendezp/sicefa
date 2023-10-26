@@ -17,7 +17,7 @@
             <br>
             <div class="container">
                 <div class="table-responsive">
-                    <form method="post" action="{{ route('Carbonfootprint.save_consumption') }}">
+                    <form method="post" action="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.Carbonfootprint.save_consumption') }}">
 
                         @csrf
                         <input type="hidden" name="person_id" value="{{ $person->id }}">

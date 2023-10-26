@@ -53,7 +53,7 @@
                             <h5>{{ trans('hdc::ConsumptionRegistry.Title_Card_results') }}:</h5>
                             <div class="col-md-12">
                                 <form method="POST"
-                                    action="{{ route('cefa.hdc.update', ['labor' => $labor]) }} "id="tuFormularioID">
+                                    action="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.update', ['labor' => $labor]) }} "id="tuFormularioID">
                                     @csrf
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped table-hover">

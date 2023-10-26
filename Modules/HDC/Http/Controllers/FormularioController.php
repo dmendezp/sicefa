@@ -4,6 +4,7 @@ namespace Modules\HDC\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\ProductiveUnit;
@@ -81,7 +82,7 @@ class FormularioController extends Controller
         }
 
         // Redirige al usuario o proporciona una respuesta de éxito
-        return redirect()->route('hdc.admin.table')->with('success', 'Valores guardados correctamente');
+        return redirect()->route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.table')->with('success', 'Valores guardados correctamente');
     }
 
 
@@ -134,7 +135,7 @@ class FormularioController extends Controller
         }
 
        
-        return redirect()->route('hdc.admin.table', ['labor' => $labor])
+        return redirect()->route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.table', ['labor' => $labor])
             ->with('success', 'Datos actualizados correctamente');
     }
 
