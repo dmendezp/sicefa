@@ -101,9 +101,11 @@
               <a href="{{ route('bienestar.admin.crud.buses') }}" class="nav-link">Buses</a>
             </li>
             @endif
+            @if(Auth::user()->havePermission('bienestar.admin.crud.drivers'))
             <li class="nav-item">
-              <a href="#" class="nav-link">Conductores</a>
+              <a href="{{ route('bienestar.admin.crud.drivers') }}" class="nav-link">Conductores</a>
             </li>
+            @endif
             @if(Auth::user()->havePermission('bienestar.admin.crud.transportroutes'))
             <li class="nav-item">
               <a href="{{ route('bienestar.admin.crud.transportroutes') }}" class="nav-link">Rutas</a>

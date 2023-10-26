@@ -28,7 +28,7 @@ class BusDriversController extends Controller
             'phone' => $request->input('phone'),
         ]);
 
-        return redirect()->route('cefa.bienestar.drivers')->with('success', 'Conductor agregado exitosamente.');
+        return redirect()->route('bienestar.admin.crud.drivers')->with('success', 'Conductor agregado exitosamente.');
     }
 
     public function driversUp(Request $request, $id)

@@ -23,11 +23,10 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/home', 'BIENESTARController@home')->name('cefa.bienestar.home');
 
         //Vista Crud Beneficio
-        Route::get('/benefits', 'BenefitsController@benefitsView')->name('bienestar.admin.crud.benefits');
-
-        Route::delete('/benefits/delete/{id}', 'BenefitsController@destroy')->name('cefa.bienestar.benefits.delete');
-        Route::post('/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('cefa.bienestar.benefits.add');
-        Route::put('/benefits/update/{id}', 'BenefitsController@update')->name('cefa.bienestar.benefits.update');
+        Route::get('/admin/benefits', 'BenefitsController@benefitsView')->name('bienestar.admin.crud.benefits');
+        Route::delete('/admin/benefits/delete/{id}', 'BenefitsController@destroy')->name('bienestar.admin.delete.benefits');
+        Route::post('/admin/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('bienestar.admin.save.benefits');
+        Route::put('/admin/benefits/update/{id}', 'BenefitsController@update')->name('bienestar.admin.edit.benefits');
 
         //Vista CRUD Buses
         Route::get('/buses', 'BusesController@index')->name('bienestar.admin.crud.buses');
@@ -92,7 +91,7 @@ Route::middleware(['lang'])->group(function () {
 
         // vista de conductores
         Route::get('/drivers', 'BusDriversController@drivers')->name('bienestar.admin.crud.drivers');
-        Route::post('/drivers/add', 'BusDriversController@driversAdd')->name('cefa.bienestar.drivers.add');
+        Route::post('/drivers/add', 'BusDriversController@driversAdd')->name('bienestar.admin.save.drivers');
         Route::put('/drivers/update/{id}', 'BusDriversController@driversUp')->name('cefa.bienestar.drivers.update');
         Route::delete('/drivers/delete/{id}', 'BusDriversController@delete')->name('cefa.bienestar.drivers.delete');
 
@@ -106,7 +105,7 @@ Route::middleware(['lang'])->group(function () {
 
         //Vista crud formularios
         Route::get('/editforms', 'ConvocationsQuestionsController@editform')->name('bienestar.admin.crud.editform');
-        Route::post('/saveform', 'ConvocationsQuestionsController@saveform')->name('cefa.bienestar.saveform');
+        Route::post('/saveform', 'ConvocationsQuestionsController@saveform')->name('bienestar.admin.saveform.editform');
         Route::post('/editforms/update/{id}', 'ConvocationsQuestionsController@updateQuestion')->name('bienestar.admin.edit.editform');
         Route::delete('/delete/question/{id}', 'ConvocationsQuestionsController@deleteQuestion')->name('bienestar.admin.delete.editform');
         Route::get('/addquestions', 'ConvocationsQuestionsController@add_question')->name('bienestar.admin.add_question.editform');

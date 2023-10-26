@@ -9,8 +9,8 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-8">
             <div class="card-body">
-                @if (Auth::user()->havePermission('bienestar.admin.save.benefits'))
-                <form action="{{ route('bienestar.admin.save.benefits')}}" method="post" onsubmit="return validarFormulario()" class="formGuardar">
+                @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.benefits'))
+                <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.benefits')}}" method="post" onsubmit="return validarFormulario()" class="formGuardar">
                     @csrf
                     <div class="row align-items-center p-4">
                         <div class="col-md-3">
@@ -63,8 +63,8 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        @if (Auth::user()->havePermission('bienestar.admin.edit.benefits'))
-                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('bienestar.admin.edit.benefits', ['id' => $benefit->id]) }}" method="post">
+                                                        @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.benefits'))
+                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.benefits', ['id' => $benefit->id]) }}" method="post">
                                                             @csrf
                                                             @method('PUT')
                                                             <!-- Campos de edición aquí -->
@@ -88,8 +88,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @if (Auth::user()->havePermission('bienestar.admin.delete.benefits'))
-                                        <form action="{{ route('bienestar.admin.delete.benefits', ['id' => $benefit->id]) }}" method="POST" class="formEliminar">
+                                        @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.benefits'))
+                                        <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.benefits', ['id' => $benefit->id]) }}" method="POST" class="formEliminar">
                                             @csrf
                                             @method("DELETE")
                                             <!-- Botón para abrir el modal de eliminación -->
