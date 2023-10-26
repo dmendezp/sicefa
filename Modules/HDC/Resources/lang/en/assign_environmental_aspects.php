@@ -28,6 +28,7 @@ return [
 
     // Boton Guardar
     'btn1' => 'Save',
+    'btn2' => 'Consult',
 
     // Titulos De La Tabla
     'th1' => 'Productive Unit',

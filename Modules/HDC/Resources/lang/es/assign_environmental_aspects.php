@@ -29,6 +29,7 @@ return [
 
     // Boton Guardar
     'btn1' => 'Guardar',
+    'btn2' => 'Consultar',
 
      // Titulo De La Tabla
      'th1' => 'Unidad Productiva',

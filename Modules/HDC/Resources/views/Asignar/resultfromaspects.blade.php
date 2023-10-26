@@ -1,54 +1,55 @@
 @extends('hdc::layouts.master')
-@push('breadcrumbs')
-    <li class="breadcrumb-item active"><a href="{{ route('hdc.Asignar.resultfromaspects') }}">{{ trans('hdc::assign_environmental_aspects.title_card_records-saver') }}</a></li>
-@endpush
 
 @section('content')
-    <div class="col-md-12">
-        <div class="card card-succes card-outline shadow mt-2">
-            <div class="card-header">
-                <h2 class="card-title"><strong>{{ trans('hdc::assign_environmental_aspects.title_card_records-saver') }}</strong></h2>
-            </div>
-
-            <div class="table-body">
-                <a href="{{ route('cefa.hdc.assign_environmental_aspects') }}" class="btn btn-success mb-2">
-                    <i class="fa fas-solid fa-plus"></i>
-                </a>
-
-                <div class="tbale-responsive">
-                    <table class="table table-bordered table-hover" id="myTable">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>{{ trans('hdc::assign_environmental_aspects.th1') }}</th>
-                                <th>{{ trans('hdc::assign_environmental_aspects.th2') }}</th>
-                                <th>{{ trans('hdc::assign_environmental_aspects.th3') }}</th>
-                                <th>{{ trans('hdc::assign_environmental_aspects.th4') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($dato as $d)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $d->activity->productive_unit->name }}</td>
-                                    <td>{{ $d->activity->name }}</td>
-                                    <td>{{ $d->execution_date }}</td>
-                                    <td>
-                                        <ul>
-                                            @foreach($d->activity_environmental_aspect as $enac)
-                                                <li>{{ $enac->environmental_aspect->name}}</li>
-                                            @endforeach
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('cefa.hdc.destroy', ['assignEnvironmentalAspect' => $d]) }
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+<div class="content">
+    <div class="container-fluid mt">
+        <div class="row justify-content-center">
+            <div class="card card-success card-outline shadow col-md-5 mt-3">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <form id="unidadForm">
+                        @csrf
+                        <div class="form-group">
+                            <label>{{ trans('hdc::assign_environmental_aspects.label1') }}</label>
+                            <select name="productive_unit_id" class="form-control" required>
+                                <option value="">{{ trans('hdc::assign_environmental_aspects.select1') }}</option>
+                                @foreach ($productive_unit as $pro)
+                                <option value="{{ $pro->id }}">{{ $pro->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <center><button type="submit" class="btn btn-success">{{ trans('hdc::assign_environmental_aspects.btn2') }}</button></center>
+                    </form>
                 </div>
             </div>
         </div>
+        <!-- Contenedor para mostrar la tabla de resultados -->
+        <div id="resultadosContainer"></div>
     </div>
+</div>
+
+@push('scripts')
+<script>
+    // Escucha el envío del formulario y realiza la solicitud AJAX
+    $('#unidadForm').on('submit', function(e) {
+        e.preventDefault(); // Evita el envío del formulario por defecto
+
+        // Realiza una solicitud AJAX para obtener los resultados
+        $.ajax({
+            url: "{{ route('cefa.hdc.mostrarResultados') }}",
+            type: "POST",
+            data: $(this).serialize(),
+            success: function(response) {
+                console.log(response);
+                // Actualiza el contenido del contenedor con la tabla de resultados
+                $('#resultadosContainer').html(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
+@endpush
 @endsection
