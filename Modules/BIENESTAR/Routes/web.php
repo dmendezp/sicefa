@@ -99,9 +99,9 @@ Route::middleware(['lang'])->group(function () {
 
         // vista de gestiones de convocatorias
         Route::get('/Convocations', 'ConvocationsController@index')->name('bienestar.admin.crud.convocations');
-        Route::post('/Convocations/store', 'ConvocationsController@store')->name('cefa.bienestar.Convocations.store');
-        Route::delete('/Convocations/delete/{id}', 'ConvocationsController@destroy')->name('cefa.bienestar.Convocations.destroy');
-        Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('cefa.bienestar.Convocations.update');
+        Route::post('/Convocations/store', 'ConvocationsController@store')->name('bienestar.admin.save.convocations');
+        Route::delete('/Convocations/delete/{id}', 'ConvocationsController@destroy')->name('bienestar.admin.edit.convocations');
+        Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('bienestar.admin.delete.convocations');
 
 
         //Vista crud formularios
@@ -127,8 +127,8 @@ Route::middleware(['lang'])->group(function () {
 
 
         //vista el listados apoyo alimentacion 
-        Route::get('/AssistancesFoods', 'AssistancesFoodsController@index')->name('bienestar.admin.crud.beneficiaries_food');
-        Route::post('/AssistancesFoods/store', 'AssistancesFoodsController@store')->name('cefa.bienestar.AssistancesFoods.store');
+        Route::get('/foodrecord', 'AssistancesFoodsController@index')->name('bienestar.admin.crud.beneficiaries_food');
+        Route::get('/assistancefood', 'AssistancesFoodsController@assistancefoodrecord')->name('cefa.bienestar.assistancefoodrecord');
 
         //Vistas Rutas de transporte
         Route::get('/assign-transportation-routes', 'AssingTransportRoutesController@mostrarAsignaciones')->name('cefa.bienestar.assign-transportation-routes');
