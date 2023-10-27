@@ -1,98 +1,115 @@
 @extends('bienestar::layouts.master')
 
 @section('content')
-    <div class="container-fluid" style="max-width:1200px"> 
-        
-        <div class="row justify-content-md-center pt-4"> 
-            <div class="col-md-12"> 
-            </div> 
-                <div class="box"> 
-                    <div class="box-header with-border"> 
-                        <h3 class="box-title">Asistencia De Transporte <i class="fas fa-bus"></i></h3> 
-                    </div>
-                    <div class="box-body">
-                        <!-- Contenido de la vista en un solo card -->
-                        <div class="card shadow col-md-12">
-                            <div class="card-body text-center"> <!-- Centramos el contenido en el card verticalmente -->
+<div class="container-fluid" style="max-width:1200px"> 
+    <div class="row justify-content-md-center pt-4"> 
+        <div class="col-md-12"> 
+        </div> 
+        <div class="box"> 
+            <div class="box-header with-border"> 
+                <h3 class="box-title">Asistencia De Transporte <i class="fas fa-bus"></i></h3> 
+            </div>
+            <div class="box-body">
+                <!-- Contenido de la vista en un solo card -->
+                <div class="card shadow col-md-12">
+                    <div class="card-body text-center"> <!-- Centramos el contenido en el card verticalmente -->
 
-                                <!-- Barra de búsqueda de documentos -->
-                                <div class="form-group d-flex justify-content-center align-items-center">
-                                    <form action="{{ route('cefa.bienestar.searchattendancetransport') }}" method="POST">
-                                        @csrf
-                                        <div class="row bg-white rounded p-2">
-                                            <!-- Cambiamos el color a blanco y añadimos bordes redondeados y relleno -->
-                                            <div class="col-8">
-                                                <!-- Cambiamos de "col-md-8" a "col-8" para hacerlo más ancho y adaptativo -->
-                                                <input type="number" name="document_number" class="form-control"
-                                                    id="documento_search" placeholder="Buscar documento" required>
-                                            </div>
-                                            <div class="col-4">
-                                                <input type="submit" value="Consultar" class="btn btn-primary">
-                                                <!-- Añadimos estilos de botón -->
-                                            </div>
-                                        </div>
-                                    </form>
+                        <!-- Barra de búsqueda de documentos -->
+                        <div class="form-group d-flex justify-content-center align-items-center">
+                            <form action="{{ route('cefa.bienestar.searchattendancetransport') }}" method="POST">
+                                @csrf
+                                <div class="row bg-white rounded p-2">
+                                    <!-- Cambiamos el color a blanco y añadimos bordes redondeados y relleno -->
+                                    <div class="col-8">
+                                        <!-- Cambiamos de "col-md-8" a "col-8" para hacerlo más ancho y adaptativo -->
+                                        <input type="number" name="document_number" class="form-control"
+                                            id="documento_search" placeholder="Buscar documento" required>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="submit" value="Consultar" class="btn btn-primary">
+                                        <!-- Añadimos estilos de botón -->
+                                    </div>
                                 </div>
-                                @if (isset($person))
-                                <table id="datatable" class="table mt-4" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Aprendiz</th>
-                                                <th>Número de Documento</th>
-                                                <th>Programa</th>
-                                                <th>Ficha</th>
-                                                <th>ruta de transporte</th>
-                                                <th>Convocatoria</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($person->apprentices as $apprentice)
-                                                <tr>
-                                                    <td>{{ $person->full_name }}</td>
-                                                    <td>{{ $person->document_number }}</td>
-                                                    <td>{{ $apprentice->course->program->name }}</td>
-                                                    <td>{{ $apprentice->course->code }}</td>
-                                                    <td>
-                                                        @if ($apprentice->assigntransoportroutes->isNotEmpty())
-                                                            @foreach ($apprentice->assigntransoportroutes as $assigntransoportroute)
+                            </form>
+                        </div>
+                        @if (isset($person))
+                        @php
+                            $beneficiary = false;
+                        @endphp
+                        @foreach ($person->apprentices as $apprentice)
+                            @if ($apprentice->postulations->isNotEmpty())
+                                @foreach ($apprentice->postulations as $postulation)
+                                    @php
+                                        $beneficiaryBenefits = $postulation->postulationBenefits->where('state', 'Beneficiario');
+                                    @endphp
+                        
+                                    @if ($beneficiaryBenefits->isNotEmpty())
+                                        @php
+                                            $beneficiary = true;
+                                        @endphp
+                                        @break
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
+                        @if ($beneficiary)
+                            <table id="datatable" class="table mt-4" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Aprendiz</th>
+                                        <th>Número de Documento</th>
+                                        <th>Programa</th>
+                                        <th>Ficha</th>
+                                        <th>ruta de transporte</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($person->apprentices as $apprentice)
+                                        <tr>
+                                            <td>{{ $person->full_name }}</td>
+                                            <td>{{ $person->document_number }}</td>
+                                            <td>{{ $apprentice->course->program->name }}</td>
+                                            <td>{{ $apprentice->course->code }}</td>
+                                            <td>
+                                                @if ($apprentice->postulations->isNotEmpty())
+                                                    @foreach ($apprentice->postulations as $postulation)
+                                                        @php
+                                                            $beneficiaryBenefits = $postulation->postulationBenefits->where('state', 'Beneficiario');
+                                                        @endphp
+                                                
+                                                        @if ($beneficiaryBenefits->isNotEmpty())
+                                                            @foreach ($beneficiaryBenefits as $benefit)
                                                                 <ul>
                                                                     <li>
-                                                                        {{ $assigntransoportroute->routes_trasportantion->name_route }}
+                                                                        {{ $benefit->benefit->name }}
                                                                     </li>
                                                                 </ul>
                                                             @endforeach
                                                         @else
                                                             Sin beneficios asociados
                                                         @endif
-                                                    </td>
-                                                    <td>
-                                                        @if ($apprentice->assigntransoportroutes->isNotEmpty())
-                                                            @foreach ($apprentice->assigntransoportroutes as $assigntransoportroute)
-                                                                <ul>
-                                                                    <li>
-                                                                        {{ $assigntransoportroute->convocations->name }}
-                                                                    </li>
-                                                                </ul>
-                                                            @endforeach
-                                                        @else
-                                                            Sin convocatoria
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                @else
-                                    <div class="text-center">No se ha encontrado resultados</div>
-                                @endif
-                            </div>
-                        </div>
-                        <!-- Fin del contenido en un solo card -->
+                                                    @endforeach
+                                                @else
+                                                    Sin postulaciones
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <div class="text-center">No es beneficiario</div>
+                        @endif
+                        @else
+                            <div class="text-center">No se ha encontrado resultados</div>
+                        @endif
                     </div>
                 </div>
+                <!-- Fin del contenido en un solo card -->
             </div>
         </div>
     </div>
+</div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     {{-- <script>
