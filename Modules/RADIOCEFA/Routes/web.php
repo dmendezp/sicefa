@@ -10,20 +10,25 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Route::middleware(['lang'])->group(function(){
 
-Route::prefix('radiocefa')->group(function() {
+    Route::prefix('radiocefa')->group(function() {
     
-    Route::get('/', 'RADIOCEFAController@index')->name('inicioRadio');
+        Route::get('/index', 'RADIOCEFAController@index')->name('inicioRadio');
 
-    Route::get('/Expresate', 'RadioRouteController@Expresate')->name('Expresate');
+        Route::get('/Expresate', 'RadioRouteController@Expresate')->name('Expresate');
 
-     Route::get('/cronograma', 'RadioRouteController@cronograma')->name('cronograma');
+        Route::get('/cronograma', 'RadioRouteController@cronograma')->name('cronograma');
 
-     Route::get('/votes', 'RadioRouteController@votaciones')->name('votaciones');
+        Route::get('/votes', 'RadioRouteController@votaciones')->name('votaciones');
 
-     Route::get('/sobrenosotros', 'RadioRouteController@sobrenosotros')->name('aboutus');
+        Route::get('/sobrenosotros', 'RadioRouteController@sobrenosotros')->name('aboutus');
 
 
-     // parrilla de programacion
-     Route::get('/parrilla', 'RadioRouteController@parrilla')->name('parrilla');
-});
+        // parrilla de programacion
+        Route::get('/parrilla', 'RadioRouteController@parrilla')->name('parrilla');
+
+
+
+    });
+// });

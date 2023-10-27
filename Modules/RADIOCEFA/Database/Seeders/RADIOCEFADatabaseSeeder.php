@@ -3,7 +3,7 @@
 namespace Modules\RADIOCEFA\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class RADIOCEFADatabaseSeeder extends Seeder
 {
@@ -13,12 +13,16 @@ class RADIOCEFADatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-{
-    $usuario = new User();
-    $usuario->nickname = 'Maria Rosell';
-    $usuario->email = 'MariaRosell@example.com';
-    $usuario->password = bcrypt('contraseña');
-    $usuario->save();
-}
+    {
+        DB::beginTransaction(); // Iniciar transacción
+
+        $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
+        $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de personas
+        $this->call(UsersTableSeeder::class); // Ejecutar Seeder de usuarios
+        $this->call(RolesTableSeeder::class); // Ejecutar Seeder de roles para usuarios
+        $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de permisos para roles
+
+        DB::commit(); // Finalizar transacción
+    }
 
 }

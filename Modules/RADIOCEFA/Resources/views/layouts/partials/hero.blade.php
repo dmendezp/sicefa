@@ -27,7 +27,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 col-md-8 col-xl-4" data-aos="fade-down-right">
-        <img src="{{asset('radi__cefa/headerRadio.jpg')}}" class="img-fluid vw-75">
+        <img src="{{asset('radi__cefa/headerRadio.jpg')}}" class="img-fluid">
       </div>
       <div class="col-12 col-md-4 d-flex flex-column justify-content-center pt-4 pt-md-0 text-light text-center" data-aos="fade-up" data-aos-delay="200">
         @yield('textHero')

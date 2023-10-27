@@ -19,14 +19,14 @@
         <a href="#" class="nav-link text-success">Unete</a>
       </li>
 
-      <li class="dropdown text-success">
+      <li class="dropdown text-success nav-link">
               @auth
                  <a href="{{ route('cefa.home') }}">{{ Auth::user()->nickname }}</a>
                 <ul>
                   <li><a href="#">Cambiar contraseña</a></li>
                   <li>
                     
-                <a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault();
+                <a href="{{ route('logout') }}" class="d-block " onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">Salir</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                       @csrf
@@ -40,33 +40,6 @@
 
           </li>
           
-          
-          
     </ul>
-
-    <!-- Right navbar links -->
-    {{-- <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
-    </ul> --}}
   </nav>
   <!-- /.navbar -->
