@@ -11,40 +11,41 @@
                         <form action="{{ route('company.postulate.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label for="apprentice_info" class="form-label">{{ trans('senaempresa::menu.Apprentice') }}</label>
+                                <label for="apprentice_info"
+                                    class="form-label">{{ trans('senaempresa::menu.Apprentice') }}</label>
                                 <input type="text" class="form-control" id="apprentice_info" name="apprentice_info"
                                     value="{{ $ApprenticeId }} - {{ auth()->user()->person->first_name }} {{ auth()->user()->person->first_last_name }} {{ auth()->user()->person->second_last_name }}"
                                     readonly>
                             </div>
                             <input type="hidden" id="apprentice_id" name="apprentice_id" value="{{ $ApprenticeId }}"
                                 readonly>
+
                             <div class="mb-3">
-                                <label for="vacancy_id" class="form-label">{{ trans('senaempresa::menu.Vacancy ID') }}</label>
-                                <select class="form-control" name="vacancy_id" aria-label="{{ trans('senaempresa::menu.Select Vacant ID') }}" required>
-                                    <option value="" selected>{{ trans('senaempresa::menu.Select Vacant ID') }}
-                                    </option>
-                                    @foreach ($vacancies as $vacancy)
-                                        <option value="{{ $vacancy->id }}">
-                                            {{ $vacancy->id }}
-                                            {{ $vacancy->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <label for="vacancy_info"
+                                    class="form-label">{{ trans('senaempresa::menu.Vacancy ID') }}</label>
+                                <input type="text" class="form-control" id="vacancy_info" name="vacancy_info"
+                                    value="{{ $vacancy->id }} - {{ $vacancy->name }}" readonly>
                             </div>
+                            <input type="hidden" class="form-control" id="vacancy_id" name="vacancy_id"
+                                    value="{{ $vacancy->id }}" readonly>
                             <div class="mb-3">
-                                <label for="cv" class="form-label">{{ trans('senaempresa::menu.Currículum') }}</label><br>
+                                <label for="cv"
+                                    class="form-label">{{ trans('senaempresa::menu.Currículum') }}</label><br>
                                 <input type="file" id="cv" name="cv" required>
                             </div>
                             <div class="mb-3">
-                                <label for="personalities" class="form-label">{{ trans('senaempresa::menu.16 personalities') }}</label><br>
+                                <label for="personalities"
+                                    class="form-label">{{ trans('senaempresa::menu.16 personalities') }}</label><br>
                                 <input type="file" id="personalities" name="personalities" required>
                             </div>
                             <div class="mb-3">
-                                <label for="proposal" class="form-label">{{ trans('senaempresa::menu.Proposal') }}</label><br>
+                                <label for="proposal"
+                                    class="form-label">{{ trans('senaempresa::menu.Proposal') }}</label><br>
                                 <input type="file" id="proposal" name="proposal" required>
                             </div>
 
-                            <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.Register') }}</button>
+                            <button type="submit"
+                                class="btn btn-success">{{ trans('senaempresa::menu.Register') }}</button>
                             <a href="{{ route('company.vacant.vacantes') }}">
                                 {!! Form::button('Cancelar', ['class' => 'btn btn-danger', 'name' => 'cancelar']) !!}
                             </a>

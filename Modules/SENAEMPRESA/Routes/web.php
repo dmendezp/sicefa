@@ -92,7 +92,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('Prestamos/devolver_prestamo/{id}', 'LoanController@devolver_prestamo')->name('company.loan.devolver_prestamo');
 
         //Inscripciones a vacantes
-        Route::get('Vacantes/Inscripción/', 'PostulateController@inscription')->name('inscription');
+        Route::get('Vacantes/Inscripción/{vacancy_id}', 'PostulateController@inscription')->name('inscription');
         Route::post('Vacantes/Inscripción_Exitosa/', 'PostulateController@store')->name('company.postulate.store');
 
         //Postulados

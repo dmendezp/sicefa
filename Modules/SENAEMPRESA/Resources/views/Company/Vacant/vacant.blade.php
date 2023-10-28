@@ -104,9 +104,10 @@
                                                 <i class="fas fa-eye" style="color: #000000;"></i>
                                             </a>
                                             @if (auth()->user()->person->apprentices())
-                                                <a title="Inscripción" href="{{ route('inscription') }}">
-                                                    <i class="fas fa-user-plus" style="color: #000000;"></i>
-                                                </a>
+                                            <a href="{{ route('inscription', ['vacancy_id' => $vacancy->id]) }}">
+                                                <i class="fas fa-user-plus" style="color: #000000;"></i>
+                                            </a>
+                                            
                                             @endif
                                         </td>
 

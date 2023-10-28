@@ -25,7 +25,7 @@ class PostulateController extends Controller
         $vacancy = Vacancy::find($id);
         return response()->json($vacancy);
     }
-    public function inscription(Request $request)
+    public function inscription(Request $request, $vacancy_id)
     {
         $Apprentice = auth()->user()->person->apprentices()->first();
 
@@ -34,6 +34,7 @@ class PostulateController extends Controller
         }
 
         $ApprenticeId = $Apprentice->id;
+        $vacancy = Vacancy::find($vacancy_id);
 
         // Obtén el curso del aprendiz logueado
         $course = $Apprentice->course;
@@ -49,6 +50,7 @@ class PostulateController extends Controller
             'Postulates' => $Postulates,
             'ApprenticeId' => $ApprenticeId,
             'vacancies' => $vacancies,
+            'vacancy' => $vacancy,
         ];
 
         return view('senaempresa::Company.Inscription.inscription', $data);
