@@ -30,8 +30,7 @@
                                 @foreach ($Apprentices as $Apprentice)
                                 <option value="{{ $Apprentice->id }}">
                                     {{ $Apprentice->Person->document_number }}
-                                    {{ $Apprentice->Person->first_name }}
-                                    {{ $Apprentice->Person->first_last_name }}
+                                    {{ $Apprentice->Person->full_name  }}
                                 </option>
                                 @endforeach
                             </select>

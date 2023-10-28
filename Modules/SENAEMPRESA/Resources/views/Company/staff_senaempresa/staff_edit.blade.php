@@ -38,8 +38,7 @@
                                         <option value="{{ $apprentice->id }}"
                                             {{ $apprentice->id == $staffSenaempresa->apprentice_id ? 'selected' : '' }}>
                                             {{ $apprentice->Person->document_number }}
-                                            {{ $apprentice->Person->first_name }}
-                                            {{ $apprentice->Person->first_last_name }}
+                                            {{ $apprentice->Person->full_name }}
                                         </option>
                                     @endforeach
                                 </select>

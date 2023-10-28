@@ -178,15 +178,6 @@
                                 <p>{{ trans('senaempresa::menu.Positions') }}</p>
                             </a>
                         </li>
-                        @if (auth()->user()->person->apprentices())
-                            <li class="nav-item">
-                                <a href="{{ route('inscription') }}"
-                                    class="nav-link {{ !Route::is('inscription') ?: 'active' }}">
-                                    <i class="fas fa-chalkboard-teacher"></i>
-                                    <p>{{ trans('senaempresa::menu.Registration') }}</p>
-                                </a>
-                            </li>
-                        @endif
                     </ul>
                 </li>
                 <li class="nav-item {{ !Route::is('entrevistas.*') ?: 'menu-is-opening menu-open' }}">
