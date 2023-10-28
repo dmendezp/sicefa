@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEquipmentsTable extends Migration
+class CreateConsumablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateEquipmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('equipments', function (Blueprint $table) {
+        Schema::create('consumables', function (Blueprint $table) {
             $table->id();
             $table->foreignId('labor_id')->constrained()->onDelete('cascade');
             $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
             $table->integer('amount');
             $table->integer('price');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -30,6 +31,7 @@ class CreateEquipmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('equipments');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('consumables');
     }
 }

@@ -64,7 +64,7 @@
                                             class='bx bxl-apple icon'></i><span
                                             class="text nav-text">{{ trans('agrocefa::universal.Consumption') }}</span></a>
                                 </li>
-                                <li id="sublist-li"><a href="#"><i
+                                <li id="sublist-li"><a href="{{ route('agrocefa.reports.balance') }}"><i
                                             class='bx bx-objects-vertical-bottom icon'></i><span
                                             class="text nav-text">{{ trans('agrocefa::universal.Balance') }}</span></a>
                                 </li>

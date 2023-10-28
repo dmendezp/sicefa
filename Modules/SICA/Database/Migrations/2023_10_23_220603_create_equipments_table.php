@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmployementTypesTable extends Migration
+class CreateEquipmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateEmployementTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('employement_types', function (Blueprint $table) {
+        Schema::create('equipments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('labor_id')->constrained()->onDelete('cascade');
+            $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
+            $table->integer('amount');
             $table->integer('price');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -28,6 +31,7 @@ class CreateEmployementTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employement_types');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('equipments');
     }
 }
