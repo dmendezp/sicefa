@@ -1,7 +1,6 @@
 @extends('hdc::layouts.master')
 @push('breadcrumbs')
-<li class="breadcrumb-item active"><a href="{{ route('hdc.admin.table') }}">{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }}</a></li>
-
+    <li class="breadcrumb-item active"><a href="{{ route('hdc.admin.table') }}">{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }}</a></li>
 @endpush
 
 @section('content')
@@ -30,27 +29,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($datos as $dato)
+                            @foreach ($datos->sortByDesc('execution_date') as $dato)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $dato->activity->productive_unit->name }}</td>
                                     <td>{{ $dato->activity->name }}</td>
-                                    <td>{{ $dato->execution_date }}</td>
+                                    <td>
+                                        @if ($dato->execution_date instanceof \Carbon\Carbon)
+                                            {{ $dato->execution_date->format('Y-m-d') }}
+                                        @else
+                                            {{ $dato->execution_date }}
+                                        @endif
+                                    </td>
                                     <td>
                                         <ul>
-                                        @foreach ($dato->environmental_aspect_labors as $envasp)
-                                            <li>{{ $envasp->environmental_aspect->name }}</li>
-                                        @endforeach
-                                        <ul>
+                                            @foreach ($dato->environmental_aspect_labors as $envasp)
+                                                <li>{{ $envasp->environmental_aspect->name }}</li>
+                                            @endforeach
+                                        </ul>
                                     </td>
                                     <td>
                                         <ul>
                                             @foreach ($dato->environmental_aspect_labors as $envasp)
                                                 <li>{{ $envasp->amount }} {{ $envasp->environmental_aspect->measurement_unit->abbreviation }}</li>
                                             @endforeach
-                                        <ul>
+                                        </ul>
                                     </td>
-
                                     <td>
                                         <form action="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.delete', $dato->id) }}" method="post" id="formEliminar{{ $loop->iteration }}">
                                             @csrf
@@ -64,15 +68,11 @@
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                     </td>
-
                                 </tr>
                             @endforeach
-
-
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>

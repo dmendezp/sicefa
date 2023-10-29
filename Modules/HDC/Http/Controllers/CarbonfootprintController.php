@@ -5,6 +5,7 @@ namespace Modules\HDC\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Modules\HDC\Entities\FamilyPersonFootprint;
 use Modules\HDC\Entities\PersonEnvironmentalAspect;
 use Modules\SICA\Entities\EnvironmentalAspect;
@@ -78,7 +79,7 @@ class CarbonfootprintController extends Controller
         }
         $personFootprint->update(['carbon_print' => $total]);
 
-        return redirect()->route('carbonfootprint.persona')->with('success', 'Valores guardados correctamente');
+        return redirect()->route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.carbonfootprint.persona')->with('success', 'Valores guardados correctamente');
     }
 
     public function editConsumption($id)

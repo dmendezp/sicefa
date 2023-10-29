@@ -5,7 +5,11 @@ namespace Modules\HDC\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\Activity;
+use Modules\SICA\Entities\EnvironmentalAspectLabor;
+use Modules\SICA\Entities\Labor;
 use Modules\SICA\Entities\ProductiveUnit;
+
 
 class HDCController extends Controller
 {
@@ -15,8 +19,64 @@ class HDCController extends Controller
      */
     public function index()
     {
-        return view('hdc::index');
+        $productiveUnits = ProductiveUnit::all();
+
+        // Obtener todas las actividades
+        $activities = Activity::all();
+
+        // Inicializar un arreglo para almacenar los totales por unidad productiva
+        $totalAmountByProductiveUnit = [];
+
+        // Iterar sobre cada unidad productiva
+        foreach ($productiveUnits as $productiveUnit) {
+            // Obtener datos ambientales para la unidad productiva actual
+            $aspectosAmbientalesPorActividad = [];
+
+            // Iterar sobre cada actividad
+            foreach ($activities as $activity) {
+                // Obtener datos ambientales para la unidad productiva y actividad actuales
+                $aspectosAmbientales = EnvironmentalAspectLabor::with(['environmental_aspect', 'labor.activity'])
+                    ->whereHas('labor', function ($query) use ($activity, $productiveUnit) {
+                        $query->where('activity_id', $activity->id)
+                            ->whereHas('activity', function ($query) use ($productiveUnit) {
+                                $query->where('productive_unit_id', $productiveUnit->id);
+                            });
+                    })
+                    ->get();
+
+                $aspectosAmbientalesPorActividad[$activity->id] = $aspectosAmbientales;
+            }
+
+            // Calcular el total para la unidad productiva actual
+            $totalAmount = collect($aspectosAmbientalesPorActividad)
+                ->flatten()
+                ->sum(function ($environmentalAspectLabor) {
+                    $amount = $environmentalAspectLabor->amount;
+                    $conversionFactor = $environmentalAspectLabor->environmental_aspect->conversion_factor;
+                    return $amount * $conversionFactor;
+                });
+
+            // Almacenar el total en el arreglo
+            $totalAmountByProductiveUnit[$productiveUnit->id] = $totalAmount;
+        }
+        // Agrupar los totales por sector con nombres
+        $totalAmountBySector = $productiveUnits
+            ->groupBy('sector.name') // Cambiado a 'name' para agrupar por el nombre del sector
+            ->map(function ($productiveUnits) use ($totalAmountByProductiveUnit) {
+                return $productiveUnits->sum(function ($productiveUnit) use ($totalAmountByProductiveUnit) {
+                    return $totalAmountByProductiveUnit[$productiveUnit->id] ?? 0;
+                });
+            });
+
+        // Convierte los datos al formato necesario para el gráfico
+        $labels = $totalAmountBySector->keys()->toArray();
+        $data = $totalAmountBySector->values()->toArray();
+
+        return view('hdc::index', compact('labels', 'data'));
     }
+
+
+
 
 
     /**

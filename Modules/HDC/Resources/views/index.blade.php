@@ -7,7 +7,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-    <h2 class="text-center">{{ trans('hdc::hdcgeneral.title1') }}</h2>
+            <h2 class="text-center">{{ trans('hdc::hdcgeneral.title1') }}</h2>
             <h4 class="text-center">{{( trans('hdc::hdcgeneral.caption1'))}}</h4>
             <hr>
             <div class="row">
@@ -75,28 +75,31 @@
     <script src="{{ asset('AdminLTE/plugins/chart.js/Chart.min.js') }}"></script>
 
     <script>
-        const ctx = document.getElementById('myChart');
+        const ctx = document.getElementById('myChart').getContext('2d');
 
         new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: ['{{ trans('hdc::Graficas.Environmental') }}', '{{ trans('hdc::Graficas.Livestock') }}','{{ trans('hdc::Graficas.Agricultural') }}','{{ trans('hdc::Graficas.Agroindustry') }}'],
-            datasets: [{
-              label: 'Huella total anual',
-              backgroundColor: 'rgba(42, 157, 143, 0.7)',
-              borderColor: 'rgba(42, 157, 143, 1)',
-              pointBackgroundColor: 'rgba(204, 255, 51, 1)',
-              data: [12, 19, 3, 5],
-              borderWidth: 1
-            }]
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true
-              }
+            type: 'line',
+            data: {
+                labels: {!! json_encode($labels) !!},
+                datasets: [{
+                    label: 'Huella total anual',
+                    backgroundColor: 'rgba(42, 157, 143, 0.7)',
+                    borderColor: 'rgba(42, 157, 143, 1)',
+                    pointBackgroundColor: 'rgba(204, 255, 51, 1)',
+                    data: {!! json_encode($data) !!},
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                maintainAspectRatio: false,
+                responsive: true
             }
-          }
         });
-      </script>
+    </script>
+
 @endpush
