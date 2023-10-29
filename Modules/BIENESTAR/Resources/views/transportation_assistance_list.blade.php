@@ -1,11 +1,11 @@
 @extends('bienestar::layouts.master')
 
 @section('content')
-<div class="container-fluid" style="max-width:1200px"> 
+<div class="container-fluid" style="max-width:1200px">
     <div class="row justify-content-md-center pt-4"> 
-        <div class="col-md-12"> 
+        <div class="card shadow col-md-12">
         </div> 
-        <div class="box"> 
+        <div class="card-body"> 
             <div class="box-header with-border"> 
                 <h3 class="box-title">Asistencia De Transporte <i class="fas fa-bus"></i></h3> 
             </div>
