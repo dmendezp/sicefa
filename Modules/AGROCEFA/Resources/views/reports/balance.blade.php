@@ -8,7 +8,7 @@
         <div id="notification" class="alert alert-danger" style="display: none;"></div>
         <div class="card">
             <div class="card-body">
-                {!! Form::open(['route' => 'agrocefa.reports.filterbalance', 'method' => 'GET', 'id' => 'filterForm']) !!}
+                {!! Form::open(['route' => 'agrocefa.reports.filterbalance', 'method' => 'POST']) !!}
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
@@ -27,77 +27,26 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             {!! Form::label('crop', 'Cultivo') !!}
-                            {!! Form::select('crop', [], old('crop'), [
-                                'class' => 'form-control',
-                                'required',
-                                'id' => 'cropSelect',
-                            ]) !!}
+                            {!! Form::select('crop', [], old('crop'), ['class' => 'form-control', 'required', 'id' => 'cropSelect']) !!}
                         </div>
+
                     </div>
                     <br>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {!! Form::label('start_date', 'Fecha de inicio') !!}
-                            {!! Form::input('date', 'start_date', old('start_date'), ['class' => 'form-control']) !!}
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {!! Form::label('end_date', 'Fecha de fin') !!}
-                            {!! Form::input('date', 'end_date', old('end_date'), ['class' => 'form-control']) !!}
-                        </div>
-                    </div>
                 </div>
-                <br>
 
                 {!! Form::hidden('sown_area', null, ['id' => 'sownArea']) !!}
 
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <button type="submit" class="btn btn-primary" id="filterButton">Filtrar</button>
-                    </div>
-                </div>
                 {!! Form::close() !!}
             </div>
-            <br>
         </div>
-        
-        <div class="container my-5">
-            <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        @if (isset($filteredLabors) && $filteredLabors->count() > 0)
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Actividad</th>
-                                        <th>Tipo de Actividad</th>
-                                        <th>Fecha de ejecucion</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($filteredLabors as $labor)
-                                        <tr>
-                                            <td>{{ $labor->activity->name }}</td>
-                                            <td>{{ $labor->activity->activity_type->name }}</td>
-                                            <td>{{ $labor->execution_date }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                    </div>
-                </div>
-            </div>
+        <div id="filteredLabors">
+            @include('agrocefa::reports.resultsbalance')
         </div>
-        @else
-            <p>No se encontraron labores en el rango de fechas seleccionado.</p>
-        @endif
     </div>
 
 
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // Manejador de eventos para el cambio en el campo "Actividad"
         $('#lotSelect').on('change', function() {
@@ -139,4 +88,29 @@
             });
         });
     </script>
+
+    <script>
+        // Cuando cambia la selección de cultivo
+        $('#cropSelect').change(function() {
+            var selectedCropId = $(this).val();
+
+            // Realizar una solicitud AJAX para obtener los resultados de labores filtrados por cultivo
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('agrocefa.reports.filterbalance') }}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    crop: selectedCropId
+                },
+                success: function(data) {
+                    // Actualizar el contenedor con los resultados de labores filtrados
+                    $('#filteredLabors').html(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    </script>
+
 @endsection
