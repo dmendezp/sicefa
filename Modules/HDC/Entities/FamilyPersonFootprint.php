@@ -13,7 +13,9 @@ class FamilyPersonFootprint extends Model implements Auditable
         SoftDeletes; // Borrado suave
 
     protected $fillable = [
-        'carbon_print'
+        'carbon_print',
+        'mes',
+        'anio',
     ];
 
     protected $dates = ['deleted_at'];

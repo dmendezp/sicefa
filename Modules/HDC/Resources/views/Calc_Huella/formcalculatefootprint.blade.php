@@ -18,10 +18,32 @@
             <div class="container">
                 <div class="table-responsive">
                     <form method="post" action="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.Carbonfootprint.save_consumption') }}">
-
                         @csrf
                         <input type="hidden" name="person_id" value="{{ $person->id }}">
 
+                        <div class="form-group row">
+                            <!-- Campo para el mes -->
+                            <label for="mes" class="col-md-2 col-form-label text-md-right">Mes</label>
+                            <div class="col-md-3">
+                                <select id="mes" name="mes" class="form-control">
+                                    <option value="" disabled selected>--- Seleccione el mes ---</option>
+                                    @for ($i = 1; $i <= 12; $i++)
+                                        <option value="{{ strftime('%B', mktime(0, 0, 0, $i, 1, 2000)) }}">{{ strftime('%B', mktime(0, 0, 0, $i, 1, 2000)) }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+
+                            <!-- Campo para el año -->
+                            <label for="anio" class="col-md-2 col-form-label text-md-right">Año</label>
+                            <div class="col-md-3">
+                                <select id="anio" name="anio" class="form-control">
+                                    <option value="" disabled selected>--- Seleccione el año ---</option>
+                                    @for ($i = (date('Y') - 10); $i <= (date('Y') + 10); $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
                         <table class="table table-bordered table-hover" id="myTableform">
                             <thead class="table-dark">
                                 <tr>
@@ -42,7 +64,7 @@
                                                 type="number" placeholder="Ingrese el valor de consumo" required>
                                             @if ($errors->has("aspecto.$aspectId.valor_consumo"))
                                                 <span
-                                                    class="text-danger">{{ $errors->first("aspecto.$aspectId.valor_consumo") }}required></span>
+                                                    class="text-danger">{{ $errors->first("aspecto.$aspectId.valor_consumo") }}</span>
                                             @endif
                                         </td>
                                     </tr>

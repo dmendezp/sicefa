@@ -71,34 +71,7 @@
                   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                       data-accordion="false">
                       <!-- Menú de opciones públicas -->
-
-
-                      @foreach (getSectorsOrderedByName() as $sector)
-                          {{--  Arreglo de Objetos  --}}
-                          @if ($sector->productive_units->count() > 0)
-                              <li class="nav-item">
-                                  <a href="#" class="nav-link">
-                                      <i class="nav-icon fas fa-th"></i>
-                                      <p>
-                                          {{ $sector->name }}
-                                          <i class="right fas fa-angle-left"></i>
-                                      </p>
-                                  </a>
-                                  <ul class="nav nav-treeview" style="display: none;">
-                                      @foreach ($sector->productive_units->sortBy('name') as $productive_unit)
-                                          <li class="nav-item">
-                                              <a href="#" class="nav-link">
-                                                  <i class="nav-icon {{ $productive_unit->icon }}"></i>
-                                                  <p>
-                                                      {{ $productive_unit->name }}
-                                                  </p>
-                                              </a>
-                                          </li>
-                                      @endforeach
-                                  </ul>
-                              </li>
-                          @endif
-                      @endforeach
+                      
                       {{--  <li class="nav-item">
                         <a href="{{ route('cefa.generate.report') }}" class="nav-link">
                             <i class="nav-icon fa-solid fa-file-arrow-down"></i>

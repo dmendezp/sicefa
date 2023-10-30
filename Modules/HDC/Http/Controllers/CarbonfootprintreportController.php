@@ -115,6 +115,7 @@ class CarbonfootprintreportController extends Controller
             ];
         })->values();
 
+
         // Generar PDF con TCPDF
         $pdf = new TCPDF();
         $pdf->SetAutoPageBreak(true, 10);
@@ -127,33 +128,48 @@ class CarbonfootprintreportController extends Controller
         $pdf->Cell(0, 10, 'Informe de Huella de Carbono', 1, 1, 'C', 1);
         $pdf->Ln(10);
 
-        // Crear una tabla para mostrar los datos de las unidades productivas
-        $pdf->Cell(0, 10, 'Resumen de Unidades Productivas', 1, 1, 'C', 1);
+        // Centrar la tabla de Resumen de Unidades Productivas con título
+        $pdf->SetX(55); // Ajusta la posición X según sea necesario
+        $pdf->SetFont('helvetica', 'B', 12); // Establecer la fuente en negrita
+        $pdf->Cell(100, 10, 'Resumen de Unidades Productivas', 1, 1, 'C', 1); // Modificado aquí
 
-        foreach ($productiveUnitsWithNames as $unit) {
-            $pdf->Cell(50, 10, 'Unidad Productiva', 1);
-            $pdf->Cell(50, 10, $unit['name'], 1);
-            $pdf->Cell(50, 10, 'Huella', 1);
-            $pdf->Cell(40, 10, $unit['huella'], 1);
-            $pdf->Ln();
-        }
 
-        $pdf->Ln(10);
 
-        // Crear una tabla para mostrar los datos de los sectores
-        $pdf->Cell(0, 10, 'Resumen de Sectores', 1, 1, 'C', 1);
+$pdf->SetFont('helvetica', '', 10); // Restaurar la fuente regular
 
-        foreach ($totalAmountBySector as $sector => $total) {
-            $pdf->Cell(50, 10, 'Sector', 1);
-            $pdf->Cell(50, 10, $sector, 1);
-            $pdf->Cell(50, 10, 'Total', 1);
-            $pdf->Cell(40, 10, $total, 1);
-            $pdf->Ln();
-        }
+foreach ($productiveUnitsWithNames as $unit) {
+    // Verificar si la huella es mayor que cero antes de mostrar la unidad productiva
+    if ($unit['huella'] >= 0) {
+        $pdf->SetX(55); // Ajusta la posición X según sea necesario
+        $pdf->Cell(50, 10, $unit['name'], 1);
+        $pdf->Cell(50, 10, $unit['huella'], 1);
+        $pdf->Ln();
+    }
+}
+
+$pdf->Ln(10);
+
+// Crear una tabla para mostrar los datos de los sectores
+$pdf->SetX(55); // Ajusta la posición X según sea necesario
+$pdf->SetFont('helvetica', 'B', 12); // Establecer la fuente en negrita
+$pdf->Cell(100, 10, 'Resumen de Sectores', 1, 1, 'C', 1);
+
+
+
+$pdf->SetFont('helvetica', '', 10); // Restaurar la fuente regular
+
+foreach ($totalAmountBySector as $sector => $total) {
+    $pdf->SetX(55); // Ajusta la posición X según sea necesario
+    $pdf->Cell(50, 10, $sector, 1);
+    $pdf->Cell(50, 10, $total, 1);
+    $pdf->Ln();
+}
+
+// Descargar o mostrar en el navegador
+$pdf->Output('carbon_footprint_report.pdf', 'D');
+
 
         // Descargar o mostrar en el navegador
-        $pdf->Output('carbon_footprint_report.pdf', 'D');
+        /*   return $pdf->download('carbon_footprint_report.pdf'); */
     }
-    // Descargar o mostrar en el navegador
-    /*   return $pdf->download('carbon_footprint_report.pdf'); */
 }

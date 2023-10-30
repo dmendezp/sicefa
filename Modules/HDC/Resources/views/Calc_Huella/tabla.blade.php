@@ -34,7 +34,7 @@
                                     @foreach ($environmeaspect as $index => $aspect)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $aspect->created_at->format('Y-m-d') }}</td>
+                                            <td>{{ $aspect->mes }} {{ $aspect->anio }}</td>
 
                                             <td>
                                                 <ul>

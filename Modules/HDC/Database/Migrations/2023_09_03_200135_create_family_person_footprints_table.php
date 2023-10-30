@@ -17,6 +17,8 @@ class CreateFamilyPersonFootprintsTable extends Migration
             $table->id();
             $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->decimal('carbon_print');
+            $table->text('mes');
+            $table->Integer('anio');
             $table->softDeletes();
             $table->timestamps();
 

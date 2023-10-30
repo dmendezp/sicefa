@@ -19,7 +19,7 @@ class CarbonfootprintController extends Controller
         $personaid = Auth::user()->person->id;
 
         $environmeaspect = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')
-        ->select('id', 'carbon_print', 'created_at')
+        ->select('id', 'carbon_print', 'created_at','mes','anio')
         ->where('person_id', $personaid)
         ->orderBy('created_at', 'desc') // Agrega esta línea para ordenar de forma descendente
         ->get();
@@ -42,16 +42,18 @@ class CarbonfootprintController extends Controller
         $data = $request->validate([
             'aspecto.*.id_aspecto' => 'required|numeric',
             'aspecto.*.valor_consumo' => 'required|numeric',
+            'mes' => 'required',
+            'anio' => 'required|numeric',
         ]);
 
         $personId = $request->input('person_id');
         $person = Person::findOrFail($personId);
 
-
-
         // Crear el modelo FamilyPersonFootprint
         $personFootprint = new FamilyPersonFootprint([
             'carbon_print' => 0,
+            'mes' => $data['mes'],
+            'anio' => $data['anio'],
             // Otros campos necesarios
         ]);
 
@@ -79,7 +81,7 @@ class CarbonfootprintController extends Controller
         }
         $personFootprint->update(['carbon_print' => $total]);
 
-        return redirect()->route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.carbonfootprint.persona')->with('success', 'Valores guardados correctamente');
+       return redirect()->route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.carbonfootprint.persona');
     }
 
     public function editConsumption($id)
@@ -94,13 +96,15 @@ class CarbonfootprintController extends Controller
 
     public function updateConsumption(Request $request, $id)
     {
-        // Validar los datos del formulario si es necesario
-        $request->validate([
-            'aspecto.*.valor_consumo.*' => 'required|numeric',
-        ]);
 
+    
         // Buscar el registro de FamilyPersonFootprint por ID
         $fpf = FamilyPersonFootprint::findOrFail($id);
+
+        // Actualizar los valores de mes y año
+        $fpf->mes = $request->mes;
+        $fpf->anio = $request->anio;
+        $fpf->save();
 
         // Actualizar los valores de consumo en la tabla intermedia
         foreach ($request->aspecto as $peaId => $data) {
@@ -115,6 +119,8 @@ class CarbonfootprintController extends Controller
         return redirect()->route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.carbonfootprint.persona', ['id' => $fpf->id])
             ->with('success', 'Consumo actualizado exitosamente');
     }
+
+
 
 
 

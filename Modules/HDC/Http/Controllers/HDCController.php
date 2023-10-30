@@ -5,10 +5,8 @@ namespace Modules\HDC\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\Activity;
-use Modules\SICA\Entities\EnvironmentalAspectLabor;
-use Modules\SICA\Entities\Labor;
-use Modules\SICA\Entities\ProductiveUnit;
+use Modules\SICA\Entities\Sector;
+use DB;
 
 
 class HDCController extends Controller
@@ -19,60 +17,22 @@ class HDCController extends Controller
      */
     public function index()
     {
-        $productiveUnits = ProductiveUnit::all();
+        $aspectosAmbientales = Sector::leftJoin('productive_units', 'sectors.id', '=', 'productive_units.sector_id')
+        ->leftJoin('activities', 'productive_units.id', '=', 'activities.productive_unit_id')
+        ->leftJoin('labors', 'activities.id', '=', 'labors.activity_id')
+        ->leftJoin('environmental_aspect_labors', function ($join) {
+            $join->on('labors.id', '=', 'environmental_aspect_labors.labor_id')
+                ->whereYear('labors.execution_date', '=', DB::raw(date('Y')));
+        })
+        ->leftJoin('environmental_aspects', 'environmental_aspect_labors.environmental_aspect_id', '=', 'environmental_aspects.id')
+        ->select(
+            'sectors.name as sector_name',
+            DB::raw('IFNULL(SUM(environmental_aspect_labors.amount * environmental_aspects.conversion_factor), 0) as carbon_footprint')
+        )
+        ->groupBy('sectors.id')
+        ->get();
 
-        // Obtener todas las actividades
-        $activities = Activity::all();
-
-        // Inicializar un arreglo para almacenar los totales por unidad productiva
-        $totalAmountByProductiveUnit = [];
-
-        // Iterar sobre cada unidad productiva
-        foreach ($productiveUnits as $productiveUnit) {
-            // Obtener datos ambientales para la unidad productiva actual
-            $aspectosAmbientalesPorActividad = [];
-
-            // Iterar sobre cada actividad
-            foreach ($activities as $activity) {
-                // Obtener datos ambientales para la unidad productiva y actividad actuales
-                $aspectosAmbientales = EnvironmentalAspectLabor::with(['environmental_aspect', 'labor.activity'])
-                    ->whereHas('labor', function ($query) use ($activity, $productiveUnit) {
-                        $query->where('activity_id', $activity->id)
-                            ->whereHas('activity', function ($query) use ($productiveUnit) {
-                                $query->where('productive_unit_id', $productiveUnit->id);
-                            });
-                    })
-                    ->get();
-
-                $aspectosAmbientalesPorActividad[$activity->id] = $aspectosAmbientales;
-            }
-
-            // Calcular el total para la unidad productiva actual
-            $totalAmount = collect($aspectosAmbientalesPorActividad)
-                ->flatten()
-                ->sum(function ($environmentalAspectLabor) {
-                    $amount = $environmentalAspectLabor->amount;
-                    $conversionFactor = $environmentalAspectLabor->environmental_aspect->conversion_factor;
-                    return $amount * $conversionFactor;
-                });
-
-            // Almacenar el total en el arreglo
-            $totalAmountByProductiveUnit[$productiveUnit->id] = $totalAmount;
-        }
-        // Agrupar los totales por sector con nombres
-        $totalAmountBySector = $productiveUnits
-            ->groupBy('sector.name') // Cambiado a 'name' para agrupar por el nombre del sector
-            ->map(function ($productiveUnits) use ($totalAmountByProductiveUnit) {
-                return $productiveUnits->sum(function ($productiveUnit) use ($totalAmountByProductiveUnit) {
-                    return $totalAmountByProductiveUnit[$productiveUnit->id] ?? 0;
-                });
-            });
-
-        // Convierte los datos al formato necesario para el gráfico
-        $labels = $totalAmountBySector->keys()->toArray();
-        $data = $totalAmountBySector->values()->toArray();
-
-        return view('hdc::index', compact('labels', 'data'));
+        return view('hdc::index', compact('aspectosAmbientales'));
     }
 
 
