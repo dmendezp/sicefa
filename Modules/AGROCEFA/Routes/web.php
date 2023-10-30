@@ -68,6 +68,11 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/reports/consumable', 'Reports\ConsumableController@index')->name('agrocefa.reports.consumable');
         Route::get('/reports/consumption/filter', 'Reports\ConsumableController@filterByDate')->name('agrocefa.reports.filterByDate');
 
+        //Balance
+        Route::get('/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.reports.balance');
+        Route::get('/reports/balance/filter', 'Reports\BalanceController@filterBalance')->name('agrocefa.reports.filterbalance');
+
+
         // RUTAS PARA ACTIVIDADES
         Route::get('/activities', 'Parameters\ActivityController@getActivitiesForSelectedUnit')->name('agrocefa.activities');
         Route::post('/activity/create', 'Parameters\ActivityController@createActivity')->name('agrocefa.activity.create');

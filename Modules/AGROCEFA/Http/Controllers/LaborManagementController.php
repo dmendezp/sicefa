@@ -23,12 +23,12 @@ use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Category;
 use Modules\SICA\Entities\Labor;
-use Modules\AGROCEFA\Entities\Executor;
-use Modules\AGROCEFA\Entities\Equipment;
+use Modules\SICA\Entities\Executor;
+use Modules\SICA\Entities\Equipment;
 use Modules\AGROCEFA\Entities\AgriculturalLabor;
-use Modules\AGROCEFA\Entities\Consumable;
-use Modules\AGROCEFA\Entities\EmployementType;
-use Modules\AGROCEFA\Entities\Tool;
+use Modules\SICA\Entities\Consumable;
+use Modules\SICA\Entities\EmployeeType;
+use Modules\SICA\Entities\Tool;
 use Modules\AGROCEFA\Entities\Crop;
 use Modules\AGROCEFA\Entities\Variety;
 use App\Models\User;
@@ -96,7 +96,7 @@ class LaborManagementController extends Controller
         
         // ---------------- Filtro para los tipos de empleado -----------------------
 
-        $employes = EmployementType::get();
+        $employes = EmployeeType::get();
 
         // ---------------- Filtro para las Elementos -----------------------
 
@@ -376,7 +376,7 @@ class LaborManagementController extends Controller
             $employee = $request->input('employee');
 
             // Realiza la lógica para obtener los datos del elemento en una sola consulta
-            $employeData = EmployementType::where('id', $employee)->first();
+            $employeData = EmployeeType::where('id', $employee)->first();
             
             if ($employeData) {
                 $price = $employeData->price;
