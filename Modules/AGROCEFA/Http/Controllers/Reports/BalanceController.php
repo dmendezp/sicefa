@@ -10,50 +10,63 @@ use Modules\SICA\Entities\EnvironmentProductiveUnit;
 use Modules\SICA\Entities\Labor;
 use Carbon\Carbon; // Asegúrate de importar la clase Carbon
 
-
 class BalanceController extends Controller
 {
+    public function index()
+    {
+        $labor = Labor::all();
+        $this->selectedUnitId = Session::get('selectedUnitId');
+        $lotData = EnvironmentProductiveUnit::where('productive_unit_id', $this->selectedUnitId)
+            ->with('environment')
+            ->get();
 
-public function index(Request $request)
-{
-    $labor = Labor::all();
+        $environmentData = [];
 
-    // Obtén el ID de la unidad productiva seleccionada de la sesión
-    $this->selectedUnitId = Session::get('selectedUnitId');
+        foreach ($lotData as $item) {
+            $environmentId = $item->environment->id;
+            $environmentName = $item->environment->name;
 
-    // ---------------- Filtro para los Lotes de esa Unidad -----------------------
+            $environmentData[] = [
+                'id' => $environmentId,
+                'name' => $environmentName,
+            ];
+        }
 
-    $lotData = EnvironmentProductiveUnit::where('productive_unit_id', $this->selectedUnitId)
-        ->with('environment')
-        ->get();
-
-    // Inicializa un array para almacenar los nombres y IDs de los ambientes
-    $environmentData = [];
-
-    // Recorre la colección y obtén los nombres y IDs de los ambientes
-    foreach ($lotData as $item) {
-        $environmentId = $item->environment->id;
-        $environmentName = $item->environment->name;
-
-        // Agrega un array asociativo con el ID y el nombre del ambiente al array de datos
-        $environmentData[] = [
-            'id' => $environmentId,
-            'name' => $environmentName,
-        ];
+        return view('agrocefa::reports.balance', [
+            'environmentData' => $environmentData,
+            'labor' => $labor,
+        ]);
     }
 
-    // Obtén las fechas de inicio y fin del formulario
-    $startDate = Carbon::parse($request->input('start_date'));
-    $endDate = Carbon::parse($request->input('end_date'));
+    public function filterBalance(Request $request)
+    {
+        $labor = Labor::all();
+        $this->selectedUnitId = Session::get('selectedUnitId');
+        $lotData = EnvironmentProductiveUnit::where('productive_unit_id', $this->selectedUnitId)
+            ->with('environment')
+            ->get();
 
-    // Realiza la consulta para obtener registros dentro del rango de fechas
-    $filteredLabors = Labor::whereBetween('execution_date', [$startDate, $endDate])->get();
+        $startDate = Carbon::parse($request->input('start_date'));
+        $endDate = Carbon::parse($request->input('end_date'));
 
-    return view('agrocefa::reports.balance', [
-        'environmentData' => $environmentData,
-        'labor' => $labor,
-        'filteredLabors' => $filteredLabors, // Agrega los registros filtrados
-    ]);
-}
+        $filteredLabors = Labor::whereBetween('execution_date', [$startDate, $endDate])->get();
 
+        $environmentData = [];
+
+        foreach ($lotData as $item) {
+            $environmentId = $item->environment->id;
+            $environmentName = $item->environment->name;
+
+            $environmentData[] = [
+                'id' => $environmentId,
+                'name' => $environmentName,
+            ];
+        }
+
+        return view('agrocefa::reports.balance', [
+            'labor' => $labor,
+            'environmentData' => $environmentData,
+            'filteredLabors' => $filteredLabors,
+        ]);
+    }
 }

@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\Inventory;
 use Modules\SICA\Entities\Labor;
-use Modules\AGROCEFA\Entities\Consumable;
+use Modules\SICA\Entities\Consumable;
 
 class ConsumableController extends Controller
 {
