@@ -41,6 +41,9 @@ class Labor extends Model implements Auditable
     public function environmental_aspect_labors(){ // Accede a todos los registros de la asociación entre aspectos ambientales y labores que pertenecen a esta labor
         return $this->hasMany(EnvironmentalAspectLabor::class);
     }
+    public function equipments(){ // Accede a todos los equipos que pertenecen a esta labor
+        return $this->hasMany(Equipment::class);
+    }
     public function executors(){ // Accede a todos los ejecutores que pertenecen a esta labor
         return $this->hasMany(Executor::class);
     }
@@ -52,9 +55,6 @@ class Labor extends Model implements Auditable
     }
     public function tools(){ // Accede a todas las herramientas que pertenecen a esta labor
         return $this->hasMany(Tool::class);
-    }
-    public function equipments(){ // Accede a todos los equipos que pertenecen a esta labor
-        return $this->hasMany(Equipment::class);
     }
 
 }

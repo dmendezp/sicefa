@@ -53,6 +53,9 @@ class Inventory extends Model implements Auditable
     public function element(){ // Accede a la información de elemento al que pertenece
         return $this->belongsTo(Element::class);
     }
+    public function equipments(){ // Accede a todos los equipos que pertenecen a este inventario
+        return $this->hasMany(Equipment::class);
+    }
     public function movement_details(){ // Accede a todos los detalles de movimiento que pertenecen a este inventario
         return $this->hasMany(MovementDetail::class);
     }
@@ -64,9 +67,6 @@ class Inventory extends Model implements Auditable
     }
     public function tools(){ // Accede a todas las herramientas que pertenecen a este inventario
         return $this->hasMany(Tool::class);
-    }
-    public function equipments(){ // Accede a todos los equipos que pertenecen a este inventario
-        return $this->hasMany(Equipment::class);
     }
 
 
