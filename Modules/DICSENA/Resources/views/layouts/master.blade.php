@@ -22,28 +22,52 @@
     <link href="{{ asset('fontawesome6/css/fontawesome.css') }}" rel="stylesheet">
     <link href="{{ asset('fontawesome6/css/brands.css') }}" rel="stylesheet">
     <link href="{{ asset('fontawesome6/css/solid.css') }}" rel="stylesheet">
+    <!--fontawesome import-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        .navbar-light .navbar-nav .nav-link {
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><i class="fas fa-globe"></i> DICSENA</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('cefa.dicsena.menu')}}">Panel</a>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-globe"></i> DICSENA
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a href="{{ url('lang', ['es']) }}" class="dropdown-item">Español</a>
+                            <a href="{{ url('lang', ['en']) }}" class="dropdown-item">English</a>
+                        </div>
                     </li>
                 </ul>
-                <span class="navbar-text">
-                    <a class="button" href="{{ route ('cefa.dicsena.home.index')}}">Logout</a>
-                </span>
+
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dicsena.instructor.menu') }}">Panel</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('cefa.dicsena.home.index')}}">Salir</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
-
 
     <div id="wrapper">
         @section('content')

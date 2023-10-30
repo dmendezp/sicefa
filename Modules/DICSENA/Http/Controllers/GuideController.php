@@ -16,17 +16,22 @@ class GuideController extends Controller
      */
     public function index(Request $request)
     {
-        // Obtén una lista de programas ordenados alfabéticamente
-        $programs = Program::orderBy('name', 'asc')->get();
-
+        $vista = "vista-2";
+        $programs = Program::orderBy('name', 'asc')->get(); // Ordenar programas por nombre en orden alfabético
         $selectedProgram = $request->input('program_name');
+        $guideposts = Guidepost::query();
 
-        $guideposts = Guidepost::when($selectedProgram, function ($query) use ($selectedProgram) {
-            $query->where('program_id', $selectedProgram);
-        })->get();
+        if ($selectedProgram) {
+            $guideposts->whereHas('program', function ($query) use ($selectedProgram) {
+                $query->where('name', 'like', "%$selectedProgram");
+            });
+        }
 
-        return view('dicsena::guide', compact('programs', 'selectedProgram', 'guideposts'));
+        $guideposts = $guideposts->orderBy('created_at', 'asc')->get(); // Ordenar guías por fecha de creación en orden ascendente
+
+        return view('dicsena::guide', compact('guideposts', 'programs', 'selectedProgram', 'vista'));
     }
+
 
 
     /**

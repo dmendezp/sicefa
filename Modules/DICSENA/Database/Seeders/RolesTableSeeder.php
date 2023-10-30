@@ -20,7 +20,7 @@ class RolesTableSeeder extends Seeder
 
         // Registrar o actualizar rol de instructor
         $rol_instructor = Role::updateOrCreate(['slug' => 'dicsena.instructor'], [
-            'name' => '',
+            'name' => 'Instructor Bilinguismo',
             'description' => 'Rol instructor de DICSENA',
             'description_english' => 'Role instructor of DICSENA',
             'full_access' => 'no',

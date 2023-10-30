@@ -22,7 +22,7 @@ class PermissionsTableSeeder extends Seeder
         $app = App::where('name', 'DICSENA')->first();
         // $this->call("OthersTableSeeder");
 
-        $permission = Permission::updateOrCreate(['slug' => 'dicsena.menu'], [
+        $permission = Permission::updateOrCreate(['slug' => 'dicsena.instructor.menu'], [
             'name' => 'Subir guias y glosarios',
             'description' => 'Tendra el acceso a gestionar las guias y glosarios.',
             'description_english' => 'You will have access to manage guides and glossaries.',
@@ -30,6 +30,80 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
 
+        $permission = Permission::updateOrCreate(['slug' => 'dicsena.instructor.glossary.index'], [
+            'name' => 'Ver glosarios',
+            'description' => 'Tendra el acceso a los listados de los glosarios por tecnologo.',
+            'description_english' => 'You will have access to manage guides and glossaries.',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'dicsena.instructor.glossary.create'], [
+            'name' => 'Crear glosarios',
+            'description' => 'Tendra el acceso al registro de glosarios por tecnologo.',
+            'description_english' => 'You will have access to manage guides and glossaries.',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'dicsena.instructor.glossary.edit'], [
+            'name' => 'Editar glosarios',
+            'description' => 'Tendra el acceso modificar glosarios por tecnologo.',
+            'description_english' => 'You will have access to modify glossaries by technologist.',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id;
+
+        $permission = Permission::updateOrCreate(['slug' => 'dicsena.instructor.edit'], [
+            'name' => 'Eliminar glosarios',
+            'description' => 'Tendra el acceso a eliminar glosarios por tecnologo.',
+            'description_english' => 'You will have access to delete glossaries by technologist.',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id; // Almacenar permiso para rol
+        //rutas de guias
+        $permission = Permission::updateOrCreate(['slug' => 'dicsena.instructor.guidepost.index'], [
+            'name' => 'Ver guias',
+            'description' => 'Tendra el acceso a ver guias por tecnologo.',
+            'description_english' => 'You will have access to guide by technologist.',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id;
+        $permission = Permission::updateOrCreate(['slug' => 'dicsena.instructor.guidepost.edit'], [
+            'name' => 'Editar guias',
+            'description' => 'Tendra el acceso a editar guias por tecnologo.',
+            'description_english' => 'You will have access to edit guide by technologist.',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id;
+        $permission = Permission::updateOrCreate(['slug' => 'dicsena.instructor.guidepost.create'], [
+            'name' => 'Crear guias',
+            'description' => 'Tendra el acceso a crear guias por tecnologo.',
+            'description_english' => 'You will have access to create guide by technologist.',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id;
+        $permission = Permission::updateOrCreate(['slug' => 'dicsena.instructor.guidepost.update'], [
+            'name' => 'Crear guias',
+            'description' => 'Tendra el acceso a actualizar guias por tecnologo.',
+            'description_english' => 'You will have access to update guide by technologist.',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id;
+        $permission = Permission::updateOrCreate(['slug' => 'dicsena.instructor.guidepost.store'], [
+            'name' => 'Crear guias',
+            'description' => 'Tendra el acceso a almacenar guias por tecnologo.',
+            'description_english' => 'You will have access to storege guide by technologist.',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id;
+        $permission = Permission::updateOrCreate(['slug' => 'dicsena.instructor.guidepost.destroy'], [
+            'name' => 'Crear guias',
+            'description' => 'Tendra el acceso a destruir guias por tecnologo.',
+            'description_english' => 'You will have access to destroy guide by technologist.',
+            'app_id' => $app->id
+        ]);
+        $permissions_instructor[] = $permission->id;
         // Consulta de ROLES
         $rol_instructor = Role::where('slug', 'dicsena.instructor')->first();
 

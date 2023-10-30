@@ -18,7 +18,7 @@
     <div class="col-sm-6">
       <div class="card text-center">
         <div class="card-body">
-          <a href="{{route ('cefa.dicsena.glossary.index')}}">
+          <a href="{{route ('dicsena.instructor.glossary.index')}}">
             <i class="fas fa-plus fa-3x"></i>
             <p>Agregar Palabras</p>
           </a>

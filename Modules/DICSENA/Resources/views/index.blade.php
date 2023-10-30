@@ -1,31 +1,46 @@
 @extends('dicsena::layouts.userview')
 
 @section('content')
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <i class="fas fa-globe"></i> Dicsena
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav justify-content-center">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('cefa.dicsena.home.index') }}">Traductor</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('cefa.dicsena.guide')}}">Guía</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('cefa.dicsena.gloss')}}">Glosario</a>
-            </li>
-        </ul>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-danger">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <a class="navbar-brand" href="{{ route('cefa.dicsena.menu')}}">
-        <i class="fas fa-user"></i> Panel
-    </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-globe"></i>DICSENA
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a href="{{ url('lang', ['es']) }}" class="dropdown-item">Español</a>
+                        <a href="{{ url('lang', ['en']) }}" class="dropdown-item">English</a>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cefa.dicsena.home.index') }}">Traductor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cefa.dicsena.guide')}}">{{ trans('dicsena::menu.guide') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cefa.dicsena.gloss')}}">Glosario</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dicsena.instructor.menu') }}">Panel</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
+
 <div class="container">
     <div class="wrapper">
         <div class="text-input">
@@ -52,7 +67,6 @@
     </div>
     <button class="btn">Translate Text</button>
 </div>
-
 <script src="{{ asset('modules/dicsena/js/countries.js') }}"></script>
 <script src="{{ asset('modules/dicsena/js/script.js') }}"></script>
 <footer style="background-color: #3C3B6E; color: white; padding: 20px;">

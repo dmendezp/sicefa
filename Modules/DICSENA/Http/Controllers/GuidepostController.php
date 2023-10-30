@@ -56,7 +56,7 @@ class GuidepostController extends Controller
             'program_id' => $validatedData['program_id'],
         ]);
 
-        return redirect()->route('cefa.dicsena.guidepost.index')->with('success', 'Guidepost created successfully');
+        return redirect()->route('dicsena.instructor.guidepost.index')->with('success', 'Guidepost created successfully');
     }
 
     /**
@@ -78,7 +78,7 @@ class GuidepostController extends Controller
     {
         $guidepost = Guidepost::findOrFail($id);
         $programs = Program::all();
-        return view('cefa.dicsena.guidepost.edit', compact('guidepost', 'programs'));
+        return view('dicsena::crudguide.edit', compact('guidepost', 'programs'));
     }
 
     /**
@@ -109,7 +109,7 @@ class GuidepostController extends Controller
         $guidepost->program_id = $validatedData['program_id'];
         $guidepost->save();
 
-        return redirect()->route('cefa.dicsena.guidepost.index')->with('success', 'Guidepost updated successfully');
+        return redirect()->route('dicsena.instructor.guidepost.index')->with('success', 'Guidepost updated successfully');
     }
 
     /**
@@ -122,6 +122,6 @@ class GuidepostController extends Controller
         $guidepost = Guidepost::findOrFail($id);
         $guidepost->delete();
 
-        return redirect()->route('cefa.dicsena.guidepost.index')->with('success', 'Guidepost deleted successfully');
+        return redirect()->route('dicsena.instructor.guidepost.index')->with('success', 'Guidepost deleted successfully');
     }
 }

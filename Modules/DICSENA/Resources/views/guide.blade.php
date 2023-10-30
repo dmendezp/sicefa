@@ -1,29 +1,44 @@
 @extends('dicsena::layouts.userview')
 
 @section('content')
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <i class="fas fa-globe"></i> Dicsena
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav justify-content-center">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('cefa.dicsena.home.index') }}">Traductor</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('cefa.dicsena.guide')}}">Guía</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('cefa.dicsena.gloss')}}">Glosario</a>
-            </li>
-        </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-globe"></i> DICSENA
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a href="{{ url('lang', ['es']) }}" class="dropdown-item">Español</a>
+                        <a href="{{ url('lang', ['en']) }}" class="dropdown-item">English</a>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cefa.dicsena.home.index') }}">Traductor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cefa.dicsena.guide')}}">Guia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cefa.dicsena.gloss')}}">Glosario</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dicsena.instructor.menu') }}">Panel</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <a class="navbar-brand" href="{{ route('cefa.dicsena.menu')}}">
-        <i class="fas fa-user"></i> Panel
-    </a>
 </nav>
 
 <div class="container mt-4">
@@ -33,9 +48,9 @@
                 <div class="form-group">
                     <label for="program_name">Selecciona un programa:</label>
                     <select name="program_name" id="program_name" class="form-control">
-                        <option value="">Selecciona un programa</option>
+                        <option value="">{{ trans('dicsena::menu.selectprogram:') }}</option>
                         @foreach ($programs as $program)
-                        <option value="{{ $program->id }}" {{ $selectedProgram == $program->id ? 'selected' : '' }}>
+                        <option value="{{ $program->name }}" {{ $selectedProgram == $program->name ? 'selected' : '' }}>
                             {{ $program->name }}
                         </option>
                         @endforeach
@@ -49,6 +64,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
+            @if($guideposts->isNotEmpty())
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -75,14 +91,17 @@
                                 <i class="fa fa-download"></i>
                             </a>
                         </td>
-
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+            @else
+            <p>No se encontraron resultados para la búsqueda.</p>
+            @endif
         </div>
     </div>
 </div>
+
 
 <footer style="background-color: #3C3B6E; color: white; padding: 20px;">
     <p style="text-align: center;">Use exclusive for apprentices of SENA</p>

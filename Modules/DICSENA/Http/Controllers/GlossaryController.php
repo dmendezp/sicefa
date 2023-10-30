@@ -47,7 +47,7 @@ class GlossaryController extends Controller
 
         Glossary::create($validatedData);
 
-        return redirect()->route('cefa.dicsena.glossary.index')->with('success', 'Glosario creado exitosamente');
+        return redirect()->route('dicsena.instructor.glossary.index')->with('success', 'Glosario creado exitosamente');
     }
 
     /**
@@ -70,7 +70,7 @@ class GlossaryController extends Controller
         $programs = Program::all();
         $glossary = Glossary::find($id);
         if (!$glossary) {
-            return redirect()->route('cefa.dicsena.glossary.index')->with('error', 'Glosario no encontrado');
+            return redirect()->route('dicsena.instructor.glossary.index')->with('error', 'Glosario no encontrado');
         }
         return view('dicsena::crudglossary.edit', compact('glossary', 'programs'));
     }
@@ -97,7 +97,7 @@ class GlossaryController extends Controller
 
         $glossary->update($validatedData);
 
-        return redirect()->route('cefa.dicsena.glossary.index')->with('success', 'Glosario actualizado exitosamente');
+        return redirect()->route('dicsena.instructor.glossary.index')->with('success', 'Glosario actualizado exitosamente');
     }
 
     /**
@@ -115,6 +115,6 @@ class GlossaryController extends Controller
 
         $glossary->delete();
 
-        return redirect()->route('cefa.dicsena.glossary.index')->with('success', 'Glosario eliminado exitosamente');
+        return redirect()->route('dicsena.instructor.glossary.index')->with('success', 'Glosario eliminado exitosamente');
     }
 }

@@ -24,7 +24,7 @@
                         </ul>
                     </div>
                     @endif
-                    <form action="{{ route('cefa.dicsena.glossary.store') }}" method="POST">
+                    <form action="{{ route('dicsena.instructor.glossary.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="word">Palabra:</label>

@@ -12,7 +12,7 @@
         </ul>
     </div>
     @endif
-    <form action="{{ route('cefa.dicsena.glossary.update', $glossary->id) }}" method="POST">
+    <form action="{{ route('dicsena.instructor.glossary.update', $glossary->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="form-group">
