@@ -112,7 +112,7 @@ class CarbonfootprintController extends Controller
         }
 
         // Redirigir a la vista de edición con un mensaje de éxito
-        return redirect()->route('carbonfootprint.persona', ['id' => $fpf->id])
+        return redirect()->route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.carbonfootprint.persona', ['id' => $fpf->id])
             ->with('success', 'Consumo actualizado exitosamente');
     }
 
@@ -135,6 +135,6 @@ class CarbonfootprintController extends Controller
         FamilyPersonFootprint::where('id', $familyPersonFootprintId)->delete();
 
         // Puedes redirigir a la vista que necesites después de eliminar
-        return redirect()->route('carbonfootprint.persona')->with('success', 'Registros eliminados correctamente');
+        return redirect()->route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.carbonfootprint.persona')->with('success', 'Registros eliminados correctamente');
     }
 }

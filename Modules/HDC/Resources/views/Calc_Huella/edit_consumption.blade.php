@@ -10,7 +10,7 @@
             <br>
             <div class="container">
                 <div class="table-responsive">
-                    <form method="post" action="{{ route('carbonfootprint.update_consumption', ['id' => $fpf->id]) }}">
+                    <form method="post" action="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.carbonfootprint.update_consumption', ['id' => $fpf->id]) }}">
                         @csrf
                         @method('POST')
 

@@ -72,6 +72,7 @@
                       data-accordion="false">
                       <!-- Menú de opciones públicas -->
 
+
                       @foreach (getSectorsOrderedByName() as $sector)
                           {{--  Arreglo de Objetos  --}}
                           @if ($sector->productive_units->count() > 0)
@@ -98,6 +99,14 @@
                               </li>
                           @endif
                       @endforeach
+                      {{--  <li class="nav-item">
+                        <a href="{{ route('cefa.generate.report') }}" class="nav-link">
+                            <i class="nav-icon fa-solid fa-file-arrow-down"></i>
+                            <p>
+                                {{ trans('hdc::report.Report_Indicator') }}
+                            </p>
+                        </a>
+                    </li>  --}}
 
 
 
@@ -115,13 +124,21 @@
                           @endif
 
                           <li class="nav-item">
-                            <a href="{{ route('hdc.admin.carbonfootprint.persona') }}" class="nav-link">
-                                <i class="nav-icon fas fa-shoe-prints"></i>
-                                <p>
-                                    {{ trans('hdc::hdcgeneral.calculatefootprint') }}
-                                </p>
-                            </a>
-                        </li>
+                              <a href="{{ route('hdc.admin.carbonfootprint.persona') }}" class="nav-link">
+                                  <i class="nav-icon fas fa-shoe-prints"></i>
+                                  <p>
+                                      {{ trans('hdc::hdcgeneral.calculatefootprint') }}
+                                  </p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{ route('hdc.admin.generate.report') }}" class="nav-link">
+                                  <i class="nav-icon fa-solid fa-file-arrow-down"></i>
+                                  <p>
+                                      {{ trans('hdc::report.Report_Indicator') }}
+                                  </p>
+                              </a>
+                          </li>
                       @endif
 
                       <!-- Menú de opciones para Encargado -->
@@ -138,13 +155,21 @@
                           @endif
 
                           <li class="nav-item">
-                            <a href="{{ route('hdc.charge.carbonfootprint.persona') }}" class="nav-link">
-                                <i class="nav-icon fas fa-shoe-prints"></i>
-                                <p>
-                                    {{ trans('hdc::hdcgeneral.calculatefootprint') }}
-                                </p>
-                            </a>
-                        </li>
+                              <a href="{{ route('hdc.charge.carbonfootprint.persona') }}" class="nav-link">
+                                  <i class="nav-icon fas fa-shoe-prints"></i>
+                                  <p>
+                                      {{ trans('hdc::hdcgeneral.calculatefootprint') }}
+                                  </p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{ route('hdc.charge.generate.report') }}" class="nav-link">
+                                  <i class="nav-icon fa-solid fa-file-arrow-down"></i>
+                                  <p>
+                                      {{ trans('hdc::report.Report_Indicator') }}
+                                  </p>
+                              </a>
+                          </li>
                       @endif
 
 
@@ -156,6 +181,7 @@
                               </p>
                           </a>
                       </li>
+
 
 
 

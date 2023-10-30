@@ -61,10 +61,10 @@
                                             </td>
                                             <td>
                                                 @if ($aspect->personenvironmentalaspects->isNotEmpty())
-                                                    <a href="{{ route('carbonfootprint.edit_consumption', $aspect->id) }}"
+                                                    <a href="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.carbonfootprint.edit_consumption', $aspect->id) }}"
                                                         class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                                                     <form
-                                                        action="{{ route('carbonfootprint.eliminar', ['id' => $aspect->personenvironmentalaspects->first()->id]) }}"
+                                                        action="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.carbonfootprint.eliminar', ['id' => $aspect->personenvironmentalaspects->first()->id]) }}"
                                                         method="POST" style="display: inline;">
                                                         @csrf
                                                         @method('DELETE')
