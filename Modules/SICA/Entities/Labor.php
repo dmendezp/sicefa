@@ -17,8 +17,8 @@ class Labor extends Model implements Auditable
         'person_id',
         'planning_date',
         'execution_date',
-        'description',
         'price',
+        'description',
         'status',
         'observations',
         'destination'
