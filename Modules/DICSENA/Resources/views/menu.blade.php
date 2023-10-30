@@ -8,7 +8,7 @@
     <div class="col-sm-6 mb-3 mb-sm-0">
       <div class="card text-center">
         <div class="card-body">
-          <a href="{{ route ('cefa.dicsena.guidepost.index')}}">
+          <a href="{{ route ('dicsena.instructor.guidepost.index')}}">
             <i class="fas fa-upload fa-3x"></i>
             <p>Subir Guias</p>
           </a>

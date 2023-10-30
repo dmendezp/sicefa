@@ -47,7 +47,7 @@ class GuidepostController extends Controller
 
         $file = $request->file('url');
         $fileName = $file->getClientOriginalName();
-        $file->storeAs('guidepost_file', $fileName);
+        $file->storeAs('public/guidepost_file', $fileName);
 
         $guidepost = Guidepost::create([
             'title' => $validatedData['title'],

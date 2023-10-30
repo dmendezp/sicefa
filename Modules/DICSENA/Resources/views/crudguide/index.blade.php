@@ -14,7 +14,7 @@
     <thead class="bg-primary text-white">
         <tr>
             <th scope="col">Title</th>
-            <th>{{trans ('dicsena::menu.Description)}}</th>
+            <th>g</th>
             <th>Program</th>
             <th>Pdf</th>
             <th>Actions</th>

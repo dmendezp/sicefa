@@ -48,7 +48,7 @@
                 <div class="form-group">
                     <label for="program_name">Selecciona un programa:</label>
                     <select name="program_name" id="program_name" class="form-control">
-                        <option value="">{{ trans('dicsena::menu.selectprogram:') }}</option>
+                        <option value="">select</option>
                         @foreach ($programs as $program)
                         <option value="{{ $program->name }}" {{ $selectedProgram == $program->name ? 'selected' : '' }}>
                             {{ $program->name }}
@@ -78,7 +78,7 @@
                 <tbody>
                     @foreach ($guideposts as $guidepost)
                     <tr>
-                        <td>{{ $guidepost->id }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $guidepost->title }}</td>
                         <td>{{ $guidepost->description }}</td>
                         <td>{{ $guidepost->program->name }}</td>
@@ -87,7 +87,7 @@
                                 <i class="fa fa-eye"></i>
                             </a>
                             &nbsp; | &nbsp;
-                            <a href="{{ asset('guideposts_file/' . $guidepost->url) }}" download title="{{ $guidepost->url }}">
+                            <a href="{{ asset('storage/guideposts_file/' . $guidepost->url) }}" download title="{{ $guidepost->url }}">
                                 <i class="fa fa-download"></i>
                             </a>
                         </td>

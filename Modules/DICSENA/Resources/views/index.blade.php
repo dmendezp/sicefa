@@ -25,7 +25,7 @@
                     <a class="nav-link" href="{{ route('cefa.dicsena.home.index') }}">Traductor</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cefa.dicsena.guide')}}">{{ trans('dicsena::menu.guide') }}</a>
+                    <a class="nav-link" href="{{ route('cefa.dicsena.guide')}}">Guia</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('cefa.dicsena.gloss')}}">Glosario</a>
@@ -33,9 +33,13 @@
             </ul>
 
             <ul class="navbar-nav ml-auto">
+                @if(Auth::user())
+                @if(Auth::user()->havePermission('dicsena.instructor.menu'))
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('dicsena.instructor.menu') }}">Panel</a>
                 </li>
+                @endif
+                @endif
             </ul>
         </div>
     </div>
