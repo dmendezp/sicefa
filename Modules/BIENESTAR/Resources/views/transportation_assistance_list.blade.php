@@ -58,7 +58,7 @@
                                     <tr>
                                         <th>Aprendiz</th>
                                         <th>Número de Documento</th>
-                                        <th>Programa</th>
+                                        <th>Programa de Formacion</th>
                                         <th>Ficha</th>
                                         <th>ruta de transporte</th>
                                     </tr>
