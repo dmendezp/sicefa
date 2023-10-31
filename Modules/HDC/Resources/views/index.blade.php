@@ -52,10 +52,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3>{{ trans('hdc::hdcgeneral.title4') }}</h3>
-                    <div>
-
-                        <canvas id="myChart"></canvas>
-                    </div>
+                    <div id="container"></div>
                 </div>
             </div>
         </div>
@@ -71,36 +68,134 @@
     </div>
 @endsection
 
+
 @push('scripts')
-    <script>
-        const ctx = document.getElementById('myChart').getContext('2d');
+<!-- Scripts Highcharts -->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-        const labels = @json($aspectosAmbientales->pluck('sector_name')->toArray());
-        const data = @json($aspectosAmbientales->pluck('carbon_footprint')->toArray());
+<!-- Contenedor para el gráfico -->
+<figure class="highcharts-figure">
+    <div id="container"></div>
+</figure>
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Huella total anual',
-                    backgroundColor: 'rgba(42, 157, 143, 0.7)',
-                    borderColor: 'rgba(42, 157, 143, 1)',
-                    pointBackgroundColor: 'rgba(204, 255, 51, 1)',
-                    data: data,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                maintainAspectRatio: false,
-                responsive: true
-            }
+
+
+<!-- Script del gráfico -->
+<!-- Script del gráfico -->
+<!-- Script del gráfico -->
+<script type="text/javascript">
+    // Tu PHP data aquí
+    var data = <?php echo json_encode($aspectosAmbientales); ?>;
+
+    // Organizar los datos por sector
+    var sectorsData = {};
+    data.forEach(function (aspecto) {
+        var sectorName = aspecto.sector_name;
+        if (!sectorsData[sectorName]) {
+            sectorsData[sectorName] = [];
+        }
+        sectorsData[sectorName].push({
+            name: aspecto.productive_unit_name,
+            y: parseFloat(aspecto.carbon_footprint),
+            sector: sectorName // Agrega el nombre del sector a los datos
         });
-    </script>
-@endpush
+    });
 
+    // Crear la serie con los totales por sector
+    var seriesData = Object.keys(sectorsData).map(function (sectorName) {
+        return {
+            name: sectorName,
+            y: sectorsData[sectorName].reduce(function (total, aspecto) {
+                return total + aspecto.y;
+            }, 0),
+            drilldown: sectorName
+        };
+    });
+
+    // Crear la serie de drilldown
+    var drilldownSeries = Object.keys(sectorsData).map(function (sectorName) {
+        return {
+            name: sectorName,
+            id: sectorName,
+            data: sectorsData[sectorName]
+        };
+    });
+
+    // Inicializar el gráfico de Highcharts
+    var chart = Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            align: 'left',
+            text: 'Huella de Carbono por Sector'
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true
+            }
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Huella de Carbono'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                point: {
+                    events: {
+                        click: function () {
+                            // Manejar el clic en un sector
+                            console.log('Sector clickeado:', this.name);
+
+                            // Acceder a las unidades productivas de este sector y actualizar el gráfico de drilldown
+                            var clickedSector = this.name;
+                            var clickedDrilldownData = sectorsData[clickedSector];
+
+                            // Actualizar el gráfico de drilldown con los datos de la unidad productiva
+                            chart.addSeries({
+                                name: clickedSector,
+                                id: clickedSector,
+                                data: clickedDrilldownData
+                            });
+                        }
+                    }
+                }
+            },
+            column: {
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.2f}' // Muestra la huella de carbono sobre la barra
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{point.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">Sector</span>: {point.sector}<br>' +
+                          '<span style="color:{point.color}">Carbon Footprint</span>: <b>{point.y:.2f}</b><br/>'
+        },
+        series: [{
+            name: "Sectors",
+            colorByPoint: false,
+            data: seriesData
+        }],
+        drilldown: {
+            series: drilldownSeries
+        }
+    });
+</script>
+
+
+@endpush
