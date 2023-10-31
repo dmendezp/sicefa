@@ -16,7 +16,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>{{ trans('hdc::assign_environmental_aspects.label1') }}</label>
-                            <select name="productive_unit_id" class="form-control" required>
+                            <select name="productive_unit_id" id="productUnitSelect" class="form-control" required>
                                 <option value="">{{ trans('hdc::assign_environmental_aspects.select1') }}</option>
                                 @foreach ($productive_unit as $pro)
                                 <option value="{{ $pro->id }}">{{ $pro->name }}</option>
@@ -24,13 +24,12 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>{{ trans('hdc::assign_environmental_aspects.label2') }}</label>
-                            <select name="activity_id" class="form-control" required>
-                                <option value="">{{ trans('hdc::assign_environmental_aspects.select1') }}</option>
-                                @foreach($activities as $a)
-                                <option value="{{ $a->id }}">{{ $a->name }}</option>
-                                @endforeach
-                            </select>
+                            {!! Form::label('activity', trans('hdc::assign_environmental_aspects.label2')) !!}
+                            {!! Form::select('activity_id', [], old('activity_id'), [
+                                'class' => 'form-control',
+                                'required',
+                                'id' => 'activity_id',
+                            ]) !!}
                         </div>
                         <style>
                             .checklist {
@@ -85,6 +84,44 @@
                 } else {
                     $('input[name="Environmental_Aspect"]').prop('checked', false);
                 }
+            });
+
+            $('#productUnitSelect').on('change', function() {
+                var selectedProductId = $(this).val(); // Obtener el ID de la unidad productiva seleccionada
+
+                // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
+                $.ajax({
+                    url: '{{ route('cefa.hdc.getactivities') }}',
+                    method: 'GET',
+                    data: {
+                        unit: selectedProductId
+                    },
+                    success: function(response) {
+                        // Manejar la respuesta de la solicitud AJAX aquí
+                        console.log('Respuesta de la solicitud AJAX:', response);
+
+                        // Verificar si hay un responsable en la respuesta
+                        if (response.activities) {
+                            
+                            // Actualizar el campo "Bodega Recibe" con las opciones recibidas
+                            var receivewarehouseSelect = $('#activity_id');
+                            receivewarehouseSelect.empty(); // Vaciar las opciones actuales
+                            receivewarehouseSelect.append(new Option('Seleccione la Actividad',
+                                ''));
+
+                            // Agregar las nuevas opciones desde el objeto de bodegas en la respuesta JSON
+                            $.each(response.activities, function(id, name) {
+                                receivewarehouseSelect.append(new Option(name, id));
+                            });
+                        } else {
+                            $('#activity_id').val('');
+                        }
+                    },
+                    error: function() {
+                        // Manejar errores si la solicitud AJAX falla
+                        console.error('Error en la solicitud AJAX');
+                    }
+                });
             });
         });
     </script>

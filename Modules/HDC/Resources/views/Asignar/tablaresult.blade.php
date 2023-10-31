@@ -28,8 +28,8 @@
                                         </ul>
                                     </td>
                                     <td>
-                                        <a href="{{ route('cefa.hdc.assign_environmental_aspects') }}" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                        <button class="btn btn-primary editar-actividad" data-actividad="{{ $resultado->id }}"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-danger eliminar-actividad" data-actividad="{{ $resultado->id }}"><i class="fas fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -44,3 +44,46 @@
         </div>
     </div>
 </div>
+
+<!-- Agregar un script para manejar las funciones de editar y eliminar mediante Ajax -->
+<script>
+    $(document).ready(function () {
+        // Escucha el clic en los botones de editar
+        $('.editar-actividad').click(function () {
+            var actividadId = $(this).data('actividad');
+
+            // Realiza una solicitud Ajax para abrir el formulario de edición o realizar la edición
+            $.ajax({
+                type: 'GET',
+                url: '/editar-actividad/' + actividadId, // Ruta que manejará la solicitud en el controlador
+                success: function (data) {
+                    // Maneja la respuesta exitosa (por ejemplo, abrir un modal o cargar un formulario)
+                    console.log(data);
+                },
+                error: function (error) {
+                    // Maneja errores en la solicitud Ajax
+                    console.error(error);
+                }
+            });
+        });
+
+        // Escucha el clic en los botones de eliminar
+        $('.eliminar-actividad').click(function () {
+            var actividadId = $(this).data('actividad');
+
+            // Realiza una solicitud Ajax para eliminar la actividad
+            $.ajax({
+                type: 'POST',
+                url: '/eliminar-actividad/' + actividadId, // Ruta que manejará la solicitud en el controlador
+                success: function (data) {
+                    // Maneja la respuesta exitosa (por ejemplo, actualizar la vista)
+                    console.log(data);
+                },
+                error: function (error) {
+                    // Maneja errores en la solicitud Ajax
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>

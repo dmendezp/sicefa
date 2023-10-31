@@ -77,16 +77,37 @@ class assign_environmental_aspectsController extends Controller
     return response()->json($associatedEnvironmentalAspects);
 }
 
-public function updateEnvironmentalAspects(Request $request)
-{
-    $activity = Activity::find($request->activity_id);
+    public function updateEnvironmentalAspects(Request $request)
+    {
+        $activity = Activity::find($request->activity_id);
 
-    // Obtén los IDs de los aspectos ambientales seleccionados
-    $selectedEnvironmentalAspects = $request->input('Environmental_Aspect', []);
+        // Obtén los IDs de los aspectos ambientales seleccionados
+        $selectedEnvironmentalAspects = $request->input('Environmental_Aspect', []);
 
-    // Sincroniza los aspectos ambientales en la tabla pivote
-    $activity->environmental_aspects()->sync($selectedEnvironmentalAspects);
+        // Sincroniza los aspectos ambientales en la tabla pivote
+        $activity->environmental_aspects()->sync($selectedEnvironmentalAspects);
 
         return redirect(route('cefa.hdc.resultfromaspects'));
     }
+
+    public function getactivities(Request $request)
+    {
+        try {
+            $productUnitId = $request->input('unit');
+
+            $activities = Activity::where('productive_unit_id', $productUnitId)->pluck('name', 'id');
+
+
+            // Combinar la información del responsable y las bodegas en un solo arreglo
+            $response = [
+                'activities' => $activities->toArray(),
+            ];
+
+            return response()->json($response);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error interno del servidor'], 500);
+        }
+    }
+
+    
 }
