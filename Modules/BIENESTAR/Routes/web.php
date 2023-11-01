@@ -129,6 +129,8 @@ Route::middleware(['lang'])->group(function () {
         //vista el listados apoyo alimentacion 
         Route::get('/foodrecord', 'AssistancesFoodsController@index')->name('bienestar.admin.crud.beneficiaries_food');
         Route::get('/assistancefood', 'AssistancesFoodsController@assistancefoodrecord')->name('cefa.bienestar.assistancefoodrecord');
+        Route::get('/filtro-porcentaje', 'AssistancesFoodsController@filtrarPorcentaje')->name('cefa.bienestar.filtrarPorcentaje');
+
 
         //Vistas Rutas de transporte
         Route::get('/assign-transportation-routes', 'AssingTransportRoutesController@mostrarAsignaciones')->name('cefa.bienestar.assign-transportation-routes');
