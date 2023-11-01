@@ -4,6 +4,14 @@
     <li class="breadcrumb-item active">{{ trans('hdc::hdcgeneral.Indicator_Homepage') }}</li>
 @endpush
 
+@push('head')
+    <style>
+        .highcharts-xaxis-labels text {
+            fill: black !important;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -52,7 +60,15 @@
             <div class="card">
                 <div class="card-body">
                     <h3>{{ trans('hdc::hdcgeneral.title4') }}</h3>
-                    <div id="container"></div>
+                    <!-- Contenedor para el gráfico -->
+                    <figure class="highcharts-figure">
+                        <div id="container"></div>
+                        <p class="highcharts-description" style="text-align: center;">
+                            <span
+                                style="background-color: rgba(42, 157, 143, 0.7); border-radius: 50%; display: inline-block; height: 15px; width: 15px; margin-right: 5px;"></span>
+                            Huella de Carbono Generada
+                        </p>
+                    </figure>
                 </div>
             </div>
         </div>
@@ -67,135 +83,176 @@
         </div>
     </div>
 @endsection
-
-
 @push('scripts')
-<!-- Scripts Highcharts -->
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/data.js"></script>
-<script src="https://code.highcharts.com/modules/drilldown.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script type="text/javascript">
 
-<!-- Contenedor para el gráfico -->
-<figure class="highcharts-figure">
-    <div id="container"></div>
-</figure>
+        // Tu PHP data aquí
+        var data = <?php echo json_encode($aspectosAmbientales); ?>;
 
-
-
-<!-- Script del gráfico -->
-<!-- Script del gráfico -->
-<!-- Script del gráfico -->
-<script type="text/javascript">
-    // Tu PHP data aquí
-    var data = <?php echo json_encode($aspectosAmbientales); ?>;
-
-    // Organizar los datos por sector
-    var sectorsData = {};
-    data.forEach(function (aspecto) {
-        var sectorName = aspecto.sector_name;
-        if (!sectorsData[sectorName]) {
-            sectorsData[sectorName] = [];
-        }
-        sectorsData[sectorName].push({
-            name: aspecto.productive_unit_name,
-            y: parseFloat(aspecto.carbon_footprint),
-            sector: sectorName // Agrega el nombre del sector a los datos
+        // Organizar los datos por sector
+        var sectorsData = {};
+        data.forEach(function(aspecto) {
+            var sectorName = aspecto.sector_name;
+            if (!sectorsData[sectorName]) {
+                sectorsData[sectorName] = [];
+            }
+            sectorsData[sectorName].push({
+                name: aspecto.productive_unit_name,
+                y: parseFloat(aspecto.carbon_footprint),
+                sector: sectorName // Agrega el nombre del sector a los datos
+            });
         });
-    });
 
-    // Crear la serie con los totales por sector
-    var seriesData = Object.keys(sectorsData).map(function (sectorName) {
-        return {
-            name: sectorName,
-            y: sectorsData[sectorName].reduce(function (total, aspecto) {
-                return total + aspecto.y;
-            }, 0),
-            drilldown: sectorName
-        };
-    });
+        // Crear la serie con los totales por sector
+        var seriesData = Object.keys(sectorsData).map(function(sectorName) {
+            return {
+                name: sectorName,
+                y: sectorsData[sectorName].reduce(function(total, aspecto) {
+                    return total + aspecto.y;
+                }, 0),
+                drilldown: sectorName,
+                sector: sectorName // Agrega el nombre del sector a los datos
+            };
+        });
 
-    // Crear la serie de drilldown
-    var drilldownSeries = Object.keys(sectorsData).map(function (sectorName) {
-        return {
-            name: sectorName,
-            id: sectorName,
-            data: sectorsData[sectorName]
-        };
-    });
+        // Crear la serie de drilldown
+        var drilldownSeries = Object.keys(sectorsData).map(function(sectorName) {
+            return {
+                name: sectorName,
+                id: sectorName,
+                data: sectorsData[sectorName]
+            };
+        });
 
-    // Inicializar el gráfico de Highcharts
-    var chart = Highcharts.chart('container', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            align: 'left',
-            text: 'Huella de Carbono por Sector'
-        },
-        accessibility: {
-            announceNewData: {
-                enabled: true
-            }
-        },
-        xAxis: {
-            type: 'category'
-        },
-        yAxis: {
-            title: {
-                text: 'Huella de Carbono'
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        plotOptions: {
-            series: {
-                point: {
-                    events: {
-                        click: function () {
-                            // Manejar el clic en un sector
-                            console.log('Sector clickeado:', this.name);
+        // Variable para almacenar el título del gráfico
+        var chartTitle = 'Huella de Carbono por Sector';
+        var tituloGrafico = 'Sectores'; // Inicialmente, el título es 'Sectores'
 
-                            // Acceder a las unidades productivas de este sector y actualizar el gráfico de drilldown
-                            var clickedSector = this.name;
-                            var clickedDrilldownData = sectorsData[clickedSector];
-
-                            // Actualizar el gráfico de drilldown con los datos de la unidad productiva
-                            chart.addSeries({
-                                name: clickedSector,
-                                id: clickedSector,
-                                data: clickedDrilldownData
+        // Inicializar el gráfico de Highcharts
+        var chart = Highcharts.chart('container', {
+            chart: {
+                type: 'column',
+                events: {
+                    drilldown: function(event) {
+                        if (event.point && event.point.category) {
+                            var sectorClickeado = event.point.category;
+                            var esSectores = sectorClickeado === 'Sectores';
+                
+                            // Actualizar el título y las etiquetas del eje X
+                            tituloGrafico = esSectores ? 'Sectores' : 'Unidades Productivas - ' + sectorClickeado;
+                            chart.setTitle({ text: tituloGrafico });
+                            chart.xAxis[0].update({
+                                title: {
+                                    text: esSectores ? 'Sectores' : tituloGrafico
+                                },
+                                labels: {
+                                    formatter: function() {
+                                        return esSectores ? 'Sectores' : this.value;
+                                    }
+                                }
                             });
+                
+                            // Limpiar las series de drilldown si volvemos a "Sectores"
+                            if (esSectores) {
+                                chart.series.slice(1).forEach(function(series) {
+                                    series.remove();
+                                });
+                            }
                         }
+                    }
+                },
+                
+            },
+
+            title: {
+                align: 'center',
+                text: chartTitle // Utilizar la variable para el título
+            },
+            accessibility: {
+                announceNewData: {
+                    enabled: true
+                }
+            },
+            xAxis: {
+                type: 'category',
+                title: {
+                    text: tituloGrafico,
+                },
+                labels: {
+                    formatter: function() {
+                        return this.value;
                     }
                 }
             },
-            column: {
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.y:.2f}' // Muestra la huella de carbono sobre la barra
+            yAxis: {
+                title: {
+                    text: 'Huella de Carbono'
                 }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    point: {
+                        events: {
+                            click: function() {
+                                // Verificar si this.point está definido y tiene la propiedad 'sector'
+                                if (this.point && this.point.sector) {
+                                    // Acceder a las unidades productivas de este sector y actualizar el gráfico de drilldown
+                                    var clickedDrilldownData = sectorsData[this.point.sector];
+
+                                    // Actualizar el gráfico de drilldown con los datos de la unidad productiva
+                                    chart.addSeries({
+                                        name: this.point.sector,
+                                        id: this.point.sector,
+                                        data: clickedDrilldownData
+                                    });
+
+                                    // Actualizar el título del gráfico
+                                    chartTitle = 'Huella de Carbono por Unidad Productiva';
+
+                                    // Cambiar dinámicamente el título
+                                    chart.setTitle({
+                                        text: chartTitle
+                                    });
+                                }
+                            }
+                        }
+                    }
+                },
+                column: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '<span style="color:black; text-decoration: none !important;">{point.y:.2f}</span>', // Muestra la huella de carbono sobre la barra
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    if (this.point.sector) {
+                        return '<span style="font-size:11px">' + this.point.name + '</span><br>' +
+                            '<span style="color:black">Sector</span>: ' + this.point.sector + '<br>' +
+                            '<span style="color:black">Carbon Footprint</span>: <b>' + Highcharts.numberFormat(
+                                this.point.y, 2, '.', ',') + '</b>';
+                    }
+                }
+            },
+            series: [{
+                name: 'Sectores',
+                colorByPoint: false,
+                data: seriesData,
+                drilldown: {
+                    series: drilldownSeries
+                }
+            }],
+            drilldown: {
+                series: drilldownSeries
             }
-        },
-
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{point.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">Sector</span>: {point.sector}<br>' +
-                          '<span style="color:{point.color}">Carbon Footprint</span>: <b>{point.y:.2f}</b><br/>'
-        },
-        series: [{
-            name: "Sectors",
-            colorByPoint: false,
-            data: seriesData
-        }],
-        drilldown: {
-            series: drilldownSeries
-        }
-    });
-</script>
-
-
+        });
+    </script>
 @endpush
+
+
+
+

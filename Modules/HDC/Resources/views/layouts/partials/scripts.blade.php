@@ -8,6 +8,15 @@
 <!-- chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<!-- Highcharts -->
+<script src="{{ asset('Highcharts/code/highcharts.js') }}"></script>
+<script src="{{ asset('Highcharts/code/highcharts-3d.js') }}"></script> 
+<script src="{{ asset('Highcharts/code/modules/data.js') }}"></script>
+<script src="{{ asset('Highcharts/code/modules/exporting.js') }}"></script>
+<script src="{{ asset('Highcharts/code/modules/export-data.js') }}"></script>
+<script src="{{ asset('Highcharts/code/modules/accessibility.js') }}"></script>
+<script src="{{ asset('Highcharts/code/modules/drilldown.js') }}"></script> 
+
 {{--  Funcion AJAX  --}}
 <script src="{{asset('js/generalscripts.js')}}"></script>
 <!--sweetalert -->

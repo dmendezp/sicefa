@@ -10,60 +10,34 @@ use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\EnvironmentalAspectLabor;
 use Modules\SICA\Entities\ProductiveUnit;
 use TCPDF;
+use Illuminate\Support\Facades\DB;
 
 class CarbonfootprintreportController extends Controller
 {
 
     public function generateReport()
     {
-        $productiveUnits = ProductiveUnit::all();
-        $activities = Activity::all();
-        $totalAmountByProductiveUnit = [];
+        $aspectosAmbientales = ProductiveUnit::leftJoin('sectors', 'productive_units.sector_id', '=', 'sectors.id')
+            ->leftJoin('activities', 'productive_units.id', '=', 'activities.productive_unit_id')
+            ->leftJoin('labors', 'activities.id', '=', 'labors.activity_id')
+            ->leftJoin('environmental_aspect_labors', function ($join) {
+                $join->on('labors.id', '=', 'environmental_aspect_labors.labor_id')
+                    ->whereBetween('labors.execution_date', [
+                        now()->startOfQuarter()->toDateString(),
+                        now()->endOfQuarter()->toDateString()
+                    ]);
+            })            
+            ->leftJoin('environmental_aspects', 'environmental_aspect_labors.environmental_aspect_id', '=', 'environmental_aspects.id')
+            ->select(
+                'sectors.name as sector_name',
+                'productive_units.name as productive_unit_name',
+                DB::raw('SUM(environmental_aspect_labors.amount * environmental_aspects.conversion_factor) as carbon_footprint')
+            )
+            ->groupBy('sectors.id', 'productive_units.id', 'sectors.name', 'productive_units.name') // Asegúrate de agrupar por sector y unidad productiva
+            ->get();
 
-        foreach ($productiveUnits as $productiveUnit) {
-            $aspectosAmbientalesPorActividad = [];
 
-            foreach ($activities as $activity) {
-                $aspectosAmbientales = EnvironmentalAspectLabor::with(['environmental_aspect', 'labor.activity'])
-                    ->whereHas('labor', function ($query) use ($activity, $productiveUnit) {
-                        $query->where('activity_id', $activity->id)
-                            ->whereHas('activity', function ($query) use ($productiveUnit) {
-                                $query->where('productive_unit_id', $productiveUnit->id);
-                            });
-                    })
-                    ->get();
-
-                $aspectosAmbientalesPorActividad[$activity->id] = $aspectosAmbientales;
-            }
-
-            $totalAmount = collect($aspectosAmbientalesPorActividad)
-                ->flatten()
-                ->sum(function ($environmentalAspectLabor) {
-                    $amount = $environmentalAspectLabor->amount;
-                    $conversionFactor = $environmentalAspectLabor->environmental_aspect->conversion_factor;
-                    return $amount * $conversionFactor;
-                });
-
-            $totalAmountByProductiveUnit[$productiveUnit->id] = $totalAmount;
-        }
-
-        $totalAmountBySector = $productiveUnits
-            ->groupBy('sector.name')
-            ->map(function ($productiveUnits) use ($totalAmountByProductiveUnit) {
-                return $productiveUnits->sum(function ($productiveUnit) use ($totalAmountByProductiveUnit) {
-                    return $totalAmountByProductiveUnit[$productiveUnit->id] ?? 0;
-                });
-            });
-
-        $productiveUnitsWithNames = collect($totalAmountByProductiveUnit)->map(function ($huella, $unitId) {
-            $productiveUnit = \Modules\SICA\Entities\ProductiveUnit::find($unitId);
-            return [
-                'name' => $productiveUnit->name,
-                'huella' => $huella,
-            ];
-        })->values();
-
-        return view('hdc::report.carbonfootprintreport', compact('productiveUnitsWithNames', 'totalAmountBySector'));
+        return view('hdc::report.carbonfootprintreport', compact('aspectosAmbientales'));
     }
 
     public function generatePdf()

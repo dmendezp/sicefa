@@ -21,10 +21,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($productiveUnitsWithNames as $unit)
+                                @foreach($aspectosAmbientales as $unit)
                                     <tr>
-                                        <td>{{ $unit['name'] }}</td>
-                                        <td>{{ $unit['huella'] }}</td>
+                                        <td>{{ $unit['productive_unit_name'] }}</td>
+                                        <td>{{ $unit['carbon_footprint'] }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -45,10 +45,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($totalAmountBySector as $sector => $huella)
+                                @php
+                                    $totalCarbonBySector = [];
+                                @endphp
+
+                                @foreach($aspectosAmbientales as $aspecto)
+                                    @php
+                                        if (!isset($totalCarbonBySector[$aspecto['sector_name']])) {
+                                            $totalCarbonBySector[$aspecto['sector_name']] = 0;
+                                        }
+                                        $totalCarbonBySector[$aspecto['sector_name']] += $aspecto['carbon_footprint'];
+                                    @endphp
+                                @endforeach
+
+                                {{-- Muestra el total de la huella de carbono por sector --}}
+                                @foreach($totalCarbonBySector as $sectorName => $totalCarbon)
                                     <tr>
-                                        <td>{{ $sector }}</td>
-                                        <td>{{ $huella }}</td>
+                                        <td>{{ $sectorName }}</td>
+                                        <td>{{ $totalCarbon }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

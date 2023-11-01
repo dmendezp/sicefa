@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use Modules\HDC\Http\Controllers\GraficasController;
 
 /*
@@ -25,6 +26,14 @@ Route::middleware(['lang'])->group(function () {
 
 
 
+
+        });
+        Route::controller(CarbonfootprintreportController::class)->group(function(){
+            Route::get('/generate/report', 'generateReport')->name('cefa.generate.report');
+            Route::get('/admin/generate/report', 'generateReport')->name('hdc.admin.generate.report');
+            Route::get('/charge/generate/report', 'generateReport')->name('hdc.charge.generate.report');
+            Route::post('/admin/generate-pdf', 'generatePdf')->name('hdc.admin.generate.pdf');
+            Route::post('/charge/generate-pdf', 'generatePdf')->name('hdc.charge.generate.pdf');
 
         });
 
