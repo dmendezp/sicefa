@@ -5,6 +5,7 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\SICA\Entities\Person;
 
 class TransportationAssistancesController extends Controller
 {
@@ -15,6 +16,17 @@ class TransportationAssistancesController extends Controller
     public function index()
     {
         return view('bienestar::transportation_assistance_list');
+    }
+
+    public function search(Request $request)
+    {
+        $documentNumber = $request->input('document_number');
+    
+        $person = Person::with('apprentices.course.program', 'apprentices.postulations.postulationBenefits','apprentices.assigntransoportroutes.convocations') // Cargar la relación de convocatoria
+            ->where('document_number', $documentNumber)
+            ->first();
+        
+        return view('bienestar::transportation_assistance_list', ['person' => $person]);
     }
 
     /**

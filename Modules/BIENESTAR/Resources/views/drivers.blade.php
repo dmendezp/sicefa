@@ -14,7 +14,7 @@
 </div>
 <!-- Main content -->
 <div class="container-fluid">
-<h1>{{ trans('bienestar::menu.Add Drivers')}}  <i class="fas fa-bus"></i></h1>
+    <h1>{{ trans('bienestar::menu.Add Drivers')}} <i class="fas fa-bus"></i></h1>
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-10">
 
@@ -35,7 +35,7 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                     @if (Auth::user()->havePermission('bienestar.admin.save.drivers'))
-                        <form action="{{ route('bienestar.admin.save.drivers') }}" method="POST" onsubmit="return validarFormulario()">
+                        <form action="{{ route('cefa.bienestar.drivers.add') }}" method="POST" onsubmit="return validarFormulario()">
                             @csrf
                             <div class="form-row">
                                 <div class="col-md-3 mb-2">
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         </form>
-                         @endif
+                        @endif
                     </div>
                 </div>
 
@@ -84,7 +84,7 @@
                                 <td>
                                     <div class="d-flex">
                                         <button class="btn btn-info mr-2" data-toggle="modal" data-target="#modal-edit-{{ $busdriver->id }}"><i class="fas fa-edit"></i></button>
-                                        <form action="{{ route('bienestar.admin.delete.drivers', ['id' => $busdriver->id]) }}" method="POST" class="formEliminar">
+                                        <form action="{{ route('cefa.bienestar.drivers.delete', ['id' => $busdriver->id]) }}" method="POST" class="formEliminar">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
@@ -147,34 +147,36 @@
 <!-- Script para mostrar la alerta de guardado exitoso -->
 <script>
     // Obtener la lista de nombres de conductores existentes
-    var conductoresExistentes = {!! json_encode($busdrivers->pluck('name')) !!};
+    var conductoresExistentes = {
+        !!json_encode($busdrivers - > pluck('name')) !!
+    };
 
     function mostrarAlerta(alerta) {
         alerta.style.display = 'block';
-        setTimeout(function () {
+        setTimeout(function() {
             alerta.style.display = 'none';
         }, 3000);
     }
 
     // Función para validar el nombre del conductor al agregar
     function validarNombre(input) {
-    var nombre = input.value.trim(); // Obtener el valor del campo actual
-    var errorDiv = input.nextElementSibling; // Span para mostrar el mensaje de error específico al lado del campo
+        var nombre = input.value.trim(); // Obtener el valor del campo actual
+        var errorDiv = input.nextElementSibling; // Span para mostrar el mensaje de error específico al lado del campo
 
-    // Verificar si el nombre ya existe en la lista de conductores
-    if (conductoresExistentes.includes(nombre)) {
-        input.setCustomValidity("El conductor ya existe."); // Marcar el campo actual como inválido
-        errorDiv.textContent = "El conductor ya existe."; // Mostrar el mensaje de error específico
-        mostrarAlerta(document.querySelector('.nombreRepetido')); // Mostrar alerta de nombre repetido específica
-    } else if (!/^[A-Za-z\s]+$/.test(nombre)) {
-        // Verificar si el nombre contiene solo letras y espacios
-        input.setCustomValidity("El nombre solo debe contener letras y espacios.");
-        errorDiv.textContent = "El nombre solo debe contener letras y espacios.";
-    } else {
-        input.setCustomValidity(""); // Marcar el campo actual como válido
-        errorDiv.textContent = ""; // Limpiar el mensaje de error específico
+        // Verificar si el nombre ya existe en la lista de conductores
+        if (conductoresExistentes.includes(nombre)) {
+            input.setCustomValidity("El conductor ya existe."); // Marcar el campo actual como inválido
+            errorDiv.textContent = "El conductor ya existe."; // Mostrar el mensaje de error específico
+            mostrarAlerta(document.querySelector('.nombreRepetido')); // Mostrar alerta de nombre repetido específica
+        } else if (!/^[A-Za-z\s]+$/.test(nombre)) {
+            // Verificar si el nombre contiene solo letras y espacios
+            input.setCustomValidity("El nombre solo debe contener letras y espacios.");
+            errorDiv.textContent = "El nombre solo debe contener letras y espacios.";
+        } else {
+            input.setCustomValidity(""); // Marcar el campo actual como válido
+            errorDiv.textContent = ""; // Limpiar el mensaje de error específico
+        }
     }
-}
 
     // Función para validar el correo electrónico al agregar
     function validarEmail() {
@@ -224,19 +226,19 @@
 
     // Función para validar el nombre del conductor al editar
     function validarNombreEditar(id) {
-    var nombreInput = document.getElementById("nameEditar_" + id);
-    var nombre = nombreInput.value.trim();
-    var errorDiv = document.getElementById("nombreErrorEditar_" + id);
+        var nombreInput = document.getElementById("nameEditar_" + id);
+        var nombre = nombreInput.value.trim();
+        var errorDiv = document.getElementById("nombreErrorEditar_" + id);
 
-    // Verificar si el nombre contiene solo letras y espacios
-    if (!/^[A-Za-z\s]+$/.test(nombre)) {
-        nombreInput.setCustomValidity("El nombre solo debe contener letras y espacios.");
-        errorDiv.textContent = "El nombre solo debe contener letras y espacios.";
-    } else {
-        nombreInput.setCustomValidity(""); // Marcar el campo actual como válido
-        errorDiv.textContent = ""; // Limpiar el mensaje de error específico
+        // Verificar si el nombre contiene solo letras y espacios
+        if (!/^[A-Za-z\s]+$/.test(nombre)) {
+            nombreInput.setCustomValidity("El nombre solo debe contener letras y espacios.");
+            errorDiv.textContent = "El nombre solo debe contener letras y espacios.";
+        } else {
+            nombreInput.setCustomValidity(""); // Marcar el campo actual como válido
+            errorDiv.textContent = ""; // Limpiar el mensaje de error específico
+        }
     }
-}
 
     // Función para validar el correo electrónico al editar
     function validarEmailEditar(id) {

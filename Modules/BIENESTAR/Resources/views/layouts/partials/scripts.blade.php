@@ -32,7 +32,7 @@
  <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
  <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
  <script src="{{ asset('AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-
+<script src="{{ asset('js/generalscripts.js')}}"></script>
     <!-- Page specific script -->
 
     @section('script')
@@ -170,7 +170,6 @@ Array.prototype.slice.call(deleteButtons)
             });
         });
     });
-// Define una función para mostrar el SweetAlert
 // Define una función para mostrar el SweetAlert
 function showSweetAlert(icon, title, text, timer) {
     Swal.fire({

@@ -522,7 +522,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
-      
+
 
         //*-----Permisos Transport Routes-----*//
 
@@ -1065,8 +1065,8 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
 
-         // Botones de la vista Listados Beneficiarios Alimentacion(ADMINISTRADOR)//
-         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.buttons.beneficiaries_food'], [ // Registro o actualización de permiso
+        // Botones de la vista Listados Beneficiarios Alimentacion(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.buttons.beneficiaries_food'], [ // Registro o actualización de permiso
             'name' => 'Botones Del CRUD de los Formularios',
             'description' => 'Restricion a los botones para descargar el listado de los beneficiarios del apoyo de alimentacion',
             'description_english' => 'Restriction to the buttons to download the list of the beneficiaries of the food support.',

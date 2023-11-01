@@ -101,9 +101,11 @@
               <a href="{{ route('bienestar.admin.crud.buses') }}" class="nav-link">Buses</a>
             </li>
             @endif
+            @if(Auth::user()->havePermission('bienestar.admin.crud.drivers'))
             <li class="nav-item">
-              <a href="#" class="nav-link">Conductores</a>
+              <a href="{{ route('bienestar.admin.crud.drivers') }}" class="nav-link">Conductores</a>
             </li>
+            @endif
             @if(Auth::user()->havePermission('bienestar.admin.crud.transportroutes'))
             <li class="nav-item">
               <a href="{{ route('bienestar.admin.crud.transportroutes') }}" class="nav-link">Rutas</a>
@@ -113,10 +115,10 @@
               <a href="#" class="nav-link">Asignar Rutas</a>
             </li>
             <li class="nav-item has-treeview">
-          <a href="{{route('cefa.bienestar.transportation_assitance_list.index')}}" class="nav-link">
-            <p>Asistencia De Ruta</p>
-          </a>
-        </li>
+              <a href="{{route('cefa.bienestar.transportation_assitance_list.index')}}" class="nav-link">
+                <p>Asistencia De Ruta</p>
+              </a>
+            </li>
 
           </ul>
         </li>
