@@ -25,7 +25,7 @@ class StaffSenaempresaController extends Controller
     {
         $PositionCompany = PositionCompany::all();
         $staff = StaffSenaempresa::with('Quarter')->get();
-        $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
+        $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->orderBy('quarter_id')->get();
         $data = ['title' => trans('senaempresa::menu.Staff'), 'staff_senaempresas' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'staff' => $staff];
         return view('senaempresa::Company.staff_senaempresa.staff', $data);
     }
@@ -33,9 +33,9 @@ class StaffSenaempresaController extends Controller
     {
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
         $PositionCompany = PositionCompany::all();
-        $quarter = Quarter::all();
+        $quarters = Quarter::all();
         $Apprentices = Apprentice::all();
-        $data = ['title' => trans('senaempresa::menu.Staff SenaEmpresa'), 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices, 'quarter' => $quarter];
+        $data = ['title' => trans('senaempresa::menu.Staff SenaEmpresa'), 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices, 'quarters' => $quarters];
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
             return view('senaempresa::Company.staff_senaempresa.staff_registration', $data);
         } else {
@@ -56,7 +56,7 @@ class StaffSenaempresaController extends Controller
         $staffSenaempresa = new StaffSenaempresa();
         $staffSenaempresa->position_company_id = $request->input('position_company_id');
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
-        $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
+        $staffSenaempresa->quarter_id = $request->input('quarter_id');
         $staffSenaempresa->image = 'modules/senaempresa/images/staff/' . $name_image;
 
         // Guarda la instancia en la base de datos
@@ -75,8 +75,9 @@ class StaffSenaempresaController extends Controller
         $staffSenaempresa = StaffSenaempresa::findOrFail($id);
         $PositionCompany = PositionCompany::all();
         $apprentices = Apprentice::all();
+        $quarters = Quarter::all();
 
-        $data = ['title' => trans('senaempresa::menu.Edit Personal'), 'staffSenaempresa' => $staffSenaempresa, 'PositionCompany' => $PositionCompany, 'apprentices' => $apprentices];
+        $data = ['title' => trans('senaempresa::menu.Edit Personal'), 'staffSenaempresa' => $staffSenaempresa, 'PositionCompany' => $PositionCompany, 'apprentices' => $apprentices, 'quarters' => $quarters];
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
             return view('senaempresa::Company.staff_senaempresa.staff_edit', $data);
         } else {
@@ -102,6 +103,7 @@ class StaffSenaempresaController extends Controller
         }
         $staffSenaempresa->position_company_id = $request->input('position_company_id');
         $staffSenaempresa->apprentice_id = $request->input('apprentice_id');
+        $staffSenaempresa->quarter_id = $request->input('quarter_id');
         $staffSenaempresa->save();
 
         return redirect()->route('company.senaempresa.personal')->with('success', trans('senaempresa::menu.Registration successfully updated.'));

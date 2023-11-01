@@ -58,6 +58,20 @@
                                     <p>{{ trans('senaempresa::menu.There’s no registered image.') }}</p>
                                 @endif
                             </div>
+                            <div class="mb-3">
+                                <label for="quarter_id"
+                                    class="form-label">{{ trans('senaempresa::menu.ID Quarter') }}</label>
+                                <select class="form-control" name="quarter_id" aria-label="Selecciona un Cargo" required>
+                                    <option value="" selected>Selecciona un trimestre</option>
+                                    @foreach ($quarters as $quarter)
+                                        <option
+                                            value="{{ $quarter->id }}"{{ $quarter->id == $staffSenaempresa->quarter_id ? 'selected' : '' }}>
+
+                                            {{ $quarter->id }} {{ $quarter->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                             <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.Update') }}</button>
                             <a href="{{ route('company.senaempresa.personal') }}"

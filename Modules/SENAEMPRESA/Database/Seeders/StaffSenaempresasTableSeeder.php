@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SICA\Entities\Apprentice;
+use Modules\SICA\Entities\Quarter;
 
 class StaffSenaempresasTableSeeder extends Seeder
 {
@@ -19,6 +20,7 @@ class StaffSenaempresasTableSeeder extends Seeder
     {
         $positionCompanyIds = PositionCompany::pluck('id')->all();
         $apprenticeIds = Apprentice::pluck('id')->all();
+        $quarters = Quarter::orderBy('start_date')->orderBy('end_date')->get();
 
         // Define la cantidad de registros que deseas crear
         $numStaffMembers = 10;
@@ -29,12 +31,15 @@ class StaffSenaempresasTableSeeder extends Seeder
             $randomImage = 'random_image_' . rand(1, 10) . '.jpg';
 
             // Verificar si ya existe un registro con las mismas condiciones
-            StaffSenaempresa::firstOrCreate([
+            foreach ($quarters as $quarter) {
+                StaffSenaempresa::firstOrCreate([
                 'position_company_id' => $positionCompanyId,
                 'apprentice_id' => $apprenticeId,
+                'quarter_id' => $quarter->id,
             ], [
                 'image' => $randomImage,
             ]);
+        }
         }
     }
 }

@@ -36,4 +36,5 @@ class StaffSenaempresa extends Model implements Auditable
     {
         return $this->belongsTo(Quarter::class);
     }
+    
 }
