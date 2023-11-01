@@ -1,5 +1,42 @@
 @extends('senaempresa::layouts.master')
+@section('stylesheet')
+    <style>
+        /* Estilo del fondo oscuro detrás del modal */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        /* Estilo del modal */
+        .modal-content {
+            background-color: #fff;
+            /* Cambia el color de fondo del modal */
+            border-radius: 10px;
+            /* Agrega bordes redondeados al modal */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.296);
+            /* Agrega una sombra al modal */
+        }
 
+        /* Estilo del encabezado del modal */
+        .modal-header {
+            background-color: #2ea29c;
+            /* Cambia el color de fondo del encabezado */
+            color: #fff;
+            /* Cambia el color del texto del encabezado */
+            border-bottom: none;
+            /* Quita el borde inferior del encabezado */
+        }
+        /* Estilo del cuerpo del modal */
+        .modal-body {
+            padding: 20px;
+            /* Añade espacio interno al cuerpo del modal */
+        }
+        /* Estilo del título del modal */
+        .modal-title {
+            color: #fff;
+            /* Cambia el color del título del modal */
+        }
+
+    </style>
+@endsection
 @section('content')
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
@@ -31,8 +68,6 @@
                                 <th>{{ trans('senaempresa::menu.Name') }}</th>
                                 <th>{{ trans('senaempresa::menu.Presentation') }}</th>
                                 <th>{{ trans('senaempresa::menu.Id Position') }}</th>
-                                <th>{{ trans('senaempresa::menu.Start Date and Time') }}</th>
-                                <th>{{ trans('senaempresa::menu.Date and Time End') }}</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
                                 <th class="text-center">{{ trans('senaempresa::menu.Details') }}</th>
                                 @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
@@ -62,14 +97,18 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td>{{ $vacancy->start_datetime }}</td>
-                                        <td>{{ $vacancy->end_datetime }}</td>
                                         <td>{{ $vacancy->state }}</td>
                                         <td class="text-center">
                                             <a class="openModalBtn" title="Ver información" data-bs-toggle="modal"
                                                 data-bs-target="#myModal" data-vacancy='@json($vacancy)'>
                                                 <i class="fas fa-eye" style="color: #000000;"></i>
                                             </a>
+                                            @if (auth()->user()->person->apprentices())
+                                            <a href="{{ route('inscription', ['vacancy_id' => $vacancy->id]) }}">
+                                                <i class="fas fa-user-plus" style="color: #000000;"></i>
+                                            </a>
+                                            
+                                            @endif
                                         </td>
 
                                         @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')

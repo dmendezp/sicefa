@@ -7,155 +7,122 @@
                 <div class="card card-primary card-outline shadow">
                     <div class="card-header">{{ $title }}</div>
                     <div class="card-body">
-                        <form action="{{ route('company.senaempresa.curso_asociado_senaempresa') }}" method="POST">
+                        <form id="association-form">
                             @csrf
 
                             <div class="form-group">
-                                <label for="course_id"
-                                    class="form-label">{{ trans('senaempresa::menu.Select a course:') }}</label>
-                                <input type="text" class="form-control" id="search-input" name="search-input"
-                                    placeholder="Ingresar ficha o curso">
-                                <select class="form-control" name="course_id" aria-label="Selecciona un curso"
-                                    id="course-select" multiple="multiple" required>
+                                <label for="course_id">{{ trans('senaempresa::menu.Select a course:') }}</label>
+                                <select class="form-control" name="course_id" id="course_id">
+                                    <option value="">{{ trans('senaempresa::menu.Select a course:') }}
+                                    </option>
                                     @foreach ($courses as $course)
-                                        <option value="{{ $course->id }}">{{ $course->code }}
-                                            {{ $course->program->name }}
+                                        <option value="{{ $course->id }}">{{ $course->code }} {{ $course->program->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="senaempresa_id">{{ trans('senaempresa::menu.Select a SenaEmpresa:') }}</label>
-                                <select class="form-control" name="senaempresa_id" id="senaempresa_id">
-                                    @foreach ($senaempresas as $senaempresa)
-                                        <option value="{{ $senaempresa->id }}">{{ $senaempresa->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @foreach ($senaempresas as $senaempresa)
+                            <li>
+                                @php
+                                // Verificar si existe una relación sin deleted_at para este curso y vacante
+                                $record = $courseofsenaempresa
+                                    ->where('course_id', $course->id) // Cambia $course por $course_id
+                                    ->where('senaempresa_id', $senaempresa->id)
+                                    ->whereNull('deleted_at')
+                                    ->first();
+                                $isChecked = $record ? true : false;
+                                @endphp
 
-                            <button type="submit"
-                                class="btn btn-primary">{{ trans('senaempresa::menu.Assign Course to SenaEmpresa') }}</button>
+                                <label class="checkbox-container">
+                                    <input class="association-checkbox" type="checkbox" data-senaempresa-id="{{ $senaempresa->id }}" value="1"
+                                        data-record-id="{{ $record ? $record->id : '' }}" {{ $isChecked ? 'checked' : '' }}>
+                                    <span class="checkbox" for="checkbox"></span>
+
+                                    {{ $senaempresa->name }}
+                                </label>
+                            </li>
+                            @endforeach
+
+
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center mt-5">
-                <div class="col-md-12">
-                    <div class="card card-primary card-outline shadow">
-                        <div class="card-header">{{ $title }}</div>
-                        <div class="card-body">
-                            <table id="datatable" class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>{{ trans('senaempresa::menu.Course ID') }}</th>
-                                        <th>{{ trans('senaempresa::menu.SenaEmpresa ID') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if ($courses)
-                                        @foreach ($courses as $course)
-                                            @foreach ($course->senaempresa as $senaempresa)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $course->code }} {{ $course->program->name }}</td>
-                                                    <!-- Accede al atributo "name" del modelo Course -->
-                                                    <td>{{ $senaempresa->name }}</td>
-                                                    <!-- Accede al atributo "name" del modelo Senaempresa -->
-                                                    <td>
-                                                        <form
-                                                            action="{{ route('company.senaempresa.eliminar_asociacion_empresa') }}"
-                                                            method="POST" id="asociacionEliminar">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <input type="hidden" name="course_id"
-                                                                value="{{ $course->id }}">
-                                                            <input type="hidden" name="senaempresa_id"
-                                                                value="{{ $senaempresa->id }}">
-                                                            <button type="submit" class="btn btn-danger"><i
-                                                                    class="fas fa-trash-alt"></i></button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endforeach
-                                    @else
-                                        <p>{{ trans('senaempresa::menu.No associated courses were found.') }}</p>
-                                    @endif
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-
     </div>
 @endsection
-<!--scripts utilizados para procesos-->
+
 @section('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        'use strict';
-        // Selecciona todos los formularios con la clase "formEliminar"
-        var forms = document.querySelectorAll('#asociacionEliminar');
+      $(document).ready(function() {
+    // Variable para almacenar el estado inicial de los checkboxes
+    var initialCheckboxState = {};
 
-        Array.prototype.slice.call(forms)
-            .forEach(function(form) {
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault(); // Evita que el formulario se envíe de inmediato
+    // Obtén el curso seleccionado y las relaciones asociadas (vacantes)
+    $('#course_id').change(function() {
+        var courseId = $(this).val();
 
-                    Swal.fire({
-                        title: "{{ trans('senaempresa::menu.Are you sure?') }}",
-                        text: "{{ trans('senaempresa::menu.It is an irreversible process.') }}",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: "{{ trans('senaempresa::menu.Yes, delete it') }}",
-                        cancelButtonText: "{{ trans('senaempresa::menu.Cancel') }}" // Cambiar el texto del botón "Cancelar"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Enviar el formulario usando AJAX
-                            axios.post(form.action, new FormData(form))
-                                .then(function(response) {
-                                    // Manejar la respuesta JSON del servidor
-                                    if (response.data && response.data.mensaje) {
-                                        Swal.fire({
-                                            title: '{{ trans('senaempresa::menu.Association deleted!') }}',
-                                            text: response.data.mensaje,
-                                            icon: 'success'
-                                        }).then(() => {
-                                            // Recargar la página u otra acción según sea necesario
-                                            location
-                                                .reload(); // Recargar la página después de eliminar
-                                        });
-                                    }
-                                })
-                                .catch(function(error) {
-                                    // Manejar errores si es necesario
-                                    console.error(error);
-                                });
-                        }
-                    });
+        // Realiza una llamada Ajax para obtener las asociaciones
+        $.ajax({
+            url: '{{ route('company.senaempresa.get_associations') }}',
+            method: 'GET',
+            data: {
+                course_id: courseId
+            },
+            success: function(data) {
+                // Almacena el estado inicial de los checkboxes
+                $('.association-checkbox').each(function() {
+                    var senaempresaId = $(this).data('senaempresa-id');
+                    initialCheckboxState[senaempresaId] = $(this).prop('checked');
                 });
-            });
 
+                // Marca los checkboxes según las asociaciones obtenidas
+                $('.association-checkbox').each(function() {
+                    var senaempresaId = $(this).data('senaempresa-id');
+                    var isChecked = data.associations.includes(senaempresaId);
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const searchInput = document.getElementById("search-input");
-            const courseSelect = document.getElementById("course-select");
-
-            searchInput.addEventListener("input", function() {
-                const searchText = this.value.trim().toLowerCase();
-
-                for (let option of courseSelect.options) {
-                    const optionText = option.text.toLowerCase();
-                    const isMatch = optionText.includes(searchText);
-                    option.hidden = !isMatch;
-                }
-            });
+                    // Marca el checkbox si está asociado y en su estado inicial estaba marcado
+                    if (isChecked && initialCheckboxState[senaempresaId]) {
+                        $(this).prop('checked', true);
+                    } else {
+                        $(this).prop('checked', isChecked);
+                    }
+                });
+            },
+            error: function(error) {
+                // Maneja errores, puedes mostrar mensajes de error si lo deseas.
+            }
         });
+    });
+
+    // Maneja los cambios en los checkboxes
+    $('.association-checkbox').change(function() {
+        var courseId = $('#course_id').val();
+        var senaempresaId = $(this).data('senaempresa-id');
+        var isChecked = $(this).prop('checked');
+
+        $.ajax({
+            url: '{{ route('company.senaempresa.curso_asociado_senaempresa') }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                course_id: courseId,
+                senaempresa_id: senaempresaId,
+                checked: isChecked
+            },
+            success: function(data) {
+                // Maneja la respuesta del servidor, puedes mostrar mensajes si lo deseas.
+            },
+            error: function(error) {
+                // Maneja errores, puedes mostrar mensajes de error si lo deseas.
+                // Vuelve a restaurar el estado inicial del checkbox en caso de error
+                $(this).prop('checked', !isChecked);
+            }
+        });
+    });
+});
+
     </script>
 @endsection

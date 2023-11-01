@@ -213,3 +213,17 @@
     width: 80% !important;
     height: 80% !important;
 }
+
+a[title]:hover::before {
+    content: attr(title);
+    position: absolute;
+    background-color: #000;
+    color: #fff;
+    padding: 3px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    margin-top: -25px;
+    margin-left: -20px;
+    white-space: nowrap;
+  }
+

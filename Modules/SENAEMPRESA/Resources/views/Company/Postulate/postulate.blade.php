@@ -25,9 +25,8 @@
                             @foreach ($postulates as $postulate)
                                 <tr>
                                     <td>{{ $postulate->id }}</td>
-                                    <td>{{ $postulate->apprentice->person->first_name }}
-                                        {{ $postulate->apprentice->person->first_last_name }}</td>
-                                    <td>{{ $postulate->vacancy->name }}</td>
+                                    <td>{{ $postulate->apprentice->id }} {{ $postulate->apprentice->person->full_name }}</td>
+                                    <td>{{ $postulate->vacancy->id }} {{ $postulate->vacancy->name }}</td>
                                     <td>{{ $postulate->state }}</td>
                                     <td>
                                         <a href="{{ asset($postulate->cv) }}" class="btn btn-primary btn-sm" download>
@@ -71,7 +70,7 @@
     <script>
         $(document).ready(function() {
             $('.assign-button').click(function(e) {
-                e.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
+                e.preventDefault(); 
 
                 var apprenticeId = $(this).data('apprentice-id');
                 var redirectUrl =

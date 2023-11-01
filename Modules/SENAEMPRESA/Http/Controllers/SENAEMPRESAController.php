@@ -8,7 +8,9 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\SENAEMPRESA\Entities\senaempresa;
 use Modules\SICA\Entities\Course;
+use Modules\SENAEMPRESA\Entities\CourseSenaempresa;
 use Modules\SICA\Entities\Quarter;
+
 
 class SENAEMPRESAController extends Controller
 {
@@ -120,88 +122,74 @@ class SENAEMPRESAController extends Controller
         }
     }
 
-
-    public function destroy($id)
-    {
-        try {
-            $compan = Senaempresa::findOrFail($id);
-            $compan->delete();
-
-            return response()->json(['mensaje' => trans('senaempresa::menu.Vacancy successfully eliminated')]);
-        } catch (\Exception $e) {
-            return response()->json(['mensaje' => trans('senaempresa::menu.Error when deleting the vacancy')], 500);
-        }
-    }
-
-
-
-    //Asociar cursos a vacantes
-    public function cursos_senamepresa()
-    {
-        $senaempresas = senaempresa::get();
-        $courses = Course::with('program')->get();
-        $data = ['title' => trans('senaempresa::menu.Assign Courses to SenaEmpresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
-        } else {
-            return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
-    }
-
+    //Asociar cursos a senaempresa
     public function curso_asociado_senaempresa(Request $request)
     {
-        // Valida los datos del formulario
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'senaempresa_id' => 'required|exists:senaempresas,id',
-        ]);
+        try {
+            $courseId = $request->input('course_id');
+            $senaempresaId = $request->input('senaempresa_id');
+            $isChecked = $request->input('checked') === 'true';
 
-        // Obtén los IDs de los cursos y las vacantes
-        $courseId = $request->input('course_id');
-        $senaempresaId = $request->input('senaempresa_id');
+            if ($isChecked) {
+                // Si el checkbox está marcado, crea una nueva relación
+                CourseSenaempresa::create([
+                    'course_id' => $courseId,
+                    'senaempresa_id' => $senaempresaId,
+                ]);
 
-        // Encuentra los modelos correspondientes
-        $course = Course::findOrFail($courseId);
-        $senaempresa = senaempresa::findOrFail($senaempresaId);
+                $message = 'Relación creada correctamente.';
+            } else {
+                // Si el checkbox no está marcado, elimina la relación existente si existe
+                CourseSenaempresa::where('course_id', $courseId)
+                    ->where('senaempresa_id', $senaempresaId)
+                    ->delete();
 
-        // Verifica si la asociación ya existe
-        if (!$course->senaempresa()->wherePivot('course_id', $courseId)->wherePivot('senaempresa_id', $senaempresaId)->exists()) {
-            // Asigna el curso a la senaempres registrada
-            $course->senaempresa()->attach($senaempresa);
-            return redirect()->back()->with('success', trans('senaempresa::menu.Course assigned to senaempresa successfully.'));
-        } else {
-            //Alerta de que esa asociación ya existe
-            return redirect()->back()->with('error', trans('senaempresa::menu.Association already exists.'));
+                // Marca todas las relaciones existentes como eliminadas
+                CourseSenaempresa::where('course_id', $courseId)
+                    ->whereNull('deleted_at')
+                    ->update(['deleted_at' => now()]);
+
+                $message = 'Relación eliminada correctamente.';
+            }
+
+            return response()->json(['success' => $message], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Ocurrió un error. Detalles: ' . $e->getMessage()], 500);
         }
     }
+    public function getAssociation(Request $request)
+    {
+        $courseId = $request->query('course_id');
+        $course = Course::findOrFail($courseId);
+
+        // Obtén todas las relaciones, incluidas las marcadas como eliminadas
+        $associations = CourseSenaempresa::where('course_id', $courseId)
+            ->pluck('senaempresa_id')
+            ->toArray();
+
+        return response()->json(['associations' => $associations], 200);
+    }
+
     public function mostrar_asociado()
     {
         $senaempresas = senaempresa::get();
-        $courses = Course::with('senaempresa')->get();
-        $data = ['title' => trans('senaempresa::menu.Assign Courses to SenaEmpresa'), 'courses' => $courses, 'senaempresas' => $senaempresas];
+        $courses = Course::where('status', 'Activo')->with('senaempresa')->get();
+        $courseofsenaempresa = CourseSenaempresa::all();
+
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+            $data = [
+                'title' => trans('senaempresa::menu.Assign Course to SenaEmpresa'),
+                'courses' => $courses,
+                'senaempresas' => $senaempresas,
+                'courseofsenaempresa' => $courseofsenaempresa,
+            ];
+
             return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
         } else {
             return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
-    public function eliminar_asociacion_empresa(Request $request)
-    {
-        $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'senaempresa_id' => 'required|exists:senaempresas,id',
-        ]);
 
-        $courseId = $request->input('course_id');
-        $senaempresaId = $request->input('senaempresa_id');
-
-        try {
-            $course = Course::findOrFail($courseId);
-            // Eliminar Asociación Especifica
-            $course->senaempresa()->wherePivot('course_id', $courseId)->wherePivot('senaempresa_id', $senaempresaId)->detach();
-            return response()->json(['mensaje' => trans('senaempresa::menu.Association eliminated with success.')]);
-        } catch (\Exception $e) {
-            return response()->json(['mensaje' => trans('senaempresa::menu.Error deleting the association')], 500);
-        }
-    }
 }
+
+
