@@ -19,11 +19,11 @@ class CreatePostulationsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('apprentice_id');
             $table->unsignedBigInteger('convocation_id');
-            $table->unsignedBigInteger('type_of_benefit_id');
-            $table->string('total_score');
+            $table->boolean('transportation_benefit')->default(false);
+            $table->boolean('feed_benefit')->default(false);;
+            $table->string('total_score')->nullable();
             $table->timestamps();
             $table->foreign('apprentice_id')->references('id')->on('apprentices');
-            $table->foreign('type_of_benefit_id')->references('id')->on('types_of_benefits');
             $table->foreign('convocation_id')->references('id')->on('convocations');
             $table->SoftDeletes();
            

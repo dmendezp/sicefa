@@ -110,9 +110,6 @@
     </div>
     <!-- /.card -->
 </div>
-</div>
-
-
 
 <script>
     $(document).ready(function() {
