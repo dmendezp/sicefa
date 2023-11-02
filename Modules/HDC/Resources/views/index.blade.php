@@ -85,20 +85,29 @@
 @endsection
 @push('scripts')
     <script type="text/javascript">
-
         // Tu PHP data aquí
         var data = <?php echo json_encode($aspectosAmbientales); ?>;
 
         // Organizar los datos por sector
+        // Organizar los datos por sector
         var sectorsData = {};
+
+        // Obtener la lista completa de sectores (sin duplicados)
+        var allSectors = [...new Set(data.map(aspecto => aspecto.sector_name))];
+
+        // Inicializar los datos para todos los sectores
+        allSectors.forEach(function(sectorName) {
+            sectorsData[sectorName] = [];
+        });
+
+        // Llenar los datos de las unidades productivas para cada sector
         data.forEach(function(aspecto) {
             var sectorName = aspecto.sector_name;
-            if (!sectorsData[sectorName]) {
-                sectorsData[sectorName] = [];
-            }
+            var carbonFootprint = parseFloat(aspecto.carbon_footprint) ||
+            0; // Manejar el caso de valores nulos o no definidos
             sectorsData[sectorName].push({
                 name: aspecto.productive_unit_name,
-                y: parseFloat(aspecto.carbon_footprint),
+                y: carbonFootprint,
                 sector: sectorName // Agrega el nombre del sector a los datos
             });
         });
@@ -124,6 +133,7 @@
             };
         });
 
+
         // Variable para almacenar el título del gráfico
         var chartTitle = 'Huella de Carbono por Sector';
         var tituloGrafico = 'Sectores'; // Inicialmente, el título es 'Sectores'
@@ -137,10 +147,13 @@
                         if (event.point && event.point.category) {
                             var sectorClickeado = event.point.category;
                             var esSectores = sectorClickeado === 'Sectores';
-                
+
                             // Actualizar el título y las etiquetas del eje X
-                            tituloGrafico = esSectores ? 'Sectores' : 'Unidades Productivas - ' + sectorClickeado;
-                            chart.setTitle({ text: tituloGrafico });
+                            tituloGrafico = esSectores ? 'Sectores' : 'Unidades Productivas - ' +
+                                sectorClickeado;
+                            chart.setTitle({
+                                text: tituloGrafico
+                            });
                             chart.xAxis[0].update({
                                 title: {
                                     text: esSectores ? 'Sectores' : tituloGrafico
@@ -151,7 +164,7 @@
                                     }
                                 }
                             });
-                
+
                             // Limpiar las series de drilldown si volvemos a "Sectores"
                             if (esSectores) {
                                 chart.series.slice(1).forEach(function(series) {
@@ -161,7 +174,7 @@
                         }
                     }
                 },
-                
+
             },
 
             title: {
@@ -252,7 +265,3 @@
         });
     </script>
 @endpush
-
-
-
-

@@ -134,7 +134,7 @@ class FormularioController extends Controller
             $envasp->update(['amount' => $request->input('amounts.' . $key)]);
         }
 
-       
+
         return redirect()->route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.table', ['labor' => $labor])
             ->with('success', 'Datos actualizados correctamente');
     }
