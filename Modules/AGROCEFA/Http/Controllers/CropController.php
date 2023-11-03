@@ -6,71 +6,95 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\AGROCEFA\Entities\Crop; 
-use Modules\SICA\Entities\Environment; 
+use Modules\AGROCEFA\Entities\Crop;
+use Modules\SICA\Entities\Environment;
+use Modules\SICA\Entities\EnvironmentProductiveUnit;
+
+
 
 class CropController extends Controller
 {
-    public function index(){
-        $crop= Crop::all();
-        return view('agrocefa::crop', compact('crops'));
+    public function index()
+    {
+        $crop = Crop::all();
+
+        $selectedUnitId = Session::get('selectedUnitId');
+
+        // Obtén los EnvironmentProductiveUnit relacionados con la unidad productiva seleccionada
+        $lots = EnvironmentProductiveUnit::where('productive_unit_id', $selectedUnitId)->with('environment')->get();
+
+        // Inicializa arrays para almacenar los IDs y nombres de environment
+        $environmentIds = [];
+        $environmentNames = [];
+
+        // Itera a través de los elementos de la colección
+        foreach ($lots as $lot) {
+            // Accede a los atributos de la relación 'environment'
+            $environmentId = $lot->environment->id;
+            $environmentName = $lot->environment->name;
+
+            // Agrega los valores a los arrays
+            $environmentIds[] = $environmentId;
+            $environmentNames[] = $environmentName;
+        }
+
+        return view('agrocefa::crop',['crop'=> $crop , 'lots' => $lots]);
     }
-    
-    public function createCrop(Request $request){
-        
+
+    public function createCrop(Request $request)
+    {
+
         $crop = new Crop();
         $crop->variety_id = $request->input('variety_id');
         $crop->name = $request->input('crop_name');
         $crop->seed_time = $request->input('seed_time');
         $crop->sown_area = $request->input('sown_area');
-        $crop->density = $request->input('density'); 
+        $crop->density = $request->input('density');
         $crop->finish_date = $request->input('finish_date');
         $crop->save();
 
-    $selectedEnvironmentId = $request->input('environment_id'); // Obtén el ambiente seleccionado desde el formulario
-    $crop->environments()->attach($selectedEnvironmentId);
+        $selectedEnvironmentId = $request->input('environment_id'); // Obtén el ambiente seleccionado desde el formulario
+        $crop->environments()->attach($selectedEnvironmentId);
 
-    return redirect()->route('agrocefa.parameters.index')->with('success', 'Cultivo registrado exitosamente.');
+        return redirect()->route('agrocefa.parameters.index')->with('success', 'Cultivo registrado exitosamente.');
     }
 
 
 
-    public function editCrop(Request $request, $id){
+    public function editCrop(Request $request, $id)
+    {
         // Validar los datos del formulario aquí si es necesario
-    
 
 
-    // Encontrar la cultivo a editar
-    $crop = Crop::findOrFail($id);
 
-    // Actualizar los campos del cultivo con los nuevos valores
-    $crop->variety_id = $request->input('variety_id');
-    $crop->name = $request->input('crop_name');
-    $crop->seed_time = $request->input('seed_time');
-    $crop->sown_area = $request->input('sown_area');
-    $crop->density = $request->input('density');
-    $crop->finish_date = $request->input('finish_date');
+        // Encontrar la cultivo a editar
+        $crop = Crop::findOrFail($id);
 
-    // Actualizar el ambiente
-    $crop->environments()->sync([$request->input('environment_id')]);
+        // Actualizar los campos del cultivo con los nuevos valores
+        $crop->variety_id = $request->input('variety_id');
+        $crop->name = $request->input('crop_name');
+        $crop->seed_time = $request->input('seed_time');
+        $crop->sown_area = $request->input('sown_area');
+        $crop->density = $request->input('density');
+        $crop->finish_date = $request->input('finish_date');
 
-    // Guardar los cambios en el cultivo
-    $crop->save();
+        // Actualizar el ambiente
+        $crop->environments()->sync([$request->input('environment_id')]);
 
-    // Redirigir al usuario a la vista de edición con un mensaje de éxito
-    return redirect()->route('agrocefa.parameters.index')->with('success', 'Cultivo ha sido editado exitosamente.');
+        // Guardar los cambios en el cultivo
+        $crop->save();
+
+        // Redirigir al usuario a la vista de edición con un mensaje de éxito
+        return redirect()->route('agrocefa.parameters.index')->with('success', 'Cultivo ha sido editado exitosamente.');
     }
 
-    
+
     public function deleteCrop($id)
     {
-    // Obtener la actividad por su ID
-    $crop = Crop::findOrFail($id);
-    $crop->delete();
+        // Obtener la actividad por su ID
+        $crop = Crop::findOrFail($id);
+        $crop->delete();
 
-    return redirect()->route('agrocefa.parameters.index')->with('error', 'El Cultivo ha sido eliminada exitosamente.');
+        return redirect()->route('agrocefa.parameters.index')->with('error', 'El Cultivo ha sido eliminada exitosamente.');
     }
-
-    
-
 }

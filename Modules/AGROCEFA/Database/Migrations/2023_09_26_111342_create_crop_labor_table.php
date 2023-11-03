@@ -13,7 +13,7 @@ class CreateCropLaborTable extends Migration
      */
     public function up()
     {
-        Schema::create('crop_labor', function (Blueprint $table) {
+        Schema::create('crop_labors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('crop_id')->constrained()->onDelete('cascade');
             $table->foreignId('labor_id')->constrained()->onDelete('cascade');

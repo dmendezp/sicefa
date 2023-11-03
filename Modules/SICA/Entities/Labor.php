@@ -26,6 +26,7 @@ class Labor extends Model implements Auditable
         'price',
         'description',
         'status',
+        'price',
         'observations',
         'destination'
     ];
@@ -65,5 +66,8 @@ class Labor extends Model implements Auditable
     public function tools(){ // Accede a todas las herramientas que pertenecen a esta labor
         return $this->hasMany(Tool::class);
     }
+
+
+    
 
 }

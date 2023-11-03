@@ -71,6 +71,9 @@
                                 <li id="sublist-li"><a href="#"><i class='bx bx-lemon icon'></i><span
                                             class="text nav-text">{{ trans('agrocefa::universal.Production') }}</span></a>
                                 </li>
+                                <li id="sublist-li"><a href="{{ route('agrocefa.reports.labor') }}"><i class='bx bxs-calculator bx-burst icon' ></i><span
+                                            class="text nav-text">Labores</span></a>
+                                </li>
                             </ul>
                         </li>
                     @endif
@@ -93,7 +96,7 @@
                     <li class="nav-link">
                         <a href="{{ route('agrocefa.usuario.index') }}">
                             <i class='bx bx-search-alt-2 icon'></i>
-                            <span class="text nav-text">{{ trans('agrocefa::universal.AGROCEFA?')}}</span>
+                            <span class="text nav-text">{{ trans('agrocefa::universal.AGROCEFA?') }}</span>
                         </a>
                     </li>
                     <li class="nav-link reports">

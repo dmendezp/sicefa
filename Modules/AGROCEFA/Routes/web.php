@@ -6,6 +6,8 @@ use Modules\AGROCEFA\Http\Controllers\VarietyController; // Asegúrate de import
 use Modules\AGROCEFA\Http\Controllers\CropController;
 use Modules\AGROCEFA\Http\Controllers\UsuarioController;
 use Modules\AGROCEFA\Http\Controllers\LaborManagementController;
+use Modules\AGROCEFA\Http\Controllers\LaborController;
+
 
 
 Route::middleware(['lang'])->group(function() {
@@ -62,11 +64,18 @@ Route::middleware(['lang'])->group(function() {
 
         
 
-        // RUTAS PARA REPORTES
+        // RUTAS PARA REPORTES  
 
         // Consumos
         Route::get('/reports/consumable', 'Reports\ConsumableController@index')->name('agrocefa.reports.consumable');
         Route::get('/reports/consumption/filter', 'Reports\ConsumableController@filterByDate')->name('agrocefa.reports.filterByDate');
+
+        //reporte labores tarjeta yuderly
+        Route::get('/reports/labor', 'Reports\laborController@index')->name('agrocefa.reports.labor');/* ruta para vista de reportes de costo de labores culturales */
+        Route::get('/get-crops-by-unit', 'Reports\LaborController@getCropsByUnit')->name('agrocefa.crops_by_unit');
+        Route::post('/reports/labor/filter', 'Reports\LaborController@filterlabor')->name('agrocefa.reports.filterlabor');
+
+
 
         //Balance
         Route::get('/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.reports.balance');

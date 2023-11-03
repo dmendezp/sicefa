@@ -369,7 +369,7 @@ class LaborManagementController extends Controller
             return response()->json(['error' => 'Error interno del servidor'], 500);
         }
     }
-         
+
     public function getpriceemploye(Request $request)
     {
         try {
@@ -471,7 +471,7 @@ class LaborManagementController extends Controller
 
         try {
             $laborId = null; 
-
+            $pricemanual = 0;
             // Registra la labor con el precio total calculado
             $labor = new Labor([
                 'activity_id' => $activity,
@@ -479,6 +479,7 @@ class LaborManagementController extends Controller
                 'planning_date' => $date,
                 'execution_date' => $date,
                 'description' => $observation,
+                'price' => $pricemanual,
                 'status' => 'Realizado',
                 'observations' => $observation,
                 'destination' => $destination,
