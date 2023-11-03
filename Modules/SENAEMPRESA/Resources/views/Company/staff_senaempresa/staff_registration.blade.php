@@ -18,6 +18,10 @@
                                     required>
                                     <option value="" selected>{{ trans('senaempresa::menu.Select a Position') }}
                                     </option>
+                                    @foreach ($PositionCompany as $positionCompany)
+                                        <option value="{{ $positionCompany->id }}">
+                                            {{ $positionCompany->id }}
+                                            {{ $positionCompany->name }}
                                     @endforeach
                                 </select>
                             </div>
