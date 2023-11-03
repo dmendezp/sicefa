@@ -43,7 +43,8 @@
                                                 <a href="#" class="btn btn-success editar-btn" data-bs-toggle="modal"
                                                     data-bs-target="#editar{{ $positio->id }}"
                                                     data-id="{{ $positio->id }}" data-nenominación
-                                                    Profesional="{{ $positio->nenominación_Profesional }}" data-nenominación
+                                                    Profesional="{{ $positio->nenominación_Profesional }}"
+                                                    data-nenominación
                                                     Profesional="{{ $positio->professional_denomination }}">{{ trans('gth::menu.Edit') }}</a>
                                                 <div style="width: 10px;"></div>
                                                 <form action="{{ route('cefa.gth.positions.delete', $positio->id) }}"
@@ -79,7 +80,8 @@
                     <form action="{{ route('cefa.gth.positions.create') }}" method="POST" class="btnGuardar">
                         @csrf
                         <div class="mb-3">
-                            <label for="professional_denomination" class="form-label">{{ trans('gth::menu.Professional Designation:') }}</label>
+                            <label for="professional_denomination"
+                                class="form-label">{{ trans('gth::menu.Professional Designation:') }}</label>
                             <select name="professional_denomination" id="professional_denomination"
                                 class="form-control @error('professional_denomination') is-invalid @enderror" required>
                                 <option value="-- Seleccione --">{{ trans('gth::menu.-- Select --') }}</option>
@@ -119,7 +121,8 @@
                             </select>
                         </div>
                         <!-- Resto del formulario -->
-                        <button type="submit" class="btn btn-primary" onclick="return confirmarCambios()">{{ trans('gth::menu.Save') }}</button>
+                        <button type="submit" class="btn btn-primary"
+                            onclick="return confirmarCambios()">{{ trans('gth::menu.Save') }}</button>
 
 
 
@@ -136,7 +139,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">{{ trans('gth::menu.Edit Position Management:') }}</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{ trans('gth::menu.Edit Position Management:') }}
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -149,11 +153,15 @@
                                 <input type="hidden" name="id"
                                     value="{{ $positio->id }}"><!-- Cambiado a $positio -->
                                 <div class="mb-3">
-                                    <label for="editprofessional_denomination" class="form-label">{{ trans('gth::menu.Professional Designation:') }}</label>
+                                    <label for="editprofessional_denomination"
+                                        class="form-label">{{ trans('gth::menu.Professional Designation:') }}</label>
                                     <select class="form-control" id="editprofessional_denomination"
                                         name="professional_denomination">
-                                        <option value="{{ old('professional_denomination', $positio->professional_denomination) }}">{{ old('professional_denomination', $positio->professional_denomination) }}</option>
-                                        <option value="Asesor">{{ trans('gth::menu.Advisor') }}<</option>
+                                        <option
+                                            value="{{ old('professional_denomination', $positio->professional_denomination) }}">
+                                            {{ old('professional_denomination', $positio->professional_denomination) }}
+                                        </option>
+                                        <option value="Asesor">{{ trans('gth::menu.Advisor') }}</option>
                                         <option value="Asistencial">{{ trans('gth::menu.Assistant') }}</option>
                                         <option value="Directivo">{{ trans('gth::menu.Executive') }}</option>
                                         <option value="Instructor">{{ trans('gth::menu.Instructor') }}</option>
@@ -165,9 +173,11 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="editName" class="form-label">{{ trans('gth::menu.Qualifications:') }}</label>
+                                    <label for="editName"
+                                        class="form-label">{{ trans('gth::menu.Qualifications:') }}</label>
                                     <select class="form-control" id="editgrade" name="grade">
-                                        <option value="{{ old('grade', $positio->grade) }}">{{ old('grade', $positio->grade) }}</option>
+                                        <option value="{{ old('grade', $positio->grade) }}">
+                                            {{ old('grade', $positio->grade) }}</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -213,10 +223,10 @@
     <script>
         function confirmarCambios() {
             Swal.fire({
-                title: 'Guardado exitoso',
-                text: 'Los datos se han guardado de Posicion.',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
+                title: '{{ trans('gth::menu.Saved successful') }}',
+                text: '{{ trans('gth::menu.The data has been saved from Position.') }}',
+                icon: '{{ trans('gth::menu.success') }}',
+                confirmButtonText: '{{ trans('gth::menu.success') }}',
             });
         }
     </script>
@@ -233,21 +243,21 @@
                     console.log('Formulario enviado'); // Evita que el formulario se envíe de inmediato
 
                     Swal.fire({
-                        title: "¿Estas seguro que deseas eliminar?",
-                        text: "Este proceso es irrevesible.",
-                        icon: 'Advertencia',
+                        title: '{{ trans('gth::menu.¿Are you sure you want to delete?') }}',
+                        text: '{{ trans('gth::menu.This process is irreversible.') }}',
+                        icon: '{{ trans('gth::menu.Warning') }}',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: "Si, Elimínalo",
-                        cancelButtonText: "Cancelar" // Cambiar el texto del botón "Cancelar"
+                        confirmButtonText: '{{ trans('gth::menu.Yes, delete it') }}',
+                        cancelButtonText: '{{ trans('gth::menu.Cancel') }}',// Cambiar el texto del botón "Cancelar"
                     }).then((result) => {
                         if (result.isConfirmed) {
                             this.submit();
                             Swal.fire({
                                 position: 'center',
-                                icon: 'success',
-                                title: 'Your work has been saved',
+                                icon: '{{ trans('gth::menu.success') }}',
+                                title: '{{ trans('gth::menu.Your work has been saved') }}',
                                 showConfirmButton: false,
                                 timer: 1000
                             })
@@ -267,19 +277,19 @@
 
             // Luego de que se haya completado la operación de guardado, muestra el SweetAlert
             Swal.fire({
-                title: 'Guardado exitoso',
-                text: 'Los datos se han guardado correctamente.',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
+                title: '{{ trans('gth::menu.Saved successful') }}',
+                text: '{{ trans('gth::menu.The data has been saved correctly.') }}',
+                icon: '{{ trans('gth::menu.success') }}',
+                confirmButtonText: '{{ trans('gth::menu.Accept') }}',
             });
         });
     </script>
     @if (session('success'))
         <script>
             Swal.fire({
-                icon: 'success',
-                title: 'Exito!',
-                text: '{{ session('success') }}',
+                icon: '{{ trans('gth::menu.success') }}',
+                title: '{{ trans('gth::menu.success!') }}',
+                text: '{{ trans('gth::menu.success') }}',
                 showConfirmButton: false,
                 timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
             });
@@ -289,8 +299,8 @@
     @if (session('error'))
         <script>
             Swal.fire({
-                icon: 'error',
-                title: 'Error',
+                icon: '{{ trans('gth::menu.Error') }}',
+                title: '{{ trans('gth::menu.Error') }}',
                 text: '{{ session('error') }}',
                 showConfirmButton: false,
                 timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)

@@ -128,10 +128,10 @@
     <script>
         function confirmarCambios() {
             Swal.fire({
-                title: 'Guardado exitoso',
-                text: 'Los datos se han guardado correctamente.',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
+                title: '{{ trans('gth::menu.Saved successful') }}',
+                text: '{{ trans('gth::menu.The data has been saved correctly.') }}',
+                icon: '{{ trans('gth::menu.success') }}',
+                confirmButtonText: '{{ trans('gth::menu.Accept') }}',
             });
         }
     </script>
@@ -149,14 +149,14 @@
                     console.log('Formulario enviado'); // Evita que el formulario se envíe de inmediato
 
                     Swal.fire({
-                        title: "¿Estas seguro que deseas eliminar?",
-                        text: "Este proceso es irrevesible.",
-                        icon: 'Advertencia',
+                        title: '{{ trans('gth::menu.¿Are you sure you want to delete?') }}',
+                        text: '{{ trans('gth::menu.This process is irreversible.') }}',
+                        icon: '{{ trans('gth::menu.Warning') }}',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: "Si, Elimínalo",
-                        cancelButtonText: "Cancelar" // Cambiar el texto del botón "Cancelar"
+                        confirmButtonText: '{{ trans('gth::menu.Yes, delete it') }}',
+                        cancelButtonText: '{{ trans('gth::menu.Cancel') }}',// Cambiar el texto del botón "Cancelar"
                     }).then((result) => {
                         if (result.isConfirmed) {
                             this.submit();
@@ -183,18 +183,18 @@
 
             // Luego de que se haya completado la operación de guardado, muestra el SweetAlert
             Swal.fire({
-                title: 'Guardado exitoso',
-                text: 'Los datos se han guardado correctamente.',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
+                title: '{{ trans('gth::menu.Saved successful') }}',
+                text: '{{ trans('gth::menu.The data has been saved correctly.') }}',
+                icon: '{{ trans('gth::menu.success') }}',
+                confirmButtonText: '{{ trans('gth::menu.Accept') }}',
             });
         });
     </script>
     @if (session('success'))
         <script>
             Swal.fire({
-                icon: 'success',
-                title: 'Exito!',
+                icon: '{{ trans('gth::menu.success') }}',
+                title: '{{ trans('gth::menu.success') }}',
                 text: '{{ session('success') }}',
                 showConfirmButton: false,
                 timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
@@ -205,8 +205,8 @@
     @if (session('error'))
         <script>
             Swal.fire({
-                icon: 'error',
-                title: 'Error',
+                icon: '{{ trans('gth::menu.Error') }}',
+                title: '{{ trans('gth::menu.Error') }}',
                 text: '{{ session('error') }}',
                 showConfirmButton: false,
                 timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
@@ -216,8 +216,8 @@
     @if (session('success'))
         <script>
             Swal.fire({
-                icon: 'success',
-                title: 'Exito!',
+                icon: '{{ trans('gth::menu.success') }}',
+                title: '{{ trans('gth::menu.success') }}',
                 text: '{{ session('success') }}',
                 showConfirmButton: false,
                 timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
@@ -228,8 +228,8 @@
     @if (session('error'))
         <script>
             Swal.fire({
-                icon: 'error',
-                title: 'Error',
+                icon: '{{ trans('gth::menu.Error') }}',
+                title: '{{ trans('gth::menu.Error') }}',
                 text: '{{ session('error') }}',
                 showConfirmButton: false,
                 timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)

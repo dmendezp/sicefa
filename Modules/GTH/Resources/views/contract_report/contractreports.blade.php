@@ -16,7 +16,7 @@
 
                     <!-- Número de Documento -->
                     <div class="form-group">
-                        <label for="document_number">{{ trans('gth::menu.Document number:') }}</label>
+                        <label for="document_number">{{ trans('gth::menu.ID number:') }}</label>
                         <input type="number" name="document_number" id="document_number"
                             class="form-control @error('document_number') is-invalid @enderror"
                             value="{{ old('document_number') }}" required>
@@ -453,10 +453,10 @@
 
         // Luego de que se haya completado la operación de guardado, muestra el SweetAlert
         Swal.fire({
-            title: 'Guardado exitoso',
-            text: 'Los datos se han guardado correctamente.',
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
+            title: '{{ trans('gth::menu.Saved successful') }}',
+            text: '{{ trans('gth::menu.The data has been saved correctly.') }}',
+            icon: '{{ trans('gth::menu.success') }}',
+            confirmButtonText: '{{ trans('gth::menu.Accept') }}',
         });
     });
 </script>

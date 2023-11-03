@@ -58,9 +58,9 @@ class ContractorsController extends Controller
         $contractor->state = $request->input('state');
 
         if ($contractor->save()) {
-            return redirect()->route('cefa.gth.contractors.view')->with('success', 'El Contrato ha actualizado exitosamente.');
+            return redirect()->route('cefa.gth.contractors.view')->with('success', trans('gth::menu.The contract has been successfully updated.'));
         } else {
-            return redirect()->black()->with('error', 'Error al actualizar vacante');
+            return redirect()->black()->with('error', trans('gth::menu.Error updating vacancy'));
         }
         ;
 
@@ -80,9 +80,9 @@ class ContractorsController extends Controller
             $contractor = Contractor::findOrFail($id);
             $contractor->delete();
 
-            return redirect()->route('cefa.gth.contractors.view')->with('success', 'Tipo de contratista eliminado correctamente.');
+            return redirect()->route('cefa.gth.contractors.view')->with('success', trans('gth::menu.Contractor type correctly eliminated.'));
         } catch (\Exception $e) {
-            return redirect()->route('cefa.gth.contractors.view')->with('error', 'No se pudo eliminar el tipo de contratista.');
+            return redirect()->route('cefa.gth.contractors.view')->with('error', trans('gth::menu.The contractor type could not be deleted.'));
         }
     }
 }

@@ -91,6 +91,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Ninguna* - *Ninguna*
 * **Mayerli Castañeda** - * organizar el modal de editar* - *80 %* - *Dificultades* - *Acciones*
 
+
 ---
 
 ### Sprint 3 🔄
@@ -99,16 +100,16 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Mayerli Castañeda** - *CRUD de Position*
 #### Meet 19-Sep-2023
 * **Daniel Guzman** - *Diseñar la vista y crear las rutas para las vistas* - *50 %* - *Dificultades->Ninguna* - *Acciones->Ninguna*
-* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Diseñar vista* - *30* - *Dificultades* - *Acciones*
 ---
 #### Meet 20-Sep-2023
 * **Daniel Guzman** - *CRUD terminado* - *100 %* - *Dificultades->Ninguna* - *Acciones->Ninguna*
-* **Mayerli Castañeda** - *Vista de Posicion * - *30%* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - ** - ** - *Dificultades* - *Acciones*
 ---
 
 #### Meet 21-Sep-2023
 * **Daniel Guzman** - CRUD listo realizadas* - *100 % - *Dificultades->Ninguna* - *Acciones->Ninguna*
-* **Mayerli Castañeda** - *Vista de Posicion * - *30%* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *areeglos de vistas de posicion * - *30%* - *Dificultades* - *Acciones*
 ---
 #### Meet 22-Sep-2023
 * **Daniel Guzman** - CRUD listo realizadas* - *100 % - *Dificultades->Ninguna* - *Acciones->Ninguna*
@@ -116,7 +117,7 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ---
 #### Meet 23-Sep-2023
 * **Daniel Guzman** - Roles y permiso* - *10 % - *Asignar roles* - *Creacion de seeders*
-* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *funcionalisa boton de crear entida pencion* - *20* - *Dificulta en guardar los datos en la base de datos * - *Acciones*
 ---
 #### Meet 24-Sep-2023
 * **Daniel Guzman** - Listo los seeders de permisos, roles y usuarios* - *40 % - *Crear permisos* - *Ninguna*
@@ -124,12 +125,47 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ---
 #### Meet 25-Sep-2023
 * **Daniel Guzman** - Roles y permisos* - *70 % - ** - *Asignar roles y usuarios a las vistas*
-* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *funcionalidad en todos los  botones * - *90* - *Dificulta en errores en los botones* - *Acciones*
 ---
 #### Meet 26-Sep-2023
 * **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *traducion de las viata * - *Avance 70* - *Dificultades* - *Acciones*
+---
+#### Meet 12-Oct-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Traducion insure y types* - *90* - *Dificultades* - *Acciones*
+#### Meet 18-Oct-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Traducion attendaces y pension,position y type* - *95* - *Dificultades* - *Acciones*
+
+### Sprint 4 🔄
+#### Sprint Planning 25-Oct-2022
+* **Daniel Guzman** - *Registro de Huellas Digitales *
+* **Mayerli Castañeda** - *Creacion de creud funcionario y Registro de asistencia Huella Digital *
+
+#### Sprint Planning 26-Oct-2022
+* **Daniel Guzman** - *Actividades a realizar*
+* **Mayerli Castañeda** - *Actividades a realizar*
+...
+#### Meet 28-Oct-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 ---
+#### Meet 31-Oct-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 02-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 04-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 07-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 
 
 
