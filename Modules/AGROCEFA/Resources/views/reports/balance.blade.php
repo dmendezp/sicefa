@@ -39,10 +39,11 @@
                 {!! Form::close() !!}
             </div>
         </div>
-
+        <br>
         <div id="filteredLabors">
             @include('agrocefa::reports.resultsbalance')
         </div>
+
     </div>
 
 
@@ -112,5 +113,4 @@
             });
         });
     </script>
-
 @endsection

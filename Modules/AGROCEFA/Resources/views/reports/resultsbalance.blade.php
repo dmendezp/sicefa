@@ -9,9 +9,9 @@
                     <tr>
                         <th>Actividad</th>
                         <th>Tipo de Actividad</th>
-                        <th>Fecha de ejecucion</th>
-                        <th>Precio labor</th>
-
+                        <th>Fecha de ejecución</th>
+                        <th>Precio de labor</th>
+                        <th>Precio de la producción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,6 +21,17 @@
                             <td>{{ $labor->activity->activity_type->name }}</td>
                             <td>{{ $labor->execution_date }}</td>
                             <td>{{ $labor->price }}</td>
+                            @if ($labor->activity->activity_type->name === 'Producción')
+                                <td>
+                                    @if (!is_null($labor->totalProductionPrice) && $labor->totalProductionPrice > 0)
+                                        {{ $labor->totalProductionPrice }}
+                                    @else
+                                        No hay producción registrada
+                                    @endif
+                                </td>
+                            @else
+                                <td>No cuenta con produccion</td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>
@@ -28,6 +39,6 @@
         </div>
     </div>
 @else
-<br>
+    <br>
     <p>No se encontraron labores del cultivo seleccionado</p>
 @endif
