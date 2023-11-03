@@ -27,7 +27,7 @@ class Crop extends Model
 
     public function environments(){
         return $this->belongsToMany(Environment::class, 'crop_environments'); // Asegúrate de que coincida con el nombre de tu tabla
-    }
+    }                                               
 
     
     public function labors(){

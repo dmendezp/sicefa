@@ -15,7 +15,7 @@ class CreateCropsTable extends Migration
             $table->date('seed_time');
             $table->integer('density');
             $table->foreignId('variety_id')->constrained()->onDelete('cascade');
-            $table->date('finish_date');
+            $table->date('finish_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

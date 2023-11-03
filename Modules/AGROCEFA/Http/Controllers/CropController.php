@@ -49,7 +49,7 @@ class CropController extends Controller
         $crop->name = $request->input('crop_name');
         $crop->seed_time = $request->input('seed_time');
         $crop->sown_area = $request->input('sown_area');
-        $crop->density = $request->input('density');
+        $crop->density = $request->input('density');        
         $crop->finish_date = $request->input('finish_date');
         $crop->save();
 

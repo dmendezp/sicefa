@@ -114,7 +114,7 @@
                     </div>
                     <div class="form-group">
                         <label for="finish_date">{{ trans('agrocefa::cultivo.End date') }}</label>
-                        <input type="date" name="finish_date" id="finish_date" class="form-control" required>
+                        <input type="date" name="finish_date" id="finish_date" class="form-control" >
                     </div>
                     <br>
                     <button type="submit"
@@ -185,8 +185,9 @@
                     </div>
                     <div class="form-group">
                         {!! Form::label('finish_date', trans('agrocefa::cultivo.End date')) !!}
-                        {!! Form::text('finish_date', $crop->finish_date, ['class' => 'form-control', 'required']) !!}
+                        {!! Form::date('finish_date', $crop->finish_date, ['class' => 'form-control']) !!}
                     </div>
+                    
                     <!-- Otros campos del formulario según tus necesidades -->
                     <br>
                     {!! Form::submit(trans('agrocefa::cultivo.Update Crop'), ['class' => 'btn btn-primary']) !!}
