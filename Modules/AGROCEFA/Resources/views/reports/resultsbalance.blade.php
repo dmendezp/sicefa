@@ -38,7 +38,24 @@
             </table>
         </div>
     </div>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            Totales
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Total de Gastos: {{ $totalExpenses }}</h4>
+                </div>
+                <div class="col-md-6">
+                    <h4>Total de Producciones: {{ $totalProductions }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 @else
     <br>
     <p>No se encontraron labores del cultivo seleccionado</p>
 @endif
+

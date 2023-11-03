@@ -161,6 +161,50 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Yuderly Sapuy** - *Uso de las tablas activities y elements del modulo  SICA para el REGISTRO DE APLICACIÓN DE LABORES CULTURALES* - *Avance 55%* - *Complicacion en las relaciones de las tablas* - *Busquedas en internet y preguntar a compañeros del proyecto*
 ---
 
+#### Meet 23-Oct-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Asignacion de tarjeta Reporte Balance - *Avance 10%* - *Dificultades N/A* - *Acciones N/A** **Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** **Yuderly Sapuy** - *Asignacion de tarjeta Contabilidad Total de Gestion Labor e Insumos* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A*
+---
+
+#### Meet 24-Oct-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Asignacion de tarjeta Reporte Balance - *Avance 10%* - *Dificultades N/A* - *Acciones N/A** **Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** **Yuderly Sapuy** - *Creacion de vista, rutas, modelos y migraciones necesarias para trabajar en la tarjeta asignada* - *Avance 15%* - *Dificultades N/A* - *Acciones N/A*
+---
+
+#### Meet 25-Oct-2023* **Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Creacion vista y controlador de Reporte Balance - *Avance 100%* - *Dificultades N/A* - *Acciones N/A** **Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** 
+**Yuderly Sapuy** - *filtrar unidad productiva segun corrsponda para atraer los datos necesarios para la consulta* - *Avance 25%* - *Dificultades para las consultas* - *Acciones: trabajo en equipo y consultas en internet*
+---
+
+#### Meet 26-Oct-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Asignacion de tarjeta Reporte Balance - *Avance 10%* - *Dificultades N/A* - *Acciones N/A** **Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** **Yuderly Sapuy** - *filtrar cultivos asignados por unidad productiva* - *Avance 30%* - *Dificultades para las consultas* - *Acciones: trabajo en equipo y consultas en internet*
+---
+
+#### Meet 27-Oct-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Asignacion de tarjeta Reporte Balance - *Avance 10%* - *Dificultades N/A* - *Acciones N/A** **Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** **Yuderly Sapuy** - *campo para filtar las labores ejecutadas en el cultivo entre fechas * - *Avance 35%* - *Dificultades para las consultas y filtros* - *Acciones: trabajo en equipo y consultas en internet*
+---
+
+#### Meet 28-Oct-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Filtro de labores segun fecha de ejecucion para el balance - *Avance 30%* - *Dificultades N/A***Acciones N/A**
+**Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** **Yuderly Sapuy** - *filtro para las labores ejecutadas* - *Avance 40%* - *Dificultades para las consultas y filtros* - *Acciones: trabajo en equipo y consultas en internet*
+---
+
+#### Meet 30-Oct-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Actualizacion y arreglos Reporte Balance - *Avance 70%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** **Yuderly Sapuy** - *trabajo en la vista de filtro para las labores ejecutadas* - *Avance 40%* - *Dificultades para las consultas y filtros* - *Acciones: trabajo en equipo y consultas en internet*
+---
+
+#### Meet 02-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Filtro segun el tipo de actividad con su respectivo gasto y produccion - *Avance 90%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Edicion de fechas de siembra CRUD-Crops* - *Avance 60%* - *Dificultades N/A* - *Acciones*
+---
+
 ## PUNTO DE VENTA 🛒
 
 ### Sprint 1 🔄

@@ -78,9 +78,25 @@ class BalanceController extends Controller
             });
         }
 
-        // Devuelve la vista con las labores filtradas
+        // Inicializa las variables para los totales de gastos y producciones
+        $totalExpenses = 0;
+        $totalProductions = 0;
+
+        if (!empty($filteredLabors) && count($filteredLabors) > 0) {
+            foreach ($filteredLabors as $labor) {
+                // Calcula los totales de gastos y producciones
+                $totalExpenses += $labor->price;
+                if ($labor->activity->activity_type->name === 'Producción') {
+                    $totalProductions += $labor->totalProductionPrice;
+                }
+            }
+        }
+
+        // Devuelve la vista con las labores filtradas y los totales
         return view('agrocefa::reports.resultsbalance', [
             'filteredLabors' => $filteredLabors,
+            'totalExpenses' => $totalExpenses,
+            'totalProductions' => $totalProductions,
         ]);
     }
 }
