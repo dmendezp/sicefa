@@ -50,8 +50,6 @@ class CarbonfootprintreportController extends Controller
             ->groupBy('sectors.id', 'productive_units.id', 'sectors.name', 'productive_units.name')
             ->get();
 
-
-
         return view('hdc::report.reporttables', compact('quarters', 'aspectosAmbientales'));
     }
 
@@ -64,31 +62,26 @@ class CarbonfootprintreportController extends Controller
         $quarter = Quarter::findOrFail($selectedQuarterId);
 
         // Convertir las fechas a objetos DateTime
-        $start_date = new \DateTime($quarter->start_date);
-        $end_date = new \DateTime($quarter->end_date);
+        $start_date = $quarter->start_date;
+        $end_date = $quarter->end_date;
 
-        // Obtener todos los trimestres (no sé si los necesitas, pero los incluí)
-        $quarters = Quarter::all();
-
-        // Consulta para obtener datos relevantes
         $aspectosAmbientales = ProductiveUnit::leftJoin('sectors', 'productive_units.sector_id', '=', 'sectors.id')
             ->leftJoin('activities', 'productive_units.id', '=', 'activities.productive_unit_id')
             ->leftJoin('labors', 'activities.id', '=', 'labors.activity_id')
             ->leftJoin('environmental_aspect_labors', function ($join) use ($start_date, $end_date) {
                 $join->on('labors.id', '=', 'environmental_aspect_labors.labor_id')
-                    ->whereBetween('labors.execution_date', [$start_date, $end_date])
-                    ->where('environmental_aspect_labors.amount', '>', 0); // Condición para huella de carbono mayor a 0
+                    ->whereBetween('labors.execution_date', [$start_date, $end_date]);
             })
             ->leftJoin('environmental_aspects', 'environmental_aspect_labors.environmental_aspect_id', '=', 'environmental_aspects.id')
             ->select(
                 'sectors.name as sector_name',
                 'productive_units.name as productive_unit_name',
-                'labors.execution_date',
                 DB::raw('SUM(environmental_aspect_labors.amount * environmental_aspects.conversion_factor) as carbon_footprint')
             )
-            ->groupBy('sectors.id', 'productive_units.id', 'sectors.name', 'productive_units.name', 'labors.execution_date')
-            ->havingRaw('carbon_footprint > 0') // Agregar condición HAVING para filtrar huella de carbono mayor a 0
+            ->havingRaw('carbon_footprint IS NOT NULL') // Filtrar resultados donde carbon_footprint no es null
+            ->groupBy('sectors.id', 'productive_units.id', 'sectors.name', 'productive_units.name')
             ->get();
+
 
         // Inicializar un array para realizar un seguimiento de la huella de carbono por unidad productiva y sector
         $carbonFootprintByUnitAndSector = [];
@@ -114,69 +107,94 @@ class CarbonfootprintreportController extends Controller
             // Sumar la huella de carbono al total por sector
             $totalCarbonFootprintBySector[$sector] = ($totalCarbonFootprintBySector[$sector] ?? 0) + $totalCarbonFootprint;
         }
-
         // Generar el PDF con TCPDF
-        $pdf = new TCPDF();
+        $pdf = new TCPDF('L', 'mm', 'A4'); // 'L' establece la orientación en horizontal
         $pdf->SetAutoPageBreak(true, 10);
         $pdf->AddPage();
 
-        // Agregar título al PDF con colores diferentes para el título principal y la fecha
-        $pdf->SetDrawColor(0, 0, 255);
         $pdf->SetFont('helvetica', 'B', 12);
-        $pdf->SetFillColor(200, 220, 255); // Color de fondo para el título principal
+        $pdf->SetFillColor(200, 220, 255);
         $pdf->Cell(0, 10, 'Informe Trimestral de Huella de Carbono', 1, 1, 'C', 1);
 
-        // Mostrar el rango de fechas del trimestre seleccionado en el título
-        $pdf->SetFont('helvetica', '', 10); // Reducir el tamaño de letra solo para esta línea
-        $pdf->SetFillColor(255, 255, 255); // Restablecer el color de fondo a blanco para la fecha
-        $pdf->Cell(0, 10, "Desde: " . $start_date->format('Y-m-d') . "  Hasta: " . $end_date->format('Y-m-d'), 'LTRB', 1, 'C');
-        $pdf->SetFont('helvetica', '', 12); // Restaurar el tamaño de letra
-        $pdf->Ln(10);
+        $pdf->SetFont('helvetica', '', 10);
+        $pdf->SetFillColor(255, 255, 255);
+        $pdf->Cell(0, 10, "Desde: " . $start_date . "  Hasta: " . $end_date, 'LTRB', 1, 'C');
 
-        // Crear una tabla con tres columnas: Nombre, Tipo (Sector/Unidad Productiva), Huella de Carbono
-        $pdf->SetX(30);
+        // Construir la tabla manualmente
         $pdf->SetFont('helvetica', 'B', 12);
+        $pdf->SetFillColor(200, 220, 255);
 
-        // Títulos con colores de fondo
-        $pdf->SetFillColor(200, 220, 255); // Color de fondo para el título "Sector"
-        $pdf->Cell(50, 10, 'Sector', 1, 0, 'C', 1);
+        $pdf->Cell(80, 10, 'Sector', 1, 0, 'C', 1);
+        $pdf->Cell(80, 10, 'Unidad Productiva', 1, 0, 'C', 1);
+        $pdf->Cell(37, 10, 'Huella de Carbono', 1, 0, 'C', 1);
+        $pdf->Cell(37, 10, 'Total', 1, 1, 'C', 1);
 
-        $pdf->SetFillColor(200, 220, 255); // Color de fondo para el título "Unidad Productiva"
-        $pdf->Cell(50, 10, 'Unidad Productiva', 1, 0, 'C', 1);
+        $pdf->SetFont('helvetica', '', 12);
+        $pdf->SetFillColor(255, 255, 255);
 
-        $pdf->SetFillColor(200, 220, 255); // Color de fondo para el título "Huella de Carbono"
-        $pdf->Cell(50, 10, 'Huella de Carbono', 1, 1, 'C', 1);
+        $groupedAspects = collect($aspectosAmbientales)->groupBy('sector_name');
+        foreach ($groupedAspects as $sectorName => $aspects) {
+            // Muestra el nombre del sector solo una vez
+            $pdf->Cell(80, 10, $sectorName, 1);
 
-        // Mostrar resultados en el PDF
-        foreach ($carbonFootprintByUnitAndSector as $key => $totalCarbonFootprint) {
-            // Separar la clave en sector y unidad productiva
-            list($sector, $productiveUnit) = explode('_', $key);
+            // Si hay más de una unidad productiva, usa MultiCell para mostrarlas juntas
+            if (count($aspects) > 1) {
+                $unitNames = collect($aspects)->pluck('productive_unit_name')->implode("\n");
+                $carbonFootprints = collect($aspects)->pluck('carbon_footprint')->implode("\n");
+                $pdf->MultiCell(80, 10, $unitNames, 1);
+                $pdf->SetXY($pdf->GetX() + 160, $pdf->GetY() - 11); // Ajusta la posición para la huella de carbono
+                $pdf->MultiCell(37, 10, $carbonFootprints, 1);
+            } else {
+                $pdf->Cell(80, 10, $aspects[0]['productive_unit_name'], 1);
+                $pdf->Cell(37, 10, $aspects[0]['carbon_footprint'], 1);
+            }
 
-            $pdf->SetX(30);
-            $pdf->Cell(50, 10, $sector, 1); // Mostrar el nombre del sector
-            $pdf->Cell(50, 10, $productiveUnit, 1); // Mostrar el nombre de la unidad productiva
-            $pdf->Cell(50, 10, $totalCarbonFootprint, 1); // Mostrar el total de la huella de carbono
-            $pdf->Ln();
+            // Actualiza $totalCarbonBySector con la suma de la huella de carbono para el sector actual
+            $totalCarbonBySector[$sectorName] = $aspects->sum('carbon_footprint');
+            // Obtener la posición actual
+            // Obtener la posición actual
+            // Obtener la posición actual
+            $xPositionTotal = $pdf->GetX();
+            $yPositionTotal = $pdf->GetY();
+
+            // Calcular la nueva posición X para alinear al lado derecho
+            $newXPosition = $pdf->GetPageWidth() - 120; // Restar el ancho de la celda al ancho de la página
+
+            // Guardar la posición original de la fila
+            $originalXPosition = $pdf->GetX();
+            $originalYPosition = $pdf->GetY();
+
+            // Iterar sobre las filas
+            foreach ($aspects as $aspect) {
+                // Ajustar la posición Y para cada fila
+                $newYPositionTotal = $originalYPosition - 10; // Ajusta según sea necesario
+
+                // Mover solo la celda "Total"
+                $pdf->SetXY($newXPosition, $newYPositionTotal);
+                $pdf->Cell(37, 10, $totalCarbonBySector[$sectorName], 1);
+
+                // Restaurar la posición original de la fila
+                $pdf->SetXY($originalXPosition, $originalYPosition);
+
+                $pdf->Ln(); // Mover a la siguiente línea
+
+                // Actualizar la posición original de la fila
+                $originalYPosition = $pdf->GetY();
+            }
+
+            // Muestra las filas adicionales solo si hay más de una unidad productiva
+            if (count($aspects) > 1) {
+                // Mueve a la siguiente línea antes de empezar el siguiente sector
+                $pdf->Ln();
+            }
         }
 
-       
-        $anchoPagina = $pdf->GetPageWidth();
 
-        // Obtener el ancho del encabezado
-        $anchoEncabezado = 100; // Ajusta este valor según el ancho de tu encabezado
+        // Agregar una línea o un espacio para separar la tabla del informe trimestral
+        $pdf->Ln(10); // Espacio de 10 puntos entre la tabla y el informe trimestral
+        $pdf->Cell(234, 0, '', 'T'); // Línea que reemplaza el espacio debajo
 
-        // Calcular la posición X para centrar el encabezado
-        $posicionXCentrado = ($anchoPagina - $anchoEncabezado) / 2;
-
-        $pdf->SetX($posicionXCentrado); // Establecer la posición X centrada
-        $pdf->Cell(100, 10, 'Totales por Sector', 1, 1, 'C', 1);
-
-        foreach ($totalCarbonFootprintBySector as $sector => $totalCarbonFootprint) {
-            $pdf->SetX($posicionXCentrado); // Establecer la posición X centrada para el contenido
-            $pdf->Cell(50, 10, $sector, 1);
-            $pdf->Cell(50, 10, $totalCarbonFootprint, 1);
-            $pdf->Ln();
-        }
+        // Agregar aquí el contenido del informe trimestral si es necesario
 
         // Descargar o mostrar en el navegador
         $pdf->Output('carbon_footprint_quarterly_report.pdf', 'D');

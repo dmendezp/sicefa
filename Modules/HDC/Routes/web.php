@@ -79,7 +79,14 @@ Route::middleware(['lang'])->group(function () {
             Route::post('/admin/form/calculates/footprint/save', 'saveConsumption')->name('hdc.admin.Carbonfootprint.save_consumption');
             Route::post('/charge/form/calculates/footprint/save', 'saveConsumption')->name('hdc.charge.Carbonfootprint.save_consumption');
 
+
             /* Rutas del CRUD */
+            Route::get('/admin/carbonfootprint/edit/{id}', 'editConsumption')->name('hdc.admin.carbonfootprint.edit_consumption');
+            Route::get('/charge/carbonfootprint/edit/{id}', 'editConsumption')->name('hdc.charge.carbonfootprint.edit_consumption');
+            Route::post('/admin/carbonfootprint/update_consumption/{id}', 'updateConsumption')->name('hdc.admin.carbonfootprint.update_consumption');
+            Route::post('/charge/carbonfootprint/update_consumption/{id}', 'updateConsumption')->name('hdc.charge.carbonfootprint.update_consumption');
+            Route::delete('/admin/carbonfootprint/eliminar/{id}', 'eliminarConsumo')->name('hdc.admin.carbonfootprint.eliminar');
+            Route::delete('/charge/carbonfootprint/eliminar/{id}', 'eliminarConsumo')->name('hdc.charge.carbonfootprint.eliminar');
             Route::get('/carbonfootprint/edit/{id}', 'editConsumption')->name('carbonfootprint.edit_consumption');
             Route::post('/carbonfootprint/update_consumption/{id}', 'updateConsumption')->name('carbonfootprint.update_consumption');
             Route::delete('/carbonfootprint/eliminar/{id}', 'eliminarConsumo')->name('carbonfootprint.eliminar');
