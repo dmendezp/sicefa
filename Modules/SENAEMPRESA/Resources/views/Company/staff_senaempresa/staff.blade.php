@@ -1,68 +1,65 @@
 @extends('senaempresa::layouts.master')
-
 @section('content')
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="card card-purple card-outline shadow">
-                <div class="card-header">
+            <div class="card card-primary card-outline shadow">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title">{{ trans('senaempresa::menu.Quarter') }}</h3>
                     @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
-                        <th>
+                        <div class="ml-auto">
                             <a href="{{ route('company.senaempresa.nuevo_personal') }}" class="btn btn-success btn-sm"><i
                                     class="fas fa-user-plus"></i></a>
-                            </a>
-                        </th>
+                        </div>
                     @endif
                 </div>
-
                 <div class="card-body">
                     @php
-                        $groupedCandidates = $staff_senaempresas->groupBy(function ($candidate) {
+                        $groupedCandidates = $staff_senaempresas->groupBy(function ($staf) {
                             // Obtener el trimestre a partir de quarter_id
-                            return $candidate->quarter_id;
+                            return $staf->quarter_id;
                         });
                     @endphp
 
-                    @foreach ($groupedCandidates as $quarter => $candidates)
+                    @foreach ($groupedCandidates as $quarter => $staff)
                         <div class="time-label">
-                            <span class="bg-blue">
-                                {{ trans('senaempresa::menu.Quarter') }} {{ $quarter }}
-                            </span>
+                            <h1 class="title">
+                                <span class="letter-wrapper"> {{ trans('senaempresa::menu.Quarter') }} </span>
+                                <span class="letter-wrapper">{{ $quarter }}</span>
+                            </h1>
                         </div>
                         <div class="row">
-                            @foreach ($candidates as $candidate)
+                            @foreach ($staff as $staf)
                                 <div class="col-md-4">
                                     <div class="candidate-card" style="max-width: 600px; margin: 0 10px 20px 0;">
                                         <div class="card text-center">
-                                            <img src="{{ asset($candidate->image) }}" alt="{{ $candidate->image }}"
-                                                class="card-img-top" style="max-width: 100%; margin: 0 10px;">
+                                            <img src="{{ asset($staf->image) }}" alt="{{ $staf->image }}"
+                                                class="card-img-top" style="max-width: 100%; border-radius: 10px;">
                                             <div class="card-body"
                                                 style="display: flex; flex-direction: column; align-items: center;">
                                                 <h6 class="card-subtitle mb-2 text-muted">
                                                     @foreach ($PositionCompany as $position)
-                                                        @if ($position->id == $candidate->position_company_id)
+                                                        @if ($position->id == $staf->position_company_id)
                                                             <strong>{{ $position->name }}</strong>
                                                         @endif
                                                     @endforeach
                                                 </h6>
                                                 <h5 class="card-title text-center">
-                                                    {{ $candidate->Apprentice->Person->first_name }}
-                                                    {{ $candidate->Apprentice->Person->first_last_name }}
+                                                    {{ $staf->Apprentice->Person->full_name }}
                                                 </h5>
                                                 <p class="card-subtitle text-muted"
                                                     style="margin-top: 10px; font-weight: bold;">
-                                                    {{ $candidate->position }}
+                                                    {{ $staf->position }}
                                                 </p>
                                                 <div class="card-buttons" style="margin-top: 10px;">
                                                     @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
-                                                        <form
-                                                            action="{{ route('company.senaempresa.eliminar_personal', $candidate->id) }}"
-                                                            method="POST" class="formPersonal">
+                                                        <form class="formPersonal"
+                                                            action="{{ route('company.senaempresa.eliminar_personal', $staf->id) }}"
+                                                            method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <div class="btn-group">
-                                                                <a href="{{ route('company.senaempresa.editar_personal', ['id' => $candidate->id]) }}"
+                                                                <a href="{{ route('company.senaempresa.editar_personal', ['id' => $staf->id]) }}"
                                                                     class="btn btn-info"><i class="fas fa-edit"></i></a>
                                                                 <button type="submit" class="btn btn-danger"><i
                                                                         class="fas fa-trash-alt"></i></button>
@@ -97,14 +94,14 @@
                         event.preventDefault(); // Evita que el formulario se envíe de inmediato
 
                         Swal.fire({
-                            title: {{ trans('senaempresa::menu.Are you sure?') }},
-                            text: {{ trans('senaempresa::menu.It is an irreversible process.') }},
+                            title: "{{ trans('senaempresa::menu.Are you sure?') }}",
+                            text: "{{ trans('senaempresa::menu.It is an irreversible process.') }}",
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: {{ trans('senaempresa::menu.Yes, remove it') }},
-                            cancelButtonText: {{ trans('senaempresa::menu.Cancel') }} // Cambiar el texto del botón "Cancelar"
+                            confirmButtonText: "{{ trans('senaempresa::menu.Yes, remove it') }}",
+                            cancelButtonText: "{{ trans('senaempresa::menu.Cancel') }}",
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 // Enviar el formulario usando AJAX

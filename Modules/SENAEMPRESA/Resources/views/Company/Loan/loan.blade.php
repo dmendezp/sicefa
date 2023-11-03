@@ -1,5 +1,11 @@
 @extends('senaempresa::layouts.master')
-
+@section('stylesheet')
+    <style>
+        .text-danger {
+            color: red;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
@@ -71,8 +77,41 @@
                                                         @endforeach
                                                     </td>
                                                     <td>{{ $loan->start_datetime }}</td>
-                                                    <td>{{ $loan->end_datetime }}</td>
-                                                    <td>{{ $loan->state }}</td>
+                                                    <td>
+                                                        @if ($loan->state === 'Devuelto')
+                                                            @php
+                                                                $endDatetime = \Carbon\Carbon::parse($loan->end_datetime);
+                                                                $startDatetime = \Carbon\Carbon::parse($loan->start_datetime);
+                                                            @endphp
+    
+                                                            @if (
+                                                                $endDatetime->toDateString() !== $startDatetime->toDateString() ||
+                                                                    ($endDatetime->hour >= 16 && $endDatetime->minute > 0))
+                                                                <span class="text-danger">{{ $loan->end_datetime }}</span>
+                                                            @else
+                                                                {{ $loan->end_datetime }}
+                                                            @endif
+                                                        @else
+                                                            {{ $loan->end_datetime }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($loan->state === 'Devuelto')
+                                                            @php
+                                                                $endDatetime = \Carbon\Carbon::parse($loan->end_datetime);
+                                                            @endphp
+    
+                                                            @if (
+                                                                $endDatetime->toDateString() !== $startDatetime->toDateString() ||
+                                                                    ($endDatetime->hour >= 16 && $endDatetime->minute > 0))
+                                                                <span class="text-danger">{{ $loan->state }}</span>
+                                                            @else
+                                                                {{ $loan->state }}
+                                                            @endif
+                                                        @else
+                                                            {{ $loan->state }}
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                             @endif
                                         @elseif (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
@@ -96,8 +135,41 @@
                                                     @endforeach
                                                 </td>
                                                 <td>{{ $loan->start_datetime }}</td>
-                                                <td>{{ $loan->end_datetime }}</td>
-                                                <td>{{ $loan->state }}</td>
+                                                <td>
+                                                    @if ($loan->state === 'Devuelto')
+                                                        @php
+                                                            $endDatetime = \Carbon\Carbon::parse($loan->end_datetime);
+                                                            $startDatetime = \Carbon\Carbon::parse($loan->start_datetime);
+                                                        @endphp
+
+                                                        @if (
+                                                            $endDatetime->toDateString() !== $startDatetime->toDateString() ||
+                                                                ($endDatetime->hour >= 16 && $endDatetime->minute > 0))
+                                                            <span class="text-danger">{{ $loan->end_datetime }}</span>
+                                                        @else
+                                                            {{ $loan->end_datetime }}
+                                                        @endif
+                                                    @else
+                                                        {{ $loan->end_datetime }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($loan->state === 'Devuelto')
+                                                        @php
+                                                            $endDatetime = \Carbon\Carbon::parse($loan->end_datetime);
+                                                        @endphp
+
+                                                        @if (
+                                                            $endDatetime->toDateString() !== $startDatetime->toDateString() ||
+                                                                ($endDatetime->hour >= 16 && $endDatetime->minute > 0))
+                                                            <span class="text-danger">{{ $loan->state }}</span>
+                                                        @else
+                                                            {{ $loan->state }}
+                                                        @endif
+                                                    @else
+                                                        {{ $loan->state }}
+                                                    @endif
+                                                </td>
                                                 @if ($loan->state === 'Prestado')
                                                     <td>
                                                         <a href="{{ route('company.loan.devolver_prestamo', ['id' => $loan->id]) }}"

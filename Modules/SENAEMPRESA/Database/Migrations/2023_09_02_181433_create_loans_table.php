@@ -18,7 +18,7 @@ class CreateLoansTable extends Migration
             $table->foreignId('staff_senaempresa_id')->constrained()->onDelete('cascade');
             $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
             $table->dateTime('start_datetime');
-            $table->dateTime('end_datetime');
+            $table->dateTime('end_datetime')->nullable();
             $table->enum('state', [
                 'Prestado',
                 'Devuelto'

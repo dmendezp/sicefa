@@ -19,7 +19,7 @@
                                     @foreach ($staff_senaempresas as $staff_senaempresa)
                                         <option value="{{ $staff_senaempresa->id }}">
                                             {{ $staff_senaempresa->id }}
-                                            {{ $staff_senaempresa->Apprentice->Person->first_name }}
+                                            {{ $staff_senaempresa->Apprentice->Person->full_name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -43,14 +43,9 @@
                                 <label for="start_datetime"
                                     class="form-label">{{ trans('senaempresa::menu.Start date and time') }}</label>
                                 <input type="datetime-local" class="form-control" id="start_datetime" name="start_datetime"
-                                    placeholder="Fecha Inicio" required>
+                                    placeholder="Fecha Inicio" required readonly>
                             </div>
-                            <div class="mb-3">
-                                <label for="end_datetime"
-                                    class="form-label">{{ trans('senaempresa::menu.End date and time') }}</label>
-                                <input type="datetime-local" class="form-control" id="end_datetime" name="end_datetime"
-                                    placeholder="Fecha Inicio" required>
-                            </div><br>
+                            <br>
                             <button type="submit"
                                 class="btn btn-success">{{ trans('senaempresa::menu.Provide') }}</button>
                             <a href="{{ route('company.loan.prestamos') }}"
@@ -62,4 +57,25 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Obtén el elemento del campo de fecha y hora de inicio
+            const startDatetimeInput = document.getElementById("start_datetime");
+
+            // Obtén la fecha y hora actual en formato de 12 horas
+            const now = new Date();
+            const hours = now.getHours() % 12 || 12; // Formato de 12 horas
+            const minutes = now.getMinutes();
+            const ampm = now.getHours() < 12 ? "AM" : "PM";
+
+            // Formatea la fecha y hora actual en un formato adecuado para el campo
+            const formattedDatetime =
+                `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}T${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+
+            // Establece el valor del campo de fecha y hora de inicio con la fecha y hora actual
+            startDatetimeInput.value = formattedDatetime;
+        });
+    </script>
 @endsection
