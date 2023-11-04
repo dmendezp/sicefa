@@ -64,8 +64,7 @@
                                                         @foreach ($staff_senaempresas as $staff_senaempresa)
                                                             @if ($staff_senaempresa->id == $loan->staff_senaempresa_id)
                                                                 {{ $loan->staff_senaempresa_id }}
-                                                                {{ $staff_senaempresa->Apprentice->Person->first_name }}
-                                                                {{ $staff_senaempresa->Apprentice->Person->first_last_name }}
+                                                                {{ $staff_senaempresa->Apprentice->Person->full_name }}
                                                             @endif
                                                         @endforeach
                                                     </td>
@@ -122,8 +121,7 @@
                                                     @foreach ($staff_senaempresas as $staff_senaempresa)
                                                         @if ($staff_senaempresa->id == $loan->staff_senaempresa_id)
                                                             {{ $loan->staff_senaempresa_id }}
-                                                            {{ $staff_senaempresa->Apprentice->Person->first_name }}
-                                                            {{ $staff_senaempresa->Apprentice->Person->first_last_name }}
+                                                            {{ $staff_senaempresa->Apprentice->Person->full_name }}
                                                         @endif
                                                     @endforeach
                                                 </td>

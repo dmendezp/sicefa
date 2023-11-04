@@ -182,7 +182,7 @@ return [
 
     //attendance
     'Register attendance' => 'Register attendance',
-    'document number:' => 'document number:',
+    'document number:' => 'Document number:',
     'Name of individual:' => 'Name of individual:',
     'Register Attendance' => 'Register Attendance',
     'Registered Attendance' => 'Registered Attendance',
@@ -190,8 +190,7 @@ return [
     'Date and Time of Entry' => 'Date and Time of Entry',
     'Date and time of departure' => 'Date and time of departure',
     'Attendance' => 'Attendance',
-
-
+    'Consult Attendances' => 'Consult Attendances',
 
 
 

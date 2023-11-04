@@ -185,13 +185,14 @@ return [
 
 	//attendance
 	'Register attendance' => 'Registrar Asistencia',
-	'document number:' => 'numero de documento:',
+	'document number:' => 'Numero de documento:',
 	'Name of individual:' => 'Nombre de la Persona:',
 	'Registered Attendance' => 'Asistencia Registradas',
-	'document' => 'Documento',
+	'Document' => 'Documento',
 	'Date and Time of Entry' => 'Fecha y Hora de Entrada',
 	'Date and time of departure' => 'Fecha y Hora de Salida',
 	'Attendance' => 'Asistencia',
+	'Consult Attendances' => 'Consultar Asistencias',
 
 
 

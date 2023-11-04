@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -100,10 +99,6 @@ Route::middleware(['lang'])->group(function () {
         Route::get('Postulados/Score/{apprenticeId}', 'PostulateController@score')->name('company.postulate.score');
         Route::post('Postulados/Score/Puntaje_Asignado', 'PostulateController@assignScore')->name('company.postulate.score_asignado');
 
-
-
-
-
         //Rutas de vacantes
         Route::get('Vacantes/', 'VacantController@vacantes')->name('company.vacant.vacantes');
         Route::get('Vacantes/Agregar_Vacante/', 'VacantController@agregar_vacante')->name('company.vacant.agregar_vacante');
@@ -117,12 +112,7 @@ Route::middleware(['lang'])->group(function () {
         Route::post('Vacantes/Curso_Asociado', 'VacantController@curso_asociado')->name('company.vacant.curso_asociado');
         Route::get('/company/vacant/get_associations', 'VacantController@getAssociations')->name('company.vacant.get_associations');
 
-
-
-
         //rutas para cargo;
-
-        //
         Route::get('Cargos/', 'PositionCompanyController@cargar')->name('company.position.cargos');
         Route::get('Cargos/Nueva', 'PositionCompanyController@registro')->name('company.position.nuevo_cargo');
         Route::post('Cargos/Nueva', 'PositionCompanyController@store')->name('company.position.cargo_nuevo');
@@ -137,7 +127,8 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/registrar-asistencia', 'AttendanceSenaempresaController@registerAttendance')->name('attendance.register');
 
         // Ruta para mostrar la lista de asistencias
-        Route::get('/asistencias', 'AttendanceSenaempresaController@showAttendanceList')->name('attendance.list');
+        Route::post('/Asistencias/search-attendance', 'AttendanceSenaempresaController@queryAttendance')->name('queryAttendance');
+        Route::get('/Asistencias', 'AttendanceSenaempresaController@showAttendanceList')->name('attendance.list');
         Route::post('/obtener-datos-de-persona', 'AttendanceSenaempresaController@getPersonData')->name('getPersonData');
 
         Route::get('/score/{postulateId}', 'PostulateController@score_save');
