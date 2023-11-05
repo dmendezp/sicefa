@@ -24,6 +24,7 @@
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
+        "chart.js": "^4.4.0",
         "datatables.net": "^1.11.5",
         "datatables.net-dt": "^1.11.5",
         "sweetalert2": "^11.7.3"

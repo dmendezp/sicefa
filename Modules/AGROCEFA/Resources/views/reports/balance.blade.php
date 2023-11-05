@@ -1,7 +1,7 @@
 @extends('agrocefa::layouts.master')
 
 @section('content')
-    <h2>Reporte Consumo</h2>
+    <h2>{{trans('agrocefa::balance.balancereport')}}</h2>
 
     <div class="container">
         <!-- Div para mostrar notificaciones -->
@@ -13,10 +13,10 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('lot', 'Lote') !!}
+                            {!! Form::label('lot', trans('agrocefa::balance.environment')) !!}
                             {!! Form::select(
                                 'lot',
-                                ['' => 'Seleccione el Lote'] +
+                                ['' => trans('agrocefa::balance.select_lot')] +
                                     collect($environmentData)->pluck('name', 'id')->toArray(),
                                 old('lot'),
                                 ['class' => 'form-control', 'required', 'id' => 'lotSelect'],
@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('crop', 'Cultivo') !!}
+                            {!! Form::label('crop', trans('agrocefa::balance.crop')) !!}
                             {!! Form::select('crop', [], old('crop'), ['class' => 'form-control', 'required', 'id' => 'cropSelect']) !!}
                         </div>
 
@@ -48,6 +48,7 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <script>
         // Manejador de eventos para el cambio en el campo "Actividad"
         $('#lotSelect').on('change', function() {

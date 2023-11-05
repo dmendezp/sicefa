@@ -32,9 +32,15 @@ class BalanceController extends Controller
             ];
         }
 
+        // Inicializa las variables para los totales de gastos y producciones
+        $totalExpenses = 0;
+        $totalProductions = 0;
+
         return view('agrocefa::reports.balance', [
             'environmentData' => $environmentData,
             'labor' => $labor,
+            'totalExpenses' => $totalExpenses,
+            'totalProductions' => $totalProductions,
         ]);
     }
 

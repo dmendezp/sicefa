@@ -1,17 +1,17 @@
 @if (!empty($filteredLabors) && count($filteredLabors) > 0)
     <div class="card">
         <div class="card-header">
-            Labores
+            {{ trans('agrocefa::balance.labors') }}
         </div>
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Actividad</th>
-                        <th>Tipo de Actividad</th>
-                        <th>Fecha de ejecución</th>
-                        <th>Precio de labor</th>
-                        <th>Precio de la producción</th>
+                        <th>{{ trans('agrocefa::balance.activity') }}</th>
+                        <th>{{ trans('agrocefa::balance.activitytype') }}</th>
+                        <th>{{ trans('agrocefa::balance.executiondate') }}</th>
+                        <th>{{ trans('agrocefa::balance.laborexpense') }}</th>
+                        <th>{{ trans('agrocefa::balance.Productionprice') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,19 +21,31 @@
                             <td>{{ $labor->activity->activity_type->name }}</td>
                             <td>{{ $labor->execution_date }}</td>
                             <td>{{ $labor->price }}</td>
-                            @if ($labor->activity->activity_type->name === 'Producción')
-                                <td>
+                            <td>
+                                @if ($labor->activity->activity_type->name === 'Producción')
                                     @if (!is_null($labor->totalProductionPrice) && $labor->totalProductionPrice > 0)
                                         {{ $labor->totalProductionPrice }}
                                     @else
-                                        No hay producción registrada
+                                        {{ trans('agrocefa::balance.There_is_no_registered_production') }}
                                     @endif
-                                </td>
-                            @else
-                                <td>No cuenta con produccion</td>
-                            @endif
+                                @else
+                                    {{ trans('agrocefa::balance.Does_not_have_production') }}
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
+                    <tr>
+                        <td colspan="3">
+                        <td><strong>{{ trans('agrocefa::balance.Totalexpenses') }}:</strong></td>
+                        </td>
+                        <td><strong>{{ $totalExpenses }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                        <td><strong>{{ trans('agrocefa::balance.TotalProductions') }}:</strong></td>
+                        </td>
+                        <td><strong>{{ $totalProductions }}</strong></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -41,20 +53,42 @@
 
     <div class="card mt-4">
         <div class="card-header">
-            Totales
+            {{ trans('agrocefa::balance.TotalsChart') }}
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <h4>Total de Gastos: {{ $totalExpenses }}</h4>
-                </div>
-                <div class="col-md-6">
-                    <h4>Total de Producciones: {{ $totalProductions }}</h4>
-                </div>
-            </div>
+            <div id="highcharts-container"></div>
         </div>
     </div>
 @else
     <br>
 @endif
 
+
+
+<script>
+    // Obtén los totales de gastos y producciones de tu PHP
+    var totalExpenses = {{ $totalExpenses }};
+    var totalProductions = {{ $totalProductions }};
+
+    // Configura la gráfica con Highcharts
+    Highcharts.chart('highcharts-container', {
+        chart: {
+            type: 'column' // Tipo de gráfica de columnas
+        },
+        title: {
+            text: '{{ trans('agrocefa::balance.TotalExpensesroductions') }}'
+        },
+        xAxis: {
+            categories: ['{{ trans('agrocefa::balance.expenses') }}', '{{ trans('agrocefa::balance.productions') }}']
+        },
+        yAxis: {
+            title: {
+                text: '{{ trans('agrocefa::balance.values') }}'
+            }
+        },
+        series: [{
+            name: '{{ trans('agrocefa::balance.values') }}',
+            data: [totalExpenses, totalProductions]
+        }]
+    });
+</script>
