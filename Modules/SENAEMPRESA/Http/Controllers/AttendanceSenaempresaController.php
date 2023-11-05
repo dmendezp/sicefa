@@ -19,9 +19,6 @@ class AttendanceSenaempresaController extends Controller
         return view('senaempresa::Company.attendance.index', ['attendances' => $attendances, 'title' => $title]);
     }
 
-
-    // Métodos anteriores...
-
     public function registerAttendance(Request $request)
     {
         // Valida los datos del formulario aquí, si es necesario
@@ -39,13 +36,13 @@ class AttendanceSenaempresaController extends Controller
             // Ya existe un registro de asistencia para esta persona en el mismo día
             if ($existingAttendance->end_datetime) {
                 // Si ya tiene una fecha y hora de salida registrada, muestra una alerta
-                return redirect()->route('attendance.list')->with('error', 'La asistencia para este día ya ha sido registrada con una hora de entrada y de salida.');
+                return redirect()->route('company.asistencia')->with('error', 'La asistencia para este día ya ha sido registrada con una hora de entrada y de salida.');
             } else {
                 // Actualiza la fecha y hora de salida
                 $existingAttendance->end_datetime = now();
                 $existingAttendance->save();
                 // Redirige a la lista de asistencias o muestra un mensaje de éxito
-                return redirect()->route('attendance.list')->with('success', 'Hora de salida registrada exitosamente.');
+                return redirect()->route('company.asistencia')->with('success', 'Hora de salida registrada exitosamente.');
             }
         } else {
             // No existe un registro de asistencia existente, crea uno nuevo
@@ -64,16 +61,14 @@ class AttendanceSenaempresaController extends Controller
                 $attendance->save();
 
                 // Redirige a la lista de asistencias o muestra un mensaje de éxito
-                return redirect()->route('attendance.list')->with('success', 'Asistencia registrada exitosamente.');
+                return redirect()->route('company.asistencia')->with('success', 'Asistencia registrada exitosamente.');
             } else {
                 // Maneja el caso en el que $staffsenaempresaid no es válido, por ejemplo, mostrando un mensaje de error
-                return redirect()->route('attendance.list')->with('error', 'No se pudo registrar la asistencia porque el aprendiz no esta en el personal');
+                return redirect()->route('company.asistencia')->with('error', 'No se pudo registrar la asistencia porque el aprendiz no esta en el personal');
             }
         }
     }
 
-
-    // Dentro del controlador AttendanceSenaempresaController
     public function getPersonData(Request $request)
     {
         $documentNumber = $request->input('document_number');

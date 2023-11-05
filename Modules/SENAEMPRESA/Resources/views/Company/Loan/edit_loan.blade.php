@@ -21,7 +21,7 @@
                                         <option value="{{ $staff_senaempresa->id }}"
                                             {{ $loan->staff_senaempresa_id == $staff_senaempresa->id ? 'selected' : '' }}>
                                             {{ $staff_senaempresa->id }}
-                                            {{ $staff_senaempresa->Apprentice->Person->first_name }}
+                                            {{ $staff_senaempresa->Apprentice->Person->full_name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -44,14 +44,14 @@
                                     class="form-label">{{ trans('senaempresa::menu.Start date and time') }}</label>
                                 <input type="datetime-local" class="form-control" id="start_datetime" name="start_datetime"
                                     placeholder="Fecha Inicio"
-                                    value="{{ date('Y-m-d\TH:i', strtotime($loan->start_datetime)) }}">
+                                    value="{{ date('Y-m-d\TH:i', strtotime($loan->start_datetime)) }}" disabled>
                             </div>
                             <div class="mb-3">
                                 <label for="end_datetime"
                                     class="form-label">{{ trans('senaempresa::menu.End date and time') }}</label>
                                 <input type="datetime-local" class="form-control" id="end_datetime" name="end_datetime"
                                     placeholder="Fecha Inicio"
-                                    value="{{ date('Y-m-d\TH:i', strtotime($loan->end_datetime)) }}">
+                                    value="{{ date('Y-m-d\TH:i', strtotime($loan->end_datetime)) }}" disabled>
                             </div><br>
                             <button type="submit"
                                 class="btn btn-success">{{ trans('senaempresa::menu.Save Changes') }}</button>

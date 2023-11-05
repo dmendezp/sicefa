@@ -60,76 +60,86 @@ Route::middleware(['lang'])->group(function () {
         Route::get('Contactos/', 'CompanyController@contact')->name('company.contact');
         Route::get('Postulados/Seleccionados/', 'CompanyController@seleccionados')->name('cefa.seleccionados');
 
-        //Rutas para senaempresa
-        Route::get('Estrategias/', 'SENAEMPRESAController@senaempresa')->name('company.senaempresa');
-        Route::get('Estrategias/Nueva', 'SENAEMPRESAController@agregar')->name('company.senaempresa.agrega');
-        Route::post('Estrategias/Nueva', 'SENAEMPRESAController@store')->name('company.senaempresa.guardado');
-        Route::get('Estrategias/{id}/editar', 'SENAEMPRESAController@edit')->name('company.senaempresa.editarlo');
-        Route::post('Estrategias{id}/actualizar', 'SENAEMPRESAController@update')->name('company.senaempresa.guardar_senaempresa');
-        Route::delete('Estrategias/delete/{id}', 'SENAEMPRESAController@destroy')->name('company.senaempresa.eliminar_senaempresa');
+        //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DE LAS ESTRATEGIAS DE SENAEMPRESA
+        Route::prefix('Estrategias')->group(function () {
+            Route::get('/', 'SENAEMPRESAController@senaempresa')->name('company.senaempresa');
+            Route::get('/Nueva', 'SENAEMPRESAController@agregar')->name('company.senaempresa.agrega');
+            Route::post('/Guardada', 'SENAEMPRESAController@store')->name('company.senaempresa.guardado');
+            Route::get('/Editar/{id}', 'SENAEMPRESAController@edit')->name('company.senaempresa.editarlo');
+            Route::post('/{id}/Actualizado', 'SENAEMPRESAController@update')->name('company.senaempresa.guardar_senaempresa');
+            Route::delete('/Eliminado/{id}', 'SENAEMPRESAController@destroy')->name('company.senaempresa.eliminar_senaempresa');
 
-        //Rutas para asociar cursos a senaempresa estrategias
+            //RUTAS PARA ASOCIAR CURSOS A LAS ESTRATEGIAS DE SENAEMPRESA
+            Route::get('/Mostrar_Curso', 'SENAEMPRESAController@mostrar_asociado')->name('company.senaempresa.mostrar_asociados_senaempresa');
+            Route::post('/Curso_Asociado', 'SENAEMPRESAController@curso_asociado_senaempresa')->name('company.senaempresa.curso_asociado_senaempresa');
+            Route::get('/Obtener_asociaciones', 'SENAEMPRESAController@getAssociation')->name('company.senaempresa.get_associations');
+        });
 
-        Route::get('Estrategias/Mostrar_Curso/', 'SENAEMPRESAController@mostrar_asociado')->name('company.senaempresa.mostrar_asociados_senaempresa');
-        Route::post('Estrategias/Curso_Asociado/', 'SENAEMPRESAController@curso_asociado_senaempresa')->name('company.senaempresa.curso_asociado_senaempresa');
-        Route::get('/company/senaempresa/get_associations', 'SENAEMPRESAController@getAssociation')->name('company.senaempresa.get_associations');
+        //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DEL PERSONAL DE SENAEMPRESA
+        Route::prefix('Personal')->group(function () {
+            Route::get('/', 'StaffSenaempresaController@mostrar_personal')->name('company.senaempresa.personal');
+            Route::get('/Nuevo', 'StaffSenaempresaController@nuevo_personal')->name('company.senaempresa.nuevo_personal');
+            Route::post('/Guardado', 'StaffSenaempresaController@personal_nuevo')->name('company.senaempresa.personal_nuevo');
+            Route::get('/Editar/{id}', 'StaffSenaempresaController@editar_personal')->name('company.senaempresa.editar_personal');
+            Route::post('/{id}/Actualizado', 'StaffSenaempresaController@personal_editado')->name('company.senaempresa.personal_editado');
+            Route::delete('/Eliminado/{id}', 'StaffSenaempresaController@destroy')->name('company.senaempresa.eliminar_personal');
+        });
 
-        //rutas de personal de senaempresa
-        Route::get('Personal/', 'StaffSenaempresaController@mostrar_personal')->name('company.senaempresa.personal');
-        Route::get('Personal/Nueva', 'StaffSenaempresaController@nuevo_personal')->name('company.senaempresa.nuevo_personal');
-        Route::post('Personal/Nueva', 'StaffSenaempresaController@personal_nuevo')->name('company.senaempresa.personal_nuevo');
-        Route::get('Personal/{id}/editar', 'StaffSenaempresaController@editar_personal')->name('company.senaempresa.editar_personal');
-        Route::post('Personal/{id}/actualizar', 'StaffSenaempresaController@personal_editado')->name('company.senaempresa.personal_editado');
-        Route::delete('Personal/delete/{id}', 'StaffSenaempresaController@destroy')->name('company.senaempresa.eliminar_personal');
+        //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN Y LA ACTUALIZACIÓN DE LOS PRESTAMOS EPP DE SENAEMPRESA
+        Route::prefix('Prestamos')->group(function () {
+            Route::get('/', 'LoanController@index')->name('company.loan.prestamos');
+            Route::get('/Nuevo', 'LoanController@register')->name('company.loan.Nuevo');
+            Route::post('/Guardado', 'LoanController@prestamo_nuevo')->name('company.loan.prestamo_nuevo');
+            Route::get('/Editar/{id}', 'LoanController@editar')->name('company.loan.editar');
+            Route::put('/{id}/Actualizado', 'LoanController@update')->name('company.loan.update');
+            Route::get('/Devolver_prestamo/{id}', 'LoanController@devolver_prestamo')->name('company.loan.devolver_prestamo');
+        });
 
-        //Prestamos
-        Route::get('Prestamos/', 'LoanController@index')->name('company.loan.prestamos');
-        Route::get('Prestamos/Nuevo/', 'LoanController@register')->name('company.loan.Nuevo');
-        Route::post('Prestamos/Prestamo_Nuevo/', 'LoanController@prestamo_nuevo')->name('company.loan.prestamo_nuevo');
-        Route::get('Prestamos/edit/{id}', 'LoanController@editar')->name('company.loan.editar');
-        Route::put('Prestamos/loan/update/{id}', 'LoanController@update')->name('company.loan.update');
-        Route::get('Prestamos/devolver_prestamo/{id}', 'LoanController@devolver_prestamo')->name('company.loan.devolver_prestamo');
+        //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DE LAS VACANTES DE SENAEMPRESA
+        Route::prefix('Vacantes')->group(function () {
+            Route::get('/', 'VacantController@vacantes')->name('company.vacant.vacantes');
+            Route::get('/Nueva', 'VacantController@agregar_vacante')->name('company.vacant.agregar_vacante');
+            Route::post('/Guardada', 'VacantController@store')->name('company.vacant.nueva_vacante');
+            Route::get('/Editar/{id}', 'VacantController@edit')->name('company.vacant.editar_vacante');
+            Route::post('/{id}/Actualizada', 'VacantController@update')->name('company.vacant.vacante_editado');
+            Route::delete('/Eliminado/{id}', 'VacantController@destroy')->name('company.vacant.eliminar_vacante');
 
-        //Inscripciones a vacantes
-        Route::get('Vacantes/Inscripción/{vacancy_id}', 'PostulateController@inscription')->name('inscription');
-        Route::post('Vacantes/Inscripción_Exitosa/', 'PostulateController@store')->name('company.postulate.store');
+            //RUTAS PARA ASOCIAR CURSOS A LAS VACANTES DE SENAEMPRESA
+            Route::get('/Mostrar_Curso', 'VacantController@mostrar_asociados')->name('company.vacant.mostrar_asociados');
+            Route::post('/Curso_Asociado', 'VacantController@curso_asociado')->name('company.vacant.curso_asociado');
+            Route::get('/Obtener_asociaciones', 'VacantController@getAssociations')->name('company.vacant.get_associations');
 
-        //Postulados
-        Route::get('Postulados/', 'PostulateController@postulates')->name('company.postulate');
-        Route::get('Postulados/Score/{apprenticeId}', 'PostulateController@score')->name('company.postulate.score');
-        Route::post('Postulados/Score/Puntaje_Asignado', 'PostulateController@assignScore')->name('company.postulate.score_asignado');
+            //RUTAS PARA REALIZAR LA INSCRIPCIÓN A LAS VACANTES DISPONIBLES SEGUN EL CURSO DE SENAEMPRESA
+            Route::get('Vacantes/Inscripción/{vacancy_id}', 'PostulateController@inscription')->name('inscription');
+            Route::post('Vacantes/Inscripción_Exitosa/', 'PostulateController@store')->name('company.postulate.store');
+        });
 
-        //Rutas de vacantes
-        Route::get('Vacantes/', 'VacantController@vacantes')->name('company.vacant.vacantes');
-        Route::get('Vacantes/Agregar_Vacante/', 'VacantController@agregar_vacante')->name('company.vacant.agregar_vacante');
-        Route::post('Vacantes/Nueva_Vacante/', 'VacantController@store')->name('company.vacant.nueva_vacante');
-        Route::get('Vacantes/{id}/Editar_Vacante/', 'VacantController@edit')->name('company.vacant.editar_vacante');
-        Route::post('Vacantes/Vacante_Editado/{id}/', 'VacantController@update')->name('company.vacant.vacante_editado');
-        Route::delete('Vacantes/eliminar_vacante/{id}', 'VacantController@destroy')->name('company.vacant.eliminar_vacante');
+        //RUTAS PARA LA VISUALIZACIÓN Y LA ASIGNACIÓN DE PUNTAJE A LOS POSTULADOS A LAS VACANTES DE SENAEMPRESA
+        Route::prefix('Postulados')->group(function () {
+            Route::get('/', 'PostulateController@postulates')->name('company.postulate');
+            Route::get('/Asignar_puntaje/{apprenticeId}', 'PostulateController@score')->name('company.postulate.score');
+            Route::post('/Puntaje_Asignado', 'PostulateController@assignScore')->name('company.postulate.score_asignado');
+        });
 
-        //Asociar curso a vacante
-        Route::get('Vacantes/Mostrar_Curso', 'VacantController@mostrar_asociados')->name('company.vacant.mostrar_asociados');
-        Route::post('Vacantes/Curso_Asociado', 'VacantController@curso_asociado')->name('company.vacant.curso_asociado');
-        Route::get('/company/vacant/get_associations', 'VacantController@getAssociations')->name('company.vacant.get_associations');
+        //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DE LOS CARGOS DE SENAEMPRESA
+        Route::prefix('Cargos')->group(function () {
+            Route::get('/', 'PositionCompanyController@cargar')->name('company.position.cargos');
+            Route::get('/Nuevo', 'PositionCompanyController@registro')->name('company.position.nuevo_cargo');
+            Route::post('/Guardado', 'PositionCompanyController@store')->name('company.position.cargo_nuevo');
+            Route::get('/Editar/{id}', 'PositionCompanyController@edit')->name('company.position.editar_cargo');
+            Route::post('/{id}/Actualizado', 'PositionCompanyController@update')->name('company.position.cargo_editado');
+            Route::delete('/Eliminado/{id}', 'PositionCompanyController@destroy')->name('company.position.eliminar_cargo');
+        });
 
-        //rutas para cargo;
-        Route::get('Cargos/', 'PositionCompanyController@cargar')->name('company.position.cargos');
-        Route::get('Cargos/Nueva', 'PositionCompanyController@registro')->name('company.position.nuevo_cargo');
-        Route::post('Cargos/Nueva', 'PositionCompanyController@store')->name('company.position.cargo_nuevo');
-        Route::get('Cargos/{id}/editar', 'PositionCompanyController@edit')->name('company.position.editar_cargo');
-        Route::post('Cargos/{id}/actualizar', 'PositionCompanyController@update')->name('company.position.cargo_editado');
-        Route::delete('cargos/delete/{id}', 'PositionCompanyController@destroy')->name('company.position.eliminar_cargo');
+        //RUTAS PARA EL REGISTRO, Y LA VISUALIZACIÓN DE LAS ASISTENCIAS DEL PERSONAL DE SENAEMPRESA
+        Route::prefix('Asistencias')->group(function () {
+            Route::get('/Registrar_asistencias', 'AttendanceSenaempresaController@showAttendanceList')->name('company.asistencia');
+            Route::post('/Registrada', 'AttendanceSenaempresaController@registerAttendance')->name('attendance.register');
 
-
-        Route::get('/registrar-asistencia', 'AttendanceSenaempresaController@showAttendanceList')->name('company.asistencia');
-
-        // Ruta para procesar el registro de asistencia
-        Route::post('/registrar-asistencia', 'AttendanceSenaempresaController@registerAttendance')->name('attendance.register');
-
-        // Ruta para mostrar la lista de asistencias
-        Route::post('/Asistencias/search-attendance', 'AttendanceSenaempresaController@queryAttendance')->name('queryAttendance');
-        Route::get('/Asistencias', 'AttendanceSenaempresaController@showAttendanceList')->name('attendance.list');
-        Route::post('/obtener-datos-de-persona', 'AttendanceSenaempresaController@getPersonData')->name('getPersonData');
+            // Ruta para mostrar la lista de asistencias
+            Route::post('/Buscar_Asistencia', 'AttendanceSenaempresaController@queryAttendance')->name('queryAttendance');
+            Route::post('/Obtener_datos', 'AttendanceSenaempresaController@getPersonData')->name('getPersonData');
+        });
 
         Route::get('/score/{postulateId}', 'PostulateController@score_save');
     });

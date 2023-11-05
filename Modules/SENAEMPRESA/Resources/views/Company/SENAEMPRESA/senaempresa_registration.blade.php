@@ -15,8 +15,6 @@
                                 <label for="name" class="form-label">{{ trans('senaempresa::menu.Name') }}</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
                             </div>
-
-
                             <div class="mb-3">
                                 <label for="description"
                                     class="form-label">{{ trans('senaempresa::menu.Description') }}</label>
@@ -33,9 +31,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
-
-
                             <button type="submit" class="btn btn-success">{{ trans('senaempresa::menu.Add') }}</button>
                             <a href="{{ route('company.senaempresa') }}"
                                 class="btn btn-danger btn-xl">{{ trans('senaempresa::menu.Cancel') }}</a>
