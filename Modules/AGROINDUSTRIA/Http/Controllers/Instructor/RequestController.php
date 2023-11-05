@@ -19,6 +19,10 @@ use Validator, Str;
 
 class RequestController extends Controller
 {
+    public function requests(){
+        $title = 'requests';
+        return view('agroindustria::storer.view', compact('title'));
+    }
 
     public function table(){
         $title = 'Solicitudes';

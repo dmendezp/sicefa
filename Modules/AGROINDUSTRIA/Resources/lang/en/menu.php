@@ -87,6 +87,7 @@ return [
     'Products' => 'Products',
     //Inventary data table.
     'Name' => 'Name',
+    'Select Unit' => 'Select Unit',
     'Category' => 'Category',
     'Description' => 'Description',
     'Element' => 'Element',
@@ -100,7 +101,8 @@ return [
     'Save'=>'Save',
     'Edit'=>'Edit',
 
-
+    //view requests 
+    'requests' => 'requests',
 
    
 

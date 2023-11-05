@@ -36,34 +36,44 @@
                     <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.production')}}">Producción</a>
                 </li>
                 @endif
+
                 @if(Auth::user()->havePermission('agroindustria.instructor.deliveries'))
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
                 </li>
                 @endif
+
                 @if(Auth::user()->havePermission('agroindustria.instructor.labor'))
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
                 </li>
                 @endif
+
                 @if(Auth::user()->havePermission('agroindustria.instructor.activity'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.activity')}}">{{trans('agroindustria::menu.Activities')}}</a>
                     </li>
                 @endif  
+
                 @if(Auth::user()->havePermission('agroindustria.instructor.formulations'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.formulations')}}">{{trans('agroindustria::formulations.Recipes')}}</a>
                     </li>
                 @endif
+
+                
+                @endif
+
+                {{-- Menu storer --}}        
+                
                 @if(Auth::user()->havePermission('agroindustria.storer.crud'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory.requests')}}">{{trans('agroindustria::menu.requests')}}</a>
+                    </li>
                 @endif
-               {{-- Menu storer --}}
-            @endif
-            
         </ul>
     </div>
         

@@ -1,8 +1,6 @@
 @extends('agroindustria::layouts.master')
 @section('content')
     
-
-
     <section class="carousel_info">
     <div id="carouselExampleCaptions" class="carousel slide">
             <div class="carousel-indicators">
