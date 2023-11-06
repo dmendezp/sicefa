@@ -7,7 +7,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "alexusmai/laravel-file-manager": "^2.5",
-        "barryvdh/laravel-dompdf": "^2.0",
+        "barryvdh/laravel-dompdf": "*",
         "barryvdh/laravel-snappy": "^1.0",
         "chartisan/chartisan": "*",
         "elibyy/tcpdf-laravel": "^10.0",

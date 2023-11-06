@@ -10,14 +10,47 @@
 
 <!-- Highcharts -->
 <script src="{{ asset('Highcharts/code/highcharts.js') }}"></script>
-<script src="{{ asset('Highcharts/code/highcharts-3d.js') }}"></script> 
+<script src="{{ asset('Highcharts/code/highcharts-3d.js') }}"></script>
 <script src="{{ asset('Highcharts/code/modules/data.js') }}"></script>
 <script src="{{ asset('Highcharts/code/modules/exporting.js') }}"></script>
 <script src="{{ asset('Highcharts/code/modules/export-data.js') }}"></script>
 <script src="{{ asset('Highcharts/code/modules/accessibility.js') }}"></script>
-<script src="{{ asset('Highcharts/code/modules/drilldown.js') }}"></script> 
+<script src="{{ asset('Highcharts/code/modules/drilldown.js') }}"></script>
 
 {{--  Funcion AJAX  --}}
 <script src="{{asset('js/generalscripts.js')}}"></script>
 <!--sweetalert -->
 <script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+
+<!-- DataTables -->
+<script src="{{ asset('AdminLTE/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.js') }}"></script>
+<script src="{{ asset('js/generalscripts.js') }}"></script>
+<script src="{{ asset('modules/sica/js/scripts.js') }}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#datatable').DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": true,
+            "buttons": [{
+                    extend: 'pdfHtml5',
+                    text: 'PDF',
+                    customize: function(doc) {
+                        doc.styles.tableHeader = {
+                            fillColor: '#000000',
+                            color: '#FAFAFA',
+                            fontSize: 12
+                        };
+                        doc.content[1].alignment = 'center';
+                    }
+                },
+                "copy", "csv", "excel", "print", "colvis"
+            ]
+        }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
+    });
+</script>

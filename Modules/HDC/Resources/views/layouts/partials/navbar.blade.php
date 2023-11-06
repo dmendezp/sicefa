@@ -28,7 +28,7 @@
     <ul class="navbar-nav ml-auto">
 
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('hdc.admin.instruction.manual') }}" class="nav-link">
                 <i class="nav-icon fa-solid fa-book"></i>
             </a>
         </li>

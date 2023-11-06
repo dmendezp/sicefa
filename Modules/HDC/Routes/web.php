@@ -96,5 +96,10 @@ Route::middleware(['lang'])->group(function () {
             /* Ruta de Graficas */
         Route::get('/Graficas', 'Graficas')->name('cefa.hdc.Graficas');
         });
+
+        Route::controller(InstructionManualController::class)->group(function(){
+            Route::get('/admin/instruction/manual', 'manual')->name('hdc.admin.instruction.manual');
+
+        });
     });
 });

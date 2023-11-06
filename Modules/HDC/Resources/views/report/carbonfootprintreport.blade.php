@@ -32,7 +32,7 @@
                                     <i class="fas fa-file-pdf mr-2"></i>{{ trans('hdc::report.Button_PDF') }}
                                 </button>
                             </form>
-                            
+
                         </div>
 
                     </div>
@@ -56,12 +56,13 @@
                 var myObjet = new Object();
                 myObjet.selectedQuarterId = selectedQuarterId; // Usar la variable directamente
                 var myString = JSON.stringify(myObjet);
+
+
                 ajaxReplace("div-reporte", '/hdc/admin/report/tables', myString);
-        
+
                 // Actualizar el valor del campo oculto en el formulario
                 $("#selectedQuarterId").val(selectedQuarterId);
             }
         });
-        
     </script>
 @endpush
