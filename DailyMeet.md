@@ -49,9 +49,9 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva"* - *Avance 50%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 ---
 #### Meet 01-Sep-2023
-* **Andres David Cumaco Rojas** - *Integración del proyecto Calcula tu huella* - *Avance 20%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Andres David Cumaco Rojas** - *Integración del proyecto Calcula tu huella* - *Avance 0%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
 * **Mary Luz Aldana Vidarte** - *Integración del proyecto Calcula tu huella* - *Avance 20%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
-* **Leidy Sofia Osorio Vera** - *Integración del proyecto Calcula tu huella* - *Avance 20%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Integración del proyecto Calcula tu huella* - *Avance 0%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 ---
 
 #### Meet 04-Sep-2023
@@ -61,9 +61,23 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ---
 
 #### Meet 05-Sep-2023
-* **Andres David Cumaco Rojas** - *Integración del proyecto Calcula tu huella* - *Avance 20%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Andres David Cumaco Rojas** - *Integración del proyecto Calcula tu huella* - *Avance 0%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
 * **Mary Luz Aldana Vidarte** - *Integración del proyecto Calcula tu huella* - *Avance 50%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 * **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva* - *Avance 62%* - *Dificultades->Error en la base de datos* - *Acciones->Se solicito ayuda de los pasantes para solucionar el respectivo error*
+---
+#### Meet 01-Nov-2023
+* **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos* - *Avance 80%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Integración del proyecto Calcula tu huella* - *Avance 100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Integración Grafica Anual* - *Avance 100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Registro de Consumo* - *Avance 100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Reporte Del Impacto De Huella* - *Avance 50%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva* - *Avance 62%* - *Dificultades->No se presento* 
+---
+#### Meet 06-Nov-2023
+* **Andres David Cumaco Rojas** - *(Administrador - Pasante) Administrar Recursos* - *Avance 90%* - *Dificultades-Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Vista de Manual Instructivo* - *Avance 20%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Reporte Del Impacto De Huella* - *Avance 100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva* - *Avance 62%* - *Dificultades->No se presento* 
 ---
 
 ADSO 2500871

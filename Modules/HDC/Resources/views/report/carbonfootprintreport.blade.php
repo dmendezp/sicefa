@@ -14,9 +14,9 @@
                 <div class="card card-success card-outline shadow">
                     <div class="card-body">
                         <div class="form-group text-center">
-                            <label for="selectFilter">Rango trimestral</label>
+                            <label for="selectFilter">{{ trans('hdc::report.Quarterly_Card_Range_Title') }}</label>
                             <select class="form-control" id="selectFilter">
-                                <option value="all" class="text-center">---Seleccione el trimestre---</option>
+                                <option value="all" class="text-center">{{ trans('hdc::report.Subtitle_select_quarter') }}</option>
                                 @foreach ($quarters as $quarter)
                                     <option value="{{ $quarter->id }}" class="text-center">
                                         {{ $quarter->name }} - {{ $quarter->start_date }} a {{ $quarter->end_date }}
@@ -32,7 +32,7 @@
                                     <i class="fas fa-file-pdf mr-2"></i>{{ trans('hdc::report.Button_PDF') }}
                                 </button>
                             </form>
-
+                            <div id="error-message" class="alert alert-danger" style="display: none;"></div>
                         </div>
 
                     </div>
@@ -47,22 +47,40 @@
 
 @push('scripts')
     <script>
+        $(document).ready(function() {
+            $(document).on("change", "#selectFilter", function() {
+                var selectedQuarterId = $(this).val();
+                if (selectedQuarterId == '') {
+                    $("#div-reporte").html('');
+                } else {
+                    var myObject = { selectedQuarterId: selectedQuarterId };
+                    var myString = JSON.stringify(myObject);
 
-        $(document).on("change", "#selectFilter", function() {
-            var selectedQuarterId = $(this).val();
-            if (selectedQuarterId == '') {
-                $("#div-reporte").html('');
-            } else {
-                var myObjet = new Object();
-                myObjet.selectedQuarterId = selectedQuarterId; // Usar la variable directamente
-                var myString = JSON.stringify(myObjet);
+                    ajaxReplace("div-reporte", '/hdc/admin/report/tables', myString);
 
+                    // Actualizar el valor del campo oculto en el formulario
+                    $("#selectedQuarterId").val(selectedQuarterId);
+                }
+            });
 
-                ajaxReplace("div-reporte", '/hdc/admin/report/tables', myString);
-
-                // Actualizar el valor del campo oculto en el formulario
-                $("#selectedQuarterId").val(selectedQuarterId);
-            }
+            $("#pdfForm").submit(function(event) {
+                var selectedQuarterId = $("#selectFilter").val();
+                if (selectedQuarterId == '') {
+                    $.ajax({
+                        type: "POST",
+                        url: '/hdc/admin/report',
+                        data: { data: JSON.stringify({ selectedQuarterId: selectedQuarterId }) },
+                        dataType: 'json',
+                        success: function(response) {
+                            alert(response.error);
+                        }
+                    });
+                    event.preventDefault(); // Evitar que el formulario se envíe
+                }
+            });
         });
     </script>
 @endpush
+
+
+

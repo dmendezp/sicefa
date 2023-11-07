@@ -20,4 +20,10 @@ return [
     'Title_Card_Sectors' => 'Sectores',
     //Boton PDF
     'Button_PDF' => 'Generar PDF',
+    //Titulo columna Total
+    'Title_Column_Total' => 'Total',
+    //Titulo Card Rango Trimestral
+    'Quarterly_Card_Range_Title'=> 'Rango Trimestral',
+    //Subtitulo select
+    'Subtitle_select_quarter' => '---Seleccione el trimestre---',
 ];
