@@ -35,7 +35,7 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                     @if (Auth::user()->havePermission('bienestar.admin.save.drivers'))
-                        <form action="{{ route('cefa.bienestar.drivers.add') }}" method="POST" onsubmit="return validarFormulario()">
+                        <form action="{{ route('bienestar.admin.save.drivers') }}" method="POST" onsubmit="return validarFormulario()">
                             @csrf
                             <div class="form-row">
                                 <div class="col-md-3 mb-2">

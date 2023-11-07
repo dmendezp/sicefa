@@ -55,7 +55,7 @@ class TransportationAssistance extends Model implements Auditable
 
 
     public function routes_trasportantion(){// Accede a todas las rutas que pertenecen a esta asistencia
-    	return $this->belongsTo(RoutesTransportation::class, 'route_transportation_id');
+    	return $this->belongsTo(RouteTransportation::class, 'route_transportation_id');
     }
 
     

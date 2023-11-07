@@ -5,7 +5,7 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\PostulationBenefit;
-use Modules\BIENESTAR\Entities\RoutesTransportations;
+use Modules\BIENESTAR\Entities\RouteTransportation;
 use Modules\BIENESTAR\Entities\AssignTransportRoute;
 use Illuminate\Database\QueryException;
 
