@@ -5,11 +5,11 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Modules\SENAEMPRESA\Entities\file_senaempresa;
+use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SENAEMPRESA\Entities\Postulate;
 use Modules\SENAEMPRESA\Entities\Vacancy;
 use Modules\SICA\Entities\Apprentice;
@@ -114,16 +114,35 @@ class PostulateController extends Controller
 
         return redirect()->route('company.vacant.vacantes', $data)->with('success', trans('senaempresa::menu.Registration made with success!'));
     }
-    public function postulates()
-    {
-        $postulates = Postulate::with(['apprentice.person', 'vacancy'])->get();
-        $data = ['title' => trans('senaempresa::menu.Postulated'), 'postulates' => $postulates];
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.Postulate.postulate', $data);
-        } else {
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+    public function postulates(Request $request)
+{
+    $selectedPositionId = $request->input('positionFilter');
+    $PositionCompanies = PositionCompany::where('state', 'Activo')->get();
+
+    // Consulta para obtener los postulantes filtrados por cargo
+    $postulates = Postulate::with(['apprentice.person', 'vacancy'])
+        ->when($selectedPositionId, function ($query) use ($selectedPositionId) {
+            $query->whereHas('vacancy.positionCompany', function ($q) use ($selectedPositionId) {
+                $q->where('id', $selectedPositionId);
+            });
+        })
+        ->get();
+
+    $data = [
+        'title' => trans('senaempresa::menu.Postulated'),
+        'postulates' => $postulates,
+        'PositionCompanies' => $PositionCompanies,
+        'selectedPositionId' => $selectedPositionId, // Pasa la variable a la vista
+    ];
+
+    if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
+        return view('senaempresa::Company.Postulate.postulate', $data);
+    } else {
+        return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
     }
+}
+
+
 
     public function score($apprenticeId)
     {

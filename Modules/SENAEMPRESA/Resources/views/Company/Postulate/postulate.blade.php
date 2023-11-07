@@ -3,6 +3,19 @@
 @section('content')
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
+        <form method="GET" action="{{ route('company.postulate') }}">
+            <label for="positionFilter">Filtrar por cargo:</label>
+            <select class="form-control" id="positionFilter" name="positionFilter" onchange="this.form.submit()">
+                <option value="" {{ !$selectedPositionId ? 'selected' : '' }}>Todos los cargos</option>
+                @foreach ($PositionCompanies as $PositionCompany)
+                    <option value="{{ $PositionCompany->id }}"
+                        {{ $selectedPositionId == $PositionCompany->id ? 'selected' : '' }}>
+                        {{ $PositionCompany->id }} {{ $PositionCompany->name }}
+                    </option>
+                @endforeach
+            </select>
+        </form>
+
         <br>
         <div class="col-md-12">
             <div class="card card-primary card-outline shadow">
@@ -70,7 +83,7 @@
     <script>
         $(document).ready(function() {
             $('.assign-button').click(function(e) {
-                e.preventDefault(); 
+                e.preventDefault();
 
                 var apprenticeId = $(this).data('apprentice-id');
                 var redirectUrl =
