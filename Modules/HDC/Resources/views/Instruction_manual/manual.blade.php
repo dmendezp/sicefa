@@ -1,7 +1,7 @@
 @extends('hdc::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">{{ trans('hdc::Graficas.Graphics')}}</li>
+    <li class="breadcrumb-item active">Manual de usuario</li>
 @endpush
 @push('head')
 <!-- Menu CSS -->
@@ -14,7 +14,6 @@
         <section class="hero_container container">
             <h1 class="hero_title">Manual de Usuario</h1>
             <p class="hero_paragraph">Bienvenido al Manual de Usuario. Aquí encontrarás información detallada sobre cómo utilizar nuestra aplicación.</p>
-            <a href="#" class="cta">Comienza Ahora</a>
         </section>
     </div>
     <section class="price container">
@@ -42,6 +41,8 @@
             </div>
         </div>
     </section>
+    
+
 
 </body>
 <br>

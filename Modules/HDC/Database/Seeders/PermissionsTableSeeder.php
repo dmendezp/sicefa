@@ -335,6 +335,24 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+         //Vista tabla del reporte huella de carbono (ADMINISTRADOR)
+         $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.report.tables'], [ // Registro o actualización de permiso
+            'name' => 'Tabla reporte Huella de Carbono(Administrador)',
+            'description' => 'Tabla reporte de huella de carbono con impresion PDF',
+            'description_english' => "Carbon footprint report with PDF printout",
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        //Vista tabla del reporte huella de carbono (Encargado)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.report.tables'], [ // Registro o actualización de permiso
+            'name' => 'Tabla reporte Huella de Carbono(Encargado)',
+            'description' => 'Tabla reporte de huella de carbono con impresion PDF',
+            'description_english' => "Carbon footprint report with PDF printout",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
         //Boton de reporte PDF(ENCARGADO)
         $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.generate.pdf'], [ // Registro o actualización de permiso
             'name' => 'PDF Huella de Carbono(Encargado)',

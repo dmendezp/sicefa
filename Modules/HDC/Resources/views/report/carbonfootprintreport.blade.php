@@ -1,3 +1,6 @@
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
 @extends('hdc::layouts.master')
 
 @push('breadcrumbs')
@@ -56,26 +59,10 @@
                     var myObject = { selectedQuarterId: selectedQuarterId };
                     var myString = JSON.stringify(myObject);
 
-                    ajaxReplace("div-reporte", '/hdc/admin/report/tables', myString);
+                    ajaxReplace("div-reporte", '/hdc/{{ $role_name }}/report/tables', myString);
 
                     // Actualizar el valor del campo oculto en el formulario
                     $("#selectedQuarterId").val(selectedQuarterId);
-                }
-            });
-
-            $("#pdfForm").submit(function(event) {
-                var selectedQuarterId = $("#selectFilter").val();
-                if (selectedQuarterId == '') {
-                    $.ajax({
-                        type: "POST",
-                        url: '/hdc/admin/report',
-                        data: { data: JSON.stringify({ selectedQuarterId: selectedQuarterId }) },
-                        dataType: 'json',
-                        success: function(response) {
-                            alert(response.error);
-                        }
-                    });
-                    event.preventDefault(); // Evitar que el formulario se envíe
                 }
             });
         });

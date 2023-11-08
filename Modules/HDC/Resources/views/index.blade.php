@@ -89,7 +89,6 @@
         var data = <?php echo json_encode($aspectosAmbientales); ?>;
 
         // Organizar los datos por sector
-        // Organizar los datos por sector
         var sectorsData = {};
 
         // Obtener la lista completa de sectores (sin duplicados)
@@ -103,12 +102,13 @@
         // Llenar los datos de las unidades productivas para cada sector
         data.forEach(function(aspecto) {
             var sectorName = aspecto.sector_name;
-            var carbonFootprint = parseFloat(aspecto.carbon_footprint) ||
-            0; // Manejar el caso de valores nulos o no definidos
+            var carbonFootprint = parseFloat(aspecto.carbon_footprint) || 0;
+
+            // Manejar el caso de valores nulos o no definidos
             sectorsData[sectorName].push({
                 name: aspecto.productive_unit_name,
                 y: carbonFootprint,
-                sector: sectorName // Agrega el nombre del sector a los datos
+                sector: sectorName
             });
         });
 
@@ -120,7 +120,7 @@
                     return total + aspecto.y;
                 }, 0),
                 drilldown: sectorName,
-                sector: sectorName // Agrega el nombre del sector a los datos
+                sector: sectorName
             };
         });
 
@@ -133,10 +133,9 @@
             };
         });
 
-
         // Variable para almacenar el título del gráfico
-        var chartTitle = 'Huella de Carbono por Sector';
-        var tituloGrafico = 'Sectores'; // Inicialmente, el título es 'Sectores'
+        var chartTitle = 'Huella de Carbono Anual';
+        var tituloGrafico = ''; // Inicialmente, el título es 'Sectores'
 
         // Inicializar el gráfico de Highcharts
         var chart = Highcharts.chart('container', {
@@ -146,40 +145,13 @@
                     drilldown: function(event) {
                         if (event.point && event.point.category) {
                             var sectorClickeado = event.point.category;
-                            var esSectores = sectorClickeado === 'Sectores';
-
-                            // Actualizar el título y las etiquetas del eje X
-                            tituloGrafico = esSectores ? 'Sectores' : 'Unidades Productivas - ' +
-                                sectorClickeado;
-                            chart.setTitle({
-                                text: tituloGrafico
-                            });
-                            chart.xAxis[0].update({
-                                title: {
-                                    text: esSectores ? 'Sectores' : tituloGrafico
-                                },
-                                labels: {
-                                    formatter: function() {
-                                        return esSectores ? 'Sectores' : this.value;
-                                    }
-                                }
-                            });
-
-                            // Limpiar las series de drilldown si volvemos a "Sectores"
-                            if (esSectores) {
-                                chart.series.slice(1).forEach(function(series) {
-                                    series.remove();
-                                });
-                            }
                         }
                     }
-                },
-
+                }
             },
-
             title: {
                 align: 'center',
-                text: chartTitle // Utilizar la variable para el título
+                text: chartTitle
             },
             accessibility: {
                 announceNewData: {
@@ -206,38 +178,10 @@
                 enabled: false
             },
             plotOptions: {
-                series: {
-                    point: {
-                        events: {
-                            click: function() {
-                                // Verificar si this.point está definido y tiene la propiedad 'sector'
-                                if (this.point && this.point.sector) {
-                                    // Acceder a las unidades productivas de este sector y actualizar el gráfico de drilldown
-                                    var clickedDrilldownData = sectorsData[this.point.sector];
-
-                                    // Actualizar el gráfico de drilldown con los datos de la unidad productiva
-                                    chart.addSeries({
-                                        name: this.point.sector,
-                                        id: this.point.sector,
-                                        data: clickedDrilldownData
-                                    });
-
-                                    // Actualizar el título del gráfico
-                                    chartTitle = 'Huella de Carbono por Unidad Productiva';
-
-                                    // Cambiar dinámicamente el título
-                                    chart.setTitle({
-                                        text: chartTitle
-                                    });
-                                }
-                            }
-                        }
-                    }
-                },
                 column: {
                     dataLabels: {
                         enabled: true,
-                        format: '<span style="color:black; text-decoration: none !important;">{point.y:.2f}</span>', // Muestra la huella de carbono sobre la barra
+                        format: '<span style="color:black; text-decoration: none !important;">{point.y:.2f}</span>',
                     }
                 }
             },
@@ -260,8 +204,17 @@
                 }
             }],
             drilldown: {
-                series: drilldownSeries
+                series: drilldownSeries,
+                activeDataLabelStyle: {
+                    textDecoration: 'none !important;',
+                    color: 'black'
+                },
+                activeAxisLabelStyle: {
+                    textDecoration: 'none !important;',
+                    color: 'black'
+                }
             }
         });
     </script>
 @endpush
+

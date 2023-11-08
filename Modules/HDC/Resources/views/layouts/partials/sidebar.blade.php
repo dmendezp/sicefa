@@ -71,15 +71,8 @@
                   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                       data-accordion="false">
                       <!-- Menú de opciones públicas -->
-                      
-                      {{--  <li class="nav-item">
-                        <a href="{{ route('cefa.generate.report') }}" class="nav-link">
-                            <i class="nav-icon fa-solid fa-file-arrow-down"></i>
-                            <p>
-                                {{ trans('hdc::report.Report_Indicator') }}
-                            </p>
-                        </a>
-                    </li>  --}}
+
+
 
 
 
@@ -112,6 +105,8 @@
                                   </p>
                               </a>
                           </li>
+
+
                       @endif
 
                       <!-- Menú de opciones para Encargado -->
@@ -126,15 +121,16 @@
                                   </a>
                               </li>
                           @endif
-
-                          <li class="nav-item">
-                              <a href="{{ route('hdc.charge.carbonfootprint.persona') }}" class="nav-link">
-                                  <i class="nav-icon fas fa-shoe-prints"></i>
-                                  <p>
-                                      {{ trans('hdc::hdcgeneral.calculatefootprint') }}
-                                  </p>
-                              </a>
-                          </li>
+                          @if (Auth::user()->havePermission('hdc.charge.carbonfootprint.persona'))
+                              <li class="nav-item">
+                                  <a href="{{ route('hdc.charge.carbonfootprint.persona') }}" class="nav-link">
+                                      <i class="nav-icon fas fa-shoe-prints"></i>
+                                      <p>
+                                          {{ trans('hdc::hdcgeneral.calculatefootprint') }}
+                                      </p>
+                                  </a>
+                              </li>
+                          @endif
                           <li class="nav-item">
                               <a href="{{ route('hdc.charge.generate.report') }}" class="nav-link">
                                   <i class="nav-icon fa-solid fa-file-arrow-down"></i>
@@ -144,8 +140,6 @@
                               </a>
                           </li>
                       @endif
-
-
                       <li class="nav-item">
                           <a href="{{ route('cefa.hdc.resultfromaspects') }}" class="nav-link">
                               <i class="nav-icon fa-solid fa-folder-open"></i>
@@ -154,10 +148,6 @@
                               </p>
                           </a>
                       </li>
-
-
-
-
                   </ul>
               </nav>
               <!-- /.sidebar-menu -->
