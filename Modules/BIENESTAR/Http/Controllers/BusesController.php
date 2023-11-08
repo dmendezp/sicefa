@@ -57,7 +57,7 @@ class BusesController extends Controller
     
         if ($buses->save()) {
             // Redirige con un mensaje de éxito
-            return redirect()->route('cbienestar.admin.crud.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
+            return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
         }else{
             return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Se Ha Producido Un Error.')->with('typealert', 'danger');
         }

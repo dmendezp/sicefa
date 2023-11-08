@@ -99,7 +99,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <button type="submit" class="btn btn-primary">Guardar Asignaciones</button>
                     </form>
                 </div>
             </div>
@@ -113,41 +112,15 @@
     $(document).ready(function() {
         const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-        // Función para manejar el cambio en los checkboxes de filtro
-        function handleBenefitFilterChange() {
-            const selectedBenefits = [];
-            $('input[name="benefit-filter"]:checked').each(function() {
-                selectedBenefits.push($(this).val());
-            });
-
-            // Oculta todas las filas
-            $('.benefit-row').hide();
-
-            // Muestra solo las filas que coinciden con los beneficios seleccionados
-            selectedBenefits.forEach(function(benefit) {
-                $('.benefit-row').filter(function() {
-                    return $(this).find('td:eq(3)').text() === benefit; // Ajusta el índice de la columna según tu estructura de tabla
-                }).show();
-            });
-        }
-
-        // Maneja el cambio en los checkboxes de filtro
-        $('input[name="benefit-filter"]').change(function() {
-            handleBenefitFilterChange();
-        });
-
-        // Añade el filtrado inicial al cargar la página
-        handleBenefitFilterChange();
-
-        // Resto de tu script existente
         $('.checkbox-route').on('change', function() {
             const $checkbox = $(this);
             const isChecked = $checkbox.is(':checked');
             const apprenticeId = $checkbox.data('apprentice-id');
-            const routeTransportationId = $checkbox.data('route-transportation-id');
+            const routeTransportationId = $checkbox.data('route-id');
             const convocationId = $checkbox.data('convocation-id');
+            const postulationBenefitId = $checkbox.data('postulation-benefit-id');
 
-            // Crear o actualizar el registro en la tabla AssingTransportRoutes
+            // Realizar la solicitud AJAX para actualizar o crear el registro
             $.ajax({
                 url: '{{ route('cefa.bienestar.assing-form-transportation-routes.updateInline') }}',
                 method: 'PUT',
@@ -158,6 +131,7 @@
                     apprentice_id: apprenticeId,
                     route_transportation_id: routeTransportationId,
                     convocation_id: convocationId,
+                    postulation_benefit_id: postulationBenefitId,
                     checked: isChecked,
                 },
                 success: function(response) {
@@ -170,4 +144,5 @@
         });
     });
 </script>
+
 @endsection

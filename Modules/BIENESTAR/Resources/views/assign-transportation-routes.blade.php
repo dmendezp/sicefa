@@ -10,10 +10,10 @@
             <select id="filtroRutas" class="form-control form-control-sm">
                 <option value="">Todas las rutas</option>
                 @foreach ($rutas as $ruta)
-                    <option value="{{ $ruta->id }}">{{ $ruta->name_route }}</option>
+                    <option value="{{ $ruta->name_route }}">{{ $ruta->name_route }}</option>
                 @endforeach
             </select>
-        </div>
+        </div>      
 
         <table id="datatable" class="table table-bordered">
             <thead>
@@ -45,7 +45,7 @@
                                 Aprendiz no encontrado
                             @endif
                         </td>
-                        <td>{{ $asignacion->routes_trasportation->name_route }}</td>
+                        <td>{{ $asignacion->routes_trasportantion->name_route }}</td>
                         <td>{{ $asignacion->convocations->name }}</td>
                         <td>{{ $asignacion->convocations->description }}</td>
                         <!-- Agrega más columnas según tus campos -->
@@ -54,4 +54,24 @@
             </tbody>
         </table>
     </div>
+@endsection
+@section('script')
+
+<script>
+  $(document).ready(function() {
+    $('#filtroRutas').on('change', function() {
+        var rutaSeleccionada = $(this).val();
+
+        $('#datatable tbody tr').each(function() {
+            var celdaRuta = $(this).find('td:eq(3)').text(); // Ajusta el índice según la posición real en tu tabla
+            if (rutaSeleccionada === '' || celdaRuta === rutaSeleccionada) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});
+
+</script>
 @endsection
