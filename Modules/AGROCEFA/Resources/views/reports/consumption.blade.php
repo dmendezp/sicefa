@@ -23,7 +23,7 @@
                 </select>
             </div>
         </div>
-
+        <br>
         <div id="resultTableContainer">
             <!-- Aquí se mostrará la tabla de resultados -->
         </div>
@@ -80,6 +80,28 @@
                     } else {
                         // Si no se selecciona ninguna unidad productiva, oculta el campo de selección de cultivos
                         cropsSelectContainer.hide();
+                    }
+                });
+
+                // Manejador de eventos para el cambio en el campo "Lote"
+                $('#cropsSelect').on('change', function() {
+                    var selectedCrop = $(this).val();
+                    
+                    if (selectedCrop) {
+                        $.ajax({
+                            url: '{{ route('agrocefa.reports.filterByDate') }}',
+                            method: 'GET',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                crop: selectedCrop,
+                            },
+                            success: function(response) {
+                                $('#resultTableContainer').html(response);
+                            },
+                            error: function() {
+                                console.error('Error en la solicitud AJAX');
+                            }
+                        });
                     }
                 });
 

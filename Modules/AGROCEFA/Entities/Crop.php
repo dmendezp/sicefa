@@ -31,7 +31,7 @@ class Crop extends Model
 
     
     public function labors(){
-        return $this->belongsToMany(Labor::class);
+        return $this->belongsToMany(Labor::class, 'crop_labors');
     }
     
 

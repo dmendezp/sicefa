@@ -12,6 +12,7 @@ use Modules\SICA\Entities\Labor;
 use Modules\SICA\Entities\Consumable;
 use Modules\SICA\Entities\EnvironmentProductiveUnit;
 use Modules\AGROCEFA\Entities\CropEnvironment;
+use Modules\AGROCEFA\Entities\Crop;
 
 class ConsumableController extends Controller
 {
@@ -76,24 +77,24 @@ class ConsumableController extends Controller
     {
         $selectedUnitId = Session::get('selectedUnitId');
 
-        // Obtén las fechas de inicio y fin desde la solicitud
-        $startDate = $request->input('startDate');
-        $endDate = $request->input('endDate');
-
-        // Obtén todos los IDs de las labors relacionadas con actividades que cumplan con la condición
-        $laborsIds = Activity::where('productive_unit_id', $selectedUnitId)
-        ->with('labors')
-        ->get()
-        ->flatMap(function ($activity) {
-            return $activity->labors->pluck('id');
-        })
-        ->toArray();
-
-        if (empty($laborsIds)) {
-            return redirect()->back()->with('error', 'No se encontraron actividades para la unidad seleccionada.');
+    
+        $selectedCropId = $request->input('crop');
+    
+        if (empty($selectedCropId)) {
+            return response()->json(['error' => 'Invalid crop selection']);
         }
+        
+        $selectedCrop = Crop::with('labors') // Cargar las labors relacionadas
+            ->findOrFail($selectedCropId);
 
-        $labors = Labor::whereBetween('execution_date', [$startDate, $endDate])->get()->pluck('id');
+        // Fecha de siembra y finalización del cultivo
+        $startDate = $selectedCrop->seed_time;
+        $endDate = $selectedCrop->finish_date ?: now(); // Si finish_date es NULL, toma la fecha actual
+
+        // Obtener las labores relacionadas con el cultivo y dentro del rango de fechas
+        $labors = $selectedCrop->labors()
+            ->whereBetween('execution_date', [$startDate, $endDate])
+            ->get()->pluck('id');
 
         // Obtén los consumibles relacionados con esas labors
         $consumables = Consumable::whereIn('labor_id', $labors)
@@ -138,7 +139,7 @@ class ConsumableController extends Controller
             $totalLaborSubtotal += $elementSubtotal; // Sumar al total de subtotales de labor
         }
 
-        return view('agrocefa::reports.consumption', [
+        return view('agrocefa::reports.consumption_table', [
             'groupedData' => $groupedData,
             'totalLaborSubtotal' => $totalLaborSubtotal,
         ]);
