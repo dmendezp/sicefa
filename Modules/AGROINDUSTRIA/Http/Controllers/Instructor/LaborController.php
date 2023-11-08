@@ -82,7 +82,7 @@ class LaborController extends Controller
             ];
         })->prepend(['id' => null, 'name' => trans('agroindustria::labors.selectRecipe')])->pluck('name', 'id');
 
-        $employee = EmployementType::get();
+        $employee = EmployeeType::get();
         $nameEmployee = $employee->map(function ($e){
             $id = $e->id;
             $name = $e->name;
@@ -190,7 +190,7 @@ class LaborController extends Controller
     }
 
     public function price_employement($id){
-        $price = EmployementType::where('id', $id)->value('price');
+        $price = EmployeeType::where('id', $id)->value('price');
 
         return response()->json(['price' => $price]);
     }
@@ -374,6 +374,7 @@ class LaborController extends Controller
         $l->planning_date = $request->input('date_plannig');
         $l->execution_date = $validatedData['date_execution'];
         $l->description = $validatedData['description'];
+        $l->price = $request->input('total_labor');
         $l->status = 'Programado';
         $l->observations = $validatedData['observations'];
         $l->destination =  $validatedData['destination'];
@@ -438,11 +439,11 @@ class LaborController extends Controller
             $t->save();
         }
 
-        $inventories = $request->input('inventories');
-        $amount_inventories = $request->input('amount_inventories');
-        $price_inventories = $request->input('price_inventories');
+        $equipments = $request->input('equipments');
+        $amount_equipments = $request->input('amount_equipments');
+        $price_equipments = $request->input('price_equipments');
 
-        foreach ($inventories as $key => $inventory){ 
+        foreach ($equipments as $key => $equipment){ 
             $i = new Equipment;
             $i->labor_id = $l->id;
             $i->inventory_id = $equipment;
@@ -452,7 +453,7 @@ class LaborController extends Controller
         }
 
         $executors = $request->input('executors_id');
-        $employement_type = $validatedData['employement_type'];
+        $employee_type = $validatedData['employement_type'];
         $hours = $validatedData['hours'];
         $price = $request->input('price');
 
@@ -461,7 +462,7 @@ class LaborController extends Controller
             $e = new Executor;
             $e->labor_id = $l->id;
             $e->person_id = $executor;
-            $e->employement_type_id = $employement_type[$key];
+            $e->employee_type_id = $employee_type[$key];
             $e->amount = $hours[$key];
             $e->price = $price[$key];
             $e->save();

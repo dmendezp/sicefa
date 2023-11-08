@@ -92,6 +92,8 @@ return [
     'Name' => 'Nombre',
     'Inventory'=>'Inventario',
     'Category' => 'Categoria',
+    'Select Unit' => 'Seleccionar unidad',
+    'PPP'=>'PRUEBA1',
     'Price' => 'Precio',
     'Stock'=>'Disponible',
     'date of expiration'=>'Fecha de expiracion',
@@ -117,6 +119,10 @@ return [
     'Close'=>'Cerrar',
     'Save'=>'Guardar',
     'Edit'=>'Editar',
+
+    //request
+    'requests' => 'Solicitudes',
+
 
 
     

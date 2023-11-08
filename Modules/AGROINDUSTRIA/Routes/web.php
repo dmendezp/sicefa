@@ -95,12 +95,17 @@ Route::middleware(['lang'])->group(function(){
 
         //storer
         Route::prefix('storer')->group(function (){
-            Route::get('/inventory', [WarehouseController::class ,'inventory'])->name('cefa.agroindustria.storer.inventory');
             Route::post('/create', [WarehouseController::class ,'create'])->name('cefa.agroindustria.storer.create'); 
-            Route::get('/update/{id}', [WarehouseController::class ,'edit'])->name('cefa.agroindustria.storer.update'); 
             Route::post('/edit', [WarehouseController::class ,'show'])->name('cefa.agroindustria.storer.show'); 
-            Route::delete('/destroy/{id}', [WarehouseController::class ,'destroy'])->name('cefa.agroindustria.storer.inventory.delete');   
+            Route::get('/inventory', [WarehouseController::class ,'inventory'])->name('cefa.agroindustria.storer.inventory');
+            Route::get('/getInventoryByCategory', [WarehouseController::class ,'getInventoryByCategory'])->name('cefa.inventory.category');
+            Route::get('/update/{id}', [WarehouseController::class ,'edit'])->name('cefa.agroindustria.storer.update'); 
             Route::get('/list', [WarehouseController::class ,'inventoryAlert'])->name('cefa.agroindustria.storer.inventory.list');   
+            Route::get('/prueba', [WarehouseController::class ,'obtenerInventarios']);/* ->name('cefa.agroindustria.storer.inventory.list');  */  
+            Route::get('/inventario/bodegas', [WarehouseController::class, 'obtenerelementos'])->name('cefa.inventory.warehouse');
+            Route::get('/inventario/obtenerbodegas', [WarehouseController::class, 'obtenerbodegas'])->name('cefa.inventory.getwarehouses');
+            Route::delete('/destroy/{id}', [WarehouseController::class ,'destroy'])->name('cefa.agroindustria.storer.inventory.delete');   
+            Route::get('/requests', [RequestController::class ,'requests'])->name('cefa.agroindustria.storer.inventory.requests');               
         });       
     });
 });

@@ -63,7 +63,7 @@
                             @error('person')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror   
-                        </div>  
+                        </div>
                         <div class="col-md-4" id="date-expiration-field" style="display: none;">
                             {!! Form::label('date_experation', 'Fecha de expiración') !!}
                             {!! Form::date('date_experation', null, ['class' => 'form-control']) !!}
@@ -84,6 +84,10 @@
                             @error('amount_production')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
+                        </div>
+                        <div class="col-md-12">
+                            {!! Form::label('total_labor', 'Total') !!}
+                            {!! Form::number('total_labor', null, ['class' => 'form-control', 'id' => 'total_labor', 'readonly' => 'readonly']) !!}
                         </div>
                         <div class="col-md-12">
                             <button type="button" id="toggle-form-consumables">Registro de consumibles</button>
@@ -186,7 +190,7 @@
                                     <div class="equipment">
                                         <div class="form-group">
                                             {!! Form::label('inventories', 'Equipos') !!}
-                                            {!! Form::select('inventories[]', $equipment, null, ['class' => 'inventory_select', 'style' => 'width: 200px']) !!}
+                                            {!! Form::select('equipments[]', $equipment, null, ['class' => 'inventory_select', 'style' => 'width: 200px']) !!}
                                         </div>
                                         <div class="form-group">
                                             <span class="quantity-equipment"></span>
@@ -231,12 +235,7 @@
 
             $('.element-select:last').select2();
         });
-
-        // Eliminar un campo de consumibles
-        $("#form-consumables").on("click", ".remove-consumables", function () {
-            $(this).closest('.consumable').remove();
-        });
-
+        
         // Cuando cambie la selección de recetas
         $('#recipe-select').on('change', function () {
             updateConsumables();
@@ -250,7 +249,6 @@
         function updateConsumables() {
             var amount = $('#amount_production').val(); // Obtener la cantidad actual en tiempo real
             var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.consumables', ['id' => ':id'])) !!}.replace(':id', $('#recipe-select').val().toString());
-            console.log(url);
 
             // Realiza una solicitud AJAX para obtener los ingredientes de la receta
             $.ajax({
@@ -258,22 +256,25 @@
                 type: 'GET',
                 success: function (data) {
                     // Limpia el contenedor de consumibles
-                    $('.consumable:first').empty();
+                    var $consumableContainer = $('.consumable:first');
+                    $consumableContainer.empty();
+
+                    var totalPriceConsumables = 0;
 
                     // Itera a través de los consumibles y agrega los campos de selección de consumibles
                     $.each(data.consumables, function (index, consumable) {
                         var counter = index + 1; // Incrementa el contador
                         var amountFormulation = data.amountFormulation[0].amountFormulation;
-                        console.log('amountFormulation: ' + amountFormulation);
                         var amountIngredient = data.amountIngredient[index].amountIngredient;
-                        console.log('amountIngredient: ' + amountIngredient);
                         var amountPerFormulation = amountIngredient / amountFormulation;
 
                         var totalAmount = amountPerFormulation * amount; // Calcular la cantidad total
 
                         var totalPrice = totalAmount * consumable.price;
 
-                        var newConsumableField = '<div class="consumable">' +
+                        totalPriceConsumables += totalPrice;
+                        
+                        var newConsumableField = '<div class="consumable recipe-product">' +
                             '<div class="form-group-consumables">' +
                             '<label for="consumables">Buscar Consumibles</label>' +
                             '<input type="hidden" name="consumables[]" class="form-control" id="element-select-' + counter + '" value="' + consumable.id + '" style="width: 200px;" readonly>' +
@@ -295,7 +296,11 @@
                             '<button type="button" class="remove-consumables">{{trans("agroindustria::request.delete")}}</button>'
                             '</div>';
 
-                        $('.consumable:first').append(newConsumableField);
+                        $consumableContainer.append(newConsumableField);
+
+                        // Actualizar el campo "Total de la Labor"
+                        $('input[name="total_labor"]').val(totalPriceConsumables);
+                        
 
                         // Inicializa los campos de selección de consumibles con Select2 dentro del contexto de esta iteración
                         (function (currentCounter) {
@@ -340,6 +345,10 @@
 
         // Llamar a updateConsumables al cargar la página
         updateConsumables();
+        // Eliminar un campo de consumibles
+        $("#form-consumables").on("click", ".remove-consumables", function () {
+            $(this).closest('.consumable').remove();
+        });
     });
 </script>
 
@@ -433,7 +442,7 @@
 
        });
 
-      
+       
        $('#form-tools').on('change', '.tool_select', function() {
             var selectedTool = $(this).val();
             var parentElement = $(this).closest('.tools');
@@ -453,10 +462,7 @@
                             var data = response.data[0];
                             var quantity = parseFloat(data.amount);
                             var price = parseFloat(data.price);
-                            
-                            console.log(quantity);
-                            console.log(price);
-
+                        
                             quantityField.text('Cantidad Disponible: ' + quantity);
                             priceField.val(price);
                             updateTotalPrice(); // Actualizar el precio total cuando se selecciona la herramienta
@@ -471,21 +477,61 @@
             } else {
                 priceField.data('price', 0);
                 updateTotalPrice(); // Actualizar el precio total cuando no se selecciona una herramienta
+                updateTotalLaborPrice();
             }
         });
 
         $('#form-tools').on('input', 'input#amount_tools', function() {
             updateTotalPrice(); // Actualizar el precio total cuando se modifica la cantidad
+            updateTotalLaborPrice();
         });
+
+        function updateTotalLaborPrice() {
+            var totalPriceEquipments = 0;
+            var totalPriceTools = 0;
+            var totalPriceConsumables = 0;
+            var totalPriceRecipes = 0;
+
+            $('#form-equipments .equipment').each(function() {
+                var totalField = $(this).find('input#price_equipment');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalPriceEquipments += totalPrice;
+            });
+
+            $('#form-tools .tools').each(function() {
+                var totalField = $(this).find('input#price_tool');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalPriceTools += totalPrice;
+            });
+
+            // Calcular el total de productos de receta fuera del bucle
+            $('.recipe-product').each(function() {
+                var totalRecipeField = $(this).find('input#total_price_consumable');
+                var totalRecipePrice = parseFloat(totalRecipeField.val()) || 0;
+                totalPriceRecipes += totalRecipePrice;
+            });
+
+            $('.consumable').each(function() {
+                var totalField = $(this).find('input#price_unit_consumable_total');
+                var totalPrice = parseFloat(totalField.val()) || 0;
+
+                totalPriceConsumables += totalPrice;
+            });
+
+            var total = totalPriceEquipments + totalPriceTools + totalPriceRecipes + totalPriceConsumables;
+
+            $('input[name="total_labor"]').val(total);
+        }
 
         function updateTotalPrice() {
             var totalPrice = 0;
             $('.tools').each(function() {
-                var priceField = $('input#price_unit_tool').val();
-                var amountField = $('input#amount_tools').val();
-                var amount = parseInt(amountField) || 0;
+                var priceField = $(this).find('input#price_unit_tool');
+                var price = parseInt(priceField.val()) || 0;
+                var amountField = $(this).find('input#amount_tools');
+                var amount = parseInt(amountField.val()) || 0;
                 var totalField = $(this).find('input#price_tool');
-                var totalPrice = priceField * amount;
+                var totalPrice = price * amount;
                 totalField.val(totalPrice);
             });
         }
@@ -506,9 +552,8 @@
             var availablePriceUnit = parentProduct.find('input#price_unit_consumable');
             var availableQuantity = parentProduct.find('.quantity');
 
-            
             // Realizar una solicitud AJAX para obtener la cantidad disponible
-            if(selectedElement){
+            if (selectedElement) {
                 $.ajax({
                     url: {!! json_encode(route('cefa.agroindustria.units.instructor.labor.consumables.amount', ['consumables' => ':consumables'])) !!}.replace(':consumables', selectedElement.toString()),
                     method: 'GET',
@@ -517,10 +562,8 @@
                             var element = response.elements[0];
                             var price = parseFloat(element.price);
                             var quantity = parseFloat(element.amount);
-
                             availableQuantity.text('Cantidad Disponible: ' + quantity);
                             availablePriceUnit.val(price);
-
                             updateTotalPrice();
                         } else {
                             availableQuantity.text(''); // Limpia el texto si no se encuentra la cantidad disponible
@@ -532,25 +575,65 @@
                         availablePrice.val('');
                     }
                 });
-            }else{
-                availableQuantity.text(''); 
-                priceField.data('price', 0);
-                updateTotalPrice(); // Actualizar el precio total cuando no se selecciona una herramienta
+            } else {
+                availableQuantity.text('');
+                availablePriceField.data('price', 0);
+                updateTotalPrice(); // Actualizar el precio total cuando no se selecciona un consumible
             }
         });
 
         $('#form-consumables').on('input', 'input#amount_consumables', function() {
-            updateTotalPrice(); // Actualizar el precio total cuando se modifica la cantidad
+            updateTotalPrice();
+            updateTotalLaborPrice();
         });
+
+        function updateTotalLaborPrice() {
+            var totalPriceEquipments = 0;
+            var totalPriceTools = 0;
+            var totalPriceConsumables = 0;
+            var totalPriceRecipes = 0;
+
+            $('#form-equipments .equipment').each(function() {
+                var totalField = $(this).find('input#price_equipment');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalPriceEquipments += totalPrice;
+            });
+
+            $('#form-tools .tools').each(function() {
+                var totalField = $(this).find('input#price_tool');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalPriceTools += totalPrice;
+            });
+
+            // Calcular el total de productos de receta fuera del bucle
+            $('.recipe-product').each(function() {
+                var totalRecipeField = $(this).find('input#total_price_consumable');
+                var totalRecipePrice = parseFloat(totalRecipeField.val()) || 0;
+                totalPriceRecipes += totalRecipePrice;
+            });
+
+            $('.consumable').each(function() {
+                var totalField = $(this).find('input#price_unit_consumable_total');
+                var totalPrice = parseFloat(totalField.val()) || 0;
+
+                totalPriceConsumables += totalPrice;
+            });
+
+            var total = totalPriceEquipments + totalPriceTools + totalPriceRecipes + totalPriceConsumables;
+
+            $('input[name="total_labor"]').val(total);
+        }
+
 
         function updateTotalPrice() {
             var totalPrice = 0;
             $('.consumable').each(function() {
                 var availableTotal = $(this).find('input#price_unit_consumable_total');
-                var availableAmount = $('input#amount_consumables').val();
-                var priceField = $('input#price_unit_consumable').val();
-                var amount = parseInt(availableAmount) || 0;
-                var totalPrice = priceField * amount;
+                var availableAmount = $(this).find('input#amount_consumables');
+                var priceField = $(this).find('input#price_unit_consumable');
+                var amount = parseInt(availableAmount.val()) || 0;
+                var price = parseFloat(priceField.val()) || 0;
+                var totalPrice = price * amount;
                 availableTotal.val(totalPrice);
             });
         }
@@ -560,7 +643,7 @@
 <script>
     $(document).ready(function() {
         $("#add-equipments").click(function() {
-           var newEquipment = '<div class="equipment"><div class="form-group">{!! Form::label("inventories", "Equipos") !!}{!! Form::select("inventories[]", $equipment, null, ["class" => "inventory_select", "style" => "width: 200px"]) !!}</div><div class="form-group"><span class="quantity"></span>{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_inventories[]", null, ["class"=>"form-control", "id" => "amount_inventories"]) !!}</div><div class="form-group">{!! Form::label("price", "Valor Unitario") !!}{!! Form::number("price_unit_equipment", null, ["class"=>"form-control", "id" => "price_unit_equipment", "readonly" => "readonly"]) !!}</div><div class="form-group">{!! Form::label("price", "Total") !!}{!! Form::number("price_equipments[]", null, ["class"=>"form-control", "id" => "price_equipment", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-equipments">{{trans("agroindustria::menu.Delete")}}</button></div>';
+           var newEquipment = '<div class="equipment"><div class="form-group">{!! Form::label("inventories", "Equipos") !!}{!! Form::select("equipments[]", $equipment, null, ["class" => "inventory_select", "style" => "width: 200px"]) !!}</div><div class="form-group"><span class="quantity-equipment"></span>{!! Form::label("amount", "Cantidad") !!}{!! Form::number("amount_equipments[]", null, ["class"=>"form-control", "id" => "amount_equipments"]) !!}</div><div class="form-group">{!! Form::label("price", "Valor Unitario") !!}{!! Form::number("price_unit_equipment", null, ["class"=>"form-control", "id" => "price_unit_equipment", "readonly" => "readonly"]) !!}</div><div class="form-group">{!! Form::label("price", "Total") !!}{!! Form::number("price_equipments[]", null, ["class"=>"form-control", "id" => "price_equipment", "readonly" => "readonly"]) !!}</div><button type="button" class="remove-equipments">{{trans("agroindustria::menu.Delete")}}</button></div>';
            
            // Agregar el nuevo campo al DOM
            $("#form-equipments").append(newEquipment);
@@ -568,14 +651,12 @@
 
        $('#form-equipments').on('change', '.inventory_select', function() {
             var selectedEquipment = $(this).val();
-            var parentElement = $(this).closest('.equipments');
+            var parentElement = $(this).closest('.equipment');
             var priceField = parentElement.find('input#price_unit_equipment');
             var quantityField = parentElement.find('.quantity-equipment');
-            console.log(selectedEquipment);
             if (selectedEquipment) {
                 // Realiza una solicitud AJAX para obtener el precio de la herramienta seleccionada
                 var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.equipments.amounteq', ['equipments' => ':equipments'])) !!}.replace(':equipments', selectedEquipment.toString());
-                console.log(url);
                 $.ajax({
                     url: url,
                     type: 'GET',
@@ -584,41 +665,81 @@
                             var data = response.elements[0];
                             var quantity = parseFloat(data.amount);
                             var price = parseFloat(data.price);
-                            
-                            console.log(quantity);
-                            console.log(price);
 
                             quantityField.text('Cantidad Disponible: ' + quantity);
                             priceField.val(price);
                             updateTotalPrice(); // Actualizar el precio total cuando se selecciona la herramienta
+                            updateTotalLaborPrice();
                         }else{
                             quantityField.text('');
                         }
                     },
                     error: function(error) {
                         console.log(error);
+                        quantityField.text('');
                     }
                 });
             } else {
+                quantityField.text('');
                 priceField.data('price', 0);
                 updateTotalPrice(); // Actualizar el precio total cuando no se selecciona una herramienta
+                updateTotalLaborPrice();
             }
         });
 
 
         $('#form-equipments').on('input', 'input#amount_equipments', function() {
             updateTotalPrice(); // Actualizar el precio total cuando se modifica la cantidad
+            updateTotalLaborPrice();
         });
+
+        function updateTotalLaborPrice() {
+            var totalPriceEquipments = 0;
+            var totalPriceTools = 0;
+            var totalPriceConsumables = 0;
+            var totalPriceRecipes = 0;
+
+            $('#form-equipments .equipment').each(function() {
+                var totalField = $(this).find('input#price_equipment');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalPriceEquipments += totalPrice;
+            });
+
+            $('#form-tools .tools').each(function() {
+                var totalField = $(this).find('input#price_tool');
+                var totalPrice = parseInt(totalField.val()) || 0;
+                totalPriceTools += totalPrice;
+            });
+
+            // Calcular el total de productos de receta fuera del bucle
+            $('.recipe-product').each(function() {
+                var totalRecipeField = $(this).find('input#total_price_consumable');
+                var totalRecipePrice = parseFloat(totalRecipeField.val()) || 0;
+                totalPriceRecipes += totalRecipePrice;
+            });
+
+            $('.consumable').each(function() {
+                var totalField = $(this).find('input#price_unit_consumable_total');
+                var totalPrice = parseFloat(totalField.val()) || 0;
+
+                totalPriceConsumables += totalPrice;
+            });
+
+            var total = totalPriceEquipments + totalPriceTools + totalPriceRecipes + totalPriceConsumables;
+
+            $('input[name="total_labor"]').val(total);
+        }
 
         function updateTotalPrice() {
             var totalPrice = 0;
             $('.equipment').each(function() {
-                var priceField = $('input#price_unit_equipment').val();
-                var amountField = $('input#amount_equipments').val();
-                var amount = parseInt(amountField) || 0;
-                var totalField = $(this).find('input#price_equipment');
-                var totalPrice = priceField * amount;
-                totalField.val(totalPrice);
+                var availableTotal = $(this).find('input#price_equipment');
+                var availableAmount = $(this).find('input#amount_equipments');
+                var priceField = $(this).find('input#price_unit_equipment');
+                var amount = parseInt(availableAmount.val()) || 0;
+                var price = parseFloat(priceField.val()) || 0;
+                var totalPrice = price * amount;
+                availableTotal.val(totalPrice);
             });
         }
 
@@ -627,5 +748,32 @@
            $(this).closest('.equipment').remove();
        });
     });
+</script>
+
+<script>
+    function updateTotalLaborPrice() {
+        
+        var totalPriceEquipments = 0;
+        $('.equipment').each(function() {
+            var totalField = $(this).find('input#price_equipment');
+            var totalPrice = parseFloat(totalField.val()) || 0;
+            console.log('Equipos: ' + totalPrice);
+            totalPriceEquipments += totalPrice;
+        });
+        var totalPriceExecutors = 0;
+        $('.collaborators').each(function() {
+            var totalField = $(this).find('input#price');
+            var totalPrice = parseFloat(totalField.val()) || 0;
+            console.log('Ejecutores: ' + totalPrice);
+            totalPriceExecutors += totalPrice;
+        });
+       
+        // Calcular el total general
+        var totalLaborPrice = totalPriceEquipments + totalPriceExecutors + totalPriceTools;
+        console.log('Total: ' + totalLaborPrice);
+        // Actualizar el campo "Total de la Labor"
+        $('#total_labor').val(totalLaborPrice);
+    }
+
 </script>
 @endsection

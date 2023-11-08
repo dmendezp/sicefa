@@ -25,40 +25,106 @@ use Validator, Str;
 
 class WarehouseController extends Controller
 {
-   //Funcion de listar insumos pronto a agotarse.
+
+    //Funcion de listar insumos pronto a agotarse.
     public function inventoryAlert(){
         $title = ('inventoryAlert');
         $inventoryAlert = Inventory::where('amount', '<=', 10)->with('element')->get();
         return view('agroindustria::storer.inventoryAlert', compact('inventoryAlert','title'));
+        
     }
-    
 
+
+
+
+ 
     // Mostrar el listado de inventario
     public function inventory(){
         $title = 'inventory';
-        $productiveUnit = ProductiveUnit::where('id', 2 )->firstOrFail();
-        $Warehouses = Warehouse::where('id', 2)->firstOrFail();
-
-        $app_puw = ProductiveUnitWarehouse::where('productive_unit_id', $productiveUnit->id)
-                                          ->where('warehouse_id', $Warehouses->id)
-                                          ->pluck('id');
-    
+        $ppunits = ProductiveUnit::all();  
+        $wwhauses = Warehouse::pluck('name');
         $categories = Category::all();                                     
-        $elements = Element::orderBy('name', 'asc')->pluck('name', 'id');
-    
-        $productiveunitwarehouses = ProductiveUnitWarehouse::whereIn('id', $app_puw)->get();
-    
-        $inventories = Inventory::whereIn('productive_unit_warehouse_id', $app_puw)
-                                ->get();
         $data = [
             'title' => $title,
-            'inventories' => $inventories,
             'categories' => $categories,
-            'elements' => $elements,
-            'productiveunitwarehouses' => $productiveunitwarehouses
+            'ppunits'=> $ppunits,  
+            'wwhauses'=> $wwhauses   
         ];
         return view('agroindustria::storer.inventory', $data);
     }
+
+
+    public function obtenerelementos(Request $request)
+    {
+        try {
+            $productUnitId = $request->input('unit');
+            
+            // Obtén los registros de productive_unit_warehouse que coinciden con la unidad productiva seleccionada
+            $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $productUnitId)->get();
+            
+            
+            // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
+            $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $productUnitId)->pluck('id');
+            
+            // Obtener los registros de inventario que coinciden con las bodegas relacionadas
+            $inventories = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)->get();
+            
+            // Combinar la información del responsable y las bodegas en un solo arreglo
+            return view('agroindustria::storer.tableresults',['inventories'=> $inventories]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error interno del servidor'], 500);
+        }
+    }
+
+    public function getInventoryByCategory(Request $request)
+    {
+        try {
+            $productUnitId = $request->input('unit');
+            $categoryId = $request->input('category'); // Nuevo: Obtener el ID de la categoría seleccionada
+
+            // Obtén los registros de productive_unit_warehouse que coinciden con la unidad productiva seleccionada
+            $ProductiveUnitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $productUnitId)->get();
+
+            // Obtener los registros de 'productive_unit_warehouses' que coinciden con la unidad productiva seleccionada
+            $unitWarehouses = ProductiveUnitWarehouse::where('productive_unit_id', $productUnitId)->pluck('id');
+
+            // Obtener los registros de inventario que coinciden con las bodegas relacionadas y la categoría seleccionada
+            $inventories = Inventory::whereIn('productive_unit_warehouse_id', $unitWarehouses)
+                ->whereHas('element', function($query) use ($categoryId) {
+                    $query->where('category_id', $categoryId);
+                })
+                ->get();
+
+            // Combinar la información del responsable y las bodegas en un solo arreglo
+            return view('agroindustria::storer.tableresults',['inventories'=> $inventories]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error interno del servidor'], 500);
+        }
+    }
+
+    public function obtenerbodegas(Request $request)
+    {
+        try {
+            $productUnitId = $request->input('unit');
+            
+            // Obtén los registros de productive_unit_warehouse que coinciden con la unidad productiva seleccionada
+            $ProductiveUnitWarehouses = ProductiveUnitWarehouse::with('warehouse')->where('productive_unit_id', $productUnitId)->get();
+            
+            dd($ProductiveUnitWarehouses);
+            
+        
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error interno del servidor'], 500);
+        }
+    }
+
+
+
+
+
+ 
+
+  
     
     //Funcion de crear.
     public function create(Request $request){
