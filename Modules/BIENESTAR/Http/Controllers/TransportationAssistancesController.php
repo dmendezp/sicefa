@@ -22,10 +22,9 @@ class TransportationAssistancesController extends Controller
     {
         $documentNumber = $request->input('document_number');
     
-        $person = Person::with('apprentices.course.program', 'apprentices.postulations.postulationBenefits','apprentices.assigntransoportroutes.convocations') // Cargar la relación de convocatoria
+        $person = Person::with('apprentices.course.program', 'apprentices.postulations.postulationBenefits.transportationassistances','apprentices.assigntransoportroutes.convocations') // Cargar la relación de convocatoria
             ->where('document_number', $documentNumber)
             ->first();
-        
         return view('bienestar::transportation_assistance_list', ['person' => $person]);
     }
 
