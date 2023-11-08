@@ -49,7 +49,9 @@
                 </tbody>
             </table>
         </div>
+        <a id="pdf" href="{{ route('agrocefa.reports.balancepdf') }}" class="btn btn-danger" target="_blank">PDF</a>
     </div>
+
 
     <div class="card mt-4">
         <div class="card-header">
@@ -61,8 +63,8 @@
     </div>
 @else
     <br>
+    <p>{{ trans('agrocefa::balance.No_work_found') }}</p>
 @endif
-
 
 
 <script>
@@ -79,7 +81,9 @@
             text: '{{ trans('agrocefa::balance.TotalExpensesroductions') }}'
         },
         xAxis: {
-            categories: ['{{ trans('agrocefa::balance.expenses') }}', '{{ trans('agrocefa::balance.productions') }}']
+            categories: ['{{ trans('agrocefa::balance.expenses') }}',
+                '{{ trans('agrocefa::balance.productions') }}'
+            ]
         },
         yAxis: {
             title: {

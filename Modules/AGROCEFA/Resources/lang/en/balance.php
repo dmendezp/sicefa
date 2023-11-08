@@ -23,7 +23,7 @@ return [
     'select_lot' => 'Select lot',
     'There_is_no_registered_production'=>'There is no registered production',
     'Does_not_have_production'=>'Does not have production',
-
+    'No_work_found'=>'No work of the selected crop was found',
 
 
 ];

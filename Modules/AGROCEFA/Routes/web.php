@@ -80,6 +80,7 @@ Route::middleware(['lang'])->group(function() {
         //Balance
         Route::get('/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.reports.balance');
         Route::post('/reports/balance/filter', 'Reports\BalanceController@filterbalance')->name('agrocefa.reports.filterbalance');
+        Route::get('/reports/balance/balancepdf', 'Reports\BalanceController@balancepdf')->name('agrocefa.reports.balancepdf');
 
 
         // RUTAS PARA ACTIVIDADES

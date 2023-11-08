@@ -21,6 +21,8 @@ return [
     'select_lot' => 'Seleccione el Lote',
     'There_is_no_registered_production'=>'No hay producción registrada',
     'Does_not_have_production'=>'No cuenta con produccion',
+    'No_work_found'=>'No se encontraron labores del cultivo seleccionado',
+
 
 
 ];

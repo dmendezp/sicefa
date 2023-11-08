@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Modules\SICA\Entities\EnvironmentProductiveUnit;
 use Modules\SICA\Entities\Labor;
 use Carbon\Carbon; // Asegúrate de importar la clase Carbon
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BalanceController extends Controller
 {
@@ -98,11 +99,44 @@ class BalanceController extends Controller
             }
         }
 
+        // Almacena los datos filtrados y los totales en variables de sesión
+        session(['filteredLabors' => $filteredLabors]);
+        session(['totalExpenses' => $totalExpenses]);
+        session(['totalProductions' => $totalProductions]);
+
         // Devuelve la vista con las labores filtradas y los totales
         return view('agrocefa::reports.resultsbalance', [
             'filteredLabors' => $filteredLabors,
             'totalExpenses' => $totalExpenses,
             'totalProductions' => $totalProductions,
         ]);
+    }
+
+    public function balancepdf(Request $request)
+    {
+        // Verifica si existen datos filtrados en la variable de sesión
+        if (session()->has('filteredLabors')) {
+            $filteredLabors = session('filteredLabors');
+            $totalExpenses = session('totalExpenses');
+            $totalProductions = session('totalProductions');
+
+            // Inicializa el objeto PDF
+            $pdf = PDF::loadView('agrocefa::reports.balancepdf', [
+                'filteredLabors' => $filteredLabors,
+                'totalExpenses' => $totalExpenses,
+                'totalProductions' => $totalProductions,
+            ]);
+
+            // Personaliza opciones del PDF si es necesario
+            $pdf->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
+
+            // Devuelve el PDF para verlo o descargar
+            return $pdf->stream('balance.pdf');
+        } else {
+            // Maneja la situación en la que no se encontraron datos filtrados
+            return redirect()
+                ->back()
+                ->with('error', 'No se encontraron datos filtrados para generar el PDF.');
+        }
     }
 }
