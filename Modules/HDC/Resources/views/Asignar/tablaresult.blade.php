@@ -4,40 +4,44 @@
         <div class="container-fluid">
             <div class="card card-success card-outline shadow mt-3">
                 <div class="card-header">
-                </div>
-                <div class="card-body">
-                    <div class="mtop16">
-                        @if ($resultados->isNotEmpty())
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Actividad</th>
-                                    <th>Aspectos Ambientales</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($resultados as $resultado)
-                                <tr>
-                                    <td>{{ $resultado->name }}</td>
-                                    <td>
-                                        <ul>
-                                            @foreach ($resultado->environmental_aspects as $aspect)
-                                            <li>{{ $aspect->name }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-primary editar-actividad" data-actividad="{{ $resultado->id }}"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button class="btn btn-danger eliminar-actividad" data-actividad="{{ $resultado->id }}"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        @else
-                            <p>No hay datos disponibles.</p>
-                        @endif
+                    <div class="card-body">
+                        <div class="mtop16">
+                            @if ($resultados->isNotEmpty())
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Actividad</th>
+                                        <th>Aspectos Ambientales</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($resultados as $resultado)
+                                    <tr>
+                                        <td contenteditable="true">{{ $resultado->name }}</td>
+                                        <td>
+                                            <ul>
+                                                @foreach ($resultado->environmental_aspects as $aspect)
+                                                    <li>{{ $aspect->name }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary" data-activityId="{{ $resultado->id }}" onclick="editarActividad(this)">
+                                                Editar
+                                            </button>
+                                            <button class="btn btn-danger" data-resultado="{{ $resultado->id }}" onclick="eliminarActividad(this)">
+                                                Eliminar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @else
+                                <p>No hay datos disponibles.</p>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -45,45 +49,53 @@
     </div>
 </div>
 
-<!-- Agregar un script para manejar las funciones de editar y eliminar mediante Ajax -->
-<script>
-    $(document).ready(function () {
-        // Escucha el clic en los botones de editar
-        $('.editar-actividad').click(function () {
-            var actividadId = $(this).data('actividad');
-
-            // Realiza una solicitud Ajax para abrir el formulario de edición o realizar la edición
-            $.ajax({
-                type: 'GET',
-                url: '/editar-actividad/' + actividadId, // Ruta que manejará la solicitud en el controlador
-                success: function (data) {
-                    // Maneja la respuesta exitosa (por ejemplo, abrir un modal o cargar un formulario)
-                    console.log(data);
-                },
-                error: function (error) {
-                    // Maneja errores en la solicitud Ajax
+@push('scripts')
+    <!-- Agregar un script para manejar las funciones de edición y eliminación -->
+    <script>
+        function editarActividad(button) {
+            var row = button.closest('tr'); // Encuentra la fila que contiene el botón
+            var actividadCell = row.querySelector('td:first-child'); // Obtiene la celda de la actividad
+            var nuevoNombre = prompt('Editar nombre de actividad:', actividadCell.textContent);
+    
+            if (nuevoNombre !== null) {
+                // Realiza una solicitud Ajax para actualizar el nombre de la actividad
+                var actividadId = button.getAttribute('data-activityId');
+                var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Obtén el token CSRF
+    
+                // Realiza la solicitud Ajax utilizando fetch
+                fetch('/actividad/' + actividadId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': token
+                    },
+                    body: JSON.stringify({ nombre: nuevoNombre })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Actualiza la celda de la tabla con el nuevo nombre
+                        actividadCell.textContent = nuevoNombre;
+                        alert('Actividad actualizada con éxito');
+                    } else {
+                        alert('Error al actualizar la actividad');
+                    }
+                })
+                .catch(error => {
                     console.error(error);
-                }
-            });
-        });
-
-        // Escucha el clic en los botones de eliminar
-        $('.eliminar-actividad').click(function () {
-            var actividadId = $(this).data('actividad');
-
-            // Realiza una solicitud Ajax para eliminar la actividad
-            $.ajax({
-                type: 'POST',
-                url: '/eliminar-actividad/' + actividadId, // Ruta que manejará la solicitud en el controlador
-                success: function (data) {
-                    // Maneja la respuesta exitosa (por ejemplo, actualizar la vista)
-                    console.log(data);
-                },
-                error: function (error) {
-                    // Maneja errores en la solicitud Ajax
-                    console.error(error);
-                }
-            });
-        });
-    });
-</script>
+                    alert('Error en la solicitud Ajax');
+                });
+            }
+        }
+    
+        function eliminarActividad(button) {
+            if (confirm('¿Estás seguro de que deseas eliminar esta actividad?')) {
+                var activityId = button.getAttribute('data-resultado');
+                // Realiza una solicitud Ajax para eliminar la actividad con actividadId
+                // Agregar aquí la lógica Ajax para eliminar la actividad
+                // Luego, elimina la fila de la tabla si la solicitud es exitosa
+                // Por ejemplo, button.closest('tr').remove();
+            }
+        }
+    </script>
+@endpush

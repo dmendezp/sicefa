@@ -6,6 +6,7 @@
         <div class="row justify-content-center">
             <div class="card card-success card-outline shadow col-md-5 mt-3">
                 <div class="card-header">
+                    <a href="{{ route('cefa.hdc.assign_environmental_aspects') }}"><button type="submit" class="btn btn-success"><i class="fas fa-add"></i></button></a>
                 </div>
                 <div class="card-body">
                     <form id="unidadForm">

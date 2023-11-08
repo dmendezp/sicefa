@@ -148,6 +148,14 @@
                               </p>
                           </a>
                       </li>
+                      <li class="nav-item">
+                        <a href="{{ route('cefa.hdc.developers') }}" class="nav-link">
+                            <i class="fa-solid fa-people-group"></i>
+                            <p>
+                                {{ trans('hdc::developers.developers')}}
+                            </p>
+                        </a>
+                    </li>
                   </ul>
               </nav>
               <!-- /.sidebar-menu -->

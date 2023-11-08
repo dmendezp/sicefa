@@ -109,5 +109,40 @@ class assign_environmental_aspectsController extends Controller
         }
     }
 
+    public function edit(Actividad $actividad)
+    {
+        // Muestra el formulario de edición de la actividad
+        return view('cefa.hdc.assign_environmental_aspects', compact('activities'));
+    }
+
+    
+
+
+    public function update(Request $request, ) {
+        $activity = Activity::find($request->input('activity_id'));
+
+        if (!$activity) {
+            return response()->json(['error' => 'La actividad no se encontró.']);
+        }
+
+        $activity->name = $request->input('name');
+        $activity->environmental_aspect_id = $request->input('aspectos'); // Asegúrate de usar el nombre correcto del campo
+
+        $activity->save();
+
+        return response()->json(['message' => 'Cambios guardados con éxito']);
+    }
+
+    public function destroy($id) {
+        $activity = Activity::find($id);
+
+        if (!$activity) {
+            return response()->json(['error' => 'La actividad no se encontró.']);
+        }
+
+        $activity->delete();
+
+        return response()->json(['message' => 'Actividad eliminada con éxito']);
+    }
     
 }
