@@ -109,7 +109,7 @@
                 </li>
 
                 <li
-                    class="nav-item {{ Route::is('company.senaempresa', 'company.senaempresa.mostrar_asociados_senaempresa', 'company.senaempresa.personal') ? 'menu-is-opening menu-open' : '' }}">
+                    class="nav-item {{ Route::is('company.senaempresa.senaempresa', 'company.senaempresa.courses_senaempresa', 'company.senaempresa.personal') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link {{ !Route::is('senaempresa.*') ?: 'active' }}">
                         <i class="fas fa-chess-rook"></i>
                         <p>SenaEmpresa
@@ -118,8 +118,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('company.senaempresa') }}"
-                                class="nav-link {{ !Route::is('company.senaempresa') ?: 'active' }}">
+                            <a href="{{ route('company.senaempresa.senaempresa') }}"
+                                class="nav-link {{ !Route::is('company.senaempresa.senaempresa') ?: 'active' }}">
                                 <i class="fas fa-chess-rook"></i>
                                 <p>
                                     {{ trans('senaempresa::menu.Strategies') }}
@@ -128,8 +128,8 @@
                         </li>
                         @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                             <li class="nav-item">
-                                <a href="{{ route('company.senaempresa.mostrar_asociados_senaempresa') }}"
-                                    class="nav-link {{ !Route::is('company.senaempresa.mostrar_asociados_senaempresa') ?: 'active' }}">
+                                <a href="{{ route('company.senaempresa.courses_senaempresa') }}"
+                                    class="nav-link {{ !Route::is('company.senaempresa.courses_senaempresa') ?: 'active' }}">
                                     <i class="fas fa-file-invoice"></i>
                                     <p>{{ trans('senaempresa::menu.Courses SenaEmpresa') }}</p>
                                 </a>

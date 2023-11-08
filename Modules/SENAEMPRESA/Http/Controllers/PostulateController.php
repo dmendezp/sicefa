@@ -57,63 +57,76 @@ class PostulateController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $Apprentice = auth()->user()->person->apprentices()->first();
+{
+    $Apprentice = auth()->user()->person->apprentices()->first();
 
-        if (!$Apprentice) {
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
-        }
+    if (!$Apprentice) {
+        return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You don’t have an associate apprentice.'));
+    }
 
-        $ApprenticeId = $Apprentice->id;
+    $ApprenticeId = $Apprentice->id;
 
-        $existingPostulatesCount = Postulate::where('apprentice_id', $ApprenticeId)->count();
+    $existingPostulatesCount = Postulate::where('apprentice_id', $ApprenticeId)->count();
 
-        if ($existingPostulatesCount >= 2) {
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You cannot make more than two entries.'));
-        }
+    if ($existingPostulatesCount >= 2) {
+        return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You cannot make more than two entries.'));
+    }
 
-        $existingPostulate = Postulate::where('apprentice_id', $ApprenticeId)
-            ->where('vacancy_id', $request->input('vacancy_id'))
-            ->first();
+    $existingPostulate = Postulate::where('apprentice_id', $ApprenticeId)
+        ->where('vacancy_id', $request->input('vacancy_id'))
+        ->first();
 
-        if ($existingPostulate) {
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You’ve already applied for this position.'));
-        }
+    if ($existingPostulate) {
+        return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.You’ve already applied for this position.'));
+    }
 
-        $postulate = new Postulate();
-        $postulate->apprentice_id = $ApprenticeId;
-        $postulate->vacancy_id = $request->input('vacancy_id');
-        $postulate->state = 'Inscrito';
-        $postulate->score_total = 0; // Initialize score_total to 0
+    $postulate = new Postulate();
+    $postulate->apprentice_id = $ApprenticeId;
+    $postulate->vacancy_id = $request->input('vacancy_id');
+    $postulate->state = 'Inscrito';
+    $postulate->score_total = 0; // Initialize score_total to 0
 
-        // Save CV file
-        if ($cvFile = $request->file('cv')) {
-            $cvFileName = Str::slug($ApprenticeId) . 'cv_' . time() . '.' . $cvFile->getClientOriginalExtension();
+    // Validar el archivo CV como PDF
+    if ($cvFile = $request->file('cv')) {
+        if ($cvFile->getClientOriginalExtension() === 'pdf') {
+            $cvFileName = Str::slug($ApprenticeId) . 'cv_' . time() . '.pdf';
             $cvFile->move(public_path('modules/senaempresa/files/cv/'), $cvFileName);
             $postulate->cv = 'modules/senaempresa/files/cv/' . $cvFileName;
+        } else {
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.CV file must be in PDF format.'));
         }
+    }
 
-        // Save personalities file
-        if ($personalitiesFile = $request->file('personalities')) {
-            $personalitiesFileName = Str::slug($ApprenticeId) . 'personalities_' . time() . '.' . $personalitiesFile->getClientOriginalExtension();
+    // Validar el archivo de personalidades como PDF
+    if ($personalitiesFile = $request->file('personalities')) {
+        if ($personalitiesFile->getClientOriginalExtension() === 'pdf') {
+            $personalitiesFileName = Str::slug($ApprenticeId) . 'personalities_' . time() . '.pdf';
             $personalitiesFile->move(public_path('modules/senaempresa/files/personalities/'), $personalitiesFileName);
             $postulate->personalities = 'modules/senaempresa/files/personalities/' . $personalitiesFileName;
+        } else {
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Personalities file must be in PDF format.'));
         }
+    }
 
-        // Save proposal file
-        if ($proposalFile = $request->file('proposal')) { // Correct the file input name
-            $proposalFileName = Str::slug($ApprenticeId) . 'proposal_' . time() . '.' . $proposalFile->getClientOriginalExtension();
+    // Validar el archivo de propuesta como PDF
+    if ($proposalFile = $request->file('proposal')) {
+        if ($proposalFile->getClientOriginalExtension() === 'pdf') {
+            $proposalFileName = Str::slug($ApprenticeId) . 'proposal_' . time() . '.pdf';
             $proposalFile->move(public_path('modules/senaempresa/files/proposal/'), $proposalFileName);
             $postulate->proposal = 'modules/senaempresa/files/proposal/' . $proposalFileName;
+        } else {
+            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Proposal file must be in PDF format.'));
         }
-
-        $postulate->save();
-        $data = [
-            'ApprenticeId' => $ApprenticeId,
-        ];
-
-        return redirect()->route('company.vacant.vacantes', $data)->with('success', trans('senaempresa::menu.Registration made with success!'));
     }
+
+    $postulate->save();
+    $data = [
+        'ApprenticeId' => $ApprenticeId,
+    ];
+
+    return redirect()->route('company.vacant.vacantes', $data)->with('success', trans('senaempresa::menu.Registration made with success!'));
+}
+
     public function postulates(Request $request)
 {
     $selectedPositionId = $request->input('positionFilter');

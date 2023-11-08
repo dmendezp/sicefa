@@ -62,16 +62,16 @@ Route::middleware(['lang'])->group(function () {
 
         //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DE LAS ESTRATEGIAS DE SENAEMPRESA
         Route::prefix('Estrategias')->group(function () {
-            Route::get('/', 'SENAEMPRESAController@senaempresa')->name('company.senaempresa');
-            Route::get('/Nueva', 'SENAEMPRESAController@agregar')->name('company.senaempresa.agrega');
-            Route::post('/Guardada', 'SENAEMPRESAController@store')->name('company.senaempresa.guardado');
-            Route::get('/Editar/{id}', 'SENAEMPRESAController@edit')->name('company.senaempresa.editarlo');
-            Route::post('/{id}/Actualizado', 'SENAEMPRESAController@update')->name('company.senaempresa.guardar_senaempresa');
-            Route::delete('/Eliminado/{id}', 'SENAEMPRESAController@destroy')->name('company.senaempresa.eliminar_senaempresa');
+            Route::get('/', 'SENAEMPRESAController@senaempresa')->name('company.senaempresa.senaempresa');
+            Route::get('/Nueva', 'SENAEMPRESAController@new_senaempresa')->name('company.senaempresa.new_senaempresa');
+            Route::post('/Guardada', 'SENAEMPRESAController@senaempresa_new')->name('company.senaempresa.senaempresa_new');
+            Route::get('/Editar/{id}', 'SENAEMPRESAController@edit_senaempresa')->name('company.senaempresa.edit_senaempresa');
+            Route::post('/{id}/Actualizado', 'SENAEMPRESAController@senaempresa_edit')->name('company.senaempresa.senaempresa_edit');
+            Route::delete('/Eliminado/{id}', 'SENAEMPRESAController@delete_senaempresa')->name('company.senaempresa.delete_senaempresa');
 
             //RUTAS PARA ASOCIAR CURSOS A LAS ESTRATEGIAS DE SENAEMPRESA
-            Route::get('/Mostrar_Curso', 'SENAEMPRESAController@mostrar_asociado')->name('company.senaempresa.mostrar_asociados_senaempresa');
-            Route::post('/Curso_Asociado', 'SENAEMPRESAController@curso_asociado_senaempresa')->name('company.senaempresa.curso_asociado_senaempresa');
+            Route::get('/Mostrar_Curso', 'SENAEMPRESAController@courses_senaempresa')->name('company.senaempresa.courses_senaempresa');
+            Route::post('/Curso_Asociado', 'SENAEMPRESAController@courses_associates_senaempresa')->name('company.senaempresa.courses_associates_senaempresa');
             Route::get('/Obtener_asociaciones', 'SENAEMPRESAController@getAssociation')->name('company.senaempresa.get_associations');
         });
 

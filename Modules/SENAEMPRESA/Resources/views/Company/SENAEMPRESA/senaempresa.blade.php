@@ -16,7 +16,7 @@
                                 <th>{{ trans('senaempresa::menu.Quarter') }}</th>
                                 @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                     <th>
-                                        <a href="{{ route('company.senaempresa.agrega') }}" class="btn btn-success btn-sm"><i
+                                        <a href="{{ route('company.senaempresa.new_senaempresa') }}" class="btn btn-success btn-sm"><i
                                                 class="fas fa-user-plus"></i></a>
                                     </th>
                                 @endif
@@ -31,12 +31,12 @@
                                     <td>{{ $senaempresa->quarter->name }}</td>
                                     @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                                         <form
-                                            action="{{ route('company.senaempresa.eliminar_senaempresa', $senaempresa->id) }}"
+                                            action="{{ route('company.senaempresa.delete_senaempresa', $senaempresa->id) }}"
                                             method="POST" class="formsena">
                                             @csrf
                                             @method('DELETE')
                                             <td>
-                                                <a href="{{ route('company.senaempresa.editarlo', ['id' => $senaempresa->id]) }}"
+                                                <a href="{{ route('company.senaempresa.edit_senaempresa', ['id' => $senaempresa->id]) }}"
                                                     class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
                                                 <button type="submit" class="btn btn-danger btn-sm"><i
                                                         class="fas fa-trash-alt"></i></button>

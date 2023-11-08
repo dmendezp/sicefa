@@ -31,19 +31,19 @@ class SENAEMPRESAController extends Controller
         $data = ['title' => trans('senaempresa::menu.SenaEmpresa - Strategies'), 'senaempresas' => $senaempresas, 'staff' => $staff];
         return view('senaempresa::Company.SENAEMPRESA.senaempresa', $data);
     }
-    public function agregar()
+    public function new_senaempresa()
     {
         $senaempresas = Senaempresa::all();
         $quarters = Quarter::all();
         $data = ['title' => trans('senaempresa::menu.New SenaEmpresa'), 'senaempresas' => $senaempresas, 'quarters' => $quarters];
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.SENAEMPRESA.senaempresa_registration', $data);
+            return view('senaempresa::Company.SENAEMPRESA.new_senaempresa', $data);
         } else {
-            return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
+            return redirect()->route('company.senaempresa.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
 
-    public function store(Request $request)
+    public function senaempresa_new(Request $request)
     {
         // Verificar si ya existe un registro con el mismo nombre
         $existingSena = Senaempresa::where('name', $request->input('name'))->first();
@@ -55,7 +55,7 @@ class SENAEMPRESAController extends Controller
             if ($existingSena->trashed()) {
                 // Restaura la vacante eliminada suavemente
                 $existingSena->restore();
-                return redirect()->route('company.senaempresa')->with('success', trans('senaempresa::menu.SenaEmpresa Successfully restored'));
+                return redirect()->route('company.senaempresa.senaempresa')->with('success', trans('senaempresa::menu.SenaEmpresa Successfully restored'));
             } else {
                 // Si la vacante no está eliminada, muestra una alerta
                 return redirect()->back()->with('error', trans('senaempresa::menu.SenaEmpresa already exists in the database'));
@@ -70,32 +70,30 @@ class SENAEMPRESAController extends Controller
 
 
             if ($sena->save()) {
-                return redirect()->route('company.senaempresa')->with('success', trans('senaempresa::menu.SenaEmpresa successfully created'));
+                return redirect()->route('company.senaempresa.senaempresa')->with('success', trans('senaempresa::menu.SenaEmpresa successfully created'));
             }
         }
     }
 
 
-    public function edit($id)
+    public function edit_senaempresa($id)
     {
-
-
         $company = Senaempresa::find($id);
         $quarters = Quarter::all();
         $data = ['title' => trans('senaempresa::menu.Edit SenaEmpresa'), 'company' => $company, 'quarters' => $quarters];
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.SENAEMPRESA.senaempresa_edit', $data);
+            return view('senaempresa::Company.SENAEMPRESA.edit_senaempresa', $data);
         } else {
-            return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
+            return redirect()->route('company.senaempresa.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
-    public function update(Request $request, $id)
+    public function senaempresa_edit(Request $request, $id)
     {
         // Validar los datos del formulario
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'quarter_id' => 'required|exists:quarters,id', // Asegura que el quarter_id exista en la tabla quarters
+            'quarter_id' => 'required|exists:quarters,id'
             // Agrega validaciones para otros campos si es necesario
         ]);
 
@@ -104,7 +102,7 @@ class SENAEMPRESAController extends Controller
 
         // Verifica si el registro existe
         if (!$company) {
-            return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Record not found.'));
+            return redirect()->route('company.senaempresa.senaempresa')->with('error', trans('senaempresa::menu.Record not found.'));
         }
 
         // Actualiza los campos del registro con los datos del formulario
@@ -115,15 +113,15 @@ class SENAEMPRESAController extends Controller
 
         // Intenta guardar los cambios en la base de datos
         if ($company->save()) {
-            return redirect()->route('company.senaempresa')->with('success', trans('senaempresa::menu.Registration successfully updated.'));
+            return redirect()->route('company.senaempresa.senaempresa')->with('success', trans('senaempresa::menu.Registration successfully updated.'));
         } else {
             // Maneja el caso en el que no se pudo guardar
-            return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Error updating registration.'));
+            return redirect()->route('company.senaempresa.senaempresa')->with('error', trans('senaempresa::menu.Error updating registration.'));
         }
     }
 
     //Asociar cursos a senaempresa
-    public function curso_asociado_senaempresa(Request $request)
+    public function courses_associates_senaempresa(Request $request)
     {
         try {
             $courseId = $request->input('course_id');
@@ -170,7 +168,7 @@ class SENAEMPRESAController extends Controller
         return response()->json(['associations' => $associations], 200);
     }
 
-    public function mostrar_asociado()
+    public function courses_senaempresa()
     {
         $senaempresas = senaempresa::get();
         $courses = Course::where('status', 'Activo')->with('senaempresa')->get();
@@ -186,7 +184,7 @@ class SENAEMPRESAController extends Controller
 
             return view('senaempresa::Company.SENAEMPRESA.courses_senaempresa', $data);
         } else {
-            return redirect()->route('company.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
+            return redirect()->route('company.senaempresa.senaempresa')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
 

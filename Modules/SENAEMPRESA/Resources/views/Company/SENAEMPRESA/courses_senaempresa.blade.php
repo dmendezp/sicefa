@@ -104,7 +104,7 @@
         var isChecked = $(this).prop('checked');
 
         $.ajax({
-            url: '{{ route('company.senaempresa.curso_asociado_senaempresa') }}',
+            url: '{{ route('company.senaempresa.courses_associates_senaempresa') }}',
             method: 'POST',
             data: {
                 _token: '{{ csrf_token() }}',
