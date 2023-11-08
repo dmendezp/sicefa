@@ -7,27 +7,27 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\BIENESTAR\Entities\Postulations;
-use Modules\BIENESTAR\Entities\Convocations;
-use Modules\SICA\Entities\Apprentice;
-use Modules\BIENESTAR\Entities\TypesOfBenefits;
-use Modules\BIENESTAR\Entities\Questions;
-use Modules\BIENESTAR\Entities\Benefits;
-use Modules\BIENESTAR\Entities\PostulationsBenefits;
-use Modules\BIENESTAR\Entities\Answers;
-use Illuminate\Http\JsonResponse;
+use Modules\BIENESTAR\Entities\Convocation;
+use Modules\BIENESTAR\Entities\Postulation;
+use Modules\BIENESTAR\Entities\Question;
+use Modules\BIENESTAR\Entities\Answer;
 
 
 class PostulationsController extends Controller
 {
     public function index()
     {
-        return view('bienestar::postulations');
+        $currentDate = now(); // Obtén la fecha actual
+        $convocations = Convocation::where('start_date', '<=', $currentDate)
+            ->where('end_date', '>=', $currentDate)
+            ->get();
+
+        return view('bienestar::postulations', compact('convocations'));
     }
 
     public function search(Request $request)
     {
-        $documentNumber = $request->input('search');
+        $documentNumber = json_decode($_POST['data']);
 
         // Realizar la consulta
         $resultados = DB::table('apprentices')
@@ -35,6 +35,7 @@ class PostulationsController extends Controller
             ->join('courses', 'apprentices.course_id', '=', 'courses.id')
             ->join('programs', 'courses.program_id', '=', 'programs.id')
             ->select(
+                'apprentices.id',
                 'people.document_number',
                 'people.first_name',
                 'people.first_last_name',
@@ -53,27 +54,61 @@ class PostulationsController extends Controller
             return redirect()->route('cefa.bienestar.postulations')->with('error', 'No se encontraron resultados para el número de documento proporcionado.');
         }
 
-        return view('bienestar::postulations', compact('resultados'));
+        return view('bienestar::question_postulation.data_apprentice', compact('resultados'));
     }
 
-    public function consulta(Request $request)
+    public function getquestions(Request $request)
     {
-        $selectedBenefits = $request->input('benefits'); // Obtiene los beneficios seleccionados
+        $data = json_decode($_POST['data']);
 
-        if (is_array($selectedBenefits) && count($selectedBenefits) > 0) {
-            // Si se seleccionaron beneficios, construye la consulta
-            $query = DB::table('answers_questions')
-                ->join('questions', 'answers_questions.question_id', '=', 'questions.id')
-                ->whereIn('questions.type_question_benefit', $selectedBenefits)
-                ->select('questions.question', 'questions.type_question_benefit', 'answers_questions.answer')
-                ->get();
+        $questions = DB::table('questions')
+            ->where('type_question_benefit', $data)
+            ->get();
 
-            // Procesa los resultados de la consulta
+        $answers = DB::table('answers_questions')
+            ->whereIn('question_id', $questions->pluck('id'))
+            ->get();
 
-            return view('bienestar::postulations', compact('query'));
-        } else {
-            // No se seleccionaron beneficios, puedes redirigir a otra vista o mostrar un mensaje de error
-            return view('bienestar::postulations');
+        return view('bienestar::question_postulation.question', compact('questions', 'answers'));
+    }
+
+    public function getallquestions(Request $request)
+    {
+        $questions = DB::table('questions')->get();
+
+        $answers = DB::table('answers_questions')
+            ->whereIn('question_id', $questions->pluck('id'))
+            ->get();
+
+        return view('bienestar::question_postulation.allquestion', compact('questions', 'answers'));
+    }
+
+    public function savepostulation(Request $request)
+    {
+        // Crear una nueva postulación
+        $postulation = new Postulation();
+        $postulation->apprentice_id = $request->input('apprentice_id');
+        $postulation->convocation_id = $request->input('convocation_id');
+        $postulation->feed_benefit = $request->input('food') ?? 0;
+        $postulation->transportation_benefit = $request->input('transport') ?? 0;
+        $postulation->save();
+
+        // Obtener las respuestas del formulario
+        $answers = $request->input('answer', []);
+        $questionIds = $request->input('question', []);
+
+        // Recorrer las respuestas y guardarlas relacionadas con la postulación
+        foreach ($answers as $index => $answerValue) {
+            if (!empty($answerValue) && isset($questionIds[$index])) {
+                $respuesta = new Answer();
+                $respuesta->answer = $answerValue; // Guardar el valor de la respuesta
+                $respuesta->postulation_id = $postulation->id;
+                $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
+                $respuesta->save();
+            }
         }
+
+        // Redireccionar a la vista de edición o a donde desees después de guardar
+        return redirect()->route('cefa.bienestar.postulations')->with('success', 'Postulación guardada exitosamente.');
     }
 }

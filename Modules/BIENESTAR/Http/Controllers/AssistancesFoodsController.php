@@ -24,10 +24,31 @@ class AssistancesFoodsController extends Controller
     /////////////////////////////////////////////////Funcones para la vista AssistancesFood.blade.php
 
 
-    public function assistancefoodrecord()
+    public function assistancefoodrecord(Request $request)
     
     {
-        return view('bienestar::assistancefood');
+        $selectedPorcentaje = $request->input('porcentaje');
+
+    $AssistancesFoods = AssistanceFood::with(['postulationBenefit.benefit', 'apprentice.course.program'])
+        ->where('porcentage', $selectedPorcentaje)
+        ->get();
+
+        $AssistancesFoods = AssistanceFood::with(['postulationBenefit.benefit', 'apprentice.course.program'])->get();
+        $data = ['AssistancesFoods' => $AssistancesFoods, 'selectedPorcentaje' => $selectedPorcentaje];
+        return view('bienestar::assistancefood', $data);
 
     }
+    public function filtrarPorcentaje(Request $request)
+    {
+        $selectedPorcentaje = $request->input('porcentaje');
+    
+        $AssistancesFoods = AssistanceFood::with(['postulationBenefit.benefit', 'apprentice.course.program'])
+            ->where('porcentage', $selectedPorcentaje)
+            ->get();
+    
+        $data = ['AssistancesFoods' => $AssistancesFoods, 'selectedPorcentaje' => $selectedPorcentaje];
+    
+        return view('bienestar::partial.assistancefood_table', $data);
+    }
+    
 }

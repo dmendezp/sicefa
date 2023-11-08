@@ -71,12 +71,11 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="fas fa-user"></i>
-            <p>{{ trans('bienestar::menu.Apprentices')}}</p>
-          </a>
+        @if(Auth::user()->havePermission('bienestar.admin.crud.benefits'))
+        <li class="nav-item has-treeview">
+          <a href="{{ route('bienestar.admin.crud.benefits') }}" class="nav-link"><i class="fas fa-handshake"></i><p>{{ trans('bienestar::menu.Benefits')}}</i></p></a>        
         </li>
+        @endif  
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
             <i class="fas fa-pizza-slice"></i>
@@ -85,7 +84,7 @@
           <ul class="nav nav-treeview">
             @if(Auth::user()->havePermission('bienestar.admin.crud.beneficiaries_food'))
             <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.beneficiaries_food') }}" class="nav-link">Listados apoyo alimentacion </a>
+              <a href="{{ route('bienestar.admin.crud.beneficiaries_food') }}" class="nav-link"><p>Listados Apoyo Alimentacion</p></a>
             </li>
             @endif
           </ul>
@@ -96,85 +95,58 @@
             <p>{{ trans('bienestar::menu.Transportation')}} <i class="fas fa-angle-left right"></i></p>
           </a>
           <ul class="nav nav-treeview">
+          @if(Auth::user()->havePermission('bienestar.admin.crud.drivers'))
+            <li class="nav-item">
+              <a href="{{ route('bienestar.admin.crud.drivers') }}" class="nav-link"><p>Conductores</p></a>
+            </li>
+            @endif
             @if(Auth::user()->havePermission('bienestar.admin.crud.buses'))
             <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.buses') }}" class="nav-link">Buses</a>
+              <a href="{{ route('bienestar.admin.crud.buses') }}" class="nav-link"><p>Buses</p></a>
             </li>
-            @endif
-            @if(Auth::user()->havePermission('bienestar.admin.crud.drivers'))
-            <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.drivers') }}" class="nav-link">Conductores</a>
-            </li>
-            @endif
+            @endif           
             @if(Auth::user()->havePermission('bienestar.admin.crud.transportroutes'))
             <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.transportroutes') }}" class="nav-link">Rutas</a>
+              <a href="{{ route('bienestar.admin.crud.transportroutes') }}" class="nav-link"><p>Rutas</p></a>
             </li>
             @endif
             <li class="nav-item">
-              <a href="#" class="nav-link">Asignar Rutas</a>
+              <a href="#" class="nav-link"><p>Asignar Rutas</p></a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="{{route('cefa.bienestar.transportation_assitance_list.index')}}" class="nav-link">
-                <p>Asistencia De Ruta</p>
-              </a>
+              <a href="{{route('cefa.bienestar.admin.asistance_transport')}}" class="nav-link"><p>Tomar Asistencia</p></a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="{{route('cefa.bienestar.transportation_assitance_list.index')}}" class="nav-link"><p>Listados de Asistencia</p></a>
             </li>
 
           </ul>
-        </li>
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="fas fa-handshake"></i>
-            <p>{{ trans('bienestar::menu.Benefits')}} <i class="fas fa-angle-left right"></i></p>
-          </a>
-          <ul class="nav nav-treeview">
-            @if(Auth::user()->havePermission('bienestar.admin.crud.benefits'))
-            <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.benefits') }}" class="nav-link">Tipos de Beneficios</a>
-            </li>
-            @endif
-            @if(Auth::user()->havePermission('bienestar.admin.crud.typeofbenefits'))
-            <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.typeofbenefits')}}" class="nav-link">Tipo de Beneficiario</a>
-            </li>
-            @endif
-            @if(Auth::user()->havePermission('bienestar.admin.view.benefitstypeofbenefits'))
-            <li class="nav-item">
-              <a href="{{ route('bienestar.admin.view.benefitstypeofbenefits')}}" class="nav-link">Configurar Beneficios</a>
-            </li>
-            @endif
-          </ul>
-        </li>
+        </li>       
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
             <i class="fas fa-clipboard-list"></i>
-            <p>{{ trans('bienestar::menu.Convoctions')}} <i class="fas fa-angle-left right"></i></p>
+            <p>{{ trans('bienestar::menu.Convoctions')}}<i class="fas fa-angle-left right"></i></p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.convocations')}}" class="nav-link">Convocatorias</a>
+              <a href="{{ route('bienestar.admin.crud.convocations')}}" class="nav-link"><p>Convocatorias</p></a>
             </li>
             @if(Auth::user()->havePermission('bienestar.admin.crud.editform'))
             <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.editform') }}" class="nav-link">Formularios</a>
+              <a href="{{ route('bienestar.admin.crud.editform') }}" class="nav-link"><p>Formularios</p></a>
             </li>
             @endif
-            <li class="nav-item">
-              <a href="" class="nav-link">Configurar Convocatoria</a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ route('cefa.bienestar.postulations')}}" class="nav-link">Postulaciones </a>
-            </li>
           </ul>
         </li>
         <li class="nav-item has-treeview">
-          <a href="{{route('cefa.bienestar.callconsultation')}}" class="nav-link">
-            <i class="fas fa-search"></i>
-            <p>Consulta</p>
-          </a>
+          <a href="{{route('cefa.bienestar.postulations')}}" class="nav-link"><i class="fas fa-thumbs-up"></i><p>Postulacion</p></a>
         </li>
-        <!-- Fin de la nueva sección "Consulta" -->
-      </ul><br>
+        <li class="nav-item has-treeview">
+          <a href="{{route('cefa.bienestar.callconsultation')}}" class="nav-link"><i class="fas fa-search"></i><p>Consulta</p></a>
+        </li>
+
+      <!--Menu Lider -->
+
     </nav>
     <!-- /.sidebar-menu -->
   </div>

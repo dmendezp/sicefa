@@ -83,10 +83,9 @@ Route::middleware(['lang'])->group(function () {
 
         //Vistas Rutas de transporte
         Route::get('/transportroutes', 'RoutesTransportationController@index')->name('bienestar.admin.crud.transportroutes');
-        Route::post('/transportroutes/add', 'RoutesTransportationController@store')->name('cefa.bienestar.transportroutes.add');
-        Route::delete('/transportroutes/delete/{id}', 'RoutesTransportationController@destroy')->name('cefa.bienestar.transportroutes.destroy');
-        Route::get('/transportroutes/{id}', 'RoutesTransportationController@edit')->name('cefa.bienestar.transportroutes.edit');
-        Route::post('/transportroutes/update', 'RoutesTransportationController@update')->name('cefa.bienestar.transportroutes.update');
+        Route::post('/transportroutes/add', 'RoutesTransportationController@store')->name('bienestar.admin.save.transportroutes');
+        Route::delete('/transportroutes/delete/{id}', 'RoutesTransportationController@destroy')->name('bienestar.admin.delete.transportroutes');
+        Route::put('/transportroutes/update/{id}', 'RoutesTransportationController@update')->name('bienestar.admin.edit.transportroutes');
 
 
         // vista de conductores
@@ -120,14 +119,19 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/consulta/{documentNumber}', 'CallConsultationController@consultarBeneficios')->name('cefa.bienestar.consulta.resultados');
         // Vista de Postulaciones
         Route::get('/postulations', 'PostulationsController@index') ->name('cefa.bienestar.postulations');
-        Route::get('/postulations/search', 'PostulationsController@search')->name('cefa.bienestar.search'); 
-        Route::get('/postulations/search/getbenefits', 'PostulationsController@getBenefits')->name('cefa.bienestar.search_questions'); 
+        Route::post('/postulations/search', 'PostulationsController@search')->name('cefa.bienestar.search'); 
+        Route::post('/postulations/search/getquestions', 'PostulationsController@getquestions')->name('cefa.bienestar.search_questions'); 
+        Route::post('/postulations/search/getallquestions', 'PostulationsController@getallquestions')->name('cefa.bienestar.search_all_questions'); 
+        Route::post('/postulations/save', 'PostulationsController@savepostulation')->name('cefa.bienestar.savepostulation'); 
+
 
 
 
         //vista el listados apoyo alimentacion 
         Route::get('/foodrecord', 'AssistancesFoodsController@index')->name('bienestar.admin.crud.beneficiaries_food');
         Route::get('/assistancefood', 'AssistancesFoodsController@assistancefoodrecord')->name('cefa.bienestar.assistancefoodrecord');
+        Route::get('/filtro-porcentaje', 'AssistancesFoodsController@filtrarPorcentaje')->name('cefa.bienestar.filtrarPorcentaje');
+
 
         //Vistas Rutas de transporte
         Route::get('/assign-transportation-routes', 'AssingTransportRoutesController@mostrarAsignaciones')->name('cefa.bienestar.assign-transportation-routes');
@@ -142,7 +146,9 @@ Route::middleware(['lang'])->group(function () {
         route::get('/transportation_assistance_list', 'TransportationAssistancesController@index')->name('cefa.bienestar.transportation_assitance_list.index');
         Route::post('/busqueda/documentos', 'TransportationAssistancesController@search')->name('cefa.bienestar.searchattendancetransport');
 
-
+        //Vista transportation-assistance
+        Route::get('/transportation_asistance', 'TransportationAssistancesController@indexasistances')->name('cefa.bienestar.admin.asistance_transport');
+        Route::post('/transportation_asistance/search', 'TransportationAssistancesController@searchapprentice')->name('cefa.bienestar.admin.asistance_transport.search-apprentice');
 
     });
 });

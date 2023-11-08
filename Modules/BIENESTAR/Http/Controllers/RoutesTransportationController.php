@@ -16,13 +16,9 @@ class RoutesTransportationController extends Controller
     public function index()
     {
         // Obtén los datos de buses con sus conductores relacionados
-        $buses = Bus::with('bus_driver')->whereHas('bus_driver')->get();
+        $buses = Bus::with('bus_driver')->get();
         $busDrivers = BusDriver::all();
         $routestransportations = RouteTransportation::with('bus.bus_driver')->get();
-        $buses = Bus::with('bus_driver')->whereHas('bus_driver')->get();
-        $busDrivers = BusDriver::all();
-        $routestransportations = RouteTransportation::with('bus.bus_driver')->get();
-
         return view('bienestar::transportroutes', ['buses' => $buses, 'busDrivers' => $busDrivers, 'routestransportations' => $routestransportations]);
     }
 
@@ -55,13 +51,9 @@ class RoutesTransportationController extends Controller
         return redirect()->route('bienestar.admin.crud.transportroutes')->with('success', 'Registro de ruta de transporte exitoso.');
     }
 
-    public function edit($id){
-        $idTransport = RouteTransportation::findOrFail($id);
-        return redirect()->route('bienestar.admin.crud.transportroutes', compact('idTransport'));
-    }
-
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+
         // Valida los datos enviados por el formulario
         $validatedData = $request->validate([
             'new_route_number' => 'required',
@@ -73,7 +65,7 @@ class RoutesTransportationController extends Controller
         ]);
 
         // Busca el registro existente por su ID
-        $transportRoute = RouteTransportation::findOrFail($request->input('id_transport'));
+        $transportRoute = RouteTransportation::findOrFail($id);
         
         
         // Actualiza los campos del registro con los datos del formulario
