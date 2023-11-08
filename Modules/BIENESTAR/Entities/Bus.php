@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 use Modules\BIENESTAR\Entities\BusDriver;
 use Modules\BIENESTAR\Entities\TransportationAssistance;
-use Modules\BIENESTAR\Entities\RoutesTransportation;
+use Modules\BIENESTAR\Entities\RouteTransportation;
 
 class Bus extends Model implements Auditable
 {
@@ -31,7 +31,7 @@ class Bus extends Model implements Auditable
     }
 
     public function routes_trasportantion(){// Accede a todas las rutas que pertenecen a este Bus
-    	return $this->hasMany(RoutesTransportation::class, 'bus_id');
+    	return $this->hasMany(RouteTransportation::class, 'bus_id');
     }
 
     public function transportation_assistances(){// Accede a todas las asistencias que pertenecen a este Bus
