@@ -79,6 +79,7 @@ class BalanceController extends Controller
                     }
 
                     $labor->totalProductionPrice = $totalProductionPrice;
+                    
                 }
 
                 return $executionDate >= $seedTime && $executionDate <= $finishDate;
@@ -97,6 +98,7 @@ class BalanceController extends Controller
                     $totalProductions += $labor->totalProductionPrice;
                 }
             }
+            
         }
 
         // Almacena los datos filtrados y los totales en variables de sesión

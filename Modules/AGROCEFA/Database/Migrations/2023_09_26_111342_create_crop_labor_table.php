@@ -28,6 +28,7 @@ class CreateCropLaborTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('crop_labors');
     }
 }

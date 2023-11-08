@@ -30,6 +30,7 @@ class CreateVarietiesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('varieties');
     }
 }

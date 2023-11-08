@@ -419,7 +419,7 @@ class MovementController extends Controller
                         ]);
 
                         $newInventory->save();
-                        $$existingInventoryId = $newInventory->id;
+                        $existingInventoryId = $newInventory->id;
                         
                     }
 

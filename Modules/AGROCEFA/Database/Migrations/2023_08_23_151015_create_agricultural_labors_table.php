@@ -29,6 +29,7 @@ class CreateAgriculturalLaborsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('agricultural_labors');
     }
 }

@@ -9,8 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\AGROCEFA\Entities\Crop;
 use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\EnvironmentProductiveUnit;
-
-
+use Modules\AGROCEFA\Entities\CropEnvironment;
 
 class CropController extends Controller
 {
@@ -40,10 +39,9 @@ class CropController extends Controller
 
         return view('agrocefa::crop',['crop'=> $crop , 'lots' => $lots]);
     }
-
-    public function createCrop(Request $request)
-    {
-
+    
+    public function createCrop(Request $request){
+        $selectedEnvironmentId = $request->input('environment_id'); // Obtén el ambiente seleccionado desde el formulario
         $crop = new Crop();
         $crop->variety_id = $request->input('variety_id');
         $crop->name = $request->input('crop_name');
@@ -52,9 +50,14 @@ class CropController extends Controller
         $crop->density = $request->input('density');        
         $crop->finish_date = $request->input('finish_date');
         $crop->save();
+        $cropId = $crop->id;
 
-        $selectedEnvironmentId = $request->input('environment_id'); // Obtén el ambiente seleccionado desde el formulario
-        $crop->environments()->attach($selectedEnvironmentId);
+        $cropenvironment = new CropEnvironment();
+        $cropenvironment->crop_id = $cropId;
+        $cropenvironment->environment_id = $selectedEnvironmentId;
+        $cropenvironment->save();
+
+
 
         return redirect()->route('agrocefa.parameters.index')->with('success', 'Cultivo registrado exitosamente.');
     }

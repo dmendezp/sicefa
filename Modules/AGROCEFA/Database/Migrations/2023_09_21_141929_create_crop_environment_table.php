@@ -28,6 +28,7 @@ class CreateCropEnvironmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crop_environment');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('crop_environments');
     }
 }

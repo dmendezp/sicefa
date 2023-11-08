@@ -17,8 +17,9 @@ use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Warehouse;
 use Modules\SICA\Entities\Responsibility;
 use Modules\SICA\Entities\Inventory;
-use Modules\SICA\Entities\Environment;
 use Modules\SICA\Entities\EnvironmentProductiveUnit;
+use Modules\SICA\Entities\Environment;
+use Modules\AGROCEFA\Entities\CropEnvironment;
 use Modules\SICA\Entities\Role;
 use Modules\SICA\Entities\Person;
 use Modules\SICA\Entities\Category;
@@ -234,24 +235,23 @@ class LaborManagementController extends Controller
             $lotid = $request->input('lot');
 
             // Carga la unidad productiva con las relaciones necesarias
-            $lots = Environment::with('crops')
-                ->where('id', $lotid)
+            $lots = CropEnvironment::with('crop')
+                ->where('environment_id', $lotid)
                 ->first();
-
+            
             $cropData = []; // Array para almacenar los datos de las personas
 
             if ($lots) {
-                foreach ($lots->crops as $crop) {
-                    // Agregar los datos de la persona al array si existe
-                    if ($crop) {
-                        $cropData[] = [
-                            'id' => $crop->id,
-                            'name' => $crop->name,
-                            'sown_area' => $crop->sown_area, // Agrega el sown_area al arreglo
-                        ];
+                foreach ($lots->crop as $cro) {
+                    $cropData[] = [
+                        'id' => $cro->id,
+                        'name' => $cro->name,
+                        'sown_area' => $cro->sown_area, // Agrega el sown_area al arreglo
+                    ];
+                }   
+                
                     }
-                }
-            }
+        
             // Combinar la información de los IDs y first_name de las personas en un solo arreglo
             $response = [
                 'crop_data' => $cropData,
@@ -489,11 +489,13 @@ class LaborManagementController extends Controller
             $labor->save();
             $laborId = $labor->id;
 
-            DB::table('crop_labor')->insert([
+            DB::table('crop_labors')->insert([
                 'crop_id' => $crop,
                 'labor_id' => $laborId,
                 
             ]);
+
+            
             
             if (!empty($executorIds) && is_array($executorIds) && count(array_filter($executorIds)) > 0) {
     
@@ -516,6 +518,8 @@ class LaborManagementController extends Controller
                     // Guarda el nuevo registro en la base de datos
                     $executor->save();
                     $executorId = $executor->id;
+                    // Sumar el precio de este ejecutor al precio total
+                    $pricemanual += $executorPrice;
                 }
             }
             
@@ -526,11 +530,16 @@ class LaborManagementController extends Controller
                     $toolQuantitie = $toolQuantities[$index];
                     $toolPrice = $toolPrices[$index];
 
-                
+                // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
+                $existingInventory = Inventory::where([
+                    'productive_unit_warehouse_id' => $ProductiveUnitWarehousesId,
+                    'element_id' => $toolId,
+                ])->first();
+                    
                     // Registra la labor con el precio total calculado
                     $tool = new Tool([
                         'labor_id' => $laborId,
-                        'inventory_id' => $toolId,
+                        'inventory_id' => $existingInventory->id,
                         'amount' => $toolQuantitie,
                         'price' => $toolPrice,
                     ]);
@@ -538,6 +547,8 @@ class LaborManagementController extends Controller
                     // Guarda el nuevo registro en la base de datos
                     $tool->save();
                     $toolId = $tool->id;
+                    // Sumar el precio de esta herramienta al precio total
+                    $pricemanual += $toolPrice;
                 }
             }
            
@@ -551,12 +562,18 @@ class LaborManagementController extends Controller
                     $suppliesAplication = $suppliesAplications[$index];
                     $suppliesObjective = $suppliesObjectives[$index];
 
+                    $existingInventory = Inventory::where([
+                        'productive_unit_warehouse_id' => $ProductiveUnitWarehousesId,
+                        'element_id' => $suppliesId,
+                    ])->first();
+
                     if (!empty($suppliesAplications) && !empty($suppliesObjectives) && is_array($suppliesAplications) && is_array($suppliesObjectives) && count(array_filter($suppliesAplications)) > 0 && count(array_filter($suppliesObjectives)) > 0) {
+
 
                             // Registra la labor con el precio total calculado
                             $supplies = new Consumable([
                                 'labor_id' => $laborId,
-                                'inventory_id' => $suppliesId,
+                                'inventory_id' => $existingInventory->id,
                                 'amount' => $suppliesQuantitie,
                                 'price' => $suppliesPrice,
                             ]);
@@ -564,6 +581,8 @@ class LaborManagementController extends Controller
                             // Guarda el nuevo registro en la base de datos
                             $supplies->save();
                             $supplieId = $supplies->id;
+                            // Sumar el precio de este insumo al precio total
+                            $pricemanual += $suppliesPrice;
 
                             $aplicationsupplies = new AgriculturalLabor([
                                 'labor_id' => $laborId,
@@ -575,36 +594,30 @@ class LaborManagementController extends Controller
                             $aplicationsupplies->save();
                             $aplicationsuppliesId = $aplicationsupplies->id;
 
-                        } else {
-                            // Registra la labor con el precio total calculado
-                            $supplies = new Consumable([
-                                'labor_id' => $laborId,
-                                'inventory_id' => $suppliesId,
-                                'amount' => $suppliesQuantitie,
-                                'price' => $suppliesPrice,
-                            ]);
+                            foreach ($existingInventory as $Inventory) {
+                                $factor = $existingInventory->element->measurement_unit->conversion_factor;
+                            }
+                            $amountentero = $suppliesQuantitie * (int)$factor;
+                            
+                                // Restar la cantidad solicitada del inventario existente
+                                $existingInventory->amount -= $amountentero;
+                                $existingInventory->save();
+                                $existingInventoryId = $existingInventory->id;
+                    }
+                    else {
+                    // Registra la labor con el precio total calculado
+                    $supplies = new Consumable([
+                        'labor_id' => $laborId,
+                        'inventory_id' => $existingInventory->id,
+                        'amount' => $suppliesQuantitie,
+                        'price' => $suppliesPrice,
+                    ]);
 
                             // Guarda el nuevo registro en la base de datos
                             $supplies->save();
                             $supplieId = $supplies->id;
-                    }
-                   
-                    // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
-                    $existingInventory = Inventory::where([
-                        'productive_unit_warehouse_id' => $ProductiveUnitWarehousesId,
-                        'id' => $suppliesId,
-                    ])->first();
-                    
-                    foreach ($existingInventory as $Inventory) {
-                        $factor = $existingInventory->element->measurement_unit->conversion_factor;
-                    }
-                    $amountentero = $suppliesQuantitie * (int)$factor;
-                    if ($existingInventory) {
-                        // Restar la cantidad solicitada del inventario existente
-                        $existingInventory->amount -= $amountentero;
-                        $existingInventory->save();
-                        $existingInventoryId = $existingInventory->id;
-
+                            // Sumar el precio de este insumo al precio total
+                            $pricemanual += $suppliesPrice;
                     }
                 }
             }
@@ -616,11 +629,16 @@ class LaborManagementController extends Controller
                     $machineryWage = $machineryWages[$index];
                     $machineryPrice = $machineryPrices[$index];
 
+                    // Buscar si el elemento ya existe en 'inventories' de la unidad que entrega
+                    $existingInventory = Inventory::where([
+                        'productive_unit_warehouse_id' => $ProductiveUnitWarehousesId,
+                        'element_id' => $machineryId,
+                    ])->first();
                 
                     // Registra la labor con el precio total calculado
                     $machinery = new Equipment([
                         'labor_id' => $laborId,
-                        'inventory_id' => $machineryId,
+                        'inventory_id' => $existingInventory->id,
                         'amount' => $machineryWage,
                         'price' => $machineryPrice,
                     ]);
@@ -628,10 +646,14 @@ class LaborManagementController extends Controller
                     // Guarda el nuevo registro en la base de datos
                     $machinery->save();
                     $machineryId = $machinery->id;
+                    // Sumar el precio de esta maquinaria o equipo al precio total
+                    $pricemanual += $machineryPrice;
                 }
             }
 
-            
+            // Después de calcular el precio total, asignarlo al campo 'price' de la labor
+            $labor->price = $pricemanual;
+            $labor->save();
 
             // Si todo está correcto, realiza un commit de la transacción
             DB::commit();
