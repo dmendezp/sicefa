@@ -84,10 +84,9 @@ Route::middleware(['lang'])->group(function () {
 
         //Vistas Rutas de transporte
         Route::get('/transportroutes', 'RoutesTransportationController@index')->name('bienestar.admin.crud.transportroutes');
-        Route::post('/transportroutes/add', 'RoutesTransportationController@store')->name('cefa.bienestar.transportroutes.add');
-        Route::delete('/transportroutes/delete/{id}', 'RoutesTransportationController@destroy')->name('cefa.bienestar.transportroutes.destroy');
-        Route::get('/transportroutes/{id}', 'RoutesTransportationController@edit')->name('cefa.bienestar.transportroutes.edit');
-        Route::post('/transportroutes/update', 'RoutesTransportationController@update')->name('cefa.bienestar.transportroutes.update');
+        Route::post('/transportroutes/add', 'RoutesTransportationController@store')->name('bienestar.admin.save.transportroutes');
+        Route::delete('/transportroutes/delete/{id}', 'RoutesTransportationController@destroy')->name('bienestar.admin.delete.transportroutes');
+        Route::put('/transportroutes/update/{id}', 'RoutesTransportationController@update')->name('bienestar.admin.edit.transportroutes');
 
 
         // vista de conductores
@@ -100,8 +99,8 @@ Route::middleware(['lang'])->group(function () {
         // vista de gestiones de convocatorias
         Route::get('/Convocations', 'ConvocationsController@index')->name('bienestar.admin.crud.convocations');
         Route::post('/Convocations/store', 'ConvocationsController@store')->name('bienestar.admin.save.convocations');
-        Route::delete('/Convocations/delete/{id}', 'ConvocationsController@destroy')->name('bienestar.admin.edit.convocations');
-        Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('bienestar.admin.delete.convocations');
+        Route::delete('/Convocations/delete/{id}', 'ConvocationsController@destroy')->name('bienestar.admin.delete.convocations');
+        Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('bienestar.admin.edit.convocations');
 
 
         //Vista crud formularios

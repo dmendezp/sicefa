@@ -10,8 +10,6 @@ use Modules\BIENESTAR\Entities\BusDriver;
 use Modules\BIENESTAR\Entities\TransportationAssistance;
 use Modules\BIENESTAR\Entities\RouteTransportation;
 
-
-
 class Bus extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable,

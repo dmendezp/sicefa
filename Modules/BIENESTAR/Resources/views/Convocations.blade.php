@@ -103,9 +103,10 @@
 
                                     <td>
 
+                                     <!-- Botón para editar -->
                                     <div class="btn-group">
                                     <button class="btn btn-sm btn-info edit-button mr-1" data-toggle="modal"
-                                    data-target="#modal-default" data-id="{{ $convocation->id }}"
+                                    data-target="#editarModal_{{ $convocation->id }}" data-id="{{ $convocation->id }}"
                                     data-name="{{ $convocation->name }}"
                                     data-description="{{ $convocation->description }}"
                                     data-food_quotas="{{ $convocation->food_quotas }}"
@@ -138,7 +139,7 @@
     
   <!-- /-modal -->
   @foreach($convocations as $convocation)
-        <div class="modal fade" id="modal-default">
+        <div class="modal fade" id="editarModal_{{ $convocation->id }}">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -149,40 +150,41 @@
                     </div>
                     <div class="modal-body">
                      @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.convocations'))
-                    {!! Form::model('', ['route' => ['bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.convocations', ''], 'method' => 'PUT', 'role' => 'form']) !!}
+                    {!! Form::model('', ['route' => ['bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.convocations', $convocation->id], 'method' => 'PUT', 'role' => 'form']) !!}
                         <div class="row p-3">
                         <input type="hidden" name="convocation_id" id="convocation_id">
+
                             <div class="col-md-12">
                                 <div class="form-group">
-                                   <label for="name-{{ $convocation->id }}" class="form-label">{{ trans('bienestar::menu.title convocation')}}</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $convocation->name) }}">
+                                <label for="name">{{trans('bienestar::menu.title convocation')}}</label>
+                                <input type="text" name="name" id="name" class="form-control"
+                                value="{{ old('name', $convocation->name) }}"required>
                             </div>
                             </div>
 
-                            <div class="col-md-12">
-                            <div class="form-group">
-                                {!! Form::label('description',__('bienestar::menu.description')) !!}
-                                {!! Form::text('description', null, ['class' => 'form-control', 'placeholder' => 'Ingrese Descripcion','id' => 'description']) !!}
-                                <span id="description_error" class="text-danger"></span>
-                            </div>
-                            </div>
-
-                            <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="food_quotas">{{ trans('bienestar::menu.food quotas')}}</label>
-                                <input type="number" name="food_quotas" id="food_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2"min="1" max="999">
-                                <span id="food_quotas-error" class="text-danger"></span>
-                            </div>
-                            </div>
-
-                            
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="transport_quotas">{{ trans('bienestar::menu.transport quotas')}}</label>
-                                    <input type="number" name="transport_quotas" id="transport_quotas" class="form-control" placeholder="Digite Cantidad" required maxlength="2" min="1" max="999">
-                                    <span id="transport_quotas-error" class="text-danger"></span>
-                                </div>
-                        </div>
+                                <label for="description">{{trans('bienestar::menu.description')}}</label>
+                                <input type="text" name="description" id="description" class="form-control"
+                                value="{{ old('description', $convocation->description) }}"required>
+                            </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                <label for="food_quotas">{{trans('bienestar::menu.food quotas')}}</label>
+                                <input type="text" name="food_quotas" id="food_quotas" class="form-control"
+                                value="{{ old('food_quotas', $convocation->food_quotas) }}"required>
+                            </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                <label for="transport_quotas">{{trans('bienestar::menu.transport quotas')}}</label>
+                                <input type="text" name="transport_quotas" id="transport_quotas" class="form-control"
+                                value="{{ old('transport_quotas', $convocation->transport_quotas) }}"required>
+                            </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                 <label for="start_date">{{trans('bienestar::menu.start date')}}</label>
@@ -203,9 +205,10 @@
                                 <div class="form-group">
                                     <label for="quarter_id">{{ trans('bienestar::menu.quarter id')}}</label>
                                     <select class="form-control" name="quarter_id" required>
-                                        <option value="0">Seleccione...</option>
                                         @foreach ($quarters as $quarter)
-                                            <option value="{{ $quarter->id }}">{{ $quarter->name }}</option>
+                                            <option value="{{ $quarter->id }}"
+                                                {{ $quarter->id == $convocation->quarter_id ?'selected' : '' }}>
+                                                {{ $quarter->name }}</option>
                                         @endforeach
                                 </select>
                             </div>
