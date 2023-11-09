@@ -8,9 +8,9 @@
 
             <!-- /.card-header -->
             <div class="card-body">
-                @if (Auth::user()->havePermission('bienestar.admin.save.benefits'))
-                <form action="{{ route('cefa.bienestar.transportroutes.add') }}" method="POST" role="form">
-                    @csrf
+                @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.transportroutes'))
+                <form action="{{ route('bienestar.' . getRoleRouteName (Route::currentRouteName()) . '.save.transportroutes')}}" method="POST" role="form">
+                    @csrf 
                     <div class="row p-4">
                         <div class="col-md-3">
                             <label for="route_number">{{ trans('bienestar::menu.Routing Number')}}</label>
@@ -90,13 +90,11 @@
                                 <td>{{ $transport->departure_time}}</td>
                                 <td>{{ $transport->bus->plate}}</td>
                                 <td>
-                                @if (Auth::user()->havePermission('bienestar.admin.buttons.transportroutes'))
+                                    @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.buttons.transportroutes'))
                                     <div class="d-flex">
                                         <button class="btn btn-primary editButton mr-2" data-id="{{ $transport->id }}" data-toggle="modal" data-target="#editModal{{$transport->id}}"><i class="fas fa-edit"></i></button>
-                                        @if (Auth::user()->havePermission('bienestar.admin.delete.transportroutes'))
-                                        <form action="{{ route('cefa.bienestar.transportroutes.destroy', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
-                                            @csrf
-                                            @method("DELETE")
+                                        @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.transportroutes'))
+                                        <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.transportroutes', ['id' => $transport->id]) }}" method="POST" class="formEliminar">
                                             <!-- Botón para abrir el modal de eliminación -->
                                             <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
                                         </form>
@@ -115,8 +113,74 @@
         <!-- /.card-body -->
     </div>
 </div>
+ <!-- Modal para la edición -->
+ @foreach ( $routestransportations as $transport)
+ <div class="modal fade" id="editModal{{ $transport->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Contenido del modal de edición aquí -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">{{ trans('bienestar::menu.Edit Benefit')}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario de edición con validación -->
+                @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes'))
+                <form id="editForm-{{ $transport->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.transportroutes', ['id' => $transport->id]) }}" method="post" role="formedit" onsubmit="return validateForm{{ $transport->id }}()">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <input type="hidden" name="id_transport" value="{{$transport->id}}">
+                        <label for="route_number{{ $transport->id }}">Número De Ruta:</label>
+                        <select name="new_route_number" id="route_number{{ $transport->id }}" class="form-control" required>
+                            <option value="">Selecciona un número de ruta</option>
+                            @for ($i = 1; $i <= 8; $i++)
+                                <option value="{{ $i }}" @if ($i == $transport->route_number) selected @endif>{{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name_route{{ $transport->id }}">Nombre De La Ruta:</label>
+                        <input type="text" name="new_name_route" id="name_route{{ $transport->id }}" class="form-control" placeholder="Nombre Ruta" required value="{{ $transport->name_route }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="bus{{ $transport->id }}">Bus:</label>
+                        <select name="new_bus" id="bus{{ $transport->id }}" class="form-control" required onchange="updateDriverName{{ $transport->id }}()">
+                            <option value="">Selecciona un bus</option>
+                            <!-- Aquí puedes agregar opciones dinámicamente con tu backend -->
+                            <option value="1" data-bus-driver="Conductor 1" @if ($transport->bus_id == 1) selected @endif>Bus 1</option>
+                            <option value="2" data-bus-driver="Conductor 2" @if ($transport->bus_id == 2) selected @endif>Bus 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bus_driver{{ $transport->id }}">Nombre del Conductor:</label>
+                        <input id="bus_driver{{ $transport->id }}" name="new_driver_name" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly" value="{{ $transport->bus->bus_driver->name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="stop_bus{{ $transport->id }}">Parada:</label>
+                        <input id="stop_bus{{ $transport->id }}" name="new_stop_bus" type="text" class="form-control" placeholder="Ej: Juncal" value="{{ $transport->stop_bus }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="arrival_time{{ $transport->id }}">Hora Llegada:</label>
+                        <input type="time" name="new_arrival_time" id="arrival_time{{ $transport->id }}" class="form-control" required value="{{ $transport->arrival_time }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="departure_time{{ $transport->id }}">Hora Salida:</label>
+                        <input type="time" name="new_departure_time" id="departure_time{{ $transport->id }}" class="form-control" required value="{{ $transport->departure_time }}">
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </form>
+                @endif
+
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 <!-- Modales de edición -->
-@foreach ( $routestransportations as $transport)
 <div class="modal fade" id="editModal{{ $transport->id }}" tabindex="-1" aria-labelledby="editModal{{ $transport->id }}Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -128,58 +192,12 @@
             </div>
             <div class="modal-body">
                 <!-- Formulario de edición con validación -->
-<!-- Formulario de edición con validación -->
-<form id="editForm{{ $transport->id }}" action="{{ route('cefa.bienestar.transportroutes.update') }}" method="post" onsubmit="return validateForm{{ $transport->id }}()">
-
-@csrf
-    <div class="form-group">
-        <input type="hidden" name="id_transport" value="{{$transport->id}}">
-        <label for="route_number{{ $transport->id }}">Número De Ruta:</label>
-        <select name="new_route_number" id="route_number{{ $transport->id }}" class="form-control" required>
-            <option value="">Selecciona un número de ruta</option>
-            @for ($i = 1; $i <= 8; $i++)
-                <option value="{{ $i }}" @if ($i == $transport->route_number) selected @endif>{{ $i }}</option>
-            @endfor
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="name_route{{ $transport->id }}">Nombre De La Ruta:</label>
-        <input type="text" name="new_name_route" id="name_route{{ $transport->id }}" class="form-control" placeholder="Nombre Ruta" required value="{{ $transport->name_route }}">
-    </div>
-    <div class="form-group">
-        <label for="bus{{ $transport->id }}">Bus:</label>
-        <select name="new_bus" id="bus{{ $transport->id }}" class="form-control" required onchange="updateDriverName{{ $transport->id }}()">
-            <option value="">Selecciona un bus</option>
-            <!-- Aquí puedes agregar opciones dinámicamente con tu backend -->
-            <option value="1" data-bus-driver="Conductor 1" @if ($transport->bus_id == 1) selected @endif>Bus 1</option>
-            <option value="2" data-bus-driver="Conductor 2" @if ($transport->bus_id == 2) selected @endif>Bus 2</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="bus_driver{{ $transport->id }}">Nombre del Conductor:</label>
-        <input id="bus_driver{{ $transport->id }}" name="new_driver_name" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly" value="{{ $transport->bus->bus_driver->name }}">
-    </div>
-    <div class="form-group">
-        <label for="stop_bus{{ $transport->id }}">Parada:</label>
-        <input id="stop_bus{{ $transport->id }}" name="new_stop_bus" type="text" class="form-control" placeholder="Ej: Juncal" value="{{ $transport->stop_bus }}">
-    </div>
-    <div class="form-group">
-        <label for="arrival_time{{ $transport->id }}">Hora Llegada:</label>
-        <input type="time" name="new_arrival_time" id="arrival_time{{ $transport->id }}" class="form-control" required value="{{ $transport->arrival_time }}">
-    </div>
-    <div class="form-group">
-        <label for="departure_time{{ $transport->id }}">Hora Salida:</label>
-        <input type="time" name="new_departure_time" id="departure_time{{ $transport->id }}" class="form-control" required value="{{ $transport->departure_time }}">
-    </div>
-
-    <button type="submit" class="btn btn-success">Guardar</button>
-</form>
 
             </div>
         </div>
     </div>
 </div>
-@endforeach
+
 
 </tbody>
 </table>

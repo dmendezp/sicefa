@@ -16,27 +16,23 @@ class BusDriver extends Model implements Auditable
     protected $dates = ['deleted_at'];
     protected $hidden = ['created_at','update_at'];
 
+    protected $table = 'bus_drivers';
     
     protected $fillable = [
         'name',
         'email',
-        'phone',
+        'phone'
     ];
     
-
-
-    /**
-     * NOTE: se implementa relacion con conductores 
-     * */
 
      //RELACIONES
      
     public function buses(){// Accede a todos los buses que pertenecen a este conductor
-    	return $this->hasMany(Bus::class, 'bus_driver_id');
+    	return $this->hasMany(Bus::class);
     }
 
     public function transportation_assistance(){// Accede a todas las asistencias de trasporte que pertenecen a este conductor
-    	return $this->hasMany(TransportationAssistance::class, 'bus_driver_id');
+    	return $this->hasMany(TransportationAssistance::class);
     }
 
 
