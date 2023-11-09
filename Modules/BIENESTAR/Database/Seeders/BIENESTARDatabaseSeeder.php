@@ -16,8 +16,12 @@ class BIENESTARDatabaseSeeder extends Seeder
     public function run()
     {
         DB::beginTransaction(); // Iniciar transacción
-
+        
         $this->call(AppTableSeeder::class); // Ejecutar Seeder de aplicación
+        $this->call(PeopleTableSeeder::class); // Ejecutar Seeder de people
+        $this->call(UsersTableSeeder::class); // Ejecutar Seeder de users
+        $this->call(RolesTableSeeder::class); // Ejecutar Seeder de aplicación
+        $this->call(PermissionsTableSeeder::class); // Ejecutar Seeder de aplicación
      
         DB::commit(); // Finalizar transacción
     }

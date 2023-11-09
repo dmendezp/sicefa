@@ -21,6 +21,7 @@ Route::middleware(['lang'])->group(function () {
     Route::prefix('/bienestar')->group(function () {
         //vista home
         Route::get('/home', 'BIENESTARController@home')->name('cefa.bienestar.home');
+        Route::get('/home/admin', 'BIENESTARController@home')->name('bienestar.admin.dashboard');
 
         //Vista Crud Beneficio
         Route::get('/admin/benefits', 'BenefitsController@benefitsView')->name('bienestar.admin.crud.benefits');
@@ -134,8 +135,8 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/filtro-porcentaje', 'AssistancesFoodsController@filtrarPorcentaje')->name('cefa.bienestar.filtrarPorcentaje');
 
 
-        //Vistas Rutas de transporte
-        Route::get('/assign-transportation-routes', 'AssingTransportRoutesController@mostrarAsignaciones')->name('cefa.bienestar.assign-transportation-routes');
+        //Vistas Asignar Rutas de transporte
+        Route::get('/assign-transportation-routes', 'AssingTransportRoutesController@mostrarAsignaciones')->name('bienestar.admin.view.assign_transport_route');
         Route::get('/assign-transportation-routes/{apprenticeId}', 'AssingTransportRoutesController@showAssignmentForm')->name('cefa.bienestar.assign-transportation-routes');
 
         //Vista de Formulario de asignacion de rutas de transporte
@@ -148,8 +149,8 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/busqueda/documentos', 'TransportationAssistancesController@search')->name('cefa.bienestar.searchattendancetransport');
 
         //Vista transportation-assistance
-        Route::get('/transportation_asistance', 'TransportationAssistancesController@indexasistances')->name('cefa.bienestar.admin.asistance_transport');
-        Route::post('/transportation_asistance/search', 'TransportationAssistancesController@searchapprentice')->name('cefa.bienestar.admin.asistance_transport.search-apprentice');
+        Route::get('/transportation_asistance', 'TransportationAssistancesController@indexasistances')->name('bienestar.admin.view.asistance_transport');
+        Route::post('/transportation_asistance/search', 'TransportationAssistancesController@searchapprentice')->name('bienestar.admin.form.asistance_transport');
 
     });
 });

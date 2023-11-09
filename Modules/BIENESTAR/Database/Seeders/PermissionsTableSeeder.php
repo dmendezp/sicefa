@@ -1037,16 +1037,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
 
-        //*-----Permisos Consulta-----*//
-
-
-
-        //*-----Permisos Postulaciones-----*//
-
-
-
         //*-----Permisos listados apoyo alimentacion-----*//
-
         // Vista Listados Beneficiarios Alimentacion(ADMINISTRADOR)//
         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.crud.beneficiaries_food'], [ // Registro o actualización de permiso
             'name' => 'Vista de Beneficiarios Alimentacion',
@@ -1082,6 +1073,126 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
+
+        //*-----Permisos Tomar Asistencia Transporte-----*//
+        // Vista Tomar Asistencia Transporte(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.view.asistance_transport'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asistencia Transporte',
+            'description' => 'Puede ver la vista de tomar asistencia de transporte',
+            'description_english' => 'You can see the view of taking transportation assistance',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Tomar Asistencia Transporte(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.view.asistance_transport'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asistencia Transporte',
+            'description' => 'Puede ver la vista de tomar asistencia de transporte',
+            'description_english' => 'You can see the view of taking transportation assistance',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Tomar Asistencia Transporte(LIDER RUTA TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.route_leader.view.asistance_transport'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asistencia Transporte',
+            'description' => 'Puede ver la vista de tomar asistencia de transporte',
+            'description_english' => 'You can see the view of taking transportation assistance',
+            'app_id' => $app->id
+        ]);
+        $permission_route_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario Tomar Asistencia Transporte(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.form.asistance_transport'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asistencia Transporte',
+            'description' => 'Restricion a el formularios de tomar asistencia',
+            'description_english' => 'Restriction on taking attendance forms',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario Tomar Asistencia Transporte(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.form.asistance_transport'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asistencia Transporte',
+            'description' => 'Restricion a el formularios de tomar asistencia',
+            'description_english' => 'Restriction on taking attendance forms',
+            'app_id' => $app->id
+        ]);
+        $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario Tomar Asistencia Transporte(LIDER RUTA TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.route_leader.form.asistance_transport'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asistencia Transporte',
+            'description' => 'Restricion a el formularios de tomar asistencia',
+            'description_english' => 'Restriction on taking attendance forms',
+            'app_id' => $app->id
+        ]);
+        $permission_route_leader[] = $permission->id; // Almacenar permiso para rol
+
+        //*-----Permisos Tomar Asistencia Alimentacion-----*//
+        // Vista Tomar Asistencia Alimentacion(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.view.food_assistance'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asistencia Alimentacion',
+            'description' => 'Puede ver la vista de tomar asistencia de alimentacion',
+            'description_english' => 'You can see the view of taking feeding assistance',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Tomar Asistencia Alimentacion(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.view.food_assistance'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asistencia Alimentacion',
+            'description' => 'Puede ver la vista de tomar asistencia de alimentacion',
+            'description_english' => 'You can see the view of taking feeding assistance',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Tomar Asistencia Alimentacion(LIDER RUTA ALIMENTACO)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.route_leader.view.food_assistance'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asistencia Alimentacion',
+            'description' => 'Puede ver la vista de tomar asistencia de alimentacion',
+            'description_english' => 'You can see the view of taking feeding assistance',
+            'app_id' => $app->id
+        ]);
+        $permission_route_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario Tomar Asistencia Alimentacion(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.form.food_assistance'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asistencia Alimentacion',
+            'description' => 'Restricion a el formularios de tomar asistencia',
+            'description_english' => 'Restriction on taking attendance forms',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario Tomar Asistencia Alimentacion(LIDER BENEFICIO DE TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.form.food_assistance'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asistencia Alimentacion',
+            'description' => 'Restricion a el formularios de tomar asistencia',
+            'description_english' => 'Restriction on taking attendance forms',
+            'app_id' => $app->id
+        ]);
+        $permission_food_benefits_leaders[] = $permission->id; // Almacenar permiso para rol
+
+        // Formulario Tomar Asistencia Alimentacion(LIDER RUTA TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.route_leader.form.food_assistance'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asistencia Alimentacion',
+            'description' => 'Restricion a el formularios de tomar asistencia',
+            'description_english' => 'Restriction on taking attendance forms',
+            'app_id' => $app->id
+        ]);
+        $permission_route_leader[] = $permission->id; // Almacenar permiso para rol
+
+        //*-----Permisos Asignar Ruta Transporte-----*//
+        // Vista Asignar Ruta Transporte(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.view.assign_transport_route'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asignar Ruta Transporte',
+            'description' => 'Puede ver la vista para asignar ruta de transporte',
+            'description_english' => 'You can see the view for assigning the route of transport',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'bienestar.admin')->first(); // Rol Administrador

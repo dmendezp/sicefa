@@ -8,6 +8,13 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('cefa.bienestar.home') }}" class="nav-link"><i class="fas fa-home"></i>{{ trans('bienestar::menu.Home')}}</a>
       </li>
+      @auth
+            @if(checkRol('bienestar.admin'))
+                <li class="nav-item d-none d-sm-inline-block mx-2">
+                    <a href="{{ route('bienestar.admin.dashboard') }}" class="nav-link @if(Route::is('bienestar.admin.*')) active @endif">{{ trans('ptventa::general.admin') }}</a>
+                </li>
+            @endif
+        @endauth
     </ul>
 
     <!-- Right navbar links -->

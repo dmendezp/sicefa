@@ -40,7 +40,7 @@
             <em> {{ Auth::user()->roles->count() > 0 ? Auth::user()->roles[0]->name : 'Sin rol asignado' }} </em>
           </div>
         </div>
-        <div class="col info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Logout') }}">
+        <div class="col-auto info float-right mt-2" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Logout') }}">
           <a href="{{ route('logout') }}" class="d-block" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="fas fa-sign-out-alt"></i></a>
         </div>
@@ -71,82 +71,114 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        @if(Auth::user()->havePermission('bienestar.admin.crud.benefits'))
-        <li class="nav-item has-treeview">
-          <a href="{{ route('bienestar.admin.crud.benefits') }}" class="nav-link"><i class="fas fa-handshake"></i><p>{{ trans('bienestar::menu.Benefits')}}</i></p></a>        
-        </li>
-        @endif  
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="fas fa-pizza-slice"></i>
-            <p>{{ trans('bienestar::menu.Feeding')}} <i class="fas fa-angle-left right"></i></p>
-          </a>
-          <ul class="nav nav-treeview">
-            @if(Auth::user()->havePermission('bienestar.admin.crud.beneficiaries_food'))
-            <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.beneficiaries_food') }}" class="nav-link"><p>Listados Apoyo Alimentacion</p></a>
-            </li>
-            @endif
-          </ul>
-        </li>
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="fas fa-bus"></i>
-            <p>{{ trans('bienestar::menu.Transportation')}} <i class="fas fa-angle-left right"></i></p>
-          </a>
-          <ul class="nav nav-treeview">
-          @if(Auth::user()->havePermission('bienestar.admin.crud.drivers'))
-            <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.drivers') }}" class="nav-link"><p>Conductores</p></a>
-            </li>
-            @endif
-            @if(Auth::user()->havePermission('bienestar.admin.crud.buses'))
-            <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.buses') }}" class="nav-link"><p>Buses</p></a>
-            </li>
-            @endif           
-            @if(Auth::user()->havePermission('bienestar.admin.crud.transportroutes'))
-            <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.transportroutes') }}" class="nav-link"><p>Rutas</p></a>
-            </li>
-            @endif
-            <li class="nav-item">
-              <a href="#" class="nav-link"><p>Asignar Rutas</p></a>
-            </li>
+        <!-- menu Admin -->
+            @if(Auth::user()->havePermission('bienestar.admin.crud.benefits'))
             <li class="nav-item has-treeview">
-              <a href="{{route('cefa.bienestar.admin.asistance_transport')}}" class="nav-link"><p>Tomar Asistencia</p></a>
+              <a href="{{ route('bienestar.admin.crud.benefits') }}" class="nav-link"><i class="fas fa-handshake"></i>
+                <p>{{ trans('bienestar::menu.Benefits')}}</i></p>
+              </a>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="{{route('cefa.bienestar.transportation_assitance_list.index')}}" class="nav-link"><p>Listados de Asistencia</p></a>
-            </li>
+            @endif          
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-pizza-slice"></i>
+              <p>{{ trans('bienestar::menu.Feeding')}} <i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              @if(Auth::user()->havePermission('bienestar.admin.crud.beneficiaries_food'))
+              <li class="nav-item">
+                <a href="{{ route('bienestar.admin.crud.beneficiaries_food') }}" class="nav-link">
+                  <p>Listados Apoyo Alimentacion</p>
+                </a>
+              </li>
+              @endif
+            </ul>
+          </li>          
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-bus"></i>
+              <p>{{ trans('bienestar::menu.Transportation')}} <i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              @if(Auth::user()->havePermission('bienestar.admin.crud.drivers'))
+              <li class="nav-item">
+                <a href="{{ route('bienestar.admin.crud.drivers') }}" class="nav-link">
+                  <p>Conductores</p>
+                </a>
+              </li>
+              @endif
+              @if(Auth::user()->havePermission('bienestar.admin.crud.buses'))
+              <li class="nav-item">
+                <a href="{{ route('bienestar.admin.crud.buses') }}" class="nav-link">
+                  <p>Buses</p>
+                </a>
+              </li>
+              @endif
+              @if(Auth::user()->havePermission('bienestar.admin.crud.transportroutes'))
+              <li class="nav-item">
+                <a href="{{ route('bienestar.admin.crud.transportroutes') }}" class="nav-link">
+                  <p>Rutas</p>
+                </a>
+              </li>
+              @endif
+              <li class="nav-item">
+                <a href="{{ route('bienestar.admin.view.assign_transport_route') }}" class="nav-link">
+                  <p>Asignar Rutas</p>
+                </a>
+              </li>
+              @if(Auth::user()->havePermission('bienestar.admin.view.asistance_transport'))
+              <li class="nav-item has-treeview">
+                <a href="{{route('bienestar.admin.view.asistance_transport')}}" class="nav-link">
+                  <p>Tomar Asistencia</p>
+                </a>
+              </li>
+              @endif
+              <li class="nav-item has-treeview">
+                <a href="{{route('cefa.bienestar.transportation_assitance_list.index')}}" class="nav-link">
+                  <p>Listados de Asistencia</p>
+                </a>
+              </li>
 
-          </ul>
-        </li>       
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-clipboard-list"></i>
+              <p>{{ trans('bienestar::menu.Convoctions')}}<i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              @if(Auth::user()->havePermission('bienestar.admin.crud.convocations'))
+                <li class="nav-item">
+                  <a href="{{ route('bienestar.admin.crud.convocations')}}" class="nav-link">
+                    <p>Convocatorias</p>
+                  </a>
+                </li>
+              @endif
+              @if(Auth::user()->havePermission('bienestar.admin.crud.editform'))
+                <li class="nav-item">
+                  <a href="{{ route('bienestar.admin.crud.editform') }}" class="nav-link">
+                    <p>Formularios</p>
+                  </a>
+                </li>
+              @endif
+              </ul>
+            </li>
+        <!-- /.menu Admin -->
+        <!--Menu Lider Alimentacions-->
+
+
+        <!--Menu Publico -->
         <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="fas fa-clipboard-list"></i>
-            <p>{{ trans('bienestar::menu.Convoctions')}}<i class="fas fa-angle-left right"></i></p>
+          <a href="{{route('cefa.bienestar.postulations')}}" class="nav-link"><i class="fas fa-thumbs-up"></i>
+            <p>Postulacion</p>
           </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.convocations')}}" class="nav-link"><p>Convocatorias</p></a>
-            </li>
-            @if(Auth::user()->havePermission('bienestar.admin.crud.editform'))
-            <li class="nav-item">
-              <a href="{{ route('bienestar.admin.crud.editform') }}" class="nav-link"><p>Formularios</p></a>
-            </li>
-            @endif
-          </ul>
         </li>
         <li class="nav-item has-treeview">
-          <a href="{{route('cefa.bienestar.postulations')}}" class="nav-link"><i class="fas fa-thumbs-up"></i><p>Postulacion</p></a>
+          <a href="{{route('cefa.bienestar.callconsultation')}}" class="nav-link"><i class="fas fa-search"></i>
+            <p>Consulta</p>
+          </a>
         </li>
-        <li class="nav-item has-treeview">
-          <a href="{{route('cefa.bienestar.callconsultation')}}" class="nav-link"><i class="fas fa-search"></i><p>Consulta</p></a>
-        </li>
-
-      <!--Menu Lider -->
-
+      </ul>
     </nav>
     <!-- /.sidebar-menu -->
   </div>
