@@ -150,7 +150,7 @@
                     </div>
                     <div class="modal-body">
                      @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.convocations'))
-                    {!! Form::model('', ['route' => ['bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.convocations', ''], 'method' => 'PUT', 'role' => 'form']) !!}
+                    {!! Form::model('', ['route' => ['bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.convocations', $convocation->id], 'method' => 'PUT', 'role' => 'form']) !!}
                         <div class="row p-3">
                         <input type="hidden" name="convocation_id" id="convocation_id">
 
@@ -207,8 +207,8 @@
                                     <select class="form-control" name="quarter_id" required>
                                         @foreach ($quarters as $quarter)
                                             <option value="{{ $quarter->id }}"
-                                                {{ $quater->id ==}}
-                                            >{{ $quarter->name }}</option>
+                                                {{ $quarter->id == $convocation->quarter_id ?'selected' : '' }}>
+                                                {{ $quarter->name }}</option>
                                         @endforeach
                                 </select>
                             </div>

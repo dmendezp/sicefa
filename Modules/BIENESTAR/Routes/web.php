@@ -99,8 +99,8 @@ Route::middleware(['lang'])->group(function () {
         // vista de gestiones de convocatorias
         Route::get('/Convocations', 'ConvocationsController@index')->name('bienestar.admin.crud.convocations');
         Route::post('/Convocations/store', 'ConvocationsController@store')->name('bienestar.admin.save.convocations');
-        Route::delete('/Convocations/delete/{id}', 'ConvocationsController@destroy')->name('bienestar.admin.edit.convocations');
-        Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('bienestar.admin.delete.convocations');
+        Route::delete('/Convocations/delete/{id}', 'ConvocationsController@destroy')->name('bienestar.admin.delete.convocations');
+        Route::put('/Convocations/update/{id}', 'ConvocationsController@update')->name('bienestar.admin.edit.convocations');
 
 
         //Vista crud formularios
