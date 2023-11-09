@@ -2,64 +2,109 @@
 
 @section('content')
     <div class="container">
-        <h3>Reporte Consumo</h3>
-        <form id="filterForm" method="GET" action="{{ route('agrocefa.reports.filterByDate') }}">
-            @csrf
+        <h3>Reporte Labores Culturales</h3>
+
+        <div class="form-group">
+            <label for="lot">Seleccione el Lote</label>
+            <select name="lot" class="form-control" required id="lotSelect">
+                <option value="">Seleccione el Lote</option>
+                @foreach (array_combine($environmentIds, $environmentNames) as $id => $name)
+                    <option value="{{ $id }}" {{ old('lot') == $id ? 'selected' : '' }}>
+                        {{ $name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div id="cropsSelectContainer" style="display: none;">
             <div class="form-group">
-                <label for="startDate">{{ trans('agrocefa::reports.Start_Date') }}</label>
-                <input type="date" class="form-control" name="startDate" id="startDate">
-            </div>
-        
-            <div class="form-group">
-                <label for="endDate">{{ trans('agrocefa::reports.End_Date') }}</label>
-                <input type="date" class="form-control" name="endDate" id="endDate">
-            </div>
-        
-            <button type="submit" style="margin-top: 10px" class="btn btn-primary">{{ trans('agrocefa::reports.Btn_Filter') }}</button>
-        </form>
-        
-        <div class="container my-5">
-            <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>{{ trans('agrocefa::reports.1T_Element') }}</th>
-                                    <th>{{ trans('agrocefa::reports.1T_Amount') }}</th>
-                                    <th>{{ trans('agrocefa::reports.1T_Price') }}</th>
-                                    <th>{{ trans('agrocefa::reports.1T_Subtotal') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($groupedData as $laborId => $data)
-                                    <tr>
-                                        <td colspan="4">
-                                            <strong>{{ trans('agrocefa::reports.Labor') }} {{ $data['laborDescription'] }}</strong><br>
-                                            <em>{{ trans('agrocefa::reports.Date_Labor') }} {{ $data['laborDate'] }}</em>
-                                        </td>
-                                        <td><strong>{{ $data['laborSubtotal'] }}</strong></td>
-                                    </tr>
-                                    @foreach ($data['elements'] as $element)
-                                        <tr>
-                                            <td></td>
-                                            <td>{{ $element['elementName'] }}</td>
-                                            <td>{{ $element['consumableAmount'] }}</td>
-                                            <td>{{ $element['consumablePrice'] }}</td>
-                                            <td>{{ $element['elementSubtotal'] }}</td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-                                <tr>
-                                    <td colspan="4"><strong>{{ trans('agrocefa::reports.1T_Total') }}</strong></td>
-                                    <td><strong>{{ $totalLaborSubtotal }}</strong></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <label for="cropsSelect">Cultivos Asociados</label>
+                <select name="crops" class="form-control" id="cropsSelect">
+                    <option value="">Seleccione el cultivo</option>
+                </select>
             </div>
         </div>
-    </div>
-@endsection
+        <br>
+        <div id="resultTableContainer">
+            <!-- Aquí se mostrará la tabla de resultados -->
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                // Manejador de eventos para el cambio en el campo "Unidad Productiva"
+                $('#lotSelect').on('change', function() {
+                    var selectedProductId = $(this).val();
+
+                    if (selectedProductId) {
+                        $.ajax({
+                            url: '{{ route('agrocefa.reports.cropsbylot') }}',
+                            method: 'GET',
+                            data: {
+                                unit: selectedProductId
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                if (response.cropIds) {
+                                    var cropsSelect = $('#cropsSelect');
+                                    cropsSelect.empty();
+                                    cropsSelect.append(new Option('Seleccione el cultivo', ''));
+
+                                    // Recorre los arreglos cropIds y cropNames y crea opciones
+                                    for (var i = 0; i < response.cropIds.length; i++) {
+                                        var id = response.cropIds[i];
+                                        var name = response.cropNames[i];
+                                        cropsSelect.append(new Option(name, id));
+                                    }
+
+                                    $('#cropsSelectContainer').show();
+                                }
+                            },
+                            error: function() {
+                                console.error('Error en la solicitud AJAX');
+                            }
+                        });
+                    } else {
+                        $('#cropsSelectContainer').hide();
+                    }
+                });
+
+
+                // Manejador de eventos para el cambio en el campo "Unidad Productiva muestra el campo cuando se selecciona el lote "
+                $('#lotSelect').on('change', function() {
+                    var selectedProductId = $(this).val(); // Obtener el ID de la unidad productiva seleccionada
+                    var cropsSelectContainer = $(
+                    '#cropsSelectContainer'); // Contenedor del campo de selección de cultivos
+
+                    if (selectedProductId) {
+                        // Si se selecciona una unidad productiva, muestra el campo de selección de cultivos
+                        cropsSelectContainer.show();
+                    } else {
+                        // Si no se selecciona ninguna unidad productiva, oculta el campo de selección de cultivos
+                        cropsSelectContainer.hide();
+                    }
+                });
+
+                // Manejador de eventos para el cambio en el campo "Lote"
+                $('#cropsSelect').on('change', function() {
+                    var selectedCrop = $(this).val();
+                    
+                    if (selectedCrop) {
+                        $.ajax({
+                            url: '{{ route('agrocefa.reports.filterByDate') }}',
+                            method: 'GET',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                crop: selectedCrop,
+                            },
+                            success: function(response) {
+                                $('#resultTableContainer').html(response);
+                            },
+                            error: function() {
+                                console.error('Error en la solicitud AJAX');
+                            }
+                        });
+                    }
+                });
+
+            });
+        </script>
+    @endsection

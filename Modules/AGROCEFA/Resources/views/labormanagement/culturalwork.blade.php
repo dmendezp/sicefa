@@ -176,22 +176,22 @@
                         </div>
                         <br>
                     </div>
-                <br>
-                @include('agrocefa::labormanagement.component.executor')
-                @include('agrocefa::labormanagement.component.supplies')
-                @include('agrocefa::labormanagement.component.machinery')
-                @include('agrocefa::labormanagement.component.tool')
-                <div id="showbutton" style="display: none">
-                {!! Form::submit(trans('agrocefa::movements.Btn_Register_Exit'), [
-                    'class' => 'btn btn-primary',
-                    'id' => 'registerButton',
-                ]) !!}
+                    <br>
+                    @include('agrocefa::labormanagement.component.executor')
+                    @include('agrocefa::labormanagement.component.supplies')
+                    @include('agrocefa::labormanagement.component.machinery')
+                    @include('agrocefa::labormanagement.component.tool')
+                    <div id="showbutton" style="display: none">
+                        {!! Form::submit(trans('agrocefa::movements.Btn_Register_Exit'), [
+                            'class' => 'btn btn-primary',
+                            'id' => 'registerButton',
+                        ]) !!}
+                    </div>
+                    <br>
                 </div>
-                <br>
+
+                {!! Form::close() !!}
             </div>
-            
-            {!! Form::close() !!}
-        </div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -306,42 +306,39 @@
 
                 // Manejador de eventos para el cambio en el campo "Actividad"
                 $('#lotSelect').on('change', function() {
-                    var selectedlotId = $(this).val(); // Obtener el ID de la actividad seleccionada
+                    var selectedProductId = $(this).val();
 
-                    // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
-                    $.ajax({
-                        url: '{{ route('agrocefa.obtenerecrop') }}',
-                        method: 'GET',
-                        data: {
-                            lot: selectedlotId
-                        },
-                        success: function(response) {
-                            // Manejar la respuesta de la solicitud AJAX aquí
-                            console.log('Respuesta de la solicitud AJAX:', response);
+                    if (selectedProductId) {
+                        $.ajax({
+                            url: '{{ route('agrocefa.reports.cropsbylot') }}',
+                            method: 'GET',
+                            data: {
+                                unit: selectedProductId
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                if (response.cropIds) {
+                                    var cropsSelect = $('#cropSelect');
+                                    cropsSelect.empty();
+                                    cropsSelect.append(new Option('Seleccione el cultivo', ''));
 
-                            // Verificar si hay responsables en la respuesta
-                            if (response.crop_data.length > 0) {
-                                // Actualizar el campo de selección de responsables con las opciones recibidas
-                                var cropSelect = $('#cropSelect');
-                                cropSelect.empty(); // Vaciar las opciones actuales
-                                cropSelect.append(new Option('Seleccione el Cultivo',
-                                    ''));
+                                    // Recorre los arreglos cropIds y cropNames y crea opciones
+                                    for (var i = 0; i < response.cropIds.length; i++) {
+                                        var id = response.cropIds[i];
+                                        var name = response.cropNames[i];
+                                        cropsSelect.append(new Option(name, id));
+                                    }
 
-                                // Agregar las nuevas opciones desde el objeto de personas en la respuesta JSON
-                                $.each(response.crop_data, function(index, crop) {
-                                    cropSelect.append(new Option(crop
-                                        .name, crop.id));
-                                });
-                            } else {
-                                // Mostrar un campo de selección vacío y limpiar el campo "Receptor Responsable"
-                                $('#cropSelect').val('');
+                                    $('#cropsSelectContainer').show();
+                                }
+                            },
+                            error: function() {
+                                console.error('Error en la solicitud AJAX');
                             }
-                        },
-                        error: function() {
-                            // Manejar errores si la solicitud AJAX falla
-                            console.error('Error en la solicitud AJAX');
-                        }
-                    });
+                        });
+                    } else {
+                        $('#cropsSelectContainer').hide();
+                    }
                 });
 
                 // Ocultar el botón de detalles del cultivo inicialmente
@@ -352,7 +349,7 @@
                     var selectedCropId = $(this).val();
                     if (selectedCropId) {
                         // Mostrar el contenedor de botones si se selecciona un cultivo
-                        
+
                         $('#showbutton').show();
                         $('#botonContainer').show();
                         // Mostrar el botón de detalles del cultivo si se selecciona un cultivo

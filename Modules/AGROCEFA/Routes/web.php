@@ -68,6 +68,7 @@ Route::middleware(['lang'])->group(function() {
 
         // Consumos
         Route::get('/reports/consumable', 'Reports\ConsumableController@index')->name('agrocefa.reports.consumable');
+        Route::get('/reports/getCropsBylot', 'Reports\ConsumableController@getCropsBylot')->name('agrocefa.reports.cropsbylot');
         Route::get('/reports/consumption/filter', 'Reports\ConsumableController@filterByDate')->name('agrocefa.reports.filterByDate');
 
         //reporte labores tarjeta yuderly

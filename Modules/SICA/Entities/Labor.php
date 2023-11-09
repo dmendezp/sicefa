@@ -46,7 +46,7 @@ class Labor extends Model implements Auditable
         return $this->hasMany(AgriculturalLabor::class);
     }
     public function crops(){
-        return $this->belongsToMany(Crop::class);//Relacion de muchos a muchos entre labors y crops
+        return $this->belongsToMany(Crop::class,'crop_labors');//Relacion de muchos a muchos entre labors y crops
     }
     public function environmental_aspect_labors(){ // Accede a todos los registros de la asociación entre aspectos ambientales y labores que pertenecen a esta labor
         return $this->hasMany(EnvironmentalAspectLabor::class);

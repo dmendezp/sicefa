@@ -71,7 +71,7 @@
                                 <li id="sublist-li"><a href="#"><i class='bx bx-lemon icon'></i><span
                                             class="text nav-text">{{ trans('agrocefa::universal.Production') }}</span></a>
                                 </li>
-                                <li id="sublist-li"><a href="{{ route('agrocefa.reports.labor') }}"><i class='bx bxs-calculator bx-burst icon' ></i><span
+                                <li id="sublist-li"><a href="{{ route('agrocefa.reports.labor') }}"><i class='bx bxs-calculator icon' ></i><span
                                             class="text nav-text">Labores</span></a>
                                 </li>
                             </ul>
