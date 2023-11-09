@@ -44,7 +44,6 @@ class GlossaryController extends Controller
             'meaning' => 'required',
             'program_id' => 'required|exists:programs,id',
         ]);
-
         Glossary::create($validatedData);
 
         return redirect()->route('dicsena.instructor.glossary.index')->with('success', 'Glosario creado exitosamente');

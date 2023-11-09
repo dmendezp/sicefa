@@ -17,9 +17,9 @@ Route::middleware(['lang'])->group(function () {
         /*rutas de crud glosary*/
         Route::get('/glossary', 'GlossaryController@index')->name('dicsena.instructor.glossary.index');
         Route::get('/glossary/create', 'GlossaryController@create')->name('dicsena.instructor.glossary.create');
-        Route::post('/glossary/store', 'GlossaryController@store')->name('dicsena.instructor.glossary.create');
+        Route::post('/glossary/store', 'GlossaryController@store')->name('dicsena.instructor.glossary.store');
         Route::get('/glossary/edit/{glossary}', 'GlossaryController@edit')->name('dicsena.instructor.glossary.edit');
-        Route::delete('/glossary/destroy/{glossary}', 'GlossaryController@destroy')->name('dicsena.instructor.edit');
+        Route::delete('/glossary/destroy/{glossary}', 'GlossaryController@destroy')->name('dicsena.instructor.destroy');
         Route::put('/glossary/update/{glossary}', 'GlossaryController@update')->name('dicsena.instructor.glossary.update');
         //routes crudguide
         Route::get('gloss/search', 'GlossController@search')->name('cefa.dicsena.glossary.search');
