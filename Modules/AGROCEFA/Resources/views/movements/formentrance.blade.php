@@ -55,7 +55,7 @@
     <div id="notification" class="alert alert-danger" style="display: none;"></div>
     <div class="card" style="width: 105%">
         <div class="card-body">
-            {!! Form::open(['route' => 'agrocefa.registerentrance', 'method' => 'POST']) !!}
+            {!! Form::open(['route' => 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.entry.store', 'method' => 'POST']) !!}
             @csrf
             <div class="row">
                 <div class="col-md-6">
@@ -213,7 +213,7 @@
 
             // Realizar una solicitud AJAX para obtener los datos del elemento
             $.ajax({
-                url: '{{ route('agrocefa.obtenerdatos') }}',
+                url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.getinformationelement') }}',
                 method: 'GET',
                 data: { element: selectedElementId },
                 success: function (response) {

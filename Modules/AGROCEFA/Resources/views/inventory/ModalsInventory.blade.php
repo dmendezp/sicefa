@@ -9,7 +9,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('agrocefa.inventory.store') }}">
+                    <form method="POST" action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.store') }}">
                         @csrf
                         <div class="form-group">
                             <label
@@ -124,7 +124,7 @@
                     </div>
                     <div class="modal-body">
                         <form id="editInventoryForm"
-                            action="{{ route('agrocefa.inventory.update', ['id' => $item->id]) }}" method="POST">
+                            action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.update', ['id' => $item->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
 
@@ -272,7 +272,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary"
                             data-bs-dismiss="modal">{{ trans('agrocefa::inventory.Cancel') }}</button>
-                        {!! Form::open(['route' => ['agrocefa.inventory.destroy', $item->id], 'method' => 'DELETE']) !!}
+                        {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.destroy', $item->id], 'method' => 'DELETE']) !!}
                         @csrf
                         @method('DELETE')
                         <button type="submit"

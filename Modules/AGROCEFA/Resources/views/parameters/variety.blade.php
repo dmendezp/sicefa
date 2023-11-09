@@ -3,7 +3,7 @@
     <div class="card-header">
         variedad
         @auth
-            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                 <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearvarieties"><i
                         class='bx bx-plus icon'></i></button>
             @endif
@@ -17,7 +17,7 @@
                     <th>Nombre</th>
                     <th>Especie</th>
                     @auth
-                        @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                        @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                             <th>Acciones</th>
                         @endif
                     @endauth
@@ -31,7 +31,7 @@
                         <td>{{ $variety->name }}</td>
                         <td>{{ $variety->specie->name }}</td>
                         @auth
-                            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                                 <td>
                                     <button class="btn btn-primary btn-sm btn-edit-variety"
                                         data-bs-target="#editarVariedadModal_{{ $variety->id }}" data-bs-toggle="modal">
@@ -62,7 +62,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('agrocefa.varieties.store') }}" method="POST">
+                    <form action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.variety.store') }}" method="POST">
 
                         @csrf
                         <div class="form-group">
@@ -98,7 +98,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    {!! Form::open(['route' => ['agrocefa.varieties.delete', 'id' => $variety->id], 'method' => 'DELETE']) !!}
+                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.variety.destroy', 'id' => $variety->id], 'method' => 'DELETE']) !!}
                     @csrf
                     @method('DELETE')
                     {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
@@ -121,7 +121,7 @@
                 </div>
                 <div class="modal-body">
                     {!! Form::open([
-                        'route' => ['agrocefa.varieties.update', 'id' => $v->id],
+                        'route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.variety.update', 'id' => $v->id],
                         'method' => 'POST',
                         'id' => "editVarietyForm_{$v->id}",
                     ]) !!}
@@ -164,7 +164,7 @@
         $('#editVarietyForm_' + varietyId + ' #lifecycle').val(lifecycle);
 
         // Construir la URL del formulario con el ID de la variedad
-        var formAction = '{{ route('agrocefa.varieties.update', ['id' => 'VARIETY_ID']) }}';
+        var formAction = '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.variety.update', ['id' => 'VARIETY_ID']) }}';
         formAction = formAction.replace('VARIETY_ID', varietyId);
 
         // Actualizar la URL del formulario con el ID de la variedad

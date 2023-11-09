@@ -23,16 +23,16 @@ class RolesTableSeeder extends Seeder
 
 
         // Registrar o actualizar rol de administrador en AGROCEFA
-        $roladministrador = Role::updateOrCreate(['slug' => 'agrocefa.admin'], [
-            'name' => 'Administrador',
-            'description' => 'Rol de Administrador AGROCEFA',
-            'description_english' => 'Role of AGROCEFA Administrator',
-            'full_access' => 'Si',
+        $rolinstructor = Role::updateOrCreate(['slug' => 'agrocefa.trainer'], [
+            'name' => 'Instructor',
+            'description' => 'Rol de Instructor AGROCEFA',
+            'description_english' => 'Role of AGROCEFA Trainer',
+            'full_access' => 'No',
             'app_id' => $app->id
         ]);
 
         // Registrar o actualizar rol de Pasante en AGROCEFA
-        $rolpasante = Role::updateOrCreate(['slug' => 'agrocefa.pasante'], [
+        $rolpasante = Role::updateOrCreate(['slug' => 'agrocefa.passant'], [
             'name' => 'Pasante',
             'description' => 'Rol Pasante para el registro de labores AGROCEFA',
             'description_english' => 'Passant role for registration of AGROCEFA labor',
@@ -48,9 +48,9 @@ class RolesTableSeeder extends Seeder
         $userandres = User::where('nickname','AndresFS')->first(); 
 
         // Asignacion de roles a usuarios
-        $useradministrador->roles()->syncWithoutDetaching([$roladministrador->id]);
+        $useradministrador->roles()->syncWithoutDetaching([$rolinstructor->id]);
         $useryaya->roles()->syncWithoutDetaching([$rolpasante->id]);
-        $userandres->roles()->syncWithoutDetaching([$roladministrador->id]);
+        $userandres->roles()->syncWithoutDetaching([$rolinstructor->id]);
         $useryuderly->roles()->syncWithoutDetaching([$rolpasante->id]);
 
     }

@@ -7,7 +7,7 @@
 <div class="container" style="margin-top: 100px">
     <div class="row">
         <div class="col-md-6" style="width: 200px; margin-left: 250px; margin-right: 210px">
-                <a class="card credentialing" href="{{ route('agrocefa.formentrance')}}">
+                <a class="card credentialing" href="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.entry.index')}}">
                      <div class="overlay"></div>
                   <div class="circle">
                     
@@ -44,7 +44,7 @@
                 </a>
         </div>
         <div class="col-md-6">
-                <a style="margin-left: 50px" class="card credentialing" href="{{ route('agrocefa.formexit')}}">
+                <a style="margin-left: 50px" class="card credentialing" href="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.exit.index')}}">
                      <div class="overlay"></div>
                   <div class="circle">
                     

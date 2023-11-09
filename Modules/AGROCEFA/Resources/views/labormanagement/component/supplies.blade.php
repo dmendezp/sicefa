@@ -118,7 +118,7 @@
 
                 // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
                 $.ajax({
-                    url: '{{ route('agrocefa.labormanagement.getsupplies') }}', // Reemplaza 'agrocefa.obtenerelementos' con la ruta adecuada
+                    url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.getsupplies') }}', // Reemplaza 'agrocefa.obtenerelementos' con la ruta adecuada
                     method: 'GET', // Puedes usar GET u otro método según tu configuración
                     data: {
                         category: selectcategory
@@ -208,7 +208,7 @@
 
                 // Realizar una solicitud AJAX para obtener los datos del elemento
                 $.ajax({
-                    url: '{{ route('agrocefa.labormanagement.obtenerdatos') }}',
+                    url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.getinformationelement') }}',
                     method: 'GET',
                     data: {
                         element: selectedElementId
@@ -246,7 +246,7 @@
 
                 // Realizar una solicitud AJAX para obtener los datos del elemento
                 $.ajax({
-                    url: '{{ route('agrocefa.labormanagement.getprice') }}',
+                    url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.getprice') }}',
                     method: 'GET',
                     data: {
                         element: selectedElementId
@@ -297,7 +297,7 @@
 
                 if (!isNaN(enteredQuantity)) {
                     $.ajax({
-                        url: '{{ route('agrocefa.labormanagement.getprice') }}',
+                        url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.getprice') }}',
                         method: 'GET',
                         data: {
                             element: selectedElementId

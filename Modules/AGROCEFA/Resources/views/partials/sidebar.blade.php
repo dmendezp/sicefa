@@ -20,38 +20,40 @@
     <div class="menu-bar">
         <div class="menu">
             <ul class="menu-links">
-                @auth
-                    @if (Auth::user()->havePermission('agrocefa.parameters.index'))
+                @if (Route::is('agrocefa.trainer.*'))
+                    @if (Auth::user()->havePermission('agrocefa.trainer.parameters.index'))
                         <li class="nav-link">
-                            <a href="{{ route('agrocefa.parameters.index') }}">
+                            <a href="{{ route('agrocefa.trainer.parameters.index') }}">
                                 <i class='bx bx-hive icon'></i>
                                 <span class="text nav-text">{{ trans('agrocefa::universal.Parameters') }}</span>
                             </a>
                         </li>
                     @endif
-                    @if (Auth::user()->havePermission('agrocefa.inventory.index'))
+                    @if (Auth::user()->havePermission('agrocefa.trainer.inventory.index'))
                         <li class="nav-link">
-                            <a href="{{ route('agrocefa.inventory') }}">
+                            <a href="{{ route('agrocefa.trainer.inventory.index') }}">
                                 <i class='bx bx-list-plus icon'></i>
                                 <span class="text nav-text">{{ trans('agrocefa::universal.Inventory') }}</span>
                             </a>
                         </li>
+                    @endif
+                    @if (Auth::user()->havePermission('agrocefa.trainer.movements.index'))
                         <li class="nav-link">
-                            <a href="{{ route('agrocefa.movements') }}">
+                            <a href="{{ route('agrocefa.trainer.movements.index') }}">
                                 <i class='bx bx-transfer-alt icon'></i>
                                 <span class="text nav-text">{{ trans('agrocefa::universal.Movements') }}</span>
                             </a>
                         </li>
                     @endif
-                    @if (Auth::user()->havePermission('agrocefa.culturalwork'))
+                    @if (Auth::user()->havePermission('agrocefa.trainer.labormanagement.index'))
                         <li class="nav-link">
-                            <a href="{{ route('agrocefa.culturalwork') }}">
+                            <a href="{{ route('agrocefa.trainer.labormanagement.index') }}">
                                 <i class='bx bx-wrench icon'></i>
                                 <span class="text nav-text">{{ trans('agrocefa::universal.Labormanagement') }}</span>
                             </a>
                         </li>
                     @endif
-                    @if (Auth::user()->havePermission('agrocefa.passant.reports'))
+                    @if (Auth::user()->havePermission('agrocefa.trainer.reports.index'))
                         <li class="nav-link reports">
                             <a href="#">
                                 <i class='bx bx-file icon'></i>
@@ -60,41 +62,96 @@
                             </a>
                             <!-- Agregamos el ul.sub-list dentro del li.nav-link.reports -->
                             <ul class="sub-list">
-                                <li id="sublist-li"><a href="{{ route('agrocefa.reports.consumable') }}"><i
+                                <li id="sublist-li"><a href="{{ route('agrocefa.trainer.reports.consumable.index') }}"><i
                                             class='bx bxl-apple icon'></i><span
                                             class="text nav-text">{{ trans('agrocefa::universal.Consumption') }}</span></a>
                                 </li>
-                                <li id="sublist-li"><a href="{{ route('agrocefa.reports.balance') }}"><i
+                                <li id="sublist-li"><a href="{{ route('agrocefa.trainer.reports.balance.index') }}"><i
                                             class='bx bx-objects-vertical-bottom icon'></i><span
                                             class="text nav-text">{{ trans('agrocefa::universal.Balance') }}</span></a>
                                 </li>
-                                <li id="sublist-li"><a href="#"><i class='bx bx-lemon icon'></i><span
+                                <li id="sublist-li"><a href=""><i class='bx bx-lemon icon'></i><span
                                             class="text nav-text">{{ trans('agrocefa::universal.Production') }}</span></a>
                                 </li>
-                                <li id="sublist-li"><a href="{{ route('agrocefa.reports.labor') }}"><i class='bx bxs-calculator icon' ></i><span
+                                <li id="sublist-li"><a href="{{ route('agrocefa.trainer.reports.labor.index') }}"><i
+                                            class='bx bxs-calculator icon'></i><span
                                             class="text nav-text">Labores</span></a>
                                 </li>
                             </ul>
                         </li>
                     @endif
+                @endif
 
-                @endauth
-                @guest
+                @if (Route::is('agrocefa.passant.*'))
+                    @if (Auth::user()->havePermission('agrocefa.passant.inventory.index'))
+                        <li class="nav-link">
+                            <a href="{{ route('agrocefa.passant.inventory.index') }}">
+                                <i class='bx bx-list-plus icon'></i>
+                                <span class="text nav-text">{{ trans('agrocefa::universal.Inventory') }}</span>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('agrocefa.passant.movements.index'))
+                        <li class="nav-link">
+                            <a href="{{ route('agrocefa.passant.movements.index') }}">
+                                <i class='bx bx-transfer-alt icon'></i>
+                                <span class="text nav-text">{{ trans('agrocefa::universal.Movements') }}</span>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('agrocefa.passant.labormanagement.index'))
+                        <li class="nav-link">
+                            <a href="{{ route('agrocefa.passant.labormanagement.index') }}">
+                                <i class='bx bx-wrench icon'></i>
+                                <span class="text nav-text">{{ trans('agrocefa::universal.Labormanagement') }}</span>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('agrocefa.passant.reports.index'))
+                        <li class="nav-link reports">
+                            <a href="#">
+                                <i class='bx bx-file icon'></i>
+                                <span class="text nav-text">{{ trans('agrocefa::universal.Reports') }}</span>
+                                <i class='bx bx-chevron-down arrow icon' id="flecha2"></i>
+                            </a>
+                            <!-- Agregamos el ul.sub-list dentro del li.nav-link.reports -->
+                            <ul class="sub-list">
+                                <li id="sublist-li"><a href="{{ route('agrocefa.passant.reports.consumable.index') }}"><i
+                                            class='bx bxl-apple icon'></i><span
+                                            class="text nav-text">{{ trans('agrocefa::universal.Consumption') }}</span></a>
+                                </li>
+                                <li id="sublist-li"><a href="{{ route('agrocefa.passant.reports.balance.index') }}"><i
+                                            class='bx bx-objects-vertical-bottom icon'></i><span
+                                            class="text nav-text">{{ trans('agrocefa::universal.Balance') }}</span></a>
+                                </li>
+                                <li id="sublist-li"><a href=""><i class='bx bx-lemon icon'></i><span
+                                            class="text nav-text">{{ trans('agrocefa::universal.Production') }}</span></a>
+                                </li>
+                                <li id="sublist-li"><a href="{{ route('agrocefa.passant.reports.labor.index') }}"><i
+                                            class='bx bxs-calculator icon'></i><span
+                                            class="text nav-text">Labores</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+                @endif
+
+                @if (Route::is('cefa.agrocefa.*'))
                     <li class="nav-link">
-                        <a href="{{ route('agrocefa.index') }}">
+                        <a href="{{ route('cefa.agrocefa.index') }}">
                             <i class='bx bx-home icon'></i>
                             <span class="text nav-text">{{ trans('agrocefa::universal.Home') }}</span>
                         </a>
                     </li>
                     <li class="nav-link">
-                        <a href="{{ route('agrocefa.desarrolladores.index') }}">
+                        <a href="{{ route('cefa.agrocefa.developers.index') }}">
                             <i class='bx bx-code icon'></i>
                             <span class="text nav-text">{{ trans('agrocefa::universal.Developers') }}</span>
                         </a>
                     </li>
 
                     <li class="nav-link">
-                        <a href="{{ route('agrocefa.usuario.index') }}">
+                        <a href="{{ route('cefa.agrocefa.usuario.index') }}">
                             <i class='bx bx-search-alt-2 icon'></i>
                             <span class="text nav-text">{{ trans('agrocefa::universal.AGROCEFA?') }}</span>
                         </a>
@@ -110,21 +167,24 @@
                             <li id="sublist-li"><a href="#"><i class='bx bxl-apple icon'></i><span
                                         class="text nav-text">{{ trans('agrocefa::universal.Consumption') }}</span></a>
                             </li>
-                            <li id="sublist-li"><a href="#"><i class='bx bx-objects-vertical-bottom icon'></i><span
-                                        class="text nav-text">{{ trans('agrocefa::universal.Balance') }}</span></a></li>
+                            <li id="sublist-li"><a href="#"><i
+                                        class='bx bx-objects-vertical-bottom icon'></i><span
+                                        class="text nav-text">{{ trans('agrocefa::universal.Balance') }}</span></a>
+                            </li>
                         </ul>
                     </li>
-                </ul>
-            </div>
+            </ul>
+        </div>
 
-            <div class="bottom-content">
-                <li style="margin-top: 70px" class="">
-                    <a href="{{ route('login') }}">
-                        <i class='bx bx-lock-open icon'></i>
-                        <span class="text nav-text">Iniciar Sesion</span>
-                    </a>
-                </li>
-            @endguest
+        <div class="bottom-content">
+            <li style="margin-top: 70px" class="">
+                <a href="{{ route('login') }}">
+                    <i class='bx bx-lock-open icon'></i>
+                    <span class="text nav-text">Iniciar Sesion</span>
+                </a>
+            </li>
+            @endif
+
             @if (Auth::check())
                 <li class="" style="margin-top: 180px">
                     <a href="{{ route('cefa.welcome') }}">

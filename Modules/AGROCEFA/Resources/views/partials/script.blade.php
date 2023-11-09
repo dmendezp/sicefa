@@ -37,12 +37,19 @@
         });
   });
   </script>
+   <?php
+
+   $consumablesReportRoute = "{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.reports.consumable.resultreport') }}";
+   
+   ?>
   <script>
+    
     $(document).ready(function () {
+            var consumablesReportRoute = "<?php echo $consumablesReportRoute; ?>";
             // Función para cargar y mostrar los datos filtrados
             function loadFilteredData(startDate, endDate) {
                 $.ajax({
-                    url: "{{ route('agrocefa.reports.filterByDate') }}",
+                    url: consumablesReportRoute,
                     type: "POST",
                     data: {
                         startDate: startDate,

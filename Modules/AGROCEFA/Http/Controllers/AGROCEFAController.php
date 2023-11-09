@@ -23,8 +23,13 @@ class AGROCEFAController extends Controller
      * @return Renderable
      */
 
-    // Verifica si el usuario está autenticado
     public function index()
+    {
+        return view('agrocefa::home');
+    }
+    
+    // Verifica si el usuario está autenticado
+    public function trainer_passant()
     {
         // Limpiar la variable 'selectedUnitName'
         Session::forget('selectedUnitName');
@@ -62,7 +67,7 @@ class AGROCEFAController extends Controller
         }
 
         // Si el usuario no está autenticado, muestra la vista 'homeproductive_units' sin datos especiales
-        return view('agrocefa::home');
+        return view('agrocefa::usuario.index');
     }
 
     public function selectUnit($id)
@@ -92,7 +97,7 @@ class AGROCEFAController extends Controller
         if (!$unitId) {
             // Maneja la situación en la que no se encuentra la unidad
             return redirect()
-                ->route('agrocefa.home')
+                ->route('agrocefa:home')
                 ->with('error', 'La unidad productiva no se encontró');
         }
 
@@ -100,12 +105,8 @@ class AGROCEFAController extends Controller
 
         Session::put('selectedRole', $roleName);
 
-        // Redirige a la vista de inicio con el ID de unidad seleccionado
-        return redirect()->route('agrocefa.home');
-    }
 
-    public function home()
-    {
+
         $this->selectedUnitId = Session::get('selectedUnitId');
 
         $selectedUnit = ProductiveUnit::find($this->selectedUnitId);
@@ -201,6 +202,9 @@ class AGROCEFAController extends Controller
             'selectedUnitName' => $selectedUnitName,
             'notification' => $movementsCount,
         ]);
+
+        // Redirige a la vista de inicio con el ID de unidad seleccionado
+        return redirect()->route('cefa.agrocefa.home');
     }
 
     public function movements()

@@ -23,7 +23,7 @@
                         <th>{{ trans('agrocefa::inventory.mark') }}</th>
                         <th>{{ trans('agrocefa::inventory.inventorycode') }}</th>
                         @auth
-                            @if (Auth::user()->havePermission('agrocefa.admin.inventory.manage'))
+                            @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.manage'))
                                 <th>{{ trans('agrocefa::inventory.Actions') }}</th>
                             @endif
                         @endauth
@@ -49,7 +49,7 @@
                             <td>{{ $item->inventory_code }}</td>
 
                             @auth
-                                @if (Auth::user()->havePermission('agrocefa.admin.inventory.manage'))
+                                @if (Auth::user()->havePermission('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.manage'))
                                     <td>
                                         <div class="button-group">
                                             <button class="btn btn-primary btn-sm btn-edit-inventory" data-bs-toggle="modal"

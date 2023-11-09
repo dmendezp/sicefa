@@ -3,7 +3,7 @@
     <div class="card-header">
         {{ trans('agrocefa::cultivo.Crop') }}
         @auth
-            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                 <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearcrop"><i
                         class='bx bx-plus icon'></i>
                 </button>
@@ -23,7 +23,7 @@
                     <th>{{ trans('agrocefa::cultivo.Variety') }}</th>
                     <th>{{ trans('agrocefa::cultivo.End date') }}</th>
                     @auth
-                        @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                        @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                             <th>{{ trans('agrocefa::specie.Actions') }}</th>
                         @endif
                     @endauth
@@ -47,7 +47,7 @@
                         <td>{{ $crop->variety->name }}</td>
                         <td>{{ $crop->finish_date }}</td>
                         @auth
-                            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                                 <td>
                                     <button class="btn btn-primary btn-sm btn-edit-crop"
                                         data-bs-target="#editCultivo_{{ $crop->id }}" data-bs-toggle="modal">
@@ -74,7 +74,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('agrocefa.crop.create') }}" method="POST">
+                <form action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.crop.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="crop_name">{{ trans('agrocefa::cultivo.Crop Name') }}</label>
@@ -139,7 +139,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulario de edición con un ID único -->
-                    {!! Form::open(['route' => ['agrocefa.crop.edit', $crop->id], 'method' => 'PUT', 'id' => 'edit-crop-form']) !!}
+                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.crop.update', $crop->id], 'method' => 'PUT', 'id' => 'edit-crop-form']) !!}
                     @csrf
                     <div class="form-group">
                         {!! Form::label('crop_name', trans('agrocefa::cultivo.Crop Name')) !!}
@@ -216,7 +216,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">{{ trans('agrocefa::cultivo.Cancel') }}</button>
-                    {!! Form::open(['route' => ['agrocefa.crop.delete', 'id' => $crop->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.crop.destroy', 'id' => $crop->id], 'method' => 'POST']) !!}
                     @csrf
                     @method('DELETE')
                     {!! Form::submit(trans('agrocefa::cultivo.Delete'), ['class' => 'btn btn-danger']) !!}
@@ -261,7 +261,7 @@
         $('#edit-crop-form').find('#finish_date').val(cropData.finish_date);
 
         // Construir la URL del formulario con el ID del cultivo
-        var formAction = '{{ route('agrocefa.crop.edit', ['id' => 'CROP_ID']) }}';
+        var formAction = '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.crop.update', ['id' => 'CROP_ID']) }}';
         formAction = formAction.replace('CROP_ID', cropId);
 
         // Actualizar la URL del formulario con el ID del cultivo

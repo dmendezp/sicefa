@@ -31,9 +31,9 @@ class ProductiveUnitTableSeeder extends Seeder
 
        $farm = Farm::where('name','Cefa')->first();
 
-       $roladmin = Role::where('slug','agrocefa.admin')->first();
+       $roltrainer = Role::where('slug','agrocefa.trainer')->first();
 
-       $rolapassant = Role::where('slug','agrocefa.pasante')->first();
+       $rolapassant = Role::where('slug','agrocefa.passant')->first();
 
        $warehouse = Warehouse::updateOrCreate([ 
            'name' => 'General Agricola',
@@ -68,7 +68,7 @@ class ProductiveUnitTableSeeder extends Seeder
 
        $responsibilitiesadmin = Responsibility::updateOrCreate([
             'activity_id' => $activity->id,
-            'role_id' => $roladmin->id
+            'role_id' => $roltrainer->id
        ]);
        
        $responsibilitiespassant = Responsibility::updateOrCreate([

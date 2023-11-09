@@ -38,7 +38,7 @@
     @endif
     <h1>{{ trans('agrocefa::inventory.Inventory') }}</h1>
     @auth
-        @if (Auth::user()->havePermission('agrocefa.admin.inventory.manage'))
+        @if (Auth::user()->havePermission('agrocefa.trainer.inventory.manage'))
             <div id="espacio" class="btn-group" role="group" aria-label="Botones">
                 <button id="register" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#crearegistro">
                     {{ trans('agrocefa::inventory.RecordInventory') }}
@@ -83,7 +83,7 @@
     </style>
 
     <div class="container_inventory">
-        <form method="POST" action="{{ route('agrocefa.inventory.showWarehouseFilter') }}">
+        <form method="POST" action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.showWarehouseFilter') }}">
             @csrf
             <div class="form-group">
                 <label for="category">{{ trans('agrocefa::inventory.selectthecategory') }}</label>
@@ -111,7 +111,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('agrocefa.inventory.addCategory') }}">
+                    <form method="POST" action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.category.store') }}">
                         @csrf
                         <div class="form-group">
                             <label for="name">{{ trans('agrocefa::inventory.NameCategory') }}:</label>
@@ -141,7 +141,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addElementForm" action="{{ route('agrocefa.inventory.addElement') }}" method="POST">
+                    <form id="addElementForm" action="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.element.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="name">{{ trans('agrocefa::inventory.Element') }}:</label>
@@ -203,7 +203,7 @@
             // Realizar una solicitud AJAX para obtener los resultados filtrados
             $.ajax({
                 type: 'POST',
-                url: "{{ route('agrocefa.inventory.showWarehouseFilter') }}",
+                url: "{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.showWarehouseFilter') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     category: selectedCategoryId
@@ -261,7 +261,7 @@
 
 
             // Construir la URL del formulario con el ID de la especie
-            var formAction = '{{ route('agrocefa.inventory.update', ['id' => 'INVENTORY_ID']) }}';
+            var formAction = '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.update', ['id' => 'INVENTORY_ID']) }}';
             formAction = formAction.replace('INVENTORY_ID', InventoryId);
 
             // Actualizar la URL del formulario con el ID de la especie

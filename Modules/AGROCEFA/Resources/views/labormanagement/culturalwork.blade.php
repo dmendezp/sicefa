@@ -66,7 +66,7 @@
 
 
                 <div class="card-body">
-                    {!! Form::open(['route' => 'agrocefa.labormanagement.registerlabor', 'method' => 'POST']) !!}
+                    {!! Form::open(['route' => 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.store', 'method' => 'POST']) !!}
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -270,7 +270,7 @@
 
                     // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
                     $.ajax({
-                        url: '{{ route('agrocefa.obteneresponsability') }}',
+                        url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.getresponsability') }}',
                         method: 'GET',
                         data: {
                             activity: selectedActivityId
@@ -310,7 +310,7 @@
 
                     if (selectedProductId) {
                         $.ajax({
-                            url: '{{ route('agrocefa.reports.cropsbylot') }}',
+                            url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.reports.consumable.getCropsBylot') }}',
                             method: 'GET',
                             data: {
                                 unit: selectedProductId
@@ -355,7 +355,7 @@
                         // Mostrar el botón de detalles del cultivo si se selecciona un cultivo
                         $('.cultivo-details-button').show();
                         $.ajax({
-                            url: '{{ route('agrocefa.labormanagement.getcropinformation') }}',
+                            url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.getcropinformation') }}',
                             method: 'GET',
                             data: {
                                 id: selectedCropId
@@ -391,7 +391,7 @@
                     var selectedCropId = $('#cropSelect').val();
                     if (selectedCropId) {
                         $.ajax({
-                            url: '{{ route('agrocefa.labormanagement.getcropinformation') }}',
+                            url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.getcropinformation') }}',
                             method: 'GET',
                             data: {
                                 id: selectedCropId

@@ -659,7 +659,7 @@ class LaborManagementController extends Controller
             DB::commit();
 
             // Después de realizar la operación de registro con éxito
-            return redirect()->route('agrocefa.culturalwork')->with('success', 'El registro se ha completado con éxito.');
+            return redirect()->route('agrocefa.trainer.labormanagement.index')->with('success', 'El registro se ha completado con éxito.');
 
         } catch (\Exception $e) {
             // En caso de error, realiza un rollback de la transacción y maneja el error

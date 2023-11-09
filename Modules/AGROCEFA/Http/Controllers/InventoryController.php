@@ -20,6 +20,15 @@ use Modules\SICA\Entities\kindOfPurchase;
 
 class InventoryController extends Controller
 {
+    private function buildDynamicRoute()
+    {
+        // Almacenar el rol en la sesión
+        session(['rol' => Auth::user()->rol]);
+
+        // Construir la ruta dinámicamente
+        return 'agrocefa.' . session('rol') . '.inventory.index';
+    }
+
     public function inventory(Request $request)
     {
         // Obtener el ID de la unidad productiva seleccionada (asumiendo que lo tienes en sesión)
@@ -101,7 +110,7 @@ class InventoryController extends Controller
         $category->kind_of_property = $request->input('kind_of_property');
         $category->save();
 
-        return redirect()->route('agrocefa.inventory')->with('success', 'Registro exitoso');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Registro exitoso');
     }
 
     public function addElement(Request $request)
@@ -125,7 +134,7 @@ class InventoryController extends Controller
 
         $element->save();
 
-        return redirect()->route('agrocefa.inventory')->with('success', 'Registro exitoso');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Registro exitoso');
     }
 
     public function store(Request $request)
@@ -224,7 +233,7 @@ class InventoryController extends Controller
         $inventory->save();
 
         return redirect()
-            ->route('agrocefa.inventory')
+            ->route($this->buildDynamicRoute())
             ->with('register', 'Registro actualizado');
     }
 
@@ -240,7 +249,7 @@ class InventoryController extends Controller
                 ->with('error', 'Registro eliminado.');
         } catch (\Exception $e) {
             return redirect()
-                ->route('agrocefa.inventory')
+                ->route($this->buildDynamicRoute())
                 ->with('error', 'Error al eliminar la especie.');
         }
     }
