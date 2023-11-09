@@ -36,6 +36,8 @@
     <div id="filteredLabors">
         @include('agrocefa::Reports.resultlabor')
     </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         // Manejador de eventos para el cambio en el campo "Unidad Productiva"
