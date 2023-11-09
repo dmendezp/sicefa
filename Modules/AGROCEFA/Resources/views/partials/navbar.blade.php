@@ -2,7 +2,7 @@
 <div class="navbar">
   @if (Auth::check() )
   <ul>
-      <li style="margin-left: 40px; margin-right: 130px">
+      <li style="margin-left: 40px; margin-right: 50px">
           <a href="#" id="an">
               @if (!empty(Session::get('selectedUnitName')))
                   AGROCEFA-{{ Session::get('selectedUnitName') }}
@@ -11,7 +11,19 @@
               @endif
           </a>
       </li>
-      <li style="margin-right: 200px"><a href="{{ route('agrocefa.index') }}" id="an">{{ trans('agrocefa::universal.Home')}}</a></li>
+      @auth
+        @if(checkRol('agrocefa.trainer'))
+            <li style="margin-right: 30px">
+                <a href="{{ route('agrocefa.trainer.index') }}" id="an" class="nav-link @if(Route::is('agrocefa.trainer.*')) active @endif">Instructor</a>
+            </li>
+        @endif
+        @if(checkRol('agrocefa.passant'))
+            <li style="margin-right: 30px">
+                <a href="{{ route('agrocefa.passant.index') }}" id="an" class="nav-link @if(Route::is('agrocefa.passant.*')) active @endif">Pasante</a>
+            </li>
+        @endif
+    @endauth
+      <li style="margin-right: 170px"><a href="{{ route('cefa.agrocefa.index') }}" id="an">{{ trans('agrocefa::universal.Home')}}</a></li>
       <li style="margin-right: 40px"><a href="{{ url('lang',['en']) }}" id="an" class="dropdown-item"><img src="{{asset('agrocefa/images/general/en.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English')}}</a></li>
       <li style="margin-right: 100px"><a href="{{ url('lang',['es']) }}" id="an" class="dropdown-item"><img src="{{asset('agrocefa/images/general/es.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish')}}</a></li>
       <li><a href="{{ route('agrocefa.movements.notification') }}" id="an" title="Ver Movimientos Pendientes">
@@ -20,11 +32,12 @@
           <span class="notification-badge">{{ Session::get('notification') }}</span>
         @endif
       </a></li>
+      
   </ul>
   @else
   <ul>
     <li style="margin-left: 40px;margin-right: 200px"><a href="#" id="an">AGROCEFA</a></li>
-    <li style="margin-right: 400px"><a href="{{ route('agrocefa.index') }}" id="an">{{ trans('agrocefa::universal.Home')}}</a></li>
+    <li style="margin-right: 400px"><a href="{{ route('cefa.agrocefa.index') }}" id="an">{{ trans('agrocefa::universal.Home')}}</a></li>
     <li style="margin-right: 40px"><a href="{{ url('lang',['en']) }}" id="an" class="dropdown-item"><img src="{{asset('agrocefa/images/general/en.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.English')}}</a></li>
     <li style="margin-right: 40px"><a href="{{ url('lang',['es']) }}" id="an" class="dropdown-item"><img src="{{asset('agrocefa/images/general/es.png')}}" alt="" style="width: 16px; height: 16px;"> {{ trans('agrocefa::universal.Spanish')}}</a></li>
     

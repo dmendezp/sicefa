@@ -3,7 +3,7 @@
     <div class="card-header">
         {{ trans('agrocefa::parameters.Activity') }}
         @auth
-            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                 <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearactividad"><i
                         class='bx bx-plus icon'></i>
                 </button>
@@ -20,7 +20,7 @@
                     <th class="col-2">{{ trans('agrocefa::parameters.1T_Description') }}</th>
                     <th class="col-1">{{ trans('agrocefa::parameters.1T_Period') }}</th>
                     @auth
-                        @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                        @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                             <th class="col-3">{{ trans('agrocefa::parameters.1T_Actions') }}</th>
                         @endif
                     @endauth
@@ -35,7 +35,7 @@
                         <td>{{ $activity->description }}</td>
                         <td>{{ $activity->period }}</td>
                         @auth
-                            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                                 <td>
                                     <button class="btn btn-primary btn-sm btn-edit-activity" data-bs-toggle="modal"
                                         data-bs-target="#editaractividad_{{ $activity->id }}"
@@ -62,7 +62,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route' => 'agrocefa.activity.create', 'method' => 'POST']) !!}
+                {!! Form::open(['route' => 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.activity.store', 'method' => 'POST']) !!}
                 @csrf
                 <div class="form-group">
                     {!! Form::label('activity_type_id', trans('agrocefa::parameters.Modal_Type_Activity')) !!}
@@ -105,7 +105,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {!! Form::open(['route' => ['agrocefa.activity.edit', 'id' => $activity->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.activity.update', 'id' => $activity->id], 'method' => 'POST']) !!}
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -151,7 +151,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    {!! Form::open(['route' => ['agrocefa.activity.delete', 'id' => $activity->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.activity.destroy', 'id' => $activity->id], 'method' => 'POST']) !!}
                     @csrf
                     @method('DELETE')
                     {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
@@ -178,7 +178,7 @@
         $('#period').val(activityData.period);
 
         // Construir la URL del formulario con el ID de la actividad
-        var formAction = '{{ route('agrocefa.activity.edit', ['id' => 'ACTIVITY_ID']) }}';
+        var formAction = '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.activity.update', ['id' => 'ACTIVITY_ID']) }}';
         formAction = formAction.replace('ACTIVITY_ID', activityId);
 
         // Actualizar la URL del formulario con el ID de la actividad

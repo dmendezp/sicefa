@@ -3,7 +3,7 @@
     <div class="card-header">
         {{ trans('agrocefa::specie.Species') }}
         @auth
-            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                 <button class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crearspecie"><i
                         class='bx bx-plus icon'></i>
                 </button>
@@ -18,7 +18,7 @@
                     <th>{{ trans('agrocefa::specie.Name') }}</th>
                     <th>{{ trans('agrocefa::specie.lifecycle') }}</th>
                     @auth
-                        @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                        @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                             <th>{{ trans('agrocefa::specie.Actions') }}</th>
                         @endif
                     @endauth
@@ -31,7 +31,7 @@
                         <td>{{ $a->name }}</td>
                         <td>{{ $a->lifecycle }}</td>
                         @auth
-                            @if (Auth::user()->havePermission('agrocefa.admin.parameters.manage'))
+                            @if (Auth::user()->havePermission('agrocefa.trainer.parameters.manage'))
                                 <td>
                                     <div class="button-group">
                                         <button class="btn btn-primary btn-sm btn-edit-specie" data-bs-toggle="modal"
@@ -60,7 +60,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route' => 'agrocefa.species.store', 'method' => 'POST']) !!}
+                {!! Form::open(['route' => 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.specie.store', 'method' => 'POST']) !!}
                 @csrf
                 <div class="form-group">
                     {!! Form::label('name', trans('agrocefa::specie.Name') . ':') !!}
@@ -98,7 +98,7 @@
                 </div>
                 <div class="modal-body">
                     {!! Form::open([
-                        'route' => ['agrocefa.species.update', 'id' => $a->id],
+                        'route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.specie.update', 'id' => $a->id],
                         'method' => 'POST',
                         'id' => "editSpeciesForm_{$a->id}",
                     ]) !!}
@@ -144,7 +144,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">{{ trans('agrocefa::specie.Cancel') }}</button>
-                    {!! Form::open(['route' => ['agrocefa.species.destroy', 'id' => $a->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['route' => ['agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.specie.destroy', 'id' => $a->id], 'method' => 'POST']) !!}
                     @csrf
                     @method('DELETE')
                     {!! Form::submit(trans('agrocefa::specie.Delete'), ['class' => 'btn btn-danger']) !!}
@@ -171,7 +171,7 @@
         $('#editSpeciesForm_' + specieId + ' #lifecycle').val(lifecycle);
 
         // Construir la URL del formulario con el ID de la especie
-        var formAction = '{{ route('agrocefa.species.update', ['id' => 'SPECIE_ID']) }}';
+        var formAction = '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.specie.update', ['id' => 'SPECIE_ID']) }}';
         formAction = formAction.replace('SPECIE_ID', specieId);
 
         // Actualizar la URL del formulario con el ID de la especie

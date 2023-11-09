@@ -12,14 +12,14 @@
     <section id="footer_copy" class="container">
         <ul id="nav_link_footer">
             <li id="nav_item_start">
-                <a href="{{ route('agrocefa.index') }}" id="nav_link_start">{{ trans('agrocefa::footer.Start') }}</a>
+                <a href="{{ route('cefa.agrocefa.index') }}" id="nav_link_start">{{ trans('agrocefa::footer.Start') }}</a>
             </li>
             <li id="nav_item_developers">
-                <a href="{{ route('agrocefa.desarrolladores.index') }}"
+                <a href="{{ route('cefa.agrocefa.developers.index') }}"
                     id="nav_link_developers">{{ trans('agrocefa::footer.Developers') }}</a>
             </li>
             <li id="nav_item_about">
-                <a href="{{ route('agrocefa.usuario.index') }}"
+                <a href="{{ route('cefa.agrocefa.usuario.index') }}"
                     id="nav_link_about">{{ trans('agrocefa::footer.About AGROCEFA') }}</a>
             </li>
             <li id="nav_item_reports">

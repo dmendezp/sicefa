@@ -13,6 +13,15 @@ class AplicationMethodController extends Controller
 
 {
     private $selectedUnitId ;
+
+    private function buildDynamicRoute()
+    {
+        // Almacenar el rol en la sesión
+        session(['rol' => Auth::user()->rol]);
+
+        // Construir la ruta dinámicamente
+        return 'agrocefa.' . session('rol') . '.parameters.index';
+    }
     
 
     //Funcion listar los metodos de aplicacion
@@ -73,7 +82,7 @@ class AplicationMethodController extends Controller
         $agriculturalMethod->save();
 
         // Redirige a la página de parámetros con un mensaje de éxito
-        return redirect()->route('agrocefa.parameters.index')->with('success', 'Nuevo método de aplicación registrado correctamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Nuevo método de aplicación registrado correctamente.');
     }
 
     public function editAgriculturalMethod(Request $request, $id)
@@ -90,7 +99,7 @@ class AplicationMethodController extends Controller
 
         if (!$agriculturalMethod) {
             // Maneja el caso en el que no se encuentra el método de aplicación
-            return redirect()->route('agrocefa.parameters.index')->with('error', 'El método de aplicación no se encontró.');
+            return redirect()->route($this->buildDynamicRoute())->with('error', 'El método de aplicación no se encontró.');
         }
 
         // Actualiza los valores del método de aplicación con los datos del formulario
@@ -102,7 +111,7 @@ class AplicationMethodController extends Controller
         $agriculturalMethod->save();
 
         // Redirige a la página de parámetros con un mensaje de éxito
-        return redirect()->route('agrocefa.parameters.index')->with('success', 'Método de aplicación actualizado correctamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Método de aplicación actualizado correctamente.');
     }
 
     public function deleteAplication($id)
@@ -115,10 +124,10 @@ class AplicationMethodController extends Controller
             $metodoAplicacion->delete();
 
             // Si la eliminación fue exitosa, redirige de vuelta con un mensaje de éxito
-            return redirect()->route('agrocefa.parameters.index')->with('success', 'Método de Aplicación eliminado exitosamente');
+            return redirect()->route($this->buildDynamicRoute())->with('success', 'Método de Aplicación eliminado exitosamente');
         } catch (\Exception $e) {
             // Si ocurre algún error, redirige de vuelta con un mensaje de error
-            return redirect()->route('agrocefa.parameters.index')->with('error', 'Error al eliminar el Método de Aplicación');
+            return redirect()->route($this->buildDynamicRoute())->with('error', 'Error al eliminar el Método de Aplicación');
         }
     }
 

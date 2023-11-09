@@ -13,32 +13,17 @@ use Modules\AGROCEFA\Entities\CropEnvironment;
 
 class CropController extends Controller
 {
-    public function index()
+
+    private function buildDynamicRoute()
     {
-        $crop = Crop::all();
+        // Almacenar el rol en la sesión
+        session(['rol' => Auth::user()->rol]);
 
-        $selectedUnitId = Session::get('selectedUnitId');
-
-        // Obtén los EnvironmentProductiveUnit relacionados con la unidad productiva seleccionada
-        $lots = EnvironmentProductiveUnit::where('productive_unit_id', $selectedUnitId)->with('environment')->get();
-
-        // Inicializa arrays para almacenar los IDs y nombres de environment
-        $environmentIds = [];
-        $environmentNames = [];
-
-        // Itera a través de los elementos de la colección
-        foreach ($lots as $lot) {
-            // Accede a los atributos de la relación 'environment'
-            $environmentId = $lot->environment->id;
-            $environmentName = $lot->environment->name;
-
-            // Agrega los valores a los arrays
-            $environmentIds[] = $environmentId;
-            $environmentNames[] = $environmentName;
-        }
-
-        return view('agrocefa::crop',['crop'=> $crop , 'lots' => $lots]);
+        // Construir la ruta dinámicamente
+        return 'agrocefa.' . session('rol') . '.parameters.index';
     }
+
+
     
     public function createCrop(Request $request){
         $selectedEnvironmentId = $request->input('environment_id'); // Obtén el ambiente seleccionado desde el formulario
@@ -59,7 +44,7 @@ class CropController extends Controller
 
 
 
-        return redirect()->route('agrocefa.parameters.index')->with('success', 'Cultivo registrado exitosamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Cultivo registrado exitosamente.');
     }
 
 
@@ -88,7 +73,7 @@ class CropController extends Controller
         $crop->save();
 
         // Redirigir al usuario a la vista de edición con un mensaje de éxito
-        return redirect()->route('agrocefa.parameters.index')->with('success', 'Cultivo ha sido editado exitosamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Cultivo ha sido editado exitosamente.');
     }
 
 
@@ -98,6 +83,6 @@ class CropController extends Controller
         $crop = Crop::findOrFail($id);
         $crop->delete();
 
-        return redirect()->route('agrocefa.parameters.index')->with('error', 'El Cultivo ha sido eliminada exitosamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('error', 'El Cultivo ha sido eliminada exitosamente.');
     }
 }

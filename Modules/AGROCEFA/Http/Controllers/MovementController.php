@@ -31,6 +31,15 @@ class MovementController extends Controller
     private $pivotId;
     private $pivotReceiveId;
 
+    private function buildDynamicRoute()
+    {
+        // Almacenar el rol en la sesión
+        session(['rol' => Auth::user()->rol]);
+
+        // Construir la ruta dinámicamente
+        return 'agrocefa.' . session('rol') . '.movements.index';
+    }
+
     public function viewmovements()
     {
         return view('agrocefa::movements.index');
@@ -475,7 +484,7 @@ class MovementController extends Controller
                 DB::commit();
 
                 // Después de realizar la operación de registro con éxito
-                return redirect()->route('agrocefa.formentrance')->with('success', 'El registro se ha completado con éxito.');
+                return redirect()->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.entry.index')->with('success', 'El registro se ha completado con éxito.');
 
             } catch (\Exception $e) {
                 // En caso de error, realiza un rollback de la transacción y maneja el error
@@ -897,7 +906,7 @@ class MovementController extends Controller
             DB::commit();
 
             // Después de realizar la operación de registro con éxito
-            return redirect()->route('agrocefa.formexit')->with('success', 'El registro se ha completado con éxito.');
+            return redirect()->route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.exit.index')->with('success', 'El registro se ha completado con éxito.');
 
         } catch (\Exception $e) {
             // En caso de error, realiza un rollback de la transacción y maneja el error

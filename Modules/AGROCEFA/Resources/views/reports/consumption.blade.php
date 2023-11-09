@@ -36,7 +36,7 @@
 
                     if (selectedProductId) {
                         $.ajax({
-                            url: '{{ route('agrocefa.reports.cropsbylot') }}',
+                            url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.reports.consumable.getCropsBylot') }}',
                             method: 'GET',
                             data: {
                                 unit: selectedProductId
@@ -89,7 +89,7 @@
                     
                     if (selectedCrop) {
                         $.ajax({
-                            url: '{{ route('agrocefa.reports.filterByDate') }}',
+                            url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.reports.consumable.resultreport') }}',
                             method: 'GET',
                             data: {
                                 _token: '{{ csrf_token() }}',

@@ -10,6 +10,15 @@ use Modules\AGROCEFA\Entities\Variety;
 class VarietyController extends Controller
 {
 
+    private function buildDynamicRoute()
+    {
+        // Almacenar el rol en la sesión
+        session(['rol' => Auth::user()->rol]);
+
+        // Construir la ruta dinámicamente
+        return 'agrocefa.' . session('rol') . '.parameters.index';
+    }
+
     public function index()
     {
         $varieties = Variety::with('specie')->get();
@@ -39,7 +48,7 @@ class VarietyController extends Controller
             'specie_id' => $request->input('specie_id'),
         ]);
 
-        return redirect()->route('agrocefa.parameters.index')->with('success', 'Variedad creada exitosamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Variedad creada exitosamente.');
     }
 
 
@@ -57,7 +66,7 @@ class VarietyController extends Controller
             'specie_id' => $request->input('specie_id'),
         ]);
 
-        return redirect()->route('agrocefa.parameters.index')->with('success', 'Variedad actualizada exitosamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('success', 'Variedad actualizada exitosamente.');
     }
 
     public function delete($id)
@@ -65,6 +74,6 @@ class VarietyController extends Controller
         $variety = Variety::findOrFail($id);
         $variety->delete();
 
-        return redirect()->route('agrocefa.parameters.index')->with('error', 'Variedad eliminada exitosamente.');
+        return redirect()->route($this->buildDynamicRoute())->with('error', 'Variedad eliminada exitosamente.');
     }
 }

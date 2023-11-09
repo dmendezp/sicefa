@@ -19,6 +19,16 @@ use Modules\AGROCEFA\Http\Controllers\SpecieController;
 
 class ParameterAgroController extends Controller
 {
+
+    private function buildDynamicRoute()
+    {
+        // Almacenar el rol en la sesión
+        session(['rol' => Auth::user()->rol]);
+
+        // Construir la ruta dinámicamente
+        return 'agrocefa.' . session('rol') . '.parameters.index';
+    }
+    
     public function parametersview()
     {
         $activityController = new ActivityController();
@@ -69,7 +79,7 @@ class ParameterAgroController extends Controller
         // Intenta guardar el nuevo registro en la base de datos
         try {
             $specie->save();
-            return redirect()->route('agrocefa.parameters.index')->with('success', 'Registro exitoso.');
+            return redirect()->route($this->buildDynamicRoute())->with('success', 'Registro exitoso.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al crear la especie. Por favor, inténtalo de nuevo.');
         }
@@ -93,7 +103,7 @@ class ParameterAgroController extends Controller
         $specie->save();
 
         // Redireccionar a la vista de lista de especies o a otra página según sea necesario
-        return redirect()->route('agrocefa.parameters.index');/* ->with('success', 'Especie actualizada correctamente.') */;
+        return redirect()->route($this->buildDynamicRoute());/* ->with('success', 'Especie actualizada correctamente.') */;
     }
 
     /* Funcion eliminar especie*/
@@ -103,9 +113,9 @@ class ParameterAgroController extends Controller
             $species = Specie::findOrFail($id);
             $species->delete();
 
-            return redirect()->route('agrocefa.parameters.index')->with('error', 'Registro eliminado.');
+            return redirect()->route($this->buildDynamicRoute())->with('error', 'Registro eliminado.');
         } catch (\Exception $e) {
-            return redirect()->route('agrocefa.parameters.index')->with('error', 'Error al eliminar la especie.');
+            return redirect()->route($this->buildDynamicRoute())->with('error', 'Error al eliminar la especie.');
         }
     }
 
@@ -128,7 +138,7 @@ class ParameterAgroController extends Controller
         // Intenta guardar el nuevo registro en la base de datos
         try {
             $varieties->save();
-            return redirect()->route('agrocefa.parameters.index');
+            return redirect()->route($this->buildDynamicRoute());
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al crear la variedad. Por favor, inténtalo de nuevo.');
         }
@@ -152,7 +162,7 @@ class ParameterAgroController extends Controller
         $varieties->save();
 
         // Redireccionar a la vista de lista de especies o a otra página según sea necesario
-        return redirect()->route('agrocefa.parameters.index')/* ->with('success', 'Especie actualizada correctamente.') */;
+        return redirect()->route($this->buildDynamicRoute())/* ->with('success', 'Especie actualizada correctamente.') */;
     }
     /* Funcion eliminar variedad*/
 
@@ -162,9 +172,9 @@ class ParameterAgroController extends Controller
             $varieties = Variety::findOrFail($id);
             $varieties->delete();
 
-            return redirect()->route('agrocefa.parameters.index')->with('success', 'variedad eliminada exitosamente.');
+            return redirect()->route($this->buildDynamicRoute())->with('success', 'variedad eliminada exitosamente.');
         } catch (\Exception $e) {
-            return redirect()->route('agrocefa.parameters.index')->with('error', 'Error al eliminar la variedad');
+            return redirect()->route($this->buildDynamicRoute())->with('error', 'Error al eliminar la variedad');
         }
     }
 }

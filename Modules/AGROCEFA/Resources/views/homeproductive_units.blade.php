@@ -9,7 +9,7 @@
         @if(isset($units) && $units->count() > 0)
             @foreach($units as $unit)
                 <div class="col-md-4">
-                    <div class="unit-card" data-unit-id="{{ $unit->id }}">
+                    <div class="unit-card" data-unit-id="{{ $unit->id }}" data-unit-route="{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.select-unit', ['id' => $unit->id]) }}">
                         {{ $unit->name }}
                     </div>
                 </div>
@@ -39,15 +39,13 @@
 </style>
 
 <script>
-    var baseUrl = "{{ url('/') }}";
-
     document.addEventListener('DOMContentLoaded', function() {
         const unitCards = document.querySelectorAll('.unit-card');
 
         unitCards.forEach(function(card) {
             card.addEventListener('click', function() {
-                const unitId = card.getAttribute('data-unit-id');
-                window.location.href = baseUrl + '/agrocefa/select-unit/' + unitId;
+                const unitRoute = card.getAttribute('data-unit-route');
+                window.location.href = unitRoute;
             });
         });
     });

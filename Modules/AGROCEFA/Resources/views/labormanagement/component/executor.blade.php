@@ -59,7 +59,7 @@
                         placeholder: 'Seleccione una persona',
                         minimumInputLength: 3,
                         ajax: {
-                            url: '{{ route('agrocefa.labormanagement.searchperson') }}',
+                            url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.searchperson') }}',
                             dataType: 'json',
                             delay: 250,
                             data: function(params) {
@@ -135,7 +135,7 @@
 
                     // Realizar una solicitud AJAX para obtener los datos del elemento
                     $.ajax({
-                        url: '{{ route('agrocefa.labormanagement.getpriceemploye') }}',
+                        url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.getpriceemploye') }}',
                         method: 'GET',
                         data: {
                             employee: selectedEmploye

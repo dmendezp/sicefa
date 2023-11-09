@@ -54,7 +54,7 @@
         <div id="notification" class="alert alert-danger" style="display: none;"></div>
         <div class="card">
             <div class="card-body">
-                {!! Form::open(['route' => 'agrocefa.registerexit', 'method' => 'POST']) !!}
+                {!! Form::open(['route' => 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.exit.store', 'method' => 'POST']) !!}
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
@@ -208,7 +208,7 @@
 
                 // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
                 $.ajax({
-                    url: '{{ route('agrocefa.warehouse') }}',
+                    url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.getwarehouse') }}',
                     method: 'GET',
                     data: {
                         unit: selectedProductId
@@ -281,7 +281,7 @@
 
                 // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
                 $.ajax({
-                    url: '{{ route('agrocefa.obtenerelement') }}', // Reemplaza 'agrocefa.obtenerelementos' con la ruta adecuada
+                    url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.getelement') }}', // Reemplaza 'agrocefa.obtenerelementos' con la ruta adecuada
                     method: 'GET', // Puedes usar GET u otro método según tu configuración
                     data: {
                         warehouse: selectedWarehouseId
@@ -373,7 +373,7 @@
 
                 // Realizar una solicitud AJAX para obtener los datos del elemento
                 $.ajax({
-                    url: '{{ route('agrocefa.obtenerdatos') }}',
+                    url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.getinformationelement') }}',
                     method: 'GET',
                     data: {
                         element: selectedElementId
@@ -415,7 +415,7 @@
 
                 // Realizar una solicitud AJAX para obtener los datos del elemento
                 $.ajax({
-                    url: '{{ route('agrocefa.getprice') }}',
+                    url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.getprice') }}',
                     method: 'GET',
                     data: {
                         element: selectedElementId
@@ -471,7 +471,7 @@
 
                 if (!isNaN(enteredQuantity)) {
                     $.ajax({
-                        url: '{{ route('agrocefa.getprice') }}',
+                        url: '{{ route('agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.movements.getprice') }}',
                         method: 'GET',
                         data: {
                             element: selectedElementId
