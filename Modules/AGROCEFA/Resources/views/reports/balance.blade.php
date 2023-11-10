@@ -43,7 +43,6 @@
         <div id="filteredLabors">
             @include('agrocefa::reports.resultsbalance')
         </div>
-
     </div>
 
 
