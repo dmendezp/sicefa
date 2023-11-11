@@ -1,8 +1,8 @@
-<footer class="bg-light text-center text-lg-start">
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      ADSI / ADSO <br>
-      <strong>Copyright &copy; 2014-2019 <a target="blank" href="https://centroagroindustrial.blogspot.com/">Centro de Formación Agroindustrial "La Angostura"</a>.</strong> All rights reserved.
-    </div>
-    <!-- Copyright -->
-  </footer>
+<footer class="main-footer">
+  <!-- To the right -->
+  <div class="float-right d-none d-sm-inline ">
+      ADSI D.A.T.R | ADSO D.M
+  </div>
+  <!-- Default to the left -->
+  <strong>Copyright &copy; <a href="https://sicefa.com.co/">SICEFA</a>.</strong> All rights reserved.
+</footer>

@@ -1,7 +1,7 @@
 @extends('gth::layouts.master')
 
 @section('content')
-    @section('css')
+@section('css')
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 @endsection
 @section('content')
@@ -26,13 +26,36 @@
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            
+
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-   
+    @include('gth::employees.new_officials')
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        // Detecta cambios en el campo "Número de Documento"
+        $('#document_number').on('change', function() {
+            var numeroDocumento = $(this).val();
+
+            // Realiza una solicitud AJAX para obtener los datos de la persona
+            $.ajax({
+                url: '{{ route('cefa.gth.getPersonDatas') }}', // Utiliza la ruta configurada en web.php
+                method: 'GET',
+                data: {
+                    document_number: numeroDocumento
+                },
+                success: function(data) {
+                    // Rellena los campos con los datos de la persona
+                    $('#full_name').val(data.full_name);
+                },
+                error: function() {
+                    // Maneja errores si es necesario
+                }
+            });
+        });
+    </script>
 
 @endsection
