@@ -1,50 +1,27 @@
 @extends('hdc::layouts.master')
 
 @push('breadcrumbs')
-    <li class="breadcrumb-item active">Manual de usuario</li>
+    <li class="breadcrumb-item active">{{ trans('hdc::manual.Report_Indicator') }}</li>
 @endpush
-@push('head')
-<!-- Menu CSS -->
-<link rel="stylesheet" href="{{ asset('modules/HDC/css/menu.css') }} ">
-@endpush
-
 @section('content')
-<body>
-    <div class="container">
-        <section class="hero_container container">
-            <h1 class="hero_title">Manual de Usuario</h1>
-            <p class="hero_paragraph">Bienvenido al Manual de Usuario. Aquí encontrarás información detallada sobre cómo utilizar nuestra aplicación.</p>
-        </section>
-    </div>
-    <section class="price container">
-        <div class="price_table">
-            <div class="price_element">
-                <article class="card" onclick="showDetails('icopor')">
-                    <div class="temporary_text">
-                        <img src="{{ asset('modules/HDC/img/panelcontroladmin.png') }}" alt="" class="icopor">
+    <div class="container mt-1">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card card-success card-outline shadow">
+                    <div class="card-body text-center">
+                        <h1 class="display-4 hero_title">{{ trans('hdc::manual.Title_Card_Manual') }}</h1>
+                        <p class="lead hero_paragraph">{{ trans('hdc::manual.Subtitle_Card_Manual') }}</p>
                     </div>
-                    <div class="card_content">
-                        <span class="card_title">Panel de Control del Administrador</span>
-                    </div>
-                </article>
-            </div>
-
-            <div class="price_element">
-                <article class="card" onclick="showDetails('chicle')">
-                    <div class="temporary_text">
-                        <img src="./imagenes/chicle.jpg" alt="" class="icopor">
-                    </div>
-                    <div class="card_content">
-                        <span class="card_title">Panel de control del Encargado</span>
-                    </div>
-                </article>
+                </div>
             </div>
         </div>
-    </section>
-    
+    </div>
+    <br>
 
-
-</body>
-<br>
-
+    <div class="d-flex align-items-center justify-content-center">
+        <div class="pdf-container mx-auto p-4" style="border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); width: 90%;">
+            <iframe src="{{ $pdfPath }}" class="w-100" height="800px" style="border: none;"></iframe>
+        </div>
+    </div>
+    <br>
 @endsection
