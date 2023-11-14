@@ -134,7 +134,7 @@
             </div>
         </div>
     </div>
-    @include('senaempresa::Company.Vacant.inscription')
+    @include('senaempresa::Company.vacancies.details')
 @endsection
 
 <!--scripts utilizados para procesos-->

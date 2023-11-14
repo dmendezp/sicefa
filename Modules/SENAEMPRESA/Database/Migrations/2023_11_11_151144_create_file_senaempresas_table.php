@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFilesSenaempresaTable extends Migration
+class CreateFileSenaempresasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFilesSenaempresaTable extends Migration
      */
     public function up()
     {
-        Schema::create('files_senaempresa', function (Blueprint $table) {
+        Schema::create('file_senaempresas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('postulate_id')->constrained()->onDelete('cascade');
             $table->unsignedInteger('cv_score')->default(0);
@@ -24,7 +24,6 @@ class CreateFilesSenaempresaTable extends Migration
         });
     }
 
-
     /**
      * Reverse the migrations.
      *
@@ -32,6 +31,6 @@ class CreateFilesSenaempresaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('files_senaempresa');
+        Schema::dropIfExists('file_senaempresas');
     }
 }

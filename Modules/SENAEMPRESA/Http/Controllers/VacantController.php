@@ -76,7 +76,7 @@ class VacantController extends Controller
             // Pasa las Senaempresas a la vista
         ];
 
-        return view('senaempresa::Company.Vacant.vacant', $data);
+        return view('senaempresa::Company.vacancies.vacancies', $data);
     }
 
     public function agregar_vacante(Request $request)
@@ -118,7 +118,7 @@ class VacantController extends Controller
         ];
 
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.Vacant.new_vacant', $data);
+            return view('senaempresa::Company.vacancies.new_vacancies', $data);
         } else {
             return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
@@ -168,7 +168,7 @@ class VacantController extends Controller
         $data = ['title' => trans('senaempresa::menu.Edit vacancy'), 'vacancy' => $vacancy, 'positionCompany' => $activePositions];
 
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.Vacant.vacant_edit', $data);
+            return view('senaempresa::Company.vacancies.edit_vacancies', $data);
         } else {
             return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
@@ -297,7 +297,7 @@ class VacantController extends Controller
                 'courseofvacancy' => $courseofvacancy,
             ];
 
-            return view('senaempresa::Company.Vacant.courses_vacancies', $data);
+            return view('senaempresa::Company.vacancies.courses_vacancies', $data);
         } else {
             return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
         }

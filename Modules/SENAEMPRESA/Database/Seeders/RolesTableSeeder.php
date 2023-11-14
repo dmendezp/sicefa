@@ -4,8 +4,6 @@ namespace Modules\SENAEMPRESA\Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\App;
 use Modules\SICA\Entities\Role;
 
@@ -51,12 +49,10 @@ class RolesTableSeeder extends Seeder
         $user_jsm6580 = User::where('nickname', 'JSM6580')->first();
         $user_jmm6580 = User::where('nickname', 'JMM6580')->first();
         $user_dap6580 = User::where('nickname', 'DAP6580')->first();
-        $user_jlg6580 = User::where('nickname', 'JLG6580')->first();
 
         // Asignacion de roles a usuarios
         $user_jsm6580->roles()->syncWithoutDetaching([$rol_admin->id]);
         $user_jmm6580->roles()->syncWithoutDetaching([$rol_admin->id]);
         $user_dap6580->roles()->syncWithoutDetaching([$rol_pasante->id]);
-        $user_jlg6580->roles()->syncWithoutDetaching([$rol_usuario->id]);
     }
 }

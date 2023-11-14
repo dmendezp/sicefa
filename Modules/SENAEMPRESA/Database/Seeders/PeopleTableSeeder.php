@@ -52,15 +52,5 @@ class PeopleTableSeeder extends Seeder
             'population_group_id' => $population_group->id,
             'pension_entity_id' => $pension_entity->id
         ]);
-        // Consulta o registro de datos Jary Liceth Garay Fajardo
-        Person::firstOrCreate(['document_number' => 1079173006], [ // Consultar o registrar Persona
-            'document_type' => 'Cédula de ciudadanía',
-            'first_name' => 'JARY LICETH',
-            'first_last_name' => 'GARAY',
-            'second_last_name' => 'FAJARDO',
-            'eps_id' => $eps->id,
-            'population_group_id' => $population_group->id,
-            'pension_entity_id' => $pension_entity->id
-        ]);
     }
 }

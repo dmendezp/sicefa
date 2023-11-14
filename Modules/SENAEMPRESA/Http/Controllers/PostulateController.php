@@ -8,12 +8,10 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Modules\SENAEMPRESA\Entities\file_senaempresa;
+use Modules\SENAEMPRESA\Entities\File_senaempresa;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SENAEMPRESA\Entities\Postulate;
 use Modules\SENAEMPRESA\Entities\Vacancy;
-use Modules\SICA\Entities\Apprentice;
-
 class PostulateController extends Controller
 {
     /**
@@ -176,50 +174,19 @@ class PostulateController extends Controller
     {
         // Validar los datos del formulario aquí si es necesario
         $request->validate([
+            'postulate_id' => 'required|numeric|min:0|max:100',
             'cv_score' => 'required|numeric|min:0|max:100',
             'personalities_score' => 'required|numeric|min:0|max:100',
             'proposal_score' => 'required|numeric|min:0|max:100',
-            'apprentice_id' => 'required|exists:apprentices,id', // Validar que el apprentice_id exista en la tabla de aprendices
         ]);
-
-        // Obtener los valores de los campos del formulario
-        $cvScore = $request->input('cv_score');
-        $personalitiesScore = $request->input('personalities_score');
-        $proposalScore = $request->input('proposal_score');
-        $averageScore = ($cvScore + $personalitiesScore + $proposalScore) / 3;
-
-        // Obtener el ID del aprendiz desde el formulario
-        $apprenticeId = $request->input('apprentice_id');
-
-        // Buscar el aprendiz por su ID
-        $apprentice = Apprentice::find($apprenticeId);
-
-        if (!$apprentice) {
-            // Manejar el caso en el que no se encuentra el aprendiz
-            // Puedes redirigir o mostrar un mensaje de error aquí
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
+        $file_senaempresa = new File_senaempresa();
+        $file_senaempresa->postulate_id = $request->input('postulate_id');
+        $file_senaempresa->cvScore = $request->input('cv_score');
+        $file_senaempresa->personalitiesScore = $request->input('personalities_score');
+        $file_senaempresa->proposalScore = $request->input('proposal_score');
+        if ($file_senaempresa->save()) {
+            return redirect()->route('company.postulate')->with('success', 'Puntaje Asignado');
         }
-
-        // Buscar el archivo file_senaempresa asociado al postulado
-        $fileSenaempresa = file_senaempresa::where('postulate_id', $apprentice->postulate->id)->first();
-
-        if ($fileSenaempresa) {
-            // Actualizar los campos de puntuación en el modelo file_senaempresa
-            $fileSenaempresa->cv_score = $cvScore;
-            $fileSenaempresa->personalities_score = $personalitiesScore;
-            $fileSenaempresa->proposal_score = $proposalScore;
-
-            if ($fileSenaempresa->save()) {
-                // Actualizar el campo de score_total en el modelo Postulate
-                $postulate = Postulate::find($apprentice->postulate->id);
-                $postulate->score_total = $averageScore;
-                $postulate->save();
-
-                // Redirigir con un mensaje de éxito
-                return redirect()->route('company.postulate')->with('success', 'Puntajes asignados con éxito');
-            }
-        }
-
         // Manejar el caso en el que no se pudo guardar
         return redirect()->route('company.postulate')->with('error', 'No se pudieron asignar los puntajes.');
     }
