@@ -152,42 +152,5 @@ class PostulateController extends Controller
         return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
     }
 }
-
-
-
-    public function score($apprenticeId)
-    {
-        // Buscar el postulado por apprentice_id
-        $postulate = Postulate::where('apprentice_id', $apprenticeId)->first();
-
-        // Comprobar si se encontró un postulado
-        if (!$postulate) {
-            return redirect()->back()->with('error', 'No se encontró un postulado con el ID proporcionado.');
-        }
-
-        $data = ['title' => 'Asignar Puntaje', 'postulate' => $postulate];
-
-        return view('senaempresa::Company.Postulate.score', $data);
-    }
-
-    public function assignScore(Request $request)
-    {
-        // Validar los datos del formulario aquí si es necesario
-        $request->validate([
-            'postulate_id' => 'required|numeric|min:0|max:100',
-            'cv_score' => 'required|numeric|min:0|max:100',
-            'personalities_score' => 'required|numeric|min:0|max:100',
-            'proposal_score' => 'required|numeric|min:0|max:100',
-        ]);
-        $file_senaempresa = new File_senaempresa();
-        $file_senaempresa->postulate_id = $request->input('postulate_id');
-        $file_senaempresa->cvScore = $request->input('cv_score');
-        $file_senaempresa->personalitiesScore = $request->input('personalities_score');
-        $file_senaempresa->proposalScore = $request->input('proposal_score');
-        if ($file_senaempresa->save()) {
-            return redirect()->route('company.postulate')->with('success', 'Puntaje Asignado');
-        }
-        // Manejar el caso en el que no se pudo guardar
-        return redirect()->route('company.postulate')->with('error', 'No se pudieron asignar los puntajes.');
-    }
+  
 }

@@ -117,8 +117,8 @@ Route::middleware(['lang'])->group(function () {
         //RUTAS PARA LA VISUALIZACIÓN Y LA ASIGNACIÓN DE PUNTAJE A LOS POSTULADOS A LAS VACANTES DE SENAEMPRESA
         Route::prefix('Postulados')->group(function () {
             Route::get('/', 'PostulateController@postulates')->name('company.postulate');
-            Route::get('/Asignar_puntaje/{apprenticeId}', 'PostulateController@score')->name('company.postulate.score');
-            Route::post('/Puntaje_Asignado', 'PostulateController@assignScore')->name('company.postulate.score_asignado');
+            Route::get('/Asignar_puntaje/{apprenticeId}', 'FileSenaempresaController@score')->name('company.postulate.score');
+            Route::post('/Puntaje_Asignado', 'FileSenaempresaController@assignScore')->name('company.postulate.score_asignado');
         });
 
         //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DE LOS CARGOS DE SENAEMPRESA
