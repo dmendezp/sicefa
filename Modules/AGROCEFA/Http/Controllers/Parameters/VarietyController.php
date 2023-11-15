@@ -1,8 +1,10 @@
 <?php
 
-namespace Modules\AGROCEFA\Http\Controllers;
+namespace Modules\AGROCEFA\Http\Controllers\Parameters;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\AGROCEFA\Entities\Variety;
@@ -12,28 +14,14 @@ class VarietyController extends Controller
 
     private function buildDynamicRoute()
     {
-        // Almacenar el rol en la sesión
-        session(['rol' => Auth::user()->rol]);
-
         // Construir la ruta dinámicamente
-        return 'agrocefa.' . session('rol') . '.parameters.index';
+        return 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.index';
     }
 
     public function index()
     {
         $varieties = Variety::with('specie')->get();
         return view('agrocefa::parameters.parameter ', compact('varieties'));
-    }
-
-    public function species()
-{
-    return $this->belongsTo(Species::class)->withDefault(); // Con withDefault(), se establecerá una especie vacía si no hay una relación.
-}
-
-
-    public function create()
-    {
-        return view('agrocefa::varieties.create');
     }
 
     public function store(Request $request)

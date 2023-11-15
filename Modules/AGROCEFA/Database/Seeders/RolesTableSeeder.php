@@ -50,7 +50,7 @@ class RolesTableSeeder extends Seeder
         // Asignacion de roles a usuarios
         $useradministrador->roles()->syncWithoutDetaching([$rolinstructor->id]);
         $useryaya->roles()->syncWithoutDetaching([$rolpasante->id]);
-        $userandres->roles()->syncWithoutDetaching([$rolinstructor->id]);
+        $userandres->roles()->syncWithoutDetaching([$rolpasante->id]);
         $useryuderly->roles()->syncWithoutDetaching([$rolpasante->id]);
 
     }

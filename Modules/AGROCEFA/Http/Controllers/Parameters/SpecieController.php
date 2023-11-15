@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\AGROCEFA\Http\Controllers;
+namespace Modules\AGROCEFA\Http\Controllers\Parameters;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;

@@ -4,6 +4,8 @@ namespace Modules\AGROCEFA\Http\Controllers\Parameters;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\AGROCEFA\Entities\Specie;
@@ -14,7 +16,7 @@ use Modules\SICA\Entities\Environment;
 use Modules\AGROCEFA\Entities\Variety;
 use Modules\AGROCEFA\Http\Controllers\Parameters\ActivityController;
 use Modules\AGROCEFA\Http\Controllers\Parameters\AplicationMethodController;
-use Modules\AGROCEFA\Http\Controllers\SpecieController;
+use Modules\AGROCEFA\Http\Controllers\Parameters\SpecieController;
 
 
 class ParameterAgroController extends Controller
@@ -22,11 +24,8 @@ class ParameterAgroController extends Controller
 
     private function buildDynamicRoute()
     {
-        // Almacenar el rol en la sesión
-        session(['rol' => Auth::user()->rol]);
-
         // Construir la ruta dinámicamente
-        return 'agrocefa.' . session('rol') . '.parameters.index';
+        return 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.parameters.index';
     }
     
     public function parametersview()

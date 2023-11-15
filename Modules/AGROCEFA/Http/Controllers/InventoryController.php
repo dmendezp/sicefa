@@ -4,6 +4,8 @@ namespace Modules\AGROCEFA\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Inventory;
@@ -22,11 +24,8 @@ class InventoryController extends Controller
 {
     private function buildDynamicRoute()
     {
-        // Almacenar el rol en la sesión
-        session(['rol' => Auth::user()->rol]);
-
         // Construir la ruta dinámicamente
-        return 'agrocefa.' . session('rol') . '.inventory.index';
+        return 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.index';
     }
 
     public function inventory(Request $request)

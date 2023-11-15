@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\ProductiveUnit;
@@ -33,11 +34,7 @@ class MovementController extends Controller
 
     private function buildDynamicRoute()
     {
-        // Almacenar el rol en la sesión
-        session(['rol' => Auth::user()->rol]);
-
-        // Construir la ruta dinámicamente
-        return 'agrocefa.' . session('rol') . '.movements.index';
+        return 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.inventory.index';
     }
 
     public function viewmovements()

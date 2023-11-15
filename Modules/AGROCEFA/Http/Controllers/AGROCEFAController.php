@@ -85,11 +85,20 @@ class AGROCEFAController extends Controller
             $roles = $unit->roles;
             $unitName = $unit->name;
             $unitId = $unit->id;
+        }
 
-            // Recorre las unidades productivas y agrega sus IDs al array
-            foreach ($roles as $rol) {
-                $rolId = $rol->id;
-                $roleName = $rol->name;
+            // Obtiene el usuario autenticado
+        $user = Auth::user();
+
+        if ($user) {
+            // Obtiene los roles del usuario
+            $roles = $user->roles;
+
+            // Puedes recorrer los roles si un usuario puede tener varios roles
+            foreach ($roles as $role) {
+                $roleName = $role->name;
+
+                // Hacer lo que necesites con el nombre del rol
             }
         }
 

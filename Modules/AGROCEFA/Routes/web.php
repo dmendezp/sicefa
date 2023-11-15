@@ -1,9 +1,6 @@
 <?php
 
 use Modules\AGROCEFA\Http\Controllers\AGROCEFAController;
-use Modules\AGROCEFA\Http\Controllers\SpecieController;
-use Modules\AGROCEFA\Http\Controllers\VarietyController; // Asegúrate de importar el controlador VarietyController si no está importado.
-use Modules\AGROCEFA\Http\Controllers\CropController;
 use Modules\AGROCEFA\Http\Controllers\UsuarioController;
 use Modules\AGROCEFA\Http\Controllers\LaborManagementController;
 use Modules\AGROCEFA\Http\Controllers\LaborController;
@@ -41,14 +38,12 @@ Route::middleware(['lang'])->group(function() {
         Route::delete('passant/parameters/activity/destroy/{id}', 'Parameters\ActivityController@deleteActivity')->name('agrocefa.passant.parameters.activity.destroy');
         
         // Variedad
-        Route::get('trainer/parameters/variety/store', 'VarietyController@create')->name('agrocefa.trainer.parameters.variety.store');  
-        Route::get('passant/parameters/variety/store', 'VarietyController@create')->name('agrocefa.passant.parameters.variety.store');
-        Route::post('trainer/parameters/variety/store', 'VarietyController@create')->name('agrocefa.trainer.parameters.variety.store');
-        Route::post('passant/parameters/variety/store', 'VarietyController@create')->name('agrocefa.passant.parameters.variety.store');
-        Route::put('trainer/parameters/variety/update/{id}', 'VarietyController@update')->name('agrocefa.trainer.parameters.variety.update');
-        Route::put('passant/parameters/variety/update/{id}', 'VarietyController@update')->name('agrocefa.passant.parameters.variety.update');
-        Route::delete('trainer/parameters/variety/destroy/{id}', 'VarietyController@delete')->name('agrocefa.trainer.parameters.variety.destroy');
-        Route::delete('passant/parameters/variety/destroy/{id}', 'VarietyController@delete')->name('agrocefa.passant.parameters.variety.destroy');
+        Route::post('trainer/parameters/variety/store', 'Parameters\VarietyController@store')->name('agrocefa.trainer.parameters.variety.store');  
+        Route::post('passant/parameters/variety/store', 'Parameters\VarietyController@store')->name('agrocefa.passant.parameters.variety.store');
+        Route::put('trainer/parameters/variety/update/{id}', 'Parameters\VarietyController@update')->name('agrocefa.trainer.parameters.variety.update');
+        Route::put('passant/parameters/variety/update/{id}', 'Parameters\VarietyController@update')->name('agrocefa.passant.parameters.variety.update');
+        Route::delete('trainer/parameters/variety/destroy/{id}', 'Parameters\VarietyController@delete')->name('agrocefa.trainer.parameters.variety.destroy');
+        Route::delete('passant/parameters/variety/destroy/{id}', 'Parameters\VarietyController@delete')->name('agrocefa.passant.parameters.variety.destroy');
 
         
         // Especie
@@ -62,12 +57,12 @@ Route::middleware(['lang'])->group(function() {
         Route::delete('passant/parameters/specie/destroy/{id}', 'Parameters\ParameterAgroController@destroy')->name('agrocefa.passant.parameters.specie.destroy');
 
         // Crop
-        Route::post('trainer/parameters/crop/store', 'CropController@createCrop')->name('agrocefa.trainer.parameters.crop.store');
-        Route::post('passant/parameters/crop/store', 'CropController@createCrop')->name('agrocefa.passant.parameters.crop.store');
-        Route::put('trainer/parameters/crop/update/{id}', 'CropController@editCrop')->name('agrocefa.trainer.parameters.crop.update');
-        Route::put('passant/parameters/crop/update/{id}', 'CropController@editCrop')->name('agrocefa.passant.parameters.crop.update');
-        Route::put('trainer/parameters/crop/destroy/{id}', 'CropController@deleteCrop')->name('agrocefa.trainer.parameters.crop.destroy');
-        Route::put('passant/parameters/crop/destroy/{id}', 'CropController@deleteCrop')->name('agrocefa.passant.parameters.crop.destroy');
+        Route::post('trainer/parameters/crop/store', 'Parameters\CropController@createCrop')->name('agrocefa.trainer.parameters.crop.store');
+        Route::post('passant/parameters/crop/store', 'Parameters\CropController@createCrop')->name('agrocefa.passant.parameters.crop.store');
+        Route::put('trainer/parameters/crop/update/{id}', 'Parameters\CropController@editCrop')->name('agrocefa.trainer.parameters.crop.update');
+        Route::put('passant/parameters/crop/update/{id}', 'Parameters\CropController@editCrop')->name('agrocefa.passant.parameters.crop.update');
+        Route::put('trainer/parameters/crop/destroy/{id}', 'Parameters\CropController@deleteCrop')->name('agrocefa.trainer.parameters.crop.destroy');
+        Route::put('passant/parameters/crop/destroy/{id}', 'Parameters\CropController@deleteCrop')->name('agrocefa.passant.parameters.crop.destroy');
 
        
 
@@ -157,8 +152,6 @@ Route::middleware(['lang'])->group(function() {
         Route::get('/reports/balance/balancepdf', 'Reports\BalanceController@balancepdf')->name('agrocefa.reports.balancepdf');
 
 
-        // Ruta que acepta tanto GET como POST para la creación de variedades
-        Route::match(['get', 'post'], '/varieties/create', 'VarietyController@create')->name('agrocefa.varieties.create');
 
     });
 });
