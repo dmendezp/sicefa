@@ -133,7 +133,7 @@
                         class="nav-link {{ !Route::is('cefa.gth.pensionentities.view') ?: 'active' }}">
                         <i class="fas fa-user-edit"></i>
                         <p>
-                            Grados
+                            Pension 
                         </p>
                     </a>
                 </li>
@@ -142,14 +142,14 @@
                         class="nav-link {{ !Route::is('cefa.gth.position') ?: 'active' }}">
                         <i class="fas fa-envelope-open-text"></i>
                         <p>
-                            Gestion de Posicion
+                            Grados
                         </p>
                     </a>
                 </li>
                 @if (Auth::user()->havePermission('agrocefa.passant.reports'))
                 @endif
                 <li class="nav-item">
-                    <a href="{{route('cefa.officials.view')}}"
+                    <a href="{{ route('cefa.officials.view') }}"
                         class="nav-link {{ !Route::is('cefa.officials.view') ?: 'active' }}">
                         <i class="fas fa-street-view"></i>
                         <p>
@@ -158,7 +158,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('cefa.contractualcertificates.view')}}"
+                    <a href="{{ route('cefa.contractualcertificates.view') }}"
                         class="nav-link {{ !Route::is('cefa.contractualcertificates.view') ?: 'active' }}">
                         <i class="fas fa-receipt"></i>
                         <p>

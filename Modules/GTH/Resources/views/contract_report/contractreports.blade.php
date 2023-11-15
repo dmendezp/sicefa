@@ -15,7 +15,7 @@
                     <h2>{{ trans('gth::menu.Personal Information') }}</h2>
 
                     <!-- Número de Documento -->
-                    <div class="form-group">
+                    <div class="form-group"> 
                         <label for="document_number">{{ trans('gth::menu.ID number:') }}</label>
                         <input type="number" name="document_number" id="document_number"
                             class="form-control @error('document_number') is-invalid @enderror"

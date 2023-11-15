@@ -157,7 +157,11 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ---
 #### Meet 02-Nov-2022
 * **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *crear el crud de official* - *30 %* - *Dificultades* - *Acciones*
+---
+#### Meet 03-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *crear el crud de official* - *30 %* - *Dificultades* - *Acciones*
 ---
 #### Meet 04-Nov-2022
 * **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
@@ -165,7 +169,28 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ---
 #### Meet 07-Nov-2022
 * **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *botton de crear el funcionario - *10 %* - *Dificulta en hacer el formulario* - *Acciones*
+---
+#### Meet 08-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *botton de crear el funcionario* - *20%* - *Dificulta en las rutaciones* - *Acciones*
+---
+#### Meet 09-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
 * **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+---
+#### Meet 10-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Implementación de plantilla AdminLTE* - *40 %* - *Dificultades* - *Acciones*
+---
+#### Meet 11-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Implementación de plantilla AdminLTE* - *90 %* - *Dificultades* - *Acciones*
+---
+#### Meet 12-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+
 
 
 
