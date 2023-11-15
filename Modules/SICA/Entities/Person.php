@@ -10,7 +10,8 @@ use Modules\EVS\Entities\Jury;
 use Modules\EVS\Entities\Authorized;
 use App\Models\User;
 use Modules\SICA\Entities\Event;
-use Modules\SIGAC\Entities\AcademicProgramming;
+use Modules\AGROINDUSTRIA\Entities\Formulation;
+use Modules\AGROINDUSTRIA\Entities\RequestExternal;
 
 class Person extends Model implements Auditable
 {
@@ -124,6 +125,9 @@ class Person extends Model implements Auditable
     public function farms(){ // Accede a todas las granjas que lidera esta persona
         return $this->hasMany(Farm::class);
     }
+    public function formulations(){ // Accede a todos los registros de formulaciones que tiene esta persona.
+        return $this->hasMany(Formulation::class);
+    }
     public function inventories(){ // Accede a todos los registros de inventarios que estan a cargo de esta persona
         return $this->hasMany(Inventory::class);
     }
@@ -147,6 +151,9 @@ class Person extends Model implements Auditable
     }
     public function productive_units(){ // Accede a todas las unidades productivas que lidera esta persona
         return $this->hasMany(ProductiveUnit::class);
+    }
+    public function request_externals(){ // Accede a todas las solicitudes externas que le pertenecen esta persona
+        return $this->hasMany(RequestExternal::class);
     }
     public function users(){ // Accede a todos los usuarios registrados con esta persona
         return $this->hasMany(User::class);

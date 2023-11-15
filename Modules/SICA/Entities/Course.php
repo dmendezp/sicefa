@@ -48,6 +48,9 @@ class Course extends Model implements Auditable
     public function program(){ // Accede al programa de formación al que pertenece
         return $this->belongsTo(Program::class);
     }
+    public function requestexternals(){ // Accede a la información de los elementos usados en la Formula.
+        return $this->hasMany(RequestExternal::class);
+    }
 
     // Configuración de factory para la generación de datos de pruebas
     protected static function newFactory()
