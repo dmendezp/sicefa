@@ -142,8 +142,10 @@ Route::middleware(['lang'])->group(function() {
         // Labor
         Route::get('trainer/reports/labor', 'Reports\laborController@index')->name('agrocefa.trainer.reports.labor.index');
         Route::get('passant/reports/labor', 'Reports\laborController@index')->name('agrocefa.passant.reports.labor.index');
-        Route::get('/get-crops-by-unit', 'Reports\LaborController@getCropsByUnit')->name('agrocefa.crops_by_unit');
         Route::post('/reports/labor/filter', 'Reports\LaborController@filterlabor')->name('agrocefa.reports.filterlabor');
+        Route::get('trainer/reports/labor/laborDetails', 'Reports\LaborController@getLaborDetails')->name('agrocefa.reports.laborDetails');
+        Route::get('passant/reports/labor/laborDetails', 'Reports\LaborController@getLaborDetails')->name('agrocefa.reports.laborDetails');
+
 
         //Balance
         Route::get('trainer/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.trainer.reports.balance.index');

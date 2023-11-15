@@ -183,7 +183,8 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 
 #### Meet 27-Oct-2023* 
 **Andres Almario** - *SICEFA** - ** - *** 
-**Dayana Valenzuela** - *Asignacion de tarjeta Reporte Balance - *Avance 10%* - *Dificultades N/A* - *Acciones N/A** **Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** **Yuderly Sapuy** - *campo para filtar las labores ejecutadas en el cultivo entre fechas * - *Avance 35%* - *Dificultades para las consultas y filtros* - *Acciones: trabajo en equipo y consultas en internet*
+**Dayana Valenzuela** - *Asignacion de tarjeta Reporte Balance - *Avance 10%* - *Dificultades N/A* - *Acciones N/A** **Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** 
+**Yuderly Sapuy** - *campo para filtar las labores ejecutadas en el cultivo entre fechas * - *Avance 35%* - *Dificultades para las consultas y filtros* - *Acciones: trabajo en equipo y consultas en internet*
 ---
 
 #### Meet 28-Oct-2023* 
@@ -195,7 +196,8 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 #### Meet 30-Oct-2023* 
 **Andres Almario** - *SICEFA** - ** - *** 
 **Dayana Valenzuela** - *Actualizacion y arreglos Reporte Balance - *Avance 70%* - *Dificultades N/A* - *Acciones N/A***
-**Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** **Yuderly Sapuy** - *trabajo en la vista de filtro para las labores ejecutadas* - *Avance 40%* - *Dificultades para las consultas y filtros* - *Acciones: trabajo en equipo y consultas en internet*
+**Laura Vanessa** - *Asignacion de tarjeta Reporte de producción* - *Avance 10%* - *Dificultades N/A* - *N/A** 
+**Yuderly Sapuy** - *trabajo en la vista de filtro para las labores ejecutadas* - *Avance 40%* - *Dificultades para las consultas y filtros* - *Acciones: trabajo en equipo y consultas en internet*
 ---
 
 #### Meet 02-Nov-2023* 
@@ -209,15 +211,58 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 **Andres Almario** - *SICEFA** - ** - *** 
 **Dayana Valenzuela** - *Inclusion de graficas para el balance de gastos y producciones - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
 **Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
-**Yuderly Sapuy** - *Edicion de fechas de siembra CRUD-Crops* - *Avance 60%* - *Dificultades N/A* - *Acciones*
+**Yuderly Sapuy** - *Atraer y filtrar en la vista el lote y cultivo asociado al lote* - *Avance 65%* - *Dificultades N/A* - *Acciones N/A*
 ---
 
 #### Meet 04-Nov-2023* 
 **Andres Almario** - *SICEFA** - ** - *** 
 **Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
 **Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
-**Yuderly Sapuy** - *Edicion de fechas de siembra CRUD-Crops* - *Avance 60%* - *Dificultades N/A* - *Acciones*
+**Yuderly Sapuy** - *Atraer y filtrar labores asociados al cultivo seleccionado * - *Avance 70%* - *Dificultades para filtrar la labor* - *Acciones: trabajo en equipo y consultas en internet*
 ---
+#### Meet 05-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Crear tabla para mostrar las labores asociadas al cultivo* - *Avance 75%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 06-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Atraer y filtrar los componentes asociados y aplicados a la labor * - *Avance 78%* - *Dificultades para filtrar los componentes* - *Acciones: trabajo en equipo y consultas en internet*
+---
+
+#### Meet 07-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Crear tabla para mostrar los componentes filtrados y asociados y aplicados a la labor * - *Avance 80%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 08-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Continuacion de front-end  para mostrar los componentes filtrados y asociados y aplicados a la labor * - *Avance 85%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 09-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Filtracion exitosa de los datos de los componentes  asociados y aplicados a la labor * - *Avance 86%* - *Dificultades N/A* - *Acciones*
+---
+
+#### Meet 10-Nov-2023* 
+**Andres Almario** - *SICEFA** - ** - *** 
+**Dayana Valenzuela** - *Traducciones de la vista balance y cambios en el diseño de las tablas - *Avance 100%* - *Dificultades N/A* - *Acciones N/A***
+**Laura Vanessa** - *Llamar al cultivo segun el lote, traducciones y avances en reportes de produccion* - *Avance 10%* - *Dificultades N/A* - *Acciones N/A***
+**Yuderly Sapuy** - *Descarga y aplicacion de la libreria para implementar PDF en los componentes de la labor  * - *Avance 88%* - *Dificultades N/A* - *Acciones*
+---
+
+
 
 
 

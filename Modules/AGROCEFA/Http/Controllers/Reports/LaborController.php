@@ -1,96 +1,150 @@
 <?php
 
-namespace Modules\AGROCEFA\Http\Controllers\Reports;
+    namespace Modules\AGROCEFA\Http\Controllers\Reports;
 
-use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Modules\SICA\Entities\EnvironmentProductiveUnit;
-use Modules\AGROCEFA\Entities\CropEnvironment;
-use Modules\SICA\Entities\Labor;
+    use Illuminate\Contracts\Support\Renderable;
+    use Illuminate\Support\Facades\Session;
+    use Illuminate\Http\Request;
+    use Illuminate\Routing\Controller;
+    use Modules\SICA\Entities\EnvironmentProductiveUnit;
+    use Modules\AGROCEFA\Entities\CropEnvironment;
+    use Modules\SICA\Entities\Labor;
+    use Modules\SICA\Entities\Equipment;
+    use Modules\SICA\Entities\Consumable;
+    use Modules\SICA\Entities\Executor;
+    use Modules\SICA\Entities\Tool;
+    use Modules\SICA\Entities\Production;
+    use Carbon\Carbon; // Asegúrate de importar la clase Carbon
+    use Barryvdh\DomPDF\Facade\Pdf;
 
 
-class LaborController extends Controller
-{
-    public function index()
+    class LaborController extends Controller
     {
-        $selectedUnitId = Session::get('selectedUnitId');
+        public function index()
+        {
+            $labor = Labor::all();
+            $this->selectedUnitId = Session::get('selectedUnitId');
+            $lotData = EnvironmentProductiveUnit::where('productive_unit_id', $this->selectedUnitId)
+                ->with('environment')
+                ->get();
 
-        // Obtén los EnvironmentProductiveUnit relacionados con la unidad productiva seleccionada
-        $lots = EnvironmentProductiveUnit::where('productive_unit_id', $selectedUnitId)->with('environment')->get();
+            $environmentData = [];
 
-        // Inicializa arrays para almacenar los IDs y nombres de environment
-        $environmentIds = [];
-        $environmentNames = [];
+            foreach ($lotData as $item) {
+                $environmentId = $item->environment->id;
+                $environmentName = $item->environment->name;
 
-        // Itera a través de los elementos de la colección
-        foreach ($lots as $lot) {
-            // Accede a los atributos de la relación 'environment'
-            $environmentId = $lot->environment->id;
-            $environmentName = $lot->environment->name;
+                $environmentData[] = [
+                    'id' => $environmentId,
+                    'name' => $environmentName,
+                ];
+            }
 
-            // Agrega los valores a los arrays
-            $environmentIds[] = $environmentId;
-            $environmentNames[] = $environmentName;
+            // Inicializa las variables para los totales de gastos y producciones
+            $totalExpenses = 0;
+            $totalProductions = 0;
+
+            return view('agrocefa::reports.labor', [
+                'environmentData' => $environmentData,
+                'labor' => $labor,
+                'totalExpenses' => $totalExpenses,
+                'totalProductions' => $totalProductions,
+            ]);
         }
 
-        // Obtén las labores que deseas mostrar (puedes adaptar esta parte según tus necesidades)
-        $labors = Labor::orderBy('execution_date', 'desc')->limit(10)->get();
-
-        // Retorna la vista y pasa los arrays a la vista
-        return view('agrocefa::reports.labor', [
-            'lots' => $lots,
-            'environmentIds' => $environmentIds,
-            'environmentNames' => $environmentNames,
-            'labors' => $labors,
-        ]);
-    }
-
-    public function getCropsByUnit(Request $request)
-    {
-        $unitId = $request->input('unit');
-
-        // Obtén los EnvironmentProductiveUnit relacionados con la unidad productiva seleccionada
-        $crops = CropEnvironment::where('environment_id', $unitId)->with('crop')->get();
-
-        // Inicializa arrays para almacenar los IDs y nombres de environment
-        $environmentIds = [];
-        $environmentNames = [];
-
-        // Itera a través de los elementos de la colección
-        foreach ($crops as $lot) {
-            // Accede a los atributos de la relación 'environment'
-            $environmentId = $lot->crop->id;
-            $environmentName = $lot->crop->name;
-
-            // Agrega los valores a los arrays
-            $cropIds[] = $environmentId;
-            $cropNames[] = $environmentName;
-        }
-        return response()->json(['cropIds' => $cropIds, 'cropNames' => $cropNames]);
-    }
-
-
-
-    public function filterlabor(Request $request)
+        public function filterlabor(Request $request)
     {
         // Obtén el ID del cultivo seleccionado desde la solicitud AJAX
         $selectedCropId = $request->input('crop');
+        // Inicializa la variable para los resultados filtrados
+        $filteredLabors = null;
 
         // Verifica si se ha seleccionado un cultivo
         if ($selectedCropId) {
-            // Utiliza Eloquent para obtener las labores relacionadas con el cultivo seleccionado
-            $filteredLabors = Labor::whereHas('crops', function ($query) use ($selectedCropId) {
+            // Realiza una consulta para obtener todas las labores relacionadas con el cultivo seleccionado
+            $allLabors = Labor::whereHas('crops', function ($query) use ($selectedCropId) {
                 $query->where('crop_id', $selectedCropId);
             })->get();
-        } else {
-            // Si no se seleccionó un cultivo, puedes manejarlo según tus requisitos. Por ejemplo, mostrar todas las labores.
-            $filteredLabors = Labor::all();
+
+            // Filtra las labores por fechas
+            $filteredLabors = $allLabors->filter(function ($labor) {
+                $executionDate = $labor->execution_date;
+                $seedTime = $labor->crops->first()->seed_time;
+                $finishDate = $labor->crops->first()->finish_date;
+
+                // Verifica si es una labor de producción
+                if ($labor->activity->activity_type->name === 'Producción') {
+                    $totalProductionPrice = 0;
+
+                    // Recorre las producciones de esta labor
+                    foreach ($labor->productions as $production) {
+                        // Asegúrate de que la relación 'element' esté cargada
+                        if (!is_null($production->element)) {
+                            $totalProductionPrice += $production->amount * $production->element->price;
+                        }
+                    }
+
+                    $labor->totalProductionPrice = $totalProductionPrice;
+
+                    // Agrupa los componentes por labor id
+                    $componentsByLaborId = $labor->equipments->concat($labor->consumables)
+                        ->concat($labor->executors)->concat($labor->tools)->groupBy('labor_id');
+
+                    // Calcula el costo total de cada componente por labor
+                    $componentTotalCosts = [];
+                    foreach ($componentsByLaborId as $laborId => $components) {
+                        $totalCost = $components->sum(function ($component) {
+                            return $component->amount * $component->price;
+                        });
+
+                        $componentTotalCosts[$laborId] = $totalCost;
+                    }
+
+                    $labor->componentTotalCosts = $componentTotalCosts;
+                }
+
+                return $executionDate >= $seedTime && $executionDate <= $finishDate;
+            });
         }
 
-        // Devuelve la vista con las labores filtradas
-        return view('agrocefa::Reports.resultlabor', [
+        // Inicializa las variables para los totales de gastos y producciones
+        $totalExpenses = 0;
+        $totalProductions = 0;
+
+        if (!empty($filteredLabors) && count($filteredLabors) > 0) {
+            foreach ($filteredLabors as $labor) {
+                // Calcula los totales de gastos y producciones
+                $totalExpenses += $labor->price;
+                if ($labor->activity->activity_type->name === 'Producción') {
+                    $totalProductions += $labor->totalProductionPrice;
+                }
+            }
+
+        }
+
+        // Almacena los datos filtrados y los totales en variables de sesión
+        session(['filteredLabors' => $filteredLabors]);
+        session(['totalExpenses' => $totalExpenses]);
+        session(['totalProductions' => $totalProductions]);
+
+        // Devuelve la vista con las labores filtradas y los totales
+        return view('agrocefa::reports.resultlabor', [
             'filteredLabors' => $filteredLabors,
+            'totalExpenses' => $totalExpenses,
+            'totalProductions' => $totalProductions,
         ]);
     }
+
+
+
+    public function getLaborDetails(Request $request)
+{
+    $laborId = $request->input('laborId');
+    $labor = Labor::with('activity', 'equipments', 'consumables', 'executors', 'tools')->find($laborId);
+
+    return view('agrocefa::reports.laborDetails', ['labor' => $labor]);
 }
+
+
+
+    }
