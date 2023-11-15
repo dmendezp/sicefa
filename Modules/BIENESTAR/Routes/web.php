@@ -22,12 +22,23 @@ Route::middleware(['lang'])->group(function () {
         //vista home
         Route::get('/home', 'BIENESTARController@home')->name('cefa.bienestar.home');
         Route::get('/home/admin', 'BIENESTARController@home')->name('bienestar.admin.dashboard');
+        Route::get('/home/transportation_benefits_leader', 'BIENESTARController@home')->name('bienestar.food_benefits_leaders.dashboard');//home Lider del Beneficio de Alimentacion
+        Route::get('/home/food_benefits_leader', 'BIENESTARController@home')->name('bienestar.transportation_benefits_leader.dashboard');//home Lider del beneficio de Transporte
+        Route::get('/home/feeding_assistant', 'BIENESTARController@home')->name('bienestar.feeding_assistant.dashboard');//home Asistente de Alimentacion
+        Route::get('/home/route_leader', 'BIENESTARController@home')->name('bienestar.route_leader.dashboard');//home Lider de ruta
 
-        //Vista Crud Beneficio
+
+        //Vista Crud Beneficio(ADMINISTRADOR)
         Route::get('/admin/benefits', 'BenefitsController@benefitsView')->name('bienestar.admin.crud.benefits');
         Route::delete('/admin/benefits/delete/{id}', 'BenefitsController@destroy')->name('bienestar.admin.delete.benefits');
         Route::post('/admin/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('bienestar.admin.save.benefits');
         Route::put('/admin/benefits/update/{id}', 'BenefitsController@update')->name('bienestar.admin.edit.benefits');
+
+         //Vista Crud Beneficio(LIDER BENEFICIO DE ALIMENTACION)
+         Route::get('/food_benefits_leaders/benefits', 'BenefitsController@benefitsView')->name('bienestar.food_benefits_leaders.crud.benefits');
+         Route::delete('/food_benefits_leaders/benefits/delete/{id}', 'BenefitsController@destroy')->name('bienestar.food_benefits_leaders.delete.benefits');
+         Route::post('/food_benefits_leaders/benefits/add', 'BenefitsController@BenefitsViewAdd')->name('bienestar.food_benefits_leaders.save.benefits');
+         Route::put('/food_benefits_leaders/benefits/update/{id}', 'BenefitsController@update')->name('bienestar.food_benefits_leaders.edit.benefits');
 
         //Vista CRUD Buses
         Route::get('/buses', 'BusesController@index')->name('bienestar.admin.crud.buses');
@@ -112,7 +123,7 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/addquestions/add_answer', 'ConvocationsQuestionsController@add_answer')->name('bienestar.admin.save.editform');
        
         // Vista De Consulta
-            Route::get('/callconsultation', 'CallConsultationController@index')->name('cefa.bienestar.callconsultation');
+        Route::get('/callconsultation', 'CallConsultationController@index')->name('cefa.bienestar.callconsultation');
         Route::post('/busqueda', 'CallConsultationController@buscar')->name('cefa.bienestar.busqueda');
         Route::post('/busqueda/document', 'CallConsultationController@search')->name('cefa.bienestar.search1');
         Route::post('/search', 'CallConsultationController@searchByDocumentNumber')->name('cefa.bienestar.search.by.document');
@@ -128,10 +139,14 @@ Route::middleware(['lang'])->group(function () {
 
 
 
-        //vista el listados apoyo alimentacion 
+        //vista el listados apoyo alimentacion(ADMINISTRADOR)
         Route::get('/foodrecord', 'AssistancesFoodsController@index')->name('bienestar.admin.crud.beneficiaries_food');
-        Route::get('/assistancefood', 'AssistancesFoodsController@assistancefoodrecord')->name('cefa.bienestar.assistancefoodrecord');
-        Route::get('/filtro-porcentaje', 'AssistancesFoodsController@filtrarPorcentaje')->name('cefa.bienestar.filtrarPorcentaje');
+        Route::get('/assistancefood', 'AssistancesFoodsController@assistancefoodrecord')->name('bienestar.admin.view.food_assistance_lists');
+        Route::get('/filtro-porcentaje', 'AssistancesFoodsController@filtrarPorcentaje')->name('bienestar.admin.route.food_assistance_lists.filter');
+        //vista el listados apoyo alimentacion(LIDER BENEFICIO DE ALIMENTACION)
+        Route::get('/foodrecord', 'AssistancesFoodsController@index')->name('bienestar.food_benefits_leaders.crud.beneficiaries_food');
+        Route::get('/assistancefood', 'AssistancesFoodsController@assistancefoodrecord')->name('bienestar.food_benefits_leaders.view.food_assistance_lists');
+        Route::get('/filtro-porcentaje', 'AssistancesFoodsController@filtrarPorcentaje')->name('bienestar.food_benefits_leaders.route.food_assistance_lists.filter');
 
 
         //Vistas Asignar Rutas de transporte
@@ -144,8 +159,8 @@ Route::middleware(['lang'])->group(function () {
         Route::put('/assing-form-transportation-routes/updateInline', 'AssingFormTransporRoutesController@updateInline')->name('cefa.bienestar.assing-form-transportation-routes.updateInline');
 
         //vista de listado lista de asistencia de transporte
-        route::get('/transportation_assistance_list', 'TransportationAssistancesController@index')->name('cefa.bienestar.transportation_assitance_list.index');
-        Route::post('/busqueda/documentos', 'TransportationAssistancesController@search')->name('cefa.bienestar.searchattendancetransport');
+        route::get('/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.admin.view.transportation_assistance_lists');
+        Route::post('/busqueda/documentos', 'TransportationAssistancesController@search')->name('bienestar.admin.view.transportation_assistance_lists.consult');
 
         //Vista transportation-assistance
         Route::get('/transportation_asistance', 'TransportationAssistancesController@indexasistances')->name('bienestar.admin.view.asistance_transport');

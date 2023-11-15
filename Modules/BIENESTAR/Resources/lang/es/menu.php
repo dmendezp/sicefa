@@ -6,6 +6,7 @@ return[
     'Profile'=>'Perfil',
     'Configuration'=>'Configuration',
     'Log Out'=>'Cerrar Sesion',
+    'Food Benefits Leader'=>'Lider Beneficio de Alimentacion',
 
         //sidebar
     'Back to Sicefa'=>'Volver a Sicefa',

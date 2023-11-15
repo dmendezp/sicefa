@@ -1,3 +1,6 @@
+@php
+    $role_name = getRoleRouteName(Route::currentRouteName()); // Obtener el rol a partir del nombre de la ruta en la cual ha sido invocada esta vista
+@endphp
 @extends('bienestar::layouts.master')
 
 @section('content')
@@ -9,8 +12,8 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-8">
             <div class="card-body">
-                @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.benefits'))
-                <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.benefits')}}" method="post" onsubmit="return validarFormulario()" class="formGuardar">
+                @if (Auth::user()->havePermission('bienestar.'.$role_name.'.save.benefits'))
+                <form action="{{ route('bienestar.'.$role_name.'.save.benefits')}}" method="post" onsubmit="return validarFormulario()" class="formGuardar">
                     @csrf
                     <div class="row align-items-center p-4">
                         <div class="col-md-3">
@@ -63,8 +66,8 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.benefits'))
-                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.benefits', ['id' => $benefit->id]) }}" method="post">
+                                                        @if (Auth::user()->havePermission('bienestar.'.$role_name.'.edit.benefits'))
+                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('bienestar.'.$role_name.'.edit.benefits', ['id' => $benefit->id]) }}" method="post">
                                                             @csrf
                                                             @method('PUT')
                                                             <!-- Campos de edición aquí -->

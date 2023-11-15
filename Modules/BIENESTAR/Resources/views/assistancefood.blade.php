@@ -8,7 +8,7 @@
             <div class="card-body">
 
                 <!-- Formulario de filtro -->
-                <form method="GET" action="{{ route('cefa.bienestar.assistancefoodrecord') }}">
+                <form method="GET" action="{{ route('bienestar.admin.route.food_assistance_lists.filter') }}">
                     @csrf
                     <div class="form-group col-md-6">
                         <label for="porcentaje">porcentajes:</label>

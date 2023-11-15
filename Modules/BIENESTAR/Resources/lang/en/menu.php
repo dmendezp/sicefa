@@ -6,7 +6,7 @@ return[
     'Profile'=>'Profile',
     'Configuration'=>'Configuration',
     'Log Out'=>'Log Out',
-
+    'Food Benefits Leader'=> 'Food Benefits Leader',
         //sidebar
     'Back to Sicefa'=>'Back to Sicefa',
     'Apprentices'=>'Apprentices',

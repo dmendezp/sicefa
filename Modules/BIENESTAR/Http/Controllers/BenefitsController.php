@@ -4,6 +4,7 @@ namespace Modules\BIENESTAR\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\Benefit;
 
@@ -18,6 +19,7 @@ class BenefitsController extends Controller
 
     public function BenefitsViewAdd(Request $request)
     {
+        $role_name = getRoleRouteName(Route::currentRouteName());
         // Define las reglas de validación para los campos name y porcentaje
         $rules = [
             'name' => 'required|string', // Asegura que el campo sea una cadena de texto
@@ -35,7 +37,7 @@ class BenefitsController extends Controller
 
         // Verifica si ya existe un beneficio con el mismo nombre y porcentaje
         if ($existingBenefit) {
-            return redirect()->route('bienestar.admin.crud.benefits')->with('error', 'Ya existe un beneficio con el mismo nombre y porcentaje.');
+            return redirect()->route('bienestar.'.$role_name.'.crud.benefits')->with('error', 'Ya existe un beneficio con el mismo nombre y porcentaje.');
         }
 
         // Si la validación pasa y no existe un beneficio con el mismo nombre y porcentaje, crea el registro en la base de datos
@@ -44,13 +46,13 @@ class BenefitsController extends Controller
             'porcentege' => $porcentege,
         ]);
 
-        return redirect()->route('bienestar.admin.crud.benefits')->with('success', 'Beneficio agregado correctamente');
+        return redirect()->route('bienestar.'.$role_name.'.crud.benefits')->with('success', 'Beneficio agregado correctamente');
     }
 
 
     public function update(Request $request, $id)
     {
-
+        $role_name = getRoleRouteName(Route::currentRouteName());
         $benefit = Benefit::find($id);
 
         // Actualizar los datos
@@ -59,7 +61,7 @@ class BenefitsController extends Controller
         $benefit->save();
 
         // Redirigir o devolver una respuesta según tus necesidades
-        return redirect()->route('bienestar.admin.crud.benefits')->with('success', 'Beneficio actualizado con éxito');
+        return redirect()->route('bienestar.'.$role_name.'.crud.benefits')->with('success', 'Beneficio actualizado con éxito');
     }
 
     public function destroy($id)
