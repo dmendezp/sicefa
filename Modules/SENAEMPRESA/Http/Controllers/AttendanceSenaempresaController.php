@@ -5,6 +5,7 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Route;
 use Modules\SENAEMPRESA\Entities\AttendanceSenaempresa;
 use Modules\SENAEMPRESA\Entities\StaffSenaempresa;
 use Modules\SICA\Entities\Apprentice;
@@ -12,14 +13,14 @@ use Modules\SICA\Entities\Person;
 
 class AttendanceSenaempresaController extends Controller
 {
-    public function showAttendanceList()
+    public function new()
     {
         $attendances = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')->get();
         $title = "Asistencia";
         return view('senaempresa::Company.attendance.index', ['attendances' => $attendances, 'title' => $title]);
     }
 
-    public function registerAttendance(Request $request)
+    public function register(Request $request)
     {
         // Valida los datos del formulario aquí, si es necesario
         $personid = $request->input('person_id');
@@ -36,13 +37,13 @@ class AttendanceSenaempresaController extends Controller
             // Ya existe un registro de asistencia para esta persona en el mismo día
             if ($existingAttendance->end_datetime) {
                 // Si ya tiene una fecha y hora de salida registrada, muestra una alerta
-                return redirect()->route('company.asistencia')->with('error', 'La asistencia para este día ya ha sido registrada con una hora de entrada y de salida.');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', 'La asistencia para este día ya ha sido registrada con una hora de entrada y de salida.');
             } else {
                 // Actualiza la fecha y hora de salida
                 $existingAttendance->end_datetime = now();
                 $existingAttendance->save();
                 // Redirige a la lista de asistencias o muestra un mensaje de éxito
-                return redirect()->route('company.asistencia')->with('success', 'Hora de salida registrada exitosamente.');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('success', 'Hora de salida registrada exitosamente.');
             }
         } else {
             // No existe un registro de asistencia existente, crea uno nuevo
@@ -61,12 +62,36 @@ class AttendanceSenaempresaController extends Controller
                 $attendance->save();
 
                 // Redirige a la lista de asistencias o muestra un mensaje de éxito
-                return redirect()->route('company.asistencia')->with('success', 'Asistencia registrada exitosamente.');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('success', 'Asistencia registrada exitosamente.');
             } else {
                 // Maneja el caso en el que $staffsenaempresaid no es válido, por ejemplo, mostrando un mensaje de error
-                return redirect()->route('company.asistencia')->with('error', 'No se pudo registrar la asistencia porque el aprendiz no esta en el personal');
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.index')->with('error', 'No se pudo registrar la asistencia porque el aprendiz no esta en el personal');
             }
         }
+    }
+
+    public function queryAttendance(Request $request)
+    {
+        $documentNumber = $request->input('document_number');
+
+        $attendances = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')
+            ->whereHas('staffSenaempresa.apprentice.person', function ($query) use ($documentNumber) {
+                $query->where('document_number', $documentNumber);
+            })
+            ->get();
+
+        $attendanceData = [];
+
+        foreach ($attendances as $attendance) {
+            $attendanceData[] = [
+                'name' => $attendance->staffSenaempresa->apprentice->person->full_name,
+                'document_number' => $attendance->staffSenaempresa->apprentice->person->document_number,
+                'start_datetime' => $attendance->start_datetime,
+                'end_datetime' => $attendance->end_datetime,
+            ];
+        }
+
+        return response()->json(['attendances' => $attendanceData]);
     }
 
     public function getPersonData(Request $request)
@@ -94,28 +119,5 @@ class AttendanceSenaempresaController extends Controller
                 'is_registered' => $isRegisteredInStaff, // Indicador de registro en StaffSenaempresa
             ]);
         }
-    }
-    public function queryAttendance(Request $request)
-    {
-        $documentNumber = $request->input('document_number');
-
-        $attendances = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')
-            ->whereHas('staffSenaempresa.apprentice.person', function ($query) use ($documentNumber) {
-                $query->where('document_number', $documentNumber);
-            })
-            ->get();
-
-        $attendanceData = [];
-
-        foreach ($attendances as $attendance) {
-            $attendanceData[] = [
-                'name' => $attendance->staffSenaempresa->apprentice->person->full_name,
-                'document_number' => $attendance->staffSenaempresa->apprentice->person->document_number,
-                'start_datetime' => $attendance->start_datetime,
-                'end_datetime' => $attendance->end_datetime,
-            ];
-        }
-
-        return response()->json(['attendances' => $attendanceData]);
     }
 }

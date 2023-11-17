@@ -24,26 +24,23 @@ class PermissionsTableSeeder extends Seeder
         // Consultar aplicación SENAEMPRESA para registrar los roles
         $app = App::where('name', 'SENAEMPRESA')->first();
 
-        // Home de todos los roles
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista Inicio',
-            'description' => 'Puede ver el inicio',
-            'description_english' => 'You can see the start',
+        // Vista pasante senaempresa
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.pasante.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista Usuario Senaempresa',
+            'description' => 'Puede ver vista pasante senaempresa',
+            'description_english' => 'You can see senaempresa trainee view',
             'app_id' => $app->id
         ]);
         $permission_intern[] = $permission->id; // Almacenar permiso para rol
-        $permission_user = []; // Permisos para usuario
 
-
-        // Vista Contactos
-        $permission = Permission::updateOrCreate(['slug' => 'company.contact'], [ // Registro o actualización de permiso
-            'name' => 'Vista Contacto',
-            'description' => 'Puede ver vista de contactos',
-            'description_english' => 'You can see contact view',
+        // Vista usuario senaempresa
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.usuario.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista Pasante Senaempresa',
+            'description' => 'Puede ver vista usuario senaempresa',
+            'description_english' => 'You can see user view senaempresa',
             'app_id' => $app->id
         ]);
         $permission_intern[] = $permission->id; // Almacenar permiso para rol
-        $permission_user[] = $permission->id; // Almacenar permiso para rol
 
         // Vista senaempresa estrategias
         $permission = Permission::updateOrCreate(['slug' => 'company.senaempresa'], [ // Registro o actualización de permiso

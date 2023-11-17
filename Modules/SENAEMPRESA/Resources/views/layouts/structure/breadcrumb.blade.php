@@ -6,7 +6,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item active">SENAEMPRESA</li>
+                    <li class="breadcrumb-item"><a href="{{ route('cefa.senaempresa.index') }}" class="text-decoration-none">SENAEMPRESA</a></li>
                     <li class="breadcrumb-item active">{{ $title }}</li>
                 </ol>
             </div><!-- /.col -->

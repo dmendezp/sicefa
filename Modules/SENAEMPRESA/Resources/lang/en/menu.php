@@ -160,7 +160,7 @@ return [
 
     // Navbar
 
-    'Contact' => 'Contact',
+    'Developers' => 'Developers',
 
     //Postulate
 

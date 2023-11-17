@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Route;
 use Modules\SENAEMPRESA\Entities\CourseVacancy;
 use Modules\SENAEMPRESA\Entities\senaempresa;
-use Modules\SICA\Entities\Apprentice;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\Vacancy;
 use Modules\SENAEMPRESA\Entities\PositionCompany;
@@ -29,7 +28,7 @@ class VacantController extends Controller
         $vacancy = Vacancy::find($id);
         return response()->json($vacancy);
     }
-    public function vacantes(Request $request)
+    public function vacancies(Request $request)
     {
         $selectedCourseId = null;
         $selectedSenaempresaId = $request->input('senaempresaFilter', null);
@@ -76,10 +75,10 @@ class VacantController extends Controller
             // Pasa las Senaempresas a la vista
         ];
 
-        return view('senaempresa::Company.vacancies.vacancies', $data);
+        return view('senaempresa::Company.vacancies.index', $data);
     }
 
-    public function agregar_vacante(Request $request)
+    public function new(Request $request)
     {
         // Obtén solo los cargos activos
         $activePositions = PositionCompany::where('state', 'activo')->get();
@@ -118,13 +117,13 @@ class VacantController extends Controller
         ];
 
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.vacancies.new_vacancies', $data);
+            return view('senaempresa::Company.vacancies.new', $data);
         } else {
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
 
-    public function store(Request $request)
+    public function saved(Request $request)
     {
         // Obtener el archivo de imagen del formulario
         if ($image = $request->file('image')) {
@@ -153,7 +152,7 @@ class VacantController extends Controller
 
         if ($vacancy->save()) {
             $data = ['title' => 'Nueva Vacante', 'vacancy' => $vacancy];
-            return redirect()->route('company.vacant.vacantes', $data)->with('success', trans('senaempresa::menu.Vacant added with success'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index', $data)->with('success', trans('senaempresa::menu.Vacant added with success'));
         }
     }
 
@@ -168,14 +167,14 @@ class VacantController extends Controller
         $data = ['title' => trans('senaempresa::menu.Edit vacancy'), 'vacancy' => $vacancy, 'positionCompany' => $activePositions];
 
         if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.vacancies.edit_vacancies', $data);
+            return view('senaempresa::Company.vacancies.edit', $data);
         } else {
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
 
 
-    public function update(Request $request, $id)
+    public function updated(Request $request, $id)
     {
         $vacancy = Vacancy::findOrFail($id);
 
@@ -213,12 +212,12 @@ class VacantController extends Controller
         }
 
         if ($vacancy->save()) {
-            return redirect()->route('company.vacant.vacantes')->with('success', trans('senaempresa::menu.Vacancy successfully updated.'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('success', trans('senaempresa::menu.Vacancy successfully updated.'));
         } else {
             return redirect()->back()->with('error', trans('senaempresa::menu.Error updating the Vacancy.'));
         }
     }
-    public function destroy($id)
+    public function delete($id)
     {
         try {
             $vacante = Vacancy::findOrFail($id);
@@ -232,7 +231,7 @@ class VacantController extends Controller
 
 
     //Asociar cursos a vacantes
-    public function curso_asociado(Request $request)
+    public function show_associates(Request $request)
     {
         try {
             $courseId = $request->input('course_id');
@@ -270,20 +269,20 @@ class VacantController extends Controller
 
 
     public function getAssociations(Request $request)
-{
-    $courseId = $request->query('course_id');
-    $course = Course::findOrFail($courseId);
+    {
+        $courseId = $request->query('course_id');
+        $course = Course::findOrFail($courseId);
 
-    // Obtén todas las relaciones, incluidas las marcadas como eliminadas
-    $associations = CourseVacancy::where('course_id', $courseId)
-        ->pluck('vacancy_id')
-        ->toArray();
+        // Obtén todas las relaciones, incluidas las marcadas como eliminadas
+        $associations = CourseVacancy::where('course_id', $courseId)
+            ->pluck('vacancy_id')
+            ->toArray();
 
-    return response()->json(['associations' => $associations], 200);
-}
+        return response()->json(['associations' => $associations], 200);
+    }
 
 
-    public function mostrar_asociados()
+    public function partner_course()
     {
         $vacancies = Vacancy::get();
         $courses = Course::where('status', 'Activo')->with('vacancy')->get();
@@ -297,10 +296,9 @@ class VacantController extends Controller
                 'courseofvacancy' => $courseofvacancy,
             ];
 
-            return view('senaempresa::Company.vacancies.courses_vacancies', $data);
+            return view('senaempresa::Company.vacancies.partner_course', $data);
         } else {
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
-
 }

@@ -1,28 +1,53 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('senamepresa.index') }}" class="nav-link ">{{ trans('senaempresa::menu.Home') }}</a>
+            <a href="{{ route('cefa.senaempresa.index') }}"
+                class="nav-link @if(Route::is('cefa.senaempresa.*')) active @endif">{{ trans('senaempresa::menu.Home') }}</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('company.contact') }}" class="nav-link ">{{ trans('senaempresa::menu.Contact') }}
-            </a>
-        </li>
-
-        <!--{{--
-    <li class="nav-item d-none d-sm-inline-block">
-      <a href="{{route('contacto')}}" class="nav-link">Contact</a>
-    </li>
-    --}}
-    -->
+        @auth
+            @if (checkRol('senaempresa.admin'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('senaempresa.admin.index') }}"
+                        class="nav-link @if(Route::is('senaempresa.admin.*')) active @endif">Administrador
+                    </a>
+                </li>
+            @endif
+            @if (checkRol('senaempresa.pasante'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('senaempresa.pasante.index') }}"
+                        class="nav-link @if(Route::is('senaempresa.pasante.*')) active @endif">Pasante
+                    </a>
+                </li>
+            @endif
+            @if (checkRol('senaempresa.usuario'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('senaempresa.usuario.index') }}"
+                        class="nav-link @if(Route::is('senaempresa.usuario.*')) active @endif">Usuario
+                    </a>
+                </li>
+            @endif
+        @endauth
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <!-- languaje Dropdown Menu-->
+        <li>
+            <div type="button" class="button-login">
+                @guest
+                    <a href="{{ route('login') }}" class="text-decoration-none text-black">
+                        <span>Iniciar Sesión</span>
+                    </a>
+                @else
+                    <span>{{ Auth::user()->person->fullname }}</span>
+                @endguest
+            </div>
+        </li>
+
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 {{ session('lang') }} <i class="fas fa-globe"></i>
@@ -34,19 +59,11 @@
 
         </li>
 
-
-        <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+        <li class="nav-item mx-1">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip"
+                data-bs-placement="bottom" data-bs-title="{{ trans('ptventa::general.Full Screen Mode') }}">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
-        </li>
-
-        <!-- <li class="nav-item" title="Salir">
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="">
-    @csrf
-    <button type="submit" class="btn btn-outline nav-link"><i class="fas fa-sign-out-alt" ></i></button>
-    </form> -->
-
         </li>
     </ul>
 </nav>

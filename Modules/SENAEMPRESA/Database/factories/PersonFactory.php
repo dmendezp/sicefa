@@ -42,6 +42,7 @@ class PersonFactory extends Factory
             'eps_id' => EPS::inRandomOrder()->first()->id,
             'population_group_id' => PopulationGroup::inRandomOrder()->first()->id,
             'pension_entity_id' => PensionEntity::inRandomOrder()->first()->id
+            
         ];
     }
 }

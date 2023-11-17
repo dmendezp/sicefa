@@ -6,7 +6,9 @@
                 <div class="card card-primary card-outline shadow">
                     <div class="card-header">{{ trans('senaempresa::menu.Register attendance') }}</div>
                     <div class="card-body">
-                        <form action="{{ route('attendance.register') }}" method="POST" enctype="multipart/form-data">
+                        <form
+                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.register') }}"
+                            method="POST" id="form-element" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="document_number"
@@ -94,7 +96,7 @@
                 var documentNumber = $(this).val();
 
                 $.ajax({
-                    url: '{{ route('getPersonData') }}',
+                    url: '{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.getPersonData') }}',
                     method: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
@@ -118,7 +120,7 @@
                 var documentNumber = $('input[name="document_number"]').val();
 
                 $.ajax({
-                    url: '{{ route('queryAttendance') }}',
+                    url: '{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.queryAttendance') }}',
                     method: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',

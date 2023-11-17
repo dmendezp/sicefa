@@ -4,7 +4,7 @@ namespace Modules\SENAEMPRESA\Http\Controllers;
 
 use DateInterval;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\SENAEMPRESA\Entities\Loan;
@@ -14,7 +14,7 @@ use Modules\SICA\Entities\Inventory;
 
 class LoanController extends Controller
 {
-    public function index(Request $request)
+    public function loans(Request $request)
     {
         $loanState = $request->input('loan_state');
 
@@ -34,41 +34,41 @@ class LoanController extends Controller
             'inventories' => $inventories,
         ];
 
-        return view('senaempresa::Company.Loan.loan', $data);
+        return view('senaempresa::Company.loans.index', $data);
     }
 
-    public function devolver_prestamo($id)
+    public function return($id)
     {
         // Busca el préstamo por su ID
         $loan = Loan::find($id);
-    
+
         if ($loan) {
             // Obtén la fecha y hora actual
             $currentDateTime = now();
-    
+
             // Actualiza la fecha y hora de finalización con la fecha y hora actual
             $loan->end_datetime = $currentDateTime;
-    
+
             // Actualiza el estado a "Devuelto"
             $loan->state = 'Devuelto';
             $loan->save();
-    
+
             // Aumenta la cantidad en el inventario
             $inventory = Inventory::find($loan->inventory_id);
             if ($inventory) {
                 $inventory->amount += 1;
                 $inventory->save();
             }
-    
-            return redirect()->route('company.loan.prestamos')->with('success', trans('senaempresa::menu.Loan successfully repaid.'));
+
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('success', trans('senaempresa::menu.Loan successfully repaid.'));
         } else {
-            return redirect()->route('company.loan.prestamos')->with('error', trans('senaempresa::menu.The loan was not found.'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('error', trans('senaempresa::menu.The loan was not found.'));
         }
     }
-    
 
 
-    public function register()
+
+    public function new()
     {
         $loans = Loan::get();
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
@@ -93,41 +93,41 @@ class LoanController extends Controller
             (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
                 Auth::user()->roles[0]->name === 'Pasante Senaempresa')
         ) {
-            return view('senaempresa::Company.Loan.new_loan', $data);
+            return view('senaempresa::Company.loans.new', $data);
         } else {
-            return redirect()->route('company.loan.prestamos')->with('error', trans('senaempresa::menu.Its not authorized'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
 
-    public function prestamo_nuevo(Request $request)
-{
-    $inventory = Inventory::find($request->input('inventory_id'));
+    public function saved(Request $request)
+    {
+        $inventory = Inventory::find($request->input('inventory_id'));
 
-    // Verificar si el inventario existe y la cantidad es suficiente
-    if ($inventory && $inventory->amount >= 1) {
-        $loan = new Loan();
-        $loan->staff_senaempresa_id = $request->input('staff_senaempresa_id');
-        $loan->inventory_id = $request->input('inventory_id');
-        $loan->start_datetime = $request->input('start_datetime');    
-        $loan->state = 'Prestado';
+        // Verificar si el inventario existe y la cantidad es suficiente
+        if ($inventory && $inventory->amount >= 1) {
+            $loan = new Loan();
+            $loan->staff_senaempresa_id = $request->input('staff_senaempresa_id');
+            $loan->inventory_id = $request->input('inventory_id');
+            $loan->start_datetime = $request->input('start_datetime');
+            $loan->state = 'Prestado';
 
-        if ($loan->save()) {
-            // Actualizar la cantidad en el inventario
-            $inventory->amount -= 1;
-            $inventory->save();
+            if ($loan->save()) {
+                // Actualizar la cantidad en el inventario
+                $inventory->amount -= 1;
+                $inventory->save();
 
-            // Indicar que se debe mostrar el formulario después de redirigir
-            return redirect()->route('company.loan.prestamos')->with('showForm', true)->with('success', trans('senaempresa::menu.Loan added successfully.'));
+                // Indicar que se debe mostrar el formulario después de redirigir
+                return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('showForm', true)->with('success', trans('senaempresa::menu.Loan added successfully.'));
+            }
+        } else {
+            // La cantidad en el inventario no es suficiente
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('error', trans('senaempresa::menu.There is not enough in the inventory to make the loan.'));
         }
-    } else {
-        // La cantidad en el inventario no es suficiente
-        return redirect()->route('company.loan.prestamos')->with('error', trans('senaempresa::menu.There is not enough in the inventory to make the loan.'));
     }
-}
 
 
 
-    public function editar($id)
+    public function edit($id)
     {
         $loan = Loan::find($id);
         $staff_senaempresas = StaffSenaempresa::with('Apprentice.Person')->get();
@@ -139,7 +139,7 @@ class LoanController extends Controller
             ->get();
 
         if (!$loan) {
-            return redirect()->route('company.loan.prestamos')->with('error', trans('senaempresa::menu.Loan not found.'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('error', trans('senaempresa::menu.Loan not found.'));
         }
 
         $data = [
@@ -153,17 +153,17 @@ class LoanController extends Controller
             (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
                 Auth::user()->roles[0]->name === 'Pasante Senaempresa')
         ) {
-            return view('senaempresa::Company.Loan.edit_loan', $data);
+            return view('senaempresa::Company.loans.edit', $data);
         } else {
-            return redirect()->route('company.loan.prestamos')->with('error', trans('senaempresa::menu.Its not authorized'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('error', trans('senaempresa::menu.Its not authorized'));
         }
     }
-    public function update(Request $request, $id)
+    public function updated(Request $request, $id)
     {
         $loan = Loan::find($id);
 
         if (!$loan) {
-            return redirect()->route('company.loan.prestamos')->with('error', trans('senaempresa::menu.Loan not found.'));
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('error', trans('senaempresa::menu.Loan not found.'));
         }
         $loan->staff_senaempresa_id = $request->input('staff_senaempresa_id');
         $loan->inventory_id = $request->input('inventory_id');
@@ -171,6 +171,6 @@ class LoanController extends Controller
         $loan->end_datetime = $request->input('end_datetime');
         $loan->save();
 
-        return redirect()->route('company.loan.prestamos')->with('success', trans('senaempresa::menu.Loan updated successfully.'));
+        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('success', trans('senaempresa::menu.Loan updated successfully.'));
     }
 }

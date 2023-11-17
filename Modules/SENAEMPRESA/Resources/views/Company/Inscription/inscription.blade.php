@@ -8,7 +8,9 @@
                     <div class="card-header">{{ $title }}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('company.postulate.store') }}" method="POST" enctype="multipart/form-data">
+                        <form
+                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.registered') }}"
+                            method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="apprentice_info"
@@ -46,7 +48,8 @@
 
                             <button type="submit"
                                 class="btn btn-success">{{ trans('senaempresa::menu.Register') }}</button>
-                            <a href="{{ route('company.vacant.vacantes') }}">
+                            <a
+                                href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index') }}">
                                 {!! Form::button('Cancelar', ['class' => 'btn btn-danger', 'name' => 'cancelar']) !!}
                             </a>
                         </form>

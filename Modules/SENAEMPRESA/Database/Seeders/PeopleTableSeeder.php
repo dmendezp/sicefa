@@ -23,34 +23,37 @@ class PeopleTableSeeder extends Seeder
         $pension_entity = PensionEntity::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar Entidad de pensiones
 
         // Consulta o registro de datos Junior Stiven Medina Hernandez
-        Person::firstOrCreate(['document_number' => 1079173785], [ // Consultar o registrar Persona
+        Person::updateOrCreate(['document_number' => 1079173785], [ // Consultar o registrar Persona
             'document_type' => 'Cédula de ciudadanía',
             'first_name' => 'JUNIOR STIVEN',
             'first_last_name' => 'MEDINA',
             'second_last_name' => 'HERNANDEZ',
             'eps_id' => $eps->id,
             'population_group_id' => $population_group->id,
-            'pension_entity_id' => $pension_entity->id
+            'pension_entity_id' => $pension_entity->id,
+            'avatar' => 'modules/senaempresa/images/Contacto/Medina.jpg'
+
         ]);
         // Consulta o registro de datos Jenifer Marin Montealegre
-        Person::firstOrCreate(['document_number' => 1075791904], [ // Consultar o registrar Persona
+        Person::updateOrCreate(['document_number' => 1075791904], [ // Consultar o registrar Persona
             'document_type' => 'Cédula de ciudadanía',
             'first_name' => 'JENIFER',
             'first_last_name' => 'MARIN',
             'second_last_name' => 'MONTEALEGRE',
             'eps_id' => $eps->id,
-            'population_group_id' => $population_group->id,
-            'pension_entity_id' => $pension_entity->id
+            'pension_entity_id' => $pension_entity->id,
+            'avatar' => 'modules/senaempresa/images/Contacto/Marin.jpg'
+
         ]);
         // Consulta o registro de datos Diego Alejandro Penagos
-        Person::firstOrCreate(['document_number' => 1081152391], [ // Consultar o registrar Persona
+        Person::updateOrCreate(['document_number' => 1081152391], [ // Consultar o registrar Persona
             'document_type' => 'Cédula de ciudadanía',
             'first_name' => 'DIEGO ALEJANDRO',
             'first_last_name' => 'PENAGOS',
             'second_last_name' => 'NINCO',
             'eps_id' => $eps->id,
-            'population_group_id' => $population_group->id,
-            'pension_entity_id' => $pension_entity->id
+            'pension_entity_id' => $pension_entity->id,
+            'avatar' => 'modules/senaempresa/images/Contacto/Penagos.jpg'
         ]);
     }
 }

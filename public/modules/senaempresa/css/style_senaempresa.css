@@ -28,19 +28,19 @@
 }
 
 .navbar {
-    background-color: #2ea29c;
+    background-color: #ffffff;
 }
 
 .navbar-nav .nav-item .nav-link {
-    color: rgb(240, 243, 244) !important;
+    color: rgb(0, 0, 0) !important;
 }
 
 .navbar-nav .nav-item .nav-link:hover {
-    color: #000 !important;
+    color: #ffffff !important;
 }
 
 .navbar-nav .active {
-    background-color: #2ea29c !important;
+    background-color: #216b68 !important;
     border-radius: 5px;
 }
 
@@ -227,3 +227,25 @@ a[title]:hover::before {
     white-space: nowrap;
   }
 
+  
+  .button-login {
+    position: relative;
+    padding: 6px 45px;
+    background: #ffffff;
+    font-size: 17px;
+    font-weight: 500;
+    color: #000; /* Change this line to set the text color to black */
+    border-radius: 8px;
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, .2));
+}
+
+.button-login:hover {
+    background: linear-gradient(85deg, #2ea29c, #2ea29c, #2eb3ac, #2ea29c, #2ea29c);
+    animation: wind 2s ease-in-out infinite;
+}
+
+  
+  
+  
+  
+ 
