@@ -49,7 +49,8 @@
                 </tbody>
             </table>
         </div>
-        <a id="pdf" href="{{ route('agrocefa.reports.balancepdf') }}" class="btn btn-danger" target="_blank">PDF</a>
+        <a id="pdf" href="{{ route('agrocefa.reports.balancepdf') }}" class="btn btn-danger" target="_blank">{{ trans('agrocefa::balance.export') }} <i class="fa-solid fa-file-pdf"></i></a>
+        <br>
     </div>
 
 
@@ -65,6 +66,15 @@
     <br>
     <p>{{ trans('agrocefa::balance.No_work_found') }}</p>
 @endif
+
+<style>
+    #pdf{
+        width: 14%;
+        margin: 0 auto;
+        display: inline-block;
+        text-align: center;
+    }
+</style>
 
 
 <script>

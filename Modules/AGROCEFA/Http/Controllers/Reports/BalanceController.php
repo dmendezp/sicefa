@@ -37,7 +37,7 @@ class BalanceController extends Controller
         $totalExpenses = 0;
         $totalProductions = 0;
 
-        return view('agrocefa::reports.balance', [
+        return view('agrocefa::reports.Balance.balance', [
             'environmentData' => $environmentData,
             'labor' => $labor,
             'totalExpenses' => $totalExpenses,
@@ -79,8 +79,10 @@ class BalanceController extends Controller
                     }
 
                     $labor->totalProductionPrice = $totalProductionPrice;
-                    
                 }
+
+                // Verifica si hay fecha final, si no, usa la fecha actual
+                $finishDate = $finishDate ?? now(); // now() obtiene la fecha y hora actual
 
                 return $executionDate >= $seedTime && $executionDate <= $finishDate;
             });
@@ -98,7 +100,6 @@ class BalanceController extends Controller
                     $totalProductions += $labor->totalProductionPrice;
                 }
             }
-            
         }
 
         // Almacena los datos filtrados y los totales en variables de sesión
@@ -107,7 +108,7 @@ class BalanceController extends Controller
         session(['totalProductions' => $totalProductions]);
 
         // Devuelve la vista con las labores filtradas y los totales
-        return view('agrocefa::reports.resultsbalance', [
+        return view('agrocefa::reports.Balance.resultsbalance', [
             'filteredLabors' => $filteredLabors,
             'totalExpenses' => $totalExpenses,
             'totalProductions' => $totalProductions,
@@ -123,7 +124,7 @@ class BalanceController extends Controller
             $totalProductions = session('totalProductions');
 
             // Inicializa el objeto PDF
-            $pdf = PDF::loadView('agrocefa::reports.balancepdf', [
+            $pdf = PDF::loadView('agrocefa::reports.Balance.balancepdf', [
                 'filteredLabors' => $filteredLabors,
                 'totalExpenses' => $totalExpenses,
                 'totalProductions' => $totalProductions,
@@ -132,8 +133,9 @@ class BalanceController extends Controller
             // Personaliza opciones del PDF si es necesario
             $pdf->setOptions(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
 
+
             // Devuelve el PDF para verlo o descargar
-            return $pdf->stream('balance.pdf');
+            return $pdf->stream('Balance.PDF');
         } else {
             // Maneja la situación en la que no se encontraron datos filtrados
             return redirect()

@@ -41,13 +41,17 @@
         </div>
         <br>
         <div id="filteredLabors">
-            @include('agrocefa::reports.resultsbalance')
+            @include('agrocefa::reports.Balance.resultsbalance')
         </div>
+
     </div>
 
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- Script para graficas --}}
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src=" https://code.highcharts.com/modules/exporting.js "></script>
+    <script src=" https://code.highcharts.com/modules/export-data.js "></script>
+    <script src=" https://code.highcharts.com/modules/accessibility.js "></script>
+
     <script>
         // Manejador de eventos para el cambio en el campo "Actividad"
         $('#lotSelect').on('change', function() {
