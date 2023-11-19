@@ -190,7 +190,7 @@
                         <li class="nav-item">
                             <a href="{{ route('senaempresa.admin.attendances.index') }}"
                                 class="nav-link {{ !Route::is('senaempresa.admin.attendances.index') ?: 'active' }}">
-                                <i class="fas fa-users-cog"></i>
+                                <i class="fas fa-tasks"></i>
                                 <p>
                                     {{ trans('senaempresa::menu.Attendance') }}
                                 </p>
@@ -244,7 +244,7 @@
                     @endif
                     @if (Auth::user()->havePermission('senaempresa.admin.vacancies'))
                         <li
-                            class="nav-item {{ Route::is('senaempresa.admin.vacancies.index', 'senaempresa.admin.vacancies.partner_course', 'senaempresa.admin.positions.index') ? 'menu-is-opening menu-open' : '' }}">
+                            class="nav-item {{ Route::is('senaempresa.admin.vacancies.index', 'senaempresa.admin.vacancies.partner_course') ? 'menu-is-opening menu-open' : '' }}">
                             <a href="#"
                                 class="nav-link {{ !Route::is('senaempresa.admin.vacancies.*') ?: 'active' }}">
                                 <i class="fas fa-id-card"></i>
@@ -320,189 +320,69 @@
 
 
                 {{-- Menú de opciones para Pasante Senaempresa --}}
-                @if (Route::is('senaempresa.pasante.*'))
-                    <li class="nav-item">
-                        <a href="{{ route('senaempresa.pasante.index') }}"
-                            class="nav-link {{ !Route::is('senaempresa.pasante.index') ?: 'active' }}">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <p> {{ trans('sica::menu.Dashboard') }}</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('company.asistencia') }}"
-                            class="nav-link {{ !Route::is('company.asistencia') ?: 'active' }}">
-                            <i class="fas fa-users-cog"></i>
-                            <p>
-                                {{ trans('senaempresa::menu.Attendance') }}
-                            </p>
-                        </a>
-                    </li>
-
-                    <li
-                        class="nav-item {{ Route::is('company.senaempresa.senaempresa', 'company.senaempresa.courses_senaempresa', 'company.senaempresa.personal') ? 'menu-is-opening menu-open' : '' }}">
-                        <a href="#" class="nav-link {{ !Route::is('senaempresa.*') ?: 'active' }}">
-                            <i class="fas fa-chess-rook"></i>
-                            <p>SenaEmpresa
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('company.senaempresa.senaempresa') }}"
-                                    class="nav-link {{ !Route::is('company.senaempresa.senaempresa') ?: 'active' }}">
-                                    <i class="fas fa-chess-rook"></i>
-                                    <p>
-                                        {{ trans('senaempresa::menu.Strategies') }}
-                                    </p>
-                                </a>
-                            </li>
-                            @if (checkRol('senaempresa.admin'))
-                                <li class="nav-item">
-                                    <a href="{{ route('company.senaempresa.courses_senaempresa') }}"
-                                        class="nav-link {{ !Route::is('company.senaempresa.courses_senaempresa') ?: 'active' }}">
-                                        <i class="fas fa-file-invoice"></i>
-                                        <p>{{ trans('senaempresa::menu.Courses SenaEmpresa') }}</p>
-                                    </a>
-                                </li>
-                            @endif
-                            <li class="nav-item">
-                                <a href="{{ route('company.senaempresa.personal') }}"
-                                    class="nav-link {{ !Route::is('company.senaempresa.personal') ?: 'active' }}">
-                                    <i class="fas fa-users-cog"></i>
-                                    <p>
-                                        {{ trans('senaempresa::menu.Staff') }}
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li
-                        class="nav-item {{ Route::is('company.vacant.vacantes', 'inscription', 'company.position.cargos', 'company.vacant.mostrar_asociados') ? 'menu-is-opening menu-open' : '' }}">
-                        <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
-                            <i class="fas fa-id-card"></i>
-                            <p>{{ trans('senaempresa::menu.Vacancies') }}
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('company.vacant.vacantes') }}"
-                                    class="nav-link {{ !Route::is('company.vacant.vacantes') ?: 'active' }}">
-                                    <i class="fas fa-user-tag"></i>
-                                    <p>{{ trans('senaempresa::menu.Availables') }}</p>
-                                </a>
-                            </li>
-                            @if (checkRol('senaempresa.admin'))
-                                <li class="nav-item">
-                                    <a href="{{ route('company.vacant.mostrar_asociados') }}"
-                                        class="nav-link {{ Route::is('company.vacant.mostrar_asociados') ? 'active' : '' }}">
-                                        <i class="fas fa-file-invoice"></i>
-                                        <p>{{ trans('senaempresa::menu.Courses Vacancies') }}</p>
-                                    </a>
-                                </li>
-                            @endif
-                            <li class="nav-item">
-                                <a href="{{ route('company.position.cargos') }}"
-                                    class="nav-link {{ !Route::is('company.position.cargos') ?: 'active' }}">
-                                    <i class="fas fa-user-plus"></i>
-                                    <p>{{ trans('senaempresa::menu.Positions') }}</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item {{ !Route::is('entrevistas.*') ?: 'menu-is-opening menu-open' }}">
-                        <a href="#" class="nav-link {{ !Route::is('entrevistas.*') ?: 'active' }}">
-                            <i class="fas fa-vote-yea"></i>
-                            <p>{{ trans('senaempresa::menu.Postulates') }}
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('company.postulate') }}"
-                                    class="nav-link {{ !Route::is('company.postulate') ?: 'active' }}">
-                                    <i class="fas fa-address-card"></i>
-                                    <p>{{ trans('senaempresa::menu.Postulates') }}</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('cefa.seleccionados') }}"
-                                    class="nav-link {{ !Route::is('cefa.seleccionados') ?: 'active' }}">
-                                    <i class="fas fa-check-double"></i>
-                                    <p>{{ trans('senaempresa::menu.Selected') }}</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('company.loan.prestamos') }}"
-                            class="nav-link {{ !Route::is('company.loan.prestamos') ?: 'active' }}">
-                            <i class="fas fa-poll"></i>
-                            <p>{{ trans('senaempresa::menu.Loans') }}</p>
-                        </a>
-                    </li>
-
+                @if (Route::is('senaempresa.passant.*'))
+                    @if (Auth::user()->havePermission('senaempresa.passant.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('senaempresa.passant.index') }}"
+                                class="nav-link {{ !Route::is('senaempresa.passant.index') ?: 'active' }}">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <p> {{ trans('sica::menu.Dashboard') }}</p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('senaempresa.passant.attendances.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('senaempresa.passant.attendances.index') }}"
+                                class="nav-link {{ !Route::is('senaempresa.passant.attendances.index') ?: 'active' }}">
+                                <i class="fas fa-tasks"></i>
+                                <p>
+                                    {{ trans('senaempresa::menu.Attendance') }}
+                                </p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('senaempresa.passant.staff.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('senaempresa.passant.staff.index') }}"
+                                class="nav-link {{ !Route::is('senaempresa.passant.staff.index') ?: 'active' }}">
+                                <i class="fas fa-users-cog"></i>
+                                <p>
+                                    {{ trans('senaempresa::menu.Staff') }}
+                                </p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('senaempresa.passant.vacancies.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('senaempresa.passant.vacancies.index') }}"
+                                class="nav-link {{ !Route::is('senaempresa.passant.vacancies.index') ?: 'active' }}">
+                                <i class="fas fa-user-tag"></i>
+                                <p>{{ trans('senaempresa::menu.Vacancies') }}</p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('senaempresa.passant.loans.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('senaempresa.passant.loans.index') }}"
+                                class="nav-link {{ !Route::is('senaempresa.admin.loans.index') ?: 'active' }}">
+                                <i class="fas fa-poll"></i>
+                                <p>{{ trans('senaempresa::menu.Loans') }}</p>
+                            </a>
+                        </li>
+                    @endif
                 @endif
 
-                {{-- Menú de opciones para Usuario Senaempresa --}}
-                @if (Route::is('senaempresa.usuario.*'))
+                {{-- Menú de opciones para Aprendiz Senaempresa --}}
+                @if (Route::is('senaempresa.apprentice.*'))
                     <li class="nav-item">
-                        <a href="{{ route('senaempresa.usuario.index') }}"
-                            class="nav-link {{ !Route::is('senaempresa.usuario.index') ?: 'active' }}">
+                        <a href="{{ route('senaempresa.user.index') }}"
+                            class="nav-link {{ !Route::is('senaempresa.user.index') ?: 'active' }}">
                             <i class="fas fa-tachometer-alt"></i>
                             <p> {{ trans('sica::menu.Dashboard') }}</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('company.asistencia') }}"
-                            class="nav-link {{ !Route::is('company.asistencia') ?: 'active' }}">
-                            <i class="fas fa-users-cog"></i>
-                            <p>
-                                {{ trans('senaempresa::menu.Attendance') }}
-                            </p>
-                        </a>
-                    </li>
-
                     <li
-                        class="nav-item {{ Route::is('company.senaempresa.senaempresa', 'company.senaempresa.courses_senaempresa', 'company.senaempresa.personal') ? 'menu-is-opening menu-open' : '' }}">
-                        <a href="#" class="nav-link {{ !Route::is('senaempresa.*') ?: 'active' }}">
-                            <i class="fas fa-chess-rook"></i>
-                            <p>SenaEmpresa
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('company.senaempresa.senaempresa') }}"
-                                    class="nav-link {{ !Route::is('company.senaempresa.senaempresa') ?: 'active' }}">
-                                    <i class="fas fa-chess-rook"></i>
-                                    <p>
-                                        {{ trans('senaempresa::menu.Strategies') }}
-                                    </p>
-                                </a>
-                            </li>
-                            @if (checkRol('senaempresa.admin'))
-                                <li class="nav-item">
-                                    <a href="{{ route('company.senaempresa.courses_senaempresa') }}"
-                                        class="nav-link {{ !Route::is('company.senaempresa.courses_senaempresa') ?: 'active' }}">
-                                        <i class="fas fa-file-invoice"></i>
-                                        <p>{{ trans('senaempresa::menu.Courses SenaEmpresa') }}</p>
-                                    </a>
-                                </li>
-                            @endif
-                            <li class="nav-item">
-                                <a href="{{ route('company.senaempresa.personal') }}"
-                                    class="nav-link {{ !Route::is('company.senaempresa.personal') ?: 'active' }}">
-                                    <i class="fas fa-users-cog"></i>
-                                    <p>
-                                        {{ trans('senaempresa::menu.Staff') }}
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li
-                        class="nav-item {{ Route::is('company.vacant.vacantes', 'inscription', 'company.position.cargos', 'company.vacant.mostrar_asociados') ? 'menu-is-opening menu-open' : '' }}">
+                        class="nav-item {{ Route::is('company.vacant.vacantes', 'inscription') ? 'menu-is-opening menu-open' : '' }}">
                         <a href="#" class="nav-link {{ !Route::is('vacant.*') ?: 'active' }}">
                             <i class="fas fa-id-card"></i>
                             <p>{{ trans('senaempresa::menu.Vacancies') }}

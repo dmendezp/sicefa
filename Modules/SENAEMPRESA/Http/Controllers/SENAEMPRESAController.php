@@ -55,14 +55,14 @@ class SENAEMPRESAController extends Controller
         ];
         return view('senaempresa::Company.admin', $data);
     }
-    public function passant()
+    public function Passant()
     {
         $data = ['title' => 'Pasante'];
-        return view('senaempresa::Company.pasante', $data);
+        return view('senaempresa::Company.passant', $data);
     }
-    public function Usuario()
+    public function Apprentice()
     {
-        $data = ['title' => 'Usuario'];
+        $data = ['title' => 'Aprendiz'];
         return view('senaempresa::index', $data);
     }
     /**

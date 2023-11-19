@@ -6,12 +6,12 @@
             <div class="card card-primary card-outline shadow">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title">{{ trans('senaempresa::menu.Quarter') }}</h3>
-                    @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
-                        <div class="ml-auto">
+                    <div class="ml-auto">
+                        @if (Auth::user()->havePermission('senaempresa.admin.staff.new'))
                             <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.new') }}"
                                 class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
-                        </div>
-                    @endif
+                        @endif
+                    </div>
                 </div>
                 <div class="card-body">
                     @php
@@ -51,21 +51,23 @@
                                                     style="margin-top: 10px; font-weight: bold;">
                                                     {{ $staf->position }}
                                                 </p>
-                                                <div class="card-buttons" style="margin-top: 10px;">
-                                                    <form class="formPersonal"
-                                                        action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.delete', $staf->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <div class="btn-group">
-                                                            <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.edit', ['id' => $staf->id]) }}"
-                                                                class="btn btn-info"><i class="fas fa-edit"></i></a>
-                                                            <button type="submit" class="btn btn-danger"><i
-                                                                    class="fas fa-trash-alt"></i></button>
-                                                        </div>
-                                                    </form>
+                                                @if (Auth::user()->havePermission('senaempresa.admin.staff.edit'))
+                                                    <div class="card-buttons" style="margin-top: 10px;">
+                                                        <form class="formPersonal"
+                                                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.delete', $staf->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <div class="btn-group">
+                                                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.edit', ['id' => $staf->id]) }}"
+                                                                    class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                                                <button type="submit" class="btn btn-danger"><i
+                                                                        class="fas fa-trash-alt"></i></button>
+                                                            </div>
+                                                        </form>
 
-                                                </div>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

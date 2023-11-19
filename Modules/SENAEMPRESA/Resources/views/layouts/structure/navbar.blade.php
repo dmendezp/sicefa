@@ -24,10 +24,10 @@
                     </a>
                 </li>
             @endif
-            @if (checkRol('senaempresa.usuario'))
+            @if (checkRol('senaempresa.apprentice'))
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('senaempresa.usuario.index') }}"
-                        class="nav-link @if (Route::is('senaempresa.usuario.*')) active @endif">Usuario
+                    <a href="{{ route('senaempresa.apprentice.index') }}"
+                        class="nav-link @if (Route::is('senaempresa.apprentice.*')) active @endif">Usuario
                     </a>
                 </li>
             @endif

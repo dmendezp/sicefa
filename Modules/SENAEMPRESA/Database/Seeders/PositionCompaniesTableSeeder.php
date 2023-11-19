@@ -18,10 +18,10 @@ class PositionCompaniesTableSeeder extends Seeder
         $numPositions = 10; // cantidad de cargos 
 
         for ($i = 0; $i < $numPositions; $i++) {
-            $name = 'Cargo #' . ($i + 1) . ' - ' . uniqid();
+            $name = 'Cargo #' . ($i + 2) . ' - ' . uniqid();
             $description = 'Descripción del cargo #' . ($i + 1);
 
-            PositionCompany::firstOrCreate(
+            PositionCompany::updateOrCreate(
                 ['name' => $name],
                 ['description' => $description, 'state' => rand(0, 1) ? 'activo' : 'inactivo']
             );

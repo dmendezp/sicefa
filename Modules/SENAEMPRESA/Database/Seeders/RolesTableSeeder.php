@@ -24,7 +24,7 @@ class RolesTableSeeder extends Seeder
         $rol_admin = Role::updateOrCreate(['slug' => 'senaempresa.admin'], [
             'name' => 'Administrador Senaempresa',
             'description' => 'Rol administrador de la aplicacion SENAEMPRESA',
-            'description_english' => 'SENAEMPRESA Application Administrator',
+            'description_english' => 'SENAEMPRESA application Administrator',
             'full_access' => 'No',
             'app_id' => $app->id
         ]);
@@ -36,11 +36,11 @@ class RolesTableSeeder extends Seeder
             'full_access' => 'No',
             'app_id' => $app->id
         ]);
-        // Registrar o actualizar rol de USUARIO
-        $rol_usuario = Role::updateOrCreate(['slug' => 'senaempresa.usuario'], [
-            'name' => 'Usuario Senaempresa',
-            'description' => 'Rol usuario de la aplicacion SENAEMPRESA',
-            'description_english' => 'SENAEMPRESA Application User Role',
+        // Registrar o actualizar rol de APRENDIZ
+        $rol_aprendiz = Role::updateOrCreate(['slug' => 'senaempresa.apprentice'], [
+            'name' => 'Aprendiz Senaempresa',
+            'description' => 'Rol aprendiz de la aplicacion SENAEMPRESA',
+            'description_english' => 'SENAEMPRESA application apprentice role',
             'full_access' => 'No',
             'app_id' => $app->id
         ]);
@@ -51,7 +51,7 @@ class RolesTableSeeder extends Seeder
         $user_dap6580 = User::where('nickname', 'DAP6580')->first();
 
         // Asignacion de roles a usuarios
-        $user_jsm6580->roles()->syncWithoutDetaching([$rol_admin->id]);
+        $user_jsm6580->roles()->syncWithoutDetaching([$rol_pasante->id]);
         $user_jmm6580->roles()->syncWithoutDetaching([$rol_admin->id]);
         $user_dap6580->roles()->syncWithoutDetaching([$rol_admin->id]);
     }
