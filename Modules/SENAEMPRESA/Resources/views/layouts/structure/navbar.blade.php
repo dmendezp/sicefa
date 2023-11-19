@@ -7,27 +7,27 @@
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ route('cefa.senaempresa.index') }}"
-                class="nav-link @if(Route::is('cefa.senaempresa.*')) active @endif">{{ trans('senaempresa::menu.Home') }}</a>
+                class="nav-link @if (Route::is('cefa.senaempresa.*')) active @endif">{{ trans('senaempresa::menu.Home') }}</a>
         </li>
         @auth
             @if (checkRol('senaempresa.admin'))
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('senaempresa.admin.index') }}"
-                        class="nav-link @if(Route::is('senaempresa.admin.*')) active @endif">Administrador
+                        class="nav-link @if (Route::is('senaempresa.admin.*')) active @endif">Administrador
                     </a>
                 </li>
             @endif
-            @if (checkRol('senaempresa.pasante'))
+            @if (checkRol('senaempresa.passant'))
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('senaempresa.pasante.index') }}"
-                        class="nav-link @if(Route::is('senaempresa.pasante.*')) active @endif">Pasante
+                    <a href="{{ route('senaempresa.passant.index') }}"
+                        class="nav-link @if (Route::is('senaempresa.passant.*')) active @endif">Pasante
                     </a>
                 </li>
             @endif
             @if (checkRol('senaempresa.usuario'))
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('senaempresa.usuario.index') }}"
-                        class="nav-link @if(Route::is('senaempresa.usuario.*')) active @endif">Usuario
+                        class="nav-link @if (Route::is('senaempresa.usuario.*')) active @endif">Usuario
                     </a>
                 </li>
             @endif

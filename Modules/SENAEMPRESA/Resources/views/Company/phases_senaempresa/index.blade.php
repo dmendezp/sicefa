@@ -14,12 +14,10 @@
                                 <th>{{ trans('senaempresa::menu.Name') }}</th>
                                 <th>{{ trans('senaempresa::menu.Description') }}</th>
                                 <th>{{ trans('senaempresa::menu.Quarter') }}</th>
-                                @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
-                                    <th>
-                                        <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.new') }}"
-                                            class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
-                                    </th>
-                                @endif
+                                <th>
+                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.new') }}"
+                                        class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,20 +27,18 @@
                                     <td>{{ $senaempresa->name }}</td>
                                     <td>{{ $senaempresa->description }}</td>
                                     <td>{{ $senaempresa->quarter->name }}</td>
-                                    @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
-                                        <form
-                                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.delete', $senaempresa->id) }}"
-                                            method="POST" class="formsena">
-                                            @csrf
-                                            @method('DELETE')
-                                            <td>
-                                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.edit', ['id' => $senaempresa->id]) }}"
-                                                    class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                                                <button type="submit" class="btn btn-danger btn-sm"><i
-                                                        class="fas fa-trash-alt"></i></button>
-                                        </form>
-                                        </td>
-                                    @endif
+                                    <form
+                                        action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.delete', $senaempresa->id) }}"
+                                        method="POST" class="formsena">
+                                        @csrf
+                                        @method('DELETE')
+                                        <td>
+                                            <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.edit', ['id' => $senaempresa->id]) }}"
+                                                class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                    class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -51,7 +51,6 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
 
-
     <link href="{{ asset('modules/senaempresa/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('modules/senaempresa/css/we.css') }}" rel="stylesheet">
     <link href="{{ asset('modules/senaempresa/css/registration.css') }}" rel="stylesheet">

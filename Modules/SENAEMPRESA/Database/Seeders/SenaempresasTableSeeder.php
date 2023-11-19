@@ -21,7 +21,7 @@ class SenaempresasTableSeeder extends Seeder
 
         foreach ($quarters as $quarter) {
             // Crear una única Senaempresa por trimestre
-            Senaempresa::create([
+            Senaempresa::updateOrCreate([
                 'name' => 'Senaempresa ' . $quarter->name,
                 'description' => 'Descripción de Senaempresa ' . $quarter->name,
                 'quarter_id' => $quarter->id,

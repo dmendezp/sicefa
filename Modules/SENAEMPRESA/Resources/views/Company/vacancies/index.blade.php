@@ -42,24 +42,20 @@
 @section('content')
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
-        @if (Auth::check() &&
-                (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
-                    Auth::user()->roles[0]->name === 'Pasante Senaempresa'))
-            <form method="GET"
-                action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index') }}">
-                <label for="senaempresaFilter">{{ trans('senaempresa::menu.Filter by senaempresa') }}:</label>
-                <select class="form-control" id="senaempresaFilter" name="senaempresaFilter" onchange="this.form.submit()">
-                    <option value="" {{ !$selectedSenaempresaId ? 'selected' : '' }}>
-                        {{ trans('senaempresa::menu.All Senaempresas') }}</option>
-                    @foreach ($senaempresas as $senaempresa)
-                        <option value="{{ $senaempresa->id }}"
-                            {{ $selectedSenaempresaId == $senaempresa->id ? 'selected' : '' }}>
-                            {{ $senaempresa->id }} {{ $senaempresa->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </form>
-        @endif
+        <form method="GET"
+            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index') }}">
+            <label for="senaempresaFilter">{{ trans('senaempresa::menu.Filter by senaempresa') }}:</label>
+            <select class="form-control" id="senaempresaFilter" name="senaempresaFilter" onchange="this.form.submit()">
+                <option value="" {{ !$selectedSenaempresaId ? 'selected' : '' }}>
+                    {{ trans('senaempresa::menu.All Senaempresas') }}</option>
+                @foreach ($senaempresas as $senaempresa)
+                    <option value="{{ $senaempresa->id }}"
+                        {{ $selectedSenaempresaId == $senaempresa->id ? 'selected' : '' }}>
+                        {{ $senaempresa->id }} {{ $senaempresa->name }}
+                    </option>
+                @endforeach
+            </select>
+        </form>
         <br>
         <div class="col-md-12">
             <div class="card card-primary card-outline shadow">
@@ -73,12 +69,10 @@
                                 <th>{{ trans('senaempresa::menu.Id Position') }}</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
                                 <th class="text-center">{{ trans('senaempresa::menu.Details') }}</th>
-                                @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
-                                    <th style="width: 100px;"><a
-                                            href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.new') }}"
-                                            class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
-                                    </th>
-                                @endif
+                                <th style="width: 100px;"><a
+                                        href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.new') }}"
+                                        class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -114,21 +108,18 @@
                                                 </a>
                                             @endif
                                         </td>
-
-                                        @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
-                                            <form class="formEliminar"
-                                                action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.delete', $vacancy->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <td>
-                                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.edit', ['id' => $vacancy->id]) }}"
-                                                        class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                                            class="fas fa-trash-alt"></i></button>
-                                                </td>
-                                            </form>
-                                        @endif
+                                        <form class="formEliminar"
+                                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.delete', $vacancy->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <td>
+                                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.edit', ['id' => $vacancy->id]) }}"
+                                                    class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                                <button type="submit" class="btn btn-danger btn-sm"><i
+                                                        class="fas fa-trash-alt"></i></button>
+                                            </td>
+                                        </form>
                                     </tr>
                                 @endforeach
                             @endif

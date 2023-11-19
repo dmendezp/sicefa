@@ -30,11 +30,7 @@ class PositionCompanyController extends Controller
     {
         $position_companies = PositionCompany::all();
         $data = ['title' => trans('senaempresa::menu.New Position'), 'position_companies' => $position_companies];
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.position.new', $data);
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.positions.index')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+        return view('senaempresa::Company.position.new', $data);
     }
 
     public function saved(Request $request)
@@ -79,11 +75,8 @@ class PositionCompanyController extends Controller
 
         $position = PositionCompany::find($id);
         $data = ['title' => trans('senaempresa::menu.Edit the position.'), 'position' => $position];
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.position.edit', $data);
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.positions.index')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+
+        return view('senaempresa::Company.position.edit', $data);
     }
     public function updated(Request $request, $id)
     {

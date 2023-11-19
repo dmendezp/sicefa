@@ -30,7 +30,7 @@ class QuartersTableSeeder extends Seeder
             $startDate = $year . '-' . str_pad($startMonth, 2, '0', STR_PAD_LEFT) . '-01';
             $endDate = $year . '-' . str_pad($endMonth, 2, '0', STR_PAD_LEFT) . '-01';
 
-            Quarter::firstOrCreate(
+            Quarter::updateOrCreate(
                 ['name' => $name], // Verifica si ya existe un trimestre con el mismo nombre
                 [
                     'start_date' => $startDate,

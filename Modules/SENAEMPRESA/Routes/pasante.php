@@ -18,11 +18,17 @@ Route::middleware(['lang'])->group(function () {
     //Route::middleware(['lang'])->group(function(){
     Route::prefix('senaempresa')->group(function () {
         //RUTAS COMO PASANTE
-        Route::prefix('pasante')->group(function () {
-            Route::get('/', 'CompanyController@Pasante')->name('senaempresa.pasante.index');
+        Route::prefix('passant')->group(function () {
+            Route::get('/', 'SENAEMPRESAController@passant')->name('senaempresa.passant.index');
+            
             //RUTAS PARA LA VISUALIZACIÓN DE LAS FASES DE SENAEMPRESA
             Route::prefix('phases')->group(function () {
-                Route::get('/', 'SENAEMPRESAController@phases')->name('senaempresa.admin.phases.index');
+                Route::get('/', 'SENAEMPRESAController@phases')->name('senaempresa.passant.phases.index');
+            });
+
+            //RUTAS PARA LA VISUALIZACIÓN DEL PERSONAL DE SENAEMPRESA
+            Route::prefix('staff')->group(function () {
+                Route::get('/', 'StaffSenaempresaController@staff')->name('senaempresa.passant.staff.index');
             });
         });
     });

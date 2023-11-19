@@ -20,7 +20,7 @@ Route::middleware(['lang'])->group(function () {
 
         //RUTAS COMO USUARIO
         Route::prefix('usuario')->group(function () {
-            Route::get('/', 'CompanyController@Usuario')->name('senaempresa.usuario.index');
+            Route::get('/', 'SENAEMPRESAController@Usuario')->name('senaempresa.usuario.index');
         });
     });
 });

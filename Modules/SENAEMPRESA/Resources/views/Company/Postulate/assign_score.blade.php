@@ -39,7 +39,8 @@
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-success">Asignar</button>
-                                <a href="{{ route('company.postulate') }}" class="btn btn-danger">Cancelar</a>
+                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulate.index') }}"
+                                    class="btn btn-danger">Cancelar</a>
                             </div>
                         </form>
                     </div>

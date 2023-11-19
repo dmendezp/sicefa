@@ -1,12 +1,10 @@
-
-
 #heading,
 #heading0 {
     color: #000000;
 }
 
 .card {
-    background-color: #EBFFFE;
+    background-color: #ffffff;
     padding-top: 0px;
     cursor: pointer;
 }

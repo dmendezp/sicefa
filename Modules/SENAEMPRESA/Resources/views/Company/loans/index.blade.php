@@ -9,9 +9,7 @@
 @section('content')
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
-        @if (Auth::check() &&
-                (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
-                    Auth::user()->roles[0]->name === 'Pasante Senaempresa'))
+    
             <div class="col-md-3">
                 <form action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index') }}"
                     method="GET">
@@ -29,7 +27,6 @@
                     </div>
                 </form>
             </div>
-        @endif
         <br>
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -44,14 +41,11 @@
                                     <th>{{ trans('senaempresa::menu.Start date and time') }}</th>
                                     <th>{{ trans('senaempresa::menu.End date and time') }}</th>
                                     <th>{{ trans('senaempresa::menu.Status') }}</th>
-                                    @if (Auth::check() &&
-                                            (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
-                                                Auth::user()->roles[0]->name === 'Pasante Senaempresa'))
+                                   
                                         <th>
                                             <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.new') }}"
                                                 class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
                                         </th>
-                                    @endif
                                 </tr>
                             </thead>
                             <tbody>

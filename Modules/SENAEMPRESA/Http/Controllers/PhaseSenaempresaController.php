@@ -27,11 +27,8 @@ class PhaseSenaempresaController extends Controller
         $senaempresas = Senaempresa::all();
         $quarters = Quarter::all();
         $data = ['title' => trans('senaempresa::menu.New SenaEmpresa'), 'senaempresas' => $senaempresas, 'quarters' => $quarters];
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.phases_senaempresa.new', $data);
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+
+        return view('senaempresa::Company.phases_senaempresa.new', $data);
     }
 
     public function saved(Request $request)
@@ -72,11 +69,8 @@ class PhaseSenaempresaController extends Controller
         $company = Senaempresa::find($id);
         $quarters = Quarter::all();
         $data = ['title' => trans('senaempresa::menu.Edit SenaEmpresa'), 'company' => $company, 'quarters' => $quarters];
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.phases_senaempresa.edit', $data);
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+
+        return view('senaempresa::Company.phases_senaempresa.edit', $data);
     }
     public function updated(Request $request, $id)
     {
@@ -165,18 +159,14 @@ class PhaseSenaempresaController extends Controller
         $courses = Course::where('status', 'Activo')->with('senaempresa')->get();
         $courseofsenaempresa = CourseSenaempresa::all();
 
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            $data = [
-                'title' => trans('senaempresa::menu.Assign Course to SenaEmpresa'),
-                'courses' => $courses,
-                'senaempresas' => $senaempresas,
-                'courseofsenaempresa' => $courseofsenaempresa,
-            ];
+        $data = [
+            'title' => trans('senaempresa::menu.Assign Course to SenaEmpresa'),
+            'courses' => $courses,
+            'senaempresas' => $senaempresas,
+            'courseofsenaempresa' => $courseofsenaempresa,
+        ];
 
-            return view('senaempresa::Company.phases_senaempresa.show_associates', $data);
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+        return view('senaempresa::Company.phases_senaempresa.show_associates', $data);
     }
 
     public function get_associations(Request $request)

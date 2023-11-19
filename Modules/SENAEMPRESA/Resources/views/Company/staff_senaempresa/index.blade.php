@@ -8,8 +8,8 @@
                     <h3 class="card-title">{{ trans('senaempresa::menu.Quarter') }}</h3>
                     @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
                         <div class="ml-auto">
-                            <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.new') }}" class="btn btn-success btn-sm"><i
-                                    class="fas fa-user-plus"></i></a>
+                            <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.new') }}"
+                                class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
                         </div>
                     @endif
                 </div>
@@ -52,20 +52,19 @@
                                                     {{ $staf->position }}
                                                 </p>
                                                 <div class="card-buttons" style="margin-top: 10px;">
-                                                    @if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa')
-                                                        <form class="formPersonal"
-                                                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.delete', $staf->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.edit', ['id' => $staf->id]) }}"
-                                                                    class="btn btn-info"><i class="fas fa-edit"></i></a>
-                                                                <button type="submit" class="btn btn-danger"><i
-                                                                        class="fas fa-trash-alt"></i></button>
-                                                            </div>
-                                                        </form>
-                                                    @endif
+                                                    <form class="formPersonal"
+                                                        action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.delete', $staf->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <div class="btn-group">
+                                                            <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.edit', ['id' => $staf->id]) }}"
+                                                                class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                                            <button type="submit" class="btn btn-danger"><i
+                                                                    class="fas fa-trash-alt"></i></button>
+                                                        </div>
+                                                    </form>
+
                                                 </div>
                                             </div>
                                         </div>

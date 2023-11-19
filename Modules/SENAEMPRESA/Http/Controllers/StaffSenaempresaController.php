@@ -37,11 +37,8 @@ class StaffSenaempresaController extends Controller
         $quarters = Quarter::all();
         $Apprentices = Apprentice::all();
         $data = ['title' => trans('senaempresa::menu.Staff SenaEmpresa'), 'vacastaff_senaempresasncies' => $staff_senaempresas, 'PositionCompany' => $PositionCompany, 'Apprentices' => $Apprentices, 'quarters' => $quarters];
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.staff_senaempresa.new', $data);
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.index')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+
+        return view('senaempresa::Company.staff_senaempresa.new', $data);
     }
 
     public function saved(Request $request)
@@ -79,11 +76,8 @@ class StaffSenaempresaController extends Controller
         $quarters = Quarter::all();
 
         $data = ['title' => trans('senaempresa::menu.Edit Personal'), 'staffSenaempresa' => $staffSenaempresa, 'PositionCompany' => $PositionCompany, 'apprentices' => $apprentices, 'quarters' => $quarters];
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.staff_senaempresa.edit', $data);
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.index')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+
+        return view('senaempresa::Company.staff_senaempresa.edit', $data);
     }
     public function updated(Request $request, $id)
     {

@@ -149,11 +149,7 @@ class PostulateController extends Controller
             'selectedPositionId' => $selectedPositionId, // Pasa la variable a la vista
         ];
 
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.postulate.index', $data);
-        } else {
-            return redirect()->route('company.vacant.vacantes')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+        return view('senaempresa::Company.postulate.index', $data);
     }
 
     public function assign_score($apprenticeId)
@@ -185,11 +181,8 @@ class PostulateController extends Controller
         $filesenaempresa->cv_score = $request->input('cv_score');
         $filesenaempresa->personalities_score = $request->input('personalities_score');
         $filesenaempresa->proposal_score = $request->input('proposal_score');
-
-        // Guardar el objeto en la base de datos
         $filesenaempresa->save();
 
-        // Puedes redirigir a la página que desees después de guardar los datos
-        return redirect()->route('company.postulate')->with('success', 'Puntaje asignado correctamente');
+        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')->with('success', 'Puntaje asignado correctamente');
     }
 }

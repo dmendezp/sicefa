@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
-        <form method="GET" action="{{ route('company.postulate') }}">
+        <form method="GET" action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index') }}">
             <label for="positionFilter">Filtrar por cargo:</label>
             <select class="form-control" id="positionFilter" name="positionFilter" onchange="this.form.submit()">
                 <option value="" {{ !$selectedPositionId ? 'selected' : '' }}>Todos los cargos</option>
@@ -15,7 +15,7 @@
                 @endforeach
             </select>
         </form>
-
+    
         <br>
         <div class="col-md-12">
             <div class="card card-primary card-outline shadow">
@@ -87,7 +87,7 @@
 
                 var apprenticeId = $(this).data('apprentice-id');
                 var redirectUrl =
-                    "{{ route('company.postulate.score', ['apprenticeId' => ':apprenticeId']) }}";
+                    "{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.assign_score', ['apprenticeId' => ':apprenticeId']) }}";
                 redirectUrl = redirectUrl.replace(':apprenticeId', apprenticeId);
 
                 window.location.href = redirectUrl;

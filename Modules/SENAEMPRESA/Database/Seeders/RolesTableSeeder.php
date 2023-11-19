@@ -25,11 +25,11 @@ class RolesTableSeeder extends Seeder
             'name' => 'Administrador Senaempresa',
             'description' => 'Rol administrador de la aplicacion SENAEMPRESA',
             'description_english' => 'SENAEMPRESA Application Administrator',
-            'full_access' => 'Si',
+            'full_access' => 'No',
             'app_id' => $app->id
         ]);
         // Registrar o actualizar rol de PASANTE
-        $rol_pasante = Role::updateOrCreate(['slug' => 'senaempresa.pasante'], [
+        $rol_pasante = Role::updateOrCreate(['slug' => 'senaempresa.passant'], [
             'name' => 'Pasante Senaempresa',
             'description' => 'Rol pasante de la aplicacion SENAEMPRESA',
             'description_english' => 'SENAEMPRESA application trainee role',
@@ -53,6 +53,6 @@ class RolesTableSeeder extends Seeder
         // Asignacion de roles a usuarios
         $user_jsm6580->roles()->syncWithoutDetaching([$rol_admin->id]);
         $user_jmm6580->roles()->syncWithoutDetaching([$rol_admin->id]);
-        $user_dap6580->roles()->syncWithoutDetaching([$rol_pasante->id]);
+        $user_dap6580->roles()->syncWithoutDetaching([$rol_admin->id]);
     }
 }

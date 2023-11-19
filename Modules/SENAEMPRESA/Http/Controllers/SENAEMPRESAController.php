@@ -6,6 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Modules\SENAEMPRESA\Entities\PositionCompany;
 use Modules\SENAEMPRESA\Entities\senaempresa;
 use Modules\SICA\Entities\Course;
 use Modules\SENAEMPRESA\Entities\CourseSenaempresa;
@@ -35,10 +37,25 @@ class SENAEMPRESAController extends Controller
 
     public function Admin()
     {
-        $data = ['title' => 'Administrador'];
+        $registeredphasesCount = DB::table('senaempresas')
+            ->whereNull('deleted_at')
+            ->count();
+
+        $registeredStaffCount = DB::table('staff_senaempresas')
+            ->whereNull('deleted_at')
+            ->count();
+
+        $activePositionsCount = PositionCompany::where('state', 'activo')->count();
+        $deletedPositionsCount = PositionCompany::onlyTrashed()->count();
+
+        $totalPositionsCount = $activePositionsCount + $deletedPositionsCount;
+        $data = [
+            'title' => 'Administrador', 'totalPositionsCount' => $totalPositionsCount,
+            'registeredStaffCount' => $registeredStaffCount, 'registeredphasesCount' => $registeredphasesCount
+        ];
         return view('senaempresa::Company.admin', $data);
     }
-    public function Pasante()
+    public function passant()
     {
         $data = ['title' => 'Pasante'];
         return view('senaempresa::Company.pasante', $data);

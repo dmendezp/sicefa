@@ -116,11 +116,8 @@ class VacantController extends Controller
             // Pasar el nombre de la empresa a la vista
         ];
 
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.vacancies.new', $data);
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+
+        return view('senaempresa::Company.vacancies.new', $data);
     }
 
     public function saved(Request $request)
@@ -166,11 +163,8 @@ class VacantController extends Controller
 
         $data = ['title' => trans('senaempresa::menu.Edit vacancy'), 'vacancy' => $vacancy, 'positionCompany' => $activePositions];
 
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            return view('senaempresa::Company.vacancies.edit', $data);
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+
+        return view('senaempresa::Company.vacancies.edit', $data);
     }
 
 
@@ -288,17 +282,13 @@ class VacantController extends Controller
         $courses = Course::where('status', 'Activo')->with('vacancy')->get();
         $courseofvacancy = CourseVacancy::all();
 
-        if (Auth::check() && Auth::user()->roles[0]->name === 'Administrador Senaempresa') {
-            $data = [
-                'title' => trans('senaempresa::menu.Assign Courses to Vacancies'),
-                'courses' => $courses,
-                'vacancies' => $vacancies,
-                'courseofvacancy' => $courseofvacancy,
-            ];
+        $data = [
+            'title' => trans('senaempresa::menu.Assign Courses to Vacancies'),
+            'courses' => $courses,
+            'vacancies' => $vacancies,
+            'courseofvacancy' => $courseofvacancy,
+        ];
 
-            return view('senaempresa::Company.vacancies.partner_course', $data);
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+        return view('senaempresa::Company.vacancies.partner_course', $data);
     }
 }

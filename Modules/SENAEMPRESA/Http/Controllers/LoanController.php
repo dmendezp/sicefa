@@ -88,15 +88,7 @@ class LoanController extends Controller
             'inventories' => $inventories,
         ];
 
-        if (
-            Auth::check() &&
-            (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
-                Auth::user()->roles[0]->name === 'Pasante Senaempresa')
-        ) {
-            return view('senaempresa::Company.loans.new', $data);
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+        return view('senaempresa::Company.loans.new', $data);
     }
 
     public function saved(Request $request)
@@ -148,15 +140,8 @@ class LoanController extends Controller
             'staff_senaempresas' => $staff_senaempresas,
             'inventories' => $inventories,
         ];
-        if (
-            Auth::check() &&
-            (Auth::user()->roles[0]->name === 'Administrador Senaempresa' ||
-                Auth::user()->roles[0]->name === 'Pasante Senaempresa')
-        ) {
-            return view('senaempresa::Company.loans.edit', $data);
-        } else {
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index')->with('error', trans('senaempresa::menu.Its not authorized'));
-        }
+
+        return view('senaempresa::Company.loans.edit', $data);
     }
     public function updated(Request $request, $id)
     {

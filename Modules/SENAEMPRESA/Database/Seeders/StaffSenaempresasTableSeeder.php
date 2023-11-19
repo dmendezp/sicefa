@@ -32,7 +32,7 @@ class StaffSenaempresasTableSeeder extends Seeder
 
             // Verificar si ya existe un registro con las mismas condiciones
             foreach ($quarters as $quarter) {
-                StaffSenaempresa::firstOrCreate([
+                StaffSenaempresa::updateOrCreate([
                 'position_company_id' => $positionCompanyId,
                 'apprentice_id' => $apprenticeId,
                 'quarter_id' => $quarter->id,

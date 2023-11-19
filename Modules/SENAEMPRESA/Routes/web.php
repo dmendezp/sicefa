@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 include __DIR__ . '/admin.php';
+include __DIR__ . '/pasante.php';
+include __DIR__ . '/usuario.php';
 
 Route::middleware(['lang'])->group(function () {
     //Route::middleware(['lang'])->group(function(){
