@@ -80,7 +80,7 @@
                 @endif
                {{-- Menu storer --}}
             @endif
-            @if(Route::is('*storer.*'))
+            @if(auth()->check() && checkRol('agroindustria.almacenista'))  
                 @if(Auth::user()->havePermission('agroindustria.storer.crud'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
@@ -92,6 +92,7 @@
                     </li>
                 @endif
             @endif
+            
         </ul>
     </div>
         

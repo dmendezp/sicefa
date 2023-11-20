@@ -2,8 +2,8 @@
 
     return [
         //table
-        'date' => 'Fecha',
-        'element' => 'Elemento',
+        'date' => 'Fecha de Solicitud',
+        'element' => 'Productos',
         'applicant' => 'Solicitante',
 
         //botones
