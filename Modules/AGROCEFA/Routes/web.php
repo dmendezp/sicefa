@@ -3,8 +3,6 @@
 use Modules\AGROCEFA\Http\Controllers\AGROCEFAController;
 use Modules\AGROCEFA\Http\Controllers\UsuarioController;
 use Modules\AGROCEFA\Http\Controllers\LaborManagementController;
-use Modules\AGROCEFA\Http\Controllers\LaborController;
-
 
 
 Route::middleware(['lang'])->group(function() {
@@ -147,12 +145,18 @@ Route::middleware(['lang'])->group(function() {
         Route::get('passant/reports/labor/laborDetails', 'Reports\LaborController@getLaborDetails')->name('agrocefa.reports.laborDetails');
 
 
+        //produccion
+        Route::get('/reports/production', 'Reports\ProductionController@index')->name('agrocefa.reports.production');
+        Route::get('/reports/cropsbylot', 'Reports\ProductionController@getCropsByLot')->name('agrocefa.reports.cropsbylot');
+        Route::post('/reports/production/filter', 'Reports\ProductionController@filterProduction')->name('agrocefa.reports.filterproduction');
+        Route::get('/reports/resultproduction', 'Reports\ProductionController@resultProduction')->name('agrocefa.reports.resultproduction');
+        Route::get('/reports/productionpdf', 'Reports\ProductionController@productionPdf')->name('agrocefa.reports.productionpdf');
+
         //Balance
         Route::get('trainer/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.trainer.reports.balance.index');
         Route::get('passant/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.passant.reports.balance.index');
         Route::post('/reports/balance/filter', 'Reports\BalanceController@filterbalance')->name('agrocefa.reports.filterbalance');
         Route::get('/reports/balance/balancepdf', 'Reports\BalanceController@balancepdf')->name('agrocefa.reports.balancepdf');
-
 
 
     });

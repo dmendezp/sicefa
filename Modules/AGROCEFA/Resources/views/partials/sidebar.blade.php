@@ -70,7 +70,8 @@
                                             class='bx bx-objects-vertical-bottom icon'></i><span
                                             class="text nav-text">{{ trans('agrocefa::universal.Balance') }}</span></a>
                                 </li>
-                                <li id="sublist-li"><a href=""><i class='bx bx-lemon icon'></i><span
+                                <li id="sublist-li"><a href="{{ route('agrocefa.reports.production') }}"><i 
+                                            class='bx bx-lemon icon'></i><span
                                             class="text nav-text">{{ trans('agrocefa::universal.Production') }}</span></a>
                                 </li>
                                 <li id="sublist-li"><a href="{{ route('agrocefa.trainer.reports.labor.index') }}"><i
