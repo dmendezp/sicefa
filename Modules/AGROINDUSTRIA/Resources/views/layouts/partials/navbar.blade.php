@@ -80,15 +80,17 @@
                 @endif
                {{-- Menu storer --}}
             @endif
-            @if(Auth::user()->havePermission('agroindustria.storer.crud'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
-                </li>
-            @endif
-            @if(Auth::user()->havePermission('agroindustria.storer.view.request'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('cefa.agroindustria.storer.view.request')}}">Solicitudes</a>
-                </li>
+            @if(Route::is('*storer.*'))
+                @if(Auth::user()->havePermission('agroindustria.storer.crud'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
+                    </li>
+                @endif
+                @if(Auth::user()->havePermission('agroindustria.storer.view.request'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.view.request')}}">Solicitudes</a>
+                    </li>
+                @endif
             @endif
         </ul>
     </div>
