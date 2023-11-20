@@ -5,12 +5,14 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\Convocation;
 use Modules\BIENESTAR\Entities\Postulation;
 use Modules\BIENESTAR\Entities\Question;
 use Modules\BIENESTAR\Entities\Answer;
+use Modules\BIENESTAR\Entities\SocioEconomicSupportFile;
 
 
 class PostulationsController extends Controller
@@ -93,22 +95,43 @@ class PostulationsController extends Controller
         $postulation->transportation_benefit = $request->input('transport') ?? 0;
         $postulation->save();
 
-        // Obtener las respuestas del formulario
-        $answers = $request->input('answer', []);
-        $questionIds = $request->input('question', []);
+        // Manejar la carga de archivos
+        if ($request->hasFile('documento')) {
+            $archivo = $request->file('documento');
 
-        // Recorrer las respuestas y guardarlas relacionadas con la postulación
-        foreach ($answers as $index => $answerValue) {
-            if (!empty($answerValue) && isset($questionIds[$index])) {
-                $respuesta = new Answer();
-                $respuesta->answer = $answerValue; // Guardar el valor de la respuesta
-                $respuesta->postulation_id = $postulation->id;
-                $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
-                $respuesta->save();
+            // Verificar que el archivo es de tipo Word
+            if ($archivo->getClientOriginalExtension() === 'docx' || $archivo->getClientOriginalExtension() === 'doc') {
+                $tipo_documento = 'word';
+                $nombre_archivo = $archivo->getClientOriginalName();
+                $ruta = $archivo->storeAs('public/' . $tipo_documento, $nombre_archivo);
+
+                // Guardar la ruta del archivo en la tabla socio-economic_support_files
+                $file = new SocioEconomicSupportFile();
+                $file->postulation_id = $postulation->id;
+                $file->file_path = $ruta;
+                $file->save();
+            } else {
+                // Manejar el caso donde el archivo no es de tipo Word
+                return redirect()->back()->with('error', 'El archivo debe ser de tipo Word (doc o docx).');
             }
-        }
 
-        // Redireccionar a la vista de edición o a donde desees después de guardar
-        return redirect()->route('cefa.bienestar.postulations')->with('success', 'Postulación guardada exitosamente.');
+            // Obtener las respuestas del formulario
+            $answers = $request->input('answer', []);
+            $questionIds = $request->input('question', []);
+
+            // Recorrer las respuestas y guardarlas relacionadas con la postulación
+            foreach ($answers as $index => $answerValue) {
+                if (!empty($answerValue) && isset($questionIds[$index])) {
+                    $respuesta = new Answer();
+                    $respuesta->answer = $answerValue; // Guardar el valor de la respuesta
+                    $respuesta->postulation_id = $postulation->id;
+                    $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
+                    $respuesta->save();
+                }
+            }
+
+            // Redireccionar a la vista de edición o a donde desees después de guardar
+            return redirect()->route('cefa.bienestar.postulations')->with('success', 'Postulación guardada exitosamente.');
+        }
     }
 }

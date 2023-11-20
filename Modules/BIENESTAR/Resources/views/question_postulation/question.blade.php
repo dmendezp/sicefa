@@ -30,8 +30,8 @@
             <div class="card-body">
                 <p>Suba el formato Registro Socio Economico</p>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="docpicker" accept=".doc, .docx" onchange="updateFileName()">
-                    <label class="custom-file-label" for="docpicker">Seleccionar archivo</label>
+                    <input type="file" class="custom-file-input" id="socioeconociFIle" name="socioeconociFIle" accept=".doc, .docx" onchange="updateFileName()">
+                    <label class="custom-file-label" for="socioeconociFIle">Seleccionar archivo</label>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
 </div>
 <script>
     function updateFileName() {
-        var input = document.getElementById('docpicker');
+        var input = document.getElementById('socioeconociFIle');
         var fileName = input.files[0].name;
         var label = document.querySelector('.custom-file-label');
         label.textContent = fileName;

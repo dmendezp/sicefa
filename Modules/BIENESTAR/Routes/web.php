@@ -145,12 +145,6 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/procesar-formulario', 'CallConsultationController@procesarFormulario')->name('cefa.bienestar.procesar.formulario');
         Route::get('/consulta/{documentNumber}', 'CallConsultationController@consultarBeneficios')->name('cefa.bienestar.consulta.resultados');
 
-        // Vista de Postulaciones(ADMINISTRADOR)
-        Route::get('/admin/postulations', 'PostulationsController@index') ->name('cefa.bienestar.postulations');
-        Route::post('/admin/postulations/search', 'PostulationsController@search')->name('cefa.bienestar.search'); 
-        Route::post('/admin/postulations/search/getquestions', 'PostulationsController@getquestions')->name('cefa.bienestar.search_questions'); 
-        Route::post('/admin/postulations/search/getallquestions', 'PostulationsController@getallquestions')->name('cefa.bienestar.search_all_questions'); 
-        Route::post('/admin/postulations/save', 'PostulationsController@savepostulation')->name('cefa.bienestar.savepostulation'); 
         // Vista de Postulaciones(Publica)
         Route::get('/postulations', 'PostulationsController@index') ->name('cefa.bienestar.postulations');
         Route::post('/postulations/search', 'PostulationsController@search')->name('cefa.bienestar.search'); 
@@ -176,15 +170,15 @@ Route::middleware(['lang'])->group(function () {
         Route::put('/assing-form-transportation-routes/updateInline', 'AssingFormTransporRoutesController@updateInline')->name('cefa.bienestar.assing-form-transportation-routes.updateInline');
 
         //vista de listado lista de asistencia de transporte(ADMINISTRADOR)
-        route::get('/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.admin.view.transportation_assistance_lists');
-        Route::post('/busqueda/documentos', 'TransportationAssistancesController@search')->name('bienestar.admin.view.transportation_assistance_lists.consult');
+        route::get('/admin/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.admin.view.transportation_assistance_lists');
+        Route::post('/admin/busqueda/documentos', 'TransportationAssistancesController@search')->name('bienestar.admin.view.transportation_assistance_lists.consult');
         //vista de listado lista de asistencia de transporte(LIDER BENEFICIO DE TRANSPORTE)
-        route::get('/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.transportation_benefits_leader.view.transportation_assistance_lists');
-        Route::post('/busqueda/documentos', 'TransportationAssistancesController@search')->name('bienestar.transportation_benefits_leader.view.transportation_assistance_lists.consult');
+        route::get('/transportation_benefits_leader/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.transportation_benefits_leader.view.transportation_assistance_lists');
+        Route::post('/transportation_benefits_leader/busqueda/documentos', 'TransportationAssistancesController@search')->name('bienestar.transportation_benefits_leader.view.transportation_assistance_lists.consult');
 
         //Vista transportation-assistance
-        Route::get('/transportation_benefits_leader/transportation_asistance', 'TransportationAssistancesController@indexasistances')->name('bienestar.admin.view.asistance_transport');
-        Route::post('/transportation_benefits_leader/transportation_asistance/search', 'TransportationAssistancesController@searchapprentice')->name('bienestar.admin.form.asistance_transport');
+        Route::get('/admin/transportation_asistance', 'TransportationAssistancesController@indexasistances')->name('bienestar.admin.view.asistance_transport');
+        Route::post('/admin/transportation_asistance/search', 'TransportationAssistancesController@searchapprentice')->name('bienestar.admin.form.asistance_transport');
         //Vista transportation-assistance(LIDER BENEFICIO DE TRANSPORTE)
         Route::get('/transportation_benefits_leader/transportation_asistance', 'TransportationAssistancesController@indexasistances')->name('bienestar.transportation_benefits_leader.view.asistance_transport');
         Route::post('/transportation_benefits_leader/transportation_asistance/search', 'TransportationAssistancesController@searchapprentice')->name('bienestar.transportation_benefits_leader.form.asistance_transport');
