@@ -95,26 +95,6 @@ class PostulationsController extends Controller
         $postulation->transportation_benefit = $request->input('transport') ?? 0;
         $postulation->save();
 
-        // Manejar la carga de archivos
-        if ($request->hasFile('documento')) {
-            $archivo = $request->file('documento');
-
-            // Verificar que el archivo es de tipo Word
-            if ($archivo->getClientOriginalExtension() === 'docx' || $archivo->getClientOriginalExtension() === 'doc') {
-                $tipo_documento = 'word';
-                $nombre_archivo = $archivo->getClientOriginalName();
-                $ruta = $archivo->storeAs('public/' . $tipo_documento, $nombre_archivo);
-
-                // Guardar la ruta del archivo en la tabla socio-economic_support_files
-                $file = new SocioEconomicSupportFile();
-                $file->postulation_id = $postulation->id;
-                $file->file_path = $ruta;
-                $file->save();
-            } else {
-                // Manejar el caso donde el archivo no es de tipo Word
-                return redirect()->back()->with('error', 'El archivo debe ser de tipo Word (doc o docx).');
-            }
-
             // Obtener las respuestas del formulario
             $answers = $request->input('answer', []);
             $questionIds = $request->input('question', []);
@@ -127,9 +107,18 @@ class PostulationsController extends Controller
                     $respuesta->postulation_id = $postulation->id;
                     $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
                     $respuesta->save();
-                }
-            }
+                }            
 
+                $file = $request->file('socioeconociFIle');
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $filePath = $file->storeAs('socioeconomico', $fileName, 'public');
+            
+                // Guardar el archivo en la tabla SocioEconomicSupportFile
+                $supportFile = new SocioEconomicSupportFile();
+                $supportFile->file_path = $filePath;
+                $supportFile->postulation_id = $postulation->id;
+                $supportFile->save();
+                    
             // Redireccionar a la vista de edición o a donde desees después de guardar
             return redirect()->route('cefa.bienestar.postulations')->with('success', 'Postulación guardada exitosamente.');
         }

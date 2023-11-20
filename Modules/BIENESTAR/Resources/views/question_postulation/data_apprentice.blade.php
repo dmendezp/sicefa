@@ -1,4 +1,4 @@
-<form action="{{ route('cefa.bienestar.savepostulation')}}" method="post" class="formGuardar">
+<form action="{{ route('cefa.bienestar.savepostulation')}}" method="post" class="formGuardar" enctype="multipart/form-data">
     <div class="row justify-content-center mt-4">
         <div class="col-md-8">
             <div class="card shadow">
@@ -139,5 +139,6 @@
         function consultallquestions() {
             ajaxReplace('divQuestions', '/bienestar/postulations/search/getallquestions');
         }
+    
     });
 </script>
