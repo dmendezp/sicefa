@@ -7,7 +7,8 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title">{{ trans('senaempresa::menu.Quarter') }}</h3>
                     <div class="ml-auto">
-                        @if (Auth::user()->havePermission('senaempresa.admin.staff.new'))
+                        @if (Route::is('senaempresa.admin.*') &&
+                                Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.new'))
                             <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.new') }}"
                                 class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
                         @endif
@@ -51,7 +52,8 @@
                                                     style="margin-top: 10px; font-weight: bold;">
                                                     {{ $staf->position }}
                                                 </p>
-                                                @if (Auth::user()->havePermission('senaempresa.admin.staff.edit'))
+                                                @if (Route::is('senaempresa.admin.*') &&
+                                                        Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.delete'))
                                                     <div class="card-buttons" style="margin-top: 10px;">
                                                         <form class="formPersonal"
                                                             action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.delete', $staf->id) }}"

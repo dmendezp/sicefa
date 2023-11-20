@@ -56,7 +56,7 @@ class PostulateController extends Controller
         return view('senaempresa::Company.Inscription.inscription', $data);
     }
 
-    public function store(Request $request)
+    public function registered(Request $request)
     {
         $Apprentice = auth()->user()->person->apprentices()->first();
 

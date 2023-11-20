@@ -42,20 +42,22 @@
 @section('content')
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
-        <form method="GET"
-            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index') }}">
-            <label for="senaempresaFilter">{{ trans('senaempresa::menu.Filter by senaempresa') }}:</label>
-            <select class="form-control" id="senaempresaFilter" name="senaempresaFilter" onchange="this.form.submit()">
-                <option value="" {{ !$selectedSenaempresaId ? 'selected' : '' }}>
-                    {{ trans('senaempresa::menu.All Senaempresas') }}</option>
-                @foreach ($senaempresas as $senaempresa)
-                    <option value="{{ $senaempresa->id }}"
-                        {{ $selectedSenaempresaId == $senaempresa->id ? 'selected' : '' }}>
-                        {{ $senaempresa->id }} {{ $senaempresa->name }}
-                    </option>
-                @endforeach
-            </select>
-        </form>
+        @if (Auth::user()->havePermission('senaempresa.admin-pasante.vacancies.filter'))
+            <form method="GET"
+                action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index') }}">
+                <label for="senaempresaFilter">{{ trans('senaempresa::menu.Filter by senaempresa') }}:</label>
+                <select class="form-control" id="senaempresaFilter" name="senaempresaFilter" onchange="this.form.submit()">
+                    <option value="" {{ !$selectedSenaempresaId ? 'selected' : '' }}>
+                        {{ trans('senaempresa::menu.All Senaempresas') }}</option>
+                    @foreach ($senaempresas as $senaempresa)
+                        <option value="{{ $senaempresa->id }}"
+                            {{ $selectedSenaempresaId == $senaempresa->id ? 'selected' : '' }}>
+                            {{ $senaempresa->id }} {{ $senaempresa->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </form>
+        @endif
         <br>
         <div class="col-md-12">
             <div class="card card-primary card-outline shadow">
@@ -69,64 +71,65 @@
                                 <th>{{ trans('senaempresa::menu.Id Position') }}</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
                                 <th class="text-center">{{ trans('senaempresa::menu.Details') }}</th>
-                                @if (Auth::user()->havePermission('senaempresa.admin.vacancies.new'))
-                                <th style="width: 100px;"><a
-                                        href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.new') }}"
-                                        class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
-                                </th>
+                                @if (Route::is('senaempresa.admin.*') &&
+                                        Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.new'))
+                                    <th style="width: 100px;"><a
+                                            href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.new') }}"
+                                            class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
+                                    </th>
                                 @endif
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Verificar si no hay vacantes disponibles para el curso seleccionado -->
-                            @if ($vacancies->isEmpty())
-                                <div class="alert alert-info" role="alert">
-                                    {{ trans('senaempresa::menu.There are no vacancies available for the selected Senaempresa') }}
-                                </div><br>
-                            @else
-                                @foreach ($vacancies as $vacancy)
-                                    <tr>
-                                        <td>{{ $vacancy->id }}</td>
-                                        <td>{{ $vacancy->name }}</td>
-                                        <td><img src="{{ asset($vacancy->image) }}" alt="{{ $vacancy->name }}"
-                                                width="200"></td>
-                                        <td>
-                                            @foreach ($PositionCompany as $position)
-                                                @if ($position->id == $vacancy->position_company_id)
-                                                    {{ $position->name }}
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td>{{ $vacancy->state }}</td>
-                                        <td class="text-center">
-                                            <a class="openModalBtn" title="Ver información" data-bs-toggle="modal"
-                                                data-bs-target="#myModal" data-vacancy='@json($vacancy)'>
-                                                <i class="fas fa-eye" style="color: #000000;"></i>
-                                            </a>
+                            @foreach ($vacancies as $vacancy)
+                                <tr>
+                                    <td>{{ $vacancy->id }}</td>
+                                    <td>{{ $vacancy->name }}</td>
+                                    <td><img src="{{ asset($vacancy->image) }}" alt="{{ $vacancy->name }}" width="200">
+                                    </td>
+                                    <td>
+                                        @foreach ($PositionCompany as $position)
+                                            @if ($position->id == $vacancy->position_company_id)
+                                                {{ $position->name }}
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    <td>{{ $vacancy->state }}</td>
+                                    <td class="text-center">
+                                        <a class="openModalBtn" title="Ver información" data-bs-toggle="modal"
+                                            data-bs-target="#myModal" data-vacancy='@json($vacancy)'>
+                                            <i class="fas fa-eye" style="color: #000000;"></i>
+                                        </a>
+                                        @if (Route::is('senaempresa.admin.*') ||
+                                                (Route::is('senaempresa.apprentice.*') &&
+                                                    Auth::user()->havePermission(
+                                                        'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.inscription')))
                                             @if (auth()->user()->person->apprentices())
                                                 <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.inscription', ['vacancy_id' => $vacancy->id]) }}"
                                                     title="Inscripción">
                                                     <i class="fas fa-user-plus" style="color: #000000;"></i>
                                                 </a>
                                             @endif
-                                        </td>
-                                        @if (Auth::user()->havePermission('senaempresa.admin.vacancies.delete'))
-                                            <form class="formEliminar"
-                                                action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.delete', $vacancy->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <td>
-                                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.edit', ['id' => $vacancy->id]) }}"
-                                                        class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                                            class="fas fa-trash-alt"></i></button>
-                                                </td>
-                                            </form>
                                         @endif
-                                    </tr>
-                                @endforeach
-                            @endif
+                                    </td>
+                                    @if (Route::is('senaempresa.admin.*') &&
+                                            Auth::user()->havePermission(
+                                                'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.delete'))
+                                        <form class="formEliminar"
+                                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.delete', $vacancy->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <td>
+                                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.edit', ['id' => $vacancy->id]) }}"
+                                                    class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                                <button type="submit" class="btn btn-danger btn-sm"><i
+                                                        class="fas fa-trash-alt"></i></button>
+                                            </td>
+                                        </form>
+                                    @endif
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

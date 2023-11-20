@@ -38,45 +38,35 @@ class VacantController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
 
-            if ($user->roles[0]->name === 'Usuario Senaempresa') {
-                // User is of role 'Usuario Senaempresa'
+            if ($user->roles[0]->slug === 'senaempresa.apprentice' || Route::is('senaempresa.apprentice.*')) {
                 if ($user->courses && $user->courses->count() > 0) {
                     $cursoUsuario = $user->courses->first(); // Obtener el curso del usuario
                     $selectedCourseId = $cursoUsuario->id;
-                }
-            } elseif ($user->roles[0]->name === 'Administrador Senaempresa') {
-                // User is of role 'Administrador Senaempresa'
-                $courses = Course::with('program')->get();
-
-                if ($request->has('cursoFilter')) {
-                    $selectedCourseId = $request->input('cursoFilter');
+                    $vacancies = Course::find($selectedCourseId)->vacancy;
+        
                 }
             }
         }
 
-        // Add a condition to filter by senaempresa_id in the vacancies table
+        // Ajustar la condición para filtrar por senaempresa_id
         if ($selectedSenaempresaId !== null) {
             $vacancies->where('senaempresa_id', $selectedSenaempresaId);
         }
-
-        $senaempresas = Senaempresa::all(); // Obtén todas las Senaempresas
+        $senaempresas = Senaempresa::all();
         $PositionCompany = PositionCompany::all();
-
-        $vacancies = $vacancies->get(); // Execute the query and get the results
 
         $data = [
             'title' => trans('senaempresa::menu.Vacancies'),
-            'courses' => $courses ?? [],
             'vacancies' => $vacancies,
             'PositionCompany' => $PositionCompany,
             'selectedCourseId' => $selectedCourseId,
             'selectedSenaempresaId' => $selectedSenaempresaId,
             'senaempresas' => $senaempresas,
-            // Pasa las Senaempresas a la vista
         ];
 
         return view('senaempresa::Company.vacancies.index', $data);
     }
+
 
     public function new(Request $request)
     {

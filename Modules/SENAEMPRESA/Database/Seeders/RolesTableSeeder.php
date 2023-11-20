@@ -51,7 +51,7 @@ class RolesTableSeeder extends Seeder
         $user_dap6580 = User::where('nickname', 'DAP6580')->first();
 
         // Asignacion de roles a usuarios
-        $user_jsm6580->roles()->syncWithoutDetaching([$rol_pasante->id]);
+        $user_jsm6580->roles()->syncWithoutDetaching([$rol_aprendiz->id]);
         $user_jmm6580->roles()->syncWithoutDetaching([$rol_admin->id]);
         $user_dap6580->roles()->syncWithoutDetaching([$rol_admin->id]);
     }

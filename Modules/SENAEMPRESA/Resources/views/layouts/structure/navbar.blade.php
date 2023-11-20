@@ -27,7 +27,7 @@
             @if (checkRol('senaempresa.apprentice'))
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('senaempresa.apprentice.index') }}"
-                        class="nav-link @if (Route::is('senaempresa.apprentice.*')) active @endif">Usuario
+                        class="nav-link @if (Route::is('senaempresa.apprentice.*')) active @endif">Aprendiz
                     </a>
                 </li>
             @endif

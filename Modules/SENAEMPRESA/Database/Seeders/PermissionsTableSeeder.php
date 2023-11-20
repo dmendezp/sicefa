@@ -151,6 +151,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_passant[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista senaempresa personal (Aprendiz)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.staff.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista SenaEmpresa Personal (Aprendiz)',
+            'description' => 'Puede ver el personal de senaempresa',
+            'description_english' => 'You can see the senaempresa staff',
+            'app_id' => $app->id
+        ]);
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
+
         // Vista de agregar nuevo personal de senaempresa (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.staff.new'], [ // Registro o actualización de permiso
             'name' => 'Vista de formulario para nuevo personal (Administrador)',
@@ -205,6 +214,16 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Filtrar prestamos por estado (Administrador y/o Pasante)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin-pasante.loans.filter'], [ // Registro o actualización de permiso
+            'name' => 'Vista SenaEmpresa Prestamos (Administrador y/o Pasante)',
+            'description' => 'Puede ver los prestamos registrados',
+            'description_english' => 'You can view registered loans',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+
         // Vista senaempresa prestamos (Pasante)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.loans.index'], [ // Registro o actualización de permiso
             'name' => 'Vista SenaEmpresa Prestamos (Pasante)',
@@ -213,6 +232,15 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista senaempresa prestamos (Aprendiz)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.loans.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista SenaEmpresa Prestamos (Aprendiz)',
+            'description' => 'Puede ver los prestamos registrados',
+            'description_english' => 'You can view registered loans',
+            'app_id' => $app->id
+        ]);
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
 
         // Vista de agregar nuevo prestamo (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.loans.new'], [ // Registro o actualización de permiso
@@ -241,7 +269,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-         // guardar nuevo prestamo (Pasante)
+        // guardar nuevo prestamo (Pasante)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.loans.saved'], [ // Registro o actualización de permiso
             'name' => 'Guardar nuevo prestamo (Pasante)',
             'description' => 'Formulario para guardar nuevo prestamo de senaempresa',
@@ -259,7 +287,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-         // Vista de editar los prestamos de senaempresa (Pasante)
+        // Vista de editar los prestamos de senaempresa (Pasante)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.loans.edit'], [ // Registro o actualización de permiso
             'name' => 'Vista de formulario para editar los prestamos (Pasante)',
             'description' => 'Formulario para editar los prestamos de senaempresa',
@@ -295,7 +323,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-         // Devolver prestamos de senaempresa (Pasante)
+        // Devolver prestamos de senaempresa (Pasante)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.loans.return'], [ // Registro o actualización de permiso
             'name' => 'Devolver los prestamos (Pasante)',
             'description' => 'Botón para devolver los prestamos de senaempresa',
@@ -320,6 +348,25 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'You can see the list of vacancies',
             'app_id' => $app->id
         ]);
+        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de vacantes (Aprendiz)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.vacancies.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista vacantes (Aprendiz)',
+            'description' => 'Puede ver el listado de los vacantes',
+            'description_english' => 'You can see the list of vacancies',
+            'app_id' => $app->id
+        ]);
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
+
+        // Filtar vacantes por senaempresa (Administrador y/o Pasante)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin-passant.vacancies.filter'], [ // Registro o actualización de permiso
+            'name' => 'Vista vacantes (Administrador y/o Pasante)',
+            'description' => 'Puede ver el listado de los vacantes',
+            'description_english' => 'You can see the list of vacancies',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
         $permissions_passant[] = $permission->id; // Almacenar permiso para rol
 
         // Vista de agregar nueva vacante de senaempresa (Administrador)
@@ -404,14 +451,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-         // Vista de inscripción a vacantes disponibles (Usuario)
-         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.user.vacancies.inscription'], [ // Registro o actualización de permiso
-            'name' => 'Formulario de inscripción a vacantes (Administrador)',
+        // Vista de inscripción a vacantes disponibles (Aprendiz)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.vacancies.inscription'], [ // Registro o actualización de permiso
+            'name' => 'Formulario de inscripción a vacantes (Aprendiz)',
             'description' => 'Formulario de inscripción a vacantes disponibles segun el curso',
             'description_english' => 'Enrollment to available vacancies according to the course',
             'app_id' => $app->id
         ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
 
         // Inscripción a vacantes (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.vacancies.registered'], [ // Registro o actualización de permiso
@@ -421,6 +468,15 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Inscripción a vacantes (Aprendiz)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.vacancies.registered'], [ // Registro o actualización de permiso
+            'name' => 'Inscripción a vacantes disponibles (Aprendiz)',
+            'description' => 'Inscripción a vacantes disponibles segun el curso',
+            'description_english' => 'Registration form for available vacancies according to the course',
+            'app_id' => $app->id
+        ]);
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
 
         // Vista de postulados (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.index'], [ // Registro o actualización de permiso

@@ -16,10 +16,12 @@
                                 <th>{{ trans('senaempresa::menu.Name') }}</th>
                                 <th>{{ trans('senaempresa::menu.Description') }}</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
-                                <th style="width: 100px;">
-                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.positions.new') }}"
-                                        class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
-                                </th>
+                                @if (Auth::user()->havePermission('senaempresa.admin.positions.new'))
+                                    <th style="width: 100px;">
+                                        <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.positions.new') }}"
+                                            class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
+                                    </th>
+                                @endif
 
                             </tr>
                         </thead>
@@ -30,19 +32,21 @@
                                     <td>{{ $PositionCompany->name }}</td>
                                     <td>{{ $PositionCompany->description }}</td>
                                     <td>{{ $PositionCompany->state }}</td>
-                                    <form
-                                        action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.positions.delete', $PositionCompany->id) }}"
-                                        method="POST" class="formCargo">
-                                        @csrf
-                                        @method('DELETE')
-                                        <td>
-                                            <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.positions.edit', ['id' => $PositionCompany->id]) }}"
-                                                class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                                    @if (Auth::user()->havePermission('senaempresa.admin.positions.edit'))
+                                        <form
+                                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.positions.delete', $PositionCompany->id) }}"
+                                            method="POST" class="formCargo">
+                                            @csrf
+                                            @method('DELETE')
+                                            <td>
+                                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.positions.edit', ['id' => $PositionCompany->id]) }}"
+                                                    class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
 
-                                            <button type="submit" class="btn btn-danger btn-sm"><i
-                                                    class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                    </td>
+                                                <button type="submit" class="btn btn-danger btn-sm"><i
+                                                        class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
