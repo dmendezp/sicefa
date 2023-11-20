@@ -362,6 +362,27 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_charge[] = $permission->id; // Almacenar permiso para rol
 
+        //MANUAL DEL INSTRUCTIVO
+
+        //Boton del manual instructivo ENCARGADO
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.charge.instruction.manual'], [ // Registro o actualización de permiso
+            'name' => 'Manual instructivo(Encargado)',
+            'description' => 'Manual instructivo',
+            'description_english' => "Instruction manual",
+            'app_id' => $app->id
+        ]);
+        $permissions_charge[] = $permission->id; // Almacenar permiso para rol
+
+        //Boton del manual instructivo ADMINISTRADOR
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.instruction.manual'], [ // Registro o actualización de permiso
+            'name' => 'Manual instructivo(Encargado)',
+            'description' => 'Manual instructivo',
+            'description_english' => "Instruction manual",
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+
 
 
 

@@ -19,8 +19,12 @@
     <br>
 
     <div class="d-flex align-items-center justify-content-center">
-        <div class="pdf-container mx-auto p-4" style="border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); width: 90%;">
-            <iframe src="{{ $pdfPath }}" class="w-100" height="800px" style="border: none;"></iframe>
+        <div class="pdf-container mx-auto p-4" style="border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); width: 45%;">
+            <iframe src="{{ $pdfPath1 }}" class="w-100" height="400px" style="border: none;"></iframe>
+        </div>
+
+        <div class="pdf-container mx-auto p-4" style="border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); width: 45%;">
+            <iframe src="{{ $pdfPath2 }}" class="w-100" height="400px" style="border: none;"></iframe>
         </div>
     </div>
     <br>

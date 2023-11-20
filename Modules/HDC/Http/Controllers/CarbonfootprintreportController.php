@@ -27,7 +27,7 @@ class CarbonfootprintreportController extends Controller
     public function report(Request $request)
     {
         try {
-           
+
 
             $data = json_decode($request->data);
 
@@ -60,6 +60,7 @@ class CarbonfootprintreportController extends Controller
                 ->havingRaw('carbon_footprint IS NOT NULL')
                 ->groupBy('sectors.id', 'productive_units.id', 'sectors.name', 'productive_units.name')
                 ->get();
+                
 
             return view('hdc::report.reporttables', compact('quarters', 'aspectosAmbientales'));
         } catch (ValidationException $e) {

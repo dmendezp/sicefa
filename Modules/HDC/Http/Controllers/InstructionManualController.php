@@ -14,9 +14,11 @@ class InstructionManualController extends Controller
      */
     public function manual()
     {
-        $pdfPath = asset('modules/HDC/manual/HDC _ Panel del Administrador.pdf');
+        $pdfPath1 = asset('modules/HDC/manual/HDC _ Panel del Administrador.pdf');
+        $pdfPath2 = asset('modules/HDC/manual/Encargado.pdf');
 
-        return view('hdc::Instruction_manual.manual', compact('pdfPath'));
+
+        return view('hdc::Instruction_manual.manual', compact( 'pdfPath2', 'pdfPath1'));
     }
 
 

@@ -72,6 +72,15 @@
                       data-accordion="false">
                       <!-- Menú de opciones públicas -->
 
+                      <li class="nav-item">
+                        <a href="{{ route('cefa.hdc.developers') }}" class="nav-link">
+                            <i class="fa-solid fa-people-group"></i>
+                            <p>
+                                {{ trans('hdc::developers.developers')}}
+                            </p>
+                        </a>
+                    </li>
+
 
 
 
@@ -140,22 +149,15 @@
                               </a>
                           </li>
                       @endif
-                      <li class="nav-item">
+                    {{--    <li class="nav-item">
                           <a href="{{ route('cefa.hdc.resultfromaspects') }}" class="nav-link">
                               <i class="nav-icon fa-solid fa-folder-open"></i>
                               <p>
                                   {{ trans('hdc::hdcgeneral.assign_environmental_aspects') }}
                               </p>
                           </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{{ route('cefa.hdc.developers') }}" class="nav-link">
-                            <i class="fa-solid fa-people-group"></i>
-                            <p>
-                                {{ trans('hdc::developers.developers')}}
-                            </p>
-                        </a>
-                    </li>
+                      </li>  --}}
+
                   </ul>
               </nav>
               <!-- /.sidebar-menu -->

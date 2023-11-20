@@ -102,6 +102,7 @@ Route::middleware(['lang'])->group(function () {
 
         Route::controller(InstructionManualController::class)->group(function(){
             Route::get('/admin/instruction/manual', 'manual')->name('hdc.admin.instruction.manual');
+            Route::get('/charge/instruction/manual', 'manual')->name('hdc.charge.instruction.manual');
 
         });
 
