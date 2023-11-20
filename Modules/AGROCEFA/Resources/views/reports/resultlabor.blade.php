@@ -1,34 +1,32 @@
 @if (!empty($filteredLabors) && count($filteredLabors) > 0)
     <div class="card">
         <div class="card-header">
-            Reporte Labores Culturales
+            {{ trans('agrocefa::balancelabor.Cultural Work Report') }}
         </div>
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>ID Labor</th>
-                        <th>Actividad</th>
-                        <th>Encargado</th>
-                        <th>F.Ejecución</th>
-                        <th>Descripcion</th>
-                        <th>Costo Total</th>
-                        <th>Estado</th>
-                        <th>Observacion</th>
-                        <th>Destino</th>
-                        <th>Detalles</th>
+                        <th>{{ trans('agrocefa::balancelabor.Labor ID') }}</th>
+                        <th>{{ trans('agrocefa::balancelabor.Activity') }}</th>
+                        <th>{{ trans('agrocefa::balancelabor.Responsible') }}</th>
+                        <th>{{ trans('agrocefa::balance.executiondate') }}</th>
+                        <th>{{ trans('agrocefa::balancelabor.Description') }}</th>
+                        <th>{{ trans('agrocefa::balancelabor.Total Cost') }}</th>
+                        <th>{{ trans('agrocefa::balancelabor.Comment') }}</th>
+                        <th>{{ trans('agrocefa::balancelabor.Destination') }}</th>
+                        <th>{{ trans('agrocefa::balancelabor.Details') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($filteredLabors as $labor)
                         <tr data-labor-id="{{ $labor->id }}">
                             <td>{{ $labor->id }}</td>
-                            <td>{{ $labor->activity->name }}</td>
-                            <td>{{ $labor->person->name }}</td>
+                            <td>{{ optional($labor->activity)->name }}</td>
+                            <td>{{ optional($labor->person)->first_name }}</td>
                             <td>{{ $labor->execution_date }}</td>
                             <td>{{ $labor->description }}</td>
                             <td>{{ $labor->price }}</td>
-                            <td>{{ $labor->status }}</td>
                             <td>{{ $labor->observations }}</td>
                             <td>{{ $labor->destination }}</td>
                             <style>
@@ -42,29 +40,24 @@
                                     cursor: pointer;
                                 }
                             </style>
-                            
+
                             <!-- ... -->
-                            
+
                             <td>
                                 <button class="custom-btn btn-show-details">
-                                    Detalle
+                                    {{ trans('agrocefa::balancelabor.Details') }}
                                 </button>
                             </td>
-                                                    </tr>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
-
-            
-
-    
-@else
-    <br>
-    <p>No se encontró trabajo.</p>
+        @else
+            <br>
 @endif
 <script>
     // Cuando se hace clic en una fila de la tabla de labores
-    $('#example1 tbody').on('click', 'tr', function () {
+    $('#example1 tbody').on('click', 'tr', function() {
         // Obtiene el ID de la labor de la fila clicada
         var laborId = $(this).data('labor-id');
 
@@ -72,7 +65,9 @@
         $.ajax({
             type: 'GET',
             url: "{{ route('agrocefa.reports.laborDetails') }}",
-            data: { laborId: laborId },
+            data: {
+                laborId: laborId
+            },
             success: function(data) {
                 // Actualiza el contenedor con los detalles de la labor
                 $('#laborDetails').html(data);
@@ -87,13 +82,13 @@
     });
 
     // Cuando se hace clic en el botón "Cerrar Detalles"
-    $('#closeDetails').on('click', function () {
+    $('#closeDetails').on('click', function() {
         // Oculta el contenedor de detalles
         $('#laborDetails').hide();
     });
 
     // Cuando se hace clic en el botón "Detalle"
-    $('#example1 tbody').on('click', '.btn-show-details', function (e) {
+    $('#example1 tbody').on('click', '.btn-show-details', function(e) {
         e.stopPropagation(); // Detiene la propagación del evento para evitar conflictos con el clic en la fila
         var laborId = $(this).closest('tr').data('labor-id');
 
@@ -101,7 +96,9 @@
         $.ajax({
             type: 'GET',
             url: "{{ route('agrocefa.reports.laborDetails') }}",
-            data: { laborId: laborId },
+            data: {
+                laborId: laborId
+            },
             success: function(data) {
                 // Actualiza el contenedor con los detalles de la labor
                 $('#laborDetails').html(data);

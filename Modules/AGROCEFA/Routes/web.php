@@ -3,11 +3,10 @@
 use Modules\AGROCEFA\Http\Controllers\AGROCEFAController;
 use Modules\AGROCEFA\Http\Controllers\UsuarioController;
 use Modules\AGROCEFA\Http\Controllers\LaborManagementController;
+use Modules\AGROCEFA\Http\Controllers\LaborController;
 
-
-Route::middleware(['lang'])->group(function() {
-    Route::prefix('agrocefa')->group(function() {
-        
+Route::middleware(['lang'])->group(function () {
+    Route::prefix('agrocefa')->group(function () {
         //Rutas Principales
         Route::get('index', 'AGROCEFAController@index')->name('cefa.agrocefa.index');
         Route::get('home', 'AGROCEFAController@home')->name('cefa.agrocefa.home');
@@ -19,7 +18,6 @@ Route::middleware(['lang'])->group(function() {
         Route::get('user', 'AGROCEFAController@vistauser')->name('agrocefa.user');
         Route::get('developers', 'desarrolladoresController@index')->name('cefa.agrocefa.developers.index');
         Route::get('usuario', 'usuarioController@index')->name('cefa.agrocefa.usuario.index');
-
 
         // RUTAS DE PARAMETROS
         Route::get('trainer/parameters', 'Parameters\ParameterAgroController@parametersview')->name('agrocefa.trainer.parameters.index');
@@ -34,16 +32,15 @@ Route::middleware(['lang'])->group(function() {
         Route::put('passant/parameters/activity/update/{id}', 'Parameters\ActivityController@editActivity')->name('agrocefa.passant.parameters.activity.update');
         Route::delete('trainer/parameters/activity/destroy/{id}', 'Parameters\ActivityController@deleteActivity')->name('agrocefa.trainer.parameters.activity.destroy');
         Route::delete('passant/parameters/activity/destroy/{id}', 'Parameters\ActivityController@deleteActivity')->name('agrocefa.passant.parameters.activity.destroy');
-        
+
         // Variedad
-        Route::post('trainer/parameters/variety/store', 'Parameters\VarietyController@store')->name('agrocefa.trainer.parameters.variety.store');  
+        Route::post('trainer/parameters/variety/store', 'Parameters\VarietyController@store')->name('agrocefa.trainer.parameters.variety.store');
         Route::post('passant/parameters/variety/store', 'Parameters\VarietyController@store')->name('agrocefa.passant.parameters.variety.store');
         Route::put('trainer/parameters/variety/update/{id}', 'Parameters\VarietyController@update')->name('agrocefa.trainer.parameters.variety.update');
         Route::put('passant/parameters/variety/update/{id}', 'Parameters\VarietyController@update')->name('agrocefa.passant.parameters.variety.update');
         Route::delete('trainer/parameters/variety/destroy/{id}', 'Parameters\VarietyController@delete')->name('agrocefa.trainer.parameters.variety.destroy');
         Route::delete('passant/parameters/variety/destroy/{id}', 'Parameters\VarietyController@delete')->name('agrocefa.passant.parameters.variety.destroy');
 
-        
         // Especie
         Route::get('trainer/parameters/specie/getspecie', 'Parameters\ParameterAgroController@listspecie')->name('agrocefa.trainer.parameters.specie.getspecie');
         Route::get('passant/parameters/specie/getspecie', 'Parameters\ParameterAgroController@listspecie')->name('agrocefa.passant.parameters.specie.getspecie');
@@ -59,10 +56,8 @@ Route::middleware(['lang'])->group(function() {
         Route::post('passant/parameters/crop/store', 'Parameters\CropController@createCrop')->name('agrocefa.passant.parameters.crop.store');
         Route::put('trainer/parameters/crop/update/{id}', 'Parameters\CropController@editCrop')->name('agrocefa.trainer.parameters.crop.update');
         Route::put('passant/parameters/crop/update/{id}', 'Parameters\CropController@editCrop')->name('agrocefa.passant.parameters.crop.update');
-        Route::put('trainer/parameters/crop/destroy/{id}', 'Parameters\CropController@deleteCrop')->name('agrocefa.trainer.parameters.crop.destroy');
-        Route::put('passant/parameters/crop/destroy/{id}', 'Parameters\CropController@deleteCrop')->name('agrocefa.passant.parameters.crop.destroy');
-
-       
+        Route::delete('trainer/parameters/crop/destroy/{id}', 'Parameters\CropController@deleteCrop')->name('agrocefa.trainer.parameters.crop.destroy');
+        Route::delete('passant/parameters/crop/destroy/{id}', 'Parameters\CropController@deleteCrop')->name('agrocefa.passant.parameters.crop.destroy');
 
         //RUTAS DE INVENTARIO
         Route::get('trainer/inventory', 'InventoryController@inventory')->name('agrocefa.trainer.inventory.index');
@@ -79,7 +74,6 @@ Route::middleware(['lang'])->group(function() {
         Route::put('passant/inventory/{id}', 'InventoryController@update')->name('agrocefa.passant.inventory.update');
         Route::delete('trainer/inventory/delete/{id}', 'InventoryController@destroy')->name('agrocefa.trainer.inventory.destroy');
         Route::delete('passant/inventory/delete/{id}', 'InventoryController@destroy')->name('agrocefa.passant.inventory.destroy');
-
 
         // RUTAS DE MOVIMIENTOS
 
@@ -105,7 +99,6 @@ Route::middleware(['lang'])->group(function() {
         Route::get('trainer/movements/getinformationelement', 'MovementController@obtenerDatosElemento')->name('agrocefa.trainer.movements.getinformationelement');
         Route::get('passant/movements/getinformationelement', 'MovementController@obtenerDatosElemento')->name('agrocefa.passant.movements.getinformationelement');
 
-        
         // RUTAS DE GESTION DE LABORES
         Route::get('trainer/labormanagement/culturalwork', 'LaborManagementController@culturalwork')->name('agrocefa.trainer.labormanagement.index');
         Route::get('passant/labormanagement/culturalwork', 'LaborManagementController@culturalwork')->name('agrocefa.passant.labormanagement.index');
@@ -126,7 +119,6 @@ Route::middleware(['lang'])->group(function() {
         Route::post('trainer/labormanagement/store', 'LaborManagementController@registerlabor')->name('agrocefa.trainer.labormanagement.store');
         Route::post('passant/labormanagement/store', 'LaborManagementController@registerlabor')->name('agrocefa.passant.labormanagement.store');
 
-
         // RUTAS DE REPORTES
 
         // Consumos
@@ -143,7 +135,7 @@ Route::middleware(['lang'])->group(function() {
         Route::post('/reports/labor/filter', 'Reports\LaborController@filterlabor')->name('agrocefa.reports.filterlabor');
         Route::get('trainer/reports/labor/laborDetails', 'Reports\LaborController@getLaborDetails')->name('agrocefa.reports.laborDetails');
         Route::get('passant/reports/labor/laborDetails', 'Reports\LaborController@getLaborDetails')->name('agrocefa.reports.laborDetails');
-
+        Route::get('/reports/labor/laborpdf', 'Reports\LaborController@laborpdf')->name('agrocefa.reports.laborpdf');
 
         //produccion
         Route::get('/reports/production', 'Reports\ProductionController@index')->name('agrocefa.reports.production');
@@ -157,7 +149,5 @@ Route::middleware(['lang'])->group(function() {
         Route::get('passant/reports/balance', 'Reports\BalanceController@index')->name('agrocefa.passant.reports.balance.index');
         Route::post('/reports/balance/filter', 'Reports\BalanceController@filterbalance')->name('agrocefa.reports.filterbalance');
         Route::get('/reports/balance/balancepdf', 'Reports\BalanceController@balancepdf')->name('agrocefa.reports.balancepdf');
-
-
     });
 });

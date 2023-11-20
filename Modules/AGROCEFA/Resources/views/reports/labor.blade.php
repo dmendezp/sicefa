@@ -1,7 +1,7 @@
 @extends('agrocefa::layouts.master')
 
 @section('content')
-    <h2>Reporte Labores Culturales</h2>
+    <h2>{{ trans('agrocefa::balancelabor.Cultural Work Report') }}</h2>
 
     <div class="container">
         <!-- Div para mostrar notificaciones -->
@@ -53,7 +53,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    
+
     <script>
         // Manejador de eventos para el cambio en el campo "Actividad"
         $('#lotSelect').on('change', function() {
@@ -100,7 +100,7 @@
 
             // Realizar una solicitud AJAX para obtener los resultados de labores filtrados por cultivo
             $.ajax({
-                type: 'POST',
+                type: 'POST', // Asegúrate de que estás usando el método POST
                 url: "{{ route('agrocefa.reports.filterlabor') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
