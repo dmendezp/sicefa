@@ -1,33 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  @include('gth::partials.head')
+@include('gth::partials.head')
 
-@yield('css')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+@section('stylesheet')
+@show
 
-</head>
-<body>
+<body class="hold-transition sidebar-mini layout-fixed">
+
     <div class="wrapper">
-    @include('gth::partials.navbar')
+        <!-- Navbar -->
+        @include('gth::partials.navbar')
 
-    @if (request()->is('gth/attendance'))
-        @include('gth::partials.asistenciasidebar')
-    @else
-        @include('gth::partials.sidebar')
-    @endif
-</div>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
 
-  <main class="content">
-    @yield('content')
+        @if (in_array(request()->path(), ['gth/attendance', 'gth/attendanceregister', 'gth/biometricreports']))
+            @include('gth::partials.asistenciasidebar')
+        @else
+            @include('gth::partials.sidebar')
+        @endif
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    @yield('js')
- <br><br><br><br><br><br><br><br><br><br>
-    @include('gth::partials.footer')
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            @include('gth::partials.breadcrumb')
+            <!-- /.content-header -->
+            <!-- Main content -->
+            @section('content')
+            @show
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Main Footer -->
+        @include('gth::partials.footer')
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    @include('gth::partials.scripts')
 
-  <script src="script.js"></script>
-  @section('js')
-  @show
+    @section('scripts')
+    @show
+
 </body>
+
 </html>

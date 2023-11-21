@@ -44,7 +44,7 @@ class InsurerEntitiesController extends Controller
         $insurerEntities->save();
 
         // Redirigir a donde quieras después de la actualización
-        return redirect()->route('cefa.gth.insurerentities.view')->with('success', 'Entidad Aseguradora actualizado exitosamente.');
+        return redirect()->route('cefa.gth.insurerentities.view')->with('success', 'gth::menu.Insurance Entity successfully updated.');
     }
 
     public function showInsurerEntities($id)
@@ -60,9 +60,9 @@ class InsurerEntitiesController extends Controller
             $insurerEntities = InsurerEntity::findOrFail($id);
             $insurerEntities->delete();
 
-            return redirect()->route('cefa.gth.insurerentities.view')->with('success', 'La Entidad Aseguradora ha sido eliminado correctamente.');
+            return redirect()->route('cefa.gth.insurerentities.view')->with('success', 'gth::menu.The Insurance Entity has been deleted successfully.');
         } catch (\Exception $e) {
-            return redirect()->route('cefa.gth.insurerentities.view')->with('error', 'No se pudo eliminar La Entidad Aseguradora.');
+            return redirect()->route('cefa.gth.insurerentities.view')->with('error', 'gth::menu.The Insurance Entity could not be deleted');
         }
     }
 

@@ -1,9 +1,13 @@
 <?php
 
 return [
-	//homee
+	//home
 	'Home' => 'Inicio',
 	'Attendance' => 'Asistencia',
+	'English' => 'Ingles',
+	'Spanish' => 'Español',
+	'Login' => 'Login',
+
 	//attendences
 	'Attendance View' => 'Vista Asistencia',
 	'Welcome to the attendance page. Here you can view and manage employee attendance.' => 'Bienvenido a la página de asistencia. Aquí podrás ver y gestionar la asistencia de los empleados.',
@@ -35,21 +39,43 @@ return [
 
 	//contractors
 	'Contract reports' => 'Reportes de contratos',
+	'ID' => 'ID',
 	'Document type' => 'Tipo de documento',
-	'Document number' => 'Número documento',
+	'ID number' => 'Número documento',
 	'Full name' => 'Nombre Completo',
 	'actions' => 'Acciones',
 	'Edit' => 'Editar',
 	'Delete' => 'Eliminar',
-
+	'The contract has been successfully updated.' => 'El Contrato ha actualizado exitosamente.',
+	'Error updating vacancy' => 'Error al actualizar vacante',
+	'Contractor type correctly eliminated.' => 'Tipo de contratista eliminado correctamente.',
+	'The contractor type could not be deleted.' => 'No se pudo eliminar el tipo de contratista.',
+	'Saved successful' => 'Guardado exitoso',
+	'success' => 'éxito',
+	'Accept' => 'Aceptar',
+	'¿Are you sure you want to delete?' => '¿Estas seguro que deseas eliminar?',
+	'This process is irreversible.' => 'Este proceso es irrevesible.',
+	'Warning' => 'Advertencia',
+	'Yes, delete it' => 'Si, Elimínalo',
+	'Cancel' => 'Cancelar',
+	'success' => 'éxito',
+	'Your work has been saved' => 'Tu trabajo ha sido guardado.',
+	'Saved successful' => 'Guardado exitoso',
+	'The data has been saved correctly.' => 'Los datos se han guardado correctamente.',
+	'success' => 'éxito',
+	'Accept' => 'Aceptar',
+	'success!' => 'éxito!',
+	'Error' => 'Error',
+	'Error' => 'Error',
+	
 	//Contratreporst
 	'Employment Contract Record' => ' Registro de Contrato Laboral',
-	'Personal Information' => 'Información de la Persona',
-	'Document number:' => 'Número de Documento:',
+	'Personal Information' => 'Información  Personal',
+	'ID number:' => 'Número de Documento:',
 	'First Name:' => 'Primer Nombre:',
 	'First Surname:' => 'Primer Apellido:',
 	'Second Surname:' => 'Segundo Apellido:',
-	'Personal Information' => 'Información de la Persona',
+	'Personal Information' => 'Información Personal',
 	'Supervisor ID:' => 'Supervisor ID:',
 	'Enter the supervisor ID' => 'Digite el id del supervisor',
 	'Contract Number:' => 'Número de Contrato:',
@@ -81,6 +107,11 @@ return [
 	'Contract Object:' => 'Objeto del Contrato:',
 	'Contract Obligations:' => 'Obligaciones del Contrato:',
 	'Save Contract' => 'Guardar Contrato',
+	'Saved successful' => 'Guardado exitoso',
+	'The data has been saved correctly.' => 'Los datos se han guardado correctamente.',
+	'success' => 'éxito',
+	'Accept' => 'Aceptar',
+	
 
 	//contractype
 	'Types of Contracts' => 'Tipos de Contratos',
@@ -96,6 +127,30 @@ return [
 	'Edit Contract Type' => 'Editar Tipo de Contrato:',
 	'Name' => 'Nombre',
 	'Save Changes' => 'Guarda Cambios',
+	'Saved successful' => 'Guardado exitoso',
+	'The data has been saved correctly.' => 'Los datos se han guardado correctamente.',
+	'Accept' => 'Aceptar',
+	'¿Are you sure you want to delete?' => '¿Estas seguro que deseas eliminar?',
+	'This process is irreversible.' => 'Este proceso es irrevesible.',
+	'Warning' => 'Advertencia',
+	'Yes, delete it' => 'Si, Elimínalo',
+	'Cancel' => 'Cancelar',
+	'Saved successful' => 'Guardado exitoso',
+	'The data has been saved correctly.' => 'Los datos se han guardado correctamente.',
+	'success' => 'éxito',
+	'Accept' => 'Aceptar',
+	'success' => 'éxito',
+	'success' => 'éxito',
+	'Error' => 'Error',
+	'Error' => 'Error',
+	'success' => 'éxito',
+	'success' => 'éxito',
+	'Error' => 'Error',
+	'Error' => 'Error',
+	'Contract Type updated successfully.' => 'Tipo de contrato actualizado correctamente.',
+	'Contractor type deleted successfully.' => 'Tipo de contratista eliminado exitosamente',
+	'The contractor type could not be deleted.'=> 'No se pudo eliminar el tipo de contratista',
+	
 
 	//insurerentities
 	'Insuring Entity' => 'Entidad Aseguradora',
@@ -114,6 +169,28 @@ return [
 	'Name' => 'Nombre',
 	'Description' => 'Descripción',
 	'Save Changes' => 'Guarda Cambios',
+	'Saved successful' => 'Guardado exitoso',
+	'The data has been saved correctly.' => 'Los datos se han guardado correctamente.',
+	'success' => 'éxito',
+	'Accept' => 'Aceptar',
+	'¿Are you sure you want to delete?' => '¿Estas seguro que deseas eliminar?',
+	'This process is irreversible.' => 'Este proceso es irrevesible.',
+	'Warning' => 'Advertencia',
+	'Yes, delete it' => 'Si, Elimínalo',
+	'Cancel' => 'Cancelar',
+	'success' => 'éxito',
+	'Your work has been saved.' => 'Tu trabajo ha sido guardado.',
+	'Saved successful' => 'Guardado exitoso',
+	'The data has been saved correctly.' => 'Los datos se han guardado correctamente.',
+	'success' => 'éxito',
+	'Accept' => 'Aceptar',
+	'success' => 'éxito',
+	'success!' => 'éxito!',
+	'Error' => 'Error',
+	'Error' => 'Error',
+	'Insurance Entity successfully updated.' => 'Entidad de Seguros actualizada exitosamente.',
+	'The Insurance Entity has been deleted successfully.' => 'La Entidad Aseguradora ha sido eliminada exitosamente.',
+	'The Insurance Entity could not be deleted' => 'No se pudo eliminar la Entidad Aseguradora',
 
 	//employeetype
 	'Types of Employees' => 'Tipos de Empleados',
@@ -148,6 +225,7 @@ return [
 	'Description' => 'Descripción',
 	'Save Changes' => 'Guarda Cambios',
 
+
 	//Position
 	'View of Position' => 'vista de posición',
 	'Management of Position' => 'Gestión de Posición',
@@ -178,10 +256,32 @@ return [
 	'Technician' => 'Técnico',
 	'Qualifications:' => 'Calificaciones:',
 	'Save Changes' => 'Guarda Cambios',
-	
+	'Saved successful' => 'Guardado exitoso',
+	'The data has been saved from Position.' => 'Los datos se han guardado de Posicion.',
+	'success' => 'éxito',
+	'Accept' => 'Aceptar',
+	'Position successfully updated.' => 'actualizado exitosamente de posicion.',
+	'Has been successfully deleted' => 'ha sido eliminado correctamente.',
+	'The Position could not be deleted.' => 'No se pudo eliminar La Posicion.',
+	'¿Are you sure you want to delete?' => '¿Estas seguro que deseas eliminar?',
+	'This process is irreversible.' => 'Este proceso es irrevesible.',
+	'Warning' => 'Advertencia',
+	'Yes, delete it' => 'Si, Elimínalo',
+	'Cancel' => 'Cancelar',
+	'success' => 'éxito',
+	'Your work has been saved' => 'Tu trabajo ha sido guardado',
+	'Saved successful' => 'Guardado exitoso',
+	'The data has been saved correctly.' => 'Los datos se han guardado correctamente.',
+	'success' => 'éxito',
+	'Accept' => 'Aceptar',
+	'success' => 'éxito',
+	'success!' => 'éxito!',
+	'success' => 'éxito',
+	'Error' => 'Error',
+	'Error' => 'Error',
 
 
-
+ 
 
 
 

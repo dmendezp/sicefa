@@ -44,7 +44,7 @@ class PositionsController extends Controller
         $positions->save();
 
         // Redirigir a donde quieras después de la actualización
-        return redirect()->route('cefa.gth.position')->with('success', ' actualizado exitosamente de posicion.');
+        return redirect()->route('cefa.gth.position')->with('success',trans('gth::menu.Position successfully updated.'));
     }
 
     public function showPositions($id)
@@ -60,9 +60,9 @@ class PositionsController extends Controller
             $positions = position::findOrFail($id);
             $positions->delete();
 
-            return redirect()->route('cefa.gth.position')->with('success', 'ha sido eliminado correctamente.');
+            return redirect()->route('cefa.gth.position')->with('success', trans('gth::menu.Position successfully updated.'));
         } catch (\Exception $e) {
-            return redirect()->route('cefa.gth.position')->with('error', 'No se pudo eliminar La Posicion.');
+            return redirect()->route('cefa.gth.position')->with('error', trans('gth::menu.The Position could not be deleted.'));
         }
     }
 }

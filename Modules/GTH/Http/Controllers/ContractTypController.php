@@ -42,7 +42,7 @@ class ContractTypController extends Controller
         $contractorType->save();
 
         // Redirigir a donde quieras después de la actualización
-        return redirect()->route('cefa.gth.contractortypes.view')->with('success', 'Tipo de Contrato actualizado exitosamente.');
+        return redirect()->route('cefa.gth.contractortypes.view')->with('success', 'gth::menu.Contract Type updated successfully.');
     }
 
     public function showContractorTypes($id)
@@ -58,9 +58,9 @@ class ContractTypController extends Controller
             $contractorType = ContractorType::findOrFail($id);
             $contractorType->delete();
 
-            return redirect()->route('cefa.gth.contractortypes.view')->with('success', 'Tipo de contratista eliminado correctamente.');
+            return redirect()->route('cefa.gth.contractortypes.view')->with('success', 'gth::menu.Contractor type deleted successfully.');
         } catch (\Exception $e) {
-            return redirect()->route('cefa.gth.contractortypes.view')->with('error', 'No se pudo eliminar el tipo de contratista.');
+            return redirect()->route('cefa.gth.contractortypes.view')->with('error', 'gth::menu.The contractor type could not be deleted.');
         }
     }
 
