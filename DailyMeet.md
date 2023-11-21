@@ -79,6 +79,12 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 * **Mary Luz Aldana Vidarte** - *Reporte Del Impacto De Huella* - *Avance 100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
 * **Leidy Sofia Osorio Vera** - *Consulta consumo emitido por unidad productiva* - *Avance 62%* - *Dificultades->No se presento* 
 ---
+#### Meet 20-Nov-2023
+
+* **Mary Luz Aldana Vidarte** - *Vista De Desarrolladores* - *Avance 100%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+* **Mary Luz Aldana Vidarte** - *Administrar Recursos* - *Avance 80%* - *Dificultades->Ninguna* - *Acciones->Ninguna*
+ 
+---
 
 ADSO 2500871
 Centro de Formacion Agroindustrial la Angostura SENA.

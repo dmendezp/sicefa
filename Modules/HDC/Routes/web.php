@@ -19,35 +19,34 @@ Route::middleware(['lang'])->group(function () {
     Route::prefix('hdc')->group(function () {
 
 
-        Route::controller(HDCController::class)->group(function(){
+        Route::controller(HDCController::class)->group(function () {
             Route::get('/index', 'index')->name('cefa.hdc.index');
-            Route::get('admin/index', 'index')->name('hdc.admin.index');// Ruta pagina principal del administrador
-            Route::get('charge/index', 'index')->name('hdc.charge.index');// Ruta pagina principal del Encargado
+            Route::get('admin/index', 'index')->name('hdc.admin.index'); // Ruta pagina principal del administrador
+            Route::get('charge/index', 'index')->name('hdc.charge.index'); // Ruta pagina principal del Encargado
 
 
 
 
         });
-        Route::controller(CarbonfootprintreportController::class)->group(function(){
+        Route::controller(CarbonfootprintreportController::class)->group(function () {
             Route::get('/admin/generate/report', 'generateReport')->name('hdc.admin.generate.report');
             Route::get('/charge/generate/report', 'generateReport')->name('hdc.charge.generate.report');
             Route::post('/admin/generate-pdf', 'generatePdf')->name('hdc.admin.generate.pdf');
             Route::post('/charge/generate-pdf', 'generatePdf')->name('hdc.charge.generate.pdf');
             Route::post('/admin/report/tables', 'report')->name('hdc.admin.report.tables');
             Route::post('/charge/report/tables', 'report')->name('hdc.charge.report.tables');
-
         });
 
-        Route::controller(FormularioController::class)->group(function(){
+        Route::controller(FormularioController::class)->group(function () {
             Route::get('/admin/Formulario', 'formulario')->name('hdc.admin.formulario'); //Ruta del formualario de agregar registros de aspectos ambientales administrador
-            Route::get('/charge/Formulario', 'formulario')->name('hdc.charge.formulario');//Ruta del formualario de agregar registros de aspectos ambientales Encargado
-            Route::post('/admin/get_activities', 'getActivities')->name('hdc.admin.activities');// Ruta del formulario agregar que trae con ajax las actividades administrador
-            Route::post('/charge/get_activities', 'getActivities')->name('hdc.charge.activities');// Ruta del formulario agregar que trae con ajax las actividades Encargado
-            Route::post('/admin/get_aspects', 'getAspects')->name('hdc.admin.aspects');// Ruta del formulario agregar que trae con ajax los aspectos ambientales Administrador
-            Route::post('/charge/get_aspects', 'getAspects')->name('hdc.charge.aspects');// Ruta del formulario agregar que trae con ajax los aspectos ambientales Encargado
+            Route::get('/charge/Formulario', 'formulario')->name('hdc.charge.formulario'); //Ruta del formualario de agregar registros de aspectos ambientales Encargado
+            Route::post('/admin/get_activities', 'getActivities')->name('hdc.admin.activities'); // Ruta del formulario agregar que trae con ajax las actividades administrador
+            Route::post('/charge/get_activities', 'getActivities')->name('hdc.charge.activities'); // Ruta del formulario agregar que trae con ajax las actividades Encargado
+            Route::post('/admin/get_aspects', 'getAspects')->name('hdc.admin.aspects'); // Ruta del formulario agregar que trae con ajax los aspectos ambientales Administrador
+            Route::post('/charge/get_aspects', 'getAspects')->name('hdc.charge.aspects'); // Ruta del formulario agregar que trae con ajax los aspectos ambientales Encargado
             Route::post('admin/guardar/valores', 'guardarValores')->name('hdc.admin.guardar.valores');
             Route::post('charge/guardar/valores', 'guardarValores')->name('hdc.charge.guardar.valores');
-             /* Ruta del CRUD del formulario de registro*/
+            /* Ruta del CRUD del formulario de registro*/
             Route::get('/admin/tabla', 'table')->name('hdc.admin.table');
             Route::get('/charge/tabla', 'table')->name('hdc.charge.table');
             Route::delete('admin/resulform/delete/{id}', 'delete')->name('hdc.admin.delete');
@@ -56,10 +55,9 @@ Route::middleware(['lang'])->group(function () {
             Route::get('/charge/hdc/edit/{labor}', 'edit')->name('hdc.charge.edit');
             Route::post('/admin/hdc/update/{labor}', 'update')->name('hdc.admin.update');
             Route::post('/charge/hdc/update/{labor}', 'update')->name('hdc.charge.update');
-
         });
-         /* Ruta Para Asignar recursos */
-        Route::controller(assign_environmental_aspectsController::class)->group(function(){
+        /* Ruta Para Asignar recursos */
+        Route::controller(assign_environmental_aspectsController::class)->group(function () {
             Route::get('/AsignarAspectosAmbientales', 'assign_environmental_aspects')->name('cefa.hdc.assign_environmental_aspects');
             Route::get('/listado_aspectos', 'aspectlist')->name('cefa.hdc.resultfromaspects');
             Route::post('/mostrar-resultados', 'mostrarResultados')->name('cefa.hdc.mostrarResultados');
@@ -68,14 +66,18 @@ Route::middleware(['lang'])->group(function () {
             Route::post('/guardar', 'store')->name('hdc.assign_environmental_aspects.store');
             Route::post('/update-environmental-aspects', 'updateEnvironmentalAspects')->name('cefa.hdc.updateEnvironmentalAspects');
             /* Ruta CRUD Del Formulario De Registro*/
-            Route::get('/actividad/{activity}/editar', 'edit')->name('cefa.hdc.edit');
+          /*   Route::get('/actividad/{activity}/editar', 'edit')->name('cefa.hdc.edit'); */
+          Route::get('cefa/hdc/edit_resultados/{activity_id}', 'edit_resultados')->name('cefa.hdc.edit_resultados');
+
+            Route::delete('/cefa/hdc/delete_environmental_aspects/{id}', 'eliminarAspectosAmbientales')->name('cefa.hdc.delete_environmental_aspects');
+
         });
 
-        Route::controller(CarbonfootprintController::class)->group(function(){
+        Route::controller(CarbonfootprintController::class)->group(function () {
             /* Rutas de Calcula tu Huella */
             Route::get('/admin/persona', 'persona')->name('hdc.admin.carbonfootprint.persona');
             Route::get('/charge/persona', 'persona')->name('hdc.charge.carbonfootprint.persona');
-             /* Rutas de Formulario de Calcula tu Huella */
+            /* Rutas de Formulario de Calcula tu Huella */
             Route::get('/admin/form/calculates/footprin/{person}', 'formcalculates')->name('hdc.admin.Carbonfootprint.form.calculates');
             Route::get('/charge/form/calculates/footprin/{person}', 'formcalculates')->name('hdc.charge.Carbonfootprint.form.calculates');
             // Ruta para procesar el formulario (guardar los datos)
@@ -95,18 +97,17 @@ Route::middleware(['lang'])->group(function () {
             Route::delete('/carbonfootprint/eliminar/{id}', 'eliminarConsumo')->name('carbonfootprint.eliminar');
         });
 
-        Route::controller(GraficasController::class)->group(function(){
+        Route::controller(GraficasController::class)->group(function () {
             /* Ruta de Graficas */
-        Route::get('/Graficas', 'Graficas')->name('cefa.hdc.Graficas');
+            Route::get('/Graficas', 'Graficas')->name('cefa.hdc.Graficas');
         });
 
-        Route::controller(InstructionManualController::class)->group(function(){
+        Route::controller(InstructionManualController::class)->group(function () {
             Route::get('/admin/instruction/manual', 'manual')->name('hdc.admin.instruction.manual');
             Route::get('/charge/instruction/manual', 'manual')->name('hdc.charge.instruction.manual');
-
         });
 
-        Route::controller(DeveloperController::class)->group(function(){
+        Route::controller(DeveloperController::class)->group(function () {
             Route::get('/developer', 'developer')->name('cefa.hdc.developers');
         });
     });

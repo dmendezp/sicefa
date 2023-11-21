@@ -149,14 +149,14 @@
                               </a>
                           </li>
                       @endif
-                    {{--    <li class="nav-item">
+                       <li class="nav-item">
                           <a href="{{ route('cefa.hdc.resultfromaspects') }}" class="nav-link">
                               <i class="nav-icon fa-solid fa-folder-open"></i>
                               <p>
                                   {{ trans('hdc::hdcgeneral.assign_environmental_aspects') }}
                               </p>
                           </a>
-                      </li>  --}}
+                      </li>
 
                   </ul>
               </nav>

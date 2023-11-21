@@ -17,30 +17,25 @@ class assign_environmental_aspectsController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function assign_environmental_aspects() {
+    public function assign_environmental_aspects()
+    {
         $productive_unit = ProductiveUnit::all();
         $activities = Activity::all();
         $environmentalAspect = EnvironmentalAspect::get();
-        return view('hdc::Asignar.assign_environmental_aspects', compact('productive_unit' , 'activities', 'environmentalAspect'));
+        return view('hdc::Asignar.assign_environmental_aspects', compact('productive_unit', 'activities', 'environmentalAspect'));
     }
 
-    public function aspectlist() {
+    public function aspectlist()
+    {
         $productive_unit = ProductiveUnit::all();
         return view('hdc::Asignar.resultfromaspects', compact('productive_unit'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('hdc::create');
-    }
+
 
     public function store(Request $request)
     {
-        
+
         // Obtén la actividad seleccionada
         $activity = Activity::find($request->activity_id);
 
@@ -54,7 +49,7 @@ class assign_environmental_aspectsController extends Controller
 
         return redirect(route('cefa.hdc.resultfromaspects'));
     }
-    
+
 
     public function mostrarResultados(Request $request)
     {
@@ -62,20 +57,19 @@ class assign_environmental_aspectsController extends Controller
 
         // Realiza una consulta para obtener los resultados según la unidad productiva seleccionada
         $resultados = Activity::with('environmental_aspects')->where('productive_unit_id', $unidadProductivaId)->get();
-    
+
         return view('hdc::Asignar.tablaresult', compact('resultados'));
     }
 
-
     public function getEnvironmentalAspects($activityId)
-{
-    $activity = Activity::find($activityId);
+    {
+        $activity = Activity::find($activityId);
 
-    // Obtén los aspectos ambientales asociados a la actividad
-    $associatedEnvironmentalAspects = $activity->environmental_aspects()->pluck('environmental_aspects.id')->toArray();
+        // Obtén los aspectos ambientales asociados a la actividad
+        $associatedEnvironmentalAspects = $activity->environmental_aspects()->pluck('environmental_aspects.id')->toArray();
 
-    return response()->json($associatedEnvironmentalAspects);
-}
+        return response()->json($associatedEnvironmentalAspects);
+    }
 
     public function updateEnvironmentalAspects(Request $request)
     {
@@ -109,16 +103,48 @@ class assign_environmental_aspectsController extends Controller
         }
     }
 
-    public function edit(Actividad $actividad)
+    public function eliminarAspectosAmbientales($id)
     {
-        // Muestra el formulario de edición de la actividad
-        return view('cefa.hdc.assign_environmental_aspects', compact('activities'));
+        try {
+            $activity = Activity::findOrFail($id);
+            $activity->environmental_aspects()->detach(); // Elimina la relación con aspectos ambientales
+            // Opcionalmente, puedes eliminar la actividad si es necesario: $activity->delete();
+
+            return redirect()->back()->with('success', 'Aspectos ambientales eliminados correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al eliminar aspectos ambientales. ' . $e->getMessage());
+        }
     }
 
-    
+
+    public function edit_resultados($activity_id)
+    {
+        try {
+            // Obtén la actividad que se va a editar
+            $activity = Activity::findOrFail($activity_id);
+
+            // Obtén la lista de todas las unidades productivas
+            $productive_units = ProductiveUnit::all();
+
+            // Obtén la lista de todos los aspectos ambientales disponibles
+            $environmental_aspects = EnvironmentalAspect::all();
+
+            // Obtén los aspectos ambientales asociados a la actividad
+            $associated_environmental_aspects = $activity->environmental_aspects->pluck('id')->toArray();
+
+            // Retorna la vista de edición con la información necesaria
+            return view('hdc::Asignar.edit_resultados', compact('activity', 'productive_units', 'environmental_aspects', 'associated_environmental_aspects'));
+        } catch (\Exception $e) {
+            // Manejar cualquier error que pueda ocurrir
+            return redirect()->back()->with('error', 'Error al editar resultados. ' . $e->getMessage());
+        }
+    }
 
 
-    public function update(Request $request, ) {
+
+
+    /*  public function update(Request $request,)
+    {
         $activity = Activity::find($request->input('activity_id'));
 
         if (!$activity) {
@@ -131,18 +157,5 @@ class assign_environmental_aspectsController extends Controller
         $activity->save();
 
         return response()->json(['message' => 'Cambios guardados con éxito']);
-    }
-
-    public function destroy($id) {
-        $activity = Activity::find($id);
-
-        if (!$activity) {
-            return response()->json(['error' => 'La actividad no se encontró.']);
-        }
-
-        $activity->delete();
-
-        return response()->json(['message' => 'Actividad eliminada con éxito']);
-    }
-    
+    } */
 }

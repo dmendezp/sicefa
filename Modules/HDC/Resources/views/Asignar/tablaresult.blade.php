@@ -27,12 +27,18 @@
                                             </ul>
                                         </td>
                                         <td>
-                                            <button class="btn btn-primary" data-activityId="{{ $resultado->id }}" onclick="editarActividad(this)">
-                                                Editar
-                                            </button>
-                                            <button class="btn btn-danger" data-resultado="{{ $resultado->id }}" onclick="eliminarActividad(this)">
-                                                Eliminar
-                                            </button>
+
+                                            <form method="post" action="{{ route('cefa.hdc.delete_environmental_aspects', ['id' => $resultado->id]) }}">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </form>
+                                            <form action="{{ route('cefa.hdc.edit_resultados', ['activity_id' => $resultado->id]) }}" method="get">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary">Editar</button>
+                                            </form>
+
+
                                         </td>
                                     </tr>
                                     @endforeach
@@ -49,19 +55,19 @@
     </div>
 </div>
 
-@push('scripts')
+{{--  @push('scripts')
     <!-- Agregar un script para manejar las funciones de edición y eliminación -->
     <script>
         function editarActividad(button) {
             var row = button.closest('tr'); // Encuentra la fila que contiene el botón
             var actividadCell = row.querySelector('td:first-child'); // Obtiene la celda de la actividad
             var nuevoNombre = prompt('Editar nombre de actividad:', actividadCell.textContent);
-    
+
             if (nuevoNombre !== null) {
                 // Realiza una solicitud Ajax para actualizar el nombre de la actividad
                 var actividadId = button.getAttribute('data-activityId');
                 var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Obtén el token CSRF
-    
+
                 // Realiza la solicitud Ajax utilizando fetch
                 fetch('/actividad/' + actividadId, {
                     method: 'POST',
@@ -87,7 +93,7 @@
                 });
             }
         }
-    
+
         function eliminarActividad(button) {
             if (confirm('¿Estás seguro de que deseas eliminar esta actividad?')) {
                 var activityId = button.getAttribute('data-resultado');
@@ -98,4 +104,4 @@
             }
         }
     </script>
-@endpush
+@endpush  --}}
