@@ -2,20 +2,6 @@
     <span class="iconos text-center"><i class="fas fa-user-cog"></i></span>
     <h3 class="text-center" id="spaceh3">GTH</h3>
 
-    <ul class="list-unstyled">
-        <li class="mb-1">
-            <button class="btn btn-link custom-button align-items-center rounded" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                Dashboard
-            </button>
-            <div class="collapse custom-menu" id="dashboard-collapse">
-                <ul class="list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded">Overview</a></li>
-                    <li><a href="#" class="link-dark rounded">Weekly</a></li>
-                    <li><a href="#" class="link-dark rounded">Monthly</a></li>
-                    <li><a href="#" class="link-dark rounded">Annually</a></li>
-                </ul>
-            </div>
-        </li>
         <li><a href="{{route('cefa.gth.contractors.view')}}"><i class="bi bi-file-earmark-medical-fill icon"></i>Contratistas</a></li>
         <li><a href="{{route('cefa.gth.contractreports.view')}}"><i class='bx bxs-report icon'></i>Reporte Contratos</a></li>
         <li><a href="{{route('cefa.gth.contractortypes.view')}}"><i class='bx bxs-report icon'></i>Tipo de Contratos</a></li>

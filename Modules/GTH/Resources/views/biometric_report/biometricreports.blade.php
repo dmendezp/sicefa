@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container">
-        <h3 class="mt-4 mb-4">Reegistro Biometrico</h3>
+        <h3 class="mt-4 mb-4">Registro Biometrico</h3>
 
         <!-- Filtro de estado de registro -->
         <div class="form-group">
@@ -35,8 +35,7 @@
                 <tbody>
                     @foreach ($people as $person)
                         <tr data-registro="{{ empty($person->biometric_code) ? 'no_registrado' : 'registrado' }}">
-                            <td>{{ $person->first_name }} {{ $person->first_last_name }} {{ $person->second_last_name }}
-                            </td>
+                            <td>{{ $person->full_name }}</td>
                             <td>{{ $person->document_number }}</td>
                             <td>
                                 @if (empty($person->biometric_code))
