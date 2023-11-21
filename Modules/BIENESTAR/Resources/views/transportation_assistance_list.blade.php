@@ -16,7 +16,7 @@
 
                             <!-- Barra de búsqueda de documentos -->
                             <div class="form-group d-flex justify-content-center align-items-center">
-                                <form action="{{ route('cefa.bienestar.searchattendancetransport') }}" method="POST">
+                                <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.view.transportation_assistance_lists.consult') }}" method="POST">
                                     @csrf
                                     <div class="row bg-white rounded p-2">
                                         <!-- Cambiamos el color a blanco y añadimos bordes redondeados y relleno -->

@@ -84,7 +84,7 @@
                                 <td>
                                     <div class="d-flex">
                                         <button class="btn btn-info mr-2" data-toggle="modal" data-target="#modal-edit-{{ $busdriver->id }}"><i class="fas fa-edit"></i></button>
-                                        <form action="{{ route('cefa.bienestar.drivers.delete', ['id' => $busdriver->id]) }}" method="POST" class="formEliminar">
+                                        <form action="{{ route('bienestar.admin.delete.drivers', ['id' => $busdriver->id]) }}" method="POST" class="formEliminar">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>

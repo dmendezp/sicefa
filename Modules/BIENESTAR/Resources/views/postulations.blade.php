@@ -1,8 +1,5 @@
 @extends('bienestar::layouts.master')
-
 @section('content')
-
-
 <div class="container">
     <div class="container mt-4">
         <div class="row justify-content-center">
@@ -28,7 +25,6 @@
             </div>
         </div>
     </div>
-
     <div class="row justify-content-center mt-4">
         <div class="col-md-8">
             <div class="card shadow">
@@ -45,9 +41,7 @@
             </div>
         </div>
     </div>
-    <div id="divApprentices">
-
-    </div>
+    <div id="divApprentices"></div>
 </div>
 <script>
     $(document).on("change", "#search", function() {

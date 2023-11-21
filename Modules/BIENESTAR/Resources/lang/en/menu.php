@@ -2,11 +2,13 @@
 
 return[
         //navbar
+    'Apprentice'=>'Apprentice',
+    'Welfare'=>'Welfare',
     'Home'=>'Home',
     'Profile'=>'Profile',
     'Configuration'=>'Configuration',
     'Log Out'=>'Log Out',
-
+    'Food Benefits Leader'=> 'Food Benefits Leader',
         //sidebar
     'Back to Sicefa'=>'Back to Sicefa',
     'Apprentices'=>'Apprentices',
@@ -14,6 +16,18 @@ return[
     'Transportation'=>'Transportation',
     'Benefits'=>'Benefits',
     'Convoctions'=>'Convoctions',
+    'Food Beneficiaries'=>'Food Beneficiaries',
+    'Attendance Listings'=>'Attendance Listings',
+    'Drivers'=>'Drivers',
+    'Buses'=>'Buses',
+    'Routes'=>'Routes',
+    'Assign Routes'=>'Assign Routes',
+    'Take Assistance'=>'Take Assistance',
+    'Attendance Listings'=>'Attendance Listings',
+    'Forms'=>'Forms',
+    'Manage Applications'=>'Manage Applications',
+    'Postulation'=>'Postulation',
+    'Consultation'=>'Consultation',
 
         //Vista benefits-view
     'Porcentege'=>'Porcentage',

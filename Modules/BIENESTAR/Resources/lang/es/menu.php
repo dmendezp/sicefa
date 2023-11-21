@@ -2,11 +2,13 @@
 
 return[
         //Navbar
+    'Apprentice'=>'Aprendiz',
+    'Welfare'=>'Bienestar al',
     'Home'=>'Inicio',
     'Profile'=>'Perfil',
     'Configuration'=>'Configuration',
     'Log Out'=>'Cerrar Sesion',
-
+    'Food Benefits Leader'=>'Lider Beneficio de Alimentacion',
         //sidebar
     'Back to Sicefa'=>'Volver a Sicefa',
     'Apprentices'=>'Aprendices',
@@ -14,6 +16,18 @@ return[
     'Transportation'=>'Transporte',
     'Benefits'=>'Beneficios',
     'Convoctions'=>'Convocatorias',
+    'Food Beneficiaries'=>'Beneficiarios de Alimentación',
+    'Attendance Listings'=>'Listados Asistencia',
+    'Drivers'=>'Conductores',
+    'Buses'=>'Buses',
+    'Routes'=>'Rutas',
+    'Assign Routes'=>'Asignar Rutas',
+    'Take Assistance'=>'Tomar Asistencia',
+    'Attendance Listings'=>'Listados de Asistencia',
+    'Forms'=>'Formularios',
+    'Manage Applications'=>'Gestionar Postulaciones',
+    'Postulation'=>'Postulación',
+    'Consultation'=>'Consulta',
 
         //Vista benefits-view
     'Porcentege'=>'Porcentaje',

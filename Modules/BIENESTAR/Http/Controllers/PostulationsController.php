@@ -5,12 +5,14 @@ namespace Modules\BIENESTAR\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\Convocation;
 use Modules\BIENESTAR\Entities\Postulation;
 use Modules\BIENESTAR\Entities\Question;
 use Modules\BIENESTAR\Entities\Answer;
+use Modules\BIENESTAR\Entities\SocioEconomicSupportFile;
 
 
 class PostulationsController extends Controller
@@ -93,22 +95,32 @@ class PostulationsController extends Controller
         $postulation->transportation_benefit = $request->input('transport') ?? 0;
         $postulation->save();
 
-        // Obtener las respuestas del formulario
-        $answers = $request->input('answer', []);
-        $questionIds = $request->input('question', []);
+            // Obtener las respuestas del formulario
+            $answers = $request->input('answer', []);
+            $questionIds = $request->input('question', []);
 
-        // Recorrer las respuestas y guardarlas relacionadas con la postulación
-        foreach ($answers as $index => $answerValue) {
-            if (!empty($answerValue) && isset($questionIds[$index])) {
-                $respuesta = new Answer();
-                $respuesta->answer = $answerValue; // Guardar el valor de la respuesta
-                $respuesta->postulation_id = $postulation->id;
-                $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
-                $respuesta->save();
-            }
+            // Recorrer las respuestas y guardarlas relacionadas con la postulación
+            foreach ($answers as $index => $answerValue) {
+                if (!empty($answerValue) && isset($questionIds[$index])) {
+                    $respuesta = new Answer();
+                    $respuesta->answer = $answerValue; // Guardar el valor de la respuesta
+                    $respuesta->postulation_id = $postulation->id;
+                    $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
+                    $respuesta->save();
+                }            
+
+                $file = $request->file('socioeconociFIle');
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $filePath = $file->storeAs('socioeconomico', $fileName, 'public');
+            
+                // Guardar el archivo en la tabla SocioEconomicSupportFile
+                $supportFile = new SocioEconomicSupportFile();
+                $supportFile->file_path = $filePath;
+                $supportFile->postulation_id = $postulation->id;
+                $supportFile->save();
+                    
+            // Redireccionar a la vista de edición o a donde desees después de guardar
+            return redirect()->route('cefa.bienestar.postulations')->with('success', 'Postulación guardada exitosamente.');
         }
-
-        // Redireccionar a la vista de edición o a donde desees después de guardar
-        return redirect()->route('cefa.bienestar.postulations')->with('success', 'Postulación guardada exitosamente.');
     }
 }

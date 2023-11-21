@@ -5,9 +5,26 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      <li class="nav-item d-none d-sm-inline-block mx-2">
         <a href="{{ route('cefa.bienestar.home') }}" class="nav-link"><i class="fas fa-home"></i>{{ trans('bienestar::menu.Home')}}</a>
       </li>
+      @auth
+            @if(checkRol('bienestar.admin'))
+                <li class="nav-item d-none d-sm-inline-block mx-2">
+                    <a href="{{ route('bienestar.admin.dashboard') }}" class="nav-link @if(Route::is('bienestar.admin.*')) active @endif">{{ trans('ptventa::general.admin') }}</a>
+                </li>
+            @endif
+            @if(checkRol('bienestar.food_benefits_leader'))
+                <li class="nav-item d-none d-sm-inline-block mx-2">
+                    <a href="{{ route('bienestar.food_benefits_leaders.dashboard') }}" class="nav-link @if(Route::is('bienestar.food_benefits_leader.*')) active @endif">{{ trans('bienestar::menu.Food Benefits Leader') }}</a>
+                </li>
+            @endif
+            @if(checkRol('bienestar.transportation_benefits_leader'))
+                <li class="nav-item d-none d-sm-inline-block mx-2">
+                    <a href="{{ route('bienestar.transportation_benefits_leader.dashboard') }}" class="nav-link @if(Route::is('bienestar.transportation_benefits_leader.*')) active @endif">{{ trans('bienestar::menu.Food Benefits Leader') }}</a>
+                </li>
+            @endif
+        @endauth
     </ul>
 
     <!-- Right navbar links -->
