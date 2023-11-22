@@ -7,7 +7,7 @@
 @section('content')
     <div class="card card-green card-outline shadow" style="border: 12px solid #28a745;">
         <div class="card-header text-center">
-            <h5 class="m-4 text-uppercase display-6 font-weight-bold">{{ trans('hdc::developers.TitleCardDevelopers') }}</h5>
+            <h5 class="m-3 text-uppercase display-6 font-weight-bold">{{ trans('hdc::developers.TitleCardDevelopers') }}</h5>
         </div>
         <div class="row">
             <div class="col-md-4">
@@ -63,7 +63,7 @@
                             <div class="card text-center" style="height: 160px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/HDC/img/herramientas/php.png') }}" 
+                                        <img src="{{ asset('modules/HDC/img/herramientas/php.png') }}"
                                             style="width: 140px; height: 100px;">
                                     </div>
                                     <a class="btn btn-success btn-block w-90" href="https://www.php.net/"><i
@@ -78,7 +78,7 @@
                                 style="height: 160px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
-                                        <img src="{{ asset('modules/HDC/img/herramientas/github.png') }}" 
+                                        <img src="{{ asset('modules/HDC/img/herramientas/github.png') }}"
                                             style="width: 200px; height: 100px;">
                                     </div>
                                     <a class="btn btn-success btn-block w-100" href="https://github.com/"><i
@@ -106,7 +106,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 col-md-3">
-                            <div class="card text-center" 
+                            <div class="card text-center"
                                 style="height: 160px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3">
-                            <div class="card text-center" 
+                            <div class="card text-center"
                                 style="height: 160px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
@@ -136,7 +136,7 @@
 
                         </div>
                         <div class="col-sm-6 col-md-3">
-                            <div class="card text-center" 
+                            <div class="card text-center"
                                 style="height: 160px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
@@ -150,7 +150,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3">
-                            <div class="card text-center" 
+                            <div class="card text-center"
                                 style="height: 160px;">
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div class="align-self-center">
@@ -167,7 +167,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6 col-md-3">
-                                <div class="card text-center" 
+                                <div class="card text-center"
                                     style="height: 160px;">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="align-self-center">
@@ -194,7 +194,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
-                                <div class="card text-center" 
+                                <div class="card text-center"
                                     style="height: 160px;">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="align-self-center">
@@ -209,7 +209,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
-                                <div class="card text-center" 
+                                <div class="card text-center"
                                     style="height: 160px;">
                                     <div class="card-body d-flex flex-column justify-content-between">
                                         <div class="align-self-center">

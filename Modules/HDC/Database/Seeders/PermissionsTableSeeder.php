@@ -382,6 +382,16 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        //ASIGNACION ASPECTOS AMBIENTALES
+         //Vista tabla del reporte huella de carbono (ADMINISTRADOR)
+         $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.resultfromaspects'], [ // Registro o actualización de permiso
+            'name' => 'Asignación aspectos ambientales(Administrador)',
+            'description' => 'Asignación aspectos ambientales',
+            'description_english' => "Assignment of environmental aspects",
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
 
 
 

@@ -70,20 +70,6 @@
               <nav class="mt-2">
                   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                       data-accordion="false">
-                      <!-- Menú de opciones públicas -->
-
-                      <li class="nav-item">
-                        <a href="{{ route('cefa.hdc.developers') }}" class="nav-link">
-                            <i class="fa-solid fa-people-group"></i>
-                            <p>
-                                {{ trans('hdc::developers.developers')}}
-                            </p>
-                        </a>
-                    </li>
-
-
-
-
 
                       <!-- Menú de opciones para administrador -->
                       @if (Route::is('hdc.admin.*'))
@@ -114,6 +100,16 @@
                                   </p>
                               </a>
                           </li>
+                          @if (Auth::user()->havePermission('hdc.admin.resultfromaspects'))
+                              <li class="nav-item">
+                                  <a href="{{ route('hdc.admin.resultfromaspects') }}" class="nav-link">
+                                      <i class="nav-icon fa-solid fa-folder-open"></i>
+                                      <p>
+                                          {{ trans('hdc::hdcgeneral.assign_environmental_aspects') }}
+                                      </p>
+                                  </a>
+                              </li>
+                          @endif
 
 
                       @endif
@@ -149,11 +145,24 @@
                               </a>
                           </li>
                       @endif
-                       <li class="nav-item">
-                          <a href="{{ route('cefa.hdc.resultfromaspects') }}" class="nav-link">
-                              <i class="nav-icon fa-solid fa-folder-open"></i>
+
+                      <!-- Menú de opciones públicas -->
+
+
+
+                      <li class="nav-item">
+                          <a href="{{ route('cefa.hdc.Graficas') }}" class="nav-link">
+                              <i class="nav-icon fa-solid fa-chart-column"></i>
                               <p>
-                                  {{ trans('hdc::hdcgeneral.assign_environmental_aspects') }}
+                                  Graficas
+                              </p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="{{ route('cefa.hdc.developers') }}" class="nav-link">
+                              <i class="fa-solid fa-people-group"></i>
+                              <p>
+                                  {{ trans('hdc::developers.developers') }}
                               </p>
                           </a>
                       </li>

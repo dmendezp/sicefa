@@ -71,7 +71,7 @@ class assign_environmental_aspectsController extends Controller
         return response()->json($associatedEnvironmentalAspects);
     }
 
-    public function updateEnvironmentalAspects(Request $request)
+    public function update(Request $request)
     {
         $activity = Activity::find($request->activity_id);
 
@@ -81,7 +81,7 @@ class assign_environmental_aspectsController extends Controller
         // Sincroniza los aspectos ambientales en la tabla pivote
         $activity->environmental_aspects()->sync($selectedEnvironmentalAspects);
 
-        return redirect(route('cefa.hdc.resultfromaspects'));
+        return redirect(route('hdc.admin.resultfromaspects'));
     }
 
     public function getactivities(Request $request)
@@ -133,12 +133,43 @@ class assign_environmental_aspectsController extends Controller
             $associated_environmental_aspects = $activity->environmental_aspects->pluck('id')->toArray();
 
             // Retorna la vista de edición con la información necesaria
-            return view('hdc::Asignar.edit_resultados', compact('activity', 'productive_units', 'environmental_aspects', 'associated_environmental_aspects'));
+            return view('hdc::Asignar.editform', compact('activity', 'productive_units', 'environmental_aspects', 'associated_environmental_aspects'));
         } catch (\Exception $e) {
             // Manejar cualquier error que pueda ocurrir
             return redirect()->back()->with('error', 'Error al editar resultados. ' . $e->getMessage());
         }
     }
+    public function UpdateEnvironmentalAspects(Request $request)
+    {
+
+            // Obtén el ID de la actividad a actualizar
+            $activityId = $request->input('activity_id');
+
+            // Encuentra la actividad en la base de datos
+            $activity = Activity::findOrFail($activityId);
+
+            // Actualiza la información con los datos del formulario
+            $activity->update([
+                'productive_unit_id' => $request->input('productive_unit_id'),
+                // ... otras columnas que necesitas actualizar ...
+            ]);
+
+            // Actualiza los aspectos ambientales asociados
+            $selectedEnvironmentalAspects = $request->input('Environmental_Aspect', []);
+            $activity->environmental_aspects()->sync($selectedEnvironmentalAspects);
+
+            try {
+                return redirect()
+                    ->route('hdc.admin.resultfromaspects')
+                    ->with('success', 'Registro exitoso.');
+            } catch (\Throwable $th) {
+                return redirect()
+                    ->back()
+                    ->with('success', 'Error al crear el registro. Por favor, inténtalo de nuevo.');
+            }
+
+    }
+
 
 
 

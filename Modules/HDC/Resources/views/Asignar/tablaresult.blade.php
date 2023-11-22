@@ -28,14 +28,14 @@
                                         </td>
                                         <td>
 
-                                            <form method="post" action="{{ route('cefa.hdc.delete_environmental_aspects', ['id' => $resultado->id]) }}">
+                                            <form method="post" action="{{ route('hcd.admin.delete_environmental_aspects', ['id' => $resultado->id]) }}">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                             </form>
                                             <form action="{{ route('cefa.hdc.edit_resultados', ['activity_id' => $resultado->id]) }}" method="get">
                                                 @csrf
-                                                <button type="submit" class="btn btn-primary">Editar</button>
+                                                <button type="submit" class="btn btn-primary"> <i class="fa-solid fa-pen-to-square"></i></button>
                                             </form>
 
 
