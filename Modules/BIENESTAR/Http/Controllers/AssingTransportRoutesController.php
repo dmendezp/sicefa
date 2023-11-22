@@ -7,15 +7,34 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\BIENESTAR\Entities\AssignTransportRoute;
 use Modules\SICA\Entities\Apprentice;
+use Modules\BIENESTAR\Entities\RouteTransportation;
+
+
 
 class AssingTransportRoutesController extends Controller
 {
-    public function mostrarAsignaciones()
-{
-    $asignaciones = AssignTransportRoute::all();
+    public function mostrarAsignaciones(Request $request)
+    {
+        $nombreRutaSeleccionada = $request->input('ruta');
 
-    return view('bienestar::assign-transportation-routes', ['asignaciones' => $asignaciones]);
-}
+        // Obtener todas las rutas de transporte
+        $rutas = RouteTransportation::all();
+
+        // Si se ha seleccionado una ruta, filtrar las asignaciones por esa ruta
+        if ($nombreRutaSeleccionada) {
+            $asignaciones = AssignTransportRoute::whereHas('routes_trasportation', function ($query) use ($nombreRutaSeleccionada) {
+                $query->where('name_route', $nombreRutaSeleccionada);
+            })->get();
+        } else {
+            // Si no se ha seleccionado ninguna ruta, mostrar todas las asignaciones
+            $asignaciones = AssignTransportRoute::all();
+        }
+
+        return view('bienestar::assign-transportation-routes', [
+            'asignaciones' => $asignaciones,
+            'rutas' => $rutas,
+        ]);
+    }
 
 public function showAssignmentForm($apprenticeId)
 {
@@ -33,6 +52,17 @@ public function showAssignmentForm($apprenticeId)
 
     // Pasar los datos del aprendiz y el nombre completo a la vista
     return view('bienestar.assign-transportation-routes', ['apprentizData' => $apprentizData, 'fullName' => $fullName]);
+}
+
+public function obtenerRegistrosFiltrados(Request $request)
+{
+    $rutaSeleccionada = $request->input('ruta');
+
+    $registrosFiltrados = AssignTransportRoute::whereHas('routes_trasportation', function ($query) use ($rutaSeleccionada) {
+        $query->where('name_route', $rutaSeleccionada);
+    })->get();
+
+    return view('bienestar::partials.tabla-registros', ['registros' => $registrosFiltrados]);
 }
 
 }

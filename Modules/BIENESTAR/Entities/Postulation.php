@@ -21,7 +21,8 @@ class Postulation extends Model implements Auditable
     protected $fillable = [
         'apprentice_id',
         'convocation_id',
-        'type_of_benefit_id',
+        'transportation_benefit',
+        'feed_benefit',
         'total_score',
     ];
 

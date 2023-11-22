@@ -7,13 +7,13 @@
         <div class="quota-box">
             <div class="quota-info">
                 <p>
-                    {{ trans('bienestar::menu.Food Quotas') }}: 
+                    {{ trans('bienestar::menu.Food Quotas') }}:
                     <span class="quota-number @if($convocation->food_quotas > 20) green @elseif($convocation->food_quotas > 0) orange @else red @endif">{{ $convocation->food_quotas }}</span>
-                    
-                    {{ trans('bienestar::menu.Transportation Quotas') }}: 
+        
+                    {{ trans('bienestar::menu.Transportation Quotas') }}:
                     <span class="quota-number @if($convocation->transport_quotas > 20) green @elseif($convocation->transport_quotas > 0) orange @else red @endif">{{ $convocation->transport_quotas }}</span>
                 </p>
-            </div>           
+            </div>
         </div>
         
         <div style="border: 1px solid #707070; padding: 20px; background-color: white; border-radius: 10px;">
@@ -27,7 +27,6 @@
                             <th>{{ trans('bienestar::menu.Select')}}</th> 
                             <th>{{ trans('bienestar::menu.Apprentice Name')}}</th>
                             <th>{{ trans('bienestar::menu.Convocation')}}</th>
-                            <th>{{ trans('bienestar::menu.Beneficiary Type')}}</th>
                             <th>{{ trans('bienestar::menu.Benefit to which you are applying')}}</th>
                             <th>{{ trans('bienestar::menu.Application Status')}}</th>
                             <th>{{ trans('bienestar::menu.Application Score')}}</th>
@@ -57,26 +56,32 @@
                             
                             <td>{{ $postulation->apprentice->person->full_name }}</td>
                             <td>{{ $postulation->convocation->name }} - {{ $postulation->convocation->description }}</td>
-                            <td>{{ $postulation->typeOfBenefit->name }}</td>
                             <td>
                                 @php
-                                    $preguntas = $postulation->answers->where('question.question', 'Apoyo al que se postula');
+                                    $transportationBenefit = $postulation->transportation_benefit;
+                                    $feedBenefit = $postulation->feed_benefit;
                                 @endphp
-                                @if ($preguntas->isNotEmpty())
-                                    <ul>
-                                        @foreach ($preguntas as $pregunta)
-                                            <li>{{ $pregunta->answer }}</li>
-                                        @endforeach
-                                    </ul>
-                                @else
+                            
+                                @if ($transportationBenefit == 1)
+                                    <span>Transporte</span>
+                                @endif
+                            
+                                @if ($feedBenefit == 1)
+                                    <span>Alimentación</span>
+                                @endif
+                            
+                                @if ($transportationBenefit == 0 && $feedBenefit == 0)
                                     {{ trans('bienestar::menu.Not available') }}
                                 @endif
                             </td>
+                            
+                            
                             <td>
                                 @foreach($postulation->postulationBenefits as $postulationBenefit)
-                                    {{ $postulationBenefit->state }}
+                                    <span>{{ $postulationBenefit->state }}</span><br>
                                 @endforeach
                             </td>
+                            
                             <td>{{ $postulation->total_score }}</td>
                             <td>
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal_{{ $postulation->id }}">
@@ -109,7 +114,6 @@
             <div class="modal-body">
                 <p><strong>{{ trans('bienestar::menu.Apprentice Name')}}:</strong> {{ $postulation->apprentice->person->full_name }}</p>
                 <p><strong>{{ trans('bienestar::menu.Convocation')}}:</strong> {{ $postulation->convocation->name }} - {{ $postulation->convocation->description }}</p>
-                <p><strong>{{ trans('bienestar::menu.Beneficiary Type')}}:</strong> {{ $postulation->typeOfBenefit->name }}</p>
 
                 <p><strong>{{ trans('bienestar::menu.Form Responded')}}:</strong></p>
                 <ul>
@@ -313,17 +317,18 @@ guardarBtn.addEventListener('click', function () {
             .then(function (response) {
                 // Verifica la respuesta del controlador y realiza acciones adicionales si es necesario
                 if (response.data.warning) {
-            // Manejar la advertencia
-        } else if (response.data.success) {
-            // Manejar el éxito
-        }
-    })
-    .catch(function (error) {
-        // Manejar errores en la solicitud AJAX
-    });
+                    // Manejar la advertencia
+                } else if (response.data.success) {
+                    // Manejar el éxito
+                }
+            })
+            .catch(function (error) {
+                // Manejar errores en la solicitud AJAX
+            });
 
         return;
     }
+
 
     // Realiza la llamada AJAX al controlador para guardar los registros
     // Aquí puedes implementar tu lógica para enviar los datos al servidor

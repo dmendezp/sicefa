@@ -18,7 +18,7 @@ class CreatePostulationsBenefitsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('benefit_id');
             $table->unsignedBigInteger('postulation_id');
-            $table->enum('state', ['Beneficiario','No Beneficiario','Postulado']); 
+            $table->string('state')->default(''); 
             $table->string('message')->default('');
             $table->timestamps();
             $table->foreign('benefit_id')->references('id')->on('benefits');

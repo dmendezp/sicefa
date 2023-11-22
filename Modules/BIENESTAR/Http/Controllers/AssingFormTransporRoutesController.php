@@ -15,7 +15,7 @@ class AssingFormTransporRoutesController extends Controller
     public function index()
 {
     // Obtener los registros de RoutesTransportations
-    $routesTransportations = AssignTransportRoute::all();
+    $routesTransportations = RouteTransportation::all();
     
     // Obtener los registros de asignaciones de rutas de transporte
     $assignments = AssignTransportRoute::all();
@@ -37,34 +37,37 @@ class AssingFormTransporRoutesController extends Controller
 public function updateInline(Request $request)
 {
     try {
-        $routesData = $request->input('routes');
+        // Obtén los datos de la solicitud AJAX
+        $apprenticeId = $request->input('apprentice_id');
+        $routeTransportationId = $request->input('route_transportation_id');
+        $convocationId = $request->input('convocation_id');
+        $postulationBenefitId = $request->input('postulation_benefit_id');
+        $isChecked = $request->input('checked');
 
-        foreach ($routesData as $postulationId => $routeIds) {
-            foreach ($routeIds as $routeId) {
-                // Buscar la asignación existente o crear una nueva si no existe
-                $assignment = AssignTransportRoute::where('apprentice_id', $postulationBenefit->postulation->apprentice->apprentice_id)
-                    ->where('route_transportation_id', $routeId)
-                    ->where('convocation_id', $postulationBenefit->postulation->convocation_id)
-                    ->first();
+        // Verificar si existe un registro
+        $assignment = AssignTransportRoute::where('apprentice_id', $apprenticeId)
+            ->where('route_transportation_id', $routeTransportationId)
+            ->where('convocation_id', $convocationId)
+            ->where('postulation_benefit_id', $postulationBenefitId)
+            ->first();
 
-                if (!$assignment) {
-                    $assignment = new AssignTransportRoute();
-                    $assignment->apprentice_id = $postulationBenefit->postulation->apprentice->apprentice_id;
-                    $assignment->route_transportation_id = $routeId;
-                    $assignment->convocation_id = $postulationBenefit->postulation->convocation_id;
-                    $assignment->postulation_benefit_id = $postulationId;
-                }
-
-                // Guardar la asignación
-                $assignment->save();
-            }
+        if ($isChecked === 'true' && !$assignment) {
+            // Si está marcado y no existe, crear un nuevo registro
+            $assignment = new AssignTransportRoute();
+            $assignment->apprentice_id = $apprenticeId;
+            $assignment->route_transportation_id = $routeTransportationId;
+            $assignment->convocation_id = $convocationId;
+            $assignment->postulation_benefit_id = $postulationBenefitId;
+            $assignment->save(); // Guardar la asignación
+        } elseif ($isChecked === 'false' && $assignment) {
+            // Si se desmarca y existe, deshabilitar lógicamente el registro
+            $assignment->delete(); // Aplicar soft delete a la asignación
         }
 
-        return response()->json(['success' => 'Asignaciones guardadas exitosamente.'], 200);
+        return response()->json(['success' => 'Registro actualizado exitosamente.'], 200);
     } catch (\Exception $e) {
-        return response()->json(['error' => 'Error al guardar asignaciones.'], 500);
+        return response()->json(['error' => $e->getMessage()], 500);
     }
 }
-
 
 }
