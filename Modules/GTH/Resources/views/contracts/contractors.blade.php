@@ -91,34 +91,48 @@
                                 @method('PATCH')
                                 <input type="hidden" name="id"
                                     value="{{ $contract->id }}"><!-- Cambiado a $contract -->
-                                <div class="mb-3">
+
+
+                        <!-- Sección 1: Detalles del Contrato -->
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="mb-1">
+                                <div class="form-group">
                                     <label for="contract_number-{{ $contract->id }}" class="form-label">Número de
                                         Contrato:</label>
                                     <input type="text" class="form-control" id="contract_number-{{ $contract->id }}"
                                         name="contract_number"
                                         value="{{ old('contract_number', $contract->contract_number) }}" required>
                                 </div>
-                                <div class="mb-3">
+                            </div>
+                            <div class="mb-1">
+                                <div class="form-group">
                                     <label for="contract_year-{{ $contract->id }}" class="form-label">Año de
                                         Contrato:</label>
                                     <input type="text" class="form-control" id="contract_year-{{ $contract->id }}"
-                                        name="contract_year" value="{{ old('contract_year', $contract->contract_year) }}"
-                                        required>
+                                        name="contract_year" value="{{ old('contract_year', $contract->contract_year) }}"required>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="contract_start_date-{{ $contract->id }}" class="form-label">Fecha de Inicio
-                                        de Contrato:</label>
-                                    <input type="date" class="form-control" id="contract_start_date-{{ $contract->id }}"
-                                        name="contract_start_date"
-                                        value="{{ old('contract_start_date', $contract->contract_start_date) }}" required>
+                            </div>
+                                <div class="mb-1">
+                                    <div class="form-group">
+                                        <label for="contract_start_date-{{ $contract->id }}" class="form-label">Fecha de Inicio
+                                            de Contrato:</label>
+                                        <input type="date" class="form-control" id="contract_start_date-{{ $contract->id }}"
+                                            name="contract_start_date"
+                                            value="{{ old('contract_start_date', $contract->contract_start_date) }}" required>
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="contract_end_date-{{ $contract->id }}" class="form-label">Fecha de Fin de
-                                        Contrato:</label>
-                                    <input type="date" class="form-control" id="contract_end_date-{{ $contract->id }}"
-                                        name="contract_end_date"
-                                        value="{{ old('contract_end_date', $contract->contract_end_date) }}" required>
+                                <div class="mb-1">
+                                    <div class="form-group">
+                                        <label for="contract_end_date-{{ $contract->id }}" class="form-label">Fecha de Fin de
+                                            Contrato:</label>
+                                        <input type="date" class="form-control" id="contract_end_date-{{ $contract->id }}"
+                                            name="contract_end_date"
+                                            value="{{ old('contract_end_date', $contract->contract_end_date) }}" required>
+                                    </div>
                                 </div>
+                        </div>
+                    </div>
 
                                 <div class="mb-3">
                                     <label for="contractor_type_id-{{ $contract->id }}" class="form-label">Tipo de

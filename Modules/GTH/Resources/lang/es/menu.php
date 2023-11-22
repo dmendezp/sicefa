@@ -67,7 +67,7 @@ return [
 	'success!' => 'éxito!',
 	'Error' => 'Error',
 	'Error' => 'Error',
-	
+
 	//Contratreporst
 	'Employment Contract Record' => ' Registro de Contrato Laboral',
 	'Personal Information' => 'Información  Personal',
@@ -96,10 +96,10 @@ return [
 	'Session Date:' => 'Fecha de Sesión:',
 	'SIIF Code:' => 'Código SIIF:',
 	'Assignment Value:' => 'Valor de Asignación:',
-	'Policy Issuance Date:' => 'Fecha de Emisión de la Póliza:',
-	'Policy Approval Date:' => 'Fecha de Aprobación de la Póliza:',
-	'Policy Effective Date:' => 'Fecha de Vigencia de la Póliza:',
-	'Policy Expiration Date:' => 'Fecha de Vencimiento de la Póliza:',
+	'Policy Issuance Date:' => 'Fecha Emisión de Póliza:',
+	'Policy Approval Date:' => 'Fecha Aprobación de Póliza:',
+	'Policy Effective Date:' => 'Fecha Vigencia de Póliza:',
+	'Policy Expiration Date:' => 'Fecha Vencimiento de Póliza:',
 	'Policy Number:' => 'Número de Póliza',
 	'Insurance Company:' => 'Entidad Aseguradora:',
 	'Type of Risk:' => 'Tipo de Riesgo:',
@@ -111,7 +111,7 @@ return [
 	'The data has been saved correctly.' => 'Los datos se han guardado correctamente.',
 	'success' => 'éxito',
 	'Accept' => 'Aceptar',
-	
+
 
 	//contractype
 	'Types of Contracts' => 'Tipos de Contratos',
@@ -150,7 +150,7 @@ return [
 	'Contract Type updated successfully.' => 'Tipo de contrato actualizado correctamente.',
 	'Contractor type deleted successfully.' => 'Tipo de contratista eliminado exitosamente',
 	'The contractor type could not be deleted.'=> 'No se pudo eliminar el tipo de contratista',
-	
+
 
 	//insurerentities
 	'Insuring Entity' => 'Entidad Aseguradora',
@@ -159,7 +159,7 @@ return [
 	'Name' => 'Nombre',
 	'Description' => 'Descripción',
 	'actions' => 'Acciones',
-	'Edit' => 'Editar', 
+	'Edit' => 'Editar',
 	'Delete' => 'Eliminar',
 	'Add a New Insurance Company' => 'Agregar Una Nueva Entidad Aseguradora',
 	'Insuring Entity:' => 'Entidad Aseguradora:',
@@ -198,7 +198,7 @@ return [
 	'ID' => 'ID',
 	'Name' => 'Nombre',
 	'actions' => 'Acciones',
-	'Edit' => 'Editar', 
+	'Edit' => 'Editar',
 	'Delete' => 'Eliminar',
 	'Add New Employee Type' => 'Agregar Nuevo Tipo de Empleado',
 	'Employee Type:' => 'Tipo de Empleado:',
@@ -214,7 +214,7 @@ return [
 	'Name' => 'Nombre',
 	'Description' => 'Descripción',
 	'actions' => 'Acciones',
-	'Edit' => 'Editar', 
+	'Edit' => 'Editar',
 	'Delete' => 'Eliminar',
 	'Add A New Pension Entity' => 'Agregar Una Nueva Entidad Pension',
 	'Pension Entity:' => 'Entidad Pensión:',
@@ -230,17 +230,17 @@ return [
 	'View of Position' => 'vista de posición',
 	'Management of Position' => 'Gestión de Posición',
 	'ID' => 'ID',
-	'Professional Title' => 'Denominación Profesional', 
+	'Professional Title' => 'Denominación Profesional',
 	'Qualifications' => 'Calificaciones',
 	'actions' => 'Acciones',
-	'Edit' => 'Editar', 
+	'Edit' => 'Editar',
 	'Delete' => 'Eliminar',
 	'Add a New Position' => 'Agregar Una Nueva Posicion',
-	'Professional Designation:' => 'Denominación Profesional:', 
+	'Professional Designation:' => 'Denominación Profesional:',
 	'-- Select --' => '-- Seleccione --',
-	'Advisor' => 'Asesor', 
+	'Advisor' => 'Asesor',
 	'Executive' => 'Directivo',
-	'Instructor' => 'Instructor', 
+	'Instructor' => 'Instructor',
 	'Professional' => 'Profesiona',
 	'Technician' => 'Técnico',
 	'Qualifications:' => 'Calificaciones:',
@@ -248,10 +248,10 @@ return [
 	'Save' => 'Guardar',
 	'Edit Position Management:' => 'Editar Gestion de Posicion:',
 	'Professional Designation:' => 'Denominación Profesional:',
-	'Advisor' => 'Asesor', 
+	'Advisor' => 'Asesor',
 	'Assistant' => 'Asistencial',
 	'Executive' => 'Directivo',
-	'Instructor' => 'Instructor', 
+	'Instructor' => 'Instructor',
 	'Professional' => 'Profesiona',
 	'Technician' => 'Técnico',
 	'Qualifications:' => 'Calificaciones:',
@@ -281,7 +281,7 @@ return [
 	'Error' => 'Error',
 
 
- 
+
 
 
 
