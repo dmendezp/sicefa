@@ -40,24 +40,24 @@ public function updateInline(Request $request)
         // Obtén los datos de la solicitud AJAX
         $apprenticeId = $request->input('apprentice_id');
         $routeTransportationId = $request->input('route_transportation_id');
-        $convocationId = $request->input('convocation_id');
         $postulationBenefitId = $request->input('postulation_benefit_id');
         $isChecked = $request->input('checked');
 
         // Verificar si existe un registro
         $assignment = AssignTransportRoute::where('apprentice_id', $apprenticeId)
-            ->where('route_transportation_id', $routeTransportationId)
-            ->where('convocation_id', $convocationId)
             ->where('postulation_benefit_id', $postulationBenefitId)
             ->first();
 
-        if ($isChecked === 'true' && !$assignment) {
-            // Si está marcado y no existe, crear un nuevo registro
-            $assignment = new AssignTransportRoute();
-            $assignment->apprentice_id = $apprenticeId;
+        if ($isChecked === 'true') {
+            if (!$assignment) {
+                // Si está marcado y no existe, crear un nuevo registro
+                $assignment = new AssignTransportRoute();
+                $assignment->apprentice_id = $apprenticeId;
+                $assignment->postulation_benefit_id = $postulationBenefitId;
+            }
+
+            // Actualizar el routeTransportationId
             $assignment->route_transportation_id = $routeTransportationId;
-            $assignment->convocation_id = $convocationId;
-            $assignment->postulation_benefit_id = $postulationBenefitId;
             $assignment->save(); // Guardar la asignación
         } elseif ($isChecked === 'false' && $assignment) {
             // Si se desmarca y existe, deshabilitar lógicamente el registro
@@ -69,5 +69,6 @@ public function updateInline(Request $request)
         return response()->json(['error' => $e->getMessage()], 500);
     }
 }
+
 
 }

@@ -9,7 +9,8 @@
             </div>
             <div class="card-body">
                 <div class="mtop16">
-                    <form action="{{ route('cefa.bienestar.assing-form-transportation-routes.updateInline') }}" method="POST">
+                    @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes'))
+                    <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes') }}" method="POST">
                         @csrf
                         <table class="table table-bordered table-striped">
                             <thead>
@@ -74,32 +75,34 @@
                                             <td>
                                                 <ul>
                                                     @foreach ($routesTransportations as $route)
-                                                        <li>
-                                                            <label class="checkbox-container">
-                                                                <input
-                                                                    id="checkbox_route_{{ $postulationBenefit->id }}_{{ $route->id }}"
-                                                                    class="hidden checkbox-route"
-                                                                    type="checkbox"
-                                                                    name="routes[{{ $postulationBenefit->id }}][]"
-                                                                    value="{{ $route->id }}"
-                                                                    data-convocation-id="{{ $postulationBenefit->postulation->convocation_id }}"
-                                                                    data-apprentice-id="{{ $postulationBenefit->postulation->apprentice->apprentice_id }}"
-                                                                    data-postulation-benefit-id="{{ $postulationBenefit->id }}"
-                                                                    data-route-id="{{ $route->id }}"
-                                                                >
-                                                                <span class="checkbox" for="checkbox_route_{{ $postulationBenefit->id }}_{{ $route->id }}"></span>
-                                                                {{ $route->route_number }} - {{ $route->name_route }}
-                                                            </label>
-                                                        </li>
-                                                    @endforeach
+                                                    <li>
+                                                        <label class="radio-container">
+                                                            <input
+                                                                id="radio_route_{{ $postulationBenefit->id }}_{{ $route->id }}"
+                                                                class="radio-route"
+                                                                type="radio"
+                                                                name="routes[{{ $postulationBenefit->id }}]"
+                                                                value="{{ $route->id }}"
+                                                                data-apprentice-id="{{ $postulationBenefit->postulation->apprentice_id }}"
+                                                                data-postulation-benefit-id="{{ $postulationBenefit->id }}"
+                                                                data-route-id="{{ $route->id }}"
+                                                                {{ $assignments->where('apprentice_id', $postulationBenefit->postulation->apprentice_id)->where('postulation_benefit_id', $postulationBenefit->id)->where('route_transportation_id', $route->id)->isNotEmpty() ? 'checked' : '' }}
+                                                            >
+                                                            <span class="radio" for="radio_route_{{ $postulationBenefit->id }}_{{ $route->id }}"></span>
+                                                            {{ $route->route_number }} - {{ $route->name_route }}
+                                                        </label>
+                                                    </li>
+                                                @endforeach
                                                 </ul>
-                                            </td>                                                            
+                                            </td>
+                                                                                                  
                                         </tr>
                                     @endif
                                 @endforeach
                             </tbody>
                         </table>
                     </form>
+                    @endif
                 </div>
             </div>
         </div>
@@ -108,21 +111,28 @@
 @endsection
 
 @section('script')
+
 <script>
     $(document).ready(function() {
         const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-        $('.checkbox-route').on('change', function() {
-            const $checkbox = $(this);
-            const isChecked = $checkbox.is(':checked');
-            const apprenticeId = $checkbox.data('apprentice-id');
-            const routeTransportationId = $checkbox.data('route-id');
-            const convocationId = $checkbox.data('convocation-id');
-            const postulationBenefitId = $checkbox.data('postulation-benefit-id');
+        $('.radio-route').on('change', function() {
+            const $radio = $(this);
+            const isChecked = $radio.is(':checked');
+            const apprenticeId = $radio.data('apprentice-id');
+            const routeTransportationId = $radio.data('route-id');
+            const postulationBenefitId = $radio.data('postulation-benefit-id');
 
+
+            console.log('Datos a enviar:', {
+            apprentice_id: apprenticeId,
+            route_transportation_id: routeTransportationId,
+            postulation_benefit_id: postulationBenefitId,
+            checked: isChecked,
+        });
             // Realizar la solicitud AJAX para actualizar o crear el registro
             $.ajax({
-                url: '{{ route('cefa.bienestar.assing-form-transportation-routes.updateInline') }}',
+                url: '{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes') }}',
                 method: 'PUT',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
@@ -130,7 +140,6 @@
                 data: {
                     apprentice_id: apprenticeId,
                     route_transportation_id: routeTransportationId,
-                    convocation_id: convocationId,
                     postulation_benefit_id: postulationBenefitId,
                     checked: isChecked,
                 },
@@ -144,5 +153,7 @@
         });
     });
 </script>
+
+
 
 @endsection
