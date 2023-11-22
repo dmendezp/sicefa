@@ -44,6 +44,16 @@
     <div id="divApprentices"></div>
 </div>
 <script>
+    // Definir la función handleSearchResponse primero
+    function handleSearchResponse(response) {
+        if (response.error) {
+            // Mostrar SweetAlert de error con el mensaje personalizado
+            showSweetAlert('error', 'Error', response.error, 1500);
+        } else {
+            // Continuar con el código para manejar los resultados
+            console.log(response);
+        }
+    }
     $(document).on("change", "#search", function() {
         performSearch();
     });
@@ -58,7 +68,8 @@
         miObjeto = $('#search').val();
         var data = JSON.stringify(miObjeto);
         console.log(miObjeto);
-        ajaxReplace('divApprentices', '/bienestar/postulations/search', data);
+
+        ajaxReplace('divApprentices', '/bienestar/postulations/search', data)            
     }
 </script>
 @endsection

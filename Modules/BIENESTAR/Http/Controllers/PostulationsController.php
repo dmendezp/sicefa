@@ -30,8 +30,31 @@ class PostulationsController extends Controller
     public function search(Request $request)
     {
         $documentNumber = json_decode($_POST['data']);
+        $convocation = Convocation::find($request->input('convocation_id')); // Obtener la convocatoria seleccionada
 
-        // Realizar la consulta
+        // Consulta SQL para verificar la existencia del registro en la tabla postulations
+        $existingPostulation = DB::table('postulations')
+            ->select(
+                'postulations.id',
+                'postulations.apprentice_id',
+                'people.document_number',
+                'convocations.name',
+                'convocations.start_date',
+                'convocations.end_date'
+            )
+            ->join('apprentices', 'postulations.apprentice_id', '=', 'apprentices.id')
+            ->join('people', 'apprentices.person_id', '=', 'people.id')
+            ->join('convocations', 'postulations.convocation_id', '=', 'convocations.id')
+            ->where('people.document_number', $documentNumber)
+            ->whereDate('convocations.start_date', '<=', now())
+            ->whereDate('convocations.end_date', '>=', now())
+            ->first();
+
+        if ($existingPostulation) {
+            return view('bienestar::question_postulation.messages');
+        }
+
+        // Si no existe una postulación existente, continuar con la búsqueda de aprendices
         $resultados = DB::table('apprentices')
             ->join('people', 'apprentices.person_id', '=', 'people.id')
             ->join('courses', 'apprentices.course_id', '=', 'courses.id')
@@ -53,11 +76,12 @@ class PostulationsController extends Controller
             ->get();
 
         if ($resultados->isEmpty()) {
-            return redirect()->route('cefa.bienestar.postulations')->with('error', 'No se encontraron resultados para el número de documento proporcionado.');
+            return response()->json(['error' => 'No se encontraron resultados para el número de documento proporcionado.']);
         }
 
         return view('bienestar::question_postulation.data_apprentice', compact('resultados'));
     }
+
 
     public function getquestions(Request $request)
     {
@@ -95,30 +119,30 @@ class PostulationsController extends Controller
         $postulation->transportation_benefit = $request->input('transport') ?? 0;
         $postulation->save();
 
-            // Obtener las respuestas del formulario
-            $answers = $request->input('answer', []);
-            $questionIds = $request->input('question', []);
+        // Obtener las respuestas del formulario
+        $answers = $request->input('answer', []);
+        $questionIds = $request->input('question', []);
 
-            // Recorrer las respuestas y guardarlas relacionadas con la postulación
-            foreach ($answers as $index => $answerValue) {
-                if (!empty($answerValue) && isset($questionIds[$index])) {
-                    $respuesta = new Answer();
-                    $respuesta->answer = $answerValue; // Guardar el valor de la respuesta
-                    $respuesta->postulation_id = $postulation->id;
-                    $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
-                    $respuesta->save();
-                }            
+        // Recorrer las respuestas y guardarlas relacionadas con la postulación
+        foreach ($answers as $index => $answerValue) {
+            if (!empty($answerValue) && isset($questionIds[$index])) {
+                $respuesta = new Answer();
+                $respuesta->answer = $answerValue; // Guardar el valor de la respuesta
+                $respuesta->postulation_id = $postulation->id;
+                $respuesta->question_id = $questionIds[$index]; // Guardar el ID de la pregunta
+                $respuesta->save();
+            }
 
-                $file = $request->file('socioeconociFIle');
-                $fileName = time() . '_' . $file->getClientOriginalName();
-                $filePath = $file->storeAs('socioeconomico', $fileName, 'public');
-            
-                // Guardar el archivo en la tabla SocioEconomicSupportFile
-                $supportFile = new SocioEconomicSupportFile();
-                $supportFile->file_path = $filePath;
-                $supportFile->postulation_id = $postulation->id;
-                $supportFile->save();
-                    
+            $file = $request->file('socioeconociFIle');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('socioeconomico', $fileName, 'public');
+
+            // Guardar el archivo en la tabla SocioEconomicSupportFile
+            $supportFile = new SocioEconomicSupportFile();
+            $supportFile->file_path = $filePath;
+            $supportFile->postulation_id = $postulation->id;
+            $supportFile->save();
+
             // Redireccionar a la vista de edición o a donde desees después de guardar
             return redirect()->route('cefa.bienestar.postulations')->with('success', 'Postulación guardada exitosamente.');
         }

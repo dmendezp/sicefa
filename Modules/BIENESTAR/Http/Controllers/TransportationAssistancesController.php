@@ -36,9 +36,8 @@ class TransportationAssistancesController extends Controller
 
     public function searchapprentice(Request $request)
     {
-
         $documentNumber = json_decode($_POST['data']);
-       
+    
         // Realizar la consulta y obtener los datos
         $data = DB::table('assing_transport_routes')
             ->join('postulations_benefits', 'assing_transport_routes.postulation_benefit_id', '=', 'postulations_benefits.id')
@@ -62,7 +61,7 @@ class TransportationAssistancesController extends Controller
             ->where('postulations_benefits.state', 'beneficiario')
             ->where('benefits.name', 'Transporte')
             ->get();
-
+    
         // Guardar los datos en la tabla transportation_assistances
         foreach ($data as $row) {
             DB::table('transportation_assistances')->insert([
@@ -73,10 +72,11 @@ class TransportationAssistancesController extends Controller
                 'bus_driver_id' => $row->bus_driver_id,
                 'porcentenge' => $row->porcentege,
                 'date_time' => $row->date_time,
-                'created_at' => $row->date_time,
-                'updated_at' => $row->date_time,
+                'created_at' => now(), // Use Laravel helper function for current timestamp
+                'updated_at' => now(), // Use Laravel helper function for current timestamp
             ]);
         }
+    
         $resultados = DB::table('transportation_assistances')
             ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
             ->join('people', 'apprentices.person_id', '=', 'people.id')
@@ -100,7 +100,8 @@ class TransportationAssistancesController extends Controller
                 'transportation_assistances.date_time'
             )
             ->get();
-
+    
         return view('bienestar::route-attendance.table', compact('resultados'));
     }
+    
 }

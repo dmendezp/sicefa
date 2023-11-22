@@ -36,7 +36,7 @@
         miObjeto = $('#assitance').val();
         var data = JSON.stringify(miObjeto);
         console.log(miObjeto);
-        ajaxReplace('divAssitance', '/bienestar/transportation_asistance/search', data);
+        ajaxReplace('divAssitance', '/bienestar/admin/transportation_asistance/search', data);
         
     }
 </script>

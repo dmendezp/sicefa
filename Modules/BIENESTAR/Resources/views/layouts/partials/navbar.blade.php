@@ -26,9 +26,10 @@
             @endif
         @endauth
     </ul>
-
+    
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto group">
+    <li class="nav-item dropdown"><a href="" class="nav-link"><i class="fas fa-bell"></i></a></li>
       <!-- Botón de cambio de idioma -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
