@@ -10,7 +10,7 @@
             <div class="card-body">
                 @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.transportroutes'))
                 <form action="{{ route('bienestar.' . getRoleRouteName (Route::currentRouteName()) . '.save.transportroutes')}}" method="POST" role="form">
-                    @csrf 
+                    @csrf
                     <div class="row p-4">
                         <div class="col-md-3">
                             <label for="route_number">{{ trans('bienestar::menu.Routing Number')}}</label>
@@ -113,9 +113,9 @@
         <!-- /.card-body -->
     </div>
 </div>
- <!-- Modal para la edición -->
- @foreach ( $routestransportations as $transport)
- <div class="modal fade" id="editModal{{ $transport->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+<!-- Modal para la edición -->
+@foreach ( $routestransportations as $transport)
+<div class="modal fade" id="editModal{{ $transport->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Contenido del modal de edición aquí -->
@@ -136,9 +136,8 @@
                         <label for="route_number{{ $transport->id }}">Número De Ruta:</label>
                         <select name="new_route_number" id="route_number{{ $transport->id }}" class="form-control" required>
                             <option value="">Selecciona un número de ruta</option>
-                            @for ($i = 1; $i <= 8; $i++)
-                                <option value="{{ $i }}" @if ($i == $transport->route_number) selected @endif>{{ $i }}</option>
-                            @endfor
+                            @for ($i = 1; $i <= 8; $i++) <option value="{{ $i }}" @if ($i==$transport->route_number) selected @endif>{{ $i }}</option>
+                                @endfor
                         </select>
                     </div>
                     <div class="form-group">
@@ -197,18 +196,6 @@
         </div>
     </div>
 </div>
-
-
-</tbody>
-</table>
-</div>
-</div>
-<!-- /.card -->
-</div>
-<!-- /.card-body -->
-</div>
-</div>
-
 <script>
     // Escuchar el evento de cambio en el campo de selección "Bus"
     $('#bus').change(function() {

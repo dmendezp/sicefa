@@ -405,7 +405,7 @@ class PermissionsTableSeeder extends Seeder
         $permission_transportation_benefits_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Ruta Fromulario Eliminar Buses(ADMINISTRADOR)//
-        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.deletbusese.'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.delete.buses'], [ // Registro o actualización de permiso
             'name' => 'Eliminar Buses',
             'description' => 'Puede eliminar los Buses',
             'description_english' => 'You can eliminate the Buses',
