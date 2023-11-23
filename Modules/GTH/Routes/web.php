@@ -85,6 +85,7 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/official', 'OfficialController@viewofficials')->name('cefa.officials.view');
         Route::get('/obtener_datos', 'OfficialController@getPersonDatas')->name('cefa.gth.getPersonDatas');
         Route::post('/employees', 'OfficialController@store')->name('cefa.gth.store');
+        Route::put('/official/edit{id}', 'OfficialController@edit_official')->name('cefa.gth.officials.update');
 
     });
 });

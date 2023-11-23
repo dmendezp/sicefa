@@ -189,7 +189,7 @@
                                         value="{{ old('assigment_value', $contract->assigment_value) }}" required>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="md-3">
                                     <div class="form-group">
                                         <label for="insurer_entity_id">Entidad Aseguradora:</label>
                                         <select name="insurer_entity_id" id="insurer_entity_id"
@@ -244,7 +244,7 @@
                                         value="{{ old('policy_expiration_date', $contract->policy_expiration_date) }}"
                                         required>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="md-3">
                                     <div class="form-group">
                                         <label for="risk_type">Tipo de Riesgo:</label>
                                         <select name="risk_type" id="risk_type"
@@ -268,7 +268,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="md-3">
                                     <div class="form-group">
                                         <label for="state">Estado:</label>
                                         <select name="state" id="state"

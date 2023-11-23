@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container">
-        <h3 class="mt-4 mb-4">Reegistro Biometrico</h3>
+        <h3 class="mt-4 mb-4">Registro Biometrico</h3>
 
         <!-- Filtro de estado de registro -->
         <div class="form-group">

@@ -24,7 +24,7 @@
                         <label for="full_name">Nombre</label>
                         <input type="text" name="full_name" id="full_name" class="form-control" readonly>
                     </div>
-                    <input type="text" name="person_id" id="person_id" value="">
+                    <input type="hidden" name="person_id" id="person_id" value="">
 
                     <div class="form-group">
                         <label for="contract_number">Número de contrato</label>

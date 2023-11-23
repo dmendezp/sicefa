@@ -84,18 +84,18 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('cefa.gth.contractors.view') }}"
-                                class="nav-link {{ !Route::is('cefa.gth.contractors.view') ?: 'active' }}">
+                            <a href="{{ route('cefa.gth.contractreports.view') }}"
+                                class="nav-link {{ !Route::is('cefa.gth.contractreports.view') ?: 'active' }}">
                                 <i class="fas fa-file-alt"></i>
                                 <p> Contratistas</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('cefa.gth.contractreports.view') }}"
-                                class="nav-link {{ !Route::is('cefa.gth.contractreports.view') ?: 'active' }}">
+                            <a href="{{ route('cefa.gth.contractors.view') }}"
+                                class="nav-link {{ !Route::is('cefa.gth.contractors.view') ?: 'active' }}">
                                 <i class="fas fa-file-contract"></i>
                                 <p>
-                                    Reporte Contratos
+                                    Reporte Contrato
                                 </p>
                             </a>
                         </li>
@@ -104,21 +104,22 @@
                                 class="nav-link {{ !Route::is('cefa.gth.contractortypes.view') ?: 'active' }}">
                                 <i class="far fa-clipboard"></i>
                                 <p>
-                                    Tipo de Contratos
+                                    Tipo de Contrato
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.gth.employeetypes.view') }}"
+                                class="nav-link {{ !Route::is('cefa.gth.employeetypes.view') ?: 'active' }}">
+                                <i class="fas fa-puzzle-piece"></i>
+                                <p>
+                                    Tipo de Empleado
                                 </p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('cefa.gth.employeetypes.view') }}"
-                        class="nav-link {{ !Route::is('cefa.gth.employeetypes.view') ?: 'active' }}">
-                        <i class="fas fa-puzzle-piece"></i>
-                        <p>
-                            Tipo de Empleados
-                        </p>
-                    </a>
-                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('cefa.gth.insurerentities.view') }}"
                         class="nav-link {{ !Route::is('cefa.gth.insurerentities.view') ?: 'active' }}">
