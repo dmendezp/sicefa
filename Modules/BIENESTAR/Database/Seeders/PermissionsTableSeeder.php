@@ -1238,6 +1238,64 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permission_feeding_assistant[] = $permission->id; // Almacenar permiso para rol
 
+
+
+        //*-----Permisos Formulario Para Asignar Ruta Transporte-----*//
+        // Vista Formualrio para Asignar Ruta Transporte(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.view.assing_form_transportation_routes'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asignar formulario Ruta Transporte',
+            'description' => 'Puede ver la vista para formulario de asignar ruta de transporte',
+            'description_english' => 'You can see the form view of assigning a shipment routing',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Formualrio para Asignar Ruta Transporte(LIDER RUTA TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.view.assing_form_transportation_routes'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asignar formulario Ruta Transporte',
+            'description' => 'Puede ver la vista para formulario de asignar ruta de transporte',
+            'description_english' => 'You can see the form view of assigning a shipment routing',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Para Ver Registros Dinamicos(ADMINISTRADOR)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.checkExistingRoute.assing_form_transportation_routes'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asignar formulario Ruta Transporte',
+            'description' => 'Puede ver la vista para formulario de asignar ruta de transporte',
+            'description_english' => 'You can see the form view of assigning a shipment routing',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Para Ver Registros Dinamicos(LIDER RUTA TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.checkExistingRoute.assing_form_transportation_routes'], [ // Registro o actualización de permiso
+            'name' => 'Vista de Asignar formulario Ruta Transporte',
+            'description' => 'Puede ver la vista para formulario de asignar ruta de transporte',
+            'description_english' => 'You can see the form view of assigning a shipment routing',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+         // Formualrio para Asignar Ruta Transporte(ADMINISTRADOR)//
+         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.updateInline.assing_form_transportation_routes'], [ // Registro o actualización de permiso
+            'name' => 'Formulario Para Asignar Rutas de Transporte',
+            'description' => 'Puede Realizar cambios en los registros usando el formulario',
+            'description_english' => 'You can make changes to records using the form',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Formualrio para Asignar Ruta Transporte(LIDER RUTA TRANSPORTE)//
+        $permission = Permission::updateOrCreate(['slug' => 'bienestar.transportation_benefits_leader.updateInline.assing_form_transportation_routes'], [ // Registro o actualización de permiso
+            'name' => 'Formulario Para Asignar Rutas de Transporte',
+            'description' => 'Puede Realizar cambios en los registros usando el formulario',
+            'description_english' => 'You can make changes to records using the form',
+            'app_id' => $app->id
+        ]);
+        $permission_admin[] = $permission->id; // Almacenar permiso para rol
+
+
         //*-----Permisos Asignar Ruta Transporte-----*//
         // Vista Asignar Ruta Transporte(ADMINISTRADOR)//
         $permission = Permission::updateOrCreate(['slug' => 'bienestar.admin.view.assign_transport_route'], [ // Registro o actualización de permiso

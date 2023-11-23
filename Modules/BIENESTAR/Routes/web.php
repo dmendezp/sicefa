@@ -161,13 +161,15 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/assistancefood', 'AssistancesFoodsController@assistancefoodrecord')->name('bienestar.food_benefits_leaders.view.food_assistance_lists');
         Route::get('/food_benefits_leaders/filtro-porcentaje', 'AssistancesFoodsController@filtrarPorcentaje')->name('bienestar.food_benefits_leaders.route.food_assistance_lists.filter');
         //Vistas Asignar Rutas de transporte
-        Route::get('/assign-transportation-routes', 'AssingTransportRoutesController@mostrarAsignaciones')->name('bienestar.admin.view.assign_transport_route');
+        Route::get('/admin/assign-transportation-routes', 'AssingTransportRoutesController@mostrarAsignaciones')->name('bienestar.admin.view.assign_transport_route');
         Route::get('/assign-transportation-routes/{apprenticeId}', 'AssingTransportRoutesController@showAssignmentForm')->name('cefa.bienestar.assign-transportation-routes');
 
-        //Vista de Formulario de asignacion de rutas de transporte
-        Route::get('/assing-form-transportation-routes/index', 'AssingFormTransporRoutesController@index')->name('cefa.bienestar.assing-form-transportation-routes.index');
-        Route::get('/assing-form-transportation-routes/store', 'AssingFormTransporRoutesController@create')->name('cefa.bienestar.assing-form-transportation-routes.store');
-        Route::put('/assing-form-transportation-routes/updateInline', 'AssingFormTransporRoutesController@updateInline')->name('cefa.bienestar.assing-form-transportation-routes.updateInline');
+        //Vista de Formulario de asignacion de rutas de transporte(ADMINISTRADOR)
+        Route::get('/admin/assing-form-transportation-routes', 'AssingFormTransporRoutesController@index')->name('bienestar.admin.view.assing_form_transportation_routes');
+        Route::put('/admin/assing-form-transportation-routes/updateInline', 'AssingFormTransporRoutesController@updateInline')->name('bienestar.admin.updateInline.assing_form_transportation_routes');
+        //Vista de Formulario de asignacion de rutas de transporte(LIDER BENEFICIO DE TRANSPORTE)
+        Route::get('/transportation_benefits_leader/assing-form-transportation-routes', 'AssingFormTransporRoutesController@index')->name('bienestar.transportation_benefits_leader.view.assing_form_transportation_routes');
+        Route::put('/transportation_benefits_leader/assing-form-transportation-routes/updateInline', 'AssingFormTransporRoutesController@updateInline')->name('bienestar.transportation_benefits_leader.updateInline.assing_form_transportation_routes');
 
         //vista de listado lista de asistencia de transporte(ADMINISTRADOR)
         route::get('/admin/transportation_assistance_list', 'TransportationAssistancesController@index')->name('bienestar.admin.view.transportation_assistance_lists');
