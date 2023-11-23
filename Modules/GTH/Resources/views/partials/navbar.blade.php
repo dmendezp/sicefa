@@ -20,7 +20,7 @@
     --}}
     -->
     </ul>
-    
+
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- languaje Dropdown Menu-->
@@ -28,7 +28,7 @@
             <a class="nav-link" data-toggle="dropdown" href="#">
                 {{ session('lang') }} <i class="fas fa-globe"></i>
             </a>
-            
+
             <div class="dropdown-menu p-0">
                 <a href="{{ url('lang', ['es']) }}" class="dropdown-item">{{ trans('gth::menu.Spanish') }}</a>
                 <a href="{{ url('lang', ['en']) }}" class="dropdown-item">{{ trans('gth::menu.English') }}</a>

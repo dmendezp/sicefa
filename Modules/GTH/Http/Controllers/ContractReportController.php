@@ -21,7 +21,7 @@ class ContractReportController extends Controller
         $contractorTypes = ContractorType::all();
         $employeeTypes = EmployeeType::all();
         $insurerEntity = InsurerEntity::all();
-        
+
 
         // Obtener una lista de contratos con la información de la persona
         $contracts = Contractor::with('person')->get();
@@ -47,8 +47,6 @@ class ContractReportController extends Controller
         $contract_obligations = $formData['contract_obligations'];
         $amount_hours = $formData['amount_hours'];
         $assigment_value = $formData['assigment_value'];
-        $sesion = $formData['sesion'];
-        $sesion_date = $formData['sesion_date'];
         $employee_type_id = $formData['employee_type_id'];
         $SIIF_code = $formData['SIIF_code'];
         $insurer_entity_id = $formData['insurer_entity_id'];
@@ -73,8 +71,6 @@ class ContractReportController extends Controller
             'contract_obligations' => $contract_obligations,
             'amount_hours' => $amount_hours,
             'assigment_value' => $assigment_value,
-            'sesion' => $sesion,
-            'sesion_date' => $sesion_date,
             'employee_type_id' => $employee_type_id,
             'SIIF_code' => $SIIF_code,
             'insurer_entity_id' => $insurer_entity_id,
@@ -117,8 +113,6 @@ class ContractReportController extends Controller
                 'contract_obligations' => $request->input('contract_obligations'),
                 'amount_hours' => $request->input('amount_hours'),
                 'assigment_value' => $request->input('assigment_value'),
-                'sesion' => $request->input('sesion'),
-                'sesion_date' => $request->input('sesion_date'),
                 'employee_type_id' => $request->input('employee_type_id'),
                 'SIIF_code' => $request->input('SIIF_code'),
                 'insurer_entity_id' => $request->input('insurer_entity_id'),

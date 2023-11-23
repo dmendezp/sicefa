@@ -35,8 +35,7 @@
                 <tbody>
                     @foreach ($people as $person)
                         <tr data-registro="{{ empty($person->biometric_code) ? 'no_registrado' : 'registrado' }}">
-                            <td>{{ $person->first_name }} {{ $person->first_last_name }} {{ $person->second_last_name }}
-                            </td>
+                            <td>{{ $person->full_name }}</td>
                             <td>{{ $person->document_number }}</td>
                             <td>
                                 @if (empty($person->biometric_code))

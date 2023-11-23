@@ -15,7 +15,7 @@
                     <h2>{{ trans('gth::menu.Personal Information') }}</h2>
 
                     <!-- Número de Documento -->
-                    <div class="form-group"> 
+                    <div class="form-group">
                         <label for="document_number">{{ trans('gth::menu.ID number:') }}</label>
                         <input type="number" name="document_number" id="document_number"
                             class="form-control @error('document_number') is-invalid @enderror"
@@ -162,7 +162,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="amount_hours">{{ trans('gth::menu.Hours of Work:') }}</label>
@@ -183,61 +183,6 @@
                                             class="form-control @error('total_contract_value') is-invalid @enderror"
                                             value="{{ old('total_contract_value') }}" placeholder="{{ trans('gth::menu.Enter the total value of the contract') }}" required>
                                         @error('total_contract_value')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Sección 3: Detalles del Contrato -->
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="sesion">{{ trans('gth::menu.Session:') }}</label>
-                                        <input type="text" name="sesion" id="sesion"
-                                            class="form-control @error('sesion') is-invalid @enderror" value="{{ old('sesion') }}" placeholder="{{ trans('gth::menu.Enter to whom the contract is transferred') }}">
-                                        @error('sesion')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="sesion_date">{{ trans('gth::menu.Session Date:') }}</label>
-                                        <input type="date" name="sesion_date" id="sesion_date"
-                                            class="form-control @error('sesion_date') is-invalid @enderror"
-                                            value="{{ old('sesion_date') }}" placeholder="Digite la fecha de sesión del contrato">
-                                        @error('sesion_date')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">{{ trans('gth::menu.SIIF Code:') }}</label>
-                                        <input type="text" name="SIIF_code" id="SIIF_code"
-                                            class="form-control @error('SIIF_code') is-invalid @enderror"
-                                            value="{{ old('SIIF_code') }}" placeholder="Digite el código SIIF">
-                                        @error('SIIF_code')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="assigment_value">{{ trans('gth::menu.Assignment Value:') }}</label>
-                                        <input type="number" name="assigment_value" id="assigment_value"
-                                            class="form-control @error('assigment_value') is-invalid @enderror"
-                                            value="{{ old('assigment_value') }}" placeholder="Digite el valor de asignación" required>
-                                        @error('assigment_value')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -308,7 +253,7 @@
                         <!-- Sección 4: Detalles  -->
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="policy_number">{{ trans('gth::menu.Policy Number:') }}</label>
                                         <div class="input-group">
@@ -325,20 +270,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="insurer_entity_id">{{ trans('gth::menu.Insurance Company:') }}</label>
-                                        <select name="insurer_entity_id" id="insurer_entity_id"
-                                            class="form-control @error('insurer_entity_id') is-invalid @enderror" required>
-                                            <option value="">--- Elija la entidad de aseguradora ---</option>
-                                            @foreach ($insurerEntity as $insurerEntity)
-                                                <option value="{{ $insurerEntity->id }}">{{ $insurerEntity->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="risk_type">{{ trans('gth::menu.Type of Risk:') }}</label>
                                         <select name="risk_type" id="risk_type"
@@ -356,9 +288,9 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    
+
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="state">{{ trans('gth::menu.Status:') }}</label>
                                         <select name="state" id="state"
@@ -374,6 +306,50 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sección 3: Detalles del Contrato -->
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="SIIF_code">{{ trans('gth::menu.SIIF Code:') }}</label>
+                                        <input type="number" name="SIIF_code" id="SIIF_code"
+                                            class="form-control @error('SIIF_code') is-invalid @enderror"
+                                            value="{{ old('SIIF_code') }}" placeholder="Digite el valor de asignación" required>
+                                        @error('SIIF_code')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="assigment_value">{{ trans('gth::menu.Assignment Value:') }}</label>
+                                        <input type="number" name="assigment_value" id="assigment_value"
+                                            class="form-control @error('assigment_value') is-invalid @enderror"
+                                            value="{{ old('assigment_value') }}" placeholder="Digite el valor de asignación" required>
+                                        @error('assigment_value')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="insurer_entity_id">{{ trans('gth::menu.Insurance Company:') }}</label>
+                                        <select name="insurer_entity_id" id="insurer_entity_id"
+                                            class="form-control @error('insurer_entity_id') is-invalid @enderror" required>
+                                            <option value="">--- Elija la entidad de aseguradora ---</option>
+                                            @foreach ($insurerEntity as $insurerEntity)
+                                                <option value="{{ $insurerEntity->id }}">{{ $insurerEntity->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -414,12 +390,12 @@
             </div>
             <br><br>
             <button type="submit" class="btn btn-success btnGuardar" id="guardarContrato">{{ trans('gth::menu.Save Contract') }}</button>
-            </form>   
+            </form>
         </div>
     </div>
     </div>
-
- <script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
         // Detecta cambios en el campo "Número de Documento"
         $('#document_number').on('change', function() {
             var numeroDocumento = $(this).val();

@@ -87,7 +87,7 @@
                             <a href="{{ route('cefa.gth.contractreports.view') }}"
                                 class="nav-link {{ !Route::is('cefa.gth.contractreports.view') ?: 'active' }}">
                                 <i class="fas fa-file-alt"></i>
-                                <p> Contratistas</p>
+                                <p> Contrato Laboral</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -114,6 +114,15 @@
                                 <i class="fas fa-puzzle-piece"></i>
                                 <p>
                                     Tipo de Empleado
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.gth.employeetypes.view') }}"
+                                class="nav-link {{ !Route::is('cefa.gth.employeetypes.view') ?: 'active' }}">
+                                <i class="fas fa-puzzle-piece"></i>
+                                <p>
+                                    Tipo de Empleados
                                 </p>
                             </a>
                         </li>
@@ -144,8 +153,43 @@
                         <i class="fas fa-envelope-open-text"></i>
                         <p>
                             Grados
+                <li
+                    class="nav-item {{ Route::is('cefa.gth.contractors.view', 'cefa.gth.contractreports.view', 'cefa.gth.contractortypes.view') ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
+                        <i class="fas fa-file-signature"></i>
+                        <p>Configuración
+                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.gth.insurerentities.view') }}"
+                                class="nav-link {{ !Route::is('cefa.gth.insurerentities.view') ?: 'active' }}">
+                                <i class="fas fa-newspaper"></i>
+                                <p>
+                                    Entidad Aseguradora
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.gth.pensionentities.view') }}"
+                                class="nav-link {{ !Route::is('cefa.gth.pensionentities.view') ?: 'active' }}">
+                                <i class="fas fa-user-edit"></i>
+                                <p>
+                                    Pension
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.gth.position') }}"
+                                class="nav-link {{ !Route::is('cefa.gth.position') ?: 'active' }}">
+                                <i class="fas fa-envelope-open-text"></i>
+                                <p>
+                                    Grados
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 @if (Auth::user()->havePermission('agrocefa.passant.reports'))
                 @endif
