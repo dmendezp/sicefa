@@ -5,7 +5,7 @@ use Modules\AGROINDUSTRIA\Http\Controllers\Instructor\FormulationController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\UnitController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\LaborController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ActivityController;
-use Modules\AGROINDUSTRIA\Http\Controllers\instructor\RequestController;
+use Modules\AGROINDUSTRIA\Http\Controllers\intern\RequestController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\ProductionController;
 use Modules\AGROINDUSTRIA\Http\Controllers\instructor\DeliverController;
 use Modules\AGROINDUSTRIA\Http\Controllers\Unit\BakeryController;
@@ -101,11 +101,7 @@ Route::middleware(['lang'])->group(function(){
             Route::get('/getInventoryByCategory', [WarehouseController::class ,'getInventoryByCategory'])->name('cefa.inventory.category');
             Route::get('/update/{id}', [WarehouseController::class ,'edit'])->name('cefa.agroindustria.storer.update'); 
             Route::get('/list', [WarehouseController::class ,'inventoryAlert'])->name('cefa.agroindustria.storer.inventory.list');   
-            Route::get('/prueba', [WarehouseController::class ,'obtenerInventarios']);/* ->name('cefa.agroindustria.storer.inventory.list');  */  
-            Route::get('/inventario/bodegas', [WarehouseController::class, 'obtenerelementos'])->name('cefa.inventory.warehouse');
-            Route::get('/inventario/obtenerbodegas', [WarehouseController::class, 'obtenerbodegas'])->name('cefa.inventory.getwarehouses');
-            Route::delete('/destroy/{id}', [WarehouseController::class ,'destroy'])->name('cefa.agroindustria.storer.inventory.delete');   
-            Route::get('/requests', [RequestController::class ,'requests'])->name('cefa.agroindustria.storer.inventory.requests');               
+            Route::get('/request', [RequestController::class, 'index'])->name('cefa.agroindustria.storer.view.request');
         });       
     });
 });

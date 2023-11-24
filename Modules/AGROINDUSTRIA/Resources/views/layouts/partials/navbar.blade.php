@@ -23,9 +23,27 @@
                 </li>
             @endif
             
-            @if(Route::is('*admin.*'))
+            @if(auth()->check() && checkRol('agroindustria.admin'))  
                 <li class="nav-item">
                     <a href="{{route('cefa.agroindustria.admin.discharge')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.production')}}">Producción</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.movements')}}">{{trans('agroindustria::menu.Movements')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.activity')}}">{{trans('agroindustria::menu.Activities')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.formulations')}}">{{trans('agroindustria::formulations.Recipes')}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
                 </li>
             @endif
 
@@ -60,20 +78,21 @@
                         <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.formulations')}}">{{trans('agroindustria::formulations.Recipes')}}</a>
                     </li>
                 @endif
-
-                
-                @endif
-
-                {{-- Menu storer --}}        
-                
+               {{-- Menu storer --}}
+            @endif
+            @if(auth()->check() && checkRol('agroindustria.almacenista'))  
                 @if(Auth::user()->havePermission('agroindustria.storer.crud'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
                     </li>
+                @endif
+                @if(Auth::user()->havePermission('agroindustria.storer.view.request'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory.requests')}}">{{trans('agroindustria::menu.requests')}}</a>
+                        <a class="nav-link" href="{{route('cefa.agroindustria.storer.view.request')}}">Solicitudes</a>
                     </li>
                 @endif
+            @endif
+            
         </ul>
     </div>
         

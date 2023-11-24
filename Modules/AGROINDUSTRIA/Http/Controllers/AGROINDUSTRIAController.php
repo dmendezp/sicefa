@@ -10,6 +10,7 @@ use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\ProductiveUnitWarehouse;
 use Modules\SICA\Entities\Warehouse;
+use Modules\SICA\Entities\Labor;
 use Modules\AGROINDUSTRIA\Entities\Formulation;
 use Modules\AGROINDUSTRIA\Entities\Ingredient;
 use Modules\AGROINDUSTRIA\Entities\Utensil;
@@ -19,6 +20,19 @@ class AGROINDUSTRIAController extends Controller
 {
     public function index()
     {
+        if(Auth::check()){
+            $user = Auth::user();
+            if($user->roles->contains('slug', 'agroindustria.almacenista')){
+                $title = 'Solicitudes';
+                $requests = Labor::with('consumables.inventory.element', 'person')->where('status', 'Programado')->get();
+
+                $data = [
+                    'title' => $title,
+                    'requests' => $requests
+                ];
+                return view('agroindustria::storer.request.index', $data);
+            }
+        }
         $title = 'Inicio';
         return view('agroindustria::index', compact('title'));
     }

@@ -40,9 +40,14 @@ class WarehouseController extends Controller
  
     // Mostrar el listado de inventario
     public function inventory(){
-        $title = 'inventory';
-        $ppunits = ProductiveUnit::all();  
-        $wwhauses = Warehouse::pluck('name');
+        $title = 'Inventario';
+        $productiveUnit = ProductiveUnit::where('id', 2 )->firstOrFail();
+        $Warehouses = Warehouse::where('id', 2)->firstOrFail();
+
+        $app_puw = ProductiveUnitWarehouse::where('productive_unit_id', $productiveUnit->id)
+                                          ->where('warehouse_id', $Warehouses->id)
+                                          ->pluck('id');
+    
         $categories = Category::all();                                     
         $data = [
             'title' => $title,
