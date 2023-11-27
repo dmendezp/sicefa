@@ -187,7 +187,7 @@ class InventoryController extends Controller
         } catch (\Throwable $th) {
             return redirect()
                 ->back()
-                ->with('error', 'Error al crear el registro. Por favor, inténtalo de nuevo.');
+                ->with('success', 'Error al crear el registro. Por favor, inténtalo de nuevo.');
         }
     }
 

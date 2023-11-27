@@ -119,6 +119,9 @@ Route::middleware(['lang'])->group(function () {
         Route::post('trainer/labormanagement/store', 'LaborManagementController@registerlabor')->name('agrocefa.trainer.labormanagement.store');
         Route::post('passant/labormanagement/store', 'LaborManagementController@registerlabor')->name('agrocefa.passant.labormanagement.store');
 
+        Route::get('/labormanagement/culturalwork', 'LaborManagementController@activityproduct')->name('agrocefa.labormanagement.activityType');
+        Route::get('/labormanagement/culturalwork/warehouseUnit', 'LaborManagementController@getWarehouses')->name('agrocefa.labormanagement.warehouseUnits');
+
         // RUTAS DE REPORTES
 
         // Consumos

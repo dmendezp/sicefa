@@ -66,7 +66,10 @@
 
 
                 <div class="card-body">
-                    {!! Form::open(['route' => 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.store', 'method' => 'POST']) !!}
+                    {!! Form::open([
+                        'route' => 'agrocefa.' . getRoleRouteName(Route::currentRouteName()) . '.labormanagement.store',
+                        'method' => 'POST',
+                    ]) !!}
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -145,6 +148,12 @@
 
                         </div>
                     </div>
+
+                    <div id="resultadoCondicion">
+                        @include('agrocefa::labormanagement.component.movementlabor')
+                    </div><br>
+
+
                     <div id="botonContainer" style="display: none">
                         <div class="row">
                             <button type="button" id="buttonsupplie"
@@ -425,5 +434,51 @@
                     }
                 });
             });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $('#resultadoCondicion').hide();
+
+                $('#activitySelect').change(function() {
+                    // Obtener el valor seleccionado del formulario
+                    var selectedActivity = $(this).val();
+
+                    // Realizar la petición Ajax
+                    if (selectedActivity) {
+                        $.ajax({
+                            type: 'GET',
+                            url: "{{ route('agrocefa.labormanagement.activityType') }}",
+                            data: {
+                                'activity': selectedActivity
+                            },
+                            success: function(data) {
+                                // Mostrar u ocultar el formulario según el resultado
+                                if (data === 'La actividad es de tipo Produccion') {
+                                    mostrarformulario();
+                                } else {
+                                    ocultarformulario();
+                                }
+                            },
+
+                            
+                            error: function(xhr, status, error) {
+                                console.error(error);
+                            }
+                        });
+                    } else {
+                        ocultarformulario();
+                    }
+
+                });
+            });
+
+            function mostrarformulario() {
+                $('#resultadoCondicion').show();
+            }
+
+            function ocultarformulario() {
+                $('#resultadoCondicion').hide();
+            }
         </script>
     @endsection
