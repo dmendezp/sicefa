@@ -1,7 +1,13 @@
 @extends('agroindustria::layouts.master')
 @section('content')
 <center>
-<h1>{{trans('agroindustria::menu.List of Activities')}}</h1>
+    @if ($activities->count() > 0)
+        <h1>{{trans('agroindustria::menu.List of Activities')}}</h1>
+        
+    @else
+        
+        <p>No se encontraron actividades para esta unidad productiva</p>        
+    @endif
 </center>
 
 <br>

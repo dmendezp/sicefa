@@ -94,6 +94,7 @@
                             <button type="button" id="toggle-form-tools">Registro de herramientas</button>
                             <button type="button" id="toggle-form">{{ trans('agroindustria::labors.openCollaboratorFormulatio') }}</button>
                             <button type="button" id="toggle-form-equipment">Registro de Equipos</button>
+                            <button type="button" id="toggle-form-resources">Recursos Ambientales</button>
                             <div class="consumables" id="form-container-consumables">
                                 <div id="form-consumables">
                                     <h3>{{trans('agroindustria::request.products')}}</h3>
@@ -206,6 +207,30 @@
                                             {!! Form::number('price_equipments[]', null, ['class'=>'form-control', 'id' => 'price_equipment', 'readonly' => 'readonly']) !!}
                                         </div>           
                                         <button type="button" class="remove-equipments">{{trans('agroindustria::menu.Delete')}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-md-12">
+                            <div class="resources" id="form-container-resources">
+                                <div id="form-resources">
+                                    <h3 id="resources">Recursos Ambientales</h3>
+                                    <!-- Aquí se agregarán los campos de producto dinámicamente -->
+                                    <button type="button" id="add-resources">Registrar Recursos</button>
+                                    <div class="resource">
+                                        <div class="form-group">
+                                            {!! Form::label('environmental_aspect', 'Aspecto Ambientas') !!}
+                                            {!! Form::select('environmental_aspect[]', [], null, ['class' => 'environmental_aspect_select', 'id' => 'select_aspect', 'style' => 'width: 200px', 'placeholder' => 'Seleccione un aspecto ambiental']) !!}
+                                        </div>
+                                        <div class="form-group">
+                                            {!! Form::label('amount_environmental_aspect', 'Cantidad') !!}
+                                            {!! Form::number('amount_environmental_aspect[]', null, ['class'=>'form-control', 'id' => 'amount_environmental_aspect']) !!}
+                                        </div>   
+                                        <div class="form-group">  
+                                            {!! Form::label('price_environmental_aspect', 'Precio') !!}
+                                            {!! Form::number('price_environmental_aspect[]', '0', ['class'=>'form-control', 'id' => 'price_environmental_aspect', 'readonly' => 'readonly']) !!}
+                                        </div>           
+                                        <button type="button" class="remove-resources">{{trans('agroindustria::menu.Delete')}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -749,6 +774,77 @@
        });
     });
 </script>
+
+<script>
+    $(document).ready(function () {
+        // Agregar un nuevo campo de colaborador
+        $('.environmental_aspect_select').select2();
+
+        $("#add-resources").click(function () {
+            var newResource = '<div class="resource">' +
+                '<div class="form-group">' +
+                '{!! Form::label("environmental_aspect", "Aspecto Ambiental") !!}' +
+                '{!! Form::select("environmental_aspect[]", [], null, ["class" => "environmental_aspect_select", "style" => "width: 200px", "placeholder" => "Seleccione un aspecto ambiental"]) !!}' +
+                '</div>' +
+                '<div class="form-group">' +
+                '{!! Form::label("amount_environmental_aspect", "Cantidad") !!}' +
+                '{!! Form::number("amount_environmental_aspect[]", null, ["class"=>"form-control"]) !!}' +
+                '</div>' +
+                '<div class="form-group">' +
+                '{!! Form::label("price_environmental_aspect", "Precio") !!}' +
+                '{!! Form::number("price_environmental_aspect[]", "0", ["class"=>"form-control", "readonly" => "readonly"]) !!}' +
+                '</div>' +
+                '<button type="button" class="remove-resources">{{trans("agroindustria::menu.Delete")}}</button>' +
+                '</div>';
+
+            // Agregar el nuevo campo al DOM
+            $("#form-resources").append(newResource);
+
+            // Inicializar Select2 para el nuevo campo
+            $('.environmental_aspect_select').select2();
+
+            environmental();
+        });
+
+        function environmental(){
+            $('#activity-selected').on('change', function () {
+                var selectedActivity = $(this).val();
+                // Actualizar todas las opciones para cada elemento .environmental_aspect_select
+                $('.environmental_aspect_select').each(function () {
+                    var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.resource', ['activity_id' => ':activity_id'])) !!}.replace(':activity_id', selectedActivity.toString());
+                    console.log(url);
+                    // Realizar una solicitud AJAX para obtener los aspectos ambientales
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        success: function (response) {
+                            var options = '<option value="">' + 'Seleccione un aspecto ambiental' + '</option>';
+                            $.each(response.aspect, function (index, aspect) {
+                                options += '<option value="' + aspect.id + '">' + aspect.name + '</option>';
+                            });
+                            // Actualizar las opciones del campo de aspecto ambiental actual
+                            $('.environmental_aspect_select').html(options);
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                });
+            });
+             // Ejecutar la función al cargar el documento
+             $('#activity-selected').trigger('change');
+        }    
+
+        // Llamar a environmental al cargar el documento
+        environmental();
+        
+        // Eliminar un campo de colaborador
+        $("#form-resources").on("click", ".remove-resources", function () {
+            $(this).closest('.resource').remove();
+        });
+    });
+</script>
+
 
 <script>
     function updateTotalLaborPrice() {

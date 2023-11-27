@@ -22,15 +22,19 @@ class FormulationController extends Controller
 
     
 
-    public function index()
+    public function index($unit)
     {
         $titleIndex = 'Formulaciones';
+        session(['viewing_unit' => $unit]);
+        $selectedUnit = ProductiveUnit::findOrFail($unit);
+        session(['viewing_unit_name' => $selectedUnit->name]);
+        
         $user = Auth::user();
         if($user){
             $idPersona = $user->person->id;
             $name = $user->person->first_name . ' ' . $user->person->first_last_name . ' ' . $user->person->second_last_name;
         }
-        $formulations = Formulation::with('person', 'element', 'utensils.element', 'ingredients.element')->where('person_id', $idPersona)->get();
+        $formulations = Formulation::with('person', 'element', 'utensils.element', 'ingredients.element')->where('person_id', $idPersona)->where('productive_unit_id', $unit)->get();
 
         $data = [
             'title' => $titleIndex,
@@ -42,9 +46,6 @@ class FormulationController extends Controller
     public function details (){
 
         $title = "Detalles";
-
-        $selectedUnit = session('viewing_unit');
-        $unitName = ProductiveUnit::findOrFail($selectedUnit);
 
         $formulations = Formulation::with('utensils.element.measurement_unit', 'ingredients.element.measurement_unit')->where('productive_unit_id', $selectedUnit)->get();
 
@@ -58,6 +59,7 @@ class FormulationController extends Controller
 
     public function form(){
         $title = 'Formulacion';
+        
         $user = Auth::user();
         if($user){
             $idPersona = $user->person->id;

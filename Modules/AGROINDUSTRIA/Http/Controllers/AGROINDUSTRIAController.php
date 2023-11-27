@@ -41,7 +41,7 @@ class AGROINDUSTRIAController extends Controller
     {
        if(Auth::check()){
             $user = Auth::user();
-            if ($user->roles->contains('slug', 'agroindustria.admin') || $user->roles->contains('slug', 'agroindustria.instructor.vilmer') || $user->roles->contains('slug', 'agroindustria.instructor.chocolate')) {
+            if ($user->roles->contains('slug', 'agroindustria.admin') || $user->roles->contains('slug', 'agroindustria.instructor.vilmer') || $user->roles->contains('slug', 'agroindustria.instructor.chocolate') || $user->roles->contains('slug', 'agroindustria.instructor.cerveceria')) {
 
                 $productiveUnits = $user->roles->flatMap(function ($role){
                     return $role->productive_units->pluck('id');

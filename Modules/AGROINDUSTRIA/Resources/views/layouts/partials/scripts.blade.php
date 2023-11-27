@@ -171,6 +171,7 @@ window.onclick = function(event) {
         $("#form-container-tools").hide();
         $("#form-container-consumables").hide();
         $("#form-container-equipments").hide();
+        $("#form-container-resources").hide();
 
         // Botón para abrir/cerrar el formulario
         $("#toggle-form").click(function() {
@@ -258,6 +259,28 @@ window.onclick = function(event) {
                 $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
             }
         });
+
+        // Botón para abrir/cerrar el formulario
+        $("#toggle-form-resources").click(function() {
+            // Alternar la visibilidad del formulario
+            $("#form-container-resources").toggle();
+
+            // Cambiar el texto del botón en función del estado del formulario
+            var buttonText = $("#form-container-resources").is(":visible")
+                ? "Cerrar formulario de recursos"
+                : "Recursos Ambientales";
+
+            // Actualizar el texto del botón
+            $(this).text(buttonText);
+
+            // Cambiar el color del botón a rojo cuando el formulario está abierto
+            if ($("#form-container-resources").is(":visible")) {
+                $(this).css("background-color", "red");
+            } else {
+                // Restaurar el color original cuando el formulario se cierra
+                $(this).css("background-color", ""); // Vaciar el valor para restaurar el color original
+            }
+        });
     });
 </script>
 
@@ -269,7 +292,7 @@ window.onclick = function(event) {
         // Detecta cambios en el primer campo de selección (Receiver)
         $('#activity-selected').on('change', function() {
             var selectedActivity = $(this).val();
-            var url = {!! json_encode(route('cefa.agroindustria.units.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
+            var url = {!! json_encode(route('cefa.agroindustria.instructor.labor.responsibilities', ['activityId' => ':activityId'])) !!}.replace(':activityId', selectedActivity.toString());
             // Realiza una solicitud AJAX para obtener los almacenes que recibe el receptor seleccionado
             console.log(url);
             $.ajax({

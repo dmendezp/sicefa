@@ -77,7 +77,7 @@ class DeliverController extends Controller
 
 
         //Consulta las unidades productivas
-        $productiveUnit = ProductiveUnit::with('person')->get();
+        $productiveUnit = ProductiveUnit::with('person')->whereNotIn('id', [$selectedUnit])->get();
         $receiveUnit = $productiveUnit->map(function ($p) {
             $unitId = $p->id;
             $unitName = $p->name;
@@ -94,6 +94,9 @@ class DeliverController extends Controller
         ->whereHas('movement_responsibilities', function ($query) use ($idPersona) {
             $query->where('person_id', $idPersona)
                   ->where('role', 'ENTREGA');
+        })->whereHas('warehouse_movements', function ($query) use ($id) {
+            $query->where('productive_unit_warehouse_id', $id)
+                  ->where('role', 'ENTREGA');
         })->orderByRaw("
         CASE
             WHEN state = 'Solicitado' THEN 1
@@ -106,6 +109,9 @@ class DeliverController extends Controller
         })->whereHas('movement_responsibilities', function ($r) use ($idPersona){
             $r->where('person_id', $idPersona)
             ->where('role', 'RECIBE');
+        })->whereHas('warehouse_movements', function ($query) use ($id) {
+            $query->where('productive_unit_warehouse_id', $id)
+                  ->where('role', 'ENTREGA');
         })->where('state', 'Solicitado')->count();
 
 
@@ -341,6 +347,16 @@ class DeliverController extends Controller
     public function pending(){
         $title = "Pendientes";
         
+        $selectedUnit = session('viewing_unit');
+        $unitName = ProductiveUnit::findOrFail($selectedUnit);
+
+        //Bodega que entrega
+
+        $warehouses = ProductiveUnitWarehouse::where('productive_unit_id', $selectedUnit)->get();
+        foreach ($warehouses as $row){
+            $id = $row->id;
+        }
+
         $user = Auth::user();
         if ($user->person) {
             $idPersona = $user->person->id;
@@ -350,6 +366,9 @@ class DeliverController extends Controller
         ->whereHas('movement_responsibilities', function ($query) use ($idPersona) {
             $query->where('person_id', $idPersona)
                   ->where('role', 'RECIBE');
+        })->whereHas('warehouse_movements', function ($query) use ($id) {
+            $query->where('productive_unit_warehouse_id', $id)
+                  ->where('role', 'ENTREGA');
         })->orderByRaw("
         CASE
             WHEN state = 'Solicitado' THEN 1

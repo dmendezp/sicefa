@@ -12,11 +12,21 @@
                 <th>{{trans('agroindustria::labors.state')}}</th>
                 <th>{{trans('agroindustria::labors.destination')}}</th>
                 <th>
-                    <a href="{{route('cefa.agroindustria.units.instructor.labor.form')}}">
-                        <button class="btn btn-success float-end mb-2">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-                    </a>
+                    @if (Auth::user()->havePermission('agroindustria.admin.units.labor.form'))
+                        <a href="{{route('agroindustria.admin.units.labor.form')}}">
+                            <button class="btn btn-success float-end mb-2">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </a>
+                    @else
+                        @if (Auth::user()->havePermission('agroindustria.instructor.units.labor.form'))
+                            <a href="{{route('agroindustria.instructor.units.labor.form')}}">
+                                <button class="btn btn-success float-end mb-2">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </a>
+                        @endif
+                    @endif         
                 </th>
             </tr>
         </thead>
@@ -46,7 +56,7 @@
 </div>
 <!-- Modal enviar a punto de venta -->
 @foreach ($labors as $l)
-@if ($l->activity->activity_type->id === 1)
+@if ($l->destination == 'Producción')
     
 <div class="modal fade" id="realizar{{$l->id}}" tabindex="-1" aria-labelledby="realizarLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -92,9 +102,9 @@
         <div class="modal-body">
             {!! Form::open(['method' => 'post', 'url' => route('cefa.agroindustria.units.instructor.labor.realizar', ['id' => $l->id])]) !!}
             @csrf
-            @method('PUT')
+            @method('POST')
             <div class="form-group">
-               <p>Labor completada</p>
+               <p>¿Terminaste esta labor?</p>
             </div>         
         </div>
         <div class="modal-footer">
