@@ -5,6 +5,7 @@ namespace Modules\HDC\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Modules\HDC\Entities\FamilyPersonFootprint;
 use Modules\HDC\Entities\PersonEnvironmentalAspect;
@@ -19,12 +20,12 @@ class CarbonfootprintController extends Controller
         $personaid = Auth::user()->person->id;
 
         $environmeaspect = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')
-        ->select('id', 'carbon_print', 'created_at','mes','anio')
-        ->where('person_id', $personaid)
-        ->orderBy('created_at', 'desc') // Agrega esta línea para ordenar de forma descendente
-        ->get();
-            // Retorna una vista con los datos de la persona si se encuentra
-            return view('hdc::Calc_Huella.tabla', ['environmeaspect' => $environmeaspect]);
+            ->select('id', 'carbon_print', 'created_at', 'mes', 'anio')
+            ->where('person_id', $personaid)
+            ->orderBy('created_at', 'desc') // Agrega esta línea para ordenar de forma descendente
+            ->get();
+        // Retorna una vista con los datos de la persona si se encuentra
+        return view('hdc::Calc_Huella.tabla', ['environmeaspect' => $environmeaspect]);
     }
 
     public function formcalculates(Person $person)
@@ -81,7 +82,7 @@ class CarbonfootprintController extends Controller
         }
         $personFootprint->update(['carbon_print' => $total]);
 
-       return redirect()->route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.carbonfootprint.persona');
+        return redirect()->route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.persona');
     }
 
     public function editConsumption($id)
@@ -97,7 +98,7 @@ class CarbonfootprintController extends Controller
     public function updateConsumption(Request $request, $id)
     {
 
-    
+
         // Buscar el registro de FamilyPersonFootprint por ID
         $fpf = FamilyPersonFootprint::findOrFail($id);
 
@@ -116,7 +117,7 @@ class CarbonfootprintController extends Controller
         }
 
         // Redirigir a la vista de edición con un mensaje de éxito
-        return redirect()->route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.carbonfootprint.persona', ['id' => $fpf->id])
+        return redirect()->route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.persona', ['id' => $fpf->id])
             ->with('success', 'Consumo actualizado exitosamente');
     }
 
@@ -141,6 +142,27 @@ class CarbonfootprintController extends Controller
         FamilyPersonFootprint::where('id', $familyPersonFootprintId)->delete();
 
         // Puedes redirigir a la vista que necesites después de eliminar
-        return redirect()->route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.carbonfootprint.persona')->with('success', 'Registros eliminados correctamente');
+        return redirect()->route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.persona')->with('success', 'Registros eliminados correctamente');
     }
+
+        public function grafica($id)
+        {
+            try {
+                // Obtén el último registro del campo 'mes' con su respectivo 'carbon_print'
+                $fpf = FamilyPersonFootprint::where('id', $id)->latest('mes')->first(['mes', 'carbon_print']);
+
+                // Verifica si se encontraron datos
+                if ($fpf) {
+                    // Devuelve los datos en formato JSON, por ejemplo
+                    return response()->json($fpf);
+                } else {
+                    // Devuelve una respuesta en caso de que no se encuentren datos
+                    return response()->json(['message' => 'No se encontraron datos para el ID proporcionado'], 404);
+                }
+            } catch (\Exception $e) {
+                // Manejo de errores
+                return response()->json(['message' => 'Error interno del servidor'], 500);
+            }
+        }
+
 }

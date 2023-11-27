@@ -112,7 +112,7 @@ class assign_environmental_aspectsController extends Controller
 
             return redirect()->back()->with('success', 'Aspectos ambientales eliminados correctamente.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error al eliminar aspectos ambientales. ' . $e->getMessage());
+            return redirect()->back()->with('error', '--Error al eliminar aspectos ambientales. ' . $e->getMessage());
         }
     }
 
@@ -174,19 +174,5 @@ class assign_environmental_aspectsController extends Controller
 
 
 
-    /*  public function update(Request $request,)
-    {
-        $activity = Activity::find($request->input('activity_id'));
-
-        if (!$activity) {
-            return response()->json(['error' => 'La actividad no se encontró.']);
-        }
-
-        $activity->name = $request->input('name');
-        $activity->environmental_aspect_id = $request->input('aspectos'); // Asegúrate de usar el nombre correcto del campo
-
-        $activity->save();
-
-        return response()->json(['message' => 'Cambios guardados con éxito']);
-    } */
+    
 }

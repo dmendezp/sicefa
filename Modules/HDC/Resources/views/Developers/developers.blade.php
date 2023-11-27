@@ -193,7 +193,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-4 col-md-3">
                                 <div class="card text-center"
                                     style="height: 160px;">
                                     <div class="card-body d-flex flex-column justify-content-between">

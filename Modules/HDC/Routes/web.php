@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,16 +60,25 @@ Route::middleware(['lang'])->group(function () {
             Route::get('/AsignarAspectosAmbientales', 'assign_environmental_aspects')->name('cefa.hdc.assign_environmental_aspects');
             Route::get('/admin/listado_aspectos', 'aspectlist')->name('hdc.admin.resultfromaspects');
             Route::post('/mostrar-resultados', 'mostrarResultados')->name('cefa.hdc.mostrarResultados');
-            Route::get('/get_activities', 'getactivities')->name('cefa.hdc.getactivities');
+            Route::get('/admin/get_activities', 'getactivities')->name('hdc.admin.getactivities');
             Route::get('/get-environmental-aspects/{activityId}', 'getEnvironmentalAspects')->name('cefa.hdc.getEnvironmentalAspects');
             Route::post('/guardar', 'store')->name('hdc.assign_environmental_aspects.store');
-            Route::post('/update-environmental-aspects', 'update')->name('cefa.hdc.updateEnvironmentalAspects');
+            Route::post('/admin/update-environmental-aspects', 'update')->name('hdc.admin.updateEnvironmentalAspects');
             /* Ruta CRUD Del Formulario De Registro*/
           /*   Route::get('/actividad/{activity}/editar', 'edit')->name('cefa.hdc.edit'); */
           Route::get('cefa/hdc/edit_resultados/{activity_id}', 'edit_resultados')->name('cefa.hdc.edit_resultados');
           Route::post('admin/update/enviromentalaspect', 'UpdateEnvironmentalAspects')->name('hdc.admin.update.EnvironmentalAspects');
 
             Route::delete('/admin/hdc/delete_environmental_aspects/{id}', 'eliminarAspectosAmbientales')->name('hcd.admin.delete_environmental_aspects');
+
+        });
+        Route::controller(AssignAspectsController::class)->group(function(){
+            Route::get('/consultar/aspectoAmbiental', 'consul')->name('hdc.admin.consultar.aspectoAmbiental');
+            Route::get('/add/aspects', 'addaspects')->name('hdc.admin.add.aspects');
+            Route::post('/admin/Aspect/activities', 'AspectActivities')->name('hdc.admin.aspect.activities');
+            Route::post('/admin/Aspect', 'Aspect')->name('hdc.admin.aspects');
+            Route::get('/get-environmental-aspects/{activityId}', 'getEnvironmentalAspects')->name('cefa.hdc.getEnvironmentalAspects');
+
 
         });
 
@@ -96,6 +104,7 @@ Route::middleware(['lang'])->group(function () {
             Route::get('/carbonfootprint/edit/{id}', 'editConsumption')->name('carbonfootprint.edit_consumption');
             Route::post('/carbonfootprint/update_consumption/{id}', 'updateConsumption')->name('carbonfootprint.update_consumption');
             Route::delete('/carbonfootprint/eliminar/{id}', 'eliminarConsumo')->name('carbonfootprint.eliminar');
+            Route::get('/admin/grafica', 'grafica')->name('hdc.admin.grafica');
         });
 
         Route::controller(GraficasController::class)->group(function () {

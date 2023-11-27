@@ -392,6 +392,33 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+         // Ruta del CRUD eliminar registros de la asignacion de  aspectos ambientales (ADMINISTRADOR)
+         $permission = Permission::updateOrCreate(['slug' => 'hcd.admin.delete_environmental_aspects'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar los registros de la asignacion de los aspectos ambientales (Administrador)',
+            'description' => 'Eliminar los registros de la asignacion de los aspectos ambientales',
+            'description_english' => 'Delete records of the assignment of environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+         // Ruta del formulario agregar ajax que llama a las actividades relacionadas con la unidad productiva (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.getactivities'], [ // Registro o actualización de permiso
+            'name' => 'Consultar actividades (Administrador)',
+            'description' => 'Consultar actividades a las que pertenecen a una unidad productiva',
+            'description_english' => 'Consult activities that belong to a productive unit',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Ruta del boton enviar del formulario asignar aspectos ambientales (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'hdc.admin.updateEnvironmentalAspects'], [ // Registro o actualización de permiso
+            'name' => 'Enviar los aspectos ambientales(Administrador)',
+            'description' => 'Enviar los aspectos ambientales',
+            'description_english' => 'Send environmental aspects',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+
 
 
 

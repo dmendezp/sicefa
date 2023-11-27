@@ -7,43 +7,50 @@
                     <div class="card-body">
                         <div class="mtop16">
                             @if ($resultados->isNotEmpty())
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Actividad</th>
-                                        <th>Aspectos Ambientales</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($resultados as $resultado)
-                                    <tr>
-                                        <td contenteditable="true">{{ $resultado->name }}</td>
-                                        <td>
-                                            <ul>
-                                                @foreach ($resultado->environmental_aspects as $aspect)
-                                                    <li>{{ $aspect->name }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </td>
-                                        <td>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Actividad</th>
+                                            <th>Aspectos Ambientales</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($resultados as $resultado)
+                                            @if (count($resultado->environmental_aspects) > 0)
+                                                <tr>
+                                                    <td contenteditable="true">{{ $resultado->name }}</td>
+                                                    <td>
+                                                        <ul>
+                                                            @foreach ($resultado->environmental_aspects as $aspect)
+                                                                <li>{{ $aspect->name }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </td>
+                                                    <td>
 
-                                            <form method="post" action="{{ route('hcd.admin.delete_environmental_aspects', ['id' => $resultado->id]) }}">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                            </form>
-                                            <form action="{{ route('cefa.hdc.edit_resultados', ['activity_id' => $resultado->id]) }}" method="get">
-                                                @csrf
-                                                <button type="submit" class="btn btn-primary"> <i class="fa-solid fa-pen-to-square"></i></button>
-                                            </form>
+                                                        <form method="post" action="{{ route('hcd.admin.delete_environmental_aspects', ['id' => $resultado->id]) }}" class="formEliminar">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button class="btn btn-danger btnEliminar" type="button" data-form-id="formEliminar{{ $loop->iteration }}">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                        <form
+                                                            action="{{ route('cefa.hdc.edit_resultados', ['activity_id' => $resultado->id]) }}"
+                                                            method="get">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-primary"> <i
+                                                                    class="fa-solid fa-pen-to-square"></i></button>
+                                                        </form>
 
 
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             @else
                                 <p>No hay datos disponibles.</p>
                             @endif
@@ -54,54 +61,32 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('AdminLTE/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const deleteButtons = document.querySelectorAll('.btnEliminar');
 
-{{--  @push('scripts')
-    <!-- Agregar un script para manejar las funciones de edición y eliminación -->
-    <script>
-        function editarActividad(button) {
-            var row = button.closest('tr'); // Encuentra la fila que contiene el botón
-            var actividadCell = row.querySelector('td:first-child'); // Obtiene la celda de la actividad
-            var nuevoNombre = prompt('Editar nombre de actividad:', actividadCell.textContent);
+        deleteButtons.forEach((deleteButton) => {
+            deleteButton.addEventListener('click', () => {
+                const formId = deleteButton.dataset.formId;
+                const form = document.getElementById(formId);
 
-            if (nuevoNombre !== null) {
-                // Realiza una solicitud Ajax para actualizar el nombre de la actividad
-                var actividadId = button.getAttribute('data-activityId');
-                var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Obtén el token CSRF
-
-                // Realiza la solicitud Ajax utilizando fetch
-                fetch('/actividad/' + actividadId, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': token
-                    },
-                    body: JSON.stringify({ nombre: nuevoNombre })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Actualiza la celda de la tabla con el nuevo nombre
-                        actividadCell.textContent = nuevoNombre;
-                        alert('Actividad actualizada con éxito');
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: 'Esta acción no se puede deshacer',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Envía el formulario de manera convencional
+                        form.submit();
                     } else {
-                        alert('Error al actualizar la actividad');
+                        Swal.fire('Cancelado', 'La acción ha sido cancelada', 'info');
                     }
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert('Error en la solicitud Ajax');
                 });
-            }
-        }
-
-        function eliminarActividad(button) {
-            if (confirm('¿Estás seguro de que deseas eliminar esta actividad?')) {
-                var activityId = button.getAttribute('data-resultado');
-                // Realiza una solicitud Ajax para eliminar la actividad con actividadId
-                // Agregar aquí la lógica Ajax para eliminar la actividad
-                // Luego, elimina la fila de la tabla si la solicitud es exitosa
-                // Por ejemplo, button.closest('tr').remove();
-            }
-        }
-    </script>
-@endpush  --}}
+            });
+        });
+    });
+</script>

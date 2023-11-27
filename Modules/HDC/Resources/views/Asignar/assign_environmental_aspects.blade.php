@@ -10,7 +10,7 @@
             <h3 class="card-title">{{ trans('hdc::assign_environmental_aspects.ct1') }}</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('cefa.hdc.updateEnvironmentalAspects') }}" method="post"> {{-- Cambio de ruta a 'updateEnvironmentalAspects' --}}
+            <form action="{{ route('hdc.admin.updateEnvironmentalAspects') }}" method="post"> {{-- Cambio de ruta a 'updateEnvironmentalAspects' --}}
                 @csrf
                 <div class="row">
                     <div class="col-6">
@@ -31,16 +31,6 @@
                                 'id' => 'activity_id',
                             ]) !!}
                         </div>
-                        <style>
-                            .checklist {
-                                display: inline-block;
-                                margin-left: 20px;
-                            }
-
-                            label {
-                                display: block;
-                            }
-                        </style>
                     </div>
                     <div class="col-6">
                         <h2>{{ trans('hdc::assign_environmental_aspects.title_checklist') }}</h2>
@@ -69,7 +59,7 @@
             var activitySelect = $('select[name="activity_id"]');
                 activitySelect.on('change', function() {
                     var selectedActivityId = $(this).val();
-                    
+
                 if (selectedActivityId) {
                     // Utiliza el nombre de la ruta para obtener la URL
                     var url = "{{ route('cefa.hdc.getEnvironmentalAspects', ':id') }}";
@@ -91,18 +81,17 @@
 
                 // Realizar una solicitud AJAX para enviar el ID seleccionado a la ruta o función de Laravel
                 $.ajax({
-                    url: '{{ route('cefa.hdc.getactivities') }}',
+                    url: '{{ route('hdc.admin.getactivities') }}',
                     method: 'GET',
                     data: {
                         unit: selectedProductId
                     },
                     success: function(response) {
-                        // Manejar la respuesta de la solicitud AJAX aquí
-                        console.log('Respuesta de la solicitud AJAX:', response);
+
 
                         // Verificar si hay un responsable en la respuesta
                         if (response.activities) {
-                            
+
                             // Actualizar el campo "Bodega Recibe" con las opciones recibidas
                             var receivewarehouseSelect = $('#activity_id');
                             receivewarehouseSelect.empty(); // Vaciar las opciones actuales

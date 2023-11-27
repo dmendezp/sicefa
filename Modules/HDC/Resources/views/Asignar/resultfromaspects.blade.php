@@ -42,7 +42,6 @@
             type: "POST",
             data: $(this).serialize(),
             success: function(response) {
-                console.log(response);
                 // Actualiza el contenido del contenedor con la tabla de resultados
                 $('#resultadosContainer').html(response);
             },

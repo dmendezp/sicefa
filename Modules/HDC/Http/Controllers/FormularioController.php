@@ -9,9 +9,8 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\Activity;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\EnvironmentalAspectLabor;
-use Modules\SICA\Entities\EnvironmentalAspect;
 use Modules\SICA\Entities\Labor;
-use Illuminate\Support\Facades\Validator;
+
 
 
 class FormularioController extends Controller

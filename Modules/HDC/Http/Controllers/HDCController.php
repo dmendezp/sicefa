@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\SICA\Entities\ProductiveUnit;
 use Modules\SICA\Entities\Sector;
 use DB;
-
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class HDCController extends Controller
 {
@@ -29,7 +29,7 @@ class HDCController extends Controller
             ->select(
                 'sectors.name as sector_name',
                 'productive_units.name as productive_unit_name',
-                DB::raw('SUM(environmental_aspect_labors.amount * environmental_aspects.conversion_factor) as carbon_footprint')
+                DB ::raw('SUM(environmental_aspect_labors.amount * environmental_aspects.conversion_factor) as carbon_footprint')
             )
             ->groupBy('sectors.id', 'productive_units.id', 'sectors.name', 'productive_units.name') // Asegúrate de agrupar por sector y unidad productiva
             ->get();
