@@ -6,27 +6,38 @@
                 <div class="card card-primary card-outline shadow">
                     <div class="card-header">{{ trans('senaempresa::menu.Register attendance') }}</div>
                     <div class="card-body">
-                        <form
-                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.register') }}"
-                            method="POST" id="form-element" enctype="multipart/form-data">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="document_number"
-                                    class="form-label">{{ trans('senaempresa::menu.document number:') }}</label>
-                                <input type="text" name="document_number" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="person_name">{{ trans('senaempresa::menu.Name of individual:') }}</label>
-                                <input type="text" name="person_name" class="form-control" readonly>
-                            </div>
-                            <input type="hidden" name="person_id" id="person_id" value="">
+                        @if (Route::is('senaempresa.admin.*') ||
+                                (Route::is('senaempresa.passant.*') &&
+                                    Auth::user()->havePermission(
+                                        'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.register')))
+                            <form
+                                action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.register') }}"
+                                method="POST" id="form-element" enctype="multipart/form-data">
+                                @csrf
+                        @endif
+                        <div class="mb-3">
+                            <label for="document_number"
+                                class="form-label">{{ trans('senaempresa::menu.document number:') }}</label>
+                            <input type="text" name="document_number" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="person_name">{{ trans('senaempresa::menu.Name of individual:') }}</label>
+                            <input type="text" name="person_name" class="form-control" readonly>
+                        </div>
+                        <input type="hidden" name="person_id" id="person_id" value="">
+                        @if (Route::is('senaempresa.admin.*') ||
+                                (Route::is('senaempresa.passant.*') &&
+                                    Auth::user()->havePermission(
+                                        'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.register')))
                             <button type="submit"
                                 class="btn btn-primary">{{ trans('senaempresa::menu.Register attendance') }}</button>
-                            <button type="button" class="btn btn-success" id="query-attendance-button">
-                                {{ trans('senaempresa::menu.Consult Attendances') }}
-                            </button>
-                            <button type="button" class="btn btn-warning"
-                                id="show-hide-table-button">{{ trans('senaempresa::menu.Registered Attendance') }}</button>
+                        @endif
+                        <button type="button" class="btn btn-success" id="query-attendance-button">
+                            {{ trans('senaempresa::menu.Consult Attendances') }}
+                        </button>
+                        <button type="button" class="btn btn-warning"
+                            id="show-hide-table-button">{{ trans('senaempresa::menu.Registered Attendance') }}</button>
+
                         </form>
                     </div>
                 </div>

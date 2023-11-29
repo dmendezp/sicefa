@@ -410,6 +410,17 @@
                             </a>
                         </li>
                     @endif
+                    @if (Auth::user()->havePermission('senaempresa.apprentice.attendances.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('senaempresa.apprentice.attendances.index') }}"
+                                class="nav-link {{ !Route::is('senaempresa.apprentice.attendances.index') ?: 'active' }}">
+                                <i class="fas fa-tasks"></i>
+                                <p>
+                                    {{ trans('senaempresa::menu.Attendance') }}
+                                </p>
+                            </a>
+                        </li>
+                    @endif
                 @endif
             </ul>
         </nav>

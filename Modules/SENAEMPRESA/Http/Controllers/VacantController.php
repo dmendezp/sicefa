@@ -45,6 +45,8 @@ class VacantController extends Controller
                     $vacancies = Course::find($selectedCourseId)->vacancy;
         
                 }
+            }else{
+                $vacancies = Vacancy::all();
             }
         }
 
