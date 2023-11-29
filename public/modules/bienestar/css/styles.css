@@ -30,24 +30,15 @@ li {
 }/* Cambiar color al pasar el ratón por encima del botón del menú */
 
 .nav-sidebar .nav-item:hover .nav-link {
-  background-color: #1a9850; /* Cambiar a color gris al pasar el ratón */
   color: white; /* Cambiar el color del texto a blanco al pasar el ratón */
 }
-
 /* Estilo del menú desplegable */
 .nav-sidebar .nav-item.has-treeview .nav-link {
   padding-right: 30px; /* Agregar espacio a la derecha para el ícono de flecha */
 }
-
-/* Estilo del menú desplegable activo */
-.nav-sidebar .nav-item.has-treeview.active:hover .nav-link p{
-  background-color: #1a9850; /* Color de fondo del menú desplegable activo al pasar el ratón */
-  color: #ffffff; /* Color del texto del menú desplegable activo al pasar el ratón */
-}
-
 /* Estilo de los elementos de menú activos (cuando están seleccionados) */
-.nav-sidebar .nav-item.has-treeview.active:hover .nav-link p{
-  background-color: #333; /* Color de fondo del menú desplegable activo al pasar el ratón */
+.nav-sidebar .nav-item .nav-link.sactive{
+  background-color: #1a9850; /* Color de fondo del menú desplegable activo al pasar el ratón */
 }
 
 /* Estilo del menú desplegable */

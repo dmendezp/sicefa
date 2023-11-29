@@ -73,7 +73,7 @@ class ConvocationsQuestionsController extends Controller
         }
 
         // Redireccionar a la vista de edición o a donde desees después de guardar
-        return redirect()->route('bienestar.'.getRoleRouteName(Route::currentRouteName()).'.crud.editform')->with('success', 'Pregunta y respuestas guardadas exitosamente.');
+        return response()->json(['success' => 'Pregunta y respuestas guardadas exitosamente!']);
     }
 
     public function updateQuestion(Request $request, $id)
@@ -104,6 +104,7 @@ class ConvocationsQuestionsController extends Controller
         }
 
         // Redirige de nuevo con un mensaje de éxito
+        return response()->json(['success' => 'Pregunta y respuestas actualizadas con éxito!']);
         return redirect()->route('bienestar.'.getRoleRouteName(Route::currentRouteName()).'.crud.editform')->with('success', 'Pregunta y respuestas actualizadas con éxito.');
     }
 

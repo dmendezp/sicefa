@@ -36,8 +36,8 @@ class BenefitsController extends Controller
         $existingBenefit = Benefit::where('name', $name)->where('porcentege', $porcentege)->first();
 
         // Verifica si ya existe un beneficio con el mismo nombre y porcentaje
-        if ($existingBenefit) {
-            return redirect()->route('bienestar.'.$role_name.'.crud.benefits')->with('error', 'Ya existe un beneficio con el mismo nombre y porcentaje.');
+        if ($existingBenefit) {           
+            return response()->json(['error' => 'Ya existe un beneficio con el mismo nombre y porcentaje.'],422);
         }
 
         // Si la validación pasa y no existe un beneficio con el mismo nombre y porcentaje, crea el registro en la base de datos
@@ -46,7 +46,7 @@ class BenefitsController extends Controller
             'porcentege' => $porcentege,
         ]);
 
-        return redirect()->route('bienestar.'.$role_name.'.crud.benefits')->with('success', 'Beneficio agregado correctamente');
+        return response()->json(['success' => 'Beneficio agregado con exitosamente!']);
     }
 
 
@@ -61,7 +61,7 @@ class BenefitsController extends Controller
         $benefit->save();
 
         // Redirigir o devolver una respuesta según tus necesidades
-        return redirect()->route('bienestar.'.$role_name.'.crud.benefits')->with('success', 'Beneficio actualizado con éxito');
+        return response()->json(['success' => 'Beneficio actualizado con éxito']);
     }
 
     public function destroy($id)

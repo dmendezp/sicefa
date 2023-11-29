@@ -67,7 +67,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         @if (Auth::user()->havePermission('bienestar.'.$role_name.'.edit.benefits'))
-                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('bienestar.'.$role_name.'.edit.benefits', ['id' => $benefit->id]) }}" method="post">
+                                                        <form id="editForm-{{ $benefit->id }}" action="{{ route('bienestar.'.$role_name.'.edit.benefits', ['id' => $benefit->id]) }}" method="post" class="formEditar">
                                                             @csrf
                                                             @method('PUT')
                                                             <!-- Campos de edición aquí -->

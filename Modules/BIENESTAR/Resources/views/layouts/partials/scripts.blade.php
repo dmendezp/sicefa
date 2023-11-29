@@ -184,7 +184,7 @@
     }
 
     // Botón de eliminar
-    var deleteButtons = document.querySelectorAll('.formEliminar2[data-method="delete"]');
+    var deleteButtons = document.querySelectorAll('.formEliminar2');
 
     Array.prototype.slice.call(deleteButtons)
         .forEach(function(button) {
@@ -247,15 +247,21 @@
             // Realizar una solicitud AJAX para enviar el formulario de edición
             axios.post(editForm.action, new FormData(editForm))
                 .then(function(response) {
-                    if (response.status === 200 && response.data.success) {
-                        // Mostrar el SweetAlert de éxito
-                        showSweetAlert('success', 'Éxito', response.data.success, 1500);
+                    console.log(response)
+                    if (response.status === 200) {
+                        if (response.data.success) {
+                            // Mostrar el SweetAlert de éxito con el mensaje del controlador
+                            showSweetAlert('success', 'Éxito', response.data.success, 1500);
+                        } else if (response.data.error) {
+                            // Mostrar el SweetAlert de conflicto con el mensaje del controlador
+                            showSweetAlert('error', 'Error', response.data.error, 1500);
+                        } else {
+                            // Mostrar el SweetAlert sin mensaje específico del controlador
+                            showSweetAlert('success', 'Éxito', 'Operación exitosa', 1500);
+                        }
                     } else if (response.status === 409 && response.data.error) {
-                        // Mostrar el SweetAlert de conflicto
+                        // Mostrar el SweetAlert de conflicto con el mensaje del controlador
                         showSweetAlert('error', 'Error', response.data.error, 1500);
-                    } else {
-                        // Mostrar el SweetAlert de error en caso de problemas inesperados
-                        showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
                     }
                 })
                 .catch(function(error) {
@@ -309,6 +315,7 @@
 </script>
 
 <script>
+    //Script para la alerta de la accion de guardar un formulario
     // Define una función reutilizable para mostrar los SweetAlerts
     function showSweetAlert(icon, title, text, timer) {
         Swal.fire({
@@ -322,36 +329,6 @@
             location.reload();
         });
     }
-
-    // Configura el evento para el formulario de edición
-    document.querySelectorAll('.formEditar').forEach(function(form) {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Evitar que el formulario se envíe de inmediato
-            var editForm = this;
-
-            // Realizar una solicitud AJAX para enviar el formulario de edición
-            axios.post(editForm.action, new FormData(editForm))
-                .then(function(response) {
-                    // Manejar la respuesta JSON del servidor
-                    if (response.status === 200) {
-                        // Éxito: Mostrar SweetAlert de éxito
-                        showSweetAlert('success', 'Éxito', response.data.success, 1500);
-                    } else if (response.status === 409) {
-                        // Error de conflicto: Mostrar SweetAlert de error
-                        showSweetAlert('error', 'Error', response.data.error);
-                    } else {
-                        // Otra respuesta: Mostrar SweetAlert de error
-                        showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
-                    }
-                })
-                .catch(function(error) {
-                    // Error de servidor: Mostrar SweetAlert de error
-                    showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
-                    console.error(error);
-                });
-        });
-    });
-
     // Configura el evento para el formulario de guardar
     document.querySelectorAll('.formGuardar').forEach(function(form) {
         form.addEventListener('submit', function(event) {
@@ -361,22 +338,27 @@
             // Realizar una solicitud AJAX para enviar el formulario de creación
             axios.post(createForm.action, new FormData(createForm))
                 .then(function(response) {
-                    // Manejar la respuesta JSON del servidor
                     if (response.status === 200) {
-                        // Éxito: Mostrar SweetAlert de éxito
-                        showSweetAlert('success', 'Éxito', response.data.success, 1500);
-                    } else if (response.status === 409) {
-                        // Error de conflicto: Mostrar SweetAlert de error
-                        showSweetAlert('error', 'Error', response.data.error);
-                    } else {
-                        // Otra respuesta: Mostrar SweetAlert de error
-                        showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar crear el tipo de beneficiario.');
+                        if (response.data.success) {
+                            showSweetAlert('success', 'Éxito', response.data.success, 1500);
+                        } else {
+                            showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
+                        }
                     }
                 })
                 .catch(function(error) {
-                    // Error de servidor: Mostrar SweetAlert de error
-                    showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar crear el tipo de beneficiario.');
-                    console.error(error);
+                    if (error.response && error.response.status === 422) {
+                        // Si el código de estado es 422, muestra el SweetAlert de error con el mensaje del servidor
+                        if (error.response.data && error.response.data.error) {
+                            showSweetAlert('error', 'Error', error.response.data.error, 3500);
+                        } else {
+                            // Muestra el SweetAlert de error genérico para el código de estado 422
+                            showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
+                        }
+                    } else {
+                        // Muestra el SweetAlert de error genérico para otros errores
+                        showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
+                    }
                 });
         });
     });

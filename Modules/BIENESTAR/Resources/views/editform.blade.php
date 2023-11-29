@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.saveform.editform'))
-    <form method="POST" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.saveform.editform') }}" id="mainForm">
+    <form method="POST" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.saveform.editform') }}" id="mainForm" class="formGuardar">
         @csrf
         <h1 class="mb-4">{{ trans('bienestar::menu.Edit Form')}} <i class="fas fa-clipboard-list"></i></h1>
         <div class="card">
@@ -84,7 +84,7 @@
             </div>
             <div class="modal-body">
                 @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.editform'))
-                <form id="editForm{{ $question->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.editform', ['id' => $question->id]) }}" method="POST">
+                <form id="editForm{{ $question->id }}" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.edit.editform', ['id' => $question->id]) }}" method="POST" class="formEditar">
                     @csrf
                     <!-- Campos de edición aquí -->
                     <div class="form-group">

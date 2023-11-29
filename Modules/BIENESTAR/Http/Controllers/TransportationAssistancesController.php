@@ -20,11 +20,11 @@ class TransportationAssistancesController extends Controller
     public function search(Request $request)
     {
         $documentNumber = $request->input('document_number');
-    
-        $person = Person::with('apprentices.course.program', 'apprentices.postulations.postulationBenefits','apprentices.assigntransoportroutes.convocations') // Cargar la relación de convocatoria
+
+        $person = Person::with('apprentices.course.program', 'apprentices.postulations.postulationBenefits', 'apprentices.assigntransoportroutes.convocations') // Cargar la relación de convocatoria
             ->where('document_number', $documentNumber)
             ->first();
-        
+
         return view('bienestar::transportation_assistance_list', ['person' => $person]);
     }
 
@@ -37,7 +37,7 @@ class TransportationAssistancesController extends Controller
     public function searchapprentice(Request $request)
     {
         $documentNumber = json_decode($_POST['data']);
-    
+
         // Realizar la consulta y obtener los datos
         $data = DB::table('assing_transport_routes')
             ->join('postulations_benefits', 'assing_transport_routes.postulation_benefit_id', '=', 'postulations_benefits.id')
@@ -61,7 +61,7 @@ class TransportationAssistancesController extends Controller
             ->where('postulations_benefits.state', 'beneficiario')
             ->where('benefits.name', 'Transporte')
             ->get();
-    
+
         // Guardar los datos en la tabla transportation_assistances
         foreach ($data as $row) {
             DB::table('transportation_assistances')->insert([
@@ -76,7 +76,7 @@ class TransportationAssistancesController extends Controller
                 'updated_at' => now(), // Use Laravel helper function for current timestamp
             ]);
         }
-    
+
         $resultados = DB::table('transportation_assistances')
             ->join('apprentices', 'transportation_assistances.apprentice_id', '=', 'apprentices.id')
             ->join('people', 'apprentices.person_id', '=', 'people.id')
@@ -99,9 +99,10 @@ class TransportationAssistancesController extends Controller
                 'buses.plate',
                 'transportation_assistances.date_time'
             )
+            ->whereDate('transportation_assistances.date_time', now()->toDateString())
             ->get();
-    
+
+
         return view('bienestar::route-attendance.table', compact('resultados'));
     }
-    
 }
