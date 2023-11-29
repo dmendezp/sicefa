@@ -167,6 +167,7 @@ Route::middleware(['lang'])->group(function () {
         //Vista de Formulario de asignacion de rutas de transporte(ADMINISTRADOR)
         Route::get('/admin/assing-form-transportation-routes', 'AssingFormTransporRoutesController@index')->name('bienestar.admin.view.assing_form_transportation_routes');
         Route::put('/admin/assing-form-transportation-routes/updateInline', 'AssingFormTransporRoutesController@updateInline')->name('bienestar.admin.updateInline.assing_form_transportation_routes');
+
         //Vista de Formulario de asignacion de rutas de transporte(LIDER BENEFICIO DE TRANSPORTE)
         Route::get('/transportation_benefits_leader/assing-form-transportation-routes', 'AssingFormTransporRoutesController@index')->name('bienestar.transportation_benefits_leader.view.assing_form_transportation_routes');
         Route::put('/transportation_benefits_leader/assing-form-transportation-routes/updateInline', 'AssingFormTransporRoutesController@updateInline')->name('bienestar.transportation_benefits_leader.updateInline.assing_form_transportation_routes');
