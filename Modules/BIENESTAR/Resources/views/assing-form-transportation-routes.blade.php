@@ -3,6 +3,32 @@
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-md-center pt-4">
+        <!-- Aquí comienza la tabla de rutas -->
+        <div class="card card-green card-outline shadow col-md-16">
+            <div class="card-header">
+                <h3 class="card-title">Tabla de Rutas</h3>
+            </div>
+            <div class="card-body">
+                <table id="routesTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Número de Ruta</th>
+                            <th>Número de Cupos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($routesTransportations as $route)
+                            <tr id="route_row_{{ $route->id }}">
+                                <td>{{ $route->route_number }} - {{ $route->name_route }}</td>
+                                <td class="quota-cell">{{ $route->quota }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Aquí termina la tabla de rutas -->
         <div class="card card-green card-outline shadow col-md-16">
             <div class="card-header">
                 <h3 class="card-title">Gestor de asignación de rutas</h3>
@@ -123,13 +149,13 @@
             const routeTransportationId = $radio.data('route-id');
             const postulationBenefitId = $radio.data('postulation-benefit-id');
 
-
             console.log('Datos a enviar:', {
-            apprentice_id: apprenticeId,
-            route_transportation_id: routeTransportationId,
-            postulation_benefit_id: postulationBenefitId,
-            checked: isChecked,
-        });
+                apprentice_id: apprenticeId,
+                route_transportation_id: routeTransportationId,
+                postulation_benefit_id: postulationBenefitId,
+                checked: isChecked,
+            });
+
             // Realizar la solicitud AJAX para actualizar o crear el registro
             $.ajax({
                 url: '{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes') }}',
@@ -145,6 +171,8 @@
                 },
                 success: function(response) {
                     console.log(response);
+                    // Después de realizar la asignación o desasignación, actualizar la tabla
+                    $('#routesTable').load(window.location.href + ' #routesTable');
                 },
                 error: function(error) {
                     console.error(error);
@@ -153,7 +181,5 @@
         });
     });
 </script>
-
-
 
 @endsection

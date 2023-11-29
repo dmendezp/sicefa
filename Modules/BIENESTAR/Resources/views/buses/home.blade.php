@@ -59,10 +59,11 @@
                                 <td>
                                     <div class="opts">
                                         <button class="btn btn-sm btn-info" data-toggle="modal"
-                                            data-target="#modal-default" data-plate="{{ $b->plate }}"
+                                            data-target="#modal-default-{{$b->id}}" data-plate="{{ $b->plate }}"
                                             data-bus-driver="{{ $b->bus_driver }}" data-bus-id="{{ $b->id }}"
                                             data-quota="{{ $b->quota }}"><i class="fa fa-edit"></i>
                                         </button>
+                                        <input type="hidden" id="bus_id" name="bus_id" value="{{$b->id}}">
 
                                         @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.buses'))
                                         {!! Form::open(['route' => ['bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.buses', $b->id],
@@ -86,11 +87,12 @@
 </div>
 
 <!-- /.modal -->
-<div class="modal fade" id="modal-default">
+@foreach ($buses as $bus)
+<div class="modal fade" id="modal-default-{{ $bus->id }}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Editar bus</h4>
+                <h4 class="modal-title">{{ trans('bienestar::menu.Edit Bus')}}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -102,7 +104,7 @@
                 <div class="col-md-12">
             <div class="form-group">
                 <label for="plate">{{ trans('bienestar::menu.plate')}}:</label>
-                <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6" oninput="this.value = this.value.toUpperCase(); validatePlate(this);">
+                <input type="text" name="plate" id="plate" class="form-control" placeholder="Ingrese La Placa" required maxlength="6" oninput="this.value = this.value.toUpperCase(); validatePlate(this);"value="{{ $bus->plate }}">
                 <span id="plate-error" class="text-danger"></span>
             </div>
         </div>
@@ -116,7 +118,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="quota">{{ trans('bienestar::menu.Quotas')}}:</label>
-                {!! Form::number('quota', null, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required', 'oninput' => 'this.value = this.value.replace(/^0+/g, \'\')', 'onblur' => 'validateQuota(this)']) !!}
+                {!! Form::number('quota', $bus->quota, ['class' => 'form-control', 'placeholder' => 'Ingrese los cupos', 'required', 'oninput' => 'this.value = this.value.replace(/^0+/g, \'\')', 'onblur' => 'validateQuota(this)']) !!}
             </div>
         </div>
         <div class="col-md-12">
@@ -131,6 +133,7 @@
         </div>
     </div>
 </div>
+@endforeach  
 @endsection
 @section('scripts')
 <script>
@@ -141,15 +144,16 @@
             var busDriver = button.data('bus-driver');
             var quota = button.data('quota');
             var busId = button.data('bus-id');
+            console.log(busId);
 
-            var modal = $(this);
+            var modalId = '#modal-default-' + busId;
+            var modal = $(modalId);
+            modal.modal('show');
+
             modal.find('[name="plate"]').val(plate);
             modal.find('[name="quota"]').val(quota);
-
-            // Establece la opción seleccionada en el select
             modal.find('#bus_driver_select').val(busDriver.id);
 
-            // Poner el ID del bus en la URL del formulario
             var form = modal.find('form');
             var updateUrl = form.attr('action').replace(/id/g, busId);
             form.attr('action', updateUrl);
