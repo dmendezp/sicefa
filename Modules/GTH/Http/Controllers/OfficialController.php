@@ -16,37 +16,41 @@ class OfficialController extends Controller
     private $personId;
 
     //Funcion mostrar la vista de tipo de  funcionario 
-    public function viewofficials()
+    public function viewofficials(Request $request)
     {
         $employeeTypes = EmployeeType::get();
         $employees = Employee::get();
         $positions = Position::get();
-        return view('gth::employees.officials', ['employeeTypes' => $employeeTypes, 'positions' => $positions, 'employees' => $employees]);
+
+        // Assuming the employee ID is in the request
+        $employeeId = $request->input('employee_id'); // Adjust this based on your actual request data
+
+        $employee = Employee::find($employeeId);
+        return view('gth::employees.officials', ['employeeTypes' => $employeeTypes, 'positions' => $positions, 'employees' => $employees, 'employee' => $employee]);
     }
 
-    
+
     public function getPersonDatas(Request $request)
-{
-    $numeroDocumento = $request->input('document_number');
+    {
+        $numeroDocumento = $request->input('document_number');
 
-    // Realiza la búsqueda de la persona en la base de datos por número de documento
-    $person = Person::where('document_number', $numeroDocumento)->first();
+        // Realiza la búsqueda de la persona en la base de datos por número de documento
+        $person = Person::where('document_number', $numeroDocumento)->first();
 
-    if ($person) {
-        $this->personId = $person->id;
-        Session::put('person_id', $this->personId);
+        if ($person) {
+            $this->personId = $person->id;
+            Session::put('person_id', $this->personId);
 
-        // Devuelve los datos de la persona en formato JSON, incluyendo el ID
-        return response()->json([
-            'id' => $person->id,
-            'full_name' => $person->full_name,
-        ]);
-
-    } else {
-        // Devuelve una respuesta de error si la persona no se encuentra
-        return response()->json(['error' => 'Persona no encontrada'], 404);
+            // Devuelve los datos de la persona en formato JSON, incluyendo el ID
+            return response()->json([
+                'id' => $person->id,
+                'full_name' => $person->full_name,
+            ]);
+        } else {
+            // Devuelve una respuesta de error si la persona no se encuentra
+            return response()->json(['error' => 'Persona no encontrada'], 404);
+        }
     }
-}
 
     public function store(Request $request)
     {
@@ -93,13 +97,13 @@ class OfficialController extends Controller
             'risk_type' => 'required|string',
             'state' => 'required|string',
         ]);
-    
+
         // Actualiza el empleado y la persona asociada
         $employee = Employee::findOrFail($id);
-    
+
         // Obtén la persona asociada al empleado
         $person = Person::where('document_number', $validatedData['document_number'])->first();
-    
+
         // Si la persona no existe, crea una nueva
         if (!$person) {
             $person = new Person();
@@ -107,7 +111,7 @@ class OfficialController extends Controller
             // Puedes agregar más campos de la persona aquí según sea necesario
             $person->save();
         }
-    
+
         // Actualiza los datos del empleado
         $employee->update([
             'person_id' => $person->id,
@@ -120,11 +124,11 @@ class OfficialController extends Controller
             'risk_type' => $validatedData['risk_type'],
             'state' => $validatedData['state'],
         ]);
-    
+
         // Puedes agregar una redirección o un mensaje de éxito aquí
         return redirect()->route('cefa.officials.view')->with('success', 'Funcionario actualizado exitosamente');
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.
