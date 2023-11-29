@@ -37,6 +37,23 @@ return [
 	'Status' => 'Estado',
 	'Save Changes' => 'Guarda Cambios',
 
+    //sidebar
+	'GTH' => 'GTH',
+	'Contracts' => 'Contratos',
+	'Employment Contract' => 'Contrato Laboral',
+	'Contract Report' => 'Reporte Contrato',
+	'Type of Contract' => 'Tipo de Contrato',
+	'Type of Employee' => 'Tipo de Empleado',
+	'Insurance Company' => 'Entidad Aseguradora',
+	'Pension' => 'Pensión',
+	'Grades' => 'Grados',
+	'Officials' => 'Funcionarios',
+	'Contract Certificate' => 'Certificado Contractual',
+	'' => '',
+	'' => '',
+	'' => '',
+
+
 	//contractors
 	'Contract reports' => 'Reportes de contratos',
 	'ID' => 'ID',
@@ -111,6 +128,14 @@ return [
 	'The data has been saved correctly.' => 'Los datos se han guardado correctamente.',
 	'success' => 'éxito',
 	'Accept' => 'Aceptar',
+	'Enter Policy Number' => 'Digite número de Póliza',
+	'---Choose the Type of Risk---' => '--- Elija el Tipo de Riesgo ---',
+	'--- Choose the contractors status ---' => '--- Elija el estado del contratista---',
+	'Enter the assignment value' => 'Digite el valor de asignación',
+	'Enter the assignment value' => 'Digite el valor de asignación',
+	'--- Choose the insurance entity ---' => '--- Elija la entidad de aseguradora ---',
+	'Enter the subject of the contract' => 'Digite el objeto del contrato',
+	'Enter the obligations of the contract' => 'Digite las obligaciones del contrato',
 
 
 	//contractype

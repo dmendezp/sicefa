@@ -83,7 +83,7 @@ class OfficialController extends Controller
     {
         // Valida los datos del formulario
         $validatedData = $request->validate([
-            'person_id' => 'required|string',
+            'document_number' => 'required|string',
             'contract_number' => 'required|string',
             'contract_date' => 'required|date',
             'professional_card_number' => 'required|string',
@@ -93,12 +93,24 @@ class OfficialController extends Controller
             'risk_type' => 'required|string',
             'state' => 'required|string',
         ]);
-
+    
         // Actualiza el empleado y la persona asociada
         $employee = Employee::findOrFail($id);
-
+    
+        // Obtén la persona asociada al empleado
+        $person = Person::where('document_number', $validatedData['document_number'])->first();
+    
+        // Si la persona no existe, crea una nueva
+        if (!$person) {
+            $person = new Person();
+            $person->document_number = $validatedData['document_number'];
+            // Puedes agregar más campos de la persona aquí según sea necesario
+            $person->save();
+        }
+    
+        // Actualiza los datos del empleado
         $employee->update([
-            'person_id' => $validatedData['person_id'],
+            'person_id' => $person->id,
             'contract_number' => $validatedData['contract_number'],
             'contract_date' => $validatedData['contract_date'],
             'professional_card_number' => $validatedData['professional_card_number'],
@@ -108,10 +120,11 @@ class OfficialController extends Controller
             'risk_type' => $validatedData['risk_type'],
             'state' => $validatedData['state'],
         ]);
-
+    
         // Puedes agregar una redirección o un mensaje de éxito aquí
         return redirect()->route('cefa.officials.view')->with('success', 'Funcionario actualizado exitosamente');
     }
+    
 
     /**
      * Show the form for editing the specified resource.

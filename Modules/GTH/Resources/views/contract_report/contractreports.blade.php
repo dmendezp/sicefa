@@ -10,7 +10,6 @@
                 <form method="POST"  action="{{ route('cefa.gth.contractreports.store') }}">
                     @csrf
 
-
                     <!-- Información de la Persona -->
                     <h2>{{ trans('gth::menu.Personal Information') }}</h2>
 
@@ -27,7 +26,6 @@
                         @enderror
                     </div>
 
-                    <!-- Nombre de la Persona -->
                     <div class="form-group">
                         <label for="first_name">{{ trans('gth::menu.First Name:') }}</label>
                         <input type="text" name="first_name" id="first_name" class="form-control" readonly>
@@ -259,7 +257,7 @@
                                         <div class="input-group">
                                             <input type="text" name="policy_number" id="policy_number"
                                                 class="form-control @error('policy_number') is-invalid @enderror"
-                                                value="{{ old('policy_number') }}" placeholder="Digite número de Póliza">
+                                                value="{{ old('policy_number') }}" placeholder="{{ trans('gth::menu.Enter Policy Number') }}">
                                             <div class="input-group-append">
                                             </div>
                                         </div>
@@ -275,7 +273,7 @@
                                         <label for="risk_type">{{ trans('gth::menu.Type of Risk:') }}</label>
                                         <select name="risk_type" id="risk_type"
                                             class="form-control @error('risk_type') is-invalid @enderror"required>
-                                            <option value="">--- Elija el Tipo de Riesgo ---</option>
+                                            <option value="">{{ trans('gth::menu.---Choose the Type of Risk---') }}</option>
                                             <option value="I" {{ old('risk_type') == 'I' ? 'selected' : '' }}>I</option>
                                             <option value="II" {{ old('risk_type') == 'II' ? 'selected' : '' }}>II</option>
                                             <option value="III" {{ old('risk_type') == 'III' ? 'selected' : '' }}>III</option>
@@ -295,7 +293,7 @@
                                         <label for="state">{{ trans('gth::menu.Status:') }}</label>
                                         <select name="state" id="state"
                                             class="form-control @error('state') is-invalid @enderror">
-                                            <option value="#">--- Elija el estado del contratista</option>
+                                            <option value="#">{{ trans('gth::menu.--- Choose the contractors status ---') }}</option>
                                             <option value="Activo" {{ old('state') === 'Activo' ? 'selected' : '' }}>
                                                 Activo</option>
                                             <option value="Inactivo" {{ old('state') === 'Inactivo' ? 'selected' : '' }}>
@@ -318,7 +316,7 @@
                                         <label for="SIIF_code">{{ trans('gth::menu.SIIF Code:') }}</label>
                                         <input type="number" name="SIIF_code" id="SIIF_code"
                                             class="form-control @error('SIIF_code') is-invalid @enderror"
-                                            value="{{ old('SIIF_code') }}" placeholder="Digite el valor de asignación" required>
+                                            value="{{ old('SIIF_code') }}" placeholder="{{ trans('gth::menu.Enter the assignment value') }}" required>
                                         @error('SIIF_code')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -331,7 +329,7 @@
                                         <label for="assigment_value">{{ trans('gth::menu.Assignment Value:') }}</label>
                                         <input type="number" name="assigment_value" id="assigment_value"
                                             class="form-control @error('assigment_value') is-invalid @enderror"
-                                            value="{{ old('assigment_value') }}" placeholder="Digite el valor de asignación" required>
+                                            value="{{ old('assigment_value') }}" placeholder="{{ trans('gth::menu.Enter the assignment value') }}" required>
                                         @error('assigment_value')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -344,7 +342,7 @@
                                         <label for="insurer_entity_id">{{ trans('gth::menu.Insurance Company:') }}</label>
                                         <select name="insurer_entity_id" id="insurer_entity_id"
                                             class="form-control @error('insurer_entity_id') is-invalid @enderror" required>
-                                            <option value="">--- Elija la entidad de aseguradora ---</option>
+                                            <option value="">{{ trans('gth::menu.--- Choose the insurance entity ---') }}</option>
                                             @foreach ($insurerEntity as $insurerEntity)
                                                 <option value="{{ $insurerEntity->id }}">{{ $insurerEntity->name }}
                                                 </option>
@@ -360,7 +358,7 @@
                                     <div class="form-group">
                                         <label for="contract_object">{{ trans('gth::menu.Contract Object:') }}</label>
                                         <textarea name="contract_object" id="contract_object"
-                                            class="form-control @error('contract_object') is-invalid @enderror" placeholder="Digite el objeto del contrato" required>{{ old('contract_object') }}</textarea>
+                                            class="form-control @error('contract_object') is-invalid @enderror" placeholder="{{ trans('gth::menu.Enter the subject of the contract') }}" required>{{ old('contract_object') }}</textarea>
                                         @error('contract_object')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -376,7 +374,7 @@
                                     <div class="form-group">
                                         <label for="contract_obligations">{{ trans('gth::menu.Contract Obligations:') }}</label>
                                         <textarea name="contract_obligations" id="contract_obligations"
-                                            class="form-control @error('contract_obligations') is-invalid @enderror" placeholder="Digite las oblicaciones del contrato" required>{{ old('contract_obligations') }}</textarea>
+                                            class="form-control @error('contract_obligations') is-invalid @enderror" placeholder="{{ trans('gth::menu.Enter the obligations of the contract') }}" required>{{ old('contract_obligations') }}</textarea>
                                         @error('contract_obligations')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

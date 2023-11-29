@@ -92,7 +92,7 @@
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Registrar empleado</button>
+                        <button type="submit" class="btn btn-primary">Registrar empleado</button> <a href="{{ route('cefa.gth.store')}}"
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>

@@ -38,6 +38,20 @@ return [
 	'Status' => 'Status',
 	'Save Changes' => 'Save Changes',
 
+	 //sidebar
+	 'GTH' => 'GTH',
+	 'Contracts' => 'Contracts',
+	 'Employment Contract' => 'Employment Contract',
+	 'Contract Report' => 'Contract Report',
+	 'Type of Contract' => 'Type of Contract',
+	 'Type of Employee' => 'Type of Employee',
+	 'Insurance Company' => 'Insurance Company',
+	 'Pension' => 'Pension',
+	 'Grades' => 'Grades',
+	 'Officials' => 'Officials',
+	 'Contract Certificate' => 'Contract Certificate',
+	 '' => '',
+
 
 	//contractors
 	'Contract reports' => 'Contract reports',
@@ -113,6 +127,15 @@ return [
 	'The data has been saved correctly.' => 'The data has been saved correctly.',
 	'success' => 'success',
 	'Accept' => 'Accept',
+	'Enter Policy Number' => 'Enter Policy Number',
+	'---Choose the Type of Risk---' => '---Choose the Type of Risk---',
+	'--- Choose the contractors status ---' => '"--- Choose the contractors status ---',
+	'Enter the assignment value' => 'Enter the assignment value',
+	'Enter the assignment value' => 'Enter the assignment value',
+	'--- Choose the insurance entity ---' => '--- Choose the insurance entity ---',
+	'Enter the subject of the contract' => 'Enter the subject of the contract',
+	'Enter the obligations of the contract' => 'Enter the obligations of the contract',
+
 
 	//contractype
 	'Types of Contracts' => 'Types of Contracts',
