@@ -71,6 +71,18 @@ class LaborManagementController extends Controller
             ];
         }
 
+        // Intenta encontrar la unidad productiva por su ID y verifica si se encuentra
+        $activity = Activity::where('productive_unit_id', $this->selectedUnitId)->first();
+
+        // Llama a la función para obtener los aspectos ambientales
+        $aspectosAmbientales = [];
+
+        try {
+            $aspectosAmbientales = $this->obtenerAspectosAmbientales($activity);
+        } catch (\Exception $e) {
+            // Maneja cualquier excepción que pueda ocurrir al obtener los aspectos ambientales
+            \Log::error('Error al obtener aspectos ambientales: ' . $e->getMessage());
+        }
         // ---------------- Filtro para las Actividades de esa unidad -----------------------
 
         // Intenta encontrar la unidad productiva por su ID y verifica si se encuentra
@@ -184,6 +196,7 @@ class LaborManagementController extends Controller
             'destinationOptions' => $destinationOptions,
             'warehouseData' => $warehouseData,
             'productunits' => $productunits,
+            'aspectosAmbientales' => $aspectosAmbientales, // Asegúrate de incluir esto en el array
         ]);
     }
 
@@ -444,7 +457,6 @@ class LaborManagementController extends Controller
     {
 
         $ProductiveUnitWarehouses = Session::get('productiveunitwarehouseid');
-
         foreach ($ProductiveUnitWarehouses as $ProductiveUnitWarehouse) {
             $ProductiveUnitWarehousesId = $ProductiveUnitWarehouse->id;
         }
@@ -658,6 +670,30 @@ class LaborManagementController extends Controller
             $labor->price = $pricemanual;
             $labor->save();
 
+
+/////////////////////////////////////////////////////////////////////////////////////
+            // Obtén los datos ambientales desde el formulario-GURDAR ASPECTO AMBIENTAL Y CANTIDAD
+            $environmentalAspectIds = $request->input('environmental_aspect_ids');
+            $environmentalAspectQuantities = $request->input('environmental_aspect_quantities');
+
+            // Guarda los aspectos ambientales en la tabla environmental_aspect_labors
+            if (!empty($environmentalAspectIds) && is_array($environmentalAspectIds) && count(array_filter($environmentalAspectIds)) > 0) {
+                foreach ($environmentalAspectIds as $index => $aspectId) {
+                    // Accede a los datos de cada elemento de la tabla
+                    $aspectQuantity = $environmentalAspectQuantities[$index];
+
+                    // Registra el aspecto ambiental asociado a la labor
+                    $environmentalAspectLabor = new EnvironmentalAspectLabor([
+                        'labor_id' => $laborId,
+                        'aspect_id' => $aspectId,
+                        'amount' => $aspectQuantity, // Ajusta aquí al nombre correcto ('amount')
+                    ]);
+
+                    // Guarda el nuevo registro en la base de datos
+                    $environmentalAspectLabor->save();
+                }
+            }
+
             // Si todo está correcto, realiza un commit de la transacción
             DB::commit();
 
@@ -720,4 +756,17 @@ class LaborManagementController extends Controller
             'filteredWarehouses' => $filteredWarehouses
         ]);
     }
+    public function obtenerAspectosAmbientales(Activity $activity)
+    {
+        $aspectosAmbientales = $activity->environmental_aspects()->pluck('environmental_aspects.name', 'environmental_aspects.id');
+
+        return response()->json($aspectosAmbientales);
+    }
+
+    public function mostrarAspectosAmbientales()
+    {
+        return view('agrocefa::labormanagement.component.aspectosambientales');
+    }
+
+    
 }

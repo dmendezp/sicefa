@@ -93,7 +93,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-               {{ trans('agrocefa::variety.edit variety')}}
+                {{ trans('agrocefa::variety.Delete Variety')}}
 
                 </div>
                 <div class="modal-footer">

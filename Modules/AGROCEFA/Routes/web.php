@@ -116,8 +116,10 @@ Route::middleware(['lang'])->group(function () {
         Route::get('passant/labormanagement/getpriceemploye', 'LaborManagementController@getpriceemploye')->name('agrocefa.passant.labormanagement.getpriceemploye');
         Route::get('trainer/labormanagement/getcropinformation', 'LaborManagementController@getcropinformation')->name('agrocefa.trainer.labormanagement.getcropinformation');
         Route::get('passant/labormanagement/getcropinformation', 'LaborManagementController@getcropinformation')->name('agrocefa.passant.labormanagement.getcropinformation');
-        Route::post('trainer/labormanagement/store', 'LaborManagementController@registerlabor')->name('agrocefa.trainer.labormanagement.store');
-        Route::post('passant/labormanagement/store', 'LaborManagementController@registerlabor')->name('agrocefa.passant.labormanagement.store');
+        Route::post('trainer/labormanagement/registerlabor', 'LaborManagementController@registerlabor')->name('agrocefa.trainer.labormanagement.registerlabor');
+        Route::post('passant/labormanagement/store', 'LaborManagementController@registerlabor')->name('agrocefa.trainer.labormanagement.store');
+        Route::get('trainer/labormanagement/obtenerAspectosAmbientales/{activity}', 'LaborManagementController@obtenerAspectosAmbientales')->name('agrocefa.trainer.labormanagement.obtenerAspectosAmbientales');
+        Route::get('trainer/labormanagement/mostrarAspectosAmbientales', 'LaborManagementController@mostrarAspectosAmbientales')->name('agrocefa.trainer.labormanagement.mostrarAspectosAmbientales');
 
         Route::get('/labormanagement/culturalwork', 'LaborManagementController@activityproduct')->name('agrocefa.labormanagement.activityType');
         Route::get('/labormanagement/culturalwork/warehouseUnit', 'LaborManagementController@getWarehouses')->name('agrocefa.labormanagement.warehouseUnits');

@@ -47,6 +47,7 @@
                 });
             </script>
         @endif
+
         <h2>Registro Labor Cultural</h2>
 
         <div class="container" id="containermovements">
@@ -142,11 +143,17 @@
                                     'id' => 'responsability',
                                 ]) !!}
                             </div>
+                            <br>
+                            {{-- Aspecto ambiental - ASOCIADO A LA ACTIVIDAD --}}
+                            <div id="aspectosAmbientalesContainer">
+                                @include('agrocefa::labormanagement.component.aspectosambientales')
+                            </div>
+
                             {!! Form::hidden('sown_area', null, ['id' => 'sownArea']) !!}
-
                             <!-- Agregar un botón para desplegar/cerrar la información adicional -->
-
                         </div>
+                        {!! Form::hidden('sown_area', null, ['id' => 'sownArea']) !!}
+                        <!-- Agregar un botón para desplegar/cerrar la información adicional -->
                     </div>
 
                     <div id="resultadoCondicion">
@@ -168,39 +175,40 @@
                                 <span id="arrowtool" class="fas fa-chevron-down ml-auto"></span>
                             </button>
 
-                        </div>
-                        <br>
-                        <div class="row">
-                            <button type="button" id="buttonmachinery"
-                                class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
-                                <span>Maquinaria</span>
-                                <span id="arrowmachinery" class="fas fa-chevron-down ml-auto"></span>
-                            </button>
-                            <div style="width: 20px;"></div>
-                            <button type="button" id="buttonexecutor"
-                                class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
-                                <span>Personal Contratado</span>
-                                <span id="arrowexecutor" class="fas fa-chevron-down ml-auto"></span>
-                            </button>
-                        </div>
-                        <br>
                     </div>
                     <br>
-                    @include('agrocefa::labormanagement.component.executor')
-                    @include('agrocefa::labormanagement.component.supplies')
-                    @include('agrocefa::labormanagement.component.machinery')
-                    @include('agrocefa::labormanagement.component.tool')
-                    <div id="showbutton" style="display: none">
-                        {!! Form::submit(trans('agrocefa::movements.Btn_Register_Exit'), [
-                            'class' => 'btn btn-primary',
-                            'id' => 'registerButton',
-                        ]) !!}
+                    <div class="row">
+                        <button type="button" id="buttonmachinery"
+                            class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                            <span>Maquinaria</span>
+                            <span id="arrowmachinery" class="fas fa-chevron-down ml-auto"></span>
+                        </button>
+                        <div style="width: 20px;"></div>
+                        <button type="button" id="buttonexecutor"
+                            class="btn btn-primary buttonlabor d-flex justify-content-between align-items-center">
+                            <span>Personal Contratado</span>
+                            <span id="arrowexecutor" class="fas fa-chevron-down ml-auto"></span>
+                        </button>
                     </div>
                     <br>
                 </div>
+                <br>
+                @include('agrocefa::labormanagement.component.executor')
+                @include('agrocefa::labormanagement.component.supplies')
+                @include('agrocefa::labormanagement.component.machinery')
+                @include('agrocefa::labormanagement.component.tool')
+                <div id="showbutton" style="display: none">
+                    {!! Form::submit(trans('agrocefa::movements.Btn_Register_Exit'), [
+                        'class' => 'btn btn-primary',
+                        'id' => 'registerButton',
+                    ]) !!}
+                </div>
+                <br>
 
-                {!! Form::close() !!}
             </div>
+
+            {!! Form::close() !!}
+        </div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -481,4 +489,94 @@
                 $('#resultadoCondicion').hide();
             }
         </script>
+
+<script>
+    var aspectosAmbientales = @json($aspectosAmbientales);
+
+    $(document).ready(function() {
+        // Oculta el contenedor de aspectos ambientales al cargar la página
+        $('#environmentalAspectsContainer').hide();
+
+        $('#activitySelect').change(function() {
+            var selectedActivity = $(this).val();
+
+            if (selectedActivity) {
+                // Nueva solicitud AJAX para obtener aspectos y mostrar campos de cantidad
+                $.ajax({
+                    url: '{{ route('agrocefa.trainer.labormanagement.obtenerAspectosAmbientales', ['activity' => 'dummy']) }}'
+                        .replace('dummy', selectedActivity),
+                    type: 'GET',
+                    success: function(data) {
+                        mostrarAspectosAmbientales(data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            } else {
+                // Oculta el contenedor de aspectos ambientales si no hay actividad seleccionada
+                ocultarAspectosAmbientales();
+            }
+        });
+
+        // Manejar el envío del formulario
+        $('#cantidadForm').submit(function(event) {
+            event.preventDefault();
+            
+            // Obtener los datos del formulario
+            var formData = $(this).serialize();
+
+            // Enviar los datos por AJAX
+            $.ajax({
+                url: '{{ route('agrocefa.trainer.labormanagement.registerlabor') }}',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    console.log('Formulario enviado correctamente');
+                    // Puedes manejar la respuesta del servidor aquí, por ejemplo, mostrar una notificación
+                    // o redirigir a otra página
+                    alert('Datos guardados correctamente');
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    alert('Error al enviar el formulario');
+                }
+            });
+        });
+
+        function mostrarAspectosAmbientales(data) {
+            $('#environmentalAspectsSelect').empty();
+
+            // Limpiar la tabla antes de agregar nuevas filas
+            $('#tablaAspectosAmbientales').empty();
+
+            $.each(data, function(id, name) {
+                $('#environmentalAspectsSelect').append(new Option(name, id));
+
+                // Agregar fila a la tabla para cada aspecto ambiental
+                var aspectHtml = `
+                    <tr>
+                        <td>${name}</td>
+                        <td>
+                            <input type="number" name="aspectQuantities[${id}]" class="form-control" min="0" placeholder="Ingrese la cantidad" step="any">
+                        </td>
+                    </tr>
+                `;
+                $('#tablaAspectosAmbientales').append(aspectHtml);
+            });
+
+            // Muestra el contenedor de aspectos ambientales después de obtener y mostrar los aspectos
+            $('#environmentalAspectsContainer').show();
+        }
+
+        function ocultarAspectosAmbientales() {
+            // Oculta el contenedor de aspectos ambientales si no hay actividad seleccionada
+            $('#environmentalAspectsContainer').hide();
+            $('#quantityFieldsContainer').hide();
+        }
+
+        // Mostrar campos de cantidad automáticamente cuando se carga la página
+        mostrarAspectosAmbientales([]);
+    });
+</script>
     @endsection
