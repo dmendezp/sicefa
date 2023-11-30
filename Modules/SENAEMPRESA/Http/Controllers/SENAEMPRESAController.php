@@ -37,10 +37,20 @@ class SENAEMPRESAController extends Controller
 
     public function Admin()
     {
+        $vacanciesCount = DB::table('vacancies')
+            ->where('state', 'Disponible')
+            ->whereNull('deleted_at')
+            ->count();
+        $prestamosPrestados = DB::table('loans')
+            ->where('state', 'Prestado')
+            ->whereNull('deleted_at')
+            ->count();
+        $postulatesCount = DB::table('staff_senaempresas')
+            ->whereNull('deleted_at')
+            ->count();
         $registeredphasesCount = DB::table('senaempresas')
             ->whereNull('deleted_at')
             ->count();
-
         $registeredStaffCount = DB::table('staff_senaempresas')
             ->whereNull('deleted_at')
             ->count();
@@ -51,19 +61,46 @@ class SENAEMPRESAController extends Controller
         $totalPositionsCount = $activePositionsCount + $deletedPositionsCount;
         $data = [
             'title' => 'Administrador', 'totalPositionsCount' => $totalPositionsCount,
-            'registeredStaffCount' => $registeredStaffCount, 'registeredphasesCount' => $registeredphasesCount
+            'registeredStaffCount' => $registeredStaffCount, 'registeredphasesCount' => $registeredphasesCount, 'postulatesCount' => $postulatesCount,
+            'prestamosPrestados' => $prestamosPrestados, 'vacanciesCount' => $vacanciesCount
         ];
         return view('senaempresa::Company.admin', $data);
     }
     public function human_talent_leader()
     {
-        $data = ['title' => 'Lider de talento humano'];
+        $registeredStaffCount = DB::table('staff_senaempresas')
+            ->whereNull('deleted_at')
+            ->count();
+
+        $prestamosPrestados = DB::table('loans')
+            ->where('state', 'Prestado')
+            ->whereNull('deleted_at')
+            ->count();
+        $data = [
+            'title' => 'Lider Talento Humano', 'prestamosPrestados' => $prestamosPrestados,
+            'registeredStaffCount' => $registeredStaffCount
+        ];
         return view('senaempresa::Company.human_talent_leader', $data);
+    }
+    public function psychologo()
+    {
+        $postulatesCount = DB::table('staff_senaempresas')
+            ->whereNull('deleted_at')
+            ->count();
+
+        $data = [
+            'title' => 'Psicologo', 'postulatesCount' => $postulatesCount
+        ];
+        return view('senaempresa::Company.psychologo', $data);
     }
     public function Apprentice()
     {
-        $data = ['title' => 'Aprendiz'];
-        return view('senaempresa::index', $data);
+        $vacanciesCount = DB::table('vacancies')
+            ->where('state', 'Disponible')
+            ->whereNull('deleted_at')
+            ->count();
+        $data = ['title' => 'Aprendiz', 'vacanciesCount' => $vacanciesCount];
+        return view('senaempresa::Company.apprentice', $data);
     }
     /**
      * Display a listing of the resource.

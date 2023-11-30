@@ -17,35 +17,21 @@
                         <div class="row">
                             <div class="col-4">
                                 <!-- small box -->
-                                <div class="small-box" style="background: rgb(241, 196, 15);">
+                                <div class="small-box" style="background: rgb(39, 174, 96);">
                                     <div class="inner" style="color: white;">
-                                        <h3>{{ $registeredStaffCount }}</h3>
-                                        <p>Personal</p>
+                                        <h3>{{ $vacanciesCount }}</h3>
+                                        <p>Vacantes</p>
                                     </div>
                                     <div class="icon">
-                                        <i class="fas fa-users"></i>
+                                        <i class="fas fa-plane-arrival"></i>
                                     </div>
-                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.index') }}"
-                                        class="small-box-footer">More
-                                        info <i class="fas fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <!-- small box -->
-                                <div class="small-box" style="background: rgb(26, 188, 156);">
-                                    <div class="inner" style="color: white;">
-                                        <h3>{{ $prestamosPrestados }}</h3>
-                                        <p>Prestamos</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="fas fa-sign-language"></i>
-                                    </div>
-                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index') }}"
+                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index') }}"
                                         class="small-box-footer">More
                                         info <i class="fas fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
                 <div class="col-md-6">

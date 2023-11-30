@@ -363,6 +363,28 @@
                     @endif
                 @endif
 
+                {{-- Menú de opciones para Psicologo Senaempresa --}}
+                @if (Route::is('senaempresa.psychologo.*'))
+                    @if (Auth::user()->havePermission('senaempresa.psychologo.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('senaempresa.psychologo.index') }}"
+                                class="nav-link {{ !Route::is('senaempresa.psychologo.index') ?: 'active' }}">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <p> {{ trans('sica::menu.Dashboard') }}</p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->havePermission('senaempresa.psychologo.postulates.index'))
+                        <li class="nav-item">
+                            <a href="{{ route('senaempresa.psychologo.postulates.index') }}"
+                                class="nav-link {{ !Route::is('senaempresa.psychologo.postulates.index') ?: 'active' }}">
+                                <i class="fas fa-address-card"></i>
+                                <p>{{ trans('senaempresa::menu.Postulates') }}</p>
+                            </a>
+                        </li>
+                    @endif
+                @endif
+
                 {{-- Menú de opciones para Aprendiz Senaempresa --}}
                 @if (Route::is('senaempresa.apprentice.*'))
                     <li class="nav-item">

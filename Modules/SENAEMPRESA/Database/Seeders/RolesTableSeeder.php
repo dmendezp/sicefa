@@ -36,6 +36,14 @@ class RolesTableSeeder extends Seeder
             'full_access' => 'No',
             'app_id' => $app->id
         ]);
+        // Registrar o actualizar rol de PSICOLOGO
+        $rol_psicologo = Role::updateOrCreate(['slug' => 'senaempresa.psychologo'], [
+            'name' => 'Psicologo Senaempresa',
+            'description' => 'Rol psicologo de la aplicacion SENAEMPRESA',
+            'description_english' => 'Psychologist role of the SENAEMPRESA application',
+            'full_access' => 'No',
+            'app_id' => $app->id
+        ]);
         // Registrar o actualizar rol de APRENDIZ
         $rol_aprendiz = Role::updateOrCreate(['slug' => 'senaempresa.apprentice'], [
             'name' => 'Aprendiz Senaempresa',
@@ -52,7 +60,7 @@ class RolesTableSeeder extends Seeder
 
         // Asignacion de roles a usuarios
         $user_jsm6580->roles()->syncWithoutDetaching([$rol_admin->id]);
-        $user_jmm6580->roles()->syncWithoutDetaching([$rol_admin->id]);
+        $user_jmm6580->roles()->syncWithoutDetaching([$rol_psicologo->id]);
         $user_dap6580->roles()->syncWithoutDetaching([$rol_human_talent_leader->id]);
     }
 }

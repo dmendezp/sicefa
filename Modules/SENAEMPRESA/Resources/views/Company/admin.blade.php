@@ -15,51 +15,102 @@
                             comercialización adquiridos en el proceso de formación por medio del manejo real de una empresa
                             en las diferentes áreas y unidades productivas.</p>
                         <div class="d-flex justify-content-around">
-                            <div class="col 2">
+                            <div class="col">
                                 <!-- small box -->
-                                <div class="small-box bg-success">
-                                    <div class="inner">
-                                        <h3>{{ $registeredStaffCount }}</h3>
-                                        <p>Personal</p>
+                                <div class="small-box" style="background: rgb(36, 94, 171);">
+                                    <div class="inner" style="color: white;">
+                                        <h3>{{ $registeredphasesCount }}</h3>
+                                        <p>Fases SenaEmpresa</p>
                                     </div>
+                                    
                                     <div class="icon">
-                                        <i class="fas fa-users"></i>
+                                        <i class="fas fa-tachometer-alt"></i>
                                     </div>
-                                    <a href="{{ route('senaempresa.admin.staff.index') }}" class="small-box-footer">More
-                                        info <i class="fas fa-arrow-circle-right"></i></a>
+                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.index') }}"
+                                        class="small-box-footer" style="text: white;">More
+                                        info
+                                        <i class="fas fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
-
-                            <div class="col 2">
+                            <div class="col">
                                 <!-- small box -->
-                                <div class="small-box bg-danger">
-                                    <div class="inner">
+                                <div class="small-box" style="background: rgb(122, 36, 171);">
+                                    <div class="inner" style="color: white;">
+                                        <h3>{{ $postulatesCount }}</h3>
+                                        <p>Postulados</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fas fa-address-card"></i>
+                                    </div>
+                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index') }}"
+                                        class="small-box-footer text-white">
+                                        More info <i class="fas fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <!-- small box -->
+                                <div class="small-box" style="background: rgb(171, 36, 57);">
+                                    <div class="inner" style="color: white;">
                                         <h3>{{ $totalPositionsCount }}</h3>
                                         <p>Cargos</p>
                                     </div>
                                     <div class="icon">
                                         <i class="fas fa-smile-beam"></i>
                                     </div>
-                                    <a href="{{ route('senaempresa.admin.positions.index') }}" class="small-box-footer">More
+                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.positions.index') }}"
+                                        class="small-box-footer">More
                                         info <i class="fas fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col 2">
-                            <!-- small box -->
-                            <div class="small-box bg-primary">
-                                <div class="inner">
-                                    <h3>{{ $registeredphasesCount }}</h3>
-                                    <p>Fases SenaEmpresa</p>
+                        <div class="d-flex justify-content-around">
+                            <div class="col">
+                                <!-- small box -->
+                                <div class="small-box" style="background: rgb(241, 196, 15);">
+                                    <div class="inner" style="color: white;">
+                                        <h3>{{ $registeredStaffCount }}</h3>
+                                        <p>Personal</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.index') }}"
+                                        class="small-box-footer">More
+                                        info <i class="fas fa-arrow-circle-right"></i></a>
                                 </div>
-                                <div class="icon">
-                                    <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div class="col">
+                                <!-- small box -->
+                                <div class="small-box" style="background: rgb(26, 188, 156);">
+                                    <div class="inner" style="color: white;">
+                                        <h3>{{ $prestamosPrestados }}</h3>
+                                        <p>Prestamos</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fas fa-sign-language"></i>
+                                    </div>
+                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index') }}"
+                                        class="small-box-footer">More
+                                        info <i class="fas fa-arrow-circle-right"></i></a>
                                 </div>
-                                <a href="{{ route('senaempresa.admin.phases.index') }}" class="small-box-footer">More info
-                                    <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                            <div class="col">
+                                <!-- small box -->
+                                <div class="small-box" style="background: rgb(39, 174, 96);">
+                                    <div class="inner" style="color: white;">
+                                        <h3>{{ $vacanciesCount }}</h3>
+                                        <p>Vacantes</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fas fa-plane-arrival"></i>
+                                    </div>
+                                    <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index') }}"
+                                        class="small-box-footer">More
+                                        info <i class="fas fa-arrow-circle-right"></i></a>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-md-6">

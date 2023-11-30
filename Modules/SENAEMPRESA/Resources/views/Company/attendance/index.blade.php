@@ -7,7 +7,7 @@
                     <div class="card-header">{{ trans('senaempresa::menu.Register attendance') }}</div>
                     <div class="card-body">
                         @if (Route::is('senaempresa.admin.*') ||
-                                (Route::is('senaempresa.passant.*') &&
+                                (Route::is('senaempresa.human_talent_leader.*') &&
                                     Auth::user()->havePermission(
                                         'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.register')))
                             <form
@@ -26,7 +26,7 @@
                         </div>
                         <input type="hidden" name="person_id" id="person_id" value="">
                         @if (Route::is('senaempresa.admin.*') ||
-                                (Route::is('senaempresa.passant.*') &&
+                                (Route::is('senaempresa.human_talent_leader.*') &&
                                     Auth::user()->havePermission(
                                         'senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.attendances.register')))
                             <button type="submit"

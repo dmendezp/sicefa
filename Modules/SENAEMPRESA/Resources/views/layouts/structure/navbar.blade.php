@@ -24,6 +24,13 @@
                     </a>
                 </li>
             @endif
+            @if (checkRol('senaempresa.psychologo'))
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('senaempresa.psychologo.index') }}"
+                        class="nav-link @if (Route::is('senaempresa.psychologo.*')) active @endif">Psicologo
+                    </a>
+                </li>
+            @endif
             @if (checkRol('senaempresa.apprentice'))
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('senaempresa.apprentice.index') }}"
@@ -39,7 +46,7 @@
         <li>
             <div type="button" class="button-login">
                 @guest
-                    <a href="{{ route('login') }}" class="text-decoration-none text-black">
+                    <a href="{{ route('login') }}" class="text-decoration-none" style="color: black; cursor: pointer;">
                         <span>Iniciar Sesión</span>
                     </a>
                 @else
@@ -61,7 +68,7 @@
 
         <li class="nav-item mx-1">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip"
-                data-bs-placement="bottom" data-bs-title="{{ trans('ptventa::general.Full Screen Mode') }}">
+                data-bs-placement="bottom" data-bs-title="{{ trans('senaempresa::general.Full Screen Mode') }}">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>

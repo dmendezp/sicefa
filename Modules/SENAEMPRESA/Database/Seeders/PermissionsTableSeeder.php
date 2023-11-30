@@ -19,8 +19,9 @@ class PermissionsTableSeeder extends Seeder
     {
         $permissions_admin = []; // Permisos para Administrador
         $permissions_human_talent_leader = []; // Permisos para Lider de talento humano
+        $permissions_psychologo = []; // Permisos para psicologo
         $permissions_apprentice = []; // Permisos para aprendiz
-
+        
 
         // Consultar aplicación SENAEMPRESA para registrar los roles
         $app = App::where('name', 'SENAEMPRESA')->first();
@@ -42,6 +43,15 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista Lider de psicologo senaempresa
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.psychologo.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista Psicologo Senaempresa',
+            'description' => 'Puede ver vista psicologo senaempresa',
+            'description_english' => 'You can view view psicologo senaempresa',
+            'app_id' => $app->id
+        ]);
+        $permissions_psychologo[] = $permission->id; // Almacenar permiso para rol
 
         // Vista aprendiz senaempresa
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.index'], [ // Registro o actualización de permiso
@@ -341,7 +351,6 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        
         // Vista de vacantes (Aprendiz)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.vacancies.index'], [ // Registro o actualización de permiso
             'name' => 'Vista vacantes (Aprendiz)',
@@ -359,7 +368,6 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
 
         // Vista de agregar nueva vacante de senaempresa (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.vacancies.new'], [
@@ -368,7 +376,6 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Form to add new vacancy for senaempresa',
             'app_id' => $app->id
         ]);
-
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol 
 
         // guardar nueva vacante de senaempresa (Administrador)
@@ -479,6 +486,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista de postulados (Psicologo)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.psychologo.postulates.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista postulados (Psicologo)',
+            'description' => 'Puede ver el listado de los postulados',
+            'description_english' => 'You can see the list of postulates',
+            'app_id' => $app->id
+        ]);
+        $permissions_psychologo[] = $permission->id; // Almacenar permiso para rol
+        
         // Vista de asignar puntaje a los postulados (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.assign_score'], [ // Registro o actualización de permiso
             'name' => 'Vista de asignar puntaje (Administrador)',
@@ -488,6 +504,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista de asignar puntaje a los postulados (Psicologo)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.psychologo.postulates.assign_score'], [ // Registro o actualización de permiso
+            'name' => 'Vista postulados (Psicologo)',
+            'description' => 'Puede ver el listado de los postulados',
+            'description_english' => 'You can see the list of postulates',
+            'app_id' => $app->id
+        ]);
+        $permissions_psychologo[] = $permission->id; // Almacenar permiso para rol
+
         // Asignar puntaje a los postulados (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.score_assigned'], [ // Registro o actualización de permiso
             'name' => ' Asignar puntaje (Administrador)',
@@ -496,6 +521,16 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de asignar puntaje a los postulados (Psicologo)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.psychologo.postulates.score_assigned'], [ // Registro o actualización de permiso
+            'name' => 'Vista postulados (Psicologo)',
+            'description' => 'Puede ver el listado de los postulados',
+            'description_english' => 'You can see the list of postulates',
+            'app_id' => $app->id
+        ]);
+        $permissions_psychologo[] = $permission->id; // Almacenar permiso para rol
+
 
         // Vista de cargos (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.positions.index'], [ // Registro o actualización de permiso
@@ -673,11 +708,13 @@ class PermissionsTableSeeder extends Seeder
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'senaempresa.admin')->first(); // Rol Administrador Senaempresa
         $rol_lider_talento_humano = Role::where('slug', 'senaempresa.human_talent_leader')->first(); // Rol Pasante Senaempresa
+        $rol_psychologo = Role::where('slug', 'senaempresa.psychologo')->first(); // Rol Psicologo Senaempresa
         $rol_aprendiz = Role::where('slug', 'senaempresa.apprentice')->first(); // Rol Usuario Senaempresa
 
         // Asignación de PERMISOS para los ROLES de la aplicación SENAEMPRESA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
         $rol_lider_talento_humano->permissions()->syncWithoutDetaching($permissions_human_talent_leader);
+        $rol_psychologo->permissions()->syncWithoutDetaching($permissions_psychologo);
         $rol_aprendiz->permissions()->syncWithoutDetaching($permissions_apprentice);
     }
 }
