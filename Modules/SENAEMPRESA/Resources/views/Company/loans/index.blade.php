@@ -114,7 +114,7 @@
                                                 </td>
                                             </tr>
                                         @endif
-                                    @elseif (Auth::user()->havePermission('senaempresa.admin-pasante.loans.filter'))
+                                    @elseif (Auth::user()->havePermission('senaempresa.admin-human_talent_leader.loans.filter'))
                                         <tr>
                                             <td>{{ $loan->id }}</td>
                                             <td>
@@ -171,7 +171,7 @@
 
                                             @if ($loan->state === 'Prestado')
                                                 @if (Route::is('senaempresa.admin.*') ||
-                                                        (Route::is('senaempresa.passant.*') &&
+                                                        (Route::is('senaempresa.human_talent_leader.*') &&
                                                             Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.edit')))
                                                     <td>
                                                         <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.return', ['id' => $loan->id]) }}"

@@ -14,7 +14,7 @@
                                 <th>{{ trans('senaempresa::menu.Name') }}</th>
                                 <th>{{ trans('senaempresa::menu.Description') }}</th>
                                 <th>{{ trans('senaempresa::menu.Quarter') }}</th>
-                                @if (Auth::user()->havePermission('senaempresa.admin.phases.new'))
+                                @if (Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.new'))
                                     <th>
                                         <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.new') }}"
                                             class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></a>
@@ -29,7 +29,7 @@
                                     <td>{{ $senaempresa->name }}</td>
                                     <td>{{ $senaempresa->description }}</td>
                                     <td>{{ $senaempresa->quarter->name }}</td>
-                                    @if (Auth::user()->havePermission('senaempresa.admin.phases.edit'))
+                                    @if (Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.edit'))
                                         <form
                                             action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.delete', $senaempresa->id) }}"
                                             method="POST" class="formsena">

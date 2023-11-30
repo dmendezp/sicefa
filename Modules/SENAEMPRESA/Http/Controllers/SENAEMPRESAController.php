@@ -55,10 +55,10 @@ class SENAEMPRESAController extends Controller
         ];
         return view('senaempresa::Company.admin', $data);
     }
-    public function Passant()
+    public function human_talent_leader()
     {
-        $data = ['title' => 'Pasante'];
-        return view('senaempresa::Company.passant', $data);
+        $data = ['title' => 'Lider de talento humano'];
+        return view('senaempresa::Company.human_talent_leader', $data);
     }
     public function Apprentice()
     {

@@ -320,20 +320,20 @@
 
 
                 {{-- Menú de opciones para Pasante Senaempresa --}}
-                @if (Route::is('senaempresa.passant.*'))
-                    @if (Auth::user()->havePermission('senaempresa.passant.index'))
+                @if (Route::is('senaempresa.human_talent_leader.*'))
+                    @if (Auth::user()->havePermission('senaempresa.human_talent_leader.index'))
                         <li class="nav-item">
-                            <a href="{{ route('senaempresa.passant.index') }}"
-                                class="nav-link {{ !Route::is('senaempresa.passant.index') ?: 'active' }}">
+                            <a href="{{ route('senaempresa.human_talent_leader.index') }}"
+                                class="nav-link {{ !Route::is('senaempresa.human_talent_leader.index') ?: 'active' }}">
                                 <i class="fas fa-tachometer-alt"></i>
                                 <p> {{ trans('sica::menu.Dashboard') }}</p>
                             </a>
                         </li>
                     @endif
-                    @if (Auth::user()->havePermission('senaempresa.passant.attendances.index'))
+                    @if (Auth::user()->havePermission('senaempresa.human_talent_leader.attendances.index'))
                         <li class="nav-item">
-                            <a href="{{ route('senaempresa.passant.attendances.index') }}"
-                                class="nav-link {{ !Route::is('senaempresa.passant.attendances.index') ?: 'active' }}">
+                            <a href="{{ route('senaempresa.human_talent_leader.attendances.index') }}"
+                                class="nav-link {{ !Route::is('senaempresa.human_talent_leader.attendances.index') ?: 'active' }}">
                                 <i class="fas fa-tasks"></i>
                                 <p>
                                     {{ trans('senaempresa::menu.Attendance') }}
@@ -341,10 +341,10 @@
                             </a>
                         </li>
                     @endif
-                    @if (Auth::user()->havePermission('senaempresa.passant.staff.index'))
+                    @if (Auth::user()->havePermission('senaempresa.human_talent_leader.staff.index'))
                         <li class="nav-item">
-                            <a href="{{ route('senaempresa.passant.staff.index') }}"
-                                class="nav-link {{ !Route::is('senaempresa.passant.staff.index') ?: 'active' }}">
+                            <a href="{{ route('senaempresa.human_talent_leader.staff.index') }}"
+                                class="nav-link {{ !Route::is('senaempresa.human_talent_leader.staff.index') ?: 'active' }}">
                                 <i class="fas fa-users-cog"></i>
                                 <p>
                                     {{ trans('senaempresa::menu.Staff') }}
@@ -352,19 +352,10 @@
                             </a>
                         </li>
                     @endif
-                    @if (Auth::user()->havePermission('senaempresa.passant.vacancies.index'))
+                    @if (Auth::user()->havePermission('senaempresa.human_talent_leader.loans.index'))
                         <li class="nav-item">
-                            <a href="{{ route('senaempresa.passant.vacancies.index') }}"
-                                class="nav-link {{ !Route::is('senaempresa.passant.vacancies.index') ?: 'active' }}">
-                                <i class="fas fa-user-tag"></i>
-                                <p>{{ trans('senaempresa::menu.Vacancies') }}</p>
-                            </a>
-                        </li>
-                    @endif
-                    @if (Auth::user()->havePermission('senaempresa.passant.loans.index'))
-                        <li class="nav-item">
-                            <a href="{{ route('senaempresa.passant.loans.index') }}"
-                                class="nav-link {{ !Route::is('senaempresa.passant.loans.index') ?: 'active' }}">
+                            <a href="{{ route('senaempresa.human_talent_leader.loans.index') }}"
+                                class="nav-link {{ !Route::is('senaempresa.human_talent_leader.loans.index') ?: 'active' }}">
                                 <i class="fas fa-poll"></i>
                                 <p>{{ trans('senaempresa::menu.Loans') }}</p>
                             </a>

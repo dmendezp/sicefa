@@ -17,10 +17,10 @@
                     </a>
                 </li>
             @endif
-            @if (checkRol('senaempresa.passant'))
+            @if (checkRol('senaempresa.human_talent_leader'))
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('senaempresa.passant.index') }}"
-                        class="nav-link @if (Route::is('senaempresa.passant.*')) active @endif">Pasante
+                    <a href="{{ route('senaempresa.human_talent_leader.index') }}"
+                        class="nav-link @if (Route::is('senaempresa.human_talent_leader.*')) active @endif">Lider de talento humano
                     </a>
                 </li>
             @endif

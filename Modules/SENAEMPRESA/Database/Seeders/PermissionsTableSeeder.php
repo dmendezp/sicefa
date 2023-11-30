@@ -18,8 +18,8 @@ class PermissionsTableSeeder extends Seeder
     public function run()
     {
         $permissions_admin = []; // Permisos para Administrador
-        $permissions_passant = []; // Permisos para Pasante
-        $permissions_apprentice = []; // Permisos para usuario
+        $permissions_human_talent_leader = []; // Permisos para Lider de talento humano
+        $permissions_apprentice = []; // Permisos para aprendiz
 
 
         // Consultar aplicación SENAEMPRESA para registrar los roles
@@ -34,14 +34,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista pasante senaempresa
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista Pasante Senaempresa',
-            'description' => 'Puede ver vista pasante senaempresa',
-            'description_english' => 'You can see senaempresa trainee view',
+        // Vista Lider de talento humano senaempresa
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista lider talento human Senaempresa',
+            'description' => 'Puede ver vista lider talento human senaempresa',
+            'description_english' => 'You can view vista lider talento human senaempresa',
             'app_id' => $app->id
         ]);
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Vista aprendiz senaempresa
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.index'], [ // Registro o actualización de permiso
@@ -142,6 +142,15 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // Vista senaempresa personal (Lider talento humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.staff.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista SenaEmpresa Personal (Lider talento humano)',
+            'description' => 'Puede ver el personal de senaempresa',
+            'description_english' => 'You can see the senaempresa staff',
+            'app_id' => $app->id
+        ]);
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
+
         // Vista senaempresa personal (Aprendiz)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.staff.index'], [ // Registro o actualización de permiso
             'name' => 'Vista SenaEmpresa Personal (Aprendiz)',
@@ -205,24 +214,24 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Filtrar prestamos por estado (Administrador y/o Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin-pasante.loans.filter'], [ // Registro o actualización de permiso
-            'name' => 'Vista SenaEmpresa Prestamos (Administrador y/o Pasante)',
+        // Filtrar prestamos por estado (Administrador y/o Lider talento humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin-human_talent_leader.loans.filter'], [ // Registro o actualización de permiso
+            'name' => 'Vista SenaEmpresa Prestamos (Administrador y/o Lider talento humano)',
             'description' => 'Puede ver los prestamos registrados',
             'description_english' => 'You can view registered loans',
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista senaempresa prestamos (Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.loans.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista SenaEmpresa Prestamos (Pasante)',
+        // Vista senaempresa prestamos (Lider talento humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.loans.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista SenaEmpresa Prestamos (Lider talento humano)',
             'description' => 'Puede ver los prestamos registrados',
             'description_english' => 'You can view registered loans',
             'app_id' => $app->id
         ]);
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Vista senaempresa prestamos (Aprendiz)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.loans.index'], [ // Registro o actualización de permiso
@@ -242,14 +251,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista de agregar nuevo prestamo (Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.loans.new'], [ // Registro o actualización de permiso
-            'name' => 'Vista de formulario para nuevo prestamo (Pasante)',
+        // Vista de agregar nuevo prestamo (Lider Talento Humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.loans.new'], [ // Registro o actualización de permiso
+            'name' => 'Vista de formulario para nuevo prestamo (Lider Talento Humano)',
             'description' => 'Formulario para agregar nuevo prestamo de senaempresa',
             'description_english' => 'Form to add a new loan from senaempresa',
             'app_id' => $app->id
         ]);
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
         // guardar nuevo prestamo (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.loans.saved'], [ // Registro o actualización de permiso
@@ -260,14 +269,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // guardar nuevo prestamo (Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.loans.saved'], [ // Registro o actualización de permiso
-            'name' => 'Guardar nuevo prestamo (Pasante)',
+        // guardar nuevo prestamo (Lider Talento Humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.loans.saved'], [ // Registro o actualización de permiso
+            'name' => 'Guardar nuevo prestamo (Lider Talento Humano)',
             'description' => 'Formulario para guardar nuevo prestamo de senaempresa',
             'description_english' => 'Form to save new loan of senaempresa',
             'app_id' => $app->id
         ]);
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Vista de editar los prestamos de senaempresa (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.loans.edit'], [ // Registro o actualización de permiso
@@ -277,15 +286,15 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
-
-        // Vista de editar los prestamos de senaempresa (Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.loans.edit'], [ // Registro o actualización de permiso
-            'name' => 'Vista de formulario para editar los prestamos (Pasante)',
+        
+        // Vista de editar los prestamos de senaempresa (Lider Talento Humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.loans.edit'], [ // Registro o actualización de permiso
+            'name' => 'Vista de formulario para editar los prestamos (Lider Talento Humano)',
             'description' => 'Formulario para editar los prestamos de senaempresa',
             'description_english' => 'Form for editing senaempresa loans',
             'app_id' => $app->id
         ]);
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Actualizar prestamos de senaempresa (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.loans.updated'], [ // Registro o actualización de permiso
@@ -296,14 +305,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Actualizar prestamos de senaempresa (Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.loans.updated'], [ // Registro o actualización de permiso
-            'name' => 'Actualizar los prestamos (Pasante)',
+        // Actualizar prestamos de senaempresa (Lider Talento Humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.loans.updated'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar los prestamos (Lider Talento Humano)',
             'description' => 'Formulario para actualizar los prestamos de senaempresa',
             'description_english' => 'Form to update senaempresa loan information',
             'app_id' => $app->id
         ]);
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Devolver prestamos de senaempresa (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.loans.return'], [ // Registro o actualización de permiso
@@ -314,14 +323,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Devolver prestamos de senaempresa (Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.loans.return'], [ // Registro o actualización de permiso
-            'name' => 'Devolver los prestamos (Pasante)',
+        // Devolver prestamos de senaempresa (Lider Talento Humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.loans.return'], [ // Registro o actualización de permiso
+            'name' => 'Devolver los prestamos (Lider Talento Humano)',
             'description' => 'Botón para devolver los prestamos de senaempresa',
             'description_english' => 'Button to repay senaempresa loans',
             'app_id' => $app->id
         ]);
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Vista de vacantes (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.vacancies.index'], [ // Registro o actualización de permiso
@@ -342,9 +351,9 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
 
-        // Filtar vacantes por senaempresa (Administrador y/o Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin-passant.vacancies.filter'], [ // Registro o actualización de permiso
-            'name' => 'Vista vacantes (Administrador y/o Pasante)',
+        // Filtar vacantes por senaempresa (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.vacancies.filter'], [ // Registro o actualización de permiso
+            'name' => 'Vista vacantes (Administrador)',
             'description' => 'Puede ver el listado de los vacantes',
             'description_english' => 'You can see the list of vacancies',
             'app_id' => $app->id
@@ -551,14 +560,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Vista de asistencia (Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.attendances.index'], [ // Registro o actualización de permiso
-            'name' => 'Vista asistencia (Pasante)',
+        // Vista de asistencia (Lider Talento Humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.attendances.index'], [ // Registro o actualización de permiso
+            'name' => 'Vista asistencia (Lider Talento Humano)',
             'description' => 'Puede ver la vista para el registro de asistencia',
             'description_english' => 'You can see the view for the attendance record',
             'app_id' => $app->id
         ]);
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
          // Vista de asistencia (Aprendiz)
          $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.attendances.index'], [ // Registro o actualización de permiso
@@ -578,14 +587,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Regsitrar asistencia (Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.attendances.register'], [ // Registro o actualización de permiso
-            'name' => 'Registrar asistencia senaempresa (Pasante)',
+        // Regsitrar asistencia (Lider Talento Humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.attendances.register'], [ // Registro o actualización de permiso
+            'name' => 'Registrar asistencia senaempresa (Lider Talento Humano)',
             'description' => 'Registrar asistencia del personal de senaempresa',
             'description_english' => 'Register attendance of senaempresa staff',
             'app_id' => $app->id
         ]);
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Consultar asistencia por numero de documento (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.attendances.queryAttendance'], [ // Registro o actualización de permiso
@@ -596,14 +605,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // Consultar asistencia por numero de documento (Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.attendances.queryAttendance'], [ // Registro o actualización de permiso
-            'name' => 'Consultar asistencia senaempresa (Pasante)',
+        // Consultar asistencia por numero de documento (Lider Talento Humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.attendances.queryAttendance'], [ // Registro o actualización de permiso
+            'name' => 'Consultar asistencia senaempresa (Lider Talento Humano)',
             'description' => 'Consultar asistencia del personal por documento',
             'description_english' => 'Consult staff attendance by document',
             'app_id' => $app->id
         ]);
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Consultar personal por numero de documento (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.attendances.getPersonData'], [
@@ -615,15 +624,15 @@ class PermissionsTableSeeder extends Seeder
 
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol admin
 
-        // Consultar personal por numero de documento (Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.attendances.getPersonData'], [
-            'name' => 'Consultar personal senaempresa Pasante)',
+        // Consultar personal por numero de documento (Lider Talento Humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.attendances.getPersonData'], [
+            'name' => 'Consultar personal senaempresa (Lider Talento Humano)',
             'description' => 'Consultar personal de senaempresa por documento',
             'description_english' => 'Consult senaempresa personnel by document',
             'app_id' => $app->id
         ]);
 
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol admin
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol admin
 
         // menu de fases de senamepresa (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.phases'], [ // Registro o actualización de permiso
@@ -652,23 +661,23 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
-        // menu de postulados (Pasante)
-        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.passant.postulates'], [ // Registro o actualización de permiso
-            'name' => 'Menu postulados (Pasante)',
+        // menu de postulados (Lider Talento Humano)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.postulates'], [ // Registro o actualización de permiso
+            'name' => 'Menu postulados (Lider Talento Humano)',
             'description' => 'Puede ver menu de postulados',
             'description_english' => 'You can see postulates menu',
             'app_id' => $app->id
         ]);
-        $permissions_passant[] = $permission->id; // Almacenar permiso para rol
+        $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'senaempresa.admin')->first(); // Rol Administrador Senaempresa
-        $rol_pasante = Role::where('slug', 'senaempresa.passant')->first(); // Rol Pasante Senaempresa
+        $rol_lider_talento_humano = Role::where('slug', 'senaempresa.human_talent_leader')->first(); // Rol Pasante Senaempresa
         $rol_aprendiz = Role::where('slug', 'senaempresa.apprentice')->first(); // Rol Usuario Senaempresa
 
         // Asignación de PERMISOS para los ROLES de la aplicación SENAEMPRESA (Sincronización de las relaciones sin eliminar las relaciones existentes)
         $rol_admin->permissions()->syncWithoutDetaching($permissions_admin);
-        $rol_pasante->permissions()->syncWithoutDetaching($permissions_passant);
+        $rol_lider_talento_humano->permissions()->syncWithoutDetaching($permissions_human_talent_leader);
         $rol_aprendiz->permissions()->syncWithoutDetaching($permissions_apprentice);
     }
 }

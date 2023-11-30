@@ -32,7 +32,7 @@
                                     <td>{{ $PositionCompany->name }}</td>
                                     <td>{{ $PositionCompany->description }}</td>
                                     <td>{{ $PositionCompany->state }}</td>
-                                    @if (Auth::user()->havePermission('senaempresa.admin.positions.edit'))
+                                    @if (Auth::user()->havePermission('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.positions.edit'))
                                         <form
                                             action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.positions.delete', $PositionCompany->id) }}"
                                             method="POST" class="formCargo">
