@@ -33,6 +33,8 @@ use Modules\SICA\Entities\Equipment;
 use Modules\SICA\Entities\EnvironmentalAspect;
 use Modules\SICA\Entities\EnvironmentalAspectLabor;
 use Modules\SICA\Entities\Resource;
+use App\Exports\AGROINDUSTRIA\ConsumableExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LaborController extends Controller
 {
@@ -520,6 +522,9 @@ class LaborController extends Controller
                 $p->lot = $request->input('lot');
                 $p->save();
             }
+
+            $consumables = Consumable::where('labor_id', $l->id)->get();
+            
             DB::commit();
 
             $icon = 'success';
@@ -531,10 +536,11 @@ class LaborController extends Controller
             $icon = 'error';
             $message_line = trans('agroindustria::labors.errorWhenSavingWork');
         }
-         return redirect()->route('cefa.agroindustria.units.instructor.labor')->with([
-             'icon' => $icon,
-             'message_line' => $message_line,
-         ]); 
+        
+        return redirect()->route('agroindustria.instructor.units.labor')->with([
+           'icon' => $icon,
+           'message_line' => $message_line,
+        ]); 
     }
     
     public function cancelLabor($id){

@@ -237,6 +237,7 @@
                         </div>            
                         <div class="button_receipe">{!! Form::submit(trans('agroindustria::formulations.Save'),['class' => 'save_receipe', 'name' => 'enviar']) !!}</div>
                     </div>
+                    @include('agroindustria::instructor.labors.excel')
                     {!! Form:: close() !!}     
                 </div>
             </div>

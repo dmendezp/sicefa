@@ -8,7 +8,7 @@
       <div class="row">
         @foreach ($units as $unit)
             <div class="col">
-                <a href="{{route('cefa.agroindustria.units.instructor.formulations' , ['unit'=> $unit->id])}}">
+                <a href="{{route('agroindustria.instructor.units.activity.index' , ['unit'=> $unit->id])}}">
                     <button class="card-client-button" id="boton_unit" data-unit-name="{{ $unit->name }}"  onclick="selectUnit('{{ $unit->id }}', '{{ $unit->name }}')">
                         <div class="card-client-content">
                             <h2 class="tittleU">{{ $unit->name }}</h2>

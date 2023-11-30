@@ -28,6 +28,9 @@
                     <a href="{{route('agroindustria.admin.remove')}}" class="nav-link">{{trans('agroindustria::menu.Desregistrations')}}</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('agroindustria.admin.units.activity', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{route('agroindustria.admin.units.production')}}">Producción</a>
                 </li>
                 <li class="nav-item">
@@ -37,28 +40,24 @@
                     <a class="nav-link" href="{{route('agroindustria.admin.units.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('agroindustria.admin.units.activity')}}">{{trans('agroindustria::menu.Activities')}}</a>
-                </li>
-                
-                <li class="nav-item">
                     <a class="nav-link" href="{{route('cefa.agroindustria.storer.inventory')}}">{{trans('agroindustria::menu.Inventory')}}</a>
                 </li>
             @endif
 
             @if(Route::is('*units.*'))
                 <!--Menú instructor-->
-                @if(Auth::user()->havePermission('agroindustria.instructor.formulations'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.formulations', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::formulations.Recipes')}}</a>
-                    </li>
-                @endif
-
                 @if(Auth::user()->havePermission('agroindustria.instructor.units.activity.index'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.instructor.units.activity.index')}}">{{trans('agroindustria::menu.Activities')}}</a>
+                        <a class="nav-link" href="{{route('agroindustria.instructor.units.activity.index', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
                     </li>
                 @endif  
-                
+
+                @if(Auth::user()->havePermission('agroindustria.instructor.formulations'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('cefa.agroindustria.units.instructor.formulations')}}">{{trans('agroindustria::formulations.Recipes')}}</a>
+                    </li>
+                @endif
+     
                 @if(Auth::user()->havePermission('agroindustria.instructor.units.labor'))
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('agroindustria.instructor.units.labor')}}">{{trans('agroindustria::menu.Task')}}</a>
