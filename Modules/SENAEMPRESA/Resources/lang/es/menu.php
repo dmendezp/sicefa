@@ -74,7 +74,7 @@ return [
 	'Assign Course to SenaEmpresa' => 'Asignar Curso a SenaEmpresa',
 	'SenaEmpresa ID' => 'SenaEmpresa ID',
 	'New SenaEmpresa' => 'Nuevo SenaEmpresa',
-	'SenaEmpresa - Strategies' => 'SenaEmpresa - Estrategias',
+	'SenaEmpresa - Phases' => 'SenaEmpresa - Fases',
 	'Edit SenaEmpresa' => 'Editar SenaEmpresa',
 	'Vacancy successfully eliminated' => 'Vacante eliminada con éxito',
 	'Assign Courses to SenaEmpresa' => 'Asignar Cursos a SenaEmpresa',
@@ -159,8 +159,15 @@ return [
 	'Registrants' => 'Registrados',
 
 	// Navbar
-
+	'English' => 'Ingles',
+    'Spanish' => 'Español',
+	'Full Screen Mode' => 'Modo de pantalla completa',
+	'Login' => 'Iniciar Sesión',
+	'Psychologo' => 'Psicologo',
+	'Human talent leader' => 'Lider de talento humano',
+	'Administrator' => 'Administrador',
 	'Developers' => 'Desarrolladores',
+	
 
 
 	//Postulate
@@ -206,7 +213,7 @@ return [
 
 
 
-	'Administrator' => 'Administrador',
+	
 	'New' => 'Nuevo',
 	'Failed to create PositionCompany object.' => 'No se pudo crear el objeto PositionCompany.',
 	'Error in creating the position.' => 'Error al crear cargo.',

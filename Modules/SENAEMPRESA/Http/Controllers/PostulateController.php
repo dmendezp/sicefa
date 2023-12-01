@@ -118,12 +118,10 @@ class PostulateController extends Controller
                 return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', trans('senaempresa::menu.Proposal file must be in PDF format.'));
             }
         }
-
-        $postulate->save();
-        $data = [
-            'ApprenticeId' => $ApprenticeId,
-        ];
-
+        if ($postulate->save())
+            $data = [
+                'ApprenticeId' => $ApprenticeId,
+            ];
         return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index', $data)->with('success', trans('senaempresa::menu.Registration made with success!'));
     }
 
@@ -181,8 +179,8 @@ class PostulateController extends Controller
         $filesenaempresa->cv_score = $request->input('cv_score');
         $filesenaempresa->personalities_score = $request->input('personalities_score');
         $filesenaempresa->proposal_score = $request->input('proposal_score');
-        $filesenaempresa->save();
-
-        return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')->with('success', 'Puntaje asignado correctamente');
+        if ($filesenaempresa->save())
+            
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')->with('success', 'Puntaje asignado correctamente');
     }
 }

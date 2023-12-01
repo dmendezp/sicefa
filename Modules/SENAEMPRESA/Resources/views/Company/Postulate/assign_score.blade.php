@@ -8,7 +8,7 @@
                     <div class="card-header">Puntaje</div>
 
                     <div class="card-body">
-                        <form action="{{ route('company.postulate.score_asignado') }}" method="POST"
+                        <form action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.score_assigned') }}" method="POST"
                             enctype="multipart/form-data">
 
                             @csrf
@@ -18,7 +18,7 @@
                                 <input type="text" class="form-control" id="postulate_info" name="postulate_info"
                                     value="{{ $postulate->id }} - {{ $postulate->apprentice->person->full_name }}" readonly>
                             </div>
-                            <input type="text" class="form-control" id="postulate_id" name="postulate_info"
+                            <input type="hidden" class="form-control" id="postulate_id" name="postulate_info"
                                 value="{{ $postulate->id }}" readonly>
 
                             <div class="mb-3">
@@ -39,7 +39,7 @@
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-success">Asignar</button>
-                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulate.index') }}"
+                                <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index') }}"
                                     class="btn btn-danger">Cancelar</a>
                             </div>
                         </form>

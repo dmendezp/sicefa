@@ -80,7 +80,6 @@
                         doc.content[1].alignment = 'center';
                     }
                 },
-                "copy", "csv", "excel", "print", "colvis"
             ]
         }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
     });

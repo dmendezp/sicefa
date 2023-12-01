@@ -22,6 +22,7 @@ class PeopleTableSeeder extends Seeder
         $eps = EPS::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar EPS
         $pension_entity = PensionEntity::firstOrCreate(['name' => 'NO REGISTRA']); // Consultar o registrar Entidad de pensiones
 
+
         // Consulta o registro de datos Junior Stiven Medina Hernandez
         Person::updateOrCreate(['document_number' => 1079173785], [ // Consultar o registrar Persona
             'document_type' => 'Cédula de ciudadanía',

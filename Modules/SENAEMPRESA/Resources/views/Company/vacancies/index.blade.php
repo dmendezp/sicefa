@@ -43,20 +43,35 @@
     <div class="container">
         <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
         @if (Auth::user()->havePermission('senaempresa.admin.vacancies.filter'))
-            <form method="GET"
-                action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index') }}">
-                <label for="senaempresaFilter">{{ trans('senaempresa::menu.Filter by senaempresa') }}:</label>
-                <select class="form-control" id="senaempresaFilter" name="senaempresaFilter" onchange="this.form.submit()">
-                    <option value="" {{ !$selectedSenaempresaId ? 'selected' : '' }}>
-                        {{ trans('senaempresa::menu.All Senaempresas') }}</option>
-                    @foreach ($senaempresas as $senaempresa)
-                        <option value="{{ $senaempresa->id }}"
-                            {{ $selectedSenaempresaId == $senaempresa->id ? 'selected' : '' }}>
-                            {{ $senaempresa->id }} {{ $senaempresa->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </form>
+            <div class="row">
+                <div class="col">
+                    <form method="GET" action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index') }}">
+                        <label for="cursoFilter">{{ trans('senaempresa::menu.Filter by course') }}:</label>
+                        <select class="form-control" id="cursoFilter" name="cursoFilter" onchange="this.form.submit()">
+                            <option value="">{{ trans('senaempresa::menu.All courses') }}</option>
+                            @foreach ($courses as $course)
+                                <option value="{{ $course->id }}" {{ $selectedCourseId == $course->id ? 'selected' : '' }}>
+                                    {{ $course->code }} {{ $course->program->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+                <div class="col">
+                    <form method="GET" action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index') }}">
+                        <label for="senaempresaFilter">{{ trans('senaempresa::menu.Filter by senaempresa') }}:</label>
+                        <select class="form-control" id="senaempresaFilter" name="senaempresaFilter" onchange="this.form.submit()">
+                            <option value="" {{ !$selectedSenaempresaId ? 'selected' : '' }}>
+                                {{ trans('senaempresa::menu.All Senaempresas') }}</option>
+                            @foreach ($senaempresas as $senaempresa)
+                                <option value="{{ $senaempresa->id }}" {{ $selectedSenaempresaId == $senaempresa->id ? 'selected' : '' }}>
+                                    {{ $senaempresa->id }} {{ $senaempresa->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+            </div>
         @endif
         <br>
         <div class="col-md-12">
@@ -69,6 +84,7 @@
                                 <th>{{ trans('senaempresa::menu.Name') }}</th>
                                 <th>{{ trans('senaempresa::menu.Presentation') }}</th>
                                 <th>{{ trans('senaempresa::menu.Id Position') }}</th>
+                                <th>Senaempresa id</th>
                                 <th>{{ trans('senaempresa::menu.Status') }}</th>
                                 <th class="text-center">{{ trans('senaempresa::menu.Details') }}</th>
                                 @if (Route::is('senaempresa.admin.*') &&
@@ -94,6 +110,7 @@
                                             @endif
                                         @endforeach
                                     </td>
+                                    <td>{{ $vacancy->senaempresa_id }}</td>
                                     <td>{{ $vacancy->state }}</td>
                                     <td class="text-center">
                                         <a class="openModalBtn" title="Ver información" data-bs-toggle="modal"

@@ -80,8 +80,8 @@ Route::middleware(['lang'])->group(function () {
             //RUTAS PARA LA VISUALIZACIÓN Y LA ASIGNACIÓN DE PUNTAJE A LOS POSTULADOS A LAS VACANTES DE SENAEMPRESA
             Route::prefix('postulates')->group(function () {
                 Route::get('/', 'PostulateController@postulates')->name('senaempresa.admin.postulates.index');
-                Route::get('/assign_score/{apprenticeId}', 'FileSenaempresaController@assign_score')->name('senaempresa.admin.postulates.assign_score');
-                Route::post('/score_assigned', 'FileSenaempresaController@score_assigned')->name('senaempresa.admin.postulates.score_assigned');
+                Route::get('/assign_score/{apprenticeId}', 'PostulateController@assign_score')->name('senaempresa.admin.postulates.assign_score');
+                Route::post('/score_assigned', 'PostulateController@score_assigned')->name('senaempresa.admin.postulates.score_assigned');
             });
 
             //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DE LOS CARGOS DE SENAEMPRESA

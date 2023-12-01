@@ -21,7 +21,7 @@ class PermissionsTableSeeder extends Seeder
         $permissions_human_talent_leader = []; // Permisos para Lider de talento humano
         $permissions_psychologo = []; // Permisos para psicologo
         $permissions_apprentice = []; // Permisos para aprendiz
-        
+
 
         // Consultar aplicación SENAEMPRESA para registrar los roles
         $app = App::where('name', 'SENAEMPRESA')->first();
@@ -296,7 +296,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_admin[] = $permission->id; // Almacenar permiso para rol
-        
+
         // Vista de editar los prestamos de senaempresa (Lider Talento Humano)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.human_talent_leader.loans.edit'], [ // Registro o actualización de permiso
             'name' => 'Vista de formulario para editar los prestamos (Lider Talento Humano)',
@@ -494,7 +494,7 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_psychologo[] = $permission->id; // Almacenar permiso para rol
-        
+
         // Vista de asignar puntaje a los postulados (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.assign_score'], [ // Registro o actualización de permiso
             'name' => 'Vista de asignar puntaje (Administrador)',
@@ -604,8 +604,8 @@ class PermissionsTableSeeder extends Seeder
         ]);
         $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
 
-         // Vista de asistencia (Aprendiz)
-         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.attendances.index'], [ // Registro o actualización de permiso
+        // Vista de asistencia (Aprendiz)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.attendances.index'], [ // Registro o actualización de permiso
             'name' => 'Vista asistencia (Aprendiz)',
             'description' => 'Puede ver la vista de asistencia',
             'description_english' => 'You can see the support view',
@@ -704,6 +704,15 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_human_talent_leader[] = $permission->id; // Almacenar permiso para rol
+
+        // mostrar vacantes por cursos (Aprendiz)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.apprentice.vancancy-course'], [ // Registro o actualización de permiso
+            'name' => 'Vacantes por curso (Aprendiz)',
+            'description' => 'Mostrar vacantes por curso al que pertenece',
+            'description_english' => 'Show vacancies by course to which you belong',
+            'app_id' => $app->id
+        ]);
+        $permissions_apprentice[] = $permission->id; // Almacenar permiso para rol
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'senaempresa.admin')->first(); // Rol Administrador Senaempresa

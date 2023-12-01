@@ -60,7 +60,7 @@ class SENAEMPRESAController extends Controller
 
         $totalPositionsCount = $activePositionsCount + $deletedPositionsCount;
         $data = [
-            'title' => 'Administrador', 'totalPositionsCount' => $totalPositionsCount,
+            'title' => trans('senaempresa::menu.Administrator'), 'totalPositionsCount' => $totalPositionsCount,
             'registeredStaffCount' => $registeredStaffCount, 'registeredphasesCount' => $registeredphasesCount, 'postulatesCount' => $postulatesCount,
             'prestamosPrestados' => $prestamosPrestados, 'vacanciesCount' => $vacanciesCount
         ];
@@ -77,7 +77,7 @@ class SENAEMPRESAController extends Controller
             ->whereNull('deleted_at')
             ->count();
         $data = [
-            'title' => 'Lider Talento Humano', 'prestamosPrestados' => $prestamosPrestados,
+            'title' => trans('senaempresa::menu.Human talent leader'), 'prestamosPrestados' => $prestamosPrestados,
             'registeredStaffCount' => $registeredStaffCount
         ];
         return view('senaempresa::Company.human_talent_leader', $data);
@@ -89,7 +89,7 @@ class SENAEMPRESAController extends Controller
             ->count();
 
         $data = [
-            'title' => 'Psicologo', 'postulatesCount' => $postulatesCount
+            'title' => trans('senaempresa::menu.Psychologo'), 'postulatesCount' => $postulatesCount
         ];
         return view('senaempresa::Company.psychologo', $data);
     }
@@ -99,7 +99,7 @@ class SENAEMPRESAController extends Controller
             ->where('state', 'Disponible')
             ->whereNull('deleted_at')
             ->count();
-        $data = ['title' => 'Aprendiz', 'vacanciesCount' => $vacanciesCount];
+        $data = ['title' => trans('senaempresa::menu.Apprentice'), 'vacanciesCount' => $vacanciesCount];
         return view('senaempresa::Company.apprentice', $data);
     }
     /**

@@ -15,7 +15,7 @@ class Vacancy extends Model implements Auditable
         SoftDeletes, // Borrado suave
         HasFactory;
 
-    protected $fillable = ['name', 'image', 'description_general', 'requirement', 'senaempresa_id', 'position_company_id', 'start_datetime', 'end_datetime'];
+    protected $fillable = ['name', 'image', 'description_general', 'requirement', 'senaempresa_id', 'position_company_id', 'start_datetime', 'end_datetime', 'state'];
 
     protected static function newFactory()
     {

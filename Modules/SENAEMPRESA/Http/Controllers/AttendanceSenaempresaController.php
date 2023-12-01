@@ -16,8 +16,7 @@ class AttendanceSenaempresaController extends Controller
     public function new()
     {
         $attendances = AttendanceSenaempresa::with('staffSenaempresa.apprentice.person')->get();
-        $title = "Asistencia";
-        return view('senaempresa::Company.attendance.index', ['attendances' => $attendances, 'title' => $title]);
+        return view('senaempresa::Company.attendance.index', ['attendances' => $attendances, 'title' => trans('senaempresa::menu.Attendance')]);
     }
 
     public function register(Request $request)

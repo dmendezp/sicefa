@@ -19,7 +19,7 @@ class PhaseSenaempresaController extends Controller
     {
         $senaempresas = senaempresa::get();
         $staff = senaempresa::with('Quarter')->get();
-        $data = ['title' => trans('senaempresa::menu.SenaEmpresa - Strategies'), 'senaempresas' => $senaempresas, 'staff' => $staff];
+        $data = ['title' => trans('senaempresa::menu.SenaEmpresa - Phases'), 'senaempresas' => $senaempresas, 'staff' => $staff];
         return view('senaempresa::Company.phases_senaempresa.index', $data);
     }
     public function new()

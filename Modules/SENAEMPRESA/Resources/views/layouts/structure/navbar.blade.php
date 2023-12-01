@@ -13,28 +13,28 @@
             @if (checkRol('senaempresa.admin'))
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('senaempresa.admin.index') }}"
-                        class="nav-link @if (Route::is('senaempresa.admin.*')) active @endif">Administrador
+                        class="nav-link @if (Route::is('senaempresa.admin.*')) active @endif">{{ trans('senaempresa::menu.Administrator') }}
                     </a>
                 </li>
             @endif
             @if (checkRol('senaempresa.human_talent_leader'))
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('senaempresa.human_talent_leader.index') }}"
-                        class="nav-link @if (Route::is('senaempresa.human_talent_leader.*')) active @endif">Lider de talento humano
+                        class="nav-link @if (Route::is('senaempresa.human_talent_leader.*')) active @endif">{{ trans('senaempresa::menu.Human talent leader') }}
                     </a>
                 </li>
             @endif
             @if (checkRol('senaempresa.psychologo'))
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('senaempresa.psychologo.index') }}"
-                        class="nav-link @if (Route::is('senaempresa.psychologo.*')) active @endif">Psicologo
+                        class="nav-link @if (Route::is('senaempresa.psychologo.*')) active @endif">{{ trans('senaempresa::menu.Psychologo') }}
                     </a>
                 </li>
             @endif
             @if (checkRol('senaempresa.apprentice'))
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('senaempresa.apprentice.index') }}"
-                        class="nav-link @if (Route::is('senaempresa.apprentice.*')) active @endif">Aprendiz
+                        class="nav-link @if (Route::is('senaempresa.apprentice.*')) active @endif">{{ trans('senaempresa::menu.Apprentice') }}
                     </a>
                 </li>
             @endif
@@ -47,7 +47,7 @@
             <div type="button" class="button-login">
                 @guest
                     <a href="{{ route('login') }}" class="text-decoration-none" style="color: black; cursor: pointer;">
-                        <span>Iniciar Sesión</span>
+                        <span>{{ trans('senaempresa::menu.Login') }}</span>
                     </a>
                 @else
                     <span>{{ Auth::user()->person->fullname }}</span>
@@ -60,15 +60,15 @@
                 {{ session('lang') }} <i class="fas fa-globe"></i>
             </a>
             <div class="dropdown-menu p-0">
-                <a href="{{ url('lang', ['es']) }}" class="dropdown-item">Español</a>
-                <a href="{{ url('lang', ['en']) }}" class="dropdown-item">English</a>
+                <a href="{{ url('lang', ['es']) }}" class="dropdown-item">{{ trans('senaempresa::menu.Spanish') }}</a>
+                <a href="{{ url('lang', ['en']) }}" class="dropdown-item">{{ trans('senaempresa::menu.English') }}</a>
             </div>
 
         </li>
 
         <li class="nav-item mx-1">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button" data-bs-toggle="tooltip"
-                data-bs-placement="bottom" data-bs-title="{{ trans('senaempresa::general.Full Screen Mode') }}">
+                data-bs-placement="bottom" data-bs-title="{{ trans('senaempresa::menu.Full Screen Mode') }}">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>

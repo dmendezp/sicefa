@@ -72,7 +72,7 @@ return [
     'Quarter' => 'Quarter',
     'SenaEmpresa deleted!' => 'SenaEmpresa deleted!',
     'Home' => 'Home',  // Aside, Navbar,
-    'SenaEmpresa - Strategies' => 'SenaEmpresa - Strategies',
+    'SenaEmpresa - Phases' => 'SenaEmpresa - Phases',
     'New SenaEmpresa' => 'New SenaEmpresa',
     'SenaEmpresa Successfully restored' => 'SenaEmpresa Successfully restored',
     'SenaEmpresa already exists in the database' => 'SenaEmpresa already exists in the database',
@@ -159,7 +159,13 @@ return [
     'Registrants' => 'Registrants',
 
     // Navbar
-
+    'English' => 'English',
+    'Spanish' => 'Spanish',
+    'Full Screen Mode' => 'Full Screen Mode',
+    'Login' => 'Login',
+    'Psychologo' => 'Psychologo',
+    'Human talent leader' => 'Human talent leader',
+    'Administrator' => 'Administrator',
     'Developers' => 'Developers',
 
     //Postulate
@@ -198,11 +204,7 @@ return [
 
 
 
-
-
-
-
-    'Administrator' => 'Administrator',
+    
     'New' => 'New',
     'Failed to create PositionCompany object.' => 'Failed to create PositionCompany object.',
     'Error in creating the position.' => 'Error in creating the position.',

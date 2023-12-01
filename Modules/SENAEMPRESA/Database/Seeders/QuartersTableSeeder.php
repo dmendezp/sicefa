@@ -27,8 +27,11 @@ class QuartersTableSeeder extends Seeder
             // Calcula las fechas de inicio y fin del trimestre
             $startMonth = ($i * 3) + 1;
             $endMonth = $startMonth + 2;
-            $startDate = $year . '-' . str_pad($startMonth, 2, '0', STR_PAD_LEFT) . '-01';
-            $endDate = $year . '-' . str_pad($endMonth, 2, '0', STR_PAD_LEFT) . '-01';
+            $startDay = 15; // Cambia el día de inicio al 15 de cada mes
+            $endDay = cal_days_in_month(CAL_GREGORIAN, $endMonth, $year); // Último día del mes
+
+            $startDate = $year . '-' . str_pad($startMonth, 2, '0', STR_PAD_LEFT) . '-' . str_pad($startDay, 2, '0', STR_PAD_LEFT);
+            $endDate = $year . '-' . str_pad($endMonth, 2, '0', STR_PAD_LEFT) . '-' . str_pad($endDay, 2, '0', STR_PAD_LEFT);
 
             Quarter::updateOrCreate(
                 ['name' => $name], // Verifica si ya existe un trimestre con el mismo nombre
