@@ -14,10 +14,18 @@ class GlossController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $programs = Program::orderby('name', 'ASC')->get();
-        return view('dicsena::gloss', compact('programs'));
+        $programs = Program::orderBy('name', 'ASC')->get();
+        $selectedProgramId = $request->input('program_id');
+
+        if ($selectedProgramId) {
+            $glossaries = Glossary::where('program_id', $selectedProgramId)->get();
+        } else {
+            $glossaries = collect([]);
+        }
+
+        return view('dicsena::gloss', compact('programs', 'glossaries', 'selectedProgramId'));
     }
 
     /**
@@ -78,20 +86,5 @@ class GlossController extends Controller
     public function destroy($id)
     {
         //
-    }
-    public function search(Request $request)
-    {
-        $programId = $request->input('program_id'); // Obtenemos el ID del programa desde el formulario
-
-        // Obtén todas las palabras relacionadas con el programa seleccionado
-        $programs = Program::orderby('name', 'ASC')->get();
-
-        if (!$programs) {
-            return redirect()->route('cefa.dicsena.gloss')->with('error', 'Programa no encontrado');
-        }
-
-        $glossaries = Glossary::where('program_id', $programId)->get();
-
-        return view('dicsena::gloss', compact('glossaries', 'programs'));
     }
 }

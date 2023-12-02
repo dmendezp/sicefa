@@ -1,4 +1,4 @@
-@extends('dicsena::layouts.userview')
+@extends('dicsena::layouts.master')
 
 @section('content')
 <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
@@ -8,7 +8,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav d-flex flex-row justify-content-start">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-globe"></i> DICSENA
@@ -16,6 +16,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a href="{{ url('lang', ['es']) }}" class="dropdown-item">Español</a>
                         <a href="{{ url('lang', ['en']) }}" class="dropdown-item">English</a>
+                        <a href="{{ route('cefa.welcome') }}" class="dropdown-item">Volver a SICEFA</a>
                     </div>
                 </li>
             </ul>
@@ -33,27 +34,74 @@
             </ul>
 
             <ul class="navbar-nav ml-auto">
+                @if(Auth::user())
+                @if(Auth::user()->havePermission('dicsena.instructor.menu'))
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('dicsena.instructor.menu') }}">Panel</a>
                 </li>
+                @endif
+                @endif
             </ul>
         </div>
     </div>
 </nav>
-<form action="{{ route('cefa.dicsena.glossary.search') }}" method="GET">
-    <div class="form-group">
-        <label for="program_id">Selecciona un programa:</label>
-        <select name="program_id" id="program_id" class="form-control">
-            @foreach ($programs as $program)
-            <option value="{{ $program->id }}" @if($program->id == request('program_id')) selected @endif>{{ $program->name }}</option>
-            @endforeach
-        </select>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <form action="{{ route('cefa.dicsena.gloss') }}" method="get">
+                <div class="form-group">
+                    <label for="program_id">Selecciona un programa:</label>
+                    <select name="program_id" id="program_id" class="form-control">
+                        <option value="">------</option>
+                        @foreach ($programs as $program)
+                        <option value="{{ $program->id }}" @if($selectedProgramId==$program->id) selected @endif>
+                            {{ $program->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </form>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Buscar</button>
-</form>
+    <div class="row">
+        <div class="col-md-12">
+            @if($glossaries->isNotEmpty())
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Palabra</th>
+                        <th>Traducción</th>
+                        <th>Significado</th>
+                        <th>Programa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($glossaries as $glossary)
+                    <tr>
+                        <td>{{ $glossary->word }}</td>
+                        <td>{{ $glossary->traduction }}</td>
+                        <td>{{ $glossary->meaning }}</td>
+                        <td>{{ $glossary->program->name }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @else
+            <p>No se encontraron resultados para la búsqueda.</p>
+            @endif
+        </div>
+    </div>
+</div>
+<style>
+    .form-group {
+        text-align: center;
+    }
 
-<footer style="background-color: #3C3B6E; color: white; padding: 20px;">
-    <p style="text-align: center;">Use exclusive for apprentices of SENA</p>
-    <p style="text-align: center;">&copy; 2023</p>
-</footer>
+    button.btn-primary {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+</style>
 @endsection

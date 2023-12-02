@@ -179,7 +179,7 @@ return [
         OwenIt\Auditing\AuditingServiceProvider::class,
 
     ],
-
+    Salmanbe\Deepl\DeeplServiceProvider::class,
     /*
     |--------------------------------------------------------------------------
     | Class Aliases
@@ -235,8 +235,11 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Input' => Illuminate\Support\Facades\Input::class,
-        'Image' => Intervention\Image\Facades\Image::class, // composer require intervention/image
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Deepl' => Salmanbe\Deepl\Deepl::class, // composer require intervention/image
 
     ],
+    'deepl_url' => env('DEEPL_URL', ''),
+    'deepl_key' => env('DEEPL_KEY', ''),
 
 ];

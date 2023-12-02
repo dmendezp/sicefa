@@ -27,7 +27,7 @@ class GlossaryController extends Controller
      */
     public function create()
     {
-        $programs = Program::all();
+        $programs = Program::orderBy('name', 'ASC')->get();
         return view('dicsena::crudglossary.create', compact('programs'));
     }
 
@@ -66,11 +66,13 @@ class GlossaryController extends Controller
      */
     public function edit($id)
     {
-        $programs = Program::all();
+        $programs = Program::orderBy('name', 'ASC')->get();
         $glossary = Glossary::find($id);
+
         if (!$glossary) {
             return redirect()->route('dicsena.instructor.glossary.index')->with('error', 'Glosario no encontrado');
         }
+
         return view('dicsena::crudglossary.edit', compact('glossary', 'programs'));
     }
 

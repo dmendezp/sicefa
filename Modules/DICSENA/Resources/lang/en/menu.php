@@ -1,5 +1,6 @@
 return [
 'DICSENA' => 'DICSENA',
+'add_words' => 'add_words',
 'spanish' => 'Spanish',
 'english' => 'English',
 'translator' => 'Translator',

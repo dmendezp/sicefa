@@ -3,6 +3,9 @@
 
 @endsection
 @section('content')
+<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+    @include('dicsena::layouts.partials.navbar')
+</nav>
 <div class="container">
     <h1 align="center">Glosarios</h1>
     <div class="d-flex align-items-center mb-3">

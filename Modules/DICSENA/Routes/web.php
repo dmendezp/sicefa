@@ -11,6 +11,7 @@ Route::middleware(['lang'])->group(function () {
     Route::prefix('dicsena')->group(function () {
         Route::get('/', 'DICSENAController@index');
         Route::get('/index', [HomeController::class, 'index'])->name('cefa.dicsena.home.index');
+        Route::get('/translate', [HomeController::class, 'translate'])->name('translate');
         Route::get('/guide', 'GuideController@index')->name('cefa.dicsena.guide');
         Route::get('/gloss', 'GlossController@index')->name('cefa.dicsena.gloss');
         Route::get('/menu', 'MenuController@index')->name('dicsena.instructor.menu');
@@ -22,7 +23,6 @@ Route::middleware(['lang'])->group(function () {
         Route::delete('/glossary/destroy/{glossary}', 'GlossaryController@destroy')->name('dicsena.instructor.destroy');
         Route::put('/glossary/update/{glossary}', 'GlossaryController@update')->name('dicsena.instructor.glossary.update');
         //routes crudguide
-        Route::get('gloss/search', 'GlossController@search')->name('cefa.dicsena.glossary.search');
 
         Route::get('/guidepost', 'GuidepostController@index')->name('dicsena.instructor.guidepost.index');
         Route::get('/guidepost/create', 'GuidepostController@create')->name('dicsena.instructor.guidepost.create');

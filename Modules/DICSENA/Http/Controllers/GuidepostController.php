@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\SICA\Entities\Program;
 use Modules\SICA\Entities\Person;
 use Modules\DICSENA\Entities\Guidepost;
+use Illuminate\Support\Facades\Storege;
 
 class GuidepostController extends Controller
 {
@@ -27,7 +28,7 @@ class GuidepostController extends Controller
      */
     public function create()
     {
-        $programs = Program::all();
+        $programs = Program::orderBy('name', 'ASC')->get();
         return view('dicsena::crudguide.create', compact('programs'));
     }
 
@@ -77,7 +78,7 @@ class GuidepostController extends Controller
     public function edit($id)
     {
         $guidepost = Guidepost::findOrFail($id);
-        $programs = Program::all();
+        $programs = Program::orderBy('name', 'ASC')->get();
         return view('dicsena::crudguide.edit', compact('guidepost', 'programs'));
     }
 

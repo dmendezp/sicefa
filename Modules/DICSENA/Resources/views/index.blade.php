@@ -1,4 +1,4 @@
-@extends('dicsena::layouts.userview')
+@extends('dicsena::layouts.master')
 
 @section('content')
 <nav class="navbar navbar-expand-lg navbar-light bg-danger">
@@ -8,14 +8,15 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav d-flex flex-row justify-content-start">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-globe"></i>DICSENA
+                        <i class="fas fa-globe"></i> DICSENA
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a href="{{ url('lang', ['es']) }}" class="dropdown-item">Español</a>
                         <a href="{{ url('lang', ['en']) }}" class="dropdown-item">English</a>
+                        <a href="{{ route('cefa.welcome') }}" class="dropdown-item">Volver a SICEFA</a>
                     </div>
                 </li>
             </ul>
@@ -44,7 +45,6 @@
         </div>
     </div>
 </nav>
-
 <div class="container">
     <div class="wrapper">
         <div class="text-input">
@@ -69,12 +69,9 @@
             </li>
         </ul>
     </div>
-    <button class="btn">Translate Text</button>
+    <button>Translate Text</button>
 </div>
+<script src="{{ asset('modules/dicsena/js/api.js') }}"></script>
 <script src="{{ asset('modules/dicsena/js/countries.js') }}"></script>
 <script src="{{ asset('modules/dicsena/js/script.js') }}"></script>
-<footer style="background-color: #3C3B6E; color: white; padding: 20px;">
-    <p style="text-align: center;">Use exclusive for apprentices of SENA</p>
-    <p style="text-align: center;">&copy; 2023</p>
-</footer>
 @endsection
