@@ -52,7 +52,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($postulationsBenefits as $postulationBenefit)
-                                    @if ($postulationBenefit->state == 'Beneficiado')
+                                    @if ($postulationBenefit->state == 'Beneficiario')
                                         <tr class="benefit-row">
                                             <td>{{ $loop->iteration}}</td>
                                             <td>{{ $postulationBenefit->benefit->name }}</td>

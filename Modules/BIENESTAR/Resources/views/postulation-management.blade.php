@@ -16,86 +16,90 @@
             </div>
         </div>
         
-        <div style="border: 1px solid #707070; padding: 20px; background-color: white; border-radius: 10px;">
-            @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management'))
-            <form id="update-benefit-status-form" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management') }}" method="POST">
-                @csrf
-                <table id="benefitsTable" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>{{ trans('bienestar::menu.Select')}}</th> 
-                            <th>{{ trans('bienestar::menu.Apprentice Name')}}</th>
-                            <th>{{ trans('bienestar::menu.Convocation')}}</th>
-                            <th>{{ trans('bienestar::menu.Benefit to which you are applying')}}</th>
-                            <th>{{ trans('bienestar::menu.Application Status')}}</th>
-                            <th>{{ trans('bienestar::menu.Application Score')}}</th>
-                            <th>{{ trans('bienestar::menu.Actions')}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($postulations as $postulation)
-                        @php
-                            $benefitState = '';
-                            foreach($postulation->postulationBenefits as $postulationBenefit) {
-                                if ($postulationBenefit->state === 'Beneficiado') {
-                                    $benefitState = 'Beneficiado';
-                                    break;
-                                }
-                            }
-                        @endphp
-                        @if ($benefitState !== 'Beneficiado')
-                        <tr data-id="{{ $postulation->id }}">
-                            <td>{{ $loop->iteration }}</td>
-                            <td>
-                                <label class="container_management">
-                                    <input type="checkbox" class="benefit-checkbox_management" name="selected_postulations[]" value="{{ $postulation->id }}" onchange="guardarSeleccion(this)">
-                                    <div class="checkmark_management"></div>
-                                </label>
-                            </td>
-                            
-                            <td>{{ $postulation->apprentice->person->full_name }}</td>
-                            <td>{{ $postulation->convocation->name }} - {{ $postulation->convocation->description }}</td>
-                            <td>
+        <div class="row justify-content-md-center pt-4">
+            <div class="card shadow col-md-12">
+                <div class="card-body">
+                    @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management'))
+                    <form id="update-benefit-status-form" action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.update-benefits.postulation-management') }}" method="POST">
+                        @csrf
+                        <table id="benefitsTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>{{ trans('bienestar::menu.Select')}}</th> 
+                                    <th>{{ trans('bienestar::menu.Apprentice Name')}}</th>
+                                    <th>{{ trans('bienestar::menu.Convocation')}}</th>
+                                    <th>{{ trans('bienestar::menu.Benefit to which you are applying')}}</th>
+                                    <th>{{ trans('bienestar::menu.Application Status')}}</th>
+                                    <th>{{ trans('bienestar::menu.Application Score')}}</th>
+                                    <th>{{ trans('bienestar::menu.Actions')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($postulations as $postulation)
                                 @php
-                                    $transportationBenefit = $postulation->transportation_benefit;
-                                    $feedBenefit = $postulation->feed_benefit;
+                                    $benefitState = '';
+                                    foreach($postulation->postulationBenefits as $postulationBenefit) {
+                                        if ($postulationBenefit->state === 'Beneficiario') {
+                                            $benefitState = 'Beneficiario';
+                                            break;
+                                        }
+                                    }
                                 @endphp
-                            
-                                @if ($transportationBenefit == 1)
-                                    <span>Transporte</span>
+                                @if ($benefitState !== 'Beneficiario')
+                                <tr data-id="{{ $postulation->id }}">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <label class="container_management">
+                                            <input type="checkbox" class="benefit-checkbox_management" name="selected_postulations[]" value="{{ $postulation->id }}" onchange="guardarSeleccion(this)">
+                                            <div class="checkmark_management"></div>
+                                        </label>
+                                    </td>
+                                    
+                                    <td>{{ $postulation->apprentice->person->full_name }}</td>
+                                    <td>{{ $postulation->convocation->name }} - {{ $postulation->convocation->description }}</td>
+                                    <td>
+                                        @php
+                                            $transportationBenefit = $postulation->transportation_benefit;
+                                            $feedBenefit = $postulation->feed_benefit;
+                                        @endphp
+                                    
+                                        @if ($transportationBenefit == 1)
+                                            <span>Transporte</span>
+                                        @endif
+                                    
+                                        @if ($feedBenefit == 1)
+                                            <span>Alimentación</span>
+                                        @endif
+                                    
+                                        @if ($transportationBenefit == 0 && $feedBenefit == 0)
+                                            {{ trans('bienestar::menu.Not available') }}
+                                        @endif
+                                    </td>
+                                    
+                                    
+                                    <td>
+                                        @foreach($postulation->postulationBenefits as $postulationBenefit)
+                                            <span>{{ $postulationBenefit->state }}</span><br>
+                                        @endforeach
+                                    </td>
+                                    
+                                    <td>{{ $postulation->total_score }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal_{{ $postulation->id }}">
+                                            {{ trans('bienestar::menu.View Details')}}
+                                        </button>
+                                    </td>
+                                </tr>
                                 @endif
-                            
-                                @if ($feedBenefit == 1)
-                                    <span>Alimentación</span>
-                                @endif
-                            
-                                @if ($transportationBenefit == 0 && $feedBenefit == 0)
-                                    {{ trans('bienestar::menu.Not available') }}
-                                @endif
-                            </td>
-                            
-                            
-                            <td>
-                                @foreach($postulation->postulationBenefits as $postulationBenefit)
-                                    <span>{{ $postulationBenefit->state }}</span><br>
                                 @endforeach
-                            </td>
-                            
-                            <td>{{ $postulation->total_score }}</td>
-                            <td>
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal_{{ $postulation->id }}">
-                                    {{ trans('bienestar::menu.View Details')}}
-                                </button>
-                            </td>
-                        </tr>
-                        @endif
-                        @endforeach
-                    </tbody>
-                </table>
-                <button type="submit" id="guardarBtn" class="btn btn-primary">{{ trans('bienestar::menu.Save Records')}}</button>
-            </form>
-            @endif
+                            </tbody>
+                        </table>
+                        <button type="submit" id="guardarBtn" class="btn btn-success btn-block">{{ trans('bienestar::menu.Save Records')}}</button>
+                    </form>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -349,7 +353,7 @@ guardarBtn.addEventListener('click', function () {
                 let ocultar = true;
 
                 estados.forEach(function (estado) {
-                    if (estado.textContent !== 'Beneficiado') {
+                    if (estado.textContent !== 'Beneficiario') {
                         ocultar = false;
                     }
                 });
