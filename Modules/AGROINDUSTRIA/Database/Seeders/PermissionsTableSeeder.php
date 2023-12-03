@@ -44,11 +44,11 @@ class PermissionsTableSeeder extends Seeder
 
         $permission_admin[] = $permission->id; // Almacenar permiso para rol
 
-         //Registrar actividades (Administrador)
+         //Ver actividades (Administrador)
          $permission = Permission::updateOrCreate(['slug' => 'agroindustria.admin.units.activity'], [
-            'name' => 'Registrar actividades',
-            'description' => 'Puede registrar las actividades de cada unidad productiva de agroindustria (Administrador)',
-            'description_english' => 'You can register the activities of each productive unit of agroindustrys',
+            'name' => 'Ver actividades',
+            'description' => 'Puede ver las actividades de cada unidad productiva de agroindustria (Administrador)',
+            'description_english' => 'You can see the activities of each productive unit of agroindustrys',
             'app_id' => $app->id
         ]);
 
@@ -184,20 +184,10 @@ class PermissionsTableSeeder extends Seeder
         $permission_instructor[] = $permission->id;  
 
         //Visualizar actividades.
-        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.activity.index'], [
-            'name' => 'Visualizar la vista de Actividades.',
-            'description' => 'Puede visualizar las actividades registradas',
-            'description_english' => 'You can view the recorded activities',
-            'app_id' => $app->id
-        ]);
-
-        $permission_instructor[] = $permission->id;
-
-        //Registrar actividades
-        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.activity.register'], [
-            'name' => 'Registrar actividades',
-            'description' => 'Puede registrar las actividades de cada unidad productiva de agroindustria',
-            'description_english' => 'You can register the activities of each productive unit of agroindustrys',
+        $permission = Permission::updateOrCreate(['slug' => 'agroindustria.instructor.units.activity'], [
+            'name' => 'Ver actividades',
+            'description' => 'Puede ver las actividades de cada unidad productiva de agroindustria (Instructor)',
+            'description_english' => 'You can see the activities of each productive unit of agroindustrys',
             'app_id' => $app->id
         ]);
 

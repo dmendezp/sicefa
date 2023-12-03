@@ -4,7 +4,7 @@
 <h1 class="title_labor">{{trans('agroindustria::labors.labors')}}</h1>
 
 <div class="table-labors">
-    <table id="labors" class="hover" style="width: 98%;">
+    <table id="labors" class="table table-striped" style="width: 98%;">
         <thead>
             <tr>
                 <th>{{trans('agroindustria::labors.activity')}}</th>
@@ -43,10 +43,14 @@
                             @csrf
                             <button type="submit" class="btn btn-danger">Cancelar</button>
                         </form>
-                        
+                        <br>
                         @csrf
                         <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#realizar{{$l->id}}">Realizar</button>
-
+                        <form method="GET" action="{{ route('cefa.agroindustria.units.instructor.labor.excel', ['laborId' => $l->id]) }}">
+                            @csrf
+                            <br>
+                            <button type="submit" class="btn btn-success"><i class="fas fa-file-excel"></i> Solicitud de Bienes</button>
+                        </form>
                     @endif
                 </td>
             </tr>

@@ -8,7 +8,8 @@
       <div class="row">
         @foreach ($units as $unit)
             <div class="col">
-                <a href="{{route('agroindustria.instructor.units.activity.index' , ['unit'=> $unit->id])}}">
+                @if(Auth::user()->havePermission('agroindustria.instructor.units.activity'))
+                <a href="{{route('agroindustria.instructor.units.activity' , ['unit'=> $unit->id])}}">
                     <button class="card-client-button" id="boton_unit" data-unit-name="{{ $unit->name }}"  onclick="selectUnit('{{ $unit->id }}', '{{ $unit->name }}')">
                         <div class="card-client-content">
                             <h2 class="tittleU">{{ $unit->name }}</h2>
@@ -17,7 +18,19 @@
                             <br><br>
                         </div>
                     </button>   
-                </a>             
+                </a>      
+                @else
+                <a href="{{route('agroindustria.admin.units.activity' , ['unit'=> $unit->id])}}">
+                    <button class="card-client-button" id="boton_unit" data-unit-name="{{ $unit->name }}"  onclick="selectUnit('{{ $unit->id }}', '{{ $unit->name }}')">
+                        <div class="card-client-content">
+                            <h2 class="tittleU">{{ $unit->name }}</h2>
+                            <br>
+                            <i class="{{$unit->icon}}" style="color: #ffffff;"></i>
+                            <br><br>
+                        </div>
+                    </button>   
+                </a>  
+                @endif
             </div>
         @endforeach            
         </div>

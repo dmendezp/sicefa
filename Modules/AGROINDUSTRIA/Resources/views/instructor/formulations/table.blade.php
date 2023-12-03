@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="table_formulation">
-    <table id="formulation" class="hover" style="width: 100%">
+    <table id="formulation" class="table table-striped" style="width: 100%">
         <thead>
             <tr>
                 <th>Fecha de creación</th>

@@ -2,7 +2,7 @@
 @section('content')
     
 <div class="table-request">
-    <table id="request" class="hover" style="width: 90%">
+    <table id="request" class="table table-striped" style="width: 90%">
         <thead>
             <tr>
                 <th>{{trans('agroindustria::request.date')}}</th>

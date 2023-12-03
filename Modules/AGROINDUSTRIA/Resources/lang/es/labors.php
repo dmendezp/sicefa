@@ -23,6 +23,11 @@
         'selectRecipe' => 'Seleccione una receta',
         'selectDestination' => 'Seleccione un destino',
 
+        //consumibles
+        'consumables' => 'Consumibles',
+        'openConsumableForm' => 'Registrar consumibles',
+        'closeConsumableForm' => 'Cerrar formulario de consumibles',
+
         //ejecutores
         'openCollaboratorFormulatio' => 'Registrar colaboradores',
         'closeCollaboratorsForm' => 'Cerrar formulario de colaboradores',

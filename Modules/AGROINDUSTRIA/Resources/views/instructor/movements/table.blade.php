@@ -1,4 +1,4 @@
-<table id="deliveries" class="hover" style="width: 98%;">
+<table id="deliveries" class="table table-striped" style="width: 98%;">
     <thead>
         <tr>
             <th>{{trans('agroindustria::menu.Date Time')}}</th>

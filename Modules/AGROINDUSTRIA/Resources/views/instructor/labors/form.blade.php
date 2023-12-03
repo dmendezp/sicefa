@@ -90,16 +90,16 @@
                             {!! Form::number('total_labor', null, ['class' => 'form-control', 'id' => 'total_labor', 'readonly' => 'readonly']) !!}
                         </div>
                         <div class="col-md-12">
-                            <button type="button" id="toggle-form-consumables">Registro de consumibles</button>
+                            <button type="button" id="toggle-form-consumables">{{ trans('agroindustria::labors.openConsumableForm') }}</button>
                             <button type="button" id="toggle-form-tools">Registro de herramientas</button>
                             <button type="button" id="toggle-form">{{ trans('agroindustria::labors.openCollaboratorFormulatio') }}</button>
                             <button type="button" id="toggle-form-equipment">Registro de Equipos</button>
                             <button type="button" id="toggle-form-resources">Recursos Ambientales</button>
                             <div class="consumables" id="form-container-consumables">
                                 <div id="form-consumables">
-                                    <h3>{{trans('agroindustria::request.products')}}</h3>
+                                    <h3>{{trans('agroindustria::labors.consumables')}}</h3>
                                     <!-- Aquí se agregarán los campos de producto dinámicamente -->
-                                    <button type="button" id="add-consumables">{{trans('agroindustria::request.addProduct')}}</button>
+                                    <button type="button" id="add-consumables">Añadir consumibles</button>
                                     <div class="consumable">
                                         <div class="form-group-consumables">
                                             {!! Form::label('consumables', 'Consumibles') !!}
@@ -118,7 +118,7 @@
                                             {!! Form::label('price_consumable_total', 'Total') !!}
                                             {!! Form::number('price_unit_consumable_total', null, ['class'=>'form-control', 'id' => 'price_unit_consumable_total', 'readonly' => 'readonly']) !!}
                                         </div>
-                                        {!! Form::button(trans('agroindustria::request.delete'), ['class'=>'remove-consumables']) !!}                                
+                                        {!! Form::button('Eliminar', ['class'=>'remove-consumables']) !!}                                
                                     </div>                           
                                 </div>
                             </div>

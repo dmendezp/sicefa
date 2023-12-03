@@ -104,14 +104,12 @@ class DeliverController extends Controller
         END")->get();
 
         // Cuenta los movimientos con estado "solicitado"
-        $pendingMovementsCount = Movement::whereHas('warehouse_movements', function ($query) {
-            $query->where('role', 'Recibe');
+        $pendingMovementsCount = Movement::whereHas('warehouse_movements', function ($query) use ($id) {
+            $query->where('productive_unit_warehouse_id', $id)
+                  ->where('role', 'RECIBE');
         })->whereHas('movement_responsibilities', function ($r) use ($idPersona){
             $r->where('person_id', $idPersona)
             ->where('role', 'RECIBE');
-        })->whereHas('warehouse_movements', function ($query) use ($id) {
-            $query->where('productive_unit_warehouse_id', $id)
-                  ->where('role', 'ENTREGA');
         })->where('state', 'Solicitado')->count();
 
 
@@ -167,9 +165,7 @@ class DeliverController extends Controller
         return response()->json(['id' => $inventory]);
     }
     
-    public function createMoveOut(Request $request){
-
-        
+    public function createMoveOut(Request $request){     
             $rules=[
                 'receive' => 'required',
                 'deliver_warehouse' => 'required',
@@ -298,8 +294,9 @@ class DeliverController extends Controller
             $mr->save();
 
             //Registro del WarehouseMovement (entrega)
+            $selectedUnit = session('viewing_unit');
             $ProductiveUnitWarehouseDeliver = ProductiveUnitWarehouse::where('warehouse_id', $validatedData['deliver_warehouse'])
-            ->get();
+            ->where('productive_unit_id', $selectedUnit)->get();
             foreach($ProductiveUnitWarehouseDeliver as $pd){
                 $idD = $pd->id;
             }
@@ -328,7 +325,7 @@ class DeliverController extends Controller
             DB::commit();
 
             // Redirige a la página de éxito
-            return redirect()->route('cefa.agroindustria.units.instructor.movements')->with([
+            return redirect()->route('agroindustria.instructor.units.movements')->with([
                 'icon' => 'success',
                 'message_line' => trans('agroindustria::menu.Successful check out'),
             ]);
@@ -337,7 +334,7 @@ class DeliverController extends Controller
             DB::rollBack();
 
             // Redirige de vuelta con un mensaje de error
-            return redirect()->route('cefa.agroindustria.units.instructor.movements')->with([
+            return redirect()->route('agroindustria.instructor.units.movements')->with([
                 'icon' => 'error',
                 'message_line' => trans('agroindustria::menu.Check out error'),
             ]);
@@ -348,7 +345,6 @@ class DeliverController extends Controller
         $title = "Pendientes";
         
         $selectedUnit = session('viewing_unit');
-        $unitName = ProductiveUnit::findOrFail($selectedUnit);
 
         //Bodega que entrega
 
@@ -368,7 +364,7 @@ class DeliverController extends Controller
                   ->where('role', 'RECIBE');
         })->whereHas('warehouse_movements', function ($query) use ($id) {
             $query->where('productive_unit_warehouse_id', $id)
-                  ->where('role', 'ENTREGA');
+                  ->where('role', 'RECIBE');
         })->orderByRaw("
         CASE
             WHEN state = 'Solicitado' THEN 1

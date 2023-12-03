@@ -20,7 +20,8 @@ Route::middleware(['lang'])->group(function(){
         Route::get('/index', 'AGROINDUSTRIAController@index')->name('cefa.agroindustria.home.index');
         Route::get('/cedula/{coordinatorId}', [RequestController::class, 'document_coordinator'])->name('cefa.agroindustria.cedula');
         Route::get('/formulation/recipes', 'AGROINDUSTRIAController@recipes')->name('cefa.agroindustria.home.formulations.recipes');
-        Route::get('/agroindustria/generar-excel-consumables/{laborId}', [ExcelController::class, 'generarExcelConsumables'])->name('generarExcelConsumables');
+        
+        Route::get('/manual', 'AGROINDUSTRIAController@manual')->name('cefa.agroindustria.home.manual');
 
         //admin
         Route::prefix('admin')->group(function (){
@@ -102,8 +103,9 @@ Route::middleware(['lang'])->group(function(){
             Route::post('/labor/cancelar/{id}', [LaborController::class, 'cancelLabor'])->name('cefa.agroindustria.units.instructor.labor.cancelar');
             Route::post('/labor/realizar/{id}', [LaborController::class, 'approbedLabor'])->name('cefa.agroindustria.units.instructor.labor.realizar');
             Route::put('/labor/realizar/movement/{id}', [LaborController::class, 'movement'])->name('cefa.agroindustria.units.instructor.labor.realizar.movement');
-            Route::get('/activity/{unit}', [ActivityController::class, 'activity'])->name('agroindustria.instructor.units.activity.index');
-            
+            Route::get('/activity/{unit}', [ActivityController::class, 'activity'])->name('agroindustria.instructor.units.activity');
+            Route::get('/agroindustria/generar-excel-consumables/{laborId}', [ExcelController::class, 'generateExcel'])->name('cefa.agroindustria.units.instructor.labor.excel');
+
             //Producción
             Route::get('/production', [ProductionController::class, 'index'])->name('agroindustria.instructor.units.production');
 

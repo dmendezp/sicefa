@@ -46,9 +46,9 @@
 
             @if(Route::is('*units.*'))
                 <!--Menú instructor-->
-                @if(Auth::user()->havePermission('agroindustria.instructor.units.activity.index'))
+                @if(Auth::user()->havePermission('agroindustria.instructor.units.activity'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('agroindustria.instructor.units.activity.index', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
+                        <a class="nav-link" href="{{route('agroindustria.instructor.units.activity', ['unit'=> (session('viewing_unit'))])}}">{{trans('agroindustria::menu.Activities')}}</a>
                     </li>
                 @endif  
 
@@ -115,13 +115,15 @@
     </div>
     @endif
     <!-- Traduccion -->
-    <div class="dropdown_lang">
-        <button class="dropbtn" onclick="toggleDropdown()"> {{ session('lang') }} <i class="fas fa-globe"></i></button>
-        <div id="myDropdown" class="dropdown-content">
-            <a href="{{ url('lang',['es']) }}">Español</a>
-            <a href="{{ url('lang',['en']) }}">English</a>
-        </div>
-    </div>
+    <li class="dropdown_lang" style="position: relative; right: 80px; list-style-type: none;">
+        <a class="nav-link scrollto" data-toggle="dropdown_lang" href="#">
+          {{ session('lang') }} <i class="fas fa-globe"></i>
+        </a>
+        <ul>
+          <li><a href="{{ url('lang',['es']) }}" class="dropdown-item scrollto">Español</a></li>
+          <li><a href="{{ url('lang',['en']) }}" class="dropdown-item scrollto">Ingles</a></li>
+        </ul>
+    </li>
     
     
     <!-- Perfil, login, volver a sicefa -->
@@ -145,6 +147,10 @@
                           <div class="login"><a href="{{ route('login') }}" class="d-block">{{ trans('Auth.Login') }}</a></div>
                       </div>
                       <div class="col info float-right mt-2" id="icon_login" data-toggle="tooltip" data-placement="right" title="{{ trans('Auth.Login') }}"><a href="{{ route('login') }}" class="d-block" ><i class="fas fa-sign-in-alt"></i></a></div>
+                      <a href="{{ route ('cefa.agroindustria.home.manual')}}" class="nav-link" id="question">
+                        <i class="fas fa-question-circle"></i>
+                        <span id="volver-sicefa">Manual de Usuario</span>
+                      </a>                    
                       @else
                       <div class="col info info-user">
                           <div class="nickname" data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->person->first_name }} {{ Auth::user()->person->first_last_name }} {{ Auth::user()->person->second_last_name }}">{{ Auth::user()->nickname }}</div>
@@ -156,6 +162,10 @@
                       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                        </form>
+                       <a href="{{ route ('cefa.agroindustria.home.manual')}}" class="nav-link" id="question">
+                            <i class="fas fa-question-circle"></i>
+                            <span id="volver-sicefa">Manual de Usuario</span>
+                        </a>   
                        @endguest
                        <a href="{{ route('cefa.welcome') }}" class="nav-link {{ ! Route::is('cefa.contact.maps') ?: 'active' }}">
                         <i class="fas fa-puzzle-piece" id="sicefa"></i>

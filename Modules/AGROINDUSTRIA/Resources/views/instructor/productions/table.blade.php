@@ -2,7 +2,7 @@
 @section('content')
     <h1 style="text-align: center">Producción</h1>
     <div class="production" style="margin-left:20px; margin-right:20px;">
-        <table id="table-production" class="hover" style="width: 100%;">
+        <table id="table-production" class="table table-striped" style="width: 100%;">
             <thead>
                 <tr>
                     <th>Producto</th>
