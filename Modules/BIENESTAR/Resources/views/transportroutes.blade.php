@@ -35,11 +35,12 @@
                             <select name="bus" id="bus" class="form-control" required>
                                 <option value="">{{ trans('bienestar::menu.Select a bus')}}</option>
                                 @foreach ( $buses as $bus )
-                                <option value="{{ $bus->id }}" data-bus-driver="{{ $bus->bus_driver->name }}">{{ $bus->plate }}</option>
+                                <option value="{{ $bus->id }}" data-bus-driver="{{ $bus->bus_driver->name }}" data-bus-quotas="{{ $bus->quota }}">{{ $bus->plate }}</option>
                                 @endforeach
 
                             </select>
                         </div>
+                        <input type="hidden" id="bus_quota" name="bus_quota" class="form-control" placeholder="Nombre del Conductor" readonly="readonly">
                         <div class="col-md-3">
                             <label for="bus">{{ trans('bienestar::menu.Drivers Name')}}</label>
                             <input id="bus_driver" name="driver_name" type="text" class="form-control" placeholder="Nombre del Conductor" readonly="readonly">
@@ -179,23 +180,7 @@
     </div>
 </div>
 @endforeach
-<!-- Modales de edición -->
-<div class="modal fade" id="editModal{{ $transport->id }}" tabindex="-1" aria-labelledby="editModal{{ $transport->id }}Label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModal{{ $transport->id }}Label">Editar Transporte</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Formulario de edición con validación -->
 
-            </div>
-        </div>
-    </div>
-</div>
 <script>
     // Escuchar el evento de cambio en el campo de selección "Bus"
     $('#bus').change(function() {
@@ -204,9 +189,11 @@
 
         // Encontrar la opción seleccionada y obtener el atributo "data-bus-driver"
         var selectedBusDriver = $('option:selected', this).data('bus-driver');
+        var selectedBusQuota = $('option:selected', this).data('bus-quotas');
 
         // Actualizar el campo de entrada "Nombre del Conductor" con el nombre del conductor
         $('#bus_driver').val(selectedBusDriver);
+        $('#bus_quota').val(selectedBusQuota);
     });
 </script>
 @endsection

@@ -39,7 +39,6 @@
                             <tr>
                                 <th>{{ trans('bienestar::menu.Apprentice')}}</th>
                                 <th>{{ trans('bienestar::menu.Number Document')}}</th>
-                                <th>{{ trans('bienestar::menu.Beneficiary')}}</th>
                                 <th>{{ trans('bienestar::menu.Program')}}</th>
                                 <th>{{ trans('bienestar::menu.code')}}</th>
                                 <th>{{ trans('bienestar::menu.percentage')}}</th>
@@ -51,7 +50,6 @@
                                 <tr>
                                     <td>{{ $AssistancesFood->apprentice->person->first_name }} {{ $AssistancesFood->apprentice->person->first_last_name }} {{ $AssistancesFood->apprentice->person->second_last_name }}</td>
                                     <td>{{ $AssistancesFood->apprentice->person->document_number }}</td>
-                                    <td>{{ $AssistancesFood->postulationBenefit->benefit->name }}</td>
                                     <td>{{ $AssistancesFood->apprentice->course->program->name }}</td>
                                     <td>{{ $AssistancesFood->apprentice->course->code }}</td>
                                     <td>{{ $AssistancesFood->porcentage }}</td>

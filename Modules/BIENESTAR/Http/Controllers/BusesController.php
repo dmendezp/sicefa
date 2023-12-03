@@ -57,9 +57,9 @@ class BusesController extends Controller
     
         if ($buses->save()) {
             // Redirige con un mensaje de éxito
-            return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
+            return redirect()->route('bienestar.admin.transportation.crud.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
         }else{
-            return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Se Ha Producido Un Error.')->with('typealert', 'danger');
+            return redirect()->route('bienestar.admin.transportation.crud.buses')->with('message', 'Se Ha Producido Un Error.')->with('typealert', 'danger');
         }
 
     }
@@ -87,9 +87,9 @@ class BusesController extends Controller
     // Actualiza otros campos aquí
 
     if ($buses->save()) {
-        return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Bus actualizado correctamente.')->with('typealert', 'success');
+        return redirect()->route('bienestar.admin.transportation.crud.buses')->with('message', 'Bus actualizado correctamente.')->with('typealert', 'success');
     } else {
-        return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Se ha producido un error')->with('typealert', 'danger');
+        return redirect()->route('bienestar.admin.transportation.crud.buses')->with('message', 'Se ha producido un error')->with('typealert', 'danger');
     }
 }
 

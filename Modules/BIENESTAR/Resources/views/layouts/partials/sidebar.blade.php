@@ -127,9 +127,9 @@
                 </a>
               </li>
               @endif
-              @if(Auth::user()->havePermission('bienestar.admin.transportation.view.assign_transport_route'))
+              @if(Auth::user()->havePermission('bienestar.admin.transportation.view.assing_form_transportation_routes'))
               <li class="nav-item">
-                <a href="{{ route('bienestar.admin.transportation.view.assign_transport_route') }}" class="nav-link {{ !Route::is('bienestar.admin.transportation.view.assign_transport_route') ?: 'sactive' }}">
+                <a href="{{ route('bienestar.admin.transportation.view.assing_form_transportation_routes') }}" class="nav-link {{ !Route::is('bienestar.admin.transportation.view.assing_form_transportation_routes') ?: 'sactive' }}">
                   <p>{{ trans('bienestar::menu.Assign Routes')}}</p>
                 </a>
               </li>
@@ -257,23 +257,23 @@
                 </a>
               </li>
               @endif
-              @if(Auth::user()->havePermission('bienestar.transportation_benefits_leader.view.assign_transport_route'))
+              @if(Auth::user()->havePermission('bienestar.transportation_benefits_leader.transportation.view.assing_form_transportation_routes'))
               <li class="nav-item">
-                <a href="{{ route('bienestar.transportation_benefits_leader.view.assign_transport_route') }}" class="nav-link {{ !Route::is('bienestar.transportation_benefits_leader.view.assign_transport_route') ?: 'sactive' }}">
+                <a href="{{ route('bienestar.transportation_benefits_leader.transportation.view.assing_form_transportation_routes') }}" class="nav-link {{ !Route::is('bienestar.transportation_benefits_leader.transportation.view.assing_form_transportation_routes') ?: 'sactive' }}">
                   <p>{{ trans('bienestar::menu.Assign Routes')}}</p>
                 </a>
               </li>
               @endif
-              @if(Auth::user()->havePermission('bienestar.transportation_benefits_leader.view.asistance_transport'))
+              @if(Auth::user()->havePermission('bienestar.transportation_benefits_leader.transportation.view.asistance_transport'))
               <li class="nav-item has-treeview">
-                <a href="{{route('bienestar.transportation_benefits_leader.view.asistance_transport')}}" class="nav-link {{ !Route::is('bienestar.transportation_benefits_leader.view.asistance_transport') ?: 'sactive' }}">
+                <a href="{{route('bienestar.transportation_benefits_leader.transportation.view.asistance_transport')}}" class="nav-link {{ !Route::is('bienestar.transportation_benefits_leader.transportation.view.asistance_transport') ?: 'sactive' }}">
                   <p>{{ trans('bienestar::menu.Take Assistance')}}</p>
                 </a>
               </li>
               @endif
-              @if(Auth::user()->havePermission('bienestar.transportation_benefits_leader.view.transportation_assistance_lists'))
+              @if(Auth::user()->havePermission('bienestar.transportation_benefits_leader.transportation.view.transportation_assistance_lists'))
               <li class="nav-item has-treeview">
-                <a href="{{route('bienestar.transportation_benefits_leader.view.transportation_assistance_lists')}}" class="nav-link {{ !Route::is('bienestar.transportation_benefits_leader.view.transportation_assistance_lists') ?: 'sactive' }}">
+                <a href="{{route('bienestar.transportation_benefits_leader.transportation.view.transportation_assistance_lists')}}" class="nav-link {{ !Route::is('bienestar.transportation_benefits_leader.transportation.view.transportation_assistance_lists') ?: 'sactive' }}">
                   <p>{{ trans('bienestar::menu.Attendance Listings')}}</p>
                 </a>
               </li>

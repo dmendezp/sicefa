@@ -1,4 +1,3 @@
-
 @extends('bienestar::layouts.master')
 
 @section('content')
@@ -7,7 +6,7 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-8">
             <div class="card-body">
-            
+
 
                 <!-- Cuadro con la tabla -->
                 <div class="table-responsive">
@@ -16,29 +15,22 @@
                             <tr>
                                 <th>{{ trans('bienestar::menu.Apprentice')}}</th>
                                 <th>{{ trans('bienestar::menu.Number Document')}}</th>
-                                <th>{{ trans('bienestar::menu.Beneficiary')}}</th>
-                                <th>{{ trans('bienestar::menu.Program')}}</th>
                                 <th>{{ trans('bienestar::menu.code')}}</th>
-                                <th>{{ trans('bienestar::menu.percentage')}}</th>
-                                <th>{{ trans('bienestar::menu.Type Food')}}</th>
-                                <th>{{ trans('bienestar::menu.time and date')}}</th>
+                                <th>{{ trans('bienestar::menu.Program')}}</th>
+                                <th>{{ trans('bienestar::menu.Beneficiary')}} {{ trans('bienestar::menu.percentage')}}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($AssistancesFoods as $AssistancesFood)
+                            @foreach($AssistancesFoods as $assistance)
                             <tr>
-                                <td>{{ $AssistancesFood->apprentice->person->first_name }} {{ $AssistancesFood->apprentice->person->first_last_name }} {{ $AssistancesFood->apprentice->person->second_last_name }}</td>
-                                <td>{{ $AssistancesFood->apprentice->person->document_number     }}</td>
-                                <td>{{ $AssistancesFood->postulationBenefit->benefit->name }}</td>
-                                <td>{{ $AssistancesFood->apprentice->course->program->name }}</td>
-                                <td>{{ $AssistancesFood->apprentice->course->code }}</td>
-                                <td>{{ $AssistancesFood->porcentage }}</td>
-                                <td>{{ $AssistancesFood->type_food }}</td>
-                                <td>{{ $AssistancesFood->date_time }}</td>
+                                <td>{{ $assistance->first_name }} {{ $assistance->first_last_name }}</td>
+                                <td>{{ $assistance->document_number }}</td>
+                                <td>{{ $assistance->code }}</td>
+                                <td>{{ $assistance->name }}</td>
+                                <td>{{ $assistance->name }} {{ $assistance->porcentege }}</td>
                             </tr>
                             @endforeach
                         </tbody>
-
                     </table>
                 </div>
             </div>
