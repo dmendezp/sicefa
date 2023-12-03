@@ -66,8 +66,6 @@
     </div>
  </div>
 
- <!-- Agrega el script JavaScript aquí -->
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  <script>
  $(document).ready(function() {
     // Escuchar cambios en el elemento select y campos de fecha
@@ -99,8 +97,6 @@
  });
   </script>
 
-<!-- Agrega el script JavaScript aquí -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
     // Escuchar cambios en el elemento select
