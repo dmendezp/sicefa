@@ -22,7 +22,7 @@ class OfficialController extends Controller
         $employees = Employee::get();
         $positions = Position::get();
 
-        // Assuming the employee ID is in the request
+        // Asumiendo que el ID del empleado está en la solicitud
         $employeeId = $request->input('employee_id'); // Adjust this based on your actual request data
 
         $employee = Employee::find($employeeId);
@@ -54,7 +54,7 @@ class OfficialController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the form data
+        // Validar los datos del formulario      
         $validatedData = $request->validate([
             'person_id' => 'required|string',
             'contract_number' => 'required|string',
@@ -75,7 +75,7 @@ class OfficialController extends Controller
         $employee->save();
 
         // Redirect or return a response as needed
-        return redirect()->route('cefa.officials.view')->with('success', 'Funcionario guardado exitosamente');
+        return redirect()->route('cefa.gth.officials.view')->with('success', 'Funcionario guardado exitosamente');
     }
 
     /**
@@ -126,7 +126,7 @@ class OfficialController extends Controller
         ]);
 
         // Puedes agregar una redirección o un mensaje de éxito aquí
-        return redirect()->route('cefa.officials.view')->with('success', 'Funcionario actualizado exitosamente');
+        return redirect()->route('cefa.gth.officials.view')->with('success', 'Funcionario actualizado exitosamente');
     }
 
 
@@ -159,5 +159,16 @@ class OfficialController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function deleteofficials($id)
+    {
+        try {
+            $employee = Employee::findOrFail($id);
+            $employee->delete();
+
+            return redirect()->route('cefa.gth.officials.view')->with('success', 'Funcionario ha sido eliminado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('cefa.gth.officials.view')->with('error', 'No se pudo eliminar el funcionario.');
+        }
     }
 }

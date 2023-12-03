@@ -82,10 +82,11 @@ Route::middleware(['lang'])->group(function () {
         Route::get('gth/positions/{id}', 'PositionsController@showPositions')->name('cefa.gth.positions.show');
 
         //officials
-        Route::get('/official', 'OfficialController@viewofficials')->name('cefa.officials.view');
+        Route::get('/official', 'OfficialController@viewofficials')->name('cefa.gth.officials.view');
         Route::get('/obtener_datos', 'OfficialController@getPersonDatas')->name('cefa.gth.getPersonDatas');
         Route::post('/employees', 'OfficialController@store')->name('cefa.gth.store');
-        Route::put('/official/edit/{id}', 'OfficialController@edit_official')->name('cefa.gth.officials.update');
+        Route::patch('/official/edit/{id}', 'OfficialController@edit_official')->name('cefa.gth.officials.update');
+        Route::delete('/gth/officials/{id}/delete', 'OfficialController@deleteofficials')->name('cefa.gth.officials.delete');
 
     });
 });

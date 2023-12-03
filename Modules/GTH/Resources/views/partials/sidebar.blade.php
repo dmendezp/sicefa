@@ -75,7 +75,7 @@
                     </a>
                 </li>
                 <li
-                    class="nav-item {{ Route::is('cefa.gth.contractors.view', 'cefa.gth.contractreports.view', 'cefa.gth.contractortypes.view') ? 'menu-is-opening menu-open' : '' }}">
+                    class="nav-item {{ Route::is('cefa.gth.contractors.view', 'cefa.gth.contractreports.view', 'cefa.contractualcertificates.view') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
                         <i class="fas fa-file-signature"></i>
                         <p>{{ trans('gth::menu.Contracts') }}
@@ -100,6 +100,35 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('cefa.contractualcertificates.view') }}"
+                                class="nav-link {{ !Route::is('cefa.contractualcertificates.view') ?: 'active' }}">
+                                <i class="fas fa-receipt"></i>
+                                <p>
+                                    {{ trans('gth::menu.Contract Certificate') }}
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li
+                    class="nav-item {{ Route::is('cefa.gth.insurerentities.view', 'cefa.gth.contractortypes.view', 'cefa.gth.employeetypes.view', 'cefa.gth.pensionentities.view', 'cefa.gth.position') ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
+                        <i class="fas fa-users-cog"></i>
+                        <p>{{ trans('gth::menu.Configuration') }}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('cefa.gth.insurerentities.view') }}"
+                                class="nav-link {{ !Route::is('cefa.gth.insurerentities.view') ?: 'active' }}">
+                                <i class="fas fa-newspaper"></i>
+                                <p>
+                                    {{ trans('gth::menu.Insurance Company') }}
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('cefa.gth.contractortypes.view') }}"
                                 class="nav-link {{ !Route::is('cefa.gth.contractortypes.view') ?: 'active' }}">
                                 <i class="far fa-clipboard"></i>
@@ -114,26 +143,6 @@
                                 <i class="fas fa-puzzle-piece"></i>
                                 <p>
                                     {{ trans('gth::menu.Type of Employee') }}
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li
-                    class="nav-item {{ Route::is('cefa.gth.contractors.view', 'cefa.gth.contractreports.view', 'cefa.gth.contractortypes.view') ? 'menu-is-opening menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ !Route::is('contratos.*') ?: 'active' }}">
-                        <i class="fas fa-users-cog"></i>
-                        <p>Configuración
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('cefa.gth.insurerentities.view') }}"
-                                class="nav-link {{ !Route::is('cefa.gth.insurerentities.view') ?: 'active' }}">
-                                <i class="fas fa-newspaper"></i>
-                                <p>
-                                    {{ trans('gth::menu.Insurance Company') }}
                                 </p>
                             </a>
                         </li>
@@ -157,27 +166,18 @@
                         </li>
                     </ul>
                 </li>
-                @if (Auth::user()->havePermission('agrocefa.passant.reports'))
-                @endif
+               
                 <li class="nav-item">
-                    <a href="{{ route('cefa.officials.view') }}"
-                        class="nav-link {{ !Route::is('cefa.officials.view') ?: 'active' }}">
+                    <a href="{{ route('cefa.gth.officials.view') }}"
+                        class="nav-link {{ !Route::is('cefa.gth.officials.view') ?: 'active' }}">
                         <i class="fas fa-street-view"></i>
                         <p>
                             {{ trans('gth::menu.Officials') }}
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('cefa.contractualcertificates.view') }}"
-                        class="nav-link {{ !Route::is('cefa.contractualcertificates.view') ?: 'active' }}">
-                        <i class="fas fa-receipt"></i>
-                        <p>
-                            {{ trans('gth::menu.Contract Certificate') }}
-                        </p>
-                    </a>
-                </li>
-            </ul>
+                @if (Auth::user()->havePermission('agrocefa.passant.reports'))
+                @endif
         </nav>
         <!-- /.sidebar-menu -->
     </div>

@@ -22,6 +22,7 @@
                             <thead class="bg-primary text-white">
                                 <tr>
                                     <th scope="col">Id</th>
+                                    <th scope="col">numero ducumento</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
@@ -30,14 +31,30 @@
                                 @foreach ($employees as $employe)
                                     <tr>
                                         <td>{{ $employe->id }}</td>
+                                        <td>{{ $employe->person->document_number }}</td>
                                         <td>{{ $employe->person->full_name }}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning mb-3 open-edit-modal"
-                                                data-bs-toggle="modal" data-bs-target="#editarModal{{ $employe->id }}"
-                                                data-employee-id="{{ $employe->id }}">
-                                                Editar
-                                            </button>
-                                        </td>
+                                        <form action="{{ route('cefa.gth.officials.delete', $employe->id) }}"
+                                            method="POST" class="btnEliminar" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <td>
+                                            <a href="" class="btn btn-warning editar-btn"
+                                                data-bs-toggle="modal" data-bs-target="#editarModal_{{ $employe->id }}"
+                                                data-employee-id="{{ $employe->id }}"
+                                                data-employee-documment="{{ $employe->document_number }}"
+                                                data-employee-full_name="{{ $employe->full_name}}"
+                                                data-employee-contract_number="{{ $employe->contract_number }}"
+                                                data-employe-contract_date="{{ $employe->contract_date}}"
+                                                data-employe-professional_card_number="{{ $employe->professional_card_number}}"
+                                                data-employe-professional_card_issue_date="{{ $employe->professional_card_issue_date}}"
+                                                data-employe-employee_type_id="{{ $employe->employee_type_id}}"
+                                                data-employe-position_id="{{ $employe->position_id}}"
+                                                data-employe-risk_type="{{ $employe->risk_type}}"
+                                                data-employe-state="{{ $employe->state}}"> Editar</a>
+                                        <button type="submit" class="btn btn-danger"
+                                                    data-id="{{ $employe->id  }}">Eliminar</button>
+                                            </td>
+                                        </form>
                                     </tr>
                                 @endforeach
 
@@ -51,6 +68,7 @@
     </div>
     @include('gth::employees.new_officials')
     @include('gth::employees.edit_officials')
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
