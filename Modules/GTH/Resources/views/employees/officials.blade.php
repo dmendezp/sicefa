@@ -22,6 +22,7 @@
                             <thead class="bg-primary text-white">
                                 <tr>
                                     <th scope="col">Id</th>
+                                    <th scope="col">numero ducumento</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
@@ -30,13 +31,18 @@
                                 @foreach ($employees as $employe)
                                     <tr>
                                         <td>{{ $employe->id }}</td>
+                                        <td>{{ $employe->document_number }}</td>
                                         <td>{{ $employe->person->full_name }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-warning mb-3 open-edit-modal"
-                                                data-bs-toggle="modal" data-bs-target="#editarModal{{ $employe->id }}"
-                                                data-employee-id="{{ $employe->id }}">
+                                            <a href="" class="btn btn-warning editar-btn"
+                                                data-bs-toggle="modal" data-bs-target="#editarModal_{{ $employe->id }}"
+                                                data-employee-id="{{ $employe->id }}"
+                                                data-employee-documment="{{ $employe->document_number }}"
+                                                data-employee-full_name="{{ $employe->full_name}}"
+                                                data-employee-contract_number="{{ $employe->contract_number }}">
+                                                
                                                 Editar
-                                            </button>
+                                        </a>
                                         </td>
                                     </tr>
                                 @endforeach

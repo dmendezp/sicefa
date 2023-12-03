@@ -181,15 +181,41 @@ _Cada proyecto debe editar este documento e incluir por cada Sprint._
 ---
 #### Meet 10-Nov-2022
 * **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Mayerli Castañeda** - *Implementación de plantilla AdminLTE* - *40 %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Implementación de plantilla AdminLTE* - *40 %* - *Erros de emplentacion* - *Acciones*
 ---
 #### Meet 11-Nov-2022
 * **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Mayerli Castañeda** - *Implementación de plantilla AdminLTE* - *90 %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Implementación de plantilla AdminLTE* - *50 %* - *Dificultades* - *Acciones*
 ---
 #### Meet 12-Nov-2022
 * **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
-* **Mayerli Castañeda** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Arreglos del sidebar * - *50 %* - *Dificultades* - *Acciones*
+---
+#### Meet 13-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Implementación de plantilla AdminLTE* - *90 %* - *Dificultades* - *Acciones*
+---
+#### Meet 14-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - ** - * %* - *Dificultades* - *Acciones*
+---
+#### Meet 22-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - ** - *%* - *Dificultades* - *Acciones*
+---
+#### Meet 23-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - ** - *%* - *Dificultades* - *Acciones*
+---
+#### Meet 28-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Arreglo en sidebar y alertas* - *90 %* - *Dificultades* - *Acciones*
+---
+#### Meet 29-Nov-2022
+* **Daniel Guzman** - *Actividades realizadas* - *Avance %* - *Dificultades* - *Acciones*
+* **Mayerli Castañeda** - *Implementacion boton de editar funcinarios* - *50 %* - *funcionalidad no guarda  cambios* - *Acciones*
+---
+#### Mee
 
 
 

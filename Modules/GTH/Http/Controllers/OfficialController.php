@@ -22,7 +22,7 @@ class OfficialController extends Controller
         $employees = Employee::get();
         $positions = Position::get();
 
-        // Assuming the employee ID is in the request
+        // Asumiendo que el ID del empleado está en la solicitud
         $employeeId = $request->input('employee_id'); // Adjust this based on your actual request data
 
         $employee = Employee::find($employeeId);
@@ -54,7 +54,7 @@ class OfficialController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the form data
+  // Validar los datos del formulario      
         $validatedData = $request->validate([
             'person_id' => 'required|string',
             'contract_number' => 'required|string',

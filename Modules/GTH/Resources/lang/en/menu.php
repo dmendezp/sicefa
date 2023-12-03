@@ -43,13 +43,15 @@ return [
 	 'Contracts' => 'Contracts',
 	 'Employment Contract' => 'Employment Contract',
 	 'Contract Report' => 'Contract Report',
+	 'Contract Certificate' => 'Contract Certificate',
+	 'Configuration' => 'Configuration',
 	 'Type of Contract' => 'Type of Contract',
 	 'Type of Employee' => 'Type of Employee',
 	 'Insurance Company' => 'Insurance Company',
 	 'Pension' => 'Pension',
 	 'Grades' => 'Grades',
 	 'Officials' => 'Officials',
-	 'Contract Certificate' => 'Contract Certificate',
+	 
 	 '' => '',
 
 
@@ -62,6 +64,11 @@ return [
 	'actions' => 'actions',
 	'Edit' => 'Edit',
 	'Delete' => 'Delete',
+
+	'Edit Contract' => 'Edit Contract',
+	'Contract Number' => 'Contract Number',
+	'Contract Year:' => 'Contract Year:',
+
 	'The contract has been successfully updated.' => 'The contract has been successfully updated.',
 	'Error updating vacancy' => 'Error updating vacancy',
 	'Contractor type correctly eliminated.' => 'Contractor type correctly eliminated.',

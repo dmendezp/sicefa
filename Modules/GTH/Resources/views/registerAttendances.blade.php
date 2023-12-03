@@ -2,28 +2,111 @@
 
 @section('content')
     <h1>Vista Registro de Asistencia</h1>
-    <!-- resources/views/asistencia/registro.blade.php -->
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Asistencia</title>
-</head>
-<body>
-    <h2>Registro de Asistencia con Huella Digital</h2>
-
-    <form action="/registrar-asistencia" method="post">
-        @csrf
-        <label for="huella">Huella Digital:</label>
-        <input type="text" name="huella" required>
-        
-        <!-- Puedes agregar más campos según sea necesario -->
-        <!-- Por ejemplo, nombre, fecha, etc. -->
-
-        <button type="submit">Registrar Asistencia</button>
-    </form>
-</body>
-</html>
-
+    @section('content')
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card card-primary card-outline shadow">
+                        <div class="card-header">Registro de Asistencia</div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="document_number"
+                                    class="form-label">Numero Documento</label>
+                                <input type="text" name="document_number" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="person_name">Nombre de la persona:</label>
+                                <input type="text" name="person_name" class="form-control" readonly>
+                            </div>
+                            <input type="hidden" name="person_id" id="person_id" value="">
+                            <button type="button" class="btn btn-warning"
+                                id="show-hide-table-button">Registro Asistencia</button>
+    
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#attendance-table').DataTable({});
+    
+                $('input[name="document_number"]').on('input', function() {
+                    var documentNumber = $(this).val();
+    
+                    $.ajax({
+                        url: '',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            document_number: documentNumber
+                        },
+                        success: function(response) {
+                            if (response && response.is_registered) {
+                                var personId = response.id;
+                                var name = response.full_name;
+    
+                                $('input[name="person_name"]').val(name);
+                                console.log("ID de la persona: " + personId);
+                                console.log("NAME de la persona: " + name);
+                                $('input[name="person_id"]').val(personId);
+                            }
+                        },
+                    });
+                });
+    
+                $('#query-attendance-button').on('click', function() {
+                    var documentNumber = $('input[name="document_number"]').val();
+    
+                    $.ajax({
+                        url: '',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            document_number: documentNumber
+                        },
+                        success: function(response) {
+                            if (response && response.attendances) {
+                                $('#attendance-query-results').show();
+                                $('#attendance-query-table tbody').empty();
+    
+                                $.each(response.attendances, function(index, attendance) {
+                                    var row = $('<tr>');
+                                    row.append($('<td>').text(attendance.name));
+                                    row.append($('<td>').text(attendance.document_number));
+                                    row.append($('<td>').text(attendance.start_datetime));
+                                    row.append($('<td>').text(attendance.end_datetime));
+                                    $('#attendance-query-table tbody').append(row);
+                                });
+    
+                                $('#attendance-query-table').DataTable();
+                            } else {
+                                console.log('No attendances found or an error occurred.');
+                            }
+                        },
+                    });
+                });
+            });
+    
+    
+            $(document).ready(function() {
+                $('#attendance-table').DataTable();
+    
+                // Agregar un evento clic al botón "Asistencias Registradas"
+                $('#show-hide-table-button').on('click', function() {
+                    // Obtener el contenedor de la tabla
+                    var tableContainer = $('#attendance-table-container');
+    
+                    // Toggle (mostrar/ocultar) la tabla
+                    tableContainer.toggle();
+    
+                    // Si la tabla se muestra, inicializa el DataTable
+                    if (tableContainer.is(':visible')) {
+                        $('#attendance-table').DataTable().draw();
+                    }
+                });
+            });
+        </script>
 @endsection
