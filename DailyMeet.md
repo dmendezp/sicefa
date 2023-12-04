@@ -536,3 +536,76 @@ Centro de Formacion Agroindustrial la Angostura SENA.
 * **Carlor Maurico Polanco** - *Asignar la ruta de transporte a los aprendices* - *Avance 0%* - *Crear las migraciones para las tabla routes_transportations en la base de datosFuncionalidades en los botones* - *Acciones*
 * **Saira Xiomara Guevara** - *Ver Listado de Aprendices Registrados en el Apoyo de Alimentación* - *Avance 50%* - *Agregar los botones para descargar en formato Excel o PDF a un lado del search que permita descargar los datos que muestra la tabla* - *Acciones*
 
+
+#### Meet 04-Oct-2023
+* **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Restauracion en la gestion de los registros en BenefitsTypeofBenefits* - *Avance 100%* - *Dificultades* - *Implementacion para el manejo de los registros existentes dinamicos*
+* **Kevin Santiago Valdes** 
+* **Carlor Maurico Polanco** 
+* **Saira Xiomara Guevara** 
+
+#### Meet 08-Oct-2023
+* **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Gestion de Checkbox y gestion para tabla de rutas y aprendices* - *Avance 75%* - *Dificultades* - *Mostrar datos a travez de funciones en el controlador y buena funcioanlidad de checkbox para la gestion de postulaciones*
+* **Kevin Santiago Valdes** 
+* **Carlor Maurico Polanco** 
+* **Saira Xiomara Guevara** 
+
+
+#### Meet 12-Oct-2023
+* **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Integracion de Funcionalidad para registro de postulaciones y Beneficios* - *Avance 100%* - *Dificultades* - *Buen funcionamiento para el registro en la gestion de postulaciones*
+* **Kevin Santiago Valdes** 
+* **Carlor Maurico Polanco** 
+* **Saira Xiomara Guevara** 
+
+
+#### Meet 22-Oct-2023
+* **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Modificaciones menores e implementacion de funcionalidad de cupos y registros* - *Avance 100%* - *Dificultades* - *Reestructuracion para buen funcionamiento y funcionalidad de cupos y registros en asignar rutas de transporte*
+* **Kevin Santiago Valdes** 
+* **Carlor Maurico Polanco** 
+* **Saira Xiomara Guevara** 
+
+
+#### Meet 23-Oct-2023
+* **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Solucion de conflictos y mergin* - *Avance 100%* - *Dificultades* - *Solucion de conflictos encontrados a travez del codigo*
+* **Kevin Santiago Valdes** 
+* **Carlor Maurico Polanco** 
+* **Saira Xiomara Guevara** 
+
+#### Meet 08-Nov-2023
+* **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Restructuracion de codigo* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Kevin Santiago Valdes** 
+* **Carlor Maurico Polanco** 
+* **Saira Xiomara Guevara** 
+
+#### Meet 20-Nov-2023
+* **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Funcionamiento en la gestion de postulaciones* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Kevin Santiago Valdes** 
+* **Carlor Maurico Polanco** 
+* **Saira Xiomara Guevara** 
+
+#### Meet 22-Nov-2023
+* **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Funcionamiento en la gestion de asignacion de rutas* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Kevin Santiago Valdes** 
+* **Carlor Maurico Polanco** 
+* **Saira Xiomara Guevara** 
+
+#### Meet 28-Nov-2023
+* **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Funcionamiento en el formulario de asignacion de rutas* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Kevin Santiago Valdes** 
+* **Carlor Maurico Polanco** 
+* **Saira Xiomara Guevara** 
+
+#### Meet 03-Dic-2023
+* **Brayan David Lizcano** - * * - *Avance* - *Dificultades* - *Acciones*
+* **Juan David Rico** - *Gestion para el registro de Asistencia de Alimentacion* - *Avance 100%* - *Dificultades* - *Acciones*
+* **Kevin Santiago Valdes** 
+* **Carlor Maurico Polanco** 
+* **Saira Xiomara Guevara** 

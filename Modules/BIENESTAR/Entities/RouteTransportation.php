@@ -25,6 +25,7 @@ class RouteTransportation extends Model implements Auditable
         'stop_bus',
         'arrival_time',
         'departure_time',
+        'quota',
         'bus_id',
     ];
 
