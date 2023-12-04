@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Modules\SENAEMPRESA\Entities\CourseSenaempresa;
 use Modules\SENAEMPRESA\Entities\senaempresa;
 use Modules\SICA\Entities\Course;
@@ -155,7 +155,15 @@ class PhaseSenaempresaController extends Controller
 
     public function show_associates()
     {
-        $senaempresas = senaempresa::get();
+        $currentDate = now();
+
+        $senaempresas = DB::table('senaempresas')
+            ->join('quarters', 'senaempresas.quarter_id', '=', 'quarters.id')
+            ->where('quarters.start_date', '<=', $currentDate)
+            ->where('quarters.end_date', '>=', $currentDate)
+            ->select('senaempresas.*')
+            ->get();
+
         $courses = Course::where('status', 'Activo')->with('senaempresa')->get();
         $courseofsenaempresa = CourseSenaempresa::all();
 

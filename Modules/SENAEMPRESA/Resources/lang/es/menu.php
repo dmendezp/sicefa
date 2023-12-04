@@ -149,7 +149,7 @@ return [
 	// Aside
 
 	'We' => 'Nosotros',
-	'Strategies' => 'Estrategias',
+	'Phases' => 'Fases',
 	'Courses SenaEmpresa' => 'Cursos SenaEmpresa',
 	'Courses Vacancies' => 'Cursos Vacantes',
 	'Selected' => ' Seleccionado',
@@ -167,7 +167,7 @@ return [
 	'Human talent leader' => 'Lider de talento humano',
 	'Administrator' => 'Administrador',
 	'Developers' => 'Desarrolladores',
-	
+
 
 
 	//Postulate
@@ -213,7 +213,7 @@ return [
 
 
 
-	
+
 	'New' => 'Nuevo',
 	'Failed to create PositionCompany object.' => 'No se pudo crear el objeto PositionCompany.',
 	'Error in creating the position.' => 'Error al crear cargo.',

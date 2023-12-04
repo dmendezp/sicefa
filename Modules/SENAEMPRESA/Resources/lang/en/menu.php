@@ -149,7 +149,7 @@ return [
 
     'Welcome' => 'Welcome',
     'We' => 'We',
-    'Strategies' => 'Strategies',
+    'Phases' => 'Phases',
     'Courses SenaEmpresa' => 'Courses SenaEmpresa',
     'Availables' => 'Availables',
     'Courses Vacancies' => 'Courses Vacancies',
@@ -204,7 +204,7 @@ return [
 
 
 
-    
+
     'New' => 'New',
     'Failed to create PositionCompany object.' => 'Failed to create PositionCompany object.',
     'Error in creating the position.' => 'Error in creating the position.',

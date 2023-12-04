@@ -35,21 +35,11 @@ class PostulateController extends Controller
 
         $ApprenticeId = $Apprentice->id;
         $vacancy = Vacancy::find($vacancy_id);
-
-        // Obtén el curso del aprendiz logueado
-        $course = $Apprentice->course;
-        $vacancies = DB::table('course_vacancy')
-            ->join('vacancies', 'course_vacancy.vacancy_id', '=', 'vacancies.id')
-            ->where('course_vacancy.course_id', '=', $course->id)
-            ->where('vacancies.state', '=', 'Disponible')
-            ->get();
-
         $Postulates = Postulate::with('Apprentice.Person')->get();
         $data = [
             'title' =>  trans('senaempresa::menu.Registration'),
             'Postulates' => $Postulates,
             'ApprenticeId' => $ApprenticeId,
-            'vacancies' => $vacancies,
             'vacancy' => $vacancy,
         ];
 
@@ -166,7 +156,8 @@ class PostulateController extends Controller
     }
 
     public function score_assigned(Request $request)
-    { // Validar el formulario si es necesario
+    {
+        // Validar el formulario si es necesario
         $request->validate([
             'postulate_id' => 'required',
             'cv_score' => 'required|integer',
@@ -179,8 +170,17 @@ class PostulateController extends Controller
         $filesenaempresa->cv_score = $request->input('cv_score');
         $filesenaempresa->personalities_score = $request->input('personalities_score');
         $filesenaempresa->proposal_score = $request->input('proposal_score');
-        if ($filesenaempresa->save())
-            
-            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')->with('success', 'Puntaje asignado correctamente');
+
+        if ($filesenaempresa->save()) {
+            // Calcular el puntaje total
+            $totalScore = $filesenaempresa->cv_score + $filesenaempresa->personalities_score + $filesenaempresa->proposal_score;
+
+            // Actualizar el puntaje total en la tabla 'postulates'
+            Postulate::where('id', $request->input('postulate_id'))
+                ->update(['score_total' => $totalScore]);
+
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')
+                ->with('success', 'Puntaje asignado correctamente');
+        }
     }
 }

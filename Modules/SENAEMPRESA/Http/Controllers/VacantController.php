@@ -37,6 +37,18 @@ class VacantController extends Controller
         $selectedSenaempresaId = null;
         $courses = Course::where('status', 'Activo')->with('vacancy')->get();
 
+        $currentQuarter = Quarter::where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->first();
+
+        if ($currentQuarter) {
+            $currentSenaempresa = Senaempresa::where('quarter_id', $currentQuarter->id)->first();
+
+            if ($currentSenaempresa) {
+                $currentSenaempresaId = $currentSenaempresa->id;
+            }
+        }
+
         $currentDateTime = now(); // Esto incluirá la fecha y la hora actual
 
         foreach ($vacancies as $vacancy) {
@@ -55,20 +67,17 @@ class VacantController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
 
-            if ($user->roles[0]->name === 'Aprendiz Senaempresa') {
-                // User is of role 'Usuario Senaempresa'
-                if ($user->courses && $user->courses->count() > 0) {
-                    $cursoUsuario = $user->courses->first(); // Obtener el curso del usuario
-                    $selectedCourseId = $cursoUsuario->id;
-
-                    $vacancies->whereExists(function ($query) use ($selectedCourseId) {
-                        $query->select(DB::raw(1))
-                            ->from('course_vacancy')
-                            ->whereRaw('course_vacancy.vacancy_id = vacancies.id')
-                            ->where('course_vacancy.course_id', $selectedCourseId);
-                    });
-                }
-            } elseif ($user->roles[0]->name === 'Administrador Senaempresa') {
+            if ($user->roles[0]->name === 'Aprendiz Senaempresa' || (Route::is('senaempresa.apprentice.*'))) {
+                // Obtén el curso del aprendiz logueado
+                $Apprentice = auth()->user()->person->apprentices()->first();
+                $course = $Apprentice->course;
+                $vacancies = DB::table('course_vacancy')
+                    ->join('vacancies', 'course_vacancy.vacancy_id', '=', 'vacancies.id')
+                    ->where('course_vacancy.course_id', '=', $course->id)
+                    ->where('vacancies.state', '=', 'Disponible')
+                    ->where('vacancies.senaempresa_id', '=', $currentSenaempresaId)
+                    ->get();
+            } else {
                 // Obtén el ID de la senaempresa seleccionado del formulario si está presente
                 if ($request->has('senaempresaFilter')) {
                     $selectedSenaempresaId = $request->input('senaempresaFilter');
@@ -93,12 +102,14 @@ class VacantController extends Controller
                             ->where('course_vacancy.course_id', $selectedCourseId);
                     });
                 }
+                $vacancies = $vacancies->get();
             }
-            $senaempresas = Senaempresa::get();
-            $PositionCompany = PositionCompany::all();
-            $vacancies = $vacancies->get();
         }
 
+
+
+        $senaempresas = Senaempresa::get();
+        $PositionCompany = PositionCompany::all();
         $data = [
             'selectedCourseId' => $selectedCourseId,
             'title' => trans('senaempresa::menu.Vacancies'),
@@ -107,6 +118,7 @@ class VacantController extends Controller
             'PositionCompany' => $PositionCompany,
             'selectedSenaempresaId' => $selectedSenaempresaId,
             'senaempresas' => $senaempresas,
+            'currentSenaempresaId' => $currentSenaempresaId,
         ];
 
         return view('senaempresa::Company.vacancies.index', $data);
@@ -313,7 +325,28 @@ class VacantController extends Controller
 
     public function partner_course()
     {
-        $vacancies = Vacancy::get();
+        $currentQuarter = Quarter::where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->first();
+
+        if (!$currentQuarter) {
+            // Handle the case where no current quarter is found
+            // You can throw an exception or take other appropriate action here.
+        }
+
+        // Retrieve the senaempresa associated with the current quarter
+        $currentSenaempresa = Senaempresa::where('quarter_id', $currentQuarter->id)->first();
+
+        if (!$currentSenaempresa) {
+            // Handle the case where no senaempresa is associated with the current quarter
+            // You can redirect to the vacancies route or take other appropriate action here.
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.vacancies.index')->with('error', 'No hay una senaempresa asociada al trimestre actual.');
+        }
+
+        // Retrieve the vacancies related to the current senaempresa
+        $vacancies = Vacancy::where('senaempresa_id', $currentSenaempresa->id)
+            ->where('state', 'Disponible')
+            ->get();
         $courses = Course::where('status', 'Activo')->with('vacancy')->get();
         $courseofvacancy = CourseVacancy::all();
 

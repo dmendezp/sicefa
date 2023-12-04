@@ -45,7 +45,7 @@ class SENAEMPRESAController extends Controller
             ->where('state', 'Prestado')
             ->whereNull('deleted_at')
             ->count();
-        $postulatesCount = DB::table('staff_senaempresas')
+        $postulatesCount = DB::table('postulates')
             ->whereNull('deleted_at')
             ->count();
         $registeredphasesCount = DB::table('senaempresas')
@@ -84,7 +84,7 @@ class SENAEMPRESAController extends Controller
     }
     public function psychologo()
     {
-        $postulatesCount = DB::table('staff_senaempresas')
+        $postulatesCount = DB::table('postulates')
             ->whereNull('deleted_at')
             ->count();
 

@@ -214,7 +214,7 @@
                                             class="nav-link {{ !Route::is('senaempresa.admin.phases.index') ?: 'active' }}">
                                             <i class="fas fa-chess-rook"></i>
                                             <p>
-                                                {{ trans('senaempresa::menu.Strategies') }}
+                                                {{ trans('senaempresa::menu.Phases') }}
                                             </p>
                                         </a>
                                     </li>
@@ -319,7 +319,7 @@
 
 
 
-                {{-- Menú de opciones para Pasante Senaempresa --}}
+                {{-- Menú de opciones para Lider talento humano Senaempresa --}}
                 @if (Route::is('senaempresa.human_talent_leader.*'))
                     @if (Auth::user()->havePermission('senaempresa.human_talent_leader.index'))
                         <li class="nav-item">

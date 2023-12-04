@@ -20,7 +20,8 @@ class VacanciesTableSeeder extends Seeder
     {
         $faker = Faker::create('es_ES');
 
-        $positionCompanyIds = PositionCompany::pluck('id')->all();
+        // Filter only active positions
+        $positionCompanyIds = PositionCompany::where('state', 'activo')->pluck('id')->all();
         $senaempresaIds = senaempresa::pluck('id')->all();
 
         if (empty($positionCompanyIds) || empty($senaempresaIds)) {
