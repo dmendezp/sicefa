@@ -87,4 +87,8 @@ class GlossController extends Controller
     {
         //
     }
+    public function manual(Request $request)
+    {
+        return view('dicsena::manual');
+    }
 }

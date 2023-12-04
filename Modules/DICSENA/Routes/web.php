@@ -24,6 +24,8 @@ Route::middleware(['lang'])->group(function () {
         Route::put('/glossary/update/{glossary}', 'GlossaryController@update')->name('dicsena.instructor.glossary.update');
         //routes crudguide
 
+        Route::get('/gloss/manual', 'GlossController@manual')->name('cefa.dicsena.manual');
+
         Route::get('/guidepost', 'GuidepostController@index')->name('dicsena.instructor.guidepost.index');
         Route::get('/guidepost/create', 'GuidepostController@create')->name('dicsena.instructor.guidepost.create');
         Route::post('/guidepost/store', 'GuidepostController@store')->name('dicsena.instructor.guidepost.store');
