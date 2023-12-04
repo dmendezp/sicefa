@@ -88,7 +88,7 @@ class AssistancesFoodsController extends Controller
             ->select(
                 'apprentices.id as apprentice_id',
                 'postulations_benefits.id as postulation_benefit_id',
-                'benefits.porcentaje', // Ajustar el nombre de la columna según tu esquema
+                'benefits.porcentage', // Ajustar el nombre de la columna según tu esquema
                 DB::raw('NOW() as date_time')
             )
             ->where('people.document_number', $documentNumber)
@@ -101,7 +101,7 @@ class AssistancesFoodsController extends Controller
             DB::table('assistances_foods')->insert([
                 'apprentice_id' => $row->apprentice_id,
                 'postulation_benefit_id' => $row->postulation_benefit_id,
-                'porcentage' => $row->porcentaje, // Ajustar el nombre de la columna según tu esquema
+                'porcentage' => $row->porcentage, // Ajustar el nombre de la columna según tu esquema
                 'date_time' => $row->date_time,
                 'created_at' => now(), // Use Laravel helper function for current timestamp
                 'updated_at' => now(), // Use Laravel helper function for current timestamp
@@ -121,7 +121,7 @@ class AssistancesFoodsController extends Controller
                 'people.first_last_name',
                 'people.second_last_name',
                 'assistances_foods.postulation_benefit_id',
-                'benefits.porcentaje as porcentaje_insertado', // Ajustar el nombre según tu esquema
+                'benefits.porcentage as porcentaje_insertado', // Ajustar el nombre según tu esquema
                 'assistances_foods.date_time'
             )
             ->get();
