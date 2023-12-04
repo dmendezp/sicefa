@@ -6,13 +6,9 @@ return [
     'Spanish' => 'Spanish',
     'Parameters' => 'Parameters',
 
-    '"La Angostura" Agro-Industrial Training Center' => 'Centro de Formación AgroIndustrial "La Angostura"',
-    'Start' => 'Inicio',
-    'Developers' => 'Desarrolladores',
-    'About AGROCEFA' => 'Sobre AGROCEFA',
-    'Reports' => 'Reportes',
-    'Farming Data With Code!' => '¡Cultivando Datos Con Código!',
-    'All rights reserved' => 'Derechos Reservados',
+    'AGROCEFA is a web-based software designed for the control and management of agricultural units at the Agroindustrial Training Center "La Angostura".' => 'AGROCEFA es un software web diseñado para el control y gestión de unidades agrícolas en el Centro de Formación Agroindustrial "La Angostura".',
+    'SOCIAL NETWORKS' => 'REDES SOCIALES',
+    'MORE SOCIAL NETWORKS' => 'MÁS REDES SOCIALES',
     
 
 ];

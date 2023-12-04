@@ -1,39 +1,68 @@
-<link rel="stylesheet" href="{{ asset('agrocefa/css/footer.css') }}">
-<br>
-<footer id="footer">
-    <section id="footer_container" class="container">
-        <nav id="nav_footer">
-            <div id="title_and_tagline">
-                <h2 id="footer_title">{{ trans('agrocefa::footer."La Angostura" Agro-Industrial Training Center') }}</h2>
-                <h2 id="footer_newsletter">{{ trans('agrocefa::footer.Farming Data With Code!') }}</h2>
+<footer style="background: linear-gradient(to right, #004916, #009688);" class="text-white text-center text-lg-start">
+    <!-- Grid container -->
+    <div class="container p-4">
+        <!--Grid row-->
+        <div class="row">
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">AGROCEFA <img src="{{ asset('agrocefa/images/usuario/tractor.png') }}"
+                        class="logo">
+                </h5>
+
+                <p>{{trans('agrocefa::footer.AGROCEFA is a web-based software designed for the control and management of agricultural units at the Agroindustrial Training Center "La Angostura".')}}
+                </p>
             </div>
-        </nav>
-    </section>
-    <section id="footer_copy" class="container">
-        <ul id="nav_link_footer">
-            <li id="nav_item_start">
-                <a href="{{ route('cefa.agrocefa.index') }}" id="nav_link_start">{{ trans('agrocefa::footer.Start') }}</a>
-            </li>
-            <li id="nav_item_developers">
-                <a href="{{ route('cefa.agrocefa.developers.index') }}"
-                    id="nav_link_developers">{{ trans('agrocefa::footer.Developers') }}</a>
-            </li>
-            <li id="nav_item_about">
-                <a href="{{ route('cefa.agrocefa.usuario.index') }}"
-                    id="nav_link_about">{{ trans('agrocefa::footer.About AGROCEFA') }}</a>
-            </li>
-            <li id="nav_item_reports">
-                <a href="#r" id="nav_link_reports">{{ trans('agrocefa::footer.Reports') }}</a>
-            </li>
-        </ul>
-        <div id="footer_social">
-            <a href="https://www.facebook.com/cefahuila" id="footer_icon_facebook">
-                <img src="{{ asset('agrocefa/images/footer/facebook.svg') }}" id="footer_img_facebook">
+            <!--Grid column-->
+
+            <!--Grid column-->
+<div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+    <h5 class="text-uppercase">{{trans('agrocefa::footer.SOCIAL NETWORKS')}}</h5>
+<br>
+    <ul class="list-unstyled mb-0">
+        <li>
+            <a href="enlace-a-tu-perfil-de-Facebook" class="text-white">
+                <i class="fab fa-facebook"></i> Facebook
             </a>
-            <a href="https://twitter.com/CEFAcomunica" id="footer_icon_twitter">
-                <img src="{{ asset('agrocefa/images/footer/twiter.svg') }}" id="footer_img_twitter">
+        </li>
+        <li>
+            <a href="enlace-a-tu-perfil-de-Twitter" class="text-white">
+                <i class="fab fa-twitter"></i> Twitter
             </a>
+        </li>
+        <!-- Agrega más iconos y enlaces para otras redes sociales según sea necesario -->
+    </ul>
+</div>
+<!--Grid column-->
+
+<!--Grid column-->
+<div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+    <h5 class="text-uppercase mb-0">{{trans('agrocefa::footer.MORE SOCIAL NETWORKS')}}</h5>
+<br>
+    <ul class="list-unstyled">
+        <li>
+            <a href="enlace-a-tu-perfil-de-Instagram" class="text-white">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+        </li>
+        <li>
+            <a href="enlace-a-tu-perfil-de-LinkedIn" class="text-white">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+        </li>
+        <!-- Agrega más iconos y enlaces para otras redes sociales según sea necesario -->
+    </ul>
+</div>
+<!--Grid column-->
+
         </div>
-        <h3 id="footer_copyright_text">{{ trans('agrocefa::footer.All rights reserved') }} &copy; AGROCEFA</h3>
-    </section>
+        <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2023 Copyright:
+        <a class="text-white font-italic" href="#">AGROCEFA</a>
+    </div>
+    <!-- Copyright -->
 </footer>
