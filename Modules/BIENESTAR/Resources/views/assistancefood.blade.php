@@ -6,7 +6,6 @@
     <div class="row justify-content-md-center pt-4">
         <div class="card shadow col-md-8">
             <div class="card-body">
-
                 <!-- Formulario de filtro -->
                 <form method="GET" action="{{ route('bienestar.admin.route.food_assistance_lists.filter') }}">
                     @csrf
@@ -64,8 +63,6 @@
     </div>
  </div>
 
- <!-- Agrega el script JavaScript aquí -->
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  <script>
  $(document).ready(function() {
     // Escuchar cambios en el elemento select y campos de fecha
@@ -97,8 +94,6 @@
  });
   </script>
 
-<!-- Agrega el script JavaScript aquí -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
     // Escuchar cambios en el elemento select

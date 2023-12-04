@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label for="type_benefit">Tipo de pregunta</label>
                     <select class="form-control" id="question_category" name="question_category" required>
-                        <option value="General">General</option>
+                        <option value="">Elija una Categoria</option>
                         <option value="Alimentacion">Alimentación</option>
                         <option value="Transporte">Transporte</option>
                     </select>
