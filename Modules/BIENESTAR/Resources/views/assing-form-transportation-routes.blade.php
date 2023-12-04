@@ -2,13 +2,16 @@
 
 @section('content')
 <div class="container-fluid">
+    <h1>Gestion y Asignacion de rutas de Transporte <i class="fas fa-bus" style="color: #000000;"></i></h1>
+
     <div class="row justify-content-md-center pt-4">
         <!-- Aquí comienza la tabla de rutas -->
-        <div class="card card-green card-outline shadow col-md-16">
-            <div class="card-header">
-                <h3 class="card-title">Tabla de Rutas</h3>
-            </div>
-            <div class="card-body">
+        <div class="row justify-content-md-center pt-4">
+                
+
+                <div class="card shadow col-md-12">
+                    
+                    <div class="card-body">
                 <table id="routesTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -27,14 +30,15 @@
                 </table>
             </div>
         </div>
+    </div>
+        </div>
 
         <!-- Aquí termina la tabla de rutas -->
-        <div class="card card-green card-outline shadow col-md-16">
-            <div class="card-header">
-                <h3 class="card-title">Gestor de asignación de rutas</h3>
-            </div>
-            <div class="card-body">
-                <div class="mtop16">
+        <div class="row justify-content-md-center pt-4">
+           
+                <div class="card shadow col-md-12">
+                    <div class="card-body">
+
                     @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes'))
                     <form action="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.updateInline.assing_form_transportation_routes') }}" method="POST">
                         @csrf
@@ -130,6 +134,7 @@
                     </form>
                     @endif
                 </div>
+            </div>
             </div>
         </div>
     </div>
