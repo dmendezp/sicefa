@@ -26,7 +26,7 @@
                         </svg>
                     </div>
                     <h2 class="card-name">Junior Stiven Medina Hernandez</h2>
-                    <p class="position">Aprendiz - Tgo. Analisis y desarollo de software</p>
+                    <p class="position">{{trans('senaempresa::menu.Apprentice - Tgo. Software Analysis & Development')}}</p>
                     <div class="row mx-5 mb-5 mt-3 justify-content-center">
 
                         <div class="col-3 px-0 py-1">
@@ -58,7 +58,7 @@
                         </svg>
                     </div>
                     <h2 class="card-name">Jennifer Marin Montealegre</h2>
-                    <p class="position">Aprendiz - Tgo. Analisis y desarollo de software</p>
+                    <p class="position">{{trans('senaempresa::menu.Apprentice - Tgo. Software Analysis & Development')}}</p>
                     <div class="row mx-5 mb-5 mt-3 justify-content-center">
                         <div class="col-3 px-0 py-1">
                             <div class="py-3 fab fa-facebook"></div>
@@ -89,7 +89,7 @@
                         </svg>
                     </div>
                     <h2 class="card-name">Diego Alejandro Penagos Ninco</h2>
-                    <p class="position">Aprendiz - Tgo. Analisis y desarollo de software</p>
+                    <p class="position">{{trans('senaempresa::menu.Apprentice - Tgo. Software Analysis & Development')}}</p>
                     <div class="row mx-5 mb-5 mt-3 justify-content-center">
                         <div class="col-3 px-0 py-1">
                             <div class="py-3 fab fa-facebook"></div>

@@ -216,4 +216,18 @@ return [
     'success' => 'success',
     'mistake' => 'mistake',
 
+    'Digital System for Comprehensive Human Resources Management.'=>'Digital System for Comprehensive Human Resources Management.',
+
+    'It is a didactic' => 'It is a didactic model of company, which seeks to impart and transmit to the apprentice
+    administrative, productive, technical, financial, environmental knowledge, and from
+    commercialization acquired in the training process through the real management of a
+    company in the different areas and productive units.',
+
+    'SenaEmpresa Phases'=>'SenaEmpresa Phases',
+    'Vacant'=>'Vacant',
+    'Apprentice - Tgo. Software Analysis & Development'=>'Apprentice - Tgo. Software Analysis & Development',
+    'More info'=>'More info',
+
+
+
 ];

@@ -8,26 +8,23 @@
                 <div class="col-md-6">
                     <div class="jumbotron">
                         <h1 class="display-4">SENAEMPRESA</h1>
-                        <p class="lead">Sistema Digital de Gestión Integral de Recursos Humanos.</p>
+                        <p class="lead">{{ trans('senaempresa::menu.Digital System for Comprehensive Human Resources Management.') }}</p>
                         <hr class="my-4">
-                        <p class="card-text">Es un modelo didáctico de empresa, que busca impartir y trasmitir a el aprendiz
-                            los conocimientos administrativos, productivos, técnicos, financieros, ambientales, y de
-                            comercialización adquiridos en el proceso de formación por medio del manejo real de una empresa
-                            en las diferentes áreas y unidades productivas.</p>
+                        <p class="card-text">{{trans('senaempresa::menu.It is a didactic')}}</p>
                         <div class="row">
                             <div class="col-4">
                                 <!-- small box -->
                                 <div class="small-box" style="background: rgb(122, 36, 171);">
                                     <div class="inner" style="color: white;">
                                         <h3>{{ $postulatesCount }}</h3>
-                                        <p>Postulados</p>
+                                        <p>{{ trans('senaempresa::menu.Postulates') }}</p>
                                     </div>
                                     <div class="icon">
                                         <i class="fas fa-address-card"></i>
                                     </div>
                                     <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index') }}"
                                         class="small-box-footer text-white">
-                                        More info <i class="fas fa-arrow-circle-right"></i>
+                                        {{ trans('senaempresa::menu.More info') }} <i class="fas fa-arrow-circle-right"></i>
                                     </a>
                                 </div>
                             </div>

@@ -8,26 +8,22 @@
                 <div class="col-md-6">
                     <div class="jumbotron">
                         <h1 class="display-4">SENAEMPRESA</h1>
-                        <p class="lead">Sistema Digital de Gestión Integral de Recursos Humanos.</p>
+                        <p class="lead">{{ trans('senaempresa::menu.Digital System for Comprehensive Human Resources Management.') }}</p>
                         <hr class="my-4">
-                        <p class="card-text">Es un modelo didáctico de empresa, que busca impartir y trasmitir a el aprendiz
-                            los conocimientos administrativos, productivos, técnicos, financieros, ambientales, y de
-                            comercialización adquiridos en el proceso de formación por medio del manejo real de una empresa
-                            en las diferentes áreas y unidades productivas.</p>
+                        <p class="card-text">{{trans('senaempresa::menu.It is a didactic')}}</p>
                         <div class="row">
                             <div class="col-4">
                                 <!-- small box -->
                                 <div class="small-box" style="background: rgb(241, 196, 15);">
                                     <div class="inner" style="color: white;">
                                         <h3>{{ $registeredStaffCount }}</h3>
-                                        <p>Personal</p>
+                                        <p>{{ trans('senaempresa::menu.Staff') }}</p>
                                     </div>
                                     <div class="icon">
                                         <i class="fas fa-users"></i>
                                     </div>
                                     <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.staff.index') }}"
-                                        class="small-box-footer">More
-                                        info <i class="fas fa-arrow-circle-right"></i></a>
+                                        class="small-box-footer">{{ trans('senaempresa::menu.More info') }} <i class="fas fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -35,14 +31,13 @@
                                 <div class="small-box" style="background: rgb(26, 188, 156);">
                                     <div class="inner" style="color: white;">
                                         <h3>{{ $prestamosPrestados }}</h3>
-                                        <p>Prestamos</p>
+                                        <p>{{trans('senaempresa::menu.Loans')}}</p>
                                     </div>
                                     <div class="icon">
                                         <i class="fas fa-sign-language"></i>
                                     </div>
                                     <a href="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.index') }}"
-                                        class="small-box-footer">More
-                                        info <i class="fas fa-arrow-circle-right"></i></a>
+                                        class="small-box-footer">{{ trans('senaempresa::menu.More info') }} <i class="fas fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>

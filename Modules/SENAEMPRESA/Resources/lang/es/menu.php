@@ -225,4 +225,18 @@ return [
 	'We provide' => 'Prestamos',
 	'success' => 'éxito',
 	'mistake' => 'error',
+
+
+    'Digital System for Comprehensive Human Resources Management.'=>'Sistema Digital de Gestión Integral de Recursos Humanos.',
+
+    'It is a didactic' => 'Es un modelo didáctico de empresa, que busca impartir y trasmitir a el aprendiz
+    los conocimientos administrativos, productivos, técnicos, financieros, ambientales, y de
+    comercialización adquiridos en el proceso de formación por medio del manejo real de una empresa
+    en las diferentes áreas y unidades productivas.',
+
+    'SenaEmpresa Phases'=>'Fases SenaEmpresa',
+    'Vacant'=>'Vacantes',
+    'Apprentice - Tgo. Software Analysis & Development'=>'Aprendiz - Tgo. Analisis y desarollo de software',
+    'More info'=>'Más información',
+
 ];
