@@ -22,6 +22,7 @@ class CreateRoutesTransportationsTable extends Migration
             $table->string('stop_bus');
             $table->time('arrival_time');
             $table->time('departure_time');
+            $table->string('quota');
             $table->unsignedBigInteger('bus_id');
             $table->timestamps();
             $table->foreign('bus_id')->references('id')->on('buses');

@@ -22,8 +22,6 @@
                     <th>Aprendiz</th>
                     <th>Numero de Documento</th>
                     <th>Ruta de Transporte</th>
-                    <th>Convocatoria</th>
-                    <th>Descripción de la Convocatoria</th>
                     <!-- Agrega más encabezados según tus campos -->
                 </tr>
             </thead>
@@ -46,8 +44,7 @@
                             @endif
                         </td>
                         <td>{{ $asignacion->routes_trasportantion->name_route }}</td>
-                        <td>{{ $asignacion->convocations->name }}</td>
-                        <td>{{ $asignacion->convocations->description }}</td>
+                        
                         <!-- Agrega más columnas según tus campos -->
                     </tr>
                 @endforeach

@@ -133,7 +133,7 @@ class PostulationsController extends Controller
                 $respuesta->save();
             }
 
-            $file = $request->file('socioeconociFIle');
+            $file = $request->file('socioeconomicFile');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $filePath = $file->storeAs('socioeconomico', $fileName, 'public');
 

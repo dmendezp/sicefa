@@ -154,6 +154,18 @@ return[
     'percentages' => 'percentages',
     'show all' => 'show all',
   
+//Alert Eliminar
+'¿Are You Sure?'=>'¿Are You Sure?',
+'This Action Is Irreversible' => 'This Action Is Irreversible',
+'Yes, Delete It' => 'Yes, Delete It',
+'Successful Elimination' => 'Successful Elimination',
+
+//Alert Guardar
+'Success!'=> 'Success!',
+'An error occurred while trying to delete.' => 'An error occurred while trying to delete.',
+'An error occurred while trying to edit.' => 'An error occurred while trying to edit.',
+'An error occurred while trying to save records.' => 'An error occurred while trying to save records.',
+'Successful operation!' => 'Successful operation!',
     
 ]
 

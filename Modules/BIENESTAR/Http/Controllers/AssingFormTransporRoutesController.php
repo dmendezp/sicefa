@@ -48,6 +48,13 @@ public function updateInline(Request $request)
             ->where('postulation_benefit_id', $postulationBenefitId)
             ->first();
 
+        // Recuperar la ruta anterior si existe
+        $previousRouteId = null;
+        if ($assignment) {
+            $previousRouteId = $assignment->route_transportation_id;
+        }
+
+        // Realizar las operaciones según el estado del radio button
         if ($isChecked === 'true') {
             if (!$assignment) {
                 // Si está marcado y no existe, crear un nuevo registro
@@ -59,9 +66,34 @@ public function updateInline(Request $request)
             // Actualizar el routeTransportationId
             $assignment->route_transportation_id = $routeTransportationId;
             $assignment->save(); // Guardar la asignación
+
+            // Restaurar la quota de la ruta anterior si existe
+            if ($previousRouteId) {
+                $previousRoute = RouteTransportation::find($previousRouteId);
+                if ($previousRoute) {
+                    $previousRoute->quota += 1; // Incrementar la quota
+                    $previousRoute->save(); // Guardar la actualización de la quota
+                }
+            }
+
+            // Reducir la quota de la nueva ruta
+            $newRoute = RouteTransportation::find($routeTransportationId);
+            if ($newRoute) {
+                $newRoute->quota -= 1; // Reducir la quota
+                $newRoute->save(); // Guardar la actualización de la quota
+            }
         } elseif ($isChecked === 'false' && $assignment) {
             // Si se desmarca y existe, deshabilitar lógicamente el registro
             $assignment->delete(); // Aplicar soft delete a la asignación
+
+            // Restaurar la quota de la ruta anterior si existe
+            if ($previousRouteId) {
+                $previousRoute = RouteTransportation::find($previousRouteId);
+                if ($previousRoute) {
+                    $previousRoute->quota += 1; // Incrementar la quota
+                    $previousRoute->save(); // Guardar la actualización de la quota
+                }
+            }
         }
 
         return response()->json(['success' => 'Registro actualizado exitosamente.'], 200);
@@ -69,6 +101,7 @@ public function updateInline(Request $request)
         return response()->json(['error' => $e->getMessage()], 500);
     }
 }
+
 
 
 }
