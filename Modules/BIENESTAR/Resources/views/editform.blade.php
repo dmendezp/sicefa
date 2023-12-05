@@ -39,7 +39,7 @@
                                 <a class="btn btn-primary mr-2 editQuestion" data-question-id="{{ $question->id }}">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.editform', ['id' => $question->id]) }}" class="btn btn-danger formEliminar2" data-method="delete">
+                                <a href="{{ route('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.editform', ['id' => $question->id]) }}" class="btn btn-danger formEliminar" data-method="delete">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>

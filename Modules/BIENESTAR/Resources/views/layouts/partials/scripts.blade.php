@@ -83,14 +83,14 @@
                 event.preventDefault(); // Evita que el formulario se envíe de inmediato
 
                 Swal.fire({
-                    title: "Are you sure?",
-                    text: "It is an irreversible process.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: "Yes, delete it",
-                    cancelButtonText: "Cancel"
+                    title: "{{ trans('bienestar::menu.¿Are You Sure?') }}",
+            text: "{{ trans('bienestar::menu.This Action Is Irreversible') }}",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: "{{ trans('bienestar::menu.Yes, Delete It') }}",
+            cancelButtonText: "{{ trans('bienestar::menu.Cancel') }}"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Enviar el formulario usando AJAX
@@ -98,13 +98,13 @@
                             .then(function(response) {
                                 // Manejar la respuesta JSON del servidor
                                 if (response.data && response.data.mensaje) {
-                                    showSweetAlert('success', 'Vacancy deleted!', response.data.mensaje, 1500);
+                                    showSweetAlert('success', "{{ trans('bienestar::menu.Successful Elimination') }}", response.data.mensaje, 1500);
                                 } else {
-                                    showSweetAlert('error', 'Error', 'An error occurred while trying to delete the vacancy.');
+                                    showSweetAlert('error', 'Error',"{{ trans('bienestar::menu.An error occurred while trying to delete.') }}");
                                 }
                             })
                             .catch(function(error) {
-                                showSweetAlert('error', 'Error', 'Ha ocurrido un error a eliminar.');
+                                showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to delete.') }}");
                                 console.error(error);
                             });
                     }
@@ -113,115 +113,41 @@
         });
 </script>
 <script>
-    // Define una función para mostrar el SweetAlert
-    function showSweetAlert(icon, title, text, timer) {
+// Configura el evento para el formulario de eliminación
+document.querySelectorAll('.formEliminar[data-method="delete"]').forEach(function (button) {
+    button.addEventListener('click', function (event) {
+        event.preventDefault();
+
         Swal.fire({
-            icon: icon,
-            title: title,
-            text: text,
-            showConfirmButton: false,
-            timer: timer
-        }).then(function() {
-            // Recargar la página después del SweetAlert
-            location.reload();
-        });
-    }
-
-    // Botón de eliminar
-    var deleteButtons = document.querySelectorAll('.formEliminar[data-method="delete"]');
-
-    Array.prototype.slice.call(deleteButtons)
-        .forEach(function(button) {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "This action is irreversible.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: "Yes, delete it",
-                    cancelButtonText: "Cancel"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var url = button.getAttribute('href');
-                        axios.delete(url)
-                            .then(function(response) {
+            title: "{{ trans('bienestar::menu.¿Are You Sure?') }}",
+            text: "{{ trans('bienestar::menu.This Action Is Irreversible') }}",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: "{{ trans('bienestar::menu.Yes, Delete It') }}",
+            cancelButtonText: "{{ trans('bienestar::menu.Cancel') }}"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var url = button.getAttribute('href');
+                axios.delete(url)
+                    .then(function (response) {
+                                // Manejar la respuesta JSON del servidor
                                 if (response.data && response.data.mensaje) {
-                                    Swal.fire({
-                                        title: 'Question deleted!',
-                                        text: response.data.mensaje,
-                                        icon: 'success'
-                                    }).then(() => {
-                                        // Utiliza la función showSweetAlert para recargar la página
-                                        showSweetAlert('success', 'Success', response.data.mensaje, 1500);
-                                    });
-                                }
-                            })
-                            .catch(function(error) {
-                                // Mostrar SweetAlert de error
-                                showSweetAlert('error', 'Error', 'An error occurred.', 1500);
-                                console.error(error);
-                            });
-                    }
-                });
-            });
-        });
-    // Define una función para mostrar el SweetAlert
-    function showSweetAlert(icon, title, text, timer) {
-        Swal.fire({
-            icon: icon,
-            title: title,
-            text: text,
-            showConfirmButton: false,
-            timer: timer
-        }).then(function() {
-            // Recargar la página después del SweetAlert
-            location.reload();
-        });
-    }
-
-    // Botón de eliminar
-    var deleteButtons = document.querySelectorAll('.formEliminar2');
-
-    Array.prototype.slice.call(deleteButtons)
-        .forEach(function(button) {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "This action is irreversible.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: "Yes, delete it",
-                    cancelButtonText: "Cancel"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var url = button.getAttribute('href');
-                        axios.delete(url)
-                            .then(function(response) {
-                                if (response.data && response.data.mensaje) {
-                                    // Verificar si la respuesta del servidor contiene un mensaje de éxito
-                                    showSweetAlert('success', 'Success', response.data.mensaje, 1500);
+                                    showSweetAlert('success', "{{ trans('bienestar::menu.Successful Elimination') }}", response.data.mensaje, 1500);
                                 } else {
-                                    // Mostrar SweetAlert de error en caso de problemas
-                                    showSweetAlert('error', 'Error', 'An error occurred1.', 1500);
+                                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to delete.') }}",15000);
                                 }
                             })
-                            .catch(function(error) {
-                                // Mostrar SweetAlert de error en caso de problemas con la solicitud
-                                showSweetAlert('error', 'Error', 'An error occurred2.', 1500);
-                                console.error(error);
-                            });
-                    }
-                });
-            });
+                    .catch(function (error) {
+                        // Mostrar el SweetAlert de error en caso de problemas
+                        showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to delete.') }}", 1500);
+                        console.error(error);
+                    });
+            }
         });
+    });
+});
 </script>
 <script>
     // Define una función reutilizable para mostrar los SweetAlerts
@@ -251,13 +177,13 @@
                     if (response.status === 200) {
                         if (response.data.success) {
                             // Mostrar el SweetAlert de éxito con el mensaje del controlador
-                            showSweetAlert('success', 'Éxito', response.data.success, 1500);
+                            showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
                         } else if (response.data.error) {
                             // Mostrar el SweetAlert de conflicto con el mensaje del controlador
                             showSweetAlert('error', 'Error', response.data.error, 1500);
                         } else {
                             // Mostrar el SweetAlert sin mensaje específico del controlador
-                            showSweetAlert('success', 'Éxito', 'Operación exitosa', 1500);
+                            showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", "{{ trans('bienestar::menu.Successful operation!') }}", 1500);
                         }
                     } else if (response.status === 409 && response.data.error) {
                         // Mostrar el SweetAlert de conflicto con el mensaje del controlador
@@ -266,7 +192,7 @@
                 })
                 .catch(function(error) {
                     // Mostrar el SweetAlert de error en caso de problemas
-                    showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
+                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to delete.') }}",3000);
                 });
         });
     });
@@ -340,9 +266,9 @@
                 .then(function(response) {
                     if (response.status === 200) {
                         if (response.data.success) {
-                            showSweetAlert('success', 'Éxito', response.data.success, 1500);
+                            showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
                         } else {
-                            showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
+                            showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}",3000);
                         }
                     }
                 })
@@ -353,11 +279,11 @@
                             showSweetAlert('error', 'Error', error.response.data.error, 3500);
                         } else {
                             // Muestra el SweetAlert de error genérico para el código de estado 422
-                            showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
+                            showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}");
                         }
                     } else {
                         // Muestra el SweetAlert de error genérico para otros errores
-                        showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar editar el tipo de beneficiario.');
+                        showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to edit.') }}");
                     }
                 });
         });
@@ -390,7 +316,7 @@
                 .then(function(response) {
                     if (response.status === 200 && response.data.success) {
                         // Mostrar el SweetAlert de éxito
-                        showSweetAlert('success', 'Éxito', response.data.success, 1500);
+                        showSweetAlert('success', "{{ trans('bienestar::menu.Success!') }}", response.data.success, 1500);
                     } else if (response.status === 409 && response.data.error) {
                         // Mostrar el SweetAlert de conflicto
                         showSweetAlert('error', 'Error', response.data.error, 1500);
@@ -399,12 +325,12 @@
                         showSweetAlert('warning', 'Advertencia', response.data.warning, 2000);
                     } else {
                         // Mostrar el SweetAlert de error en caso de problemas inesperados
-                        showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar guardar registros.');
+                        showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}");
                     }
                 })
                 .catch(function(error) {
                     // Mostrar el SweetAlert de error en caso de problemas
-                    showSweetAlert('error', 'Error', 'Ha ocurrido un error al intentar guardar registros.');
+                    showSweetAlert('error', 'Error', "{{ trans('bienestar::menu.An error occurred while trying to save records.') }}");
                 });
         });
     });
