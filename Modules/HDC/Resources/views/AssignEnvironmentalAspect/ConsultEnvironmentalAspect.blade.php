@@ -42,29 +42,24 @@
         </div>
     </div>
     <div class="content" id="div-aspectos">
-        <!-- Aquí se mostrarán los aspectos ambientales -->
+
     </div>
 @endsection
 
 @push('scripts')
     <script>
-        // Cuando se cambia la unidad productiva seleccionada
-        $(document).on("change", "#productive_unit_id", function() {
-            unit_id = $(this).val();
-            if (unit_id == '') {
-                $("#div-aspectos").html('');
-            }
-        });
-
-      {{--    // Cuando se hace clic en el botón de búsqueda
+        // Cuando se hace clic en el botón de búsqueda
         $(document).on("click", "#btnSearch", function() {
             var unit_id = $("#productive_unit_id").val();
+
             if (unit_id != '') {
                 var myObjet = new Object();
                 myObjet.productive_unit_id = unit_id;
                 var myString = JSON.stringify(myObjet);
-                ajaxReplace("div-aspectos", '/hdc/{{ $role_name }}/get_activities', myString);
+                ajaxReplace("div-aspectos", '/hdc/result/tabla/Aspects', myString);
             }
-        });  --}}
+
+        });
     </script>
+
 @endpush

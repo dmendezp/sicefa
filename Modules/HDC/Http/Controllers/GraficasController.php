@@ -16,29 +16,65 @@ class GraficasController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-   /*  public function index()
+    /*  public function index()
     {
         return view('hdc::index');
     } */
-    public function Graficas(){
+    public function Graficas()
+    {
         $aspectosAmbientales = ProductiveUnit::leftJoin('sectors', 'productive_units.sector_id', '=', 'sectors.id')
-        ->leftJoin('activities', 'productive_units.id', '=', 'activities.productive_unit_id')
-        ->leftJoin('labors', 'activities.id', '=', 'labors.activity_id')
-        ->leftJoin('environmental_aspect_labors', function ($join) {
-            $join->on('labors.id', '=', 'environmental_aspect_labors.labor_id')
-                ->whereYear('labors.execution_date', '=', DB::raw(date('Y')));
-        })
-        ->leftJoin('environmental_aspects', 'environmental_aspect_labors.environmental_aspect_id', '=', 'environmental_aspects.id')
-        ->select(
-            'sectors.name as sector_name',
-            'productive_units.name as productive_unit_name',
-            DB::raw('SUM(environmental_aspect_labors.amount * environmental_aspects.conversion_factor) as carbon_footprint')
-        )
-        ->groupBy('sectors.id', 'productive_units.id', 'sectors.name', 'productive_units.name') // Asegúrate de agrupar por sector y unidad productiva
-        ->get();
+            ->leftJoin('activities', 'productive_units.id', '=', 'activities.productive_unit_id')
+            ->leftJoin('labors', 'activities.id', '=', 'labors.activity_id')
+            ->leftJoin('environmental_aspect_labors', function ($join) {
+                $join->on('labors.id', '=', 'environmental_aspect_labors.labor_id')
+                    ->whereYear('labors.execution_date', '=', DB::raw(date('Y')));
+            })
+            ->leftJoin('environmental_aspects', 'environmental_aspect_labors.environmental_aspect_id', '=', 'environmental_aspects.id')
+            ->select(
+                'sectors.name as sector_name',
+                'productive_units.name as productive_unit_name',
+                DB::raw('SUM(environmental_aspect_labors.amount * environmental_aspects.conversion_factor) as carbon_footprint')
+            )
+            ->groupBy('sectors.id', 'productive_units.id', 'sectors.name', 'productive_units.name') // Asegúrate de agrupar por sector y unidad productiva
+            ->get();
 
-    return view('hdc::Graficas', compact('aspectosAmbientales'));
+        $carbonFootprints = ProductiveUnit::leftJoin('sectors', 'productive_units.sector_id', '=', 'sectors.id')
+            ->leftJoin('activities', 'productive_units.id', '=', 'activities.productive_unit_id')
+            ->leftJoin('labors', 'activities.id', '=', 'labors.activity_id')
+            ->leftJoin('environmental_aspect_labors', function ($join) {
+                $join->on('labors.id', '=', 'environmental_aspect_labors.labor_id')
+                    ->whereYear('labors.execution_date', '=', DB::raw(date('Y')));
+            })
+            ->leftJoin('environmental_aspects', 'environmental_aspect_labors.environmental_aspect_id', '=', 'environmental_aspects.id')
+            ->select(
+                'productive_units.name as productive_unit_name',
+                DB::raw('MONTH(labors.execution_date) as month'),
+                DB::raw('SUM(environmental_aspect_labors.amount * environmental_aspects.conversion_factor) as carbon_footprint')
+            )
+            ->groupBy('productive_units.id', 'productive_units.name', DB::raw('MONTH(labors.execution_date)'))
+            ->get();
+            $chartData = [];
 
+            foreach ($carbonFootprints as $footprint) {
+                $productiveUnitName = $footprint->productive_unit_name;
+                $month = $footprint->month;
+
+                // Estructura de datos para Highcharts
+                $chartData[$productiveUnitName]['name'] = $productiveUnitName;
+                $chartData[$productiveUnitName]['data'][$month - 1] = $footprint->carbon_footprint;
+            }
+
+            // Llena los meses faltantes con valores nulos
+            foreach ($chartData as &$data) {
+                $data['data'] = array_replace(array_fill(0, 12, null), $data['data']);
+            }
+
+            // Convierte el array asociativo a un array simple
+            $chartData = array_values($chartData);
+
+
+
+
+        return view('hdc::Graficas', compact('aspectosAmbientales', 'chartData'));
     }
-
-    }
+}

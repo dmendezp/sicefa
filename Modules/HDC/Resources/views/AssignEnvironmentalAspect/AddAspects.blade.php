@@ -6,15 +6,15 @@
 
 @push('breadcrumbs')
     <li class="breadcrumb-item active"><a style="text-decoration: none"
-            href="{{ route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.table') }}">{{ trans('hdc::ConsumptionRegistry.Title_Card_Records_Saver') }}
-        </a> /{{ trans('hdc::ConsumptionRegistry.indicator_form') }}</li>
+
+        </a>Consultar Aspecto Ambiental /Asignar Aspectos</li>
 @endpush
 
 @section('content')
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-10 mx-auto">
                     <div class="card card-success card-outline shadow mt-6">
                         <div class="card-body">
                             <label>{{ trans('hdc::ConsumptionRegistry.Title_Card_Productive_Unit') }}</label>
@@ -45,6 +45,11 @@
 
                             </div>
                         </div>
+                        <div class="d-flex justify-content-around">
+                            <button type="submit" class="btn btn-success"
+                                id="submitBtn">{{ trans('hdc::ConsumptionRegistry.Btn_Save') }}</button>
+                        </div>
+                        <br>
                     </div>
                 </div>
             </div>
@@ -72,19 +77,7 @@
                 // Realizar la solicitud AJAX y reemplazar el contenido de 'div-aspectos'
                 ajaxReplace("div-aspectos", '/hdc/admin/Aspect', myString);
 
-                // Realizar una solicitud GET para obtener datos adicionales
-                var url = "{{ route('cefa.hdc.getEnvironmentalAspects', ':id') }}";
-                $.get(url, function(data) {
-                    console.log("Datos recibidos:", data);
 
-                    // Desmarcar todas las casillas de verificación
-                    $('input[name="Environmental_Aspect"]').prop('checked', false);
-
-                    // Marcar las casillas de verificación según los datos recibidos
-                    data.forEach(function(aspectId) {
-                        $('#Aspecto' + aspectId).prop('checked', true);
-                    });
-                });
             }
         });
 

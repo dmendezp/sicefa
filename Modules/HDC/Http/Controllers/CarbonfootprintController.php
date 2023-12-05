@@ -20,12 +20,24 @@ class CarbonfootprintController extends Controller
         $personaid = Auth::user()->person->id;
 
         $environmeaspect = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')
-            ->select('id', 'carbon_print', 'created_at', 'mes', 'anio')
-            ->where('person_id', $personaid)
-            ->orderBy('created_at', 'desc') // Agrega esta línea para ordenar de forma descendente
-            ->get();
+        ->select('id', 'carbon_print', 'created_at', 'mes', 'anio')
+        ->where('person_id', $personaid)
+        ->orderBy('mes', 'desc')
+        ->orderBy('anio', 'desc')
+        ->get();
+        $environmeaspectgraph = FamilyPersonFootprint::with('personenvironmentalaspects.environmental_aspect')
+        ->select('id', 'carbon_print', 'created_at', 'mes', 'anio')
+        ->where('person_id', $personaid)
+        ->orderBy('mes', 'asc')
+        ->orderBy('anio', 'desc')
+        ->take(12)
+        ->get();
+
+
+
+
         // Retorna una vista con los datos de la persona si se encuentra
-        return view('hdc::Calc_Huella.tabla', ['environmeaspect' => $environmeaspect]);
+        return view('hdc::Calc_Huella.table', ['environmeaspect' => $environmeaspect, 'environmeaspectgraph'=>$environmeaspectgraph]);
     }
 
     public function formcalculates(Person $person)
@@ -34,56 +46,73 @@ class CarbonfootprintController extends Controller
             ->pluck('name', 'id');
 
 
+
         return view('hdc::Calc_Huella.formcalculatefootprint')->with('environmentalAspects', $environmentalAspects)->with('person', $person);
     }
 
     public function saveConsumption(Request $request)
-    {
+{
+    $data = $request->validate([
+        'aspecto.*.id_aspecto' => 'required|numeric',
+        'aspecto.*.valor_consumo' => 'required|numeric',
+        'mes' => 'required',
+        'anio' => 'required|numeric',
+    ]);
 
-        $data = $request->validate([
-            'aspecto.*.id_aspecto' => 'required|numeric',
-            'aspecto.*.valor_consumo' => 'required|numeric',
-            'mes' => 'required',
-            'anio' => 'required|numeric',
-        ]);
+    $personId = $request->input('person_id');
+    $person = Person::findOrFail($personId);
 
-        $personId = $request->input('person_id');
-        $person = Person::findOrFail($personId);
+    // Convertir el nombre del mes a número
+    $mes = $data['mes'];
 
-        // Crear el modelo FamilyPersonFootprint
-        $personFootprint = new FamilyPersonFootprint([
-            'carbon_print' => 0,
-            'mes' => $data['mes'],
-            'anio' => $data['anio'],
-            // Otros campos necesarios
-        ]);
+    // Verificar si ya existe una entrada con el mismo mes y año
+    $existingEntry = FamilyPersonFootprint::where('mes', $mes)
+        ->where('anio', $data['anio'])
+        ->where('person_id', $person->id)
+        ->first();
 
-        // Asignar el person_id
-        $personFootprint->person_id = $person->id;
-
-        // Guardar el modelo FamilyPersonFootprint
-        $personFootprint->save();
-
-        $total = 0;
-        foreach ($data['aspecto'] as $values) {
-            // Asociar con el modelo FamilyPersonFootprint
-            $pea = PersonEnvironmentalAspect::create([
-                'environmental_aspect_id' => $values['id_aspecto'],
-                'family_person_footprint_id' => $personFootprint->id,
-                'consumption_value' => $values['valor_consumo'],
-            ]);
-
-            // Obtén el modelo EnvironmentalAspect asociado a $pea
-            $environmentalAspect = $pea->environmental_aspect;
-            $resultado = $pea->consumption_value * $environmentalAspect->conversion_factor;
-
-
-            $total += $resultado;
-        }
-        $personFootprint->update(['carbon_print' => $total]);
-
-        return redirect()->route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.persona');
+    if ($existingEntry) {
+        // Aquí puedes manejar el caso en el que ya existe una entrada
+        // Puedes redirigir con un mensaje de error o hacer lo que necesites
+        return redirect()->back()->with('error', 'Ya existe una entrada para este mes y año.');
     }
+
+    // Si no hay una entrada existente, procede a guardar el modelo FamilyPersonFootprint
+    $personFootprint = new FamilyPersonFootprint([
+        'carbon_print' => 0,
+        'mes' => $mes,
+        'anio' => $data['anio'],
+    ]);
+
+    // Asignar el person_id
+    $personFootprint->person_id = $person->id;
+
+    // Guardar el modelo FamilyPersonFootprint
+    $personFootprint->save();
+
+    // Resto del código...
+    $total = 0;
+    foreach ($data['aspecto'] as $values) {
+        // Asociar con el modelo FamilyPersonFootprint
+        $pea = PersonEnvironmentalAspect::create([
+            'environmental_aspect_id' => $values['id_aspecto'],
+            'family_person_footprint_id' => $personFootprint->id,
+            'consumption_value' => $values['valor_consumo'],
+        ]);
+
+        // Obtén el modelo EnvironmentalAspect asociado a $pea
+        $environmentalAspect = $pea->environmental_aspect;
+        $resultado = $pea->consumption_value * $environmentalAspect->conversion_factor;
+
+        $total += $resultado;
+    }
+
+    $personFootprint->update(['carbon_print' => $total]);
+
+    return redirect()->route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.persona');
+}
+
+
 
     public function editConsumption($id)
     {
@@ -126,6 +155,8 @@ class CarbonfootprintController extends Controller
 
 
 
+
+
     /* Funcion de boton eliminar  */
     public function eliminarConsumo($id)
     {
@@ -141,28 +172,19 @@ class CarbonfootprintController extends Controller
         // Eliminar el registro específico en FamilyPersonFootprint
         FamilyPersonFootprint::where('id', $familyPersonFootprintId)->delete();
 
+
         // Puedes redirigir a la vista que necesites después de eliminar
         return redirect()->route('hdc.' . getRoleRouteName(Route::currentRouteName()) . '.carbonfootprint.persona')->with('success', 'Registros eliminados correctamente');
     }
 
-        public function grafica($id)
-        {
-            try {
-                // Obtén el último registro del campo 'mes' con su respectivo 'carbon_print'
-                $fpf = FamilyPersonFootprint::where('id', $id)->latest('mes')->first(['mes', 'carbon_print']);
+    public function grafica()
+    {
+        $resultados = FamilyPersonFootprint::get(['carbon_print', 'mes']);
 
-                // Verifica si se encontraron datos
-                if ($fpf) {
-                    // Devuelve los datos en formato JSON, por ejemplo
-                    return response()->json($fpf);
-                } else {
-                    // Devuelve una respuesta en caso de que no se encuentren datos
-                    return response()->json(['message' => 'No se encontraron datos para el ID proporcionado'], 404);
-                }
-            } catch (\Exception $e) {
-                // Manejo de errores
-                return response()->json(['message' => 'Error interno del servidor'], 500);
-            }
-        }
+        // Agrega esta línea para verificar los resultados
+
+
+        return view('Calc_Huella.tabla', compact('resultados'));
+    }
 
 }

@@ -15,6 +15,14 @@
                 </h2>
             </div>
             <br>
+            <div class="col-md-12">
+                @if(session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                <!-- Resto de tu contenido -->
+            </div>
             <div class="container">
                 <div class="table-responsive">
                     <form method="post" action="{{ route('hdc.'.getRoleRouteName(Route::currentRouteName()).'.Carbonfootprint.save_consumption') }}">
@@ -27,8 +35,12 @@
                             <div class="col-md-3">
                                 <select id="mes" name="mes" class="form-control">
                                     <option value="" disabled selected>--- Seleccione el mes ---</option>
+                                    @php(setlocale(LC_TIME, 'es_ES')) <!-- Establecer configuración regional en español -->
                                     @for ($i = 1; $i <= 12; $i++)
-                                        <option value="{{ strftime('%B', mktime(0, 0, 0, $i, 1, 2000)) }}">{{ strftime('%B', mktime(0, 0, 0, $i, 1, 2000)) }}</option>
+                                        <option value="{{ $i }}">
+                                            {{ trans("hdc::ConsumptionRegistry.month$i") }}
+
+                                        </option>
                                     @endfor
                                 </select>
                             </div>
@@ -44,6 +56,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <table class="table table-bordered table-hover" id="myTableform">
                             <thead class="table-dark">
                                 <tr>

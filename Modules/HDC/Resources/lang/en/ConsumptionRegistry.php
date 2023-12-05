@@ -37,4 +37,16 @@ return [
 
      //Indicador del formulario registro de Consumo/ editar
      'indicator_form_results_update' => 'Update',
+     'month1' => 'January',
+     'month2' => 'February',
+     'month3' => 'March',
+     'month4' => 'April',
+     'month5' => 'May',
+     'month6' => 'June',
+     'month7' => 'July',
+     'month8' => 'August',
+     'month9' => 'September',
+     'month10' => 'Octuber',
+     'month11' => 'November',
+     'month12' => 'December',
 ];

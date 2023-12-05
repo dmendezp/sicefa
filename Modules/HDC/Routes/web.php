@@ -73,11 +73,12 @@ Route::middleware(['lang'])->group(function () {
 
         });
         Route::controller(AssignAspectsController::class)->group(function(){
-            Route::get('/consultar/aspectoAmbiental', 'consul')->name('hdc.admin.consultar.aspectoAmbiental');
-            Route::get('/add/aspects', 'addaspects')->name('hdc.admin.add.aspects');
+            Route::get('/consultar/aspectoAmbiental', 'consul')->name('hdc.admin.consultar.aspectoAmbiental'); //Ruta para consultar el aspecto ambiental
+            Route::get('/add/aspects', 'addaspects')->name('hdc.admin.add.aspects');//ruta para el boton de agregar del crud
             Route::post('/admin/Aspect/activities', 'AspectActivities')->name('hdc.admin.aspect.activities');
             Route::post('/admin/Aspect', 'Aspect')->name('hdc.admin.aspects');
-            Route::get('/get-environmental-aspects/{activityId}', 'getEnvironmentalAspects')->name('cefa.hdc.getEnvironmentalAspects');
+            Route::post('/result/tabla/Aspects', 'resulttable')->name('cefa.hdc.resultado.tabla'); //Ruta del ajax para traer la tabla con los aspectos ambientales segun la actividad
+            Route::post('/guardar-aspectos/{actividad}', 'guardarAspectos')->name('cefa.hdc.guardar.aspectos');
 
 
         });

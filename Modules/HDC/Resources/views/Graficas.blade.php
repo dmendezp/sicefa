@@ -12,13 +12,17 @@
                 <hr>
                 <div class="row">
                     <div class="col-6">
-                        <h3 class="text-center">{{ trans('hdc::Graficas.Monthly') }}</h3>
-                        <div class="row"></div>
-                        <canvas id="myChart"></canvas>
+                        <!-- Contenedor para el gráfico -->
+                        <figure class="highcharts-figure">
+                            <div id="container1"></div>
+                            <p class="highcharts-description" style="text-align: center;">
+                                <span
+                                    style="background-color: rgba(42, 157, 143, 0.7); border-radius: 50%; display: inline-block; height: 15px; width: 15px; margin-right: 5px;"></span>
+                                Huella de Carbono Generada
+                            </p>
+                        </figure>
                     </div>
                     <div class="col-6">
-
-
                         <!-- Contenedor para el gráfico -->
                         <figure class="highcharts-figure">
                             <div id="container"></div>
@@ -28,7 +32,6 @@
                                 Huella de Carbono Generada
                             </p>
                         </figure>
-
                     </div>
                 </div>
             </div>
@@ -36,35 +39,56 @@
     </div>
     <br>
 
-
-
-
     @push('scripts')
-        <!-- Funcion de la tabla Mensual -->
-        <script>
-            const ctx = document.getElementById('myChart');
-
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['{{ trans('hdc::Graficas.Environmental') }}', '{{ trans('hdc::Graficas.Livestock') }}',
-                        '{{ trans('hdc::Graficas.Agricultural') }}', '{{ trans('hdc::Graficas.Agroindustry') }}'
-                    ],
-                    datasets: [{
-                        label: 'Calculo de Huella',
-                        data: [12, 19, 3, 5, 2, 3],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+   
+    <script type="text/javascript">
+        // Datos dinámicos para Highcharts
+        var chartData = <?php echo json_encode($chartData); ?>;
+    
+        Highcharts.chart('container1', {
+            title: {
+                text: 'Huella de Carbono Mensual',
+                align: 'center'
+            },
+            yAxis: {
+                title: {
+                    text: 'Huella de Carbono'
+                }
+            },
+            xAxis: {
+                categories: [
+                    @for ($i = 1; $i <= 12; $i++)
+                        '{{ trans("hdc::ConsumptionRegistry.month$i") }}'@if ($i < 12),@endif
+                    @endfor
+                ],
+                accessibility: {
+                    description: ''
+                }
+            }, // Añadí la coma que faltaba aquí
+    
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            series: chartData,
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
                         }
                     }
-                }
-            });
-        </script>
+                }]
+            }
+        });
+    </script>
+    
 
         <script type="text/javascript">
             // Tu PHP data aquí

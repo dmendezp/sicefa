@@ -11,25 +11,20 @@ use Modules\SICA\Entities\ProductiveUnit;
 
 class AssignAspectsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    //Consulta la unidad productiva
     public function consul()
     {
         $productive_unit = ProductiveUnit::orderBy('name', 'ASC')->get();
         return view('hdc::AssignEnvironmentalAspect.ConsultEnvironmentalAspect', compact('productive_unit'));
-
     }
-
+    //Ingresa al formulario
     public function addaspects()
     {
         $productive_unit = ProductiveUnit::orderBy('name', 'ASC')->get();
 
         return view('hdc::AssignEnvironmentalAspect.AddAspects', compact('productive_unit'));
-
     }
-
+    //Trae las actividades que se ejecutan en esa unidad productiva
     public function AspectActivities()
     {
         $datap = json_decode(($_POST['data']));
@@ -38,81 +33,50 @@ class AssignAspectsController extends Controller
         return view('hdc::AssignEnvironmentalAspect.Activity', compact('activities'));
     }
 
+    //Trae los aspectos ambientales a la vista del formulario
     public function Aspect()
     {
 
         $data = json_decode($_POST['data']);
         $environmentalAspect = EnvironmentalAspect::get();
 
-        return view('hdc::AssignEnvironmentalAspect.EnvironmentalAspects', compact('environmentalAspect'));
+        return view('hdc::AssignEnvironmentalAspect.EnvironmentalAspects', compact('environmentalAspect','data'));
     }
-    public function getEnvironmentalAspects($activityId)
+    // Esta función trae la tabla con los aspectos ambientales de esa actividad
+/*
+    public function resulttable(Request $request)
+{
+    $productive_unit_id = $request->input('productive_unit_id');
+
+    // Realiza una consulta para obtener las actividades asociadas a la unidad productiva seleccionada
+    $activities = Activity::where('productive_unit_id', $productive_unit_id)->get();
+
+    // Devuelve la vista con las actividades asociadas
+    return view('hdc::AssignEnvironmentalAspect.TablaResultAspects', compact('activities'));
+}
+ */
+
+
+
+    //Boton guardar
+    public function guardarAspectos(Request $request, $actividad)
     {
-        $activity = Activity::find($activityId);
+        // Validación de datos
+        $request->validate([
+            'Environmental_Aspect' => 'required|array',
+            'Environmental_Aspect.*' => 'exists:environmental_aspects,id',
+        ]);
 
-        // Obtén los aspectos ambientales asociados a la actividad
-        $associatedEnvironmentalAspects = $activity->environmental_aspects()->pluck('environmental_aspects.id')->toArray();
+        // Obtener la actividad
+        $actividad = Activity::find($actividad);
 
-        return response()->json($associatedEnvironmentalAspects);
-    }
+        // Adjuntar los aspectos ambientales seleccionados a la actividad
+        $actividad->environmental_aspects()->syncWithoutDetaching($request->input('Environmental_Aspect'));
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('hdc::create');
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // Resto de la lógica de guardado o redirección
+        // ...
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('hdc::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('hdc::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->route('cefa.hdc.guardar.aspectos')->with('success', 'Aspectos ambientales guardados correctamente');
     }
 }

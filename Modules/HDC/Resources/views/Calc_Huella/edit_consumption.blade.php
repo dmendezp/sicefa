@@ -20,7 +20,13 @@
                                 <select id="mes" name="mes" class="form-control">
                                     <option value="" disabled>--- Seleccione el mes ---</option>
                                     @for ($i = 1; $i <= 12; $i++)
-                                        <option value="{{ strftime('%B', mktime(0, 0, 0, $i, 1, 2000)) }}" @if(old('mes', $fpf->mes) == strftime('%B', mktime(0, 0, 0, $i, 1, 2000))) selected @endif>{{ strftime('%B', mktime(0, 0, 0, $i, 1, 2000)) }}</option>
+                                        @php
+                                            $monthValue = strftime('%B', mktime(0, 0, 0, $i, 1, 2000));
+                                        @endphp
+                                        <option value="{{ $monthValue }}"
+                                                @if(old('mes', $fpf->mes) == $monthValue || old('mes', $fpf->mes) == $i) selected @endif>
+                                            {{ trans("hdc::ConsumptionRegistry.month$i") }}
+                                        </option>
                                     @endfor
                                 </select>
                             </div>
