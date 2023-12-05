@@ -57,9 +57,9 @@ class BusesController extends Controller
     
         if ($buses->save()) {
             // Redirige con un mensaje de éxito
-            return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Bus creado correctamente.')->with('typealert', 'success');
+            return redirect()->route('bienestar.admin.crud.buses')->with('success', 'Bus creado correctamente.');
         }else{
-            return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Se Ha Producido Un Error.')->with('typealert', 'danger');
+            return redirect()->route('bienestar.admin.crud.buses')->with('errror', 'Se Ha Producido Un Error.');
         }
 
     }
@@ -87,9 +87,9 @@ class BusesController extends Controller
     // Actualiza otros campos aquí
 
     if ($buses->save()) {
-        return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Bus actualizado correctamente.')->with('typealert', 'success');
+        return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Bus actualizado correctamente.');
     } else {
-        return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Se ha producido un error')->with('typealert', 'danger');
+        return redirect()->route('bienestar.admin.crud.buses')->with('message', 'Se ha producido un error');
     }
 }
 
@@ -104,9 +104,9 @@ class BusesController extends Controller
        try{
           $bus = Bus::findOrFail($id);
           $bus->delete();
-          return response()->json(['mensaje' => 'eliminado with success']);      
+          return response()->json(['mensaje' => 'eliminado con éxito']);      
         }  catch (\Exception $e) {
-            return response()->json(['mensaje' =>'Error when deleting the vacancy'], 500);
+            return response()->json(['mensaje' =>'Error deleting trainee'], 500);
         }  
     }
 }

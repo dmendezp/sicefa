@@ -112,7 +112,7 @@ return[
     'Edit convocations'=>'Edit convocations',
     'quarter id'=>'quarter id',
 
-    //vita assistancesfoods
+    //vita foodrecord
     'List of affiliated trainees'=>'List of affiliated trainees',
     'Apprentice'=>'Apprentice',
     'Number Document'=>'Number Document',
@@ -122,6 +122,7 @@ return[
     'percentage'=>'percentage',
     'Type Food'=>'Type Food',
     'time and date'=>'time and date',
+    'Food Attendance Record' => 'Food Attendance Record',
     
     
 //vita postulations-management
@@ -145,6 +146,13 @@ return[
 'Total Score' => 'Total Score',
 'New Score' => 'New Score',
 'Save Score' => 'Save Score',
+
+    //vita assistancefood
+    'Food Attendance Record' => 'Food Attendance Record',
+    'start date' => 'start date',
+    'end date' => 'end date',
+    'percentages' => 'percentages',
+    'show all' => 'show all',
   
     
 ]

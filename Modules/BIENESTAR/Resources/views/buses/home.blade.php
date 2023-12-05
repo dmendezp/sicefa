@@ -10,7 +10,7 @@
             <!-- /.card-header -->
             <div class="card-body">
             @if(Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.buses'))
-            {!! Form::open(['route' => 'bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.buses', 'method' => 'POST', 'role' => 'form'])
+            {!! Form::open(['route' => 'bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.save.buses', 'method' => 'POST', 'role' => 'form' ])
                 !!}
                 <div class="row p-4">
                    <div class="col-md-3">
@@ -32,7 +32,7 @@
                     <div class="col-md-2 align-self-end">
                         <div class="btns mt-3">
                             {!! Form::submit(__('bienestar::menu.Save'),['class'=>'btn btn-success', 'style'=>'background-color: #179722;
-                            color: with;']) !!}
+                            color: with;' ]) !!}
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                                 <td>{{ $b->quota }}</td>
                                 <td>
                                     <div class="opts">
-                                        <button class="btn btn-sm btn-info" data-toggle="modal"
+                                        <button class="btn btn-primary editButton mr-2"  data-toggle="modal"
                                             data-target="#modal-default-{{$b->id}}" data-plate="{{ $b->plate }}"
                                             data-bus-driver="{{ $b->bus_driver }}" data-bus-id="{{ $b->id }}"
                                             data-quota="{{ $b->quota }}"><i class="fa fa-edit"></i>
@@ -68,7 +68,7 @@
                                         @if (Auth::user()->havePermission('bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.buses'))
                                         {!! Form::open(['route' => ['bienestar.' . getRoleRouteName(Route::currentRouteName()) . '.delete.buses', $b->id],
                                         'method' => 'DELETE','class' => 'formEliminar', 'style' => 'display: inline;']) !!}
-                                        <button class="btn btn-sm btn-danger"type="submit"><i class="fa fa-trash-alt"></i></button>
+                                        <button class="btn btn-danger"type="submit"><i class="fa fa-trash-alt"></i></button>
                                         {!! Form::close() !!}
                                         @endif                                       
                                     </div>
@@ -306,6 +306,7 @@
         }
     });
 </script>
+
 
 
 

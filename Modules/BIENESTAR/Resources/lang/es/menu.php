@@ -107,7 +107,7 @@ return[
     'Edit convocations'=>'editar convocatorias',
     'quarter id'=>'trimestre',
 
-    //vita assistancesfoods
+    //vita  foodrecord
     'List of affiliated trainees'=>'Lista de aprendices afiliados',
     'Apprentice'=>'Aprendiz',
     'Number Document'=>'Numero de Documento',
@@ -117,6 +117,7 @@ return[
     'percentage'=>'porcentaje',
     'Type Food'=>'Tipo de Comida',
     'time and date'=>'Hora y fecha',
+    
    
     //vita postulations-management
 
@@ -139,6 +140,18 @@ return[
     'Total Score' => 'Puntaje Total',
     'New Score' => 'Nueva Puntuación',
     'Save Score' => 'Guardar Puntuación',
+
+
+    //vita assistancefood
+    'Food Attendance Record' => 'Registro de Asistencia de Alimentación ',
+    'start date' => 'Fecha de Inicio',
+    'end date' => 'Fecha de fin',
+    'percentages' => 'Porcentajes',
+    'show all' => 'Mostrar todos',
+    
+    
+
+
 
 
 

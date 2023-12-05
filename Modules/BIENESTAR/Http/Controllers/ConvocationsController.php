@@ -56,9 +56,9 @@ class ConvocationsController extends Controller
         $convocations->save();
         
         if($convocations->save()){
-            return redirect()->route('bienestar.admin.crud.convocations')->with('message', 'Convocatoria registrada Correctamente')->with('typealert', 'success');
+            return redirect()->route('bienestar.admin.crud.convocations')->with('success', 'Convocatoria registrada Correctamente');
         }else{
-            return redirect()->route('bienestar.admin.crud.convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
+            return redirect()->route('bienestar.admin.crud.convocations')->with('error', 'Se Ha Producido Un Error');
         }
     }
 
@@ -90,9 +90,9 @@ class ConvocationsController extends Controller
         $convocations->quarter_id= $request->input('quarter_id');
          
         if($convocations->save()){
-            return redirect()->route('bienestar.admin.crud.convocations')->with('message', 'Registro Actualizado Correctamente')->with('typealert', 'success');
+            return redirect()->route('bienestar.admin.crud.convocations')->with('success', 'Registro Actualizado Correctamente');
         }
-        return redirect()->route('bienestar.admin.crud.convocations')->with('message', 'Se Ha Producido Un Error')->with('typealert', 'danger');
+        return redirect()->route('bienestar.admin.crud.convocations')->with('errror', 'Se Ha Producido Un Error');
     }
 
     /**
