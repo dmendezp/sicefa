@@ -7,7 +7,9 @@
                 <div class="card card-primary card-outline shadow">
                     <div class="card-header">{{ trans('senaempresa::menu.Loans') }}</div>
                     <div class="card-body">
-                        <form action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.saved') }}" method="POST" enctype="multipart/form-data">
+                        <form
+                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.loans.saved') }}"
+                            method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="staff_senaempresa_id"

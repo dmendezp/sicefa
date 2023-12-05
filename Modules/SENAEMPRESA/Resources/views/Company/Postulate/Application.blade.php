@@ -2,35 +2,52 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="card" style="width: 18rem;">
-                <img src="https://static.wixstatic.com/media/30d63c_bb9cb5514b0546beafb671ec02cd2244~mv2.png/v1/fill/w_387,h_441,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/30d63c_bb9cb5514b0546beafb671ec02cd2244~mv2.png"
-                    class="card-img-top" alt="..." height="348" width="1000">
+        <h1 class="text-center"><strong><em><span>{{ $title }}</span></em></strong></h1>
+        <div class="col-md-12">
+            <div class="card card-primary card-outline shadow">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                        the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="https://static.wixstatic.com/media/30d63c_bb9cb5514b0546beafb671ec02cd2244~mv2.png/v1/fill/w_387,h_441,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/30d63c_bb9cb5514b0546beafb671ec02cd2244~mv2.png"
-                    class="card-img-top" alt="..." height="348" width="1000">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                        the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <img src="https://static.wixstatic.com/media/30d63c_bb9cb5514b0546beafb671ec02cd2244~mv2.png/v1/fill/w_387,h_441,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/30d63c_bb9cb5514b0546beafb671ec02cd2244~mv2.png"
-                    class="card-img-top" alt="..." height="348" width="1000">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                        the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <table id="datatable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>{{ trans('senaempresa::menu.Id') }}</th>
+                                <th>{{ trans('senaempresa::menu.Apprentice Id') }}</th>
+                                <th>{{ trans('senaempresa::menu.Vacancy ID') }}</th>
+                                <th>{{ trans('senaempresa::menu.Currículum') }}</th>
+                                <th>{{ trans('senaempresa::menu.16 personalities') }}</th>
+                                <th>{{ trans('senaempresa::menu.Proposal') }}</th>
+                                <th>{{ trans('senaempresa::menu.Total score') }}</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($postulates as $postulate)
+                                @if ($postulate->state === 'Seleccionado')
+                                    <tr>
+                                        <td>{{ $postulate->id }}</td>
+                                        <td>{{ $postulate->apprentice->person->full_name }}</td>
+                                        <td>{{ $postulate->vacancy->id }} {{ $postulate->vacancy->name }}</td>
+
+                                        <td>
+                                            <a href="{{ asset($postulate->cv) }}" class="btn btn-primary btn-sm" download>
+                                                <i class="fas fa-download fa-sm"></i> CV
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ asset($postulate->personalities) }}" class="btn btn-primary btn-sm"
+                                                download>
+                                                <i class="fas fa-download fa-sm"></i> Personalidades
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ asset($postulate->proposal) }}" class="btn btn-primary btn-sm"
+                                                download>
+                                                <i class="fas fa-download fa-sm"></i> Propuesta
+                                            </a>
+                                        </td>
+                                        <td>{{ $postulate->score_total }}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

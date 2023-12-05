@@ -16,6 +16,7 @@ class CreateFileSenaempresasTable extends Migration
         Schema::create('file_senaempresas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('postulate_id')->constrained()->onDelete('cascade');
+            $table->foreignId('vacancy_id')->constrained()->onDelete('cascade');
             $table->unsignedInteger('cv_score');
             $table->unsignedInteger('personalities_score');
             $table->unsignedInteger('proposal_score');

@@ -376,7 +376,7 @@ class PermissionsTableSeeder extends Seeder
             'description_english' => 'Form to add new vacancy for senaempresa',
             'app_id' => $app->id
         ]);
-        $permissions_admin[] = $permission->id; // Almacenar permiso para rol 
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // guardar nueva vacante de senaempresa (Administrador)
         $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.vacancies.saved'], [ // Registro o actualización de permiso
@@ -530,6 +530,33 @@ class PermissionsTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $permissions_psychologo[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de actualizar estado a los postulados (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.state'], [ // Registro o actualización de permiso
+            'name' => 'Vista de actualizar estado (Administrador)',
+            'description' => 'Vista de actualizar estado a los postulados',
+            'description_english' => 'View to update status of postulates',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Actualizar estado a los postulados (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.state_updated'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar estado (Administrador)',
+            'description' => 'Actualizar estado a los postulados',
+            'description_english' => 'Update status to postulates',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        // Vista de seleccionados (Administrador)
+        $permission = Permission::updateOrCreate(['slug' => 'senaempresa.admin.postulates.selected'], [ // Registro o actualización de permiso
+            'name' => 'Vista seleccionados (Administrador)',
+            'description' => 'Puede ver el listado de los seleccionados de senaempresa',
+            'description_english' => 'You can see the list of those selected by senaempresa',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
 
         // Vista de cargos (Administrador)

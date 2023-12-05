@@ -69,18 +69,17 @@
             "lengthChange": false,
             "autoWidth": true,
             "buttons": [{
-                    extend: 'pdfHtml5',
-                    text: 'PDF',
-                    customize: function(doc) {
-                        doc.styles.tableHeader = {
-                            fillColor: '#000000',
-                            color: '#FAFAFA',
-                            fontSize: 12
-                        };
-                        doc.content[1].alignment = 'center';
-                    }
-                },
-            ]
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                customize: function(doc) {
+                    doc.styles.tableHeader = {
+                        fillColor: '#000000',
+                        color: '#FAFAFA',
+                        fontSize: 12
+                    };
+                    doc.content[1].alignment = 'center';
+                }
+            }, ]
         }).buttons().container().appendTo('#datatable_wrapper .col-md-6:eq(0)');
     });
 </script>

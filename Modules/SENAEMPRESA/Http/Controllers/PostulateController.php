@@ -117,70 +117,149 @@ class PostulateController extends Controller
 
 
     public function postulates(Request $request)
-    {
-        $selectedPositionId = $request->input('positionFilter');
-        $PositionCompanies = PositionCompany::where('state', 'Activo')->get();
+{
+    $selectedPositionId = $request->input('positionFilter');
+    $showAssignedScore = $request->input('showAssignedScore'); // Nuevo filtro
 
-        // Consulta para obtener los postulantes filtrados por cargo
-        $postulates = Postulate::with(['apprentice.person', 'vacancy'])
-            ->when($selectedPositionId, function ($query) use ($selectedPositionId) {
-                $query->whereHas('vacancy.positionCompany', function ($q) use ($selectedPositionId) {
-                    $q->where('id', $selectedPositionId);
-                });
-            })
-            ->get();
+    $PositionCompanies = PositionCompany::where('state', 'Activo')->get();
 
-        $data = [
-            'title' => trans('senaempresa::menu.Postulated'),
-            'postulates' => $postulates,
-            'PositionCompanies' => $PositionCompanies,
-            'selectedPositionId' => $selectedPositionId, // Pasa la variable a la vista
-        ];
+    // Consulta para obtener los postulantes filtrados por cargo y puntaje asignado/sin asignar
+    $postulates = Postulate::with(['apprentice.person', 'vacancy'])
+        ->when($selectedPositionId, function ($query) use ($selectedPositionId) {
+            $query->whereHas('vacancy.positionCompany', function ($q) use ($selectedPositionId) {
+                $q->where('id', $selectedPositionId);
+            });
+        })
+        ->when($showAssignedScore, function ($query) use ($showAssignedScore) {
+            if ($showAssignedScore == 'assigned') {
+                $query->where('score_total', '>', 0);
+            } else {
+                $query->where('score_total', 0);
+            }
+        })
+        ->get();
 
-        return view('senaempresa::Company.postulate.index', $data);
+    $data = [
+        'title' => trans('senaempresa::menu.Postulated'),
+        'postulates' => $postulates,
+        'PositionCompanies' => $PositionCompanies,
+        'selectedPositionId' => $selectedPositionId,
+        'showAssignedScore' => $showAssignedScore, // Pasa el nuevo filtro a la vista
+    ];
+
+    return view('senaempresa::Company.postulate.index', $data);
+}
+
+
+    public function assign_score($apprenticeId, $vacancyId)
+{
+    // Find the postulate by apprentice_id and vacancy_id
+    $postulate = Postulate::where('apprentice_id', $apprenticeId)
+        ->where('vacancy_id', $vacancyId)
+        ->first();
+
+    // Check if a postulate is found
+    if (!$postulate) {
+        return redirect()->back()->with('error', 'No se encontró un postulado con el ID proporcionado.');
     }
 
-    public function assign_score($apprenticeId)
-    {
-        // Buscar el postulado por apprentice_id
-        $postulate = postulate::where('apprentice_id', $apprenticeId)->first();
+    $data = [
+        'title' => 'Asignar Puntaje',
+        'postulate' => $postulate,
+    ];
 
-        // Comprobar si se encontró un postulado
-        if (!$postulate) {
-            return redirect()->back()->with('error', 'No se encontró un postulado con el ID proporcionado.');
-        }
+    return view('senaempresa::Company.postulate.assign_score', $data);
+}
 
-        $data = ['title' => 'Asignar Puntaje', 'postulate' => $postulate];
-
-        return view('senaempresa::Company.postulate.assign_score', $data);
-    }
 
     public function score_assigned(Request $request)
     {
         // Validar el formulario si es necesario
         $request->validate([
             'postulate_id' => 'required',
+            'vacancy_id' => 'required',
             'cv_score' => 'required|integer',
             'personalities_score' => 'required|integer',
             'proposal_score' => 'required|integer',
         ]);
 
+        $postulateId = $request->input('postulate_id');
+        $vacancyId = Postulate::where('id', $postulateId)->value('vacancy_id');
+
+        // Verificar si ya existe un registro en 'filesenaempresa' para el mismo postulate_id y vacancy_id
+        $existingFileSenaempresa = FileSenaempresa::where('postulate_id', $postulateId)
+            ->where('vacancy_id', $vacancyId)
+            ->first();
+
+        if ($existingFileSenaempresa) {
+            return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')
+                ->with('error', 'Ya se asignó puntaje para este postulado y vacante.');
+        }
+
         $filesenaempresa = new FileSenaempresa();
-        $filesenaempresa->postulate_id = $request->input('postulate_id');
+        $filesenaempresa->postulate_id = $postulateId;
+        $filesenaempresa->vacancy_id = $vacancyId;
         $filesenaempresa->cv_score = $request->input('cv_score');
         $filesenaempresa->personalities_score = $request->input('personalities_score');
         $filesenaempresa->proposal_score = $request->input('proposal_score');
+        $filesenaempresa->vacancy_id = $vacancyId;
 
         if ($filesenaempresa->save()) {
             // Calcular el puntaje total
             $totalScore = $filesenaempresa->cv_score + $filesenaempresa->personalities_score + $filesenaempresa->proposal_score;
 
-            // Actualizar el puntaje total en la tabla 'postulates'
-            Postulate::where('id', $request->input('postulate_id'))
+            // Actualizar el puntaje total en la tabla 'postulates' para el mismo postulate_id y vacancy_id
+            Postulate::where('id', $postulateId)
+                ->where('vacancy_id', $vacancyId)
                 ->update(['score_total' => $totalScore]);
 
             return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')
                 ->with('success', 'Puntaje asignado correctamente');
         }
     }
+    public function state($apprenticeId)
+{
+    $estados = ['Seleccionado', 'No Seleccionado'];
+    // Find the postulate by apprentice_id and vacancy_id
+    $postulate = Postulate::where('apprentice_id', $apprenticeId)
+        ->first();
+
+    // Check if a postulate is found
+    if (!$postulate) {
+        return redirect()->back()->with('error', 'No se encontró un postulado con el ID proporcionado.');
+    }
+
+    $data = [
+        'title' => 'Actulizar Estado',
+        'postulate' => $postulate,
+        'estados' => $estados
+    ];
+
+    return view('senaempresa::Company.postulate.state', $data);
+}
+
+public function state_updated(Request $request)
+{
+    $request->validate([
+        'state' => 'required|in:Seleccionado,No Seleccionado',
+        'postulate_id' => 'required|exists:postulates,id',
+    ]);
+
+    $postulateId = $request->input('postulate_id');
+    $state = $request->input('state');
+
+    Postulate::where('id', $postulateId)->update(['state' => $state]);
+
+    return redirect()->route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.index')
+        ->with('success', 'Estado actualizado correctamente');
+}
+
+public function seleccionados()
+    {
+        $postulates  = postulate::with(['apprentice.person'])
+        ->get();
+        $data = ['title' => 'Seleccionados', 'postulates' => $postulates ];
+        return view('senaempresa::Company.Postulate.Application', $data);
+    }
+
 }

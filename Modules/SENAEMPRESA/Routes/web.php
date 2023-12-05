@@ -23,7 +23,6 @@ Route::middleware(['lang'])->group(function () {
     Route::prefix('senaempresa')->group(function () {
         Route::get('index/', 'SENAEMPRESAController@index')->name('cefa.senaempresa.index');
         Route::get('developers/', 'SENAEMPRESAController@Developers')->name('cefa.senaempresa.developers');
-        Route::get('Postulados/Seleccionados/', 'SENAEMPRESAController@seleccionados')->name('cefa.senaempresa.seleccionados');
 
         Route::get('TurnoRutinario/', 'AsistenciaTurnosController@index')->name('turnosRutinarios');
         Route::get('TurnoRutinario/buscarLista/{id}', 'AsistenciaTurnosController@buscarLista')->name('buscarLista');

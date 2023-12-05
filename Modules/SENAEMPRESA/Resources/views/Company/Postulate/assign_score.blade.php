@@ -8,8 +8,9 @@
                     <div class="card-header">Puntaje</div>
 
                     <div class="card-body">
-                        <form action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.score_assigned') }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form
+                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.postulates.score_assigned') }}"
+                            method="POST" enctype="multipart/form-data">
 
                             @csrf
                             <input type="hidden" name="postulate_id" value="{{ $postulate->id }}">
@@ -21,6 +22,14 @@
                             <input type="hidden" class="form-control" id="postulate_id" name="postulate_info"
                                 value="{{ $postulate->id }}" readonly>
 
+                            <div class="mb-3">
+                                <label for="vacancy_info"
+                                    class="form-label">{{ trans('senaempresa::menu.Vacancy') }}</label>
+                                <input type="text" class="form-control" id="vacancy_info" name="vacancy_info"
+                                    value="{{ $postulate->vacancy_id }} - {{ $postulate->vacancy->name }}" readonly>
+                            </div>
+                            <input type="hidden" class="form-control" id="vacancy_id" name="vacancy_id"
+                                value="{{ $postulate->vacancy_id }}" readonly>
                             <div class="mb-3">
                                 <label for="cv_score" class="form-label">Puntaje - Hoja de vida</label><br>
                                 <input type="number" class="form-control" id="cv_score" name="cv_score" value="0"

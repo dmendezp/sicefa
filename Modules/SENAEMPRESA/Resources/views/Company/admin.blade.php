@@ -22,7 +22,7 @@
                                         <h3>{{ $registeredphasesCount }}</h3>
                                         <p>Fases SenaEmpresa</p>
                                     </div>
-                                    
+
                                     <div class="icon">
                                         <i class="fas fa-tachometer-alt"></i>
                                     </div>

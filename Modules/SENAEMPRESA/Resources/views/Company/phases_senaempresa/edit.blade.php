@@ -8,7 +8,9 @@
                     <div class="card-header">{{ $title }}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.updated', $company->id) }}" method="POST">
+                        <form
+                            action="{{ route('senaempresa.' . getRoleRouteName(Route::currentRouteName()) . '.phases.updated', $company->id) }}"
+                            method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">{{ trans('senaempresa::menu.Name') }}</label>

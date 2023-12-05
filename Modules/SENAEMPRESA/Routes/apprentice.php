@@ -44,7 +44,7 @@ Route::middleware(['lang'])->group(function () {
              //RUTAS PARA LA VISUALIZACIÓN DE LAS ASISTENCIAS DEL PERSONAL DE SENAEMPRESA
         Route::prefix('attendances')->group(function () {
             Route::get('/new', 'AttendanceSenaempresaController@new')->name('senaempresa.apprentice.attendances.index');
-        
+
             // Ruta para mostrar la lista de asistencias
             Route::post('/search', 'AttendanceSenaempresaController@queryAttendance')->name('senaempresa.apprentice.attendances.queryAttendance');
             Route::post('/getPersonData', 'AttendanceSenaempresaController@getPersonData')->name('senaempresa.apprentice.attendances.getPersonData');

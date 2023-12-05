@@ -107,13 +107,6 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('cefa.senaempresa.seleccionados') }}"
-                            class="nav-link {{ !Route::is('cefa.senaempresa.seleccionados') ?: 'active' }}">
-                            <i class="fas fa-check-double"></i>
-                            <p>{{ trans('senaempresa::menu.Selected') }}</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="#" class="nav-link ">
                             <i class="nav-icon far fa-list-alt"></i>
                             <p>
@@ -300,6 +293,15 @@
                                             class="nav-link {{ !Route::is('senaempresa.admin.postulates.index') ?: 'active' }}">
                                             <i class="fas fa-address-card"></i>
                                             <p>{{ trans('senaempresa::menu.Postulates') }}</p>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (Auth::user()->havePermission('senaempresa.admin.postulates.selected'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('senaempresa.admin.postulates.selected') }}"
+                                            class="nav-link {{ !Route::is('senaempresa.admin.postulates.selected') ?: 'active' }}">
+                                            <i class="fas fa-check-double"></i>
+                                            <p>{{ trans('senaempresa::menu.Selected') }}</p>
                                         </a>
                                     </li>
                                 @endif

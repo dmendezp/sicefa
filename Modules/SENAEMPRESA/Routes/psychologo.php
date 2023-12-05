@@ -27,6 +27,9 @@ Route::middleware(['lang'])->group(function () {
                 Route::get('/', 'PostulateController@postulates')->name('senaempresa.psychologo.postulates.index');
                 Route::get('/assign_score/{apprenticeId}', 'PostulateController@assign_score')->name('senaempresa.psychologo.postulates.assign_score');
                 Route::post('/score_assigned', 'PostulateController@score_assigned')->name('senaempresa.psychologo.postulates.score_assigned');
+
+                Route::get('/state/{apprenticeId}', 'PostulateController@state')->name('senaempresa.psychologo.postulates.state');
+                Route::post('/state_updated', 'PostulateController@state_updated')->name('senaempresa.psychologo.postulates.state_updated');
             });
         });
     });

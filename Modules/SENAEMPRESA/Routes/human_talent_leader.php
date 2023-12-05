@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['lang'])->group(function () {
     //Route::middleware(['lang'])->group(function(){
     Route::prefix('senaempresa')->group(function () {
-        //RUTAS COMO PASANTE
+        //RUTAS COMO LIDER TALENTO HUMANO
         Route::prefix('human_talent_leader')->group(function () {
             Route::get('/', 'SENAEMPRESAController@human_talent_leader')->name('senaempresa.human_talent_leader.index');
 
@@ -39,7 +39,7 @@ Route::middleware(['lang'])->group(function () {
         //RUTAS PARA EL REGISTRO, LA VISUALIZACIÓN, ELIMINACIÓN Y LA ACTUALIZACIÓN DE LAS VACANTES DE SENAEMPRESA
         Route::prefix('vacancies')->group(function () {
             Route::get('/', 'VacantController@vacancies')->name('senaempresa.human_talent_leader.vacancies.index');
-        
+
         });
 
         //RUTAS PARA EL REGISTRO, Y LA VISUALIZACIÓN DE LAS ASISTENCIAS DEL PERSONAL DE SENAEMPRESA
